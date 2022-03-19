@@ -58,4 +58,4 @@ If you now take a look in the `_site` directory you should see that an index.htm
 
 ## Next steps
 
-Make sure you check out the [getting started]('getting-started.html') page to learn how to use Hyde!
+Make sure you check out the [getting started](getting-started.html) page to learn how to use Hyde!
