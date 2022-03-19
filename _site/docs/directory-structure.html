@@ -80,18 +80,18 @@
 <p>You can scaffold posts using the <code>php hyde make:post</code> command with automatically creates the front matter based on your input selections.</p>
 <p>A _posts directory filled with posts may look similar to this.</p>
 <pre><code data-theme="material-theme-palenight" data-lang="text" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #A6ACCD;">_posts</span></div><div class='line'><span style="color: #A6ACCD;">├── hello-world.md</span></div><div class='line'><span style="color: #A6ACCD;">├── my-first-post.md</span></div><div class='line'><span style="color: #A6ACCD;">├── diary-of-a-volunteer.md</span></div><div class='line'><span style="color: #A6ACCD;">├── benefits-of-milkshakes.md</span></div><div class='line'><span style="color: #A6ACCD;">└── a-fifth-longer-post-here.md</span></div></code></pre>
-<p><strong>Limitations:</strong> Currently only top-level posts are supported. Files should use camel-case format and must also end in .md and contain front matter to be recognized.</p>
+<p><strong>Limitations:</strong> Currently only top-level posts are supported. Files should use kebab-case format and must also end in .md and contain front matter to be recognized.</p>
 <h4><code>_docs</code></h4>
 <p>Hyde includes a spiritual successor of <a href="https://github.com/caendesilva/laradocgen">Laradocgen</a></p>
 <p>All you need to do to create a documentation page is to place a Markdown file in this directory and run the build command.
 The sidebar will automatically be populated with the page title which is derived from the first H1 (# Title) tag.</p>
 <p>This documentation page is built with HydeDocs, and you can take a look at the source code on <a href="https://github.com/hydephp/docs">https://github.com/hydephp/docs</a> which also serves this site through GitHub Pages.</p>
 <p><strong>Limitations:</strong> Currently only top-level posts are supported. Soon (hopefully) you will be able to put files in subdirectories, or alternatively specify a parent, to create a sidebar with categories.</p>
-<p>Files should use camel-case format and must also end in .md and contain front matter to be recognized.</p>
+<p>Files should use kebab-case format and must also end in .md and contain front matter to be recognized.</p>
 <h4><code>_pages</code></h4>
 <p>You can also place Markdown files here and they will be compiled into simple top-level pages.</p>
 <p>Perfect for about pages, or terms of service policy pages!</p>
-<p><strong>Limitations:</strong> Only top-level pages are supported. Files should use camel-case format and must also end in .md and contain front matter to be recognized.</p>
+<p><strong>Limitations:</strong> Only top-level pages are supported. Files should use kebab-case format and must also end in .md and contain front matter to be recognized.</p>
 <blockquote>
 <p>Make sure the slug does not conflict with a custom Blade page as Markdown pages are compiled first and may be overwritten.</p>
 </blockquote>
@@ -118,7 +118,7 @@ The sidebar will automatically be populated with the page title which is derived
 <p>All files here ending in .blade.php will be saved as .html pages in the saved site.
 This is useful as you can both extend the default layout, or you can write your view fully.
 The latter allows for a really neat hack which is used on this site to redirect index.html to the documentation front page!</p>
-<p><strong>Limitations:</strong> Only top-level posts are supported. Files should use camel-case format and must also end .blade.php.</p>
+<p><strong>Limitations:</strong> Only top-level posts are supported. Files should use kebab-case format and must also end .blade.php.</p>
 <blockquote>
 <p>Make sure the slug does not conflict with a Markdown page as they are compiled first and will be overwritten if your Blade page has the same name.</p>
 </blockquote>

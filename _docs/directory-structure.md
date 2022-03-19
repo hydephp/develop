@@ -48,7 +48,7 @@ _posts
 └── a-fifth-longer-post-here.md
 ```
 
-**Limitations:** Currently only top-level posts are supported. Files should use camel-case format and must also end in .md and contain front matter to be recognized.
+**Limitations:** Currently only top-level posts are supported. Files should use kebab-case format and must also end in .md and contain front matter to be recognized.
 
 #### `_docs` 
 Hyde includes a spiritual successor of [Laradocgen](https://github.com/caendesilva/laradocgen)
@@ -60,14 +60,14 @@ This documentation page is built with HydeDocs, and you can take a look at the s
 
 **Limitations:** Currently only top-level posts are supported. Soon (hopefully) you will be able to put files in subdirectories, or alternatively specify a parent, to create a sidebar with categories.
 
-Files should use camel-case format and must also end in .md and contain front matter to be recognized.
+Files should use kebab-case format and must also end in .md and contain front matter to be recognized.
 
 #### `_pages` 
 You can also place Markdown files here and they will be compiled into simple top-level pages.
 
 Perfect for about pages, or terms of service policy pages!
 
-**Limitations:** Only top-level pages are supported. Files should use camel-case format and must also end in .md and contain front matter to be recognized.
+**Limitations:** Only top-level pages are supported. Files should use kebab-case format and must also end in .md and contain front matter to be recognized.
 
 > Make sure the slug does not conflict with a custom Blade page as Markdown pages are compiled first and may be overwritten.
 
@@ -110,7 +110,7 @@ All files here ending in .blade.php will be saved as .html pages in the saved si
 This is useful as you can both extend the default layout, or you can write your view fully.
 The latter allows for a really neat hack which is used on this site to redirect index.html to the documentation front page!
 
-**Limitations:** Only top-level posts are supported. Files should use camel-case format and must also end .blade.php.
+**Limitations:** Only top-level posts are supported. Files should use kebab-case format and must also end .blade.php.
 
 > Make sure the slug does not conflict with a Markdown page as they are compiled first and will be overwritten if your Blade page has the same name.
 
