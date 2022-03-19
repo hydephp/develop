@@ -20,7 +20,7 @@
 <section id="posts" class="mx-auto max-w-7xl py-16 px-8 lg:mt-8">
     <header class="lg:mb-12 xl:mb-16">
         <h2
-			class="text-3xl text-left opacity-75 leading-10 tracking-tight font-extrabold sm:leading-none mb-8 md:mb-12 md:text-4xl md:text-center lg:text-5xl">
+			class="text-2xl text-left opacity-75 leading-10 tracking-tight font-extrabold sm:leading-none mb-8 md:mb-12 md:text-3xl md:text-center lg:text-4xl">
 			Latest Posts</h2>
     </header>
 
@@ -31,7 +31,7 @@
     </div>
 </section>
 
-<footer class="py-4 px-6 w-full bg-gray-100 text-center">
+<footer class="py-4 px-6 w-full bg-slate-100 text-center">
 	<div class="prose text-center mx-auto">
 		Site built with <a href="https://github.com/hydephp/hyde">HydePHP</a>.
 		Source code on <a href="https://github.com/hydephp/hyde">GitHub</a>.
