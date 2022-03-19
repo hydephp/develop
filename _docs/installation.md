@@ -4,6 +4,7 @@
 The recommended method of installing Hyde is using Composer. After the project has been created you can scaffold a new blog post using the `make` command and following the on-screen instructions, and then compile the site into static HTML using the `build` command.
 
 ```bash
+// torchlight! {"lineNumbers": false}
 composer create-project hyde/hyde example-site
 
 cd example-site
@@ -27,12 +28,14 @@ The first one is using the GitHub website where you can clone the template repos
 
 Or if you want to use the CLI, run
 ```bash
+// torchlight! {"lineNumbers": false}
 git clone https://github.com/hydephp/hyde.git
 ```
 
 ### Finalizing
 Next, navigate into the created project and install the dependencies and build the assets.
 ```bash
+// torchlight! {"lineNumbers": false}
 cd hyde
 composer install
 npm install
@@ -45,6 +48,7 @@ npm run dev
 After the project has been created you can scaffold a new blog post using the `make` command and following the on-screen instructions, and then compile the site into static HTML using the `build` command.
 
 ```bash
+// torchlight! {"lineNumbers": false}
 php hyde make:post
 
 php hyde build
