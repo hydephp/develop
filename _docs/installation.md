@@ -13,7 +13,7 @@ php hyde make:post
 php hyde build
 ```
 
-If you now take a look in the `_site` directory you should see that an index.html file as well as a posts/hello-world.html file has been created! Open them up in your browser and take a look!
+If you now take a look in the `_site` directory you should see that an index.html file, as well as a posts/hello-world.html file, has been created! Open them up in your browser and take a look!
 > If you are missing the stylesheet, run `npm install && npm run dev`
 
 

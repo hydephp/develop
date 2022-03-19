@@ -49,6 +49,12 @@
 					<li class="py-2 list-item list-item-active">
 									<a href="installation.html" aria-current="true" class="text-indigo-500">Installation</a>
 							</li>
+					<li class="py-2 list-item">
+									<a href="getting-started.html" class="hover:text-indigo-500">Getting Started</a>
+							</li>
+					<li class="py-2 list-item">
+									<a href="directory-structure.html" class="hover:text-indigo-500">Directory Structure</a>
+							</li>
 			</ul>
 </nav>
 <footer class="p-4 mt-auto border-t">
@@ -60,30 +66,32 @@
     class="mx-auto prose max-w-3xl torchlight-enabled">
     <div itemprop="articleBody">
         <h1>Installation Guide</h1>
-<h2>Installing HydePHP using Composer (reccomended)</h2>
-<p>The reccomended method of installing Hyde is using Composer. After the project has been created you can scaffold a new blog post using the <code>make</code> command and following the on screen instructions, and then compile the site into static HTML using the <code>build</code> command.</p>
+<h2>Installing HydePHP using Composer (recommended)</h2>
+<p>The recommended method of installing Hyde is using Composer. After the project has been created you can scaffold a new blog post using the <code>make</code> command and following the on-screen instructions, and then compile the site into static HTML using the <code>build</code> command.</p>
 <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">composer</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">create-project</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde/hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">example-site</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #82AAFF;">cd</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">example-site</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span><span style="color: #FFCB6B;">php</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">make:post</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">6</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">7</span><span style="color: #FFCB6B;">php</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">build</span></div></code></pre>
-<p>If you now take a look in the <code>_site</code> directory you should see that an index.html file as wel as a posts/hello-world.html file has been created! Open them up in your browser and take a look!</p>
+<p>If you now take a look in the <code>_site</code> directory you should see that an index.html file, as well as a posts/hello-world.html file, has been created! Open them up in your browser and take a look!</p>
 <blockquote>
 <p>If you are missing the stylesheet, run <code>npm install &amp;&amp; npm run dev</code></p>
 </blockquote>
 <h2>Installing HydePHP Git/GitHub</h2>
-<p>If you want to run the latest development branch of Hyde (not reccomended for production!) you can install directly from Git/GitHub.</p>
+<p>If you want to run the latest development branch of Hyde (not recommended for production!) you can install it directly from Git/GitHub.</p>
 <h3>Clone the repo</h3>
-<p>There are two methods for createing a new project using Git/GitHub.
-The first one is using the GitHub website where you can clone the template repository using the green button labeled &quot;Use this template&quot; found at <a href="https://github.com/hydephp/Hyde">https://github.com/hydephp/Hyde</a>.</p>
+<p>There are two methods for creating a new project using Git/GitHub.
+The first one is using the GitHub website where you can clone the template repository using the green button labelled &quot;Use this template&quot; found at <a href="https://github.com/hydephp/Hyde">https://github.com/hydephp/Hyde</a>.</p>
 <p>Or if you want to use the CLI, run</p>
 <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">git</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">clone</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">https://github.com/hydephp/hyde.git</span></div></code></pre>
 <h3>Finalizing</h3>
 <p>Next, navigate into the created project and install the dependencies and build the assets.</p>
 <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #82AAFF;">cd</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #FFCB6B;">composer</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">install</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">install</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">run</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">dev</span></div></code></pre>
 <blockquote>
-<p>If you are not installing from a release you may want to set the environment to <code>production</code> in the <code>config/app.php</code> to hide the core development commands you most likley will not need unless you want to hack/contribute to the framework itself.</p>
+<p>If you are not installing from a release you may want to set the environment to <code>production</code> in the <code>config/app.php</code> to hide the core development commands you most likely will not need unless you want to hack/contribute to the framework itself.</p>
 </blockquote>
 <h3>Usage</h3>
-<p>After the project has been created you can scaffold a new blog post using the <code>make</code> command and following the on screen instructions, and then compile the site into static HTML using the <code>build</code> command.</p>
+<p>After the project has been created you can scaffold a new blog post using the <code>make</code> command and following the on-screen instructions, and then compile the site into static HTML using the <code>build</code> command.</p>
 <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">php</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">make:post</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #FFCB6B;">php</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">build</span></div></code></pre>
-<p>If you now take a look in the <code>_site</code> directory you should see that an index.html file as wel as a posts/hello-world.html file has been created! Open them up in your browser and take a look!</p>
+<p>If you now take a look in the <code>_site</code> directory you should see that an index.html file, as well as a posts/hello-world.html file, has been created! Open them up in your browser and take a look!</p>
+<h2>Next steps</h2>
+<p>Make sure you check out the <a href="'getting-started.html'">getting started</a> page to learn how to use Hyde!</p>
 
     </div>
 </article>
