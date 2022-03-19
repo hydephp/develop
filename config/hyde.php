@@ -46,7 +46,7 @@ return [
     */
 
     'features' => [
-        Features::blogPosts(),
+        // Features::blogPosts(),
         Features::bladePages(),
         Features::markdownPages(),
         Features::documentationPages(),
