@@ -2,7 +2,7 @@
 
 The Documentation Source for HydePHP Docs - Built with HydePHP of course!
 
-View the docs at https://hydephp.github.io/Docs/ and check out the HydePHP project at https://github.com/hydephp/Hyde!
+View the docs at https://hydephp.github.io/docs/ and check out the HydePHP project at https://github.com/hydephp/Hyde!
 
 ## Contributing
 
