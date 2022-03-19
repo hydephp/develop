@@ -1,0 +1,53 @@
+# Installation Guide
+
+## Installing HydePHP using Composer (reccomended)
+The reccomended method of installing Hyde is using Composer. After the project has been created you can scaffold a new blog post using the `make` command and following the on screen instructions, and then compile the site into static HTML using the `build` command.
+
+```bash
+composer create-project hyde/hyde example-site
+
+cd example-site
+
+php hyde make:post
+
+php hyde build
+```
+
+If you now take a look in the `_site` directory you should see that an index.html file as wel as a posts/hello-world.html file has been created! Open them up in your browser and take a look!
+> If you are missing the stylesheet, run `npm install && npm run dev`
+
+
+## Installing HydePHP Git/GitHub
+
+If you want to run the latest development branch of Hyde (not reccomended for production!) you can install directly from Git/GitHub.
+
+### Clone the repo
+There are two methods for createing a new project using Git/GitHub.
+The first one is using the GitHub website where you can clone the template repository using the green button labeled "Use this template" found at https://github.com/hydephp/Hyde.
+
+Or if you want to use the CLI, run
+```bash
+git clone https://github.com/hydephp/hyde.git
+```
+
+### Finalizing
+Next, navigate into the created project and install the dependencies and build the assets.
+```bash
+cd hyde
+composer install
+npm install
+npm run dev
+```
+
+> If you are not installing from a release you may want to set the environment to `production` in the `config/app.php` to hide the core development commands you most likley will not need unless you want to hack/contribute to the framework itself.
+
+### Usage
+After the project has been created you can scaffold a new blog post using the `make` command and following the on screen instructions, and then compile the site into static HTML using the `build` command.
+
+```bash
+php hyde make:post
+
+php hyde build
+```
+
+If you now take a look in the `_site` directory you should see that an index.html file as wel as a posts/hello-world.html file has been created! Open them up in your browser and take a look!
