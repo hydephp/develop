@@ -206,6 +206,27 @@
                                 --force flag (at your own risk of course)
                             </p>
                         </blockquote>
+                        <h3>The Publish Command</h3>
+                        <p>
+                            If you are coming from Laravel, you are probably
+                            familiar with the Artisan vendor:publish command.
+                        </p>
+                        <p>
+                            Hyde has a similar command, currently it only has
+                            one option which is to publish 404 pages. But more
+                            stubs will hopefully come soon!
+                        </p>
+                        <p>
+                            To publish the 404 views use the command and follow
+                            the instructions to select which view you want to
+                            publish. Hyde comes with both a simple Markdown
+                            page, and a beautiful Blade view from
+                            <a
+                                href="https://github.com/LaravelCollective/errors"
+                                >LaravelCollective</a
+                            >.
+                        </p>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">php</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">publish:404</span></div></code></pre>
                         <h3>The Validate Command</h3>
                         <p>
                             Hyde ships with a very useful command that runs a

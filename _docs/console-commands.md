@@ -52,6 +52,17 @@ php hyde make:post
 
 > Tip: To overwrite existing files, supply the --force flag (at your own risk of course)
 
+### The Publish Command
+If you are coming from Laravel, you are probably familiar with the Artisan vendor:publish command.
+
+Hyde has a similar command, currently it only has one option which is to publish 404 pages. But more stubs will hopefully come soon!
+
+To publish the 404 views use the command and follow the instructions to select which view you want to publish. Hyde comes with both a simple Markdown page, and a beautiful Blade view from [LaravelCollective](https://github.com/LaravelCollective/errors).
+```bash
+php hyde publish:404
+```
+
+
 ### The Validate Command
 Hyde ships with a very useful command that runs a series of checks to validate your setup and catch any potential issues.
 
