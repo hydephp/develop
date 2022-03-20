@@ -52,6 +52,40 @@ php hyde make:post
 
 > Tip: To overwrite existing files, supply the --force flag (at your own risk of course)
 
+### The Validate Command
+Hyde ships with a very useful command that runs a series of checks to validate your setup and catch any potential issues.
+
+The command is `php hyde validate` and gives an output similar to this
+```bash
+// torchlight! {"lineNumbers": false}
+$ php hyde validate
+
+Running validation tests!
+
+   PASS  CheckForPageConflictsTest
+   ✓ check for conflicts between blade and markdown pages
+
+   PASS  CheckThatAnIndexFileExistsTest
+   ✓ check that an index file exists
+
+   WARN  CheckThatDocumentationPagesHaveAnIndexPageTest
+   ! check that documentation pages have an index page
+   → Could not find an index.md file in the _docs directory!
+
+   PASS  CheckThatFrontendAssetsExistTest
+   ✓ check that app.css exist
+   ✓ check that tailwind.css exist
+
+
+  Tests:  1 warnings, 4 passed
+  Time:   0.31s
+
+All done!
+```
+
+
+
+
 
 ## NPM Commands
 The NPM commands are used to compile the frontend CSS assets and to run the realtime compiler.
