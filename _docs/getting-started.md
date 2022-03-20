@@ -66,14 +66,13 @@ For a full tutorial see https://hydephp.github.io/docs/posts/creating-a-static-h
 
 ### Hyde Docs 
 
-
 ### Hyde Pages using Markdown
 
 ### Hyde Pages using Blade
 
 If you want full control over a static page you can create blade views in the pages directory `resources\views\pages`, and they will be compiled into static HTML.
 
-Currently, only top level pages are supported. The filename of the generated file is based on the view filename.
+Currently, only top-level pages are supported. The filename of the generated file is based on the view filename.
 For example, `resources\views\pages\custom-page.blade.php` gets saved as `_site\custom-page.html`.
 
 **⚠ Warning:**
@@ -90,3 +89,14 @@ If you want to match the styles of the rest of your app you can extend the defau
 @endsection
 ```
 
+### Adding Images
+
+All media files in the _media directory will get copied to the _site/media directory upon build. To reference an image in your Markdown, use the following syntax
+To reference an image in your Markdown, use the following syntax
+```markdown
+![Image Alt](../media/image.png "Image Title") # Note the relative path
+```
+
+Since most images are probably going to be in blog posts or documentation pages you need to prepend the `../` before the "media". However, if you are referencing the image on a Markdown page you should use `media/image.png` for the path.
+
+> Nested media directories are not yet supported.

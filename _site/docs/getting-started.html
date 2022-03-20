@@ -271,7 +271,7 @@
                             compiled into static HTML.
                         </p>
                         <p>
-                            Currently, only top level pages are supported. The
+                            Currently, only top-level pages are supported. The
                             filename of the generated file is based on the view
                             filename. For example,
                             <code
@@ -290,6 +290,28 @@
                             can extend the default layout.
                         </p>
                         <pre><code data-theme="material-theme-palenight" data-lang="blade" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #89DDFF;">@extends</span><span style="color: #A6ACCD;">(</span><span style="color: #89DDFF;">&#39;</span><span style="color: #C3E88D;">layouts.app</span><span style="color: #89DDFF;">&#39;</span><span style="color: #A6ACCD;">)</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #89DDFF;">@section</span><span style="color: #A6ACCD;">(</span><span style="color: #89DDFF;">&#39;</span><span style="color: #C3E88D;">content</span><span style="color: #89DDFF;">&#39;</span><span style="color: #A6ACCD;">)</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span><span style="color: #A6ACCD;">// Place content here</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">6</span><span style="color: #89DDFF;">@endsection</span></div></code></pre>
+                        <h3>Adding Images</h3>
+                        <p>
+                            All media files in the _media directory will get
+                            copied to the _site/media directory upon build. To
+                            reference an image in your Markdown, use the
+                            following syntax To reference an image in your
+                            Markdown, use the following syntax
+                        </p>
+                        <pre><code data-theme="material-theme-palenight" data-lang="markdown" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #89DDFF;">![</span><span style="color: #C3E88D;">Image Alt</span><span style="color: #89DDFF;">]</span><span style="color: #89DDFF;">(</span><span style="color: #A6ACCD;">../media/image.png</span><span style="color: #A6ACCD;"> </span><span style="color: #89DDFF;">&quot;</span><span style="color: #C3E88D;">Image Title</span><span style="color: #89DDFF;">&quot;</span><span style="color: #89DDFF;">)</span><span style="color: #A6ACCD;"> # Note the relative path</span></div></code></pre>
+                        <p>
+                            Since most images are probably going to be in blog
+                            posts or documentation pages you need to prepend the
+                            <code>../</code> before the &quot;media&quot;.
+                            However, if you are referencing the image on a
+                            Markdown page you should use
+                            <code>media/image.png</code> for the path.
+                        </p>
+                        <blockquote>
+                            <p>
+                                Nested media directories are not yet supported.
+                            </p>
+                        </blockquote>
                     </div>
                 </article>
             </main>
