@@ -55,13 +55,8 @@ date: YYYY-MM-DD 16:00
 > Masterclass: you can add arbitrary front matter key-value-pairs and access them using `$post->matter['foo']` in a Blade view
 
 #### Tutorial
-// This section will get extracted into a blog post
 
-
-
-
-
-Once
+For a full tutorial see https://hydephp.github.io/docs/posts/creating-a-static-html-post-using-hydephp.html
 
 
 #### Deep-dive
@@ -72,6 +67,26 @@ Once
 ### Hyde Docs 
 
 
-### Hyde Pages
+### Hyde Pages using Markdown
 
+### Hyde Pages using Blade
+
+If you want full control over a static page you can create blade views in the pages directory `resources\views\pages`, and they will be compiled into static HTML.
+
+Currently, only top level pages are supported. The filename of the generated file is based on the view filename.
+For example, `resources\views\pages\custom-page.blade.php` gets saved as `_site\custom-page.html`.
+
+**⚠ Warning:**
+Files here take precedence over files in _pages! Do not use duplicate slugs.
+
+**Using the default layout**
+If you want to match the styles of the rest of your app you can extend the default layout.
+```blade
+@extends('layouts.app')
+@section('content')
+
+// Place content here
+
+@endsection
+```
 

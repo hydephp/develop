@@ -246,9 +246,12 @@
                         </blockquote>
                         <h4>Tutorial</h4>
                         <p>
-                            // This section will get extracted into a blog post
+                            For a full tutorial see
+                            <a
+                                href="https://hydephp.github.io/docs/posts/creating-a-static-html-post-using-hydephp.html"
+                                >https://hydephp.github.io/docs/posts/creating-a-static-html-post-using-hydephp.html</a
+                            >
                         </p>
-                        <p>Once</p>
                         <h4>Deep-dive</h4>
                         <blockquote>
                             <p>
@@ -259,7 +262,34 @@
                             </p>
                         </blockquote>
                         <h3>Hyde Docs</h3>
-                        <h3>Hyde Pages</h3>
+                        <h3>Hyde Pages using Markdown</h3>
+                        <h3>Hyde Pages using Blade</h3>
+                        <p>
+                            If you want full control over a static page you can
+                            create blade views in the pages directory
+                            <code>resources\views\pages</code>, and they will be
+                            compiled into static HTML.
+                        </p>
+                        <p>
+                            Currently, only top level pages are supported. The
+                            filename of the generated file is based on the view
+                            filename. For example,
+                            <code
+                                >resources\views\pages\custom-page.blade.php</code
+                            >
+                            gets saved as <code>_site\custom-page.html</code>.
+                        </p>
+                        <p>
+                            <strong>⚠ Warning:</strong> Files here take
+                            precedence over files in _pages! Do not use
+                            duplicate slugs.
+                        </p>
+                        <p>
+                            <strong>Using the default layout</strong> If you
+                            want to match the styles of the rest of your app you
+                            can extend the default layout.
+                        </p>
+                        <pre><code data-theme="material-theme-palenight" data-lang="blade" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #89DDFF;">@extends</span><span style="color: #A6ACCD;">(</span><span style="color: #89DDFF;">&#39;</span><span style="color: #C3E88D;">layouts.app</span><span style="color: #89DDFF;">&#39;</span><span style="color: #A6ACCD;">)</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #89DDFF;">@section</span><span style="color: #A6ACCD;">(</span><span style="color: #89DDFF;">&#39;</span><span style="color: #C3E88D;">content</span><span style="color: #89DDFF;">&#39;</span><span style="color: #A6ACCD;">)</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span><span style="color: #A6ACCD;">// Place content here</span></div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span>&nbsp;</div><div class='line'><span style="color:#a6accd40; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">6</span><span style="color: #89DDFF;">@endsection</span></div></code></pre>
                     </div>
                 </article>
             </main>
