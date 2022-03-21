@@ -67,9 +67,11 @@ return [
     */
 
     'documentationPageOrder' => [
-        'readme',
-        'installation',
-        'getting-started',
+        'Installation',
+        'Getting Started',
+        'Directory Structure',
+        'Console Commands',
+        'Customization',
     ]
 
 ];
