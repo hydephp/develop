@@ -21,13 +21,13 @@
 
     @include('layouts.meta') 
 </head>
-<body id="app" class="overflow-x-hidden">
+<body id="app" class="flex flex-col min-h-screen overflow-x-hidden">
     @includeUnless($withoutNavigation ?? false, 'layouts.navigation') 
 
     <section id="content">
         @yield('content') 
     </section>
 
-    @include('layouts.footer') 
+    @includeUnless(config('hyde.footer.enabled', true) && ($withoutNavigation ?? false), 'layouts.footer') 
 </body>
 </html>
