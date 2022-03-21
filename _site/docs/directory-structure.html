@@ -15,7 +15,7 @@
 
         <!-- Include any extra tags to include in the <head> section -->
     </head>
-    <body id="app" class="overflow-x-hidden">
+    <body id="app" class="flex flex-col min-h-screen overflow-x-hidden">
         <section id="content">
             <nav
                 id="documentation-navigation"
@@ -109,6 +109,13 @@
                                 href="console-commands.html"
                                 class="hover:text-indigo-500"
                                 >Console Commands</a
+                            >
+                        </li>
+                        <li class="py-2 list-item">
+                            <a
+                                href="customization.html"
+                                class="hover:text-indigo-500"
+                                >Customization</a
                             >
                         </li>
                     </ul>
@@ -320,11 +327,69 @@
                             assets such as the SASS/SCSS files.
                         </p>
                         <pre><code data-theme="material-theme-palenight" data-lang="text" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #A6ACCD;">├── src</span></div><div class='line'><span style="color: #A6ACCD;">│   └── resources</span></div><div class='line'><span style="color: #A6ACCD;">│       └── sass</span></div></code></pre>
+                        <p class="mt-8">
+                            <i>
+                                Syntax highlighting by
+                                <a
+                                    href="https://torchlight.dev/"
+                                    rel="noopener nofollow"
+                                    >Torchlight.dev</a
+                                >
+                            </i>
+                        </p>
                     </div>
                 </article>
             </main>
 
-            <script defer src="../media/docs.js"></script>
+            <script>
+                var sidebarOpen = screen.width >= 768;
+
+                const sidebar = document.getElementById(
+                    "documentation-sidebar"
+                );
+                const main = document.getElementById("documentation-content");
+                const backdrop = document.getElementById("sidebar-backdrop");
+
+                const toggleButtons = document.querySelectorAll(
+                    ".sidebar-button-wrapper"
+                );
+
+                function toggleSidebar() {
+                    if (sidebarOpen) {
+                        hideSidebar();
+                    } else {
+                        showSidebar();
+                    }
+                }
+
+                function showSidebar() {
+                    sidebar.classList.remove("hidden");
+                    sidebar.classList.add("flex");
+                    backdrop.classList.remove("hidden");
+                    document.getElementById("app").style.overflow = "hidden";
+
+                    toggleButtons.forEach((button) => {
+                        button.classList.remove("open");
+                        button.classList.add("closed");
+                    });
+
+                    sidebarOpen = true;
+                }
+
+                function hideSidebar() {
+                    sidebar.classList.add("hidden");
+                    sidebar.classList.remove("flex");
+                    backdrop.classList.add("hidden");
+                    document.getElementById("app").style.overflow = null;
+
+                    toggleButtons.forEach((button) => {
+                        button.classList.add("open");
+                        button.classList.remove("closed");
+                    });
+
+                    sidebarOpen = false;
+                }
+            </script>
             <div
                 id="sidebar-backdrop"
                 class="hidden"
