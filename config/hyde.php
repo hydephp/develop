@@ -69,8 +69,9 @@ return [
     
     'footer' => [
         'enabled' => true,
-        'markdown' => 'Site built with the Free and Open Source [HydePHP](https://github.com/hydephp/hyde).
-                       License [MIT](https://github.com/hydephp/hyde/blob/master/LICENSE.md).'
+        'markdown' => 'Site built with [HydePHP](https://github.com/hydephp/hyde).
+            Source code on [GitHub](https://github.com/hydephp/docs).
+            License [MIT](https://github.com/hydephp/hyde/blob/master/LICENSE.md).'
     ],
 
 
@@ -90,11 +91,11 @@ return [
     */
 
     'navigationMenuLinks' => [
-        // [
-        //     'title' => 'GitHub',
-        //     'destination' => 'https://github.com/hydephp/hyde',
-        //     'priority' => 1200,
-        // ],
+        [
+            'title' => 'GitHub',
+            'destination' => 'https://github.com/hydephp/hyde',
+            'priority' => 1200,
+        ],
         // [
         //     'title' => 'Featured Blog Post',
         //     'slug' => 'posts/hello-world',

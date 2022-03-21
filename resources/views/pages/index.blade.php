@@ -31,14 +31,6 @@
     </div>
 </section>
 
-<footer class="py-4 px-6 w-full bg-slate-100 text-center">
-	<div class="prose text-center mx-auto">
-		Site built with <a href="https://github.com/hydephp/hyde">HydePHP</a>.
-		Source code on <a href="https://github.com/hydephp/docs">GitHub</a>.
-		License <a href="https://github.com/hydephp/hyde/blob/master/LICENSE.md" rel="license">MIT</a>.
-	</div>
-</footer>
-
 <style> html, body { scroll-behavior: smooth; } </style>
 
 @endsection
