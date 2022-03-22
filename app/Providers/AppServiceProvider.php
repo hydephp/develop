@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Actions\CreatesDefaultDirectories;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        (new CreatesDefaultDirectories)->__invoke();
+        //
     }
 }

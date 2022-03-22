@@ -20,3 +20,9 @@ While the main purpose of this repo is to generate the static HTML Documentation
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Attributions
+> Please see the respective authors' repositories for their license files
+
+- The Hyde core is built with [Laravel Zero](https://laravel-zero.com/) which is based on [Laravel](https://laravel.com/)
+- The frontend is built with [TailwindCSS](https://tailwindcss.com/).
