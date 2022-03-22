@@ -70,6 +70,11 @@ return [
 
     'providers' => [
         App\Providers\AppServiceProvider::class,
+        Hyde\Framework\HydeServiceProvider::class,
+    ],
+
+    'aliases' => [
+        'Hyde' => Hyde\Framework\Hyde::class,
     ],
 
 ];

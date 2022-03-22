@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c7759320d92abca52b59560b410bf3a",
+    "content-hash": "cd91e80ec3131f867669a3099489f5a5",
     "packages": [
         {
             "name": "brick/math",
@@ -908,6 +908,49 @@
                 }
             ],
             "time": "2022-03-20T21:55:58+00:00"
+        },
+        {
+            "name": "hyde/framework",
+            "version": "v0.4.0-alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hydephp/framework.git",
+                "reference": "445fc758751acd1906bf7692e5c27723e6117495"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hydephp/framework/zipball/445fc758751acd1906bf7692e5c27723e6117495",
+                "reference": "445fc758751acd1906bf7692e5c27723e6117495",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "suggest": {
+                "hyde/hyde": "The Framework package contains the Hyde Core. To create your site you should use the Hyde/Hyde project."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hyde\\Framework\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caen De Silva",
+                    "email": "caen@desilva.se"
+                }
+            ],
+            "description": "The HydePHP Framework",
+            "support": {
+                "issues": "https://github.com/hydephp/framework/issues",
+                "source": "https://github.com/hydephp/framework/tree/v0.4.0-alpha"
+            },
+            "time": "2022-03-22T18:47:45+00:00"
         },
         {
             "name": "illuminate/bus",

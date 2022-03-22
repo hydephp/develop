@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('hyde::layouts.app')
 @section('content')
 
 <header class="w-screen pb-20 pt-32 lg:pt-44 flex flex-col text-center items-center justify-center min-h-[75vh]">
@@ -25,8 +25,8 @@
     </header>
 
     <div class="max-w-xl mx-auto">
-        @foreach(\App\Hyde\Models\MarkdownPost::getCollection() as $post)
-        @include('components.article-excerpt')
+        @foreach(\Hyde\Framework\Models\MarkdownPost::getCollection() as $post)
+        @include('hyde::components.article-excerpt')
         @endforeach
     </div>
 </section>
