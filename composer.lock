@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "241b4b5be24c70d804a2eabbda4c4aee",
+    "content-hash": "d5883cc11039e8aa015215a1b525f91f",
     "packages": [
         {
             "name": "brick/math",
@@ -911,7 +911,7 @@
         },
         {
             "name": "hyde/framework",
-            "version": "dev-master",
+            "version": "v0.4.3-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hydephp/framework.git",
@@ -929,7 +929,6 @@
             "suggest": {
                 "hyde/hyde": "The Framework package contains the Hyde Core. To create your site you should use the Hyde/Hyde project."
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -949,7 +948,7 @@
             "description": "The HydePHP Framework",
             "support": {
                 "issues": "https://github.com/hydephp/framework/issues",
-                "source": "https://github.com/hydephp/framework/tree/_data-authors"
+                "source": "https://github.com/hydephp/framework/tree/v0.4.3-alpha"
             },
             "time": "2022-03-23T16:45:56+00:00"
         },
@@ -8345,9 +8344,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "hyde/framework": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
