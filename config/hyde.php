@@ -36,6 +36,46 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Site URL
+    |--------------------------------------------------------------------------
+    |
+    | If you want, you can set your site's URL here or in the .env file.
+    |
+    | The URL will then be used in meta tags to create permalinks.
+    | If you are serving your site from a subdirectory, you will
+    | need to include that in the path without a trailing slash.
+    |
+    | Example: https://example.com/blog
+    |
+    */
+    'site_url' => env('SITE_URL', null),
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Global Site Meta Tags
+    |--------------------------------------------------------------------------
+    |
+    | While you can add any number of meta tags in the meta.blade.php component,
+    | this config setting allows you to easily customize some common metadata
+    | tags so increase your SEO score. You can keep them to their defaults
+    | or you can set a value to false or null to disable it completely.
+    |
+    | Note that some tags may be overwritten on certain pages, for instance post pages.
+    |
+    | Tip: See https://www.w3schools.com/tags/att_meta_name.asp
+    | for a list of tags and what what they are for.
+    |
+    */
+    'meta' => [
+        // 'author' => 'Mr. Hyde',
+        // 'description' => 'My Hyde Blog',
+        // 'keywords' => 'Static Sites, Blogs, Documentation',
+        'generator' => 'HydePHP ' . Hyde\Framework\Hyde::version(),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Features
     |--------------------------------------------------------------------------
     |
@@ -69,9 +109,8 @@ return [
 
     'footer' => [
         'enabled' => true,
-        'markdown' => 'Site built with [HydePHP](https://github.com/hydephp/hyde).
-            Source code on [GitHub](https://github.com/hydephp/docs).
-            License [MIT](https://github.com/hydephp/hyde/blob/master/LICENSE.md).'
+        'markdown' => 'Site built with the Free and Open Source [HydePHP](https://github.com/hydephp/hyde).
+                       License [MIT](https://github.com/hydephp/hyde/blob/master/LICENSE.md).'
     ],
 
 
@@ -91,11 +130,11 @@ return [
     */
 
     'navigationMenuLinks' => [
-        [
-            'title' => 'GitHub',
-            'destination' => 'https://github.com/hydephp/hyde',
-            'priority' => 1200,
-        ],
+        // [
+        //     'title' => 'GitHub',
+        //     'destination' => 'https://github.com/hydephp/hyde',
+        //     'priority' => 1200,
+        // ],
         // [
         //     'title' => 'Featured Blog Post',
         //     'slug' => 'posts/hello-world',
@@ -131,11 +170,9 @@ return [
     */
 
     'documentationPageOrder' => [
-        'Installation',
-        'Getting Started',
-        'Directory Structure',
-        'Console Commands',
-        'Customization',
+        'readme',
+        'installation',
+        'getting-started',
     ]
 
 ];
