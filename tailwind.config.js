@@ -4,6 +4,8 @@ module.exports = {
     darkMode: 'class',
     content: [
         './_site/**/*.html',
+        './resources/views/**/*.blade.php',
+        './vendor/hyde/framework/resources/views/**/*.blade.php',
     ],
     
     theme: {
@@ -17,9 +19,9 @@ module.exports = {
                             marginTop: '1.5em',
                         },
                         a: {
-                            color: '#6366f1',
+                            color: '#5956eb',
                             '&:hover': {
-                                color: '#4338ca',
+                                color: '#4f46e5',
                             },
                             textDecoration: 'none'
                         },
