@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'name' => 'HydePHP',
+    'name' => env('SITE_NAME', 'HydePHP'),
 
 
     /*
@@ -45,7 +45,7 @@ return [
     | If you are serving your site from a subdirectory, you will
     | need to include that in the path without a trailing slash.
     |
-    | Example: https://example.com/blog
+    | Example: https://example.org/blog
     |
     */
     'site_url' => env('SITE_URL', null),
@@ -90,6 +90,8 @@ return [
         Features::bladePages(),
         Features::markdownPages(),
         Features::documentationPages(),
+
+        Features::torchlight(),
     ],
 
 
@@ -173,6 +175,24 @@ return [
         'readme',
         'installation',
         'getting-started',
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Documentation Site Output Directory
+    |--------------------------------------------------------------------------
+    |
+    | If you want to store the compiled documentation pages in a different
+    | directory than the default 'docs' directory, for example to set the
+    | specified version, you can specify the directory here.
+    | 
+    | Note that you need to take care as to not set it to something that 
+    | may conflict with other parts, such as media or posts directories.
+    |
+    | The default value is 'docs'.
+    |
+    */
+
+    'docsDirectory' => 'docs',
 
 ];
