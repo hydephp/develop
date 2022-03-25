@@ -62,11 +62,33 @@ For a full tutorial see https://hydephp.github.io/docs/posts/creating-a-static-h
 #### Deep-dive
 > Deepdives take a closer look into how a feature works behind the scenes. While not required to know it can help to understand the "magic" behind Hyde.
 
-
-
 ### Hyde Docs 
 
+The Hyde Docs is based on Laradocgen and _automagically_ turns Markdown pages into documentation pages. They are what powers this documentation site!
+
+Creating documentation pages are a piece of cake. Create a file following the format of kebab-case-version-of-the-title.md in the _docs directory. Put any content you want in it, and run the build command.
+
+The sidebar will like magic be populated with all the documentation pages. The page titles in the sidebar are generated from the filename, and the HTML page title is inferred from the first H1 tag.
+
+> **Pro tip 1:** Enable the Torchlight extension to get the beautiful syntax highlighting used here!
+
+> **Pro tip 2:** You can specify the output directory for documentation pages in the Hyde config. This site uses that feature to save the pages in the 'master' directory for easy version support! 
+
 ### Hyde Pages using Markdown
+
+Hyde Markdown Pages are perfect for simple content-driven pages. Some examples of this may be "About Us" pages, or legal pages such as "Terms of Service" and "Privacy Policy".
+
+The Markdown pages work similarly to blog posts, but currently only supports the title front matter.
+
+To create a Markdown page, all you need to do is create a file ending in .md in the _pages directory. Here is an example template to get you started!
+```markdown
+---
+title: Markdown Page Example
+---
+
+## This Markdown file will be turned into a simple static HTML page
+```
+
 
 ### Hyde Pages using Blade
 
@@ -87,6 +109,12 @@ If you want to match the styles of the rest of your app you can extend the defau
 // Place content here
 
 @endsection
+```
+
+You can reference any Hyde components, or add your own templates!
+You can also set the page title using
+```blade
+@php($title = "My Custom Title")
 ```
 
 ### Adding Images

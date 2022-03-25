@@ -97,40 +97,8 @@ Sometimes, especially if you have a lot of pages, you may want to prevent links 
 > Tip: You can publish the included 404 page using `php hyde publish:404`!
 
 ## Blade Views
-Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily. Here is an overview.
+Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.
 
 > Before editing Blade views you should familiarize yourself with how they work in the official documentation https://laravel.com/docs/9.x/blade.
 
-
-All blade views are located in the `resources/views` directory.
-### Directory Overview
-```bash
-resources/views/ # [tl! reindex(null)]
-├── components # Contains components to be included in parent layouts
-│   ├── article-excerpt.blade.php
-│   ├── docs # Contains components specific to the Documentation pages
-│   │   ├── content.blade.php
-│   │   ├── navigation.blade.php
-│   │   ├── sidebar-footer.blade.php
-│   │   ├── sidebar-header.blade.php
-│   │   ├── sidebar-toggle.blade.php
-│   │   └── sidebar.blade.php
-│   └── post # Contains components specific to the Blog post pages
-│       ├── article.blade.php
-│       ├── author.blade.php
-│       ├── category.blade.php
-│       ├── datePublished.blade.php
-│       └── description.blade.php
-├── layouts # Contains components used for layouts
-│   ├── app.blade.php
-│   ├── footer.blade.php
-│   ├── meta.blade.php
-│   └── navigation.blade.php
-├── pages # Contains custom Blade pages*
-│   └── index.blade.php
-├── page.blade.php
-├── docs.blade.php
-└── post.blade.php
-```
-
-*See [Getting Started](getting-started.html#hyde-pages-using-blade) for more details on creating custom Blade pages.
+To edit the default component you need to publish them first using the `hyde publish:views` command.

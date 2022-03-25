@@ -84,26 +84,7 @@ When publishing your site this is where you should serve the site from.
 #### `config` 
 The config directory contains configuration files. The most interesting one is probably `config/hyde.php` where you can set the site name!
 
-#### `resources/views`
-HydePHP is built on top of Laravel and utilizes Laravel's templating system called Blade. If you want to customize these templates, take a look at the dedicated section in [Customization](customization.html)
-
-Here is a quick overview of the directories it contains though
-```
-// torchlight! {"lineNumbers": false}
-resources
-└── views // These are the Blade views, they are like HTML templates
-    ├── components // These are components used in various places, extracted to be customized easy!
-    ├── layouts // Main layout files
-    ├── pages // This is a special directory. Pages here ending in .blade.php will be saved as .html pages in the saved site.
-```
-
-And for an explanation of each of these subdirectories:
-
-- The `components` directory contains self-contained components used in various places, extracted to be customized easy!
-- The `layouts` directory contains common components used to define the layouts, such as the app layout, head section and navigation.
-- The `pages` directory is special and deserves its section which comes right away.
-
-#### `resources/views/pages`
+### `resources/views/pages`
 This is a special directory.
 
 All files here ending in .blade.php will be saved as .html pages in the saved site.
@@ -120,8 +101,8 @@ This directory contains source files for frontend assets such as the SASS/SCSS f
 
 ```
 // torchlight! {"lineNumbers": false}
-├── src 
-│   └── resources
-│       └── sass
+
+resources
+└── sass
 ```
 
