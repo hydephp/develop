@@ -55,13 +55,41 @@ php hyde make:post
 ### The Publish Command
 If you are coming from Laravel, you are probably familiar with the Artisan vendor:publish command.
 
-Hyde has a similar command, currently it only has one option which is to publish 404 pages. But more stubs will hopefully come soon!
+Hyde has a similar command that allows you to publish various pages.
 
-To publish the 404 views use the command and follow the instructions to select which view you want to publish. Hyde comes with both a simple Markdown page, and a beautiful Blade view from [LaravelCollective](https://github.com/LaravelCollective/errors).
+#### Publish Configs
+To publish the default configuration files (if you mess something up, or when updating) run the following command. You may need to supply the --force option to overwrite existing files.
 ```bash
-php hyde publish:404
+php hyde publish:config [--force]
 ```
 
+#### Publish a Homepage
+Hyde comes with 3 build in homepages. On a fresh install the page 'welcome' is installed. However, you can use the publish command to publish another one. You will probably need to supply the --force option to overwrite existing files.
+
+The available homepages are: 
+- *blank*: This is a blank Blade page that simply contains the base layout
+- *post feed*: This is the view that this documentation site uses. It contains a listing of the latest posts and was previously the default.
+- *welcome*: This is the current welcome page. Unlike the other pages, the styles are defined inline.
+
+When publishing any of these pages they will be saved as index.blade.php in the resources/views/pages directory which the compiler will use to create the index.html page.
+
+#### Publish the Default Views
+Since Hyde is based on the Laravel view system the compiler uses Blade views and components. 
+
+Laravel actually registers two locations for the Hyde views: your site's resources/views/vendor directory and the directory source directory in the Framework package.
+
+So, when compiling a site, Laravel will first check if a custom version of the view has been placed in the resources/views/vendor/hyde directory by the developer (you). Then, if the view has not been customized, Laravel will search the Hyde framework view directory. This makes it easy for you to customize / override the package's views.
+
+To publish the views, use
+```bash
+php hyde publish:views
+```
+you will then be asked to select which views you want to publish. There are 3 options:
+- *components*: These are the reusable components used by the framework
+- *layouts*: These are the base layouts used by the framework
+- *404 page*: This is a special view, containing a beautiful Blade view from [LaravelCollective](https://github.com/LaravelCollective/errors). When published, it will be compiled into 404.html.
+
+> Note that when a view is updated in the framework you will need to republish the views to get the new changes! You can supply the --force tag to overwrite any existing files.
 
 ### The Validate Command
 Hyde ships with a very useful command that runs a series of checks to validate your setup and catch any potential issues.
@@ -93,10 +121,6 @@ Running validation tests!
 
 All done!
 ```
-
-
-
-
 
 ## NPM Commands
 The NPM commands are used to compile the frontend CSS assets and to run the realtime compiler.
