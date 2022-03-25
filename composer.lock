@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5883cc11039e8aa015215a1b525f91f",
+    "content-hash": "37f9be9ee0e61bfd5e1ac45b402a7d0a",
     "packages": [
         {
             "name": "brick/math",
@@ -911,11 +911,7 @@
         },
         {
             "name": "hyde/framework",
-<<<<<<< HEAD
-            "version": "v0.4.3-alpha",
-=======
             "version": "v0.5.2-alpha",
->>>>>>> 9d606d49e4459302c5fb98d5644d7edafb8e6630
             "source": {
                 "type": "git",
                 "url": "https://github.com/hydephp/framework.git",
@@ -957,11 +953,7 @@
             "description": "The HydePHP Framework",
             "support": {
                 "issues": "https://github.com/hydephp/framework/issues",
-<<<<<<< HEAD
-                "source": "https://github.com/hydephp/framework/tree/v0.4.3-alpha"
-=======
                 "source": "https://github.com/hydephp/framework/tree/v0.5.2-alpha"
->>>>>>> 9d606d49e4459302c5fb98d5644d7edafb8e6630
             },
             "time": "2022-03-25T16:51:51+00:00"
         },
