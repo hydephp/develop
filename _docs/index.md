@@ -1,10 +1,18 @@
 # HydePHP - Static Blog Builder using Laravel Zero
 
-## ⚠ Alpha Software Warning ⚠
-### This is a very new repo that has been made public to run further tests before the initial release. Please wait until v1.0 for production use.
----
+<p>
+    <a href="https://packagist.org/packages/hyde/hyde"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/v/hyde/hyde" alt="Latest Version on Packagist"></a>
+    <a href="https://packagist.org/packages/hyde/hyde"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/dt/hyde/hyde" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/hyde/framework"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/v/hyde/framework" alt="Latest Version on Packagist"></a>
+    <a href="https://packagist.org/packages/hyde/framework"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/dt/hyde/framework" alt="Total Downloads"></a>
+    <a href="https://github.com/hydephp/hyde/blob/master/LICENSE.md"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/github/license/hydephp/hyde" alt="License"></a>
+    <img style="display: inline; margin: 4px 2px;" src="https://github.com/hydephp/hyde/actions/workflows/tests.yml/badge.svg" alt="GitHub Actions">
+    <img style="display: inline; margin: 4px 2px;" src="https://github.com/hydephp/hyde/actions/workflows/codeql-analysis.yml/badge.svg" alt="GitHub Actions">
+</p>
 
-> This repo both contains the source code and serves as a template to get started quickly.
+## ⚠ Alpha Software Warning ⚠
+### This is a very new project that has been made public to run further tests before the initial release. Please wait until v1.0 for production use.
+---
 
 HydePHP is a Static Site Builder focused on making Blog posts easy and fun. Under the hood, it is powered by Laravel Zero which is a stripped-down version of the robust Laravel Framework. Using Blade templates the site is intelligently compiled into static HTML. Content is created using Markdown, which supports YAML Front Matter.
 
@@ -14,26 +22,19 @@ The frontend uses a lightweight minimalist layout built with TailwindCSS which y
 
 Hyde is designed to be stupidly simple to get started with, while also remaining easily hackable and extendable.
 
+## Live Demo
+The Hyde site (https://hydephp.github.io/docs/) is fully built with Hyde. That includes the homepage, the blog, and the [documentation](https://hydephp.github.io/docs/docs/index.html)!
+
 ## Installation
-The recommended method of installation is using Composer. However, if you want to run the latest development version you can clone the Git repo.
+> Full installation guide is in the documentation at https://hydephp.github.io/docs/
+
+The recommended method of installation is using Composer. However, if you want to run the latest development version you can clone the Git repo, see the [full docs](https://hydephp.github.io/docs/docs/installation.html) for instructions.
 
 ### Using Composer (recommended)
 ```bash
-composer create-project hyde/hyde
-```
+composer create-project hyde/hyde --stability=dev
 
-### Using Git
-
-#### Using the website
-Navigate to https://github.com/hydephp/hyde and press the green button with the text "Use this template" and follow the instructions.
-
-Remember to run `composer install` and `npm install && npm run dev`
-
-#### Using CLI
-```bash
-git clone https://github.com/hydephp/hyde.git
 cd hyde
-composer install
 npm install && npm run dev
 ```
 
@@ -45,29 +46,12 @@ Hyde uses Laravel 9 which requires PHP >= 8.0. You should also have Composer and
 ## Getting Started
 It's a breeze to get started. Simply clone the repository, write your Markdown posts and save them to the _posts directory and run the `php hyde build` command. You can scaffold post files using the `php hyde make:post` command.
 
-
-
 ### Usage
+Hyde scans the source directories prefixed with _underscores for Markdown files and intelligently compiles them into static HTML using Blade templates. The site is then saved in _docs.
 
+Hyde is "blog and documentation aware" and has built-in templates for both blogging and for creating beautiful documentation pages based on Laradocgen. Since Hyde is modular you can of course disable the modules you don't need.
 
-#### Writing posts
-Posts are written in Markdown and saved in the _posts directory. Save your file as `kebab-case-slug.md`.
-Post metadata is added as YAML Front Matter
-```yaml
----
-title: My New Post
-description: A short description used in previews and SEO
-category: blog
-author: Mr. Hyde
-date: 2022-03-14 15:00
----
-
-# Write your Markdown here
-```
-
-> You can also create simple static pages by creating Markdown files in the _pages directory.
-
-> You can even create pages with full Blade support by creating files ending in .blade.php in the resources/views/pages directory.
+The full usage guide is in the documentation at https://hydephp.github.io/docs/
 
 #### Building the static site
 
@@ -77,68 +61,20 @@ php hyde build
 ```
 
 Your site will then be saved in the _site directory, which you can then upload to your static web host.
-All links use relative paths, so you can deploy to a subdirectory without any problems.
-The site also works great when browsing the HTML files locally.
+All links use relative paths, so you can deploy to a subdirectory without any problems which also makes the site work great when browsing the HTML files locally even without a web server.
 
-If it is the first time building the site or if you have updated the source SCSS you also need to run `npm install && npm run dev`.
+If it is the first time building the site or if you have updated the source SCSS you also need to run `npm install && npm run dev` to build the frontend assets.
 
-> `npm run dev` and `npm run prod` both first build the static site and compiles the styles. The latter command also minifies the CSS.
-
-#### Live preview
-Use `npm install && npm run watch` to watch the files for changes and start up a local dev server on port 3000 using Browsersync.
-
+### Live preview
+Use `npm run watch` to watch the files for changes and start up a local dev server on port 3000 using Browsersync.
 
 ### NPM Commands
-To help in developing the `package.json` comes with a few built-in scripts. Make sure you have Node and NPM installed.
-> If it is the first time running a command, remember to run `npm install` first!
+See all commands in the documentation [Console Commands](https://hydephp.github.io/docs/docs/console-commands.html)
 
-The main commands are:
-- `npm run dev`
-- `npm run prod`
-- `npm run watch`
+## Hacking Hyde
+Hyde is designed to be easy to use and easy to customize and hack. You can modify the source views and SCSS, customize the Tailwind config, and you can even create 100% custom HTML and Blade pages that get compiled into static HTML.
 
-#### Dev: Build the site for development
-Runs the `php hyde build` command, compiles the SASS and Tailwind
-
-#### Prod: Build the site for production
-Runs the `php hyde build` command, compiles the SASS and Tailwind and minifies the output.
-
-#### Watch: Watching files for changes
-
-Hyde has a real-time compiler that watches your files for changes and rebuilds the site on the fly.
-> Currently, all pages are rebuilt, but in a future update, only the affected files will be rebuilt.
-
-The real-time viewer also uses Browsersync which starts a local web server and automatically refreshes your pages once they are changed. 
-
-**To start the preview run**
-```bash
-npm run watch
-```
-A browser page should automatically be opened. If not, just navigate to http://localhost:3000/.
-
-
-### Hacking Hyde
-Hyde is designed to be easy to use and easy to hack. You can modify the source views and SCSS, customize the Tailwind config, and you can even create 100% custom HTML and Blade pages that get compiled into static HTML.
-
-## Why static sites?
-### Speed, scalability, simplicity
-With a static site, you don't need to worry about setting up databases.
-This makes the site so much faster as you don't need to wait for a database to process requests.
-By pre-compiling the sites you also don't need to waste time and processing power on server-side
-rendering which also speeds up your site. Furthermore, it makes your site incredibly scalable
-as you don't need to worry about keeping replica databases in sync.
-
-You can even serve the site from global CDNs on the Edge for amazing speed.
-
-### Security, stability, and cost
-You don't need to worry about keeping your database secure since there is no database.
-You can also rest easy knowing your site is stable and that you don't need to maintain
-a complex backend.
-
-You can also use create a Git powered CMS to collaborate on Markdown posts.
-
-Static web hosting has become incredibly cheap, to the point where dozens of companies offer
-free hosting.
+While Hyde favours "convention over configuration" there are a few config options in the `config/hyde.php` file. All settings are prefilled with sensible defaults so you don't need to configure anything unless you want to!
 
 ## Extensions
 Hyde comes with built-in support for Torchlight Syntax Highlighting.
@@ -146,18 +82,14 @@ All you need to do is to set your API token in your .env file and
 Hyde will automatically enable the CommonMark extension.
 
 > Note that when using Torchlight the pages will take longer to generate as API calls need to be made.
-> However, Torchlight caches the response so this only affects the first time running the build, or 
-> if you update the page.
+> However, Torchlight caches the response so this only affects the first time running the build, or if you update the page.
 
 ## Known Issues
-Deleting Markdown posts does not delete the already compiled HTML files.
-In a future update (coming soon(tm)) the builder will remove unused files automatically.
-For now, you can manually delete the files and then run the build command.
+Hyde does not automatically delete compiled HTML files when the source files have been removed. 
+However, you can supply the `--clean` flag to remove all content in the `_site` directory when running the build command.
 
 Currently, only top-level custom pages are supported. In the future, nested pages will be supported.
 For example, _site/directory/page.html
-
-Hyde also currently does not support images, but will soon as it already has the foundation in place to do so.
 
 ## Changelog
 
@@ -185,5 +117,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 > Please see the respective authors' repositories for their license files
 
 - The Hyde core is built with [Laravel Zero](https://laravel-zero.com/) which is based on [Laravel](https://laravel.com/)
-- The frontend is built with [TailwindCSS](https://tailwindcss.com/) with components from [Flowbite](https://flowbite.com/docs/customize/dark-mode/).
-- The default favicon was created using [Favicon.io](https://favicon.io/) using an icon from the amazing open-source project [Twemoji](https://twemoji.twitter.com/). The graphics are copyright 2020 Twitter, Inc and other contributors and are licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- The frontend is built with [TailwindCSS](https://tailwindcss.com/).

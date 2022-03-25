@@ -193,6 +193,6 @@ return [
     |
     */
 
-    'docsDirectory' => 'docs',
+    'docsDirectory' => 'master',
 
 ];

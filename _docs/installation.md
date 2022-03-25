@@ -9,6 +9,8 @@ composer create-project hyde/hyde example-site
 
 cd example-site
 
+npm install && npm run dev
+
 php hyde make:post
 
 php hyde build

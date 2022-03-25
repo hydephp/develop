@@ -93,7 +93,7 @@
             >
                 <header class="h-16 p-4 border-b flex items-center">
                     <h2 class="font-bold opacity-75 hover:opacity-100 w-fit">
-                        <a href="../docs/index.html"> HydePHP Docs </a>
+                        <a href="../master/index.html"> HydePHP Docs </a>
                     </h2>
                 </header>
                 <nav
@@ -159,19 +159,58 @@
                         <h1>
                             HydePHP - Static Blog Builder using Laravel Zero
                         </h1>
+                        <p>
+                            <a href="https://packagist.org/packages/hyde/hyde"
+                                ><img
+                                    style="display: inline; margin: 4px 2px"
+                                    src="https://img.shields.io/packagist/v/hyde/hyde"
+                                    alt="Latest Version on Packagist"
+                            /></a>
+                            <a href="https://packagist.org/packages/hyde/hyde"
+                                ><img
+                                    style="display: inline; margin: 4px 2px"
+                                    src="https://img.shields.io/packagist/dt/hyde/hyde"
+                                    alt="Total Downloads"
+                            /></a>
+                            <a
+                                href="https://packagist.org/packages/hyde/framework"
+                                ><img
+                                    style="display: inline; margin: 4px 2px"
+                                    src="https://img.shields.io/packagist/v/hyde/framework"
+                                    alt="Latest Version on Packagist"
+                            /></a>
+                            <a
+                                href="https://packagist.org/packages/hyde/framework"
+                                ><img
+                                    style="display: inline; margin: 4px 2px"
+                                    src="https://img.shields.io/packagist/dt/hyde/framework"
+                                    alt="Total Downloads"
+                            /></a>
+                            <a
+                                href="https://github.com/hydephp/hyde/blob/master/LICENSE.md"
+                                ><img
+                                    style="display: inline; margin: 4px 2px"
+                                    src="https://img.shields.io/github/license/hydephp/hyde"
+                                    alt="License"
+                            /></a>
+                            <img
+                                style="display: inline; margin: 4px 2px"
+                                src="https://github.com/hydephp/hyde/actions/workflows/tests.yml/badge.svg"
+                                alt="GitHub Actions"
+                            />
+                            <img
+                                style="display: inline; margin: 4px 2px"
+                                src="https://github.com/hydephp/hyde/actions/workflows/codeql-analysis.yml/badge.svg"
+                                alt="GitHub Actions"
+                            />
+                        </p>
                         <h2>⚠ Alpha Software Warning ⚠</h2>
                         <h3>
-                            This is a very new repo that has been made public to
-                            run further tests before the initial release. Please
-                            wait until v1.0 for production use.
+                            This is a very new project that has been made public
+                            to run further tests before the initial release.
+                            Please wait until v1.0 for production use.
                         </h3>
                         <hr />
-                        <blockquote>
-                            <p>
-                                This repo both contains the source code and
-                                serves as a template to get started quickly.
-                            </p>
-                        </blockquote>
                         <p>
                             HydePHP is a Static Site Builder focused on making
                             Blog posts easy and fun. Under the hood, it is
@@ -201,30 +240,41 @@
                             started with, while also remaining easily hackable
                             and extendable.
                         </p>
+                        <h2>Live Demo</h2>
+                        <p>
+                            The Hyde site (<a
+                                href="https://hydephp.github.io/docs/"
+                                >https://hydephp.github.io/docs/</a
+                            >) is fully built with Hyde. That includes the
+                            homepage, the blog, and the
+                            <a
+                                href="https://hydephp.github.io/docs/docs/index.html"
+                                >documentation</a
+                            >!
+                        </p>
                         <h2>Installation</h2>
+                        <blockquote>
+                            <p>
+                                Full installation guide is in the documentation
+                                at
+                                <a href="https://hydephp.github.io/docs/"
+                                    >https://hydephp.github.io/docs/</a
+                                >
+                            </p>
+                        </blockquote>
                         <p>
                             The recommended method of installation is using
                             Composer. However, if you want to run the latest
-                            development version you can clone the Git repo.
+                            development version you can clone the Git repo, see
+                            the
+                            <a
+                                href="https://hydephp.github.io/docs/docs/installation.html"
+                                >full docs</a
+                            >
+                            for instructions.
                         </p>
                         <h3>Using Composer (recommended)</h3>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">composer</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">create-project</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde/hyde</span></div></code></pre>
-                        <h3>Using Git</h3>
-                        <h4>Using the website</h4>
-                        <p>
-                            Navigate to
-                            <a href="https://github.com/hydephp/hyde"
-                                >https://github.com/hydephp/hyde</a
-                            >
-                            and press the green button with the text &quot;Use
-                            this template&quot; and follow the instructions.
-                        </p>
-                        <p>
-                            Remember to run <code>composer install</code> and
-                            <code>npm install &amp;&amp; npm run dev</code>
-                        </p>
-                        <h4>Using CLI</h4>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">git</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">clone</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">https://github.com/hydephp/hyde.git</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #82AAFF;">cd</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #FFCB6B;">composer</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">install</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">install</span><span style="color: #A6ACCD;"> </span><span style="color: #89DDFF;">&amp;&amp;</span><span style="color: #A6ACCD;"> </span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">run</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">dev</span></div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">composer</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">create-project</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde/hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">--stability=dev</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #82AAFF;">cd</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">install</span><span style="color: #A6ACCD;"> </span><span style="color: #89DDFF;">&amp;&amp;</span><span style="color: #A6ACCD;"> </span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">run</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">dev</span></div></code></pre>
                         <h3>Requirements</h3>
                         <blockquote>
                             <p>
@@ -246,27 +296,25 @@
                             <code>php hyde make:post</code> command.
                         </p>
                         <h3>Usage</h3>
-                        <h4>Writing posts</h4>
                         <p>
-                            Posts are written in Markdown and saved in the
-                            _posts directory. Save your file as
-                            <code>kebab-case-slug.md</code>. Post metadata is
-                            added as YAML Front Matter
+                            Hyde scans the source directories prefixed with
+                            _underscores for Markdown files and intelligently
+                            compiles them into static HTML using Blade
+                            templates. The site is then saved in _docs.
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="yaml" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #F07178;">title</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">My New Post</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #F07178;">description</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">A short description used in previews and SEO</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span><span style="color: #F07178;">category</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">blog</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span><span style="color: #F07178;">author</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">Mr. Hyde</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">6</span><span style="color: #F07178;">date</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">2022-03-14 15:00</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">7</span><span style="color: #FFCB6B;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">8</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">9</span><span style="color: #676E95;"># Write your Markdown here</span></div></code></pre>
-                        <blockquote>
-                            <p>
-                                You can also create simple static pages by
-                                creating Markdown files in the _pages directory.
-                            </p>
-                        </blockquote>
-                        <blockquote>
-                            <p>
-                                You can even create pages with full Blade
-                                support by creating files ending in .blade.php
-                                in the resources/views/pages directory.
-                            </p>
-                        </blockquote>
+                        <p>
+                            Hyde is &quot;blog and documentation aware&quot; and
+                            has built-in templates for both blogging and for
+                            creating beautiful documentation pages based on
+                            Laradocgen. Since Hyde is modular you can of course
+                            disable the modules you don't need.
+                        </p>
+                        <p>
+                            The full usage guide is in the documentation at
+                            <a href="https://hydephp.github.io/docs/"
+                                >https://hydephp.github.io/docs/</a
+                            >
+                        </p>
                         <h4>Building the static site</h4>
                         <p>
                             Then to compile the site into static HTML all you
@@ -277,130 +325,44 @@
                             Your site will then be saved in the _site directory,
                             which you can then upload to your static web host.
                             All links use relative paths, so you can deploy to a
-                            subdirectory without any problems. The site also
-                            works great when browsing the HTML files locally.
+                            subdirectory without any problems which also makes
+                            the site work great when browsing the HTML files
+                            locally even without a web server.
                         </p>
                         <p>
                             If it is the first time building the site or if you
                             have updated the source SCSS you also need to run
-                            <code>npm install &amp;&amp; npm run dev</code>.
+                            <code>npm install &amp;&amp; npm run dev</code> to
+                            build the frontend assets.
                         </p>
-                        <blockquote>
-                            <p>
-                                <code>npm run dev</code> and
-                                <code>npm run prod</code> both first build the
-                                static site and compiles the styles. The latter
-                                command also minifies the CSS.
-                            </p>
-                        </blockquote>
-                        <h4>Live preview</h4>
+                        <h3>Live preview</h3>
                         <p>
-                            Use
-                            <code>npm install &amp;&amp; npm run watch</code> to
-                            watch the files for changes and start up a local dev
-                            server on port 3000 using Browsersync.
+                            Use <code>npm run watch</code> to watch the files
+                            for changes and start up a local dev server on port
+                            3000 using Browsersync.
                         </p>
                         <h3>NPM Commands</h3>
                         <p>
-                            To help in developing the
-                            <code>package.json</code> comes with a few built-in
-                            scripts. Make sure you have Node and NPM installed.
+                            See all commands in the documentation
+                            <a
+                                href="https://hydephp.github.io/docs/docs/console-commands.html"
+                                >Console Commands</a
+                            >
                         </p>
-                        <blockquote>
-                            <p>
-                                If it is the first time running a command,
-                                remember to run <code>npm install</code> first!
-                            </p>
-                        </blockquote>
-                        <p>The main commands are:</p>
-                        <ul>
-                            <li>
-                                <code>npm run dev</code>
-                            </li>
-                            <li>
-                                <code>npm run prod</code>
-                            </li>
-                            <li>
-                                <code>npm run watch</code>
-                            </li>
-                        </ul>
-                        <h4>Dev: Build the site for development</h4>
+                        <h2>Hacking Hyde</h2>
                         <p>
-                            Runs the <code>php hyde build</code> command,
-                            compiles the SASS and Tailwind
-                        </p>
-                        <h4>Prod: Build the site for production</h4>
-                        <p>
-                            Runs the <code>php hyde build</code> command,
-                            compiles the SASS and Tailwind and minifies the
-                            output.
-                        </p>
-                        <h4>Watch: Watching files for changes</h4>
-                        <p>
-                            Hyde has a real-time compiler that watches your
-                            files for changes and rebuilds the site on the fly.
-                        </p>
-                        <blockquote>
-                            <p>
-                                Currently, all pages are rebuilt, but in a
-                                future update, only the affected files will be
-                                rebuilt.
-                            </p>
-                        </blockquote>
-                        <p>
-                            The real-time viewer also uses Browsersync which
-                            starts a local web server and automatically
-                            refreshes your pages once they are changed.
-                        </p>
-                        <p><strong>To start the preview run</strong></p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">run</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">watch</span></div></code></pre>
-                        <p>
-                            A browser page should automatically be opened. If
-                            not, just navigate to
-                            <a href="http://localhost:3000/"
-                                >http://localhost:3000/</a
-                            >.
-                        </p>
-                        <h3>Hacking Hyde</h3>
-                        <p>
-                            Hyde is designed to be easy to use and easy to hack.
-                            You can modify the source views and SCSS, customize
-                            the Tailwind config, and you can even create 100%
-                            custom HTML and Blade pages that get compiled into
-                            static HTML.
-                        </p>
-                        <h2>Why static sites?</h2>
-                        <h3>Speed, scalability, simplicity</h3>
-                        <p>
-                            With a static site, you don't need to worry about
-                            setting up databases. This makes the site so much
-                            faster as you don't need to wait for a database to
-                            process requests. By pre-compiling the sites you
-                            also don't need to waste time and processing power
-                            on server-side rendering which also speeds up your
-                            site. Furthermore, it makes your site incredibly
-                            scalable as you don't need to worry about keeping
-                            replica databases in sync.
+                            Hyde is designed to be easy to use and easy to
+                            customize and hack. You can modify the source views
+                            and SCSS, customize the Tailwind config, and you can
+                            even create 100% custom HTML and Blade pages that
+                            get compiled into static HTML.
                         </p>
                         <p>
-                            You can even serve the site from global CDNs on the
-                            Edge for amazing speed.
-                        </p>
-                        <h3>Security, stability, and cost</h3>
-                        <p>
-                            You don't need to worry about keeping your database
-                            secure since there is no database. You can also rest
-                            easy knowing your site is stable and that you don't
-                            need to maintain a complex backend.
-                        </p>
-                        <p>
-                            You can also use create a Git powered CMS to
-                            collaborate on Markdown posts.
-                        </p>
-                        <p>
-                            Static web hosting has become incredibly cheap, to
-                            the point where dozens of companies offer free
-                            hosting.
+                            While Hyde favours &quot;convention over
+                            configuration&quot; there are a few config options
+                            in the <code>config/hyde.php</code> file. All
+                            settings are prefilled with sensible defaults so you
+                            don't need to configure anything unless you want to!
                         </p>
                         <h2>Extensions</h2>
                         <p>
@@ -420,21 +382,17 @@
                         </blockquote>
                         <h2>Known Issues</h2>
                         <p>
-                            Deleting Markdown posts does not delete the already
-                            compiled HTML files. In a future update (coming
-                            soon(tm)) the builder will remove unused files
-                            automatically. For now, you can manually delete the
-                            files and then run the build command.
+                            Hyde does not automatically delete compiled HTML
+                            files when the source files have been removed.
+                            However, you can supply the
+                            <code>--clean</code> flag to remove all content in
+                            the <code>_site</code> directory when running the
+                            build command.
                         </p>
                         <p>
                             Currently, only top-level custom pages are
                             supported. In the future, nested pages will be
                             supported. For example, _site/directory/page.html
-                        </p>
-                        <p>
-                            Hyde also currently does not support images, but
-                            will soon as it already has the foundation in place
-                            to do so.
                         </p>
                         <h2>Changelog</h2>
                         <p>
@@ -494,25 +452,6 @@
                                 The frontend is built with
                                 <a href="https://tailwindcss.com/"
                                     >TailwindCSS</a
-                                >
-                                with components from
-                                <a
-                                    href="https://flowbite.com/docs/customize/dark-mode/"
-                                    >Flowbite</a
-                                >.
-                            </li>
-                            <li>
-                                The default favicon was created using
-                                <a href="https://favicon.io/">Favicon.io</a>
-                                using an icon from the amazing open-source
-                                project
-                                <a href="https://twemoji.twitter.com/"
-                                    >Twemoji</a
-                                >. The graphics are copyright 2020 Twitter, Inc
-                                and other contributors and are licensed under
-                                <a
-                                    href="https://creativecommons.org/licenses/by/4.0/"
-                                    >CC-BY 4.0</a
                                 >.
                             </li>
                         </ul>
