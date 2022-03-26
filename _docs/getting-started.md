@@ -78,17 +78,10 @@ The sidebar will like magic be populated with all the documentation pages. The p
 
 Hyde Markdown Pages are perfect for simple content-driven pages. Some examples of this may be "About Us" pages, or legal pages such as "Terms of Service" and "Privacy Policy".
 
-The Markdown pages work similarly to blog posts, but currently only supports the title front matter.
+The Markdown pages work similarly to Documentation pages, but are use a simple Blade layout.
+To create a Markdown page, all you need to do is create a file ending in .md in the _pages directory. 
 
-To create a Markdown page, all you need to do is create a file ending in .md in the _pages directory. Here is an example template to get you started!
-```markdown
----
-title: Markdown Page Example
----
-
-## This Markdown file will be turned into a simple static HTML page
-```
-
+The page title is automatically inferred from the first # H1 heading.
 
 ### Hyde Pages using Blade
 

@@ -331,15 +331,15 @@
                             Policy&quot;.
                         </p>
                         <p>
-                            The Markdown pages work similarly to blog posts, but
-                            currently only supports the title front matter.
+                            The Markdown pages work similarly to Documentation
+                            pages, but are use a simple Blade layout. To create
+                            a Markdown page, all you need to do is create a file
+                            ending in .md in the _pages directory.
                         </p>
                         <p>
-                            To create a Markdown page, all you need to do is
-                            create a file ending in .md in the _pages directory.
-                            Here is an example template to get you started!
+                            The page title is automatically inferred from the
+                            first # H1 heading.
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="markdown" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #A6ACCD;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #F07178;">title</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">Markdown Page Example</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #A6ACCD;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span><span style="color: #89DDFF;">## </span><span style="color: #FFCB6B;">This Markdown file will be turned into a simple static HTML page</span></div></code></pre>
                         <h3>Hyde Pages using Blade</h3>
                         <p>
                             If you want full control over a static page you can
