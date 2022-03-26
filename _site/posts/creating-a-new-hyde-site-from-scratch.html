@@ -226,13 +226,13 @@
                             Creating a site with Hyde is easy, especially when
                             using Composer!
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>composer create-project hyde/hyde tutorial-demo</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">composer</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">create-project</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde/hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">tutorial-demo</span></div></code></pre>
                         <p>
                             CD into the created directory using
                             <code>cd tutorial demo</code>
                         </p>
                         <p>Right away you can run the build command</p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>php hyde build</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">php</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">build</span></div></code></pre>
                         <p>
                             and open the generated HTML page that is stored as
                             <code>index.html</code> in the
@@ -266,7 +266,7 @@
                             allow it to be overwritten. This is a safeguard in
                             case you have changed the file yourself.
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>php hyde publish:homepage --force</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">php</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">hyde</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">publish:homepage</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">--force</span></div></code></pre>
                         <p>
                             We will be asked if we want to rebuild the site,
                             let's hit 'yes' and take a look!
@@ -310,7 +310,7 @@
                             automatically created from the title and the date
                             was automatically parsed from the current time.
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="markdown" class='torchlight' style=''><div class='line'>---</div><div class='line'>title: Hello World!</div><div class='line'>description: This will show up in the article excerpt and SEO meta tags</div><div class='line'>category: demo</div><div class='line'>author: Caen</div><div class='line'>date: 2022-03-25 21:20</div><div class='line'>---</div><div class='line'></div><div class='line'>## Write something awesome.</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="markdown" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #A6ACCD;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #F07178;">title</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">Hello World!</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #F07178;">description</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">This will show up in the article excerpt and SEO meta tags</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span><span style="color: #F07178;">category</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">demo</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span><span style="color: #F07178;">author</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">Caen</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">6</span><span style="color: #F07178;">date</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">2022-03-25 21:20</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">7</span><span style="color: #A6ACCD;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">8</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">9</span><span style="color: #89DDFF;">## </span><span style="color: #FFCB6B;">Write something awesome.</span></div></code></pre>
                         <p>Let's rebuild the site and take a look!</p>
                         <p>
                             As you can see, the excerpt automatically shows up
@@ -338,9 +338,9 @@
                             need to add a block of front matter with the page
                             title.
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>touch _pages/about-us.md</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">touch</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">_pages/about-us.md</span></div></code></pre>
                         <p>and add some content</p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="markdown" class='torchlight' style=''><div class='line'>---</div><div class='line'>title: About Us</div><div class='line'>---</div><div class='line'></div><div class='line'># This is an example of a Markdown-based static HTML page built with Hyde</div><div class='line'></div><div class='line'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div><div class='line'>tempor incididunt ut labore et dolore magna aliqua...</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="markdown" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #A6ACCD;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #F07178;">title</span><span style="color: #89DDFF;">:</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">About Us</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #A6ACCD;">---</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span><span style="color: #89DDFF;"># </span><span style="color: #FFCB6B;">This is an example of a Markdown-based static HTML page built with Hyde</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">6</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">7</span><span style="color: #A6ACCD;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">8</span><span style="color: #A6ACCD;">tempor incididunt ut labore et dolore magna aliqua...</span></div></code></pre>
                         <p>And rebuild the site:</p>
                         <p>
                             <img
@@ -370,9 +370,9 @@
                             should install the dependencies. Make sure you have
                             Node and NPM installed!
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>npm install</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">install</span></div></code></pre>
                         <p>Next, we run the command to start the RC:</p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>npm run watch</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">npm</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">run</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">watch</span></div></code></pre>
                         <p>
                             A window in your default browser should now open up
                             automatically. If not, just navigate to
@@ -402,7 +402,7 @@
                             <code>resources/views/pages</code> directory.
                         </p>
                         <p>Let's create the file using the CLI.</p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>touch resources/views/pages/about-us.blade.php</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">touch</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">resources/views/pages/about-us.blade.php</span></div></code></pre>
                         <blockquote>
                             <p>
                                 By the way, this is the same directory where we
@@ -427,7 +427,7 @@
                             stylesheets etc. Feel free to use the code below to
                             kickstart creating your custom Blade page!
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="blade" class='torchlight' style=''><div class='line'>@extends('hyde::layouts.app')</div><div class='line'>@section('content')</div><div class='line'>@php($title = &quot;My Custom Title&quot;) {{-- This is optional, but lets us set the page title --}}</div><div class='line'></div><div class='line'>// Place content here</div><div class='line'></div><div class='line'>@endsection</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="blade" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #89DDFF;">@extends</span><span style="color: #A6ACCD;">(</span><span style="color: #89DDFF;">&#39;</span><span style="color: #C3E88D;">hyde::layouts.app</span><span style="color: #89DDFF;">&#39;</span><span style="color: #A6ACCD;">)</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">2</span><span style="color: #89DDFF;">@section</span><span style="color: #A6ACCD;">(</span><span style="color: #89DDFF;">&#39;</span><span style="color: #C3E88D;">content</span><span style="color: #89DDFF;">&#39;</span><span style="color: #A6ACCD;">)</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">3</span><span style="color: #89DDFF;">@php</span><span style="color: #A6ACCD;">(</span><span style="color: #89DDFF;">$</span><span style="color: #A6ACCD;">title </span><span style="color: #89DDFF;">=</span><span style="color: #A6ACCD;"> </span><span style="color: #89DDFF;">&quot;</span><span style="color: #C3E88D;">My Custom Title</span><span style="color: #89DDFF;">&quot;</span><span style="color: #A6ACCD;">) </span><span style="color: #676E95;">{{-- This is optional, but lets us set the page title --}}</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">4</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">5</span><span style="color: #A6ACCD;">// Place content here</span></div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">6</span>&nbsp;</div><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">7</span><span style="color: #89DDFF;">@endsection</span></div></code></pre>
                         <p>
                             I'll be uploading this tutorial repo to GitHub so
                             you can take a look at the Blade page. I'm renaming
@@ -456,7 +456,7 @@
                             kebab-case-version-of-the-title.md in the
                             <code>_docs</code> directory.
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>echo &quot;# Hello World!&quot; &gt; _docs/hello-world.md</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #82AAFF;">echo</span><span style="color: #A6ACCD;"> </span><span style="color: #89DDFF;">&quot;</span><span style="color: #C3E88D;"># Hello World!</span><span style="color: #89DDFF;">&quot;</span><span style="color: #A6ACCD;"> </span><span style="color: #89DDFF;">&gt;</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">_docs/hello-world.md</span></div></code></pre>
                         <p>
                             We can now take a look at
                             <a
@@ -521,11 +521,11 @@
                             example file supplied with the project using this
                             command (or by renaming/copying it manually)
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>cp .env.example .env</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #FFCB6B;">cp</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">.env.example</span><span style="color: #A6ACCD;"> </span><span style="color: #C3E88D;">.env</span></div></code></pre>
                         <p>
                             Then in the .env file, add your API token like so:
                         </p>
-                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style=''><div class='line'>TORCHLIGHT_TOKEN=torch_abcdefg123</div></code></pre>
+                        <pre><code data-theme="material-theme-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #00000080;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color:#3A3F58; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">1</span><span style="color: #A6ACCD;">TORCHLIGHT_TOKEN</span><span style="color: #89DDFF;">=</span><span style="color: #A6ACCD;">torch_abcdefg123</span></div></code></pre>
                         <p>
                             Adding the token makes Hyde automatically enable the
                             Torchlight extension.
@@ -562,6 +562,16 @@
                                 href="https://github.com/caendesilva/demo-hyde-tutorial-example-project"
                                 >https://github.com/caendesilva/demo-hyde-tutorial-example-project</a
                             >
+                        </p>
+                        <p class="mt-8">
+                            <i>
+                                Syntax highlighting by
+                                <a
+                                    href="https://torchlight.dev/"
+                                    rel="noopener nofollow"
+                                    >Torchlight.dev</a
+                                >
+                            </i>
                         </p>
                     </div>
                 </article>
