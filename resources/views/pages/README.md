@@ -11,7 +11,7 @@ Files here take precedence over files in _pages! Do not use duplicate slugs.
 ## Using the layout
 If you want to match the styles of the rest of your app you can extend the default layout.
 ```blade
-@extends('layouts.app')
+@extends('hyde::layouts.app')
 @section('content')
 
 // Place content here
