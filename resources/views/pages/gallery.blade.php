@@ -1,12 +1,21 @@
 @extends('hyde::layouts.app')
 @section('content')
+
+<header class="text-center py-4" style="background-color: orange;">
+	<h2 class="font-bold text-lg">🚨 Heads up! This page is still under construction! 👷‍♂️</h2>
+	See the source, and contribute, at <a href="https://github.com/hydephp/docs">GitHub</a>!
+</header>
+
 	<section class="py-16 px-4 lg:min-h-screen text-center">
 		<h1 class="text-2xl md:3-xl lg:text-5xl font-black text-slate-700 px-3 my-3">
 			Turn Markdown into Blog Posts
 		</h1>
 		<strong class="text-xl md:text-2xl lg:text-3xl text-slate-800 px-3">
-			Write content. Not code.
+			Write content. Not code.*
 		</strong>
+		<div class="text-xl text-slate-700">
+			<small>*Unless you want to, of course.</small>
+		</div>
 		<figure class="overflow-hidden mx-auto" style="max-width: 80vw;">
 			<img src="./media/delta-compiled-vector.svg" alt="Code Snippet:
 
