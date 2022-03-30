@@ -1,8 +1,0 @@
-/vendor
-/node_modules
-/builds
-/.idea
-/.vscode
-/.vagrant
-.phpunit.result.cache
-.env
