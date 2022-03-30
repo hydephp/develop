@@ -14,7 +14,7 @@ on:
 
 permissions:
   contents: read
-  
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "deploy"
@@ -32,6 +32,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
+          source-directory: ''
           target-directory: '_docs'
           destination-github-username: 'hydephp'
           destination-repository-name: 'DocsCI'
