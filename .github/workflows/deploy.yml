@@ -27,12 +27,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      # Copy over the root Markdown files into a new directory
+      - name: Copy Markdown files
+        run: mkdir files && cp *.md files
+
       - name: Push Markdown files
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: '*.md'
+          source-directory: 'files'
           target-directory: '_docs'
           destination-github-username: 'hydephp'
           destination-repository-name: 'DocsCI'
