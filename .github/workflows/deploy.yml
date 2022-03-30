@@ -31,9 +31,6 @@ jobs:
       - name: Copy Markdown files
         run: mkdir files && cp *.md files
 
-      - name: Create .nojekyll
-        run: touch files/.nojekyll
-
       - name: Push Markdown files
         uses: cpina/github-action-push-to-another-repository@main
         env:
