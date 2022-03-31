@@ -1,4 +1,4 @@
-Static Blog Builder using Laravel Zero
+# Static Blog Builder using Laravel Zero
 
 <!-- Now 400 Commits! -->
 
@@ -25,12 +25,12 @@ The frontend uses a lightweight minimalist layout built with TailwindCSS which y
 Hyde is designed to be stupidly simple to get started with, while also remaining easily hackable and extendable.
 
 ## Live Demo
-The Hyde site (https://hydephp.github.io/docs/) is fully built with Hyde. That includes the homepage, the blog, and the [documentation](https://hydephp.github.io/docs/docs/index.html)!
+The Hyde site (https://hydephp.github.io/) is fully built with Hyde. That includes the homepage, the blog, and the [documentation](https://hydephp.github.io/docs/master/index.html)!
 
 ## Installation
 > Full installation guide is in the documentation at https://hydephp.github.io/docs/
 
-The recommended method of installation is using Composer. However, if you want to run the latest development version you can clone the Git repo, see the [full docs](https://hydephp.github.io/docs/docs/installation.html) for instructions.
+The recommended method of installation is using Composer. However, if you want to run the latest development version you can clone the Git repo, see the [full docs](https://hydephp.github.io/docs/master/installation.html) for instructions.
 
 ### Using Composer (recommended)
 ```bash
@@ -46,7 +46,7 @@ Hyde uses Laravel 9 which requires PHP >= 8.0. You should also have Composer and
 
 
 ## Getting Started
-It's a breeze to get started. Simply clone the repository, write your Markdown posts and save them to the _posts directory and run the `php hyde build` command. You can scaffold post files using the `php hyde make:post` command.
+It's a breeze to get started. Simply clone the repository, write your Markdown posts and save them to the `_posts` directory and run the `php hyde build` command. You can scaffold post files using the `php hyde make:post` command.
 
 ### Usage
 Hyde scans the source directories prefixed with _underscores for Markdown files and intelligently compiles them into static HTML using Blade templates. The site is then saved in _docs.
@@ -62,7 +62,7 @@ Then to compile the site into static HTML all you have to do is execute the Hyde
 php hyde build
 ```
 
-Your site will then be saved in the _site directory, which you can then upload to your static web host.
+Your site will then be saved in the `_site` directory, which you can then upload to your static web host.
 All links use relative paths, so you can deploy to a subdirectory without any problems which also makes the site work great when browsing the HTML files locally even without a web server.
 
 If it is the first time building the site or if you have updated the source SCSS you also need to run `npm install && npm run dev` to build the frontend assets.
