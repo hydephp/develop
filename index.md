@@ -1,4 +1,4 @@
-# HydePHP - Static Blog Builder using Laravel Zero
+Static Blog Builder using Laravel Zero
 
 <!-- Now 400 Commits! -->
 
