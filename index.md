@@ -71,7 +71,7 @@ If it is the first time building the site or if you have updated the source SCSS
 Use `npm run watch` to watch the files for changes and start up a local dev server on port 3000 using Browsersync.
 
 ### NPM Commands
-See all commands in the documentation [Console Commands](https://hydephp.github.io/docs/docs/console-commands.html)
+See all commands in the documentation [Console Commands](https://hydephp.github.io/docs/master/console-commands.html)
 
 ## Hacking Hyde
 Hyde is designed to be easy to use and easy to customize and hack. You can modify the source views and SCSS, customize the Tailwind config, and you can even create 100% custom HTML and Blade pages that get compiled into static HTML.
@@ -95,11 +95,11 @@ For example, _site/directory/page.html
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+<!-- @todo create Changelog - Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently. -->
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+<!-- @todo create Contributing - Please see [CONTRIBUTING](CONTRIBUTING.md) for details. -->
 
 ## Security
 
@@ -109,11 +109,11 @@ All vulnerabilities will be promptly addressed.
 ## Credits
 
 -   [Caen De Silva](https://github.com/caendesilva)
--   [All Contributors](../../contributors)
+<!-- @todo create Contributors -   [All Contributors](../../contributors) -->
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/hydephp/framework/blob/master/LICENSE.md) for more information.
 
 ## Attributions
 > Please see the respective authors' repositories for their license files
