@@ -1,4 +1,4 @@
-# Getting Started
+# Directory Structure
 
 To take full advantage of the framework, it may first be good to familiarize ourselves with the directory structure.
 
@@ -6,19 +6,16 @@ To take full advantage of the framework, it may first be good to familiarize our
 ```
 // torchlight! {"lineNumbers": false}
 ├── _docs              
-├── _drafts            
 ├── _pages             
 ├── _posts             
 ├── _site              
 ├── config             
 ├── resources
+│   └── sass
 │   └── views          
 │       ├── components 
 │       ├── layouts    
-│       ├── pages      
-├── src                
-│   └── resources
-│       └── sass
+│       └── pages      
 ```
 
 ## Directory Explanation 
@@ -71,9 +68,6 @@ Perfect for about pages, or terms of service policy pages!
 
 > Make sure the slug does not conflict with a custom Blade page as Markdown pages are compiled first and may be overwritten.
 
-#### `_drafts` 
-This is a good place to store posts you are not ready to post. Files in this directory are ignored by Hyde.
-
 #### `_site` 
 This is where the compiled static site is stored. You should not edit files here as they may get overwritten.
 
@@ -88,21 +82,12 @@ The config directory contains configuration files. The most interesting one is p
 This is a special directory.
 
 All files here ending in .blade.php will be saved as .html pages in the saved site.
-This is useful as you can both extend the default layout, or you can write your view fully.
-The latter allows for a really neat hack which is used on this site to redirect index.html to the documentation front page!
+The default homepage is stored in this directory as `index.blade.php`. You can publish any of the other build in homepages using the `hyde publish:homepage` command.
 
 **Limitations:** Only top-level posts are supported. Files should use kebab-case format and must also end .blade.php.
 
 > Make sure the slug does not conflict with a Markdown page as they are compiled first and will be overwritten if your Blade page has the same name.
 
 
-#### `src/resources`
-This directory contains source files for frontend assets such as the SASS/SCSS files.
-
-```
-// torchlight! {"lineNumbers": false}
-
-resources
-└── sass
-```
-
+#### `resources/sass`
+This directory contains source files for frontend assets such as the SASS/SCSS files used when running the `npm run dev/prod` scripts.
