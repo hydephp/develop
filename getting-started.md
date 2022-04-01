@@ -56,11 +56,11 @@ date: YYYY-MM-DD 16:00
 
 #### Tutorial
 
-For a full tutorial see https://hydephp.github.io/docs/posts/creating-a-static-html-post-using-hydephp.html
+For a full tutorial see https://hydephp.github.io/posts/creating-a-static-html-post-using-hydephp.html
 
-
+<!-- 
 #### Deep-dive
-> Deepdives take a closer look into how a feature works behind the scenes. While not required to know it can help to understand the "magic" behind Hyde.
+> Deepdives take a closer look into how a feature works behind the scenes. While not required to know it can help to understand the "magic" behind Hyde. -->
 
 ### Hyde Docs 
 
@@ -83,12 +83,22 @@ To create a Markdown page, all you need to do is create a file ending in .md in 
 
 The page title is automatically inferred from the first # H1 heading.
 
+You can scaffold Markdown pages using
+```bash
+php hyde make:page "Page Name"
+```
+
 ### Hyde Pages using Blade
 
 If you want full control over a static page you can create blade views in the pages directory `resources\views\pages`, and they will be compiled into static HTML.
 
 Currently, only top-level pages are supported. The filename of the generated file is based on the view filename.
 For example, `resources\views\pages\custom-page.blade.php` gets saved as `_site\custom-page.html`.
+
+You can scaffold Blade pages using the make:page command to automatically create the file based on the default layout.
+```bash
+php hyde make:page "Page Name" --type=blade
+```
 
 **⚠ Warning:**
 Files here take precedence over files in _pages! Do not use duplicate slugs.
