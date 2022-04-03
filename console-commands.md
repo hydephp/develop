@@ -41,6 +41,14 @@ php hyde build
 
 > If you want to to prettify the output HTML you can add the `--pretty` option. This requires that you have Node and NPM installed as it uses the Prettier NPM module.
 
+#### The Rebuild Command
+
+Using the `php hyde build` command is great and all that, but when you just need to update that one file it gets a little... overkill.
+
+Let's solve that! Use the `php hyde rebuild <file>` command!
+
+In the future it will support an array of files, but for now, the rebuild command will recompile just that file.
+
 ### The Post Make Command
 You can of course create blog posts the old fashioned way by just creating the files yourself, but what's the fun in that?
 
@@ -126,6 +134,8 @@ All done!
 The NPM commands are used to compile the frontend CSS assets and to run the realtime compiler.
 
 Make sure you have Node and NPM installed to use these, and if it's the first time running a command, remember to run `npm install` first!
+
+If you don't have Node and NPM installed, and you don't want to install them you can download the [prebuilt styles from GitHub](https://github.com/hydephp/hyde/tree/master/_site/media).
 
 ## Commands for the frontend assets
 - **`npm run dev`** - Compiles the SASS and Tailwind

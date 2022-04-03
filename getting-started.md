@@ -131,3 +131,16 @@ To reference an image in your Markdown, use the following syntax
 Since most images are probably going to be in blog posts or documentation pages you need to prepend the `../` before the "media". However, if you are referencing the image on a Markdown page you should use `media/image.png` for the path.
 
 > Nested media directories are not yet supported.
+
+
+### Building the static site
+
+To compile the site into static HTML all you have to do is execute the Hyde build command.
+```bash
+php hyde build
+```
+
+Your site will then be saved in the _site directory, which you can then upload to your static web host.
+All links use relative paths, so you can deploy to a subdirectory without any problems which also makes the site work great when browsing the HTML files locally even without a web server.
+
+If it is the first time building the site or if you have updated the source SCSS you should also run `npm install && npm run dev` to build the frontend assets.
