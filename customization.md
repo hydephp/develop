@@ -46,7 +46,7 @@ The navigation menu is a bit more sophisticated, it adds all the top-level Blade
 #### Reordering Items
 Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this), so you will probably want to set a custom order.
 
-Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If a slug is found here they will get the priority according to their position in the list. If a page does not exist in the list they get the priority 999, which puts them last.
+Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If a slug is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
 
 Let's see an example:
 ```php
@@ -102,3 +102,8 @@ Hyde uses the Laravel templating system called Blade. Most parts have been extra
 > Before editing Blade views you should familiarize yourself with how they work in the official documentation https://laravel.com/docs/9.x/blade.
 
 To edit the default component you need to publish them first using the `hyde publish:views` command.
+
+## Frontend Styles
+Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly.
+
+Please see the chapter in the [Getting Started](getting-started.html) page to learn more.

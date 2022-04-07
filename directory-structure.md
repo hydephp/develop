@@ -6,12 +6,13 @@ To take full advantage of the framework, it may first be good to familiarize our
 ```
 // torchlight! {"lineNumbers": false}
 ├── _docs              
+├── _media              
 ├── _pages             
 ├── _posts             
 ├── _site              
 ├── config             
 ├── resources
-│   └── sass
+│   └── frontend
 │   └── views          
 │       ├── components 
 │       ├── layouts    
@@ -55,7 +56,7 @@ The sidebar will automatically be populated with the page title which is derived
 
 This documentation page is built with HydeDocs, and you can take a look at the source code on https://github.com/hydephp/docs which also serves this site through GitHub Pages.
 
-**Limitations:** Currently only top-level posts are supported. Soon (hopefully) you will be able to put files in subdirectories, or alternatively specify a parent, to create a sidebar with categories.
+**Limitations:** Currently only top-level posts are supported. Soon (hopefully) you will be able to put files in subdirectories, or specify a parent, to create a sidebar with categories.
 
 Files should use kebab-case format and must also end in .md and contain front matter to be recognized.
 
@@ -82,12 +83,14 @@ The config directory contains configuration files. The most interesting one is p
 This is a special directory.
 
 All files here ending in .blade.php will be saved as .html pages in the saved site.
-The default homepage is stored in this directory as `index.blade.php`. You can publish any of the other build in homepages using the `hyde publish:homepage` command.
+The default homepage is stored in this directory as `index.blade.php`. You can publish any of the other built-in homepages using the `hyde publish:homepage` command.
 
 **Limitations:** Only top-level posts are supported. Files should use kebab-case format and must also end .blade.php.
 
 > Make sure the slug does not conflict with a Markdown page as they are compiled first and will be overwritten if your Blade page has the same name.
 
 
-#### `resources/sass`
-This directory contains source files for frontend assets such as the SASS/SCSS files used when running the `npm run dev/prod` scripts.
+#### `resources/frontend`
+This directory contains the frontend source files.
+
+The default frontend resource files are as follows. Please see the chapter in the [Getting Started](getting-started.html) page to learn more.

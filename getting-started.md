@@ -28,7 +28,7 @@ In both cases, the markdown file should use the kebab-case format and end in .md
 For example:
 `_posts/hello-world.md` will become `_site/posts/hello-world.html`
 
-After creating your post run `php hyde build` to build your site! You should also look at the section dedicated to building the site if you have not already.
+After creating your post, run `php hyde build` to build your site! You should also look at the section dedicated to building the site if you have not already.
 
 #### About Front Matter
 These posts use a YAML syntax called "Front Matter" which you may be familiar with from frameworks like Jekyll.
@@ -66,7 +66,7 @@ For a full tutorial see https://hydephp.github.io/posts/creating-a-static-html-p
 
 The Hyde Docs is based on Laradocgen and _automagically_ turns Markdown pages into documentation pages. They are what powers this documentation site!
 
-Creating documentation pages are a piece of cake. Create a file following the format of kebab-case-version-of-the-title.md in the _docs directory. Put any content you want in it, and run the build command.
+Creating documentation pages is a piece of cake. Create a file following the format of kebab-case-version-of-the-title.md in the _docs directory. Put any content you want in it, and run the build command.
 
 The sidebar will like magic be populated with all the documentation pages. The page titles in the sidebar are generated from the filename, and the HTML page title is inferred from the first H1 tag.
 
@@ -78,10 +78,16 @@ The sidebar will like magic be populated with all the documentation pages. The p
 
 Hyde Markdown Pages are perfect for simple content-driven pages. Some examples of this may be "About Us" pages, or legal pages such as "Terms of Service" and "Privacy Policy".
 
-The Markdown pages work similarly to Documentation pages, but are use a simple Blade layout.
+The Markdown pages work similarly to Documentation pages but use a simple Blade layout, putting the focus on your content.
 To create a Markdown page, all you need to do is create a file ending in .md in the _pages directory. 
 
-The page title is automatically inferred from the first # H1 heading.
+You can use front matter to set the page title,
+```markdown
+---
+title: Hello World!
+---
+```
+If you don't use front matter, the page title is automatically inferred from the first # H1 heading.
 
 You can scaffold Markdown pages using
 ```bash
@@ -133,7 +139,7 @@ Since most images are probably going to be in blog posts or documentation pages 
 > Nested media directories are not yet supported.
 
 
-### Building the static site
+## Building the static site
 
 To compile the site into static HTML all you have to do is execute the Hyde build command.
 ```bash
@@ -144,3 +150,34 @@ Your site will then be saved in the _site directory, which you can then upload t
 All links use relative paths, so you can deploy to a subdirectory without any problems which also makes the site work great when browsing the HTML files locally even without a web server.
 
 If it is the first time building the site or if you have updated the source SCSS you should also run `npm install && npm run dev` to build the frontend assets.
+
+## Frontend stylesheets and scripts
+
+Hyde is designed to not only serve as a framework but a whole starter kit. Hyde comes with a Tailwind starter template for you to get up and running quickly.
+
+### The default frontend resource files are as follows:
+
+- **App.css**
+This file is mostly blank and only contains the TailwindCSS imports. If you want to add your own styles, this is a great place. Running `npm run dev/prod` will compile the Tailwind styles and any custom ones you define into `./_site/media/app.css`.
+
+- **Hyde.css**
+This file contains the base styles and should be loaded after App.css as it contains some Tailwind tweaks.
+
+- **Hyde.js**
+This file contains basic scripts to make the navigation menu and sidebars interactive.
+
+You can customize all of them to your liking, however, if you edit the Hyde.css or Hyde.js you may need to merge them manually when updating to a version if they have been changed. All three files will get copied into the `./_site/media/` directory when running the build command.
+
+### Updating to the latest version
+When updating Hyde, you may need to update the frontend resource files. You can do this using the following command:
+```bash
+php hyde update:resources
+```
+
+Note that this command will overwrite existing files!
+The following files in the `resources/frontend/` directory will be overwritten:
+- hyde.css
+- hyde.js
+- app.css
+Back up your content before running the command! (use Git so you can merge any conflicts)
+
