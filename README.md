@@ -39,3 +39,6 @@ The frontend files are stored in the Hydephp/Framework repo in the `resources/fr
 ```bash
 php hyde update:resources
 ```
+
+## Beta software notice
+HydePHP is a currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s><i>expected</i>.
