@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "description": "Frontend assets for HydePHP",
   "scripts": {
-    "prod": "sass hyde.scss hyde.css --style=compressed --no-source-map",
+    "prod": "sass hyde.scss hyde.css --style=compressed --no-source-map && uglifyjs --compress --mangle --output hyde.min.js hyde.js",
     "dev": "sass hyde.scss hyde.css"
   },
   "repository": {
@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/hydephp/hydefront/issues"
   },
-  "homepage": "https://github.com/hydephp/hydefront#readme"
+  "homepage": "https://github.com/hydephp/hydefront#readme",
+  "dependencies": {
+    "sass": "1.50.0",
+    "uglify-js": "^3.15.4"
+  }
 }
