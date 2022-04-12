@@ -1,0 +1,24 @@
+{
+  "name": "hydefront",
+  "version": "0.4.0",
+  "description": "Frontend assets for HydePHP",
+  "scripts": {
+    "prod": "sass hyde.scss hyde.css --style=compressed --no-source-map",
+    "dev": "sass hyde.scss hyde.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hydephp/hydefront.git"
+  },
+  "keywords": [
+    "hydephp",
+    "hyde",
+    "tailwind"
+  ],
+  "author": "Caen De Silva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hydephp/hydefront/issues"
+  },
+  "homepage": "https://github.com/hydephp/hydefront#readme"
+}
