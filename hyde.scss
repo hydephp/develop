@@ -40,6 +40,12 @@
 	}
 }
 
+.dark {
+	#sidebar-navigation li.list-item-active a {
+		color: #fff;
+	}
+}
+
 #documentation-sidebar {
 	@media (max-width: 360px) {
 		width: 100%;
