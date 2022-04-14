@@ -10,7 +10,7 @@ use Hyde\RealtimeCompiler\Actions\SourceFileFinder;
 class Router
 {
     public string $uri;
-    private string $sourceFile;
+    private string|null $sourceFile;
 
     /**
      * @param string $uri
