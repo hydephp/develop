@@ -2,6 +2,8 @@
 
 namespace Hyde\RealtimeCompiler;
 
+use Hyde\RealtimeCompiler\Actions\CompilesSourceFile;
+
 class Compiler
 {
     public string $path;
@@ -26,7 +28,7 @@ class Compiler
     private function compile(): string
     {
         // TODO: Implement compile() method which boots Hyde and compiles the page
-        return file_get_contents($this->path);
+        return (new CompilesSourceFile($this->path))->execute();
     }
 
     private function transform(string $stream): string
