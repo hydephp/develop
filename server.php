@@ -23,6 +23,8 @@
 define('PROXY_START', microtime(true));
 define('HYDE_PATH', realpath('../../'));
 
+define('LOG_DEBUG_MESSAGES', false);
+
 $uri = urldecode(
   parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 );

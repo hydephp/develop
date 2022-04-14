@@ -36,7 +36,7 @@ class SourceFileFinder
 
         $this->relativePath = $this->getRelativePath();
 
-        Server::log('SourceFileFinder: Assuming source file is ' . $this->relativePath);
+        Server::log('SourceFileFinder: Assuming source file is ' . $this->relativePath, true);
 
         $this->filepath = $this->getFilepath();
 
@@ -45,7 +45,7 @@ class SourceFileFinder
             return null;
         }
 
-        Server::log('SourceFileFinder: Found source file ' . $this->filepath);
+        Server::log('SourceFileFinder: Found source file ' . $this->filepath, true);
         return $this->filepath;
     }
 
@@ -116,12 +116,12 @@ class SourceFileFinder
         }
 
         if (! file_exists($filepath)) {
-            Server::log('SourceFileFinder: File is not Markdown');
+            Server::log('SourceFileFinder: File is not Markdown', true);
             return false;
         }
 
         $this->extension = 'md';
-        Server::log('SourceFileFinder: File is Markdown');
+        Server::log('SourceFileFinder: File is Markdown', true);
         return true;
     }
 
@@ -138,12 +138,12 @@ class SourceFileFinder
         }
 
         if (! file_exists($filepath)) {
-            Server::log('SourceFileFinder: File is not Blade');
+            Server::log('SourceFileFinder: File is not Blade', true);
             return false;
         }
 
         $this->extension = 'blade';
-        Server::log('SourceFileFinder: File is Blade');
+        Server::log('SourceFileFinder: File is Blade', true);
         return true;
     }
 

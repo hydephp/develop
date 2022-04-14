@@ -19,7 +19,7 @@ class CompilesSourceFile
 
     public function execute()
     {
-        Server::log('Compiler: building page');
+        Server::log('Compiler: Building page...');
         $output =  shell_exec('php '.HYDE_PATH.'/hyde rebuild '.$this->path);
         Server::log('Compiler: ' . $output);
 
