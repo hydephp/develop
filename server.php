@@ -12,6 +12,7 @@
 // @todo Cache compiled files
 
 define('PROXY_START', microtime(true));
+define('HYDE_PATH', realpath('../../../'));
 
 $uri = urldecode(
   parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
@@ -28,4 +29,5 @@ if ($uri !== '/' && file_exists(getcwd().'/public'.$uri)) {
 require 'vendor/autoload.php';
 
 // Serve the application.
-require_once getcwd().'/public/index.php';
+
+\Hyde\RealtimeCompiler\HydeRC::boot($uri);

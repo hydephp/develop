@@ -8,18 +8,13 @@ class HydeRC
     {
         Server::log('Bootloader: Start time ' . PROXY_START);
         Server::log('HydeRC: Booting Realtime Compiler...');
-        Server::log('HydeRC: Hyde Installation Path: ' . static::getHydePath());
+        Server::log('HydeRC: Hyde Installation Path: ' . HYDE_PATH);
 
         $proxy = new Proxy($uri);
         $proxy->serve();
 
         Server::log('HydeRC: Finished handling request. Execution time: ' . static::getExecutionTime() . 'ms.');
         Server::log('Bootloader: Stop time: ' . microtime(true));
-    }
-
-    public static function getHydePath()
-    {
-        return realpath(__DIR__ . '/../../../');
     }
 
     public static function getExecutionTime()

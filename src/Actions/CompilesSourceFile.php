@@ -2,7 +2,6 @@
 
 namespace Hyde\RealtimeCompiler\Actions;
 
-use Hyde\Framework\Services\RebuildService;
 use Hyde\RealtimeCompiler\Server;
 
 /**
@@ -20,10 +19,11 @@ class CompilesSourceFile
 
     public function execute()
     {
-        $output =  shell_exec('php ../../hyde rebuild '.$this->path);
+        Server::log('Compiler: building page');
+        $output =  shell_exec('php '.HYDE_PATH.'/hyde rebuild '.$this->path);
         Server::log('Compiler: ' . $output);
 
-        return file_get_contents('../../_site/'. $this->formatPathname());
+        return file_get_contents(HYDE_PATH . '/_site/'. $this->formatPathname());
     }
 
     private function formatPathname(): string

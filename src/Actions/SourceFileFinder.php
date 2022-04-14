@@ -99,7 +99,7 @@ class SourceFileFinder
     {
         $components = [];
 
-        $components[] = HydeRC::getHydePath();
+        $components[] = HYDE_PATH;
 
         $components[] = trim($this->directory, '/');
 

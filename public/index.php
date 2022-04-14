@@ -1,5 +1,3 @@
 <?php 
 
-use Hyde\RealtimeCompiler\HydeRC;
-
-HydeRC::boot($uri);
+require_once '../server.php';
