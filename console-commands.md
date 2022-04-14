@@ -79,9 +79,11 @@ The available homepages are:
 - *post feed*: This is the view that this documentation site uses. It contains a listing of the latest posts and was previously the default.
 - *welcome*: This is the current welcome page. Unlike the other pages, the styles are defined inline.
 
-When publishing any of these pages they will be saved as index.blade.php in the resources/views/pages directory which the compiler will use to create the index.html page.
+When publishing any of these pages they will be saved as index.blade.php in the `_pages` directory which the compiler will use to create the index.html page.
 
-#### Publish the Default Views
+Tip: If you want to have a /posts page you can publish the post feed homepage, rename it to `posts.blade.php` and republish another home page!
+
+#### Publish the Default Views & Components
 Since Hyde is based on the Laravel view system the compiler uses Blade views and components. 
 
 Laravel actually registers two locations for the Hyde views: your site's resources/views/vendor directory and the directory source directory in the Framework package.
@@ -138,8 +140,8 @@ Make sure you have Node and NPM installed to use these, and if it's the first ti
 If you don't have Node and NPM installed, and you don't want to install them you can download the [prebuilt styles from GitHub](https://github.com/hydephp/hyde/tree/master/_site/media).
 
 ## Commands for the frontend assets
-- **`npm run dev`** - Compiles the SASS and Tailwind
-- **`npm run prod`** - Compiles the SASS and Tailwind and minifies the output.
+- **`npm run dev`** - Compiles the Tailwind
+- **`npm run prod`** - Compiles the Tailwind and minifies the output.
 
 
 ## Realtime compiler AKA Watching files for changes

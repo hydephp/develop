@@ -96,10 +96,10 @@ php hyde make:page "Page Name"
 
 ### Hyde Pages using Blade
 
-If you want full control over a static page you can create blade views in the pages directory `resources\views\pages`, and they will be compiled into static HTML.
+If you want full control over a static page you can create blade views in the pages directory `_pages`, and they will be compiled into static HTML.
 
 Currently, only top-level pages are supported. The filename of the generated file is based on the view filename.
-For example, `resources\views\pages\custom-page.blade.php` gets saved as `_site\custom-page.html`.
+For example, `_pages\custom-page.blade.php` gets saved as `_site\custom-page.html`.
 
 You can scaffold Blade pages using the make:page command to automatically create the file based on the default layout.
 ```bash
@@ -107,7 +107,8 @@ php hyde make:page "Page Name" --type=blade
 ```
 
 **⚠ Warning:**
-Files here take precedence over files in _pages! Do not use duplicate slugs.
+Blade pages take precedence over Markdown pages! Do not use duplicate slugs.
+For example, if you have both an `about.md` and `about.blade.php`, only the Blade page will be compiled. 
 
 **Using the default layout**
 If you want to match the styles of the rest of your app you can extend the default layout.

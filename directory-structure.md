@@ -15,8 +15,7 @@ To take full advantage of the framework, it may first be good to familiarize our
 │   └── frontend
 │   └── views          
 │       ├── components 
-│       ├── layouts    
-│       └── pages      
+│       └── layouts      
 ```
 
 ## Directory Explanation 
@@ -61,9 +60,11 @@ This documentation page is built with HydeDocs, and you can take a look at the s
 Files should use kebab-case format and must also end in .md and contain front matter to be recognized.
 
 #### `_pages` 
-You can also place Markdown files here and they will be compiled into simple top-level pages.
+You can also place Markdown and Blade files here and they will be compiled into simple top-level pages.
 
-Perfect for about pages, or terms of service policy pages!
+Markdown is perfect for about pages, or terms of service policy pages!
+
+Blade pages are excellent for when you want full control over the layout of your site. The default homepages are built with Blade pages.
 
 **Limitations:** Only top-level pages are supported. Files should use kebab-case format and must also end in .md and contain front matter to be recognized.
 
@@ -78,16 +79,6 @@ When publishing your site this is where you should serve the site from.
 ### Resource Directories
 #### `config` 
 The config directory contains configuration files. The most interesting one is probably `config/hyde.php` where you can set the site name!
-
-### `resources/views/pages`
-This is a special directory.
-
-All files here ending in .blade.php will be saved as .html pages in the saved site.
-The default homepage is stored in this directory as `index.blade.php`. You can publish any of the other built-in homepages using the `hyde publish:homepage` command.
-
-**Limitations:** Only top-level posts are supported. Files should use kebab-case format and must also end .blade.php.
-
-> Make sure the slug does not conflict with a Markdown page as they are compiled first and will be overwritten if your Blade page has the same name.
 
 
 #### `resources/frontend`
