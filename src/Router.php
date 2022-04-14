@@ -2,6 +2,8 @@
 
 namespace Hyde\RealtimeCompiler;
 
+use Hyde\RealtimeCompiler\Actions\SourceFileFinder;
+
 /**
  * Find the correct source file for the request route.
  */
@@ -42,7 +44,7 @@ class Router
      */
     public static function findSourceFile(string $uri)
     {
-        return null;
+        return (new SourceFileFinder($uri))->execute();
     }
 
     public function getSourceFile()
