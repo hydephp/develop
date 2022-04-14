@@ -28,7 +28,10 @@ class CompilesSourceFile
 
     private function formatPathname(): string
     {
-        $filename = str_replace('_', '', $this->path);
+        $filename = $this->path;
+
+        $filename = str_replace('_pages', '', $filename);
+        $filename = str_replace('_', '', $filename);
         $filename = str_replace('.blade.php', '.html', $filename);
         $filename = str_replace('.md', '.html', $filename);
 
