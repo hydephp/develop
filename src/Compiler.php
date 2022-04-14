@@ -16,7 +16,7 @@ class Compiler
     private function compile(): string
     {
         // TODO: Implement compile() method which boots Hyde and compiles the page
-        return '<h1>Hello World</h1>';
+        return file_get_contents($this->path);
     }
 
     public function getOutput(): string

@@ -10,7 +10,7 @@ use Hyde\RealtimeCompiler\Actions\SourceFileFinder;
 class Router
 {
     public string $uri;
-    private $sourceFile;
+    private string $sourceFile;
 
     /**
      * @param string $uri
@@ -19,7 +19,7 @@ class Router
     {
         $this->uri = $uri;
 
-        $this->handle();
+        $this->sourceFile = $this->handle();
     }
 
     private function handle()
@@ -34,7 +34,7 @@ class Router
             Server::log('Router: Found source file ' . $sourceFile);
         }
 
-        return $this->sourceFile;
+        return $sourceFile;
     }
 
 
