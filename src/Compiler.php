@@ -27,14 +27,11 @@ class Compiler
 
     private function compile(): string
     {
-        // TODO: Implement compile() method which boots Hyde and compiles the page
         return (new CompilesSourceFile($this->path))->execute();
     }
 
     private function transform(string $stream): string
     {
-        $time = PROXY_START - microtime(true);
-
         return sprintf("%s<!-- Hyde Realtime Compiler proxied, compiled, and served this request in %sms -->",
             $stream,
             HydeRC::getExecutionTime());
