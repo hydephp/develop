@@ -8,6 +8,8 @@
  */
 
 // @todo Handle routes ending in .html
+// @todo Proxy media assets
+// @todo Cache compiled files
 
 define('PROXY_START', microtime(true));
 
