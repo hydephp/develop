@@ -23,9 +23,15 @@ class CompilesSourceFile
         $output =  shell_exec('php ../../hyde rebuild '.$this->path);
         Server::log('Compiler: ' . $output);
 
-        $filename = str_replace('.blade.php', '.html', basename($this->path));
+        return file_get_contents('../../_site/'. $this->formatPathname());
+    }
+
+    private function formatPathname(): string
+    {
+        $filename = str_replace('_', '', $this->path);
+        $filename = str_replace('.blade.php', '.html', $filename);
         $filename = str_replace('.md', '.html', $filename);
 
-        return file_get_contents('../../_site/'. $filename);
+        return $filename;
     }
 }
