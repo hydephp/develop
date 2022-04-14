@@ -51,11 +51,11 @@ class SourceFileFinder
 
     private function getType()
     {
-        if (str_starts_with('/posts/', $this->path)) {
+        if (str_starts_with($this->path, '/posts/')) {
             return '_posts';
         }
 
-        if (str_starts_with('/docs/', $this->path)) {
+        if (str_starts_with($this->path, '/docs/')) {
             return '_docs';
         }
 
