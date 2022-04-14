@@ -39,7 +39,6 @@ class SourceFileFinder
         Server::log('SourceFileFinder: Assuming source file is ' . $this->relativePath);
 
         $this->filepath = $this->getFilepath();
-        Server::log('SourceFileFinder: Assuming file path is ' . $this->filepath);
 
         if (! $this->filepath) {
             Server::log('SourceFileFinder: Could not find a source file');
@@ -164,5 +163,4 @@ class SourceFileFinder
 
         return $filepath . '.blade.php';
     }
-
 }
