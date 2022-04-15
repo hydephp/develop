@@ -21,9 +21,12 @@
 // @todo Cache compiled files
 
 define('PROXY_START', microtime(true));
-define('HYDE_PATH', realpath('../../'));
 
+// Define the configuration constants
+define('HYDE_PATH', realpath('../../'));
 define('LOG_DEBUG_MESSAGES', false);
+
+// Handle the request
 
 $uri = urldecode(
   parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
