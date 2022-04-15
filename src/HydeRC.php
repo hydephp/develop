@@ -27,7 +27,7 @@ class HydeRC
         Server::log('Bootloader: Stop time: ' . microtime(true));
     }
 
-    public static function getExecutionTime()
+    public static function getExecutionTime(): float
     {
         return round((microtime(true) - PROXY_START) * 1000, 2);
     }
@@ -37,29 +37,30 @@ class HydeRC
         // First check if file exists in the _site/media directory
         $media_path = HYDE_PATH . '/_site/media/' . $basename;
         if (file_exists($media_path)) {
-            return static::serveStatic($media_path);
+            static::serveStatic($media_path);
+            exit(200);
         }
         // If not, check if file exists in the _media directory
         $media_path = HYDE_PATH . '/_media/' . $basename;
         if (file_exists($media_path)) {
-            return static::serveStatic($media_path);
+            static::serveStatic($media_path);
+            exit(200);
         }
         // Send 404 header
         header('HTTP/1.0 404 Not Found');
-        exit();
+        exit(404);
     }
 
     /** @internal */
-    private static function serveStatic(string $path)
+    private static function serveStatic(string $path): void
     {
         header('Content-Type: ' . static::getStaticContentType($path));
         header('Content-Length: ' . filesize($path));
         readfile($path);
-        exit;
     }
 
     /** @internal */
-    private static function getStaticContentType(string $path)
+    private static function getStaticContentType(string $path): string
     {
         if (str_ends_with($path, '.css')) {
             return 'text/css';
@@ -69,6 +70,10 @@ class HydeRC
             return 'text/javascript';
         }
 
-        return mime_content_type($path);
+        if (extension_loaded('fileinfo')) {
+            return mime_content_type($path);
+        }
+
+        return 'text/plain';
     }
 }

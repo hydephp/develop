@@ -7,19 +7,6 @@ class FormatsAnsiString
     private string $inputString;
     private string $outputString;
 
-    protected static array $colors = [
-        'error' => "\033[0;91m",
-        'warning' => "\033[0;93m",
-        'info' => "\033[0;94m",
-        'success' => "\033[0;92m",
-    ];
-
-    protected static array $actions = [
-        'SourceFileFinder',
-        'CompilesSourceFile',
-        'FormatsAnsiString',
-    ];
-
     public function __construct(string $inputString)
     {
         $this->inputString = $inputString;
@@ -41,18 +28,18 @@ class FormatsAnsiString
         return $this->outputString;
     }
 
-    public static function get(string $string)
+    public static function get(string $string): string
     {
         return (new self($string))->getOutputString();
     }
 
-    private function canTokenize()
+    private function canTokenize(): bool
     {
         // Check if the string contains a word followed by ': ' and then a string
         return preg_match('/^[a-zA-Z0-9_]+: /', $this->inputString);
     }
 
-    private function tokenize()
+    private function tokenize(): string
     {
         $tokens = explode(': ', $this->inputString);
 
@@ -73,7 +60,11 @@ class FormatsAnsiString
     private static function main(string $string): string
     {
         // If token string is an action, use a less bright (visible) color
-        if (in_array($string, static::$actions)) {
+        if (in_array($string, [
+            'SourceFileFinder',
+            'CompilesSourceFile',
+            'FormatsAnsiString',
+        ])) {
             return $string;
         }
 

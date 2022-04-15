@@ -15,14 +15,12 @@ class Compiler
         $this->output = $this->makeOutput();
     }
 
-    private function makeOutput()
+    private function makeOutput(): string
     {
         $stream = $this->compile();
 
         // Add any transformations
-        $stream = $this->transform($stream);
-
-        return $stream;
+        return $this->transform($stream);
     }
 
     private function compile(): string

@@ -22,7 +22,7 @@ define('PROXY_START', microtime(true));
 
 // Define the configuration constants
 define('HYDE_PATH', realpath('../../'));
-define('LOG_DEBUG_MESSAGES', false);
+const LOG_DEBUG_MESSAGES = false;
 
 // Handle the request
 

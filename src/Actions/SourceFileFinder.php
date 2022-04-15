@@ -2,8 +2,6 @@
 
 namespace Hyde\RealtimeCompiler\Actions;
 
-use Hyde\RealtimeCompiler\HydeRC;
-use Hyde\RealtimeCompiler\Proxy;
 use Hyde\RealtimeCompiler\Server;
 
 /**
@@ -15,8 +13,6 @@ class SourceFileFinder
 
     private string|null $directory;
     private string|null $basename;
-    private string|null $relativePath;
-    private string|null $filepath;
     private string $extension;
 
 
@@ -34,22 +30,22 @@ class SourceFileFinder
         $this->directory = $this->getType();
         $this->basename = $this->getBasename();
 
-        $this->relativePath = $this->getRelativePath();
+        $relativePath = $this->getRelativePath();
 
-        Server::log('SourceFileFinder: Assuming source file is ' . $this->relativePath, true);
+        Server::log('SourceFileFinder: Assuming source file is ' . $relativePath, true);
 
-        $this->filepath = $this->getFilepath();
+        $filepath = $this->getFilepath();
 
-        if (! $this->filepath) {
+        if (!$filepath) {
             Server::log('SourceFileFinder: Could not find a source file');
             return null;
         }
 
-        Server::log('SourceFileFinder: Found source file ' . $this->filepath, true);
-        return $this->filepath;
+        Server::log('SourceFileFinder: Found source file ' . $filepath, true);
+        return $filepath;
     }
 
-    private function getType()
+    private function getType(): string
     {
         if (str_starts_with($this->path, '/posts/')) {
             return '_posts';
@@ -63,7 +59,7 @@ class SourceFileFinder
 
     }
 
-    private function getBasename()
+    private function getBasename(): string
     {
         // Return everything after the last slash
         return substr($this->path, strrpos($this->path, '/') + 1);
@@ -71,7 +67,7 @@ class SourceFileFinder
 
     // Guess the source file path relative to the Hyde installation
     // Assumes .md extension, but it could also be .blade.php.
-    private function getRelativePath()
+    private function getRelativePath(): string
     {
         $components = [];
 
@@ -83,11 +79,11 @@ class SourceFileFinder
     }
 
     // Find the absolute file path
-    private function getFilepath()
+    private function getFilepath(): bool|string|null
     {
         $filepath = $this->assembleFilepath();
 
-        if ($this->validateExistanceOfMarkdownFile($filepath) === false && $this->validateExistanceOfBladeFile($filepath) === false) {
+        if ($this->validateExistenceOfMarkdownFile($filepath) === false && $this->validateExistenceOfBladeFile($filepath) === false) {
             return null;
         }
 
@@ -95,7 +91,7 @@ class SourceFileFinder
     }
 
 
-    private function assembleFilepath()
+    private function assembleFilepath(): string
     {
         $components = [];
 
@@ -108,7 +104,7 @@ class SourceFileFinder
         return implode('/', $components) . '.md';
     }
 
-    private function validateExistanceOfMarkdownFile(string $filepath)
+    private function validateExistenceOfMarkdownFile(string $filepath): bool
     {
         // Add the .md extension if it's not already there
         if (! str_ends_with($filepath, '.md')) {
@@ -125,7 +121,7 @@ class SourceFileFinder
         return true;
     }
 
-    private function validateExistanceOfBladeFile(string $filepath)
+    private function validateExistenceOfBladeFile(string $filepath): bool
     {
         // If the file ends in .md, remove it
         if (str_ends_with($filepath, '.md')) {
@@ -147,7 +143,7 @@ class SourceFileFinder
         return true;
     }
 
-    private function formatExtension(string $filepath)
+    private function formatExtension(string $filepath): string
     {
         if (str_ends_with($filepath, '.md')) {
             $filepath = substr($filepath, 0, -3);

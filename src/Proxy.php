@@ -11,7 +11,8 @@ class Proxy
         $this->router = new Router($uri);
     }
 
-    public function serve() {
+    public function serve(): Response
+    {
         Server::log('Proxy: Serving the request');
 
         if ($this->router->getSourceFile() === null) {

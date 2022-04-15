@@ -17,7 +17,7 @@ class CompilesSourceFile
         $this->path = substr($path, strpos($path, '_'));
     }
 
-    public function execute()
+    public function execute(): bool|string
     {
         Server::log('Compiler: Building page...');
         $output =  shell_exec('php '.HYDE_PATH.'/hyde rebuild '.$this->path);
