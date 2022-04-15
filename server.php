@@ -45,6 +45,7 @@ require 'vendor/autoload.php';
 // If it is a media asset, proxy it directly without booting the entire RC
 if (str_starts_with($uri, '/media/') || ($uri === '/favicon.ico')) {
     \Hyde\RealtimeCompiler\HydeRC::serveMedia(basename($uri));
+    exit(0);
 }
 
 // If the uri is empty, serve the index file
@@ -54,3 +55,6 @@ if (empty($uri) || $uri == '/') {
 
 // Serve the application.
 \Hyde\RealtimeCompiler\HydeRC::boot($uri);
+
+
+exit(0);
