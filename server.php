@@ -43,7 +43,7 @@ if (str_ends_with($uri, '.html')) {
 require 'vendor/autoload.php';
 
 // If it is a media asset, proxy it directly without booting the entire RC
-if (str_starts_with($uri, '/media/')) {
+if (str_starts_with($uri, '/media/') || ($uri === '/favicon.ico')) {
     \Hyde\RealtimeCompiler\HydeRC::serveMedia(basename($uri));
 }
 
