@@ -16,8 +16,6 @@
  * This file serves as an initial router and is based on the one from Laravel (license MIT) 
  */
 
-// @todo Handle routes ending in .html
-// @todo Proxy media assets
 // @todo Cache compiled files
 
 define('PROXY_START', microtime(true));
@@ -41,7 +39,7 @@ if (str_ends_with($uri, '.html')) {
 // built-in PHP web server. This provides a convenient way to test a Laravel
 // application without having installed a "real" web server software here.
 
-// Bootstrap any application services.
+// Bootstrap any application services. (Autoloads the application classes)
 require 'vendor/autoload.php';
 
 // If it is a media asset, proxy it directly without booting the entire RC
