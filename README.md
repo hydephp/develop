@@ -27,3 +27,12 @@ Or if you want to start the server with a custom port:
 ```bash
 php -S localhost:80 server.php
 ```
+
+## Running through composer
+> Currently running the bin file through the composer bin directory will not work as it is not compatible with the built in web server. See https://githubhot.com/repo/composer/composer/issues/10533 for more information.
+
+Instead run the following command:
+
+```bash
+php -S localhost:80 ./vendor/hyde/realtime-compiler/server.php
+```

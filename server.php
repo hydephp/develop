@@ -21,7 +21,7 @@
 define('PROXY_START', microtime(true));
 
 // Define the configuration constants
-define('HYDE_PATH', realpath('../../'));
+define('HYDE_PATH', realpath('.')); // If running through the extensions directory set to ../../, otherwise set to .
 const LOG_DEBUG_MESSAGES = false;
 
 // Handle the request

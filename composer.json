@@ -1,6 +1,6 @@
 {
     "name": "hyde/realtime-compiler",
-    "type": "composer-plugin",
+    "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
