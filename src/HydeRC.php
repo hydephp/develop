@@ -2,13 +2,23 @@
 
 namespace Hyde\RealtimeCompiler;
 
+/**
+ * Main entry point for the Hyde Realtime Compiler.
+ * 
+ * Boots the compiler and proxies static assets.
+ */
 class HydeRC
 {
     public static function boot(string $uri)
     {
         Server::log('Bootloader: Start time ' . PROXY_START);
+        if (\Phar::running()) {
+            Server::log('Phar: Running through phar');
+        }
+
         Server::log('HydeRC: Booting Realtime Compiler...');
         Server::log('HydeRC: Hyde Installation Path: ' . HYDE_PATH);
+        Server::log('HydeRC: Requested URI: ' . $uri);
 
         $proxy = new Proxy($uri);
         $proxy->serve();
