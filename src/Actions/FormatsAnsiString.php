@@ -43,10 +43,13 @@ class FormatsAnsiString
     {
         $tokens = explode(': ', $this->inputString);
 
+        // Implode the rest of the tokens
+        $value = implode(': ', array_slice($tokens, 1));
+
         $this->outputString = static::lightGray('[') . static::main($tokens[0]) . static::lightGray(']');
 
         if (isset($tokens[1])) {
-            $this->outputString .= ': ' . $tokens[1];
+            $this->outputString .= ': ' . $value;
         }
 
         return $this->outputString;
