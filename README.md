@@ -50,3 +50,6 @@ Or if you want to start the server with a custom port:
 ```bash
 php -S localhost:80 server.php
 ```
+
+### A note on media files
+Currently the RC only proxies media files, it does not compile them. It first attempts to find the requested file in _site/media, then in _media. If it is not found a 404 response is returned. To watch media files for changes, for example for compiling Tailwind CSS, you can use any of the existing NPM commands.
