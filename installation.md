@@ -17,6 +17,7 @@ php hyde build
 ```
 
 If you now take a look in the `_site` directory you should see that an index.html file, as well as a posts/hello-world.html file, has been created! Open them up in your browser and take a look!
+
 > If you are missing the stylesheet, run `npm install && npm run dev`
 
 
@@ -44,7 +45,6 @@ npm install
 npm run dev
 ```
 
-> If you are not installing from a release you may want to set the environment to `production` in the `config/app.php` to hide the core development commands you most likely will not need unless you want to hack/contribute to the framework itself.
 
 ### Usage
 After the project has been created you can scaffold a new blog post using the `make` command and following the on-screen instructions, and then compile the site into static HTML using the `build` command.
