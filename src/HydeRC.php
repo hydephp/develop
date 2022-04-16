@@ -9,6 +9,11 @@ namespace Hyde\RealtimeCompiler;
  */
 class HydeRC
 {
+    /**
+     * Boot up the realtime compiler to handle the request for the specified URI.
+     * 
+     * @var string $uri path (should match a file in the compiled _site directory)
+     */
     public static function boot(string $uri)
     {
         Server::log('Bootloader: Start time: ' . PROXY_START);
@@ -20,6 +25,7 @@ class HydeRC
         Server::log('HydeRC: Booting Realtime Compiler...');
         Server::log('HydeRC: Requested URI: ' . $uri);
 
+        // Create a new Proxy instance and serve the request.
         $proxy = new Proxy($uri);
         $proxy->serve();
 
@@ -27,12 +33,24 @@ class HydeRC
         Server::log('Bootloader: Stop time: ' . microtime(true));
     }
 
+    /**
+     * Get the execution time of the current request.
+     * @return float time in milliseconds, rounded to two decimal places
+     */
     public static function getExecutionTime(): float
     {
         return round((microtime(true) - PROXY_START) * 1000, 2);
     }
 
-    public static function serveMedia(string $basename)
+    /**
+     * Serve static media assets.
+     * 
+     * Works by first searching for files in the `_site/media` directory,
+     * then in the `_media` directory. If the file is found, it's 
+     * passed on to the serveStatic method, otherwise a 404
+     * header is sent, and the request is terminated.
+     */
+    public static function serveMedia(string $basename): void
     {
         // First check if file exists in the _site/media directory
         $media_path = HYDE_PATH . '/_site/media/' . $basename;
@@ -51,7 +69,17 @@ class HydeRC
         exit(404);
     }
 
-    /** @internal */
+    /** 
+     * Serve and proxy a static media asset 
+     * 
+     * Works by reading a source file and streaming its contents,
+     * to the client along with the appropriate headers.
+     * @internal
+     * @uses getStaticContentType
+     * 
+     * @param string $path of the file to serve
+     * @return void
+     */
     private static function serveStatic(string $path): void
     {
         header('Content-Type: ' . static::getStaticContentType($path));
@@ -59,7 +87,13 @@ class HydeRC
         readfile($path);
     }
 
-    /** @internal */
+    /**
+     * Get the mime content type of a static asset.
+     * 
+     * @internal
+     * @param string $path
+     * @return string
+     */
     private static function getStaticContentType(string $path): string
     {
         if (str_ends_with($path, '.css')) {

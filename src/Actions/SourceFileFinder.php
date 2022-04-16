@@ -5,7 +5,7 @@ namespace Hyde\RealtimeCompiler\Actions;
 use Hyde\RealtimeCompiler\Server;
 
 /**
- * Find the source file for a route
+ * Find the source file for a compiled HTML file.
  */
 class SourceFileFinder
 {
@@ -15,15 +15,13 @@ class SourceFileFinder
     private string|null $basename;
     private string $extension;
 
-
     /**
-     * @param string $path
+     * @param string $path to the compiled HTML file.
      */
     public function __construct(string $path)
     {
         $this->path = $path;
     }
-
 
     public function execute(): string|null
     {
@@ -45,6 +43,12 @@ class SourceFileFinder
         return $filepath;
     }
 
+    /**
+     * Determine the type of the compiled HTML file
+     * so we know what directory to look for the source in.
+     *
+     * @return string
+     */
     private function getType(): string
     {
         if (str_starts_with($this->path, '/posts/')) {

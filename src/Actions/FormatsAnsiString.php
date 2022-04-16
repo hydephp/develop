@@ -2,6 +2,9 @@
 
 namespace Hyde\RealtimeCompiler\Actions;
 
+/**
+ * Format a log message with ANSI colors.
+ */
 class FormatsAnsiString
 {
     private string $inputString;
@@ -26,11 +29,6 @@ class FormatsAnsiString
     public function getOutputString(): string
     {
         return $this->outputString;
-    }
-
-    public static function get(string $string): string
-    {
-        return (new self($string))->getOutputString();
     }
 
     private function canTokenize(): bool
@@ -60,6 +58,7 @@ class FormatsAnsiString
         return "\033[0;90m" . $string . "\033[0m";
     }
 
+    /** The primary color */
     private static function main(string $string): string
     {
         // If token string is an action, use a less bright (visible) color
@@ -73,5 +72,10 @@ class FormatsAnsiString
 
         // Gold (yellow) color
         return "\033[0;33m" . $string . "\033[0m";
+    }
+
+    public static function get(string $string): string
+    {
+        return (new self($string))->getOutputString();
     }
 }

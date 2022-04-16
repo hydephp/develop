@@ -9,14 +9,25 @@ use Hyde\RealtimeCompiler\Server;
  */
 class CompilesSourceFile
 {
+    /**
+     * The source file to compile.
+     * @var string
+     */
     private string $path;
 
+    /**
+     * Construct a new Action instance.
+     */
     public function __construct(string $path)
     {
         // Remove everything before the first underscore
         $this->path = substr($path, strpos($path, '_'));
     }
 
+    /**
+     * Trigger the compiler and return the compiled HTML string.
+     * @return string
+     */
     public function execute(): bool|string
     {
         Server::log('Compiler: Building page...');
@@ -26,6 +37,10 @@ class CompilesSourceFile
         return file_get_contents(HYDE_PATH . '/_site/'. $this->formatPathname());
     }
 
+    /**
+     * Convert the source path string to the output path string.
+     * @return string
+     */
     private function formatPathname(): string
     {
         $filename = $this->path;

@@ -11,6 +11,7 @@ class Proxy
         $this->router = new Router($uri);
     }
 
+    // Create and serve a new response
     public function serve(): Response
     {
         Server::log('Proxy: Serving the request');
@@ -22,6 +23,7 @@ class Proxy
         return new Response($this->makeResponse(), 200, []);
     }
 
+    // Create the response body by compiling the source file and returning the output stream as a string
     private function makeResponse(): string
     {
         $compiler = new Compiler($this->router->getSourceFile());

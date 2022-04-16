@@ -2,27 +2,36 @@
 
 namespace Hyde\RealtimeCompiler;
 
+/**
+ * Simple object oriented wrapper for sending HTTP responses.
+ */
 class Response
 {
     /**
+     * The response body to send to the client.
+     * Is usually an HTML string or a media file stream.
      * @var string
      */
     private string $body;
 
     /**
+     * The HTTP status code to send to the client.
      * @var int
      */
     private int $statusCode;
 
     /**
+     * The HTTP headers to send to the client.
      * @var array
      */
     private array $headers;
 
     /**
-     * @param string $body
-     * @param int $statusCode
-     * @param array $headers
+     * Construct a new Response object instance.
+     * 
+     * @param string $body The response body to send to the client.
+     * @param int $statusCode The HTTP status code to send to the client.
+     * @param array $headers The HTTP headers to send to the client.
      */
     public function __construct(string $body, int $statusCode, array $headers)
     {
@@ -33,40 +42,11 @@ class Response
         $this->handle();
     }
 
-// --Commented out by Inspection START (2022-04-15 14:05):
-//    /**
-//     * @return string
-//     */
-//    public function getBody(): string
-//    {
-//        return $this->body;
-//    }
-// --Commented out by Inspection STOP (2022-04-15 14:05)
-
-
-// --Commented out by Inspection START (2022-04-15 14:07):
-//    /**
-//     * @return int
-//     */
-//    public function getStatusCode(): int
-//    {
-//        return $this->statusCode;
-//    }
-// --Commented out by Inspection STOP (2022-04-15 14:07)
-
-
-// --Commented out by Inspection START (2022-04-15 14:07):
-//    /**
-//     * @return array
-//     */
-//    public function getHeaders(): array
-//    {
-//        return $this->headers;
-//    }
-// --Commented out by Inspection STOP (2022-04-15 14:07)
-
-
-    public function handle()
+    /**
+     * Send the response to the client.
+     * @return void
+     */
+    public function handle(): void
     {
         http_response_code($this->statusCode);
         foreach ($this->headers as $name => $value) {

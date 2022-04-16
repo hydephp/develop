@@ -53,3 +53,8 @@ php -S localhost:80 server.php
 
 ### A note on media files
 Currently the RC only proxies media files, it does not compile them. It first attempts to find the requested file in _site/media, then in _media. If it is not found a 404 response is returned. To watch media files for changes, for example for compiling Tailwind CSS, you can use any of the existing NPM commands.
+
+## Tests
+You may have noticed there are no tests for this extension. The reason for this is mainly because the extension is so lightweight and I found it hard to write tests without the many mocking libraries that are usually used.
+
+As it is now, there are zero dependencies, and adding a test suite would add a lot of overhead. However, if you are interested in contributing in tests in a way that works, please do so! I am honestly not skilled enough with PHPUnit to do it.
