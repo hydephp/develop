@@ -5,6 +5,8 @@ Though, why you would want a dynamic web server to serve static HTML I don't kno
 
 So again, this is just a local testing tool and comes with no warranty in any way whatsoever.
 
+[![Watch on YouTube](https://user-images.githubusercontent.com/95144705/163690301-393380f3-4e3f-4ead-a78e-cb79ab20eadc.png)](https://www.youtube.com/watch?v=1ZM4fQMKi64)
+
 ## Installation
 
 ## Install with Composer
