@@ -21,5 +21,7 @@ jobs:
           commit-message: Update Hydefront files from HydePHP/Framework
           title: Update Hydefront files from HydePHP/Framework
           body: Update Hydefront files from HydePHP/Framework
-          branch: framework-merge
-          base: master
+          base: framework-merge
+          branch: master
+          delete-branch: true
+
