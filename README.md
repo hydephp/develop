@@ -1,4 +1,5 @@
 # HydePHP Frontend Assets
+![jsDelivr hits (GitHub)](https://img.shields.io/jsdelivr/gh/hm/hydephp/hydefront)
 
 ## About this repository
 
