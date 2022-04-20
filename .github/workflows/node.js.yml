@@ -10,22 +10,28 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build-assets:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         cache: 'npm'
+
+    - name: Install Node.js dependencies
     - run: npm ci
+
+    - name: Build assets for development
     - run: npm run dev
+
+    - name: Build assets for production
     - run: npm run prod
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v1
       with:
-        name: 'dist'
+        name: 'assets'
         path: 'dist'
