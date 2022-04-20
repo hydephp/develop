@@ -1,0 +1,24 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Create a PR to merge changes when the Framework CI pushes changes
+on:
+  push:
+    branches: [ framework-merge ]
+
+  workflow_dispatch:
+  
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Update Hydefront files from HydePHP/Framework
+          title: Update Hydefront files from HydePHP/Framework
+          body: Update Hydefront files from HydePHP/Framework
+          branch: framework-merge
+          base: master
