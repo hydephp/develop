@@ -29,4 +29,3 @@ jobs:
       with:
         name: 'dist'
         path: 'dist'
-        mime-type: 'application/zip'
