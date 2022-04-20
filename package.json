@@ -1,10 +1,10 @@
 {
   "name": "hydefront",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Frontend assets for HydePHP",
   "scripts": {
-    "prod": "sass hyde.scss hyde.css --style=compressed --no-source-map && uglifyjs --compress --mangle --output hyde.min.js hyde.js",
-    "dev": "sass hyde.scss hyde.css"
+    "prod": "sass hyde.scss dist/hyde.min.css --style=compressed --no-source-map && uglifyjs --compress --mangle --output dist/hyde.min.js hyde.js",
+    "dev": "sass hyde.scss dist/hyde.css && uglifyjs --beautify --output dist/hyde.js hyde.js"
   },
   "repository": {
     "type": "git",

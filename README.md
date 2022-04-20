@@ -6,29 +6,24 @@
 Contains the frontend assets for HydePHP stored in hydephp/framework under resources/frontend.
 
 ### Source files
-- hyde.scss
-- hyde.js
+Source files are stored in the root of the repository. These can be published to your Hyde installation, or used to compile into the dist/ directory.
+- hyde.scss (Sass) - Compiled to hyde.css and hyde.min.css
+- hyde.js (JavaScript) - Compiled to hyde.js and hyde.min.js
+- app.css (Tailwind source) - Starter CSS for a Hyde installation
 
 ### Compiled files
-- hyde.css
-- hyde.min.js
-
+Compiled files are stored in the dist/ directory and can be loaded through a CDN.
+- hyde.css, hyde.min.css
+- hyde.js, hyde.min.js
+- tailwind.min.css
 
 ### About the files
 
 #### App.css
-This file is mostly blank and only contains the TailwindCSS imports and is the suggested location for users to place their own custom CSS.
+This file is mostly blank and only contains the TailwindCSS imports and is the suggested location for users to place their own custom CSS unless they add a custom.css file which in that case should be loaded after all the others.
 
 #### Hyde.css/Hyde.scss
-The Hyde stylesheet contains the base styles and should be loaded after App.css as it contains some Tailwind tweaks.
-
-The hyde.css file is the compiled and minified version of the hyde.scss file.
-
-Compile it using the following command: (Assuming Dart Sass)
-
-```bash
-sass hyde.scss hyde.css --style=compressed --no-source-map
-```
+The Hyde stylesheet contains the custom base styles and should be loaded after App.css as it contains some Tailwind tweaks.
 
 #### Hyde.js
 This file contains basic scripts to make the navigation menu and sidebars interactive.
