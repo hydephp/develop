@@ -1,12 +1,11 @@
-name: Create Framework CI merge PR
-
 # Create a PR to merge changes when the Framework CI pushes changes
+name: Create Framework CI PR
+
 on:
   push:
     branches: [ framework-merge ]
 
   workflow_dispatch:
-    branches: [ framework-merge ]
   
 jobs:
   create-pr:
