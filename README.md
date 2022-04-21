@@ -33,6 +33,14 @@ A compiled and minified file containing the styles for a base Hyde installation.
 
 ## Usage
 
+### Using CDN
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.2.0/dist/hyde.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.2.0/dist/hyde.min.js"></script>
+```
+
+### Updating Framework assets
 The frontend files are stored in the Hydephp/Framework repo in the `resources/frontend` directory and are by default loaded into Hyde installations and can be republished using the following command:
 
 ```bash
