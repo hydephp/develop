@@ -55,7 +55,7 @@ After updating Hyde you should update your config and resource files. This is wh
 
 ```bash
 php hyde update:configs
-php hyde update:resources
+php hyde update:assets
 ```
 
 If you have published any of the Hyde Blade components you will need to re-publish them.

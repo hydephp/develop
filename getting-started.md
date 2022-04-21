@@ -172,11 +172,11 @@ You can customize all of them to your liking, however, if you edit the Hyde.css 
 ### Updating to the latest version
 When updating Hyde, you may need to update the frontend resource files. You can do this using the following command:
 ```bash
-php hyde update:resources
+php hyde update:assets
 ```
 
 Note that this command will overwrite existing files!
-The following files in the `resources/frontend/` directory will be overwritten:
+The following files in the `resources/assets/` directory will be overwritten:
 - hyde.css
 - hyde.js
 - app.css

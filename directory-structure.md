@@ -81,7 +81,7 @@ When publishing your site this is where you should serve the site from.
 The config directory contains configuration files. The most interesting one is probably `config/hyde.php` where you can set the site name!
 
 
-#### `resources/frontend`
+#### `resources/assets`
 This directory contains the frontend source files.
 
 The default frontend resource files are as follows. Please see the chapter in the [Getting Started](getting-started.html) page to learn more.
