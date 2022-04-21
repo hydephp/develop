@@ -3,13 +3,13 @@
 
 ## About this repository
 
-Contains the frontend assets for HydePHP stored in hydephp/framework under resources/frontend.
+Contains the frontend assets for HydePHP stored in hydephp/framework under resources/assets.
 
 ### Source files
 Source files are stored in the root of the repository. These can be published to your Hyde installation, or used to compile into the dist/ directory.
 
 ### Compiled files
-Compiled files are stored in the dist/ directory and can be loaded through a CDN. They are included in the Hyde/Framework package, and can be re-published using the hyde command `php hyde update:resources`.
+Compiled files are stored in the dist/ directory and can be loaded through a CDN. They are included in the Hyde/Framework package, and can be re-published using the hyde command `php hyde update:assets`.
 
 ### About the files
 
@@ -35,10 +35,10 @@ A compiled and minified file containing the styles for a base Hyde installation.
 ```
 
 ### Updating Framework assets
-The frontend files are stored in the Hydephp/Framework repo in the `resources/frontend` directory and are by default loaded into Hyde installations and can be republished using the following command:
+The frontend files are stored in the Hydephp/Framework repo in the `resources/assets` directory and are by default loaded into Hyde installations and can be republished using the following command:
 
 ```bash
-php hyde update:resources
+php hyde update:assets
 ```
 
 ## Beta software notice
