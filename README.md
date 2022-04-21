@@ -7,15 +7,9 @@ Contains the frontend assets for HydePHP stored in hydephp/framework under resou
 
 ### Source files
 Source files are stored in the root of the repository. These can be published to your Hyde installation, or used to compile into the dist/ directory.
-- hyde.scss (Sass) - Compiled to hyde.css and hyde.min.css
-- hyde.js (JavaScript) - Compiled to hyde.js and hyde.min.js
-- app.css (Tailwind source) - Starter CSS for a Hyde installation
 
 ### Compiled files
-Compiled files are stored in the dist/ directory and can be loaded through a CDN.
-- hyde.css, hyde.min.css
-- hyde.js, hyde.min.js
-- tailwind.min.css
+Compiled files are stored in the dist/ directory and can be loaded through a CDN. They are included in the Hyde/Framework package, and can be re-published using the hyde command `php hyde update:resources`.
 
 ### About the files
 
