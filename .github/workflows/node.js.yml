@@ -1,12 +1,10 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the compiled assets, and push them.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Build & Push CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
 jobs:
@@ -36,3 +34,10 @@ jobs:
       with:
         name: 'assets'
         path: 'dist'
+
+    - name: Push assets to GitHub
+      uses: EndBug/add-and-commit@v9 
+      with:
+        path: 'dist'
+        message: 'Update assets'
+        branch: 'master'
