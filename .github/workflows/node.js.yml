@@ -23,9 +23,6 @@ jobs:
     - name: Install Node.js dependencies
       run: npm ci
 
-    - name: Build assets for development
-      run: npm run dev
-
     - name: Build assets for production
       run: npm run prod
 
