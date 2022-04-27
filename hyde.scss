@@ -28,15 +28,13 @@
 }
 
 #sidebar-navigation {
-	li.list-item-active {
-		a {
-			border-left: 4px solid #5956eb;
-			padding-left: calc(1rem - 4px);
-			margin-left: -1rem;
-			padding-top: 0.25rem;
-			padding-bottom: 0.25rem;
-			color: #5956eb;
-		}
+	li.list-item-active > a {
+		border-left: 4px solid #5956eb;
+		padding-left: calc(1rem - 4px);
+		margin-left: -1rem;
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
+		color: #5956eb;
 	}
 }
 

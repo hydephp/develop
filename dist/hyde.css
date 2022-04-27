@@ -25,7 +25,7 @@
   margin-top: 0;
 }
 
-#sidebar-navigation li.list-item-active a {
+#sidebar-navigation li.list-item-active > a {
   border-left: 4px solid #5956eb;
   padding-left: calc(1rem - 4px);
   margin-left: -1rem;
