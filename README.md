@@ -29,9 +29,9 @@ A compiled and minified file containing the styles for a base Hyde installation.
 
 ### Using CDN
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.2.0/dist/hyde.min.css">
-
-<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.2.0/dist/hyde.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3.1/dist/app.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3.1/dist/hyde.css">
+<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3.1/dist/hyde.js"></script>
 ```
 
 ### Updating Framework assets
