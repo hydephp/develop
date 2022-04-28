@@ -34,6 +34,8 @@ This file contains basic scripts to make the navigation menu and sidebars intera
 <script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3.1/dist/hyde.js"></script>
 ```
 
+## Contributing
+When contributing to HydeFront, you should almost always submit the changes to the resources/assets directory in the Framework repository https://github.com/hydephp/framework/tree/master/resources/assets 
 
 ## Beta software notice
 HydePHP is a currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
