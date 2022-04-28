@@ -41,7 +41,7 @@ function hideNavigation() {
 
 // Handle the documentation page sidebar
 
-var sidebarOpen = screen.width >= 768;
+let sidebarOpen = screen.width >= 768;
 
 const sidebar = document.getElementById("documentation-sidebar");
 const backdrop = document.getElementById("sidebar-backdrop");
