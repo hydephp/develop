@@ -28,10 +28,10 @@ This file contains basic scripts to make the navigation menu and sidebars intera
 
 ### Using CDN
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3.1/dist/app.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3.1/dist/hyde.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3/dist/app.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3/dist/hyde.css">
 
-<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3.1/dist/hyde.js"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3/dist/hyde.js"></script>
 ```
 
 
