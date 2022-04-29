@@ -3,6 +3,10 @@
 [![Build & Push CI](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml)
 [![CodeQL](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml)
 
+## About HydePHP
+HydePHP is a Static App Generator powered by Laravel Zero, allowing for the rapid creation of beautiful, responsive, and customizable websites.
+See https://hydephp.github.io/ for more!
+
 ## About this repository
 
 Contains the frontend assets for HydePHP stored in hydephp/framework under resources/assets.
