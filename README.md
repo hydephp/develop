@@ -1,4 +1,5 @@
 # HydePHP Frontend Assets
+[![](https://data.jsdelivr.com/v1/package/npm/hydefront/badge)](https://www.jsdelivr.com/package/npm/hydefront)
 ![jsDelivr hits (GitHub)](https://img.shields.io/jsdelivr/gh/hm/hydephp/hydefront)
 [![Build & Push CI](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml)
 [![CodeQL](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml)
@@ -40,6 +41,10 @@ This file contains basic scripts to make the navigation menu and sidebars intera
 <script defer src="https://cdn.jsdelivr.net/npm/hydefront@v1.3/dist/hyde.js"></script>
 ```
 
+## Links:
+- GitHub https://github.com/hydephp/hydefront
+- NPM https://www.npmjs.com/package/hydefront
+- jsDelivr https://www.jsdelivr.com/package/npm/hydefront
 
 ## Beta software notice
 HydePHP is a currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
