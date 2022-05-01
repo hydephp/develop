@@ -10,10 +10,10 @@
 Contains the frontend assets for HydePHP stored in hydephp/framework under resources/assets. See https://github.com/hydephp/framework/tree/master/resources/assets
 
 ### Source files
-Source files are stored in the root of the repository. These can be published to your Hyde installation, or used to compile into the dist/ directory.
+Source files are stored in the root of the repository. These can be published to your Hyde installation or used to compile into the dist/ directory.
 
 ### Compiled files
-Compiled files are stored in the dist/ directory and can be loaded through the CDN.
+Compiled files are stored in the dist/ directory and can be loaded through the CDN or NPM.
 
 They are included in the Hyde/Framework package and can be used locally by customizing the Blade view.
 
@@ -45,4 +45,4 @@ See https://www.jsdelivr.com/package/npm/hydefront
 See https://www.npmjs.com/package/hydefront
 
 ## Beta software notice
-HydePHP is a currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
+HydePHP is currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
