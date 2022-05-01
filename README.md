@@ -25,6 +25,10 @@ The Hyde stylesheet contains the base styles for the Hyde views.
 - **Hyde.js**:
 This file contains basic scripts to make the navigation menu and sidebars interactive.
 
+- **App.css**:
+A compiled and minified file containing the styles for a base Hyde installation. It can be loaded through the CDN by adding it to the head of your Blade layout but is no longer supported out of the box.
+
+
 ## Usage
 Note that HydeFront is included in Hyde/Hyde through the CDN out of the box.
 
