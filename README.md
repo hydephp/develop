@@ -44,5 +44,10 @@ See https://www.jsdelivr.com/package/npm/hydefront
 ### Using NPM
 See https://www.npmjs.com/package/hydefront
 
+## Links:
+- GitHub https://github.com/hydephp/hydefront
+- NPM https://www.npmjs.com/package/hydefront
+- jsDelivr https://www.jsdelivr.com/package/npm/hydefront
+
 ## Beta software notice
 HydePHP is currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
