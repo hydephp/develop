@@ -5,7 +5,7 @@
 
 ## About this repository
 
-Contains the frontend assets for HydePHP stored in hydephp/framework under resources/assets.
+Contains the frontend assets for HydePHP stored in hydephp/framework under resources/assets. See https://github.com/hydephp/framework/tree/master/resources/assets
 
 ### Source files
 Source files are stored in the root of the repository. These can be published to your Hyde installation, or used to compile into the dist/ directory.
