@@ -20,7 +20,7 @@ They are included in the Hyde/Framework package and can be used locally by custo
 ### About the files
 
 - **Hyde.css**:
-The Hyde stylesheet contains the custom base styles and should be loaded after App.css as it contains some Tailwind tweaks.
+The Hyde stylesheet contains the base styles for the Hyde views.
 
 - **Hyde.js**:
 This file contains basic scripts to make the navigation menu and sidebars interactive.
@@ -59,9 +59,6 @@ And compile your assets
 ```bash
 npm run dev/prod
 ```
-
-#### Importing the JavaScript?
-You are probably wondering why there is no documentation for how to import the `hyde.js` using NPM. The answer is simple: I don't know how. If you know, please create an issue or submit a PR!
 
 ## Links:
 - GitHub https://github.com/hydephp/hydefront
