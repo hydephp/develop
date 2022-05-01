@@ -19,9 +19,6 @@ They are included in the Hyde/Framework package and can be used locally by custo
 
 ### About the files
 
-- **App.css**:
-A compiled and minified file containing the styles for a base Hyde installation.
-
 - **Hyde.css**:
 The Hyde stylesheet contains the custom base styles and should be loaded after App.css as it contains some Tailwind tweaks.
 
@@ -35,7 +32,6 @@ Note that HydeFront is included in Hyde/Hyde through the CDN out of the box.
 See https://www.jsdelivr.com/package/npm/hydefront
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3/dist/app.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3/dist/hyde.css">
 
 <script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3/dist/hyde.js"></script>
