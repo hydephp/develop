@@ -56,14 +56,16 @@ Next, add the following import to `resources/assets/app.css`
 
 Then, disable the CDN in your `config/hyde.php` file
 ```php
-  'loadHydeAssetsUsingCDN' => false,
- ```
+'loadHydeAssetsUsingCDN' => false,
+```
 
 And compile your assets
 ```bash
 npm run dev/prod
 ```
 
+#### Importing the JavaScript?
+You are probably wondering why there is no documentation for how to import the `hyde.js` using NPM. The answer is simple: I don't know how. If you know, please create an issue or submit a PR!
 
 ## Links:
 - GitHub https://github.com/hydephp/hydefront
