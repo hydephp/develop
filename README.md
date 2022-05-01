@@ -29,7 +29,7 @@ The Hyde stylesheet contains the custom base styles and should be loaded after A
 This file contains basic scripts to make the navigation menu and sidebars interactive.
 
 ## Usage
-Note that HydeFront is included in Hyde/Hyde out of the box.
+Note that HydeFront is included in Hyde/Hyde through the CDN out of the box.
 
 ### Using CDN
 See https://www.jsdelivr.com/package/npm/hydefront
@@ -41,8 +41,29 @@ See https://www.jsdelivr.com/package/npm/hydefront
 <script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.3/dist/hyde.js"></script>
 ```
 
-### Using NPM
-See https://www.npmjs.com/package/hydefront
+### Using NPM (with Laravel Mix)
+HydeFront is also available as an [NPM package](https://www.npmjs.com/package/hydefront), if you want to compile all your assets using Laravel Mix. Note that it is recommended to use the CDN as the Framework takes care of versioning.
+
+Install the package
+```bash
+npm install hydefront
+```
+
+Next, add the following import to `resources/assets/app.css`
+```css
+@import '~hydefront/dist/hyde.css';
+```
+
+Then, disable the CDN in your `config/hyde.php` file
+```php
+  'loadHydeAssetsUsingCDN' => false,
+ ```
+
+And compile your assets
+```bash
+npm run dev/prod
+```
+
 
 ## Links:
 - GitHub https://github.com/hydephp/hydefront
