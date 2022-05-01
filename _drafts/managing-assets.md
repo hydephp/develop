@@ -44,6 +44,8 @@ It may seem weird to have two folders for storing the compiled assets, but it is
 
 The `_site` directory is intended to be excluded from version control while the `_media` folder is included in the version control, though you may choose to exclude the compiled files from the `_media` folder if you want to.
 
+You are of course free to modify this behavior by editing the `webpack.mix.js` file.
+
 ## How do I compile assets?
 
 First, make sure that you have installed all the NodeJS dependencies using `npm install`.
