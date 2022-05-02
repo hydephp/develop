@@ -16,7 +16,7 @@ jobs:
       # - uses: actions/checkout@v3
         
       - name: Download base HTML
-        run: wget https://raw.githubusercontent.com/caendesilva/hydefront-preview/4aaa498f341fca0b32df37e20b8f3dd6a0dbeefd/hydefront-preview.html
+        run: wget https://raw.githubusercontent.com/caendesilva/hydefront-preview/ce593247034d3fb893537a1e639474c5dfc56720/hydefront-preview.html
         
       - name: Download compiler
         run: wget https://raw.githubusercontent.com/caendesilva/hydefront-preview/4aaa498f341fca0b32df37e20b8f3dd6a0dbeefd/compiler.php
