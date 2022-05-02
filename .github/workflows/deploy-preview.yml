@@ -1,4 +1,5 @@
 # Build and deploy a static preview of a Hyde site using the triggering commit's assets
+# Note that it expects that the assets have been compiled to the dist directory.
 name: Build and Deploy Preview
 
 on:
@@ -10,11 +11,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build: # todo compile scss and ts files
+  build:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v3
-        
       - name: Download base HTML
         run: wget https://raw.githubusercontent.com/caendesilva/hydefront-preview/ce593247034d3fb893537a1e639474c5dfc56720/hydefront-preview.html
         
@@ -59,3 +58,18 @@ jobs:
 
       - name: Output the URL
         run: echo "https://hydephp.github.io/developer-tools/hydefront-previews/${{ github.sha }}"
+
+  comment-on-pull-request:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.API_TOKEN_GITHUB}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'A [live preview](https://hydephp.github.io/developer-tools/hydefront-previews/${{ github.sha }}) is being deployed!<br><br>Please note that it may take a few seconds for GitHub Pages to build and deploy. The preview will be removed in a few days.'
+            })
