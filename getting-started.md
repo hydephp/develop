@@ -150,7 +150,9 @@ php hyde build
 Your site will then be saved in the _site directory, which you can then upload to your static web host.
 All links use relative paths, so you can deploy to a subdirectory without any problems which also makes the site work great when browsing the HTML files locally even without a web server.
 
-If it is the first time building the site or if you have updated the source SCSS you should also run `npm install && npm run dev` to build the frontend assets.
+If it is the first time building the site or if you have added any custom TailwindCSS classes in your Blade views you should also run `npm install && npm run dev` to build the frontend assets.
+
+> ⚠ Note that since v0.21.x the `_site` directory is emptied from all files before the site is built. 
 
 ## Frontend stylesheets and scripts
 
