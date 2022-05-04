@@ -58,6 +58,11 @@ php hyde build
 
 If you now take a look in the `_site` directory you should see that an index.html file, as well as a posts/hello-world.html file, has been created! Open them up in your browser and take a look!
 
+### A note on NPM/NodeJS
+Using NPM and NodeJS is optional as Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views. However, if you want to customize the Tailwind config, or if you add new classes when customizing views or creating your own Blade pages, you will need to compile the assets yourself. Hyde makes this easy by shipping everything you need to use Laravel Mix. Simply run `npm install` and `npm run dev/prod/watch` to compile the Tailwind assets.
+
 ## Next steps
 
 Make sure you check out the [getting started](getting-started.html) page to learn how to use Hyde!
+
+
