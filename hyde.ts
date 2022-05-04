@@ -2,7 +2,7 @@
  * Core Scripts for the HydePHP Frontend
  *
  * @package     HydePHP - HydeFront
- * @version     v1.3.x (HydeFront)
+ * @version     v1.5.x (HydeFront)
  * @author      Caen De Silva
  */
 
