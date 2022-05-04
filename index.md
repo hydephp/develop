@@ -1,4 +1,4 @@
-# HydePHP - Elegant and Powerful Static App Builder
+# Elegant and Powerful Static App Builder
 
 <p> 
     <a href="https://packagist.org/packages/hyde/hyde"><img style="display: inline; margin: 4px 2px;" src="https://img.shields.io/packagist/v/hyde/hyde" alt="Latest Version on Packagist" title="Latest version of Hyde/Hyde"></a>
