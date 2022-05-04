@@ -6,14 +6,15 @@
  * @author      Caen De Silva
  */
 
-// Handle the main navigation menu
 const mainNavigationLinks = document.getElementById("main-navigation-links");
 const openMainNavigationMenuIcon = document.getElementById("open-main-navigation-menu-icon");
 const closeMainNavigationMenuIcon = document.getElementById("close-main-navigation-menu-icon");
+const themeToggleButton = document.getElementById("theme-toggle-button");
+const navigationToggleButton = document.getElementById("navigation-toggle-button");
+const sidebarToggleButton = document.getElementById("sidebar-toggle-button");
 
 let navigationOpen = false;
 
-// Toggle the navigation menu visibility when the menu button is clicked
 function toggleNavigation() {
     if (navigationOpen) {
         hideNavigation();
@@ -22,7 +23,6 @@ function toggleNavigation() {
     }
 }
 
-// Show the navigation menu items
 function showNavigation() {
     mainNavigationLinks.classList.remove("hidden");
     openMainNavigationMenuIcon.style.display = "none";
@@ -31,7 +31,6 @@ function showNavigation() {
     navigationOpen = true;
 }
 
-// Hide the navigation menu items
 function hideNavigation() {
     mainNavigationLinks.classList.add("hidden");
     openMainNavigationMenuIcon.style.display = "block";
@@ -84,6 +83,8 @@ function hideSidebar() {
     sidebarOpen = false;
 }
 
+// Handle the theme switching
+
 function toggleTheme() {
     if (isSelectedThemeDark()) {
         setThemeToLight();
@@ -104,4 +105,17 @@ function toggleTheme() {
         document.documentElement.classList.remove("dark");
         localStorage.setItem('color-theme', 'light');
     }
+}
+
+// Register onclick event listener for theme toggle button
+themeToggleButton.onclick = toggleTheme;
+
+// Register onclick event listener for navigation toggle button if it exists
+if (navigationToggleButton) {
+    navigationToggleButton.onclick = toggleNavigation;
+}
+
+// Register onclick event listener for sidebar toggle button if it exists
+if (sidebarToggleButton) {
+    sidebarToggleButton.onclick = toggleSidebar;
 }
