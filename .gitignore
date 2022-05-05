@@ -1,3 +1,5 @@
 /node_modules
 /tests/hyde
-.idea
+/.idea
+/cypress/videos
+/cypress/screenshots
