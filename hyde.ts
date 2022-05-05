@@ -6,16 +6,16 @@
  * @author      Caen De Silva
  */
 
-const mainNavigationLinks = document.getElementById("main-navigation-links");
-const openMainNavigationMenuIcon = document.getElementById("open-main-navigation-menu-icon");
-const closeMainNavigationMenuIcon = document.getElementById("close-main-navigation-menu-icon");
-const themeToggleButton = document.getElementById("theme-toggle-button");
-const navigationToggleButton = document.getElementById("navigation-toggle-button");
-const sidebarToggleButton = document.getElementById("sidebar-toggle-button");
+const mainNavigationLinks: HTMLElement = document.getElementById("main-navigation-links");
+const openMainNavigationMenuIcon: HTMLElement = document.getElementById("open-main-navigation-menu-icon");
+const closeMainNavigationMenuIcon: HTMLElement = document.getElementById("close-main-navigation-menu-icon");
+const themeToggleButton: HTMLElement = document.getElementById("theme-toggle-button");
+const navigationToggleButton: HTMLElement = document.getElementById("navigation-toggle-button");
+const sidebarToggleButton: HTMLElement = document.getElementById("sidebar-toggle-button");
 
-let navigationOpen = false;
+let navigationOpen: boolean = false;
 
-function toggleNavigation() {
+function toggleNavigation(): void {
     if (navigationOpen) {
         hideNavigation();
     } else {
@@ -23,7 +23,7 @@ function toggleNavigation() {
     }
 }
 
-function showNavigation() {
+function showNavigation(): void {
     mainNavigationLinks.classList.remove("hidden");
     openMainNavigationMenuIcon.style.display = "none";
     closeMainNavigationMenuIcon.style.display = "block";
@@ -31,7 +31,7 @@ function showNavigation() {
     navigationOpen = true;
 }
 
-function hideNavigation() {
+function hideNavigation(): void {
     mainNavigationLinks.classList.add("hidden");
     openMainNavigationMenuIcon.style.display = "block";
     closeMainNavigationMenuIcon.style.display = "none";
@@ -40,14 +40,14 @@ function hideNavigation() {
 
 // Handle the documentation page sidebar
 
-let sidebarOpen = screen.width >= 768;
+let sidebarOpen: boolean = screen.width >= 768;
 
-const sidebar = document.getElementById("documentation-sidebar");
-const backdrop = document.getElementById("sidebar-backdrop");
+const sidebar: HTMLElement = document.getElementById("documentation-sidebar");
+const backdrop: HTMLElement = document.getElementById("sidebar-backdrop");
 
-const toggleButtons = document.querySelectorAll(".sidebar-button-wrapper");
+const toggleButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".sidebar-button-wrapper");
 
-function toggleSidebar() {
+function toggleSidebar(): void {
     if (sidebarOpen) {
         hideSidebar();
     } else {
@@ -55,7 +55,7 @@ function toggleSidebar() {
     }
 }
 
-function showSidebar() {
+function showSidebar(): void {
     sidebar.classList.remove("hidden");
     sidebar.classList.add("flex");
     backdrop.classList.remove("hidden");
@@ -69,7 +69,7 @@ function showSidebar() {
     sidebarOpen = true;
 }
 
-function hideSidebar() {
+function hideSidebar(): void {
     sidebar.classList.add("hidden");
     sidebar.classList.remove("flex");
     backdrop.classList.add("hidden");
@@ -85,23 +85,23 @@ function hideSidebar() {
 
 // Handle the theme switching
 
-function toggleTheme() {
+function toggleTheme(): void {
     if (isSelectedThemeDark()) {
         setThemeToLight();
     } else {
         setThemeToDark();
     }
 
-    function isSelectedThemeDark() {
+    function isSelectedThemeDark(): boolean {
         return localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    function setThemeToDark() {
+    function setThemeToDark(): void {
         document.documentElement.classList.add("dark");
         localStorage.setItem('color-theme', 'dark');
     }
 
-    function setThemeToLight() {
+    function setThemeToLight(): void {
         document.documentElement.classList.remove("dark");
         localStorage.setItem('color-theme', 'light');
     }
