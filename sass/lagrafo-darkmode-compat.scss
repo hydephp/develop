@@ -1,0 +1,65 @@
+.dark {
+	#lagrafo-app {
+		color: invert($color: #000000);
+		#sidebar {
+			background-color: invert($color: #eee);
+			color: whitesmoke;
+			#sidebar-navigation {
+				border-top: invert($color: #ddd) 1px solid;
+				border-bottom: invert($color: #ddd) 1px solid;
+
+				#sidebar-navigation-menu {
+					.sidebar-navigation-item {
+						>a{
+							&:hover {
+								background-color: invert($color: #ddd);
+							}
+						}
+
+						&.active {
+							background-color: invert($color: rgba(221, 221, 221, 0.5));
+							>a {
+								// Lighten to improve contrast for accessibility
+								color: #818cf8;
+								font-weight: 500;
+							}
+						}
+					}
+				}
+
+				.table-of-contents a:hover {
+					background-color: invert($color: rgba(221, 221, 221, 0.5));
+				}
+			}
+		}
+
+		#content {
+			background-color: #18181b;
+			;
+		}
+
+		#page-footer {
+			background-color: invert($color: whitesmoke);
+		}
+
+		&.js-enabled {
+			@media (max-width: 767px) {
+				#content {	
+					background-color: #18181b;
+					&.sidebar-active {
+						background: #18181b;
+					}
+				}
+			}
+			#mobile-navigation {
+				background-color: invert($color: #eee);
+				#sidebar-toggle span.icon-bar {
+					background-color: invert($color: #000);
+				}
+			}
+		} 
+	}
+	#sidebar-backdrop {
+		background: rgba(0, 0, 0, 0.5);
+	}	
+}
