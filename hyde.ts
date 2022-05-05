@@ -2,18 +2,24 @@
  * Core Scripts for the HydePHP Frontend
  *
  * @package     HydePHP - HydeFront
- * @version     v1.5.x (HydeFront)
+ * @version     v1.6.x (HydeFront)
  * @author      Caen De Silva
  */
 
 const mainNavigationLinks: HTMLElement = document.getElementById("main-navigation-links");
 const openMainNavigationMenuIcon: HTMLElement = document.getElementById("open-main-navigation-menu-icon");
 const closeMainNavigationMenuIcon: HTMLElement = document.getElementById("close-main-navigation-menu-icon");
+/**
+ * @deprecated
+ */
 const themeToggleButton: HTMLElement = document.getElementById("theme-toggle-button");
 const navigationToggleButton: HTMLElement = document.getElementById("navigation-toggle-button");
 const sidebarToggleButton: HTMLElement = document.getElementById("sidebar-toggle-button");
 
 let navigationOpen: boolean = false;
+
+const themeToggleButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".theme-toggle-button");
+
 
 function toggleNavigation(): void {
     if (navigationOpen) {
@@ -38,15 +44,21 @@ function hideNavigation(): void {
     navigationOpen = false;
 }
 
-// Handle the documentation page sidebar
+// Handle the documentation page sidebar (@deprecated in favour of Lagrafo)
 
 let sidebarOpen: boolean = screen.width >= 768;
 
 const sidebar: HTMLElement = document.getElementById("documentation-sidebar");
 const backdrop: HTMLElement = document.getElementById("sidebar-backdrop");
 
+/**
+ * @deprecated use Lagrafo instead
+ */
 const toggleButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".sidebar-button-wrapper");
 
+/**
+ * @deprecated use Lagrafo instead
+ */
 function toggleSidebar(): void {
     if (sidebarOpen) {
         hideSidebar();
@@ -55,6 +67,9 @@ function toggleSidebar(): void {
     }
 }
 
+/**
+ * @deprecated use Lagrafo instead
+ */
 function showSidebar(): void {
     sidebar.classList.remove("hidden");
     sidebar.classList.add("flex");
@@ -69,6 +84,9 @@ function showSidebar(): void {
     sidebarOpen = true;
 }
 
+/**
+ * @deprecated use Lagrafo instead
+ */
 function hideSidebar(): void {
     sidebar.classList.add("hidden");
     sidebar.classList.remove("flex");
@@ -107,8 +125,10 @@ function toggleTheme(): void {
     }
 }
 
-// Register onclick event listener for theme toggle button
-themeToggleButton.onclick = toggleTheme;
+// Register onclick event listener for themeToggleButtons
+themeToggleButtons.forEach((button) => {
+    button.addEventListener("click", toggleTheme);
+});
 
 // Register onclick event listener for navigation toggle button if it exists
 if (navigationToggleButton) {
