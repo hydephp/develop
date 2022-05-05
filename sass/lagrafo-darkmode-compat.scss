@@ -2,17 +2,17 @@
 	#lagrafo-app {
 		color: invert($color: #000000);
 		#sidebar {
-			background-color: invert($color: #eee);
+			background-color: #1F2937;
 			color: whitesmoke;
 			#sidebar-navigation {
-				border-top: invert($color: #ddd) 1px solid;
-				border-bottom: invert($color: #ddd) 1px solid;
+				border-top: #1B2533 1px solid;
+				border-bottom: #1B2533 1px solid;
 
 				#sidebar-navigation-menu {
 					.sidebar-navigation-item {
 						>a{
 							&:hover {
-								background-color: invert($color: #ddd);
+								background-color: #1B2533;
 							}
 						}
 
@@ -34,7 +34,7 @@
 		}
 
 		#content {
-			background-color: #18181b;
+			background-color: #111827;
 			;
 		}
 
@@ -45,14 +45,14 @@
 		&.js-enabled {
 			@media (max-width: 767px) {
 				#content {	
-					background-color: #18181b;
+					background-color: #111827;
 					&.sidebar-active {
-						background: #18181b;
+						background: #111827;
 					}
 				}
 			}
 			#mobile-navigation {
-				background-color: invert($color: #eee);
+				background-color: #1F2937;
 				#sidebar-toggle span.icon-bar {
 					background-color: invert($color: #000);
 					height: 2px;
