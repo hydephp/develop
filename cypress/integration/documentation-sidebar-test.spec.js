@@ -29,9 +29,9 @@ it('tests the documentation page sidebar', () => {
 	cy.get('#sidebar-navigation').find('a').eq(0).should('have.attr', 'aria-current')
 
 	// Test that clicking the sidebar header takes you to the docs index page
-	cy.get('#documentation-sidebar a').first().should('be.visible')
-	cy.get('#documentation-sidebar a').first().should('contain', 'HydePHP Docs')
-	cy.get('#documentation-sidebar a').first().click()
+	cy.get('#sidebar-brand a').first().should('be.visible')
+	cy.get('#sidebar-brand a').first().should('contain', 'HydePHP Docs')
+	cy.get('#sidebar-brand a').first().click()
 	cy.url().should('include', 'docs/index.html')
 	cy.get('#sidebar-navigation').find('a').eq(0).should('not.have.attr', 'aria-current')
 });
@@ -43,11 +43,10 @@ it('tests the documentation page sidebar on a mobile device', () => {
 
 	cy.get('#sidebar-navigation').should('not.be.visible')
 
-	cy.get('#sidebar-toggle-button').should('be.visible')
-	cy.get('#sidebar-toggle-button').click()
-	cy.get('#sidebar-toggle-button').click()
+	cy.get('#sidebar-toggle').should('be.visible')
+	cy.get('#sidebar-toggle').click()
 
 	cy.get('#sidebar-navigation').should('be.visible')
-	cy.get('#sidebar-toggle-button').click()
+	cy.get('#sidebar-toggle').click()
 	cy.get('#sidebar-navigation').should('not.be.visible')
 })
