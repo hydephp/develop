@@ -2,7 +2,7 @@
  * Core Scripts for the HydePHP Frontend
  *
  * @package     HydePHP - HydeFront
- * @version     v1.6.x (HydeFront)
+ * @version     v1.7.x (HydeFront)
  * @author      Caen De Silva
  */
 
@@ -14,7 +14,6 @@ const closeMainNavigationMenuIcon: HTMLElement = document.getElementById("close-
  */
 const themeToggleButton: HTMLElement = document.getElementById("theme-toggle-button");
 const navigationToggleButton: HTMLElement = document.getElementById("navigation-toggle-button");
-const sidebarToggleButton: HTMLElement = document.getElementById("sidebar-toggle-button");
 
 let navigationOpen: boolean = false;
 
@@ -42,63 +41,6 @@ function hideNavigation(): void {
     openMainNavigationMenuIcon.style.display = "block";
     closeMainNavigationMenuIcon.style.display = "none";
     navigationOpen = false;
-}
-
-// Handle the documentation page sidebar (@deprecated in favour of Lagrafo)
-
-let sidebarOpen: boolean = screen.width >= 768;
-
-const sidebar: HTMLElement = document.getElementById("documentation-sidebar");
-const backdrop: HTMLElement = document.getElementById("sidebar-backdrop");
-
-/**
- * @deprecated use Lagrafo instead
- */
-const toggleButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".sidebar-button-wrapper");
-
-/**
- * @deprecated use Lagrafo instead
- */
-function toggleSidebar(): void {
-    if (sidebarOpen) {
-        hideSidebar();
-    } else {
-        showSidebar();
-    }
-}
-
-/**
- * @deprecated use Lagrafo instead
- */
-function showSidebar(): void {
-    sidebar.classList.remove("hidden");
-    sidebar.classList.add("flex");
-    backdrop.classList.remove("hidden");
-    document.getElementById("app").style.overflow = "hidden";
-
-    toggleButtons.forEach((button) => {
-        button.classList.remove("open");
-        button.classList.add("closed");
-    });
-
-    sidebarOpen = true;
-}
-
-/**
- * @deprecated use Lagrafo instead
- */
-function hideSidebar(): void {
-    sidebar.classList.add("hidden");
-    sidebar.classList.remove("flex");
-    backdrop.classList.add("hidden");
-    document.getElementById("app").style.overflow = null;
-
-    toggleButtons.forEach((button) => {
-        button.classList.add("open");
-        button.classList.remove("closed");
-    });
-
-    sidebarOpen = false;
 }
 
 // Handle the theme switching
@@ -135,7 +77,65 @@ if (navigationToggleButton) {
     navigationToggleButton.onclick = toggleNavigation;
 }
 
-// Register onclick event listener for sidebar toggle button if it exists
-if (sidebarToggleButton) {
-    sidebarToggleButton.onclick = toggleSidebar;
+
+/**
+ * Lagrafo Frontend Scripts
+ * @version v0.2.0-beta
+ */
+
+let sidebarOpen:boolean = false;
+
+const sidebarToggleButton = document.getElementById('sidebar-toggle') as HTMLButtonElement;
+const sidebar = document.getElementById('sidebar') as HTMLDivElement;
+const backdrop:HTMLDivElement = document.createElement('div');
+
+function toggleSidebar() {
+    sidebarOpen ? closeSidebar() : openSidebar();
+
+    function openSidebar() {
+        sidebarOpen = true;
+        sidebar.classList.add('active');
+        sidebarToggleButton.classList.add('active');
+        createBackdropElement();
+    }
+
+    function closeSidebar() {
+        sidebarOpen = false;
+        sidebar.classList.remove('active');
+        sidebarToggleButton.classList.remove('active');
+        removeBackdropElement();
+    }
+
+    function createBackdropElement() {
+        backdrop.id = 'sidebar-backdrop';
+        backdrop.title = 'Click to close sidebar';
+        backdrop.classList.add('backdrop');
+        backdrop.classList.add('active');
+
+        backdrop.addEventListener('click', closeSidebar);
+        document.body.appendChild(backdrop);
+
+        document.getElementById('content').classList.add('sidebar-active');
+    }
+
+    function removeBackdropElement() {
+        if (backdrop.parentNode) {
+            backdrop.parentNode.removeChild(backdrop);
+        }
+        document.getElementById('content').classList.remove('sidebar-active');
+
+    }
+
 }
+
+// On click of sidebar toggle button
+sidebarToggleButton.addEventListener('click', function () {
+    toggleSidebar();
+});
+
+// If sidebar is open, close it on escape key press
+document.addEventListener('keydown', function (e) {
+    if (sidebarOpen && e.key === 'Escape') {
+        toggleSidebar();
+    }
+});
