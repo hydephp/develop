@@ -9,16 +9,14 @@
 const mainNavigationLinks: HTMLElement = document.getElementById("main-navigation-links");
 const openMainNavigationMenuIcon: HTMLElement = document.getElementById("open-main-navigation-menu-icon");
 const closeMainNavigationMenuIcon: HTMLElement = document.getElementById("close-main-navigation-menu-icon");
-/**
- * @deprecated
- */
-const themeToggleButton: HTMLElement = document.getElementById("theme-toggle-button");
 const navigationToggleButton: HTMLElement = document.getElementById("navigation-toggle-button");
+const themeToggleButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".theme-toggle-button");
 
 let navigationOpen: boolean = false;
 
-const themeToggleButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".theme-toggle-button");
-
+/**
+ * Navigation Interactions
+ */
 
 function toggleNavigation(): void {
     if (navigationOpen) {
@@ -43,7 +41,9 @@ function hideNavigation(): void {
     navigationOpen = false;
 }
 
-// Handle the theme switching
+/**
+ * Theme Toggle
+ */
 
 function toggleTheme(): void {
     if (isSelectedThemeDark()) {
@@ -82,60 +82,61 @@ if (navigationToggleButton) {
  * Lagrafo Frontend Scripts
  * @version v0.2.0-beta
  */
+if (document.getElementById("lagrafo-app")) {
+    let sidebarOpen:boolean = false;
 
-let sidebarOpen:boolean = false;
+    const sidebarToggleButton = document.getElementById('sidebar-toggle') as HTMLButtonElement;
+    const sidebar = document.getElementById('sidebar') as HTMLDivElement;
+    const backdrop:HTMLDivElement = document.createElement('div');
 
-const sidebarToggleButton = document.getElementById('sidebar-toggle') as HTMLButtonElement;
-const sidebar = document.getElementById('sidebar') as HTMLDivElement;
-const backdrop:HTMLDivElement = document.createElement('div');
+    function toggleSidebar() {
+        sidebarOpen ? closeSidebar() : openSidebar();
 
-function toggleSidebar() {
-    sidebarOpen ? closeSidebar() : openSidebar();
-
-    function openSidebar() {
-        sidebarOpen = true;
-        sidebar.classList.add('active');
-        sidebarToggleButton.classList.add('active');
-        createBackdropElement();
-    }
-
-    function closeSidebar() {
-        sidebarOpen = false;
-        sidebar.classList.remove('active');
-        sidebarToggleButton.classList.remove('active');
-        removeBackdropElement();
-    }
-
-    function createBackdropElement() {
-        backdrop.id = 'sidebar-backdrop';
-        backdrop.title = 'Click to close sidebar';
-        backdrop.classList.add('backdrop');
-        backdrop.classList.add('active');
-
-        backdrop.addEventListener('click', closeSidebar);
-        document.body.appendChild(backdrop);
-
-        document.getElementById('content').classList.add('sidebar-active');
-    }
-
-    function removeBackdropElement() {
-        if (backdrop.parentNode) {
-            backdrop.parentNode.removeChild(backdrop);
+        function openSidebar() {
+            sidebarOpen = true;
+            sidebar.classList.add('active');
+            sidebarToggleButton.classList.add('active');
+            createBackdropElement();
         }
-        document.getElementById('content').classList.remove('sidebar-active');
+
+        function closeSidebar() {
+            sidebarOpen = false;
+            sidebar.classList.remove('active');
+            sidebarToggleButton.classList.remove('active');
+            removeBackdropElement();
+        }
+
+        function createBackdropElement() {
+            backdrop.id = 'sidebar-backdrop';
+            backdrop.title = 'Click to close sidebar';
+            backdrop.classList.add('backdrop');
+            backdrop.classList.add('active');
+
+            backdrop.addEventListener('click', closeSidebar);
+            document.body.appendChild(backdrop);
+
+            document.getElementById('content').classList.add('sidebar-active');
+        }
+
+        function removeBackdropElement() {
+            if (backdrop.parentNode) {
+                backdrop.parentNode.removeChild(backdrop);
+            }
+            document.getElementById('content').classList.remove('sidebar-active');
+
+        }
 
     }
 
-}
-
-// On click of sidebar toggle button
-sidebarToggleButton.addEventListener('click', function () {
-    toggleSidebar();
-});
-
-// If sidebar is open, close it on escape key press
-document.addEventListener('keydown', function (e) {
-    if (sidebarOpen && e.key === 'Escape') {
+    // On click of sidebar toggle button
+    sidebarToggleButton.addEventListener('click', function () {
         toggleSidebar();
-    }
-});
+    });
+
+    // If sidebar is open, close it on escape key press
+    document.addEventListener('keydown', function (e) {
+        if (sidebarOpen && e.key === 'Escape') {
+            toggleSidebar();
+        }
+    });
+}
