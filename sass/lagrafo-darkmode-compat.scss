@@ -1,6 +1,6 @@
 .dark {
 	#lagrafo-app {
-		color: invert($color: #000000);
+		color: white;
 		#sidebar {
 			background-color: #1F2937;
 			color: whitesmoke;
@@ -17,7 +17,7 @@
 						}
 
 						&.active {
-							background-color: invert($color: rgba(221, 221, 221, 0.5));
+							background-color: rgba(0, 0, 0, 0.1);
 							>a {
 								// Lighten to improve contrast for accessibility
 								color: #818cf8;
@@ -28,7 +28,7 @@
 				}
 
 				.table-of-contents a:hover {
-					background-color: invert($color: rgba(221, 221, 221, 0.5));
+					background-color: rgba(0, 0, 0, 0.1);
 				}
 			}
 		}
@@ -71,15 +71,10 @@
 			opacity: 1;
 		}
 	}
-
-	.theme-toggle-button {
-		opacity: 0.75;
-	}
-
 }
 
 .theme-toggle-button {
-	opacity: 0.5;
+	opacity: 0.75;
 	transition: opacity 0.2s ease-in-out;
 	&:hover, &:focus {
 		opacity: 1;
