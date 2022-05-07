@@ -9,13 +9,10 @@
     <img style="display: inline; margin: 4px 2px;" src="https://github.com/hydephp/framework/actions/workflows/test-suite.yml/badge.svg" alt="Test Suite">  <img style="display: inline; margin: 4px 2px;" src="https://github.styleci.io/repos/472503421/shield?branch=master" alt="StyleCI Status"> </a>
 </p>
 
-## Powered by Laravel Zero
+## ⚠ Beta Software Warning
+Heads up! HydePHP is still new and currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series might not be stable and may change at any time. No backwards compatibility guarantees are made and there will be breaking changes without notice.
 
-## ⚠ Alpha Software Warning ⚠
-### This is a very new project that has been made public to run further tests before the initial release. Please wait until v1.0 for production use.
-
----
-
+Please wait until v1.0 for production use and remember to back up your source files before updating (use Git!). See https://hydephp.github.io/docs/master/updating-hyde.html for the upgrade guide.
 ## About HydePHP
 
 HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static websites, blogs, and documentation pages using Markdown and (optionally) Blade.
