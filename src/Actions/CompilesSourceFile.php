@@ -100,6 +100,10 @@ class CompilesSourceFile
         );
         $output = str_replace(array_keys($dictionary), $dictionary, e($output));
 
-        return '<h1>Error: Exception detected in output.</h1>'."\n\n".'<pre style="background:black;color:white;font-size:14px;font-family:monospace;padding:16px;width:fit-content;">'.($output).'</pre>';
+        return '<!DOCTYPE html><html lang="en"><head><title>An exception has been detected</title></head><body>'
+        .'<h1>Error: Exception detected in output.</h1>'
+        ."\n".'<p style="font-size:20px;">Please report any issues and/or feedback about this error page at GitHub <a href="https://github.com/hydephp/realtime-compiler/issues/3">https://github.com/hydephp/realtime-compiler/issues/3</a>!</p>'
+        ."\n\n".'<pre style="background:black;color:white;font-size:14px;font-family:monospace;padding:16px;width:fit-content;">'.($output).'</pre>'
+        .'</body></html>';
     }
 }
