@@ -1,3 +1,5 @@
+---
+---
 # Getting Started
 Now that you have installed Hyde, let's get to using it!
 
