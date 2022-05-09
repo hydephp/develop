@@ -15,7 +15,7 @@ You access it through the command line with `php hyde <command>`.
 
 ## Starting a development server
 
-To make previewing your site a breeze you can use the realtime compiler
+To make previewing your site a breeze you can use the real-time compiler
 which builds your pages on the fly. Start it using the HydeCLI:
 ```bash
 php hyde serve
@@ -61,14 +61,13 @@ This is as easy as executing the `build` command:
 php hyde build
 ```
 
-
 **Your site is then stored in the `_site` directory.**
 
-## Managing assets
+### Managing assets
 
-Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views meaning that you don't even need to use NPM. However, Hyde is already configured to use Laravel Mix to compile your assets if you feel like there's a need to. See more in the [Managing Assets](managing-assets.html) page.
+Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views meaning that you don't even need to use NPM. However, Hyde is already configured to use Laravel Mix to compile your assets if you feel like there's a need to. See more on the [Managing Assets](managing-assets.html) page.
 
-## Deploying your site
+### Deploying your site
 
 You are now ready to show your site to the world!
 
