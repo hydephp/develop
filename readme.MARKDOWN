@@ -1,1 +1,1 @@
-Hyde Documentation for versions series 0.20 and above (Work in progress)
+# Hyde Documentation for versions series 0.20 and above (Work in progress)
