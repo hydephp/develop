@@ -81,8 +81,3 @@ You can even use GitHub pages to host your site for free. That's what the Hyde w
 using a CI that automatically builds and deploys this site.
 
 
-## Next steps
-
-Make sure you check out the [getting started](getting-started.html) page to learn how to use Hyde!
-
-
