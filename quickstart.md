@@ -1,3 +1,7 @@
+---
+label: Quickstart Guide
+---
+
 # Quickstart Guide
 
 ## Installing HydePHP using Composer 
