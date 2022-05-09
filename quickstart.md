@@ -1,4 +1,4 @@
-# Quick Start Guide
+# Quickstart Guide
 
 ## Installing HydePHP using Composer 
 The recommended method of installing Hyde is using Composer.
