@@ -12,10 +12,11 @@ composer create-project hyde/hyde --stability=dev
 ```
 
 ## Using the Hyde CLI
-The main way to interact with Hyde is through the HydeCLI.
+The main way to interact with Hyde is through HydeCLI.
+
 If you are familiar with Laravel Artisan you will feel right at home.
 
-You access it through the command line with `php hyde <command>`.
+Learn more about the HydeCLI in the [console commands](console-commands.html) documentation.
 
 ## Starting a development server
 
