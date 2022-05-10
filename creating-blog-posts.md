@@ -207,3 +207,14 @@ and injected into post and page metadata.
 > See [posts/introducing-images](https://hydephp.github.io/posts/introducing-images.html)
 > for a detailed blog post with examples and schema information!
 { .info }
+
+
+## Using images in posts
+
+To use images stored in the `_media/` directory, you can use the following syntax:
+
+```markdown
+![Image Alt](../media/image.png "Image Title") # Note the relative path
+```
+
+To learn more, check out the [chapter in managing assets](managing-assets.html#managing-images)
