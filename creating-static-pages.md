@@ -74,7 +74,7 @@ php hyde make:page "Page Title"
 
 This will create the following file saved as `_pages/page-title.md`
 
-```
+```markdown
 ---
 title: Page Title
 ---
@@ -121,7 +121,7 @@ one for Markdown pages, as this one automatically adds the included app Layout.
 Let's take a look at the scaffolded file. You can also copy and paste this
 if you don't want to use the scaffolding command.
 
-```
+```blade
 @extends('hyde::layouts.app')
 @section('content')
 @php($title = "Page Title")
