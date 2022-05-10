@@ -29,10 +29,11 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 ### Filenames
 
-- Markdown post files are stored in the `_posts` directory.
+- Markdown post files are stored in the `_posts` directory
 - The filename is used as the filename for the compiled HTML
 - Filenames should use `kebab-case-slug` followed by the extension `.md`
 - Files prefixed with `_underscores` are ignored by Hyde
+- Your post will be stored in `_site/posts/<slug>.html`
 
 **Example:**
 ```bash
