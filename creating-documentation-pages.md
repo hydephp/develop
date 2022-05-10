@@ -15,7 +15,7 @@ What is "the rest", you may ask? Well, for starters:
 - Hyde compiles your Markdown content into a beautiful static HTML page based on [the Lagrafo frontend](https://github.com/caendesilva/lagrafo)
 - A sidebar (which is responsive) is automatically created based on your Markdown files
   - If you have an `index.md` or `readme.md` in the `_docs/` directory, it be used as the sidebar header
-  - You can even [customize the order and labels](#sidebar-customization) of sidebar items
+  - You can even [customize the order and labels](#sidebar-page-order) of sidebar items
 - If you have an `index.md` or `readme.md` in the `_docs/` directory,
   a link to it will be added to the site navigation menu named "Docs".
 - If you have a Torchlight API token in your .env file, Hyde will even automatically enable Syntax Highlighting for you.
@@ -96,7 +96,7 @@ of these items. You can do this in two ways, either in the config or with front 
 Hyde automatically generates a table of contents for the page and adds it to the sidebar.
 
 The behaviour of this  can be changed in the configuration file.
-See [the customization page](customization.html/documentation-sidebar) for more details.
+See [the customization page](customization.html#documentation-sidebar) for more details.
 
 
 ### Sidebar ordering
@@ -109,7 +109,7 @@ priority: 5
 ```
 
 You can also change the order in the Hyde configuration file.
-See [the chapter in the customization page](customization.html/documentation-sidebar) for more details. <br>
+See [the chapter in the customization page](customization.html#documentation-sidebar) for more details. <br>
  _I personally think the config route is easier as it gives an instant overview, however the first way is nice as well._
 
 ### Sidebar labels
@@ -171,7 +171,7 @@ Link items without an entry here will have fall back to the default priority of 
 ]
 ```
 
-See [the chapter in the customization page](customization.html/documentation-sidebar) for more details. <br>
+See [the chapter in the customization page](customization.html#documentation-sidebar) for more details. <br>
 
 
 ### Table of contents settings
@@ -187,4 +187,3 @@ You can also disable the feature completely.
 	'smoothPageScrolling' => true,
 ],
 ```
-
