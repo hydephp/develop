@@ -1,158 +1,231 @@
+---
+priority: 5
+category: "Getting Started"
+---
+
 # Console Commands
-Hyde is based on [Laravel Zero](https://laravel-zero.com/), which is a micro-framework for console applications.
 
-As such, when you are not writing Markdown posts, most of your time with Hyde will be spent using the CLI.
+The primary way of interacting with Hyde is through the command line using the HydeCLI.
 
-To help in developing your site we have also included a few scripts in the `package.json`. 
+If you have ever used the Artisan Console in Laravel you will feel right at home,
+the Hyde CLI is based on Artisan after all!
 
 ## Hyde Commands
-The main place you will interact with Hyde is with the Hyde Console which you access by navigating to your project directory and running the `php hyde` command. If you have ever used the Artisan Console in Laravel you will feel right at home, the Hyde CLI is based on Artisan after all!
 
-Let's take a quick rundown of the most common commands you will use.
+To use the HydeCLI, run `php hyde` from your project directory followed by a command.
 
-You can always run the base command `php hyde` to show the list of commands:
+### Documentation syntax
+
+Wondering what the different formatting in examples means? Here's a quick guide:
+
 ```bash
-// torchlight! {"lineNumbers": false}
-     __ __        __    ___  __ _____
-    / // /_ _____/ /__ / _ \/ // / _ \
-   / _  / // / _  / -_) ___/ _  / ___/
-  /_//_/\_, /\_,_/\__/_/  /_//_/_/
-       /___/
+<argument> # Comes after the command name.
+[<argument>] # Optional argument. 
 
-  v0.1.0-pre
-
-  USAGE: hyde <command> [options] [arguments]
-
-  build     Build the static site
-  inspire   Display an inspiring quote
-
-  make:post Scaffold a new Markdown blog post file
+--option # Sometimes referred to as a flag.
+--option=<value> # Option which takes an value.
+[--option] # Optional option.
 ```
 
-> Tip: You can always add --help to a command to show detailed usage output
+All HydeCLI commands start with `php hyde`. Anything in `[brackets]` is optional.
+If an argument or option value has a space in it, it needs to be wrapped in quotes.
 
-### The Build Command
+
+
+### Got stuck? The CLI can help.
+
+You can always run the base command `php hyde`, or `php hyde list`, to show the list of commands.
+
+```bash
+php hyde # or `php hyde list`
+```
+
+You can also always add `--help` to a command to show detailed usage information.
+```bash
+php hyde <command> --help
+```
+
+
+### Initialize a new Hyde project
+```bash
+php hyde install         
+```
+
+While Hyde doesn't need much configuration to get started, this command speeds up the little there is.
+
+For example, it updates the config file with the supplied site name and URL,
+and can also publish a starter homepage and rebuild the site.
+
+
+### Build the static site
+```bash
+php hyde build          
+```
 
 Maybe the most important command is the Build command, which -- you guessed it -- builds your static site!
 
-```bash
-php hyde build
+**Supports the following options:**
+```
+--run-dev   Run the NPM dev script after build
+--run-prod  Run the NPM prod script after build
+--pretty    Format the output using NPM Prettier
+--no-api    Disable API calls, for example, Torchlight
 ```
 
-> If you want to to prettify the output HTML you can add the `--pretty` option. This requires that you have Node and NPM installed as it uses the Prettier NPM module.
-
-#### The Rebuild Command
-
-Using the `php hyde build` command is great and all that, but when you just need to update that one file it gets a little... overkill.
-
-Let's solve that! Use the `php hyde rebuild <file>` command!
-
-In the future it will support an array of files, but for now, the rebuild command will recompile just that file.
-
-### The Post Make Command
-You can of course create blog posts the old fashioned way by just creating the files yourself, but what's the fun in that?
-
-Using the Make command you will be asked a series of questions which are then used to scaffold a blog post file. It automatically takes care of YAML Front Matter formatting and generates a slug from the supplied title and even adds the current date.
-
+### Build a single file
 ```bash
-php hyde make:post
+php hyde rebuild <filepath>       
+```
+Using the php hyde build command is great and all that,
+but when you just need to update _that one file_ it gets a little... overkill.
+To solve this problem, you can use the `rebuild` command to compile a single file.
+
+**Requires the following Arguments:**
+```
+path   The relative file path
 ```
 
-> Tip: To overwrite existing files, supply the --force flag (at your own risk of course)
-
-### The Publish Command
-If you are coming from Laravel, you are probably familiar with the Artisan vendor:publish command.
-
-Hyde has a similar command that allows you to publish various pages.
-
-#### Publish Configs
-To publish the default configuration files (if you mess something up, or when updating) run the following command. You may need to supply the --force option to overwrite existing files.
+**Example:**
 ```bash
-php hyde publish:config [--force]
+php hyde rebuild _posts/hello-world.md
 ```
 
-#### Publish a Homepage
-Hyde comes with 3 build in homepages. On a fresh install the page 'welcome' is installed. However, you can use the publish command to publish another one. You will probably need to supply the --force option to overwrite existing files.
-
-The available homepages are: 
-- *blank*: This is a blank Blade page that simply contains the base layout
-- *post feed*: This is the view that this documentation site uses. It contains a listing of the latest posts and was previously the default.
-- *welcome*: This is the current welcome page. Unlike the other pages, the styles are defined inline.
-
-When publishing any of these pages they will be saved as index.blade.php in the `_pages` directory which the compiler will use to create the index.html page.
-
-Tip: If you want to have a /posts page you can publish the post feed homepage, rename it to `posts.blade.php` and republish another home page!
-
-#### Publish the Default Views & Components
-Since Hyde is based on the Laravel view system the compiler uses Blade views and components. 
-
-Laravel actually registers two locations for the Hyde views: your site's resources/views/vendor directory and the directory source directory in the Framework package.
-
-So, when compiling a site, Laravel will first check if a custom version of the view has been placed in the resources/views/vendor/hyde directory by the developer (you). Then, if the view has not been customized, Laravel will search the Hyde framework view directory. This makes it easy for you to customize / override the package's views.
-
-To publish the views, use
+### Start the realtime compiler.
 ```bash
-php hyde publish:views
+php hyde serve          
 ```
-you will then be asked to select which views you want to publish. There are 3 options:
-- *components*: These are the reusable components used by the framework
-- *layouts*: These are the base layouts used by the framework
-- *404 page*: This is a special view, containing a beautiful Blade view from [LaravelCollective](https://github.com/LaravelCollective/errors). When published, it will be compiled into 404.html.
 
-> Note that when a view is updated in the framework you will need to republish the views to get the new changes! You can supply the --force tag to overwrite any existing files.
+The serve command feels similar to the Laravel Artisan serve command, but works by
+starting a local PHP server. When you visit a page, the server will use the
+realtime compiler to locate the source file, recompile it, and proxy
+the resulting HTML and any media files to your browser.
 
-### The Validate Command
+If you are missing the extension, you can always reinstall it with Composer `composer require hyde/realtime-compiler`.
+You can also learn more on the [GitHub page](https://github.com/hydephp/realtime-compiler).
+
+**Supports the following options:**
+```
+--port[=PORT] [default: "8080"]
+--host[=HOST] [default: "localhost"]
+```
+
+
+### Scaffold a new blog post file
+```bash
+php hyde make:post       
+```
+
+At the core, blog posts are just pain ol' Markdown files.
+However, by adding a special YAML syntax called Front Matter, you can add metadata to your posts.
+But who can remember the syntax? You can use the `make:post` command to scaffold a new blog post file.
+The command will ask you a series of interactive questions, letting you fill in the blanks.
+It will then create a file, converting your input into front matter. It automatically
+sets the date and time for you, and the file name will be based on the title.
+
+
+### Scaffold a new page file
+```bash
+php hyde make:page <title> [--type=TYPE]
+```
+
+The `make:page` command is similar to the `make:post` command and lets you quickly
+create one of the following page types:
+
+- **Markdown**:
+ Creates a Markdown file in the `_pages` directory.
+- **Blade**:
+ Creates a Blade file using the app layout in the `_pages` directory.
+- **Docs**:
+ Creates a Markdown file in the `_docs` directory. 
+
+In all cases, the title will be used in the created file as the page title, and to generate the filename.
+
+**Requires the following Arguments:**
+```
+title   The name of the page file to create
+```
+
+**Supports the following options:**
+```
+--type[=TYPE] The type of page to create (markdown, blade, or docs) [default: "markdown"]
+```
+
+**Example:**
+```bash
+php hyde make:page About # Defaults to Markdown
+php hyde make:page "Photo Gallery" --type=blade
+php hyde make:page "Hyde CLI Guide" --type=docs
+```
+
+### Publish a default homepage
+```bash
+php hyde publish:homepage [<name>]
+```
+
+Hyde comes with three homepage options to choose from. The homepage you select is stored as
+`_pages/index.blade.php` and becomes the `index.html` file when compiling the site.
+
+On a fresh install the page 'welcome' is installed.
+However, you can use this command to publish another one.
+If you have modified the file, you will need to supply the --force option to overwrite it.
+
+The available homepages are:
+
+- **welcome:** The default welcome page. Unlike the other pages, the styles are defined inline.
+- **posts:** A Blade feed of your latest blog posts. Perfect for a blog site!
+- **blank:** A blank Blade template with just the base app layout.
+
+You can supply the homepage name directly to the command, otherwise you will be prompted to select one.
+
+
+### Publish the Hyde Blade views
+```bash
+php hyde publish:views [<category>]
+```
+
+Since Hyde is based on the Laravel view system the compiler uses Blade views and components.
+Laravel actually registers two locations for the Hyde views: your site's `resources/views/vendor/hyde` directory and the `resources` directory located in the Framework package.
+
+<blockquote class="warning">
+<p>Warning: This command will overwrite any existing files in the <code>resources/views/vendor</code> directory. <br>
+You should be sure to have backups, or version control such as Git, before running this command.</p>
+</blockquote>
+
+So, when compiling a site, Laravel will first check if a custom version of the view has been placed in the `resources/views/vendor/hyde` directory by the developer (you). Then, if the view has not been customized, Laravel will search the Hyde framework view directory. This makes it easy for you to customize / override the package's views.
+
+The available views you can publish are:
+
+- **all:** Publish all categories listed below
+- **layouts:** Global layout views, such as the app layout, navigation menu, and Markdown page templates.
+- **components:** More or less self-contained components, extracted for customizability and DRY code.
+- **404:** A beautiful 404 error page by the Laravel Collective. This file is already published by default.
+
+You can supply the category name directly to the command, otherwise you will be prompted to select one.
+
+<blockquote class="info">
+Note that when a view is updated in the framework you will need to republish the views to get the new changes!
+</blockquote>
+
+### Republish the configuration files
+```bash
+php hyde update:configs   
+```
+
+When updating Hyde to a new version (or if you mess up your config files),
+you can use this command to republish the configuration files.
+
+<blockquote class="warning">
+<p>Warning: This command will overwrite any existing files in the <code>config</code> directory. <br>
+You should be sure to have backups, or version control such as Git, before running this command.</p>
+</blockquote>
+
+
+### Run validation tests to optimize your site
+```bash
+php hyde validate        
+```
+
 Hyde ships with a very useful command that runs a series of checks to validate your setup and catch any potential issues.
 
-The command is `php hyde validate` and gives an output similar to this
-```bash
-// torchlight! {"lineNumbers": false}
-$ php hyde validate
-
-Running validation tests!
-
-   PASS  CheckForPageConflictsTest
-   ✓ check for conflicts between blade and markdown pages
-
-   PASS  CheckThatAnIndexFileExistsTest
-   ✓ check that an index file exists
-
-   WARN  CheckThatDocumentationPagesHaveAnIndexPageTest
-   ! check that documentation pages have an index page
-   → Could not find an index.md file in the _docs directory!
-
-   PASS  CheckThatFrontendAssetsExistTest
-   ✓ check that app.css exist
-   ✓ check that tailwind.css exist
-
-
-  Tests:  1 warnings, 4 passed
-  Time:   0.31s
-
-All done!
-```
-
-## NPM Commands
-The NPM commands are used to compile the frontend CSS assets and to run the realtime compiler.
-
-Make sure you have Node and NPM installed to use these, and if it's the first time running a command, remember to run `npm install` first!
-
-If you don't have Node and NPM installed, and you don't want to install them you can download the [prebuilt styles from GitHub](https://github.com/hydephp/hyde/tree/master/_site/media).
-
-## Commands for the frontend assets
-- **`npm run dev`** - Compiles the Tailwind
-- **`npm run prod`** - Compiles the Tailwind and minifies the output.
-
-
-## Realtime compiler AKA Watching files for changes
-
-Hyde has a real-time compiler that watches your files for changes and rebuilds the site on the fly.
-> Currently, all pages are rebuilt, but in a future update, only the affected files will be rebuilt.
-
-The real-time viewer also uses Browsersync which starts a local web server and automatically refreshes your pages once they are changed. 
-
-**To start the preview run**
-```bash
-npm run watch
-```
-A browser page should automatically be opened. If not, just navigate to http://localhost:3000/.
+> The validate command requires that [Pest](https://pestphp.com/) is installed.
+> Pest is by default bundled as a dev-dependency with Hyde.

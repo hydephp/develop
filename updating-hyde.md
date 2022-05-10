@@ -1,3 +1,8 @@
+---
+priority: 30
+category: "Digging Deeper"
+---
+
 # Updating Hyde
 
 ## While Hyde is in beta, stuff can change rapidly.

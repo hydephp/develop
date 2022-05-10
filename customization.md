@@ -1,12 +1,19 @@
+---
+label: "Customizing your Site"
+priority: 25
+category: "Digging Deeper"
+---
+
 # Customizing your Site
 
-<p class="lead">
+## Introduction
+
 Hyde favours <a href="https://en.wikipedia.org/wiki/Convention_over_configuration">"Convention over Configuration"</a>
 and thus comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable hackable if you need it. This page guides you through the endless options available!
-</p>
+
 
 ## Main Configuration File
-The main configuration file is in `config/hyde.php`. The [config file](https://github.com/hydephp/hyde/blob/master/config/hyde.php) is fully documented so I recommend you take a look to see all the options.
+The main configuration file is in `config/hyde.php`. The [config file](https://github.com/hydephp/hyde/blob/master/config/hyde.php) is fully documented, so I recommend you take a look to see all the options.
 
 In this config file, you can customize the site name, what modules to enable, and programmatically customize the navigation menu and documentation sidebar. 
 
@@ -103,7 +110,35 @@ Hyde uses the Laravel templating system called Blade. Most parts have been extra
 
 To edit the default component you need to publish them first using the `hyde publish:views` command.
 
-## Frontend Styles
-Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly.
+The files will then be available in the `resources/views/vendor/hyde` directory.
 
-Please see the chapter in the [Getting Started](getting-started.html) page to learn more.
+## Frontend Styles
+Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly. If you want to customize these, you are free to do so. Please see the [Managing Assets](managing-assets.html) page to learn more.
+
+
+## CommonMark environment
+
+Hyde uses [League CommonMark](https://commonmark.thephpleague.com/) for converting Markdown into HTML.
+
+Hyde ships with the GitHub Flavored Markdown extension, and 
+the Torchlight extension is enabled automatically when needed.
+
+You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.
+
+```php
+'extensions' => [
+	\League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
+	\League\CommonMark\Extension\Attributes\AttributesExtension::class,
+	\League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension::class,
+],
+```
+
+In the same file you can also change the config to be passed to the CommonMark environment.
+
+```php
+'config' => [
+	'disallowed_raw_html' => [
+		'disallowed_tags' => [],
+	],
+],
+```

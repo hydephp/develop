@@ -1,68 +1,9 @@
-# Installation Guide
+---
+hidden: true
+---
 
-## Installing HydePHP using Composer (recommended)
-The recommended method of installing Hyde is using Composer. After the project has been created you can scaffold a new blog post using the `make` command and following the on-screen instructions, and then compile the site into static HTML using the `build` command.
+<meta http-equiv="refresh" content="0;url=quickstart.html" />
 
-```bash
-// torchlight! {"lineNumbers": false}
-composer create-project hyde/hyde example-site
+Redirecting you to [quickstart](quickstart.html)
 
-cd example-site
-
-npm install && npm run dev
-
-php hyde make:post
-
-php hyde build
-```
-
-If you now take a look in the `_site` directory you should see that an index.html file, as well as a posts/hello-world.html file, has been created! Open them up in your browser and take a look!
-
-> If you are missing the stylesheet, run `npm install && npm run dev`
-
-
-## Installing HydePHP Git/GitHub
-
-If you want to run the latest development branch of Hyde (not recommended for production!) you can install it directly from Git/GitHub.
-
-### Clone the repo
-There are two methods for creating a new project using Git/GitHub.
-The first one is using the GitHub website where you can clone the template repository using the green button labelled "Use this template" found at https://github.com/hydephp/Hyde.
-
-Or if you want to use the CLI, run
-```bash
-// torchlight! {"lineNumbers": false}
-git clone https://github.com/hydephp/hyde.git
-```
-
-### Finalizing
-Next, navigate into the created project and install the dependencies and build the assets.
-```bash
-// torchlight! {"lineNumbers": false}
-cd hyde
-composer install
-npm install
-npm run dev
-```
-
-
-### Usage
-After the project has been created you can scaffold a new blog post using the `make` command and following the on-screen instructions, and then compile the site into static HTML using the `build` command.
-
-```bash
-// torchlight! {"lineNumbers": false}
-php hyde make:post
-
-php hyde build
-```
-
-If you now take a look in the `_site` directory you should see that an index.html file, as well as a posts/hello-world.html file, has been created! Open them up in your browser and take a look!
-
-### A note on NPM/NodeJS
-Using NPM and NodeJS is optional as Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views. However, if you want to customize the Tailwind config, or if you add new classes when customizing views or creating your own Blade pages, you will need to compile the assets yourself. Hyde makes this easy by shipping everything you need to use Laravel Mix. Simply run `npm install` and `npm run dev/prod/watch` to compile the Tailwind assets.
-
-## Next steps
-
-Make sure you check out the [getting started](getting-started.html) page to learn how to use Hyde!
-
-
+<!-- Note to self, if we need a lot of these in the future it may make more sense to put them in a CI that loads redirects from a config -->

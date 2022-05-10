@@ -1,6 +1,12 @@
+---
+priority: 20
+category: "Creating Content"
+---
+
 # Managing and Compiling Assets
 
-## Intro
+## Introduction
+
 Managing and compiling assets is a very common task in web development. Unfortunately, it's rarely fun. 
 
 With hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is.
@@ -62,6 +68,35 @@ When running the `npm run dev/prod` command, the following happens:
 2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
 
 
-
 ## Managing images
-As mentioned above, assets stored in the _media folder are automatically copied to the _site/media folder, making it the recommended place to store images. You can then easily reference them in your Markdown files.
+As mentioned above, assets stored in the _media folder are automatically copied to the _site/media folder,
+making it the recommended place to store images. You can then easily reference them in your Markdown files.
+
+### Referencing images
+
+The recommended way to reference images are with relative paths as this offers the most compatibility,
+allowing you to browse the site both locally on your filesystem and on the web when serving from a subdirectory.
+
+> Note: The path is relative to the **compiled** file
+{.warning}
+
+The path to use depends on the location of the page. Note the subtle difference in the path prefix.
+
+- If you are in a **Blog Post or Documentation Page**, use `../media/image.png`
+- If in a **Markdown Page or Blade Page**, use `media/image.png`
+- While not recommended, you can also use absolute paths: `/media/image.png`
+
+#### Making images accessible
+
+To improve accessibility, you should always add an `alt` text. Here is a full example for an image in a blog post:
+
+```markdown
+![Image Alt](../media/image.png "Image Title") # Note the relative path
+```
+
+### Setting a featured image for blog posts
+
+Hyde offers great support for creating data-rich and accessible featured images for blog posts.
+
+You can read more about this in the [creating blog posts page](blog-posts.html#image).
+
