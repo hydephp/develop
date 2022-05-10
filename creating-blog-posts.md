@@ -22,6 +22,47 @@ Learn more about scaffolding posts, and other files, in the [console commands](c
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gjpE1U527h8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+## Best Practices and Hyde Expectations
+
+Since Hyde does a lot of things automatically, there are some things you may need
+to keep in mind when creating blog posts so that you don't get unexpected results.
+
+### Filenames
+
+- Markdown post files are stored in the `_posts` directory.
+- The filename is used as the filename for the compiled HTML
+- Filenames should use `kebab-case-slug` followed by the extension `.md`
+- Files prefixed with `_underscores` are ignored by Hyde
+
+**Example:**
+```bash
+✔ _posts/hello-world.md # Valid and will be compiled to _site/posts/hello-world.html
+```
+
+### Front Matter
+
+Front matter is optional, but highly recommended for blog posts.
+
+- Front matter is stores in a block of YAML that starts and ends with a `---` line.
+- The front matter should be the very first thing in the Markdown file.
+- Each key-pair value should be on its own line.
+- The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
+  You are encouranged to look at the compiled HTML to learn and understand how your front matter is used.
+
+
+**Example:**
+```markdown
+---
+title: "My New Post"
+---
+
+## Markdown comes here
+```
+
+You can use the `php hyde make:post` command to automatically generate the front matter based on your input.
+
+
+
 ## A first look at Front Matter
 
 Before digging in deeper on all the supported front matter options,
@@ -39,7 +80,7 @@ author: Mr. Hyde
 date: 2022-05-09 18:38
 ---
 
-## Write something awesome.
+## Write your Markdown here
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 Autem aliquid alias explicabo consequatur similique,
