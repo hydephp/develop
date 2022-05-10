@@ -35,11 +35,13 @@ php hyde serve
 Creating content with Hyde is easy. Simply place Markdown files in one of the source directories, which are as follows:
 ```
 // torchlight! {"lineNumbers": false}
-├── _docs // For documentation pages              
+├── _docs  // For documentation pages              
 ├── _posts // For blog posts
-├── _pages // For static Markdown and Blade pages
-└── config // Configuration files for Hyde and integrations
+└── _pages // For static Markdown and Blade pages
 ```
+
+> There are a few more directories that you should know about. Please see the
+> [directory structure](architecture-concepts.html#directory-structure) section.
 
 ### Scaffolding files
 
@@ -89,6 +91,6 @@ using a CI that automatically builds and deploys this site.
 
 Here's some ideas of what to read next:
 
-- [Architecture Concepts](architecture-concepts.html)
-- [Console Commands](console-commands.html)
+- [Architecture Concepts & Directory Structure](architecture-concepts.html)
+- [Console Commands with the HydeCLI](console-commands.html)
 - [Creating Blog Posts](blog-posts.html)
