@@ -1,6 +1,7 @@
 ---
 label: "Customizing your Site"
 priority: 25
+category: "Digging Deeper"
 ---
 
 ## CommonMark environment

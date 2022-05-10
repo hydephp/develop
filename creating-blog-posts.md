@@ -1,5 +1,6 @@
 ---
 priority: 10
+category: "Creating Content"
 ---
 
 # Creating Blog Posts

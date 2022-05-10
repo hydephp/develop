@@ -1,5 +1,6 @@
 ---
 priority: 11
+category: "Creating Content"
 ---
 
 # Creating Static Pages
