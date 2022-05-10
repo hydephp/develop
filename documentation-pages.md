@@ -98,8 +98,8 @@ of these items. You can do this in two ways, either in the config or with front 
 
 Hyde automatically generates a table of contents for the page and adds it to the sidebar.
 
-The behaviour of this  can be changed in the configuration file.
-See [the customization page](customization.html#documentation-sidebar) for more details.
+The behaviour of this can be changed in the configuration file.
+See [the customization page](customization.html#navigation-menu--sidebar) for more details.
 
 
 ### Sidebar ordering
@@ -112,7 +112,7 @@ priority: 5
 ```
 
 You can also change the order in the Hyde configuration file.
-See [the chapter in the customization page](customization.html#documentation-sidebar) for more details. <br>
+See [the chapter in the customization page](customization.html#navigation-menu--sidebar) for more details. <br>
  _I personally think the config route is easier as it gives an instant overview, however the first way is nice as well._
 
 ### Sidebar labels
@@ -174,7 +174,7 @@ Link items without an entry here will have fall back to the default priority of 
 ]
 ```
 
-See [the chapter in the customization page](customization.html#documentation-sidebar) for more details. <br>
+See [the chapter in the customization page](customization.html#navigation-menu--sidebar) for more details. <br>
 
 
 ### Table of contents settings
