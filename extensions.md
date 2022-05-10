@@ -28,7 +28,7 @@ I cannot recommend it highly enough, especially for documentation sites and code
 
 #### Getting started
 To get started you need an API token which you can get through the [torchlight.dev website](https://torchlight.dev/).
-It is entierly [free for personal and open source projects](https://torchlight.dev/#pricing).
+It is entirely [free for personal and open source projects](https://torchlight.dev/#pricing).
 
 When you have an API token, set it in the `.env` file in the root directory of your project.
 Once a token is set, Hyde will automatically enable the CommonMark extension.

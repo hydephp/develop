@@ -54,7 +54,7 @@ Here is a quick primer:
 - The front matter should be the very first thing in the Markdown file.
 - Each key-pair value should be on its own line.
 - The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
-  You are encouranged to look at the compiled HTML to learn and understand how your front matter is used.
+  You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
 
 
 **Example:**
@@ -97,7 +97,7 @@ animi distinctio earum ducimus minus, magnam.
 
 The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
 
-You are encouranged to look at the compiled HTML to learn and understand how your front matter is used.
+You are encouraged to look at the compiled HTML to learn and understand how your front matter is used.
 
 ### Front matter syntax
 

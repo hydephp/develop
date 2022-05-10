@@ -78,7 +78,7 @@ Hyde makes documentation pages easy to create by automatically generating dynami
 If you are not happy with the results you can customize them in the config or with front matter.
 
 Before we look at how to override things, here is an overview of the relevant content Hyde generates,
-and where the data is from as well as where it can be overriden.
+and where the data is from as well as where it can be overridden.
 
 
 | Property             | Description                                            | Source                         | Override in          |

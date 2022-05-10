@@ -16,13 +16,13 @@ To use the HydeCLI, run `php hyde` from your project directory followed by a com
 
 ### Documentation syntax
 
-Wondering what the diffrent formatting in examples means? Here's a quick guide:
+Wondering what the different formatting in examples means? Here's a quick guide:
 
 ```bash
 <argument> # Comes after the command name.
 [<argument>] # Optional argument. 
 
---option # Sometimes refered to as a flag.
+--option # Sometimes referred to as a flag.
 --option=<value> # Option which takes an value.
 [--option] # Optional option.
 ```

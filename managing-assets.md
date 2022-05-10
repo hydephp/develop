@@ -74,7 +74,7 @@ making it the recommended place to store images. You can then easily reference t
 
 ### Referencing images
 
-The reccomended way to reference images are with relative paths as this offers the most compatibility,
+The recommended way to reference images are with relative paths as this offers the most compatibility,
 allowing you to browse the site both locally on your filesystem and on the web when serving from a subdirectory.
 
 > Note: The path is relative to the **compiled** file

@@ -9,8 +9,8 @@ category: "Creating Content"
 ## Introduction to Hyde Pages
 
 Hyde offers two ways to create static pages:
-**Markdown pages** which are perfect for simple pagesthat focuses heavily on the content,
-and **Blade pages** which are perfect for more complex pages where you want full control over the HMTL,
+**Markdown pages** which are perfect for simple pages that focuses heavily on the content,
+and **Blade pages** which are perfect for more complex pages where you want full control over the HTML,
 and where you may want to include other components.
 
 Let's start with the basics.
@@ -62,7 +62,7 @@ You can of course also create the file yourself with your text editor.
 
 The only front matter supported is the title, which is used as the HTML `<title>`.
 
-If you don't supply a front matter title, Hyde will attempt to find a title in the Markdown body by searcing
+If you don't supply a front matter title, Hyde will attempt to find a title in the Markdown body by searching
 for the first level one heading (`# Page Title`), and if that fails, it will generate one from the filename.
 
 In the future, more front matter options such as page descriptions and meta tags will be supported.
