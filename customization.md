@@ -13,7 +13,7 @@ and thus comes preconfigured with sensible defaults. However, Hyde also strives 
 
 
 ## Main Configuration File
-The main configuration file is in `config/hyde.php`. The [config file](https://github.com/hydephp/hyde/blob/master/config/hyde.php) is fully documented so I recommend you take a look to see all the options.
+The main configuration file is in `config/hyde.php`. The [config file](https://github.com/hydephp/hyde/blob/master/config/hyde.php) is fully documented, so I recommend you take a look to see all the options.
 
 In this config file, you can customize the site name, what modules to enable, and programmatically customize the navigation menu and documentation sidebar. 
 
@@ -120,7 +120,7 @@ Hyde is designed to not only serve as a framework but a whole starter kit and co
 
 Hyde uses [League CommonMark](https://commonmark.thephpleague.com/) for converting Markdown into HTML.
 
-Hyde ships with the Github Flavored Markdown extension, and 
+Hyde ships with the GitHub Flavored Markdown extension, and 
 the Torchlight extension is enabled automatically when needed.
 
 You can add extra CommonMark extensions, or change the default ones, in the `config/markdown.php` file.

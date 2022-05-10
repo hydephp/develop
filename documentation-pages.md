@@ -17,7 +17,7 @@ What is "the rest", you may ask? Well, for starters:
 
 - Hyde compiles your Markdown content into a beautiful static HTML page based on [the Lagrafo frontend](https://github.com/caendesilva/lagrafo)
 - A sidebar (which is responsive) is automatically created based on your Markdown files
-  - If you have an `index.md` or `readme.md` in the `_docs/` directory, it be used as the sidebar header
+  - If you have an `index.md` or `readme.md` in the `_docs/` directory, it will be used as the sidebar header
   - You can even [customize the order and labels](#sidebar-page-order) of sidebar items
 - If you have an `index.md` or `readme.md` in the `_docs/` directory,
   a link to it will be added to the site navigation menu named "Docs".
@@ -155,7 +155,7 @@ for example to specify a version like the Hyde docs does, you can specify the ou
 ### Sidebar header name
 
 By default, the site title shown in the sidebar header is generated from the configured site name suffixed with "docs".
-You can you can change this in the Hyde configuration file.
+You can change this in the Hyde configuration file.
 
 ```php
 'docsSidebarHeaderTitle' => 'API Documentation',
