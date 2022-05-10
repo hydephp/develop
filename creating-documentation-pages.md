@@ -126,7 +126,7 @@ label: "My Custom Sidebar Label"
 You can hide items from the sidebar by adding the `hidden` property to the front matter:
 
 ```yaml
-`hidden: true`
+hidden: true
 ```
 
 This can be useful to create redirects or other items that should not be shown in the sidebar.
