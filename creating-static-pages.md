@@ -133,7 +133,5 @@ if you don't want to use the scaffolding command.
 @endsection
 ```
 
-### Using plain HTML
-
-You don't have to use Blade in Blade pages. It's also perfectly fine to use plain HTML,
-however you still need to use the `blade.php` extension so Hyde can recognize it.
+> Tip: You don't have to use Blade in Blade pages. It's also perfectly fine to use plain HTML,
+> however you still need to use the `blade.php` extension so Hyde can recognize it.
