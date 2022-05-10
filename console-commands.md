@@ -1,3 +1,7 @@
+---
+priority: 5
+---
+
 # Console Commands
 
 The primary way of interacting with Hyde is through the command line using the HydeCLI.

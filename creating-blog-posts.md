@@ -1,4 +1,5 @@
 ---
+priority: 10
 ---
 
 # Creating Blog Posts

@@ -1,5 +1,6 @@
 ---
 label: Quickstart Guide
+priority: 1
 ---
 
 # Quickstart Guide

@@ -1,4 +1,5 @@
 ---
+priority: 11
 ---
 
 # Creating Static Pages

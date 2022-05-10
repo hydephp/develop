@@ -1,5 +1,6 @@
 ---
 label: "Using Markdown"
+priority: 25
 ---
 
 # Markdown with Hyde
