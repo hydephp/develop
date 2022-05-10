@@ -114,8 +114,9 @@ array:
 
 ### Post Front Matter Schema
 
-Here is a quick reference of the supported front matter properties.<br>
+Here is a quick reference of the supported front matter properties.
 Keep on reading to see further explanations, details, and examples. 
+
 
 | **KEY NAME**   | **VALUE TYPE** | **EXAMPLE / FORMAT**             |
 |----------------|----------------|----------------------------------|
