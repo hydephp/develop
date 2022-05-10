@@ -26,37 +26,6 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - Your page will be stored in `_site/<slug>.html`
 - Blade pages will override any Markdown pages with the same filename when compiled
 
-## When to use which?
-
-Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited. 
-
-If you are comfortable with it, and have the need for it, use Blade to create more complex pages! And mix and match between them! Some page types are better suited for Markdown, and others for Blade.
-
-### Comparison
-
-| Markdown                                            | Blade                                                                                    |
-|-----------------------------------------------------|------------------------------------------------------------------------------------------|
-| ➕ Easily created and updated                        | ➕ Full control over the HTML                                                             |
-| ➕ Very fast to create simple and lightweight pages  | ➕ Use the default app layout or create your own                                          |
-| ➕ Suited for content heavy pages such as "about us" | ➕ Use Blade templates and components to keep code DRY                                    |
-| ➖ Not as flexible as Blade pages                    | ➕ Use arbitrary PHP right in the page to create dynamic content                          |
-|                                                     | ➕ Access to all Blade helper directives like @foreach, @if, etc.                         |
-|                                                     | ➖ Takes longer to create as as you need to write the markup                              |
-|                                                     | ➖ You may need to [recompile your CSS](managing-assets.html) if you add Tailwind classes |
-
-
-### Live Demos
-
-The Hyde website ([hydephp.github.io](https://hydephp.github.io/)) uses both Markdown and Blade pages.
-
-The "Privacy" which you can find at [hydephp.github.io/privacy](https://hydephp.github.io/privacy) is a Markdown page,
-which is a perfect fit for this task, where the goal was to simply inform about the privacy policy.
-
-The "Gallery" which you can find at [hydephp.github.io/gallery](https://hydephp.github.io/gallery) is a Blade page.
-While a photo gallery could be used in a Markdown page, here I opted to use a Blade page instead. This allowed me
-to create a bunch of cool and dynamic interactions and animations as I had full control over the HTML and could
-easily add scripts, styles, and iframes. I also seperated sections into components to make them easier to manage.
-
 ## Creating Markdown Pages
 
 Markdown pages are the easiest way to create static pages, and are similar to [blog posts](creating-blog-posts.html).
@@ -135,3 +104,35 @@ if you don't want to use the scaffolding command.
 
 > Tip: You don't have to use Blade in Blade pages. It's also perfectly fine to use plain HTML,
 > however you still need to use the `blade.php` extension so Hyde can recognize it.
+
+
+## When to use which?
+
+Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited. 
+
+If you are comfortable with it, and have the need for it, use Blade to create more complex pages! And mix and match between them! Some page types are better suited for Markdown, and others for Blade.
+
+### Comparison
+
+| Markdown                                            | Blade                                                                                    |
+|-----------------------------------------------------|------------------------------------------------------------------------------------------|
+| ➕ Easily created and updated                        | ➕ Full control over the HTML                                                             |
+| ➕ Very fast to create simple and lightweight pages  | ➕ Use the default app layout or create your own                                          |
+| ➕ Suited for content heavy pages such as "about us" | ➕ Use Blade templates and components to keep code DRY                                    |
+| ➖ Not as flexible as Blade pages                    | ➕ Use arbitrary PHP right in the page to create dynamic content                          |
+|                                                     | ➕ Access to all Blade helper directives like @foreach, @if, etc.                         |
+|                                                     | ➖ Takes longer to create as as you need to write the markup                              |
+|                                                     | ➖ You may need to [recompile your CSS](managing-assets.html) if you add Tailwind classes |
+
+
+### Live Demos
+
+The Hyde website ([hydephp.github.io](https://hydephp.github.io/)) uses both Markdown and Blade pages.
+
+The "Privacy" which you can find at [hydephp.github.io/privacy](https://hydephp.github.io/privacy) is a Markdown page,
+which is a perfect fit for this task, where the goal was to simply inform about the privacy policy.
+
+The "Gallery" which you can find at [hydephp.github.io/gallery](https://hydephp.github.io/gallery) is a Blade page.
+While a photo gallery could be used in a Markdown page, here I opted to use a Blade page instead. This allowed me
+to create a bunch of cool and dynamic interactions and animations as I had full control over the HTML and could
+easily add scripts, styles, and iframes. I also seperated sections into components to make them easier to manage.
