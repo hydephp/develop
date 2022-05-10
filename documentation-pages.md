@@ -22,7 +22,7 @@ What is "the rest", you may ask? Well, for starters:
 - If you have an `index.md` or `readme.md` in the `_docs/` directory,
   a link to it will be added to the site navigation menu named "Docs".
 - If you have a Torchlight API token in your .env file, Hyde will even automatically enable Syntax Highlighting for you.
-  See more about this in the [extensions](extensions.html) page.
+  See more about this in the [extensions page](extensions.html).
 
 ### Best Practices and Hyde Expectations
 
