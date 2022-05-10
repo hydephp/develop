@@ -190,7 +190,7 @@ date: "2022-01-01 12:00" # (string: YYYY-MM-DD [HH:MM])
 - Article `<time>` element with `datetime` attribute and `dateCreated` `datePublished` properties
 - Meta `og:article:published_time` property
 
-### Featured Post Image
+### Featured Image
 
 #### Basic usage example
 
