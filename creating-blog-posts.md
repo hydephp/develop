@@ -87,36 +87,26 @@ Autem aliquid alias explicabo consequatur similique,
 animi distinctio earum ducimus minus, magnam.
 ```
 
-## How the Front Matter is used
+### How the Front Matter is used
 
-It may be helpful to take a look at how the front matter data is
-used so you can get a better understanding of how it works.
+The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
 
-Here is the compiled HTML created by Hyde with dynamically generated markup 
-data based on the front matter, config settings, and Hyde accessibility defaults.
-This can look quite overwhelming, so we'll dig in deeper later on in the article.
+You are encouranged to look at the compiled HTML to learn and understand how your front matter is used.
 
-```html
-<article aria-label="Article" id="https://hydephp.github.io/posts/my-new-post" itemtype="https://schema.org/Article">
-	<meta itemprop="identifier" content="my-new-post">
-	<meta itemprop="url" content="https://hydephp.github.io/posts/my-new-post">
-	<header aria-label="Header section" role="doc-pageheader">
-		<h1 itemprop="headline">My New Post</h1>
-		<div id="byline" aria-label="About the post" role="doc-introduction">
-			Posted <time itemprop="dateCreated datePublished" datetime="2022-05-09T18:38:00+00:00" title="Monday May 9th, 2022, at 6:38pm">May 9th, 2022</time>
-			by author
-			<address itemprop="author" itemtype="https://schema.org/Person" aria-label="The post author"> 
-				<span itemprop="name" aria-label="The author's name" title="@mr_hyde">Mr. Hyde</span> 
-			</address>
-			in the category "blog"
-		</div>
-	</header>
-	<div aria-label="Article body" itemprop="articleBody">
-		<h2>Write something awesome.</h2>
-		<p>Lorem ipsum dolor sit amet.</p>
-	</div>
-	<span class="sr-only">End of article</span>
-</article>
+### Front matter syntax
+
+Here is a quick reference of the syntax Hyde uses and expects:
+
+```markdown
+---
+key: value
+string: "quoted string"
+boolean: true
+integer: 100
+array:
+  key: value
+  key: value
+---
 ```
 
 ## Supported Front Matter properties
@@ -161,24 +151,12 @@ image: # (array)
 title: "My New Post" # (string)
 ```
 
-#### Used in
-- Article `<H1>` element
-- HTML `<title>` tag
-- Meta `og:title` property
-- Article `headline` property
-- Blog post excerpt title
-
-
 ### Post Description
 
 #### Example
 ```yaml
 description: "A short description used in previews and SEO" # (string)
 ```
-
-#### Used in
-- Meta `description` property
-- Blog post excerpts
 
 ### Post Category
 
@@ -187,10 +165,6 @@ description: "A short description used in previews and SEO" # (string)
 ```yaml
 category: blog # (string)
 ```
-
-#### Used in
-- Meta `keywords` property
-- Article category in the byline 
 
 ### Post Author
 
@@ -211,14 +185,6 @@ author: # Array of author data (array)
   website: https://mrhyde.example.com # (string)
 ```
 
-#### Used in
-- Article `<address>` element
-- Meta `author` property
-- Article `author` property, which can contain the following if present in config or front matter array:
-  - Itemtype `https://schema.org/Person`
-  - `URL` property and `rel link` to author's website
-
-
 ### Post Date
 
 #### Example
@@ -226,10 +192,6 @@ author: # Array of author data (array)
 ```yaml
 date: "2022-01-01 12:00" # (string: YYYY-MM-DD [HH:MM])
 ```
-
-#### Used in
-- Article `<time>` element with `datetime` attribute and `dateCreated` `datePublished` properties
-- Meta `og:article:published_time` property
 
 ### Featured Image
 
@@ -262,17 +224,5 @@ image:
   author: Godsgirl_madi
 ```
 
-#### Used in
-- Article `doc-cover` image
-- If supplied with extra data, the following can be added to the `ImageObject` property:
-  - Alt text for screenreaders using the `image.description` value
-  - Tooltip using `title=""` attribute
-  - `Person` object for the image author with `creator` property
-  - `copyrightNotice` property
-  - `license` property
-    - If supplied with a URL, a `rel="license` link is added
-  - `image` (url) property
-  - Meta `text` property
-  - Meta `name` property
-  - Meta `og:image` property
-- All of the array data is constructed into a dynamic fluent string used in the `<figcaption>` element
+The image is used as the post cover image, and all the array data is constructed
+into a dynamic fluent caption, and injected into post and page metadata.
