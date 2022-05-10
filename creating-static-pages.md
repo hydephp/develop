@@ -26,13 +26,13 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - Your page will be stored in `_site/<slug>.html`
 - Blade pages will override any Markdown pages with the same filename when compiled
 
-### When to use which?
+## When to use which?
 
 Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited. 
 
 If you are comfortable with it, and have the need for it, use Blade to create more complex pages! And mix and match between them! Some page types are better suited for Markdown, and others for Blade.
 
-#### Comparison
+### Comparison
 
 | Markdown                                            | Blade                                                                                    |
 |-----------------------------------------------------|------------------------------------------------------------------------------------------|
@@ -45,7 +45,7 @@ If you are comfortable with it, and have the need for it, use Blade to create mo
 |                                                     | ➖ You may need to [recompile your CSS](managing-assets.html) if you add Tailwind classes |
 
 
-#### Live Demos
+### Live Demos
 
 The Hyde website ([hydephp.github.io](https://hydephp.github.io/)) uses both Markdown and Blade pages.
 
@@ -57,7 +57,7 @@ While a photo gallery could be used in a Markdown page, here I opted to use a Bl
 to create a bunch of cool and dynamic interactions and animations as I had full control over the HTML and could
 easily add scripts, styles, and iframes. I also seperated sections into components to make them easier to manage.
 
-## Markdown Pages
+## Creating Markdown Pages
 
 Markdown pages are the easiest way to create static pages, and are similar to [blog posts](creating-blog-posts.html).
 You may want to read that page first as it explains [how  front matter works](creating-blog-posts.html#supported-front-matter-properties)
@@ -96,7 +96,7 @@ for the first level one heading (`# Page Title`), and if that fails, it will gen
 In the future, more front matter options such as page descriptions and meta tags will be supported.
 
 
-## Blade Pages
+## Creating Blade Pages
 
 Since Hyde is based on Laravel and uses the Blade templating engine,
 you can use Blade pages to create more complex pages.
