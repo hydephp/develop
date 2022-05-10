@@ -1,4 +1,5 @@
 ---
+label: Documentation Pages
 ---
 
 # Creating Documentation Pages

@@ -1,4 +1,5 @@
 ---
+label: "Using Markdown"
 ---
 
 # Markdown with Hyde
