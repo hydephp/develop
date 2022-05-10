@@ -18,6 +18,26 @@ to learn more and see the available commands and their usage.
 php hyde <command> [--help]
 ```
 
+## Directory structure
+
+To take full advantage of the framework, it may first be good to familiarize ourselves with the directory structure.
+
+```
+// torchlight! {"lineNumbers": false}
+├── _docs  // For documentation pages              
+├── _posts // For blog posts
+├── _pages // For static Markdown and Blade pages
+├── _media // Store static assets to be copied to the build directory
+├── _site  // The build directory where your compiled site will be stored
+├── config // Configuration files for Hyde and integrations
+├── resources/assets // Location for Laravel Mix source files (optional)
+└── resources/views/components // Location for Blade components (optional)
+```
+
+> Note that the `_site` directory is emptied every time you run the `hyde build` command.
+> It's intended that you keep the directory out of your VCS, for example by adding it to your .gitignore file.
+
+
 ## File Autodiscovery
 
 Content files, meaning source Markdown and Blade files, are automatically
