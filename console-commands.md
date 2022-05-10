@@ -97,7 +97,7 @@ php hyde serve
 
 The serve command feels similar to the Laravel Artisan serve command, but works by
 starting a local PHP server. When you visit a page, the server will use the
-realtime compiler to locate the source file, recompile it, and and proxy
+realtime compiler to locate the source file, recompile it, and proxy
 the resulting HTML and any media files to your browser.
 
 If you are missing the extension, you can always reinstall it with Composer `composer require hyde/realtime-compiler`.
@@ -166,7 +166,7 @@ Hyde comes with three homepage options to choose from. The homepage you select i
 `_pages/index.blade.php` and becomes the `index.html` file when compiling the site.
 
 On a fresh install the page 'welcome' is installed.
-However, you can use the this command to publish another one.
+However, you can use this command to publish another one.
 If you have modified the file, you will need to supply the --force option to overwrite it.
 
 The available homepages are:
@@ -184,7 +184,7 @@ php hyde publish:views [<category>]
 ```
 
 Since Hyde is based on the Laravel view system the compiler uses Blade views and components.
-Laravel actually registers two locations for the Hyde views: your site's `resources/views/vendor/hyde` directory and the resources directory in the Framework package.
+Laravel actually registers two locations for the Hyde views: your site's `resources/views/vendor/hyde` directory and the `resources` directory located in the Framework package.
 
 <blockquote class="warning">
 <p>Warning: This command will overwrite any existing files in the <code>resources/views/vendor</code> directory. <br>
@@ -197,7 +197,7 @@ The available views you can publish are:
 
 - **all:** Publish all categories listed below
 - **layouts:** Global layout views, such as the app layout, navigation menu, and Markdown page templates.
-- **components:** More or less self contained components, extracted for customizability and DRY code.
+- **components:** More or less self-contained components, extracted for customizability and DRY code.
 - **404:** A beautiful 404 error page by the Laravel Collective. This file is already published by default.
 
 You can supply the category name directly to the command, otherwise you will be prompted to select one.

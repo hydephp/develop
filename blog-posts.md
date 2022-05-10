@@ -9,7 +9,7 @@ category: "Creating Content"
 ## Introduction to Hyde Posts
 
 Making blog posts with Hyde is easy. At the most basic level,
-all you need is to add a Markdown file to your _posts folder.
+all you need is to add a Markdown file to your `_posts` folder.
 
 To use the full power of the Hyde post module however,
 you'll want to add YAML Front Matter to your posts.
