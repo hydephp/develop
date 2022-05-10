@@ -44,7 +44,10 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 Front matter is optional, but highly recommended for blog posts.
 
-- Front matter is stores in a block of YAML that starts and ends with a `---` line.
+You can read more about the Front Matter format in the [Markdown documentation](markdown.html#front-matter).
+Here is a quick primer:
+
+- Front matter is stored in a block of YAML that starts and ends with a `---` line.
 - The front matter should be the very first thing in the Markdown file.
 - Each key-pair value should be on its own line.
 - The front matter is used to construct dynamic HTML markup for the post as well as meta tags and post feeds.
@@ -61,7 +64,6 @@ title: "My New Post"
 ```
 
 You can use the `php hyde make:post` command to automatically generate the front matter based on your input.
-
 
 
 ## A first look at Front Matter
