@@ -184,14 +184,14 @@ php hyde publish:views [<category>]
 ```
 
 Since Hyde is based on the Laravel view system the compiler uses Blade views and components.
-Laravel actually registers two locations for the Hyde views: your site's resources/views/vendor directory and the resources directory in the Framework package.
+Laravel actually registers two locations for the Hyde views: your site's `resources/views/vendor/hyde` directory and the resources directory in the Framework package.
 
 <blockquote class="warning">
 <p>Warning: This command will overwrite any existing files in the <code>resources/views/vendor</code> directory. <br>
 You should be sure to have backups, or version control such as Git, before running this command.</p>
 </blockquote>
 
-So, when compiling a site, Laravel will first check if a custom version of the view has been placed in the resources/views/vendor/hyde directory by the developer (you). Then, if the view has not been customized, Laravel will search the Hyde framework view directory. This makes it easy for you to customize / override the package's views.
+So, when compiling a site, Laravel will first check if a custom version of the view has been placed in the `resources/views/vendor/hyde` directory by the developer (you). Then, if the view has not been customized, Laravel will search the Hyde framework view directory. This makes it easy for you to customize / override the package's views.
 
 The available views you can publish are:
 

@@ -110,6 +110,8 @@ Hyde uses the Laravel templating system called Blade. Most parts have been extra
 
 To edit the default component you need to publish them first using the `hyde publish:views` command.
 
+The files will then be available in the `resources/views/vendor/hyde` directory.
+
 ## Frontend Styles
 Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly.
 
