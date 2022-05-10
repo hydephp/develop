@@ -111,118 +111,93 @@ array:
 
 ## Supported Front Matter properties
 
-Now that we have a foundation of how Hyde uses front matter to create data-rich HTML markup,
-let's take a look at the supported front matter properties and some usage examples.
-Feel free to mix and match between them in your posts.
+### Post Front Matter Schema
 
-### Quick Reference
-Here is a quick reference with some examples. Duplicate properties showcase different ways to use the same property.
+Here is a quick reference of the supported front matter properties.<br>
+Keep on reading to see further explanations, details, and examples. 
+
+| **KEY NAME**   | **VALUE TYPE** | **EXAMPLE / FORMAT**             |
+|----------------|----------------|----------------------------------|
+| `title`        | string         | "My New Post"                    |
+| `description`  | string         | "A short description"            |
+| `category`     | string         | "my favorite recipes"            |
+| `date`         | string         | "YYYY-MM-DD [HH:MM]"             |
+| `author`       | string/array   | _See [author](#author) section_  |
+| `image`        | string/array   | _See [image](#image) section_    |
+
+
+Note that YAML here is pretty forgiving. In most cases you do not need to wrap strings
+in quotes, but it can help in certain edge cases, thus they are included here.
+
+In the examples below, when there are multiple keys, they signify various ways to use the parameter.
+
+### Title
 
 ```yaml
-title: "My New Post" # (string)
-description: "A short description" # (string)
-category: blog # (string)
-author: "Mr. Hyde" # (string: arbitrary name)
-author: "mr_hyde" # (string: username defined in config/authors.yml)
-author: # (array)
-  name: Mr. Hyde # (string)
-  username: mr_hyde # (string)
-  website: https://mrhyde.example.com # (string: URL/link to author)
-date: "2022-05-09 18:38" # (string) 
-date: "2022-05-09" # (string) 
-image: image.jpg # (string: filename of image in `_media` directory)
-image: https://example.com/media/image.jpg # (string: full URL of image)
-image: # (array)
-  path: image.jpg # (string: filename of image in `_media` directory)
-  uri: https://example.com/media/image.jpg # (string: full URL of image)
-  title: Tooltip # (string)
-  description: Alt text # (string)
-  copyright: Copyright (c) 2022 # (string)
-  license: MIT # (string)
-  licenseUrl: https://example.org/licenses/MIT # (string: URL/link to license)
-  credit: https://example.org/photographers/mr_hyde # (string: URL/link to image author)
-  author: mr_hyde # (string: name/username of image author)
+title: "My New Post"
 ```
 
-### Post Title
 
-#### Example
+### Description
+
 ```yaml
-title: "My New Post" # (string)
+description: "A short description used in previews and SEO"
 ```
 
-### Post Description
 
-#### Example
+### Category
+
 ```yaml
-description: "A short description used in previews and SEO" # (string)
+category: blog
+category: "My favorite recipes"
 ```
 
-### Post Category
 
-#### Example
+### Date
 
 ```yaml
-category: blog # (string)
+date: "2022-01-01 12:00" 
+date: "2022-01-01" 
 ```
 
-### Post Author
 
-#### Examples
+### Author
 
 ```yaml
-author: "Mr. Hyde" # Arbitrary name (string)
+author: "Mr. Hyde" # Arbitrary name displayed "as is"
+author: mr_hyde # Username defined in `authors.yml` config
+author: # Array of author data
+  name: "Mr. Hyde" 
+  username: mr_hyde 
+  website: https://mrhyde.example.com 
 ```
 
-```yaml
-author: mr_hyde # Username for author defined in the config file `authors.yml` (string)
-```
+When specifying an array you don't need all the sub-properties.
+The example just shows all the supported values. Array values here
+will override the values in the `authors.yml` config.
+
+### Image
 
 ```yaml
-author: # Array of author data (array)
-  name: "Mr. Hyde" # (string)
-  username: mr_hyde # (string)
-  website: https://mrhyde.example.com # (string)
-```
-
-### Post Date
-
-#### Example
-
-```yaml
-date: "2022-01-01 12:00" # (string: YYYY-MM-DD [HH:MM])
-```
-
-### Featured Image
-
-#### Basic usage example
-
-```yaml
-image: image.jpg # (string of file in the `_media` directory)
-```
-
-```yaml
-image: https://cdn.example.com/image.jpg # (string of full URL starting with `http(s)://`)
-```
-
-#### Advanced usage example
-
-The image can also be set as an array which supports a whole set of options.
-
-> See [posts/introducing-images](https://hydephp.github.io/posts/introducing-images.html) 
-> for a detailed blog post with examples and schema information!
-
-```yaml
+image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automatically
+image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`)
 image:
-  description: "Image of a small kitten with its head tilted, sitting in a basket weaved from nature material."
-  title: "Kitten Gray Kitty [sic]"
-  uri: https://raw.githubusercontent.com/hydephp/hydephp.github.io/gh-pages/media/kitten-756956_640-min.jpg
-  copyright: Copyright (c) 2022
-  license: Pixabay License
-  licenseUrl: https://pixabay.com/service/license/
-  credit: https://pixabay.com/photos/kitten-gray-kitty-kitty-756956/
-  author: Godsgirl_madi
+  path: image.jpg
+  uri: https://cdn.example.com/image.jpg # Takes precedence over `path`
+  description: "Alt text for image"
+  title: "Tooltip title"
+  copyright: "Copyright (c) 2022"
+  license: "CC-BY-SA-4.0"
+  licenseUrl: https://example.com/license/
+  credit: https://photographer.example.com/
+  author: "John Doe"
 ```
 
-The image is used as the post cover image, and all the array data is constructed
-into a dynamic fluent caption, and injected into post and page metadata.
+When supplying an image with a local image path, the image is expected to be stored in the `_media/` directory.
+
+The image will be used as the cover image, and any array data is constructed into a dynamic fluent caption,
+and injected into post and page metadata.
+
+> See [posts/introducing-images](https://hydephp.github.io/posts/introducing-images.html)
+> for a detailed blog post with examples and schema information!
+{ .info }
