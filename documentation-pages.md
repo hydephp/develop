@@ -56,7 +56,7 @@ This will create the following file saved as `_docs/page-title.md`
 
 ### Front Matter is optional
 
-You don't need to use [front matter](creating-blog-posts.html#supported-front-matter-properties) to create a documentation page.
+You don't need to use [front matter](blog-posts.html#supported-front-matter-properties) to create a documentation page.
 
 However, Hyde still supports front matter here as it allows you to quickly override the default values.
 

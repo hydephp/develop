@@ -98,5 +98,5 @@ To improve accessibility, you should always add an `alt` text. Here is a full ex
 
 Hyde offers great support for creating data-rich and accessible featured images for blog posts.
 
-You can read more about this in the [creating blog posts page](creating-blog-posts.html#image).
+You can read more about this in the [creating blog posts page](blog-posts.html#image).
 

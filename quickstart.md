@@ -90,4 +90,4 @@ Here's some ideas of what to read next:
 
 - [Architecture Concepts](architecture-concepts.html)
 - [Console Commands](console-commands.html)
-- [Creating Blog Posts](creating-blog-posts.html)
+- [Creating Blog Posts](blog-posts.html)
