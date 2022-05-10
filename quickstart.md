@@ -37,7 +37,8 @@ Creating content with Hyde is easy. Simply place Markdown files in one of the so
 // torchlight! {"lineNumbers": false}
 ├── _docs // For documentation pages              
 ├── _posts // For blog posts
-└── _pages // For static Markdown or Blade pages
+├── _pages // For static Markdown and Blade pages
+└── config // Configuration files for Hyde and integrations
 ```
 
 ### Scaffolding files
