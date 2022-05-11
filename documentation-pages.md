@@ -124,6 +124,23 @@ You can change it with the following front matter:
 label: "My Custom Sidebar Label"
 ```
 
+### Sidebar grouping
+
+Sidebar grouping was introduced in Hyde [v0.24.0-beta](https://github.com/hydephp/framework/releases/tag/v0.24.0-beta)
+and allows you to group items in the sidebar into categories. This is useful for creating a sidebar with a lot of items.
+The Hyde docs for instance use this.
+
+The feature is enabled automatically when one or more of your documentation pages have the category property set
+in the front matter. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
+Any pages without the category front matter will get put in the "Other" category.
+
+To enable sidebar grouping, you can add the following front matter to your documentation pages:
+
+```yaml
+category: "Getting Started"
+```
+
+
 ### Hiding items
 
 You can hide items from the sidebar by adding the `hidden` property to the front matter:
