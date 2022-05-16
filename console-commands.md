@@ -66,11 +66,13 @@ Maybe the most important command is the Build command, which -- you guessed it -
 
 **Supports the following options:**
 ```
---run-dev   Run the NPM dev script after build
---run-prod  Run the NPM prod script after build
---pretty    Format the output using NPM Prettier
---no-api    Disable API calls, for example, Torchlight
+--run-dev       Run the NPM dev script after build
+--run-prod      Run the NPM prod script after build
+--run-prettier  Format the output using NPM Prettier*
+--no-api        Disable API calls, for example, Torchlight
 ```
+
+> *Before v0.25.x this option was called `--pretty`
 
 ### Build a single file
 ```bash
