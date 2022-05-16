@@ -205,7 +205,7 @@ When supplying an image with a local image path, the image is expected to be sto
 The image will be used as the cover image, and any array data is constructed into a dynamic fluent caption,
 and injected into post and page metadata.
 
-> See [posts/introducing-images](https://hydephp.github.io/posts/introducing-images.html)
+> See [posts/introducing-images](https://hydephp.com/posts/introducing-images.html)
 > for a detailed blog post with examples and schema information!
 { .info }
 
