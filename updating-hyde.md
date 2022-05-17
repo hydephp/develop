@@ -33,6 +33,11 @@ Then pull the latest changes from the remote:
 git pull upstream master
 ```
 
+After this, you should update your composer dependencies:
+```bash
+composer update
+```
+
 Next, follow the post-update instructions for Hyde/Hyde.
 
 ### Manual Update
