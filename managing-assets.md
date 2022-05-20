@@ -68,6 +68,19 @@ When running the `npm run dev/prod` command, the following happens:
 2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
 
 
+### Compile TailwindCSS directly
+
+Since Laravel Mix can be a bit slow to boot, you can also run the TailwindCSS compiler directly.
+You'll need to have the [TailwindCSS CLI](https://tailwindcss.com/docs/cli) installed, and you will
+need to run the build command afterwards to transfer the compiled styles into the build output.
+
+```bash
+npx tailwindcss -i resources/assets/app.css -o _media/app.css
+
+php hyde build OR php hyde rebuild _media
+```
+
+
 ## Managing images
 As mentioned above, assets stored in the _media folder are automatically copied to the _site/media folder,
 making it the recommended place to store images. You can then easily reference them in your Markdown files.
