@@ -74,6 +74,19 @@ Maybe the most important command is the Build command, which -- you guessed it -
 
 > *Before v0.25.x this option was called `--pretty`
 
+#### Sitemaps and RSS feeds
+
+Sitemaps and RSS feeeds require that you have a `site_url` set, (and that you have not disabled them).
+
+When the features are avaliable the build commnad will generate a sitemap and RSS feed.
+
+You can also rebuild just the sitemap and RSS feed by using their respective commands:
+
+```bash
+php hyde build:sitemap
+php hyde build:rss
+```
+
 ### Build a single file
 ```bash
 php hyde rebuild <filepath>       

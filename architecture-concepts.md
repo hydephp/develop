@@ -1,5 +1,5 @@
 ---
-priority: 5
+priority: 10
 category: "Getting Started"
 ---
 

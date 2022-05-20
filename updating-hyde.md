@@ -1,5 +1,5 @@
 ---
-priority: 30
+priority: 35
 category: "Digging Deeper"
 ---
 
