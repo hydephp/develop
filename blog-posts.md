@@ -1,6 +1,6 @@
 ---
 label: "Creating Blog Posts"
-priority: 10
+priority: 11
 category: "Creating Content"
 ---
 
