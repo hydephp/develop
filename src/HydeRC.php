@@ -110,4 +110,22 @@ class HydeRC
 
         return 'text/plain';
     }
+
+    /**
+     * Serve the search index JSON, and create it if necessary.
+     */
+    public static function serveSearchIndex(): void
+    {
+        $path = HYDE_PATH.'/_site/docs/search.json';
+
+        if (!file_exists($path)) {
+            header('HTTP/1.0 102 Processing (Generating Search Index)');
+            shell_exec('php '.HYDE_PATH.'/hyde build:search --ansi');
+            header('HTTP/1.0 201 Created (Search Index Generated)');
+        }
+
+        header('Content-Type: ' . 'application/json');
+        header('Content-Length: ' . filesize($path));
+        readfile($path);
+    }
 }

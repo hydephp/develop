@@ -48,6 +48,12 @@ if (str_starts_with($uri, '/media/') || ($uri === '/favicon.ico')) {
     exit(0);
 }
 
+// JSON hotpatch
+if ($uri === '/docs/search.json') {
+  \Hyde\RealtimeCompiler\HydeRC::serveSearchIndex();
+  exit(0);
+}
+
 // If the uri is empty, serve the index file
 if (empty($uri) || $uri == '/') {
     $uri = '/index';
