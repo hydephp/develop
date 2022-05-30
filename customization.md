@@ -31,6 +31,41 @@ With a concept directly inspired by [Laravel Jetstream](https://jetstream.larave
 ],
 ```
 
+### Authors
+Hyde has support for adding authors in front matter, for example to
+automatically add a link to your website or social media profiles.
+However, it's tedious to have to add those to each and every
+post you make, and keeping them updated is even harder.
+
+You can predefine authors in the Hyde config.
+When writing posts, just specify the username in the front matter,
+and the rest of the data will be pulled from a matching entry.
+
+#### Example
+// torchlight! {"lineNumbers": false}
+```php
+'authors' => [
+    Author::create(
+        username: 'mr_hyde', // Required username
+        name: 'Mr. Hyde', // Optional display name
+        website: 'https://hydephp.com' // Optional website URL
+    ),
+],
+```
+
+This is equivalent to the following front matter:
+```yaml
+author:
+    username: mr_hyde
+    name: Mr. Hyde
+    website: https://hydephp.com
+```
+
+But you only have to specify the username:
+```yaml
+author: mr_hyde
+```
+
 ### Footer
 The footer can be customized using Markdown, and even disabled completely.
 

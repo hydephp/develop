@@ -56,4 +56,4 @@ that use Torchlight. You can of course disable this in the `config/torchlight.ph
 
 Have an idea for an extension or integration? Let me know! I'd love to hear from you.
 
-Get in touch on [GitHub](https://github.com/hydephp/Hyde) or send me a DM on [Twitter](https://twitter.com/StressedDev).
+Get in touch on [GitHub](https://github.com/hydephp/Hyde) or send me a DM on [Twitter](https://twitter.com/CodeWithCaen).

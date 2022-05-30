@@ -14,7 +14,7 @@ But as always with Hyde, you can customize everything if you want to.
 
 Hyde ships with a complete frontend where base styles and scripts are included through [HydeFront](https://github.com/hydephp/hydefront) which adds accessibility and mobile support as well as interactions for dark mode switching and navigation and sidebar interactions.
 
-HydeFront is split into two files, `hyde.css` and `hyde.js`. These are loaded in the default Blade views using the [jsDelivr CDN](https://www.jsdelivr.com/package/npm/hydefront). This is the recommended way to load the base styles as the [Hyde Framework](https://github.com/hydephp/framework) automatically makes sure that the correct HydeFront version for the current version of Hyde is loaded. You can disable the CDN in the `config/hyde.php` file by setting `'loadHydeAssetsUsingCDN'` to `false`.
+HydeFront is split into two files, `hyde.css` and `hyde.js`. These are loaded in the default Blade views using the [jsDelivr CDN](https://www.jsdelivr.com/package/npm/hydefront). This is the recommended way to load the base styles as the [Hyde Framework](https://github.com/hydephp/framework) automatically makes sure that the correct HydeFront version for the current version of Hyde is loaded. If you don't want to use HydeFribtm you can customize the `styles.blade.php` file.
 
 The bulk of the frontend is built with [TailwindCSS](https://tailwindcss.com/). To get you started, when installing Hyde, all the Tailwind styles you need come precompiled and minified into `_media/app.css`.
 
