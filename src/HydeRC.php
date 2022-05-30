@@ -56,13 +56,13 @@ class HydeRC
         $media_path = HYDE_PATH . '/_site/media/' . $basename;
         if (file_exists($media_path)) {
             static::serveStatic($media_path);
-            exit(200);
+            exit(0);
         }
         // If not, check if file exists in the _media directory
         $media_path = HYDE_PATH . '/_media/' . $basename;
         if (file_exists($media_path)) {
             static::serveStatic($media_path);
-            exit(200);
+            exit(0);
         }
         // Send 404 header
         header('HTTP/1.0 404 Not Found');
