@@ -93,3 +93,13 @@ Based on [this blog post](https://github.com/hydephp/DocsCI/blob/ff4589b175c2794
 | RSS feed not being generated                       | The RSS feed requires that you have set a site URL in the Hyde config or the .env file. Also check that you have blog posts, and that they are enabled. | Check your configuration files.                                                                                                                                                                  |                                                                                                                                                         |
 | Sitemap not being generated                        | The sitemap requires that you have set a site URL in the Hyde config or the .env file.                                                                  | Check your configuration files.                                                                                                                                                                  |                                                                                                                                                         |
 | Unable to do literally anything                    | If everything is broken, you may be missing a Composer package or your configuration files could be messed up.                                          | Run `composer install` and/or `composer update`. If you can run HydeCLI commands, update your configs with `php hyde update:configs`, or copy them manually from GitHub or the vendor directory. |
+
+### Extra troubleshooting information
+
+#### Fixing a broken config
+If your configuration is broken, you might not be able to run any commands through the HydeCLI. 
+To remedy this you can copy the config files from the vendor directory into the project directory.
+You can do this manually, or with the following rescue command:
+```
+copy .\vendor\hyde\framework\config\hyde.php .\config\hyde.php
+```

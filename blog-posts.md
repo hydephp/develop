@@ -172,16 +172,16 @@ date: "2022-01-01"
 
 ```yaml
 author: "Mr. Hyde" # Arbitrary name displayed "as is"
-author: mr_hyde # Username defined in `authors.yml` config
+author: mr_hyde # Username defined in `authors` config
 author: # Array of author data
   name: "Mr. Hyde" 
   username: mr_hyde 
-  website: https://mrhyde.example.com 
+  website: https://twitter.com/hyde_php
 ```
 
 When specifying an array you don't need all the sub-properties.
 The example just shows all the supported values. Array values here
-will override the values in the `authors.yml` config.
+will override all the values in the `authors` config entry.
 
 ### Image
 
