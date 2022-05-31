@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download base HTML
-        run: wget https://raw.githubusercontent.com/caendesilva/hydefront-preview/ce593247034d3fb893537a1e639474c5dfc56720/hydefront-preview.html
+        run: wget https://raw.githubusercontent.com/caendesilva/hydefront-preview/93fd8be1c604cdfa99c7aca513b3f245c1b313a7/hydefront-preview.html
         
       - name: Download compiler
         run: wget https://raw.githubusercontent.com/caendesilva/hydefront-preview/4aaa498f341fca0b32df37e20b8f3dd6a0dbeefd/compiler.php
