@@ -59,11 +59,13 @@ function toggleTheme(): void {
     function setThemeToDark(): void {
         document.documentElement.classList.add("dark");
         localStorage.setItem('color-theme', 'dark');
+        document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
     }
 
     function setThemeToLight(): void {
         document.documentElement.classList.remove("dark");
         localStorage.setItem('color-theme', 'light');
+        document.getElementById('meta-color-scheme').setAttribute('content', 'light');
     }
 }
 
