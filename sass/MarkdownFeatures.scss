@@ -1,0 +1,17 @@
+.prose blockquote {
+	&.info {
+		border-color: DodgerBlue;
+	}
+		
+	&.success {
+		border-color: MediumSeaGreen;
+	}
+
+	&.warning {
+		border-color: orange;
+	}
+	
+	&.danger {
+		border-color: red;
+	}
+}
