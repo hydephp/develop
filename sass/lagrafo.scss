@@ -73,7 +73,12 @@ html {
 			.table-of-contents {
 				padding-bottom: 0.75rem;
 
-				ul {
+                > li  {
+                    margin-top: 0.15rem;
+                    margin-bottom: 0.35rem;
+                }
+				
+                ul {
 					padding-left: 0.5rem;
 				}
 				a {
