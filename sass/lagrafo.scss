@@ -165,6 +165,7 @@ html {
         #document-header, #document-footer {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             p {
                 margin-top: 0.75rem;
                 margin-bottom: 0.75rem;
