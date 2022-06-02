@@ -15,3 +15,20 @@
 		border-color: red;
 	}
 }
+
+pre>code>.filepath {
+    position: relative;
+    top: -.25rem;
+    right: 0.25rem;
+    float: right;
+    opacity: .5;
+    transition: opacity 0.25s;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.torchlight-enabled pre>code>.filepath {
+    right: 1rem;
+}
