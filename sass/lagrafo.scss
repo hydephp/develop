@@ -162,9 +162,11 @@ html {
             min-height: calc(100vh - 4rem);
         }
 
+        #document-header, #document-footer {
+            display: flex;
+        }
         #document-footer {
             margin-top: 2rem;
-            display: flex;
             justify-content: space-between;
         }
 
