@@ -224,3 +224,54 @@ Two types of search methods are added, one is a full page search screen that wil
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
 Opening it will open a dialog modal with an integrated search screen.
 You can also open the dialog using the keyboard shortcut `/`.
+
+### Automatic "Edit Page" button
+
+#### Introduction
+
+Added in v0.31, Hyde can automatically add links to documentation pages that takes the user
+to a GitHub page (or similar) to edit the page. This makes it great for open-source projects
+looking to allow others to contribute to the documentation in a quick and easy manner.
+
+The feature is automatically enabled when you specify a base URL in the Docs configuration file.
+Hyde expects this to be a GitHub path, but it will probably work with other methods as well,
+if not, please send a PR and/or create an issue on the [GitHub repository](https://github.com/hydephp/framework)!
+
+#### Example configuration
+
+Let's take a practical example for how HydePHP.com uses this feature.
+
+```php
+// Filepath: config/docs.php
+
+'source_file_location_base' => 'https://github.com/hydephp/docs/blob/master/',
+```
+
+#### Changing the button text
+
+Changing the label is easy, just change the following config setting:
+
+```php
+// Filepath: config/docs.php
+'edit_source_link_text' => 'Edit Source on GitHub',
+```
+
+#### Changing the position
+
+By default the button will be shown in both the documentation page footer.
+You can change this by setting the following config setting to `'header'`, `'footer'`, or `'both'`
+
+```php
+// Filepath: config/docs.php
+'edit_source_link_position' => 'header',
+```
+
+#### Adding a button icon
+
+This is not included out of the box, but is easy to add with some CSS!
+Just target the `.edit-page-link` class.
+
+```css
+// filepath e.g. app.css
+.edit-page-link::before {content: "✏ "}
+```
