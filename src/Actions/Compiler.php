@@ -2,7 +2,9 @@
 
 namespace Hyde\RealtimeCompiler\Actions;
 
-class Compiler
+use Hyde\Framework\StaticPageBuilder;
+
+class Compiler extends StaticPageBuilder
 {
     protected string $model;
     protected string $path;
@@ -15,6 +17,8 @@ class Compiler
     {
         $this->model = $model;
         $this->path = $path;
+
+        // TODO parent::__construct($model, $path);
     }
 
     public function render(): string
