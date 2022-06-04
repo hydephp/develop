@@ -8,7 +8,7 @@ class Compiler
     protected string $path;
 
     /**
-     * @param string $model<Hyde\Framework\Contracts\AbstractPage>
+     * @param string<\Hyde\Framework\Contracts\AbstractPage> $model
      * @param string $path
      */
     public function __construct(string $model, string $path)
