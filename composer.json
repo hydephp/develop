@@ -16,5 +16,8 @@
     "bin": ["server.php"],
     "require": {
         "desilva/microserve": "dev-master"
+    },
+    "suggest": {
+        "hyde/framework": ">=v0.32.0-beta"
     }
 }
