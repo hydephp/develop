@@ -11,6 +11,8 @@ class HttpKernel extends BaseHttpKernel
 {
     public function handle(Request $request): Response
     {
+        header('X-Server: Hyde/RealtimeCompiler');
+
         return (new Router($request))->handle();
     }
 }
