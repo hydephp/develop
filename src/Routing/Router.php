@@ -25,7 +25,7 @@ class Router
             return $this->proxyStatic();
         }
 
-        return Response::make(501, 'Not Implemented');
+        return PageRouter::handle($this->request);
     }
 
     /**
