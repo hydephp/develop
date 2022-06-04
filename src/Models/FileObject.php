@@ -20,35 +20,24 @@ class FileObject
     {
         $extension = pathinfo($this->path, PATHINFO_EXTENSION);
 
-        if ($extension === 'css') {
-            return 'text/css';
-        }
-        if ($extension === 'js') {
-            return 'application/javascript';
-        }
-        if ($extension === 'json') {
-            return 'application/json';
-        }
-        if ($extension === 'html') {
-            return 'text/html';
-        }
-        if ($extension === 'txt') {
-            return 'text/plain';
-        }
-        if ($extension === 'md') {
-            return 'text/markdown';
-        }
-        if ($extension === 'svg') {
-            return 'image/svg+xml';
-        }
-        if ($extension === 'png') {
-            return 'image/png';
-        }
-        if ($extension === 'gif') {
-            return 'image/gif';
-        }
-        if ($extension === 'jpg' || $extension === 'jpeg') {
-            return 'image/jpeg';
+        // See if we can find a mime type for the extension,
+        // instead of having to rely on a PHP extension.
+        $lookup = [
+            'txt'  => 'text/plain',
+            'md'   => 'text/markdown',
+            'html' => 'text/html',
+            'css'  => 'text/css',
+            'svg'  => 'image/svg+xml',
+            'png'  => 'image/png',
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif'  => 'image/gif',
+            'json' => 'application/json',
+            'js'   => 'application/javascript',
+        ];
+
+        if (isset($lookup[$extension])) {
+            return $lookup[$extension];
         }
 
         if (extension_loaded('fileinfo')) {
