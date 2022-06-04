@@ -5,6 +5,10 @@ namespace Hyde\RealtimeCompiler\Actions;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\StaticPageBuilder;
 
+/**
+ * Hooks into the Hyde application to parse and compile
+ * a page source file to static HTML for the request.
+ */
 class Compiler extends StaticPageBuilder
 {
     protected string $model;

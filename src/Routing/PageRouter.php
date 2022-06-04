@@ -13,6 +13,13 @@ use Hyde\RealtimeCompiler\Actions\Compiler;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 
+/**
+ * Handle routing for a web page request.
+ *
+ * Does not send 404 responses upon missing source files,
+ * instead letting an exception be thrown, as it is
+ * better handled by the ExceptionHandler.
+ */
 class PageRouter
 {
     use SendsErrorResponses;

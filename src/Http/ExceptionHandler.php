@@ -6,6 +6,10 @@ use Desilva\Microserve\Response;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
+/**
+ * Exceptions are caught by the server.php to be handled here,
+ * where we render a pretty error page with a 500 HTTP code.
+ */
 class ExceptionHandler
 {
     public static function handle(\Throwable $exception): Response

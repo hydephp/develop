@@ -2,6 +2,10 @@
 
 namespace Hyde\RealtimeCompiler\Models;
 
+/**
+ * The File object provides an abstraction for a file,
+ * with helpful methods to get information and metadata.
+ */
 class FileObject
 {
     protected string $path;

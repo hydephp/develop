@@ -2,6 +2,9 @@
 
 namespace Hyde\RealtimeCompiler\Actions;
 
+/**
+ * Locate a static file to proxy.
+ */
 class AssetFileLocator
 {
     public static function find(string $path): ?string
