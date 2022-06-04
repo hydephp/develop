@@ -16,14 +16,11 @@ class Compiler extends StaticPageBuilder
 
     /**
      * Initialize the StaticPageBuilder parent class.
-     *
-     * @param string<\Hyde\Framework\Contracts\AbstractPage> $model
-     * @param string                                         $path
      */
-    public function __construct(string $model, string $path)
+    public function __construct(string $pageClass, string $relativePath)
     {
-        $this->model = $model;
-        $this->path = $path;
+        $this->model = $pageClass;
+        $this->path = $relativePath;
 
         parent::__construct($this->parseSourceFile());
     }
