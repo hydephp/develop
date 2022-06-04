@@ -1,1 +1,0 @@
-php.exe -S localhost:80 %~dp0index.php
