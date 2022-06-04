@@ -4,7 +4,9 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Models\FileObject;
 
 class Router
 {
@@ -19,6 +21,10 @@ class Router
 
     public function handle(): Response
     {
+        if ($this->shouldProxy($this->request)) {
+            return $this->proxyStatic();
+        }
+
         return Response::make(501, 'Not Implemented');
     }
 
@@ -39,5 +45,26 @@ class Router
         }
 
         return true;
+    }
+
+    /**
+     * Proxy a static file or return a 404.
+     */
+    protected function proxyStatic(): Response
+    {
+        $path = AssetFileLocator::find($this->request->path);
+
+        if ($path === null) {
+            return $this->notFound();
+        }
+
+        $file = new FileObject($path);
+
+        return (new Response(200, 'OK', [
+            'body' => $file->getStream(),
+        ]))->withHeaders([
+            'Content-Type' => $file->getMimeType(),
+            'Content-Length' => $file->getContentLength(),
+        ]);
     }
 }
