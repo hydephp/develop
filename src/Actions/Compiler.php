@@ -15,6 +15,8 @@ class Compiler extends StaticPageBuilder
     protected string $path;
 
     /**
+     * Initialize the StaticPageBuilder parent class.
+     *
      * @param string<\Hyde\Framework\Contracts\AbstractPage> $model
      * @param string                                         $path
      */
@@ -26,6 +28,9 @@ class Compiler extends StaticPageBuilder
         parent::__construct($this->parseSourceFile());
     }
 
+    /**
+     * Parse the source file to a Page model the compiler can process.
+     */
     protected function parseSourceFile()
     {
         return DiscoveryService::getParserInstanceForModel(
@@ -34,6 +39,9 @@ class Compiler extends StaticPageBuilder
         )->get();
     }
 
+    /**
+     * Invoke the underlying compiler and return the compiled HTML stream.
+     */
     public function render(): string
     {
         // @todo investigate overhead of this (compiling to to disk vs in memory)
