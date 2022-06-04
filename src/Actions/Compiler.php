@@ -2,6 +2,7 @@
 
 namespace Hyde\RealtimeCompiler\Actions;
 
+use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\StaticPageBuilder;
 
 class Compiler extends StaticPageBuilder
@@ -18,11 +19,19 @@ class Compiler extends StaticPageBuilder
         $this->model = $model;
         $this->path = $path;
 
-        // TODO parent::__construct($model, $path);
+        parent::__construct($this->parseSourceFile());
+    }
+
+    protected function parseSourceFile()
+    {
+        return DiscoveryService::getParserInstanceForModel(
+            $this->model, basename($this->path)
+        )->get();
     }
 
     public function render(): string
     {
-        return 'Not yet implemented';
+        // @todo investigate overhead of this (compiling to to disk vs in memory)
+        return file_get_contents($this->__invoke());
     }
 }
