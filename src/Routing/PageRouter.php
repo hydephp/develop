@@ -4,15 +4,14 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\MarkdownPost;
 use Hyde\RealtimeCompiler\Actions\Compiler;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
-
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\MarkdownPage;
-use Hyde\Framework\Models\MarkdownPost;
-use Hyde\Framework\Models\DocumentationPage;
 
 class PageRouter
 {
@@ -38,7 +37,7 @@ class PageRouter
         return (new Response(200, 'OK', [
             'body' => $html,
         ]))->withHeaders([
-            'Content-Type' => 'text/html',
+            'Content-Type'   => 'text/html',
             'Content-Length' => strlen($html),
         ]);
     }
@@ -62,14 +61,14 @@ class PageRouter
     {
         // Todo get paths from model class instead of hardcoded
         if (str_starts_with($path, '/posts/')) {
-            return '_posts/'. basename($path);
+            return '_posts/'.basename($path);
         }
 
         if (str_starts_with($path, '/docs/')) {
-            return '_docs/'. basename($path);
+            return '_docs/'.basename($path);
         }
 
-        return '_pages/'. basename($path);
+        return '_pages/'.basename($path);
     }
 
     protected function decodeSourceFileModel(string $path): string
@@ -82,7 +81,7 @@ class PageRouter
             return DocumentationPage::class;
         }
 
-        if (file_exists(Hyde::path($path . '.md'))) {
+        if (file_exists(Hyde::path($path.'.md'))) {
             return MarkdownPage::class;
         }
 

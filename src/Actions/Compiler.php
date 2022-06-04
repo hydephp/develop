@@ -12,7 +12,7 @@ class Compiler extends StaticPageBuilder
 
     /**
      * @param string<\Hyde\Framework\Contracts\AbstractPage> $model
-     * @param string $path
+     * @param string                                         $path
      */
     public function __construct(string $model, string $path)
     {
@@ -25,7 +25,8 @@ class Compiler extends StaticPageBuilder
     protected function parseSourceFile()
     {
         return DiscoveryService::getParserInstanceForModel(
-            $this->model, basename($this->path)
+            $this->model,
+            basename($this->path)
         )->get();
     }
 

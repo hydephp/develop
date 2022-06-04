@@ -63,7 +63,7 @@ class Router
         return (new Response(200, 'OK', [
             'body' => $file->getStream(),
         ]))->withHeaders([
-            'Content-Type' => $file->getMimeType(),
+            'Content-Type'   => $file->getMimeType(),
             'Content-Length' => $file->getContentLength(),
         ]);
     }
