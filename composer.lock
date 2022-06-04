@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "059af61f2ab21dd8567541ff04b56091",
+    "content-hash": "9c1f20323cf611d2665bcd8cff195578",
     "packages": [
         {
             "name": "desilva/microserve",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/microserve.git",
-                "reference": "6b96f00f81354eeebc135c310be2bace538aa91f"
+                "reference": "2a55037f67578c2c9a30108a7b68051236a6b2d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/6b96f00f81354eeebc135c310be2bace538aa91f",
-                "reference": "6b96f00f81354eeebc135c310be2bace538aa91f",
+                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/2a55037f67578c2c9a30108a7b68051236a6b2d6",
+                "reference": "2a55037f67578c2c9a30108a7b68051236a6b2d6",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,6 @@
             "require-dev": {
                 "phpunit/phpunit": "^9.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -52,9 +51,9 @@
             ],
             "support": {
                 "issues": "https://github.com/caendesilva/microserve/issues",
-                "source": "https://github.com/caendesilva/microserve/tree/master"
+                "source": "https://github.com/caendesilva/microserve/tree/v1.0.0"
             },
-            "time": "2022-06-03T19:27:23+00:00"
+            "time": "2022-06-04T12:07:54+00:00"
         }
     ],
     "packages-dev": [
@@ -5955,7 +5954,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "desilva/microserve": 20,
         "hyde/framework": 20
     },
     "prefer-stable": false,

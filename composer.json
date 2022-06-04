@@ -15,7 +15,7 @@
     ],
     "bin": ["server.php"],
     "require": {
-        "desilva/microserve": "dev-master"
+        "desilva/microserve": "^1.0"
     },
     "require-dev": {
         "hyde/framework": "dev-master"
