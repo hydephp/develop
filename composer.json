@@ -13,5 +13,8 @@
             "email": "caen@desilva.se"
         }
     ],
-    "bin": ["server.php"]
+    "bin": ["server.php"],
+    "require": {
+        "desilva/microserve": "dev-master"
+    }
 }
