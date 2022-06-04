@@ -3,6 +3,7 @@
 namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
+use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 
 class PageRouter
@@ -16,8 +17,15 @@ class PageRouter
         $this->request = $request;
     }
 
-    public static function handle(Request $request): static
+    protected function handlePageRequest(): Response
     {
-        return new static($request);
+        return new Response(200, 'OK', [
+            'body' => 'Hello World!',
+        ]);
+    }
+
+    public static function handle(Request $request): Response
+    {
+        return (new static($request))->handlePageRequest();
     }
 }
