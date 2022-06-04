@@ -11,12 +11,12 @@ trait InteractsWithLaravel
 
     protected function createApplication(): void
     {
-        $this->laravel = require_once BASE_PATH . '/bootstrap/app.php';
+        $this->laravel = require_once BASE_PATH.'/bootstrap/app.php';
     }
 
     protected function bootApplication(): void
     {
-        if (! isset($this->laravel))  {
+        if (!isset($this->laravel)) {
             $this->createApplication();
         }
 
