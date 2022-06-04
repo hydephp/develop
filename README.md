@@ -22,7 +22,7 @@ without having to search for them in the console output like in v1.x.
 
 ### Internal Changes
 
-- HTTP logic is handled by [Microserve](https://github.com/caendesilva/microserve), through the HttpKernel.
+- HTTP logic is handled by [Microserve](https://github.com/caendesilva/microserve), through the new [HttpKernel](https://github.com/hydephp/realtime-compiler/blob/master/src/Http/HttpKernel.php).
 - Requests are sent to the Router to be processed by the appropriate handler.
 - Web pages are compiled through the [Hyde Framework](https://github.com/hydephp/framework), instead of calling the HydeCLI.
 - Static assets are proxied directly without booting the entire framework.
