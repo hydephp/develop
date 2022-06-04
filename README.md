@@ -21,11 +21,11 @@ without having to search for them in the console output like in v1.x.
 
 ### Internal Changes
 
-- HTTP logic is handled by Microserve, through the HttpKernel.
+- HTTP logic is handled by [Microserve](https://github.com/caendesilva/microserve), through the HttpKernel.
 - Requests are sent to the Router to be processed by the appropriate handler.
-- Web pages are compiled through the Hyde Framework, instead of calling the HydeCLI.
+- Web pages are compiled through the [Hyde Framework](https://github.com/hydephp/framework), instead of calling the HydeCLI.
 - Static assets are proxied directly without booting the entire framework.
-- Exceptions are handled by Whoops, through the ExceptionHandler.
+- Exceptions are handled by [Whoops](https://github.com/filp/whoops), through the ExceptionHandler.
 - The server.php is moved to the `bin` directory.
 
 ### API Changes
