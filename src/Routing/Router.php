@@ -4,9 +4,12 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 
 class Router
 {
+    use SendsErrorResponses;
+
     protected Request $request;
 
     public function __construct(Request $request)
