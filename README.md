@@ -13,7 +13,7 @@ The application server is now powered by the lightweight [Microserve](https://gi
 HTTP server API, providing a robust and fast way to route and handle requests without any extra dependencies.
 
 In addition, the source files are no longer compiled by calling the HydeCLI in a separate process,
-instead the server compiles source files directly through the Hyde Framework code without any
+instead, the server compiles source files directly through the Hyde Framework code without any
 intermediary process.
 
 This gives the huge benefit of being able to catch errors and exceptions directly,
@@ -31,7 +31,7 @@ without having to search for them in the console output like in v1.x.
 ### API Changes
 
 The way the server works for the end-user has not been changed much.
-In fact, most people will not even notice anything but the new features.
+Most people will not even notice anything but the new features.
 
 The only real change is that applications will need to point to the
 new `server.php` file which is now located in the `bin` directory.
