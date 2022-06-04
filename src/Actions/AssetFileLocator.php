@@ -6,28 +6,17 @@ class AssetFileLocator
 {
     public static function find(string $path): ?string
     {
-        $path = BASE_PATH.'/_site'.$path;
+        $strategies = [
+            BASE_PATH.'/_site'.$path,
+            BASE_PATH.'/_media'.$path,
+            BASE_PATH.'/_site'.basename($path),
+            BASE_PATH.'/_media/'.basename($path),
+        ];
 
-        if (file_exists($path)) {
-            return $path;
-        }
-
-        $path = BASE_PATH.'/_media'.$path;
-
-        if (file_exists($path)) {
-            return $path;
-        }
-
-        $path = BASE_PATH.'/'.basename($path);
-
-        if (file_exists($path)) {
-            return $path;
-        }
-
-        $path = BASE_PATH.'/_media/'.basename($path);
-
-        if (file_exists($path)) {
-            return $path;
+        foreach ($strategies as $strategy) {
+            if (file_exists($strategy)) {
+                return $strategy;
+            }
         }
 
         return null;
