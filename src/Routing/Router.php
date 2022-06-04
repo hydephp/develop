@@ -34,16 +34,21 @@ class Router
      */
     protected function shouldProxy(Request $request): bool
     {
+        // Always proxy media files
         if (str_starts_with($request->path, '/media/')) {
             return true;
         }
 
+        // Get the requested file extension
         $extension = pathinfo($request->path)['extension'] ?? null;
 
+        // If the extension is not set (pretty url), or is .html,
+        //we assume it's a web page which we need to compile.
         if ($extension === null || $extension === 'html') {
             return false;
         }
 
+        // The page is not a web page, so we assume it should be proxied.
         return true;
     }
 
