@@ -1,13 +1,8 @@
-# Experimental Hyde Realtime Server v2.0-dev 🧪
+# Experimental Hyde Realtime Server v2.0 🧪
 
-You are currently on the experimental v2.0 rewrite.
-This branch is not stable at all. You probably want to check out the v1.0 LTS branch.
+The source code for the HydePHP Realtime Compiler/Server.
 
-## Todo
-
-- [ ] Add tests
-- [ ] Update Hyde/framework
-- [ ] Tag the release
+This package is included with HydePHP through hyde/framework.
 
 ## v2.0 Release Notes
 
