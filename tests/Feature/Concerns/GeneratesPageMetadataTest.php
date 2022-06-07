@@ -18,6 +18,8 @@ class GeneratesPageMetadataTest extends TestCase
     public array $matter;
     private string $slug;
 
+    protected bool $forceOpenGraph = true;
+
     protected function tearDown(): void
     {
         unset($this->metadata);
