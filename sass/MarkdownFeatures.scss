@@ -32,3 +32,9 @@ pre>code>.filepath {
 .torchlight-enabled pre>code>.filepath {
     right: 1rem;
 }
+
+@media screen and (max-width: 767px) {
+	pre>code>.filepath {
+		display: none;
+	}
+}
