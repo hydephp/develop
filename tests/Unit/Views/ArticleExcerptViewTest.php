@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\Views;
+namespace Hyde\Testing\Unit\Views;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
 use Illuminate\Support\Facades\Blade;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @see resources/views/components/article-excerpt.blade.php

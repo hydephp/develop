@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
@@ -11,7 +11,7 @@ use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Feature tests for the StaticPageBuilder class.

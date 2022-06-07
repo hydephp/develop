@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Models\MarkdownPost;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @see \Hyde\Framework\Models\MarkdownPost

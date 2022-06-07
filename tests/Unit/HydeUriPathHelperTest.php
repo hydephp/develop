@@ -1,7 +1,7 @@
 <?php
 
 use Hyde\Framework\Hyde;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class HydeUriPathHelperTest extends TestCase
 {

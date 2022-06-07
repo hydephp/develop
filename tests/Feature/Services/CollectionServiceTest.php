@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Services;
+namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
@@ -8,7 +8,7 @@ use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Services\CollectionService;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\CollectionService

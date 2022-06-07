@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
@@ -8,7 +8,7 @@ use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Illuminate\Support\Collection;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @see \Hyde\Framework\Concerns\AbstractPage::all()

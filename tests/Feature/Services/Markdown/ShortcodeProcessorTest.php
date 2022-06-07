@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\Services\Markdown;
+namespace Hyde\Testing\Feature\Services\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
 use Hyde\Framework\Services\Markdown\ShortcodeProcessor;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\Markdown\ShortcodeProcessor

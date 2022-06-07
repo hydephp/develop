@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Models\Author;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class HasAuthorTest.

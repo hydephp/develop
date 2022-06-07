@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Services;
+namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\StarterFileService;

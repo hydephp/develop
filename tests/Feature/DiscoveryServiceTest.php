@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
@@ -11,7 +11,7 @@ use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Framework\Services\DiscoveryService;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class DiscoveryServiceTest extends TestCase
 {

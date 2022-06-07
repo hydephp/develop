@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Services\MarkdownFileService;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class MarkdownFileServiceTest extends TestCase
 {

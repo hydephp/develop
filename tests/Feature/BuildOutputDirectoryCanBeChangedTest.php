@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class BuildOutputDirectoryCanBeChangedTest.

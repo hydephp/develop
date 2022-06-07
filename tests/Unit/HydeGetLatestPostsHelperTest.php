@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
 use Illuminate\Support\Collection;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @deprecated as parent method is deprecated

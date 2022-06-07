@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class InteractsWithDirectoriesConcernTest.

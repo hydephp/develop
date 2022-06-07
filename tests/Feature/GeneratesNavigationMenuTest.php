@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Actions\GeneratesNavigationMenu;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class GeneratesNavigationMenuTest extends TestCase
 {

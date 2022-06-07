@@ -1,10 +1,10 @@
 <?php
 
-namespace  Tests\Feature\Concerns;
+namespace Hyde\Testing\Feature\Concerns;
 
 use Hyde\Framework\Concerns\GeneratesPageMetadata;
 use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\GeneratesPageMetadata

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Services\Markdown;
+namespace Hyde\Testing\Feature\Services\Markdown;
 
 use Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor

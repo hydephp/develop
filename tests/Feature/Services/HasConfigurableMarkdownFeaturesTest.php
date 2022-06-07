@@ -1,11 +1,11 @@
 <?php
 
-namespace  Tests\Feature\Services;
+namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Concerns\Markdown\HasConfigurableMarkdownFeatures;
 use Hyde\Framework\Models\DocumentationPage;
 use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\Markdown\HasConfigurableMarkdownFeatures

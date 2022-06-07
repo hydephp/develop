@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Services;
+namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\SitemapService;
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\SitemapService

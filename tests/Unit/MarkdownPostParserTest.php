@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @see Tests\Feature\Commands\StaticSiteBuilderPostModuleTest for the compiler test.

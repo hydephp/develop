@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Actions\MarkdownConverter;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class MarkdownConverterTest.

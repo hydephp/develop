@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Actions;
+namespace Hyde\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Exceptions\FileConflictException;
@@ -8,7 +8,7 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Services;
+namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Hyde;
@@ -9,7 +9,7 @@ use Hyde\Framework\Models\DocumentationSidebarItem;
 use Hyde\Framework\Services\DocumentationSidebarService;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\DocumentationSidebarService

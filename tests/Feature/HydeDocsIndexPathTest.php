@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Hyde;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class HydeDocsIndexPathTest extends TestCase
 {

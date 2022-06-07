@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Commands;
+namespace Hyde\Testing\Feature\Commands;
 
 use Exception;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Hyde;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeMakePageCommand

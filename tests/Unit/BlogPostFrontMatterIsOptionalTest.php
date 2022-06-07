@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\Artisan;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class BlogPostFrontMatterIsOptionalTest extends TestCase
 {

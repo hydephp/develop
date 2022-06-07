@@ -879,7 +879,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "a50a96648df06ea61491e3c961988a520fa86075"
+                "reference": "d9252229fa1348433e747fbef5e19ab4ff208564"
             },
             "require": {
                 "illuminate/support": "^9.5",

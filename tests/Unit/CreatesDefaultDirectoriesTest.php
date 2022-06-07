@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class CreatesDefaultDirectoriesTest extends TestCase
 {

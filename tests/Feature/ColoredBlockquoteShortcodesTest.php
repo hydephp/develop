@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Services\Markdown\Shortcodes\AbstractColoredBlockquote;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class ColoredBlockquoteShortcodesTest.

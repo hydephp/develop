@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Models\BladePage;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\ValidatesExistence

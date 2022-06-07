@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\Feature\Concerns;
+namespace Hyde\Testing\Feature\Concerns;
 
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Helpers\Meta;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\HasPageMetadata
  *
- * @see \Tests\Unit\HasPageMetadataRssFeedLinkTest
+ * @see \Hyde\Testing\Unit\HasPageMetadataRssFeedLinkTest
  */
 class HasPageMetadataTest extends TestCase
 {

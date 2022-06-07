@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class TestBuildStaticSiteCommandFlagToEnablePrettyUrlsTest.

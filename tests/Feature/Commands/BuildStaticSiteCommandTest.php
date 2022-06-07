@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\Commands;
+namespace Hyde\Testing\Feature\Commands;
 
 use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeBuildStaticSiteCommand

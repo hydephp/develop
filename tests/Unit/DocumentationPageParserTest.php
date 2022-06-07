@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class DocumentationPageParserTest extends TestCase
 {

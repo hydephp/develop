@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
@@ -9,7 +9,7 @@ use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Framework\Services\DiscoveryService;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class SourceDirectoriesCanBeChangedTest.

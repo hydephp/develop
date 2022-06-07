@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Commands;
+namespace Hyde\Testing\Feature\Commands;
 
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeServeCommand

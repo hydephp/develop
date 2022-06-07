@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Helpers\Author;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Test that the Author feature works in

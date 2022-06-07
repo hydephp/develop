@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Actions;
+namespace Hyde\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\GeneratesTableOfContents;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\GeneratesTableOfContents

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Exception;
 use Hyde\Framework\Hyde;
@@ -8,7 +8,7 @@ use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Test the Markdown page parser.

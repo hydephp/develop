@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
@@ -11,7 +11,7 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class SourceFilesInCustomDirectoriesCanBeCompiledTest.

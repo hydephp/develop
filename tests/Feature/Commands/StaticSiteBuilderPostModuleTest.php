@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Commands;
+namespace Hyde\Testing\Feature\Commands;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\StaticPageBuilder;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Test the post compiler module.

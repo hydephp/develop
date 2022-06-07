@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Services\FileCacheService as Service;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 class FileCacheServiceUnixsumMethodTest extends TestCase
 {

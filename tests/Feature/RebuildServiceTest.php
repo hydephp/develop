@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Framework\StaticPageBuilder;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Note that we don't actually test if the files were created,

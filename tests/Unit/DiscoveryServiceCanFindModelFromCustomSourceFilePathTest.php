@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
@@ -8,7 +8,7 @@ use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class DiscoveryServiceCanFindModelFromCustomSourceFilePathTest.

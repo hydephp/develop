@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Services;
+namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Services\Markdown\BladeDownProcessor;
-use Tests\TestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * Class BladeDownProcessorTest.
