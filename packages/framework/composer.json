@@ -1,0 +1,38 @@
+{
+    "name": "hyde/framework",
+    "description": "The HydePHP Framework",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hyde\\Framework\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Caen De Silva",
+            "email": "caen@desilva.se"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9.5",
+        "illuminate/view": "^9.0",
+        "symfony/yaml": "^6.0",
+        "laravel-zero/framework": "^9.1",
+        "league/commonmark": "^2.2",
+        "spatie/yaml-front-matter": "^2.0.7",
+        "torchlight/torchlight-commonmark": "^0.5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5.15 || ^8.5 || ^9.0"
+    },
+    "suggest": {
+        "hyde/hyde" : "The Framework package contains the Hyde Core. To create your site you should use the Hyde/Hyde project.",
+        "ext-simplexml": "Required to generate sitemaps and RSS feeds."
+    }
+}

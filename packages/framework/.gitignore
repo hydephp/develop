@@ -1,0 +1,16 @@
+/vendor
+/.run
+/.idea
+/.vscode
+/.vagrant
+.phpunit.result.cache
+
+.phpdoc
+phpDocumentor.phar
+phpdoc.dist.xml
+api-docs
+
+phpstan.phar
+
+.github/dev-docs/README.markdown
+.github/dev-docs/.github/

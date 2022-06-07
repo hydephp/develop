@@ -1,0 +1,52 @@
+<?php
+
+namespace Tests\Feature;
+
+use Hyde\Framework\Services\AssetService;
+use Tests\TestCase;
+
+/**
+ * @covers \Hyde\Framework\Services\AssetService
+ */
+class AssetServiceTest extends TestCase
+{
+    public function test_has_version_string()
+    {
+        $service = new AssetService();
+        $this->assertIsString($service->version);
+    }
+
+    public function test_can_change_version()
+    {
+        $service = new AssetService();
+        $service->version = '1.0.0';
+        $this->assertEquals('1.0.0', $service->version);
+    }
+
+    public function test_version_method_returns_version_property_when_config_override_is_not_set()
+    {
+        $service = new AssetService();
+        $this->assertEquals($service->version, $service->version());
+    }
+
+    public function test_style_path_method_returns_cdn_path()
+    {
+        $service = new AssetService();
+        $this->assertIsString($service->stylePath());
+        $this->assertStringContainsString('hyde.css', $service->stylePath());
+    }
+
+    public function test_script_path_method_returns_cdn_path()
+    {
+        $service = new AssetService();
+        $this->assertIsString($service->scriptPath());
+        $this->assertStringContainsString('hyde.js', $service->scriptPath());
+    }
+
+    public function test_cdn_path_constructor_returns_cdn_uri()
+    {
+        $service = new AssetService();
+        $this->assertIsString($path = $service->constructCdnPath('styles.css'));
+        $this->assertStringContainsString('styles.css', $path);
+    }
+}
