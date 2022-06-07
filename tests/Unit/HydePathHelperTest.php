@@ -1,47 +1,57 @@
 <?php
 
-// Unit test the Hyde::path() helper
+namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
+use Hyde\Testing\TestCase;
 
-test('method exists', function () {
-    expect(method_exists(Hyde::class, 'path'))->toBeTrue();
-});
-
-test('string is returned', function () {
-    expect(Hyde::path())->toBeString();
-});
-
-test(
-    'returned directory contains content expected to be in the project directory',
-    function () {
-        expect(
-            file_exists(Hyde::path().DIRECTORY_SEPARATOR.'hyde') &&
-            file_exists(Hyde::path().DIRECTORY_SEPARATOR.'_pages') &&
-            file_exists(Hyde::path().DIRECTORY_SEPARATOR.'_posts') &&
-            file_exists(Hyde::path().DIRECTORY_SEPARATOR.'_site')
-        )->toBeTrue();
+/**
+ * Class HydePathHelperTest.
+ *
+ * @covers \Hyde\Framework\Hyde::path
+ */
+class HydePathHelperTest extends TestCase
+{
+    public function test_method_exists()
+    {
+        $this->assertTrue(method_exists(Hyde::class, 'path'));
     }
-);
 
-test('method returns qualified file path when supplied with argument', function () {
-    expect(Hyde::path('file.php'))->toEqual(Hyde::path().DIRECTORY_SEPARATOR.'file.php');
-});
+    public function test_string_is_returned()
+    {
+        $this->assertIsString(Hyde::path());
+    }
 
-test('method strips trailing directory separators from argument', function () {
-    expect(Hyde::path('\\/file.php/'))->toEqual(Hyde::path().DIRECTORY_SEPARATOR.'file.php');
-});
 
-test('method returns expected value for nested path arguments', function () {
-    expect(Hyde::path('directory/file.php'))
-        ->toEqual(Hyde::path().DIRECTORY_SEPARATOR.'directory/file.php');
-});
+    public function test_returned_directory_contains_content_expected_to_be_in_the_project_directory()
+    {
+        $this->assertTrue(
+            file_exists(Hyde::path() . DIRECTORY_SEPARATOR . 'hyde') &&
+                file_exists(Hyde::path() . DIRECTORY_SEPARATOR . '_pages') &&
+                file_exists(Hyde::path() . DIRECTORY_SEPARATOR . '_posts') &&
+                file_exists(Hyde::path() . DIRECTORY_SEPARATOR . '_site')
+        );
+    }
 
-test('method returns expected value regardless of trailing directory separators in argument', function () {
-    expect(Hyde::path('directory/file.php/'))
-        ->toEqual(Hyde::path().DIRECTORY_SEPARATOR.'directory/file.php');
-    expect(Hyde::path('/directory/file.php/'))
-        ->toEqual(Hyde::path().DIRECTORY_SEPARATOR.'directory/file.php');
-    expect(Hyde::path('\\/directory/file.php/'))
-        ->toEqual(Hyde::path().DIRECTORY_SEPARATOR.'directory/file.php');
-});
+    public function test_method_returns_qualified_file_path_when_supplied_with_argument()
+    {
+        $this->assertEquals(Hyde::path('file.php'), Hyde::path() . DIRECTORY_SEPARATOR . 'file.php');
+    }
+
+    public function test_method_strips_trailing_directory_separators_from_argument()
+    {
+        $this->assertEquals(Hyde::path('\\/file.php/'), Hyde::path() . DIRECTORY_SEPARATOR . 'file.php');
+    }
+
+    public function test_method_returns_expected_value_for_nested_path_arguments()
+    {
+        $this->assertEquals(Hyde::path('directory/file.php'), Hyde::path() . DIRECTORY_SEPARATOR . 'directory/file.php');
+    }
+
+    public function test_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
+    {
+        $this->assertEquals(Hyde::path('directory/file.php/'), Hyde::path() . DIRECTORY_SEPARATOR . 'directory/file.php');
+        $this->assertEquals(Hyde::path('/directory/file.php/'), Hyde::path() . DIRECTORY_SEPARATOR . 'directory/file.php');
+        $this->assertEquals(Hyde::path('\\/directory/file.php/'), Hyde::path() . DIRECTORY_SEPARATOR . 'directory/file.php');
+    }
+}
