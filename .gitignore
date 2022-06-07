@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 /builds
+/.run
 /.idea
 /.vscode
 /.vagrant

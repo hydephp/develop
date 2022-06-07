@@ -4,7 +4,6 @@ namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
-use Tests\TestCase;
 
 /**
  * Generates metadata for page models that have front matter.
@@ -21,7 +20,7 @@ trait GeneratesPageMetadata
     {
         $this->parseFrontMatterMetadata();
 
-        if ($this instanceof MarkdownPost || $this instanceof TestCase) {
+        if ($this instanceof MarkdownPost || isset($this->forceOpenGraph) && $this->forceOpenGraph) {
             $this->makeOpenGraphPropertiesForArticle();
         }
     }
