@@ -33,7 +33,6 @@
         <env name="ENV" value="testing"/>
     </php>
     <listeners>
-        <listener class="\Hyde\Testing\PHPUnitTestListener">
-        </listener>
+        <listener class="\Hyde\Testing\TestListener" />
     </listeners>
 </phpunit>

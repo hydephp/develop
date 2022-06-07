@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\Warning;
 use Throwable;
 
-class PHPUnitTestListener implements \PHPUnit\Framework\TestListener
+class TestListener implements \PHPUnit\Framework\TestListener
 {
 
     public function addError(Test $test, Throwable $t, float $time): void
