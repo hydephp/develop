@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.0",
         "hyde/framework": "^0.34"
+        "hyde/framework": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "^1.4.4",
