@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^8.0",
-        "hyde/framework": "^0.34"
         "hyde/framework": "dev-master"
     },
     "require-dev": {
@@ -47,5 +46,11 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "bin": ["hyde"]
+    "bin": ["hyde"],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./packages/framework"
+        }
+    ]
 }
