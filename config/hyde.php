@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'name' => $siteName = env('SITE_NAME', 'HydePHP Preview'),
+    'name' => $siteName = env('SITE_NAME', 'HydePHP Canary Preview'),
 
     /*
     |--------------------------------------------------------------------------
