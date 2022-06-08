@@ -1,6 +1,7 @@
 # HydePHP - Monorepo Experiment
 
 [![Test Suite](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-suite.yml/badge.svg)](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-suite.yml)
+[![codecov](https://codecov.io/gh/caendesilva/hyde-monorepo/branch/master/graph/badge.svg?token=G6N2161TOT)](https://codecov.io/gh/caendesilva/hyde-monorepo)
 
 Experimenting with a monorepo. The way I'm thinking is that this repo (when/if transferred to the Hyde org)
 is the master origin and source of truth for all HydePHP packages. When a release is tagged here, a CI action
