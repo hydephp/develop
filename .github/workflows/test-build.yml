@@ -119,5 +119,5 @@ jobs:
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
       with:
-        add: 'dist'
+        add: 'packages/hydefront/dist'
         message: 'Compile HydeFront assets for production'
