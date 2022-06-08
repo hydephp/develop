@@ -88,6 +88,11 @@ jobs:
         name: "coverage"
         path: "build/coverage"
 
+    - name: Upload HTML coverage artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: "html-coverage"
+        path: "build/coverage/html"
 
   build-hydefront-assets:
 
