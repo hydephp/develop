@@ -5,7 +5,7 @@ module.exports = {
     content: [
         './_pages/*.blade.php',
         './resources/views/**/*.blade.php',
-        './packages/framework/resources/views/**/*.blade.php',
+        './vendor/hyde/framework/resources/views/**/*.blade.php',
     ],
 
     theme: {
