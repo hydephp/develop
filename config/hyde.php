@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'name' => $siteName = env('SITE_NAME', 'HydePHP'),
+    'name' => $siteName = env('SITE_NAME', 'HydePHP Preview'),
 
     /*
     |--------------------------------------------------------------------------
@@ -97,6 +97,7 @@ return [
         // Meta::name('keywords', 'Static Sites, Blogs, Documentation'),
         Meta::name('generator', 'HydePHP '.Hyde\Framework\Hyde::version()),
         Meta::property('site_name', $siteName),
+        Meta::name('robots', 'noindex'),
     ],
 
     /*
@@ -165,7 +166,9 @@ return [
 
     'footer' => [
         'enabled' => true,
-        'markdown' => 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
+        'markdown' => file_exists(__DIR__.'../origin-ref')
+            ? 'HydePHP Monorepo '.Hyde\Framework\Hyde::version().'-'.'<a href="https://github.com/caendesilva/hyde-monorepo/commit/'.file_get_contents(__DIR__.'../origin-ref').'">'.file_get_contents(__DIR__.'../origin-ref').'</a>'
+            : 'HydePHP Monorepo '.Hyde\Framework\Hyde::version(),
     ],
 
     /*
