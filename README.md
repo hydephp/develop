@@ -1,5 +1,7 @@
 # HydePHP - Monorepo Experiment
 
+[![Test Suite](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-suite.yml/badge.svg)](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-suite.yml)
+
 Experimenting with a monorepo. The way I'm thinking is that this repo (when/if transferred to the Hyde org)
 is the master origin and source of truth for all HydePHP packages. When a release is tagged here, a CI action
 propagates the tag and changes to all* HydePHP packages and creates subsequent releases.
