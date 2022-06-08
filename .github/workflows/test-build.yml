@@ -121,3 +121,35 @@ jobs:
       with:
         add: 'packages/hydefront/dist'
         message: 'Compile HydeFront assets for production'
+
+
+  build-tailwindcss:
+
+    runs-on: ubuntu-latest
+    needs: run-smoke-tests
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        cache: 'npm'
+
+    - name: Install Node.js dependencies
+      run: npm ci
+
+    - name: Build assets for production
+      run: npm run prod
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: '_mediat'
+        path: '_media'
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9 
+      with:
+        add: '_media/app.css'
+        message: 'Compile TailwindCSS for production'
