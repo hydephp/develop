@@ -1,0 +1,39 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  run-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      with:
+        php-version: "8.0"
+        coverage: xdebug
+        extensions: fileinfo
+    - uses: actions/checkout@v3
+    - name: Install Composer Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Set environment to testing
+      run: echo "ENV=testing" > .env
+    
+    - name: Output debug information
+      run: php hyde debug
+
+    - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
+      run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit build/junit.xml
+      env:
+        ENV: testing
+
+    - name: Upload coverage artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: "coverage"
+        path: "build/coverage"
