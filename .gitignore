@@ -13,7 +13,6 @@
 
 # PATHS EXCLUDED FROM CONFIGURATION TEMPLATE
 /_site
-/_pages
 /_media
 /.github
 /packages
@@ -43,3 +42,8 @@ config/docs.php
 config/markdown.php
 config/torchlight.php
 config/view.php
+
+/_pages/404.blade.php
+/_pages/index.blade.php
+
+/bootstrap
