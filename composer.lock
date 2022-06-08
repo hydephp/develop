@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "668ee9fde901c3026fb918c443f2123b",
+    "content-hash": "b9ed92daf1a4b0fe8b7776a5e36dbb6b",
     "packages": [
         {
             "name": "brick/math",
@@ -6069,17 +6069,11 @@
         },
         {
             "name": "hyde/realtime-compiler",
-            "version": "v2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hydephp/realtime-compiler.git",
-                "reference": "3fac1a4e24e6f3014de34255939e7bd9495d0575"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hydephp/realtime-compiler/zipball/3fac1a4e24e6f3014de34255939e7bd9495d0575",
-                "reference": "3fac1a4e24e6f3014de34255939e7bd9495d0575",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/realtime-compiler",
+                "reference": "38a77b90f52d4e2076805b9261611eb701973298"
             },
             "require": {
                 "desilva/microserve": "^1.0"
@@ -6099,7 +6093,6 @@
                     "Hyde\\RealtimeCompiler\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -6109,11 +6102,9 @@
                     "email": "caen@desilva.se"
                 }
             ],
-            "support": {
-                "issues": "https://github.com/hydephp/realtime-compiler/issues",
-                "source": "https://github.com/hydephp/realtime-compiler/tree/v2.0.1"
-            },
-            "time": "2022-06-04T20:19:46+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "mockery/mockery",
@@ -8264,7 +8255,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "hyde/framework": 20
+        "hyde/framework": 20,
+        "hyde/realtime-compiler": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
