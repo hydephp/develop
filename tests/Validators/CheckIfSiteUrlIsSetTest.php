@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Console\Kernel;
 
 beforeEach(function () {
-    $app = require __DIR__.'/../../bootstrap/app.php';
+    $app = require __DIR__.'/../../app/bootstrap.php';
 
     $app->make(Kernel::class)->bootstrap();
 
