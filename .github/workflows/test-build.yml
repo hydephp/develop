@@ -211,10 +211,6 @@ jobs:
         name: api-documentation
         path: master/api-docs
 
-    - name: Create index.html
-      run: |
-        echo "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html><head><meta name="robots" content="noindex"><title>Test Suite Reports</title></head><body><center><br><h1>Test Suite Reports</h1><a href="coverage">Coverage Report</a><br><br><a href="api-docs">Framework API Documentation</a></center></body></html>" > master/index.html
-
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
       with:
