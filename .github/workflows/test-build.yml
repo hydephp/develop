@@ -224,6 +224,9 @@ jobs:
       - name: Copy configuration to root
         run: cp -r temp/caendesilva-hyde-monorepo-*/* .
 
+      - name: Output the origin reference to file
+        run: echo ${{ github.sha }} > origin-ref
+
       - name: Publish the post feed homepage
         run: php hyde publish:homepage posts -n
 
