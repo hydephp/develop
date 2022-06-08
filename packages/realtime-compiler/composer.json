@@ -1,0 +1,26 @@
+{
+    "name": "hyde/realtime-compiler",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hyde\\RealtimeCompiler\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Caen De Silva",
+            "email": "caen@desilva.se"
+        }
+    ],
+    "bin": ["bin/server.php"],
+    "require": {
+        "desilva/microserve": "^1.0"
+    },
+    "require-dev": {
+        "hyde/framework": "dev-master"
+    },
+    "suggest": {
+        "hyde/framework": ">=v0.32.0-beta"
+    }
+}
