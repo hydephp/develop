@@ -2,6 +2,29 @@
 
 What better way to showcase Markdown-based pages than by using the cheat sheet from [The Markdown Guide](https://www.markdownguide.org)!
 
+## Custom Markdown Features
+But first, here are some custom Markdown features Hyde provides!
+
+### Colored Blockquotes
+
+> Normal Blockquote
+
+>info Info Blockquote
+
+>warning Warning Blockquote
+
+>danger Danger Blockquote
+
+>success Success Blockquote
+
+### Automatic file path labels for code blocks
+
+```php
+// Filepath: Hello.php
+echo 'A file path label has been added to the top right corner.';
+```
+
+---
 
 ## Markdown Cheat Sheet
 
