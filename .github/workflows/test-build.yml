@@ -211,7 +211,7 @@ jobs:
       uses: EndBug/add-and-commit@v9 
       with:
         add: 'master/coverage'
-        message: "Upload coverage report from test suite run with ref ${{ env.GITHUB_SHA }}" 
+        message: 'Upload coverage report from test suite run with ref ${{ github.sha }}' 
 
 
   upload-api-documentation:
@@ -242,4 +242,4 @@ jobs:
       uses: EndBug/add-and-commit@v9 
       with:
         add: 'master/api-docs'
-        message: "Upload API documentation from test suite run with ref ${{ env.GITHUB_SHA }}" 
+        message: 'Upload API documentation from test suite run with ref ${{ github.sha }}' 
