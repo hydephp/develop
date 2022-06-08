@@ -50,7 +50,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "./packages/framework"
+            "url": "./packages/*"
         }
     ]
 }
