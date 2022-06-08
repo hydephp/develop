@@ -207,6 +207,15 @@ jobs:
 
       - name: '@TODO - Compile all latest frontend assets'
         run: echo '@TODO - Compile all latest frontend assets'
+          
+      - name: Download configuration # I'm sure there is a better way to do this
+        run: wget https://api.github.com/repos/caendesilva/hyde-monorepo/zipball/gh-configuration -O config.zip
+
+      - name: Unzip configuration
+        run: unzip config.zip -d temp
+
+      - name: Copy configuration to root
+        run: cp -r temp/caendesilva-hyde-monorepo-*/* .
 
       - name: Compile the static site
         run: php hyde build
