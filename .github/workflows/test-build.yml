@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
 
 jobs:
+  
   run-smoke-tests:
     runs-on: ubuntu-latest
     
@@ -39,6 +40,7 @@ jobs:
       run: vendor/bin/pest
       env:
         ENV: testing      
+
 
   test-coverage:
 
@@ -93,6 +95,7 @@ jobs:
       with:
         name: "html-coverage"
         path: "build/coverage/html"
+
 
   build-hydefront-assets:
 
@@ -184,6 +187,7 @@ jobs:
       with:
         name: 'api-documentation'
         path: 'build/api-documentation'
+
 
   build-preview-site:
       
@@ -293,6 +297,7 @@ jobs:
       with:
         add: 'master/api-docs'
         message: 'Upload API documentation from test suite run with ref ${{ github.sha }}' 
+
 
   upload-preview-site:
     environment:
