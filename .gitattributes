@@ -19,4 +19,4 @@ CHANGELOG.md export-ignore
 package-lock.json export-ignore
 composer.lock export-ignore
 
-monorepo export-ignore
+build export-ignore
