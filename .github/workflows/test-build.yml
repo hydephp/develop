@@ -217,6 +217,9 @@ jobs:
       - name: Copy configuration to root
         run: cp -r temp/caendesilva-hyde-monorepo-*/* .
 
+      - name: Publish the post feed homepage
+        run: php hyde publish:homepage posts -n
+
       - name: Compile the static site
         run: php hyde build
 
