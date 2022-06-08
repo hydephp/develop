@@ -144,6 +144,9 @@ jobs:
     - name: Install Node.js dependencies
       run: npm ci
 
+    - name: Update Tailwind content path
+      run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
+
     - name: Build assets for production
       run: npm run prod
 
