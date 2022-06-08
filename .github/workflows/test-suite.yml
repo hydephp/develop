@@ -7,9 +7,44 @@ on:
     branches: [ "master" ]
 
 jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      with:
+        php-version: "8.0"
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install Composer Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Set environment to testing
+      run: echo "ENV=testing" > .env
+    
+    - name: Output debug information
+      run: php hyde debug
+
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+      run: vendor/bin/pest
+      env:
+        ENV: testing      
+
   run-tests:
 
     runs-on: ubuntu-latest
+    needs: smoke-test
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -19,9 +54,6 @@ jobs:
         extensions: fileinfo
     - uses: actions/checkout@v3
     
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
-      
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
