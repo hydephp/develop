@@ -10,6 +10,29 @@
 
 .env
 
-# /_site
 
+# PATHS EXCLUDED FROM CONFIGURATION TEMPLATE
+/_site
+/_pages
+/_media
+/.github
 /packages
+/tests
+/build
+/storage
+/app
+/resources
+.env.example
+.gitattributes
+.styleci.yml
+CHANGELOG.md
+composer.json
+composer.lock
+hyde
+LICENSE.md
+package-lock.json
+package.json
+phpunit.xml.dist
+SECURITY.md
+tailwind.config.js
+webpack.mix.js
