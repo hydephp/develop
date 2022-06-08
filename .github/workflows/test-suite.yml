@@ -18,6 +18,10 @@ jobs:
         coverage: xdebug
         extensions: fileinfo
     - uses: actions/checkout@v3
+    
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+      
     - name: Install Composer Dependencies
       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
