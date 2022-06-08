@@ -12,3 +12,7 @@ should be reverted to not use the dev-master branch.
 
 *Some packages, like HydeFront may not need to have their tags synced. Thinking it is mainly for
 hyde/hyde and hyde/framework as they are tightly coupled.
+
+## Warning
+
+This monorepo project is **highly experimental** and **unstable**! 
