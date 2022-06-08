@@ -45,3 +45,5 @@ config/view.php
 
 /_pages/404.blade.php
 /_pages/index.blade.php
+
+/bootstrap
