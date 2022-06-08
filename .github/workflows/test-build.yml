@@ -290,3 +290,33 @@ jobs:
       with:
         add: 'master/api-docs'
         message: 'Upload API documentation from test suite run with ref ${{ github.sha }}' 
+
+  upload-preview-site:
+    environment:
+      name: live-preview-site
+      url: https://caendesilva.github.io/hyde-monorepo/master/preview
+        
+    runs-on: ubuntu-latest
+    needs: 
+     - run-smoke-tests
+     - build-preview-site
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: 'gh-pages'
+
+    - name: Empty output directory
+      run: rm -rf master/preview && mkdir master/preview
+
+    - name: Download preview site artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: site-preview
+        path: master/preview
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9 
+      with:
+        add: 'master/preview'
+        message: 'Upload site preview from test suite run with ref ${{ github.sha }}' 
