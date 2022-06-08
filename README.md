@@ -1,6 +1,6 @@
 # HydePHP - Monorepo Experiment
 
-[![Test Suite](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-suite.yml/badge.svg)](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-suite.yml)
+[![Test & Build](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-build.yml/badge.svg)](https://github.com/caendesilva/hyde-monorepo/actions/workflows/test-build.yml)
 [![codecov](https://codecov.io/gh/caendesilva/hyde-monorepo/branch/master/graph/badge.svg?token=G6N2161TOT)](https://codecov.io/gh/caendesilva/hyde-monorepo)
 
 Experimenting with a monorepo. The way I'm thinking is that this repo (when/if transferred to the Hyde org)
