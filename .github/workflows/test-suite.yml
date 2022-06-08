@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  smoke-test:
+  run-smoke-tests:
     runs-on: ubuntu-latest
     
     steps:
@@ -42,10 +42,10 @@ jobs:
       env:
         ENV: testing      
 
-  run-tests:
+  test-coverage:
 
     runs-on: ubuntu-latest
-    needs: smoke-test
+    needs: run-smoke-tests
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
