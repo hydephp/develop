@@ -145,7 +145,7 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v1
       with:
-        name: '_mediat'
+        name: '_media'
         path: '_media'
 
     - name: Commit changes
