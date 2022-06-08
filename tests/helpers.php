@@ -1,5 +1,7 @@
 <?php
 
+namespace Hyde\Testing;
+
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
 
