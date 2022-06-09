@@ -1,0 +1,12 @@
+name: Split monorepo
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  
+  propagate-framework:
+    runs-on: ubuntu-latest
+
+  
