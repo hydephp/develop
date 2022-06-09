@@ -72,6 +72,9 @@ jobs:
 
     # Apply transformations
 
+    - name: test php version
+      run: php -v
+
     - name: Remove ignored directories # Exclude directories covered by export-ignore
       run: |
         rm -rf .github
