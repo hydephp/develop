@@ -20,3 +20,4 @@ package-lock.json export-ignore
 composer.lock export-ignore
 
 build export-ignore
+docs export-ignore
