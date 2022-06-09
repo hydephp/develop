@@ -6,6 +6,7 @@
 *.md diff=markdown
 *.php diff=php
 
+phpunit.xml.dist export-ignore
 .styleci.yml export-ignore
 .scrutinizer.yml export-ignore
 BACKERS.md export-ignore
