@@ -20,7 +20,22 @@ jobs:
         name: "framework"
         path: "packages/framework"
 
-    
+  package-hyde:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Package Hyde/Hyde artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: "hyde"
+        path: | # Exclude directories covered by export-ignore
+          "."
+          "!.github"
+          "!tests"
+          "!packages"
+          "!build"
+
   propagate-framework:
     needs: package-framework
     runs-on: ubuntu-latest
@@ -42,3 +57,34 @@ jobs:
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
+
+  propagate-hyde:
+    needs: package-hyde
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          ref: 'readonly-hyde-mirror'
+
+    - name: Empty working directory
+      run: rm -rf *
+
+    - name: Download Hyde/Hyde artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: hyde
+        path: '.'
+
+    # Apply transformations
+
+    - name: Load persisted data
+      run: wget https://raw.githubusercontent.com/caendesilva/hyde-monorepo/${{ github.sha }}/build/monorepo/persist/hyde/README.md -O README.md
+
+    - name: Remove packages from composer.json
+      run: php -r '$json = json_decode(file_get_contents(\"composer.json\"), true); unset($json[\"repositories\"]); file_put_contents(\"composer.json\", json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));''
+
+    - name: Validate composer.json
+      run: composer validate --strict
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9
