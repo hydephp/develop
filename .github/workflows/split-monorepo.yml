@@ -26,6 +26,9 @@ jobs:
       with:
           ref: 'readonly-framework-mirror'
 
+    - name: Empty working directory
+      run: rm -rf *
+
     - name: Download Hyde/Framework artifact
       uses: actions/download-artifact@v3
       with:
