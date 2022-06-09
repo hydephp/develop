@@ -1,3 +1,6 @@
+# Split the monorepo into readonly branches
+# TODO: Some way to preserve commit messages? I'd love to get some help here.
+
 name: Split monorepo
 
 on:
