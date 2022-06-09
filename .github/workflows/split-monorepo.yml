@@ -31,10 +31,10 @@ jobs:
         name: "hyde"
         path: | # Exclude directories covered by export-ignore
           "."
-          !.github
-          !tests
-          !packages
-          !build
+          !.github/
+          !tests/
+          !packages/
+          !build/
 
 
   propagate-framework:
