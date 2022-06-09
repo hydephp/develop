@@ -332,5 +332,5 @@ jobs:
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
       with:
-        add: 'master/preview'
+        add: '["master/preview", "master/README.md"]'
         message: 'Upload site preview from test suite run with ref ${{ github.sha }}' 
