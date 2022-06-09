@@ -24,3 +24,10 @@ The readonly mirror branches contain the root repositories that split out from t
 
 These branches are still master/development branches and may be unstable.
 Changes to them are propagated when the monorepo has pushes, regardless of if the tests pass or not.
+
+## Projects in this monorepo
+
+- Hyde/Hyde (root directory)
+- Hyde/Framework (packages/framework)
+- Hyde/HydeFront (packages/hydefront)
+- Hyde/RealtimeCompiler (packages/realtime-compiler)
