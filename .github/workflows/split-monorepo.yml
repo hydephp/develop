@@ -30,7 +30,7 @@ jobs:
       with:
         name: "hyde"
         path: | # Exclude directories covered by export-ignore
-          "*"
+          "/home/runner/work/hyde-monorepo/hyde-monorepo"
           "!.github/"
           "!tests/"
           "!packages/"
