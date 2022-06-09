@@ -72,9 +72,6 @@ jobs:
 
     # Apply transformations
 
-    - name: test php version
-      run: php -v
-
     - name: Remove ignored directories # Exclude directories covered by export-ignore
       run: |
         rm -rf .github
@@ -85,8 +82,10 @@ jobs:
     - name: Load persisted data
       run: wget https://raw.githubusercontent.com/caendesilva/hyde-monorepo/${{ github.sha }}/build/monorepo/persist/hyde/README.md -O README.md
 
+    - name: Download composer fix script
+      run: wget https://gist.githubusercontent.com/caendesilva/8528ef3ab2f5d116c2b58af9ff1c211b/raw/01fcae28cdec1d26b0494331175b301a4e5b2852/fixcomposer.json.php -O fixcomposer.php
     - name: Remove packages from composer.json
-      run: php -r '$json = json_decode(file_get_contents(\"composer.json\"), true); unset($json[\"repositories\"]); file_put_contents(\"composer.json\", json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));''
+      run: php fixcomposer.php
 
     - name: Validate composer.json
       run: composer validate --strict
