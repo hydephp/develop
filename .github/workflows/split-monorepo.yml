@@ -20,18 +20,6 @@ jobs:
         name: "framework"
         path: "packages/framework"
 
-  package-hyde:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Package Hyde/Hyde artifact
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 #v3.1.0 
-      with:
-        name: "hyde"
-        # Exclude directories covered by export-ignore
-        path: '**/*'
-
 
   propagate-framework:
     needs: package-framework
@@ -56,7 +44,6 @@ jobs:
       uses: EndBug/add-and-commit@v9 
 
   propagate-hyde:
-    needs: package-hyde
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -66,12 +53,19 @@ jobs:
     - name: Empty working directory
       run: rm -rf *
 
-    - name: Download Hyde/Hyde artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: hyde
-        path: '.'
+    - name: Create temporary working directory
+      run: mkdir ~/tmp
 
+    - name: Download Hyde/Hyde 
+      run: cd ~/tmp && wget https://github.com/caendesilva/hyde-monorepo/zipball/${{ github.sha }} -O hyde.zip
+
+    - name: Unzip archive
+      run: cd ~/tmp && unzip hyde.zip
+
+    - name: Copy archive to root
+      run: cp -r ~/tmp/caendesilva-hyde-monorepo-*/* .
+    
+      
     # Apply transformations
 
     - name: Load persisted data
