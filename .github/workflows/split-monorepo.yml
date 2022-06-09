@@ -29,7 +29,13 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: "hyde"
-        path: '.'
+        path: | # Exclude directories covered by export-ignore
+          "."
+          !.github
+          !tests
+          !packages
+          !build
+
 
   propagate-framework:
     needs: package-framework
@@ -71,13 +77,6 @@ jobs:
         path: '.'
 
     # Apply transformations
-
-    - name: Remove ignored directories # Exclude directories covered by export-ignore
-      run: |
-        rm -rf .github
-        rm -rf tests
-        rm -rf packages
-        rm -rf build
 
     - name: Load persisted data
       run: wget https://raw.githubusercontent.com/caendesilva/hyde-monorepo/${{ github.sha }}/build/monorepo/persist/hyde/README.md -O README.md
