@@ -327,7 +327,7 @@ jobs:
         path: master/preview
 
     - name: Create README.md
-      run: echo '# CI/CD generated reports for ${{ github.sha }}' > master/README.md
+      run: echo '# CI/CD generated reports for https://github.com/caendesilva/hyde-monorepo/commit/${{ github.sha }}' > master/README.md
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
