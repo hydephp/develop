@@ -75,6 +75,8 @@ jobs:
       run: wget https://gist.githubusercontent.com/caendesilva/8528ef3ab2f5d116c2b58af9ff1c211b/raw/01fcae28cdec1d26b0494331175b301a4e5b2852/fixcomposer.json.php -O fixcomposer.php
     - name: Remove packages from composer.json
       run: php fixcomposer.php
+    - name: Delete script
+      run: rm fixcomposer.php
     - name: Remove composer.lock
       run: rm -f composer.lock
 
