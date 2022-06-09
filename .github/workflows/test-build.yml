@@ -28,7 +28,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install Composer Dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-autoloader
 
     - name: Set environment to testing
       run: echo "ENV=testing" > .env
@@ -210,7 +210,7 @@ jobs:
             ${{ runner.os }}-php-
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-autoloader
 
       - name: '@TODO - Compile all latest frontend assets'
         run: echo '@TODO - Compile all latest frontend assets'
