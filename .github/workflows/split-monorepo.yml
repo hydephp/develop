@@ -1,0 +1,38 @@
+name: Split monorepo
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  
+  package-framework:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Package Hyde/Framework artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: "framework"
+        path: "packages/framework"
+
+    
+  propagate-framework:
+    needs: package-framework
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          ref: 'readonly-framework-mirror'
+
+    - name: Download Hyde/Framework artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: framework
+        path: '.'
+
+    # Apply transformations if needed
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9 

@@ -16,3 +16,11 @@ hyde/hyde and hyde/framework as they are tightly coupled.
 ## Warning
 
 This monorepo project is **highly experimental** and **unstable**! 
+
+
+## About readonly mirror branches
+
+The readonly mirror branches contain the root repositories that split out from the monorepo.
+
+These branches are still master/development branches and may be unstable.
+Changes to them are propagated when the monorepo has pushes, regardless of if the tests pass or not.
