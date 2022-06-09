@@ -18,9 +18,9 @@ hyde/hyde and hyde/framework as they are tightly coupled.
 This monorepo project is **highly experimental** and **unstable**! 
 
 
-## RM-branches
+## About readonly mirror branches
 
-The RM branches are Readonly Mirrors and contain the root repositories that split out from the monorepo.
+The readonly mirror branches contain the root repositories that split out from the monorepo.
 
 These branches are still master/development branches and may be unstable.
 Changes to them are propagated when the monorepo has pushes, regardless of if the tests pass or not.
