@@ -30,7 +30,7 @@ jobs:
       with:
         name: "hyde"
         # Exclude directories covered by export-ignore
-        path: '.'
+        path: '.!(.git|.github|packages|tests)'
 
 
   propagate-framework:
