@@ -23,6 +23,7 @@ class Project
     protected function getPathOrFail(): string
     {
         $path = realpath(getcwd() . '/../../');
+        $path = 'H:\DocsCI'; // TEMP FOR TESTING
         if (!is_dir($path)) {
             throw new \Exception("Not a directory.");
         }
@@ -47,10 +48,9 @@ class Project
             static::$instance = new static();
         }
 
-        if ($property) {
-            return static::$instance->$property;
-        }
+        return isset($property)
+            ? static::$instance->$property
+            : static::$instance;
 
-        return static::$instance;
     }
 }
