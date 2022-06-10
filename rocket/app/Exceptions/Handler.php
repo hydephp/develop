@@ -8,6 +8,8 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 class Handler extends ExceptionHandler
 {
@@ -49,6 +51,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // The native exception handler does not seem to work properly with Lumen.
+        if (class_exists(Run::class)) {
+            $whoops = new Run();
+            $whoops->allowQuit(false);
+            $whoops->writeToOutput(false);
+            $whoops->pushHandler(new PrettyPageHandler());
+            $html = $whoops->handleException($exception);
+            return response()->make($html, 500);
+        }
+
         return parent::render($request, $exception);
     }
 }
