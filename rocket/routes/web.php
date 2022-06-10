@@ -20,6 +20,9 @@ $router->get('/version', function () use ($router) {
 });
 
 $router->get('/debug', 'DebugController');
+$router->get('/manual', function () {
+    return view('manual');
+});
 
 $router->post('/fileapi/open', 'FilesystemController@open');
 $router->get('/open/_site', 'RealtimeCompiler@render');
