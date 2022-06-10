@@ -35,3 +35,6 @@ by downloading a zip file into the rocket directory of the project.
 
 This is since Rocket is a full Laravel Lumen application,
 and I'm not sure if it is possible to package it with Composer.
+
+> Developers note, before merging into the main branch,
+> this will be moved into the packages/ directory.
