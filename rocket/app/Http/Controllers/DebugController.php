@@ -25,6 +25,9 @@ class DebugController extends Controller
         dump($information);
 
         echo '<h2>HydePHP Debug Information</h2>';
+        echo '<blockquote>';
+        echo '<i>Running <code>$ php '.Hyde::path().DIRECTORY_SEPARATOR.'hyde debug </code></i>', "\n\n";
         Project::get('artisan')->passthru('debug');
+        echo '</blockquote>';
     }
 }
