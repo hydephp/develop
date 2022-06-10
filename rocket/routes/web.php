@@ -18,3 +18,5 @@ $router->get('/', 'DashboardController@index');
 $router->get('/version', function () use ($router) {
     return $router->app->version();
 });
+
+$router->post('/fileapi/open', 'FilesystemController@open');
