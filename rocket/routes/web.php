@@ -19,4 +19,6 @@ $router->get('/version', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('/debug', 'DebugController');
+
 $router->post('/fileapi/open', 'FilesystemController@open');
