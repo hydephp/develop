@@ -41,5 +41,18 @@
                 </tr>
             </tbody>
         </table>
+
+        <table>
+            <caption>
+                Content Overview
+            </caption>
+            <thead>
+                <tr>
+                    @foreach($pages as $category => $group)
+                        <th>{{($category)}}: {{count($group)}} </th>
+                    @endforeach
+                </tr>
+            </thead>
+        </table>
     </section>
 @endsection

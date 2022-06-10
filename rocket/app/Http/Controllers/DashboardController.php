@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Hyde\Framework\Services\CollectionService;
 
 class DashboardController extends Controller
 {
@@ -20,7 +21,18 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard', [
-            'project' => Project::get()
+            'project' => Project::get(),
+            'pages' => $this->getContentList(),
+        ]);
+    }
+
+    protected function getContentList(): array
+    {
+        return array_merge([
+           'Blade Pages' => CollectionService::getBladePageList(),
+           'Markdown Pages' => CollectionService::getMarkdownPageList(),
+           'Markdown Posts' => CollectionService::getMarkdownPostList(),
+           'Documentation Pages' => CollectionService::getDocumentationPageList(),
         ]);
     }
 }
