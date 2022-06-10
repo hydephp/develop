@@ -16,3 +16,10 @@ section {
     align-items: center;
     justify-content: center;
 }
+
+#project-overview {
+    max-width: fit-content;
+    table {
+        width: 100%;
+    }
+}

@@ -6,7 +6,7 @@
             Welcome to Hyde Rocket!
         </h1>
     </header>
-    <section class="center">
+    <section id="project-overview" class="center">
         <h2>
             Project Overview
         </h2>

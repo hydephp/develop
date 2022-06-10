@@ -36,4 +36,11 @@ section {
   justify-content: center;
 }
 
+#project-overview {
+  max-width: fit-content;
+}
+#project-overview table {
+  width: 100%;
+}
+
 /*# sourceMappingURL=app.css.map */
