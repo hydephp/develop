@@ -13,6 +13,7 @@ class Project
 
     public string $path;
     public string $name;
+    public string $version;
 
     protected function __construct()
     {
@@ -20,6 +21,7 @@ class Project
         $this->name = ucwords(basename($this->path));
         $this->hyde = new Hyde($this->path);
         $this->artisan = new Artisan($this->path);
+        $this->version = $this->getVersion();
     }
 
     protected function getPathOrFail(): string
@@ -59,5 +61,10 @@ class Project
             ? static::$instance->$property
             : static::$instance;
 
+    }
+
+    protected function getVersion()
+    {
+        return json_decode(file_get_contents($this->path . '/composer.json'))->require->{'hyde/framework'};
     }
 }
