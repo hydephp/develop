@@ -11,3 +11,6 @@ would like an icon to be removed, please contact me.
 	Laravel is a Trademark of Taylor Otwell.
 	Copyright © 2011-2022 Laravel LLC.
 
+
+    Markdown Logo from https://github.com/mattcone/markdown-guide
+    Creative Commons Attribution-ShareAlike 4.0 International license, MIT license.
