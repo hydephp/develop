@@ -49,10 +49,20 @@
             <thead>
                 <tr>
                     @foreach($pages as $category => $group)
-                        <th>{{($category)}}: {{count($group)}} </th>
+                        <th>{{ $category }}</th>
                     @endforeach
                 </tr>
             </thead>
+            <tbody>
+                <tr>
+                    @foreach($pages as $category => $group)
+                        <td>
+                            <strong>{{ count($group) }}</strong>
+                            {{ strtolower(explode(' ', $category)[1]) }}
+                        </td>
+                    @endforeach
+                </tr>
+            </tbody>
         </table>
     </section>
 @endsection
