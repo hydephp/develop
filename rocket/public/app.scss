@@ -27,3 +27,22 @@ section {
         width: 100%;
     }
 }
+
+#pages {
+    td {
+        &:first-child {
+            border-right: none;
+            padding-right: 0.25rem;
+        }
+        &:nth-child(2) {
+            border-left: none;
+            padding-left: 0.25rem;
+        }
+        img {
+            width: 16px;
+            height: 16px;
+            overflow: hidden;
+            display: block;
+        }
+    }
+}

@@ -71,10 +71,10 @@
         <h2>
             Your Pages
         </h2>
-        <table>
+        <table id="pages">
             <thead>
             <tr>
-                <th>Type</th>
+                <th colspan="2">Type</th>
                 <th>Page</th>
                 <th>Path</th>
                 <th colspan="2">Actions</th>
@@ -83,6 +83,7 @@
             <tbody class="not-center">
                 @foreach($pages['Blade Pages'] as $page)
                     <tr>
+                        <td><img width="16" height="16" src="/icons/blade.svg" alt="" role="presentation"></td>
                         <td>Blade</td>
                         <td>{{ \Hyde\Framework\Hyde::titleFromSlug($page) }}</td>
                         <td>_pages/{{ $page }}.blade.php</td>
