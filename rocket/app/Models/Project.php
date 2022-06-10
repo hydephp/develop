@@ -37,10 +37,18 @@ class Project
         return $this->hyde;
     }
 
-    public static function get(): static
+    /**
+     * Get the project singleton instance, or, optionally,
+     * specify a string to get that property from the instance.
+     */
+    public static function get(?string $property = null): mixed
     {
         if (!isset(static::$instance)) {
             static::$instance = new static();
+        }
+
+        if ($property) {
+            return static::$instance->$property;
         }
 
         return static::$instance;
