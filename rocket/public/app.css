@@ -36,12 +36,4 @@ section {
   justify-content: center;
 }
 
-[role=tooltip] {
-  cursor: help;
-  opacity: 0.75;
-}
-[role=tooltip]:hover {
-  opacity: 1;
-}
-
 /*# sourceMappingURL=app.css.map */
