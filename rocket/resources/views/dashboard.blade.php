@@ -28,8 +28,9 @@
                 <tr>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->path }}</td>
-                    <td>
+                    <td style="position: relative;">
                         {{ $project->version }}
+                        <sup role="tooltip" style="position: absolute; top: 4px; right: 4px;" title="Retrieved from your project's composer.json">🛈</sup>
                     </td>
                     @if($app->windows)
                     <td>

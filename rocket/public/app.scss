@@ -16,3 +16,11 @@ section {
     align-items: center;
     justify-content: center;
 }
+
+[role="tooltip"] {
+    cursor: help;
+    opacity: 0.75;
+    &:hover {
+        opacity: 1;
+    }
+}

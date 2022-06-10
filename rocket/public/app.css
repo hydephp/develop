@@ -19,10 +19,6 @@ table caption {
   margin-bottom: 0.5rem;
 }
 
-html:not(.windows) .windows-only {
-  display: none;
-}
-
 main {
   max-width: 800px;
   margin: 0 auto;
@@ -38,6 +34,14 @@ section {
   margin: 0 auto;
   align-items: center;
   justify-content: center;
+}
+
+[role=tooltip] {
+  cursor: help;
+  opacity: 0.75;
+}
+[role=tooltip]:hover {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=app.css.map */
