@@ -19,6 +19,10 @@ table caption {
   margin-bottom: 0.5rem;
 }
 
+html:not(.windows) .windows-only {
+  display: none;
+}
+
 main {
   max-width: 800px;
   margin: 0 auto;

@@ -8,6 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -22,6 +23,8 @@ date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
+
+$app->windows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 
 // $app->withFacades();
 

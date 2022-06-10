@@ -19,7 +19,9 @@
                     <th>Project Name</th>
                     <th>Project Path</th>
                     <th>Hyde Version</th>
-                    <th colspan="1" class="windows">Open project directory in</th>
+                    @if($app->windows)
+                        <th colspan="1">Open project directory in</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -27,13 +29,15 @@
                     <td>{{$project->name}}</td>
                     <td>{{$project->path}}</td>
                     <td>{{$project->hyde()->version()}}</td>
-                    <td class="windows">
+                    @if($app->windows)
+                    <td>
                         <form action="/fileapi/open" method="POST">
                             <input type="hidden" name="path" value="">
                             <input type="hidden" name="back" value="{{request()->path()}}">
                             <button type="submit">Windows Explorer</button>
                         </form>
                     </td>
+                    @endif
                 </tr>
             </tbody>
         </table>

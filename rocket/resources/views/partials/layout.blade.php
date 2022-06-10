@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" @class(['windows' => (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')])>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
