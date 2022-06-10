@@ -1,10 +1,12 @@
 @extends('partials.layout')
 
 @section('content')
-	<h1>
-		Welcome to Hyde Rocket!
-	</h1>
-    <section>
+	<header>
+        <h1>
+            Welcome to Hyde Rocket!
+        </h1>
+    </header>
+    <section class="center">
         <table>
             <caption>
                 Project Information

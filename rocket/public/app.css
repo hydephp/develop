@@ -1,17 +1,37 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @use '_rapid.scss';
- *   | ^^^^^^^^^^^^^^^^^^
- *   '
- *   app.scss 1:1  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @use '_rapid.scss';\a   \2502  ^^^^^^^^^^^^^^^^^^\a   \2575 \a   app.scss 1:1  root stylesheet";
+/**
+* RapidSCSS - Makes HTML look "okay" since 2022.
+*/
+body {
+  font-family: sans-serif;
 }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table th,
+table td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+}
+table caption {
+  margin-bottom: 0.5rem;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+section {
+  display: flex;
+}
+
+.center, header:not(.not-center) {
+  text-align: center;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=app.css.map */
