@@ -15,6 +15,9 @@
         "mockery/mockery": "^1.4.4",
         "phpunit/phpunit": "^9.5.10"
     },
+    "replace": {
+        "laravel-zero/framework": "*"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
