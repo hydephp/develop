@@ -9,6 +9,7 @@ class Project
 {
     protected static Project $instance;
     protected Hyde $hyde;
+    protected Artisan $artisan;
 
     public string $path;
     public string $name;
@@ -18,6 +19,7 @@ class Project
         $this->path = $this->getPathOrFail();
         $this->name = ucwords(basename($this->path));
         $this->hyde = new Hyde($this->path);
+        $this->artisan = new Artisan($this->path);
     }
 
     protected function getPathOrFail(): string
@@ -36,6 +38,11 @@ class Project
     public function hyde(): Hyde
     {
         return $this->hyde;
+    }
+
+    public function artisan(): Artisan
+    {
+        return $this->artisan;
     }
 
     /**
