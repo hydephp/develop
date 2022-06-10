@@ -90,7 +90,7 @@
                             <form action="/fileapi/open" method="POST">
                                 <input type="hidden" name="path" value="_pages/{{ $page }}.blade.php">
                                 <input type="hidden" name="back" value="{{ request()->path() }}">
-                                <button type="submit" title="Open in system editor">Open</button>
+                                <button type="submit" title="Open in system editor">Edit</button>
                             </form>
                         </td>
                         <td style="border-left: none; padding-left: 0.25rem;">
