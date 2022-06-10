@@ -24,3 +24,14 @@ against directory traversal attacks.
 
 There is also no authentication. Access to the dashboard
 gives access to the entire project.
+
+
+## Installation
+
+Rocket is not nearly ready to be installed.
+
+However, when it is, it will probably be installed similar to Laravel Nova,
+by downloading a zip file into the rocket directory of the project.
+
+This is since Rocket is a full Laravel Lumen application,
+and I'm not sure if it is possible to package it with Composer.
