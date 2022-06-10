@@ -22,3 +22,4 @@ $router->get('/version', function () use ($router) {
 $router->get('/debug', 'DebugController');
 
 $router->post('/fileapi/open', 'FilesystemController@open');
+$router->get('/api/render', 'RealtimeCompiler@render');
