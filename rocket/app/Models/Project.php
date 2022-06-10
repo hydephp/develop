@@ -7,10 +7,12 @@ namespace App\Models;
  */
 class Project
 {
+    protected static Project $instance;
+
     public string $path;
     public string $name;
 
-    public function __construct()
+    protected function __construct()
     {
         $this->path = $this->getPathOrFail();
         $this->name = ucwords(basename($this->path));
@@ -30,6 +32,10 @@ class Project
 
     public static function get(): static
     {
+        if (!isset(static::$instance)) {
+            static::$instance = new static();
+        }
+
         return new static();
     }
 }
