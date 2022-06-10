@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Hyde\Rocket\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 

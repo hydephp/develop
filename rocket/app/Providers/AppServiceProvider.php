@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace Hyde\Rocket\Providers;
 
-use App\Models\Project;
+use Hyde\Rocket\Models\Project;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

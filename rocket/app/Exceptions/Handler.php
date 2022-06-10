@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace Hyde\Rocket\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

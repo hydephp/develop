@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Hyde\Rocket\Http\Middleware;
 
 use Closure;
 

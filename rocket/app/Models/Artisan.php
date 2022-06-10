@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Hyde\Rocket\Models;
 
 /**
  * Proxies the HydeCLI Artisan interface.

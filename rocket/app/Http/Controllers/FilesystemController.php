@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Hyde\Rocket\Http\Controllers;
 
-use App\Models\Project;
+use Hyde\Rocket\Models\Project;
 use Illuminate\Http\Request;
 
 /**

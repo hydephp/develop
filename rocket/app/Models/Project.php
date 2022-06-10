@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Hyde\Rocket\Models;
 
 /**
  * Abstraction for the current Hyde project.
@@ -27,7 +27,6 @@ class Project
     protected function getPathOrFail(): string
     {
         $path = realpath(getcwd() . '/../../');
-        $path = 'H:\DocsCI'; // TEMP FOR TESTING
         if (!is_dir($path)) {
             throw new \Exception("Not a directory.");
         }

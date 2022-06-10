@@ -43,12 +43,12 @@ $app->windows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
+    Hyde\Rocket\Exceptions\Handler::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
+    Hyde\Rocket\Console\Kernel::class
 );
 
 /*
@@ -94,7 +94,7 @@ $app->configure('app');
 |
 */
 
- $app->register(App\Providers\AppServiceProvider::class);
+ $app->register(Hyde\Rocket\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
@@ -110,7 +110,7 @@ $app->configure('app');
 */
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    'namespace' => 'Hyde\Rocket\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
