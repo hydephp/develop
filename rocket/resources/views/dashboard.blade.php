@@ -65,4 +65,43 @@
             </tbody>
         </table>
     </section>
+
+
+    <section id="pages-overview" class="center">
+        <h2>
+            Your Pages
+        </h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Page</th>
+                <th>Path</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="not-center">
+                @foreach($pages['Blade Pages'] as $page)
+                    <tr>
+                        <td>Blade</td>
+                        <td>{{ \Hyde\Framework\Hyde::titleFromSlug($page) }}</td>
+                        <td>_pages/{{ $page }}.blade.php</td>
+                        <td style="border-right: none; padding-right: 0.25rem;">
+                            <form action="/fileapi/open" method="POST">
+                                <input type="hidden" name="path" value="_pages/{{ $page }}.blade.php">
+                                <input type="hidden" name="back" value="{{ request()->path() }}">
+                                <button type="submit" title="Open in system editor">Open</button>
+                            </form>
+                        </td>
+                        <td style="border-left: none; padding-left: 0.25rem;">
+                            <form action="#" method="GET">
+                                {{-- @TODO implement --}}
+                                <button type="submit" title="View with Realtime Compiler">View</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </section>
 @endsection
