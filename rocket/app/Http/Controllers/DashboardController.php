@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+
 class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -16,11 +16,11 @@ class DashboardController extends Controller
 
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard', [
+            'project' => Project::get()
+        ]);
     }
 }
