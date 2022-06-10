@@ -43,6 +43,6 @@ class Project
             static::$instance = new static();
         }
 
-        return new static();
+        return static::$instance;
     }
 }
