@@ -5,7 +5,10 @@ namespace App\Models;
 /**
  * Proxies the main Hyde facade.
  */
-class Hyde
+class Hyde extends \Hyde\Framework\Hyde
 {
-
+    public function __construct(string $absoluteProjectPath)
+    {
+        self::setBasePath($absoluteProjectPath);
+    }
 }
