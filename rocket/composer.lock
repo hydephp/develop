@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bac8f57b36a374693390b7ddff3a3751",
+    "content-hash": "0516dc98cf6145b017f2b6566e4d9d40",
     "packages": [
         {
             "name": "brick/math",
@@ -65,6 +65,53 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "desilva/console",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/caendesilva/php-console.git",
+                "reference": "53695dbac11730c3633abf59d55c5f19621363b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/caendesilva/php-console/zipball/53695dbac11730c3633abf59d55c5f19621363b5",
+                "reference": "53695dbac11730c3633abf59d55c5f19621363b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Desilva\\Console\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caen De Silva",
+                    "email": "caen@desilva.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lightweight API for writing to the PHP console",
+            "homepage": "https://github.com/caendesilva/console",
+            "keywords": [
+                "console",
+                "desilva"
+            ],
+            "support": {
+                "issues": "https://github.com/caendesilva/php-console/issues",
+                "source": "https://github.com/caendesilva/php-console/tree/master"
+            },
+            "time": "2022-06-10T12:53:52+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -9063,7 +9110,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "desilva/console": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^8.0",
+        "desilva/console": "dev-master",
         "hyde/framework": "^0.34.0",
         "laravel/lumen-framework": "^9.0"
     },
