@@ -36,6 +36,10 @@ section {
   justify-content: center;
 }
 
+.not-center {
+  text-align: left;
+}
+
 #project-overview {
   max-width: fit-content;
 }

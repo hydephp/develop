@@ -38,7 +38,11 @@ class FilesystemController extends Controller
             ], 404);
         }
 
-        shell_exec('explorer.exe "' . $file . '"');
+        if (is_dir($file)) {
+            shell_exec('explorer.exe "' . $file . '"');
+        } else {
+            shell_exec('start "" "' . $file . '"');
+        }
 
         if ($request->expectsJson()) {
             return response()->json([
