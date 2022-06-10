@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Project;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,5 +17,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(\Desilva\Console\Contracts\Console::class, function() {
             return new \Desilva\Console\Console;
         });
+    }
+
+/**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Initialize and boot the project singleton.
+        Project::get();
     }
 }
