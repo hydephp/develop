@@ -94,8 +94,8 @@
                             </form>
                         </td>
                         <td style="border-left: none; padding-left: 0.25rem;">
-                            <form action="#" method="GET">
-                                {{-- @TODO implement --}}
+                            <form action="/open/_site" method="GET">
+                                <input type="hidden" name="path" value="{{ $page }}.html">
                                 <button type="submit" title="View with Realtime Compiler">View</button>
                             </form>
                         </td>
