@@ -126,6 +126,29 @@
                 </tr>
             @endforeach
             </tbody>
+            <tbody class="not-center">
+            @foreach($pages['Documentation Pages'] as $page)
+                <tr>
+                    <td><img width="16" height="16" src="/icons/documentation.svg" alt="" role="presentation"></td>
+                    <td>Documentation</td>
+                    <td>{{ \Hyde\Framework\Hyde::titleFromSlug($page) }}</td>
+                    <td>_docs/{{ $page }}.md</td>
+                    <td style="border-right: none; padding-right: 0.25rem;">
+                        <form action="/fileapi/open" method="POST">
+                            <input type="hidden" name="path" value="_docs/{{ $page }}.md">
+                            <input type="hidden" name="back" value="{{ request()->path() }}">
+                            <button type="submit" title="Open in system editor">Edit</button>
+                        </form>
+                    </td>
+                    <td style="border-left: none; padding-left: 0.25rem;">
+                        <form action="/open/_site" method="GET">
+                            <input type="hidden" name="path" value="docs/{{ $page }}.html">
+                            <button type="submit" title="View with Realtime Compiler">View</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
         </table>
     </section>
 @endsection

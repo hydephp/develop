@@ -14,3 +14,6 @@ would like an icon to be removed, please contact me.
 
     Markdown Logo from https://github.com/mattcone/markdown-guide
     Creative Commons Attribution-ShareAlike 4.0 International license, MIT license.
+
+
+	Google Material Design Icons are licensed under the Apache License, Version 2.0.
