@@ -17,3 +17,6 @@ would like an icon to be removed, please contact me.
 
 
 	Google Material Design Icons are licensed under the Apache License, Version 2.0.
+
+
+	StackEdit https://stackedit.io/
