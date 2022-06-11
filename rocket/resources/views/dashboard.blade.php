@@ -122,6 +122,10 @@
                             <input type="hidden" name="path" value="{{ $page }}.html">
                             <button type="submit" title="View with Realtime Compiler">View</button>
                         </form>
+                        <form action="/render/markdown" method="GET" target="_blank">
+                            <input type="hidden" name="path" value="_pages/{{ $page }}.md">
+                            <button type="submit" title="Open popup with compiled Markdown">Preview</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
