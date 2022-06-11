@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/app.css">
 </head>
 <body>
+	<nav>
+		<ul>
+			<li><a href="/">Dashboard</a></li>
+		</ul>
+	</nav>
 	<main>
 		@yield('content')
 	</main>

@@ -16,6 +16,35 @@ label {
     margin-bottom: 0.25rem;
 }
 
+nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    float: left;
+}
+nav ul li a {
+    display: block;
+    text-align: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    background: gainsboro;
+    border-right: 1px solid gray;
+    overflow: visible;
+}
+nav ul li a:hover, nav ul li a:focus, nav ul li a.active {
+    background: lightgray;
+}
+nav ul li:last-child a {
+    border-right: none;
+}
+
 .center, header:not(.not-center) {
     text-align: center;
     margin: 0 auto;
