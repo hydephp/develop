@@ -21,6 +21,7 @@ class PostController extends Controller
             'slug' => $slug,
             'path' => $path,
             'localPath' => $localPath,
+            'markdown' => file_get_contents($path),
         ]);
     }
 

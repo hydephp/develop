@@ -34,7 +34,7 @@
 			<header>
 				<label for="markdown">Blog Post Markdown:</label>
 			</header>
-            <textarea name="markdown" id="markdown" cols="70" rows="30">{{ $post->body }}</textarea>
+            <textarea name="markdown" id="markdown" cols="70" rows="30">{{ $markdown }}</textarea>
 			<footer>
 				<div>
 					<button onclick="openFile()" type="button" title="Open the file in your system default editor">Open File</button>
