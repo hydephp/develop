@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         // The native exception handler does not seem to work properly with Lumen.
-        if (class_exists(Run::class)) {
+        if (class_exists(Run::class) && ! $exception instanceof HttpException) {
             $whoops = new Run();
             $whoops->allowQuit(false);
             $whoops->writeToOutput(false);
