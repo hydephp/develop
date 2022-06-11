@@ -97,7 +97,7 @@
                         <td style="border-left: none; padding-left: 0.25rem;">
                             <form action="/open/_site" method="GET">
                                 <input type="hidden" name="path" value="{{ $page }}.html">
-                                <button type="submit" title="View with Realtime Compiler">View</button>
+                                <button type="submit" title="View with Realtime Compiler" class="needs-realtime-compiler">View</button>
                             </form>
                         </td>
                     </tr>
@@ -124,7 +124,7 @@
                     <td style="border-left: none; padding-left: 0.25rem;">
                         <form action="/open/_site" method="GET">
                             <input type="hidden" name="path" value="{{ $page }}.html">
-                            <button type="submit" title="View with Realtime Compiler">View</button>
+                            <button type="submit" title="View with Realtime Compiler" class="needs-realtime-compiler">View</button>
                         </form>
                     </td>
                 </tr>
@@ -147,7 +147,7 @@
                     <td style="border-left: none; padding-left: 0.25rem;">
                         <form action="/open/_site" method="GET">
                             <input type="hidden" name="path" value="docs/{{ $page }}.html">
-                            <button type="submit" title="View with Realtime Compiler">View</button>
+                            <button type="submit" title="View with Realtime Compiler" class="needs-realtime-compiler">View</button>
                         </form>
                     </td>
                 </tr>
