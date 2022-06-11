@@ -11,6 +11,11 @@ section {
     flex-direction: column;
 }
 
+label {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
 .center, header:not(.not-center) {
     text-align: center;
     margin: 0 auto;
@@ -20,6 +25,15 @@ section {
 
 .not-center {
     text-align: left;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prose {
+    max-width: 65ch;
 }
 
 #project-overview {
