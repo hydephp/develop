@@ -16,7 +16,7 @@ class ApiController extends Controller
             : response()->json([
                 'success' => false,
                 'error' => 'Could not ping Realtime Compiler on default port 8080'
-            ], 500);
+            ]);
     }
 
     public static function isRealtimeCompilerRunning()
