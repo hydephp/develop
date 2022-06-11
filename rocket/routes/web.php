@@ -24,6 +24,8 @@ $router->get('/manual', function () {
     return view('manual');
 });
 
+$router->get('/_posts/{slug}', 'PostController@show');
+
 $router->post('/fileapi/open', 'FilesystemController@open');
 $router->get('/open/_site', 'RealtimeCompiler@render');
 $router->get('/render/markdown', 'RealtimeCompiler@markdown');

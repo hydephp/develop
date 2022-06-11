@@ -175,7 +175,7 @@
                 @foreach($posts as $post)
                     <tr>
                         <td>
-                            <a href="/dashboard/_posts/{{ $post->slug }}.md">{{ $post->title }}</a>
+                            <a href="/_posts/{{ $post->slug }}">{{ $post->title }}</a>
                         </td>
                         <td>{{ $post->author->getName() }}</td>
                         <td>{{ $post->category }}</td>
