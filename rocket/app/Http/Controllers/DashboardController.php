@@ -2,6 +2,7 @@
 
 namespace Hyde\Rocket\Http\Controllers;
 
+use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Rocket\Models\Project;
 use Hyde\Framework\Services\CollectionService;
 
@@ -23,6 +24,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'project' => Project::get(),
             'pages' => $this->getContentList(),
+            'posts' => MarkdownPost::getLatestPosts(),
         ]);
     }
 

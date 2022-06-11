@@ -155,4 +155,33 @@
             </tbody>
         </table>
     </section>
+
+    <section id="posts-overview" class="center">
+        <h2>
+            Your Blog Posts
+        </h2>
+        <table id="posts">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody class="not-center">
+                @php /** @var \Hyde\Framework\Models\MarkdownPost $post */ @endphp
+                @foreach($posts as $post)
+                    <tr>
+                        <td>
+                            <a href="/dashboard/_posts/{{ $post->slug }}.md">{{ $post->title }}</a>
+                        </td>
+                        <td>{{ $post->author->getName() }}</td>
+                        <td>{{ $post->category }}</td>
+                        <td>{{ $post->date->short }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </section>
 @endsection
