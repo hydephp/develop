@@ -64,32 +64,6 @@
                 </tr>
             </tbody>
         </table>
-
-        <table>
-            <caption>
-                Hyde Realtime Compiler Control Center
-            </caption>
-            <thead>
-                <tr>
-                    <th>Link</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr id="rc-control">
-                    <td>
-                        <a id="rc-link" href="http://localhost:8080/">localhost:8080</a>
-                    </td>
-                    <td style="width: 16ch;">
-                        <span id="rc-status">Pinging...</span>
-                    </td>
-                    <td style="width: 16ch;">
-                        <button id="rc-action">Start/Stop</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </section>
 
 
@@ -123,7 +97,7 @@
                         <td style="border-left: none; padding-left: 0.25rem;">
                             <form action="/open/_site" method="GET">
                                 <input type="hidden" name="path" value="{{ $page }}.html">
-                                <button type="submit" title="View with Realtime Compiler" class="needs-realtime-compiler">View</button>
+                                <button type="submit" title="View with Realtime Compiler">View</button>
                             </form>
                         </td>
                     </tr>
@@ -150,7 +124,7 @@
                     <td style="border-left: none; padding-left: 0.25rem;">
                         <form action="/open/_site" method="GET">
                             <input type="hidden" name="path" value="{{ $page }}.html">
-                            <button type="submit" title="View with Realtime Compiler" class="needs-realtime-compiler">View</button>
+                            <button type="submit" title="View with Realtime Compiler">View</button>
                         </form>
                     </td>
                 </tr>
@@ -173,7 +147,7 @@
                     <td style="border-left: none; padding-left: 0.25rem;">
                         <form action="/open/_site" method="GET">
                             <input type="hidden" name="path" value="docs/{{ $page }}.html">
-                            <button type="submit" title="View with Realtime Compiler" class="needs-realtime-compiler">View</button>
+                            <button type="submit" title="View with Realtime Compiler">View</button>
                         </form>
                     </td>
                 </tr>
