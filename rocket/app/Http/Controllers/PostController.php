@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function show(string $slug, Request $request)
     {
-        $path = Hyde::path('_posts/' . $slug . '.md');
+        $path = Hyde::path($localPath = '_posts/' . $slug . '.md');
 
         if (! file_exists($path)) {
             return response('File not found.', 404);
@@ -20,6 +20,7 @@ class PostController extends Controller
             'post' => (new MarkdownPostParser($slug))->get(),
             'slug' => $slug,
             'path' => $path,
+            'localPath' => $localPath,
         ]);
     }
 }
