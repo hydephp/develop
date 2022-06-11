@@ -22,7 +22,7 @@ class ApiController extends Controller
     public static function isRealtimeCompilerRunning()
     {
         try {
-            $client = new Client();
+            $client = new Client(['timeout' => 1]);
             $client->head('http://localhost:8080');
             return true;
         }
