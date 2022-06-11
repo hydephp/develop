@@ -64,6 +64,32 @@
                 </tr>
             </tbody>
         </table>
+
+        <table>
+            <caption>
+                Hyde Realtime Compiler Control Center
+            </caption>
+            <thead>
+                <tr>
+                    <th>Link</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="rc-control">
+                    <td>
+                        <a id="rc-link" href="http://localhost:8080/">localhost:8080</a>
+                    </td>
+                    <td style="width: 16ch;">
+                        <span id="rc-status">Pinging...</span>
+                    </td>
+                    <td style="width: 16ch;">
+                        <button id="rc-action">Start/Stop</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
 
