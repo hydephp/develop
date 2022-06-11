@@ -2,9 +2,24 @@
 @section('title', 'Manage Blog Post')
 @section('content')
     <style>
-        #markdown {
+		form {
+			margin-top: 2rem;
+		}
+		form > header {
+			padding-bottom: 0.5rem;
+		}
+		#openStackEditButton {
+			display: flex;
+			align-items-center;
+		}
+		#markdown {
             font-family: monospace;
         }
+		.stackedit-iframe-container {
+			width: 90%;
+			height: 90%;
+			margin: auto;
+		}
     </style>
     <header>
         <h1>
@@ -20,8 +35,11 @@
     <section>
         <form action="" class="mx-auto">
             <header class="flex justify-between">
-				<label for="markdown">Post Markdown:</label>
-				<button type="button" id="openStackEditButton">Open StackEdit window</button>
+				<label for="markdown">Blog Post Markdown:</label>
+				<button type="button" id="openStackEditButton">
+					<img width="16px" height="16px" src="/icons/stackedit.svg" alt="" role="presentation">
+					&nbsp;Open StackEdit window
+				</button>
 			</header>
             <textarea id="markdown" cols="70" rows="30">{{ $post->body }}</textarea>
         </form>
