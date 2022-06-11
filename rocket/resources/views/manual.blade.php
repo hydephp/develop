@@ -21,6 +21,11 @@
 
 <h3>Project Overview</h3>
     The project overview section gives you information about your project.
+
+<h2>Hyde Realtime Compiler (HydeRC) integration</h2>
+    Rocket ships with an integration with the HydeRC.
+
+    Rocket expects the HydeRC be running on localhost port 8080.
 </pre>
 
 @endsection
