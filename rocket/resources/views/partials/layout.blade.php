@@ -11,5 +11,7 @@
 	<main>
 		@yield('content')
 	</main>
+
+    <script defer src="/dashboard.js"></script>
 </body>
 </html>
