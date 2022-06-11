@@ -8,6 +8,11 @@
 		form > header {
 			padding-bottom: 0.5rem;
 		}
+		form > footer {
+			padding-top: 0.5rem;
+			display: flex;
+			justify-content: space-between;
+		}
 		#markdown {
             font-family: monospace;
         }
@@ -26,8 +31,34 @@
     </header>
     <section>
         <form action="" class="mx-auto">
-			<label for="markdown">Blog Post Markdown:</label>
+			<header>
+				<label for="markdown">Blog Post Markdown:</label>
+			</header>
             <textarea id="markdown" cols="70" rows="30">{{ $post->body }}</textarea>
-        </form>
+			<footer>
+				<div>
+					<button onclick="openFile()" type="button" title="Open the file in your system default editor">Open File</button>
+				</div>
+				<div>
+					<input type="reset" style="margin-right: 4px;">
+					<input type="submit">
+				</div>
+			</footer>
+		</form>
     </section>
+
+	<script>
+		function openFile() {
+			// Make async fetch post request
+			fetch('/fileapi/open', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					path: '{{ $localPath }}',
+				})
+			})
+		}
+	</script>
 @endsection
