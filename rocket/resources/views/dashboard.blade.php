@@ -167,6 +167,7 @@
                     <th>Author</th>
                     <th>Category</th>
                     <th>Date</th>
+                    <th colspan="2">Actions</th>
                 </tr>
             </thead>
             <tbody class="not-center">
@@ -179,6 +180,19 @@
                         <td>{{ $post->author->getName() }}</td>
                         <td>{{ $post->category }}</td>
                         <td>{{ $post->date->short }}</td>
+                        <td style="border-right: none; padding-right: 0.25rem;">
+                            <form action="/fileapi/open" method="POST">
+                                <input type="hidden" name="path" value="_posts/{{ $post->slug }}.md">
+                                <input type="hidden" name="back" value="{{ request()->path() }}">
+                                <button type="submit" title="Open in system editor" @disabled(! $app->windows)>Edit</button>
+                            </form>
+                        </td>
+                        <td style="border-left: none; padding-left: 0.25rem;">
+                            <form action="/open/_site" method="GET">
+                                <input type="hidden" name="path" value="posts/{{ $post->slug }}.html">
+                                <button type="submit" title="View with Realtime Compiler">View</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
