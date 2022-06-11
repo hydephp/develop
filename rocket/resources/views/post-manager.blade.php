@@ -62,20 +62,51 @@
 		}
 	</script>
 
-	@if($saved)
-		<script>
-			// Remove query string from URL
-			window.history.pushState({}, document.title, window.location.pathname);
 
-			// Send toast notification
-			const toast = document.createElement('div');
-			toast.classList.add('toast');
-			toast.innerHTML = 'Saved!';
-			document.body.appendChild(toast);
-			toast.classList.add('show');
-			setTimeout(() => {
-				toast.classList.remove('show');
-			}, 3000);
-		</script>
+	@if($saved)
+	<article id="savedToast" role="alert" aria-live="assertive" aria-atomic="true">
+		<p>
+			Your post has been saved! <span style="color: green;">✔</span>
+		</p>
+		<div id="toast-border-bar"></div>
+	</article>
+	<style>
+		#savedToast {
+			display: block;
+			position: fixed;
+			bottom: 1rem;
+			right: 1rem;
+			z-index: 1;
+			color: black;
+			padding: 0 1rem;
+			background: lightgray;
+			border-radius: 0.5rem;
+			box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+			transition: opacity 0.5s;
+			overflow: hidden;
+		}
+		#toast-border-bar {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 4px;
+			background: rgb(128, 128, 128);
+			transition: width 2s linear;
+		}
+	</style>
+	<script>
+		// Remove query string from URL
+		window.history.pushState({}, document.title, window.location.pathname);
+		
+		// Animate toast border bar
+		setTimeout(function() {
+			document.getElementById('toast-border-bar').style.width = '0';
+		}, 0);
+		
+		setTimeout(function() {
+			document.getElementById('savedToast').remove();
+		}, 2000);
+	</script>
 	@endif
 @endsection
