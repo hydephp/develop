@@ -19,6 +19,34 @@ table caption {
   margin-bottom: 0.5rem;
 }
 
+.flex {
+  display: flex;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.hidden {
+  display: none;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
 main {
   max-width: 800px;
   margin: 0 auto;
