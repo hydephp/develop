@@ -61,4 +61,21 @@
 			})
 		}
 	</script>
+
+	@if($saved)
+		<script>
+			// Remove query string from URL
+			window.history.pushState({}, document.title, window.location.pathname);
+
+			// Send toast notification
+			const toast = document.createElement('div');
+			toast.classList.add('toast');
+			toast.innerHTML = 'Saved!';
+			document.body.appendChild(toast);
+			toast.classList.add('show');
+			setTimeout(() => {
+				toast.classList.remove('show');
+			}, 3000);
+		</script>
+	@endif
 @endsection

@@ -22,6 +22,7 @@ class PostController extends Controller
             'path' => $path,
             'localPath' => $localPath,
             'markdown' => file_get_contents($path),
+            'saved' => $request->has('saved'),
         ]);
     }
 
