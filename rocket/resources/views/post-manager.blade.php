@@ -3,7 +3,7 @@
 @section('content')
     <style>
 		form {
-			margin-top: 2rem;
+			margin-top: 1rem;
 		}
 		form > header {
 			padding-bottom: 0.5rem;
@@ -30,11 +30,11 @@
         </p>
     </header>
     <section>
-        <form action="" class="mx-auto">
+        <form action="" method="POST" class="mx-auto">
 			<header>
 				<label for="markdown">Blog Post Markdown:</label>
 			</header>
-            <textarea id="markdown" cols="70" rows="30">{{ $post->body }}</textarea>
+            <textarea name="markdown" id="markdown" cols="70" rows="30">{{ $post->body }}</textarea>
 			<footer>
 				<div>
 					<button onclick="openFile()" type="button" title="Open the file in your system default editor">Open File</button>

@@ -23,4 +23,17 @@ class PostController extends Controller
             'localPath' => $localPath,
         ]);
     }
+
+    public function store(string $slug, Request $request)
+    {
+        $path = Hyde::path('_posts/' . $slug . '.md');
+
+        if (! file_exists($path)) {
+            return response('File not found.', 404);
+        }
+
+        file_put_contents($path, $request->get('markdown'));
+
+        return redirect('/_posts/' . $slug . '?saved=true');
+    }
 }
