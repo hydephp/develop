@@ -108,12 +108,11 @@
                 <tr>
                     <td><img width="16" height="16" src="/icons/markdown.svg" alt="" role="presentation"></td>
                     <td>Markdown</td>
-                    <td>{{ \Hyde\Framework\Hyde::titleFromSlug($page) }}</td>
                     <td>
                         <a href="/render/markdown?path={{ urlencode("_pages/$page.md")  }}" target="_blank" title="Open popup with compiled Markdown">
-                            _pages/{{ $page }}.md
+                            {{ \Hyde\Framework\Hyde::titleFromSlug($page) }}</td>
                         </a>
-                    </td>
+                    <td>_pages/{{ $page }}.md</td>
                     <td style="border-right: none; padding-right: 0.25rem;">
                         <form action="/fileapi/open" method="POST">
                             <input type="hidden" name="path" value="_pages/{{ $page }}.md">
