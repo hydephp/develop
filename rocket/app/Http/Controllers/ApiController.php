@@ -11,16 +11,23 @@ class ApiController extends Controller
 {
     public function pingRealtimeCompiler()
     {
-        try {
-            $client = new Client();
-            $client->head('http://localhost:8080');
-            return response()->json(['success' => true]);
-        }
-        catch (\Throwable) {
-            return response()->json([
+        return static::isRealtimeCompilerRunning()
+            ? response()->json(['success' => true])
+            : response()->json([
                 'success' => false,
                 'error' => 'Could not ping Realtime Compiler on default port 8080'
             ], 500);
+    }
+
+    public static function isRealtimeCompilerRunning()
+    {
+        try {
+            $client = new Client();
+            $client->head('http://localhost:8080');
+            return true;
+        }
+        catch (\Throwable) {
+            return false;
         }
     }
 }
