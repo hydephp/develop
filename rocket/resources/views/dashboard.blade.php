@@ -109,7 +109,11 @@
                     <td><img width="16" height="16" src="/icons/markdown.svg" alt="" role="presentation"></td>
                     <td>Markdown</td>
                     <td>{{ \Hyde\Framework\Hyde::titleFromSlug($page) }}</td>
-                    <td>_pages/{{ $page }}.md</td>
+                    <td>
+                        <a href="/render/markdown?path={{ urlencode("_pages/$page.md")  }}" target="_blank" title="Open popup with compiled Markdown">
+                            _pages/{{ $page }}.md
+                        </a>
+                    </td>
                     <td style="border-right: none; padding-right: 0.25rem;">
                         <form action="/fileapi/open" method="POST">
                             <input type="hidden" name="path" value="_pages/{{ $page }}.md">
@@ -121,10 +125,6 @@
                         <form action="/open/_site" method="GET">
                             <input type="hidden" name="path" value="{{ $page }}.html">
                             <button type="submit" title="View with Realtime Compiler">View</button>
-                        </form>
-                        <form action="/render/markdown" method="GET" target="_blank">
-                            <input type="hidden" name="path" value="_pages/{{ $page }}.md">
-                            <button type="submit" title="Open popup with compiled Markdown">Preview</button>
                         </form>
                     </td>
                 </tr>
