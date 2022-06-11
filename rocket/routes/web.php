@@ -27,3 +27,5 @@ $router->get('/manual', function () {
 $router->post('/fileapi/open', 'FilesystemController@open');
 $router->get('/open/_site', 'RealtimeCompiler@render');
 $router->get('/render/markdown', 'RealtimeCompiler@markdown');
+
+$router->get('/api/ping-realtime-compiler', 'ApiController@pingRealtimeCompiler');
