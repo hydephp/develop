@@ -377,13 +377,35 @@ function icon(string $name) {
                         };
                      ?>
 
-                     <section class="col-12 col-sm-10 col-xl-8 col-xxl-6">
+                     <section class="col-12 col-xl-10 col-xxl-8">
                         <h3 class="h6">Editing file <code><?= e($editor->contentpath) ?></code></h3>
-                        <form action="">
+                        <!-- <form action="">
                            <div class="form-group">
-                              <textarea class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
+                              <textarea class="form-control" rows="24" cols="70">< ?= $editor->getContents() ?></textarea>
                            </div>
-                        </form>
+                        </form> -->
+                           <br>
+                        <div>
+                           <style type="text/css" media="screen">
+                              #aceeditor { 
+                                 min-height: 50vh;
+                                 height: 100%;
+                                 display: block;
+                                 flex: 1;
+                                 width: 100%;
+                                 font-family: monospace;
+                                 resize: both;
+                              }
+                           </style>   
+                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-noconflict/ace.min.js"></script>
+                              <div class="col">
+                                 <pre id="aceeditor" ><?= $editor->getContents() ?></pre>
+                              </div>
+
+                              <script>
+                                 var aceeditor = ace.edit("aceeditor");
+                              </script>
+                        </div>
                      </section>
                      <?php unset($editor); ?>
                   </div>
