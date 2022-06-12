@@ -22,6 +22,8 @@ $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 \Hyde\Framework\Hyde::setBasePath(BASE_PATH);
 
+// Get the request page
+$page = isset($_GET['page']) ? $_GET['page'] : 'index';
 
 
 // Create the Hyde interface
@@ -255,55 +257,58 @@ body {
             </div>
          </nav>
          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Hyde Dashboard</h1>
-         </div>
-
-         <h2 class="h3">
-            Project Information
-         </h2>
-         <div class="d-flex flex-wrap -mx-3 pt-2">
-            <div class="col-lg-6">
-               <div class="table-responsive">
-                  <section class="card">
-                     <h3 class="h5">Installation Details</h3>
-                     <table class="table table-sm">
-                        <thead class="table-gray">
-                           <tr>
-                              <th scope="col">Project Name</th>
-                              <th scope="col">Project Path</th>
-                              <th scope="col">Framework Version</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <td><?= e($project->name) ?></td>
-                           <td><?= e($project->path) ?></td>
-                           <td><?= e($hyde->version()) ?></td>
-                        </tbody>
-                     </table>
-                  </section>
-                  <section class="card">
-                     <h3 class="h5">Content Overview</h3>
-                     <table class="table table-sm">
-                        <thead class="table-gray">
-                           <tr>
-                              <th scope="col">Blade Pages</th>
-                              <th scope="col">Markdown Pages</th>
-                              <th scope="col">Documentation Pages</th>
-                              <th scope="col">Blog Posts</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <td><?= count(CollectionService::getBladePageList()) ?> pages</td>
-                           <td><?= count(CollectionService::getMarkdownPageList()) ?> pages</td>
-                           <td><?= count(CollectionService::getDocumentationPageList()) ?> pages</td>
-                           <td><?= count(CollectionService::getMarkdownPostList()) ?> posts</td>
-                        </tbody>
-                     </table>
-                  </section>
-               </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+               <h1 class="h2">Hyde Dashboard</h1>
             </div>
-         </div>
+
+               <?php if ($page === 'index'): ?>
+                  <h2 class="h3">
+                     Project Information
+                  </h2>
+                  <div class="d-flex flex-wrap -mx-3 pt-2">
+                     <div class="col-lg-6">
+                        <div class="table-responsive">
+                           <section class="card">
+                              <h3 class="h5">Installation Details</h3>
+                              <table class="table table-sm">
+                                 <thead class="table-gray">
+                                    <tr>
+                                       <th scope="col">Project Name</th>
+                                       <th scope="col">Project Path</th>
+                                       <th scope="col">Framework Version</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <td><?= e($project->name) ?></td>
+                                    <td><?= e($project->path) ?></td>
+                                    <td><?= e($hyde->version()) ?></td>
+                                 </tbody>
+                              </table>
+                           </section>
+                           <section class="card">
+                              <h3 class="h5">Content Overview</h3>
+                              <table class="table table-sm">
+                                 <thead class="table-gray">
+                                    <tr>
+                                       <th scope="col">Blade Pages</th>
+                                       <th scope="col">Markdown Pages</th>
+                                       <th scope="col">Documentation Pages</th>
+                                       <th scope="col">Blog Posts</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <td><?= count(CollectionService::getBladePageList()) ?> pages</td>
+                                    <td><?= count(CollectionService::getMarkdownPageList()) ?> pages</td>
+                                    <td><?= count(CollectionService::getDocumentationPageList()) ?> pages</td>
+                                    <td><?= count(CollectionService::getMarkdownPostList()) ?> posts</td>
+                                 </tbody>
+                              </table>
+                           </section>
+                        </div>
+                     </div>
+                  </div>
+               <?php endif ?>
+            
          </main>
       </div>
    </div>
