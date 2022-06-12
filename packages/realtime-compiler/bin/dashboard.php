@@ -11,9 +11,13 @@ if ($_SERVER['REMOTE_ADDR'] !== '::1')
 // Load the same autoloader as the project
 require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Services\CollectionService;
 
 const VERSION = 'dev-master';
@@ -66,6 +70,7 @@ $routes = [
    'index' => 'Dashboard',
    '404' => '404 Page Not Found',
    'manual'=> 'Manual',
+   'file-editor' => 'File Editor',
 ];
 
 if (! isset($routes[$page])) {
@@ -295,7 +300,7 @@ function icon(string $name) {
                                              <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->view ?></a>
                                           </td>
                                           <td>
-                                             <a title="Open in CMS file manager" href="?page=file-editor&type=blade&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory .'/'. $page->view . BladePage::$fileExtension ?></a>
+                                             <a title="Open in CMS file manager" href="?page=file-editor&type=bladepage&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory .'/'. $page->view . BladePage::$fileExtension ?></a>
                                           </td>
                                        </tr>
                                     <?php endforeach ?>
@@ -311,7 +316,7 @@ function icon(string $name) {
                                              <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->title ?></a>
                                           </td>
                                           <td>
-                                             <a title="Open in CMS file manager" href="?page=file-editor&type=markdown&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension ?></a>
+                                             <a title="Open in CMS file manager" href="?page=file-editor&type=markdownpage&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension ?></a>
                                           </td>
                                        </tr>
                                     <?php endforeach ?>
@@ -325,6 +330,64 @@ function icon(string $name) {
                   <article>
                      <pre><?= e(file_get_contents(__DIR__.'/dashboard-manual.txt')) ?></pre>
                   </article>
+               <?php elseif ($page === 'file-editor'): ?>
+                  <div>
+                     <?php
+                        $editor = new class($_GET['type'], $_GET['file']) {
+                           public string $filename;
+                           public string $contentpath;
+                           protected string $type;
+                           protected string $filepath;
+
+                           public function __construct(string $type, string $file) {
+                              $this->type = $this->qualifyType($type);
+                              $this->filename = urldecode($file);
+                              $this->contentpath = $this->getContentpath();
+                              $this->filepath = Hyde::path($this->contentpath);
+                           }
+
+                           protected function qualifyType(string $type) {
+                              $type = strtolower($type);
+                              if ($type === 'bladepage') {
+                                 return BladePage::class;
+                              } elseif ($type === 'markdownpage') {
+                                 return MarkdownPage::class;
+                              } elseif ($type === 'documentationpage') {
+                                 return DocumentationPage::class;
+                              } elseif ($type === 'markdownpost') {
+                                 return MarkdownPost::class;
+                              } else {
+                                 throw new UnsupportedPageTypeException('Invalid file type');
+                              }
+                           }
+
+                           protected function getContentpath() {
+                              $class = $this->type;
+                              $filename = $this->filename;
+                              $filepath = $class::$sourceDirectory .'/'. $filename . $class::$fileExtension;
+                              if (!file_exists(Hyde::path($filepath))) {
+                                 throw new FileNotFoundException($filepath);
+                              }
+                              return $filepath;
+                           }
+
+                           public function getContents() {
+                              return file_get_contents($this->filepath);
+                           }
+                        };
+                     ?>
+
+                     <section class="col-12 col-sm-10 col-xl-8 col-xxl-6">
+                        <h3 class="h6">Editing file <code><?= e($editor->contentpath) ?></code></h3>
+                        <form action="">
+                           <div class="form-group">
+                              <textarea class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
+                           </div>
+                        </form>
+                     </section>
+                     <?php unset($editor); ?>
+                  </div>
+                  
                <?php elseif ($page === '404'): ?>
                   Go <a href="dashboard.php">Back to dashboard</a>?
                <?php endif ?>
