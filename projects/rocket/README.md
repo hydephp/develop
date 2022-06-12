@@ -2,8 +2,6 @@
 
 ## Project status: EXPERIMENTAL
 
-## Temporary working directory for rapid prototyping.
-
 ---
 
 **Warning:**
@@ -42,3 +40,8 @@ and I'm not sure if it is possible to package it with Composer.
 
 > Developers note, before merging into the main branch,
 > this will be moved into the packages/ directory.
+
+Right now, the rough installation process is:
+clone the rocket directory into `<your-project-root>/rocket`,
+navigate into the rocket directory, and run `composer install`.
+And start up a development server.
