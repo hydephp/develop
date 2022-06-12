@@ -136,6 +136,15 @@ body {
 	border-color: transparent;
 	box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
+
+/* Custom */
+.card {
+   padding: 1rem;
+   margin: 1rem;
+   margin-bottom: 1.5rem;
+   border-radius: .5rem;
+   box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, .125);
+}
 </style>
 <meta name="theme-color" content="#7952b3" />
 <style>
