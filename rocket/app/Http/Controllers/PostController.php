@@ -36,10 +36,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $creator = new CreatesNewMarkdownPostFile(
-            title: $request->input('title', 'My New Post'),
-            description: $request->input('description'),
-            category: $request->input('category'),
-            author: $request->input('author')
+            $request->input('title'),
+            $request->input('description'),
+            $request->input('category'),
+            $request->input('author')
         );   
 
         try {
