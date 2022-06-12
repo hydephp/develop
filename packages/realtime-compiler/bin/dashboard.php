@@ -108,6 +108,16 @@ function icon(string $name) {
       color: #6c757d;
       padding: .25rem .5rem;
    }
+   .table-secondary {
+      background-color: #eee;
+      --bs-table-bg: #eee;
+   }
+   th {
+      color: #333;
+   }
+   .table>:not(:first-child) {
+      border-top: 1.1px solid #999;
+   }
 </style>
 </head>
 <body>
@@ -215,7 +225,7 @@ function icon(string $name) {
                            <section class="card">
                               <h3 class="h5">Installation Details</h3>
                               <table class="table">
-                                 <thead class="table-gray">
+                                 <thead class="table-secondary">
                                     <tr>
                                        <th scope="col">Project Name</th>
                                        <th scope="col">Project Path</th>
@@ -234,7 +244,7 @@ function icon(string $name) {
                            <section class="card">
                               <h3 class="h5">Content Overview</h3>
                               <table class="table">
-                                 <thead class="table-gray">
+                                 <thead class="table-secondary">
                                     <tr>
                                        <th scope="col">Blade Pages</th>
                                        <th scope="col">Markdown Pages</th>
@@ -260,7 +270,7 @@ function icon(string $name) {
                               ?>
                               <h3 class="h5">Your Pages</h3>
                               <table class="table">
-                                 <thead class="table-gray">
+                                 <thead class="table-secondary">
                                     <tr>
                                           <th scope="col">Type</th>
                                           <th scope="col">Page Name</th>
