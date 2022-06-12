@@ -1,4 +1,7 @@
 <?php
+
+use Hyde\Framework\Services\CollectionService;
+
 if ($_SERVER['REMOTE_ADDR'] !== '::1')
 {
     header('HTTP/1.1 403 Forbidden');
@@ -242,29 +245,55 @@ body {
             </div>
          </nav>
          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-               <h1 class="h2">Hyde Dashboard</h1>
+         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Hyde Dashboard</h1>
+         </div>
+
+         <h2 class="h3">
+            Project Information
+         </h2>
+         <div class="d-flex flex-wrap -mx-3 pt-2">
+            <div class="col-lg-6 px-3">
+               <h3 class="h5">Installation Overview</h3>
+               <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                     <thead>
+                        <tr>
+                           <th scope="col">Project Name</th>
+                           <th scope="col">Project Path</th>
+                           <th scope="col">Framework Version</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <td><?= e($project->name) ?></td>
+                        <td><?= e($project->path) ?></td>
+                        <td><?= e($hyde->version()) ?></td>
+                     </tbody>
+                  </table>
+               </div>
             </div>
-			
-            <h2>
-				Project Information
-			</h2>
-            <div class="table-responsive">
-               <table class="table table-striped table-sm">
-                  <thead>
-                     <tr>
-						<th scope="col">Project Name</th>
-						<th scope="col">Project Path</th>
-						<th scope="col">Framework Version</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-					<td><?= e($project->name  ) ?></td>
-					<td><?= e($project->path  ) ?></td>
-					<td><?= e($hyde->version()) ?></td>
-                  </tbody>
-               </table>
+            <div class="col-lg-6 px-3">
+            <h3 class="h5">Content Overview</h3>
+               <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                     <thead>
+                        <tr>
+                           <th scope="col">Blade Pages</th>
+                           <th scope="col">Markdown Pages</th>
+                           <th scope="col">Documentation Pages</th>
+                           <th scope="col">Blog Posts</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <td><?= count(CollectionService::getBladePageList()) ?> pages</td>
+                        <td><?= count(CollectionService::getMarkdownPageList()) ?> pages</td>
+                        <td><?= count(CollectionService::getDocumentationPageList()) ?> pages</td>
+                        <td><?= count(CollectionService::getMarkdownPostList()) ?> posts</td>
+                     </tbody>
+                  </table>
+               </div>
             </div>
+         </div>
          </main>
       </div>
    </div>
