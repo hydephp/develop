@@ -18,17 +18,16 @@ require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
 // And create the app, and boot it up
 $app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
-
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
-
 \Hyde\Framework\Hyde::setBasePath(BASE_PATH);
 
 
-// Hyde interface
+
+// Create the Hyde interface
 $hyde = new class() extends Hyde\Framework\Hyde {};
 
-// Project configuration class
+// Create the project configuration class
 $project = new class
 {
     public string $path;
