@@ -409,7 +409,7 @@ function icon(string $name) {
                            </header>
                            <div class="tab-content" id="pills-tabContent">
                               <div class="tab-pane fade show active" id="pills-view" role="tabpanel" aria-labelledby="pills-view-tab">
-                                 <pre id="filecontents" ><?= $editor->getContents() ?></pre>
+                                 <pre ><code id="filecontents" class="language-<?= $editor->type === BladePage::class ? 'html' : 'markdown' ?>"><?= e($editor->getContents()) ?></code></pre>
                               </div>
                               <div class="tab-pane fade" id="pills-editor" role="tabpanel" aria-labelledby="pills-editor-tab">
                               <textarea id="texteditor" class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
@@ -436,6 +436,9 @@ function icon(string $name) {
                            <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-markdown.min.js"></script>
                            <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-php_laravel_blade.min.js"></script>
 
+                           <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
+                           <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"></script>
+
                               <script>
                                  // Setup
                                  var aceeditor = ace.edit("aceeditor");
@@ -444,9 +447,15 @@ function icon(string $name) {
                                  var texteditor = document.getElementById("texteditor");
                                  var filecontents = document.getElementById("filecontents");
 
-                                 // Sync from ace data origin 
+                                 // Initialize the ace editor with the textarea contents
                                  aceeditor.getSession().setValue(texteditor.value);
-                                    aceeditor.getSession().on('change', function(){
+
+                                 // Setup highlighting
+                                 hljs.highlightElement(filecontents);
+
+                                 
+                                 // Sync from ace data origin 
+                                 aceeditor.getSession().on('change', function() {
                                     texteditor.value = (aceeditor.getSession().getValue());
                                     filecontents.innerHTML = (aceeditor.getSession().getValue());
                                  });
