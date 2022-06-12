@@ -5,6 +5,29 @@
 		echo '<p>You must be on localhost to access this page. Refusing to serve request.</p>';
 		exit;
 	}
+
+	function e($str) {
+		return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+	}
+
+	// For static compiler, not yet implemented.
+	// $configFile = BASE_PATH . '/config/dashboard.json';
+	// if (! file_exists($configFile)) {
+	// 	header('HTTP/1.1 500 Internal Server Error');
+	// 	$exampleConfiguration = [
+	// 		'projectPath' => e(BASE_PATH),
+	// 		'projectName' => e(ucwords(str_replace('-', ' ', basename(BASE_PATH)))),
+	// 		'githubUser' => e(strtolower((getenv('USERNAME') ?? '<your-github-username>'))),
+	// 		'githubName' => e(strtolower(basename(BASE_PATH))),
+	// 		'githubBranch' => e('master'),
+	// 	];
+	// 	echo '<h1>Missing configuration file</h1>';
+	// 	echo '<p>The configuration file <code>config/dashboard.json</code> does not exist. Please create it.</p>';
+	// 	echo '<strong>Example Configuration</strong>';
+	// 	echo '<pre><code>'.json_encode($exampleConfiguration, JSON_PRETTY_PRINT).'</code></pre>';
+	// 	unset($exampleConfiguration);
+	// 	exit;
+	// }
 ?>
 
 <!DOCTYPE html>
