@@ -25,7 +25,8 @@ $router->get('/manual', function () {
 });
 
 $router->get('/_posts/{slug}', 'PostController@show');
-$router->post('/_posts/{slug}', 'PostController@store');
+$router->post('/_posts/{slug}', 'PostController@update');
+
 
 $router->post('/fileapi/open', 'FilesystemController@open');
 $router->get('/open/_site', 'RealtimeCompiler@render');

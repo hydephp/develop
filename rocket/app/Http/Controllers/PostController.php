@@ -26,7 +26,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function store(string $slug, Request $request)
+    public function update(string $slug, Request $request)
     {
         $path = Hyde::path('_posts/' . $slug . '.md');
 
