@@ -13,6 +13,15 @@ try {
 // Load the same autoloader as the project
 $app = require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
+// Hyde interface
+$hyde = new class() extends Hyde\Framework\Hyde
+{
+	public function __construct()
+	{
+        self::setBasePath(realpath(BASE_PATH));
+	}
+};
+
 // Project configuration class
 $project = new class
 {
