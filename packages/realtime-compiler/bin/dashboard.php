@@ -22,7 +22,15 @@ const VERSION = 'dev-master';
 try {
 
 // Create the Laravel app, and boot it up
-$app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
+try {
+   $app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
+} catch (\Throwable $th) {
+   try {
+      $app = require_once sprintf('%s/bootstrap/app.php', BASE_PATH);
+   } catch (\Throwable $th) {
+      throw $th;
+   }
+}
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 Hyde::setBasePath(BASE_PATH);
