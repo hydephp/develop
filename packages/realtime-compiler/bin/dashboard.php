@@ -27,18 +27,11 @@ $project = new class
 {
     public string $path;
     public string $name;
-	public string $version;
 
     public function __construct()
     {
         $this->path = BASE_PATH;
         $this->name = ucwords(str_replace('-', ' ', basename(BASE_PATH)));
-		$this->version = $this->getVersion();
-    }
-
-	protected function getVersion(): string
-	{
-		return json_decode(file_get_contents($this->path . '/composer.json'))->require->{'hyde/framework'};
 	}
 };
 
@@ -262,13 +255,13 @@ body {
                      <tr>
 						<th scope="col">Project Name</th>
 						<th scope="col">Project Path</th>
-						<th scope="col">Hyde Version</th>
+						<th scope="col">Framework Version</th>
                      </tr>
                   </thead>
                   <tbody>
 					<td><?= $project->name ?></td>
 					<td><?= $project->path ?></td>
-					<td><?= $project->version ?></td>
+					<td><?= $hyde->version() ?></td>
                   </tbody>
                </table>
             </div>
