@@ -44,6 +44,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'index';
 
 // Set the app name
 $appname = e($project->name) . ' CMS';
+
+// Set the page name
+$pagename = $appname .' - '. e($page === 'index' ? 'Dashboard' : ucwords(str_replace('-', ' ', $page)));
 ?>
 
 <!DOCTYPE html>
@@ -260,7 +263,7 @@ body {
          </nav>
          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-               <h1 class="h2">Hyde Dashboard</h1>
+               <h1 class="h2"><?= $pagename ?></h1>
             </div>
 
                <?php if ($page === 'index'): ?>
