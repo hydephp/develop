@@ -442,16 +442,19 @@ function icon(string $name) {
                                  aceeditor.session.setMode("ace/mode/<?= $editor->type === BladePage::class ? 'php_laravel_blade' : 'markdown' ?>");
                               
                                  var texteditor = document.getElementById("texteditor");
+                                 var filecontents = document.getElementById("filecontents");
 
-                                 // Sync with textarea
+                                 // Sync from ace data origin 
                                  aceeditor.getSession().setValue(texteditor.value);
                                     aceeditor.getSession().on('change', function(){
-                                 texteditor.value = (aceeditor.getSession().getValue());
+                                    texteditor.value = (aceeditor.getSession().getValue());
+                                    filecontents.innerHTML = (aceeditor.getSession().getValue());
                                  });
 
-                                 // And sync the reverse way, too
+                                 // Sync from text data origin 
                                  texteditor.addEventListener("input", function() {
                                     aceeditor.getSession().setValue(texteditor.value);
+                                    filecontents.innerHTML = (texteditor.value);
                                  });
                               </script>
                         </div>
