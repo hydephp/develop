@@ -47,7 +47,6 @@ $appname = e($project->name) . ' CMS';
 
 // Get the request page
 $page = isset($_GET['page']) ? $_GET['page'] : 'index';
-
 if ($page === 'dashboard' || $page === '' ) {
    $page = 'index';
 }
@@ -56,6 +55,7 @@ if ($page === 'dashboard' || $page === '' ) {
 $routes = [
    'index' => 'Dashboard',
    '404' => '404 Page Not Found',
+   'manual'=> 'Manual',
 ];
 
 if (! isset($routes[$page])) {
@@ -238,6 +238,10 @@ $pagename = $appname .' - '. $routes[$page];
                         </div>
                      </div>
                   </div>
+               <?php elseif ($page === 'manual'): ?>
+                  <article>
+                     <pre><?= e(file_get_contents(__DIR__.'/dashboard-manual.txt')) ?></pre>
+                  </article>
                <?php elseif ($page === '404'): ?>
                   Go <a href="dashboard.php">Back to dashboard</a>?
                <?php endif ?>
