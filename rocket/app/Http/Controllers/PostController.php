@@ -2,6 +2,8 @@
 
 namespace Hyde\Rocket\Http\Controllers;
 
+use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
+use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Rocket\Models\Hyde;
 use Illuminate\Http\Request;
@@ -33,7 +35,22 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-           
+        $creator = new CreatesNewMarkdownPostFile(
+            title: $request->input('title', 'My New Post'),
+            description: $request->input('description'),
+            category: $request->input('category'),
+            author: $request->input('author')
+        );   
+
+        try {
+            $creator->save();
+        } catch (FileConflictException $e) {
+            return response([
+                'error' => 'A post with the same title already exists.',
+            ]);
+        }
+
+        return redirect('/_posts/' . $creator->slug . '?saved=true');
     }
 
     public function update(string $slug, Request $request)
