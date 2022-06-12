@@ -70,7 +70,7 @@ $routes = [
    'index' => 'Dashboard',
    '404' => '404 Page Not Found',
    'manual'=> 'Manual',
-   'file-editor' => 'File Editor',
+   'file-viewer' => 'File Viewer',
 ];
 
 if (! isset($routes[$page])) {
@@ -300,7 +300,7 @@ function icon(string $name) {
                                              <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->view ?></a>
                                           </td>
                                           <td>
-                                             <a title="Open in CMS file manager" href="?page=file-editor&type=bladepage&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory .'/'. $page->view . BladePage::$fileExtension ?></a>
+                                             <a title="Open in CMS file manager" href="?page=file-viewer&type=bladepage&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory .'/'. $page->view . BladePage::$fileExtension ?></a>
                                           </td>
                                        </tr>
                                     <?php endforeach ?>
@@ -316,7 +316,7 @@ function icon(string $name) {
                                              <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->title ?></a>
                                           </td>
                                           <td>
-                                             <a title="Open in CMS file manager" href="?page=file-editor&type=markdownpage&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension ?></a>
+                                             <a title="Open in CMS file manager" href="?page=file-viewer&type=markdownpage&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension ?></a>
                                           </td>
                                        </tr>
                                     <?php endforeach ?>
@@ -330,7 +330,7 @@ function icon(string $name) {
                   <article>
                      <pre><?= e(file_get_contents(__DIR__.'/dashboard-manual.txt')) ?></pre>
                   </article>
-               <?php elseif ($page === 'file-editor'): ?>
+               <?php elseif ($page === 'file-viewer'): ?>
                   <div>
                      <?php
                         $editor = new class($_GET['type'], $_GET['file']) {
@@ -378,75 +378,39 @@ function icon(string $name) {
                      ?>
 
                      <section class="col-12 col-xl-10 col-xxl-8">
-                        <div>
-                           <small>Warning! This editor is experimental. Make sure you have Git or other version control set up.</small>
-                        </div>
-                        <h3 class="h6 my-3">Editing file <code><?= e($editor->contentpath) ?></code></h3>
-                        <style>
-                           #editortoolbar {
-                              width: 100%;
-                           }
-                           #submitbutton {
-                              transition: opacity 0.5s;
-                           }
-                           #submitbutton[disabled] {
-                              opacity: 0;
-                           }
-                        </style>
-                        <noscript>
-                           <div class="alert alert-danger">
-                              <p>You need to enable JavaScript to use this editor.</p>
-                           </div>
-                           <style>
-                              #fileeditor {
-                                 display: none;
-                              }
-                           </style>
-                        </noscript>
-                        <form id="fileeditor" action="">
+                        <h3 class="h6 my-3">Showing file <code><?= e($editor->contentpath) ?></code></h3>
+                  
                            <header class="bg-dark rounded-top d-flex align-items-center justify-content-between">
                               <ul class="nav nav-pills" id="pills-tab" role="tablist" type="toolbar">
                                  <li class="nav-item" role="presentation" title="View file">
                                     <button class="nav-link  text-light active" id="pills-view-tab" data-bs-toggle="pill" data-bs-target="#pills-view" type="button" role="tab" aria-controls="pills-view" aria-selected="true">
-                                       View
+                                       View Source
                                     </button>
                                  </li>
                                  <li class="nav-item" role="presentation" title="Basic text editor">
-                                    <button class="nav-link  text-light" id="pills-editor-tab" data-bs-toggle="pill" data-bs-target="#pills-editor" type="button" role="tab" aria-controls="pills-editor" aria-selected="false">
-                                       Editor
+                                    <button class="nav-link  text-light" id="pills-compiled-tab" data-bs-toggle="pill" data-bs-target="#pills-compiled" type="button" role="tab" aria-controls="pills-compiled" aria-selected="false">
+                                       Live Preview
                                     </button>
                                  </li>
                               </ul>
-                              <button id="submitbutton" type="submit" class="btn btn-primary" disabled>Save</button>
                            </header>
                            <div class="tab-content" id="pills-tabContent">
                               <div class="tab-pane fade show active" id="pills-view" role="tabpanel" aria-labelledby="pills-view-tab">
                                  <pre ><code id="filecontents" class="language-<?= $editor->type === BladePage::class ? 'html' : 'markdown' ?>"><?= e($editor->getContents()) ?></code></pre>
                               </div>
-                              <div class="tab-pane fade" id="pills-editor" role="tabpanel" aria-labelledby="pills-editor-tab">
-                               <textarea id="texteditor" class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
-                              </div>
-                           
+                              <div class="tab-pane fade" id="pills-compiled" role="tabpanel" aria-labelledby="pills-compiled-tab">
+                                 <iframe loading="lazy" width="100%" height="100%" style="min-height: 600px;" src="<?= Hyde::pageLink($editor->filename . '.html') ?>" frameborder="0">
+                                 Loading...
+                              </iframe>
                            </div>
-                        </form>
-                        <div>
+                           </div>
+
+                           <div>
                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
                            <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"></script>
 
                               <script>
-                                 // Setup
-                                 var texteditor = document.getElementById("texteditor");
-                                 var filecontents = document.getElementById("filecontents");
-                                 var submitbutton = document.getElementById("submitbutton");
-
-                                 // Setup highlighting
                                  hljs.highlightElement(filecontents);
-
-                                 // Sync from text data origin 
-                                 texteditor.addEventListener("input", function() {
-                                    filecontents.innerHTML = (texteditor.value);
-                                    submitbutton.disabled = false;
-                                 });
                               </script>
                         </div>
                      </section>
