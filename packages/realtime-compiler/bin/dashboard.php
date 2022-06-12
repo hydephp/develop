@@ -7,6 +7,8 @@ if ($_SERVER['REMOTE_ADDR'] !== '::1')
     exit;
 }
 
+try {
+	
 function e($str)
 {
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
@@ -30,6 +32,7 @@ function e($str)
 // 	unset($exampleConfiguration);
 // 	exit;
 // }
+
 // Project configuration class
 $project = new class
 {
@@ -49,6 +52,15 @@ $project = new class
 		return json_decode(file_get_contents($this->path . '/composer.json'))->require->{'hyde/framework'};
 	}
 };
+
+} catch (\Throwable $th) {
+	echo '<h1>Error</h1>';
+	echo '<p>An error occurred while processing your request.</p>';
+	echo '<pre><code>'.$th->getMessage().'</code></pre>';
+	echo '<p>Extra information:</p>';
+	echo '<pre><code>'.$th->getTraceAsString().print_r($th, true).'</code></pre>';
+	exit($th->getCode());
+}
 ?>
 
 <!DOCTYPE html>
