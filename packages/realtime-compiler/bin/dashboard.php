@@ -7,12 +7,8 @@ if ($_SERVER['REMOTE_ADDR'] !== '::1')
     exit;
 }
 
+// Run the app
 try {
-	
-function e($str)
-{
-    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
-}
 
 // Load the same autoloader as the project
 $app = require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
