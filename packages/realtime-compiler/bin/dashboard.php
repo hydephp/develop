@@ -12,6 +12,7 @@ if ($_SERVER['REMOTE_ADDR'] !== '::1')
 require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Services\CollectionService;
 
 const VERSION = 'dev-master';
@@ -65,6 +66,17 @@ if (! isset($routes[$page])) {
 
 // Set the page name
 $pagename = $appname .' - '. $routes[$page];
+
+// Helper functions
+function icon(string $name) {
+   $icons = [
+      'blade' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEX/LR//LB96KezJAAAAAnRSTlN3CW8xmq0AAAA7SURBVAjXATAAz/8Ax/8AOfcAGcMARZwAbYgAbaYAbbYAbBEAbOMAY8cAZzcAcHcAPecAzZ8A8H8A+P+i4xJQuZ3gxwAAAABJRU5ErkJggg==',
+      'markdown' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKAQMAAACHcEzfAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEVCQkJBQUFtOGGCAAAAAnRSTlPBCd2uk5MAAAAiSURBVAjXY2BgYKj/x+D3jMEljcEBiJwY/NIY/P6BBBkYAHYfCAEd79fPAAAAAElFTkSuQmCC',
+      'documentation' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEVXV1dUVFSxYS6RAAAAAnRSTlPnEHobuHcAAAArSURBVAjXY/j/nwGIHsgzPPBneJDO8KCc4QEzCD1+zPD4MJQBEXnADlQJABfcFU91j91PAAAAAElFTkSuQmCC',
+   ];
+
+   return $icons[$name] ?? '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -236,6 +248,39 @@ $pagename = $appname .' - '. $routes[$page];
                                        <td><?= count(CollectionService::getDocumentationPageList()) ?> pages</td>
                                        <td><?= count(CollectionService::getMarkdownPostList()) ?> posts</td>
                                    </tr>
+                                 </tbody>
+                              </table>
+                           </section>
+                           <section class="card">
+                              <?php
+                                    $markdown = CollectionService::getMarkdownPageList();
+                                    $documentation = CollectionService::getDocumentationPageList();
+                                    $posts = CollectionService::getMarkdownPostList();
+                              ?>
+                              <h3 class="h5">Your Pages</h3>
+                              <table class="table table-sm">
+                                 <thead class="table-gray">
+                                    <tr>
+                                          <th scope="col">Type</th>
+                                          <th scope="col">Page Name</th>
+                                          <th scope="col">File Path</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <?php foreach (BladePage::all() as $page): ?>
+                                       <tr>
+                                          <th scope="row">
+                                             <img width="16" height="16" src="<?= icon('blade') ?>" alt="" role="presentation">
+                                             Blade
+                                          </th>
+                                          <td>
+                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->view ?></a>
+                                          </td>
+                                          <td>
+                                             <a title="Open in CMS file manager" href="?page=file-editor&type=blade&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory .'/'. $page->view . BladePage::$fileExtension ?></a>
+                                          </td>
+                                       </tr>
+                                    <?php endforeach ?>
                                  </tbody>
                               </table>
                            </section>
