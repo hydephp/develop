@@ -18,11 +18,10 @@ require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
 // And create the app, and boot it up
 $app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
+
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
-$status = $kernel->handle(
-    $input = new Symfony\Component\Console\Input\ArgvInput,
-    new Symfony\Component\Console\Output\ConsoleOutput
-);
+$kernel->bootstrap();
+
 \Hyde\Framework\Hyde::setBasePath(BASE_PATH);
 
 
