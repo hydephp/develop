@@ -1,0 +1,31 @@
+HYDERC DASHBOARD MANUAL
+
+IMPORTANT NOTE
+
+As this is alpha stage software there may be bugs,
+and usage is at your own risk. You should always keep
+backups using Git version control or similar.
+
+A version allowing for community editing by creating
+a public static HTML dashboard is planned, this would
+then link to files on GitHub for collaboration.
+Though, this idea may instead be handled in a separate
+package included as a dashboard.blade.php file,
+using the default layout.
+
+SECURITY
+
+As the dashboard modifies files on the computer running it
+and gives arbitrary access to the server by running shell
+commands, opening files, and executing programs, it is
+extremely important that the dashboard is not exposed
+to the internet. You must only ever use this dashboard
+as a local development tool.
+
+A basic check is made to block requests not made from
+localhost as an extra precaution. You should still
+never make the dashboard.php file publicly accessible.
+
+Also note that error reporting is enabled by default,
+as the dashboard assumes that all who can access it
+are authorized to use the system running it.
