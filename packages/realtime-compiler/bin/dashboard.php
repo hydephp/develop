@@ -426,7 +426,7 @@ function icon(string $name) {
 
    <div class="col-md-9 ms-md-auto col-lg-10 ">
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
-         <div class="col-md-4 d-flex align-items-center">
+         <div class="col-md-6 d-flex align-items-center">
             <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
             <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
             </a>
@@ -435,7 +435,7 @@ function icon(string $name) {
                      This page was generated in <?= number_format((microtime(true) - HYDE_START) * 1000, 2) ?>ms.
                   </small>
          </div>
-         <div class="col-md-4 text-end justify-content-end px-4 d-flex align-items-center">
+         <div class="col-md-6 text-end justify-content-end px-4 d-flex align-items-center">
            <ul class="nav">
              <li class="nav-item"> <a href="?page=manual" class="nav-link">Manual</a></li>
              <li class="nav-item"> <a href="" class="nav-link">GitHub</a></li>
