@@ -153,8 +153,6 @@ body {
 	}
 }
 </style>
-<!-- Custom styles for this template -->
-<link href="dashboard.css" rel="stylesheet" />
 </head>
 <body>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
