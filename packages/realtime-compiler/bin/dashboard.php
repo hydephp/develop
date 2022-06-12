@@ -382,9 +382,42 @@ function icon(string $name) {
                            <small>Warning! This editor is experimental. Make sure you have Git or other version control set up.</small>
                         </div>
                         <h3 class="h6 my-3">Editing file <code><?= e($editor->contentpath) ?></code></h3>
-                        <form action="">
-                           <div class="form-group">
+                        <style>
+                           #editortoolbar {
+                              width: 100%;
+                           }
+                        </style>
+                        <form id="fileeditor" action="">
+                           <header class="bg-dark rounded-top">
+                              <ul class="nav nav-pills justify-content-end" id="pills-tab" role="tablist" type="toolbar">
+                                 <li class="nav-item" role="presentation" title="View file">
+                                    <button class="nav-link  text-light active" id="pills-view-tab" data-bs-toggle="pill" data-bs-target="#pills-view" type="button" role="tab" aria-controls="pills-view" aria-selected="true">
+                                       View
+                                    </button>
+                                 </li>
+                                 <li class="nav-item" role="presentation" title="Basic text editor">
+                                    <button class="nav-link  text-light" id="pills-editor-tab" data-bs-toggle="pill" data-bs-target="#pills-editor" type="button" role="tab" aria-controls="pills-editor" aria-selected="false">
+                                       Editor
+                                    </button>
+                                 </li>
+                                 <li class="nav-item" role="presentation" title="Code editor">
+                                    <button class="nav-link  text-light" id="pills-ide-tab" data-bs-toggle="pill" data-bs-target="#pills-ide" type="button" role="tab" aria-controls="pills-ide" aria-selected="false">
+                                       IDE
+                                    </button>
+                                 </li>
+                              </ul>
+                           </header>
+                           <div class="tab-content" id="pills-tabContent">
+                              <div class="tab-pane fade show active" id="pills-view" role="tabpanel" aria-labelledby="pills-view-tab">
+                                 <pre id="filecontents" ><?= $editor->getContents() ?></pre>
+                              </div>
+                              <div class="tab-pane fade" id="pills-editor" role="tabpanel" aria-labelledby="pills-editor-tab">
                               <textarea id="texteditor" class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
+
+                              </div>
+                              <div class="tab-pane fade" id="pills-ide" role="tabpanel" aria-labelledby="pills-ide-tab">
+                                 <pre id="aceeditor" >Loading your editor...</pre>
+                              </div>
                            </div>
                         </form>
                         <div>
@@ -402,9 +435,6 @@ function icon(string $name) {
                            <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/ace.min.js"></script>
                            <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-markdown.min.js"></script>
                            <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-php_laravel_blade.min.js"></script>
-                              <div class="col">
-                                 <pre id="aceeditor" >Loading your editor...</pre>
-                              </div>
 
                               <script>
                                  // Setup
