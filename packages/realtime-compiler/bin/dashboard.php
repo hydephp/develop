@@ -336,7 +336,7 @@ function icon(string $name) {
                         $editor = new class($_GET['type'], $_GET['file']) {
                            public string $filename;
                            public string $contentpath;
-                           protected string $type;
+                           public string $type;
                            protected string $filepath;
 
                            public function __construct(string $type, string $file) {
@@ -397,13 +397,16 @@ function icon(string $name) {
                                  resize: both;
                               }
                            </style>   
-                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-noconflict/ace.min.js"></script>
+                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/ace.min.js"></script>
+                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-markdown.min.js"></script>
+                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-php_laravel_blade.min.js"></script>
                               <div class="col">
                                  <pre id="aceeditor" ><?= $editor->getContents() ?></pre>
                               </div>
 
                               <script>
                                  var aceeditor = ace.edit("aceeditor");
+                                 aceeditor.session.setMode("ace/mode/<?= $editor->type === BladePage::class ? 'php_laravel_blade' : 'markdown' ?>");
                               </script>
                         </div>
                      </section>
