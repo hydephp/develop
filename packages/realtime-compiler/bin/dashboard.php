@@ -264,7 +264,6 @@ function icon(string $name) {
                            </section>
                            <section class="card">
                               <?php
-                                    $markdown = CollectionService::getMarkdownPageList();
                                     $documentation = CollectionService::getDocumentationPageList();
                                     $posts = CollectionService::getMarkdownPostList();
                               ?>
@@ -298,7 +297,7 @@ function icon(string $name) {
                                        <tr>
                                           <th scope="row">
                                              <img width="16" height="16" src="<?= icon('markdown') ?>" alt="" role="presentation">
-                                             markdown
+                                             Markdown
                                           </th>
                                           <td>
                                              <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->title ?></a>
