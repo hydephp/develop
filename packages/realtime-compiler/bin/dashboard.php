@@ -33,6 +33,9 @@ function e($str)
 // 	exit;
 // }
 
+// Load the same autoloader as the project
+$app = require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
+
 // Project configuration class
 $project = new class
 {
