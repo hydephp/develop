@@ -23,7 +23,9 @@ class ConvertsArrayToFrontMatter
 
         // For each line, add the key-value pair as YAML
         foreach ($array as $key => $value) {
-            $yaml[] = "$key: $value";
+            if (trim($value) !== '' && $value !== null) {
+                $yaml[] = "$key: $value";
+            }
         }
 
         // Set the closing block
