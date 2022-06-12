@@ -1,9 +1,5 @@
 <?php
 
-use Hyde\Framework\Services\CollectionService;
-
-const VERSION = 'dev-master';
-
 if ($_SERVER['REMOTE_ADDR'] !== '::1')
 {
     header('HTTP/1.1 403 Forbidden');
@@ -12,21 +8,25 @@ if ($_SERVER['REMOTE_ADDR'] !== '::1')
     exit;
 }
 
-// Run the app
-try {
-
 // Load the same autoloader as the project
 require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
-// And create the app, and boot it up
+use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\CollectionService;
+
+const VERSION = 'dev-master';
+
+// Run the dashboard app
+try {
+
+// Create the Laravel app, and boot it up
 $app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
-\Hyde\Framework\Hyde::setBasePath(BASE_PATH);
-
+Hyde::setBasePath(BASE_PATH);
 
 // Create the Hyde interface
-$hyde = new class() extends Hyde\Framework\Hyde {};
+$hyde = new class() extends Hyde {};
 
 // Create the project configuration class
 $project = new class
@@ -46,7 +46,7 @@ $appname = e($project->name) . ' CMS';
 
 
 // Get the request page
-$page = isset($_GET['page']) ? $_GET['page'] : 'index';
+$page = $_GET['page'] ?? 'index';
 if ($page === 'dashboard' || $page === '' ) {
    $page = 'index';
 }
@@ -210,9 +210,11 @@ $pagename = $appname .' - '. $routes[$page];
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <td><?= e($project->name) ?></td>
-                                    <td><?= e($project->path) ?></td>
-                                    <td><?= e($hyde->version()) ?></td>
+                                    <tr>
+                                        <td><?= e($project->name) ?></td>
+                                        <td><?= e($project->path) ?></td>
+                                        <td><?= e($hyde->version()) ?></td>
+                                    </tr>
                                  </tbody>
                               </table>
                            </section>
@@ -228,10 +230,12 @@ $pagename = $appname .' - '. $routes[$page];
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <td><?= count(CollectionService::getBladePageList()) ?> pages</td>
-                                    <td><?= count(CollectionService::getMarkdownPageList()) ?> pages</td>
-                                    <td><?= count(CollectionService::getDocumentationPageList()) ?> pages</td>
-                                    <td><?= count(CollectionService::getMarkdownPostList()) ?> posts</td>
+                                   <tr>
+                                       <td><?= count(CollectionService::getBladePageList()) ?> pages</td>
+                                       <td><?= count(CollectionService::getMarkdownPageList()) ?> pages</td>
+                                       <td><?= count(CollectionService::getDocumentationPageList()) ?> pages</td>
+                                       <td><?= count(CollectionService::getMarkdownPostList()) ?> posts</td>
+                                   </tr>
                                  </tbody>
                               </table>
                            </section>
