@@ -14,16 +14,20 @@ if ($_SERVER['REMOTE_ADDR'] !== '::1')
 try {
 
 // Load the same autoloader as the project
-$app = require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
+require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
+
+// And create the app, and boot it up
+$app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
+$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+$status = $kernel->handle(
+    $input = new Symfony\Component\Console\Input\ArgvInput,
+    new Symfony\Component\Console\Output\ConsoleOutput
+);
+\Hyde\Framework\Hyde::setBasePath(BASE_PATH);
+
 
 // Hyde interface
-$hyde = new class() extends Hyde\Framework\Hyde
-{
-	public function __construct()
-	{
-        self::setBasePath(realpath(BASE_PATH));
-	}
-};
+$hyde = new class() extends Hyde\Framework\Hyde {};
 
 // Project configuration class
 $project = new class
@@ -34,7 +38,7 @@ $project = new class
     public function __construct()
     {
         $this->path = BASE_PATH;
-        $this->name = ucwords(str_replace('-', ' ', basename(BASE_PATH)));
+        $this->name = config('hyde.name', ucwords(str_replace('-', ' ', basename(BASE_PATH))));
 	}
 };
 
