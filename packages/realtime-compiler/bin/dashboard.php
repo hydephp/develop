@@ -400,11 +400,7 @@ function icon(string $name) {
                                        Editor
                                     </button>
                                  </li>
-                                 <li class="nav-item" role="presentation" title="Code editor">
-                                    <button class="nav-link  text-light" id="pills-ide-tab" data-bs-toggle="pill" data-bs-target="#pills-ide" type="button" role="tab" aria-controls="pills-ide" aria-selected="false">
-                                       IDE
-                                    </button>
-                                 </li>
+                                
                               </ul>
                            </header>
                            <div class="tab-content" id="pills-tabContent">
@@ -412,57 +408,26 @@ function icon(string $name) {
                                  <pre ><code id="filecontents" class="language-<?= $editor->type === BladePage::class ? 'html' : 'markdown' ?>"><?= e($editor->getContents()) ?></code></pre>
                               </div>
                               <div class="tab-pane fade" id="pills-editor" role="tabpanel" aria-labelledby="pills-editor-tab">
-                              <textarea id="texteditor" class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
-
+                               <textarea id="texteditor" class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
                               </div>
-                              <div class="tab-pane fade" id="pills-ide" role="tabpanel" aria-labelledby="pills-ide-tab">
-                                 <pre id="aceeditor" >Loading your editor...</pre>
-                              </div>
+                           
                            </div>
                         </form>
                         <div>
-                           <style type="text/css" media="screen">
-                              #aceeditor { 
-                                 min-height: 50vh;
-                                 height: 100%;
-                                 display: block;
-                                 flex: 1;
-                                 width: 100%;
-                                 font-family: monospace;
-                                 resize: both;
-                              }
-                           </style>   
-                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/ace.min.js"></script>
-                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-markdown.min.js"></script>
-                           <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-php_laravel_blade.min.js"></script>
-
                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
                            <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"></script>
 
                               <script>
                                  // Setup
-                                 var aceeditor = ace.edit("aceeditor");
-                                 aceeditor.session.setMode("ace/mode/<?= $editor->type === BladePage::class ? 'php_laravel_blade' : 'markdown' ?>");
-                              
                                  var texteditor = document.getElementById("texteditor");
                                  var filecontents = document.getElementById("filecontents");
 
-                                 // Initialize the ace editor with the textarea contents
-                                 aceeditor.getSession().setValue(texteditor.value);
 
                                  // Setup highlighting
                                  hljs.highlightElement(filecontents);
 
-                                 
-                                 // Sync from ace data origin 
-                                 aceeditor.getSession().on('change', function() {
-                                    texteditor.value = (aceeditor.getSession().getValue());
-                                    filecontents.innerHTML = (aceeditor.getSession().getValue());
-                                 });
-
                                  // Sync from text data origin 
                                  texteditor.addEventListener("input", function() {
-                                    aceeditor.getSession().setValue(texteditor.value);
                                     filecontents.innerHTML = (texteditor.value);
                                  });
                               </script>
