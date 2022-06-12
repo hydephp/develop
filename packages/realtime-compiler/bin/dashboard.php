@@ -33,15 +33,6 @@ $project = new class
 	}
 };
 
-
-} catch (\Throwable $th) {
-	echo '<h1>Error</h1>';
-	echo '<p>An error occurred while processing your request.</p>';
-	echo '<pre><code>'.$th->getMessage().'</code></pre>';
-	echo '<p>Extra information:</p>';
-	echo '<pre><code>'.$th->getTraceAsString().print_r($th, true).'</code></pre>';
-	exit($th->getCode());
-}
 ?>
 
 <!DOCTYPE html>
@@ -291,3 +282,14 @@ body {
 </script>
 </body>
 </html>
+
+<?php
+
+} catch (\Throwable $th) {
+	echo '<h1>Error</h1>';
+	echo '<p>An error occurred while processing your request.</p>';
+	echo '<pre><code>'.$th->getMessage().'</code></pre>';
+	echo '<p>Extra information:</p>';
+	echo '<pre><code>'.$th->getTraceAsString().print_r($th, true).'</code></pre>';
+	exit($th->getCode());
+}
