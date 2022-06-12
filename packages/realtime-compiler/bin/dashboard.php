@@ -2,6 +2,8 @@
 
 use Hyde\Framework\Services\CollectionService;
 
+const VERSION = 'dev-master';
+
 if ($_SERVER['REMOTE_ADDR'] !== '::1')
 {
     header('HTTP/1.1 403 Forbidden');
