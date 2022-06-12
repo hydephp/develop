@@ -4,7 +4,7 @@ define('BASE_PATH', realpath(getcwd()));
 define('HYDE_START', microtime(true));
 
 // If request path is dashboard.php then load that file instead
-if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] == '/dashboard.php') {
+if (isset($_SERVER['REQUEST_URI']) && str_starts_with($_SERVER['REQUEST_URI'], '/dashboard.php')) {
 	require_once __DIR__ . '/dashboard.php';
 	exit;
 }
