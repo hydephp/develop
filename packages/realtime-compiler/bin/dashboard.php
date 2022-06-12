@@ -214,7 +214,7 @@ function icon(string $name) {
                         <div class="table-responsive">
                            <section class="card">
                               <h3 class="h5">Installation Details</h3>
-                              <table class="table table-sm">
+                              <table class="table">
                                  <thead class="table-gray">
                                     <tr>
                                        <th scope="col">Project Name</th>
@@ -233,7 +233,7 @@ function icon(string $name) {
                            </section>
                            <section class="card">
                               <h3 class="h5">Content Overview</h3>
-                              <table class="table table-sm">
+                              <table class="table">
                                  <thead class="table-gray">
                                     <tr>
                                        <th scope="col">Blade Pages</th>
@@ -259,7 +259,7 @@ function icon(string $name) {
                                     $posts = CollectionService::getMarkdownPostList();
                               ?>
                               <h3 class="h5">Your Pages</h3>
-                              <table class="table table-sm">
+                              <table class="table">
                                  <thead class="table-gray">
                                     <tr>
                                           <th scope="col">Type</th>
