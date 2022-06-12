@@ -16,6 +16,12 @@ using the default layout.
 
 SECURITY
 
+This is not a traditional CMS like WordPress and similar.
+It's never supposed to be on production systems.
+Instead, it's a local developer tool.
+Think of it as an integrated development environment
+specifically tailored for use with HydePHP projects.
+
 As the dashboard modifies files on the computer running it
 and gives arbitrary access to the server by running shell
 commands, opening files, and executing programs, it is
@@ -30,6 +36,11 @@ never make the dashboard.php file publicly accessible.
 Also note that error reporting is enabled by default,
 as the dashboard assumes that all who can access it
 are authorized to use the system running it.
+
+The app is not safe against XSS/script injection either
+as not all output is sanitized or escaped; and the
+output that is escaped, is only made so to prevent
+visual glitches, like displaying source HTML tags.
 
 
 LICENSE
