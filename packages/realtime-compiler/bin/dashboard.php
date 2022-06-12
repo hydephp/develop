@@ -238,6 +238,7 @@ $pagename = $appname .' - '. e($page === 'index' ? 'Dashboard' : ucwords(str_rep
          </div>
          <div class="col-md-4 text-end justify-content-end px-4 d-flex align-items-center">
            <ul class="nav">
+             <li class="nav-item"> <a href="?page=manual" class="nav-link">Manual</a></li>
              <li class="nav-item"> <a href="" class="nav-link">GitHub</a></li>
            </ul>
          </div>
