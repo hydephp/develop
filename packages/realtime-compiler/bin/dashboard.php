@@ -75,6 +75,10 @@ $pagename = $appname .' - '. e($page === 'index' ? 'Dashboard' : ucwords(str_rep
    #main-content-wrapper {
       flex: 1;
    } 
+   footer a.nav-link {
+      color: #6c757d;
+      padding: .25rem .5rem;
+   }
 </style>
 </head>
 <body>
@@ -234,7 +238,7 @@ $pagename = $appname .' - '. e($page === 'index' ? 'Dashboard' : ucwords(str_rep
          </div>
          <div class="col-md-4 text-end justify-content-end px-4 d-flex align-items-center">
            <ul class="nav">
-             <li class="nav-item"> <a href="">GitHub</a></li>
+             <li class="nav-item"> <a href="" class="nav-link">GitHub</a></li>
            </ul>
          </div>
       </footer>
