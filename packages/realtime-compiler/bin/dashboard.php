@@ -48,11 +48,13 @@ $appname = e($project->name) . ' CMS';
 // Get the request page
 $page = isset($_GET['page']) ? $_GET['page'] : 'index';
 
+if ($page === 'dashboard' || $page === '' ) {
+   $page = 'index';
+}
+
 // Key => label
 $routes = [
-   '' => 'Dashboard',
    'index' => 'Dashboard',
-   'dashboard' => 'Dashboard',
    '404' => '404 Page Not Found',
 ];
 
