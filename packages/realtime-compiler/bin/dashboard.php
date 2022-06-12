@@ -13,6 +13,7 @@ require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Services\CollectionService;
 
 const VERSION = 'dev-master';
@@ -278,6 +279,22 @@ function icon(string $name) {
                                           </td>
                                           <td>
                                              <a title="Open in CMS file manager" href="?page=file-editor&type=blade&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory .'/'. $page->view . BladePage::$fileExtension ?></a>
+                                          </td>
+                                       </tr>
+                                    <?php endforeach ?>
+                                 </tbody>
+                                 <tbody>
+                                    <?php foreach (MarkdownPage::all() as $page): ?>
+                                       <tr>
+                                          <th scope="row">
+                                             <img width="16" height="16" src="<?= icon('markdown') ?>" alt="" role="presentation">
+                                             markdown
+                                          </th>
+                                          <td>
+                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->title ?></a>
+                                          </td>
+                                          <td>
+                                             <a title="Open in CMS file manager" href="?page=file-editor&type=markdown&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension ?></a>
                                           </td>
                                        </tr>
                                     <?php endforeach ?>
