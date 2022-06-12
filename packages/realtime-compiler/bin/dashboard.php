@@ -41,14 +41,28 @@ $project = new class
 	}
 };
 
-// Get the request page
-$page = isset($_GET['page']) ? $_GET['page'] : 'index';
-
 // Set the app name
 $appname = e($project->name) . ' CMS';
 
+
+// Get the request page
+$page = isset($_GET['page']) ? $_GET['page'] : 'index';
+
+// Key => label
+$routes = [
+   '' => 'Dashboard',
+   'index' => 'Dashboard',
+   'dashboard' => 'Dashboard',
+   '404' => '404 Page Not Found',
+];
+
+if (! isset($routes[$page])) {
+   header('HTTP/1.1 404 Not Found');
+   $page = '404';
+}
+
 // Set the page name
-$pagename = $appname .' - '. e($page === 'index' ? 'Dashboard' : ucwords(str_replace('-', ' ', $page)));
+$pagename = $appname .' - '. $routes[$page];
 ?>
 
 <!DOCTYPE html>
@@ -222,8 +236,9 @@ $pagename = $appname .' - '. e($page === 'index' ? 'Dashboard' : ucwords(str_rep
                         </div>
                      </div>
                   </div>
+               <?php elseif ($page === '404'): ?>
+                  Go <a href="dashboard.php">Back to dashboard</a>?
                <?php endif ?>
-            
          </main>
       </div>
    </div>
