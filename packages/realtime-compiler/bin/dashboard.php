@@ -220,7 +220,7 @@ function icon(string $name) {
                      Project Information
                   </h2>
                   <div class="d-flex flex-wrap -mx-3 pt-2">
-                     <div class="col-lg-6">
+                     <div class="col-12 col-sm-10 col-xl-8 col-xxl-6">
                         <div class="table-responsive">
                            <section class="card">
                               <h3 class="h5">Installation Details</h3>
