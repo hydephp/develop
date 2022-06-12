@@ -393,6 +393,16 @@ function icon(string $name) {
                               opacity: 0;
                            }
                         </style>
+                        <noscript>
+                           <div class="alert alert-danger">
+                              <p>You need to enable JavaScript to use this editor.</p>
+                           </div>
+                           <style>
+                              #fileeditor {
+                                 display: none;
+                              }
+                           </style>
+                        </noscript>
                         <form id="fileeditor" action="">
                            <header class="bg-dark rounded-top d-flex align-items-center justify-content-between">
                               <ul class="nav nav-pills" id="pills-tab" role="tablist" type="toolbar">
