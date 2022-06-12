@@ -339,6 +339,9 @@ function icon(string $name) {
             <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
             </a>
             <span class="text-muted">HydeCMS <?= VERSION ?></span>
+                  <small class="text-muted ms-4">
+                     This page was generated in <?= number_format((microtime(true) - HYDE_START) * 1000, 2) ?>ms.
+                  </small>
          </div>
          <div class="col-md-4 text-end justify-content-end px-4 d-flex align-items-center">
            <ul class="nav">
