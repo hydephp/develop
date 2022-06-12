@@ -26,6 +26,8 @@ $router->get('/manual', function () {
 
 $router->get('/_posts/{slug}', 'PostController@show');
 $router->post('/_posts/{slug}', 'PostController@update');
+$router->get('/create-post', 'PostController@create');
+$router->post('/create-post', 'PostController@store');
 
 
 $router->post('/fileapi/open', 'FilesystemController@open');

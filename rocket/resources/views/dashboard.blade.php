@@ -156,9 +156,12 @@
     </section>
 
     <section id="posts-overview" class="center">
-        <h2>
-            Your Blog Posts
-        </h2>
+        <header style="margin-top: 2rem; margin-bottom: 1.5rem;">
+            <h2 style="display: inline-block; margin: 1rem 0.5rem; line-height: 1rem;">
+                Your Blog Posts
+            </h2>
+            <a href="/create-post" style="position: absolute; margin: 1rem 0.5rem; line-height: 1rem;">Create new</a>
+        </header>
         <table id="posts">
             <thead>
                 <tr>
