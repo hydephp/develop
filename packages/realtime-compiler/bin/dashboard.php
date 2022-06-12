@@ -386,10 +386,16 @@ function icon(string $name) {
                            #editortoolbar {
                               width: 100%;
                            }
+                           #submitbutton {
+                              transition: opacity 0.5s;
+                           }
+                           #submitbutton[disabled] {
+                              opacity: 0;
+                           }
                         </style>
                         <form id="fileeditor" action="">
-                           <header class="bg-dark rounded-top">
-                              <ul class="nav nav-pills justify-content-end" id="pills-tab" role="tablist" type="toolbar">
+                           <header class="bg-dark rounded-top d-flex align-items-center justify-content-between">
+                              <ul class="nav nav-pills" id="pills-tab" role="tablist" type="toolbar">
                                  <li class="nav-item" role="presentation" title="View file">
                                     <button class="nav-link  text-light active" id="pills-view-tab" data-bs-toggle="pill" data-bs-target="#pills-view" type="button" role="tab" aria-controls="pills-view" aria-selected="true">
                                        View
@@ -400,8 +406,8 @@ function icon(string $name) {
                                        Editor
                                     </button>
                                  </li>
-                                
                               </ul>
+                              <button id="submitbutton" type="submit" class="btn btn-primary" disabled>Save</button>
                            </header>
                            <div class="tab-content" id="pills-tabContent">
                               <div class="tab-pane fade show active" id="pills-view" role="tabpanel" aria-labelledby="pills-view-tab">
@@ -421,7 +427,7 @@ function icon(string $name) {
                                  // Setup
                                  var texteditor = document.getElementById("texteditor");
                                  var filecontents = document.getElementById("filecontents");
-
+                                 var submitbutton = document.getElementById("submitbutton");
 
                                  // Setup highlighting
                                  hljs.highlightElement(filecontents);
@@ -429,6 +435,7 @@ function icon(string $name) {
                                  // Sync from text data origin 
                                  texteditor.addEventListener("input", function() {
                                     filecontents.innerHTML = (texteditor.value);
+                                    submitbutton.disabled = false;
                                  });
                               </script>
                         </div>
