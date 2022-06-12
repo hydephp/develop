@@ -259,9 +259,9 @@ body {
                      </tr>
                   </thead>
                   <tbody>
-					<td><?= $project->name ?></td>
-					<td><?= $project->path ?></td>
-					<td><?= $hyde->version() ?></td>
+					<td><?= e($project->name  ) ?></td>
+					<td><?= e($project->path  ) ?></td>
+					<td><?= e($hyde->version()) ?></td>
                   </tbody>
                </table>
             </div>
