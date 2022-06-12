@@ -1,6 +1,10 @@
 # Hyde Rocket 🚀 - Fast CMS dashboard for HydePHP
 
+## Project status: EXPERIMENTAL
+
 ## Temporary working directory for rapid prototyping.
+
+---
 
 **Warning:**
 
