@@ -378,13 +378,15 @@ function icon(string $name) {
                      ?>
 
                      <section class="col-12 col-xl-10 col-xxl-8">
-                        <h3 class="h6">Editing file <code><?= e($editor->contentpath) ?></code></h3>
+                        <div>
+                           <small>Warning! This editor is experimental. Make sure you have Git or other version control set up.</small>
+                        </div>
+                        <h3 class="h6 my-3">Editing file <code><?= e($editor->contentpath) ?></code></h3>
                         <!-- <form action="">
                            <div class="form-group">
                               <textarea class="form-control" rows="24" cols="70">< ?= $editor->getContents() ?></textarea>
                            </div>
                         </form> -->
-                           <br>
                         <div>
                            <style type="text/css" media="screen">
                               #aceeditor { 
