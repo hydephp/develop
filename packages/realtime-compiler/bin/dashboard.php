@@ -382,11 +382,11 @@ function icon(string $name) {
                            <small>Warning! This editor is experimental. Make sure you have Git or other version control set up.</small>
                         </div>
                         <h3 class="h6 my-3">Editing file <code><?= e($editor->contentpath) ?></code></h3>
-                        <!-- <form action="">
+                        <form action="">
                            <div class="form-group">
-                              <textarea class="form-control" rows="24" cols="70">< ?= $editor->getContents() ?></textarea>
+                              <textarea id="texteditor" class="form-control" rows="24" cols="70"><?= $editor->getContents() ?></textarea>
                            </div>
-                        </form> -->
+                        </form>
                         <div>
                            <style type="text/css" media="screen">
                               #aceeditor { 
@@ -403,12 +403,26 @@ function icon(string $name) {
                            <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-markdown.min.js"></script>
                            <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.6.0/src-min/mode-php_laravel_blade.min.js"></script>
                               <div class="col">
-                                 <pre id="aceeditor" ><?= $editor->getContents() ?></pre>
+                                 <pre id="aceeditor" >Loading your editor...</pre>
                               </div>
 
                               <script>
+                                 // Setup
                                  var aceeditor = ace.edit("aceeditor");
                                  aceeditor.session.setMode("ace/mode/<?= $editor->type === BladePage::class ? 'php_laravel_blade' : 'markdown' ?>");
+                              
+                                 var texteditor = document.getElementById("texteditor");
+
+                                 // Sync with textarea
+                                 aceeditor.getSession().setValue(texteditor.value);
+                                    aceeditor.getSession().on('change', function(){
+                                 texteditor.value = (aceeditor.getSession().getValue());
+                                 });
+
+                                 // And sync the reverse way, too
+                                 texteditor.addEventListener("input", function() {
+                                    aceeditor.getSession().setValue(texteditor.value);
+                                 });
                               </script>
                         </div>
                      </section>
