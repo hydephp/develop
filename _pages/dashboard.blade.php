@@ -34,7 +34,9 @@
                             {{ Hyde::titleFromSlug($page->view) }}
 						</a>
 					</td>
-					<td>{{ $page->slug }}</td>
+                    <td>
+                        {{ \Hyde\Framework\Models\BladePage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\BladePage::$fileExtension }}
+                    </td>
 				</tr>
 				@endforeach		
 			</tbody>
@@ -58,7 +60,9 @@
 							{{ $page->title }}
 						</a>
 					</td>
-					<td>{{ $page->slug }}</td>
+                    <td>
+                        {{ \Hyde\Framework\Models\MarkdownPage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\MarkdownPage::$fileExtension }}
+                    </td>
 				</tr>
 				@endforeach		
 			</tbody>
@@ -82,7 +86,9 @@
 							{{ $page->title }}
 						</a>
 					</td>
-					<td>{{ $page->slug }}</td>
+                    <td>
+                        {{ \Hyde\Framework\Models\DocumentationPage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\DocumentationPage::$fileExtension }}
+                    </td>
 				</tr>
 				@endforeach		
 			</tbody>
@@ -106,7 +112,9 @@
 							{{ $post->title }}
 						</a>
 					</td>
-					<td>{{ $post->slug }}</td>
+					<td>
+                        {{ \Hyde\Framework\Models\MarkdownPost::$sourceDirectory .'/'. $post->slug . \Hyde\Framework\Models\MarkdownPost::$fileExtension }}
+                    </td>
 				</tr>
 				@endforeach		
 			</tbody>
