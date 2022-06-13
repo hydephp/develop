@@ -3,6 +3,34 @@
     use Hyde\Framework\Models\MarkdownPage;
     use Hyde\Framework\Models\DocumentationPage;
     use Hyde\Framework\Models\MarkdownPost;
+
+	$github = new class {
+		public bool $enabled;
+
+		public function __construct() {
+			$this->enabled = (config('hyde.github_dashboard.enabled', false) === true)
+				&& (config('hyde.github_dashboard.username') !== null)
+				&& (config('hyde.github_dashboard.repository') !== null)
+				&& (config('hyde.github_dashboard.branch') !== null);
+		}
+
+		public function getLink(string $path): string {
+            $action = config('hyde.github_dashboard.action', 'view') === 'edit' ? 'edit' : 'blob';
+            return sprintf("https://github.com/%s/%s/%s/%s/%s",
+                config('hyde.github_dashboard.username'),
+                config('hyde.github_dashboard.repository'),
+                $action,
+                config('hyde.github_dashboard.branch'),
+                $path
+            );
+        }
+
+        public function link(string $path): string {
+            return $this->enabled
+                ? '<a href="'.$this->getLink(e($path)).'">'.e($path).'</a>'
+                : e($path);
+        }
+	};
 @endphp
 
 @extends('hyde::layouts.app')
