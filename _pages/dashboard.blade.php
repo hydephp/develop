@@ -42,6 +42,15 @@
         .dashboard-table td, .dashboard-table th {
             width: 50%;
         }
+        .table-justified td, .table-justified th {
+            text-align: center;
+        }
+        .table-justified td:first-child, .table-justified th:first-child {
+            text-align: left;
+        }
+        .table-justified td:last-child, .table-justified th:last-child {
+            text-align: right;
+        }
     </style>
     
     <main class="mx-auto max-w-7xl py-16 px-8">
@@ -66,7 +75,7 @@
 
             <section class="mt-8">
                 <h3>Installation Details</h3>
-                <table>
+                <table class="table-justified">
                     <thead>
                     <tr>
                         <th>Project Name</th>
@@ -86,7 +95,7 @@
                 </table>
 
                 <h3>GitHub Integration</h3>
-                <table>
+                <table class="table-justified">
                     <thead>
                     <tr>
                         <th>Username</th>
@@ -149,7 +158,7 @@
             </header>
         
             <h3>Content Overview</h3>
-            <table>
+            <table class="table-justified">
                 <thead>
                 <tr>
                     <th>Blade Pages</th>
