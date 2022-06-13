@@ -76,6 +76,26 @@
 			</tbody>
 		</table>
 	</section>
+
+	<section class="prose dark:prose-invert mx-auto mt-8">
+		<h2>Blog Posts</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Path</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (\Hyde\Framework\Models\MarkdownPost::all() as $post)
+				<tr>
+					<td>{{ $post->title }}</td>
+					<td>{{ $post->slug }}</td>
+				</tr>
+				@endforeach		
+			</tbody>
+		</table>
+	</section>
 </main>
 
 @endsection
