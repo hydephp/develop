@@ -17,6 +17,34 @@
 		</p>
 	</header>
 
+	
+    <section class="prose dark:prose-invert mx-auto mt-8">
+        <header>
+            <h2>Installation Details</h2>
+        </header>
+
+        <section class="mt-8">
+            <table>
+                <thead>
+                    <tr>
+						<th>Project Name</th>
+						<th>Project Path</th>
+						<th>Framework Version</th>
+						<th>PHP Version</th>
+                    </tr>
+                </thead>
+                <tbody>
+					<tr>
+						<td>{{ config('hyde.name', Hyde::titleFromSlug(basename(Hyde::path()))) }}</td>
+						<td>{{ Hyde::path() }}</td>
+						<td>{{ Hyde::version() }}</td>
+						<td>{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>
+					</tr>
+                </tbody>
+            </table>
+        </section>
+	</section>
+
     <section class="prose dark:prose-invert mx-auto mt-8">
         <header>
             <h2>Content Overview</h2>
