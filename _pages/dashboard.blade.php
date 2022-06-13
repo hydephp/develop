@@ -56,6 +56,26 @@
 			</tbody>
 		</table>
 	</section>
+
+	<section class="prose dark:prose-invert mx-auto mt-8">
+		<h2>Documentation Pages</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Path</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (\Hyde\Framework\Models\DocumentationPage::all() as $page)
+				<tr>
+					<td>{{ $page->title }}</td>
+					<td>{{ $page->slug }}</td>
+				</tr>
+				@endforeach		
+			</tbody>
+		</table>
+	</section>
 </main>
 
 @endsection
