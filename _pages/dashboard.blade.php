@@ -22,8 +22,8 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Path</th>
+					<th>Title</th>
+					<th>Source File</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,7 +38,7 @@
                         {{ \Hyde\Framework\Models\BladePage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\BladePage::$fileExtension }}
                     </td>
 				</tr>
-				@endforeach		
+				@endforeach
 			</tbody>
 		</table>
 	</section>
@@ -48,8 +48,8 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Path</th>
+					<th>Title</th>
+					<th>Source File</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,7 +64,7 @@
                         {{ \Hyde\Framework\Models\MarkdownPage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\MarkdownPage::$fileExtension }}
                     </td>
 				</tr>
-				@endforeach		
+				@endforeach
 			</tbody>
 		</table>
 	</section>
@@ -74,8 +74,8 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Path</th>
+					<th>Title</th>
+					<th>Source File</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -90,7 +90,7 @@
                         {{ \Hyde\Framework\Models\DocumentationPage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\DocumentationPage::$fileExtension }}
                     </td>
 				</tr>
-				@endforeach		
+				@endforeach
 			</tbody>
 		</table>
 	</section>
@@ -100,8 +100,8 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Path</th>
+					<th>Title</th>
+					<th>Source File</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -116,10 +116,9 @@
                         {{ \Hyde\Framework\Models\MarkdownPost::$sourceDirectory .'/'. $post->slug . \Hyde\Framework\Models\MarkdownPost::$fileExtension }}
                     </td>
 				</tr>
-				@endforeach		
+				@endforeach
 			</tbody>
 		</table>
 	</section>
 </main>
-
 @endsection
