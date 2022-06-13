@@ -176,7 +176,7 @@ author: mr_hyde # Username defined in `authors` config
 author: # Array of author data
   name: "Mr. Hyde" 
   username: mr_hyde 
-  website: https://twitter.com/hyde_php
+  website: https://twitter.com/HydeFramework
 ```
 
 When specifying an array you don't need all the sub-properties.
