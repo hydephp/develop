@@ -29,7 +29,11 @@
 			<tbody>
 				@foreach (\Hyde\Framework\Models\BladePage::all() as $page)
 				<tr>
-					<td>{{ $page->view }}</td>
+                    <td>
+						<a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+                            {{ Hyde::titleFromSlug($page->view) }}
+						</a>
+					</td>
 					<td>{{ $page->slug }}</td>
 				</tr>
 				@endforeach		
@@ -49,7 +53,11 @@
 			<tbody>
 				@foreach (\Hyde\Framework\Models\MarkdownPage::all() as $page)
 				<tr>
-					<td>{{ $page->title }}</td>
+                    <td>
+						<a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+							{{ $page->title }}
+						</a>
+					</td>
 					<td>{{ $page->slug }}</td>
 				</tr>
 				@endforeach		
@@ -69,7 +77,11 @@
 			<tbody>
 				@foreach (\Hyde\Framework\Models\DocumentationPage::all() as $page)
 				<tr>
-					<td>{{ $page->title }}</td>
+					<td>
+						<a href="{{ Hyde::docsDirectory() .'/'. Hyde::pageLink($page->slug . '.html') }}">
+							{{ $page->title }}
+						</a>
+					</td>
 					<td>{{ $page->slug }}</td>
 				</tr>
 				@endforeach		
@@ -89,7 +101,11 @@
 			<tbody>
 				@foreach (\Hyde\Framework\Models\MarkdownPost::all() as $post)
 				<tr>
-					<td>{{ $post->title }}</td>
+					<td>
+						<a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}">
+							{{ $post->title }}
+						</a>
+					</td>
 					<td>{{ $post->slug }}</td>
 				</tr>
 				@endforeach		
