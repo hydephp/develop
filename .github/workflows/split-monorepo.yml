@@ -49,7 +49,6 @@ jobs:
     - uses: actions/checkout@v3
       with:
           ref: 'readonly-hyde-mirror'
-          fetch-depth: 0 
 
     - name: Empty working directory
       run: rm -rf *
@@ -73,8 +72,8 @@ jobs:
       run: wget https://raw.githubusercontent.com/hydephp/develop/${{ github.sha }}/build/monorepo/persist/hyde/README.md -O README.md
 
     - name: Download composer fix script
-      run: wget https://gist.githubusercontent.com/caendesilva/8528ef3ab2f5d116c2b58af9ff1c211b/raw/4f0621974191fc2a2719dab56571ebc1bf645fcf/fixcomposer.json.php -O fixcomposer.php
-    - name: Update composer.json # Removes packages entry and replaces dev-master with latest (possibly unstable) tag
+      run: wget https://gist.githubusercontent.com/caendesilva/8528ef3ab2f5d116c2b58af9ff1c211b/raw/01fcae28cdec1d26b0494331175b301a4e5b2852/fixcomposer.json.php -O fixcomposer.php
+    - name: Remove packages from composer.json
       run: php fixcomposer.php
     - name: Delete script
       run: rm fixcomposer.php
