@@ -1,3 +1,10 @@
+@php
+    use Hyde\Framework\Models\BladePage;
+    use Hyde\Framework\Models\MarkdownPage;
+    use Hyde\Framework\Models\DocumentationPage;
+    use Hyde\Framework\Models\MarkdownPost;
+@endphp
+
 @extends('hyde::layouts.app')
 @section('content')
 @php($title = "Dashboard")
@@ -17,7 +24,6 @@
 		</p>
 	</header>
 
-	
     <section class="prose dark:prose-invert mx-auto mt-8">
         <header>
             <h2>Project Details</h2>
@@ -117,7 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (\Hyde\Framework\Models\BladePage::all() as $page)
+                    @foreach (BladePage::all() as $page)
                     <tr>
                         <td>
                             <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
@@ -125,7 +131,7 @@
                             </a>
                         </td>
                         <td>
-                            {{ \Hyde\Framework\Models\BladePage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\BladePage::$fileExtension }}
+                            {{ BladePage::$sourceDirectory .'/'. $page->slug . BladePage::$fileExtension }}
                         </td>
                     </tr>
                     @endforeach
@@ -143,7 +149,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (\Hyde\Framework\Models\MarkdownPage::all() as $page)
+                    @foreach (MarkdownPage::all() as $page)
                     <tr>
                         <td>
                             <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
@@ -151,14 +157,14 @@
                             </a>
                         </td>
                         <td>
-                            {{ \Hyde\Framework\Models\MarkdownPage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\MarkdownPage::$fileExtension }}
+                            {{ MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension }}
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </section>
-    
+
         <section class="mt-8">
             <h3>Documentation Pages</h3>
             <table>
@@ -169,7 +175,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (\Hyde\Framework\Models\DocumentationPage::all() as $page)
+                    @foreach (DocumentationPage::all() as $page)
                     <tr>
                         <td>
                             <a href="{{ Hyde::docsDirectory() .'/'. Hyde::pageLink($page->slug . '.html') }}">
@@ -177,14 +183,14 @@
                             </a>
                         </td>
                         <td>
-                            {{ \Hyde\Framework\Models\DocumentationPage::$sourceDirectory .'/'. $page->slug . \Hyde\Framework\Models\DocumentationPage::$fileExtension }}
+                            {{ DocumentationPage::$sourceDirectory .'/'. $page->slug . DocumentationPage::$fileExtension }}
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </section>
-    
+
         <section class="mt-8">
             <h3>Blog Posts</h3>
             <table>
@@ -195,7 +201,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (\Hyde\Framework\Models\MarkdownPost::all() as $post)
+                    @foreach (MarkdownPost::all() as $post)
                     <tr>
                         <td>
                             <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}">
@@ -203,7 +209,7 @@
                             </a>
                         </td>
                         <td>
-                            {{ \Hyde\Framework\Models\MarkdownPost::$sourceDirectory .'/'. $post->slug . \Hyde\Framework\Models\MarkdownPost::$fileExtension }}
+                            {{ MarkdownPost::$sourceDirectory .'/'. $post->slug . MarkdownPost::$fileExtension }}
                         </td>
                     </tr>
                     @endforeach
