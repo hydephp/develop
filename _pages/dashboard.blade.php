@@ -16,6 +16,26 @@
 			for production.
 		</p>
 	</header>
+
+	<section class="prose dark:prose-invert mx-auto mt-8">
+		<h2>Blade Pages</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Path</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (\Hyde\Framework\Models\BladePage::all() as $page)
+				<tr>
+					<td>{{ $page->view }}</td>
+					<td>{{ $page->slug }}</td>
+				</tr>
+				@endforeach		
+			</tbody>
+		</table>
+	</section>
 </main>
 
 @endsection
