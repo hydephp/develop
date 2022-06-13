@@ -22,7 +22,7 @@
             <h2>Content Overview</h2>
         </header>
 
-        <section class="prose dark:prose-invert mx-auto mt-8">
+        <section class="mt-8">
             <h3>Blade Pages</h3>
             <table>
                 <thead>
@@ -48,7 +48,7 @@
             </table>
         </section>
     
-        <section class="prose dark:prose-invert mx-auto mt-8">
+        <section class="mt-8">
             <h3>Markdown Pages</h3>
             <table>
                 <thead>
@@ -74,7 +74,7 @@
             </table>
         </section>
     
-        <section class="prose dark:prose-invert mx-auto mt-8">
+        <section class="mt-8">
             <h3>Documentation Pages</h3>
             <table>
                 <thead>
@@ -100,7 +100,7 @@
             </table>
         </section>
     
-        <section class="prose dark:prose-invert mx-auto mt-8">
+        <section class="mt-8">
             <h3>Blog Posts</h3>
             <table>
                 <thead>
