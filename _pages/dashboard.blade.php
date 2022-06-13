@@ -226,10 +226,12 @@
                     <tr>
                         <th>Title</th>
                         <th>Source File</th>
+                        <th>Author</th>
+                        <th>Date</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach (MarkdownPost::all() as $post)
+                    @foreach (MarkdownPost::getLatestPosts() as $post)
                         <tr>
                             <td>
                                 <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}">
@@ -238,6 +240,12 @@
                             </td>
                             <td>
                                 {!! $github->link(MarkdownPost::$sourceDirectory .'/'. $post->slug . MarkdownPost::$fileExtension) !!}
+                            </td>
+                            <td>
+                                {{ $post->author->getName() }}
+                            </td>
+                            <td>
+                                {{ $post->date->short }}
                             </td>
                         </tr>
                     @endforeach
