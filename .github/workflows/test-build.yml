@@ -243,7 +243,7 @@ jobs:
   upload-coverage-report:
     environment:
       name: live-coverage-report
-      url: https://caendesilva.github.io/hyde-monorepo/master/coverage/
+      url: https://hydephp.com/develop/master/coverage/
     
     runs-on: ubuntu-latest
     needs: 
@@ -274,7 +274,7 @@ jobs:
   upload-api-documentation:
     environment:
       name: internal-api-docs
-      url: https://caendesilva.github.io/hyde-monorepo/master/api-docs/
+      url: https://hydephp.com/develop/master/api-docs/
     
     runs-on: ubuntu-latest
     needs: 
@@ -305,7 +305,7 @@ jobs:
   upload-preview-site:
     environment:
       name: live-preview-site
-      url: https://caendesilva.github.io/hyde-monorepo/master/preview
+      url: https://hydephp.com/develop/master/preview
         
     runs-on: ubuntu-latest
     needs: 
