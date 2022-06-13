@@ -44,7 +44,7 @@
                 </tbody>
             </table>
 
-            <h3>GitHub Dashboard Integration</h3>
+            <h3>GitHub Integration</h3>
             <table>
                 <thead>
                     <tr>
