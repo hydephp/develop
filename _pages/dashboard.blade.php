@@ -35,60 +35,60 @@
 
 @extends('hyde::layouts.app')
 @section('content')
-@php($title = "Dashboard")
+    @php($title = "Dashboard")
 
-<main class="mx-auto max-w-7xl py-16 px-8">
-	<header class="text-center prose dark:prose-invert mx-auto">
-		<h1 class="text-3xl font-bold">Project Dashboard</h1>
-		<p>
-			<strong>
-				Here you can get a quick overview of your project.
-			</strong>
-		</p>
-		<p>
-			While this is useful when developing locally,
-			you may not want to use it when compiling
-			for production.
-		</p>
-	</header>
-
-    <section class="prose dark:prose-invert mx-auto mt-8">
-        <header>
-            <h2>Project Details</h2>
+    <main class="mx-auto max-w-7xl py-16 px-8">
+        <header class="text-center prose dark:prose-invert mx-auto">
+            <h1 class="text-3xl font-bold">Project Dashboard</h1>
+            <p>
+                <strong>
+                    Here you can get a quick overview of your project.
+                </strong>
+            </p>
+            <p>
+                While this is useful when developing locally,
+                you may not want to use it when compiling
+                for production.
+            </p>
         </header>
 
-        <section class="mt-8">
-            <h3>Installation Details</h3>
-            <table>
-                <thead>
-                    <tr>
-						<th>Project Name</th>
-						<th>Project Path</th>
-						<th>Framework Version</th>
-						<th>PHP Version</th>
-                    </tr>
-                </thead>
-                <tbody>
-					<tr>
-						<td>{{ config('hyde.name', Hyde::titleFromSlug(basename(Hyde::path()))) }}</td>
-						<td>{{ Hyde::path() }}</td>
-						<td>{{ Hyde::version() }}</td>
-						<td>{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>
-					</tr>
-                </tbody>
-            </table>
+        <section class="prose dark:prose-invert mx-auto mt-8">
+            <header>
+                <h2>Project Details</h2>
+            </header>
 
-            <h3>GitHub Integration</h3>
-            <table>
-                <thead>
+            <section class="mt-8">
+                <h3>Installation Details</h3>
+                <table>
+                    <thead>
                     <tr>
-						<th>Username</th>
-						<th>Repository</th>
-						<th>Branch</th>
+                        <th>Project Name</th>
+                        <th>Project Path</th>
+                        <th>Framework Version</th>
+                        <th>PHP Version</th>
                     </tr>
-                </thead>
-                <tbody>
-					<tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ config('hyde.name', Hyde::titleFromSlug(basename(Hyde::path()))) }}</td>
+                        <td>{{ Hyde::path() }}</td>
+                        <td>{{ Hyde::version() }}</td>
+                        <td>{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h3>GitHub Integration</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Repository</th>
+                        <th>Branch</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
                         @if (config('hyde.github_dashboard.enabled', false))
                             <td>
                                 <a href="https://github.com/{{ config('hyde.github_dashboard.username', '<not-set>') }}">
@@ -130,120 +130,120 @@
                                 </details>
                             </td>
                         @endif
-					</tr>
-                </tbody>
-            </table>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
         </section>
-	</section>
 
-    <section class="prose dark:prose-invert mx-auto mt-8">
-        <header>
-            <h2>Content Overview</h2>
-        </header>
+        <section class="prose dark:prose-invert mx-auto mt-8">
+            <header>
+                <h2>Content Overview</h2>
+            </header>
 
-        <section class="mt-8">
-            <h3>Blade Pages</h3>
-            <table>
-                <thead>
+            <section class="mt-8">
+                <h3>Blade Pages</h3>
+                <table>
+                    <thead>
                     <tr>
                         <th>Title</th>
                         <th>Source File</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach (BladePage::all() as $page)
-                    <tr>
-                        <td>
-                            <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
-                                {{ Hyde::titleFromSlug($page->view) }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ BladePage::$sourceDirectory .'/'. $page->slug . BladePage::$fileExtension }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+                                    {{ Hyde::titleFromSlug($page->view) }}
+                                </a>
+                            </td>
+                            <td>
+								{{ BladePage::$sourceDirectory .'/'. $page->slug . BladePage::$fileExtension }}
+                            </td>
+                        </tr>
                     @endforeach
-                </tbody>
-            </table>
-        </section>
+                    </tbody>
+                </table>
+            </section>
 
-        <section class="mt-8">
-            <h3>Markdown Pages</h3>
-            <table>
-                <thead>
+            <section class="mt-8">
+                <h3>Markdown Pages</h3>
+                <table>
+                    <thead>
                     <tr>
                         <th>Title</th>
                         <th>Source File</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach (MarkdownPage::all() as $page)
-                    <tr>
-                        <td>
-                            <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
-                                {{ $page->title }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+                                    {{ $page->title }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension }}
+                            </td>
+                        </tr>
                     @endforeach
-                </tbody>
-            </table>
-        </section>
+                    </tbody>
+                </table>
+            </section>
 
-        <section class="mt-8">
-            <h3>Documentation Pages</h3>
-            <table>
-                <thead>
+            <section class="mt-8">
+                <h3>Documentation Pages</h3>
+                <table>
+                    <thead>
                     <tr>
                         <th>Title</th>
                         <th>Source File</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach (DocumentationPage::all() as $page)
-                    <tr>
-                        <td>
-                            <a href="{{ Hyde::docsDirectory() .'/'. Hyde::pageLink($page->slug . '.html') }}">
-                                {{ $page->title }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ DocumentationPage::$sourceDirectory .'/'. $page->slug . DocumentationPage::$fileExtension }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ Hyde::docsDirectory() .'/'. Hyde::pageLink($page->slug . '.html') }}">
+                                    {{ $page->title }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ DocumentationPage::$sourceDirectory .'/'. $page->slug . DocumentationPage::$fileExtension }}
+                            </td>
+                        </tr>
                     @endforeach
-                </tbody>
-            </table>
-        </section>
+                    </tbody>
+                </table>
+            </section>
 
-        <section class="mt-8">
-            <h3>Blog Posts</h3>
-            <table>
-                <thead>
+            <section class="mt-8">
+                <h3>Blog Posts</h3>
+                <table>
+                    <thead>
                     <tr>
                         <th>Title</th>
                         <th>Source File</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach (MarkdownPost::all() as $post)
-                    <tr>
-                        <td>
-                            <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}">
-                                {{ $post->title }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ MarkdownPost::$sourceDirectory .'/'. $post->slug . MarkdownPost::$fileExtension }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}">
+                                    {{ $post->title }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ MarkdownPost::$sourceDirectory .'/'. $post->slug . MarkdownPost::$fileExtension }}
+                            </td>
+                        </tr>
                     @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </section>
         </section>
-    </section>
-</main>
+    </main>
 @endsection
