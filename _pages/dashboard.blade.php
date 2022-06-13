@@ -3,6 +3,7 @@
     use Hyde\Framework\Models\MarkdownPage;
     use Hyde\Framework\Models\DocumentationPage;
     use Hyde\Framework\Models\MarkdownPost;
+    use Hyde\Framework\Services\CollectionService;
 
 	$github = new class {
 		public bool $enabled;
@@ -144,8 +145,44 @@
 
         <section class="prose dark:prose-invert mx-auto mt-8">
             <header>
-                <h2>Content Overview</h2>
+                <h2>Your Content</h2>
             </header>
+        
+            <h3>Content Overview</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Blade Pages</th>
+                    <th>Markdown Pages</th>
+                    <th>Documentation Pages</th>
+                    <th>Blog Posts</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <a href="#blade-pages">
+                            <b>{{ count(CollectionService::getBladePageList()) }}</b> pages
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#markdown-pages">
+                            <b>{{ count(CollectionService::getMarkdownPageList()) }}</b> pages
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#documentation-pages">
+                            <b>{{ count(CollectionService::getDocumentationPageList()) }}</b> pages
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#blog-posts">
+                            <b>{{ count(CollectionService::getMarkdownPostList()) }}</b> posts
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
             <section class="mt-8">
                 <h3 id="blade-pages">Blade Pages</h3>
