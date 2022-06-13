@@ -14,7 +14,7 @@ should be reverted to not use the dev-master branch.
 hyde/hyde and hyde/framework as they are tightly coupled.
 
 Update: (my notes)
-Okay here is where I am at. At this point I don't want to spend a ton of time crafting intricate CI workflows when I don't yet know if the whole monorepo thing is gonna pan out. So my idea is as follows, I'll try using this repo as the source of truth, but as I want the packages to have a git history that makes sense, I will primarly make the "real" commits within them. This version control in this repo will then more function to track and sync states. But actual releases might be handled in the subpackages as I'm not sure how easily I can sync tags and create releases (without adding a ton of complexity at least). However this causes me to still need to make commits in both the subrepositor and main one which is not ideal.
+Okay here is where I am at. At this point I don't want to spend a ton of time crafting intricate CI workflows when I don't yet know if the whole monorepo thing is gonna pan out. So my idea is as follows, I'll try using this repo as the source of truth, but as I want the packages to have a git history that makes sense, I will primarly make the "real" commits within them. This version control in this repo will then more function to track and sync states. But actual releases might be handled in the subpackages as I'm not sure how easily I can sync tags and create releases (without adding a ton of complexity at least). However this causes me to still need to make commits in both the subrepositor and main one which is not ideal. I would want to create the commits in the monorepo and then have all those propagated without generic messages like "monorepo commit" 
 
 ## Warning
 
