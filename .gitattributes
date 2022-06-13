@@ -16,6 +16,7 @@ CHANGELOG.md export-ignore
 /.github export-ignore
 /tests export-ignore
 /packages export-ignore
+/projects export-ignore
 
 package-lock.json export-ignore
 composer.lock export-ignore
