@@ -159,7 +159,7 @@
                                 </a>
                             </td>
                             <td>
-								{{ BladePage::$sourceDirectory .'/'. $page->slug . BladePage::$fileExtension }}
+                                {!! $github->link(BladePage::$sourceDirectory .'/'. $page->slug . BladePage::$fileExtension) !!}
                             </td>
                         </tr>
                     @endforeach
@@ -185,7 +185,7 @@
                                 </a>
                             </td>
                             <td>
-                                {{ MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension }}
+                                {!! $github->link(MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension) !!}
                             </td>
                         </tr>
                     @endforeach
@@ -211,7 +211,7 @@
                                 </a>
                             </td>
                             <td>
-                                {{ DocumentationPage::$sourceDirectory .'/'. $page->slug . DocumentationPage::$fileExtension }}
+                                {!! $github->link(DocumentationPage::$sourceDirectory .'/'. $page->slug . DocumentationPage::$fileExtension) !!}
                             </td>
                         </tr>
                     @endforeach
@@ -237,7 +237,7 @@
                                 </a>
                             </td>
                             <td>
-                                {{ MarkdownPost::$sourceDirectory .'/'. $post->slug . MarkdownPost::$fileExtension }}
+                                {!! $github->link(MarkdownPost::$sourceDirectory .'/'. $post->slug . MarkdownPost::$fileExtension) !!}
                             </td>
                         </tr>
                     @endforeach
