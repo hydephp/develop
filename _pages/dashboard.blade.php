@@ -148,7 +148,7 @@
             </header>
 
             <section class="mt-8">
-                <h3>Blade Pages</h3>
+                <h3 id="blade-pages">Blade Pages</h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
@@ -174,7 +174,7 @@
             </section>
 
             <section class="mt-8">
-                <h3>Markdown Pages</h3>
+                <h3 id="markdown-pages">Markdown Pages</h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
@@ -200,7 +200,7 @@
             </section>
 
             <section class="mt-8">
-                <h3>Documentation Pages</h3>
+                <h3 id="documentation-pages">Documentation Pages</h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
@@ -226,7 +226,7 @@
             </section>
 
             <section class="mt-8">
-                <h3>Blog Posts</h3>
+                <h3 id="blog-posts">Blog Posts</h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
