@@ -185,7 +185,10 @@
             </table>
 
             <section class="mt-8">
-                <h3 id="blade-pages">Blade Pages</h3>
+                <h3 id="blade-pages">
+                    Blade Pages
+                    <a href="#blade-pages" title="Heading link">#</a>
+                </h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
@@ -211,7 +214,10 @@
             </section>
 
             <section class="mt-8">
-                <h3 id="markdown-pages">Markdown Pages</h3>
+                <h3 id="markdown-pages">
+                    Markdown Pages
+                    <a href="#markdown-pages" title="Heading link">#</a>
+                </h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
@@ -237,7 +243,10 @@
             </section>
 
             <section class="mt-8">
-                <h3 id="documentation-pages">Documentation Pages</h3>
+                <h3 id="documentation-pages">
+                    Documentation Pages
+                    <a href="#documentation-pages" title="Heading link">#</a>
+                </h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
@@ -263,7 +272,10 @@
             </section>
 
             <section class="mt-8">
-                <h3 id="blog-posts">Blog Posts</h3>
+                <h3 id="blog-posts">
+                    Blog Posts
+                    <a href="#blog-posts" title="Heading link">#</a>
+                </h3>
                 <table class="dashboard-table">
                     <thead>
                     <tr>
