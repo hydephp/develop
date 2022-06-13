@@ -37,6 +37,12 @@
 @section('content')
     @php($title = "Dashboard")
 
+    <style>
+        .dashboard-table td, .dashboard-table th {
+            width: 50%;
+        }
+    </style>
+    
     <main class="mx-auto max-w-7xl py-16 px-8">
         <header class="text-center prose dark:prose-invert mx-auto">
             <h1 class="text-3xl font-bold">Project Dashboard</h1>
@@ -143,7 +149,7 @@
 
             <section class="mt-8">
                 <h3>Blade Pages</h3>
-                <table>
+                <table class="dashboard-table">
                     <thead>
                     <tr>
                         <th>Title</th>
@@ -169,7 +175,7 @@
 
             <section class="mt-8">
                 <h3>Markdown Pages</h3>
-                <table>
+                <table class="dashboard-table">
                     <thead>
                     <tr>
                         <th>Title</th>
@@ -195,7 +201,7 @@
 
             <section class="mt-8">
                 <h3>Documentation Pages</h3>
-                <table>
+                <table class="dashboard-table">
                     <thead>
                     <tr>
                         <th>Title</th>
@@ -221,7 +227,7 @@
 
             <section class="mt-8">
                 <h3>Blog Posts</h3>
-                <table>
+                <table class="dashboard-table">
                     <thead>
                     <tr>
                         <th>Title</th>
