@@ -20,10 +20,11 @@
 	
     <section class="prose dark:prose-invert mx-auto mt-8">
         <header>
-            <h2>Installation Details</h2>
+            <h2>Project Details</h2>
         </header>
 
         <section class="mt-8">
+            <h3>Installation Details</h3>
             <table>
                 <thead>
                     <tr>
@@ -39,6 +40,62 @@
 						<td>{{ Hyde::path() }}</td>
 						<td>{{ Hyde::version() }}</td>
 						<td>{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>
+					</tr>
+                </tbody>
+            </table>
+
+            <h3>GitHub Dashboard Integration</h3>
+            <table>
+                <thead>
+                    <tr>
+						<th>Username</th>
+						<th>Repository</th>
+						<th>Branch</th>
+                    </tr>
+                </thead>
+                <tbody>
+					<tr>
+                        @if (config('hyde.github_dashboard.enabled', false))
+                            <td>
+                                <a href="https://github.com/{{ config('hyde.github_dashboard.username', '<not-set>') }}">
+                                    {{ config('hyde.github_dashboard.username', '<not-set>') }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/{{ config('hyde.github_dashboard.username', '<not-set>') }}/{{ config('hyde.github_dashboard.repository', '<not-set>') }}">
+                                    {{ config('hyde.github_dashboard.repository', '<not-set>') }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/{{ config('hyde.github_dashboard.username', '<not-set>') }}/{{ config('hyde.github_dashboard.repository', '<not-set>') }}/tree/{{ config('hyde.github_dashboard.branch', '<not-set>') }}">
+                                    {{ config('hyde.github_dashboard.branch', '<not-set>') }}
+                                </a>
+                            </td>
+                        @else
+                            <td colspan="4">
+                                <p class="text-center mb-0">
+                                    <strong>
+                                        GitHub Dashboard Integrations is not enabled.
+                                    </strong>
+                                </p>
+                                <details class="text-center">
+                                    <summary class="cursor-pointer">
+                                        Show configuration guide.
+                                    </summary>
+                                    <p>
+                                        The GitHub integration allows you to easily
+                                        open dashboard files in your GitHub repository.
+                                        <br>
+                                        To enable it, you need to let Hyde know where
+                                        your GitHub repository is located.<br>
+                                        The repository is assumed to be a top level installation of Hyde/Hyde.
+                                        <br>
+                                        Add the following to your <code>config/hyde.php</code> file:
+                                    </p>
+                                    <pre class="text-left w-fit py-0 px-4 mx-auto"><code class="my-0"><div style="color: rgb(191, 199, 213); font-family: &quot;Fira Code Regular&quot;, Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 18px;"><div style="line-height: 18px;"><div><span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">github_dashboard</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> [</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">enabled</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #82aaff;">true</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">username</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">octocat</span><span style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">repository</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">homepage</span><span style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">branch</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">main</span><span style="color: #d9f5dd;">'</span>,</div><div>]</div></div></div></code></pre>
+                                </details>
+                            </td>
+                        @endif
 					</tr>
                 </tbody>
             </table>
