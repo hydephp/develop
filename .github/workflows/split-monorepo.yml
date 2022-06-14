@@ -42,7 +42,9 @@ jobs:
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
-
+      with:
+        message: ${{ github.event.head_commit.message }}
+        
   propagate-hyde:
     runs-on: ubuntu-latest
     steps:
@@ -85,3 +87,5 @@ jobs:
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9
+      with:
+        message: ${{ github.event.head_commit.message }}
