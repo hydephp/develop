@@ -10,6 +10,7 @@ on:
 
 jobs:
   
+  # Package the Framework files
   package-framework:
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +34,7 @@ jobs:
         name: "realtime-compiler"
         path: "packages/realtime-compiler"
 
-
+  # Add the files to the readonly branch
   propagate-framework:
     needs: package-framework
     runs-on: ubuntu-latest
@@ -127,3 +128,21 @@ jobs:
       uses: EndBug/add-and-commit@v9 
       with:
         message: ${{ github.event.head_commit.message }}
+
+
+  # Push changes in the readonly branch to the upstream develop branch
+  push-framework:
+    needs: propagate-framework
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: 'readonly-framework-mirror'
+        fetch-depth: 0
+        persist-credentials: false 
+
+    - name: Push changes to hydephp/framework
+      run: |
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
+        git fetch upstream
+        git push upstream readonly-framework-mirror:develop
