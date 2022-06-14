@@ -15,7 +15,7 @@ See the [Security Policy](https://github.com/hydephp/realtime-compiler/security/
 
 | Version | Supported          | Notes    |
 |---------|--------------------|----------|
-| 2.0.x   | :white_check_mark::test_tube:        | Latest |
+| 2.0.x   | :white_check_mark: | Latest   |
 | 1.0.x   | :white_check_mark: | (LTS)    |
 | < 1.0   | :x:                | Alpha    |
 
