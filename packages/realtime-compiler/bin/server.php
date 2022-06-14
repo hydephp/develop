@@ -4,7 +4,7 @@ try {
     define('BASE_PATH', realpath(getcwd()));
     define('HYDE_START', microtime(true));
 
-    require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
+    require_once BASE_PATH.'/vendor/autoload.php';
 
     try {
         $app = \Desilva\Microserve\Microserve::boot(\Hyde\RealtimeCompiler\Http\HttpKernel::class);
@@ -14,6 +14,7 @@ try {
         \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception);
         exit($exception->getCode());
     }
+    
 } catch (\Throwable $th) {
     // Auxiliary exception handler
     echo '<h1>Something went really wrong!</h1>';
