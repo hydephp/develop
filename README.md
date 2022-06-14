@@ -14,14 +14,10 @@ should be reverted to not use the dev-master branch.
 *Some packages, like HydeFront may not need to have their tags synced. Thinking it is mainly for
 hyde/hyde and hyde/framework as they are tightly coupled.
 
-Update: (my notes)
-Okay here is where I am at. At this point I don't want to spend a ton of time crafting intricate CI workflows when I don't yet know if the whole monorepo thing is gonna pan out. So my idea is as follows, I'll try using this repo as the source of truth, but as I want the packages to have a git history that makes sense, I will primarly make the "real" commits within them. This version control in this repo will then more function to track and sync states. But actual releases might be handled in the subpackages as I'm not sure how easily I can sync tags and create releases (without adding a ton of complexity at least). However this causes me to still need to make commits in both the subrepositor and main one which is not ideal. I would want to create the commits in the monorepo and then have all those propagated without generic messages like "monorepo commit". This could be remedied by using pull requests to perform merges, and listing all the commits in containing changes for the subrepo. (this worked nice `git log  --since="5 days ago" -- .\packages\framework\ > log`, see https://github.com/hydephp/framework/pull/534)
-
-Update 2: Okay so how it works now, changes pushed to master will be propagated to readonly branche mirrors, with the commit messages. I can then manually create pull requests in the actual package repositories. The latter part of which I can automate.
-
 ## Warning
 
-This monorepo project is **highly experimental** and **unstable**! 
+This monorepo project is **highly experimental** and **unstable**!
+Changes pushed to the actual package repositories are only made when stable.
 
 ## Projects in this monorepo
 
