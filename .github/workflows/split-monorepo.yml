@@ -22,6 +22,18 @@ jobs:
         path: "packages/framework"
 
 
+  package-realtime-compiler:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Package Hyde/RealtimeCompiler artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: "realtime-compiler"
+        path: "packages/realtime-compiler"
+
+
   propagate-framework:
     needs: package-framework
     runs-on: ubuntu-latest
@@ -88,5 +100,30 @@ jobs:
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9
+      with:
+        message: ${{ github.event.head_commit.message }}
+
+
+  propagate-realtime-compiler:
+    needs: package-realtime-compiler
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          ref: 'readonly-rc-mirror'
+
+    - name: Empty working directory
+      run: rm -rf *
+
+    - name: Download Hyde/RealtimeCompiler artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: realtime-compiler
+        path: '.'
+
+    # Apply transformations if needed
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9 
       with:
         message: ${{ github.event.head_commit.message }}
