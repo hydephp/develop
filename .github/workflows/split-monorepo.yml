@@ -1,5 +1,6 @@
 # Split the monorepo into readonly branches
-# TODO: Some way to preserve commit messages? I'd love to get some help here.
+# TODO: Some way to preserve commit messages? I'd love to get some help here. 
+#       ✔ Done, though it only gets the latest commit. It would be great to have something that handles all commit messages. Or at least says "<commit msg> (and X more [commits])
 
 name: Split monorepo
 
