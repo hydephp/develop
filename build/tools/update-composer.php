@@ -14,10 +14,6 @@
 // 2. Download the script to the root
 // 3. Run the script, then delete it
 
-// Checking the integrity of the script
-// a) Generate the checksum file with shasum update-composer.php > checksums.txt
-// b) Check that the checksums match with shasum -c checksums.txt
-
 // Configuration settings
 const frameworkVersion = '^0.35';
 const rcVersion = '^2.1';
