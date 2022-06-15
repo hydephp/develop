@@ -1,1 +1,1 @@
-25f06588b0e513532b446e7a305f0e7b91601abf  update-composer.php
+af94307e808f7a1a15be788ede0245d76c589bdf  update-composer.php
