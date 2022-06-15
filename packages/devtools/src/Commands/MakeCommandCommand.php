@@ -11,7 +11,7 @@ class MakeCommandCommand extends ConsoleMakeCommand
 
     protected function getStub()
     {
-        return __DIR__. '/stubs/console.stub';
+        return __DIR__.'/stubs/console.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
@@ -21,6 +21,6 @@ class MakeCommandCommand extends ConsoleMakeCommand
 
     protected function getPath($name)
     {
-        return Hyde::vendorPath('src/Commands/Hyde'. ucfirst(basename($name)).'Command.php');
+        return Hyde::vendorPath('src/Commands/Hyde'.ucfirst(basename($name)).'Command.php');
     }
 }

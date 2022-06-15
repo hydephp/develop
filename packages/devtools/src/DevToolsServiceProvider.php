@@ -40,10 +40,10 @@ class DevToolsServiceProvider extends ServiceProvider
             ], 'lang');*/
 
             // Registering package commands.
-             $this->commands([
+            $this->commands([
                 Commands\InfoCommand::class,
                 Commands\MakeCommandCommand::class,
-             ]);
+            ]);
         }
     }
 
