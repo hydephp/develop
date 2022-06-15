@@ -46,5 +46,8 @@ class HydeValidateCommand extends Command
     protected function failed(ValidationCheck $validation): void
     {
         $this->error($validation->message());
+        if ($validation->tip()) {
+            $this->comment($validation->tip());
+        }
     }
 }
