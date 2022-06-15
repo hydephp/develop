@@ -17,8 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^9.0",
-        "illuminate/console": "^9.0"
+        "laravel-zero/framework": "^9.1"
     },
     "autoload": {
         "psr-4": {
