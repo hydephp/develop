@@ -24,14 +24,14 @@ class HydeValidateCommand extends Command
         return 0;
     }
 
-    protected function check(ValidationCheck $check): void
+    protected function check(ValidationCheck $validation): void
     {
-        $check->run();
+        $validation->check();
 
-        if ($check->passed()) {
-            $this->info($check->message());
+        if ($validation->passed()) {
+            $this->info($validation->message());
         } else {
-            $this->error($check->message());
+            $this->error($validation->message());
         }
     }
 }

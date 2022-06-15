@@ -22,6 +22,9 @@ class ValidationCheck
      */
     protected \Closure $check;
 
+    /**
+     * @var bool Whether the test passed.
+     */
     public bool $passed;
 
     public function __construct(string $test, \Closure $check, ?string $message)
@@ -29,6 +32,11 @@ class ValidationCheck
         $this->test = $test;
         $this->check = $check;
         $this->message = $message;
+    }
+
+    protected function run(): bool
+    {
+        return ($this->check)();
     }
 
     public function passed(): bool
@@ -41,15 +49,16 @@ class ValidationCheck
         return $this->message;
     }
 
-    public function run(): void
+    public function check(): bool
     {
-        if (($this->check)() === true) {
+        if ($this->run() === true) {
             $this->passed = true;
             $this->message = $this->test;
-            return;
+            return true;
         }
 
         $this->passed = false;
         $this->message = $this->message ?? 'Test failed: ' . $this->test;
+        return false;
     }
 }
