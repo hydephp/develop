@@ -33,9 +33,6 @@ jobs:
     - name: Install Composer Dependencies
       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-autoloader
 
-    - name: Discover packages
-      run: php hyde packages:discover
-
     - name: Set environment to testing
       run: echo "ENV=testing" > .env
     
