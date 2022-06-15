@@ -18,6 +18,8 @@ class HydeValidateCommand extends Command
     {
         $this->info('Running validation tests!');
 
+        $this->newLine();
+
         foreach (ValidationService::checks() as $check) {
             $this->check($check);
         }
@@ -36,6 +38,8 @@ class HydeValidateCommand extends Command
         } else {
             $this->failed($validation);
         }
+
+        $this->newline();
     }
 
     protected function passed(ValidationCheck $validation): void
