@@ -146,3 +146,19 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
         git fetch upstream
         git push upstream readonly-framework-mirror:develop
+
+  push-hyde:
+    needs: propagate-hyde
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: 'readonly-hyde-mirror'
+        fetch-depth: 0
+        persist-credentials: false 
+
+    - name: Push changes to hydephp/hyde
+      run: |
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
+        git fetch upstream
+        git push upstream readonly-hyde-mirror:develop
