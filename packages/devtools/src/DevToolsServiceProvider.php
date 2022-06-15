@@ -42,6 +42,7 @@ class DevToolsServiceProvider extends ServiceProvider
             // Registering package commands.
              $this->commands([
                 Commands\InfoCommand::class,
+                Commands\MakeCommandCommand::class,
              ]);
         }
     }
