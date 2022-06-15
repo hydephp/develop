@@ -17,6 +17,8 @@
 // Configuration settings
 const frameworkVersion = '^0.35';
 const rcVersion = '^2.1';
+$time_start = microtime(true);
+echo "Transforming composer.json\n";
 
 $json = json_decode(file_get_contents('composer.json'), true);
 
@@ -26,3 +28,5 @@ $json['require-dev']['hyde/realtime-compiler'] = rcVersion;
 unset($json['repositories']);
 
 file_put_contents('composer.json', json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+echo "Done. Finished in " . number_format((microtime(true) - $time_start) * 1000, 2) . "ms\n";
