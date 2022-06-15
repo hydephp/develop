@@ -32,19 +32,19 @@ class HydeValidateCommand extends Command
         $validation->check();
 
         if ($validation->passed()) {
-            $this->passed($validation->message());
+            $this->passed($validation);
         } else {
-            $this->failed($validation->message());
+            $this->failed($validation);
         }
     }
 
-    protected function passed(string $message): void
+    protected function passed(ValidationCheck $validation): void
     {
-        $this->info($message);
+        $this->info($validation->message());
     }
 
-    protected function failed(string $message): void
+    protected function failed(ValidationCheck $validation): void
     {
-        $this->error($message);
+        $this->error($validation->message());
     }
 }
