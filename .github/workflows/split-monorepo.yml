@@ -92,9 +92,9 @@ jobs:
     - name: Verify checksum matches
       run: echo 'af94307e808f7a1a15be788ede0245d76c589bdf  update-composer.php' | shasum -c
     - name: Update composer.json
-      run: php update-compose.php
+      run: php update-composer.php
     - name: Delete script
-      run: rm update-compose.php
+      run: rm update-composer.php
     - name: Remove composer.lock
       run: rm -f composer.lock
 
