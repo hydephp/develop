@@ -19,7 +19,7 @@ class RealtimeCompiler
     {
         $path = $request->get('path', '');
 
-        return redirect('http://localhost:8080/' . $path);
+        return redirect('http://localhost:8080/'.$path);
     }
 
     public function markdown(Request $request)
@@ -32,7 +32,7 @@ class RealtimeCompiler
 
         return view('markdown-preview', [
             'page' => basename($path),
-            'markdown' => Str::markdown(YamlFrontMatter::markdownCompatibleParse(file_get_contents($path))->body())
+            'markdown' => Str::markdown(YamlFrontMatter::markdownCompatibleParse(file_get_contents($path))->body()),
         ]);
     }
 }

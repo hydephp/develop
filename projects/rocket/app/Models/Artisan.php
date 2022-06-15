@@ -19,7 +19,7 @@ class Artisan
      */
     public function run(string $command): string
     {
-        return shell_exec('cd '.$this->path.' && php hyde ' . $command);
+        return shell_exec('cd '.$this->path.' && php hyde '.$command);
     }
 
     /**
@@ -27,6 +27,6 @@ class Artisan
      */
     public function passthru(string $command): void
     {
-        passthru('cd '.$this->path.' && php hyde ' . $command);
+        passthru('cd '.$this->path.' && php hyde '.$command);
     }
 }

@@ -7,9 +7,9 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\DocumentationSidebar;
 use Hyde\Framework\Models\DocumentationSidebarItem;
 use Hyde\Framework\Services\DocumentationSidebarService;
+use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\DocumentationSidebarService

@@ -29,7 +29,6 @@ $router->post('/_posts/{slug}', 'PostController@update');
 $router->get('/create-post', 'PostController@create');
 $router->post('/create-post', 'PostController@store');
 
-
 $router->post('/fileapi/open', 'FilesystemController@open');
 $router->get('/open/_site', 'RealtimeCompiler@render');
 $router->get('/render/markdown', 'RealtimeCompiler@markdown');

@@ -3,8 +3,8 @@
 namespace Hyde\Testing\Feature\Concerns;
 
 use Hyde\Framework\Concerns\GeneratesPageMetadata;
-use Illuminate\Support\Facades\Config;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Concerns\GeneratesPageMetadata

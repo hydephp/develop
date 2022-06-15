@@ -5,8 +5,8 @@ namespace Hyde\Testing\Feature;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Framework\StaticPageBuilder;
-use Illuminate\Support\Facades\File;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * Class BuildOutputDirectoryCanBeChangedTest.

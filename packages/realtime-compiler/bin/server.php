@@ -14,11 +14,10 @@ try {
         \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception);
         exit($exception->getCode());
     }
-    
 } catch (\Throwable $th) {
     // Auxiliary exception handler
     echo '<h1>Something went really wrong!</h1>';
     echo '<p>An error occurred that the core exception handler failed to process. Here\'s all we know:</p>';
-    echo '<h2>Initial exception:</h2><pre>' . print_r($exception, true).'</pre>';
-    echo '<h2>Auxiliary exception:</h2><pre>' . print_r($th, true).'</pre>';
+    echo '<h2>Initial exception:</h2><pre>'.print_r($exception, true).'</pre>';
+    echo '<h2>Auxiliary exception:</h2><pre>'.print_r($th, true).'</pre>';
 }
