@@ -55,6 +55,11 @@ class ValidationCheck
         return $this->message;
     }
 
+    public function tip(): ?string
+    {
+        return $this->tip;
+    }
+
     public function check(): bool
     {
         if ($this->run() === true) {
