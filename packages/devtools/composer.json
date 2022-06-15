@@ -19,6 +19,9 @@
         "php": "^8.0",
         "laravel-zero/framework": "^9.1"
     },
+    "require-dev": {
+        "hyde/framework": "^0.35-beta"
+    },
     "autoload": {
         "psr-4": {
             "Hyde\\DevTools\\": "src"
