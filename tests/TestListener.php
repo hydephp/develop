@@ -11,7 +11,6 @@ use Throwable;
 
 class TestListener implements \PHPUnit\Framework\TestListener
 {
-
     public function addError(Test $test, Throwable $t, float $time): void
     {
         //

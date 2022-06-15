@@ -7,8 +7,8 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Services\CollectionService;
-use Illuminate\Support\Facades\File;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * Test the Markdown page parser.

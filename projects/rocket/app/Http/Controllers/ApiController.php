@@ -15,7 +15,7 @@ class ApiController extends Controller
             ? response()->json(['success' => true])
             : response()->json([
                 'success' => false,
-                'error' => 'Could not ping Realtime Compiler on default port 8080'
+                'error' => 'Could not ping Realtime Compiler on default port 8080',
             ]);
     }
 
@@ -24,9 +24,9 @@ class ApiController extends Controller
         try {
             $client = new Client(['timeout' => 1]);
             $client->head('http://localhost:8080');
+
             return true;
-        }
-        catch (\Throwable) {
+        } catch (\Throwable) {
             return false;
         }
     }

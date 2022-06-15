@@ -4,8 +4,8 @@ namespace Hyde\Testing\Unit\Views;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
-use Illuminate\Support\Facades\Blade;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Blade;
 
 /**
  * @see resources/views/components/article-excerpt.blade.php

@@ -3,8 +3,8 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Hyde;
-use Illuminate\Foundation\PackageManifest;
 use Illuminate\Foundation\Console\PackageDiscoverCommand as BaseCommand;
+use Illuminate\Foundation\PackageManifest;
 
 class PackageDiscoverCommand extends BaseCommand
 {

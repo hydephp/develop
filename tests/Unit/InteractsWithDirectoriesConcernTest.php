@@ -4,8 +4,8 @@ namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Hyde;
-use Illuminate\Support\Facades\File;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * Class InteractsWithDirectoriesConcernTest.

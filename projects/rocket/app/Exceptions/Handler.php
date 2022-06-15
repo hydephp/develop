@@ -58,6 +58,7 @@ class Handler extends ExceptionHandler
             $whoops->writeToOutput(false);
             $whoops->pushHandler(new PrettyPageHandler());
             $html = $whoops->handleException($exception);
+
             return response()->make($html, 500);
         }
 

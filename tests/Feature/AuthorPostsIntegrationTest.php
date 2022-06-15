@@ -5,8 +5,8 @@ namespace Hyde\Testing\Feature;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Helpers\Author;
 use Hyde\Framework\Hyde;
-use Illuminate\Support\Facades\Config;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Test that the Author feature works in
