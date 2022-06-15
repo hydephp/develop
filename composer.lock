@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9ed92daf1a4b0fe8b7776a5e36dbb6b",
+    "content-hash": "9b646c5f965627f5ada9e54b87155098",
     "packages": [
         {
             "name": "brick/math",
@@ -879,7 +879,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "8cd926643833acef9fc30032f17b2064d0975c4d"
+                "reference": "d9252229fa1348433e747fbef5e19ab4ff208564"
             },
             "require": {
                 "illuminate/support": "^9.5",
@@ -6068,12 +6068,57 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+            "name": "hyde/devtools",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./packages/devtools",
+                "reference": "56c42ec8acb49b32c871471037a0017744f816a1"
+            },
+            "require": {
+                "illuminate/support": "^9.0",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hyde\\DevTools\\DevToolsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyde\\DevTools\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caen De Silva",
+                    "email": "caen@desilva.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Makes contributing to the HydePHP core framework a bit easier.",
+            "homepage": "https://github.com/hyde/devtools",
+            "keywords": [
+                "devtools",
+                "hyde"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "hyde/realtime-compiler",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "38a77b90f52d4e2076805b9261611eb701973298"
+                "reference": "819aa5e63db1e24cb15d24b530a6f60fb494dde4"
             },
             "require": {
                 "desilva/microserve": "^1.0"
@@ -6082,7 +6127,7 @@
                 "hyde/framework": "dev-master"
             },
             "suggest": {
-                "hyde/framework": ">=v0.32.0-beta"
+                "hyde/framework": ">=v0.35.0-beta"
             },
             "bin": [
                 "bin/server.php"
@@ -8256,6 +8301,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hyde/framework": 20,
+        "hyde/devtools": 20,
         "hyde/realtime-compiler": 20
     },
     "prefer-stable": true,
