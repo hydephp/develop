@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Actions;
 
+/**
+ * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
+ */
 class ValidationCheck
 {
     /**

@@ -10,6 +10,7 @@ use Hyde\Testing\TestCase;
  * Class ValidationServiceTest.
  *
  * @covers \Hyde\Framework\Services\ValidationService
+ * @covers \Hyde\Framework\Actions\ValidationCheck
  */
 class ValidationServiceTest extends TestCase
 {
