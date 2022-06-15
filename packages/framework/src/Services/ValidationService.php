@@ -20,9 +20,13 @@ class ValidationService
                 'You can publish the default one using `php hyde publish:views`'
             ),
 
-            new ValidationCheck('True is false', function () {
-                return true === false;
-            }, 'Apparently the world makes sense today!'),
+            new ValidationCheck('Your site has an index page', function () {
+                return file_exists(Hyde::path('_pages/index.md'))
+                    || file_exists(Hyde::path('_pages/index.blade.php'));
+            },
+                'Could not find an index.md or index.blade.php file in the _pages directory!',
+                'You can publish the one of the built in templates using `php hyde publish:homepage`'
+            ),
         ];
     }
 }
