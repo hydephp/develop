@@ -6,6 +6,7 @@
 // We do two main things:
 // 1. Replace dev-master versions with the configured versions.
 // 2. Remove the package entries from the repositories configuration.
+// 3. Remove hyde/devtools from the require-dev.
 
 // Usage:
 // This script is intended to be downloaded and run in split-monorepo.yml
@@ -30,6 +31,8 @@ $json['require']['hyde/framework'] = frameworkVersion;
 $json['require-dev']['hyde/realtime-compiler'] = rcVersion;
 
 unset($json['repositories']);
+
+unset($json['require-dev']['hyde/devtools']);
 
 file_put_contents('composer.json', json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
