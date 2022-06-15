@@ -4,9 +4,9 @@ namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Helpers\Author as AuthorHelper;
 use Hyde\Framework\Models\Author as AuthorModel;
+use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
-use Hyde\Testing\TestCase;
 
 /**
  * Class AuthorHelperTest.

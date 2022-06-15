@@ -4,8 +4,8 @@ namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Concerns\Markdown\HasConfigurableMarkdownFeatures;
 use Hyde\Framework\Models\DocumentationPage;
-use Illuminate\Support\Facades\Config;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Concerns\Markdown\HasConfigurableMarkdownFeatures

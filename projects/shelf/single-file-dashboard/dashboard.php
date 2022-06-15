@@ -1,7 +1,6 @@
 <?php
 
-if ($_SERVER['REMOTE_ADDR'] !== '::1')
-{
+if ($_SERVER['REMOTE_ADDR'] !== '::1') {
     header('HTTP/1.1 403 Forbidden');
     echo '<h1>HTTP/1.1 403 - Access Denied</h1>';
     echo '<p>You must be on localhost to access this page. Refusing to serve request.</p>';
@@ -26,72 +25,71 @@ const VERSION = 'dev-master';
 try {
 
 // Create the Laravel app, and boot it up
-try {
-   $app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
-} catch (\Throwable $th) {
-   try {
-      $app = require_once sprintf('%s/bootstrap/app.php', BASE_PATH);
-   } catch (\Throwable $th) {
-      throw $th;
-   }
-}
-$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
-$kernel->bootstrap();
-Hyde::setBasePath(BASE_PATH);
+    try {
+        $app = require_once sprintf('%s/app/bootstrap.php', BASE_PATH);
+    } catch (\Throwable $th) {
+        try {
+            $app = require_once sprintf('%s/bootstrap/app.php', BASE_PATH);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+    $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+    $kernel->bootstrap();
+    Hyde::setBasePath(BASE_PATH);
 
-// Create the Hyde interface
-$hyde = new class() extends Hyde {};
+    // Create the Hyde interface
+    $hyde = new class() extends Hyde {};
 
-// Create the project configuration class
-$project = new class
-{
-    public string $path;
-    public string $name;
-
-    public function __construct()
+    // Create the project configuration class
+    $project = new class
     {
-        $this->path = BASE_PATH;
-        $this->name = config('hyde.name', ucwords(str_replace('-', ' ', basename(BASE_PATH))));
-	}
-};
+        public string $path;
+        public string $name;
 
-// Set the app name
-$appname = e($project->name) . ' CMS';
+        public function __construct()
+        {
+            $this->path = BASE_PATH;
+            $this->name = config('hyde.name', ucwords(str_replace('-', ' ', basename(BASE_PATH))));
+        }
+    };
 
+    // Set the app name
+    $appname = e($project->name).' CMS';
 
-// Get the request page
-$page = $_GET['page'] ?? 'index';
-if ($page === 'dashboard' || $page === '' ) {
-   $page = 'index';
-}
+    // Get the request page
+    $page = $_GET['page'] ?? 'index';
+    if ($page === 'dashboard' || $page === '') {
+        $page = 'index';
+    }
 
-// Key => label
-$routes = [
-   'index' => 'Dashboard',
-   '404' => '404 Page Not Found',
-   'manual'=> 'Manual',
-   'file-viewer' => 'File Viewer',
-];
+    // Key => label
+    $routes = [
+        'index' => 'Dashboard',
+        '404' => '404 Page Not Found',
+        'manual'=> 'Manual',
+        'file-viewer' => 'File Viewer',
+    ];
 
-if (! isset($routes[$page])) {
-   header('HTTP/1.1 404 Not Found');
-   $page = '404';
-}
+    if (! isset($routes[$page])) {
+        header('HTTP/1.1 404 Not Found');
+        $page = '404';
+    }
 
-// Set the page name
-$pagename = $appname .' - '. $routes[$page];
+    // Set the page name
+    $pagename = $appname.' - '.$routes[$page];
 
-// Helper functions
-function icon(string $name) {
-   $icons = [
-      'blade' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEX/LR//LB96KezJAAAAAnRSTlN3CW8xmq0AAAA7SURBVAjXATAAz/8Ax/8AOfcAGcMARZwAbYgAbaYAbbYAbBEAbOMAY8cAZzcAcHcAPecAzZ8A8H8A+P+i4xJQuZ3gxwAAAABJRU5ErkJggg==',
-      'markdown' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKAQMAAACHcEzfAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEVCQkJBQUFtOGGCAAAAAnRSTlPBCd2uk5MAAAAiSURBVAjXY2BgYKj/x+D3jMEljcEBiJwY/NIY/P6BBBkYAHYfCAEd79fPAAAAAElFTkSuQmCC',
-      'documentation' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEVXV1dUVFSxYS6RAAAAAnRSTlPnEHobuHcAAAArSURBVAjXY/j/nwGIHsgzPPBneJDO8KCc4QEzCD1+zPD4MJQBEXnADlQJABfcFU91j91PAAAAAElFTkSuQmCC',
-   ];
+    // Helper functions
+    function icon(string $name)
+    {
+        $icons = [
+            'blade' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEX/LR//LB96KezJAAAAAnRSTlN3CW8xmq0AAAA7SURBVAjXATAAz/8Ax/8AOfcAGcMARZwAbYgAbaYAbbYAbBEAbOMAY8cAZzcAcHcAPecAzZ8A8H8A+P+i4xJQuZ3gxwAAAABJRU5ErkJggg==',
+            'markdown' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKAQMAAACHcEzfAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEVCQkJBQUFtOGGCAAAAAnRSTlPBCd2uk5MAAAAiSURBVAjXY2BgYKj/x+D3jMEljcEBiJwY/NIY/P6BBBkYAHYfCAEd79fPAAAAAElFTkSuQmCC',
+            'documentation' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAABlBMVEVXV1dUVFSxYS6RAAAAAnRSTlPnEHobuHcAAAArSURBVAjXY/j/nwGIHsgzPPBneJDO8KCc4QEzCD1+zPD4MJQBEXnADlQJABfcFU91j91PAAAAAElFTkSuQmCC',
+        ];
 
-   return $icons[$name] ?? '';
-}
-?>
+        return $icons[$name] ?? '';
+    } ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -228,7 +226,7 @@ function icon(string $name) {
                <h1 class="h2"><?= $pagename ?></h1>
             </div>
 
-               <?php if ($page === 'index'): ?>
+               <?php if ($page === 'index') { ?>
                   <h2 class="h3">
                      Project Information
                   </h2>
@@ -290,90 +288,96 @@ function icon(string $name) {
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <?php foreach (BladePage::all() as $page): ?>
+                                    <?php foreach (BladePage::all() as $page) { ?>
                                        <tr>
                                           <th scope="row">
                                              <img width="16" height="16" src="<?= icon('blade') ?>" alt="" role="presentation">
                                              Blade
                                           </th>
                                           <td>
-                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->view ?></a>
+                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug.'.html') ?>"><?= $page->view ?></a>
                                           </td>
                                           <td>
-                                             <a title="Open in CMS file manager" href="?page=file-viewer&type=bladepage&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory .'/'. $page->view . BladePage::$fileExtension ?></a>
+                                             <a title="Open in CMS file manager" href="?page=file-viewer&type=bladepage&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory.'/'.$page->view.BladePage::$fileExtension ?></a>
                                           </td>
                                        </tr>
-                                    <?php endforeach ?>
+                                    <?php } ?>
                                  </tbody>
                                  <tbody>
-                                    <?php foreach (MarkdownPage::all() as $page): ?>
+                                    <?php foreach (MarkdownPage::all() as $page) { ?>
                                        <tr>
                                           <th scope="row">
                                              <img width="16" height="16" src="<?= icon('markdown') ?>" alt="" role="presentation">
                                              Markdown
                                           </th>
                                           <td>
-                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug . '.html') ?>"><?= $page->title ?></a>
+                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug.'.html') ?>"><?= $page->title ?></a>
                                           </td>
                                           <td>
-                                             <a title="Open in CMS file manager" href="?page=file-viewer&type=markdownpage&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension ?></a>
+                                             <a title="Open in CMS file manager" href="?page=file-viewer&type=markdownpage&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory.'/'.$page->slug.MarkdownPage::$fileExtension ?></a>
                                           </td>
                                        </tr>
-                                    <?php endforeach ?>
+                                    <?php } ?>
                                  </tbody>
                               </table>
                            </section>
                         </div>
                      </div>
                   </div>
-               <?php elseif ($page === 'manual'): ?>
+               <?php } elseif ($page === 'manual') { ?>
                   <article>
                      <pre><?= e(file_get_contents(__DIR__.'/dashboard-manual.txt')) ?></pre>
                   </article>
-               <?php elseif ($page === 'file-viewer'): ?>
+               <?php } elseif ($page === 'file-viewer') { ?>
                   <div>
                      <?php
-                        $editor = new class($_GET['type'], $_GET['file']) {
-                           public string $filename;
-                           public string $contentpath;
-                           public string $type;
-                           protected string $filepath;
+                        $editor = new class($_GET['type'], $_GET['file'])
+                        {
+                            public string $filename;
+                            public string $contentpath;
+                            public string $type;
+                            protected string $filepath;
 
-                           public function __construct(string $type, string $file) {
-                              $this->type = $this->qualifyType($type);
-                              $this->filename = urldecode($file);
-                              $this->contentpath = $this->getContentpath();
-                              $this->filepath = Hyde::path($this->contentpath);
-                           }
+                            public function __construct(string $type, string $file)
+                            {
+                                $this->type = $this->qualifyType($type);
+                                $this->filename = urldecode($file);
+                                $this->contentpath = $this->getContentpath();
+                                $this->filepath = Hyde::path($this->contentpath);
+                            }
 
-                           protected function qualifyType(string $type) {
-                              $type = strtolower($type);
-                              if ($type === 'bladepage') {
-                                 return BladePage::class;
-                              } elseif ($type === 'markdownpage') {
-                                 return MarkdownPage::class;
-                              } elseif ($type === 'documentationpage') {
-                                 return DocumentationPage::class;
-                              } elseif ($type === 'markdownpost') {
-                                 return MarkdownPost::class;
-                              } else {
-                                 throw new UnsupportedPageTypeException('Invalid file type');
-                              }
-                           }
+                            protected function qualifyType(string $type)
+                            {
+                                $type = strtolower($type);
+                                if ($type === 'bladepage') {
+                                    return BladePage::class;
+                                } elseif ($type === 'markdownpage') {
+                                    return MarkdownPage::class;
+                                } elseif ($type === 'documentationpage') {
+                                    return DocumentationPage::class;
+                                } elseif ($type === 'markdownpost') {
+                                    return MarkdownPost::class;
+                                } else {
+                                    throw new UnsupportedPageTypeException('Invalid file type');
+                                }
+                            }
 
-                           protected function getContentpath() {
-                              $class = $this->type;
-                              $filename = $this->filename;
-                              $filepath = $class::$sourceDirectory .'/'. $filename . $class::$fileExtension;
-                              if (!file_exists(Hyde::path($filepath))) {
-                                 throw new FileNotFoundException($filepath);
-                              }
-                              return $filepath;
-                           }
+                            protected function getContentpath()
+                            {
+                                $class = $this->type;
+                                $filename = $this->filename;
+                                $filepath = $class::$sourceDirectory.'/'.$filename.$class::$fileExtension;
+                                if (! file_exists(Hyde::path($filepath))) {
+                                    throw new FileNotFoundException($filepath);
+                                }
 
-                           public function getContents() {
-                              return file_get_contents($this->filepath);
-                           }
+                                return $filepath;
+                            }
+
+                            public function getContents()
+                            {
+                                return file_get_contents($this->filepath);
+                            }
                         };
                      ?>
 
@@ -399,7 +403,7 @@ function icon(string $name) {
                                  <pre ><code id="filecontents" class="language-<?= $editor->type === BladePage::class ? 'html' : 'markdown' ?>"><?= e($editor->getContents()) ?></code></pre>
                               </div>
                               <div class="tab-pane fade" id="pills-compiled" role="tabpanel" aria-labelledby="pills-compiled-tab">
-                                 <iframe loading="lazy" width="100%" height="100%" style="min-height: 600px;" src="<?= Hyde::pageLink($editor->filename . '.html') ?>" frameborder="0">
+                                 <iframe loading="lazy" width="100%" height="100%" style="min-height: 600px;" src="<?= Hyde::pageLink($editor->filename.'.html') ?>" frameborder="0">
                                  Loading...
                               </iframe>
                            </div>
@@ -417,9 +421,9 @@ function icon(string $name) {
                      <?php unset($editor); ?>
                   </div>
                   
-               <?php elseif ($page === '404'): ?>
+               <?php } elseif ($page === '404') { ?>
                   Go <a href="dashboard.php">Back to dashboard</a>?
-               <?php endif ?>
+               <?php } ?>
          </main>
       </div>
    </div>
@@ -451,12 +455,11 @@ function icon(string $name) {
 </html>
 
 <?php
-
 } catch (\Throwable $th) {
-	echo '<h1>Error</h1>';
-	echo '<p>An error occurred while processing your request.</p>';
-	echo '<pre><code>'.$th->getMessage().'</code></pre>';
-	echo '<p>Extra information:</p>';
-	echo '<pre><code>'.$th->getTraceAsString().print_r($th, true).'</code></pre>';
-	exit($th->getCode());
-}
+                         echo '<h1>Error</h1>';
+                         echo '<p>An error occurred while processing your request.</p>';
+                         echo '<pre><code>'.$th->getMessage().'</code></pre>';
+                         echo '<p>Extra information:</p>';
+                         echo '<pre><code>'.$th->getTraceAsString().print_r($th, true).'</code></pre>';
+                         exit($th->getCode());
+                     }

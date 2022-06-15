@@ -4,8 +4,8 @@ namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
-use Illuminate\Support\Collection;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 
 /**
  * @deprecated as parent method is deprecated

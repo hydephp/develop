@@ -7,8 +7,8 @@ use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
-use Illuminate\Support\Facades\Config;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class DiscoveryServiceCanFindModelFromCustomSourceFilePathTest.

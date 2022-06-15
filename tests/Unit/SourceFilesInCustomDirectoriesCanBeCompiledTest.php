@@ -9,9 +9,9 @@ use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\StaticPageBuilder;
+use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Hyde\Testing\TestCase;
 
 /**
  * Class SourceFilesInCustomDirectoriesCanBeCompiledTest.

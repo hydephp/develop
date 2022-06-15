@@ -2,8 +2,8 @@
 
 namespace Hyde\Rocket\Http\Controllers;
 
-use Hyde\Rocket\Models\Project;
 use Hyde\Framework\Hyde;
+use Hyde\Rocket\Models\Project;
 
 class DebugController extends Controller
 {
@@ -19,7 +19,7 @@ class DebugController extends Controller
         $information = [
             'Hyde/Framework version' => Hyde::version(),
             'Hyde project path' => Hyde::path(),
-            'PHP version' => phpversion() . ' (' . PHP_SAPI . ')',
+            'PHP version' => phpversion().' ('.PHP_SAPI.')',
             'Lumen version' => app()->version(),
         ];
         dump($information);

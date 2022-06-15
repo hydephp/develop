@@ -4,8 +4,8 @@ namespace Hyde\Testing\Feature\Commands;
 
 use Hyde\Framework\Commands\HydeUpdateConfigsCommand;
 use Hyde\Framework\Hyde;
-use Illuminate\Support\Facades\File;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeUpdateConfigsCommand

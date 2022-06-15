@@ -4,9 +4,9 @@ namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Actions\GeneratesNavigationMenu;
 use Hyde\Framework\Hyde;
+use Hyde\Testing\TestCase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Hyde\Testing\TestCase;
 
 class GeneratesNavigationMenuTest extends TestCase
 {
