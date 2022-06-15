@@ -89,8 +89,6 @@ jobs:
 
     - name: Download composer update script
       run: wget https://raw.githubusercontent.com/hydephp/develop/${{ github.sha }}/build/tools/update-composer.php -O update-composer.php
-    - name: Verify checksum matches
-      run: echo 'f7dfa7980fed857b220b72221a62d058831abbbc  update-composer.php' | shasum -c
     - name: Update composer.json
       run: php update-composer.php
     - name: Delete script
