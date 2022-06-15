@@ -17,6 +17,11 @@ class ValidationCheck
     protected ?string $message;
 
     /**
+     * @var ?string $tip Optional tip to display if the test fails.
+     */
+    protected ?string $tip;
+
+    /**
      * @var \Closure The function to call to check the test. Must return a boolean.
      * @example function () { return true; }
      */
@@ -27,11 +32,12 @@ class ValidationCheck
      */
     public bool $passed;
 
-    public function __construct(string $test, \Closure $check, ?string $message)
+    public function __construct(string $test, \Closure $check, ?string $message, ?string $tip)
     {
         $this->test = $test;
         $this->check = $check;
         $this->message = $message;
+        $this->tip = $tip;
     }
 
     protected function run(): bool
