@@ -87,12 +87,14 @@ jobs:
     - name: Load persisted data
       run: wget https://raw.githubusercontent.com/hydephp/develop/${{ github.sha }}/build/monorepo/persist/hyde/README.md -O README.md
 
-    - name: Download composer fix script
-      run: wget https://gist.githubusercontent.com/caendesilva/8528ef3ab2f5d116c2b58af9ff1c211b/raw/01fcae28cdec1d26b0494331175b301a4e5b2852/fixcomposer.json.php -O fixcomposer.php
-    - name: Remove packages from composer.json
-      run: php fixcomposer.php
+    - name: Download composer update script
+      run: wget https://raw.githubusercontent.com/hydephp/develop/${{ github.sha }}/build/tools/update-composer.php -O update-composer.php
+    - name: Verify checksum matches
+      run: echo '25f06588b0e513532b446e7a305f0e7b91601abf  update-composer.php' | shasum -c
+    - name: Update composer.json
+      run: php update-compose.php
     - name: Delete script
-      run: rm fixcomposer.php
+      run: rm update-compose.php
     - name: Remove composer.lock
       run: rm -f composer.lock
 
