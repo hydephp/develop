@@ -14,6 +14,8 @@ class HydeValidateCommand extends Command
     protected $signature = 'validate';
     protected $description = 'Run a series of tests to validate your setup and help you optimize your site.';
 
+    protected float $time_start;
+
     public function handle(): int
     {
         $this->info('Running validation tests!');
@@ -31,6 +33,7 @@ class HydeValidateCommand extends Command
 
     protected function check(ValidationCheck $validation): void
     {
+        $this->time_start = microtime(true);
         $validation->check();
 
         if ($validation->passed()) {
@@ -44,14 +47,19 @@ class HydeValidateCommand extends Command
 
     protected function passed(ValidationCheck $validation): void
     {
-        $this->info($validation->message());
+        $this->info($validation->message() . $this->time());
     }
 
     protected function failed(ValidationCheck $validation): void
     {
-        $this->error($validation->message());
+        $this->error($validation->message() . $this->time());
         if ($validation->tip()) {
             $this->comment($validation->tip());
         }
+    }
+
+    protected function time(): string
+    {
+        return '<fg=gray> (' . number_format((microtime(true) - $this->time_start) * 1000, 2) . 'ms)</>';
     }
 }
