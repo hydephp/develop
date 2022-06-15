@@ -15,7 +15,7 @@
 // 3. Run the script, then delete it
 
 // Configuration settings
-const frameworkVersion = '^0.35';
+const frameworkVersion = '^0.36';
 const rcVersion = '^2.1';
 $time_start = microtime(true);
 echo "Transforming composer.json\n";
