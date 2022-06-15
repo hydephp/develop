@@ -3,8 +3,8 @@
 namespace Hyde\Rocket\Http\Controllers;
 
 use Hyde\Framework\Models\MarkdownPost;
-use Hyde\Rocket\Models\Project;
 use Hyde\Framework\Services\CollectionService;
+use Hyde\Rocket\Models\Project;
 
 class DashboardController extends Controller
 {
@@ -31,10 +31,10 @@ class DashboardController extends Controller
     protected function getContentList(): array
     {
         return array_merge([
-           'Blade Pages' => CollectionService::getBladePageList(),
-           'Markdown Pages' => CollectionService::getMarkdownPageList(),
-           'Markdown Posts' => CollectionService::getMarkdownPostList(),
-           'Documentation Pages' => CollectionService::getDocumentationPageList(),
+            'Blade Pages' => CollectionService::getBladePageList(),
+            'Markdown Pages' => CollectionService::getMarkdownPageList(),
+            'Markdown Posts' => CollectionService::getMarkdownPostList(),
+            'Documentation Pages' => CollectionService::getDocumentationPageList(),
         ]);
     }
 }

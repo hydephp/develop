@@ -5,8 +5,8 @@ namespace Hyde\Testing\Feature;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
-use Illuminate\Support\Facades\Config;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Helpers\Features::darkmode

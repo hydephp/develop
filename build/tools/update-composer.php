@@ -36,5 +36,5 @@ unset($json['require-dev']['hyde/devtools']);
 
 file_put_contents('composer.json', json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
-echo "Done. Finished in " . number_format((microtime(true) - $time_start) * 1000, 2) . "ms\n";
+echo 'Done. Finished in '.number_format((microtime(true) - $time_start) * 1000, 2)."ms\n";
 exit(0);

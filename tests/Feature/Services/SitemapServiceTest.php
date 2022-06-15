@@ -4,8 +4,8 @@ namespace Hyde\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\SitemapService;
-use Illuminate\Support\Facades\File;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Services\SitemapService

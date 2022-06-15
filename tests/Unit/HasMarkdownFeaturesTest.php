@@ -3,8 +3,8 @@
 namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Concerns\Markdown\HasMarkdownFeatures;
-use Illuminate\Support\Facades\Config;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Concerns\Markdown\HasMarkdownFeatures

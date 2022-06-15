@@ -3,9 +3,9 @@
 namespace Hyde\Testing\Feature;
 
 use Hyde\Framework\Models\Image;
+use Hyde\Testing\TestCase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
-use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\FindsContentLengthForImageObject

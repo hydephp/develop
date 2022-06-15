@@ -78,7 +78,7 @@ class HydeServiceProvider extends ServiceProvider
             Commands\HydeDebugCommand::class,
             Commands\HydeServeCommand::class,
 
-            Commands\PackageDiscoverCommand::class,
+            Commands\HydePackageDiscoverCommand::class,
         ]);
     }
 

@@ -26,13 +26,14 @@ class Project
 
     protected function getPathOrFail(): string
     {
-        $path = realpath(getcwd() . '/../../');
-        if (!is_dir($path)) {
-            throw new \Exception("Not a directory.");
+        $path = realpath(getcwd().'/../../');
+        if (! is_dir($path)) {
+            throw new \Exception('Not a directory.');
         }
-        if (!is_file($path . '/hyde')) {
-            throw new \Exception("Not a Hyde project.");
+        if (! is_file($path.'/hyde')) {
+            throw new \Exception('Not a Hyde project.');
         }
+
         return $path;
     }
 
@@ -52,18 +53,17 @@ class Project
      */
     public static function get(?string $property = null): mixed
     {
-        if (!isset(static::$instance)) {
+        if (! isset(static::$instance)) {
             static::$instance = new static();
         }
 
         return isset($property)
             ? static::$instance->$property
             : static::$instance;
-
     }
 
     protected function getVersion()
     {
-        return json_decode(file_get_contents($this->path . '/composer.json'))->require->{'hyde/framework'};
+        return json_decode(file_get_contents($this->path.'/composer.json'))->require->{'hyde/framework'};
     }
 }
