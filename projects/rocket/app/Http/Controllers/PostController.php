@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function show(string $slug, Request $request)
     {
-        $path = Hyde::path($localPath = '_posts/' . $slug . '.md');
+        $path = Hyde::path($localPath = '_posts/'.$slug.'.md');
 
         if (! file_exists($path)) {
             return response('File not found.', 404);
@@ -40,7 +40,7 @@ class PostController extends Controller
             $request->input('description'),
             $request->input('category'),
             $request->input('author')
-        );   
+        );
 
         try {
             $creator->save();
@@ -50,12 +50,12 @@ class PostController extends Controller
             ]);
         }
 
-        return redirect('/_posts/' . $creator->slug . '?saved=true');
+        return redirect('/_posts/'.$creator->slug.'?saved=true');
     }
 
     public function update(string $slug, Request $request)
     {
-        $path = Hyde::path('_posts/' . $slug . '.md');
+        $path = Hyde::path('_posts/'.$slug.'.md');
 
         if (! file_exists($path)) {
             return response('File not found.', 404);
@@ -63,6 +63,6 @@ class PostController extends Controller
 
         file_put_contents($path, $request->get('markdown'));
 
-        return redirect('/_posts/' . $slug . '?saved=true');
+        return redirect('/_posts/'.$slug.'?saved=true');
     }
 }

@@ -14,12 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(\Desilva\Console\Contracts\Console::class, function() {
+        $this->app->singleton(\Desilva\Console\Contracts\Console::class, function () {
             return new \Desilva\Console\Console;
         });
     }
 
-/**
+    /**
      * Bootstrap any application services.
      *
      * @return void

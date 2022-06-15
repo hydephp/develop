@@ -7,8 +7,8 @@ use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
-use Illuminate\Support\Collection;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Concerns\AbstractPage::all()

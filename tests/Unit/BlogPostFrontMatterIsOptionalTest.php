@@ -3,8 +3,8 @@
 namespace Hyde\Testing\Unit;
 
 use Hyde\Framework\Hyde;
-use Illuminate\Support\Facades\Artisan;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Artisan;
 
 class BlogPostFrontMatterIsOptionalTest extends TestCase
 {
