@@ -32,7 +32,7 @@ class ValidationCheck
      */
     public bool $passed;
 
-    public function __construct(string $test, \Closure $check, ?string $message, ?string $tip)
+    public function __construct(string $test, \Closure $check, ?string $message = null, ?string $tip = null)
     {
         $this->test = $test;
         $this->check = $check;
