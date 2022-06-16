@@ -3,12 +3,13 @@
 namespace Hyde\Framework\Services;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\ValidationResult as Result;
 
 /**
  * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
  * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
- * @todo Use the model paths instead of the hardcoded paths.
  */
 class ValidationService
 {
@@ -39,7 +40,9 @@ class ValidationService
 
     public function check_site_has_a_404_page(Result $result): Result
     {
-        if ((file_exists(Hyde::path('_pages/404.md')) || file_exists(Hyde::path('_pages/404.blade.php')))) {
+        if (file_exists(Hyde::path(MarkdownPage::$sourceDirectory.'/404'.MarkdownPage::$fileExtension))
+            || file_exists(Hyde::path(BladePage::$sourceDirectory.'/404'.BladePage::$fileExtension))
+        ) {
             return $result->pass('Your site has a 404 page');
         }
 
@@ -49,11 +52,12 @@ class ValidationService
 
     public function check_site_has_an_index_page(Result $result): Result
     {
-        if (file_exists(Hyde::path('_pages/index.md')) || file_exists(Hyde::path('_pages/index.blade.php'))) {
+        if (file_exists(Hyde::path(MarkdownPage::$sourceDirectory.'/index'.MarkdownPage::$fileExtension))
+            || file_exists(BladePage::$sourceDirectory.'/index'.BladePage::$fileExtension)) {
             return $result->pass('Your site has an index page');
         }
 
-        return $result->fail('Could not find an index.md or index.blade.php file in the _pages directory!')
+        return $result->fail('Could not find an index.md or index.blade.php file!')
                 ->withTip('You can publish the one of the built in templates using `php hyde publish:homepage`');
     }
 
@@ -105,6 +109,6 @@ class ValidationService
                 ->withTip('This may cause on of them being immediately overwritten by the other.');
         } 
 
-        return $result->pass('No naming conflicts found between .blade.php and .md files in the _pages directory');
+        return $result->pass('No naming conflicts found between Blade and Markdown pages');
     }
 }
