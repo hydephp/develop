@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 use Hyde\Framework\Actions\ValidationCheck;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 
 /**
@@ -31,6 +32,14 @@ class ValidationService
                 return (bool) Hyde::uriPath();
             }, 'Could not find a site URL in the config or .env file!',
             'Adding it may improve SEO as it allows for generating canonical URL, sitemaps, and RSS feeds.'),
+
+            new ValidationCheck('A Torchlight API token is set', function () {
+                if (Features::enabled(Features::torchlight())) {
+                    return Features::hasTorchlight();
+                }
+                return null;
+            }, 'Torchlight is enabled in the config, but an API token could not be found in the dotenv file.',
+            'Torchlight is an API for code syntax highlighting. You can get a free token at torchlight.dev.'),
         ];
     }
 }
