@@ -147,6 +147,22 @@ jobs:
         git fetch upstream
         git push upstream readonly-framework-mirror:develop
 
+  push-realtime-compiler:
+    needs: propagate-realtime-compiler
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: 'readonly-rc-mirror'
+        fetch-depth: 0
+        persist-credentials: false 
+
+    - name: Push changes to hydephp/realtime-compiler
+      run: |
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
+        git fetch upstream
+        git push upstream readonly-rc-mirror:develop
+
   push-hyde:
     needs: propagate-hyde
     runs-on: ubuntu-latest
