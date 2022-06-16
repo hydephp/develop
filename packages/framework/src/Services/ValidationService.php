@@ -4,6 +4,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\ValidationResult as Result;
 
@@ -59,6 +60,24 @@ class ValidationService
 
         return $result->fail('Could not find an index.md or index.blade.php file!')
                 ->withTip('You can publish the one of the built in templates using `php hyde publish:homepage`');
+    }
+
+    public function check_documentation_site_has_an_index_page(Result $result): Result
+    {
+        if (! Features::hasDocumentationPages()) {
+            return $result->skip('The documentation page feature is disabled in config');
+        }
+       
+        if (file_exists(DocumentationPage::$sourceDirectory.'/index'.DocumentationPage::$fileExtension)) {
+            return $result->pass('Your documentation site has an index page');
+        }
+
+        if (file_exists(DocumentationPage::$sourceDirectory.'/README'.DocumentationPage::$fileExtension)) {
+            return $result->pass('Could not find an index.md file in the '.DocumentationPage::$sourceDirectory.' directory!')
+                ->withTip('However, a _docs/readme.md file was found. A suggestion would be to copy the _docs/readme.md to _docs/index.md.');
+        }
+
+        return $result->fail('Could not find an index.md file in the '.DocumentationPage::$sourceDirectory.' directory!');
     }
 
     public function check_site_has_an_app_css_stylesheet(Result $result): Result
