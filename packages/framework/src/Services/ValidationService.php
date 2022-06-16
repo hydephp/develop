@@ -85,7 +85,7 @@ class ValidationService
                ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
        }
 
-       if ( Features::hasTorchlight()) {
+       if ( config('torchlight.token') !== null) {
             return $result->pass('Your site has a Torchlight API token set');
        }
 
