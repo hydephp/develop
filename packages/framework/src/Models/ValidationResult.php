@@ -10,6 +10,11 @@ class ValidationResult
     public bool $passed;
     public bool $skipped = false;
 
+    public function __construct(string $defaultMessage = 'Generic check')
+    {
+        $this->message = $defaultMessage;
+    }
+
     public function pass(?string $withMessage = null): self
     {
         $this->passed = true;
