@@ -51,19 +51,6 @@ class HydeValidateCommand extends Command
         $this->newline();
     }
 
-    protected function passed(ValidationCheck $validation): void
-    {
-        $this->info($validation->message() . $this->time());
-    }
-
-    protected function failed(ValidationCheck $validation): void
-    {
-        $this->error($validation->message() . $this->time());
-        if ($validation->tip()) {
-            $this->comment($validation->tip());
-        }
-    }
-
     protected function time(): string
     {
         return number_format((microtime(true) - $this->time_start) * 1000, 2);
