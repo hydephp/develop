@@ -26,15 +26,12 @@ class ValidationService
 
     public function run(string $check): ValidationResult
     {
-        // @todo add dependency injection to automatically add a new result class.
-        return $this->$check();
+        return $this->$check(new ValidationResult);
     }
 
     // Check site has a 404 page
-    public function check_site_has_a_404_page(): ValidationResult
+    public function check_site_has_a_404_page(ValidationResult $result): ValidationResult
     {
-        $result = new ValidationResult();
-
         if ((file_exists(Hyde::path('_pages/404.md')) || file_exists(Hyde::path('_pages/404.blade.php')))) {
             return $result->pass('Your site has a 404 page');
         }
@@ -44,10 +41,8 @@ class ValidationService
     }
 
     // Check site has an index page
-    public function check_site_has_an_index_page(): ValidationResult
+    public function check_site_has_an_index_page(ValidationResult $result): ValidationResult
     {
-        $result = new ValidationResult();
-
         if (file_exists(Hyde::path('_pages/index.md')) || file_exists(Hyde::path('_pages/index.blade.php'))) {
             return $result->pass('Your site has an index page');
         }
@@ -57,10 +52,8 @@ class ValidationService
     }
 
     // Check site has an app.css stylesheet
-    public function check_site_has_an_app_css_stylesheet(): ValidationResult
+    public function check_site_has_an_app_css_stylesheet(ValidationResult $result): ValidationResult
     {
-        $result = new ValidationResult();
-
         if (file_exists(Hyde::path('_site/media/app.css')) || file_exists(Hyde::path('_media/app.css'))) {
             return $result->pass('Your site has an app.css stylesheet');
         }
@@ -70,10 +63,8 @@ class ValidationService
     }
     
     // Check site has a base URL set
-    public function check_site_has_a_base_url_set(): ValidationResult
+    public function check_site_has_a_base_url_set(ValidationResult $result): ValidationResult
     {
-        $result = new ValidationResult();
-
         if ((bool) Hyde::uriPath() === true) {
             return $result->pass('Your site has a base URL set')
                 ->withTip('This will allow Hyde to generate canonical URLs, sitemaps, RSS feeds, and more.');
@@ -84,11 +75,9 @@ class ValidationService
     }
 
     // Check a Torchlight API token is set
-    public function check_a_torchlight_api_token_is_set(): ValidationResult
+    public function check_a_torchlight_api_token_is_set(ValidationResult $result): ValidationResult
     {
-        $result = new ValidationResult();
-
-       if (! Features::enabled(Features::torchlight())) {
+        if (! Features::enabled(Features::torchlight())) {
            return $result->skip('Check a Torchlight API token is set')
                ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
        }
