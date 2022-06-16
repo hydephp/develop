@@ -14,6 +14,8 @@
 // 2. Download the script to the root
 // 3. Run the script, then delete it
 
+// @todo check if we need mockery and pest dependencies
+
 // Configuration settings
 const frameworkVersion = '^0.36';
 const rcVersion = '^2.1';
