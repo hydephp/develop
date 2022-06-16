@@ -1,11 +1,9 @@
 <?php
 
 namespace Hyde\Framework\Services;
-use Hyde\Framework\Helpers\Features;
+
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\ValidationResult as Result;
 
 /**
@@ -41,8 +39,8 @@ class ValidationService
 
     public function check_site_has_a_404_page(Result $result): Result
     {
-        if (file_exists(Hyde::path(MarkdownPage::$sourceDirectory.'/404'.MarkdownPage::$fileExtension))
-            || file_exists(Hyde::path(BladePage::$sourceDirectory.'/404'.BladePage::$fileExtension))
+        if (file_exists(Hyde::path('_pages/404.md'))
+            || file_exists(Hyde::path('_pages/404.blade.php'))
         ) {
             return $result->pass('Your site has a 404 page');
         }
@@ -53,8 +51,8 @@ class ValidationService
 
     public function check_site_has_an_index_page(Result $result): Result
     {
-        if (file_exists(Hyde::path(MarkdownPage::$sourceDirectory.'/index'.MarkdownPage::$fileExtension))
-            || file_exists(BladePage::$sourceDirectory.'/index'.BladePage::$fileExtension)) {
+        if (file_exists(Hyde::path('_pages/index.md'))
+            || file_exists('_pages/index.blade.php')) {
             return $result->pass('Your site has an index page');
         }
 
@@ -68,16 +66,16 @@ class ValidationService
             return $result->skip('The documentation page feature is disabled in config');
         }
        
-        if (file_exists(DocumentationPage::$sourceDirectory.'/index'.DocumentationPage::$fileExtension)) {
+        if (file_exists('_docs/index.md')) {
             return $result->pass('Your documentation site has an index page');
         }
 
-        if (file_exists(DocumentationPage::$sourceDirectory.'/README'.DocumentationPage::$fileExtension)) {
-            return $result->pass('Could not find an index.md file in the '.DocumentationPage::$sourceDirectory.' directory!')
+        if (file_exists('_docs/README.md')) {
+            return $result->pass('Could not find an index.md file in the _docs directory!')
                 ->withTip('However, a _docs/readme.md file was found. A suggestion would be to copy the _docs/readme.md to _docs/index.md.');
         }
 
-        return $result->fail('Could not find an index.md file in the '.DocumentationPage::$sourceDirectory.' directory!');
+        return $result->fail('Could not find an index.md file in the _docs directory!');
     }
 
     public function check_site_has_an_app_css_stylesheet(Result $result): Result
