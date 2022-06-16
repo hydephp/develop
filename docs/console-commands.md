@@ -241,6 +241,3 @@ php hyde validate
 ```
 
 Hyde ships with a very useful command that runs a series of checks to validate your setup and catch any potential issues.
-
-> The validate command requires that [Pest](https://pestphp.com/) is installed.
-> Pest is by default bundled as a dev-dependency with Hyde.
