@@ -25,7 +25,8 @@ class ValidationCheck
     protected ?string $tip;
 
     /**
-     * @var \Closure The function to call to check the test. Must return a boolean.
+     * @var \Closure The function to call to check the test.
+     *               Must return a boolean, or null if the test was skipped.
      * @example function () { return true; }
      */
     protected \Closure $check;
@@ -35,6 +36,11 @@ class ValidationCheck
      */
     public bool $passed;
 
+    /**
+     * @var bool Was the test skipped?
+     */
+    public bool $skipped = false;
+
     public function __construct(string $test, \Closure $check, ?string $message = null, ?string $tip = null)
     {
         $this->test = $test;
@@ -43,7 +49,7 @@ class ValidationCheck
         $this->tip = $tip;
     }
 
-    protected function run(): bool
+    protected function run(): bool|null
     {
         return ($this->check)();
     }
@@ -63,16 +69,28 @@ class ValidationCheck
         return $this->tip;
     }
 
-    public function check(): bool
+    public function check(): bool|null
     {
-        if ($this->run() === true) {
+        $status = $this->run();
+        if ($status === true) {
             $this->passed = true;
             $this->message = $this->test;
             return true;
         }
 
-        $this->passed = false;
-        $this->message = $this->message ?? 'Test failed: ' . $this->test;
-        return false;
+        if ($status === false) {
+            $this->passed = false;
+            $this->message = $this->message ?? 'Test failed: ' . $this->test;
+            return false;
+        }
+
+        $this->skip();
+        return null;
+    }
+
+    public function skip(): void
+    {
+        $this->skipped = true;
+        $this->message = 'Test skipped: ' . $this->test;
     }
 }
