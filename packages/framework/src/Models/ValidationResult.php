@@ -2,6 +2,10 @@
 
 namespace Hyde\Framework\Models;
 
+/**
+ * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
+ * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
+ */
 class ValidationResult
 {
     public string $message;

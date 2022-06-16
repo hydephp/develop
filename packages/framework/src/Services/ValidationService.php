@@ -7,6 +7,7 @@ use Hyde\Framework\Models\ValidationResult as Result;
 
 /**
  * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
+ * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
  * @todo Use the model paths instead of the hardcoded paths.
  */
 class ValidationService
