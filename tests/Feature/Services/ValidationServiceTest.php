@@ -127,4 +127,54 @@ class ValidationServiceTest extends TestCase
         $this->test('check_for_conflicts_between_blade_and_markdown_pages', 2);
         unlink(Hyde::path('_pages/index.md'));
     }
+
+    // Some unit tests
+
+    // Test ValidationResult::message() returns $result->message
+    public function test_validation_result_message_returns_message()
+    {
+        $result = new ValidationResult();
+        $result->message = 'foo';
+        $this->assertEquals('foo', $result->message());
+    }
+
+    // Test ValidationResult::passed() returns true when passed is true, otherwise false
+    public function test_validation_result_passed_returns_true_when_passed_is_true()
+    {
+        $result = new ValidationResult();
+        $result->passed = true;
+        $this->assertTrue($result->passed());
+        $result->passed = false;
+        $this->assertFalse($result->passed());
+    }
+
+    // Test ValidationResult::failed() returns true when passed is false, otherwise false
+    public function test_validation_result_failed_returns_true_when_passed_is_false()
+    {
+        $result = new ValidationResult();
+        $result->passed = true;
+        $this->assertFalse($result->failed());
+        $result->passed = false;
+        $this->assertTrue($result->failed());
+    }
+
+    // Test ValidationResult::skipped() returns true when skipped is true, or false if false or not set
+    public function test_validation_result_skipped_returns_true_when_skipped_is_true()
+    {
+        $result = new ValidationResult();
+        $this->assertFalse($result->skipped());
+        $result->skipped = true;
+        $this->assertTrue($result->skipped());
+        $result->skipped = false;
+        $this->assertFalse($result->skipped());
+    }
+
+    // Test ValidationResult::tip() returns message when set, otherwise false
+    public function test_validation_result_tip_returns_message_when_set()
+    {
+        $result = new ValidationResult();
+        $this->assertFalse($result->tip());
+        $result->tip = 'foo';
+        $this->assertEquals('foo', $result->tip());
+    }
 }
