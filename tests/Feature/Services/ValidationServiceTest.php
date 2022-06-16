@@ -2,6 +2,7 @@
 
 namespace Hyde\Testing\Feature\Services;
 
+use Hyde\Framework\Models\ValidationResult;
 use Hyde\Framework\Services\ValidationService;
 use Hyde\Testing\TestCase;
 
@@ -14,6 +15,15 @@ use Hyde\Testing\TestCase;
  */
 class ValidationServiceTest extends TestCase
 {
+    protected ValidationService $service;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->service = new ValidationService();
+    }
+
     public function test_checks_returns_an_array_of_validation_check_methods()
     {
         $checks = ValidationService::checks();
@@ -24,5 +34,13 @@ class ValidationServiceTest extends TestCase
             $this->assertStringStartsWith('check_', $check);
             $this->assertTrue(method_exists(ValidationService::class, $check));
         }
+    }
+
+    // Rather meta, but lets us know that the method assertions are correct, and gives us test coverage
+    protected function test(string $method, int $expectedStatusCode)
+    {
+        $result = $this->service->run($method);
+        $this->assertInstanceOf(ValidationResult::class, $result);
+        $this->assertEquals($expectedStatusCode, $result->statusCode());
     }
 }
