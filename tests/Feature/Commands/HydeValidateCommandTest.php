@@ -25,7 +25,7 @@ class HydeValidateCommandTest extends TestCase
 
     public function test_validate_command_can_run_with_skips()
     {
-        // Trigger skipping of Torchlight check$
+        // Trigger skipping of Torchlight and documentation index check
         config(['hyde.features' => []]);
 
         $this->artisan('validate')

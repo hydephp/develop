@@ -66,6 +66,10 @@ class ValidationService
             return $result->skip('The documentation page feature is disabled in config');
         }
 
+        if (count(CollectionService::getDocumentationPageList()) === 0) {
+            return $result->skip('There are no documentation pages');
+        }
+
         if (file_exists('_docs/index.md')) {
             return $result->pass('Your documentation site has an index page');
         }
