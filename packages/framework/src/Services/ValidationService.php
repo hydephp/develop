@@ -71,7 +71,7 @@ class ValidationService
         }
 
         if (file_exists('_docs/README.md')) {
-            return $result->pass('Could not find an index.md file in the _docs directory!')
+            return $result->fail('Could not find an index.md file in the _docs directory!')
                 ->withTip('However, a _docs/readme.md file was found. A suggestion would be to copy the _docs/readme.md to _docs/index.md.');
         }
 
