@@ -59,6 +59,11 @@ class ValidationCheck
         return $this->passed;
     }
 
+    public function skipped(): bool
+    {
+        return $this->skipped;
+    }
+
     public function message(): string
     {
         return $this->message;
