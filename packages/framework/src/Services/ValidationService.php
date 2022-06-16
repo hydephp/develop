@@ -3,8 +3,6 @@
 namespace Hyde\Framework\Services;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\ValidationResult;
 
 /**
@@ -89,18 +87,10 @@ class ValidationService
 
     public function check_for_conflicts_between_blade_and_markdown_pages(ValidationResult $result): ValidationResult
     {
-        $markdownPages = [];
-        $bladePages = [];
-
-        foreach (array_diff(scandir('_pages'), ['..', '.']) as $page) {
-            $markdownPages[] = basename($page, '.md');
-        }
-
-        foreach (array_diff(scandir('_pages'), ['..', '.']) as $page) {
-            $bladePages[] = basename($page, '.blade.php');
-        }
-
-        $conflicts = array_intersect($markdownPages, $bladePages);
+        $conflicts = array_intersect(
+            CollectionService::getMarkdownPageList(),
+            CollectionService::getBladePageList()
+        );
 
         if (count($conflicts)) {
             return $result->fail('Found naming conflicts between Markdown and Blade files: '.implode(', ', $conflicts))
