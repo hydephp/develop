@@ -40,6 +40,15 @@ class ValidationService
                 return null;
             }, 'Torchlight is enabled in the config, but an API token could not be found in the dotenv file.',
             'Torchlight is an API for code syntax highlighting. You can get a free token at torchlight.dev.'),
+
+            new ValidationCheck('Site has an app.css stylesheet', function () {
+                if (! file_exists(Hyde::path('_site/index.html'))) {
+                    // If site directory is empty we skip as the site has not been compiled.
+                    return null;
+                }
+                return file_exists(Hyde::path('_site/media/app.css'));
+            }, 'Could not find the app stylesheet in the build directory.',
+            'You may need to run `npm run dev`.'),
         ];
     }
 }
