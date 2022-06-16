@@ -16,6 +16,15 @@ class HydeValidateCommand extends Command
 
     protected float $time_start;
 
+    protected ValidationService $service;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->service = new ValidationService();
+    }
+
     public function handle(): int
     {
         $this->info('Running validation tests!');
@@ -31,20 +40,13 @@ class HydeValidateCommand extends Command
         return 0;
     }
 
-    protected function check(ValidationCheck $validation): void
+    protected function check(string $check): void
     {
         $this->time_start = microtime(true);
-        $validation->check();
 
-        if ($validation->skipped()) {
-            $this->line($validation->message());
-        } else {
-            if ($validation->passed()) {
-                $this->passed($validation);
-            } else {
-                $this->failed($validation);
-            }
-        }
+        $result = $this->service->run($check);
+
+        $this->line($result->formattedMessage($this->time()));
 
         $this->newline();
     }
@@ -64,6 +66,6 @@ class HydeValidateCommand extends Command
 
     protected function time(): string
     {
-        return '<fg=gray> (' . number_format((microtime(true) - $this->time_start) * 1000, 2) . 'ms)</>';
+        return number_format((microtime(true) - $this->time_start) * 1000, 2);
     }
 }
