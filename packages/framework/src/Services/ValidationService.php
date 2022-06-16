@@ -28,6 +28,12 @@ class ValidationService
                 'Could not find an index.md or index.blade.php file in the _pages directory!',
                 'You can publish the one of the built in templates using `php hyde publish:homepage`'
             ),
+
+            new ValidationCheck('A site URL is set', function () {
+                return (bool) Hyde::uriPath();
+            },
+                'Could not find a site URL in the config or .env file!',
+            'Adding it may improve SEO as it allows for generating canonical URL, sitemaps, and RSS feeds.'),
         ];
     }
 }
