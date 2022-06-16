@@ -29,6 +29,13 @@ class ValidationService
         return $this->$check(new ValidationResult);
     }
 
+    public function check_validators_can_run(ValidationResult $result): ValidationResult
+    {
+        // Runs a rather useless check, but which forces the class to load, thus preventing skewed test results
+        // as the first test generally takes a little longer to run.
+        return $result->pass('Validators can run');
+    }
+
     public function check_site_has_a_404_page(ValidationResult $result): ValidationResult
     {
         if ((file_exists(Hyde::path('_pages/404.md')) || file_exists(Hyde::path('_pages/404.blade.php')))) {
