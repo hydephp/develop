@@ -6,6 +6,9 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeValidateCommand
+ * @covers \Hyde\Framework\Services\ValidationService
+ * @covers \Hyde\Framework\Models\ValidationResult
+ * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
  */
 class HydeValidateCommandTest extends TestCase
 {
@@ -13,7 +16,7 @@ class HydeValidateCommandTest extends TestCase
     {
         $this->artisan('validate')
             ->expectsOutput('Running validation tests!')
-            ->expectsOutput('All done!')
+            ->expectsOutputToContain('All done!')
             ->assertExitCode(0);
     }
 }
