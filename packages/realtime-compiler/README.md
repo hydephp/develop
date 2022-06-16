@@ -16,9 +16,10 @@ See the [Security Policy](https://github.com/hydephp/realtime-compiler/security/
 | Version | Supported          | Notes    |
 |---------|--------------------|----------|
 | 2.0.x   | :white_check_mark: | Latest   |
-| 1.0.x   | :white_check_mark: | (LTS)    |
+| 1.0.x   | :shield:           | (LTS*)   |
 | < 1.0   | :x:                | Alpha    |
 
+*1.x LTS receives security fixes only
 
 ## v2.0 Release Notes
 
