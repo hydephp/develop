@@ -69,39 +69,43 @@ class ValidationCheck
         return $this->tip;
     }
 
+    /** Run the check and update and return the result. */
     public function check(): bool|null
     {
         $status = $this->run();
 
         if ($status === true) {
-            $this->pass();
-            return true;
+            return $this->pass();
         }
 
         if ($status === false) {
-            $this->fail();
-            return false;
+            return $this->fail();
         }
 
-        $this->skip();
-        return null;
+        return $this->skip();
     }
 
-    public function pass(): void
+    /** @return true */
+    public function pass(): bool
     {
         $this->passed = true;
         $this->message = $this->test;
+        return true;
     }
 
-    public function fail(): void
+    /** @return false */
+    public function fail(): bool
     {
         $this->passed = false;
         $this->message = $this->message ?? 'Test failed: ' . $this->test;
+        return false;
     }
 
-    public function skip(): void
+    /** @return null */
+    public function skip()
     {
         $this->skipped = true;
         $this->message = 'Test skipped: ' . $this->test;
+        return null;
     }
 }
