@@ -42,14 +42,20 @@ class ValidationResult
         return $this;
     }
 
-    public function message(): string
+    public function withTip(string $withTip): self
     {
-        return $this->message;
+        $this->tip = $withTip;
+        return $this;
     }
 
     public function tip(): string|false
     {
         return $this->tip ?? false;
+    }
+
+    public function skipped(): bool
+    {
+        return $this->skipped;
     }
 
     public function passed(): bool
@@ -62,8 +68,64 @@ class ValidationResult
         return ! $this->passed;
     }
 
-    public function skipped(): bool
+    public function statusCode(): int
     {
-        return $this->skipped;
+        if ($this->skipped) {
+            return 1;
+        }
+        if ($this->passed()) {
+            return 0;
+        }
+        return 2;
+    }
+
+    public function message(): string
+    {
+        return $this->message;
+    }
+
+    public function formattedMessage(?string $withTimeString = null): string
+    {
+        $string = '  '. $this->formatResult($this->message) . $this->formatTimeString($withTimeString);
+        if ($this->tip()) {
+            $string .= "\n  " . $this->formatTip($this->tip);
+        }
+        return $string;
+    }
+
+    protected function formatResult(string $message): string
+    {
+        if ($this->statusCode() === 0) {
+            return $this->formatPassed($message);
+        }
+        if ($this->statusCode() === 2) {
+            return $this->formatFailed($message);
+        }
+        return $this->formatSkipped($message);
+    }
+
+    protected function formatPassed(string $message): string
+    {
+        return '<fg=white;bg=green> PASS <fg=green> ' . $message . '</></>';
+    }
+
+    protected function formatFailed(string $message): string
+    {
+        return '<fg=gray;bg=yellow> FAIL <fg=yellow> ' . $message . '</></>';
+    }
+
+    protected function formatSkipped(string $message): string
+    {
+        return '<fg=white;bg=gray> SKIP <fg=gray> ' . $message . '</></>';
+    }
+
+    protected function formatTimeString(string $time): string
+    {
+        return '<fg=gray> (' .$time. 'ms)</>';
+    }
+
+    protected function formatTip(string $tip): string
+    {
+        return '<fg=gray>' . $tip . '</>';
     }
 }
