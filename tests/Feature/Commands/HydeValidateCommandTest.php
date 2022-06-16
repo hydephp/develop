@@ -8,6 +8,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Commands\HydeValidateCommand
  * @covers \Hyde\Framework\Services\ValidationService
  * @covers \Hyde\Framework\Models\ValidationResult
+ *
  * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
  */
 class HydeValidateCommandTest extends TestCase

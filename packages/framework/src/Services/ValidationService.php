@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\ValidationResult as Result;
 
 /**
@@ -65,7 +65,7 @@ class ValidationService
         if (! Features::hasDocumentationPages()) {
             return $result->skip('The documentation page feature is disabled in config');
         }
-       
+
         if (file_exists('_docs/index.md')) {
             return $result->pass('Your documentation site has an index page');
         }
@@ -87,7 +87,7 @@ class ValidationService
         return $result->fail('Could not find an app.css file in the _site/media or _media directory!')
             ->withTip('You may need to run `npm run dev`.`');
     }
-    
+
     public function check_site_has_a_base_url_set(Result $result): Result
     {
         if ((bool) Hyde::uriPath() === true) {
@@ -102,13 +102,13 @@ class ValidationService
     public function check_a_torchlight_api_token_is_set(Result $result): Result
     {
         if (! Features::enabled(Features::torchlight())) {
-           return $result->skip('Check a Torchlight API token is set')
+            return $result->skip('Check a Torchlight API token is set')
                ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
-       }
+        }
 
-       if ( config('torchlight.token') !== null) {
+        if (config('torchlight.token') !== null) {
             return $result->pass('Your site has a Torchlight API token set');
-       }
+        }
 
         return $result->fail('Torchlight is enabled in the config, but an API token could not be found in the .env file!')
             ->withTip('Torchlight is an API for code syntax highlighting. You can get a free token at torchlight.dev.');
@@ -124,7 +124,7 @@ class ValidationService
         if (count($conflicts)) {
             return $result->fail('Found naming conflicts between Markdown and Blade files: '.implode(', ', $conflicts))
                 ->withTip('This may cause on of them being immediately overwritten by the other.');
-        } 
+        }
 
         return $result->pass('No naming conflicts found between Blade and Markdown pages');
     }
