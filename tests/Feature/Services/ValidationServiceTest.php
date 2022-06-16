@@ -25,6 +25,14 @@ class ValidationServiceTest extends TestCase
         $this->service = new ValidationService();
     }
 
+    // Rather meta, but lets us know that the method assertions are correct, and gives us test coverage
+    protected function test(string $method, int $expectedStatusCode)
+    {
+        $result = $this->service->run($method);
+        $this->assertInstanceOf(ValidationResult::class, $result);
+        $this->assertEquals($expectedStatusCode, $result->statusCode());
+    }
+    
     public function test_checks_returns_an_array_of_validation_check_methods()
     {
         $checks = ValidationService::checks();
@@ -118,13 +126,5 @@ class ValidationServiceTest extends TestCase
         touch(Hyde::path('_pages/index.md'));
         $this->test('check_for_conflicts_between_blade_and_markdown_pages', 2);
         unlink(Hyde::path('_pages/index.md'));
-    }
-
-    // Rather meta, but lets us know that the method assertions are correct, and gives us test coverage
-    protected function test(string $method, int $expectedStatusCode)
-    {
-        $result = $this->service->run($method);
-        $this->assertInstanceOf(ValidationResult::class, $result);
-        $this->assertEquals($expectedStatusCode, $result->statusCode());
     }
 }
