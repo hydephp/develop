@@ -16,7 +16,7 @@ hyde/hyde and hyde/framework as they are tightly coupled.
 
 ## Warning
 
-This monorepo project is **highly experimental** and **unstable**!
+This monorepo project is still new, and the internal structure of it may be changed without notice.
 Changes pushed to the actual package repositories are only made when stable.
 
 ## Projects in this monorepo
