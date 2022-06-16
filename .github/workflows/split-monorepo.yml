@@ -75,8 +75,8 @@ jobs:
     - name: Empty working directory
       run: rm -rf *
 
-    - name: Create temporary working directory
-      run: mkdir ~/tmp
+    - name: Create temporary working directories
+      run: mkdir ~/tmp && mkdir ~/tmp/clone
 
     - name: Download Hyde/Hyde 
       run: cd ~/tmp && wget https://github.com/hydephp/develop/zipball/${{ github.sha }} -O hyde.zip
