@@ -72,20 +72,31 @@ class ValidationCheck
     public function check(): bool|null
     {
         $status = $this->run();
+
         if ($status === true) {
-            $this->passed = true;
-            $this->message = $this->test;
+            $this->pass();
             return true;
         }
 
         if ($status === false) {
-            $this->passed = false;
-            $this->message = $this->message ?? 'Test failed: ' . $this->test;
+            $this->fail();
             return false;
         }
 
         $this->skip();
         return null;
+    }
+
+    public function pass(): void
+    {
+        $this->passed = true;
+        $this->message = $this->test;
+    }
+
+    public function fail(): void
+    {
+        $this->passed = false;
+        $this->message = $this->message ?? 'Test failed: ' . $this->test;
     }
 
     public function skip(): void
