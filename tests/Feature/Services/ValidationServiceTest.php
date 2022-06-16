@@ -62,6 +62,27 @@ class ValidationServiceTest extends TestCase
         rename(Hyde::path('_pages/404.blade.php.bak'), Hyde::path('_pages/404.blade.php'));
     }
 
+    public function test_check_documentation_site_has_an_index_page_can_pass()
+    {
+        touch('_docs/index.md');
+        $this->test('check_documentation_site_has_an_index_page', 0);
+        unlink('_docs/index.md');
+    }
+
+    public function test_check_documentation_site_has_an_index_page_can_pass_with_warning_when_only_finding_readme()
+    {
+        touch('_docs/README.md');
+        $this->test('check_documentation_site_has_an_index_page', 2);
+        $this->assertStringContainsString('a _docs/readme.md file was found',
+            $this->service->run('check_documentation_site_has_an_index_page')->tip());
+        unlink('_docs/README.md');
+    }
+
+    public function test_check_documentation_site_has_an_index_page_can_fail()
+    {
+        $this->test('check_documentation_site_has_an_index_page', 2);
+    }
+
     public function test_check_site_has_an_index_page_can_pass()
     {
         $this->test('check_site_has_an_index_page', 0);
