@@ -15,6 +15,7 @@ class HydeValidateCommand extends Command
     protected $description = 'Run a series of tests to validate your setup and help you optimize your site.';
 
     protected float $time_start;
+    protected float $time_total = 0;
 
     protected ValidationService $service;
 
@@ -35,7 +36,7 @@ class HydeValidateCommand extends Command
             $this->check($check);
         }
 
-        $this->info('All done!');
+        $this->info('All done! <fg=gray>Ran '. sizeof(ValidationService::checks()) .' checks in '. number_format($this->time_total, 2) .'ms </>');
 
         return 0;
     }
@@ -53,6 +54,8 @@ class HydeValidateCommand extends Command
 
     protected function time(): string
     {
-        return number_format((microtime(true) - $this->time_start) * 1000, 2);
+        $time = (microtime(true) - $this->time_start) * 1000;
+        $this->time_total += $time;
+        return number_format($time, 2);
     }
 }
