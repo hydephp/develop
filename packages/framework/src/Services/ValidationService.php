@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Services;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\ValidationResult;
+use Hyde\Framework\Models\ValidationResult as Result;
 
 /**
  * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
@@ -24,19 +24,19 @@ class ValidationService
         return $checks;
     }
 
-    public function run(string $check): ValidationResult
+    public function run(string $check): Result
     {
-        return $this->$check(new ValidationResult);
+        return $this->$check(new Result);
     }
 
-    public function check_validators_can_run(ValidationResult $result): ValidationResult
+    public function check_validators_can_run(Result $result): Result
     {
         // Runs a rather useless check, but which forces the class to load, thus preventing skewed test results
         // as the first test generally takes a little longer to run.
         return $result->pass('Validators can run');
     }
 
-    public function check_site_has_a_404_page(ValidationResult $result): ValidationResult
+    public function check_site_has_a_404_page(Result $result): Result
     {
         if ((file_exists(Hyde::path('_pages/404.md')) || file_exists(Hyde::path('_pages/404.blade.php')))) {
             return $result->pass('Your site has a 404 page');
@@ -46,7 +46,7 @@ class ValidationService
                 ->withTip('You can publish the default one using `php hyde publish:views`');
     }
 
-    public function check_site_has_an_index_page(ValidationResult $result): ValidationResult
+    public function check_site_has_an_index_page(Result $result): Result
     {
         if (file_exists(Hyde::path('_pages/index.md')) || file_exists(Hyde::path('_pages/index.blade.php'))) {
             return $result->pass('Your site has an index page');
@@ -56,7 +56,7 @@ class ValidationService
                 ->withTip('You can publish the one of the built in templates using `php hyde publish:homepage`');
     }
 
-    public function check_site_has_an_app_css_stylesheet(ValidationResult $result): ValidationResult
+    public function check_site_has_an_app_css_stylesheet(Result $result): Result
     {
         if (file_exists(Hyde::path('_site/media/app.css')) || file_exists(Hyde::path('_media/app.css'))) {
             return $result->pass('Your site has an app.css stylesheet');
@@ -66,7 +66,7 @@ class ValidationService
             ->withTip('You may need to run `npm run dev`.`');
     }
     
-    public function check_site_has_a_base_url_set(ValidationResult $result): ValidationResult
+    public function check_site_has_a_base_url_set(Result $result): Result
     {
         if ((bool) Hyde::uriPath() === true) {
             return $result->pass('Your site has a base URL set')
@@ -77,7 +77,7 @@ class ValidationService
                 ->withTip('Adding it may improve SEO as it allows Hyde to generate canonical URLs, sitemaps, and RSS feeds');
     }
 
-    public function check_a_torchlight_api_token_is_set(ValidationResult $result): ValidationResult
+    public function check_a_torchlight_api_token_is_set(Result $result): Result
     {
         if (! Features::enabled(Features::torchlight())) {
            return $result->skip('Check a Torchlight API token is set')
@@ -92,7 +92,7 @@ class ValidationService
             ->withTip('Torchlight is an API for code syntax highlighting. You can get a free token at torchlight.dev.');
     }
 
-    public function check_for_conflicts_between_blade_and_markdown_pages(ValidationResult $result): ValidationResult
+    public function check_for_conflicts_between_blade_and_markdown_pages(Result $result): Result
     {
         $conflicts = array_intersect(
             CollectionService::getMarkdownPageList(),
