@@ -88,7 +88,7 @@ class ValidationResult
     {
         $string = '  '. $this->formatResult($this->message) . $this->formatTimeString($withTimeString);
         if ($this->tip()) {
-            $string .= "\n  " . $this->formatTip($this->tip);
+            $string .= "\n".str_repeat(' ', 9) . $this->formatTip($this->tip);
         }
         return $string;
     }
