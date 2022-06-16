@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Actions;
 
 /**
+ * @deprecated Use ValidationResult to represent validation results instead.
  * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
  */
 class ValidationCheck
