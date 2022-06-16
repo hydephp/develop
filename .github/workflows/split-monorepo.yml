@@ -35,7 +35,7 @@ jobs:
         path: "packages/realtime-compiler"
 
   # Add the files to the readonly branch
-  propagate-framework:
+  split-framework:
     needs: package-framework
     runs-on: ubuntu-latest
     steps:
@@ -59,7 +59,7 @@ jobs:
       with:
         message: ${{ github.event.head_commit.message }}
         
-  propagate-hyde:
+  split-hyde:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -105,7 +105,7 @@ jobs:
         message: ${{ github.event.head_commit.message }}
 
 
-  propagate-realtime-compiler:
+  split-realtime-compiler:
     needs: package-realtime-compiler
     runs-on: ubuntu-latest
     steps:
@@ -132,7 +132,7 @@ jobs:
 
   # Push changes in the readonly branch to the upstream develop branch
   push-framework:
-    needs: propagate-framework
+    needs: split-framework
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -148,7 +148,7 @@ jobs:
         git push upstream readonly-framework-mirror:develop
 
   push-realtime-compiler:
-    needs: propagate-realtime-compiler
+    needs: split-realtime-compiler
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -164,7 +164,7 @@ jobs:
         git push upstream readonly-rc-mirror:develop
 
   push-hyde:
-    needs: propagate-hyde
+    needs: split-hyde
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
