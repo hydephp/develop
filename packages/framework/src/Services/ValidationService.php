@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Services;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\ValidationResult;
 
 /**
@@ -85,4 +87,26 @@ class ValidationService
             ->withTip('Torchlight is an API for code syntax highlighting. You can get a free token at torchlight.dev.');
     }
 
+    public function check_for_conflicts_between_blade_and_markdown_pages(ValidationResult $result): ValidationResult
+    {
+        $markdownPages = [];
+        $bladePages = [];
+
+        foreach (array_diff(scandir('_pages'), ['..', '.']) as $page) {
+            $markdownPages[] = basename($page, '.md');
+        }
+
+        foreach (array_diff(scandir('_pages'), ['..', '.']) as $page) {
+            $bladePages[] = basename($page, '.blade.php');
+        }
+
+        $conflicts = array_intersect($markdownPages, $bladePages);
+
+        if (count($conflicts)) {
+            return $result->fail('Found naming conflicts between Markdown and Blade files: '.implode(', ', $conflicts))
+                ->withTip('This may cause on of them being immediately overwritten by the other.');
+        } 
+
+        return $result->pass('No naming conflicts found between .blade.php and .md files in the _pages directory');
+    }
 }
