@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Services\ValidationService
  * @covers \Hyde\Framework\Models\ValidationResult
+ *
  * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
  */
 class ValidationServiceTest extends TestCase
@@ -32,7 +33,7 @@ class ValidationServiceTest extends TestCase
         $this->assertInstanceOf(ValidationResult::class, $result);
         $this->assertEquals($expectedStatusCode, $result->statusCode());
     }
-    
+
     public function test_checks_returns_an_array_of_validation_check_methods()
     {
         $checks = ValidationService::checks();

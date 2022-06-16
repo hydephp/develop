@@ -35,7 +35,7 @@ class HydeValidateCommand extends Command
             $this->check($check);
         }
 
-        $this->info('All done! ' . $this->timeTotal());
+        $this->info('All done! '.$this->timeTotal());
 
         return 0;
     }
@@ -55,11 +55,12 @@ class HydeValidateCommand extends Command
     {
         $time = (microtime(true) - $this->time_start) * 1000;
         $this->time_total += $time;
+
         return number_format($time, 2);
     }
 
     protected function timeTotal(): string
     {
-        return'<fg=gray>Ran '. sizeof(ValidationService::checks()) .' checks in '. number_format($this->time_total, 2) .'ms</>';
+        return'<fg=gray>Ran '.sizeof(ValidationService::checks()).' checks in '.number_format($this->time_total, 2).'ms</>';
     }
 }
