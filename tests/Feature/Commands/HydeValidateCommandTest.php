@@ -16,7 +16,20 @@ class HydeValidateCommandTest extends TestCase
     {
         $this->artisan('validate')
             ->expectsOutput('Running validation tests!')
+            ->expectsOutputToContain('PASS')
+            ->expectsOutputToContain('FAIL')
             ->expectsOutputToContain('All done!')
+            ->assertExitCode(0);
+    }
+
+    public function test_validate_command_can_run_with_skips()
+    {
+        // Trigger skipping of Torchlight check$
+        config(['hyde.features' => []]);
+
+        $this->artisan('validate')
+            ->expectsOutput('Running validation tests!')
+            ->expectsOutputToContain('SKIP')
             ->assertExitCode(0);
     }
 }
