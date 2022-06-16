@@ -36,10 +36,14 @@ class HydeValidateCommand extends Command
         $this->time_start = microtime(true);
         $validation->check();
 
-        if ($validation->passed()) {
-            $this->passed($validation);
+        if ($validation->skipped()) {
+            $this->line($validation->message());
         } else {
-            $this->failed($validation);
+            if ($validation->passed()) {
+                $this->passed($validation);
+            } else {
+                $this->failed($validation);
+            }
         }
 
         $this->newline();
