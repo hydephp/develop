@@ -81,7 +81,14 @@ class ValidationServiceTest extends TestCase
 
     public function test_check_documentation_site_has_an_index_page_can_fail()
     {
+        touch('_docs/foo.md');
         $this->test('check_documentation_site_has_an_index_page', 2);
+        unlink('_docs/foo.md');
+    }
+
+    public function test_check_documentation_site_has_an_index_page_be_skipped()
+    {
+        $this->test('check_documentation_site_has_an_index_page', 1);
     }
 
     public function test_check_site_has_an_index_page_can_pass()
