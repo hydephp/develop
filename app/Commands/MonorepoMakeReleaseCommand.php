@@ -10,10 +10,14 @@ use LaravelZero\Framework\Commands\Command;
  *
  * This command is included in the Hyde Monorepo,
  * but is removed when packaging the Hyde application.
+ * 
+ * IDEAS for improvement:
+ * @todo Add option to create the git commit and tag (or just commit the updated changelog)
+ * @todo Create pull request drafts to merge develop into master for the packages
  */
 class MonorepoMakeReleaseCommand extends Command
 {
-    protected $signature = 'monorepo:release {tag? : Leave blank to promt for one.} {--dry-run : Don\'t push changes to remote. Will still edit filesystem.} {--allow-duplicates : Allow duplicate release names in the changelog.}';
+    protected $signature = 'monorepo:release {tag? : Leave blank to prompt for one.} {--dry-run : Don\'t push changes to remote. Will still edit filesystem.} {--allow-duplicates : Allow duplicate release names in the changelog.}';
     protected $description = '🪓 Create a new syndicated release for the Hyde Monorepo';
 
     protected bool $dryRun = false;
