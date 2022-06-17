@@ -48,6 +48,29 @@ This serves two purposes:
 <!-- CHANGELOG_START -->
 
 
+## v0.35.0-beta - 2022-06-14 - Initial Monorepo Release
+
+### What's Changed
+
+* Restore master project by @caendesilva in https://github.com/hydephp/develop/pull/1
+* Merge Hyde/Framework into packages/framework by @caendesilva in https://github.com/hydephp/develop/pull/2
+* Refactor test suite, moving tests into Hyde root and updating some of them by @caendesilva in https://github.com/hydephp/develop/pull/3
+* Remove default AppServiceProvider.php, fix #5 by @caendesilva in https://github.com/hydephp/develop/pull/6
+* Fix #7: Remove unrelated configuration files from the framework package by @caendesilva in https://github.com/hydephp/develop/pull/8
+* Refactor bootstrapping process by @caendesilva in https://github.com/hydephp/develop/pull/9
+* Remove layover framework test files by @caendesilva in https://github.com/hydephp/develop/pull/10
+* Import hydefront package by @caendesilva in https://github.com/hydephp/develop/pull/11
+* Import hydephp/realtime-compiler to packages/ by @caendesilva in https://github.com/hydephp/develop/pull/16
+* Handle moving of the bootstrap file to provide backwards compatibility for the migration period by @caendesilva in https://github.com/hydephp/develop/pull/17
+* Import hydephp/docs by @caendesilva in https://github.com/hydephp/develop/pull/18
+* Create readonly mirrors by @caendesilva in https://github.com/hydephp/develop/pull/21
+* Add Rocket dashboard subrepository by @caendesilva in https://github.com/hydephp/develop/pull/25
+* Work in progress single-file dashboard for the HydeRC by @caendesilva in https://github.com/hydephp/develop/pull/26
+* Create dashboard template by @caendesilva in https://github.com/hydephp/develop/pull/27
+
+
+**Full Changelog**: https://github.com/hydephp/develop/commits/v0.35.0-beta
+
 
 <!-- CHANGELOG_END -->
 
