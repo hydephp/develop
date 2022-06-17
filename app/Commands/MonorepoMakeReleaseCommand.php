@@ -134,7 +134,7 @@ class MonorepoMakeReleaseCommand extends Command
         $changelog = file_get_contents('CHANGELOG.md');
 
         // Check if the tag is already in the changelog.
-        if (! $this->option('allow-duplicates') && strpos($changelog, $tag) !== false) {
+        if (! $this->option('allow-duplicates') && strpos($changelog, '## '.$tag.' - ') !== false) {
             throw new \Exception('The tag is already in used in the changelog at line ' . substr_count($changelog, "\n", 0, strpos($changelog, $tag)) . '! (Suppy --allow-duplicates to ignore)');
         }
 
