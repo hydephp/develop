@@ -18,6 +18,7 @@ The monorepo is split in three* stages to decouple the process.
 *The Hyde/Hyde project is stored in the monorepo root and works a bit differently. Here don't package the data, instead we remove monorepo code and apply persisted data before running the next steps.
 
 The release cycle for Hyde/Hyde and Hyde/Framework are synced. Before creating the release we merge the packages' develop branches into their master branches.
+Note that I'm just now testing out this release system, and it is entirely possible that we'll just keep minor versions in sync, and not bother with patches the framework changes much more frequently than hyde, leading to a bunch patch releases where there are no actual changes.
 
 ## Warning
 
