@@ -48,6 +48,21 @@ This serves two purposes:
 <!-- CHANGELOG_START -->
 
 
+## v0.37.1-beta - 2022-06-16 - Update validation test
+
+### About
+
+If there are no documentation pages there is no need for an index page, and the test can safely be skipped.
+
+### What's Changed
+* Apply fixes from StyleCI by @caendesilva in https://github.com/hydephp/develop/pull/46
+* v0.37.0-beta - Create custom validator test framework by @caendesilva in https://github.com/hydephp/develop/pull/45
+* Skip documentation index validation test if the _docs directory is empty by @caendesilva in https://github.com/hydephp/develop/pull/48
+
+
+**Full Changelog**: https://github.com/hydephp/develop/compare/v0.36.0-beta...v0.37.1-beta
+
+
 ## v0.37.0-beta - 2022-06-16 - Replace dependency with custom validator implementation
 
 ### What's Changed
