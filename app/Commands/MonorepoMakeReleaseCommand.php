@@ -2,10 +2,11 @@
 
 namespace App\Commands;
 
-use Exception;
 use LaravelZero\Framework\Commands\Command;
 
 /**
+ * @internal - Bodged together for a quick development aid. Don't use in production.
+ * 
  * This command is included in the Hyde Monorepo,
  * but is removed when packaging the Hyde application.
  */
