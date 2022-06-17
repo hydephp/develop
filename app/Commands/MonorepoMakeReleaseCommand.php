@@ -11,7 +11,7 @@ use LaravelZero\Framework\Commands\Command;
  */
 class MonorepoMakeReleaseCommand extends Command
 {
-    protected $signature = 'monorepo:release {--dry-run : Don\'t push changes to remote. Will still edit filesystem.} {--allow-duplicates : Allow duplicate release names in the changelog.}';
+    protected $signature = 'monorepo:release {tag? : Leave blank to promt for one.} {--dry-run : Don\'t push changes to remote. Will still edit filesystem.} {--allow-duplicates : Allow duplicate release names in the changelog.}';
     protected $description = '🪓 Create a new syndicated release for the Hyde Monorepo';
 
     protected bool $dryRun = false;
@@ -52,26 +52,31 @@ class MonorepoMakeReleaseCommand extends Command
         // Also abort if we are not on the master branch. (Not doing this now as I am not on the master branch.)
 
         // First, get the current tag and increment it depending on the desired semver tag.
-        $this->task('Getting current tag', function() {
-            $this->currentTag = trim(shell_exec('git describe --tags --abbrev=0'));
-        });
-        $this->line('Current tag: <info>' . $this->currentTag . '</info>');
-
-        // Prompt for what type of release we are creating.
-        $this->task('Getting release type', function() {
-            $this->releaseType = $this->choice('What type of release are you creating?', [
-                'patch', 'minor', 'major'
-            ], 'patch');
-        });
-        $this->line('Release type: <info>' . $this->releaseType . '</info>');
-
-        // Increment the current tag.
-        $this->task('Incrementing current tag', function() {
-            $this->tag = $this->incrementTag($this->currentTag, $this->releaseType);
-        });
-        $this->line('New tag: <info>' . $this->tag . '</info>');
-
-        // $this->line('Creating update <info>'. $this->currentTag . '</info> > <info>'. $this->tag . '</info>');
+        if (! $this->argument('tag')) {
+            $this->task('Getting current tag', function() {
+                $this->currentTag = trim(shell_exec('git describe --tags --abbrev=0'));
+            });
+            $this->line('Current tag: <info>' . $this->currentTag . '</info>');
+    
+            // Prompt for what type of release we are creating.
+            $this->task('Getting release type', function() {
+                $this->releaseType = $this->choice('What type of release are you creating?', [
+                    'patch', 'minor', 'major'
+                ], 'patch');
+            });
+            $this->line('Release type: <info>' . $this->releaseType . '</info>');
+    
+            // Increment the current tag.
+            $this->task('Incrementing current tag', function() {
+                $this->tag = $this->incrementTag($this->currentTag, $this->releaseType);
+            });
+            $this->line('New tag: <info>' . $this->tag . '</info>');
+            // $this->line('Creating update <info>'. $this->currentTag . '</info> > <info>'. $this->tag . '</info>');
+        }
+        else {
+            $this->tag = $this->argument('tag');
+            $this->line('Creating update <info>'. $this->tag . '</info>');
+        }
 
         // Then, move the Unreleased section in the changelog to the desired release,
         // remove any empty sections?
