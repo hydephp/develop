@@ -1,3 +1,3 @@
 # Hyde Testing
 
-The tests for the Hyde/Framework package are now handled in the monorepo.
+The tests here cover the Hyde/Framework package. Note that they are intended to be run through the monorepo.
