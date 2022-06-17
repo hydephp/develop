@@ -2,12 +2,12 @@
 
 namespace App\Commands;
 
-use LaravelZero\Framework\Commands\Command;
 use Illuminate\Support\Facades\Http;
+use LaravelZero\Framework\Commands\Command;
 
 /**
  * @internal - Bodged together for a quick development aid. Don't use in production.
- * 
+ *
  * This command is included in the Hyde Monorepo,
  * but is removed when packaging the Hyde application.
  */
@@ -31,7 +31,7 @@ class MonorepoMakeReleaseCommand extends Command
         parent::__construct();
 
         $this->cachePath = 'build/cache/release';
-        if (!is_dir($this->cachePath)) {
+        if (! is_dir($this->cachePath)) {
             mkdir($this->cachePath, 0755, true);
         }
     }
@@ -52,7 +52,7 @@ class MonorepoMakeReleaseCommand extends Command
             $this->warn('You passed the allow duplicates flag. If you are doing this because a false positive, please create an issue on GitHub!');
         }
 
-        $this->task('Fetching origin remote', function() {
+        $this->task('Fetching origin remote', function () {
             if (! $this->dryRun) {
                 shell_exec('git fetch origin');
             }
@@ -63,41 +63,40 @@ class MonorepoMakeReleaseCommand extends Command
 
         // First, get the current tag and increment it depending on the desired semver tag.
         if (! $this->argument('tag')) {
-            $this->task('Getting current tag', function() {
+            $this->task('Getting current tag', function () {
                 $this->currentTag = trim(shell_exec('git describe --tags --abbrev=0'));
             });
-            $this->line('Current tag: <info>' . $this->currentTag . '</info>');
-    
+            $this->line('Current tag: <info>'.$this->currentTag.'</info>');
+
             // Prompt for what type of release we are creating.
-            $this->task('Getting release type', function() {
+            $this->task('Getting release type', function () {
                 $this->releaseType = $this->choice('What type of release are you creating?', [
-                    'patch', 'minor', 'major'
+                    'patch', 'minor', 'major',
                 ], 'patch');
             });
-            $this->line('Release type: <info>' . $this->releaseType . '</info>');
-    
+            $this->line('Release type: <info>'.$this->releaseType.'</info>');
+
             // Increment the current tag.
-            $this->task('Incrementing current tag', function() {
+            $this->task('Incrementing current tag', function () {
                 $this->tag = $this->incrementTag($this->currentTag, $this->releaseType);
             });
-            $this->line('New tag: <info>' . $this->tag . '</info>');
-            // $this->line('Creating update <info>'. $this->currentTag . '</info> > <info>'. $this->tag . '</info>');
-        }
-        else {
+            $this->line('New tag: <info>'.$this->tag.'</info>');
+        // $this->line('Creating update <info>'. $this->currentTag . '</info> > <info>'. $this->tag . '</info>');
+        } else {
             $this->tag = $this->argument('tag');
-            $this->line('Creating update <info>'. $this->tag . '</info>');
+            $this->line('Creating update <info>'.$this->tag.'</info>');
         }
 
         // Then, move the Unreleased section in the changelog to the desired release,
         // remove any empty sections?
 
-        $this->task('Updating changelog', function() {
+        $this->task('Updating changelog', function () {
             $this->updateChangelog($this->tag);
         });
-        $this->line('Changelog entry cached to file://'. str_replace('\\', '/', realpath($this->cachePath.'/changelog-entry.md')));
+        $this->line('Changelog entry cached to file://'.str_replace('\\', '/', realpath($this->cachePath.'/changelog-entry.md')));
 
         // Create the release notes cache file.
-        $this->task('Creating GitHub release notes', function() {
+        $this->task('Creating GitHub release notes', function () {
             $this->createReleaseNotes();
         });
 
@@ -105,7 +104,7 @@ class MonorepoMakeReleaseCommand extends Command
         // (they are drafts as some GitHub actions may need to run before the release is ready
         // plus, it's best if a human actually reviews everything first )
 
-        $this->task('Preparing GitHub release object', function() {
+        $this->task('Preparing GitHub release object', function () {
             $this->prepareGitHubRelease();
         });
 
@@ -113,11 +112,11 @@ class MonorepoMakeReleaseCommand extends Command
 
         $release = json_decode(file_get_contents($this->cachePath.'/release.json'));
 
-        $this->info('Creating release with tag: ' . $release->tag_name);
+        $this->info('Creating release with tag: '.$release->tag_name);
         $this->info('Release data:');
-        $this->line('Title: ' . $release->name);
-        $this->line('Tag: ' . $release->tag_name);
-        $this->line('Dry run: ' . ($this->option('dry-run') ? 'true' : 'false'));
+        $this->line('Title: '.$release->name);
+        $this->line('Tag: '.$release->tag_name);
+        $this->line('Dry run: '.($this->option('dry-run') ? 'true' : 'false'));
         $this->newLine();
 
         $owner = self::USER;
@@ -136,7 +135,7 @@ class MonorepoMakeReleaseCommand extends Command
     protected function incrementTag(string $tag, string $releaseType): string
     {
         $prefix = substr($tag, 0, 1);
-        $suffix = substr($tag, strpos($tag, '-')); 
+        $suffix = substr($tag, strpos($tag, '-'));
         $tag = substr($tag, 1, strpos($tag, '-') - 1);
         $tag = explode('.', $tag);
 
@@ -160,7 +159,8 @@ class MonorepoMakeReleaseCommand extends Command
         }
 
         $tag = implode('.', $tag);
-        return $prefix . $tag . $suffix;
+
+        return $prefix.$tag.$suffix;
     }
 
     protected function updateChangelog(string $tag)
@@ -169,31 +169,31 @@ class MonorepoMakeReleaseCommand extends Command
 
         // Check if the tag is already in the changelog.
         if (! $this->option('allow-duplicates') && strpos($changelog, '## '.$tag.' - ') !== false) {
-            throw new \Exception('The tag is already in used in the changelog at line ' . substr_count($changelog, "\n", 0, strpos($changelog, $tag)) . '! (Suppy --allow-duplicates to ignore)');
+            throw new \Exception('The tag is already in used in the changelog at line '.substr_count($changelog, "\n", 0, strpos($changelog, $tag)).'! (Suppy --allow-duplicates to ignore)');
         }
 
         $changelog = str_replace("\r", '', $changelog);
         $changelog = explode("\n", $changelog);
-        
-        $changelog = array_slice($changelog, 
+
+        $changelog = array_slice($changelog,
             array_search('<!-- UNRELEASED_START -->', $changelog) + 2,
             array_search('<!-- UNRELEASED_END -->', $changelog) - (array_search('<!-- UNRELEASED_START -->', $changelog) + 2)
         );
 
         $changelog = implode("\n", $changelog);
-        $changelog = str_replace('## [Unreleased]', '## ' . $tag, $changelog);
+        $changelog = str_replace('## [Unreleased]', '## '.$tag, $changelog);
         $changelog = str_replace('YYYY-MM-DD', date('Y-m-d'), $changelog);
         file_put_contents($this->cachePath.'/changelog-entry.md', $changelog);
 
         // Remove everything between the markers
         $changelog = file_get_contents('CHANGELOG.md');
 
-        $updated = substr($changelog, 0, strpos($changelog, '<!-- UNRELEASED_START -->') + 25) . 
-            "\n\n".file_get_contents(__DIR__ . '/../Monorepo/stubs/changelog-unreleased.md')."\n" .
-            substr($changelog, strpos($changelog, '<!-- UNRELEASED_END -->') );
+        $updated = substr($changelog, 0, strpos($changelog, '<!-- UNRELEASED_START -->') + 25).
+            "\n\n".file_get_contents(__DIR__.'/../Monorepo/stubs/changelog-unreleased.md')."\n".
+            substr($changelog, strpos($changelog, '<!-- UNRELEASED_END -->'));
 
         // Insert the new changelog entry after the <!-- CHANGELOG_START --> marker
-        $updated = str_replace('<!-- CHANGELOG_START -->', "<!-- CHANGELOG_START -->\n\n\n" . rtrim(file_get_contents($this->cachePath.'/changelog-entry.md')), $updated);
+        $updated = str_replace('<!-- CHANGELOG_START -->', "<!-- CHANGELOG_START -->\n\n\n".rtrim(file_get_contents($this->cachePath.'/changelog-entry.md')), $updated);
 
         file_put_contents('CHANGELOG.md', $updated);
     }
@@ -203,7 +203,7 @@ class MonorepoMakeReleaseCommand extends Command
         $notes = file_get_contents($this->cachePath.'/changelog-entry.md');
 
         // Remove title and change about heading level
-        $notes = substr($notes, strpos($notes, "\n") + 3) . "\n<!-- Autogenerated GitHub release notes below -->\n";
+        $notes = substr($notes, strpos($notes, "\n") + 3)."\n<!-- Autogenerated GitHub release notes below -->\n";
 
         file_put_contents($this->cachePath.'/release-notes.md', $notes);
     }
@@ -223,16 +223,15 @@ class MonorepoMakeReleaseCommand extends Command
         file_put_contents($this->cachePath.'/release.json', json_encode($release, 128));
     }
 
-    
     protected function createRelease(string $owner, string $repository, object $release)
     {
         if ($this->dryRun) {
             Http::fake();
         }
-        
+
         $response = Http::withHeaders([
-            'Authorization' => 'token '. env('GITHUB_TOKEN'),
-            'Accept' => 'application/vnd.github.v3+json'
+            'Authorization' => 'token '.env('GITHUB_TOKEN'),
+            'Accept' => 'application/vnd.github.v3+json',
         ])->post("https://api.github.com/repos/{$owner}/{$repository}/releases", [
             'tag_name' => $release->tag_name,
             'name' => $release->name,
@@ -245,8 +244,8 @@ class MonorepoMakeReleaseCommand extends Command
         if ($response->successful()) {
             $this->info("Release created for {$owner}/{$repository}");
             if (! $this->dryRun) {
-                $this->line('Release URL: ' . $response->json()['html_url']);
-            }   
+                $this->line('Release URL: '.$response->json()['html_url']);
+            }
         } else {
             $this->error("Failed to create release for {$owner}/{$repository}");
             $this->warn($response->body());
