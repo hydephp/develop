@@ -26,7 +26,7 @@ trait InteractsWithLaravel
 
     protected function bootApplication(): void
     {
-        if (! isset($this->laravel)) {
+        if (!isset($this->laravel)) {
             $this->createApplication();
         }
 
