@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature\Commands;
+namespace Hyde\Testing\Framework\Feature\Commands;
 
 use Exception;
 use Hyde\Framework\Exceptions\FileConflictException;

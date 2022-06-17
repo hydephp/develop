@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature\Commands;
+namespace Hyde\Testing\Framework\Feature\Commands;
 
 use Hyde\Testing\TestCase;
 
@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Services\ValidationService
  * @covers \Hyde\Framework\Models\ValidationResult
  *
- * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
+ * @see \Hyde\Testing\Framework\Feature\Services\ValidationServiceTest
  */
 class HydeValidateCommandTest extends TestCase
 {

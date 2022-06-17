@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature\Services;
+namespace Hyde\Testing\Framework\Feature\Services;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\SitemapService;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature;
+namespace Hyde\Testing\Framework\Feature;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Testing\TestCase;

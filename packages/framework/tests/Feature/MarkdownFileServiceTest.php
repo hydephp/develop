@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature;
+namespace Hyde\Testing\Framework\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;

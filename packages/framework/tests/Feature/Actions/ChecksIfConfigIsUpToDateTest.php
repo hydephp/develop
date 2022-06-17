@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature\Actions;
+namespace Hyde\Testing\Framework\Feature\Actions;
 
 use Hyde\Framework\Actions\ChecksIfConfigIsUpToDate;
 use Hyde\Testing\TestCase;

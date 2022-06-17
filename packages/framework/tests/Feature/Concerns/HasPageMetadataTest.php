@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature\Concerns;
+namespace Hyde\Testing\Framework\Feature\Concerns;
 
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Contracts\AbstractPage;

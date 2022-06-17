@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Feature\Services;
+namespace Hyde\Testing\Framework\Feature\Services;
 
 use Hyde\Framework\Services\Markdown\BladeDownProcessor;
 use Hyde\Testing\TestCase;
