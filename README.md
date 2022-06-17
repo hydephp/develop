@@ -4,15 +4,20 @@
 [![Test & Build](https://github.com/hydephp/develop/actions/workflows/test-build.yml/badge.svg)](https://github.com/hydephp/develop/actions/workflows/test-build.yml)
 [![codecov](https://codecov.io/gh/hydephp/develop/branch/master/graph/badge.svg?token=G6N2161TOT)](https://codecov.io/gh/hydephp/develop)
 
-Experimenting with a monorepo. The way I'm thinking is that this repo (when/if transferred to the Hyde org)
-is the master origin and source of truth for all HydePHP packages. When a release is tagged here, a CI action
-propagates the tag and changes to all* HydePHP packages and creates subsequent releases.
+## How the monorepo currently works
 
-Some packages, like hyde/hyde will need some processing after the merge. For example, the composer.json
-should be reverted to not use the dev-master branch.
+Changes to HydePHP including (m)any of the first-party packages are made here.
+Once pushed two important CI jobs kick in, one for testing, and one for splitting the monorepo.
 
-*Some packages, like HydeFront may not need to have their tags synced. Thinking it is mainly for
-hyde/hyde and hyde/framework as they are tightly coupled.
+The monorepo is split in three* stages to decouple the process.
+
+1. **Packaging** where we create action artifacts containing the package
+2. **Splitting** where we upload the artifact to the corresponding readonly mirror branch.
+3. **Pushing**   where we push the contents of the mirror branches to the develop branches of their repositories
+
+*The Hyde/Hyde project is stored in the monorepo root and works a bit differently. Here don't package the data, instead we remove monorepo code and apply persisted data before running the next steps.
+
+The release cycle for Hyde/Hyde and Hyde/Framework are synced. Before creating the release we merge the packages' develop branches into their master branches.
 
 ## Warning
 
