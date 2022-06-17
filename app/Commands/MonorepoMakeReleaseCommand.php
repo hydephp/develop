@@ -10,12 +10,27 @@ use LaravelZero\Framework\Commands\Command;
  */
 class MonorepoMakeReleaseCommand extends Command
 {
-    protected $signature = 'monorepo:release';
+    protected $signature = 'monorepo:release {--dry-run}';
     protected $description = '🪓 Create a new syndicated release for the Hyde Monorepo';
+
+    protected bool $dryRun = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // $this->dryRun = $this->option('dry-run');
+        // Force dry run for debugging purposes.
+        $this->dryRun = true;
+    }
 
     public function handle(): int
     {
         $this->title('Creating a new release!');
+
+        if ($this->dryRun) {
+            $this->info('This is a dry run. No changes will be pushed to GitHub.');
+        }
 
         // Fetch remote and abort if we are not synced with the upstream repository.
         // Also abort if we are not on the master branch.
