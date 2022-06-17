@@ -25,3 +25,4 @@ build export-ignore
 docs export-ignore
 
 app/commands export-ignore
+app/monorepo export-ignore
