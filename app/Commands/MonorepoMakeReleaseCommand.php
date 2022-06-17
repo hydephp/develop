@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use Exception;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -10,7 +11,7 @@ use LaravelZero\Framework\Commands\Command;
  */
 class MonorepoMakeReleaseCommand extends Command
 {
-    protected $signature = 'monorepo:release {--dry-run}';
+    protected $signature = 'monorepo:release {--dry-run : Don\'t push changes to remote. Will still edit filesystem.} {--allow-duplicates : Allow duplicate release names in the changelog.}';
     protected $description = '🪓 Create a new syndicated release for the Hyde Monorepo';
 
     protected bool $dryRun = false;
@@ -36,6 +37,10 @@ class MonorepoMakeReleaseCommand extends Command
         if ($this->dryRun) {
             $this->info('This is a dry run. No changes will be pushed to GitHub.');
         }
+        if ($this->option('allow-duplicates')) {
+            $this->warn('You passed the allow duplicates flag. If you are doing this because a false positive, please create an issue on GitHub!');
+        }
+
 
         $this->task('Fetching origin remote', function() {
             if (! $this->dryRun) {
@@ -118,6 +123,12 @@ class MonorepoMakeReleaseCommand extends Command
     protected function updateChangelog(string $tag)
     {
         $changelog = file_get_contents('CHANGELOG.md');
+
+        // Check if the tag is already in the changelog.
+        if (! $this->option('allow-duplicates') && strpos($changelog, $tag) !== false) {
+            throw new \Exception('The tag is already in used in the changelog at line ' . substr_count($changelog, "\n", 0, strpos($changelog, $tag)) . '! (Suppy --allow-duplicates to ignore)');
+        }
+
         $changelog = str_replace("\r", '', $changelog);
         $changelog = explode("\n", $changelog);
         
