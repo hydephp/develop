@@ -9,7 +9,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Hyde\\Testing\\Framework\\": "tests/"
         }
     },
     "authors": [
