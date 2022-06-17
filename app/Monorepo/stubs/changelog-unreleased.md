@@ -1,4 +1,4 @@
-## [Unreleased] - Release Description
+## [Unreleased] - YYYY-MM-DD
 
 ### About
 
