@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Unit;
+namespace Hyde\Testing\Framework\Unit;
 
 use Hyde\Framework\Concerns\HasFeaturedImage;
 use Hyde\Framework\Models\Image;

@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Concerns\HasPageMetadata
  *
- * @see \Hyde\Testing\Unit\HasPageMetadataRssFeedLinkTest
+ * @see \Hyde\Testing\Framework\Unit\HasPageMetadataRssFeedLinkTest
  */
 class HasPageMetadataTest extends TestCase
 {

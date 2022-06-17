@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Unit;
+namespace Hyde\Testing\Framework\Unit;
 
 use DateTime;
 use Hyde\Framework\Exceptions\CouldNotParseDateStringException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Unit\Views;
+namespace Hyde\Testing\Framework\Unit\Views;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
