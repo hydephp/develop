@@ -48,6 +48,17 @@ This serves two purposes:
 <!-- CHANGELOG_START -->
 
 
+## v0.36.0-beta - 2022-06-16 - Add package auto-discovery
+
+### What's Changed
+* Improve transformation of the hyde/hyde composer.json in the monorepo split job by @caendesilva in https://github.com/hydephp/develop/pull/33
+* Apply fixes from StyleCI by @caendesilva in https://github.com/hydephp/develop/pull/36
+* v0.36.x - Add package auto-discovery by @caendesilva in https://github.com/hydephp/develop/pull/35
+
+
+**Full Changelog**: https://github.com/hydephp/develop/compare/v0.35.0-beta.1...v0.36.0-beta
+
+
 ## v0.35.0-beta - 2022-06-14 - Initial Monorepo Release
 
 ### What's Changed
