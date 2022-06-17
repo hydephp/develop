@@ -138,7 +138,7 @@ class MonorepoMakeReleaseCommand extends Command
             substr($changelog, strpos($changelog, '<!-- UNRELEASED_END -->') );
 
         // Insert the new changelog entry after the <!-- CHANGELOG_START --> marker
-        $updated = str_replace('<!-- CHANGELOG_START -->', "<!-- CHANGELOG_START -->\n\n" . file_get_contents($this->cachePath.'/changelog-entry.md'), $updated);
+        $updated = str_replace('<!-- CHANGELOG_START -->', "<!-- CHANGELOG_START -->\n\n\n" . rtrim(file_get_contents($this->cachePath.'/changelog-entry.md')), $updated);
 
         file_put_contents('CHANGELOG.md', $updated);
     }
