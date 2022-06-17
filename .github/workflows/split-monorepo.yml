@@ -191,4 +191,4 @@ jobs:
       run: |
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
         git fetch upstream
-        git push upstream readonly-hyde-mirror:develop -f
+        git push upstream readonly-hyde-mirror:develop
