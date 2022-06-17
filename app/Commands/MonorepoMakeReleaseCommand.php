@@ -30,10 +30,6 @@ class MonorepoMakeReleaseCommand extends Command
     {
         parent::__construct();
 
-        // $this->dryRun = $this->option('dry-run');
-        // Force dry run for debugging purposes.
-        $this->dryRun = true;
-
         $this->cachePath = 'build/cache/release';
         if (!is_dir($this->cachePath)) {
             mkdir($this->cachePath, 0755, true);
@@ -46,15 +42,19 @@ class MonorepoMakeReleaseCommand extends Command
 
         if ($this->dryRun) {
             $this->info('This is a dry run. No changes will be pushed to GitHub.');
+            $this->dryRun = true;
+        } else {
+            $this->info('Changes will be pushed to GitHub at the end of the workflow.');
+            $this->dryRun = false;
         }
+
         if ($this->option('allow-duplicates')) {
             $this->warn('You passed the allow duplicates flag. If you are doing this because a false positive, please create an issue on GitHub!');
         }
 
-
         $this->task('Fetching origin remote', function() {
             if (! $this->dryRun) {
-                $this->git('fetch origin');
+                shell_exec('git fetch origin');
             }
         });
 
