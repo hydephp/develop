@@ -120,10 +120,12 @@ class MonorepoMakeReleaseCommand extends Command
         $changelog = file_get_contents('CHANGELOG.md');
         $changelog = str_replace("\r", '', $changelog);
         $changelog = explode("\n", $changelog);
+        
         $changelog = array_slice($changelog, 
             array_search('<!-- UNRELEASED_START -->', $changelog) + 2,
-            array_search('<!-- UNRELEASED_END -->', $changelog) - 8
+            array_search('<!-- UNRELEASED_END -->', $changelog) - (array_search('<!-- UNRELEASED_START -->', $changelog) + 2)
         );
+
         $changelog = implode("\n", $changelog);
         $changelog = str_replace('## [Unreleased]', '## ' . $tag, $changelog);
         file_put_contents($this->cachePath.'/changelog-entry.md', $changelog);
