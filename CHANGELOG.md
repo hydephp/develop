@@ -14,30 +14,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This release brings internal restructuring to the Hyde monorepo,
+adding a helper command to manage the new release cycle.
 
 ### Added
-- for new features.
+- Add internal `monorepo:release` command 
 
 ### Changed
-- for changes in existing functionality.
+- Changed to keep only a single `CHANGELOG.md` file for Hyde/Hyde and Hyde/Framework
 
-### Deprecated
-- for soon-to-be removed features.
-
-### Removed
-- for now removed features.
-
-### Fixed
-- for any bug fixes.
-
-### Security
-- in case of vulnerabilities.
 
 <!-- UNRELEASED_END -->
 
