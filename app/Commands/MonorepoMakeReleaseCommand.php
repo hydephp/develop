@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use LaravelZero\Framework\Commands\Command;
+use Illuminate\Support\Facades\Http;
 
 /**
  * @internal - Bodged together for a quick development aid. Don't use in production.
@@ -16,6 +17,12 @@ class MonorepoMakeReleaseCommand extends Command
     protected $description = '🪓 Create a new syndicated release for the Hyde Monorepo';
 
     protected bool $dryRun = false;
+
+    protected const USER = 'hyde-staging';
+
+    protected static array $repositories = [
+        'develop',
+    ];
 
     public function __construct()
     {
@@ -99,6 +106,27 @@ class MonorepoMakeReleaseCommand extends Command
         $this->task('Preparing GitHub release object', function() {
             $this->prepareGitHubRelease();
         });
+
+        // Finally, create the releases on GitHub
+
+        $release = json_decode(file_get_contents($this->cachePath.'/release.json'));
+
+        $this->info('Creating release with tag: ' . $release->tag_name);
+        $this->info('Release data:');
+        $this->line('Title: ' . $release->name);
+        $this->line('Tag: ' . $release->tag_name);
+        $this->line('Dry run: ' . ($this->option('dry-run') ? 'true' : 'false'));
+        $this->newLine();
+
+        $owner = self::USER;
+
+        foreach (self::$repositories as $repository) {
+            $this->info("Creating release for {$owner}/{$repository}");
+            $this->createRelease($owner, $repository, $release);
+        }
+
+        $this->info('Done!');
+        $this->warn('Remember to merge develop branches into master! (And composer/package versions if minor!)');
 
         return 0;
     }
@@ -191,5 +219,35 @@ class MonorepoMakeReleaseCommand extends Command
             'draft' => true,
         ];
         file_put_contents($this->cachePath.'/release.json', json_encode($release, 128));
+    }
+
+    
+    protected function createRelease(string $owner, string $repository, object $release)
+    {
+        if ($this->dryRun) {
+            Http::fake();
+        }
+        
+        $response = Http::withHeaders([
+            'Authorization' => 'token '. env('GITHUB_TOKEN'),
+            'Accept' => 'application/vnd.github.v3+json'
+        ])->post("https://api.github.com/repos/{$owner}/{$repository}/releases", [
+            'tag_name' => $release->tag_name,
+            'name' => $release->name,
+            'body' => $release->body,
+            'draft' => true,
+            'prerelease' => false,
+            'generate_release_notes' => true,
+        ]);
+
+        if ($response->successful()) {
+            $this->info("Release created for {$owner}/{$repository}");
+            if (! $this->dryRun) {
+                $this->line('Release URL: ' . $response->json()['html_url']);
+            }   
+        } else {
+            $this->error("Failed to create release for {$owner}/{$repository}");
+            $this->warn($response->body());
+        }
     }
 }
