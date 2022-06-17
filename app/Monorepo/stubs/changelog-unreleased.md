@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+### About
+
 Keep an Unreleased section at the top to track upcoming changes.
 
 This serves two purposes:

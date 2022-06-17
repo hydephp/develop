@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- UNRELEASED_START -->
 
 ## [Unreleased]
+
+### About
+
 Keep an Unreleased section at the top to track upcoming changes.
 
 This serves two purposes:
