@@ -21,7 +21,8 @@ This does not affect the behavior of the library, but it does affect how package
 - for new features.
 
 ### Changed
-- Move Framework tests from the monorepo into the Framework package.
+- @internal Move Framework tests from the monorepo into the Framework package.
+- @internal Rename monorepo workflow `build-test.yml` to `continuous-integration.yml`.
 
 ### Deprecated
 - for soon-to-be removed features.
