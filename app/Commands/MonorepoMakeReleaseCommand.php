@@ -60,9 +60,20 @@ class MonorepoMakeReleaseCommand extends Command
             $this->tag = $this->incrementTag($this->currentTag, $this->releaseType);
         });
         $this->line('New tag: <info>' . $this->tag . '</info>');
-        
+
+        // $this->line('Creating update <info>'. $this->currentTag . '</info> > <info>'. $this->tag . '</info>');
+
         // Then, move the Unreleased section in the changelog to the desired release,
         // remove any empty sections?
+
+        $this->task('Updating changelog', function() {
+            $this->notes = $this->extractChangelog($this->tag);
+            $this->newLine();
+            $this->info('Extracted the following release notes:');
+            foreach (explode("\n", $this->notes) as $note) {
+                $this->line('<fg=gray>    ' . $note . '</>');
+            }
+        });
 
         // Then create a new Unreleased template
 
@@ -101,5 +112,21 @@ class MonorepoMakeReleaseCommand extends Command
 
         $tag = implode('.', $tag);
         return $prefix . $tag . $suffix;
+    }
+
+    protected function extractChangelog(string $tag): string
+    {
+        $changelog = file_get_contents('CHANGELOG.md');
+        $changelog = str_replace("\r", '', $changelog);
+        $changelog = explode("\n", $changelog);
+        $changelog = array_slice($changelog, 
+            array_search('<!-- UNRELEASED_START -->', $changelog) + 2,
+            array_search('<!-- UNRELEASED_END -->', $changelog) - 8
+        );
+        $changelog = implode("\n", $changelog);
+        $changelog = str_replace('## [Unreleased]', '## ' . $tag, $changelog);
+        file_put_contents('_RELEASE NOTES PREVIEW.md', $changelog);
+
+        return $changelog;
     }
 }
