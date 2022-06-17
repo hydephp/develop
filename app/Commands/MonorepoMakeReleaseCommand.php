@@ -22,6 +22,11 @@ class MonorepoMakeReleaseCommand extends Command
         // $this->dryRun = $this->option('dry-run');
         // Force dry run for debugging purposes.
         $this->dryRun = true;
+
+        $this->cachePath = 'build/cache/release';
+        if (!is_dir($this->cachePath)) {
+            mkdir($this->cachePath, 0755, true);
+        }
     }
 
     public function handle(): int
@@ -68,12 +73,8 @@ class MonorepoMakeReleaseCommand extends Command
 
         $this->task('Updating changelog', function() {
             $this->notes = $this->extractChangelog($this->tag);
-            $this->newLine();
-            $this->info('Extracted the following release notes:');
-            foreach (explode("\n", $this->notes) as $note) {
-                $this->line('<fg=gray>    ' . $note . '</>');
-            }
         });
+        $this->line('Changelog entry cached to file://'. str_replace('\\', '/', realpath($this->cachePath.'/changelog-entry.md')));
 
         // Then create a new Unreleased template
 
@@ -125,7 +126,7 @@ class MonorepoMakeReleaseCommand extends Command
         );
         $changelog = implode("\n", $changelog);
         $changelog = str_replace('## [Unreleased]', '## ' . $tag, $changelog);
-        file_put_contents('_RELEASE NOTES PREVIEW.md', $changelog);
+        file_put_contents($this->cachePath.'/changelog-entry.md', $changelog);
 
         return $changelog;
     }
