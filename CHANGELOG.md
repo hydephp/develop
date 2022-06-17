@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+<!-- UNRELEASED_START -->
+
 ## [Unreleased]
 Keep an Unreleased section at the top to track upcoming changes.
 
@@ -29,6 +31,18 @@ This serves two purposes:
 
 ### Security
 - in case of vulnerabilities.
+
+<!-- UNRELEASED_END -->
+
+---
+
+### Changelog
+
+<!-- CHANGELOG_START -->
+
+
+
+<!-- CHANGELOG_END -->
 
 ---
 
