@@ -48,7 +48,7 @@ class MonorepoMakeReleaseCommand extends Command
             }
         });
 
-        // Fetch remote and abort if we are not synced with the upstream repository.
+        // @TODO Fetch remote and abort if we are not synced with the upstream repository.
         // Also abort if we are not on the master branch. (Not doing this now as I am not on the master branch.)
 
         // First, get the current tag and increment it depending on the desired semver tag.
