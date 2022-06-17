@@ -18,7 +18,7 @@ class MonorepoMakeReleaseCommand extends Command
 
     protected bool $dryRun = false;
 
-    protected const USER = 'hyde-staging';
+    protected const USER = 'hyde';
 
     protected static array $repositories = [
         'develop',
