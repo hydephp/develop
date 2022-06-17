@@ -9,6 +9,9 @@ Run with the following command:
 vendor/bin/pest --testsuite="Hyde"
 ```
 
+Please note that the tests will modify project files.
+It also assumes that the tests are run in a clean project.
+
 Todo:
 
 - [] Add the Cypress tests.
