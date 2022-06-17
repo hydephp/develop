@@ -23,3 +23,5 @@ composer.lock export-ignore
 
 build export-ignore
 docs export-ignore
+
+app/commands export-ignore
