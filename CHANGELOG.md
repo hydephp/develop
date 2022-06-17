@@ -1,3 +1,7 @@
+<!-- NOTE FOR EDITORS: -->
+<!-- Part of this file is machine edited, please leave the comment markers as they are. 
+	 Also, please make sure to keep an empty line before and after each marker. -->
+
 # Changelog
 All notable changes to this project will be documented in this file.
 
