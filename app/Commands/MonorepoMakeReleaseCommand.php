@@ -139,6 +139,7 @@ class MonorepoMakeReleaseCommand extends Command
 
         $changelog = implode("\n", $changelog);
         $changelog = str_replace('## [Unreleased]', '## ' . $tag, $changelog);
+        $changelog = str_replace('YYYY-MM-DD', date('Y-m-d'), $changelog);
         file_put_contents($this->cachePath.'/changelog-entry.md', $changelog);
 
         // Remove everything between the markers
