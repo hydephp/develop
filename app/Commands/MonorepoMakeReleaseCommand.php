@@ -72,7 +72,7 @@ class MonorepoMakeReleaseCommand extends Command
         // remove any empty sections?
 
         $this->task('Updating changelog', function() {
-            $this->notes = $this->extractChangelog($this->tag);
+            $this->updateChangelog($this->tag);
         });
         $this->line('Changelog entry cached to file://'. str_replace('\\', '/', realpath($this->cachePath.'/changelog-entry.md')));
 
@@ -115,7 +115,7 @@ class MonorepoMakeReleaseCommand extends Command
         return $prefix . $tag . $suffix;
     }
 
-    protected function extractChangelog(string $tag): string
+    protected function updateChangelog(string $tag)
     {
         $changelog = file_get_contents('CHANGELOG.md');
         $changelog = str_replace("\r", '', $changelog);
@@ -128,6 +128,15 @@ class MonorepoMakeReleaseCommand extends Command
         $changelog = str_replace('## [Unreleased]', '## ' . $tag, $changelog);
         file_put_contents($this->cachePath.'/changelog-entry.md', $changelog);
 
-        return $changelog;
+        // Remove everything between the markers
+        $changelog = file_get_contents('CHANGELOG.md');
+
+        $updated = substr($changelog, 0, strpos($changelog, '<!-- UNRELEASED_START -->') + 25) . 
+            "\n\n".file_get_contents(__DIR__ . '/../Monorepo/stubs/changelog-unreleased.md')."\n" .
+            substr($changelog, strpos($changelog, '<!-- UNRELEASED_END -->') );
+
+        // Insert the changelog stub 
+
+        file_put_contents('CHANGELOG.md', $updated);
     }
 }
