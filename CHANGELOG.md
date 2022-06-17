@@ -48,6 +48,15 @@ This serves two purposes:
 <!-- CHANGELOG_START -->
 
 
+## v0.37.0-beta - 2022-06-16 - Replace dependency with custom validator implementation
+
+### What's Changed
+* v0.37.0-beta - Create custom validator test framework by @caendesilva in https://github.com/hydephp/develop/pull/45
+
+
+**Full Changelog**: https://github.com/hydephp/develop/compare/v0.36.0-beta...v0.37.0-beta.1
+
+
 ## v0.36.0-beta - 2022-06-16 - Add package auto-discovery
 
 ### What's Changed
