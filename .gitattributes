@@ -23,3 +23,6 @@ composer.lock export-ignore
 
 build export-ignore
 docs export-ignore
+
+app/Commands export-ignore
+app/Monorepo export-ignore
