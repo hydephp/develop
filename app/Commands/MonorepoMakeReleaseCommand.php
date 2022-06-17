@@ -22,6 +22,8 @@ class MonorepoMakeReleaseCommand extends Command
 
     protected static array $repositories = [
         'develop',
+        'framework',
+        'hyde',
     ];
 
     public function __construct()
