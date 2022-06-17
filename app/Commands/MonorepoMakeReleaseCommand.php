@@ -10,8 +10,9 @@ use LaravelZero\Framework\Commands\Command;
  *
  * This command is included in the Hyde Monorepo,
  * but is removed when packaging the Hyde application.
- * 
+ *
  * IDEAS for improvement:
+ *
  * @todo Add option to create the git commit and tag (or just commit the updated changelog)
  * @todo Create pull request drafts to merge develop into master for the packages
  */
