@@ -135,7 +135,8 @@ class MonorepoMakeReleaseCommand extends Command
             "\n\n".file_get_contents(__DIR__ . '/../Monorepo/stubs/changelog-unreleased.md')."\n" .
             substr($changelog, strpos($changelog, '<!-- UNRELEASED_END -->') );
 
-        // Insert the changelog stub 
+        // Insert the new changelog entry after the <!-- CHANGELOG_START --> marker
+        $updated = str_replace('<!-- CHANGELOG_START -->', "<!-- CHANGELOG_START -->\n\n" . file_get_contents($this->cachePath.'/changelog-entry.md'), $updated);
 
         file_put_contents('CHANGELOG.md', $updated);
     }
