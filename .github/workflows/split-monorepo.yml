@@ -102,7 +102,7 @@ jobs:
         cp -rT ~/tmp/clone/develop/build/monorepo/persist/hyde/. .
 
     - name: Copy test files
-      run: cp -r ~/tmp/clone/develop/build/monorepo/persist/hyde/tests/ .
+      run: cp -r ~/tmp/clone/develop/tests/ .
 
     - name: Download composer update script
       run: wget https://raw.githubusercontent.com/hydephp/develop/${{ github.sha }}/build/tools/update-composer.php -O update-composer.php
