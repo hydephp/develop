@@ -25,7 +25,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Changed welcome page title https://github.com/hydephp/develop/issues/52
 
 ### Deprecated
 - for soon-to-be removed features.
