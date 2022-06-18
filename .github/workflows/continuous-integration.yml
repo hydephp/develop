@@ -345,10 +345,11 @@ jobs:
           php-version: "8.0"
       - uses: actions/checkout@v3
 
-      - name: Require additional dependencies
+      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
         run: |
           composer require --dev php-parallel-lint/php-parallel-lint --no-install
           composer require --dev squizlabs/php_codesniffer --no-install
+          rm composer.lock
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-autoloader
