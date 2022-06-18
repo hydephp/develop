@@ -6,9 +6,6 @@ on:
     branches: [master]
 
 jobs:
-  # First run tests with coverage. If this fails, we don't need to run the matrix.
-  test-coverage:
-    runs-on: ubuntu-latest
 
   run-tests:
     needs: test-coverage
