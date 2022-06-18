@@ -17,7 +17,7 @@
 // @todo check if we need mockery and pest dependencies
 
 // Configuration settings
-const frameworkVersion = '^0.37';
+const frameworkVersion = '^0.38';
 const rcVersion = '^2.1';
 $time_start = microtime(true);
 echo "Transforming composer.json\n";

@@ -14,21 +14,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### About
 
-This release refactors the test suite, compartmentalizing test code into the respective package directories. 
-This does not affect the behavior of the library, but it does affect how package developers run the test suites.
+Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- internal: Adds high level tests for the Hyde package.
-- internal: Add GitHub test workflows for Hyde/Hyde and Hyde/Framework
+- for new features.
 
 ### Changed
-- Formats code to the PSR-2 standard.
-
-- internal: Move Framework tests from the monorepo into the Framework package.
-- internal: Rename monorepo workflow `build-test.yml` to `continuous-integration.yml`.
-- internal: Change testing namespaces update `phpunit.xml.dist` correspondingly.
-- internal: Add static analysis tests to the continuous integration workflow.
-- internal: Add matrix test runners to the continuous integration workflow.
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -49,6 +46,27 @@ This does not affect the behavior of the library, but it does affect how package
 ### Changelog
 
 <!-- CHANGELOG_START -->
+
+
+## v0.38.0-beta - 2022-06-18
+
+### About
+
+This release refactors the test suite, compartmentalizing test code into the respective package directories. 
+This does not affect the behavior of the library, but it does affect how package developers run the test suites.
+
+### Added
+- internal: Adds high level tests for the Hyde package.
+- internal: Add GitHub test workflows for Hyde/Hyde and Hyde/Framework
+
+### Changed
+- Formats code to the PSR-2 standard.
+
+- internal: Move Framework tests from the monorepo into the Framework package.
+- internal: Rename monorepo workflow `build-test.yml` to `continuous-integration.yml`.
+- internal: Change testing namespaces update `phpunit.xml.dist` correspondingly.
+- internal: Add static analysis tests to the continuous integration workflow.
+- internal: Add matrix test runners to the continuous integration workflow.
 
 
 ## v0.37.2-beta - 2022-06-17
