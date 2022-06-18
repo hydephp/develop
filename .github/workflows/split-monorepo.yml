@@ -40,7 +40,7 @@ jobs:
         name: "realtime-compiler"
         path: "packages/realtime-compiler"
 
-  package-documentation:
+  package-docs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
     - name: Package Hyde Documentation artifact
       uses: actions/upload-artifact@v1
       with:
-        name: "documentation"
+        name: "docs"
         path: "docs"
 
   # Add the files to the readonly branch
@@ -208,7 +208,7 @@ jobs:
         git push upstream readonly-hyde-mirror:develop
 
   push-docs:
-    needs: package-documentation
+    needs: package-docs
     runs-on: ubuntu-latest
     steps:
 
@@ -218,7 +218,7 @@ jobs:
     - name: Download Hyde/Documentation artifact
       uses: actions/download-artifact@v3
       with:
-        name: documentation
+        name: docs
         path: '~/tmp'
 
     - name: Remove README.markdown
