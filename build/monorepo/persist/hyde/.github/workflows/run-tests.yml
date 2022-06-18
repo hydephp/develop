@@ -17,9 +17,6 @@ jobs:
         php-version: '8.0'
     - uses: actions/checkout@v3
 
-    - name: Download test files
-      run: echo TODO
-
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
