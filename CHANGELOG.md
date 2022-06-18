@@ -28,6 +28,7 @@ This serves two purposes:
 - Changed welcome page title https://github.com/hydephp/develop/issues/52
 - Add `rel="nofollow"` to the image author links https://github.com/hydephp/develop/issues/19
 - Changed the default position of the automatic navigation menu link to the right, also making it configurable.
+- Renamed deprecated Hyde::docsDirectory() helper to suggested Hyde::getDocumentationOutputDirectory()
 
 ### Deprecated
 - for soon-to-be removed features.

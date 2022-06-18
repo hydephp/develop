@@ -51,7 +51,7 @@ class SitemapService
         if (Features::hasDocumentationPages()) {
             $this->addPageModelUrls(
                 DocumentationPage::class,
-                Hyde::docsDirectory().'/'
+                Hyde::getDocumentationOutputDirectory().'/'
             );
         }
 

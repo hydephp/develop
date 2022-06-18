@@ -22,7 +22,7 @@ class DocumentationPage extends MarkdownDocument
 
     public function getCurrentPagePath(): string
     {
-        return trim(Hyde::docsDirectory().'/'.$this->slug, '/');
+        return trim(Hyde::getDocumentationOutputDirectory().'/'.$this->slug, '/');
     }
 
     /** @internal */
@@ -33,5 +33,13 @@ class DocumentationPage extends MarkdownDocument
         }
 
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
+    }
+
+    /**
+     * @since v0.39.x (replaces `Hyde::docsDirectory()`)
+     */
+    public static function getDocumentationOutputPath(): string
+    {
+        return trim(config('docs.output_directory', 'docs'), '/\\');
     }
 }

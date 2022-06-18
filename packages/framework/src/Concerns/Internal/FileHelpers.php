@@ -15,13 +15,11 @@ trait FileHelpers
     /**
      * Get the subdirectory compiled documentation files are stored in.
      *
-     * @deprecated will be renamed to be more distinct from other path helpers.
-     *              Naming suggestion is `getDocumentationOutputPath()`.
-     *              The configuration option has been renamed.
+     * @since v0.39.x (replaces `Hyde::docsDirectory()`)
      *
      * @return string
      */
-    public static function docsDirectory(): string
+    public static function getDocumentationOutputDirectory(): string
     {
         return trim(config('docs.output_directory', 'docs'), '/\\');
     }
@@ -34,11 +32,11 @@ trait FileHelpers
     public static function docsIndexPath(): string|false
     {
         if (file_exists(static::path('_docs/index.md'))) {
-            return trim(static::pageLink(static::docsDirectory().'/index.html'), '/');
+            return trim(static::pageLink(static::getDocumentationOutputDirectory().'/index.html'), '/');
         }
 
         if (file_exists(static::path('_docs/readme.md'))) {
-            return trim(static::pageLink(static::docsDirectory().'/readme.html'), '/');
+            return trim(static::pageLink(static::getDocumentationOutputDirectory().'/readme.html'), '/');
         }
 
         return false;
@@ -89,8 +87,8 @@ trait FileHelpers
                 if ($destination === 'index.html') {
                     return '/';
                 }
-                if ($destination === static::docsDirectory().'/index.html') {
-                    return static::docsDirectory().'/';
+                if ($destination === static::getDocumentationOutputDirectory().'/index.html') {
+                    return static::getDocumentationOutputDirectory().'/';
                 }
 
                 return substr($destination, 0, -5);

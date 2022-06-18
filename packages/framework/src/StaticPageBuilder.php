@@ -62,9 +62,9 @@ class StaticPageBuilder
         }
 
         if ($this->page instanceof DocumentationPage) {
-            $this->needsDirectory(Hyde::getSiteOutputPath(Hyde::docsDirectory()));
+            $this->needsDirectory(Hyde::getSiteOutputPath(Hyde::getDocumentationOutputDirectory()));
 
-            return $this->save(Hyde::docsDirectory().'/'.$this->page->slug, $this->compileDocs());
+            return $this->save(Hyde::getDocumentationOutputDirectory().'/'.$this->page->slug, $this->compileDocs());
         }
     }
 
