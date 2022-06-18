@@ -11,6 +11,6 @@ class FileConflictException extends Exception
 
     public function __construct(?string $path = null)
     {
-        $this->message = $path ? "File already exists: {$path}" : $this->message;
+        $this->message = $path ? "File already exists: $path" : $this->message;
     }
 }

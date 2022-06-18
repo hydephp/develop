@@ -7,9 +7,6 @@ use Hyde\Framework\Concerns\Internal\AssetManager;
 use Hyde\Framework\Concerns\Internal\FileHelpers;
 use Hyde\Framework\Concerns\Internal\FluentPathHelpers;
 use Hyde\Framework\Helpers\HydeHelperFacade;
-use Hyde\Framework\Models\Parsers\MarkdownPostParser;
-use Hyde\Framework\Services\CollectionService;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -52,19 +49,5 @@ class Hyde
     public static function titleFromSlug(string $slug): string
     {
         return Str::title(str_replace('-', ' ', ($slug)));
-    }
-
-    /**
-     * @deprecated v0.34.x Use MarkdownPost::getLatestPosts() instead.
-     */
-    public static function getLatestPosts(): Collection
-    {
-        $collection = new Collection();
-
-        foreach (CollectionService::getMarkdownPostList() as $filepath) {
-            $collection->push((new MarkdownPostParser(basename($filepath, '.md')))->get());
-        }
-
-        return $collection->sortByDesc('matter.date');
     }
 }

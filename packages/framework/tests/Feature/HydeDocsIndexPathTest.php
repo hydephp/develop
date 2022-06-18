@@ -29,20 +29,20 @@ class HydeDocsIndexPathTest extends TestCase
     public function test_returns_readme_if_only_readme_exists()
     {
         $this->setReadme();
-        $this->assertEquals(Hyde::docsDirectory().'/readme.html', Hyde::docsIndexPath());
+        $this->assertEquals('docs/readme.html', Hyde::docsIndexPath());
     }
 
     public function test_returns_index_if_both_readme_and_index_exists()
     {
         $this->setReadme();
         $this->setIndex();
-        $this->assertEquals(Hyde::docsDirectory().'/index.html', Hyde::docsIndexPath());
+        $this->assertEquals('docs/index.html', Hyde::docsIndexPath());
     }
 
     public function test_returns_index_if_only_index_exist()
     {
         $this->setIndex();
-        $this->assertEquals(Hyde::docsDirectory().'/index.html', Hyde::docsIndexPath());
+        $this->assertEquals('docs/index.html', Hyde::docsIndexPath());
     }
 
     private function setReadme()

@@ -100,6 +100,6 @@ class HydeMakePageCommand extends Command
             return;
         }
 
-        throw new UnsupportedPageTypeException("Invalid page type: $type", 400);
+        throw new UnsupportedPageTypeException("Invalid page type: $type");
     }
 }

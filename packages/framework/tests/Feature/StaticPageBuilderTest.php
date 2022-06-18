@@ -98,8 +98,8 @@ class StaticPageBuilderTest extends TestCase
 
         new StaticPageBuilder($page, true);
 
-        $this->assertFileExists(Hyde::path('_site/'.Hyde::docsDirectory().'/foo.html'));
-        $this->validateBasicHtml(file_get_contents(Hyde::path('_site/'.Hyde::docsDirectory().'/foo.html')));
+        $this->assertFileExists(Hyde::path('_site/'.'docs/foo.html'));
+        $this->validateBasicHtml(file_get_contents(Hyde::path('_site/'.'docs/foo.html')));
     }
 
     public function test_creates_custom_documentation_directory()

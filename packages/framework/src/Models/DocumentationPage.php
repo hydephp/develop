@@ -22,16 +22,24 @@ class DocumentationPage extends MarkdownDocument
 
     public function getCurrentPagePath(): string
     {
-        return trim(Hyde::docsDirectory().'/'.$this->slug, '/');
+        return trim(Hyde::getDocumentationOutputDirectory().'/'.$this->slug, '/');
     }
 
     /** @internal */
     public function getOnlineSourcePath(): string|false
     {
-        if (config('docs.source_file_location_base', null) === null) {
+        if (config('docs.source_file_location_base') === null) {
             return false;
         }
 
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
+    }
+
+    /**
+     * @since v0.39.x (replaces `Hyde::docsDirectory()`)
+     */
+    public static function getDocumentationOutputPath(): string
+    {
+        return trim(config('docs.output_directory', 'docs'), '/\\');
     }
 }

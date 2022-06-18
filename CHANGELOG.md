@@ -28,12 +28,13 @@ This serves two purposes:
 - Changed welcome page title https://github.com/hydephp/develop/issues/52
 - Add `rel="nofollow"` to the image author links https://github.com/hydephp/develop/issues/19
 - Changed the default position of the automatic navigation menu link to the right, also making it configurable.
+- Renamed deprecated Hyde::docsDirectory() helper to suggested Hyde::getDocumentationOutputDirectory()
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed the Hyde::getLatestPosts() helper which was deprecated in v0.34.x and was replaced with MarkdownPost::getLatestPosts()
 
 ### Fixed
 - Add changelog to export-ignore, https://github.com/hydephp/framework/issues/537
