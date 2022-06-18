@@ -371,8 +371,9 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
               - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
-        run: |
-          composer require phpstan/phpstan
+     
+      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
+        run: composer require phpstan/phpstan
 
       - name: Run static analysis (PHPStan)
         run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src
