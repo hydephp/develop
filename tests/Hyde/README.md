@@ -12,7 +12,7 @@ All tests are feature and/or integration tests.
 Run with the following command:
 
 ```bash
-vendor/bin/pest --testsuite="Hyde"
+vendor/bin/pest --testsuite="FeatureHyde"
 ```
 
 Please note that the tests will modify project files.

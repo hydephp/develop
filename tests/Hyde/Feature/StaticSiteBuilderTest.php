@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Hyde;
+namespace Hyde\Testing\Hyde\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
