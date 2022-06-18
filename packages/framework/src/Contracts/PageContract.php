@@ -14,4 +14,14 @@ interface PageContract
      * @see \Tests\Unit\PageModelGetHelperTest
      */
     public static function all(): Collection;
+
+    /**
+     * Get an array of all the source file slugs for the model.
+     * Essentially an alias of CollectionService::getAbstractPageList().
+     *
+     * @return array<string>
+     *
+     * @see \Tests\Unit\PageModelGetAllFilesHelperTest
+     */
+    public static function files(): array;
 }

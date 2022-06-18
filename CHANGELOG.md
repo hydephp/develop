@@ -22,7 +22,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added a helper to all page models to get an array of all its source files https://github.com/hydephp/develop/issues/44
 
 ### Changed
 - Changed welcome page title https://github.com/hydephp/develop/issues/52

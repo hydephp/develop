@@ -37,4 +37,9 @@ abstract class AbstractPage implements PageContract
 
         return $collection;
     }
+
+    public static function files(): array
+    {
+        return CollectionService::getSourceFileListForModel(static::class);
+    }
 }
