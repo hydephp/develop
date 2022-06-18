@@ -101,8 +101,8 @@ jobs:
       run: |
         cp -rT ~/tmp/clone/develop/build/monorepo/persist/hyde/. .
 
-    - name: TODO Download the Hyde tests
-      run: echo "TODO Download the Hyde tests"
+    - name: Copy test files
+      run: cp -r ~/tmp/clone/develop/build/monorepo/persist/hyde/tests/ .
 
     - name: Download composer update script
       run: wget https://raw.githubusercontent.com/hydephp/develop/${{ github.sha }}/build/tools/update-composer.php -O update-composer.php
