@@ -228,11 +228,10 @@ jobs:
       with:
         repository: hydephp/DocsCI
     
-    - run: |
-        rm -rf _docs/
-        cp -r ~/tmp/docs/*.md _docs/
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add docs
-        git commit -m "${{ github.event.head_commit.message }} ${{ github.sha }}"
-        git push
+    - run: rm -rf _docs/
+    - run: cp -r ~/tmp/*.md _docs/
+    - run: git config user.name github-actions
+    - run: git config user.email github-actions@github.com
+    - run: git add docs
+    - run: git commit -m "${{ github.event.head_commit.message }} ${{ github.sha }}"
+    - run: git push
