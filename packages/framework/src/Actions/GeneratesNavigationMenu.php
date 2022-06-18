@@ -85,7 +85,7 @@ class GeneratesNavigationMenu
                                 : Hyde::docsDirectory().'/readme'
                         ),
                         'current' => false,
-                        'priority' => 500,
+                        'priority' => config('docs.navigation_link_priority', 1000),
                     ];
                 }
             }
