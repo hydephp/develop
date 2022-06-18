@@ -9,6 +9,7 @@ use Hyde\Framework\Models\DocumentationPage;
  * Provide static facade methods, and instance helpers for HydeSmartDocs.
  *
  * @see \Hyde\Framework\Services\HydeSmartDocs
+ * @see \Hyde\Testing\Framework\Feature\Services\HydeSmartDocsTest
  */
 trait HydeSmartDocsFacade
 {
