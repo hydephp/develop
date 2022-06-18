@@ -30,17 +30,17 @@ class DefaultContentTest extends TestCase
         );
     }
 
-	public function test_laravel_mix_resources_are_present()
-	{
-		$this->assertFileExists(Hyde::path('resources/assets/app.css'));
-		$this->assertFileExists(Hyde::path('resources/assets/app.js'));
+    public function test_laravel_mix_resources_are_present()
+    {
+        $this->assertFileExists(Hyde::path('resources/assets/app.css'));
+        $this->assertFileExists(Hyde::path('resources/assets/app.js'));
 
         $this->assertFileContainsString('@tailwind base;', Hyde::path('resources/assets/app.css'));
         $this->assertFileContainsString('@tailwind components;', Hyde::path('resources/assets/app.css'));
         $this->assertFileContainsString('@tailwind utilities;', Hyde::path('resources/assets/app.css'));
 
-		$this->assertFileContainsString('This is the main JavaScript', Hyde::path('resources/assets/app.js'));
-	}
+        $this->assertFileContainsString('This is the main JavaScript', Hyde::path('resources/assets/app.js'));
+    }
 
     protected function assertFileContainsString(string $string, string $file)
     {
