@@ -8,7 +8,6 @@ use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Concerns\AbstractPage::files()
