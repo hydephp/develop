@@ -18,12 +18,12 @@ This release refactors the test suite, compartmentalizing test code into the res
 This does not affect the behavior of the library, but it does affect how package developers run the test suites.
 
 ### Added
-- @internal Adds high level tests for the Hyde package.
+- internal: Adds high level tests for the Hyde package.
 
 ### Changed
-- @internal Move Framework tests from the monorepo into the Framework package.
-- @internal Rename monorepo workflow `build-test.yml` to `continuous-integration.yml`.
-- @internal Change testing namespaces update `phpunit.xml.dist` correspondingly.
+- internal: Move Framework tests from the monorepo into the Framework package.
+- internal: Rename monorepo workflow `build-test.yml` to `continuous-integration.yml`.
+- internal: Change testing namespaces update `phpunit.xml.dist` correspondingly.
 
 ### Deprecated
 - for soon-to-be removed features.
