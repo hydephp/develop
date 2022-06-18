@@ -359,6 +359,12 @@ jobs:
       - name: Check coding syntax/standards (PHP CodeSniffer)
         run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" --report-file=csreport.txt || true
 
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: 'csreport'
+          path: 'csreport.txt'
+
   run-static-analysis:
     name: Run static analysis
     runs-on: ubuntu-latest
