@@ -24,4 +24,14 @@ interface PageContract
      * @see \Hyde\Testing\Framework\Unit\PageModelGetAllFilesHelperTest
      */
     public static function files(): array;
+
+    /**
+     * Parse a source file slug into a page model.
+     *
+     * @param  string  $slug
+     * @return \Hyde\Framework\Contracts\AbstractPage
+     *
+     * @see \Hyde\Testing\Framework\Unit\PageModelParseHelperTest
+     */
+    public static function parse(string $slug): AbstractPage;
 }

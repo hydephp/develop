@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Added
 - Added a helper to all page models to get an array of all its source files https://github.com/hydephp/develop/issues/44
+- Added a helper to all page models to parse source files directly into an object https://github.com/hydephp/develop/issues/40
 
 ### Changed
 - Changed welcome page title https://github.com/hydephp/develop/issues/52

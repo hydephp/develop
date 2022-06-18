@@ -42,4 +42,9 @@ abstract class AbstractPage implements PageContract
     {
         return CollectionService::getSourceFileListForModel(static::class);
     }
+
+    public static function parse(string $slug): AbstractPage
+    {
+        return (new static::$parserClass($slug))->get();
+    }
 }
