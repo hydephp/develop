@@ -28,6 +28,7 @@ This does not affect the behavior of the library, but it does affect how package
 - internal: Rename monorepo workflow `build-test.yml` to `continuous-integration.yml`.
 - internal: Change testing namespaces update `phpunit.xml.dist` correspondingly.
 - internal: Add static analysis tests to the continuous integration workflow.
+- internal: Add matrix test runners to the continuous integration workflow.
 
 ### Deprecated
 - for soon-to-be removed features.
