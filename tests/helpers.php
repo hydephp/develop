@@ -72,7 +72,7 @@ author: Mr. Hyde
 # My New Post
 
 This is a post stub used in the automated tests
-        ');
+');
         
         return $path;
     }
