@@ -58,8 +58,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        ref: 'readonly-framework-mirror'
-        fetch-depth: 0
+          ref: 'readonly-framework-mirror'
 
     - name: Empty working directory
       run: rm -rf *
