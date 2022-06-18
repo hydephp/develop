@@ -11,7 +11,7 @@ use Hyde\Framework\Models\MarkdownPost;
 /**
  * Contains service methods to return helpful collections of arrays and lists.
  *
- * @see \Tests\Feature\Services\CollectionServiceTest
+ * @see \Hyde\Testing\Framework\Feature\Services\CollectionServiceTest
  */
 class CollectionService
 {

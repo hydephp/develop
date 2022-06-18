@@ -10,7 +10,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Initialize a new Hyde project.
  *
- * @see \Tests\Feature\Commands\HydeInstallCommandTest
+ * @see \Hyde\Testing\Framework\Feature\Commands\HydeInstallCommandTest
  */
 class HydeInstallCommand extends Command
 {

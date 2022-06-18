@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Services\Markdown;
 
 /**
- * @see \Tests\Feature\Services\Markdown\CodeblockFilepathProcessorTest
+ * @see \Hyde\Testing\Framework\Feature\Services\Markdown\CodeblockFilepathProcessorTest
  */
 class CodeblockFilepathProcessor
 {

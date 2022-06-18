@@ -9,7 +9,7 @@ use Hyde\Framework\Models\MarkdownPost;
  * Generates metadata for page models that have front matter.
  *
  * @see \Hyde\Framework\Models\Metadata
- * @see \Tests\Feature\Concerns\GeneratesPageMetadataTest
+ * @see \Hyde\Testing\Framework\Feature\Concerns\GeneratesPageMetadataTest
  */
 trait GeneratesPageMetadata
 {

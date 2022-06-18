@@ -9,7 +9,7 @@ use Hyde\Framework\Hyde;
  * Checks if the installed config is up-to-date with the Framework's config.
  * Works by comparing the number of title blocks, which is a crude but fast way to check.
  *
- * @see \Tests\Feature\Actions\ChecksIfConfigIsUpToDateTest
+ * @see \Hyde\Testing\Framework\Feature\Actions\ChecksIfConfigIsUpToDateTest
  */
 class ChecksIfConfigIsUpToDate implements ActionContract
 {

@@ -11,7 +11,7 @@ interface PageContract
      *
      * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\PageContract>
      *
-     * @see \Tests\Unit\PageModelGetHelperTest
+     * @see \Hyde\Testing\Framework\Unit\PageModelGetHelperTest
      */
     public static function all(): Collection;
 
@@ -21,7 +21,7 @@ interface PageContract
      *
      * @return array<string>
      *
-     * @see \Tests\Unit\PageModelGetAllFilesHelperTest
+     * @see \Hyde\Testing\Framework\Unit\PageModelGetAllFilesHelperTest
      */
     public static function files(): array;
 }

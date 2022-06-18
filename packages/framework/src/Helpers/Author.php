@@ -6,7 +6,7 @@ use Hyde\Framework\Models\Author as AuthorModel;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Tests\Feature\AuthorHelperTest
+ * @see \Hyde\Testing\Framework\Feature\AuthorHelperTest
  */
 class Author
 {

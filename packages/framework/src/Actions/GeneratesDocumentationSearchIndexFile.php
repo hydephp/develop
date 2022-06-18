@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
  * @todo Convert into Service, and add more strategies, such as slug-only (no file parsing)
  *        search which while dumber, would be much faster to compile and take way less space.
  *
- * @see \Tests\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
+ * @see \Hyde\Testing\Framework\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
  */
 class GeneratesDocumentationSearchIndexFile implements ActionContract
 {

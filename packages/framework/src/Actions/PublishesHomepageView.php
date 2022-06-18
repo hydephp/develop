@@ -8,7 +8,7 @@ use Hyde\Framework\Hyde;
 /**
  * Publish one of the Hyde homepages.
  *
- * @see \Tests\Feature\Actions\PublishesHomepageViewTest
+ * @see \Hyde\Testing\Framework\Feature\Actions\PublishesHomepageViewTest
  */
 class PublishesHomepageView implements ActionContract
 {

@@ -8,7 +8,7 @@ use Hyde\Framework\Hyde;
 /**
  * Validate the existence of a Page model's source file.
  *
- * @see \Tests\Unit\ValidatesExistenceTest
+ * @see \Hyde\Testing\Framework\Unit\ValidatesExistenceTest
  */
 trait ValidatesExistence
 {

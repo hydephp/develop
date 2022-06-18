@@ -5,7 +5,7 @@ namespace Hyde\Framework\Helpers;
 /**
  * Helpers to fluently declare HTML meta tags.
  *
- * @see \Tests\Feature\MetadataHelperTest
+ * @see \Hyde\Testing\Framework\Feature\MetadataHelperTest
  */
 class Meta
 {

@@ -15,8 +15,8 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
  * Interface for the CommonMarkConverter,
  * allowing for easy configuration of extensions.
  *
- * @see \Tests\Feature\MarkdownConverterServiceTest
- * @see \Tests\Feature\Services\HasConfigurableMarkdownFeaturesTest
+ * @see \Hyde\Testing\Framework\Feature\MarkdownConverterServiceTest
+ * @see \Hyde\Testing\Framework\Feature\Services\HasConfigurableMarkdownFeaturesTest
  */
 class MarkdownConverterService
 {

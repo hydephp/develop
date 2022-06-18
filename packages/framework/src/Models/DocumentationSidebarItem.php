@@ -9,7 +9,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 /**
  * Object containing information for a sidebar item.
  *
- * @see \Tests\Feature\Services\DocumentationSidebarServiceTest
+ * @see \Hyde\Testing\Framework\Feature\Services\DocumentationSidebarServiceTest
  */
 class DocumentationSidebarItem
 {

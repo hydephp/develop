@@ -5,7 +5,7 @@ namespace Hyde\Framework\Helpers;
 /**
  * Provides convenient access to Hyde helpers, through the main Hyde facade.
  *
- * @see \Tests\Feature\HydeHelperFacadeTest
+ * @see \Hyde\Testing\Framework\Feature\HydeHelperFacadeTest
  */
 trait HydeHelperFacade
 {
