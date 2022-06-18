@@ -19,7 +19,9 @@ class Application extends \LaravelZero\Framework\Application
          */
         $this->app->singleton(PackageManifest::class, function () {
             return new PackageManifest(
-                new Filesystem, $this->basePath(), $this->basePath('storage/framework/cache/packages.php')
+                new Filesystem,
+                $this->basePath(),
+                $this->basePath('storage/framework/cache/packages.php')
             );
         });
     }

@@ -59,13 +59,15 @@ class HydeBuildSearchCommand extends Command
         $actionTime = microtime(true);
 
         $this->comment('Generating search page...');
-        file_put_contents(Hyde::path('_site/'.config('docs.output_directory', 'docs').'/search.html'),
-        view('hyde::layouts.docs')->with([
+        file_put_contents(
+            Hyde::path('_site/'.config('docs.output_directory', 'docs').'/search.html'),
+            view('hyde::layouts.docs')->with([
             'page' => new DocumentationPage([], '', 'Search', 'search'),
             'title' => 'Search',
             'markdown' => view('hyde::pages.documentation-search')->render(),
             'currentPage' => ''.config('docs.output_directory', 'docs').'/search',
-        ])->render());
+            ])->render()
+        );
 
         $this->line(' > Created <info>_site/'.config('docs.output_directory', 'docs').'/search.html</> in '.
         $this->getExecutionTimeInMs($actionTime)."ms\n");

@@ -99,8 +99,10 @@ class RssFeedService
     protected function getDescription(): string
     {
         return static::xmlEscape(
-            config('hyde.rss_description',
-                static::getTitle().' RSS Feed')
+            config(
+                'hyde.rss_description',
+                static::getTitle().' RSS Feed'
+            )
         );
     }
 

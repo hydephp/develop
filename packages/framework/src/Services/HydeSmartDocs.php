@@ -104,7 +104,8 @@ class HydeSmartDocs
 
     protected function renderSourceLink(): string
     {
-        return sprintf('<p class="edit-page-link"><a href="%s">%s</a></p>',
+        return sprintf(
+            '<p class="edit-page-link"><a href="%s">%s</a></p>',
             $this->page->getOnlineSourcePath(),
             config('docs.edit_source_link_text', 'Edit page')
         );

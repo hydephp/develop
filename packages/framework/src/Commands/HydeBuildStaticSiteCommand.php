@@ -156,9 +156,9 @@ class HydeBuildStaticSiteCommand extends Command
         $time_end = microtime(true);
         $execution_time = ($time_end - $time_start);
         $this->info('All done! Finished in '.number_format(
-                $execution_time,
-                2
-            ).' seconds. ('.number_format(($execution_time * 1000), 2).'ms)');
+                $execution_time, 2
+            ).' seconds. ('.number_format(($execution_time * 1000), 2).'ms)'
+        );
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
