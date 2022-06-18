@@ -117,12 +117,13 @@ class SitemapServiceTest extends TestCase
         touch(Hyde::path('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
+        $date = date('c'); // Cache the expected date as around one in 1000 runs the second will switch over during execution
         $service->generate();
 
         $url = $service->xmlElement->url[0];
         $this->assertEquals('https://example.com/0-test.html', $url->loc);
         $this->assertEquals('daily', $url->changefreq);
-        $this->assertEquals(date('c'), $url->lastmod);
+        $this->assertEquals($date, $url->lastmod);
 
         unlink(Hyde::path('_pages/0-test.blade.php'));
     }
