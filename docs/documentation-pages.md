@@ -105,7 +105,7 @@ See [the customization page](customization.html#navigation-menu--sidebar) for mo
 ### Sidebar ordering
 
 The sidebar is sorted/ordered by the `priority` property. The higher the priority the further down in the sidebar it will be.
-The default priority is 999. You can override the priority using the following front matter:
+The default priority is 500. You can override the priority using the following front matter:
 
 ```yaml
 priority: 5
