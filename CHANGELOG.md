@@ -34,7 +34,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Add changelog to export-ignore, https://github.com/hydephp/framework/issues/537
 
 ### Security
 - in case of vulnerabilities.
