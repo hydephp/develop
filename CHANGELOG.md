@@ -26,6 +26,7 @@ This serves two purposes:
 
 ### Changed
 - Changed welcome page title https://github.com/hydephp/develop/issues/52
+- Add `rel="nofollow"` to the image author links https://github.com/hydephp/develop/issues/19
 
 ### Deprecated
 - for soon-to-be removed features.

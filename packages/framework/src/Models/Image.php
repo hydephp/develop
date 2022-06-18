@@ -115,7 +115,7 @@ class Image
     {
         if (isset($this->author)) {
             if (isset($this->credit)) {
-                return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person"><a href="'.e($this->credit).'" rel="author noopener" itemprop="url"><span itemprop="name">'.e($this->author).'</span></a></span>';
+                return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person"><a href="'.e($this->credit).'" rel="author noopener nofollow" itemprop="url"><span itemprop="name">'.e($this->author).'</span></a></span>';
             } else {
                 return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">'.e($this->author).'</span></span>';
             }
