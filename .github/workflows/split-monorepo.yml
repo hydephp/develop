@@ -1,6 +1,6 @@
 # Split the monorepo into readonly branches
 # TODO: Some way to preserve commit messages? I'd love to get some help here. 
-#       ✔ Done, though it only gets the latest commit. It would be great to have something that handles all commit messages. Or at least says "<commit msg> (and X more [commits])
+#       ✔ Done, though it only gets the latest commit. It would be great to have something that handles all commit messages. Or at least says "<commit msg> (and X more [commits]) Maybe this could be done by creating an auto-closing PR listing all the commits since the last merge? Preferably filtered to only contain changes affecting the package.
 
 name: 🪓 Split monorepo
 
