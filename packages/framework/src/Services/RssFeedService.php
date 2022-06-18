@@ -30,7 +30,7 @@ class RssFeedService
     public function generate(): self
     {
         /** @var MarkdownPost $post */
-        foreach (Hyde::getLatestPosts() as $post) {
+        foreach (MarkdownPost::getLatestPosts() as $post) {
             $this->addItem($post);
         }
 

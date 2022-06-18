@@ -33,7 +33,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed the Hyde::getLatestPosts() helper which was deprecated in v0.34.x and was replaced with MarkdownPost::getLatestPosts()
 
 ### Fixed
 - Add changelog to export-ignore, https://github.com/hydephp/framework/issues/537
