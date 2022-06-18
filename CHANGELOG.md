@@ -19,6 +19,7 @@ This does not affect the behavior of the library, but it does affect how package
 
 ### Added
 - internal: Adds high level tests for the Hyde package.
+- internal: Add GitHub test workflows for Hyde/Hyde and Hyde/Framework
 
 ### Changed
 - internal: Move Framework tests from the monorepo into the Framework package.
