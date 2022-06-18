@@ -40,6 +40,17 @@ jobs:
         name: "realtime-compiler"
         path: "packages/realtime-compiler"
 
+  package-documentation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Package Hyde Documentation artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: "documentation"
+        path: "docs"
+
   # Add the files to the readonly branch
   split-framework:
     needs: package-framework
@@ -195,3 +206,32 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
         git fetch upstream
         git push upstream readonly-hyde-mirror:develop
+
+  push-docs:
+    needs: package-documentation
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Create temporary working directory
+      run: mkdir ~/tmp
+
+    - name: Download Hyde/Documentation artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: documentation
+        path: '~/tmp'
+
+    - name: Remove README.markdown
+      run: rm ~/tmp/README.markdown
+
+    - uses: actions/checkout@v3
+      with:
+        repository: hydephp/DocsCI
+      run: |
+        rm -rf _docs/
+        cp -r ~/tmp/docs/*.md _docs/
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add docs
+        git commit -m "${{ github.event.head_commit.message }} ${{ github.sha }}"
+        git push
