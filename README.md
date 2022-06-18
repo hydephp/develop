@@ -1,7 +1,7 @@
 # HydePHP - Monorepo Experiment
 ## Cutting Edge - And quite possibly rather unstable 
 
-[![Test & Build](https://github.com/hydephp/develop/actions/workflows/test-build.yml/badge.svg)](https://github.com/hydephp/develop/actions/workflows/test-build.yml)
+[![Test & Build](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/hydephp/develop/branch/master/graph/badge.svg?token=G6N2161TOT)](https://codecov.io/gh/hydephp/develop)
 
 ## How the monorepo currently works
