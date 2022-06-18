@@ -232,6 +232,6 @@ jobs:
     - run: cp -r ~/tmp/*.md _docs/
     - run: git config user.name github-actions
     - run: git config user.email github-actions@github.com
-    - run: git add docs
+    - run: git add _docs
     - run: git commit -m "${{ github.event.head_commit.message }} ${{ github.sha }}"
     - run: git push
