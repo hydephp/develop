@@ -62,10 +62,10 @@ class HydeBuildSearchCommand extends Command
         file_put_contents(
             Hyde::path('_site/'.config('docs.output_directory', 'docs').'/search.html'),
             view('hyde::layouts.docs')->with([
-            'page' => new DocumentationPage([], '', 'Search', 'search'),
-            'title' => 'Search',
-            'markdown' => view('hyde::pages.documentation-search')->render(),
-            'currentPage' => ''.config('docs.output_directory', 'docs').'/search',
+                'page' => new DocumentationPage([], '', 'Search', 'search'),
+                'title' => 'Search',
+                'markdown' => view('hyde::pages.documentation-search')->render(),
+                'currentPage' => ''.config('docs.output_directory', 'docs').'/search',
             ])->render()
         );
 
