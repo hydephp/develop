@@ -177,7 +177,7 @@ In version v0.38.0-beta and lower, this link had the internal priority of 500 pu
 You can customize the priority using the following config value in the `config/docs.php` file:
 
 ```php
-'navigation_menu_priority' => 500
+'navigation_link_priority' => 500
 ```
 
 ### Sidebar header name
