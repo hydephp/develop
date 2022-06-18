@@ -28,7 +28,7 @@ class DocumentationPage extends MarkdownDocument
     /** @internal */
     public function getOnlineSourcePath(): string|false
     {
-        if (config('docs.source_file_location_base', null) === null) {
+        if (config('docs.source_file_location_base') === null) {
             return false;
         }
 
