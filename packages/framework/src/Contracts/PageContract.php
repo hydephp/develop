@@ -28,7 +28,7 @@ interface PageContract
     /**
      * Parse a source file slug into a page model.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return \Hyde\Framework\Contracts\AbstractPage
      *
      * @see \Hyde\Testing\Framework\Unit\PageModelParseHelperTest
