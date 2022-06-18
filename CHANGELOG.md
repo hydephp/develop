@@ -22,10 +22,12 @@ This does not affect the behavior of the library, but it does affect how package
 - internal: Add GitHub test workflows for Hyde/Hyde and Hyde/Framework
 
 ### Changed
+- Formats code to the PSR-2 standard.
+
 - internal: Move Framework tests from the monorepo into the Framework package.
 - internal: Rename monorepo workflow `build-test.yml` to `continuous-integration.yml`.
 - internal: Change testing namespaces update `phpunit.xml.dist` correspondingly.
-- internal: Add static analsysis tests to the continuous integration workflow.
+- internal: Add static analysis tests to the continuous integration workflow.
 
 ### Deprecated
 - for soon-to-be removed features.
