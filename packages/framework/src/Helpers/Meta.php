@@ -23,8 +23,9 @@ class Meta
 
     public static function render(array $overridesGlobalMeta = []): string
     {
-        return implode("\n",
-         static::filterUnique(
+        return implode(
+            "\n",
+            static::filterUnique(
                 array_merge(
                     static::getGlobalMeta(),
                     $overridesGlobalMeta

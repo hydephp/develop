@@ -74,7 +74,9 @@ trait FluentPathHelpers
     public static function pathToRelative(string $path): string
     {
         return str_starts_with($path, static::path()) ? trim(str_replace(
-            static::path(), '', $path), '/\\'
-        ) : $path;
+            static::path(),
+            '',
+            $path
+        ), '/\\') : $path;
     }
 }

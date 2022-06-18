@@ -15,7 +15,8 @@ class CodeblockFilepathProcessor
             if (static::lineMatchesPattern($line) && ! str_contains($line, '{"shortcodes": false}')) {
                 // Add the meta-block two lines before the pattern, placing it just above the code block.
                 // This prevents the meta-block from interfering with other processes.
-                $lines[$index - 2] .= sprintf("\n<!-- HYDE[Filepath]%s -->",
+                $lines[$index - 2] .= sprintf(
+                    "\n<!-- HYDE[Filepath]%s -->",
                     trim(str_replace(static::$patterns, '', $line))
                 );
 
@@ -78,8 +79,10 @@ class CodeblockFilepathProcessor
     protected static function trimHydeDirective(string $line): string
     {
         return trim(str_replace('-->', '', str_replace(
-            '<!-- HYDE[Filepath]', '', $line))
-        );
+            '<!-- HYDE[Filepath]',
+            '',
+            $line
+        )));
     }
 
     protected static function resolveTemplate(string $path, string $line): string
