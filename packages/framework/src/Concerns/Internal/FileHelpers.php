@@ -78,7 +78,7 @@ trait FileHelpers
     /**
      * Format a link to an HTML file, allowing for pretty URLs, if enabled.
      *
-     * @see \Hyde\Testing\Framework\Unit\FileHelperPageLinkPrettyUrlTest
+     * @see \Hyde\Framework\Testing\Unit\FileHelperPageLinkPrettyUrlTest
      */
     public static function pageLink(string $destination): string
     {
@@ -101,7 +101,7 @@ trait FileHelpers
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
-     * @see \Hyde\Testing\Framework\Unit\FileHelperRelativeLinkTest
+     * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
      *
      * @param  string  $destination  relative to output directory on compiled site
      * @param  string  $current  the current URI path relative to the site root

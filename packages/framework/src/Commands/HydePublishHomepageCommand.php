@@ -11,7 +11,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Publish one of the default homepages.
  *
- * @see \Hyde\Testing\Framework\Feature\Commands\HydePublishHomepageCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydePublishHomepageCommandTest
  */
 class HydePublishHomepageCommand extends Command
 {

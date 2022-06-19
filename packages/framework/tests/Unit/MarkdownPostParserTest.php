@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Framework\Unit;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownPost;
@@ -8,7 +8,7 @@ use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Testing\TestCase;
 
 /**
- * @see \Hyde\Testing\Framework\Feature\Commands\StaticSiteBuilderPostModuleTest for the compiler test.
+ * @see \Hyde\Framework\Testing\Feature\Commands\StaticSiteBuilderPostModuleTest for the compiler test.
  */
 class MarkdownPostParserTest extends TestCase
 {

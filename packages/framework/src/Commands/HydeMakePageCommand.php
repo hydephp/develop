@@ -12,7 +12,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
  *
- * @see \Hyde\Testing\Framework\Feature\Commands\HydeMakePageCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeMakePageCommandTest
  */
 class HydeMakePageCommand extends Command
 {

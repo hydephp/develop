@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Blade;
  * @example: [Blade]: {{ time() }}
  * @example: [Blade]: @include('path/to/view.blade.php')
  *
- * @see \Hyde\Testing\Framework\Feature\Services\BladeDownProcessorTest
+ * @see \Hyde\Framework\Testing\Feature\Services\BladeDownProcessorTest
  */
 class BladeDownProcessor
 {

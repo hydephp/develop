@@ -8,7 +8,7 @@ use Hyde\Framework\Models\MarkdownPost;
 use SimpleXMLElement;
 
 /**
- * @see \Hyde\Testing\Framework\Feature\Services\RssFeedServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
  * @see https://validator.w3.org/feed/docs/rss2.html
  */
 class RssFeedService

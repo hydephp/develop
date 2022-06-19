@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
  * methods to fluently add DocumentationSidebarItems to the
  * collection using method chaining.
  *
- * @see \Hyde\Testing\Framework\Feature\Services\DocumentationSidebarServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarServiceTest
  */
 class DocumentationSidebar extends Collection implements DocumentationSidebarContract
 {

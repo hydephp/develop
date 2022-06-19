@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Framework\Feature\Commands;
+namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Commands\HydeUpdateConfigsCommand;
 use Hyde\Framework\Hyde;
