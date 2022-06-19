@@ -37,8 +37,9 @@ This serves two purposes:
 - Changed namespace for Hyde/Framework tests from `Hyde\Testing\Framework` to `Hyde\Framework\Testing`
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
 
+
 ### Deprecated
-- ChecksIfConfigIsUpToDate.php - Will be replaced by checking the version instead.
+- for soon-to-be removed features.
 
 ### Removed
 - Removed the Hyde::getLatestPosts() helper which was deprecated in v0.34.x and was replaced with MarkdownPost::getLatestPosts()

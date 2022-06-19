@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Framework\Actions\ChecksIfConfigIsUpToDate;
 use Hyde\Framework\Commands\HydeUpdateConfigsCommand;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
@@ -16,6 +17,8 @@ class HydeUpdateConfigsCommandTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        ChecksIfConfigIsUpToDate::$isUpToDate = null;
 
         backupDirectory(Hyde::path('config'));
         deleteDirectory(Hyde::path('config'));
@@ -67,6 +70,8 @@ class HydeUpdateConfigsCommandTest extends TestCase
            '', file_get_contents(
             Hyde::path('config/hyde.php')
         )));
+
+        ChecksIfConfigIsUpToDate::$isUpToDate = null;
 
         $this->assertStringContainsString('Your configuration may be out of date',
             (new HydeUpdateConfigsCommand)->getDescription());
