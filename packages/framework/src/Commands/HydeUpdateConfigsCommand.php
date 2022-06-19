@@ -10,7 +10,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Publish the Hyde Config Files.
  *
- * @see \Hyde\Testing\Framework\Feature\Commands\HydeUpdateConfigsCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeUpdateConfigsCommandTest
  */
 class HydeUpdateConfigsCommand extends Command
 {

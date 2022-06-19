@@ -13,7 +13,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @todo Add configuration option to enable/disable this feature.
  *
- * @see \Hyde\Testing\Framework\Feature\Commands\HydeBuildSearchCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSearchCommandTest
  */
 class HydeBuildSearchCommand extends Command
 {

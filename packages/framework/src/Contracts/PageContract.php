@@ -11,7 +11,7 @@ interface PageContract
      *
      * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\PageContract>
      *
-     * @see \Hyde\Testing\Framework\Unit\PageModelGetHelperTest
+     * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
     public static function all(): Collection;
 
@@ -21,7 +21,7 @@ interface PageContract
      *
      * @return array<string>
      *
-     * @see \Hyde\Testing\Framework\Unit\PageModelGetAllFilesHelperTest
+     * @see \Hyde\Framework\Testing\Unit\PageModelGetAllFilesHelperTest
      */
     public static function files(): array;
 
@@ -31,7 +31,7 @@ interface PageContract
      * @param  string  $slug
      * @return \Hyde\Framework\Contracts\AbstractPage
      *
-     * @see \Hyde\Testing\Framework\Unit\PageModelParseHelperTest
+     * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
     public static function parse(string $slug): AbstractPage;
 }

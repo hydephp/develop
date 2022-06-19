@@ -20,7 +20,7 @@ use Hyde\Framework\Services\Markdown\Shortcodes\AbstractColoredBlockquote;
  * @todo Refactor shortcode manager to singleton as it does not need to be re-instantiated
  *      for each Markdown conversion.
  *
- * @see \Hyde\Testing\Framework\Feature\Services\Markdown\ShortcodeProcessorTest
+ * @see \Hyde\Framework\Testing\Feature\Services\Markdown\ShortcodeProcessorTest
  */
 class ShortcodeProcessor implements MarkdownProcessorContract
 {

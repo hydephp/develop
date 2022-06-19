@@ -5,7 +5,7 @@ namespace Hyde\Framework\Services\Markdown\Shortcodes;
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
 
 /**
- * @see \Hyde\Testing\Framework\Feature\ColoredBlockquoteShortcodesTest
+ * @see \Hyde\Framework\Testing\Feature\ColoredBlockquoteShortcodesTest
  */
 abstract class AbstractColoredBlockquote implements MarkdownShortcodeContract
 {

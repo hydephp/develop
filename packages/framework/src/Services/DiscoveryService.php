@@ -61,7 +61,7 @@ class DiscoveryService
      * @param  string  $filepath
      * @return string|false The model class constant, or false if none was found.
      *
-     * @see \Hyde\Testing\Framework\Unit\DiscoveryServiceCanFindModelFromCustomSourceFilePathTest
+     * @see \Hyde\Framework\Testing\Unit\DiscoveryServiceCanFindModelFromCustomSourceFilePathTest
      */
     public static function findModelFromFilePath(string $filepath): string|false
     {

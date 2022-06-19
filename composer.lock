@@ -903,7 +903,7 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Hyde\\Testing\\Framework\\": "tests/"
+                    "Hyde\\Framework\\Testing\\": "tests/"
                 }
             },
             "license": [

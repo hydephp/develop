@@ -12,7 +12,7 @@ use League\CommonMark\MarkdownConverter;
 /**
  * Generates a table of contents for the Markdown document.
  *
- * @see \Hyde\Testing\Framework\Feature\Actions\GeneratesTableOfContentsTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesTableOfContentsTest
  */
 class GeneratesTableOfContents implements ActionContract
 {

@@ -7,7 +7,7 @@ use Hyde\Framework\Actions\GeneratesTableOfContents;
 /**
  * Generate Table of Contents as HTML from a Markdown document body.
  *
- * @see \Hyde\Testing\Framework\Unit\HasTableOfContentsTest
+ * @see \Hyde\Framework\Testing\Unit\HasTableOfContentsTest
  */
 trait HasTableOfContents
 {

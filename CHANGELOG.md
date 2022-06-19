@@ -34,6 +34,7 @@ This serves two purposes:
 - Renamed deprecated Hyde::docsDirectory() helper to suggested Hyde::getDocumentationOutputDirectory()
 - Makes the constructor arguments for Markdown page models optional https://github.com/hydephp/develop/issues/65
 - Added the Hyde/Framework composer.lock to .gitignore as we keep a master lock file in the monorepo.
+- Changed namespace for Hyde/Framework tests from `Hyde\Testing\Framework` to `Hyde\Framework\Testing`
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
 
 ### Deprecated

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Framework\Feature\Concerns;
+namespace Hyde\Framework\Testing\Feature\Concerns;
 
 use Hyde\Framework\Concerns\GeneratesPageMetadata;
 use Hyde\Testing\TestCase;
