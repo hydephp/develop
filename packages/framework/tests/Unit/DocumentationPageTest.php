@@ -12,13 +12,13 @@ class DocumentationPageTest extends TestCase
 {
     public function test_can_generate_table_of_contents()
     {
-        $page = (new DocumentationPage([], "# Foo"));
+        $page = (new DocumentationPage([], '# Foo'));
         $this->assertIsString($page->tableOfContents);
     }
 
     public function test_can_get_current_page_path()
     {
-        $page = (new DocumentationPage([], "", "", "foo"));
+        $page = (new DocumentationPage([], '', '', 'foo'));
         $this->assertEquals('docs/foo', $page->getCurrentPagePath());
 
         config(['docs.output_directory' => 'documentation/latest/']);
@@ -27,14 +27,14 @@ class DocumentationPageTest extends TestCase
 
     public function test_can_get_online_source_path()
     {
-        $page = (new DocumentationPage([], ""));
+        $page = (new DocumentationPage([], ''));
         $this->assertFalse($page->getOnlineSourcePath());
     }
 
     public function test_can_get_online_source_path_with_source_file_location_base()
     {
         config(['docs.source_file_location_base' => 'docs.example.com/edit']);
-        $page = (new DocumentationPage([], "", "", "foo"));
+        $page = (new DocumentationPage([], '', '', 'foo'));
         $this->assertEquals('docs.example.com/edit/foo.md', $page->getOnlineSourcePath());
     }
 
