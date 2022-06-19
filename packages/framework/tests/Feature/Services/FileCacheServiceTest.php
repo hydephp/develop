@@ -11,7 +11,6 @@ use Hyde\Testing\TestCase;
  */
 class FileCacheServiceTest extends TestCase
 {
-    // Test getFilecache() method returns array containing checksums for vendor files
     public function testGetFilecache()
     {
         $fileCacheService = new FileCacheService();
@@ -23,7 +22,6 @@ class FileCacheServiceTest extends TestCase
         $this->assertEquals(32, strlen($fileCache['/resources/views/layouts/app.blade.php']['unixsum']));
     }
 
-    // Test getChecksums() method returns array with just the checksums
     public function testGetChecksums()
     {
         $fileCacheService = new FileCacheService();
@@ -33,7 +31,6 @@ class FileCacheServiceTest extends TestCase
         $this->assertEquals(32, strlen($checksums[0]));
     }
 
-    // Test checksumMatchesAny() method returns true if a supplied checksum matches any of the checksums in array
     public function testChecksumMatchesAny()
     {
         $fileCacheService = new FileCacheService();
@@ -43,7 +40,6 @@ class FileCacheServiceTest extends TestCase
         ));
     }
 
-    // Test checksumMatchesAny() method returns false if a supplied checksum does not match any of the checksums in array
     public function testChecksumMatchesAnyFalse()
     {
         $fileCacheService = new FileCacheService();

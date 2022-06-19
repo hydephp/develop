@@ -17,7 +17,6 @@ class HasAuthorTest extends TestCase
 
     protected array $matter;
 
-    // Test it can create a new author instance from username string
     public function test_it_can_create_a_new_author_instance_from_username_string()
     {
         $this->matter = [
@@ -31,7 +30,6 @@ class HasAuthorTest extends TestCase
         $this->assertNull($this->author->website);
     }
 
-    // Test it can create a new author instance from user array
     public function test_it_can_create_a_new_author_instance_from_user_array()
     {
         $this->matter['author'] = [

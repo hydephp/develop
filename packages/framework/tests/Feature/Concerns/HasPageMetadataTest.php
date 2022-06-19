@@ -285,7 +285,6 @@ class HasPageMetadataTest extends TestCase
         $this->assertFalse($page->hasOpenGraphTitleInConfig());
     }
 
-    // Test meta titles can be dynamically added and override defaults
     public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_conditions_are_met()
     {
         config(['hyde.meta' => [

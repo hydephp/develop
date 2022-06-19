@@ -93,7 +93,6 @@ class HasPageMetadataRssFeedLinkTest extends TestCase
         );
     }
 
-    // Test link is not added if site url is not set
     public function test_link_is_not_added_if_site_url_is_not_set()
     {
         config(['hyde.site_url' => '']);

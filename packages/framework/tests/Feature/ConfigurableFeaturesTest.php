@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Config;
  */
 class ConfigurableFeaturesTest extends TestCase
 {
-    // Test HasFeature methods return false when feature is not enabled
     public function testHasFeatureReturnsFalseWhenFeatureIsNotEnabled()
     {
         Config::set('hyde.features', []);
@@ -24,7 +23,6 @@ class ConfigurableFeaturesTest extends TestCase
         }
     }
 
-    // Test HasFeature methods return true when feature is enabled
     public function testHasFeatureReturnsTrueWhenFeatureIsEnabled()
     {
         $features = [];

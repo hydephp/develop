@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Artisan;
 
 class BlogPostFrontMatterIsOptionalTest extends TestCase
 {
-    // Test blog posts can be created without having any front matter
     public function testBlogPostCanBeCreatedWithoutFrontMatter()
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), '# My New Post');
@@ -21,7 +20,6 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
         unlink(Hyde::path('_site/posts/test-post.html'));
     }
 
-    // Test blog post feed can be rendered when having post without front matter
     public function testBlogPostFeedCanBeRenderedWhenPostHasNoFrontMatter()
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), '# My New Post');

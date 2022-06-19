@@ -10,7 +10,6 @@ use Hyde\Testing\TestCase;
  */
 class CodeblockFilepathProcessorTest extends TestCase
 {
-    // Test preprocess method expands filepath
     public function test_preprocess_expands_filepath()
     {
         $markdown = "\n```php\n// filepath: foo.php\necho 'Hello World';\n```";
@@ -19,7 +18,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    // Test preprocess method accepts multiple filepath formats
     public function test_preprocess_accepts_multiple_filepath_formats()
     {
         $patterns = [
@@ -41,7 +39,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         }
     }
 
-    // Test preprocess method accepts multiple languages
     public function test_preprocess_accepts_multiple_languages()
     {
         $languages = [
@@ -62,7 +59,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    // Test preprocess method accepts multiple input blocks
     public function test_preprocess_accepts_multiple_input_blocks()
     {
         $markdown = <<<'MD'
@@ -94,7 +90,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    // Test preprocess method accepts multi-line codeblocks
     public function test_preprocess_accepts_multi_line_codeblocks()
     {
         $markdown = <<<'MD'
@@ -120,7 +115,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    // Test space after filepath is optional
     public function test_space_after_filepath_is_optional()
     {
         $markdown = <<<'MD'
@@ -144,7 +138,6 @@ class CodeblockFilepathProcessorTest extends TestCase
             CodeblockFilepathProcessor::preprocess($markdown));
     }
 
-    // Test processor expands filepath directive in standard codeblock
     public function test_processor_expands_filepath_directive_in_standard_codeblock()
     {
         $html = <<<'HTML'
@@ -159,7 +152,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::process($html));
     }
 
-    // Test processor expands filepath directive in Torchlight codeblock
     public function test_processor_expands_filepath_directive_in_torchlight_codeblock()
     {
         $html = <<<'HTML'
