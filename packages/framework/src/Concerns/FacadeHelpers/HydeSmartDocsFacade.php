@@ -16,8 +16,8 @@ trait HydeSmartDocsFacade
     /**
      * Create a new HydeSmartDocs instance, process, and return it.
      *
-     * @param DocumentationPage $page The source page object
-     * @param string $html compiled HTML content
+     * @param  DocumentationPage  $page  The source page object
+     * @param  string  $html  compiled HTML content
      * @return static new processed instance
      */
     public static function create(DocumentationPage $page, string $html): static
@@ -28,7 +28,7 @@ trait HydeSmartDocsFacade
     /**
      * Does the current document use Torchlight?
      *
-     * @return boolean
+     * @return bool
      */
     public function hasTorchlight(): bool
     {
@@ -38,8 +38,8 @@ trait HydeSmartDocsFacade
     /**
      * Do we satisfy the requirements to render an edit source button in the supplied position?
      *
-     * @param string $inPosition
-     * @return boolean
+     * @param  string  $inPosition
+     * @return bool
      */
     protected function canRenderSourceLink(string $inPosition): bool
     {

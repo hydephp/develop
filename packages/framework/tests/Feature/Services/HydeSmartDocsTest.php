@@ -58,7 +58,7 @@ class HydeSmartDocsTest extends TestCase
 
         $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
     }
-    
+
     // Test instance can be constructed directly with same result as facade
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
     {

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
  * by dynamically enriching them with semantic HTML.
  *
  * @experimental 🧪 Subject to change without notice.
+ *
  * @see \Hyde\Testing\Framework\Feature\Services\HydeSmartDocsTest
  */
 class HydeSmartDocs
