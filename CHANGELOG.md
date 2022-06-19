@@ -36,7 +36,7 @@ This serves two purposes:
 - Added the Hyde/Framework composer.lock to .gitignore as we keep a master lock file in the monorepo.
 - Changed namespace for Hyde/Framework tests from `Hyde\Testing\Framework` to `Hyde\Framework\Testing`
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
-
+- internal: Update Monorepo structure to move persisted data for the Hyde package into the packages directory
 
 ### Deprecated
 - for soon-to-be removed features.
