@@ -53,7 +53,7 @@ class HasConfigurableMarkdownFeaturesTest extends TestCase
         $this->assertContains('test2', $this->features);
     }
 
-    public function test_method_with_table_of_contents_method_chain_adds_the_table-of-contents_feature()
+    public function test_method_with_table_of_contents_method_chain_adds_the_table_of_contents_feature()
     {
         $this->withTableOfContents();
         $this->assertContains('table-of-contents', $this->features);
