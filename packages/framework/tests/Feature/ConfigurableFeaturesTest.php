@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Config;
  */
 class ConfigurableFeaturesTest extends TestCase
 {
-    // Test HasFeature methods return false when feature is not enabled
-    public function testHasFeatureReturnsFalseWhenFeatureIsNotEnabled()
+    public function test_has_feature_returns_false_when_feature_is_not_enabled()
     {
         Config::set('hyde.features', []);
         // Foreach method in Features class that begins with "has"
@@ -24,8 +23,7 @@ class ConfigurableFeaturesTest extends TestCase
         }
     }
 
-    // Test HasFeature methods return true when feature is enabled
-    public function testHasFeatureReturnsTrueWhenFeatureIsEnabled()
+    public function test_has_feature_returns_true_when_feature_is_enabled()
     {
         $features = [];
         foreach (get_class_methods(Features::class) as $method) {

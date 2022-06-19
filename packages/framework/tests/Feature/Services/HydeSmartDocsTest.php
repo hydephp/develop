@@ -49,7 +49,6 @@ class HydeSmartDocsTest extends TestCase
         config(['torchlight.token' => '12345']);
     }
 
-    // test facade create helper creates a new instance and processes it
     public function test_create_helper_creates_new_instance_and_processes_it()
     {
         $page = HydeSmartDocs::create($this->mock, $this->html);
@@ -59,7 +58,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
     }
 
-    // Test instance can be constructed directly with same result as facade
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
     {
         $class = new HydeSmartDocs($this->mock, $this->html);
@@ -74,7 +72,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEquals($class, $facade);
     }
 
-    // Test renderHeader returns the extracted header
     public function test_render_header_returns_the_extracted_header()
     {
         $page = HydeSmartDocs::create($this->mock, $this->html);
@@ -82,7 +79,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
     }
 
-    // Test renderHeader returns the extracted header with varying newlines
     public function test_render_header_returns_the_extracted_header_with_varying_newlines()
     {
         $tests = [
@@ -97,7 +93,6 @@ class HydeSmartDocsTest extends TestCase
         }
     }
 
-    // Test renderBody returns the extracted body
     public function test_render_body_returns_the_extracted_body()
     {
         $page = HydeSmartDocs::create($this->mock, $this->html);
@@ -105,7 +100,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
     }
 
-    // Test renderBody returns the extracted body with varying newlines
     public function test_render_body_returns_the_extracted_body_with_varying_newlines()
     {
         $tests = [
@@ -120,7 +114,6 @@ class HydeSmartDocsTest extends TestCase
         }
     }
 
-    // Test renderFooter is empty by default
     public function test_render_footer_is_empty_by_default()
     {
         $page = HydeSmartDocs::create($this->mock, $this->html);
@@ -128,7 +121,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('', $page->renderFooter());
     }
 
-    // Test addDynamicHeaderContent adds source link when conditions are met
     public function test_add_dynamic_header_content_adds_source_link_when_conditions_are_met()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
@@ -138,7 +130,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
     }
 
-    // Test edit source link is added to footer when conditions are met
     public function test_edit_source_link_is_added_to_footer_when_conditions_are_met()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
@@ -148,7 +139,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
     }
 
-    // Test edit source link can be added to both header and footer
     public function test_edit_source_link_can_be_added_to_both_header_and_footer()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
@@ -159,7 +149,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
     }
 
-    // Test edit source link text can be customized
     public function test_edit_source_link_text_can_be_customized()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
@@ -171,7 +160,6 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderFooter());
     }
 
-    // Test addDynamicFooterContent adds torchlight attribution when conditions are met
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
     {
         $this->mockTorchlight();

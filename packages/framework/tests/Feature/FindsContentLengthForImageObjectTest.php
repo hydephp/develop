@@ -24,7 +24,6 @@ class FindsContentLengthForImageObjectTest extends TestCase
         );
     }
 
-    // Test it can find the content length for a local image stored in the _media directory
     public function test_it_can_find_the_content_length_for_a_local_image_stored_in_the_media_directory()
     {
         $image = new Image();
@@ -38,7 +37,6 @@ class FindsContentLengthForImageObjectTest extends TestCase
         unlink($image->path);
     }
 
-    // Test it can find the content length for a remote image
     public function test_it_can_find_the_content_length_for_a_remote_image()
     {
         Http::fake(function (Request $request) {
@@ -55,7 +53,6 @@ class FindsContentLengthForImageObjectTest extends TestCase
         );
     }
 
-    // Test it returns 0 if local image is missing
     public function test_it_returns_0_if_local_image_is_missing()
     {
         $image = new Image();
@@ -66,7 +63,6 @@ class FindsContentLengthForImageObjectTest extends TestCase
         );
     }
 
-    // Test it returns 0 if remote image is missing
     public function test_it_returns_0_if_remote_image_is_missing()
     {
         Http::fake(function (Request $request) {

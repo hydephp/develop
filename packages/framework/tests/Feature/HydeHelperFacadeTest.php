@@ -11,8 +11,7 @@ use Hyde\Testing\TestCase;
  */
 class HydeHelperFacadeTest extends TestCase
 {
-    // Test Hyde::features() facade returns an instance of Features::class
-    public function testFeaturesFacadeReturnsInstanceOfFeaturesClass()
+    public function test_features_facade_returns_instance_of_features_class()
     {
         $this->assertInstanceOf(
             Features::class,
@@ -20,16 +19,14 @@ class HydeHelperFacadeTest extends TestCase
         );
     }
 
-    // Test Hyde::features() facade can be used to call static methods on Features::class
-    public function testFeaturesFacadeCanBeUsedToCallStaticMethodsOnFeaturesClass()
+    public function test_features_facade_can_be_used_to_call_static_methods_on_features_class()
     {
         $this->assertTrue(
             Hyde::features()->hasBlogPosts()
         );
     }
 
-    // Test Hyde::hasFeature() shorthand calls the static method on Features::class
-    public function testHydeHasFeatureShorthandCallsStaticMethodOnFeaturesClass()
+    public function test_hyde_has_feature_shorthand_calls_static_method_on_features_class()
     {
         $this->assertTrue(
             Hyde::hasFeature('blog-posts')

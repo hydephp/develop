@@ -14,8 +14,7 @@ class HasDynamicTitleTest extends TestCase
 {
     protected array $matter;
 
-    // Test it can find title from front matter.
-    public function testFindTitleFromFrontMatter()
+    public function test_can_find_title_from_front_matter()
     {
         $document = new MarkdownDocument([
             'title' => 'My Title',
@@ -24,16 +23,14 @@ class HasDynamicTitleTest extends TestCase
         $this->assertEquals('My Title', $document->findTitleForDocument());
     }
 
-    // Test it can find title from H1 tag.
-    public function testFindTitleFromH1Tag()
+    public function test_can_find_title_from_h1_tag()
     {
         $document = new MarkdownDocument([], body: '# My Title');
 
         $this->assertEquals('My Title', $document->findTitleForDocument());
     }
 
-    // Test it can find title from slug.
-    public function testFindTitleFromSlug()
+    public function test_can_find_title_from_slug()
     {
         $document = new MarkdownDocument([], body: '', slug: 'my-title');
         $this->assertEquals('My Title', $document->findTitleForDocument());

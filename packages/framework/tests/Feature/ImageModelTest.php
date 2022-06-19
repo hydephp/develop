@@ -59,7 +59,6 @@ class ImageModelTest extends TestCase
 
     public function test_get_image_author_attribution_string_method()
     {
-        // Test with author and credit set
         $image = new Image([
             'author' => 'John Doe',
             'credit' => 'https://example.com/',
@@ -71,14 +70,12 @@ class ImageModelTest extends TestCase
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
         $this->assertStringContainsString('<a href="https://example.com/"', $string);
 
-        // Test with author set
         $image = new Image(['author' => 'John Doe']);
         $string = $image->getImageAuthorAttributionString();
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
 
-        // Test with nothing set
         $image = new Image();
         $this->assertNull($image->getImageAuthorAttributionString());
     }
@@ -94,7 +91,6 @@ class ImageModelTest extends TestCase
 
     public function test_get_license_string()
     {
-        // Test with license and url set
         $image = new Image([
             'license' => 'foo',
             'licenseUrl' => 'https://example.com/bar.html',
@@ -102,40 +98,33 @@ class ImageModelTest extends TestCase
         $this->assertEquals('<a href="https://example.com/bar.html" rel="license nofollow noopener" '.
                 'itemprop="license">foo</a>', $image->getLicenseString());
 
-        // Test with license set
         $image = new Image(['license' => 'foo']);
         $this->assertEquals('<span itemprop="license">foo</span>', $image->getLicenseString());
 
-        // Test with url set
         $image = new Image(['licenseUrl' => 'https://example.com/bar.html']);
         $this->assertNull($image->getLicenseString());
 
-        // Test with nothing set
         $image = new Image();
         $this->assertNull($image->getLicenseString());
     }
 
     public function test_get_fluent_attribution_method()
     {
-        // Test it contains the Author string
         $image = new Image(['author' => 'John Doe']);
         $string = $image->getFluentAttribution();
 
         $this->assertStringContainsString('Image by ', $string);
 
-        // Test it contains the Copyright string
         $image = new Image(['copyright' => 'foo']);
         $string = $image->getFluentAttribution();
 
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
 
-        // Test it contains the License string
         $image = new Image(['license' => 'foo']);
 
         $string = $image->getFluentAttribution();
         $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
 
-        // Test with nothing set
         $image = new Image();
         $this->assertEquals('', $image->getFluentAttribution());
     }

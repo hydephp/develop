@@ -9,7 +9,7 @@ use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Testing\TestCase;
 
-class DocumentationPageTest extends TestCase
+class DocumentationPageParserTest extends TestCase
 {
     /**
      * Test the Parser.

@@ -10,15 +10,13 @@ use Hyde\Testing\TestCase;
  */
 class DocumentationPageTest extends TestCase
 {
-    // Test documentation page table of contents is generated automatically.
-    public function testCanGenerateTableOfContents()
+    public function test_can_generate_table_of_contents()
     {
         $page = (new DocumentationPage([], '# Foo'));
         $this->assertIsString($page->tableOfContents);
     }
 
-    // Test getCurrentPagePath returns trimmed path to current page slug in documentation output directory.
-    public function testCanGetCurrentPagePath()
+    public function test_can_get_current_page_path()
     {
         $page = (new DocumentationPage([], '', '', 'foo'));
         $this->assertEquals('docs/foo', $page->getCurrentPagePath());
@@ -27,23 +25,20 @@ class DocumentationPageTest extends TestCase
         $this->assertEquals('documentation/latest/foo', $page->getCurrentPagePath());
     }
 
-    // Test getOnlineSourcePath returns false if source file location base is not set.
-    public function testCanGetOnlineSourcePath()
+    public function test_can_get_online_source_path()
     {
         $page = (new DocumentationPage([], ''));
         $this->assertFalse($page->getOnlineSourcePath());
     }
 
-    // Test getOnlineSourcePath returns proper source path to current page
-    public function testCanGetOnlineSourcePathWithSourceFileLocationBase()
+    public function test_can_get_online_source_path_with_source_file_location_base()
     {
         config(['docs.source_file_location_base' => 'docs.example.com/edit']);
         $page = (new DocumentationPage([], '', '', 'foo'));
         $this->assertEquals('docs.example.com/edit/foo.md', $page->getOnlineSourcePath());
     }
 
-    // Test getOnlineSourcePath trims base input to avoid trailing slash.
-    public function testCanGetOnlineSourcePathWithTrailingSlash()
+    public function test_can_get_online_source_path_with_trailing_slash()
     {
         $page = (new DocumentationPage([], '', '', 'foo'));
 
@@ -54,21 +49,18 @@ class DocumentationPageTest extends TestCase
         $this->assertEquals('edit/foo.md', $page->getOnlineSourcePath());
     }
 
-    // Test getDocumentationOutputPath helper returns path to documentation output directory.
-    public function testCanGetDocumentationOutputPath()
+    public function test_can_get_documentation_output_path()
     {
         $this->assertEquals('docs', DocumentationPage::getDocumentationOutputPath());
     }
 
-    // Test getDocumentationOutputPath helper can be customized.
-    public function testCanGetDocumentationOutputPathWithCustomOutputDirectory()
+    public function test_can_get_documentation_output_path_with_custom_output_directory()
     {
         config(['docs.output_directory' => 'foo']);
         $this->assertEquals('foo', DocumentationPage::getDocumentationOutputPath());
     }
 
-    // Test getDocumentationOutputPath helper trims trailing slashes.
-    public function testCanGetDocumentationOutputPathWithTrailingSlashes()
+    public function test_can_get_documentation_output_path_with_trailing_slashes()
     {
         $tests = [
             'foo',

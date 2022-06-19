@@ -33,7 +33,7 @@ class SitemapServiceTest extends TestCase
         $service = new SitemapService();
         $service->generate();
 
-        // Test runner has an index and 404 page, so we are using that as a baseline
+        // The test runner has an index and 404 page, so we are using that as a baseline
         $this->assertCount(2, $service->xmlElement->url);
     }
 

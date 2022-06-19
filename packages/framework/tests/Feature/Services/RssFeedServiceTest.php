@@ -11,14 +11,12 @@ use Hyde\Testing\TestCase;
  */
 class RssFeedServiceTest extends TestCase
 {
-    // Test service instantiates the XML element
     public function test_service_instantiates_xml_element()
     {
         $service = new RssFeedService();
         $this->assertInstanceOf('SimpleXMLElement', $service->feed);
     }
 
-    // Test XML root element is set to RSS 2.0
     public function test_xml_root_element_is_set_to_rss_2_0()
     {
         $service = new RssFeedService();
@@ -26,14 +24,12 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('2.0', $service->feed->attributes()->version);
     }
 
-    // Test XML element has channel element
     public function test_xml_element_has_channel_element()
     {
         $service = new RssFeedService();
         $this->assertObjectHasAttribute('channel', $service->feed);
     }
 
-    // Test XML channel element has required elements
     public function test_xml_channel_element_has_required_elements()
     {
         config(['hyde.name' => 'Test Blog']);
@@ -49,7 +45,6 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('Test Blog RSS Feed', $service->feed->channel->description);
     }
 
-    // Test XML channel element has additional elements
     public function test_xml_channel_element_has_additional_elements()
     {
         config(['hyde.site_url' => 'https://example.com']);
@@ -65,7 +60,6 @@ class RssFeedServiceTest extends TestCase
         $this->assertObjectHasAttribute('lastBuildDate', $service->feed->channel);
     }
 
-    // Test XML channel data can be customized
     public function test_xml_channel_data_can_be_customized()
     {
         config(['hyde.name' => 'Foo']);
@@ -78,7 +72,6 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('Foo is a web log about stuff', $service->feed->channel->description);
     }
 
-    // Test Markdown blog posts are added to RSS feed through autodiscovery
     public function test_markdown_blog_posts_are_added_to_rss_feed_through_autodiscovery()
     {
         file_put_contents(Hyde::path('_posts/rss.md'), <<<'MD'
@@ -122,14 +115,12 @@ class RssFeedServiceTest extends TestCase
         unlink(Hyde::path('_media/rss-test.jpg'));
     }
 
-    // Test getXML method returns XML string
     public function test_get_xml_method_returns_xml_string()
     {
         $service = new RssFeedService();
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', ($service->getXML()));
     }
 
-    // Test generateFeed helper returns XML string
     public function test_generate_feed_helper_returns_xml_string()
     {
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (RssFeedService::generateFeed()));

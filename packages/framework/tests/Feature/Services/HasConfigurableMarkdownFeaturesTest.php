@@ -21,79 +21,68 @@ class HasConfigurableMarkdownFeaturesTest extends TestCase
         $this->assertIsArray($this->features);
     }
 
-    // Test that the features array is empty by default
-    public function test_has_features_array_empty()
+    public function test_the_features_array_is_empty_by_default()
     {
         $this->assertEmpty($this->features);
     }
 
-    // Test that features can be added to the array
-    public function test_has_features_array_add()
+    public function test_features_can_be_added_to_the_array()
     {
         $this->addFeature('test');
         $this->assertContains('test', $this->features);
     }
 
-    // Test that features can be removed from the array
-    public function test_has_features_array_remove()
+    public function test_features_can_be_removed_from_the_array()
     {
         $this->addFeature('test');
         $this->removeFeature('test');
         $this->assertNotContains('test', $this->features);
     }
 
-    // Test that method chaining can be used to programmatically add features to the array
-    public function test_has_features_array_add_chain()
+    public function test_method_chaining_can_be_used_to_programmatically_add_features_to_the_array()
     {
         $this->addFeature('test')->addFeature('test2');
         $this->assertContains('test', $this->features);
         $this->assertContains('test2', $this->features);
     }
 
-    // Test that method chaining can be used to programmatically remove features from the array
-    public function test_has_features_array_remove_chain()
+    public function test_method_chaining_can_be_used_to_programmatically_remove_features_from_the_array()
     {
         $this->addFeature('test')->addFeature('test2')->removeFeature('test');
         $this->assertNotContains('test', $this->features);
         $this->assertContains('test2', $this->features);
     }
 
-    // Test that method withTableOfContents method chain adds the table-of-contents feature
-    public function test_has_features_array_add_toc()
+    public function test_method_with_table_of_contents_method_chain_adds_the_table_of_contents_feature()
     {
         $this->withTableOfContents();
         $this->assertContains('table-of-contents', $this->features);
     }
 
-    // Test that method withPermalinks method chain adds the permalinks feature
-    public function test_has_features_array_add_permalinks()
+    public function test_method_with_permalinks_method_chain_adds_the_permalinks_feature()
     {
         $this->withPermalinks();
         $this->assertContains('permalinks', $this->features);
     }
 
-    // Test that hasFeature() returns true if the feature is in the array
-    public function test_has_features_array_has()
+    public function test_has_feature_returns_true_if_the_feature_is_in_the_array()
     {
         $this->addFeature('test');
         $this->assertTrue($this->hasFeature('test'));
     }
 
-    // Test that hasFeature() returns false if the feature is not in the array
-    public function test_has_features_array_has_not()
+    public function test_has_feature_returns_false_if_the_feature_is_not_in_the_array()
     {
         $this->assertFalse($this->hasFeature('test'));
     }
 
-    // Test that method canEnablePermalinks returns true if the permalinks feature is in the array
-    public function test_has_features_array_can_enable_permalinks()
+    public function test_method_can_enable_permalinks_returns_true_if_the_permalinks_feature_is_in_the_array()
     {
         $this->addFeature('permalinks');
         $this->assertTrue($this->canEnablePermalinks());
     }
 
-    // Test that method canEnablePermalinks is automatically for DocumentationPages
-    public function test_has_features_array_can_enable_permalinks_auto()
+    public function test_method_can_enable_permalinks_is_automatically_for_documentation_pages()
     {
         Config::set('docs.table_of_contents.enabled', true);
         $this->sourceModel = DocumentationPage::class;
@@ -101,21 +90,18 @@ class HasConfigurableMarkdownFeaturesTest extends TestCase
         $this->assertTrue($this->canEnablePermalinks());
     }
 
-    // Test that method canEnablePermalinks returns false if the permalinks feature is not in the array
-    public function test_has_features_array_can_enable_permalinks_not()
+    public function test_method_can_enable_permalinks_returns_false_if_the_permalinks_feature_is_not_in_the_array()
     {
         $this->assertFalse($this->canEnablePermalinks());
     }
 
-    // Test that method canEnableTorchlight returns true if the torchlight feature is in the array
-    public function test_has_features_array_can_enable_torchlight()
+    public function test_method_can_enable_torchlight_returns_true_if_the_torchlight_feature_is_in_the_array()
     {
         $this->addFeature('torchlight');
         $this->assertTrue($this->canEnableTorchlight());
     }
 
-    // Test that method canEnableTorchlight returns false if the torchlight feature is not in the array
-    public function test_has_features_array_can_enable_torchlight_not()
+    public function test_method_can_enable_torchlight_returns_false_if_the_torchlight_feature_is_not_in_the_array()
     {
         $this->assertFalse($this->canEnableTorchlight());
     }
