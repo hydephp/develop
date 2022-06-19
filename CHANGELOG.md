@@ -24,7 +24,7 @@ This serves two purposes:
 ### Added
 - Added a helper to all page models to get an array of all its source files https://github.com/hydephp/develop/issues/44
 - Added a helper to all page models to parse source files directly into an object https://github.com/hydephp/develop/issues/40
-- internal: Add tests for HydeSmartDocs service https://github.com/hydephp/develop/pull/63
+- internal: Add more tests
 
 ### Changed
 - Changed welcome page title https://github.com/hydephp/develop/issues/52
