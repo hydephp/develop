@@ -6,6 +6,9 @@ use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
 
+/**
+ * @internal
+ */
 trait ResetsApplication
 {
     public function resetApplication()
