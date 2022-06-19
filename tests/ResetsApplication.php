@@ -16,7 +16,7 @@ trait ResetsApplication
      */
     public function resetApplication()
     {
-        $this->resetMedia();
+        // $this->resetMedia();
         $this->resetPages();
         $this->resetPosts();
         $this->resetDocs();
