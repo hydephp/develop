@@ -8,7 +8,7 @@ use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Testing\TestCase;
 
 /**
- * @see Tests\Feature\Commands\StaticSiteBuilderPostModuleTest for the compiler test.
+ * @see \Hyde\Testing\Framework\Feature\Commands\StaticSiteBuilderPostModuleTest for the compiler test.
  */
 class MarkdownPostParserTest extends TestCase
 {

@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * Test the post compiler module.
  *
- * @see Tests\Unit\MarkdownPostParserTest for the Markdown parser test.
+ * @see \Hyde\Testing\Framework\Unit\MarkdownPostParserTest for the Markdown parser test.
  */
 class StaticSiteBuilderPostModuleTest extends TestCase
 {
