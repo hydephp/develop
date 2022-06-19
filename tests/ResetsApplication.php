@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\File;
  */
 trait ResetsApplication
 {
+    /**
+     * @deprecated You almost never need to reset everything. Use more granular methods instead.
+     */
     public function resetApplication()
     {
         $this->resetMedia();
