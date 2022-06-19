@@ -35,9 +35,8 @@ This serves two purposes:
 - Makes the constructor arguments for Markdown page models optional https://github.com/hydephp/develop/issues/65
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
 
-
 ### Deprecated
-- for soon-to-be removed features.
+- ChecksIfConfigIsUpToDate.php - Will be replaced by checking the version instead.
 
 ### Removed
 - Removed the Hyde::getLatestPosts() helper which was deprecated in v0.34.x and was replaced with MarkdownPost::getLatestPosts()

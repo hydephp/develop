@@ -10,6 +10,7 @@ use Hyde\Framework\Hyde;
  * Works by comparing the number of title blocks, which is a crude but fast way to check.
  *
  * @see \Hyde\Testing\Framework\Feature\Actions\ChecksIfConfigIsUpToDateTest
+ * @deprecated v0.39.0-beta - Will be replaced by checking the version instead.
  */
 class ChecksIfConfigIsUpToDate implements ActionContract
 {
