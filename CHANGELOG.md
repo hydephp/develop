@@ -33,8 +33,8 @@ This serves two purposes:
 - Changed the default position of the automatic navigation menu link to the right, also making it configurable.
 - Renamed deprecated Hyde::docsDirectory() helper to suggested Hyde::getDocumentationOutputDirectory()
 - Makes the constructor arguments for Markdown page models optional https://github.com/hydephp/develop/issues/65
+- Added the Hyde/Framework composer.lock to .gitignore as we keep a master lock file in the monorepo.
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
-
 
 ### Deprecated
 - for soon-to-be removed features.

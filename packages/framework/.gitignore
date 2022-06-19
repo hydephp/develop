@@ -14,3 +14,6 @@ phpstan.phar
 
 .github/dev-docs/README.markdown
 .github/dev-docs/.github/
+
+# We keep a "master" lock file in the monorepo
+composer.lock 
