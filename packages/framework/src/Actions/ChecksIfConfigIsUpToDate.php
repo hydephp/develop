@@ -14,18 +14,24 @@ use Hyde\Framework\Hyde;
  */
 class ChecksIfConfigIsUpToDate implements ActionContract
 {
-    public string $hydeConfig;
-    public string $frameworkConfig;
-
-    public function __construct()
-    {
-        $this->hydeConfig = file_get_contents(Hyde::path('config/hyde.php'));
-        $this->frameworkConfig = file_get_contents(Hyde::vendorPath('config/hyde.php'));
-    }
+    protected static bool $isUpToDate;
 
     public function execute(): bool
     {
-        return $this->findOptions($this->hydeConfig) === $this->findOptions($this->frameworkConfig);
+        if (! isset(self::$isUpToDate)) {
+            self::$isUpToDate = $this->isUpToDate();
+        }
+
+        return self::$isUpToDate;
+    }
+
+    protected function isUpToDate(): bool
+    {
+        return $this->findOptions(
+            file_get_contents(Hyde::path('config/hyde.php'))
+        ) === $this->findOptions(
+            file_get_contents(Hyde::vendorPath('config/hyde.php'))
+        );
     }
 
     public function findOptions(string $config): int
