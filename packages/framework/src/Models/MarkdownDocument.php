@@ -11,6 +11,10 @@ use Hyde\Framework\Contracts\MarkdownDocumentContract;
  *
  * It is, in itself an intermediate object model created by the MarkdownFileService
  * and contains the Front Matter and Markdown body found in a document processed by the service.
+ *
+ * @see \Hyde\Framework\Models\MarkdownPage
+ * @see \Hyde\Framework\Models\MarkdownPost
+ * @see \Hyde\Framework\Models\DocumentationPage
  */
 class MarkdownDocument extends AbstractPage implements MarkdownDocumentContract
 {
