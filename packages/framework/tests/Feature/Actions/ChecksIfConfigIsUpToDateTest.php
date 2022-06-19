@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\ChecksIfConfigIsUpToDate;
+use Hyde\Framework\Commands\HydeUpdateConfigsCommand;
+use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
@@ -12,42 +14,27 @@ class ChecksIfConfigIsUpToDateTest extends TestCase
 {
     public function test_it_returns_true_if_config_is_up_to_date()
     {
+        ChecksIfConfigIsUpToDate::$isUpToDate = null;
+
         $action = new ChecksIfConfigIsUpToDate();
-
-        $action->hydeConfig = $this->makeConfig();
-        $action->frameworkConfig = $this->makeConfig();
-
         $this->assertTrue($action->execute());
     }
 
     public function test_it_returns_false_if_config_is_not_up_to_date()
     {
+        ChecksIfConfigIsUpToDate::$isUpToDate = null;
+        backup(Hyde::path('config/hyde.php'));
+
+        file_put_contents(Hyde::path('config/hyde.php'), str_replace(
+            '--------------------------------------------------------------------------',
+            '', file_get_contents(
+            Hyde::path('config/hyde.php')
+        )));
+
         $action = new ChecksIfConfigIsUpToDate();
-
-        $action->hydeConfig = $this->makeConfig();
-        $action->frameworkConfig = 'foo';
-
         $this->assertFalse($action->execute());
-    }
 
-    protected function makeConfig(): string
-    {
-        return <<<'EOF'
-<?php return [
-    /*
-    |--------------------------------------------------------------------------
-    | Foo Bar
-    |--------------------------------------------------------------------------
-    |
-    */
+        restore(Hyde::path('config/hyde.php'));
 
-    /*
-    |--------------------------------------------------------------------------
-    | Second Option
-    |--------------------------------------------------------------------------
-    |
-    */
-];
-EOF;
     }
 }

@@ -10,15 +10,18 @@ use Hyde\Framework\Hyde;
  * Works by comparing the number of title blocks, which is a crude but fast way to check.
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\ChecksIfConfigIsUpToDateTest
- * @deprecated v0.39.0-beta - Will be replaced by checking the version instead.
+ * @deprecated v0.39.0-beta - Deprecation candidate. May be replaced in a future version.
  */
 class ChecksIfConfigIsUpToDate implements ActionContract
 {
-    protected static bool $isUpToDate;
+    /**
+     * Cache result for the application lifecycle.
+     */
+    public static ?bool $isUpToDate = null;
 
     public function execute(): bool
     {
-        if (! isset(self::$isUpToDate)) {
+        if (self::$isUpToDate === null) {
             self::$isUpToDate = $this->isUpToDate();
         }
 
@@ -34,7 +37,7 @@ class ChecksIfConfigIsUpToDate implements ActionContract
         );
     }
 
-    public function findOptions(string $config): int
+    protected function findOptions(string $config): int
     {
         return substr_count($config, '--------------------------------------------------------------------------');
     }
