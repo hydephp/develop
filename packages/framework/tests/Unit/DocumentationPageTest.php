@@ -13,14 +13,14 @@ class DocumentationPageTest extends TestCase
     // Test documentation page table of contents is generated automatically.
     public function testCanGenerateTableOfContents()
     {
-        $page = (new DocumentationPage([], "# Foo"));
+        $page = (new DocumentationPage([], '# Foo'));
         $this->assertIsString($page->tableOfContents);
     }
 
     // Test getCurrentPagePath returns trimmed path to current page slug in documentation output directory.
     public function testCanGetCurrentPagePath()
     {
-        $page = (new DocumentationPage([], "", "", "foo"));
+        $page = (new DocumentationPage([], '', '', 'foo'));
         $this->assertEquals('docs/foo', $page->getCurrentPagePath());
 
         config(['docs.output_directory' => 'documentation/latest/']);
@@ -30,7 +30,7 @@ class DocumentationPageTest extends TestCase
     // Test getOnlineSourcePath returns false if source file location base is not set.
     public function testCanGetOnlineSourcePath()
     {
-        $page = (new DocumentationPage([], ""));
+        $page = (new DocumentationPage([], ''));
         $this->assertFalse($page->getOnlineSourcePath());
     }
 
@@ -38,7 +38,7 @@ class DocumentationPageTest extends TestCase
     public function testCanGetOnlineSourcePathWithSourceFileLocationBase()
     {
         config(['docs.source_file_location_base' => 'docs.example.com/edit']);
-        $page = (new DocumentationPage([], "", "", "foo"));
+        $page = (new DocumentationPage([], '', '', 'foo'));
         $this->assertEquals('docs.example.com/edit/foo.md', $page->getOnlineSourcePath());
     }
 
