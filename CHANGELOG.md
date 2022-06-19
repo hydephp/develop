@@ -26,6 +26,7 @@ This serves two purposes:
 - Added a helper to all page models to parse source files directly into an object https://github.com/hydephp/develop/issues/40
 - Adds the MarkdownDocumentContract interface to markdown based pages to keep a consistent and predictable state
 - internal: Add more tests
+- internal: Add packages/hyde/composer.json for persisted data instead of removed update script
 
 ### Changed
 - Changed welcome page title https://github.com/hydephp/develop/issues/52
