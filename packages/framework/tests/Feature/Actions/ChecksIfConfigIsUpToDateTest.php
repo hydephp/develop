@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\ChecksIfConfigIsUpToDate;
-use Hyde\Framework\Commands\HydeUpdateConfigsCommand;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -35,6 +34,5 @@ class ChecksIfConfigIsUpToDateTest extends TestCase
         $this->assertFalse($action->execute());
 
         restore(Hyde::path('config/hyde.php'));
-
     }
 }
