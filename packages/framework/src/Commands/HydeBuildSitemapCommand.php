@@ -9,7 +9,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde Command to run the Build Process for the Sitemap.
  *
- * @see \Hyde\Testing\Framework\Feature\Commands\HydeBuildSitemapCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSitemapCommandTest
  */
 class HydeBuildSitemapCommand extends Command
 {

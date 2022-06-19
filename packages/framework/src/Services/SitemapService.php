@@ -11,7 +11,7 @@ use Hyde\Framework\Models\MarkdownPost;
 use SimpleXMLElement;
 
 /**
- * @see \Hyde\Testing\Framework\Feature\Services\SitemapServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  * @see https://www.sitemaps.org/protocol.html
  */
 class SitemapService

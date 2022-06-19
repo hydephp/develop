@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Framework\Unit;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;

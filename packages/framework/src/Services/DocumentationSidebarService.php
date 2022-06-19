@@ -10,7 +10,7 @@ use Hyde\Framework\Models\DocumentationSidebarItem;
 /**
  * Service class to create and manage the sidebar collection object.
  *
- * @see \Hyde\Testing\Framework\Feature\Services\DocumentationSidebarServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarServiceTest
  */
 class DocumentationSidebarService implements DocumentationSidebarServiceContract
 {

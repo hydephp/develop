@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
  *
  * @experimental 🧪 Subject to change without notice.
  *
- * @see \Hyde\Testing\Framework\Feature\Services\HydeSmartDocsTest
+ * @see \Hyde\Framework\Testing\Feature\Services\HydeSmartDocsTest
  */
 class HydeSmartDocs
 {

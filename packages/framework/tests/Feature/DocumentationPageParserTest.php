@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Framework\Feature;
+namespace Hyde\Framework\Testing\Feature;
 
 use Exception;
 use Hyde\Framework\Hyde;

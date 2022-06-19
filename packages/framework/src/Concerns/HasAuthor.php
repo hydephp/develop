@@ -9,7 +9,7 @@ use Hyde\Framework\Models\Author;
  * Handle logic for Page models that have an Author.
  *
  * @see \Hyde\Framework\Models\Author
- * @see \Hyde\Testing\Framework\Unit\HasAuthorTest
+ * @see \Hyde\Framework\Testing\Unit\HasAuthorTest
  */
 trait HasAuthor
 {

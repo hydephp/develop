@@ -55,7 +55,7 @@ class Author
     /**
      * Get the author's preferred name.
      *
-     * @see \Hyde\Testing\Framework\Unit\AuthorGetNameTest
+     * @see \Hyde\Framework\Testing\Unit\AuthorGetNameTest
      *
      * @return string
      */

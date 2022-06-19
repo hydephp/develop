@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Framework\Unit;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Testing\TestCase;
@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Concerns\HasTableOfContents
  *
- * @see \Hyde\Testing\Framework\Feature\Actions\GeneratesTableOfContentsTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesTableOfContentsTest
  */
 class HasTableOfContentsTest extends TestCase
 {

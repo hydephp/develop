@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Framework\Feature\Actions;
+namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\PublishesHydeViews;
 use Hyde\Framework\Hyde;
