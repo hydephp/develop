@@ -4,14 +4,19 @@ namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Concerns\HasDynamicTitle;
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\MarkdownDocumentContract;
 
 /**
  * The base class for all Markdown-based Page Models.
  *
  * It is, in itself an intermediate object model created by the MarkdownFileService
  * and contains the Front Matter and Markdown body found in a document processed by the service.
+ *
+ * @see \Hyde\Framework\Models\MarkdownPage
+ * @see \Hyde\Framework\Models\MarkdownPost
+ * @see \Hyde\Framework\Models\DocumentationPage
  */
-class MarkdownDocument extends AbstractPage
+class MarkdownDocument extends AbstractPage implements MarkdownDocumentContract
 {
     use HasDynamicTitle;
 
@@ -22,15 +27,7 @@ class MarkdownDocument extends AbstractPage
 
     public static string $fileExtension = '.md';
 
-    /**
-     * Construct the class.
-     *
-     * @param  array  $matter
-     * @param  string  $body
-     * @param  string  $title
-     * @param  string  $slug
-     */
-    public function __construct(array $matter, string $body, string $title = '', string $slug = '')
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
     {
         $this->matter = $matter;
         $this->body = $body;
