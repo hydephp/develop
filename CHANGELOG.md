@@ -24,6 +24,7 @@ This serves two purposes:
 ### Added
 - Added a helper to all page models to get an array of all its source files https://github.com/hydephp/develop/issues/44
 - Added a helper to all page models to parse source files directly into an object https://github.com/hydephp/develop/issues/40
+- Adds the MarkdownDocumentContract interface to markdown based pages to keep a consistent and predictable state
 - internal: Add more tests
 
 ### Changed
@@ -31,7 +32,9 @@ This serves two purposes:
 - Add `rel="nofollow"` to the image author links https://github.com/hydephp/develop/issues/19
 - Changed the default position of the automatic navigation menu link to the right, also making it configurable.
 - Renamed deprecated Hyde::docsDirectory() helper to suggested Hyde::getDocumentationOutputDirectory()
+- Makes the constructor arguments for Markdown page models optional https://github.com/hydephp/develop/issues/65
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
+
 
 ### Deprecated
 - for soon-to-be removed features.
