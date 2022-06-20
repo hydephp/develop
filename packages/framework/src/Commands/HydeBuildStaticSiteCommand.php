@@ -174,10 +174,6 @@ class HydeBuildStaticSiteCommand extends Command
     public function purge(): void
     {
         $this->warn('Removing all files from build directory.');
-        $this->line('<fg=gray> > Directory purged');
-
-        $this->line(' > Recreating directories');
-        $this->line('</>');
         File::cleanDirectory(Hyde::getSiteOutputPath());
     }
 
