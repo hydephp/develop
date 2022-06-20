@@ -30,8 +30,6 @@ class StaticPageBuilder
      */
     public function __construct(protected MarkdownDocument|BladePage $page, bool $selfInvoke = false)
     {
-        $this->needsDirectory(static::$outputPath);
-
         if ($selfInvoke) {
             $this->__invoke();
         }
@@ -47,12 +45,15 @@ class StaticPageBuilder
         view()->share('page', $this->page);
         view()->share('currentPage', $this->page->getCurrentPagePath());
 
+        $this->needsDirectory(static::$outputPath);
+        $this->needsDirectory(Hyde::getSiteOutputPath('posts'));
+        $this->needsDirectory(Hyde::getSiteOutputPath(Hyde::getDocumentationOutputDirectory()));
+
         if ($this->page instanceof BladePage) {
             return $this->save($this->page->view, $this->compileView());
         }
 
         if ($this->page instanceof MarkdownPost) {
-            $this->needsDirectory(Hyde::getSiteOutputPath('posts'));
 
             return $this->save('posts/'.$this->page->slug, $this->compilePost());
         }
@@ -62,7 +63,6 @@ class StaticPageBuilder
         }
 
         if ($this->page instanceof DocumentationPage) {
-            $this->needsDirectory(Hyde::getSiteOutputPath(Hyde::getDocumentationOutputDirectory()));
 
             return $this->save(Hyde::getDocumentationOutputDirectory().'/'.$this->page->slug, $this->compileDocs());
         }
