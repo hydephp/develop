@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\DocumentationPage;
@@ -22,6 +23,8 @@ use Illuminate\Support\Str;
  */
 class GeneratesDocumentationSearchIndexFile implements ActionContract
 {
+    use InteractsWithDirectories;
+
     public Collection $searchIndex;
     public static string $filePath = '_site/docs/search.json';
 
@@ -83,6 +86,8 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     public function save(): self
     {
+        $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
+
         file_put_contents(Hyde::path(static::$filePath), $this->getJson());
 
         return $this;
