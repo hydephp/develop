@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
+use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;
 
 /**
@@ -11,19 +11,18 @@ use Hyde\Testing\TestCase;
  */
 class BuildStaticSiteCommandTest extends TestCase
 {
+    use ResetsApplication;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        backupDirectory(Hyde::path('_site'));
-        deleteDirectory(Hyde::path('_site'));
-
-        (new CreatesDefaultDirectories)->__invoke();
+        $this->resetSite();
     }
 
     protected function tearDown(): void
     {
-        restoreDirectory(Hyde::path('_site'));
+        $this->resetSite();
 
         parent::tearDown();
     }
@@ -66,13 +65,11 @@ class BuildStaticSiteCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_handle_purge_method()
+    public function test_site_directory_is_emptied_before_build()
     {
         touch(Hyde::path('_site/foo.html'));
         $this->artisan('build')
             ->expectsOutput('Removing all files from build directory.')
-            ->expectsOutput(' > Directory purged')
-            ->expectsOutput(' > Recreating directories')
             ->assertExitCode(0);
         $this->assertFileDoesNotExist(Hyde::path('_site/foo.html'));
     }
