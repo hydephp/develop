@@ -27,6 +27,7 @@ This serves two purposes:
 - Adds the MarkdownDocumentContract interface to markdown based pages to keep a consistent and predictable state
 - Adds .gitkeep files to persist empty directories
 - internal: Add more tests
+- internal: Add packages/hyde/composer.json for persisted data instead of removed update script
 
 ### Changed
 - Changed welcome page title https://github.com/hydephp/develop/issues/52
@@ -39,6 +40,7 @@ This serves two purposes:
 - Directories are created when needed, instead of each time the service provider boots up
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
 - internal: Refactor test that interact with the filesystem to be more granular
+- internal: Update Monorepo structure to move persisted data for the Hyde package into the packages directory
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -46,6 +48,7 @@ This serves two purposes:
 ### Removed
 - Removed the Hyde::getLatestPosts() helper which was deprecated in v0.34.x and was replaced with MarkdownPost::getLatestPosts()
 - Removes the long deprecated CreatesDefaultDirectories class
+- internal: Removed composer update script
 
 ### Fixed
 - Add changelog to export-ignore, https://github.com/hydephp/framework/issues/537
