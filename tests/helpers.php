@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\File;
 /**
  * @deprecated You should not run tests in a production environment.
  */
-
 if (! function_exists('backup')) {
     function backup(string $filepath)
     {
