@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\File;
  */
 trait ResetsApplication
 {
-    /**
-     * @deprecated You almost never need to reset everything. Use more granular methods instead.
-     */
     public function resetApplication()
     {
         copy(Hyde::path('_media/app.css'), Hyde::path('storage/framework/cache/default/app.css'));
