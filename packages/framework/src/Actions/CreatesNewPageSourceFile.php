@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
@@ -17,6 +18,8 @@ use Illuminate\Support\Str;
  */
 class CreatesNewPageSourceFile
 {
+    use InteractsWithDirectories;
+   
     public string $title;
     public string $slug;
     public string $outputPath;
@@ -39,13 +42,16 @@ class CreatesNewPageSourceFile
     public function createPage(string $type): int|false
     {
         if ($type === MarkdownPage::class) {
+            $this->needsDirectory(MarkdownPage::$sourceDirectory);
             return $this->createMarkdownFile();
         }
         if ($type === BladePage::class) {
+            $this->needsDirectory(BladePage::$sourceDirectory);
             return $this->createBladeFile();
         }
 
         if ($type === DocumentationPage::class) {
+            $this->needsDirectory(DocumentationPage::$sourceDirectory);
             return $this->createDocumentationFile();
         }
 
