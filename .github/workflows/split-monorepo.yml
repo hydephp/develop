@@ -110,19 +110,10 @@ jobs:
 
     - name: Copy persisted data to working directory
       run: |
-        cp -rT ~/tmp/clone/develop/build/monorepo/persist/hyde/. .
+        cp -rT ~/tmp/clone/develop/packages/hyde/. .
 
     - name: Copy test files
       run: cp -r ~/tmp/clone/develop/tests/ .
-
-    - name: Download composer update script
-      run: wget https://raw.githubusercontent.com/hydephp/develop/${{ github.sha }}/build/tools/update-composer.php -O update-composer.php
-    - name: Update composer.json
-      run: php update-composer.php
-    - name: Delete script
-      run: rm update-composer.php
-    - name: Remove composer.lock
-      run: rm -f composer.lock
 
     - name: Validate composer.json
       run: composer validate --strict
