@@ -16,7 +16,9 @@ trait ResetsApplication
      */
     public function resetApplication()
     {
-        // $this->resetMedia();
+        copy(Hyde::path('_media/app.css'), Hyde::path('storage/framework/cache/default/app.css'));
+     
+        $this->resetMedia();
         $this->resetPages();
         $this->resetPosts();
         $this->resetDocs();
@@ -26,6 +28,7 @@ trait ResetsApplication
     public function resetMedia()
     {
         File::cleanDirectory(Hyde::path('_media'));
+        copy(Hyde::path('storage/framework/cache/default/app.css'), Hyde::path('_media/app.css'));
     }
 
     public function resetPages()
