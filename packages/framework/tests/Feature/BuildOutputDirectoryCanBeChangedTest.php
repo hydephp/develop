@@ -20,25 +20,25 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         createTestPost();
 
-        StaticPageBuilder::$outputPath = Hyde::path('build');
+        StaticPageBuilder::$outputPath = Hyde::path('_site/build');
 
         (new RebuildService('_posts/test-post.md'))->execute();
 
-        $this->assertFileExists(Hyde::path('build/posts/test-post.html'));
+        $this->assertFileExists(Hyde::path('_site/build/posts/test-post.html'));
 
-        File::deleteDirectory(Hyde::path('build'));
+        File::deleteDirectory(Hyde::path('_site/build'));
         unlink(Hyde::path('_posts/test-post.md'));
     }
 
     public function test_output_directory_is_created_if_it_does_not_exist_in_static_page_builder()
     {
         createTestPost();
-        File::deleteDirectory(Hyde::path('build/foo'));
-        StaticPageBuilder::$outputPath = Hyde::path('build/foo');
+        File::deleteDirectory(Hyde::path('_site/build/foo'));
+        StaticPageBuilder::$outputPath = Hyde::path('_site/build/foo');
         (new RebuildService('_posts/test-post.md'))->execute();
 
-        $this->assertFileExists(Hyde::path('build/foo/posts/test-post.html'));
-        File::deleteDirectory(Hyde::path('build/foo'));
+        $this->assertFileExists(Hyde::path('_site/build/foo/posts/test-post.html'));
+        File::deleteDirectory(Hyde::path('_site/build/foo'));
         unlink(Hyde::path('_posts/test-post.md'));
     }
 }
