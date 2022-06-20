@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -11,19 +10,18 @@ use Hyde\Testing\TestCase;
  */
 class BuildStaticSiteCommandTest extends TestCase
 {
+    use ResetsApplication;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        backupDirectory(Hyde::path('_site'));
-        deleteDirectory(Hyde::path('_site'));
-
-        (new CreatesDefaultDirectories)->__invoke();
+        $this->resetSite();
     }
 
     protected function tearDown(): void
     {
-        restoreDirectory(Hyde::path('_site'));
+        $this->resetSite();
 
         parent::tearDown();
     }

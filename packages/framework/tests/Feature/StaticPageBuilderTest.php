@@ -2,16 +2,15 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\StaticPageBuilder;
+use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
 
 /**
  * Feature tests for the StaticPageBuilder class.
@@ -20,24 +19,18 @@ use Illuminate\Support\Facades\File;
  */
 class StaticPageBuilderTest extends TestCase
 {
+    use ResetsApplication;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        // Back up any existing files
-        backupDirectory(Hyde::path('_site'));
-
-        // Clean the site directory
-        File::deleteDirectory(Hyde::path('_site'));
-
-        // Recreate the default directories
-        (new CreatesDefaultDirectories)->__invoke();
+        $this->resetSite();
     }
 
     protected function tearDown(): void
     {
-        // Restore the file environment and any backed up files
-        restoreDirectory(Hyde::path('_site'));
+        $this->resetSite();
 
         parent::tearDown();
     }
