@@ -2,7 +2,6 @@
 
 namespace Hyde\Testing;
 
-use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
 
@@ -14,7 +13,7 @@ trait ResetsApplication
     public function resetApplication()
     {
         copy(Hyde::path('_media/app.css'), Hyde::path('storage/framework/cache/app.css'));
-     
+
         $this->resetMedia();
         $this->resetPages();
         $this->resetPosts();
