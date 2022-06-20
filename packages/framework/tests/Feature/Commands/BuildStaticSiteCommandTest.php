@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Testing\ResetsApplication;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
