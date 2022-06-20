@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Commands;
 
 use Exception;
-use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Concerns\Internal\BuildActionRunner;
 use Hyde\Framework\Concerns\Internal\TransfersMediaAssetsForBuildCommands;
 use Hyde\Framework\Helpers\Features;
@@ -175,16 +174,11 @@ class HydeBuildStaticSiteCommand extends Command
     public function purge(): void
     {
         $this->warn('Removing all files from build directory.');
-
-        File::deleteDirectory(Hyde::getSiteOutputPath());
-        mkdir(Hyde::getSiteOutputPath());
-
         $this->line('<fg=gray> > Directory purged');
 
         $this->line(' > Recreating directories');
-        (new CreatesDefaultDirectories)->__invoke();
-
         $this->line('</>');
+        File::cleanDirectory(Hyde::getSiteOutputPath());
     }
 
     /** @internal */
