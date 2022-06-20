@@ -3,8 +3,8 @@
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Hyde;
-use Hyde\Testing\TestCase;
 use Hyde\Testing\ResetsApplication;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
