@@ -25,24 +25,27 @@ This serves two purposes:
 - Added a helper to all page models to get an array of all its source files https://github.com/hydephp/develop/issues/44
 - Added a helper to all page models to parse source files directly into an object https://github.com/hydephp/develop/issues/40
 - Adds the MarkdownDocumentContract interface to markdown based pages to keep a consistent and predictable state
+- Adds .gitkeep files to persist empty directories
 - internal: Add more tests
 
 ### Changed
 - Changed welcome page title https://github.com/hydephp/develop/issues/52
 - Add `rel="nofollow"` to the image author links https://github.com/hydephp/develop/issues/19
-- Changed the default position of the automatic navigation menu link to the right, also making it configurable.
+- Changed the default position of the automatic navigation menu link to the right, also making it configurable
 - Renamed deprecated Hyde::docsDirectory() helper to suggested Hyde::getDocumentationOutputDirectory()
 - Makes the constructor arguments for Markdown page models optional https://github.com/hydephp/develop/issues/65
-- Added the Hyde/Framework composer.lock to .gitignore as we keep a master lock file in the monorepo.
+- Added the Hyde/Framework composer.lock to .gitignore as we keep a master lock file in the monorepo
 - Changed namespace for Hyde/Framework tests from `Hyde\Testing\Framework` to `Hyde\Framework\Testing`
+- Directories are created when needed, instead of each time the service provider boots up
 - internal: Add back codecov.io to pull request tests https://github.com/hydephp/develop/issues/37
-
+- internal: Refactor test that interact with the filesystem to be more granular
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
 - Removed the Hyde::getLatestPosts() helper which was deprecated in v0.34.x and was replaced with MarkdownPost::getLatestPosts()
+- Removes the long deprecated CreatesDefaultDirectories class
 
 ### Fixed
 - Add changelog to export-ignore, https://github.com/hydephp/framework/issues/537
