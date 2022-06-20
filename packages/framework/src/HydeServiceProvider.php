@@ -3,7 +3,6 @@
 namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
-use Hyde\Framework\Actions\CreatesDefaultDirectories;
 use Hyde\Framework\Concerns\RegistersDefaultDirectories;
 use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Models\BladePage;
@@ -90,10 +89,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (config('hyde.create_default_directories', true)) {
-            (new CreatesDefaultDirectories)->__invoke();
-        }
-
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'hyde');
 
         $this->publishes([
