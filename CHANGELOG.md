@@ -22,6 +22,34 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
+- for new features.
+
+### Changed
+- for changes in existing functionality.
+
+### Deprecated
+- for soon-to-be removed features.
+
+### Removed
+- for now removed features.
+
+### Fixed
+- for any bug fixes.
+
+### Security
+- in case of vulnerabilities.
+
+<!-- UNRELEASED_END -->
+
+---
+
+### Changelog
+
+<!-- CHANGELOG_START -->
+
+## v0.39.0-beta - 2022-06-20
+
+### Added
 - Added a helper to all page models to get an array of all its source files https://github.com/hydephp/develop/issues/44
 - Added a helper to all page models to parse source files directly into an object https://github.com/hydephp/develop/issues/40
 - Adds the MarkdownDocumentContract interface to markdown based pages to keep a consistent and predictable state
@@ -42,9 +70,6 @@ This serves two purposes:
 - internal: Refactor test that interact with the filesystem to be more granular
 - internal: Update Monorepo structure to move persisted data for the Hyde package into the packages directory
 
-### Deprecated
-- for soon-to-be removed features.
-
 ### Removed
 - Removed the Hyde::getLatestPosts() helper which was deprecated in v0.34.x and was replaced with MarkdownPost::getLatestPosts()
 - Removes the long deprecated CreatesDefaultDirectories class
@@ -52,17 +77,6 @@ This serves two purposes:
 
 ### Fixed
 - Add changelog to export-ignore, https://github.com/hydephp/framework/issues/537
-
-### Security
-- in case of vulnerabilities.
-
-<!-- UNRELEASED_END -->
-
----
-
-### Changelog
-
-<!-- CHANGELOG_START -->
 
 
 ## v0.38.0-beta - 2022-06-18
