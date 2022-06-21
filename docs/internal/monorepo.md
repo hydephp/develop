@@ -1,14 +1,17 @@
-# Monorepo CI/Manual Splitting Overview
+# Monorepo CI/CD Operations
+
+## Splitting Overview
 
 ```mermaid
 flowchart LR
-    p(Changes to monorepo/master) --> ci(Continuous Integration)
-   
-    ci --> phd
-    ci --> pfr
-    ci --> prc
-   
-    subgraph sm[split-monorepo.yml]
+
+  op[on push] 
+  
+  op --> phd
+  op --> pfr
+  op --> prc
+    
+  subgraph sm[split-monorepo.yml]
         subgraph hhd[handle hyde]
              phd[apply transformations] -.- shd[split into mirror branch] --> dhd[push mirror to readonly repositories]
         end 
