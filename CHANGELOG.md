@@ -23,6 +23,8 @@ This serves two purposes:
 
 ### Added
 - [x] Added back the AppServiceProvider
+- Added system for defining easy to use post-build hooks https://github.com/hydephp/develop/issues/79
+
 
 ### Changed
 - for changes in existing functionality.
