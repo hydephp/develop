@@ -22,7 +22,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- [ ] Added back the AppServiceProvider
 
 ### Changed
 - for changes in existing functionality.
@@ -31,7 +31,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- [ ] Removed the deprecated bootstrap directory
 
 ### Fixed
 - for any bug fixes.
