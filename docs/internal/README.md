@@ -1,0 +1,1 @@
+# General information for Hyde core/package developers
