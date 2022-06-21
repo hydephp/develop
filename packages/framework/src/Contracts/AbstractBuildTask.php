@@ -30,7 +30,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
         $this->run();
         $this->then();
 
-        $this->newLine();
+        $this->write("\n");
     }
 
     abstract public function run(): void;
@@ -52,11 +52,11 @@ abstract class AbstractBuildTask implements BuildTaskContract
 
     public function write(string $message): void
     {
-        $this->output->write($message);
+        $this->output?->write($message);
     }
 
     public function writeln(string $message): void
     {
-        $this->output->writeln($message);
+        $this->output?->writeln($message);
     }
 }

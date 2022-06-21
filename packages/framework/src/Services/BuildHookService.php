@@ -15,7 +15,7 @@ class BuildHookService
      */
     public static array $postBuildTasks = [];
 
-    protected OutputStyle $output;
+    protected ?OutputStyle $output;
 
     public function __construct(?OutputStyle $output = null)
     {
