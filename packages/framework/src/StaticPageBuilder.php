@@ -54,7 +54,6 @@ class StaticPageBuilder
         }
 
         if ($this->page instanceof MarkdownPost) {
-
             return $this->save('posts/'.$this->page->slug, $this->compilePost());
         }
 
@@ -63,7 +62,6 @@ class StaticPageBuilder
         }
 
         if ($this->page instanceof DocumentationPage) {
-
             return $this->save(Hyde::getDocumentationOutputDirectory().'/'.$this->page->slug, $this->compileDocs());
         }
     }

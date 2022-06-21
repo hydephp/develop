@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 class CreatesNewPageSourceFile
 {
     use InteractsWithDirectories;
-   
+
     public string $title;
     public string $slug;
     public string $outputPath;
@@ -43,15 +43,18 @@ class CreatesNewPageSourceFile
     {
         if ($type === MarkdownPage::class) {
             $this->needsDirectory(MarkdownPage::$sourceDirectory);
+
             return $this->createMarkdownFile();
         }
         if ($type === BladePage::class) {
             $this->needsDirectory(BladePage::$sourceDirectory);
+
             return $this->createBladeFile();
         }
 
         if ($type === DocumentationPage::class) {
             $this->needsDirectory(DocumentationPage::$sourceDirectory);
+
             return $this->createDocumentationFile();
         }
 
