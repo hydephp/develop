@@ -7,6 +7,7 @@ use Illuminate\Console\OutputStyle;
 
 /**
  * @experimental This feature was recently added and may be changed without notice.
+ *
  * @since 0.40.0
  */
 abstract class AbstractBuildTask implements BuildTaskContract
@@ -47,7 +48,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
 
     public function getExecutionTime(): string
     {
-        return number_format((microtime(true) - $this->timeStart) * 1000, 2) . 'ms';
+        return number_format((microtime(true) - $this->timeStart) * 1000, 2).'ms';
     }
 
     public function write(string $message): void

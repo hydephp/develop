@@ -5,9 +5,6 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Framework\Contracts\AbstractBuildTask;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Testing\TestCase;
-use Illuminate\Console\OutputStyle;
-use Mockery;
-use Symfony\Component\Console\Input\ArrayInput;
 
 /**
  * @covers \Hyde\Framework\Services\BuildHookService
