@@ -28,7 +28,7 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecate the site_output_path option in the Hyde config file. Will be handled by the HydeServiceProvider.
 
 ### Removed
 - [ ] Removed the deprecated bootstrap directory
