@@ -37,7 +37,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
 
     public function then(): void
     {
-        $this->write('<info>Done.</info> '.$this->getExecutionTime());
+        $this->writeln('<fg=gray>Done in '.$this->getExecutionTime().'</>');
     }
 
     public function getDescription(): string
