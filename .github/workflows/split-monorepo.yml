@@ -198,32 +198,33 @@ jobs:
         git fetch upstream
         git push upstream readonly-hyde-mirror:develop
 
-  # push-docs:
-  #   needs: package-docs
-  #   runs-on: ubuntu-latest
-  #   steps:
+  push-docs:
+    needs: package-docs
+    runs-on: ubuntu-latest
+    steps:
 
-  #   - name: Create temporary working directory
-  #     run: mkdir ~/tmp
+    - name: Create temporary working directory
+      run: mkdir ~/tmp
 
-  #   - name: Download Hyde/Documentation artifact
-  #     uses: actions/download-artifact@v3
-  #     with:
-  #       name: docs
-  #       path: '~/tmp'
+    - name: Download Hyde/Documentation artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: docs
+        path: '~/tmp'
 
-  #   - name: Remove README.markdown
-  #     run: rm ~/tmp/README.markdown
+    - name: Remove README.markdown
+      run: rm ~/tmp/README.markdown
 
-  #   - uses: actions/checkout@v3
-  #     with:
-  #       repository: hydephp/DocsCI
-  #       token: ${{ secrets.PAT }} 
+    - uses: actions/checkout@v3
+      with:
+        repository: hydephp/DocsCI
+        token: ${{ secrets.PAT }} 
+        ref: 'upcoming'
 
-  #   - run: rm -rf _docs/ && mkdir _docs/
-  #   - run: cp -r ~/tmp/*.md _docs/
-  #   - run: git config user.name github-actions
-  #   - run: git config user.email github-actions@github.com
-  #   - run: git add _docs
-  #   - run: git commit -m "${{ github.event.head_commit.message }} hydephp/develop@${{ github.sha }}" || true
-  #   - run: git push
+    - run: rm -rf _docs/ && mkdir _docs/
+    - run: cp -r ~/tmp/*.md _docs/
+    - run: git config user.name github-actions
+    - run: git config user.email github-actions@github.com
+    - run: git add _docs
+    - run: git commit -m "${{ github.event.head_commit.message }} hydephp/develop@${{ github.sha }}" || true
+    - run: git push
