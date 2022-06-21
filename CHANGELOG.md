@@ -22,7 +22,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- [ ] Added back the AppServiceProvider
+- [x] Added back the AppServiceProvider
 
 ### Changed
 - for changes in existing functionality.
