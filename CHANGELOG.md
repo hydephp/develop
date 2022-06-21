@@ -22,13 +22,15 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- [ ] Added back the AppServiceProvider
+- [x] Added back the AppServiceProvider
+- Added system for defining easy to use post-build hooks https://github.com/hydephp/develop/issues/79
+
 
 ### Changed
 - for changes in existing functionality.
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecate the site_output_path option in the Hyde config file. Will be handled by the HydeServiceProvider.
 
 ### Removed
 - [ ] Removed the deprecated bootstrap directory
