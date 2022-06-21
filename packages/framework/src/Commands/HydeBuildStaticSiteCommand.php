@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Commands;
 
 use Exception;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Concerns\Internal\BuildActionRunner;
 use Hyde\Framework\Concerns\Internal\TransfersMediaAssetsForBuildCommands;
 use Hyde\Framework\Helpers\Features;
@@ -11,6 +12,7 @@ use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Services\BuildHookService;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RssFeedService;
@@ -117,6 +119,8 @@ class HydeBuildStaticSiteCommand extends Command
      */
     public function runPostBuildActions(): void
     {
+        $service = new BuildHookService($this->output);
+
         if ($this->option('run-prettier') || $this->option('pretty')) {
             if ($this->option('pretty')) {
                 $this->warn('<error>Warning:</> The --pretty option is deprecated, use --run-prettier instead');
@@ -136,9 +140,7 @@ class HydeBuildStaticSiteCommand extends Command
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
 
-        if ($this->canGenerateSitemap()) {
-            Artisan::call('build:sitemap', outputBuffer: $this->output);
-        }
+        $service->runIf(GenerateSitemap::class, $this->canGenerateSitemap());
 
         if ($this->canGenerateFeed()) {
             Artisan::call('build:rss', outputBuffer: $this->output);
@@ -147,6 +149,8 @@ class HydeBuildStaticSiteCommand extends Command
         if ($this->canGenerateSearch()) {
             Artisan::call('build:search', outputBuffer: $this->output);
         }
+
+        $service->runPostBuildTasks();
     }
 
     /** @internal */
