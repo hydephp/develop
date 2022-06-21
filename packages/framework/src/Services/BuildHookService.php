@@ -34,9 +34,11 @@ class BuildHookService
      */
     public function getPostBuildTasks(): array
     {
-        return array_merge(
-            config('hyde.post_build_tasks', []),
-            static::$postBuildTasks
+        return array_unique(
+            array_merge(
+                config('hyde.post_build_tasks', []),
+                static::$postBuildTasks
+            )
         );
     }
 
