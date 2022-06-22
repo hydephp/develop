@@ -30,8 +30,8 @@ jobs:
           # ${{ runner.os }}-php-
 
     - name: Install Composer Dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-autoloader
-
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      
     - name: Set environment to testing
       run: echo "ENV=testing" > .env
     
