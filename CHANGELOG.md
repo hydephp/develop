@@ -39,7 +39,7 @@ This serves two purposes:
 - for any bug fixes.
 
 ### Security
-- in case of vulnerabilities.
+- Bump guzzlehttp/guzzle from 7.4.4 to 7.4.5
 
 <!-- UNRELEASED_END -->
 
