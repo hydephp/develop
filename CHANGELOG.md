@@ -22,10 +22,38 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
+- for new features.
+
+### Changed
+- for changes in existing functionality.
+
+### Deprecated
+- for soon-to-be removed features.
+
+### Removed
+- for now removed features.
+
+### Fixed
+- for any bug fixes.
+
+### Security
+- in case of vulnerabilities.
+
+<!-- UNRELEASED_END -->
+
+---
+
+### Changelog
+
+<!-- CHANGELOG_START -->
+
+
+## v0.40.0-beta - 2022-06-22
+
+### Added
 - Added back the AppServiceProvider
 - Added system for defining easy to use post-build hooks https://github.com/hydephp/develop/issues/79
 - Added configuration option to exclude documentation pages from showing up in the JSON search index
-
 
 ### Changed
 - Changelog files in the documentation source directory are now ignored by the JSON search index by default
@@ -38,19 +66,8 @@ This serves two purposes:
 - Removed the deprecated bootstrap directory
 - Removed default .gitkeep from the _site directory
 
-### Fixed
-- for any bug fixes.
-
 ### Security
 - Bump guzzlehttp/guzzle from 7.4.4 to 7.4.5
-
-<!-- UNRELEASED_END -->
-
----
-
-### Changelog
-
-<!-- CHANGELOG_START -->
 
 ## v0.39.0-beta - 2022-06-20
 
