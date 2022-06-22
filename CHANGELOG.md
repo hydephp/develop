@@ -27,7 +27,7 @@ This serves two purposes:
 
 
 ### Changed
-- for changes in existing functionality.
+- Adds a fallback which removes the search modal popup and redirects to the search.html page when the dialogue element is not supported.
 
 ### Deprecated
 - Deprecate the site_output_path option in the Hyde config file. Will be handled by the HydeServiceProvider.
