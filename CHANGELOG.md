@@ -36,6 +36,7 @@ This serves two purposes:
 
 ### Removed
 - Removed the deprecated bootstrap directory
+- Removed default .gitkeep from the _site directory
 
 ### Fixed
 - for any bug fixes.
