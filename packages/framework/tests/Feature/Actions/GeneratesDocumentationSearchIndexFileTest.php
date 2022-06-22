@@ -150,4 +150,15 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
             'foo', (new Action())->getDestinationForSlug('foo')
         );
     }
+
+    public function test_excluded_pages_are_not_present_in_the_search_index()
+    {
+        touch(Hyde::path('_docs/excluded.md'));
+        config(['docs.exclude_from_search' => ['excluded']]);
+
+        $this->assertNotContains('excluded', (new Action())->getSourceFileSlugs());
+        $this->assertStringNotContainsString('excluded', (new Action())->generate()->getJson());
+
+        unlink(Hyde::path('_docs/excluded.md'));
+    }
 }

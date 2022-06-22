@@ -222,10 +222,14 @@ You can also disable the feature completely.
 
 ### Search feature
 
+#### Introduction
+
 The HydeSearch plugin was introduced in v0.29.0-beta and adds a search feature to documentation pages.
 
 The search feature is enabled by default.
 You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
+
+#### Using the search
 
 The search works by generating a JSON search index which the JavaScript plugin loads asynchronously.
 
@@ -235,6 +239,23 @@ Two types of search methods are added, one is a full page search screen that wil
 The second method is a button added to the documentation pages, similar to how Algolia DocSearch works.
 Opening it will open a dialog modal with an integrated search screen.
 You can also open the dialog using the keyboard shortcut `/`.
+
+#### Hiding pages from indexing
+
+> This feature was added in v0.40.0-beta.
+
+If you have a large page, like a changelog, on your documentation sites you may want to hide it from the search index. You can do this by adding the page slug to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden.
+
+```php
+// filepath: config/docs.php
+
+'exclude_from_search' => [
+  'changelog',
+]
+```
+
+The page will still be accessible via the URL, but will be added to the search index JSON file. Don't include the file extension.
+
 
 ### Automatic "Edit Page" button
 
