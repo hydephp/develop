@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Commands;
+namespace App\Monorepo\Commands;
 
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
