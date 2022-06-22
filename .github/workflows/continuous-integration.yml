@@ -100,7 +100,7 @@ jobs:
 
 
   test-matrix:
-    # needs: run-smoke-tests
+    needs: run-smoke-tests
     strategy:
       fail-fast: false
       matrix:
@@ -424,6 +424,8 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    needs: run-smoke-tests
+
     permissions:
       actions: read
       contents: read
