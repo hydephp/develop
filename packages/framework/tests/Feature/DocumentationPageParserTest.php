@@ -17,7 +17,7 @@ class DocumentationPageParserTest extends TestCase
     public function test_can_get_collection_of_slugs()
     {
         $this->resetDocs();
-      
+
         file_put_contents(Hyde::path('_docs/phpunit-test.md'), "# PHPUnit Test File \n Hello World!");
 
         $array = CollectionService::getDocumentationPageList();

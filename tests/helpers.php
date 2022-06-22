@@ -81,7 +81,6 @@ This is a post stub used in the automated tests
     }
 }
 
-
 if (! function_exists('unlinkUnlessDefault')) {
     function unlinkUnlessDefault(string $filepath)
     {
@@ -89,7 +88,7 @@ if (! function_exists('unlinkUnlessDefault')) {
             'app.css',
             'index.blade.php',
             '404.blade.php',
-            '.gitkeep'
+            '.gitkeep',
         ];
 
         if (! in_array(basename($filepath), $protected)) {

@@ -20,7 +20,7 @@ trait ResetsApplication
 
     public function resetMedia()
     {
-        // 
+        //
     }
 
     public function resetPages()
