@@ -24,9 +24,11 @@ This serves two purposes:
 ### Added
 - Added back the AppServiceProvider
 - Added system for defining easy to use post-build hooks https://github.com/hydephp/develop/issues/79
+- Added configuration option to exclude documentation pages from showing up in the JSON search index
 
 
 ### Changed
+- Changelog files in the documentation source directory are now ignored by the JSON search index by default
 - Adds a fallback which removes the search modal popup and redirects to the search.html page when the dialogue element is not supported.
 
 ### Deprecated
