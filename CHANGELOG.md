@@ -29,6 +29,7 @@ This serves two purposes:
 
 ### Changed
 - Changelog files in the documentation source directory are now ignored by the JSON search index by default
+- Adds a fallback which removes the search modal popup and redirects to the search.html page when the dialogue element is not supported.
 
 ### Deprecated
 - Deprecate the site_output_path option in the Hyde config file. Will be handled by the HydeServiceProvider.
