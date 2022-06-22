@@ -31,7 +31,7 @@ jobs:
 
     - name: Install Composer Dependencies
       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      
+
     - name: Set environment to testing
       run: echo "ENV=testing" > .env
     
@@ -401,8 +401,7 @@ jobs:
         run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
 
 
-  lint:
-    name: DevSkim
+  devskim-lint:
     runs-on: ubuntu-20.04
     permissions:
       actions: read
@@ -474,7 +473,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
 
 
-  security:
+  snyk-security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
