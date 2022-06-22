@@ -7,6 +7,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\DocumentationSidebar;
 use Hyde\Framework\Models\DocumentationSidebarItem;
 use Hyde\Framework\Services\DocumentationSidebarService;
+use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
@@ -22,12 +23,12 @@ class DocumentationSidebarServiceTest extends TestCase
     {
         parent::setUp();
 
-        $this->resetDocsDirectory();
+        $this->resetDocs();
     }
 
     protected function tearDown(): void
     {
-        $this->resetDocsDirectory();
+        $this->resetDocs();
 
         parent::tearDown();
     }
@@ -259,12 +260,6 @@ class DocumentationSidebarServiceTest extends TestCase
         $this->assertEquals('first', $categories[0]);
         $this->assertEquals('second', $categories[1]);
         $this->assertEquals('third', $categories[2]);
-    }
-
-    protected function resetDocsDirectory(): void
-    {
-        File::deleteDirectory(Hyde::path('_docs'));
-        mkdir(Hyde::path('_docs'));
     }
 
     protected function createTestFiles(int $count = 5): void
