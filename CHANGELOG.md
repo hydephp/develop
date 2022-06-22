@@ -24,10 +24,11 @@ This serves two purposes:
 ### Added
 - Added back the AppServiceProvider
 - Added system for defining easy to use post-build hooks https://github.com/hydephp/develop/issues/79
+- Added configuration option to exclude documentation pages from showing up in the JSON search index
 
 
 ### Changed
-- for changes in existing functionality.
+- Changelog files in the documentation source directory are now ignored by the JSON search index by default
 
 ### Deprecated
 - Deprecate the site_output_path option in the Hyde config file. Will be handled by the HydeServiceProvider.
