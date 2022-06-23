@@ -28,7 +28,7 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated AssetManager.php. Use the Asset facade instead
 
 ### Removed
 - for now removed features.
