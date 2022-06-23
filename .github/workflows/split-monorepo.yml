@@ -170,7 +170,7 @@ jobs:
       run: rm -rf website/_docs/*
 
     - name: Copy over files
-      run: cp -rf develop/docs. website/_docs/ -v
+      run: cp -rf develop/docs/. website/_docs/ -v
 
     - name: Remove README.markdown
       run: rm website/_docs/README.markdown
