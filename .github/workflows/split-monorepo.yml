@@ -20,6 +20,10 @@ jobs:
   
   framework: 
     runs-on: ubuntu-latest
+    environment:
+      name: hydephp/framework
+      url: https://github.com/hydephp/framework/tree/develop
+
     steps:
     - name: Checkout hydephp/develop
       uses: actions/checkout@v3
@@ -58,6 +62,10 @@ jobs:
 
   realtime-compiler: 
     runs-on: ubuntu-latest
+    environment:
+      name: hydephp/realtime-compiler
+      url: https://github.com/realtime-compiler/hyde/tree/develop
+      
     steps:
     - name: Checkout hydephp/develop
       uses: actions/checkout@v3
@@ -96,6 +104,10 @@ jobs:
 
   hydefront: 
     runs-on: ubuntu-latest
+    environment:
+      name: hydephp/hydefront
+      url: https://github.com/hydephp/hydefront/tree/develop
+
     steps:
     - name: Checkout hydephp/develop
       uses: actions/checkout@v3
