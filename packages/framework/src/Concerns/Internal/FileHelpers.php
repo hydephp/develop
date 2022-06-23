@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Framework\Models\DocumentationPage;
+
 /**
  * Offloads file helper methods for the Hyde Facade.
  *
@@ -31,11 +33,11 @@ trait FileHelpers
      */
     public static function docsIndexPath(): string|false
     {
-        if (file_exists(static::path('_docs/index.md'))) {
+        if (file_exists(static::path(DocumentationPage::$sourceDirectory.'/index.md'))) {
             return trim(static::pageLink(static::getDocumentationOutputDirectory().'/index.html'), '/');
         }
 
-        if (file_exists(static::path('_docs/readme.md'))) {
+        if (file_exists(static::path(DocumentationPage::$sourceDirectory.'/readme.md'))) {
             return trim(static::pageLink(static::getDocumentationOutputDirectory().'/readme.html'), '/');
         }
 
