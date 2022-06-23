@@ -49,7 +49,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || true
@@ -88,7 +88,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || true
@@ -127,7 +127,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || true
@@ -182,7 +182,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})" || true
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || true
