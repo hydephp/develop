@@ -47,10 +47,10 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})"
+        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})" || true
         # @TODO add all previous commits to the commit message
         
-        git push upstream develop || echo "Nothing to commit, but that's okay."
+        git push upstream develop || true
 
 
   realtime-compiler: 
@@ -83,10 +83,10 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})"
+        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})" || true
         # @TODO add all previous commits to the commit message
         
-        git push upstream develop || echo "Nothing to commit, but that's okay."
+        git push upstream develop || true
 
 
   # TODO add job for Hyde, with a good way to remove data previously excluded in .gitattributes
