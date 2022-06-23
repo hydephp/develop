@@ -38,9 +38,6 @@ jobs:
     - name: Copy over files
       run: cp -rf develop/packages/framework/. framework -v
 
-    - name: Modify readme to test
-      run: echo "This is a test" > framework/README.md
-
     - name: Commit and push changes
       run: |
         cd framework
@@ -77,9 +74,6 @@ jobs:
     - name: Copy over files
       run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
 
-    - name: Modify readme to test
-      run: echo "This is a test" > realtime-compiler/README.md
-
     - name: Commit and push changes
       run: |
         cd realtime-compiler
@@ -93,3 +87,6 @@ jobs:
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || echo "Nothing to commit, but that's okay."
+
+
+  # TODO add job for Hyde, with a good way to remove data previously excluded in .gitattributes
