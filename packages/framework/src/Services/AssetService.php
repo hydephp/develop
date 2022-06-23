@@ -36,14 +36,14 @@ class AssetService implements AssetServiceContract
     {
         return 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
     }
+    
+    public function cdnLink(string $file): string
+    {
+        return $this->constructCdnPath($file);
+    }
 
     public function hasMediaFile(string $file): bool
     {
         return file_exists(Hyde::path('_media').'/'.$file);
-    }
-
-    public function cdnLink(string $file): string
-    {
-        return $this->constructCdnPath($file);
     }
 }
