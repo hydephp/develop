@@ -89,4 +89,39 @@ jobs:
         git push upstream develop || true
 
 
+  hydefront: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout hydephp/develop
+      uses: actions/checkout@v3
+      with:
+        path: develop
+        persist-credentials: false 
+
+    - name: Checkout hydephp/hydefront
+      uses: actions/checkout@v3
+      with:
+        repository: hydephp/hydefront
+        path: hydefront
+        ref: develop
+        fetch-depth: 0
+        persist-credentials: false 
+    
+    - name: Copy over files
+      run: cp -rf develop/packages/hydefront/. hydefront -v
+
+    - name: Commit and push changes
+      run: |
+        cd hydefront
+
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hydefront.git
+
+        git add .
+        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})" || true
+        # @TODO add all previous commits to the commit message
+        
+        git push upstream develop || true
+
   # TODO add job for Hyde, with a good way to remove data previously excluded in .gitattributes
