@@ -83,6 +83,7 @@ return [
 
     'aliases' => [
         'Hyde' => Hyde\Framework\Hyde::class,
+        'Asset' => Hyde\Framework\Facades\Asset::class,
     ],
 
 ];
