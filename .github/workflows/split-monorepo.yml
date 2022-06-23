@@ -54,3 +54,42 @@ jobs:
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || echo "Nothing to commit, but that's okay."
+
+
+  realtime-compiler: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout hydephp/develop
+      uses: actions/checkout@v3
+      with:
+        path: develop
+        persist-credentials: false 
+
+    - name: Checkout hydephp/realtime-compiler
+      uses: actions/checkout@v3
+      with:
+        repository: hydephp/realtime-compiler
+        path: realtime-compiler
+        ref: develop
+        fetch-depth: 0
+        persist-credentials: false 
+    
+    - name: Copy over files
+      run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
+
+    - name: Modify readme to test
+      run: echo "This is a test" > realtime-compiler/README.md
+
+    - name: Commit and push changes
+      run: |
+        cd realtime-compiler
+
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
+
+        git add .
+        git commit -m "${{ github.event.head_commit.message }} (${{ github.sha }})"
+        # @TODO add all previous commits to the commit message
+        
+        git push upstream develop || echo "Nothing to commit, but that's okay."
