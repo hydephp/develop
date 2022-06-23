@@ -24,6 +24,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: develop
+        persist-credentials: false 
 
     - name: Checkout hydephp/framework
       uses: actions/checkout@v3
@@ -49,4 +50,5 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }}"
         # add all previous commits to the commit message
-        git push origin develop || echo "Nothing to commit, but that's okay."
+        git push origin develop 
+        # || echo "Nothing to commit, but that's okay."
