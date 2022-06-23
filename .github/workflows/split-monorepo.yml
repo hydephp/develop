@@ -43,10 +43,10 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git remote add upstream https://${{ secrets.PAT }}@github.com/caendesilva/framework-temp.git
         cd framework
         git add .
         git commit -m "${{ github.event.head_commit.message }}"
         # add all previous commits to the commit message
+        git remote add upstream https://${{ secrets.PAT }}@github.com/caendesilva/framework-temp.git
         git push upstream develop 
         # || echo "Nothing to commit, but that's okay."
