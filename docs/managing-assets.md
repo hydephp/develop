@@ -14,7 +14,7 @@ But as always with Hyde, you can customize everything if you want to.
 
 Hyde ships with a complete frontend where base styles and scripts are included through [HydeFront](https://github.com/hydephp/hydefront) which adds accessibility and mobile support as well as interactions for dark mode switching and navigation and sidebar interactions.
 
-HydeFront is split into two files, `hyde.css` and `hyde.js`. These are loaded in the default Blade views using the [jsDelivr CDN](https://www.jsdelivr.com/package/npm/hydefront). This is the recommended way to load the base styles as the [Hyde Framework](https://github.com/hydephp/framework) automatically makes sure that the correct HydeFront version for the current version of Hyde is loaded. If you don't want to use HydeFribtm you can customize the `styles.blade.php` file.
+HydeFront is split into two files, `hyde.css` and `hyde.js`. These are loaded in the default Blade views using the [jsDelivr CDN](https://www.jsdelivr.com/package/npm/hydefront). This is the recommended way to load the base styles as the [Hyde Framework](https://github.com/hydephp/framework) automatically makes sure that the correct HydeFront version for the current version of Hyde is loaded. If you don't want to use HydeFront you can of course customize this. See the [Telling Hyde where to find assets](#telling-hyde-where-to-find-assets) section for more information.
 
 The bulk of the frontend is built with [TailwindCSS](https://tailwindcss.com/). To get you started, when installing Hyde, all the Tailwind styles you need come precompiled and minified into `_media/app.css`.
 
@@ -80,6 +80,41 @@ npx tailwindcss -i resources/assets/app.css -o _media/app.css
 php hyde build OR php hyde rebuild _media
 ```
 
+## Telling Hyde where to find assets
+
+### Customizing the Blade templates
+
+To make it really easy to customize asset loading, the styles and scripts are loaded in dedicated Blade components.
+
+- Styles are loaded in `hyde::layouts.styles`
+- Scripts are loaded in `hyde::layouts.scripts`
+
+To customize them, run the following command:
+
+```bash
+php hyde publish:views layouts
+```
+
+Then edit the files found in `resources/views/vendor/hyde/layouts` of your project.
+
+### You might not even need to do anything!
+
+For the absolute majority of the cases, you don't need to mess with these files. The idea behind using a CDN is that your styles will be automatically updated when needed.
+
+Furthermore, Hyde does some automatic configuration which is roughly as follows:
+
+- If there is no `_media/app.css` file, Hyde won't attempt to load it.
+- If there is no `_media/app.js` file, Hyde won't attempt to load it.
+
+- If there is no `_media/hyde.css` file, the correct version will be loaded through the CDN.
+- If there is no `_media/hyde.js` file, the correct version will be loaded through the CDN.
+
+- If there is a `_media/hyde.css` file, it will be loaded instead of the CDN.
+- If there is a `_media/hyde.js` file, it will be loaded instead of the CDN.
+{.list-compact}
+
+Note that this automatic configuration behaviour was implemented in v0.41.x. Prior to that, only the first two bullets were implemented and you would need to change the layouts to load local HydeFront files manually.
+
 
 ## Managing images
 As mentioned above, assets stored in the _media folder are automatically copied to the _site/media folder,
@@ -90,8 +125,7 @@ making it the recommended place to store images. You can then easily reference t
 The recommended way to reference images are with relative paths as this offers the most compatibility,
 allowing you to browse the site both locally on your filesystem and on the web when serving from a subdirectory.
 
-> Note: The path is relative to the **compiled** file
-{.warning}
+>warning Note: The path is relative to the <b>compiled</b> file in the site output
 
 The path to use depends on the location of the page. Note the subtle difference in the path prefix.
 

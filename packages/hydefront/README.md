@@ -40,7 +40,7 @@ See https://www.jsdelivr.com/package/npm/hydefront
 ```
 
 ### Using NPM (with Laravel Mix)
-HydeFront is also available as an [NPM package](https://www.npmjs.com/package/hydefront), if you want to compile all your assets using Laravel Mix. Note that it is recommended to use the CDN as the Framework takes care of versioning.
+HydeFront is also available as an [NPM package](https://www.npmjs.com/package/hydefront), if you want to compile all your assets using Laravel Mix. Note that it is recommended to use the CDN as the Framework takes care of versioning to ensure you always have the correct HydeFront version for the Blade templates your site uses.
 
 Install the package
 ```bash
@@ -52,12 +52,12 @@ Next, add the following import to `resources/assets/app.css`
 @import '~hydefront/dist/hyde.css';
 ```
 
-Then, publish the `styles.blade.php` view and replace the CDN stylesheet with the path to your compiled file.
-
 And compile your assets
 ```bash
 npm run dev/prod
 ```
+
+Next, depending on your setup, you may need to tell Hyde where to find the styles. See the Hyde documentation for more information. https://hydephp.com/docs/master/managing-assets.
 
 ## Links:
 - GitHub https://github.com/hydephp/hydefront

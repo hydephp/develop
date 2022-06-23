@@ -5,6 +5,9 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Hyde;
 
+/**
+ * @see \Hyde\Framework\Facades\Asset
+ */
 class AssetService implements AssetServiceContract
 {
     /**
@@ -32,6 +35,16 @@ class AssetService implements AssetServiceContract
     public function constructCdnPath(string $file): string
     {
         return 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
+    }
+
+    /**
+     * Alias for constructCdnPath.
+     *
+     * @since v0.41.x
+     */
+    public function cdnLink(string $file): string
+    {
+        return $this->constructCdnPath($file);
     }
 
     public function hasMediaFile(string $file): bool
