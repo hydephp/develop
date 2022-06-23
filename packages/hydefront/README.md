@@ -52,10 +52,7 @@ Next, add the following import to `resources/assets/app.css`
 @import '~hydefront/dist/hyde.css';
 ```
 
-Then, disable the CDN in your `config/hyde.php` file
-```php
-'loadHydeAssetsUsingCDN' => false,
-```
+Then, publish the `styles.blade.php` view and replace the CDN stylesheet with the path to your compiled file.
 
 And compile your assets
 ```bash
@@ -68,7 +65,7 @@ npm run dev/prod
 - jsDelivr https://www.jsdelivr.com/package/npm/hydefront
 
 ## Warranty:
-HydeFront is not indended to be used for standalone projects and comes with no warranties. Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
+HydeFront is not intended to be used for standalone projects and comes with no warranties. Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
 
 ## Beta software notice
 HydePHP is currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
