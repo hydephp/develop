@@ -36,7 +36,11 @@ class AssetService implements AssetServiceContract
     {
         return 'https://cdn.jsdelivr.net/npm/hydefront@'.$this->version().'/dist/'.$file;
     }
-    
+
+    /**
+     * Alias for constructCdnPath.
+     * @since v0.41.x
+     */
     public function cdnLink(string $file): string
     {
         return $this->constructCdnPath($file);
