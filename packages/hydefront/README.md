@@ -40,7 +40,7 @@ See https://www.jsdelivr.com/package/npm/hydefront
 ```
 
 ### Using NPM (with Laravel Mix)
-HydeFront is also available as an [NPM package](https://www.npmjs.com/package/hydefront), if you want to compile all your assets using Laravel Mix. Note that it is recommended to use the CDN as the Framework takes care of versioning.
+HydeFront is also available as an [NPM package](https://www.npmjs.com/package/hydefront), if you want to compile all your assets using Laravel Mix. Note that it is recommended to use the CDN as the Framework takes care of versioning to ensure you always have the correct HydeFront version for the Blade templates your site uses.
 
 Install the package
 ```bash
