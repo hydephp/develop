@@ -38,6 +38,9 @@ jobs:
     - name: Copy over files
       run: cp -rf develop/packages/framework/. framework -v
 
+    - name: Modify readme to test
+      run: echo "This is a test" > framework/README.md
+
     - name: Commit and push changes
       run: |
         cd framework
