@@ -4,7 +4,7 @@
 @endif
 
 {{-- The compiled Laravel Mix scripts --}}
-@if(Hyde::assetManager()->hasMediaFile('app.js'))
+@if(Asset::hasMediaFile('app.js'))
 <script defer src="{{ Hyde::relativeLink('media/app.js', $currentPage) }}"></script>
 @endif
 
