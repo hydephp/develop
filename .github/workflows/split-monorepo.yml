@@ -34,6 +34,7 @@ jobs:
         path: framework
         ref: develop
         fetch-depth: 0
+        persist-credentials: false 
     
     - name: Copy over files
       run: cp -rf develop/packages/framework/. framework -v
