@@ -1,7 +1,9 @@
 {{-- The core HydeFront scripts --}}
-@if(Hyde::scripts())
-<script defer src="{{ Hyde::scripts() }}"></script>
-@endif
+@unless(Asset::hasMediaFile('hyde.js'))
+<script defer src="{{ Asset::cdnLink('hyde.js') }}"></script>
+@else
+<script defer src="{{ Hyde::relativeLink('media/hyde.js', $currentPage) }}"></script>
+@endunless
 
 {{-- The compiled Laravel Mix scripts --}}
 @if(Asset::hasMediaFile('app.js'))
