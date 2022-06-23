@@ -159,6 +159,10 @@ jobs:
     - name: Copy over persisted files
       run: cp -rf develop/packages/hyde/. hyde -v
 
+    - name: Copy test files
+      run: cp -rf develop/tests/. hyde -v
+
+
     - name: Commit and push changes
       run: |
         cd hyde
