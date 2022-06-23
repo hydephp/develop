@@ -1,4 +1,4 @@
-# Split the monorepo into readonly branches
+# Split the monorepo into readonly repositories
 # TODO: Some way to preserve commit messages? I'd love to get some help here. 
 #       ✔ Done, though it only gets the latest commit. It would be great to have something that handles all commit messages. Or at least says "<commit msg> (and X more [commits]) Maybe this could be done by creating an auto-closing PR listing all the commits since the last merge? Preferably filtered to only contain changes affecting the package.
 
@@ -16,7 +16,6 @@ concurrency:
 
 jobs:
   
-
   framework: 
     runs-on: ubuntu-latest
     steps:
@@ -125,7 +124,6 @@ jobs:
         git push upstream develop || true
 
 
-
   hyde: 
     runs-on: ubuntu-latest
     steps:
@@ -161,7 +159,6 @@ jobs:
 
     - name: Copy test files
       run: cp -rf develop/tests/. hyde -v
-
 
     - name: Commit and push changes
       run: |
