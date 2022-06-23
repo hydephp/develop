@@ -38,4 +38,9 @@ class AssetService implements AssetServiceContract
     {
         return file_exists(Hyde::path('_media').'/'.$file);
     }
+
+    public function cdnLink(string $file): string
+    {
+        return $this->constructCdnPath($file);
+    }
 }
