@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Blade;
  */
 class StylesComponentViewTest extends TestCase
 {
+	protected ?string $mockCurrentPage = null; 
+
     protected function renderTestView(): string
     {
-        view()->share('currentPage', 'foo');
+        view()->share('currentPage', $this->mockCurrentPage ?? '');
 
         return Blade::render(file_get_contents(
             Hyde::vendorPath('resources/views/layouts/styles.blade.php')
