@@ -2,7 +2,7 @@
 /node_modules
 /builds
 /.run
-/.idea
+#/.idea
 /.vscode
 /.vagrant
 /.cache
@@ -13,5 +13,4 @@
 # /_site
 
 /rocket
-.idea/
 build/cache
