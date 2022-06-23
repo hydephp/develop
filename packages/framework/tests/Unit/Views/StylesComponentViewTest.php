@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Blade;
  */
 class StylesComponentViewTest extends TestCase
 {
-	protected ?string $mockCurrentPage = null;
+    protected ?string $mockCurrentPage = null;
 
     protected function renderTestView(): string
     {
@@ -94,7 +94,7 @@ class StylesComponentViewTest extends TestCase
     {
         $expectedVersion = (new AssetService)->version();
         $this->assertStringContainsString(
-            'https://cdn.jsdelivr.net/npm/hydefront@' . $expectedVersion . '/dist/hyde.css',
+            'https://cdn.jsdelivr.net/npm/hydefront@'.$expectedVersion.'/dist/hyde.css',
             $this->renderTestView()
         );
     }

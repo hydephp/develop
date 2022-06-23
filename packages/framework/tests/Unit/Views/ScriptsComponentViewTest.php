@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Blade;
  */
 class ScriptsComponentViewTest extends TestCase
 {
-	protected ?string $mockCurrentPage = null;
+    protected ?string $mockCurrentPage = null;
 
     protected function renderTestView(): string
     {
@@ -35,12 +35,10 @@ class ScriptsComponentViewTest extends TestCase
         unlink(Hyde::path('_media/app.js'));
     }
 
-
     public function test_component_does_not_render_link_to_app_js_when_it_does_not_exist()
     {
         $this->assertStringNotContainsString('<script defer src="media/app.js"', $this->renderTestView());
     }
-
 
     public function test_component_uses_relative_path_to_app_js_file_for_nested_pages()
     {
@@ -98,7 +96,7 @@ class ScriptsComponentViewTest extends TestCase
     {
         $expectedVersion = (new AssetService)->version();
         $this->assertStringContainsString(
-            'https://cdn.jsdelivr.net/npm/hydefront@' . $expectedVersion . '/dist/hyde.js',
+            'https://cdn.jsdelivr.net/npm/hydefront@'.$expectedVersion.'/dist/hyde.js',
             $this->renderTestView()
         );
     }

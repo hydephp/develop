@@ -1,9 +1,9 @@
 <?php
 
+use Hyde\Framework\Contracts\AssetServiceContract;
+use Hyde\Framework\Facades\Asset;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
-use Hyde\Framework\Facades\Asset;
-use Hyde\Framework\Contracts\AssetServiceContract;
 
 /**
  * @covers \Hyde\Framework\Facades\Asset
