@@ -1,6 +1,8 @@
 {{-- The core HydeFront stylesheet --}}
-@if(Hyde::styles())
-<link rel="stylesheet" href="{{ Hyde::styles() }}">
+@if(Hyde::assetManager()->hasMediaFile('hyde.css'))
+<link rel="stylesheet" href="{{ Hyde::relativeLink('media/hyde.css', $currentPage) }}">
+@else
+<link rel="stylesheet" href="{{ Hyde::assetManager()->cdnLink('hyde.css') }}">
 @endif
 
 {{-- The compiled Tailwind/App styles --}}
