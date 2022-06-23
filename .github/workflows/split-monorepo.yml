@@ -46,4 +46,4 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }}"
         # add all previous commits to the commit message
-        git push origin develop
+        git push origin develop || echo "Nothing to commit, but that's okay."
