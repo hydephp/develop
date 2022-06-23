@@ -16,215 +16,32 @@ concurrency:
 
 jobs:
   
-  # Package the Framework files
-  package-framework:
+
+  framework: 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Package Hyde/Framework artifact
-      uses: actions/upload-artifact@v1
+    - name: Checkout hydephp/develop
+      uses: actions/checkout@v3
       with:
-        name: "framework"
-        path: "packages/framework"
+        path: develop
 
-
-  package-realtime-compiler:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Package Hyde/RealtimeCompiler artifact
-      uses: actions/upload-artifact@v1
+    - name: Checkout hydephp/framework
+      uses: actions/checkout@v3
       with:
-        name: "realtime-compiler"
-        path: "packages/realtime-compiler"
-
-  package-docs:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Package Hyde Documentation artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: "docs"
-        path: "docs"
-
-  # Add the files to the readonly branch
-  split-framework:
-    needs: package-framework
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-          ref: 'readonly-framework-mirror'
-
-    - name: Empty working directory
-      run: rm -rf *
-
-    - name: Download Hyde/Framework artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: framework
-        path: '.'
-
-    # Apply transformations if needed
-
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v9 
-      with:
-        message: ${{ github.event.head_commit.message }}
-        
-  split-hyde:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-          ref: 'readonly-hyde-mirror'
-
-    - name: Empty working directory
-      run: rm -rf *
-
-    - name: Create temporary working directories
-      run: mkdir ~/tmp && mkdir ~/tmp/clone
-
-    - name: Download Hyde/Hyde 
-      run: cd ~/tmp && wget https://github.com/hydephp/develop/zipball/${{ github.sha }} -O hyde.zip
-
-    - name: Unzip archive
-      run: cd ~/tmp && unzip hyde.zip
-
-    - name: Copy archive to root
-      run: cp -r ~/tmp/hydephp-develop-*/* .
+        # repository: hydephp/framework
+        repository: caendesilva/framework-temp
+        path: framework
+        ref: develop
+        fetch-depth: 0
+        persist-credentials: false 
     
-      
-    # Apply transformations
+    - name: Copy over files
+      run: cp -rf develop/packages/framework/. framework -v
 
-    - name: Download persisted data
-      run: | 
-        cd ~/tmp/clone
-        git clone -n https://github.com/hydephp/develop.git --depth 1
-        cd develop
-        git checkout ${{ github.sha }}
-
-    - name: Copy persisted data to working directory
+    - name: Commit and push changes
       run: |
-        cp -rT ~/tmp/clone/develop/packages/hyde/. .
-
-    - name: Copy test files
-      run: cp -r ~/tmp/clone/develop/tests/ .
-
-    - name: Validate composer.json
-      run: composer validate --strict
-
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v9
-      with:
-        message: ${{ github.event.head_commit.message }}
-
-
-  split-realtime-compiler:
-    needs: package-realtime-compiler
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-          ref: 'readonly-rc-mirror'
-
-    - name: Empty working directory
-      run: rm -rf *
-
-    - name: Download Hyde/RealtimeCompiler artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: realtime-compiler
-        path: '.'
-
-    # Apply transformations if needed
-
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v9 
-      with:
-        message: ${{ github.event.head_commit.message }}
-
-
-  # Push changes in the readonly branch to the upstream develop branch
-  push-framework:
-    needs: split-framework
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: 'readonly-framework-mirror'
-        fetch-depth: 0
-        persist-credentials: false 
-
-    - name: Push changes to hydephp/framework
-      run: |
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
-        git fetch upstream
-        git push upstream readonly-framework-mirror:develop
-
-  push-realtime-compiler:
-    needs: split-realtime-compiler
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: 'readonly-rc-mirror'
-        fetch-depth: 0
-        persist-credentials: false 
-
-    - name: Push changes to hydephp/realtime-compiler
-      run: |
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
-        git fetch upstream
-        git push upstream readonly-rc-mirror:develop
-
-  push-hyde:
-    needs: split-hyde
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: 'readonly-hyde-mirror'
-        fetch-depth: 0
-        persist-credentials: false 
-
-    - name: Push changes to hydephp/hyde
-      run: |
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
-        git fetch upstream
-        git push upstream readonly-hyde-mirror:develop
-
-  push-docs:
-    needs: package-docs
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Create temporary working directory
-      run: mkdir ~/tmp
-
-    - name: Download Hyde/Documentation artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: docs
-        path: '~/tmp'
-
-    - name: Remove README.markdown
-      run: rm ~/tmp/README.markdown
-
-    - uses: actions/checkout@v3
-      with:
-        repository: hydephp/hydephp.com
-        token: ${{ secrets.PAT }} 
-        ref: 'upcoming'
-
-    - run: rm -rf _docs/ && mkdir _docs/
-    - run: cp -r ~/tmp/*.md _docs/
-    - run: git config user.name github-actions
-    - run: git config user.email github-actions@github.com
-    - run: git add _docs
-    - run: git commit -m "${{ github.event.head_commit.message }} hydephp/develop@${{ github.sha }}" || true
-    - run: git push
+        cd framework
+        git add .
+        git commit -m "${{ github.event.head_commit.message }}"
+        # add all previous commits to the commit message
+        git push origin develop
