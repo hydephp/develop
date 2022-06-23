@@ -135,6 +135,10 @@ jobs:
 
   hyde: 
     runs-on: ubuntu-latest
+    environment:
+      name: hydephp/hyde
+      url: https://github.com/hydephp/hyde/tree/develop
+      
     steps:
     - name: Checkout hydephp/develop
       uses: actions/checkout@v3
