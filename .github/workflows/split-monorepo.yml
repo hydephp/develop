@@ -33,6 +33,9 @@ jobs:
         ref: develop
         fetch-depth: 0
         persist-credentials: false 
+        
+    - name: Empty the destination directory
+      run: rm -rf framework/* 
     
     - name: Copy over files
       run: cp -rf develop/packages/framework/. framework -v
@@ -70,6 +73,9 @@ jobs:
         fetch-depth: 0
         persist-credentials: false 
     
+    - name: Empty the destination directory
+      run: rm -rf realtime-compiler/* 
+
     - name: Copy over files
       run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
 
@@ -106,6 +112,9 @@ jobs:
         fetch-depth: 0
         persist-credentials: false 
     
+    - name: Empty the destination directory
+      run: rm -rf hydefront/* 
+
     - name: Copy over files
       run: cp -rf develop/packages/hydefront/. hydefront -v
 
