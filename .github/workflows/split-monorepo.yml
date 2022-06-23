@@ -47,7 +47,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (${{ github.sha }})"
+        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})"
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || echo "Nothing to commit, but that's okay."
@@ -83,7 +83,7 @@ jobs:
         git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/realtime-compiler.git
 
         git add .
-        git commit -m "${{ github.event.head_commit.message }} (${{ github.sha }})"
+        git commit -m "${{ github.event.head_commit.message }} (https://github.com/hydephp/develop/commit/${{ github.sha }})"
         # @TODO add all previous commits to the commit message
         
         git push upstream develop || echo "Nothing to commit, but that's okay."
