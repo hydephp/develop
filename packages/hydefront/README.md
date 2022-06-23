@@ -53,6 +53,7 @@ Next, add the following import to `resources/assets/app.css`
 ```
 
 Then, publish the `styles.blade.php` view and replace the CDN stylesheet with the path to your compiled file.
+> Note, if you are on Hyde v0.41.x or newer, the Hyde CDN is automatically disabled and will load the compiled file if the `_media/hyde.css` file exists, same for the `_media/hyde.js` file (independent of each other).
 
 And compile your assets
 ```bash
