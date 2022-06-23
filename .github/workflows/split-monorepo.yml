@@ -29,8 +29,7 @@ jobs:
     - name: Checkout hydephp/framework
       uses: actions/checkout@v3
       with:
-        # repository: hydephp/framework
-        repository: caendesilva/framework-temp
+        repository: hydephp/framework
         path: framework
         ref: develop
         fetch-depth: 0
@@ -48,7 +47,7 @@ jobs:
 
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/caendesilva/framework-temp.git
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/framework.git
 
         git add .
         git commit -m "${{ github.event.head_commit.message }} (${{ github.sha }})"
