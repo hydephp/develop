@@ -159,6 +159,9 @@ jobs:
     - name: Copy over persisted files
       run: cp -rf develop/packages/hyde/. hyde -v
 
+    - name: TEST update readme
+      run: echo "Updated readme" > hyde/README.md
+
     - name: Commit and push changes
       run: |
         cd hyde
