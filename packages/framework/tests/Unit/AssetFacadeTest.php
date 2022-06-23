@@ -5,6 +5,9 @@ use Hyde\Testing\TestCase;
 use Hyde\Framework\Facades\Asset;
 use Hyde\Framework\Contracts\AssetServiceContract;
 
+/**
+ * @covers \Hyde\Framework\Facades\Asset
+ */
 class AssetFacadeTest extends TestCase
 {
     public function test_asset_facade_returns_the_asset_service()

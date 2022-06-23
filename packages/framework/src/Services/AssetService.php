@@ -5,6 +5,9 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Hyde;
 
+/**
+ * @see \Hyde\Framework\Facades\Asset
+ */
 class AssetService implements AssetServiceContract
 {
     /**
