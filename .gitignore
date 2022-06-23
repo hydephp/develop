@@ -12,6 +12,9 @@
 
 # /_site
 
+
+# Monorepo Rules
+
+!/.idea
 /rocket
-.idea/
 build/cache
