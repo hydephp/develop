@@ -172,8 +172,10 @@ jobs:
     - name: Copy over files
       run: cp -rf develop/docs/. website/_docs/ -v
 
-    - name: Remove README.markdown
-      run: rm website/_docs/README.markdown
+    - name: Remove internal docs
+      run: |
+        rm -rf website/_docs/internal
+        rm website/_docs/README.markdown
 
     - name: Commit and push changes
       run: |
