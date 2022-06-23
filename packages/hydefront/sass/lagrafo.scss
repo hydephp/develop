@@ -106,7 +106,9 @@ html {
 			}
 
             .sidebar-category {
-                margin-top: 1rem;
+                &:not(:first-child) {
+                    margin-top: 1rem;
+                }
                 margin-bottom: 1rem;
                 .sidebar-category-heading {
                     font-size: 1rem;
