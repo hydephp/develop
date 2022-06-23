@@ -2,7 +2,7 @@
 /node_modules
 /builds
 /.run
-#/.idea
+/.idea
 /.vscode
 /.vagrant
 /.cache
@@ -12,5 +12,9 @@
 
 # /_site
 
+
+# Monorepo Rules
+
+!/.idea
 /rocket
 build/cache
