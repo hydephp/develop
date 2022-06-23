@@ -33,16 +33,10 @@ The two most important components are **Hyde** and **Framework**. We also use **
 
 ## How the monorepo currently works
 
-Changes to HydePHP including some first-party packages are made here.
-Once pushed two important CI jobs kick in, one for testing and creating code reports and previews, and one for splitting the monorepo.
+Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the readonly repositories seen in the table above.
 
-The monorepo is split in three* stages to decouple the process.
+Changes are pushed to the `develop` branches of the readonly repositories. These branches may be unstable, and are only merged into the `master` branches when preparing a release.
 
-1. **Packaging** where we create action artifacts containing the package
-2. **Splitting** where we upload the artifact to the corresponding readonly mirror branch.
-3. **Pushing**   where we push the contents of the mirror branches to the develop branches of their repositories
-
-*The Hyde/Hyde project is stored in the monorepo root and works a bit differently. Here don't package the data, instead we remove monorepo code and apply persisted data before running the next steps.
 
 ### Releases
 
@@ -54,4 +48,3 @@ The versioning between the Framework and Hyde packages are linked together Meani
 ## Warning
 
 This monorepo project is still new, and the internal structure of it may be changed without notice.
-Changes pushed to the actual package repositories are only made when stable.
