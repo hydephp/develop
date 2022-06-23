@@ -14,21 +14,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
+> Keep an Unreleased section at the top to track upcoming changes.
+> 
+> This serves two purposes:
+> 
+> 1. People can see what changes they might expect in upcoming releases
+> 2. At release time, you can move the Unreleased section changes into a new > release version section.
 
-This serves two purposes:
 
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This release refactors and improves the Asset Service, adding auto-configuration features and a new Asset facade.
+
+#### Using the Asset facade in Blade views
+
+Instead of the long syntax `Hyde::assetManager()` you can now use the `Asset` facade directly. See this example, which both do the exact same thing using the same underlying service:
+
+```blade
+Hyde::assetManager()->hasMediaFile('app.css')
+Asset::hasMediaFile('app.css')
+```
+
+If you don't know what any of this means, good news! You don't have to worry about it. Hyde's got your back.
 
 ### Added
-- for new features.
+- Added feature to dynamically load hyde.css and hyde.js if they exist locally
+- Added the Asset facade to be used instead of `Hyde::assetManager()`
+- Added the Asset facade as a class alias to `config/app.css`
 
 ### Changed
-- for changes in existing functionality.
+- Changed `scripts.blade.php` and `styles.blade.php` to use the Asset facade
 
 ### Deprecated
-- Deprecated AssetManager.php. Use the Asset facade instead
+- Deprecated AssetManager.php (`Hyde::assetManager()`). Use the Asset facade instead
 
 ### Removed
 - for now removed features.
