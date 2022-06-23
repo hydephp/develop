@@ -23,12 +23,15 @@ The two most important components are **Hyde** and **Framework**. We also use **
 
 ### Quick reference overview
 
-| **Package**           | **Monorepo path**                                        | **Mirror branch**                                                                              | **Readonly repository**                                                   | **Package location**                                                            |
-|-----------------------|----------------------------------------------------------|------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| **Hyde**              | [Root directory](https://github.com/hydephp/develop)     | [readonly-hyde-mirror](https://github.com/hydephp/develop/tree/readonly-hyde-mirror)           | [hydephp/hyde](https://github.com/hydephp/hyde)                           | [hyde/hyde](https://packagist.org/packages/hyde/hyde)                           |
-| **Framework**         | [packages/framework](packages/framework)                 | [readonly-framework-mirror](https://github.com/hydephp/develop/tree/readonly-framework-mirror) | [hydephp/framework](https://github.com/hydephp/framework)                 | [hyde/framework](https://packagist.org/packages/hyde/framework)                 |
-| **Realtime Compiler** | [packages/realtime-compiler](packages/realtime-compiler) | [readonly-rc-mirror](https://github.com/hydephp/develop/tree/readonly-rc-mirror)               | [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler) | [hyde/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler) |
-| **HydeFront**         | [packages/hydefront](packages/hydefront)                 | None yet (not fully integrated)                                                                | [hydephp/hydefront](https://github.com/hydephp/hydefront)                 | [npm@hydefront](https://www.npmjs.com/package/hydefront)                        |
+| **Package**           | **Monorepo path**                                        | **Readonly repository**                                                   | **Package location**                                                            |
+|-----------------------|----------------------------------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| **Hyde**              | [Root directory](https://github.com/hydephp/develop)*    | [hydephp/hyde](https://github.com/hydephp/hyde)                           | [hyde/hyde](https://packagist.org/packages/hyde/hyde)                           |
+| **Framework**         | [packages/framework](packages/framework)                 | [hydephp/framework](https://github.com/hydephp/framework)                 | [hyde/framework](https://packagist.org/packages/hyde/framework)                 |
+| **Realtime Compiler** | [packages/realtime-compiler](packages/realtime-compiler) | [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler) | [hyde/realtime-compiler](https://packagist.org/packages/hyde/realtime-compiler) |
+| **HydeFront**         | [packages/hydefront](packages/hydefront)                 | [hydephp/hydefront](https://github.com/hydephp/hydefront)                 | [npm@hydefront](https://www.npmjs.com/package/hydefront)                        |
+
+
+*The Hyde/Hyde project is stored in the monorepo root and works a bit differently from the others. Before pushing to the readonly repository, we apply persisted changes in the [`packages/hyde`](https://github.com/hydephp/develop/tree/master/packages/hyde) directory, then remove monorepo specific files.
 
 
 ## How the monorepo currently works
