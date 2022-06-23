@@ -46,8 +46,10 @@ The monorepo is split in three* stages to decouple the process.
 
 ### Releases
 
-The release cycle for Hyde/Hyde and Hyde/Framework are synced. Before creating the release we merge the packages' develop branches into their master branches.
-Note that I'm just now testing out this release system, and it is entirely possible that we'll just keep minor versions in sync, and not bother with patches the framework changes much more frequently than hyde, leading to a bunch patch releases where there are no actual changes.
+While in the v0.x range, we consider both major and minor release versions to be the same. This means that when a new feature is added, it should be added as a minor version even if it is breaking. Patch versions should always be compatible. Once we reach v1.0 we will follow semantic versioning strictly.
+
+The versioning between the Framework and Hyde packages are linked together Meaning that if Hyde get's a minor release, so must Framework, and vice versa. To make this easier, we also publish minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages.
+
 
 ## Warning
 
