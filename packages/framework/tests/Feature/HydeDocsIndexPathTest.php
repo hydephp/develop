@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 class HydeDocsIndexPathTest extends TestCase
@@ -43,6 +44,18 @@ class HydeDocsIndexPathTest extends TestCase
     {
         $this->setIndex();
         $this->assertEquals('docs/index.html', Hyde::docsIndexPath());
+    }
+
+    public function test_helper_can_find_index_path_when_custom_docs_directory_is_used()
+    {
+        mkdir(Hyde::path('foo'));
+        file_put_contents(Hyde::path('foo/index.md'), '');
+
+        DocumentationPage::$sourceDirectory = 'foo';
+        $this->assertEquals('docs/index.html', Hyde::docsIndexPath());
+
+        unlink(Hyde::path('foo/index.md'));
+        rmdir(Hyde::path('foo'));
     }
 
     private function setReadme()
