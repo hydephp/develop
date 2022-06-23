@@ -140,7 +140,7 @@ jobs:
       with:
         repository: hydephp/hyde
         path: hyde
-        ref: develop
+        ref: staging
         fetch-depth: 0
         persist-credentials: false 
 
