@@ -21,6 +21,8 @@ class DataCollection
         $time_start = microtime(true);
         $files = glob(Hyde::path('_data/' . $key . '/*.md'));
         $collection = new BaseCollection();
+        $collection->key = $key;
+        $collection->name = Hyde::titleFromSlug($key);
         foreach ($files as $file) {
             $collection->push(
                 (new MarkdownFileService($file))->get()
