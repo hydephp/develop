@@ -4,7 +4,6 @@ namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Services\CollectionService;
 use LaravelZero\Framework\Commands\Command;
 
