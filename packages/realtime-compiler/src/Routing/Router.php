@@ -33,9 +33,9 @@ class Router
             }
 
             if ($this->request->path === '/docs/search') {
-                return (new HtmlResponse(200, 'OK', [
+                return new HtmlResponse(200, 'OK', [
                     'body' => (new RendersSearchPage())->__invoke(),
-                ]));
+                ]);
             }
         }
 
