@@ -291,15 +291,11 @@ jobs:
       with:
         ref: 'gh-pages'
 
-    - name: Empty output directory
-      run: rm -rf master
-
-    - name: Recreate output directories
+    - name: Reset output directories
       run: |
-        mkdir master
-        mkdir master/coverage
-        mkdir master/api-docs
-        mkdir master/preview
+        rm -rf master/coverage && mkdir master/coverage
+        rm -rf master/api-docs && mkdir master/api-docs
+        rm -rf master/preview && mkdir master/preview
 
     - name: Download coverage report artifact
       uses: actions/download-artifact@v3
