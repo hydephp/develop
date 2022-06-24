@@ -72,7 +72,6 @@ Maybe the most important command is the Build command, which -- you guessed it -
 --no-api        Disable API calls, for example, Torchlight
 ```
 
-> *Before v0.25.x this option was called `--pretty`
 
 #### Sitemaps and RSS feeds
 

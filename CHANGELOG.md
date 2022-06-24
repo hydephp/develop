@@ -32,7 +32,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed the `--pretty` build command option which was deprecated in v0.25.x
 
 ### Fixed
 - for any bug fixes.
