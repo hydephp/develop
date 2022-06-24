@@ -219,7 +219,7 @@ return [
     |
     | To use an absolute path, or just to learn more:
     | @see https://hydephp.com/docs/master/advanced-customization#customizing-the-output-directory-
-    | 
+    |
     */
 
     'output_directory' => '_site',
