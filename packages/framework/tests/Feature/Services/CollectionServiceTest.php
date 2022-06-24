@@ -48,7 +48,7 @@ class CollectionServiceTest extends TestCase
             'js',
         ];
         foreach ($testFiles as $fileType) {
-            $path = Hyde::path('_media/test.' . $fileType);
+            $path = Hyde::path('_media/test.'.$fileType);
             touch($path);
             $this->assertContains($path, CollectionService::getMediaAssetFiles());
             unlink($path);
