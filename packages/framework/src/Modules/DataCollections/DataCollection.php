@@ -18,6 +18,7 @@ class DataCollection
      */
     public static function markdown(string $key): BaseCollection
     {
+        $time_start = microtime(true);
         $files = glob(Hyde::path('_data/' . $key . '/*.md'));
         $collection = new BaseCollection();
         foreach ($files as $file) {
@@ -25,6 +26,12 @@ class DataCollection
                 (new MarkdownFileService($file))->get()
             );
         }
+        $collection->parseTimeInMs = static::getExecutionTime($time_start);
         return $collection;
+    }
+
+    protected static function getExecutionTime(float $time_start): float
+    {
+        return round((microtime(true) - $time_start) * 1000, 2);
     }
 }
