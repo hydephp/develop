@@ -12,6 +12,8 @@ use Illuminate\Support\Collection as BaseCollection;
  */
 class DataCollection
 {
+    public static string $dataPath = '_data';
+
     /**
      * Get a collection of Markdown documents in the _data/<$key> directory.
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
@@ -22,7 +24,7 @@ class DataCollection
         $collection = new BaseCollection();
         $collection->key = $key;
         $collection->name = Hyde::titleFromSlug($key);
-        foreach (glob(Hyde::path('_data/' . $key . '/*.md')) as $file) {
+        foreach (glob(Hyde::path(static::$dataPath . '/' . $key . '/*.md')) as $file) {
             $collection->push(
                 (new MarkdownFileService($file))->get()
             );
