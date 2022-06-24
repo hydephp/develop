@@ -88,6 +88,8 @@ class HydeServiceProvider extends ServiceProvider
 
             Commands\HydePackageDiscoverCommand::class,
         ]);
+
+        $this->registerModuleServiceProviders();
     }
 
     /**
@@ -135,5 +137,13 @@ class HydeServiceProvider extends ServiceProvider
     protected function storeCompiledSiteIn(string $directory): void
     {
         StaticPageBuilder::$outputPath = $directory;
+    }
+
+    /**
+     * Register module service providers.
+     */
+    protected function registerModuleServiceProviders(): void
+    {
+        $this->app->register(Modules\DataCollections\DataCollectionServiceProvider::class);
     }
 }
