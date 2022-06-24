@@ -21,14 +21,12 @@ class MonorepoMakeReleaseCommand extends Command
     protected $signature = 'monorepo:release {tag? : Leave blank to prompt for one.} {--dry-run : Don\'t push changes to remote. Will still edit filesystem.} {--allow-duplicates : Allow duplicate release names in the changelog.}';
     protected $description = '🪓 Create a new syndicated release for the Hyde Monorepo';
 
-    protected bool $dryRun = true;
+    protected bool $dryRun = false;
 
     protected const USER = 'hydephp';
 
     protected static array $repositories = [
         'develop',
-        'framework',
-        'hyde',
     ];
 
     public function __construct()
