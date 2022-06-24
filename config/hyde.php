@@ -214,13 +214,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | This setting specifies the output path for your site, and is useful if you,
-    | for example, want to store the site in the docs/ directory for GitHub Pages. 
+    | for example, want to store the site in the docs/ directory for GitHub Pages.
     | You should use the Hyde::path() helper to ensure the path is relative to your project.
     |
     | ⚠ Warning: This directory will be emptied when rebuilding the site!
     | You should read the documentation before changing this setting.
     | @see https://hydephp.com/docs/master/advanced-customization#customizing-the-output-directory-
-    | 
+    |
     */
 
     /**
