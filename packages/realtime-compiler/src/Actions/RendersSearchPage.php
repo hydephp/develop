@@ -13,6 +13,7 @@ class RendersSearchPage
     public function __invoke()
     {
         $this->bootApplication();
+
         return Blade::render(file_get_contents(Hyde::vendorPath('resources/views/pages/documentation-search.blade.php')));
     }
 }
