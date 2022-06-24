@@ -58,7 +58,7 @@ and the file extensions supported by each. Files starting with an `_underscore` 
 
 <small>
 <blockquote>
-Media file types supported: `.png`, `.svg`, `.jpg`, `.jpeg`, `.gif`, `.ico`, `.css`, `.js`
+Default media file types supported: `.png`, `.svg`, `.jpg`, `.jpeg`, `.gif`, `.ico`, `.css`, `.js`. Can be changed using the `hyde.media_extensions` config setting.
 </blockquote>
 </small>
 
