@@ -128,6 +128,7 @@ class HydeBuildStaticSiteCommand extends Command
             $this->runNodeCommand(
                 'npx prettier '.Hyde::pathToRelative(Hyde::getSiteOutputPath()).'/**/*.html --write --bracket-same-line',
                 'Prettifying code!',
+                'prettify code'
             );
         }
 
