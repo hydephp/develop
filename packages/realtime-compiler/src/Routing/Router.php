@@ -2,10 +2,13 @@
 
 namespace Hyde\RealtimeCompiler\Routing;
 
+use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
+use Hyde\RealtimeCompiler\Actions\RendersSearchPage;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Http\HtmlResponse;
 use Hyde\RealtimeCompiler\Models\FileObject;
 
 class Router
@@ -23,6 +26,24 @@ class Router
     {
         if ($this->shouldProxy($this->request)) {
             return $this->proxyStatic();
+        }
+
+        if ($this->shouldRenderSpecial($this->request)) {
+            if ($this->request->path === '/docs') {
+                $this->request->path = '/docs/index';
+            }
+
+            if ($this->request->path === '/docs/search') {
+                return new HtmlResponse(200, 'OK', [
+                    'body' => (new RendersSearchPage())->__invoke(),
+                ]);
+            }
+
+            if ($this->request->path === '/ping') {
+                return new JsonResponse(200, 'OK', [
+                    'server' => 'Hyde/RealtimeCompiler',
+                ]);
+            }
         }
 
         return PageRouter::handle($this->request);
@@ -71,5 +92,19 @@ class Router
             'Content-Type'   => $file->getMimeType(),
             'Content-Length' => $file->getContentLength(),
         ]);
+    }
+
+    /**
+     * If the request is for a special page, we handle it here.
+     */
+    protected function shouldRenderSpecial(Request $request): bool
+    {
+        $routes = [
+            '/ping',
+            '/docs',
+            '/docs/search',
+        ];
+
+        return in_array($request->path, $routes);
     }
 }
