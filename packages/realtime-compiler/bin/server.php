@@ -11,7 +11,7 @@ try {
         $app->handle() // Process the request and create the response
             ->send(); // Send the response to the client
     } catch (Throwable $exception) {
-        \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception);
+        \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception)->send();
         exit($exception->getCode());
     }
 } catch (\Throwable $th) {

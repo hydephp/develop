@@ -35,7 +35,7 @@ This serves two purposes:
 - Removed the `--pretty` build command option which was deprecated in v0.25.x
 
 ### Fixed
-- for any bug fixes.
+- HydeRC: Fixes a bug in the auxiliary exception handler leading to unintentional recursion causing out of memory errors in both the browser and the PHP server.
 
 ### Security
 - in case of vulnerabilities.
