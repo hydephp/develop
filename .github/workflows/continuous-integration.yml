@@ -44,60 +44,6 @@ jobs:
         ENV: testing      
 
 
-  build-test-coverage:
-
-    runs-on: ubuntu-latest
-    needs: run-smoke-tests
-
-    steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: "8.0"
-        coverage: xdebug
-        extensions: fileinfo
-    - uses: actions/checkout@v3
-    
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
-    - name: Install Composer Dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: Set environment to testing
-      run: echo "ENV=testing" > .env
-    
-    - name: Output debug information
-      run: php hyde debug
-
-    - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
-      run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit build/junit.xml  --coverage-html build/coverage/html
-      env:
-        ENV: testing
-
-    - uses: codecov/codecov-action@v2
-      with:
-        files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
-        fail_ci_if_error: false # optional (default = false)
-        verbose: true # optional (default = false)
-
-    - name: Upload coverage artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: "coverage"
-        path: "build/coverage"
-
-    - name: Upload HTML coverage artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: "html-coverage"
-        path: "build/coverage/html"
-
 
   test-matrix:
     needs: run-smoke-tests
@@ -190,8 +136,69 @@ jobs:
         message: 'Compile TailwindCSS for production'
 
   
-  build-api-documentation:
+  build-test-coverage:
+    environment:
+      name: live-coverage-report
+      url: https://hydephp.github.io/develop/master/coverage/
+    
+    runs-on: ubuntu-latest
+    needs: run-smoke-tests
 
+    steps:
+    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      with:
+        php-version: "8.0"
+        coverage: xdebug
+        extensions: fileinfo
+    - uses: actions/checkout@v3
+    
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install Composer Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Set environment to testing
+      run: echo "ENV=testing" > .env
+    
+    - name: Output debug information
+      run: php hyde debug
+
+    - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
+      run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit build/junit.xml  --coverage-html build/coverage/html
+      env:
+        ENV: testing
+
+    - uses: codecov/codecov-action@v2
+      with:
+        files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
+        fail_ci_if_error: false # optional (default = false)
+        verbose: true # optional (default = false)
+
+    - name: Upload coverage artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: "coverage"
+        path: "build/coverage"
+
+    - name: Upload HTML coverage artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: "html-coverage"
+        path: "build/coverage/html"
+
+
+  build-api-documentation:
+    environment:
+      name: internal-api-docs
+      url: https://hydephp.github.io/develop/master/api-docs/
+        
     runs-on: ubuntu-latest
     needs: run-smoke-tests
 
@@ -214,73 +221,84 @@ jobs:
 
 
   build-preview-site:
-      
-      runs-on: ubuntu-latest
-      needs: run-smoke-tests
-  
-      steps:
-      - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: "8.0"
-      
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-
-      - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: '@TODO - Compile all latest frontend assets'
-        run: echo '@TODO - Compile all latest frontend assets'
-          
-      - name: Download configuration # I'm sure there is a better way to do this
-        run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config -O config.zip
-
-      - name: Unzip configuration
-        run: unzip config.zip -d temp
-
-      - name: Copy configuration to root
-        run: cp -r temp/hydephp-develop-*/* .
-
-      - name: Output the origin reference to file
-        run: echo ${{ github.sha }} > origin-ref
-
-      - name: Publish the post feed homepage
-        run: php hyde publish:homepage posts -n
-
-      - name: Compile the static site
-        run: php hyde build
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: 'site-preview'
-          path: '_site'
-
-
-  upload-coverage-report:
     environment:
-      name: live-coverage-report
-      url: https://hydephp.github.io/develop/master/coverage/
+      name: live-preview-site
+      url: https://hydephp.github.io/develop/master/preview
+      
+    runs-on: ubuntu-latest
+    needs: run-smoke-tests
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      with:
+        php-version: "8.0"
     
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install Composer Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: '@TODO - Compile all latest frontend assets'
+      run: echo '@TODO - Compile all latest frontend assets'
+        
+    - name: Download configuration # I'm sure there is a better way to do this
+      run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config -O config.zip
+
+    - name: Unzip configuration
+      run: unzip config.zip -d temp
+
+    - name: Copy configuration to root
+      run: cp -r temp/hydephp-develop-*/* .
+
+    - name: Output the origin reference to file
+      run: echo ${{ github.sha }} > origin-ref
+
+    - name: Publish the post feed homepage
+      run: php hyde publish:homepage posts -n
+
+    - name: Compile the static site
+      run: php hyde build
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: 'site-preview'
+        path: '_site'
+
+
+  upload-generated-reports:
+    environment:
+      name: live-reports
+      url: https://hydephp.github.io/develop/master/
+
     runs-on: ubuntu-latest
     needs: 
      - run-smoke-tests
      - build-test-coverage
-     
+     - build-api-documentation
+     - build-preview-site
+    
     steps:
     - uses: actions/checkout@v3
       with:
         ref: 'gh-pages'
 
     - name: Empty output directory
-      run: rm -rf master/coverage && mkdir master/coverage
+      run: rm -rf master
+
+    - name: Recreate output directories
+      run: |
+        mkdir master/coverage
+        mkdir master/api-docs
+        mkdir master/preview
 
     - name: Download coverage report artifact
       uses: actions/download-artifact@v3
@@ -288,76 +306,26 @@ jobs:
         name: html-coverage
         path: master/coverage
 
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v9 
-      with:
-        add: 'master/coverage'
-        message: 'Upload coverage report from test suite run with ref ${{ github.sha }}' 
-
-
-  upload-api-documentation:
-    environment:
-      name: internal-api-docs
-      url: https://hydephp.github.io/develop/master/api-docs/
-    
-    runs-on: ubuntu-latest
-    needs: 
-     - run-smoke-tests
-     - build-api-documentation
-     
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: 'gh-pages'
-
-    - name: Empty output directory
-      run: rm -rf master/api-docs && mkdir master/api-docs
-
     - name: Download API documentation artifact
       uses: actions/download-artifact@v3
       with:
         name: api-documentation
         path: master/api-docs
 
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v9 
-      with:
-        add: 'master/api-docs'
-        message: 'Upload API documentation from test suite run with ref ${{ github.sha }}' 
-
-
-  upload-preview-site:
-    environment:
-      name: live-preview-site
-      url: https://hydephp.github.io/develop/master/preview
-        
-    runs-on: ubuntu-latest
-    needs: 
-     - run-smoke-tests
-     - build-preview-site
-
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: 'gh-pages'
-
-    - name: Empty output directory
-      run: rm -rf master/preview && mkdir master/preview
-
     - name: Download preview site artifact
       uses: actions/download-artifact@v3
       with:
         name: site-preview
         path: master/preview
-
+    
     - name: Create README.md
-      run: echo '# CI/CD generated reports for https://github.com/hydephp/develop/commit/${{ github.sha }}' > master/README.md
+      run: echo '# CI/CD generated reports for <small>https://github.com/hydephp/develop/commit/${{ github.sha }}</small>' > master/README.md
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
       with:
-        add: '["master/preview", "master/README.md"]'
-        message: 'Upload site preview from test suite run with ref ${{ github.sha }}' 
+        add: 'master'
+        message: 'Upload live reports from test suite run ${{ github.sha }}' 
 
 
   check-coding-standards:
