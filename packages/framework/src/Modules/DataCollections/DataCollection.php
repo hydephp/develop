@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\MarkdownDocument;
 use Illuminate\Support\Collection;
 
 class DataCollection extends Collection
@@ -30,5 +31,12 @@ class DataCollection extends Collection
         unset($this->timeStart);
 
         return $this;
+    }
+
+    public function getMarkdownFiles(): array
+    {
+        return glob(Hyde::path(
+            static::$sourceDirectory . '/' . $this->key . '/*' . MarkdownDocument::$fileExtension
+        ));
     }
 }

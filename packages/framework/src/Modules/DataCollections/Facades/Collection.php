@@ -20,18 +20,11 @@ class Collection
     public static function markdown(string $key): DataCollection
     {
         $collection = new DataCollection($key);
-        foreach (static::getMarkdownFiles($key) as $file) {
+        foreach ($collection->getMarkdownFiles() as $file) {
             $collection->push(
                 (new MarkdownFileService($file))->get()
             );
         }
         return $collection->getCollection();
-    }
-
-    protected static function getMarkdownFiles(string $key): array
-    {
-        return glob(Hyde::path(
-            DataCollection::$sourceDirectory . '/' . $key . '/*' . MarkdownDocument::$fileExtension
-        ));
     }
 }
