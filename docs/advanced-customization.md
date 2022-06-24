@@ -63,7 +63,7 @@ return [
 ```
 
 ### Setting an absolute path 💔
-If you want to store the output website outside your project with an absolute path you may do so at your own risk using a service provider. This is not supported or reccomended as it may cause unintentional file deletions.
+If you want to store the output website outside your project with an absolute path you may do so at your own risk using a service provider. This is not supported or recommended as it may cause unintentional file deletions.
 
 ```php
 // filepath Boot method of a service provider
