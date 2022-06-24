@@ -57,7 +57,6 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->discoverBladeViewsIn('_pages');
 
-        
         /** @deprecated v0.43.0-beta and is used here as a fallback for compatibility */
         if (config('hyde.output_directory') === null) {
             $this->storeCompiledSiteIn(config(
@@ -70,7 +69,7 @@ class HydeServiceProvider extends ServiceProvider
                 trim('hyde.output_directory', '_site'), '/\\')
             ));
         }
-        
+
         $this->commands([
             Commands\HydePublishHomepageCommand::class,
             Commands\HydeUpdateConfigsCommand::class,

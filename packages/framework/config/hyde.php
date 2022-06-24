@@ -214,8 +214,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | This setting specifies the output path for your site, useful to for
-    | example, store the site in the docs/ directory for GitHub Pages. 
-    | The path is relative to the root of your project. 
+    | example, store the site in the docs/ directory for GitHub Pages.
+    | The path is relative to the root of your project.
     |
     | To use an absolute path, or just to learn more:
     | @see https://hydephp.com/docs/master/advanced-customization#customizing-the-output-directory-
@@ -223,7 +223,6 @@ return [
     */
 
     'output_directory' => '_site',
-
 
     /**
      * @deprecated use the 'output_directory' setting instead
