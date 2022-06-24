@@ -22,13 +22,10 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added a `@section` hook to the docs layout to allow yielding content
-- HydeRC: Add ping route to check if a HydeRC server is running https://github.com/hydephp/realtime-compiler/issues/9
-- internal: Added an HtmlResponse object to the realtime compiler
+- for new features.
 
 ### Changed
-- Change the the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
-- Change how the `docs/search.html` page is rendered, by handling page logic in the view, to decouple it from the build search command
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -37,8 +34,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- HydeRC: Rewrite request docs to docs/index to fix https://github.com/hydephp/realtime-compiler/issues/10 
-- Fix bug https://github.com/hydephp/develop/issues/93 where styles were missing on search.html when changing the output directory ro root
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
@@ -50,6 +46,22 @@ This serves two purposes:
 ### Changelog
 
 <!-- CHANGELOG_START -->
+
+
+## v0.42.0-beta - 2022-06-24
+
+### Added
+- Added a `@section` hook to the docs layout to allow yielding content
+- HydeRC: Add ping route to check if a HydeRC server is running https://github.com/hydephp/realtime-compiler/issues/9
+- internal: Added an HtmlResponse object to the realtime compiler
+
+### Changed
+- Change the the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
+- Change how the `docs/search.html` page is rendered, by handling page logic in the view, to decouple it from the build search command
+
+### Fixed
+- HydeRC: Rewrite request docs to docs/index to fix https://github.com/hydephp/realtime-compiler/issues/10 
+- Fix bug https://github.com/hydephp/develop/issues/93 where styles were missing on search.html when changing the output directory to root
 
 
 ## v0.41.0-beta - 2022-06-24 - Add an Asset facade
