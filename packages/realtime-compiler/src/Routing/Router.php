@@ -2,6 +2,7 @@
 
 namespace Hyde\RealtimeCompiler\Routing;
 
+use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
@@ -35,6 +36,12 @@ class Router
             if ($this->request->path === '/docs/search') {
                 return new HtmlResponse(200, 'OK', [
                     'body' => (new RendersSearchPage())->__invoke(),
+                ]);
+            }
+
+            if ($this->request->path === '/ping') {
+                return new JsonResponse(200, 'OK', [
+                    'server' => 'Hyde/RealtimeCompiler',
                 ]);
             }
         }
@@ -93,6 +100,7 @@ class Router
     protected function shouldRenderSpecial(Request $request): bool
     {
         $routes = [
+            '/ping',
             '/docs',
             '/docs/search',
         ];

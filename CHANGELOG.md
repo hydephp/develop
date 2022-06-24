@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Added
 - Added a `@section` hook to the docs layout to allow yielding content
+- HydeRC: Add ping route to check if a HydeRC server is running https://github.com/hydephp/realtime-compiler/issues/9
 - internal: Added an HtmlResponse object to the realtime compiler
 
 ### Changed
