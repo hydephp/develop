@@ -24,6 +24,6 @@ class ExceptionHandler
             'Content-Type'   => 'text/html',
             'Content-Length' => strlen($html),
             'body'           => $html,
-        ])->send();
+        ]);
     }
 }
