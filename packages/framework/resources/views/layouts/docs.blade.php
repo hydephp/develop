@@ -67,6 +67,9 @@
 		@endphp
 		<article id="document" itemscope itemtype="http://schema.org/Article" @class(['mx-auto lg:ml-8 prose dark:prose-invert
 			max-w-3xl', 'torchlight-enabled'=> $document->hasTorchlight()])>
+			
+			@yield('content')
+
 			<header id="document-header">
 				{!! $document->renderHeader() !!}
 			</header>

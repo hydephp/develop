@@ -22,7 +22,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added a `@section` hook to the docs layout to allow yielding content
 
 ### Changed
 - Change the the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
