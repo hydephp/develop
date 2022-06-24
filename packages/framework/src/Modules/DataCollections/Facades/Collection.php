@@ -2,8 +2,6 @@
 
 namespace Hyde\Framework\Modules\DataCollections\Facades;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Modules\DataCollections\DataCollection;
 use Hyde\Framework\Services\MarkdownFileService;
 
