@@ -48,24 +48,27 @@ public function register(): void
 }
 ```
 
-## Customizing the output directory 💔
+## Customizing the output directory ⚠
 
 >danger Hyde deletes all files in the output directory before compiling the site. Don't set this path to a directory that contains important files!
 
 If you want to store your compiled website in a different directory than
-the default `_pages`, you can change the path using the following configuration option in config/hyde.php:
+the default `_pages`, you can change the path using the following configuration option in config/hyde.php. The path is expected to be relative to your project root.
 
 ```php
 // filepath config/hyde.php
 return [
-    'site_output_path' => Hyde\Framework\Hyde::path('_site'),
+    'output_directory' => 'docs',
 ];
 ```
 
-The Hyde::path() helper ensures the path is relative to your Hyde project.
-While you can set the path to an absolute path outside the project,
-this is not officially supported and may be unstable and may cause unintentional files and directories to be deleted.
+### Setting an absolute path 💔
+If you want to store the output website outside your project with an absolute path you may do so at your own risk using a service provider. This is not supported or reccomended as it may cause unintentional file deletions.
 
+```php
+// filepath Boot method of a service provider
+StaticPageBuilder::$outputPath = '/var/www/my-project/';
+```
 
 ## Adding custom post-build hooks 🧪
 >info This feature should not be in danger of breaking things. However, it was added very recently and the implementation may change at any moment. See <a href=" https://github.com/hydephp/develop/issues/79">this GitHub issue</a> for up to date information.

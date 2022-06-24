@@ -57,11 +57,20 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->discoverBladeViewsIn('_pages');
 
-        $this->storeCompiledSiteIn(config(
-            'hyde.site_output_path',
-            Hyde::path('_site')
-        ));
-
+        
+        /** @deprecated v0.43.0-beta and is used here as a fallback for compatibility */
+        if (config('hyde.output_directory') === null) {
+            $this->storeCompiledSiteIn(config(
+                'hyde.site_output_path',
+                Hyde::path('_site')
+            ));
+        } else {
+            // Newer version which is safer.
+            $this->storeCompiledSiteIn(Hyde::path(config(
+                trim('hyde.output_directory', '_site'), '/\\')
+            ));
+        }
+        
         $this->commands([
             Commands\HydePublishHomepageCommand::class,
             Commands\HydeUpdateConfigsCommand::class,
