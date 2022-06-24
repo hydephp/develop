@@ -22,8 +22,8 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39;
-- Adds a safer config option `hyde.output_directory` for customizing the output directory.
+- Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39
+- Adds a safer config option `hyde.output_directory` for customizing the output directory
 
 ### Changed
 - for changes in existing functionality.
