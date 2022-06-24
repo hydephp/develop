@@ -25,7 +25,7 @@ This serves two purposes:
 - Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39;
 
 ### Changed
-- Revert deprecation marking for site_output_path config option
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -106,7 +106,7 @@ If you don't know what any of this means, good news! You don't have to worry abo
 - Adds a fallback which removes the search modal popup and redirects to the search.html page when the dialogue element is not supported.
 
 ### Deprecated
-- <s>Deprecate the site_output_path option in the Hyde config file. Will be handled by the HydeServiceProvider.</s> _Reverted in v0.43.0-beta_
+- Deprecate the site_output_path option in the Hyde config file. Will be handled by the HydeServiceProvider.
 
 ### Removed
 - Removed the deprecated bootstrap directory
