@@ -25,6 +25,6 @@ class Collection
                 (new MarkdownFileService($file))->get()
             );
         }
-        return $collection;
+        return $collection->getCollection();
     }
 }

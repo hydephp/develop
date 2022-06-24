@@ -24,10 +24,11 @@ class DataCollection extends Collection
         parent::__construct();
     }
 
-    public function push(...$values)
+    public function getCollection(): DataCollection
     {
         $this->parseTimeInMs = round((microtime(true) - $this->timeStart) * 1000, 2);
+        unset($this->timeStart);
 
-        return parent::push($values);
+        return $this;
     }
 }
