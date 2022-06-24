@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Added
 - Added a `@section` hook to the docs layout to allow yielding content
+- internal: Added an HtmlResponse object to the realtime compiler
 
 ### Changed
 - Change the the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
