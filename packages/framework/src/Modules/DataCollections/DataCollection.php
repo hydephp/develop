@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Collection as BaseCollection;
 
@@ -24,7 +25,7 @@ class DataCollection
         $collection = new BaseCollection();
         $collection->key = $key;
         $collection->name = Hyde::titleFromSlug($key);
-        foreach (glob(Hyde::path(static::$dataPath . '/' . $key . '/*.md')) as $file) {
+        foreach (glob(Hyde::path(static::$dataPath . '/' . $key . '/*' . MarkdownDocument::$fileExtension)) as $file) {
             $collection->push(
                 (new MarkdownFileService($file))->get()
             );
