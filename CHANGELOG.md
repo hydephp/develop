@@ -14,13 +14,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### About
 
-> Keep an Unreleased section at the top to track upcoming changes.
-> 
-> This serves two purposes:
-> 
-> 1. People can see what changes they might expect in upcoming releases
-> 2. At release time, you can move the Unreleased section changes into a new > release version section.
+Keep an Unreleased section at the top to track upcoming changes.
 
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
+
+### Added
+- for new features.
+
+### Changed
+- for changes in existing functionality.
+
+### Deprecated
+- for soon-to-be removed features.
+
+### Removed
+- for now removed features.
+
+### Fixed
+- for any bug fixes.
+
+### Security
+- in case of vulnerabilities.
+
+<!-- UNRELEASED_END -->
+
+---
+
+### Changelog
+
+<!-- CHANGELOG_START -->
+
+
+## v0.41.0-beta - 2022-06-24 - Add an Asset facade
+
+### About
 
 This release refactors and improves the Asset Service, adding auto-configuration features and a new Asset facade.
 
@@ -46,22 +76,6 @@ If you don't know what any of this means, good news! You don't have to worry abo
 ### Deprecated
 - Deprecated AssetManager.php (`Hyde::assetManager()`). Use the Asset facade instead
 
-### Removed
-- for now removed features.
-
-### Fixed
-- for any bug fixes.
-
-### Security
-- in case of vulnerabilities.
-
-<!-- UNRELEASED_END -->
-
----
-
-### Changelog
-
-<!-- CHANGELOG_START -->
 
 
 ## v0.40.0-beta - 2022-06-22
