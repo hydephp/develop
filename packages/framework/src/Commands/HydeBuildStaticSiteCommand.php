@@ -40,7 +40,6 @@ class HydeBuildStaticSiteCommand extends Command
     protected $signature = 'build 
         {--run-dev : Run the NPM dev script after build}
         {--run-prod : Run the NPM prod script after build}
-        {--pretty : Deprecated option, use --run-prettier instead}
         {--run-prettier : Format the output using NPM Prettier}
         {--pretty-urls : Should links in output use pretty URLs?}
         {--no-api : Disable API calls, for example, Torchlight}';
@@ -121,10 +120,7 @@ class HydeBuildStaticSiteCommand extends Command
     {
         $service = new BuildHookService($this->output);
 
-        if ($this->option('run-prettier') || $this->option('pretty')) {
-            if ($this->option('pretty')) {
-                $this->warn('<error>Warning:</> The --pretty option is deprecated, use --run-prettier instead');
-            }
+        if ($this->option('run-prettier')) {
             $this->runNodeCommand(
                 'npx prettier '.Hyde::pathToRelative(Hyde::getSiteOutputPath()).'/**/*.html --write --bracket-same-line',
                 'Prettifying code!',
