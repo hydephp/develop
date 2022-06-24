@@ -35,6 +35,36 @@ class CollectionServiceTest extends TestCase
         $this->assertTrue(is_array(CollectionService::getMediaAssetFiles()));
     }
 
+    public function test_get_media_asset_files_discovers_files()
+    {
+        $testFiles = [
+            'png',
+            'svg',
+            'jpg',
+            'jpeg',
+            'gif',
+            'ico',
+            'css',
+            'js',
+        ];
+        foreach ($testFiles as $fileType) {
+            $path = Hyde::path('_media/test.'.$fileType);
+            touch($path);
+            $this->assertContains($path, CollectionService::getMediaAssetFiles());
+            unlink($path);
+        }
+    }
+
+    public function test_get_media_asset_files_discovers_custom_file_types()
+    {
+        $path = Hyde::path('_media/test.custom');
+        touch($path);
+        $this->assertNotContains($path, CollectionService::getMediaAssetFiles());
+        config(['hyde.media_extensions' => 'custom']);
+        $this->assertContains($path, CollectionService::getMediaAssetFiles());
+        unlink($path);
+    }
+
     public function test_files_starting_with_underscore_are_ignored()
     {
         touch(Hyde::path('_posts/_foo.md'));
@@ -52,12 +82,5 @@ class CollectionServiceTest extends TestCase
         $this->assertContains($expected, CollectionService::getSourceFileListForModel($model));
 
         unlink(Hyde::path($path));
-    }
-
-    public function tearDown(): void
-    {
-        // restoreDirectory(Hyde::path('_docs'));
-
-        parent::tearDown();
     }
 }

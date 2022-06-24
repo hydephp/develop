@@ -122,6 +122,9 @@ class CollectionService
      */
     public static function getMediaAssetFiles(): array
     {
-        return glob(Hyde::path('_media/*.{png,svg,jpg,jpeg,gif,ico,css,js}'), GLOB_BRACE);
+        return glob(Hyde::path('_media/*.{'.str_replace(' ', '',
+            config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
+            ).'}'), GLOB_BRACE
+        );
     }
 }
