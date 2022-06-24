@@ -2,8 +2,9 @@
 
 namespace Hyde\Framework\Modules\DataCollections;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
+use Hyde\Framework\Hyde;
 
 class DataCollectionServiceProvider extends ServiceProvider
 {
