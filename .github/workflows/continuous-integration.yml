@@ -44,7 +44,7 @@ jobs:
         ENV: testing      
 
 
-  test-coverage:
+  build-test-coverage:
 
     runs-on: ubuntu-latest
     needs: run-smoke-tests
