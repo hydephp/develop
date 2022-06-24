@@ -36,7 +36,8 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- HydeRC: Rewrite request docs to docs/index to fix https://github.com/hydephp/realtime-compiler/issues/10 
+- Fix bug https://github.com/hydephp/develop/issues/93 where styles were missing on search.html when changing the output directory ro root
 
 ### Security
 - in case of vulnerabilities.
