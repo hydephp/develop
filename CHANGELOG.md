@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Added
 - Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39;
+- Adds a safer config option `hyde.output_directory` for customizing the output directory.
 
 ### Changed
 - for changes in existing functionality.
