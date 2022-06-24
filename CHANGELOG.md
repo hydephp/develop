@@ -26,6 +26,7 @@ This serves two purposes:
 
 ### Changed
 - Change the the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
+- Change how the `docs/search.html` page is rendered, by handling page logic in the view, to decouple it from the build search command
 
 ### Deprecated
 - for soon-to-be removed features.
