@@ -13,7 +13,7 @@ class DataCollection extends Collection
     protected float $timeStart;
     public float $parseTimeInMs;
 
-    public static string $dataPath = '_data';
+    public static string $sourceDirectory = '_data';
 
     public function __construct(string $key, ?string $name = null)
     {
