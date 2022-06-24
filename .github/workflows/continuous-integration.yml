@@ -316,7 +316,7 @@ jobs:
         path: master/preview
     
     - name: Create README.md
-      run: echo '# CI/CD generated reports for <small>https://github.com/hydephp/develop/commit/${{ github.sha }}</small>' > master/README.md
+      run: echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9 
