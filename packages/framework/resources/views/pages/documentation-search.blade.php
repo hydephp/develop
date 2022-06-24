@@ -1,7 +1,7 @@
 @php
 	$page = new \Hyde\Framework\Models\DocumentationPage([], '', 'Search', 'search');
 	$title = 'Search';
-	$currentPage = config('docs.output_directory', 'docs').'/search';
+	$currentPage = $page->getCurrentPagePath();
 	$markdown = '';
 @endphp
 
