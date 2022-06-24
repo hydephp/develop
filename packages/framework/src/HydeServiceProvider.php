@@ -141,6 +141,8 @@ class HydeServiceProvider extends ServiceProvider
 
     /**
      * Register module service providers.
+     *
+     * @todo Make modules configurable.
      */
     protected function registerModuleServiceProviders(): void
     {
