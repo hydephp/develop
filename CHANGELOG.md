@@ -25,7 +25,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Change the the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
 
 ### Deprecated
 - for soon-to-be removed features.

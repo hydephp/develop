@@ -126,9 +126,8 @@ class HydeBuildStaticSiteCommand extends Command
                 $this->warn('<error>Warning:</> The --pretty option is deprecated, use --run-prettier instead');
             }
             $this->runNodeCommand(
-                'npx prettier '.Hyde::pathToRelative(Hyde::getSiteOutputPath()).'/ --write --bracket-same-line',
+                'npx prettier '.Hyde::pathToRelative(Hyde::getSiteOutputPath()).'/**/*.html --write --bracket-same-line',
                 'Prettifying code!',
-                'prettify code'
             );
         }
 
