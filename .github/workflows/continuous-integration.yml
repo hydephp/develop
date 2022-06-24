@@ -296,6 +296,7 @@ jobs:
 
     - name: Recreate output directories
       run: |
+        mkdir master
         mkdir master/coverage
         mkdir master/api-docs
         mkdir master/preview
