@@ -5,7 +5,11 @@ namespace Hyde\Framework\Modules\Router\Concerns;
 /**
  * protected @var string  $sourceModel (abstract page model)
  * protected @var string  $sourceFile (relative Hyde path)
- * protected @var string  $name (basename/slug)
+ * protected @var string  $name (generated route key)
+ * protected @var string  $path (generated HTML path)
+ *
+ * protected @method  generateRouteName(): void;
+ * protected @method  generateOutputPath(): void;
  */
 interface RouteContract
 {
