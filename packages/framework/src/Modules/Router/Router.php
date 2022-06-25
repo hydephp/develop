@@ -45,6 +45,9 @@ class Router implements RouterContract
         $this->discoverRoutes();
     }
 
+    /**
+     * @throws \Hyde\Framework\Modules\Router\RouteNotFoundException
+     */
     public function getRoute(string $name): RouteContract
     {
         return $this->routes->first(function (RouteContract $route) use ($name) {
