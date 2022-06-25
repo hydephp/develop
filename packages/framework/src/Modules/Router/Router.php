@@ -41,6 +41,12 @@ class Router implements RouterContract
         $this->discoverRoutes();
     }
 
+    public function getRoute(string $name): RouteContract
+    {
+        return $this->routes->first(function (RouteContract $route) use ($name) {
+            return $route->getName() === $name;
+        });
+    }
 
     public function getRoutes(): Collection
     {
