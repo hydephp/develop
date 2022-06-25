@@ -24,12 +24,8 @@ This serves two purposes:
 ### Added
 - Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39
 - Adds a safer config option `hyde.output_directory` for customizing the output directory
+- Adds a file-based way to create and interact with collections, https://hydephp.com/docs/master/collections
 
-### Changed
-- for changes in existing functionality.
-
-### Deprecated
-- for soon-to-be removed features.
 
 ### Removed
 - Removed the `--pretty` build command option which was deprecated in v0.25.x
@@ -38,8 +34,6 @@ This serves two purposes:
 ### Fixed
 - HydeRC: Fixes a bug in the auxiliary exception handler leading to unintentional recursion causing out of memory errors in both the browser and the PHP server.
 
-### Security
-- in case of vulnerabilities.
 
 <!-- UNRELEASED_END -->
 
