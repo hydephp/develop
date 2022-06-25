@@ -33,6 +33,7 @@ This serves two purposes:
 
 ### Removed
 - Removed the `--pretty` build command option which was deprecated in v0.25.x
+- Removed deprecated internal AssetManager trait which was replaced with the Asset facade
 
 ### Fixed
 - HydeRC: Fixes a bug in the auxiliary exception handler leading to unintentional recursion causing out of memory errors in both the browser and the PHP server.
