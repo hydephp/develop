@@ -8,6 +8,6 @@ class MarkdownCollection
 {
     public static function get(string $collectionKey): DataCollection
     {
-        return new DataCollection($collectionKey);
+        return DataCollection::markdown($collectionKey);
     }
 }
