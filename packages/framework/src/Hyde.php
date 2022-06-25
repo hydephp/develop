@@ -3,7 +3,6 @@
 namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
-use Hyde\Framework\Concerns\Internal\AssetManager;
 use Hyde\Framework\Concerns\Internal\FileHelpers;
 use Hyde\Framework\Concerns\Internal\FluentPathHelpers;
 use Hyde\Framework\Helpers\HydeHelperFacade;
@@ -21,7 +20,6 @@ use Illuminate\Support\Str;
 class Hyde
 {
     use FileHelpers;
-    use AssetManager;
     use FluentPathHelpers;
     use HydeHelperFacade;
 
