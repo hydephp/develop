@@ -41,6 +41,7 @@ class Router implements RouterContract
             DocumentationPage::class,
         ]);
 
+        $this->routes = new Collection();
         $this->discoverRoutes();
     }
 
