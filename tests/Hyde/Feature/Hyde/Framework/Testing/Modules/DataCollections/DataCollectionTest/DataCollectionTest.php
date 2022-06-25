@@ -5,8 +5,10 @@ namespace Hyde\Framework\Testing\Modules\DataCollections\DataCollectionTest;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Modules\DataCollections\DataCollection;
+use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Modules\DataCollections\Facades\MarkdownCollection;
 use Hyde\Testing\TestCase;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
@@ -156,5 +158,23 @@ class DataCollectionTest extends TestCase
         unset($expected->parseTimeInMs);
         unset($actual->parseTimeInMs);
         $this->assertEquals($expected, $actual);
+    }
+
+    // Test DataCollectionServiceProvider registers the facade as an alias
+    public function test_DataCollectionServiceProvider_registers_the_facade_as_an_alias()
+    {
+        $this->assertArrayHasKey('MarkdownCollection', AliasLoader::getInstance()->getAliases());
+        $this->assertContains(MarkdownCollection::class, AliasLoader::getInstance()->getAliases());
+    }
+
+    // test DataCollectionServiceProvider creates the _data directory if it does not exist
+    public function test_DataCollectionServiceProvider_creates_the__data_directory_if_it_does_not_exist()
+    {
+        File::deleteDirectory(Hyde::path('_data'));
+        $this->assertFileDoesNotExist(Hyde::path('_data'));
+
+        (new DataCollectionServiceProvider($this->app))->boot();
+
+        $this->assertFileExists(Hyde::path('_data'));
     }
 }

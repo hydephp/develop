@@ -6,6 +6,9 @@ use Hyde\Framework\Hyde;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @see \Hyde\Framework\Testing\Modules\DataCollections\DataCollectionTest\DataCollectionTest
+ */
 class DataCollectionServiceProvider extends ServiceProvider
 {
     public function register()
