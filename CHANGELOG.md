@@ -22,8 +22,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39
-- Adds a safer config option `hyde.output_directory` for customizing the output directory
+- for new features.
 
 ### Changed
 - for changes in existing functionality.
@@ -32,11 +31,10 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- Removed the `--pretty` build command option which was deprecated in v0.25.x
-- Removed deprecated internal AssetManager trait which was replaced with the Asset facade
+- for now removed features.
 
 ### Fixed
-- HydeRC: Fixes a bug in the auxiliary exception handler leading to unintentional recursion causing out of memory errors in both the browser and the PHP server.
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
@@ -48,6 +46,22 @@ This serves two purposes:
 ### Changelog
 
 <!-- CHANGELOG_START -->
+
+
+## v0.43.0-beta - 2022-06-25 - File-based Collections
+
+### Added
+- Added configuration option `hyde.media_extensions` to allow you to specify additional comma separated media file types. https://github.com/hydephp/develop/issues/39
+- Adds a safer config option `hyde.output_directory` for customizing the output directory
+- Adds a file-based way to create and interact with collections, https://hydephp.com/docs/master/collections
+
+
+### Removed
+- Removed the `--pretty` build command option which was deprecated in v0.25.x
+- Removed deprecated internal AssetManager trait which was replaced with the Asset facade
+
+### Fixed
+- HydeRC: Fixes a bug in the auxiliary exception handler leading to unintentional recursion causing out of memory errors in both the browser and the PHP server.
 
 
 ## v0.42.0-beta - 2022-06-24
