@@ -8,6 +8,7 @@ use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Modules\Router\Router;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Modules\Router\Router
@@ -70,6 +71,32 @@ class RouterTest extends TestCase
         );
         $this->assertArrayHasKey(
             'bar', $router->getRegisteredRouteModels()
+        );
+    }
+
+    public function testGetRoutesReturnsCollection()
+    {
+        $this->assertInstanceOf(
+            Collection::class,
+            Router::getInstance()->getRoutes()
+        );
+    }
+
+    public function testGetArrayReturnsArray()
+    {
+        $this->assertIsArray(
+            Router::getInstance()->getArray()
+        );
+    }
+
+    public function testGetJsonReturnsJson()
+    {
+        $this->assertIsString(
+            Router::getInstance()->getJson()
+        );
+
+        $this->assertJson(
+            Router::getInstance()->getJson()
         );
     }
 }
