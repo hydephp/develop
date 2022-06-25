@@ -51,10 +51,7 @@ class Route implements RouteContract
      */
     protected function generateRouteName(): string
     {
-        $sourceDirectory = trim($this->sourceModel::$sourceDirectory, '_\\/');
-        $sourceFileBasename = basename($this->sourceFile);
-
-        return $sourceDirectory . '.' . $sourceFileBasename;
+        return $this->getGroup() . '.' . $this->baseName();
     }
 
     /**
