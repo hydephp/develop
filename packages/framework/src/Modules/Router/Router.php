@@ -85,14 +85,6 @@ class Router implements RouterContract
         }
     }
 
-    protected function discoverBladePages(): void {}
-
-    protected function discoverMarkdownPages(): void {}
-
-    protected function discoverMarkdownPosts(): void {}
-
-    protected function discoverDocumentationPages(): void {}
-
     /** @param string<Concerns\Routable> $model */
     protected function discoverAbstract(string $model, string $file): RouteContract {
         return new Route($model, $file);
