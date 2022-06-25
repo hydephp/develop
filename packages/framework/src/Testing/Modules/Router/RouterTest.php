@@ -2,10 +2,14 @@
 
 namespace Hyde\Framework\Testing\Modules\Router;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Modules\Router\Concerns\RouteContract;
+use Hyde\Framework\Modules\Router\Route;
+use Hyde\Framework\Modules\Router\RouteNotFoundException;
 use Hyde\Framework\Modules\Router\Router;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
@@ -100,4 +104,44 @@ class RouterTest extends TestCase
         );
     }
 
+    public function testRoutesAreAutomaticallyDiscovered()
+    {
+        $this->assertCount(
+            2, Router::getInstance()->getRoutes()
+        );
+    }
+
+    public function testRouteCollectionContainsOnlyRoutes()
+    {
+        $this->assertContainsOnlyInstancesOf(
+            RouteContract::class,
+            Router::getInstance()->getRoutes()
+        );
+    }
+
+    public function testRouteCollectionContainsDefaultPageRoutes()
+    {
+        $routes = Router::getInstance()->getRoutes();
+
+        $this->assertEquals(
+            collect([
+                new Route(BladePage::class, '_pages/404.blade.php'),
+                new Route(BladePage::class, '_pages/index.blade.php'),
+            ]),
+            $routes
+        );
+    }
+
+    public function testBladePagesCanBeDiscovered() {
+        $this->markTestSkipped('Todo: Test BladePage::class');
+	}
+    public function testMarkdownPagesCanBeDiscovered() {
+        $this->markTestSkipped('Todo: Test MarkdownPage::class');
+	}
+    public function testMarkdownPostsCanBeDiscovered() {
+        $this->markTestSkipped('Todo: Test MarkdownPost::class');
+	}
+    public function testDocumentationPagesCanBeDiscovered() {
+        $this->markTestSkipped('Todo: Test DocumentationPage::class');
+	}
 }
