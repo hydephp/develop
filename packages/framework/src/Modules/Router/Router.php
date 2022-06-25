@@ -71,7 +71,19 @@ class Router implements RouterContract
         }
     }
 
-    protected function discoverRoutes(): void {}
+
+    protected function discoverRoutes(): void {
+        foreach ($this->routeModels as $model => $value) {
+            $this->discoverRoutesForModel($model);
+        }
+    }
+
+    /** @param string<Concerns\Routable> $model  */
+    protected function discoverRoutesForModel(string $model): void {
+        foreach ($model::all() as $file) {
+            $this->routes->push($this->discoverAbstract($model, $file));
+        }
+    }
 
     protected function discoverBladePages(): void {}
 
@@ -81,5 +93,8 @@ class Router implements RouterContract
 
     protected function discoverDocumentationPages(): void {}
 
-    protected function discoverAbstract(string $className): void {}
+    /** @param string<Concerns\Routable> $model */
+    protected function discoverAbstract(string $model, string $file): RouteContract {
+        return new Route($model, $file);
+    }
 }
