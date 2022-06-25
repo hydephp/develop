@@ -9,7 +9,7 @@ interface RouteFacadeContract
     /**
      * Get a Route by its generated name in dot notation.
      * @example Route::get('pages.about')
-     * @throws \Hyde\Framework\Exceptions\Modules\Router\RouteNotFoundException
+     * @throws \Hyde\Framework\Modules\Router\RouteNotFoundException
      */
     public static function get(string $key): RouteContract;
 
