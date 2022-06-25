@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Modules\Router;
 
+use Hyde\Framework\Modules\Router\Concerns\RouteContract;
 use Hyde\Framework\Modules\Router\Concerns\RouterContract;
 use Illuminate\Support\Collection;
 
@@ -18,25 +19,28 @@ class Router implements RouterContract
         return static::$instance;
     }
 
+    /** @var Collection<RouteContract> */
+    protected Collection $routes;
+
     protected function __construct()
     {
         // TODO: Implement __construct() method.
     }
 
-    
+
     public function getRoutes(): Collection
     {
-        // TODO: Implement getRoutes() method.
+        return $this->routes;
     }
 
     public function getArray(): array
     {
-        // TODO: Implement getArray() method.
+        return $this->routes->toArray();
     }
 
     public function getJson(): string
     {
-        // TODO: Implement getJson() method.
+        return $this->routes->toJson();
     }
 
 
