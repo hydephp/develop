@@ -10,6 +10,9 @@ use Hyde\Framework\Modules\Router\Concerns\RouteContract;
 use Hyde\Framework\Modules\Router\Concerns\RouterContract;
 use Illuminate\Support\Collection;
 
+/**
+ * @see \Hyde\Framework\Testing\Modules\Router\RouterTest
+ */
 class Router implements RouterContract
 {
     protected static RouterContract $instance;
