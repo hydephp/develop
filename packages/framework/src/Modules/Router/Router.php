@@ -69,11 +69,6 @@ class Router implements RouterContract
         return $this->routes->toJson();
     }
 
-    /** @param string<Concerns\RoutableContract> $model  */
-    public function registerRoutableModel(string $model): void
-    {
-        $this->routeModels[$model] = true;
-    }
 
     /** @param array<string<Concerns\RoutableContract>> $models */
     public function registerRoutableModels(array $models): void
@@ -81,6 +76,12 @@ class Router implements RouterContract
         foreach ($models as $model) {
             $this->registerRoutableModel($model);
         }
+    }
+
+    /** @param string<Concerns\RoutableContract> $model  */
+    public function registerRoutableModel(string $model): void
+    {
+        $this->routeModels[$model] = true;
     }
 
     protected function discoverRoutes(): void
