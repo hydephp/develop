@@ -18,6 +18,11 @@ class Route implements RouteContract
     protected string $sourceFile;
 
     /**
+     * @var string the route group
+     */
+    protected string $group;
+
+    /**
      * @var string the calculated route key/name
      */
     protected string $name;
@@ -28,11 +33,6 @@ class Route implements RouteContract
     protected string $path;
 
     /**
-     * @var string the route group
-     */
-    protected string $group;
-
-    /**
      * @param  string <\Hyde\Framework\Contracts\AbstractPage>  $sourceModel
      */
     public function __construct(string $sourceModel, string $sourceFile)
@@ -40,9 +40,9 @@ class Route implements RouteContract
         $this->sourceModel = $sourceModel;
         $this->sourceFile = $sourceFile;
 
+        $this->group = $this->assignRouteGroup();
         $this->name = $this->generateRouteName();
         $this->path = $this->generateOutputPath();
-        $this->group = $this->assignRouteGroup();
     }
 
     /**
