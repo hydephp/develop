@@ -17,6 +17,7 @@ interface RouteContract
 
     public function getPath(): string;
     public function getName(): string;
+    public function baseName(): string;
 
     public function __toString(): string;
 }
