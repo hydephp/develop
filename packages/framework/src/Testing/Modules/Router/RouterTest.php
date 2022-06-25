@@ -74,14 +74,6 @@ class RouterTest extends TestCase
         );
     }
 
-    public function testGetRoutesReturnsCollection()
-    {
-        $this->assertInstanceOf(
-            Collection::class,
-            Router::getInstance()->getRoutes()
-        );
-    }
-
     public function testGetArrayReturnsArray()
     {
         $this->assertIsArray(
@@ -99,4 +91,13 @@ class RouterTest extends TestCase
             Router::getInstance()->getJson()
         );
     }
+
+    public function testGetRoutesReturnsCollection()
+    {
+        $this->assertInstanceOf(
+            Collection::class,
+            Router::getInstance()->getRoutes()
+        );
+    }
+
 }
