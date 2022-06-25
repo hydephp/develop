@@ -131,7 +131,7 @@ class DataCollectionTest extends TestCase
         $this->assertCount(1, DataCollection::markdown('foo'));
         File::deleteDirectory(Hyde::path('_data/foo'));
     }
-    
+
     public function test_markdown_facade_returns_same_result_as_static_markdown_helper()
     {
         $expected = DataCollection::markdown('foo');
