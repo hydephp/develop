@@ -29,6 +29,11 @@ class Route implements RouteContract
 
 
     /**
+     * @var string the route group
+     */
+    protected string $group;
+
+    /**
      * @param string <\Hyde\Framework\Contracts\AbstractPage> $sourceModel
      */
     public function __construct(string $sourceModel, string $sourceFile)
@@ -38,6 +43,7 @@ class Route implements RouteContract
 
         $this->name = $this->generateRouteName();
         $this->path = $this->generateOutputPath();
+        $this->group = $this->assignRouteGroup();
     }
 
     /**
@@ -62,6 +68,14 @@ class Route implements RouteContract
     }
 
     /**
+     * @return string the route group
+     */
+    protected function assignRouteGroup(): string
+    {
+        return trim($this->sourceModel::$sourceDirectory, '_\\/');
+    }
+
+    /**
      * @return string the path for the compiled HTML file relative to the _site directory
      */
     public function getPath(): string
@@ -77,6 +91,16 @@ class Route implements RouteContract
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string the route group
+     * @example 'pages' for source file '_pages/about.md'
+     * @usage is useful to sort Collection routes by group
+     */
+    public function getGroup(): string
+    {
+        return $this->group;
     }
 
     /**
