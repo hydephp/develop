@@ -37,7 +37,7 @@ class Router implements RouterContract
             MarkdownPost::class,
             DocumentationPage::class,
         ]);
-        
+
         $this->discoverRoutes();
     }
 
@@ -79,22 +79,24 @@ class Router implements RouterContract
         }
     }
 
-
-    protected function discoverRoutes(): void {
+    protected function discoverRoutes(): void
+    {
         foreach ($this->routeModels as $model => $value) {
             $this->discoverRoutesForModel($model);
         }
     }
 
     /** @param string<Concerns\RoutableContract> $model  */
-    protected function discoverRoutesForModel(string $model): void {
+    protected function discoverRoutesForModel(string $model): void
+    {
         foreach ($model::all() as $file) {
             $this->routes->push($this->discoverAbstract($model, $file));
         }
     }
 
     /** @param string<Concerns\RoutableContract> $model */
-    protected function discoverAbstract(string $model, string $file): RouteContract {
+    protected function discoverAbstract(string $model, string $file): RouteContract
+    {
         return new Route($model, $file);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Concerns\HasPageMetadata;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Router\Concerns\RoutableContract;
 use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Collection;
@@ -69,11 +69,11 @@ abstract class AbstractPage implements PageContract, RoutableContract, Renderabl
 
     public function getSourceFilePath(): string
     {
-        return static::$sourceDirectory . '/' . $this->slug . static::$fileExtension;
+        return static::$sourceDirectory.'/'.$this->slug.static::$fileExtension;
     }
 
     public function getOutputFilePath(): string
     {
-        return Hyde::getSiteOutputPath(static::$outputDirectory . '/' . $this->slug . 'html');
+        return Hyde::getSiteOutputPath(static::$outputDirectory.'/'.$this->slug.'html');
     }
 }

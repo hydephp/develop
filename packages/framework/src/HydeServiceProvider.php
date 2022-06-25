@@ -48,7 +48,6 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->app->singleton(AssetServiceContract::class, AssetService::class);
 
-        
         /** @deprecated as it is redundant */
         $this->registerDefaultDirectories([
             BladePage::class => '_pages',
@@ -122,7 +121,7 @@ class HydeServiceProvider extends ServiceProvider
 
     /**
      * @deprecated will be moved to RegistersDefaultDirectories
-     * 
+     *
      * If you are loading Blade views from a different directory,
      * you need to add the path to the view.php config. This is
      * here done automatically when registering this provider.
@@ -137,7 +136,7 @@ class HydeServiceProvider extends ServiceProvider
 
     /**
      * @deprecated will be moved to RegistersDefaultDirectories
-     * 
+     *
      * The absolute path to the directory when the compiled site is stored.
      */
     protected function storeCompiledSiteIn(string $directory): void

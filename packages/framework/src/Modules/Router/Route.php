@@ -8,7 +8,7 @@ use Hyde\Framework\Modules\Router\Concerns\RouteContract;
 class Route implements RouteContract
 {
     /**
-     * @var string<\Hyde\Framework\Contracts\AbstractPage> $sourceModel
+     * @var string<\Hyde\Framework\Contracts\AbstractPage>
      */
     protected string $sourceModel;
 
@@ -27,14 +27,13 @@ class Route implements RouteContract
      */
     protected string $path;
 
-
     /**
      * @var string the route group
      */
     protected string $group;
 
     /**
-     * @param string <\Hyde\Framework\Contracts\AbstractPage> $sourceModel
+     * @param  string <\Hyde\Framework\Contracts\AbstractPage>  $sourceModel
      */
     public function __construct(string $sourceModel, string $sourceFile)
     {
@@ -51,7 +50,7 @@ class Route implements RouteContract
      */
     protected function generateRouteName(): string
     {
-        return $this->getGroup() . '.' . $this->baseName();
+        return $this->getGroup().'.'.$this->baseName();
     }
 
     /**
@@ -61,7 +60,7 @@ class Route implements RouteContract
      */
     protected function generateOutputPath(): string
     {
-        return Hyde::getSiteOutputPath($this->sourceModel::$outputDirectory . $this->baseName() . '.html');
+        return Hyde::getSiteOutputPath($this->sourceModel::$outputDirectory.$this->baseName().'.html');
     }
 
     /**
@@ -82,6 +81,7 @@ class Route implements RouteContract
 
     /**
      * @return string the generated route name in dot notation
+     *
      * @example 'pages.about' for source file '_pages/about.md'
      * @usage is used to retrieve a route from the route index
      */
@@ -92,6 +92,7 @@ class Route implements RouteContract
 
     /**
      * @return string the route group
+     *
      * @example 'pages' for source file '_pages/about.md'
      * @usage is useful to sort Collection routes by group
      */

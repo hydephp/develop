@@ -12,7 +12,10 @@ interface RouterContract
     public function registerRoutableModel(string $model): void;
 
     public function getRoute(string $name): RouteContract;
+
     public function getRoutes(): Collection;
-    public function getArray():  array;
+
+    public function getArray(): array;
+
     public function getJson(): string;
 }
