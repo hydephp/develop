@@ -4,8 +4,13 @@ namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Collection;
 
+/**
+ * Generates Laravel Collections from static data files,
+ * such as Markdown components and YAML files.
+ */
 class DataCollection extends Collection
 {
     public string $key;
@@ -38,5 +43,23 @@ class DataCollection extends Collection
         return glob(Hyde::path(
             static::$sourceDirectory . '/' . $this->key . '/*' . MarkdownDocument::$fileExtension
         ));
+    }
+
+    /**
+     * Get a collection of Markdown documents in the _data/<$key> directory.
+     * Each Markdown file will be parsed into a MarkdownDocument with front matter.
+     *
+     * @param string $key for a subdirectory of the _data directory
+     * @return DataCollection<\Hyde\Framework\Models\MarkdownDocument>
+     */
+    public static function markdown(string $key): DataCollection
+    {
+        $collection = new DataCollection($key);
+        foreach ($collection->getMarkdownFiles() as $file) {
+            $collection->push(
+                (new MarkdownFileService($file))->get()
+            );
+        }
+        return $collection->getCollection();
     }
 }
