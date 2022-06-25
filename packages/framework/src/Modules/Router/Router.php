@@ -19,7 +19,7 @@ class Router implements RouterContract
 
     public static function getInstance(): RouterContract
     {
-        if (static::$instance === null) {
+        if (! isset(static::$instance)) {
             static::$instance = new static();
         }
 
