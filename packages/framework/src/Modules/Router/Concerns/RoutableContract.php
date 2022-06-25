@@ -17,5 +17,5 @@ interface RoutableContract
     public static function files(): array;
 
     /** Resolve a slug into a Hyde relative source file path with directory and extension */
-    public static function qualifySourceFilePath(string $path): string;
+    public static function qualifySourceFilePath(string $slug): string;
 }
