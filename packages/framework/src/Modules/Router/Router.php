@@ -2,6 +2,10 @@
 
 namespace Hyde\Framework\Modules\Router;
 
+use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Modules\Router\Concerns\RouteContract;
 use Hyde\Framework\Modules\Router\Concerns\RouterContract;
 use Illuminate\Support\Collection;
@@ -9,6 +13,8 @@ use Illuminate\Support\Collection;
 class Router implements RouterContract
 {
     protected static RouterContract $instance;
+
+    protected static array $routeModels;
 
     public static function getInstance(): RouterContract
     {
@@ -24,7 +30,14 @@ class Router implements RouterContract
 
     protected function __construct()
     {
-        // TODO: Implement __construct() method.
+        $this->registerRoutableModels([
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+        ]);
+        
+        $this->discoverRoutes();
     }
 
 
@@ -43,6 +56,19 @@ class Router implements RouterContract
         return $this->routes->toJson();
     }
 
+    /** @param string<Concerns\Routable> $model  */
+    public function registerRoutableModel(string $model): void
+    {
+        static::$routeModels[$model] = true;
+    }
+
+    /** @param array<string<Concerns\Routable>> $models */
+    public function registerRoutableModels(array $models): void
+    {
+        foreach ($models as $model) {
+            $this->registerRoutableModel($model);
+        }
+    }
 
     protected function discoverRoutes(): void {}
 
