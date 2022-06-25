@@ -67,9 +67,14 @@ abstract class AbstractPage implements PageContract, RoutableContract, Renderabl
         return static::$viewKey;
     }
 
+    public static function qualifySourceFilePath(string $slug): string
+    {
+        return static::$sourceDirectory.'/'.$slug.static::$fileExtension;
+    }
+
     public function getSourceFilePath(): string
     {
-        return static::$sourceDirectory.'/'.$this->slug.static::$fileExtension;
+        return static::qualifySourceFilePath($this->slug);
     }
 
     public function getOutputFilePath(): string
