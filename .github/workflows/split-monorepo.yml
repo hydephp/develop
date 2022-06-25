@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/framework
-      url: https://github.com/hydephp/framework/tree/develop
+      url: https://github.com/hydephp/framework/tree/master
 
     steps:
     - name: Checkout hydephp/develop
@@ -38,7 +38,7 @@ jobs:
       with:
         repository: hydephp/framework
         path: framework
-        ref: develop
+        ref: master
         fetch-depth: 0
         persist-credentials: false 
         
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/realtime-compiler
-      url: https://github.com/realtime-compiler/hyde/tree/develop
+      url: https://github.com/realtime-compiler/hyde/tree/master
       
     steps:
     - name: Checkout hydephp/develop
@@ -80,7 +80,7 @@ jobs:
       with:
         repository: hydephp/realtime-compiler
         path: realtime-compiler
-        ref: develop
+        ref: master
         fetch-depth: 0
         persist-credentials: false 
     
@@ -108,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/hydefront
-      url: https://github.com/hydephp/hydefront/tree/develop
+      url: https://github.com/hydephp/hydefront/tree/master
 
     steps:
     - name: Checkout hydephp/develop
@@ -122,7 +122,7 @@ jobs:
       with:
         repository: hydephp/hydefront
         path: hydefront
-        ref: develop
+        ref: master
         fetch-depth: 0
         persist-credentials: false 
     
@@ -196,7 +196,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/hyde
-      url: https://github.com/hydephp/hyde/tree/develop
+      url: https://github.com/hydephp/hyde/tree/master
       
     steps:
     - name: Checkout hydephp/develop
@@ -210,7 +210,7 @@ jobs:
       with:
         repository: hydephp/hyde
         path: hyde
-        ref: develop
+        ref: master
         fetch-depth: 0
         persist-credentials: false 
 
