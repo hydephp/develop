@@ -54,9 +54,11 @@ class DataCollection extends Collection
     {
         $collection = new DataCollection($key);
         foreach ($collection->getMarkdownFiles() as $file) {
-            $collection->push(
-                (new MarkdownFileService($file))->get()
-            );
+            if (! str_starts_with(basename($file), '_')) {
+                $collection->push(
+                    (new MarkdownFileService($file))->get()
+                );
+            }
         }
 
         return $collection->getCollection();
