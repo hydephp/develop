@@ -10,21 +10,21 @@ class RouteFacade implements RouteFacadeContract
 {
     public static function get(string $key): RouteContract
     {
-        // TODO: Implement get() method.
+        return Router::getInstance()->getRoute($key);
     }
 
     public static function json(): string
     {
-        // TODO: Implement json() method.
+        return Router::getInstance()->getJson();
     }
 
     public static function array(): array
     {
-        // TODO: Implement array() method.
+        return Router::getInstance()->getArray();
     }
 
     public static function collection(): Collection
     {
-        // TODO: Implement collection() method.
+        return Router::getInstance()->getRoutes();
     }
 }
