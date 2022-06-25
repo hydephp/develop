@@ -5,6 +5,7 @@ namespace Hyde\Framework\Testing\Modules\DataCollections\DataCollectionTest;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Modules\DataCollections\DataCollection;
+use Hyde\Framework\Modules\DataCollections\Facades\MarkdownCollection;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -145,5 +146,15 @@ class DataCollectionTest extends TestCase
         touch(Hyde::path('_data/foo/_bar.md'));
         $this->assertCount(1, DataCollection::markdown('foo'));
         File::deleteDirectory(Hyde::path('_data/foo'));
+    }
+    
+    // test markdown facade returns same result as static markdown helper
+    public function test_markdown_facade_returns_same_result_as_static_markdown_helper()
+    {
+        $expected = DataCollection::markdown('foo');
+        $actual = MarkdownCollection::get('foo');
+        unset($expected->parseTimeInMs);
+        unset($actual->parseTimeInMs);
+        $this->assertEquals($expected, $actual);
     }
 }
