@@ -7,7 +7,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * @see \Hyde\Framework\Testing\Modules\DataCollections\DataCollectionTest\DataCollectionTest
+ * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
 class DataCollectionServiceProvider extends ServiceProvider
 {

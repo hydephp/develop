@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Modules\DataCollections\DataCollectionTest;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;

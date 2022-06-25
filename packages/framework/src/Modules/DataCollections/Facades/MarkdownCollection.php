@@ -5,7 +5,7 @@ namespace Hyde\Framework\Modules\DataCollections\Facades;
 use Hyde\Framework\Modules\DataCollections\DataCollection;
 
 /**
- * @see \Hyde\Framework\Testing\Modules\DataCollections\DataCollectionTest\DataCollectionTest
+ * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
 class MarkdownCollection
 {
