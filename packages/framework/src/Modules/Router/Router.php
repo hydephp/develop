@@ -103,4 +103,10 @@ class Router implements RouterContract
     {
         return new Route($model, $file);
     }
+
+    /** @internal */
+    public function getRegisteredRouteModels(): array
+    {
+        return $this->routeModels;
+    }
 }
