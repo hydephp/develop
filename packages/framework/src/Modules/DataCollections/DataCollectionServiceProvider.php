@@ -12,7 +12,7 @@ class DataCollectionServiceProvider extends ServiceProvider
     {
         // Register the class alias
         AliasLoader::getInstance()->alias(
-            'Collection', Facades\Collection::class
+            'Collection', Facades\MarkdownCollection::class
         );
     }
 
