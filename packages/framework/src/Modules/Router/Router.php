@@ -2,10 +2,28 @@
 
 namespace Hyde\Framework\Modules\Router;
 
+use Hyde\Framework\Modules\Router\Concerns\RouterContract;
 use Illuminate\Support\Collection;
 
-class Router implements Concerns\RouterContract
+class Router implements RouterContract
 {
+    protected static RouterContract $instance;
+
+    public static function getInstance(): RouterContract
+    {
+        if (static::$instance === null) {
+            static::$instance = new static();
+        }
+
+        return static::$instance;
+    }
+
+    protected function __construct()
+    {
+        // TODO: Implement __construct() method.
+    }
+
+    
     public function getRoutes(): Collection
     {
         // TODO: Implement getRoutes() method.
