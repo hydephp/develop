@@ -2,6 +2,10 @@
 
 namespace Hyde\Framework\Testing\Modules\Router;
 
+use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Modules\Router\Router;
 use Hyde\Testing\TestCase;
 
@@ -31,6 +35,41 @@ class RouterTest extends TestCase
         $this->assertSame(
             Router::getInstance(),
             Router::getInstance()
+        );
+    }
+
+    public function test_router_registers_default_page_models_as_routable()
+    {
+        $this->assertEquals([
+            BladePage::class => true,
+            MarkdownPage::class => true,
+            MarkdownPost::class => true,
+            DocumentationPage::class => true,
+        ],
+            Router::getInstance()->getRegisteredRouteModels()
+        );
+    }
+
+    public function test_custom_routable_models_can_be_added()
+    {
+        $router = Router::getInstance();
+        $router->registerRoutableModel('foo');
+
+        $this->assertArrayHasKey(
+            'foo', $router->getRegisteredRouteModels()
+        );
+    }
+
+    public function test_multiple_routable_models_can_be_added_at_once()
+    {
+        $router = Router::getInstance();
+        $router->registerRoutableModels(['foo', 'bar']);
+
+        $this->assertArrayHasKey(
+            'foo', $router->getRegisteredRouteModels()
+        );
+        $this->assertArrayHasKey(
+            'bar', $router->getRegisteredRouteModels()
         );
     }
 }
