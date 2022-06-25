@@ -4,6 +4,9 @@ namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\AbstractPage;
 
+/**
+ * @deprecated will be renamed to RegistersFileLocations or similar
+ */
 trait RegistersDefaultDirectories
 {
     /**
