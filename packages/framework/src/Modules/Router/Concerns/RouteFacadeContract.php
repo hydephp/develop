@@ -6,14 +6,14 @@ use Illuminate\Support\Collection;
 
 interface RouteFacadeContract
 {
-    public static function json(): string;
-    public static function array(): array;
-    public static function collection(): Collection;
-
     /**
      * Get a Route by its generated name in dot notation.
      * @example Route::get('pages.about')
      * @throws \Hyde\Framework\Exceptions\Modules\Router\RouteNotFoundException
      */
     public static function get(string $key): RouteContract;
+
+    public static function json(): string;
+    public static function array(): array;
+    public static function collection(): Collection;
 }
