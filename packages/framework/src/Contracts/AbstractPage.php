@@ -6,7 +6,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Modules\Router\Concerns\RoutableContract;
 use Hyde\Framework\Services\CollectionService;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 
 /**
