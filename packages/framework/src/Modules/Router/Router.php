@@ -96,7 +96,11 @@ class Router implements RouterContract
     protected function discoverRoutesForModel(string $model): void
     {
         foreach ($model::files() as $file) {
-            $this->routes->push($this->constructRouteForModel($model, $file));
+            $this->routes->push(
+                $this->constructRouteForModel(
+                    $model, $model::qualifySourceFilePath($file)
+                )
+            );
         }
     }
 
