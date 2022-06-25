@@ -19,12 +19,6 @@ use Illuminate\Support\Facades\File;
  */
 class DataCollectionTest extends TestCase
 {
-    // test class has static source directory property
-    public function testClassHasStaticSourceDirectoryProperty()
-    {
-        $this->assertEquals('_data', DataCollection::$sourceDirectory);
-    }
-
     // constructor creates new data collection instance
     public function test_constructor_creates_new_data_collection_instance()
     {
@@ -176,5 +170,23 @@ class DataCollectionTest extends TestCase
         (new DataCollectionServiceProvider($this->app))->boot();
 
         $this->assertFileExists(Hyde::path('_data'));
+    }
+
+    // test class has static source directory property
+    public function testClassHasStaticSourceDirectoryProperty()
+    {
+        $this->assertEquals('_data', DataCollection::$sourceDirectory);
+    }
+
+    // test source directory can be changed
+    public function testSourceDirectoryCanBeChanged()
+    {
+        DataCollection::$sourceDirectory = 'foo';
+        mkdir(Hyde::path('foo/bar'), recursive: true);
+        touch(Hyde::path('foo/bar/foo.md'));
+        $this->assertEquals([
+            Hyde::path('foo/bar/foo.md'),
+        ], (new DataCollection('bar'))->getMarkdownFiles());
+        File::deleteDirectory(Hyde::path('foo'));
     }
 }
