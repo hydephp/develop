@@ -26,7 +26,7 @@ class Router implements RouterContract
     /** @var Collection<RouteContract> */
     protected Collection $routes;
 
-    /** @var array<string<Concerns\Routable>> */
+    /** @var array<string<Concerns\RoutableContract>> */
     protected array $routeModels;
 
     protected function __construct()
@@ -57,13 +57,13 @@ class Router implements RouterContract
         return $this->routes->toJson();
     }
 
-    /** @param string<Concerns\Routable> $model  */
+    /** @param string<Concerns\RoutableContract> $model  */
     public function registerRoutableModel(string $model): void
     {
         $this->routeModels[$model] = true;
     }
 
-    /** @param array<string<Concerns\Routable>> $models */
+    /** @param array<string<Concerns\RoutableContract>> $models */
     public function registerRoutableModels(array $models): void
     {
         foreach ($models as $model) {
@@ -78,14 +78,14 @@ class Router implements RouterContract
         }
     }
 
-    /** @param string<Concerns\Routable> $model  */
+    /** @param string<Concerns\RoutableContract> $model  */
     protected function discoverRoutesForModel(string $model): void {
         foreach ($model::all() as $file) {
             $this->routes->push($this->discoverAbstract($model, $file));
         }
     }
 
-    /** @param string<Concerns\Routable> $model */
+    /** @param string<Concerns\RoutableContract> $model */
     protected function discoverAbstract(string $model, string $file): RouteContract {
         return new Route($model, $file);
     }

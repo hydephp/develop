@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Concerns\HasPageMetadata;
-use Hyde\Framework\Modules\Router\Concerns\Routable;
+use Hyde\Framework\Modules\Router\Concerns\RoutableContract;
 use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Collection;
 
@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  *
  * Markdown-based Pages should extend MarkdownDocument.
  */
-abstract class AbstractPage implements PageContract, Routable
+abstract class AbstractPage implements PageContract, RoutableContract
 {
     use HasPageMetadata;
 

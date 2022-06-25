@@ -8,7 +8,7 @@ interface RouterContract
 {
     public static function getInstance(): RouterContract;
 
-    /** @param string<Routable> $model  */
+    /** @param string<RoutableContract> $model  */
     public function registerRoutableModel(string $model): void;
 
     public function getRoutes(): Collection;
