@@ -20,6 +20,7 @@ class MarkdownPost extends MarkdownDocument
     public ?string $category;
 
     public static string $sourceDirectory = '_posts';
+    public static string $outputDirectory = 'posts/';
     public static string $parserClass = MarkdownPostParser::class;
 
     /**
