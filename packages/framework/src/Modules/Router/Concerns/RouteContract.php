@@ -11,8 +11,6 @@ interface RouteContract
 {
     public function __construct(string $sourceModel, string $sourceFile);
 
-    public function getSourceFile(): string;
-    public function getSourceModel(): string;
     public function getPath(): string;
     public function getName(): string;
 
