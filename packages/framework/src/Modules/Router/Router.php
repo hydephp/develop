@@ -14,8 +14,6 @@ class Router implements RouterContract
 {
     protected static RouterContract $instance;
 
-    protected static array $routeModels;
-
     public static function getInstance(): RouterContract
     {
         if (static::$instance === null) {
@@ -27,6 +25,9 @@ class Router implements RouterContract
 
     /** @var Collection<RouteContract> */
     protected Collection $routes;
+
+    /** @var array<string<Concerns\Routable>> */
+    protected array $routeModels;
 
     protected function __construct()
     {
@@ -59,7 +60,7 @@ class Router implements RouterContract
     /** @param string<Concerns\Routable> $model  */
     public function registerRoutableModel(string $model): void
     {
-        static::$routeModels[$model] = true;
+        $this->routeModels[$model] = true;
     }
 
     /** @param array<string<Concerns\Routable>> $models */
