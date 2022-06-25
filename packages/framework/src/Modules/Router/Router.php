@@ -49,9 +49,7 @@ class Router implements RouterContract
     {
         return $this->routes->first(function (RouteContract $route) use ($name) {
             return $route->getName() === $name;
-        });
-
-        throw new RouteNotFoundException($name);
+        }) ?? throw new RouteNotFoundException($name);
     }
 
     public function getRoutes(): Collection
