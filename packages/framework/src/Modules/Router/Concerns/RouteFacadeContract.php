@@ -10,6 +10,10 @@ interface RouteFacadeContract
     public static function array(): array;
     public static function collection(): Collection;
 
-    /** @throws \Hyde\Framework\Exceptions\Modules\Router\RouteNotFoundException */
+    /**
+     * Get a Route by its generated name in dot notation.
+     * @example Route::get('pages.about')
+     * @throws \Hyde\Framework\Exceptions\Modules\Router\RouteNotFoundException
+     */
     public static function get(string $key): RouteContract;
 }
