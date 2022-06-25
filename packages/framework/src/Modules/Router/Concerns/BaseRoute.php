@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Modules\Router\Concerns;
 
+use Hyde\Framework\Hyde;
+
 abstract class BaseRoute implements RouteContract
 {
     /**
@@ -24,9 +26,68 @@ abstract class BaseRoute implements RouteContract
      */
     protected string $path;
 
+
+    /**
+     * @param string <\Hyde\Framework\Contracts\AbstractPage> $sourceModel
+     */
     public function __construct(string $sourceModel, string $sourceFile)
     {
         $this->sourceModel = $sourceModel;
         $this->sourceFile = $sourceFile;
+
+        $this->name = $this->generateRouteName();
+        $this->path = $this->generateOutputPath();
+    }
+
+    /**
+     * @return string the calculated route key/name
+     */
+    protected function generateRouteName(): string
+    {
+        $sourceDirectory = trim($this->sourceModel::$sourceDirectory, '_\\/');
+        $sourceFileBasename = basename($this->sourceFile);
+
+        return $sourceDirectory . '.' . $sourceFileBasename;
+    }
+
+    /**
+     * @return string the absolute path to the output HTML file
+     * @usage for the static site builder to output the file
+     * @usage can also be used to calculate relative links
+     */
+    protected function generateOutputPath(): string
+    {
+        return Hyde::getSiteOutputPath($this->sourceModel::$outputDirectory . $this->baseName() . '.html');
+    }
+
+    /**
+     * @return string the path for the compiled HTML file relative to the _site directory
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @return string the generated route name in dot notation
+     * @example 'pages.about' for source file '_pages/about.md'
+     * @usage is used to retrieve a route from the route index
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string the base name of the file
+     */
+    public function baseName(): string
+    {
+        return basename($this->sourceFile, $this->sourceModel::$fileExtension);
+    }
+
+    public function __toString(): string
+    {
+        return $this->path;
     }
 }
