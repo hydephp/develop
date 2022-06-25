@@ -1,10 +1,11 @@
 <?php
 
-namespace Hyde\Framework\Modules\Router\Concerns;
+namespace Hyde\Framework\Modules\Router;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Modules\Router\Concerns\RouteContract;
 
-abstract class BaseRoute implements RouteContract
+class Route implements RouteContract
 {
     /**
      * @var string<\Hyde\Framework\Contracts\AbstractPage> $sourceModel
