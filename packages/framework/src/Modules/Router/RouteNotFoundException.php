@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Modules\Router;
 
+/**
+ * @deprecated may be moved to \Hyde\Framework\Exceptions\RouteNotFoundException
+ */
 class RouteNotFoundException extends \Exception
 {
     /**
