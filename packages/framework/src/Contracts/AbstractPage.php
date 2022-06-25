@@ -5,6 +5,7 @@ namespace Hyde\Framework\Contracts;
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Modules\Router\Concerns\RoutableContract;
 use Hyde\Framework\Services\CollectionService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 
 /**
@@ -13,7 +14,7 @@ use Illuminate\Support\Collection;
  *
  * Markdown-based Pages should extend MarkdownDocument.
  */
-abstract class AbstractPage implements PageContract, RoutableContract
+abstract class AbstractPage implements PageContract, RoutableContract, RenderableContract
 {
     use HasPageMetadata;
 
@@ -21,6 +22,7 @@ abstract class AbstractPage implements PageContract, RoutableContract
     public static string $outputDirectory;
     public static string $fileExtension;
     public static string $parserClass;
+    public static string $viewKey;
 
     public string $slug;
 
@@ -58,5 +60,20 @@ abstract class AbstractPage implements PageContract, RoutableContract
     public static function getRouteOutputPath(): string
     {
         return static::$outputDirectory;
+    }
+
+    public static function getViewKey(): string
+    {
+        return static::$viewKey;
+    }
+
+    public function getSourceFilePath(): string
+    {
+        return static::$sourceDirectory . '/' . $this->slug . static::$fileExtension;
+    }
+
+    public function getOutputFilePath(): string
+    {
+        return static::$outputDirectory . '/' . $this->slug . 'html';
     }
 }
