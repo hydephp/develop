@@ -20,7 +20,7 @@ trait ValidatesExistence
     public function validateExistence(string $model, string $slug): void
     {
         /** @var \Hyde\Framework\Contracts\AbstractPage $model */
-        $filepath = $model::$sourceDirectory.'/'.
+        $filepath = $model::getSourceDirectory().'/'.
             $slug.$model::$fileExtension;
 
         if (! file_exists(Hyde::path($filepath))) {
