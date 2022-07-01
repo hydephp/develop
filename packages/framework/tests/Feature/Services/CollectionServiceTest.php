@@ -44,10 +44,9 @@ class CollectionServiceTest extends TestCase
 
     public function test_get_source_file_list_for_model_method()
     {
-        $this->testListUnit(BladePage::class, '_pages/foo.blade.php');
-        $this->testListUnit(MarkdownPage::class, '_pages/foo.md');
-        $this->testListUnit(MarkdownPost::class, '_posts/foo.md');
-        $this->testListUnit(DocumentationPage::class, '_docs/foo.md');
+        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, '_pages/foo.md');
+        $this->unitTestMarkdownBasedPageList(MarkdownPost::class, '_posts/foo.md');
+        $this->unitTestMarkdownBasedPageList(DocumentationPage::class, '_docs/foo.md');
 
         $this->assertFalse(CollectionService::getSourceFileListForModel('NonExistentModel'));
     }
@@ -95,13 +94,13 @@ class CollectionServiceTest extends TestCase
         unlink(Hyde::path('_posts/_foo.md'));
     }
 
-    private function testListUnit(string $model, string $path)
+    protected function unitTestMarkdownBasedPageList(string $model, string $path)
     {
         touch(Hyde::path($path));
 
-        $expected = str_replace(['.md', '.blade.php'], '', basename($path));
+        $expected = basename($path,'.md');
 
-        $this->assertContains($expected, CollectionService::getSourceFileListForModel($model));
+        $this->assertEquals([$expected], CollectionService::getSourceFileListForModel($model));
 
         unlink(Hyde::path($path));
     }
