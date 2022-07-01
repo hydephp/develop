@@ -37,13 +37,14 @@ interface PageContract
     public static function getParser(string $slug): PageParserContract;
 
     /**
-     * Get a collection of all pages, parsed into page models.
+     * Parse a source file slug into a page model.
      *
-     * @return \Illuminate\Support\Collection<static>
+     * @param  string  $slug
+     * @return static New page model instance for the parsed source file.
      *
-     * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
+     * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function all(): Collection;
+    public static function parse(string $slug): static;
 
     /**
      * Get an array of all the source file slugs for the model.
@@ -56,12 +57,11 @@ interface PageContract
     public static function files(): array;
 
     /**
-     * Parse a source file slug into a page model.
+     * Get a collection of all pages, parsed into page models.
      *
-     * @param  string  $slug
-     * @return static New page model instance for the parsed source file.
+     * @return \Illuminate\Support\Collection<static>
      *
-     * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
+     * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
-    public static function parse(string $slug): static;
+    public static function all(): Collection;
 }

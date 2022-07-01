@@ -56,15 +56,9 @@ abstract class AbstractPage implements PageContract
     }
 
     /** @inheritDoc */
-    public static function all(): Collection
+    public static function parse(string $slug): static
     {
-        $collection = new Collection();
-
-        foreach (CollectionService::getSourceFileListForModel(static::class) as $basename) {
-            $collection->push((static::getParser($basename))->get());
-        }
-
-        return $collection;
+        return (new static::$parserClass($slug))->get();
     }
 
     /** @inheritDoc */
@@ -74,9 +68,15 @@ abstract class AbstractPage implements PageContract
     }
 
     /** @inheritDoc */
-    public static function parse(string $slug): static
+    public static function all(): Collection
     {
-        return (new static::$parserClass($slug))->get();
+        $collection = new Collection();
+
+        foreach (CollectionService::getSourceFileListForModel(static::class) as $basename) {
+            $collection->push((static::getParser($basename))->get());
+        }
+
+        return $collection;
     }
 
 
