@@ -53,9 +53,9 @@ interface PageContract
      * Parse a source file slug into a page model.
      *
      * @param  string  $slug
-     * @return \Hyde\Framework\Contracts\AbstractPage
+     * @return static New page model instance for the parsed source file.
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): AbstractPage;
+    public static function parse(string $slug): static;
 }
