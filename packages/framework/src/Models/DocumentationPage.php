@@ -33,7 +33,7 @@ class DocumentationPage extends MarkdownDocument
     }
 
     /**
-     * @since v0.39.x (replaces `Hyde::docsDirectory()`)
+     * @since 0.39.x (replaces `Hyde::docsDirectory()`)
      * @deprecated v0.44.x (handled in the page model property `outputDirectory`)
      */
     public static function getDocumentationOutputPath(): string

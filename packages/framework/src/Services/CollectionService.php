@@ -72,7 +72,7 @@ class CollectionService
     /**
      * Get all the Blade files in the resources/views/vendor/hyde/pages directory.
      *
-     * @since v0.44.x replaces getBladePageList
+     * @since 0.44.x replaces getBladePageList
      *
      * @return array
      */
@@ -84,7 +84,7 @@ class CollectionService
     /**
      * Get all the Markdown files in the _pages directory.
      *
-     * @since v0.44.x replaces getMarkdownPageList
+     * @since 0.44.x replaces getMarkdownPageList
      *
      * @return array
      */
@@ -96,7 +96,7 @@ class CollectionService
     /**
      * Get all the Markdown files in the _posts directory.
      *
-     * @since v0.44.x replaces getMarkdownPostList
+     * @since 0.44.x replaces getMarkdownPostList
      *
      * @return array
      */
@@ -108,7 +108,7 @@ class CollectionService
     /**
      * Get all the Markdown files in the _docs directory.
      *
-     * @since v0.44.x replaces getDocumentationPageList
+     * @since 0.44.x replaces getDocumentationPageList
      *
      * @return array
      */

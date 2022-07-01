@@ -40,7 +40,7 @@ class AssetService implements AssetServiceContract
     /**
      * Alias for constructCdnPath.
      *
-     * @since v0.41.x
+     * @since 0.41.x
      */
     public function cdnLink(string $file): string
     {
