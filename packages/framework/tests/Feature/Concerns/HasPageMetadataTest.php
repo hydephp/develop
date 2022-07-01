@@ -24,15 +24,20 @@ class HasPageMetadataTest extends TestCase
         config(['hyde.generate_sitemap' => false]);
     }
 
-    public function test_get_canonical_url_returns_url_for_top_level_page()
+    protected function makePage(): AbstractPage
     {
-        $page = new class extends AbstractPage
+        return new class extends AbstractPage
         {
             use HasPageMetadata;
 
             public string $slug = 'foo';
             public static string $outputDirectory = '';
         };
+    }
+
+    public function test_get_canonical_url_returns_url_for_top_level_page()
+    {
+        $page = $this->makePage();
         config(['hyde.site_url' => 'https://example.com']);
 
         $this->assertEquals('https://example.com/foo.html', $page->getCanonicalUrl());
@@ -40,13 +45,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_canonical_url_returns_pretty_url_for_top_level_page()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-        };
+        $page = $this->makePage();
         config(['hyde.site_url' => 'https://example.com']);
         config(['hyde.pretty_urls' => true]);
 
@@ -93,13 +92,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_can_use_canonical_url_returns_true_when_both_uri_path_and_slug_is_set()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-        };
+        $page = $this->makePage();
         config(['hyde.site_url' => 'https://example.com']);
 
         $this->assertTrue($page->canUseCanonicalUrl());
@@ -144,13 +137,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_render_page_metadata_returns_string_with_merged_metadata()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-        };
+        $page = $this->makePage();
         config(['hyde.site_url' => 'https://example.com']);
 
         config(['hyde.meta' => [
@@ -166,13 +153,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_render_page_metadata_only_adds_canonical_if_conditions_are_met()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-        };
+        $page = $this->makePage();
 
         $this->assertEquals(
             '',
@@ -182,13 +163,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_only_adds_canonical_if_conditions_are_met()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-        };
+        $page = $this->makePage();
 
         $this->assertEquals(
             [],
@@ -198,13 +173,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_adds_canonical_url_when_conditions_are_met()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-        };
+        $page = $this->makePage();
         config(['hyde.site_url' => 'https://example.com']);
 
         config(['hyde.meta' => [
