@@ -38,12 +38,45 @@ class CollectionService
     }
 
     /**
-     * Get all the Blade files in the resources/views/vendor/hyde/pages directory.
-     *
-     * @deprecated v0.44.x Will be renamed to getBladePageFiles
-     * @return array
+     * @deprecated v0.44.x Is renamed to getBladePageFiles
      */
     public static function getBladePageList(): array
+    {
+        return static::getBladePageFiles();
+    }
+
+    /**
+     * @deprecated v0.44.x Is renamed to getMarkdownPageFiles
+     */
+    public static function getMarkdownPageList(): array
+    {
+        return static::getMarkdownPageFiles();
+    }
+
+    /**
+     * @deprecated v0.44.x Is renamed to getMarkdownPostFiles
+     */
+    public static function getMarkdownPostList(): array
+    {
+        return static::getMarkdownPostFiles();
+    }
+
+    /**
+     * @deprecated v0.44.x Is renamed to getDocumentationPageFiles
+     */
+    public static function getDocumentationPageList(): array
+    {
+        return static::getDocumentationPageFiles();
+    }
+
+
+    /**
+     * Get all the Blade files in the resources/views/vendor/hyde/pages directory.
+     *
+     * @since v0.44.x replaces getBladePageList
+     * @return array
+     */
+    public static function getBladePageFiles(): array
     {
         return static::getSourceFileListForModel(BladePage::class);
     }
@@ -51,10 +84,10 @@ class CollectionService
     /**
      * Get all the Markdown files in the _pages directory.
      *
-     * @deprecated v0.44.x Will be renamed to getMarkdownPageFiles
+     * @since v0.44.x replaces getMarkdownPageList
      * @return array
      */
-    public static function getMarkdownPageList(): array
+    public static function getMarkdownPageFiles(): array
     {
         return static::getSourceFileListForModel(MarkdownPage::class);
     }
@@ -62,10 +95,10 @@ class CollectionService
     /**
      * Get all the Markdown files in the _posts directory.
      *
-     * @deprecated v0.44.x Will be renamed to getMarkdownPostFiles
+     * @since v0.44.x replaces getMarkdownPostList
      * @return array
      */
-    public static function getMarkdownPostList(): array
+    public static function getMarkdownPostFiles(): array
     {
         return static::getSourceFileListForModel(MarkdownPost::class);
     }
@@ -73,10 +106,10 @@ class CollectionService
     /**
      * Get all the Markdown files in the _docs directory.
      *
-     * @deprecated v0.44.x Will be renamed to getDocumentationPageFiles
+     * @since v0.44.x replaces getDocumentationPageList
      * @return array
      */
-    public static function getDocumentationPageList(): array
+    public static function getDocumentationPageFiles(): array
     {
         return static::getSourceFileListForModel(DocumentationPage::class);
     }
