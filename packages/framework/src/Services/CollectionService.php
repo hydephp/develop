@@ -55,7 +55,7 @@ class CollectionService
 
         foreach (glob(Hyde::path(BladePage::qualifyBasename('*'))) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.blade.php');
+                $array[] = basename($filepath, BladePage::getFileExtension());
             }
         }
 
@@ -73,7 +73,7 @@ class CollectionService
 
         foreach (glob(Hyde::path(MarkdownPage::qualifyBasename('*'))) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.md');
+                $array[] = basename($filepath, MarkdownPage::getFileExtension());
             }
         }
 
@@ -91,7 +91,7 @@ class CollectionService
 
         foreach (glob(Hyde::path(MarkdownPost::qualifyBasename('*'))) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.md');
+                $array[] = basename($filepath, MarkdownPost::getFileExtension());
             }
         }
 
@@ -109,7 +109,7 @@ class CollectionService
 
         foreach (glob(Hyde::path(DocumentationPage::qualifyBasename('*'))) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.md');
+                $array[] = basename($filepath, DocumentationPage::getFileExtension());
             }
         }
 
