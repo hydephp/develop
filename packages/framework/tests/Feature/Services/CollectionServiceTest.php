@@ -20,6 +20,28 @@ class CollectionServiceTest extends TestCase
         $this->assertTrue(class_exists(CollectionService::class));
     }
 
+    public function test_get_source_file_list_for_blade_page() {
+        $this->assertEquals(['404', 'index'], CollectionService::getBladePageList());
+    }
+
+    public function test_get_source_file_list_for_markdown_page() {
+        touch(Hyde::path('_pages/foo.md'));
+        $this->assertEquals(['foo'], CollectionService::getMarkdownPageList());
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_get_source_file_list_for_markdown_post() {
+        touch(Hyde::path('_posts/foo.md'));
+        $this->assertEquals(['foo'], CollectionService::getMarkdownPostList());
+        unlink(Hyde::path('_posts/foo.md'));
+    }
+
+    public function test_get_source_file_list_for_documentation_page() {
+        touch(Hyde::path('_docs/foo.md'));
+        $this->assertEquals(['foo'], CollectionService::getDocumentationPageList());
+        unlink(Hyde::path('_docs/foo.md'));
+    }
+
     public function test_get_source_file_list_for_model_method()
     {
         $this->testListUnit(BladePage::class, '_pages/foo.blade.php');
