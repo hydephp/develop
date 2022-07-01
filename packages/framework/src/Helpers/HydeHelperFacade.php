@@ -26,6 +26,6 @@ trait HydeHelperFacade
      */
     public static function makeTitle(string $slug): string
     {
-        return Str::title(str_replace(['-', '_'], ' ', ($slug)));
+        return Str::headline($slug);
     }
 }
