@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
@@ -25,95 +26,95 @@ class CollectionService
      */
     public static function getSourceFileListForModel(string $model): array|false
     {
-        if ($model == BladePage::class) {
-            return self::getBladePageList();
+        if (! class_exists($model) || ! is_subclass_of($model, AbstractPage::class)) {
+            return false;
         }
 
-        if ($model == MarkdownPage::class) {
-            return self::getMarkdownPageList();
-        }
+        return array_map(function ($filepath) use ($model) {
+            if (! str_starts_with(basename($filepath), '_')) {
+                return basename($filepath, $model::getFileExtension());
+            }
+        }, glob(Hyde::path($model::qualifyBasename('*'))));
+    }
 
-        if ($model == MarkdownPost::class) {
-            return self::getMarkdownPostList();
-        }
+    /**
+     * @deprecated v0.44.x Is renamed to getBladePageFiles
+     */
+    public static function getBladePageList(): array
+    {
+        return static::getBladePageFiles();
+    }
 
-        if ($model == DocumentationPage::class) {
-            return self::getDocumentationPageList();
-        }
+    /**
+     * @deprecated v0.44.x Is renamed to getMarkdownPageFiles
+     */
+    public static function getMarkdownPageList(): array
+    {
+        return static::getMarkdownPageFiles();
+    }
 
-        return false;
+    /**
+     * @deprecated v0.44.x Is renamed to getMarkdownPostFiles
+     */
+    public static function getMarkdownPostList(): array
+    {
+        return static::getMarkdownPostFiles();
+    }
+
+    /**
+     * @deprecated v0.44.x Is renamed to getDocumentationPageFiles
+     */
+    public static function getDocumentationPageList(): array
+    {
+        return static::getDocumentationPageFiles();
     }
 
     /**
      * Get all the Blade files in the resources/views/vendor/hyde/pages directory.
      *
+     * @since v0.44.x replaces getBladePageList
+     *
      * @return array
      */
-    public static function getBladePageList(): array
+    public static function getBladePageFiles(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(BladePage::qualifyBasename('*'))) as $filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.blade.php');
-            }
-        }
-
-        return $array;
+        return static::getSourceFileListForModel(BladePage::class);
     }
 
     /**
      * Get all the Markdown files in the _pages directory.
      *
+     * @since v0.44.x replaces getMarkdownPageList
+     *
      * @return array
      */
-    public static function getMarkdownPageList(): array
+    public static function getMarkdownPageFiles(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(MarkdownPage::qualifyBasename('*'))) as $filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.md');
-            }
-        }
-
-        return $array;
+        return static::getSourceFileListForModel(MarkdownPage::class);
     }
 
     /**
      * Get all the Markdown files in the _posts directory.
      *
+     * @since v0.44.x replaces getMarkdownPostList
+     *
      * @return array
      */
-    public static function getMarkdownPostList(): array
+    public static function getMarkdownPostFiles(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(MarkdownPost::qualifyBasename('*'))) as $filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.md');
-            }
-        }
-
-        return $array;
+        return static::getSourceFileListForModel(MarkdownPost::class);
     }
 
     /**
      * Get all the Markdown files in the _docs directory.
      *
+     * @since v0.44.x replaces getDocumentationPageList
+     *
      * @return array
      */
-    public static function getDocumentationPageList(): array
+    public static function getDocumentationPageFiles(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(DocumentationPage::qualifyBasename('*'))) as $filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, '.md');
-            }
-        }
-
-        return $array;
+        return static::getSourceFileListForModel(DocumentationPage::class);
     }
 
     /**

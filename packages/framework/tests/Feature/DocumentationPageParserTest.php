@@ -75,4 +75,10 @@ class DocumentationPageParserTest extends TestCase
         $this->assertEquals("# PHPUnit Test File \n Hello World!", $object->body);
         $this->assertEquals('phpunit-test', $object->slug);
     }
+
+    public function test_cleanup()
+    {
+        unlink(Hyde::path('_docs/phpunit-test.md'));
+        $this->assertTrue(true);
+    }
 }

@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Contracts\AbstractBuildTask;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Testing\TestCase;
 
@@ -24,6 +25,8 @@ class BuildHookServiceTest extends TestCase
             ->expectsOutputToContain('Generating sitemap')
             ->expectsOutputToContain('Created sitemap.xml')
             ->assertExitCode(0);
+
+        unlink(Hyde::path('_site/sitemap.xml'));
     }
 
     /**
