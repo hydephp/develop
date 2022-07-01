@@ -43,13 +43,7 @@ class BladePage extends AbstractPage implements PageParserContract
     public static string $fileExtension = '.blade.php';
     public static string $parserClass = self::class;
 
-
-    public function getCurrentPagePath(): string
-    {
-        return $this->view;
-    }
-
-
+    
     /**
      * Since this model also acts as a Blade View compiler,
      * we implement the get method for compatability.
