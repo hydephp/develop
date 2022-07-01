@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
@@ -21,23 +20,27 @@ class CollectionServiceTest extends TestCase
         $this->assertTrue(class_exists(CollectionService::class));
     }
 
-    public function test_get_source_file_list_for_blade_page() {
+    public function test_get_source_file_list_for_blade_page()
+    {
         $this->assertEquals(['404', 'index'], CollectionService::getBladePageList());
     }
 
-    public function test_get_source_file_list_for_markdown_page() {
+    public function test_get_source_file_list_for_markdown_page()
+    {
         touch(Hyde::path('_pages/foo.md'));
         $this->assertEquals(['foo'], CollectionService::getMarkdownPageList());
         unlink(Hyde::path('_pages/foo.md'));
     }
 
-    public function test_get_source_file_list_for_markdown_post() {
+    public function test_get_source_file_list_for_markdown_post()
+    {
         touch(Hyde::path('_posts/foo.md'));
         $this->assertEquals(['foo'], CollectionService::getMarkdownPostList());
         unlink(Hyde::path('_posts/foo.md'));
     }
 
-    public function test_get_source_file_list_for_documentation_page() {
+    public function test_get_source_file_list_for_documentation_page()
+    {
         touch(Hyde::path('_docs/foo.md'));
         $this->assertEquals(['foo'], CollectionService::getDocumentationPageList());
         unlink(Hyde::path('_docs/foo.md'));
@@ -138,7 +141,7 @@ class CollectionServiceTest extends TestCase
     {
         touch(Hyde::path($path));
 
-        $expected = $expected ?? basename($path,'.md');
+        $expected = $expected ?? basename($path, '.md');
 
         $this->assertEquals([$expected], CollectionService::getSourceFileListForModel($model));
 

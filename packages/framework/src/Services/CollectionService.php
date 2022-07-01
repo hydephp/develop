@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
@@ -69,11 +69,11 @@ class CollectionService
         return static::getDocumentationPageFiles();
     }
 
-
     /**
      * Get all the Blade files in the resources/views/vendor/hyde/pages directory.
      *
      * @since v0.44.x replaces getBladePageList
+     *
      * @return array
      */
     public static function getBladePageFiles(): array
@@ -85,6 +85,7 @@ class CollectionService
      * Get all the Markdown files in the _pages directory.
      *
      * @since v0.44.x replaces getMarkdownPageList
+     *
      * @return array
      */
     public static function getMarkdownPageFiles(): array
@@ -96,6 +97,7 @@ class CollectionService
      * Get all the Markdown files in the _posts directory.
      *
      * @since v0.44.x replaces getMarkdownPostList
+     *
      * @return array
      */
     public static function getMarkdownPostFiles(): array
@@ -107,6 +109,7 @@ class CollectionService
      * Get all the Markdown files in the _docs directory.
      *
      * @since v0.44.x replaces getDocumentationPageList
+     *
      * @return array
      */
     public static function getDocumentationPageFiles(): array
