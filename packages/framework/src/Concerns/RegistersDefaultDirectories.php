@@ -12,7 +12,7 @@ trait RegistersDefaultDirectories
      * @param  array  $directoryMapping
      * @return void
      */
-    protected function registerDefaultDirectories(array $directoryMapping): void
+    protected function registerSourceDirectories(array $directoryMapping): void
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var AbstractPage $class */

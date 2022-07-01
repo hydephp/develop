@@ -48,7 +48,7 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->app->singleton(AssetServiceContract::class, AssetService::class);
 
-        $this->registerDefaultDirectories([
+        $this->registerSourceDirectories([
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
