@@ -45,17 +45,4 @@ class DocumentationPage extends MarkdownDocument
     {
         return trim(config('docs.output_directory', 'docs'), '/\\');
     }
-
-    /**
-     * @internal for compatibility until the service provider bootstraps the page path
-     * @deprecated
-     */
-    public static function getOutputLocation(string $basename): string
-    {
-        return trim(
-                static::getDocumentationOutputPath() . '/' . trim($basename, '\\/'), '/'
-            ) . '.html';
-    }
-
-
 }

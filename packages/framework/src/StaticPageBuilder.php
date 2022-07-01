@@ -48,9 +48,6 @@ class StaticPageBuilder
         $this->needsDirectory(static::$outputPath);
         $this->needsDirectory(Hyde::getSiteOutputPath($this->page::getOutputDirectory()));
 
-        /** @deprecated */
-        $this->needsDirectory(Hyde::getSiteOutputPath(Hyde::getDocumentationOutputDirectory()));
-
         if ($this->page instanceof BladePage) {
             return $this->save($this->compileView());
         }
