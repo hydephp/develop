@@ -17,6 +17,7 @@ abstract class AbstractPage implements PageContract
     use HasPageMetadata;
 
     public static string $sourceDirectory;
+    public static string $outputDirectory;
     public static string $fileExtension;
     public static string $parserClass;
 
