@@ -31,7 +31,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Remove unused `$withoutNavigation` variable from the app layout.
 
 ### Fixed
 - for any bug fixes.
