@@ -82,9 +82,10 @@ interface PageContract
 
 
     /**
-     * Get the uri path relative to the site root.
+     * Get the URI path relative to the site root.
      * @example if the compiled page will be saved to _site/docs/index.html,
      *          then this method will return 'docs/index'
+     * @return string URI path relative to the site root.
      */
     public function getCurrentPagePath(): string;
 }
