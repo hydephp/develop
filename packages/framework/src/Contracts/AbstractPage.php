@@ -101,6 +101,6 @@ abstract class AbstractPage implements PageContract
 
     public function getCurrentPagePath(): string
     {
-        return $this->slug;
+        return trim(static::getOutputDirectory() . '/' .  $this->slug, '/');
     }
 }
