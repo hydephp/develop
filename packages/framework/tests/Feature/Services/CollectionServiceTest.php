@@ -47,7 +47,10 @@ class CollectionServiceTest extends TestCase
         $this->unitTestMarkdownBasedPageList(MarkdownPage::class, '_pages/foo.md');
         $this->unitTestMarkdownBasedPageList(MarkdownPost::class, '_posts/foo.md');
         $this->unitTestMarkdownBasedPageList(DocumentationPage::class, '_docs/foo.md');
+    }
 
+    public function test_get_source_file_list_returns_false_for_invalid_method()
+    {
         $this->assertFalse(CollectionService::getSourceFileListForModel('NonExistentModel'));
     }
 
