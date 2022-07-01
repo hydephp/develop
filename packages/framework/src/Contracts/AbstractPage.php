@@ -60,8 +60,8 @@ abstract class AbstractPage implements PageContract
     {
         $collection = new Collection();
 
-        foreach (CollectionService::getSourceFileListForModel(static::class) as $filepath) {
-            $collection->push((new static::$parserClass($filepath))->get());
+        foreach (CollectionService::getSourceFileListForModel(static::class) as $basename) {
+            $collection->push((static::getParser($basename))->get());
         }
 
         return $collection;
