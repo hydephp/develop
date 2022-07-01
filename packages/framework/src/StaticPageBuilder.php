@@ -73,7 +73,7 @@ class StaticPageBuilder
      */
     private function save(string $contents): string
     {
-        $path = Hyde::getSiteOutputPath($this->page::getOutputLocation($this->page->slug));
+        $path = Hyde::getSiteOutputPath($this->page->getOutputPath());
 
         file_put_contents($path, $contents);
 
