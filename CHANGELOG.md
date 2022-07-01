@@ -24,7 +24,7 @@ This serves two purposes:
 The Hyde::titleFromSlug() helper is internally moved and is referenced through the new Hyde::makeTitle() helper which is an improved version, with a more general name.
 
 ### Added
-- for new features.
+- Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug().
 
 ### Changed
 - for changes in existing functionality.
