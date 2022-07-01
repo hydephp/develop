@@ -31,6 +31,12 @@ interface PageContract
     public static function getParserClass(): string;
 
     /**
+     * Create and return a new PageParser instance for this model,
+     * with the given slug passed to the constructor.
+     */
+    public static function getParser(string $slug): PageParserContract;
+
+    /**
      * Get a collection of all pages, parsed into page models.
      *
      * @return \Illuminate\Support\Collection<static>

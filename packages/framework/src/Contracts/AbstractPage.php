@@ -47,6 +47,13 @@ abstract class AbstractPage implements PageContract
         return static::$parserClass;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public static function getParser(string $slug): PageParserContract
+    {
+        return (new static::$parserClass($slug));
+    }
 
     /** @inheritDoc */
     public static function all(): Collection
