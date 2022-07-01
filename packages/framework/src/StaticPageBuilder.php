@@ -52,30 +52,29 @@ class StaticPageBuilder
         $this->needsDirectory(Hyde::getSiteOutputPath(Hyde::getDocumentationOutputDirectory()));
 
         if ($this->page instanceof BladePage) {
-            return $this->save($this->page->view, $this->compileView());
+            return $this->save($this->compileView());
         }
 
         if ($this->page instanceof MarkdownPost) {
-            return $this->save('posts/'.$this->page->slug, $this->compilePost());
+            return $this->save($this->compilePost());
         }
 
         if ($this->page instanceof MarkdownPage) {
-            return $this->save($this->page->slug, $this->compilePage());
+            return $this->save($this->compilePage());
         }
 
         if ($this->page instanceof DocumentationPage) {
-            return $this->save(Hyde::getDocumentationOutputDirectory().'/'.$this->page->slug, $this->compileDocs());
+            return $this->save($this->compileDocs());
         }
     }
 
     /**
      * Save the compiled HTML to file.
      *
-     * @param  string  $location  of the output file relative to the site output directory
      * @param  string  $contents  to save to the file
      * @return string the path to the saved file (since v0.32.x)
      */
-    private function save(string $location, string $contents): string
+    private function save(string $contents): string
     {
         $path = Hyde::getSiteOutputPath($this->page::getOutputLocation($this->page->slug));
 
