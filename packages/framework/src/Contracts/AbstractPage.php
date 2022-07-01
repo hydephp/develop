@@ -16,18 +16,31 @@ abstract class AbstractPage implements PageContract
 {
     use HasPageMetadata;
 
+    /**
+     * The directory in where source files are stored.
+     * Relative to the root of the project.
+     */
     public static string $sourceDirectory;
+
+    /**
+     * The output subdirectory to store compiled HTML.
+     * Relative to the site output directory.
+     */
     public static string $outputDirectory;
+
+    /**
+     * The file extension of the source file (e.g. ".md").
+     */
     public static string $fileExtension;
+
+    /**
+     * The class that parses source files into page models.
+     * @var string<\Hyde\Framework\Contracts\PageParserContract>
+     */
     public static string $parserClass;
 
-    public string $slug;
 
-    public function getCurrentPagePath(): string
-    {
-        return $this->slug;
-    }
-
+    /** @inheritDoc */
     public static function all(): Collection
     {
         $collection = new Collection();
@@ -39,13 +52,23 @@ abstract class AbstractPage implements PageContract
         return $collection;
     }
 
+    /** @inheritDoc */
     public static function files(): array
     {
         return CollectionService::getSourceFileListForModel(static::class);
     }
 
+    /** @inheritDoc */
     public static function parse(string $slug): AbstractPage
     {
         return (new static::$parserClass($slug))->get();
+    }
+
+
+    public string $slug;
+
+    public function getCurrentPagePath(): string
+    {
+        return $this->slug;
     }
 }
