@@ -26,13 +26,13 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
     {
-        return static::$sourceDirectory;
+        return trim(static::$sourceDirectory, '\\/');
     }
 
     /** @inheritDoc */
     final public static function getOutputDirectory(): string
     {
-        return static::$outputDirectory;
+        return trim(static::$outputDirectory, '\\/');
     }
 
     /** @inheritDoc */
