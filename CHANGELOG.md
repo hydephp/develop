@@ -21,19 +21,17 @@ This serves two purposes:
 1. People can see what changes they might expect in upcoming releases
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
-The Hyde::titleFromSlug() helper is internally moved and is referenced through the new Hyde::makeTitle() helper which is an improved version, with a more general name.
-
 ### Added
-- Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug().
+- Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug()
 
 ### Changed
-- Updates the codebase to use the new Hyde::makeTitle() helper.
+- Updates the codebase to use the new Hyde::makeTitle() helper
 
 ### Deprecated
-- Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead.
+- Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead
 
 ### Removed
-- Remove unused `$withoutNavigation` variable from the app layout.
+- Remove unused `$withoutNavigation` variable from the app layout
 
 ### Fixed
 - Fix style bug https://github.com/hydephp/develop/issues/117, Hyde title helper should not capitalize non-principal words
