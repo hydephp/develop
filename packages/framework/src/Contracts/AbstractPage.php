@@ -85,6 +85,17 @@ abstract class AbstractPage implements PageContract
         return static::getSourceDirectory() . '/' . trim($basename, '\\/') . static::getFileExtension();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public static function getOutputLocation(string $basename): string
+    {
+        // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
+        return trim(
+            static::getOutputDirectory() . '/' . trim($basename, '\\/') . static::getFileExtension(), '/'
+        ) . '.html';
+    }
+
 
     public string $slug;
 

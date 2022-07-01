@@ -71,4 +71,12 @@ interface PageContract
      * @return string  path to the file relative to project root
      */
     public static function qualifyBasename(string $basename): string;
+
+    /**
+     * Get the proper site output path for a page model.
+     * @param string $basename for the page model source file.
+     * @return string of the output file relative to the site output directory.
+     * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
+     */
+    public static function getOutputLocation(string $basename): string;
 }
