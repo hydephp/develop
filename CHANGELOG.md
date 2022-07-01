@@ -25,7 +25,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Update default HydeFront version to v1.12.x
 
 ### Deprecated
 - for soon-to-be removed features.
