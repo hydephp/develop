@@ -46,7 +46,9 @@ class StaticPageBuilder
         view()->share('currentPage', $this->page->getCurrentPagePath());
 
         $this->needsDirectory(static::$outputPath);
-        $this->needsDirectory(Hyde::getSiteOutputPath('posts'));
+        $this->needsDirectory(Hyde::getSiteOutputPath($this->page::getOutputDirectory()));
+
+        /** @deprecated */
         $this->needsDirectory(Hyde::getSiteOutputPath(Hyde::getDocumentationOutputDirectory()));
 
         if ($this->page instanceof BladePage) {
