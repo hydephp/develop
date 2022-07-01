@@ -12,7 +12,7 @@ class DocumentationPage extends MarkdownDocument
 
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
-    
+
     public static string $parserClass = DocumentationPageParser::class;
 
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
@@ -45,4 +45,17 @@ class DocumentationPage extends MarkdownDocument
     {
         return trim(config('docs.output_directory', 'docs'), '/\\');
     }
+
+    /**
+     * @internal for compatibility until the service provider bootstraps the page path
+     * @deprecated
+     */
+    public static function getOutputLocation(string $basename): string
+    {
+        return trim(
+                static::getDocumentationOutputPath() . '/' . trim($basename, '\\/'), '/'
+            ) . '.html';
+    }
+
+
 }
