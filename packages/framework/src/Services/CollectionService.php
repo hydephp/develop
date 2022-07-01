@@ -52,15 +52,11 @@ class CollectionService
      */
     public static function getBladePageList(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(BladePage::qualifyBasename('*'))) as $filepath) {
+        return array_map(function ($filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, BladePage::getFileExtension());
+                return basename($filepath, BladePage::getFileExtension());
             }
-        }
-
-        return $array;
+        }, glob(Hyde::path(BladePage::qualifyBasename('*'))));
     }
 
     /**
@@ -71,15 +67,11 @@ class CollectionService
      */
     public static function getMarkdownPageList(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(MarkdownPage::qualifyBasename('*'))) as $filepath) {
+        return array_map(function ($filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, MarkdownPage::getFileExtension());
+                return basename($filepath, MarkdownPage::getFileExtension());
             }
-        }
-
-        return $array;
+        }, glob(Hyde::path(MarkdownPage::qualifyBasename('*'))));
     }
 
     /**
@@ -90,15 +82,11 @@ class CollectionService
      */
     public static function getMarkdownPostList(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(MarkdownPost::qualifyBasename('*'))) as $filepath) {
+        return array_map(function ($filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, MarkdownPost::getFileExtension());
+                return basename($filepath, MarkdownPost::getFileExtension());
             }
-        }
-
-        return $array;
+        }, glob(Hyde::path(MarkdownPost::qualifyBasename('*'))));
     }
 
     /**
@@ -109,15 +97,11 @@ class CollectionService
      */
     public static function getDocumentationPageList(): array
     {
-        $array = [];
-
-        foreach (glob(Hyde::path(DocumentationPage::qualifyBasename('*'))) as $filepath) {
+        return array_map(function ($filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $array[] = basename($filepath, DocumentationPage::getFileExtension());
+                return basename($filepath, DocumentationPage::getFileExtension());
             }
-        }
-
-        return $array;
+        }, glob(Hyde::path(DocumentationPage::qualifyBasename('*'))));
     }
 
     /**
