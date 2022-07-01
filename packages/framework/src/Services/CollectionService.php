@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
@@ -25,23 +26,15 @@ class CollectionService
      */
     public static function getSourceFileListForModel(string $model): array|false
     {
-        if ($model == BladePage::class) {
-            return self::getBladePageList();
+        if (! class_exists($model) || ! is_subclass_of($model, AbstractPage::class)) {
+            return false;
         }
 
-        if ($model == MarkdownPage::class) {
-            return self::getMarkdownPageList();
-        }
-
-        if ($model == MarkdownPost::class) {
-            return self::getMarkdownPostList();
-        }
-
-        if ($model == DocumentationPage::class) {
-            return self::getDocumentationPageList();
-        }
-
-        return false;
+        return array_map(function ($filepath) use ($model) {
+            if (! str_starts_with(basename($filepath), '_')) {
+                return basename($filepath, $model::getFileExtension());
+            }
+        }, glob(Hyde::path($model::qualifyBasename('*'))));
     }
 
     /**
@@ -52,11 +45,7 @@ class CollectionService
      */
     public static function getBladePageList(): array
     {
-        return array_map(function ($filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                return basename($filepath, BladePage::getFileExtension());
-            }
-        }, glob(Hyde::path(BladePage::qualifyBasename('*'))));
+        return static::getSourceFileListForModel(BladePage::class);
     }
 
     /**
@@ -67,11 +56,7 @@ class CollectionService
      */
     public static function getMarkdownPageList(): array
     {
-        return array_map(function ($filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                return basename($filepath, MarkdownPage::getFileExtension());
-            }
-        }, glob(Hyde::path(MarkdownPage::qualifyBasename('*'))));
+        return static::getSourceFileListForModel(MarkdownPage::class);
     }
 
     /**
@@ -82,11 +67,7 @@ class CollectionService
      */
     public static function getMarkdownPostList(): array
     {
-        return array_map(function ($filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                return basename($filepath, MarkdownPost::getFileExtension());
-            }
-        }, glob(Hyde::path(MarkdownPost::qualifyBasename('*'))));
+        return static::getSourceFileListForModel(MarkdownPost::class);
     }
 
     /**
@@ -97,11 +78,7 @@ class CollectionService
      */
     public static function getDocumentationPageList(): array
     {
-        return array_map(function ($filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                return basename($filepath, DocumentationPage::getFileExtension());
-            }
-        }, glob(Hyde::path(DocumentationPage::qualifyBasename('*'))));
+        return static::getSourceFileListForModel(DocumentationPage::class);
     }
 
     /**
