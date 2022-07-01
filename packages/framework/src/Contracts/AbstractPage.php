@@ -38,7 +38,7 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     final public static function getFileExtension(): string
     {
-        return '.'. trim(static::getFileExtension(), '.');
+        return '.'. trim(static::$fileExtension, '.');
     }
 
     /** @inheritDoc */
