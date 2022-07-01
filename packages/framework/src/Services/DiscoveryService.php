@@ -18,7 +18,7 @@ class DiscoveryService
     public static function getParserClassForModel(string $model): string
     {
         /** @var AbstractPage $model */
-        return $model::$parserClass;
+        return $model::getParserClass();
     }
 
     /**
