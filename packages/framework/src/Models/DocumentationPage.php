@@ -22,7 +22,6 @@ class DocumentationPage extends MarkdownDocument
         $this->constructTableOfContents();
     }
 
-
     /** @internal */
     public function getOnlineSourcePath(): string|false
     {

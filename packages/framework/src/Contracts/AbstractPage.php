@@ -10,8 +10,9 @@ use Illuminate\Support\Collection;
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
  *
  * Markdown-based Pages can extend the MarkdownDocument class to get relevant helpers.
- * 
+ *
  * To learn about what the methods do, see the PHPDocs in the PageContract.
+ *
  * @see \Hyde\Framework\Contracts\PageContract
  */
 abstract class AbstractPage implements PageContract
@@ -38,7 +39,7 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     final public static function getFileExtension(): string
     {
-        return '.'. trim(static::$fileExtension, '.');
+        return '.'.trim(static::$fileExtension, '.');
     }
 
     /** @inheritDoc */
@@ -52,7 +53,7 @@ abstract class AbstractPage implements PageContract
      */
     public static function getParser(string $slug): PageParserContract
     {
-        return (new static::$parserClass($slug));
+        return new static::$parserClass($slug);
     }
 
     /** @inheritDoc */
@@ -82,7 +83,7 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     public static function qualifyBasename(string $basename): string
     {
-        return static::getSourceDirectory() . '/' . trim($basename, '\\/') . static::getFileExtension();
+        return static::getSourceDirectory().'/'.trim($basename, '\\/').static::getFileExtension();
     }
 
     /** @inheritDoc */
@@ -90,22 +91,21 @@ abstract class AbstractPage implements PageContract
     {
         // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
         return trim(
-            static::getOutputDirectory() . '/' . trim($basename, '\\/'), '/'
-        ) . '.html';
+            static::getOutputDirectory().'/'.trim($basename, '\\/'), '/'
+        ).'.html';
     }
-
 
     public string $slug;
 
     /** @inheritDoc */
     public function getCurrentPagePath(): string
     {
-        return trim(static::getOutputDirectory() . '/' .  $this->slug, '/');
+        return trim(static::getOutputDirectory().'/'.$this->slug, '/');
     }
 
     /** @inheritDoc */
     public function getOutputPath(): string
     {
-        return static::getCurrentPagePath() . '.html';
+        return static::getCurrentPagePath().'.html';
     }
 }

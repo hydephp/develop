@@ -15,7 +15,7 @@ trait RegistersDefaultDirectories
      *
      * @example registerSourceDirectories([AbstractPage::class => '_pages'])
      *
-     * @param  array  $directoryMapping{class: string<AbstractPage>, location: string}
+     * @param  array  $directoryMapping{class:  string<AbstractPage>, location: string}
      * @return void
      */
     protected function registerSourceDirectories(array $directoryMapping): void
