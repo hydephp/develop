@@ -31,6 +31,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
         };
         config(['hyde.site_url' => 'https://example.com']);
 
@@ -44,6 +45,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
         };
         config(['hyde.site_url' => 'https://example.com']);
         config(['hyde.pretty_urls' => true]);
@@ -58,6 +60,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
 
             public function getCurrentPagePath(): string
             {
@@ -76,6 +79,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
 
             public function getCurrentPagePath(): string
             {
@@ -94,6 +98,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
         };
         config(['hyde.site_url' => 'https://example.com']);
 
@@ -107,6 +112,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug;
+            public static string $outputDirectory = '';
         };
 
         $this->assertFalse($page->canUseCanonicalUrl());
@@ -119,6 +125,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug;
+            public static string $outputDirectory = '';
         };
         config(['hyde.site_url' => 'https://example.com']);
 
@@ -142,6 +149,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
         };
         config(['hyde.site_url' => 'https://example.com']);
 
@@ -163,6 +171,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
         };
 
         $this->assertEquals(
@@ -178,6 +187,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
         };
 
         $this->assertEquals(
@@ -193,6 +203,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
 
             public string $slug = 'foo';
+            public static string $outputDirectory = '';
         };
         config(['hyde.site_url' => 'https://example.com']);
 
