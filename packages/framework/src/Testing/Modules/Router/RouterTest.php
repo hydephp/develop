@@ -132,18 +132,25 @@ class RouterTest extends TestCase
         );
     }
 
-    public function testBladePagesCanBeDiscovered() {
+    public function testBladePagesCanBeDiscovered()
+    {
         $this->markTestSkipped('Todo: Test BladePage::class');
-	}
-    public function testMarkdownPagesCanBeDiscovered() {
+    }
+
+    public function testMarkdownPagesCanBeDiscovered()
+    {
         $this->markTestSkipped('Todo: Test MarkdownPage::class');
-	}
-    public function testMarkdownPostsCanBeDiscovered() {
+    }
+
+    public function testMarkdownPostsCanBeDiscovered()
+    {
         $this->markTestSkipped('Todo: Test MarkdownPost::class');
-	}
-    public function testDocumentationPagesCanBeDiscovered() {
+    }
+
+    public function testDocumentationPagesCanBeDiscovered()
+    {
         $this->markTestSkipped('Todo: Test DocumentationPage::class');
-	}
+    }
 
     public function testGetRouteReturnsRoute()
     {

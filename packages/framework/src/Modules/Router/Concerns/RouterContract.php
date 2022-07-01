@@ -5,7 +5,7 @@ namespace Hyde\Framework\Modules\Router\Concerns;
 use Illuminate\Support\Collection;
 
 /**
- * General note for all Route related Contracts while in development:
+ * General note for all Route related Contracts while in development:.
  *
  * My intention is for these contracts to allow Hyde to be easily extended.
  * Just know, that the contracts may at this point not cover everything they should.

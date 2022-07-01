@@ -12,6 +12,7 @@ interface RoutableContract
 
     /**
      * Get the array list of source files for this model.
+     *
      * @see \Hyde\Framework\Contracts\PageContract::files()
      */
     public static function files(): array;

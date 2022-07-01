@@ -70,7 +70,6 @@ class Router implements RouterContract
         return $this->routes->toJson();
     }
 
-
     /** @param array<string<Concerns\RoutableContract>> $models */
     public function registerRoutableModels(array $models): void
     {
