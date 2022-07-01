@@ -24,7 +24,7 @@ trait FileHelpers
      */
     public static function getDocumentationOutputDirectory(): string
     {
-        return trim(config('docs.output_directory', 'docs'), '/\\');
+        return DocumentationPage::getOutputDirectory();
     }
 
     /**
