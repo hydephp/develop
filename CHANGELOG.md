@@ -27,7 +27,7 @@ The Hyde::titleFromSlug() helper is internally moved and is referenced through t
 - Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug().
 
 ### Changed
-- for changes in existing functionality.
+- Updates the codebase to use the new Hyde::makeTitle() helper.
 
 ### Deprecated
 - Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead.

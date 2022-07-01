@@ -143,7 +143,7 @@ class GeneratesNavigationMenu
             return 'Home';
         }
 
-        return Hyde::titleFromSlug($slug);
+        return Hyde::makeTitle($slug);
     }
 
     /**
