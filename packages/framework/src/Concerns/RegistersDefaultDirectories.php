@@ -22,7 +22,7 @@ trait RegistersDefaultDirectories
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var AbstractPage $class */
-            $class::$sourceDirectory = $location;
+            $class::$sourceDirectory = trim($location, '/\\');
         }
     }
 
@@ -41,7 +41,7 @@ trait RegistersDefaultDirectories
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var AbstractPage $class */
-            $class::$outputDirectory = $location;
+            $class::$outputDirectory = trim($location, '/\\');
         }
     }
 }
