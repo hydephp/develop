@@ -21,7 +21,7 @@ trait ValidatesExistence
     {
         /** @var \Hyde\Framework\Contracts\AbstractPage $model */
         $filepath = $model::getSourceDirectory().'/'.
-            $slug.$model::$fileExtension;
+            $slug.$model::getFileExtension();
 
         if (! file_exists(Hyde::path($filepath))) {
             throw new FileNotFoundException($filepath);

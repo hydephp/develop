@@ -84,7 +84,7 @@ class SitemapService
     {
         return date('c', filemtime(
             /** @var \Hyde\Framework\Contracts\AbstractPage $pageClass */
-            Hyde::path($pageClass::getSourceDirectory().DIRECTORY_SEPARATOR.$slug.$pageClass::$fileExtension)
+            Hyde::path($pageClass::getSourceDirectory().DIRECTORY_SEPARATOR.$slug.$pageClass::getFileExtension())
         ));
     }
 

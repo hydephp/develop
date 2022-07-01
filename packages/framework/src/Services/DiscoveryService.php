@@ -43,7 +43,7 @@ class DiscoveryService
     public static function getFileExtensionForModelFiles(string $model): string
     {
         /** @var AbstractPage $model */
-        return $model::$fileExtension;
+        return $model::getFileExtension();
     }
 
     /**

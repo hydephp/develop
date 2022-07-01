@@ -38,7 +38,7 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     final public static function getFileExtension(): string
     {
-        return '.'. trim(static::$fileExtension, '.');
+        return '.'. trim(static::getFileExtension(), '.');
     }
 
     /** @inheritDoc */
@@ -54,7 +54,7 @@ abstract class AbstractPage implements PageContract
         $collection = new Collection();
 
         foreach (CollectionService::getSourceFileListForModel(static::class) as $filepath) {
-            $collection->push((new static::$parserClass(basename($filepath, static::$fileExtension)))->get());
+            $collection->push((new static::$parserClass(basename($filepath, static::getFileExtension())))->get());
         }
 
         return $collection;
