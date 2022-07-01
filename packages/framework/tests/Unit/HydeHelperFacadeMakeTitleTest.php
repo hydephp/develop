@@ -36,4 +36,10 @@ class HydeHelperFacadeMakeTitleTest extends TestCase
     {
         $this->assertEquals('Hello World', HydeHelperFacade::makeTitle('Hello World'));
     }
+
+    public function test_make_title_helper_does_not_capitalize_auxiliary_words()
+    {
+        $this->assertEquals('The a an the in on by with of and or but',
+            HydeHelperFacade::makeTitle('the_a_an_the_in_on_by_with_of_and_or_but'));
+    }
 }

@@ -26,6 +26,12 @@ trait HydeHelperFacade
      */
     public static function makeTitle(string $slug): string
     {
-        return Str::headline($slug);
+        $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
+
+        return ucfirst(str_ireplace(
+            $alwaysLowercase,
+            $alwaysLowercase,
+            Str::headline($slug)
+        ));
     }
 }

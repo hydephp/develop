@@ -36,7 +36,7 @@ The Hyde::titleFromSlug() helper is internally moved and is referenced through t
 - Remove unused `$withoutNavigation` variable from the app layout.
 
 ### Fixed
-- for any bug fixes.
+- Fix style bug https://github.com/hydephp/develop/issues/117, Hyde title helper should not capitalize non-principal words
 
 ### Security
 - in case of vulnerabilities.
