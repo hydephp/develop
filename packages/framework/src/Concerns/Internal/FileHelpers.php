@@ -29,7 +29,8 @@ trait FileHelpers
 
     /**
      * Get the path to the frontpage for the documentation.
-     *
+     * 
+     * @deprecated v0.44.x should be moved to the documentation page model.
      * @return string|false returns false if no frontpage is found
      */
     public static function docsIndexPath(): string|false
