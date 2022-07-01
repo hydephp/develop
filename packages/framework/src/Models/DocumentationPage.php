@@ -11,6 +11,8 @@ class DocumentationPage extends MarkdownDocument
     use HasTableOfContents;
 
     public static string $sourceDirectory = '_docs';
+    public static string $outputDirectory = 'docs';
+    
     public static string $parserClass = DocumentationPageParser::class;
 
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
