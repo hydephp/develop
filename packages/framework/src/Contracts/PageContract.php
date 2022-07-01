@@ -6,6 +6,11 @@ use Illuminate\Support\Collection;
 
 interface PageContract
 {
+    public static function getSourceDirectory(): string;
+    public static function getOutputDirectory(): string;
+    public static function getFileExtension(): string;
+    public static function getParserClass(): string;
+
     /**
      * Get a collection of all pages, parsed into page models.
      *
