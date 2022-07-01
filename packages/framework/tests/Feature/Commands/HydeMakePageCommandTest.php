@@ -128,7 +128,7 @@ class HydeMakePageCommandTest extends TestCase
             ->expectsQuestion('What is the title of the page?', 'Test Page')
             ->expectsOutput("Creating page with title: Test Page\n")
             ->assertExitCode(0);
-        
+
         unlink(Hyde::path('_pages/test-page.md'));
     }
 
