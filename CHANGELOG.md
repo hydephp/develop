@@ -21,6 +21,8 @@ This serves two purposes:
 1. People can see what changes they might expect in upcoming releases
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
+The Hyde::titleFromSlug() helper is internally moved and is referenced through the new Hyde::makeTitle() helper which is an improved version, with a more general name.
+
 ### Added
 - for new features.
 
@@ -28,7 +30,7 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead.
 
 ### Removed
 - Remove unused `$withoutNavigation` variable from the app layout.
