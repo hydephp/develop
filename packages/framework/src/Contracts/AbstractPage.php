@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
  * To learn about what the methods do, see the PHPDocs in the PageContract.
  *
  * @see \Hyde\Framework\Contracts\PageContract
+ * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractPage implements PageContract
 {
