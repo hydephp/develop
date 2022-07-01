@@ -39,7 +39,7 @@ use Hyde\Framework\Concerns\RegistersDefaultDirectories;
 
 public function register(): void
 {
-    $this->registerDefaultDirectories([
+    $this->registerSourceDirectories([
         BladePage::class => '_pages',
         MarkdownPage::class => '_pages',
         MarkdownPost::class => '_posts',

@@ -48,11 +48,18 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->app->singleton(AssetServiceContract::class, AssetService::class);
 
-        $this->registerDefaultDirectories([
+        $this->registerSourceDirectories([
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
             DocumentationPage::class => '_docs',
+        ]);
+
+        $this->registerOutputDirectories([
+            BladePage::class => '',
+            MarkdownPage::class => '',
+            MarkdownPost::class => 'posts',
+            DocumentationPage::class => config('docs.output_directory', 'docs'),
         ]);
 
         $this->discoverBladeViewsIn('_pages');

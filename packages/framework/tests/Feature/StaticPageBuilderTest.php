@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
@@ -100,6 +101,7 @@ class StaticPageBuilderTest extends TestCase
         $page = new DocumentationPage([], '# Body', 'Title', 'foo');
 
         Config::set('docs.output_directory', 'docs/foo');
+        (new HydeServiceProvider($this->app))->register(); // Reregister the service provider to pick up the new config.
 
         new StaticPageBuilder($page, true);
 

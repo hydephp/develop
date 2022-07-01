@@ -18,26 +18,29 @@ trait FileHelpers
      * Get the subdirectory compiled documentation files are stored in.
      *
      * @since v0.39.x (replaces `Hyde::docsDirectory()`)
+     * @deprecated v0.44.x (handled in the page model property `outputDirectory`)
      *
      * @return string
      */
     public static function getDocumentationOutputDirectory(): string
     {
-        return trim(config('docs.output_directory', 'docs'), '/\\');
+        return DocumentationPage::getOutputDirectory();
     }
 
     /**
      * Get the path to the frontpage for the documentation.
      *
+     * @deprecated v0.44.x should be moved to the documentation page model.
+     *
      * @return string|false returns false if no frontpage is found
      */
     public static function docsIndexPath(): string|false
     {
-        if (file_exists(static::path(DocumentationPage::$sourceDirectory.'/index.md'))) {
+        if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/index.md'))) {
             return trim(static::pageLink(static::getDocumentationOutputDirectory().'/index.html'), '/');
         }
 
-        if (file_exists(static::path(DocumentationPage::$sourceDirectory.'/readme.md'))) {
+        if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/readme.md'))) {
             return trim(static::pageLink(static::getDocumentationOutputDirectory().'/readme.html'), '/');
         }
 

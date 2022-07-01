@@ -18,7 +18,7 @@ class DiscoveryService
     public static function getParserClassForModel(string $model): string
     {
         /** @var AbstractPage $model */
-        return $model::$parserClass;
+        return $model::getParserClass();
     }
 
     /**
@@ -43,7 +43,7 @@ class DiscoveryService
     public static function getFileExtensionForModelFiles(string $model): string
     {
         /** @var AbstractPage $model */
-        return $model::$fileExtension;
+        return $model::getFileExtension();
     }
 
     /**
@@ -52,7 +52,7 @@ class DiscoveryService
     public static function getFilePathForModelClassFiles(string $model): string
     {
         /** @var AbstractPage $model */
-        return $model::$sourceDirectory;
+        return $model::getSourceDirectory();
     }
 
     /**
@@ -65,20 +65,20 @@ class DiscoveryService
      */
     public static function findModelFromFilePath(string $filepath): string|false
     {
-        if (str_starts_with($filepath, MarkdownPost::$sourceDirectory)) {
+        if (str_starts_with($filepath, MarkdownPost::getSourceDirectory())) {
             return MarkdownPost::class;
         }
 
-        if (str_starts_with($filepath, DocumentationPage::$sourceDirectory)) {
+        if (str_starts_with($filepath, DocumentationPage::getSourceDirectory())) {
             return DocumentationPage::class;
         }
 
-        if (str_starts_with($filepath, MarkdownPage::$sourceDirectory)
+        if (str_starts_with($filepath, MarkdownPage::getSourceDirectory())
             && str_ends_with($filepath, '.md')) {
             return MarkdownPage::class;
         }
 
-        if (str_starts_with($filepath, BladePage::$sourceDirectory)
+        if (str_starts_with($filepath, BladePage::getSourceDirectory())
             && str_ends_with($filepath, '.blade.php')) {
             return BladePage::class;
         }
