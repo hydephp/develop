@@ -33,7 +33,7 @@ interface PageContract
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\PageContract>
+     * @return \Illuminate\Support\Collection<static>
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
