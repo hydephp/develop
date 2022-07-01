@@ -6,9 +6,28 @@ use Illuminate\Support\Collection;
 
 interface PageContract
 {
+    /**
+     * Get the directory in where source files are stored.
+     * @return string Path relative to the root of the project
+     */
     public static function getSourceDirectory(): string;
+
+    /**
+     * Get the output subdirectory to store compiled HTML.
+     * @return string Relative to the site output directory.
+     */
     public static function getOutputDirectory(): string;
+
+    /**
+     * Get the file extension of the source files.
+     * @return string (e.g. ".md")
+     */
     public static function getFileExtension(): string;
+
+    /**
+     * Get the class that parses source files into page models.
+     * @return string<\Hyde\Framework\Contracts\PageParserContract>
+     */
     public static function getParserClass(): string;
 
     /**

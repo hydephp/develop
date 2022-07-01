@@ -7,53 +7,41 @@ use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Collection;
 
 /**
- * To ensure compatability with the Hyde Framework,
- * all Page Models must extend this class.
+ * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
  *
- * Markdown-based Pages should extend MarkdownDocument.
+ * Markdown-based Pages can extend the MarkdownDocument class to get relevant helpers.
+ * 
+ * To learn about what the methods do, see the PHPDocs in the PageContract.
+ * @see \Hyde\Framework\Contracts\PageContract
  */
 abstract class AbstractPage implements PageContract
 {
     use HasPageMetadata;
 
-    /**
-     * The directory in where source files are stored.
-     * Relative to the root of the project.
-     */
     public static string $sourceDirectory;
-
-    /**
-     * The output subdirectory to store compiled HTML.
-     * Relative to the site output directory.
-     */
     public static string $outputDirectory;
-
-    /**
-     * The file extension of the source file (e.g. ".md").
-     */
     public static string $fileExtension;
-
-    /**
-     * The class that parses source files into page models.
-     * @var string<\Hyde\Framework\Contracts\PageParserContract>
-     */
     public static string $parserClass;
 
+    /** @inheritDoc */
     final public static function getSourceDirectory(): string
     {
         return static::$sourceDirectory;
     }
 
+    /** @inheritDoc */
     final public static function getOutputDirectory(): string
     {
         return static::$outputDirectory;
     }
 
+    /** @inheritDoc */
     final public static function getFileExtension(): string
     {
         return static::$fileExtension;
     }
 
+    /** @inheritDoc */
     final public static function getParserClass(): string
     {
         return static::$parserClass;
