@@ -144,4 +144,23 @@ class RouterTest extends TestCase
     public function testDocumentationPagesCanBeDiscovered() {
         $this->markTestSkipped('Todo: Test DocumentationPage::class');
 	}
+
+    public function testGetRouteReturnsRoute()
+    {
+        touch(Hyde::path('_pages/foo.md'));
+
+        $this->assertInstanceOf(
+            RouteContract::class,
+            Router::getInstance()->getRoute('pages.foo')
+        );
+    }
+
+    public function testGetRouteThrowsRouteNotFoundExceptionIfRouteCouldNotBeResolved()
+    {
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage("Route 'foo' not found.");
+        $this->expectExceptionCode(404);
+
+        Router::getInstance()->getRoute('foo');
+    }
 }
