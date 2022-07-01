@@ -27,9 +27,14 @@ This serves two purposes:
 ### Changed
 - Update default HydeFront version to v1.12.x
 - Updates the codebase to use the new Hyde::makeTitle() helper
+- Several internal changes to how page models are structured, https://github.com/hydephp/develop/pull/122
 
 ### Deprecated
 - Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead
+- Deprecate DocumentationPage::getDocumentationOutputPath()
+- Deprecate Hyde::docsIndexPath()
+- Deprecate Hyde::getDocumentationOutputDirectory()
+- Deprecate RegistersDefaultDirectories.php pending rename
 
 ### Removed
 - Remove unused `$withoutNavigation` variable from the app layout
