@@ -5,13 +5,13 @@
 </head>
 <body id="app" class="flex flex-col min-h-screen overflow-x-hidden dark:bg-gray-900 dark:text-white">
     <a href="#content" id="skip-to-content">Skip to content</a>
-    @includeUnless($withoutNavigation ?? false, 'hyde::layouts.navigation') 
+    @include('hyde::layouts.navigation') 
 
     <section>
         @yield('content') 
     </section>
 
-    @includeUnless(config('hyde.footer.enabled', true) && ($withoutNavigation ?? false), 'hyde::layouts.footer') 
+    @includeUnless(config('hyde.footer.enabled', true), 'hyde::layouts.footer') 
 
     @include('hyde::layouts.scripts') 
 </body>
