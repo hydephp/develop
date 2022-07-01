@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Testing\TestCase;
 
@@ -22,6 +23,7 @@ class DocumentationPageTest extends TestCase
         $this->assertEquals('docs/foo', $page->getCurrentPagePath());
 
         config(['docs.output_directory' => 'documentation/latest/']);
+        (new HydeServiceProvider($this->app))->register();
         $this->assertEquals('documentation/latest/foo', $page->getCurrentPagePath());
     }
 
@@ -57,6 +59,7 @@ class DocumentationPageTest extends TestCase
     public function test_can_get_documentation_output_path_with_custom_output_directory()
     {
         config(['docs.output_directory' => 'foo']);
+        (new HydeServiceProvider($this->app))->register();
         $this->assertEquals('foo', DocumentationPage::getDocumentationOutputPath());
     }
 
@@ -72,6 +75,7 @@ class DocumentationPageTest extends TestCase
 
         foreach ($tests as $test) {
             config(['docs.output_directory' => $test]);
+            (new HydeServiceProvider($this->app))->register();
             $this->assertEquals('foo', DocumentationPage::getDocumentationOutputPath());
         }
     }

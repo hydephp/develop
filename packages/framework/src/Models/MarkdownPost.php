@@ -20,6 +20,8 @@ class MarkdownPost extends MarkdownDocument
     public ?string $category;
 
     public static string $sourceDirectory = '_posts';
+    public static string $outputDirectory = 'posts';
+
     public static string $parserClass = MarkdownPostParser::class;
 
     /**
@@ -35,11 +37,6 @@ class MarkdownPost extends MarkdownDocument
         $this->constructFeaturedImage();
 
         $this->category = $this->matter['category'] ?? null;
-    }
-
-    public function getCurrentPagePath(): string
-    {
-        return 'posts/'.$this->slug;
     }
 
     public function getCanonicalLink(): string
