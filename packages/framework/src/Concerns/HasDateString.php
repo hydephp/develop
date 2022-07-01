@@ -13,9 +13,6 @@ trait HasDateString
 {
     public ?DateString $date = null;
 
-    /**
-     * @throws \Hyde\Framework\Exceptions\CouldNotParseDateStringException
-     */
     public function constructDateString(): void
     {
         if (isset($this->matter['date'])) {
