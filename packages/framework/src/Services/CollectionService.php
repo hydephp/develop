@@ -47,6 +47,7 @@ class CollectionService
     /**
      * Get all the Blade files in the resources/views/vendor/hyde/pages directory.
      *
+     * @deprecated v0.44.x Will be renamed to getBladePageFiles
      * @return array
      */
     public static function getBladePageList(): array
@@ -65,6 +66,7 @@ class CollectionService
     /**
      * Get all the Markdown files in the _pages directory.
      *
+     * @deprecated v0.44.x Will be renamed to getMarkdownPageFiles
      * @return array
      */
     public static function getMarkdownPageList(): array
@@ -83,6 +85,7 @@ class CollectionService
     /**
      * Get all the Markdown files in the _posts directory.
      *
+     * @deprecated v0.44.x Will be renamed to getMarkdownPostFiles
      * @return array
      */
     public static function getMarkdownPostList(): array
@@ -101,6 +104,7 @@ class CollectionService
     /**
      * Get all the Markdown files in the _docs directory.
      *
+     * @deprecated v0.44.x Will be renamed to getDocumentationPageFiles
      * @return array
      */
     public static function getDocumentationPageList(): array

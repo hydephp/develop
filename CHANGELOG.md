@@ -35,6 +35,10 @@ This serves two purposes:
 - Deprecate Hyde::docsIndexPath()
 - Deprecate Hyde::getDocumentationOutputDirectory()
 - Deprecate RegistersDefaultDirectories.php pending rename
+- Deprecated CollectionService::getBladePageList, will be renamed to getBladePageFiles
+- Deprecated CollectionService::getMarkdownPageList, will be renamed to getMarkdownPageFiles
+- Deprecated CollectionService::getMarkdownPostList, will be renamed to getMarkdownPostFiles
+- Deprecated CollectionService::getDocumentationPageList, will be renamed to getDocumentationPageFiles
 
 ### Removed
 - Remove unused `$withoutNavigation` variable from the app layout
