@@ -22,10 +22,10 @@ class CollectionServiceTest extends TestCase
 
     public function test_get_source_file_list_for_model_method()
     {
-        $this->testListUnit(BladePage::class, '_pages/a8a7b7ce.blade.php');
-        $this->testListUnit(MarkdownPage::class, '_pages/a8a7b7ce.md');
-        $this->testListUnit(MarkdownPost::class, '_posts/a8a7b7ce.md');
-        $this->testListUnit(DocumentationPage::class, '_docs/a8a7b7ce.md');
+        $this->testListUnit(BladePage::class, '_pages/foo.blade.php');
+        $this->testListUnit(MarkdownPage::class, '_pages/foo.md');
+        $this->testListUnit(MarkdownPost::class, '_posts/foo.md');
+        $this->testListUnit(DocumentationPage::class, '_docs/foo.md');
 
         $this->assertFalse(CollectionService::getSourceFileListForModel('NonExistentModel'));
     }
