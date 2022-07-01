@@ -79,4 +79,12 @@ interface PageContract
      * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
      */
     public static function getOutputLocation(string $basename): string;
+
+
+    /**
+     * Get the uri path relative to the site root.
+     * @example if the compiled page will be saved to _site/docs/index.html,
+     *          then this method will return 'docs/index'
+     */
+    public function getCurrentPagePath(): string;
 }
