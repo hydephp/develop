@@ -64,4 +64,11 @@ interface PageContract
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
     public static function all(): Collection;
+
+    /**
+     * Qualify a page basename into a referenceable file path.
+     * @param string $basename for the page model source file.
+     * @return string  path to the file relative to project root
+     */
+    public static function qualifyBasename(string $basename): string;
 }

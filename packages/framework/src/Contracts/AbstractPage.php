@@ -79,6 +79,12 @@ abstract class AbstractPage implements PageContract
         return $collection;
     }
 
+    /** @inheritDoc */
+    public static function qualifyBasename(string $basename): string
+    {
+        return static::getSourceDirectory() . '/' . trim($basename, '\\/') . static::getFileExtension();
+    }
+
 
     public string $slug;
 
