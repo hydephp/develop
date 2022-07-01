@@ -1,7 +1,7 @@
 <ul id="sidebar-navigation-menu" role="list">
 	@foreach ($sidebar->getCategories() as $category)
 	<li class="sidebar-category" role="listitem">
-		<h4 class="sidebar-category-heading">{{ Hyde::titleFromSlug($category) }}</h4>
+		<h4 class="sidebar-category-heading">{{ Hyde::makeTitle($category) }}</h4>
 		<ul class="sidebar-category-list" role="list">
 			@foreach ($sidebar->getItemsInCategory($category) as $item)
 			<li @class([ 'sidebar-navigation-item' , 'active'=> $item->destination === basename($currentPage)]) role="listitem">

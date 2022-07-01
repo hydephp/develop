@@ -20,7 +20,7 @@ trait HasDynamicTitle
         }
 
         return $this->findTitleTagInMarkdown($this->body)
-            ?: Hyde::titleFromSlug($this->slug);
+            ?: Hyde::makeTitle($this->slug);
     }
 
     /**

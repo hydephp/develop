@@ -22,19 +22,19 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug()
 
 ### Changed
-- for changes in existing functionality.
+- Updates the codebase to use the new Hyde::makeTitle() helper
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead
 
 ### Removed
-- Remove unused `$withoutNavigation` variable from the app layout.
+- Remove unused `$withoutNavigation` variable from the app layout
 
 ### Fixed
-- for any bug fixes.
+- Fix style bug https://github.com/hydephp/develop/issues/117, Hyde title helper should not capitalize non-principal words
 
 ### Security
 - in case of vulnerabilities.
