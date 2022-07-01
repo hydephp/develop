@@ -59,7 +59,7 @@ class HydeServiceProvider extends ServiceProvider
             BladePage::class => '',
             MarkdownPage::class => '',
             MarkdownPost::class => 'posts',
-            DocumentationPage::class => 'docs',
+            DocumentationPage::class => config('docs.output_directory', 'docs'),
         ]);
 
         $this->discoverBladeViewsIn('_pages');
