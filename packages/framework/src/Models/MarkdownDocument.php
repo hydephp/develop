@@ -2,7 +2,9 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Illuminate\Support\Arr;
 
 class MarkdownDocument implements MarkdownDocumentContract
 {
@@ -13,5 +15,24 @@ class MarkdownDocument implements MarkdownDocumentContract
     {
         $this->matter = $matter;
         $this->body = $body;
+    }
+
+    public function __get($key)
+    {
+        return $this->matter($key);
+    }
+
+    public function matter(string $key = null, $default = null)
+    {
+        if ($key) {
+            return Arr::get($this->matter, $key, $default);
+        }
+
+        return $this->matter;
+    }
+
+    public function body(): string
+    {
+        return $this->body;
     }
 }
