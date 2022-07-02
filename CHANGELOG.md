@@ -21,6 +21,9 @@ This serves two purposes:
 1. People can see what changes they might expect in upcoming releases
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
+This release mainly makes internal changes to the Framework API. If you are an end user, most of the changes are not relevant.
+However, if you are a package developer, or if you have published Blade views or otherwise extended Hyde you may want to take a look as there are internal breaking changes.
+
 ### Added
 - Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug()
 - Added new helper method render() to MarkdownDocuments to compile the Markdown to HTML, fixes https://github.com/hydephp/develop/issues/109
@@ -30,6 +33,10 @@ This serves two purposes:
 - Updates the codebase to use the new Hyde::makeTitle() helper
 - Several internal changes to how page models are structured, https://github.com/hydephp/develop/pull/122
 - Internal: Separate the MarkdownDocument into a dedicated abstract page class, https://github.com/hydephp/develop/pull/126
+- Moved `Hyde\Framework\Models\BladePage` to new namespace `Hyde\Framework\Models\Pages\BladePage`
+- Moved `Hyde\Framework\Models\MarkdownPage` to new namespace `Hyde\Framework\Models\Pages\MarkdownPage`
+- Moved `Hyde\Framework\Models\MarkdownPost` to new namespace `Hyde\Framework\Models\Pages\MarkdownPost`
+- Moved `Hyde\Framework\Models\DocumentationPage` to new namespace `Hyde\Framework\Models\Pages\DocumentationPage`
 
 ### Deprecated
 - Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead
