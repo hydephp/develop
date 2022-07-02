@@ -2,8 +2,13 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Testing\TestCase;
@@ -173,5 +178,87 @@ class AbstractPageTest extends TestCase
     {
         $page = new MarkdownPage([], '', '', 'foo');
         $this->assertEquals('foo.html', $page->getOutputPath());
+    }
+
+    // test AbstractPage implements PageContract interface
+    public function test_markdown_page_implements_page_contract()
+    {
+        $this->assertInstanceOf(PageContract::class, new class extends AbstractPage {});
+    }
+
+    // test all page models extend AbstractPage
+    public function test_all_page_models_extend_abstract_page()
+    {
+        $pages = [
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class
+        ];
+
+        foreach ($pages as $page) {
+            $this->assertInstanceOf(AbstractPage::class, new $page());
+        }
+
+        $this->assertInstanceOf(AbstractPage::class, new BladePage('foo'));
+    }
+
+    // test all page models have configured $sourceDirectory
+    public function test_all_page_models_have_configured_source_directory()
+    {
+        $pages = [
+            BladePage::class => '_pages',
+            MarkdownPage::class => '_pages',
+            MarkdownPost::class => '_posts',
+            DocumentationPage::class => '_docs'
+        ];
+
+        foreach ($pages as $page => $expected) {
+            $this->assertEquals($expected, $page::$sourceDirectory);
+        }
+    }
+
+    // test all page models have configured $outputDirectory
+    public function test_all_page_models_have_configured_output_directory()
+    {
+        $pages = [
+            BladePage::class => '',
+            MarkdownPage::class => '',
+            MarkdownPost::class => 'posts',
+            DocumentationPage::class => 'docs'
+        ];
+
+        foreach ($pages as $page => $expected) {
+            $this->assertEquals($expected, $page::$outputDirectory);
+        }
+    }
+
+    // test all page models have configured $fileExtension
+    public function test_all_page_models_have_configured_file_extension()
+    {
+        $pages = [
+            BladePage::class => '.blade.php',
+            MarkdownPage::class => '.md',
+            MarkdownPost::class => '.md',
+            DocumentationPage::class => '.md'
+        ];
+
+        foreach ($pages as $page => $expected) {
+            $this->assertEquals($expected, $page::$fileExtension);
+        }
+    }
+
+    // test all page models have configured $parserClass
+    public function test_all_page_models_have_configured_parser_class()
+    {
+        $pages = [
+            BladePage::class => 'Hyde\Framework\Models\BladePage',
+            MarkdownPage::class => 'Hyde\Framework\Models\Parsers\MarkdownPageParser',
+            MarkdownPost::class => 'Hyde\Framework\Models\Parsers\MarkdownPostParser',
+            DocumentationPage::class => 'Hyde\Framework\Models\Parsers\DocumentationPageParser'
+        ];
+
+        foreach ($pages as $page => $expected) {
+            $this->assertEquals($expected, $page::$parserClass);
+        }
     }
 }
