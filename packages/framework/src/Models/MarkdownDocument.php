@@ -21,12 +21,12 @@ class MarkdownDocument implements MarkdownDocumentContract
         $this->body = $body;
     }
 
-    public function __get(string $key)
+    public function __get(string $key): mixed
     {
         return $this->matter($key);
     }
 
-    public function matter(string $key = null, $default = null)
+    public function matter(string $key = null, mixed $default = null): mixed
     {
         if ($key) {
             return Arr::get($this->matter, $key, $default);
