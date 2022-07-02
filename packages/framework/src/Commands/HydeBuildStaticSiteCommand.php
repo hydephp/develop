@@ -66,7 +66,7 @@ class HydeBuildStaticSiteCommand extends Command
 
         $this->runPreBuildActions();
 
-        $this->purge();
+        $this->cleanOutputDirectory();
 
         $this->transferMediaAssets();
 
@@ -171,7 +171,7 @@ class HydeBuildStaticSiteCommand extends Command
      *
      * @return void
      */
-    public function purge(): void
+    public function cleanOutputDirectory(): void
     {
         if (config('hyde.empty_output_directory', true)) {
             $this->warn('Removing all files from build directory.');
