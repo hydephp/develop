@@ -7,11 +7,11 @@ use Hyde\Framework\Models\MarkdownDocument;
 
 /**
  * The base class for all Markdown-based Page Models.
+ *
  * @since 0.44.x replaces MarkdownDocument
  *
  * Extends the AbstractPage class to provide relevant
  * helpers for Markdown-based page model classes.
- *
  * @see \Hyde\Framework\Models\MarkdownPage
  * @see \Hyde\Framework\Models\MarkdownPost
  * @see \Hyde\Framework\Models\DocumentationPage
