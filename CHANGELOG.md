@@ -38,6 +38,7 @@ However, if you are a package developer, or if you have published Blade views or
 - Moved `Hyde\Framework\Models\MarkdownPage` to new namespace `Hyde\Framework\Models\Pages\MarkdownPage`
 - Moved `Hyde\Framework\Models\MarkdownPost` to new namespace `Hyde\Framework\Models\Pages\MarkdownPost`
 - Moved `Hyde\Framework\Models\DocumentationPage` to new namespace `Hyde\Framework\Models\Pages\DocumentationPage`
+- Improves how the site output directory is emptied, helping prevent accidental deletion of files.
 
 ### Deprecated
 - Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead
