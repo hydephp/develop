@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\GeneratesPageMetadata;
 use Hyde\Framework\Concerns\HasAuthor;

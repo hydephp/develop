@@ -4,7 +4,7 @@ namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\RssFeedService;
 use Hyde\Framework\Services\SitemapService;
 

@@ -2,11 +2,11 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @see \Hyde\Framework\Models\MarkdownPost
+ * @see \Hyde\Framework\Models\Pages\MarkdownPost
  */
 class MarkdownPostHelpersTest extends TestCase
 {

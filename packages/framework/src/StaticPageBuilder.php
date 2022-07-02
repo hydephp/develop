@@ -8,7 +8,7 @@ use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
  * Converts a Page Model into a static HTML page.

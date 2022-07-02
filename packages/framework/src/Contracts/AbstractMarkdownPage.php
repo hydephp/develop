@@ -13,7 +13,7 @@ use Hyde\Framework\Models\MarkdownDocument;
  * Extends the AbstractPage class to provide relevant
  * helpers for Markdown-based page model classes.
  * @see \Hyde\Framework\Models\Pages\MarkdownPage
- * @see \Hyde\Framework\Models\MarkdownPost
+ * @see \Hyde\Framework\Models\Pages\MarkdownPost
  * @see \Hyde\Framework\Models\DocumentationPage
  * @see \Hyde\Framework\Contracts\AbstractPage
  *

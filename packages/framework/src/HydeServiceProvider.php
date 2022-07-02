@@ -8,7 +8,7 @@ use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\AssetService;
 use Illuminate\Support\ServiceProvider;
 

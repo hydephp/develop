@@ -2,7 +2,7 @@
 
 namespace Hyde\Rocket\Http\Controllers;
 
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Rocket\Models\Project;
 

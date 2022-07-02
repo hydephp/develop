@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 

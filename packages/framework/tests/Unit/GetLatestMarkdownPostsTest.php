@@ -3,12 +3,12 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\Models\MarkdownPost::latest()
+ * @see \Hyde\Framework\Models\Pages\MarkdownPost::latest()
  */
 class GetLatestMarkdownPostsTest extends TestCase
 {
