@@ -44,8 +44,8 @@ class HydeDebugCommand extends Command
 
         $this->newLine();
         $this->comment('Git Version: '.app('git.version'));
-        $this->comment('Hyde Version: '.app('hyde.version'));
-        $this->comment('Framework Version: '.app('framework.version'));
+        $this->comment('Hyde Version: '.(\Composer\InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased'));
+        $this->comment('Framework Version: '.(\Composer\InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased'));
 
         $this->newLine();
         $this->comment('App Env: '.app('env'));

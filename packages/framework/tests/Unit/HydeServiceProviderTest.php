@@ -30,10 +30,4 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertTrue(method_exists($this->provider, 'boot'));
     }
-
-    public function test_provider_registers_hyde_versions_into_app_container()
-    {
-        $this->assertIsString(app('hyde.version'));
-        $this->assertIsString(app('framework.version'));
-    }
 }

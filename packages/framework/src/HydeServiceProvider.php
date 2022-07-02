@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework;
 
-use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\RegistersDefaultDirectories;
 use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -26,26 +25,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        /**
-         * @deprecated
-         */
-        $this->app->bind(
-            'hyde.version',
-            function () {
-                return InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased';
-            }
-        );
-
-        /**
-         * @deprecated
-         */
-        $this->app->bind(
-            'framework.version',
-            function () {
-                return InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased';
-            }
-        );
-
         $this->app->singleton(AssetServiceContract::class, AssetService::class);
 
         $this->registerSourceDirectories([
@@ -113,8 +92,12 @@ class HydeServiceProvider extends ServiceProvider
         ], 'hyde-components');
 
         $this->publishes([
-            __DIR__.'/../_pages/404.blade.php' => resource_path('views/pages/404.blade.php'),
+            Hyde::vendorPath('resources/views/pages/404.blade.php') => Hyde::path('_pages/404.blade.php'),
         ], 'hyde-page-404');
+
+        $this->publishes([
+            Hyde::vendorPath('resources/views/homepages/welcome.blade.php') => Hyde::path('_pages/index.blade.php'),
+        ], 'hyde-welcome-page');
     }
 
     /**

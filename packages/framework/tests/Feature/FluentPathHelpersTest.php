@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -12,7 +12,6 @@ use Hyde\Testing\TestCase;
 /**
  * Class FluentPathHelpersTest.
  *
- * @deprecated Move to Feature namespace
  * @covers \Hyde\Framework\Concerns\Internal\FluentPathHelpers
  */
 class FluentPathHelpersTest extends TestCase

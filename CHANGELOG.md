@@ -53,6 +53,8 @@ However, if you are a package developer, or if you have published Blade views or
 ### Removed
 - Remove unused `$withoutNavigation` variable from the app layout
 - Removed deprecated 'hyde.site_output_path' config option (use `hyde.output_directory` instead)
+- Remove long deprecated `hyde.version` and `framework.version` service container bindings
+- Removed deprecated StarterFileService which was deprecated in v0.20.x 
 
 ### Fixed
 - Fix style bug https://github.com/hydephp/develop/issues/117, Hyde title helper should not capitalize non-principal words
