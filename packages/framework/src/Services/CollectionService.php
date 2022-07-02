@@ -36,6 +36,7 @@ class CollectionService
                 $files[] = basename($filepath, $model::getFileExtension());
             }
         }
+
         return $files;
     }
 
