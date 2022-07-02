@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Exception;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Testing\TestCase;

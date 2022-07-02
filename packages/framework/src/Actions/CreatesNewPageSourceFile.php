@@ -8,7 +8,7 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Illuminate\Support\Str;
 
 /**

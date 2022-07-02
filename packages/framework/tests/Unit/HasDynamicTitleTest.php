@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 
 /**

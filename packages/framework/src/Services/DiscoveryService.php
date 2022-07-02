@@ -5,7 +5,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 
 /**

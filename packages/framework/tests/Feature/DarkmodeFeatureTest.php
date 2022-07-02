@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
