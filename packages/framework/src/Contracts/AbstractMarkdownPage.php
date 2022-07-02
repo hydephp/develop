@@ -41,4 +41,9 @@ abstract class AbstractMarkdownPage extends AbstractPage
 
         $this->constructDynamicTitle();
     }
+
+    public function markdown(): MarkdownDocument
+    {
+        return $this->markdown;
+    }
 }
