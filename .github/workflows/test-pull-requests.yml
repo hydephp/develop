@@ -65,7 +65,7 @@ jobs:
           composer require squizlabs/php_codesniffer --no-install 
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-source
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Create cache directory
         run: mkdir build/cache -p
@@ -92,7 +92,7 @@ jobs:
           composer require phpstan/phpstan --no-install 
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-source
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run static analysis (PHPStan)
         run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
