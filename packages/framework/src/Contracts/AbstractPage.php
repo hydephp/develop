@@ -91,7 +91,8 @@ abstract class AbstractPage implements PageContract
     {
         // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
         return trim(
-            static::getOutputDirectory().'/'.trim($basename, '\\/'), '/'
+            static::getOutputDirectory().'/'.trim($basename, '\\/'),
+            '/'
         ).'.html';
     }
 

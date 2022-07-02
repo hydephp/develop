@@ -73,8 +73,9 @@ class HydeServiceProvider extends ServiceProvider
         } else {
             // Newer version which is safer.
             $this->storeCompiledSiteIn(Hyde::path(config(
-                trim('hyde.output_directory', '_site'), '/\\')
-            ));
+                trim('hyde.output_directory', '_site'),
+                '/\\'
+            )));
         }
 
         $this->commands([
