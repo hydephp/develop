@@ -171,4 +171,17 @@ class BuildStaticSiteCommandTest extends TestCase
         $this->assertFileExists(Hyde::path('foo/keep.html'));
         File::deleteDirectory(Hyde::path('foo'));
     }
+
+    public function test_output_directory_is_not_emptied_if_disabled_in_config()
+    {
+        config(['hyde.empty_output_directory' => false]);
+        touch(Hyde::path('_site/keep.html'));
+
+        $this->artisan('build')
+            ->doesntExpectOutput('Removing all files from build directory.')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/keep.html'));
+        unlink(Hyde::path('_site/keep.html'));
+    }
 }
