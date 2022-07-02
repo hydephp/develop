@@ -24,6 +24,8 @@ class GeneratesNavigationMenuTest extends TestCase
         $this->assertIsArray($generator->links);
 
         $this->assertContains('docs/index.html', Arr::flatten($generator->links));
+
+        unlink(Hyde::path('_docs/index.md'));
     }
 
     public function test_get_links_from_config_method()
