@@ -230,7 +230,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-  
+    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      with:
+        php-version: "8.0"
+    
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
@@ -450,3 +453,4 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
+          
