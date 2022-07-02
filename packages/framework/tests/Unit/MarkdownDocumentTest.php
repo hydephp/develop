@@ -42,6 +42,12 @@ class MarkdownDocumentTest extends TestCase
         $this->assertNull($document->bar);
     }
 
+    public function test_magic_to_string_method_returns_body()
+    {
+        $document = new MarkdownDocument(['foo' => 'bar'], 'Hello, world!');
+        $this->assertEquals('Hello, world!', (string) $document);
+    }
+
     public function test_matter_method_returns_empty_array_if_document_has_no_matter()
     {
         $document = new MarkdownDocument();

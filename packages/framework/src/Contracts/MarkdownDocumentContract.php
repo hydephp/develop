@@ -20,6 +20,12 @@ interface MarkdownDocumentContract
     public function __get(string $key);
 
     /**
+     * Get the Markdown body.
+     * @return string
+     */
+    public function __toString(): string;
+
+    /**
      * Get all the front matter as an array, or the property if a key is specified,
      * falling back to the supplied default return value if the key is not found.
      *

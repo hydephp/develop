@@ -21,6 +21,11 @@ class MarkdownDocument implements MarkdownDocumentContract
         $this->body = $body;
     }
 
+    public function __toString(): string
+    {
+        return $this->body;
+    }
+
     public function __get(string $key): mixed
     {
         return $this->matter($key);
