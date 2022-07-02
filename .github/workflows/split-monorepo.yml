@@ -59,7 +59,7 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
-        git push upstream develop || true
+        git push upstream develop
 
 
   realtime-compiler: 
@@ -101,7 +101,7 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
         
-        git push upstream develop || true
+        git push upstream develop
 
 
   hydefront: 
@@ -143,7 +143,7 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
-        git push upstream develop || true
+        git push upstream develop
 
 
   docs: 
@@ -190,7 +190,7 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
-        git push upstream upcoming || true
+        git push upstream upcoming
 
   hyde: 
     runs-on: ubuntu-latest
@@ -243,4 +243,4 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
-        git push upstream develop || true
+        git push upstream develop
