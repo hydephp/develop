@@ -64,6 +64,15 @@ jobs:
           composer require php-parallel-lint/php-parallel-lint --no-install 
           composer require squizlabs/php_codesniffer --no-install 
 
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-source
 
@@ -90,6 +99,15 @@ jobs:
           composer require hyde/framework:* --no-update 
           composer require hyde/realtime-compiler:* --no-update 
           composer require phpstan/phpstan --no-install 
+      
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-source
