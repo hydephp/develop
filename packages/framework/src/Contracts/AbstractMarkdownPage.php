@@ -32,5 +32,7 @@ abstract class AbstractMarkdownPage extends AbstractPage
         $this->body = $body;
         $this->title = $title;
         $this->slug = $slug;
+
+        $this->constructDynamicTitle();
     }
 }

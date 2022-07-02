@@ -12,7 +12,8 @@ class DocumentationPageParser extends AbstractPageParser
     protected string $pageModel = DocumentationPage::class;
     protected string $slug;
 
-    public string $title;
+    /** @deprecated (handled in constructor) */
+    public string $title = '';
     public string $body;
 
     public function execute(): void
@@ -20,8 +21,6 @@ class DocumentationPageParser extends AbstractPageParser
         $document = (new MarkdownFileService(
             Hyde::getDocumentationPagePath("/$this->slug.md")
         ))->get();
-
-        $this->title = $document->findTitleForDocument();
 
         $this->body = $document->body;
     }
