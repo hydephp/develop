@@ -30,15 +30,15 @@ abstract class AbstractMarkdownPage extends AbstractPage
 
     public static string $fileExtension = '.md';
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?MarkdownDocument $markdown = null)
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?MarkdownDocument $markdownDocument = null)
     {
         $this->matter = $matter;
         $this->body = $body;
         $this->title = $title;
         $this->slug = $slug;
 
-        if ($markdown) {
-            $this->markdown = $markdown;
+        if ($markdownDocument) {
+            $this->markdown = $markdownDocument;
         }
 
         $this->constructDynamicTitle();
