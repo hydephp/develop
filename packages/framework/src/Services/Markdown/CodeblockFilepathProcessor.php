@@ -41,7 +41,7 @@ class CodeblockFilepathProcessor
                 $path = static::trimHydeDirective($line);
                 unset($lines[$index]);
                 $codeBlockLine = $index + 1;
-                $label = static::resolveTemplate($path, $lines[$codeBlockLine]);
+                $label = static::resolveTemplate($path);
 
                 $lines[$codeBlockLine] = str_contains($html, static::$torchlightKey)
                 ? static::resolveTorchlightCodeLine($label, $lines[$codeBlockLine])
@@ -85,11 +85,9 @@ class CodeblockFilepathProcessor
         )));
     }
 
-    protected static function resolveTemplate(string $path, string $line): string
+    protected static function resolveTemplate(string $path): string
     {
-        $template = '<small class="filepath"><span class="sr-only">Filepath: </span>%s</small>';
-
-        return sprintf($template, $path, $line);
+        return sprintf('<small class="filepath"><span class="sr-only">Filepath: </span>%s</small>', $path);
     }
 
     protected static function resolveTorchlightCodeLine(string $label, $lines): string|array
