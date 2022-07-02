@@ -19,7 +19,7 @@ use Hyde\Framework\Models\MarkdownDocument;
  *
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractMarkdownPage extends AbstractPage
+abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownPageContract
 {
     use HasDynamicTitle;
 

@@ -42,6 +42,12 @@ class MarkdownDocumentTest extends TestCase
         $this->assertNull($document->bar);
     }
 
+    public function test_magic_to_string_method_returns_body()
+    {
+        $document = new MarkdownDocument(['foo' => 'bar'], 'Hello, world!');
+        $this->assertEquals('Hello, world!', (string) $document);
+    }
+
     public function test_matter_method_returns_empty_array_if_document_has_no_matter()
     {
         $document = new MarkdownDocument();
@@ -82,6 +88,12 @@ class MarkdownDocumentTest extends TestCase
     {
         $document = new MarkdownDocument([], 'Hello, world!');
         $this->assertEquals('Hello, world!', $document->body());
+    }
+
+    public function test_render_method_returns_rendered_html()
+    {
+        $document = new MarkdownDocument([], 'Hello, world!');
+        $this->assertEquals("<p>Hello, world!</p>\n", $document->render());
     }
 
     public function test_parse_file_method_parses_a_file_using_the_markdown_file_service()

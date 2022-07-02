@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\MarkdownFileService;
@@ -21,12 +22,17 @@ class MarkdownDocument implements MarkdownDocumentContract
         $this->body = $body;
     }
 
-    public function __get(string $key)
+    public function __toString(): string
+    {
+        return $this->body;
+    }
+
+    public function __get(string $key): mixed
     {
         return $this->matter($key);
     }
 
-    public function matter(string $key = null, $default = null)
+    public function matter(string $key = null, mixed $default = null): mixed
     {
         if ($key) {
             return Arr::get($this->matter, $key, $default);
@@ -38,6 +44,11 @@ class MarkdownDocument implements MarkdownDocumentContract
     public function body(): string
     {
         return $this->body;
+    }
+
+    public function render(): string
+    {
+        return MarkdownConverter::parse($this->body);
     }
 
     public static function parseFile(string $localFilepath): static
