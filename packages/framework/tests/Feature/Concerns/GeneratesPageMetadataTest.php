@@ -16,7 +16,7 @@ class GeneratesPageMetadataTest extends TestCase
     use GeneratesPageMetadata;
 
     public array $matter;
-    private string $slug;
+    protected string $slug;
 
     protected bool $forceOpenGraph = true;
 
