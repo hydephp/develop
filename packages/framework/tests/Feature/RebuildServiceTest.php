@@ -36,7 +36,7 @@ class RebuildServiceTest extends TestCase
         unlink(Hyde::path('_site/posts/test-file.html'));
     }
 
-    private function runExecuteTest(string $prefix, string $suffix = '.md')
+    protected function runExecuteTest(string $prefix, string $suffix = '.md')
     {
         $path = $prefix.'/test-file'.$suffix;
         createTestPost($path);

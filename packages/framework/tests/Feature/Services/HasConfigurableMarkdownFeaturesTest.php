@@ -14,7 +14,7 @@ class HasConfigurableMarkdownFeaturesTest extends TestCase
 {
     use HasConfigurableMarkdownFeatures;
 
-    private string $sourceModel;
+    protected string $sourceModel;
 
     public function test_has_features_array()
     {

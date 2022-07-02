@@ -58,17 +58,17 @@ class HydeDocsIndexPathTest extends TestCase
         rmdir(Hyde::path('foo'));
     }
 
-    private function setReadme()
+    protected function setReadme()
     {
         file_put_contents(Hyde::path('_docs/readme.md'), '');
     }
 
-    private function setIndex()
+    protected function setIndex()
     {
         file_put_contents(Hyde::path('_docs/index.md'), '');
     }
 
-    private function clearBoth()
+    protected function clearBoth()
     {
         @unlink(Hyde::path('_docs/index.md'));
         @unlink(Hyde::path('_docs/readme.md'));

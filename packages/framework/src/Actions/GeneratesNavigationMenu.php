@@ -50,7 +50,7 @@ class GeneratesNavigationMenu
      *
      * @return array
      */
-    private function getLinks(): array
+    protected function getLinks(): array
     {
         $links = $this->getLinksFromConfig();
 
@@ -151,7 +151,7 @@ class GeneratesNavigationMenu
      *
      * @return array
      */
-    private function getListOfCustomPages(): array
+    protected function getListOfCustomPages(): array
     {
         return array_unique(
             array_merge(
@@ -167,7 +167,7 @@ class GeneratesNavigationMenu
      * @param  string  $slug
      * @return string
      */
-    private function getRelativeRoutePathForSlug(string $slug): string
+    protected function getRelativeRoutePathForSlug(string $slug): string
     {
         return Hyde::relativeLink($slug.'.html', $this->currentPage);
     }
