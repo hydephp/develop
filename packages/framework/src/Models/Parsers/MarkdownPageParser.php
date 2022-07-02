@@ -9,6 +9,7 @@ use Hyde\Framework\Services\MarkdownFileService;
 
 /**
  * Parses a Markdown file into a MarkdownPage object using the LegacyMarkdownDocument intermediary.
+ * @todo Refactor to use dynamic path and extension resolvers
  */
 class MarkdownPageParser extends AbstractPageParser
 {
