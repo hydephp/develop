@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Added
 - Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug()
+- Added new helper method render() to MarkdownDocuments to compile the Markdown to HTML, fixes https://github.com/hydephp/develop/issues/109
 
 ### Changed
 - Update default HydeFront version to v1.12.x
