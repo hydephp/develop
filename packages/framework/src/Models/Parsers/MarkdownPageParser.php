@@ -8,14 +8,17 @@ use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Services\MarkdownFileService;
 
 /**
- * Parses a Markdown file into a MarkdownPage object using the MarkdownDocument intermediary.
+ * Parses a Markdown file into a MarkdownPage object using the MarkdownPage intermediary.
+ *
+ * @todo Refactor to use dynamic path and extension resolvers
  */
 class MarkdownPageParser extends AbstractPageParser
 {
     protected string $pageModel = MarkdownPage::class;
     protected string $slug;
 
-    public string $title;
+    /** @deprecated (handled in constructor) */
+    public string $title = '';
     public string $body;
 
     public function execute(): void
@@ -23,8 +26,6 @@ class MarkdownPageParser extends AbstractPageParser
         $document = (new MarkdownFileService(
             Hyde::getMarkdownPagePath("/$this->slug.md")
         ))->get();
-
-        $this->title = $document->findTitleForDocument();
 
         $this->body = $document->body;
     }

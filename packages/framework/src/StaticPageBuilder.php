@@ -4,9 +4,9 @@ namespace Hyde\Framework;
 
 use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 
@@ -25,10 +25,10 @@ class StaticPageBuilder
     /**
      * Construct the class.
      *
-     * @param  MarkdownDocument|BladePage  $page  the Page to compile into HTML
+     * @param  PageContract  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
      */
-    public function __construct(protected MarkdownDocument|BladePage $page, bool $selfInvoke = false)
+    public function __construct(protected PageContract $page, bool $selfInvoke = false)
     {
         if ($selfInvoke) {
             $this->__invoke();

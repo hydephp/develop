@@ -61,8 +61,9 @@ class MarkdownPageTest extends TestCase
     public function test_title_was_inferred_from_heading()
     {
         $parser = new MarkdownPageParser('test-post');
-        $this->assertIsString($parser->title);
-        $this->assertEquals('PHPUnit Test File', $parser->title);
+        $object = $parser->get();
+        $this->assertIsString($object->title);
+        $this->assertEquals('PHPUnit Test File', $object->title);
     }
 
     public function test_parser_contains_body_text()

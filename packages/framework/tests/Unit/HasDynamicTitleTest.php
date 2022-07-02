@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Testing\TestCase;
 
 /**
@@ -16,7 +16,7 @@ class HasDynamicTitleTest extends TestCase
 
     public function test_can_find_title_from_front_matter()
     {
-        $document = new MarkdownDocument([
+        $document = new MarkdownPage([
             'title' => 'My Title',
         ], body: '');
 
@@ -25,14 +25,14 @@ class HasDynamicTitleTest extends TestCase
 
     public function test_can_find_title_from_h1_tag()
     {
-        $document = new MarkdownDocument([], body: '# My Title');
+        $document = new MarkdownPage([], body: '# My Title');
 
         $this->assertEquals('My Title', $document->findTitleForDocument());
     }
 
     public function test_can_find_title_from_slug()
     {
-        $document = new MarkdownDocument([], body: '', slug: 'my-title');
+        $document = new MarkdownPage([], body: '', slug: 'my-title');
         $this->assertEquals('My Title', $document->findTitleForDocument());
     }
 }

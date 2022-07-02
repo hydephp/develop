@@ -2,36 +2,46 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Concerns\HasDynamicTitle;
-use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\MarkdownFileService;
+use Illuminate\Support\Arr;
 
 /**
- * The base class for all Markdown-based Page Models.
- *
- * It is, in itself an intermediate object model created by the MarkdownFileService
- * and contains the Front Matter and Markdown body found in a document processed by the service.
- *
- * @see \Hyde\Framework\Models\MarkdownPage
- * @see \Hyde\Framework\Models\MarkdownPost
- * @see \Hyde\Framework\Models\DocumentationPage
+ * @see \Hyde\Framework\Testing\MarkdownDocumentTest
  */
-class MarkdownDocument extends AbstractPage implements MarkdownDocumentContract
+class MarkdownDocument implements MarkdownDocumentContract
 {
-    use HasDynamicTitle;
-
     public array $matter;
     public string $body;
-    public string $title;
-    public string $slug;
 
-    public static string $fileExtension = '.md';
-
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
+    public function __construct(array $matter = [], string $body = '')
     {
         $this->matter = $matter;
         $this->body = $body;
-        $this->title = $title;
-        $this->slug = $slug;
+    }
+
+    public function __get(string $key)
+    {
+        return $this->matter($key);
+    }
+
+    public function matter(string $key = null, $default = null)
+    {
+        if ($key) {
+            return Arr::get($this->matter, $key, $default);
+        }
+
+        return $this->matter;
+    }
+
+    public function body(): string
+    {
+        return $this->body;
+    }
+
+    public static function parseFile(string $localFilepath): static
+    {
+        return (new MarkdownFileService(Hyde::path($localFilepath)))->get();
     }
 }

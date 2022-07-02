@@ -9,11 +9,12 @@ use Illuminate\Support\Collection;
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
  *
- * Markdown-based Pages can extend the MarkdownDocument class to get relevant helpers.
+ * Markdown-based Pages can extend the AbstractMarkdownPage class to get relevant helpers.
  *
  * To learn about what the methods do, see the PHPDocs in the PageContract.
  *
  * @see \Hyde\Framework\Contracts\PageContract
+ * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractPage implements PageContract

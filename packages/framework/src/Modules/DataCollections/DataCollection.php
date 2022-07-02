@@ -41,7 +41,7 @@ class DataCollection extends Collection
     public function getMarkdownFiles(): array
     {
         return glob(Hyde::path(
-            static::$sourceDirectory.'/'.$this->key.'/*'.MarkdownDocument::$fileExtension
+            static::$sourceDirectory.'/'.$this->key.'/*.md'
         ));
     }
 

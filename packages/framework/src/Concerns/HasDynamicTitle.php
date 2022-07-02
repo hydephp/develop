@@ -13,6 +13,13 @@ use Hyde\Framework\Hyde;
  */
 trait HasDynamicTitle
 {
+    public function constructDynamicTitle(): void
+    {
+        if (! isset($this->title) || $this->title === '') {
+            $this->title = $this->findTitleForDocument();
+        }
+    }
+
     public function findTitleForDocument(): string
     {
         if (isset($this->matter['title'])) {
