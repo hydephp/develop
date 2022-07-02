@@ -10,6 +10,7 @@ use SimpleXMLElement;
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
  * @see https://validator.w3.org/feed/docs/rss2.html
+ * @phpstan-consistent-constructor
  */
 class RssFeedService
 {

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Blade;
  * @example: [Blade]: @include('path/to/view.blade.php')
  *
  * @see \Hyde\Framework\Testing\Feature\Services\BladeDownProcessorTest
+ * @phpstan-consistent-constructor
  */
 class BladeDownProcessor
 {

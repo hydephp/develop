@@ -9,6 +9,7 @@ use Hyde\Framework\Models\ValidationResult as Result;
 /**
  * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
  * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
+ * @phpstan-consistent-constructor
  */
 class ValidationService
 {

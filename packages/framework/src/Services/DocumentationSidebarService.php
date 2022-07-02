@@ -11,6 +11,7 @@ use Hyde\Framework\Models\DocumentationSidebarItem;
  * Service class to create and manage the sidebar collection object.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarServiceTest
+ * @phpstan-consistent-constructor
  */
 class DocumentationSidebarService implements DocumentationSidebarServiceContract
 {
