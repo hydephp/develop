@@ -4,6 +4,7 @@ namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Arr;
 
 class MarkdownDocument implements MarkdownDocumentContract
@@ -34,5 +35,10 @@ class MarkdownDocument implements MarkdownDocumentContract
     public function body(): string
     {
         return $this->body;
+    }
+
+    public static function parseFile(string $localFilepath): static
+    {
+        return (new MarkdownFileService(Hyde::path($localFilepath)))->get();
     }
 }
