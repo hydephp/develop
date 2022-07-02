@@ -41,7 +41,7 @@ class PublishesHomepageView implements ActionContract
 
     public function execute(): bool|int
     {
-        if (! array_key_exists($this->selected, self::$homePages)) {
+        if (! array_key_exists($this->selected, static::$homePages)) {
             return 404;
         }
 
