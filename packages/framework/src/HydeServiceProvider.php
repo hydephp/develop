@@ -101,8 +101,12 @@ class HydeServiceProvider extends ServiceProvider
         ], 'hyde-components');
 
         $this->publishes([
-            __DIR__.'/../_pages/404.blade.php' => resource_path('views/pages/404.blade.php'),
+            Hyde::vendorPath('resources/views/pages/404.blade.php') => Hyde::path('_pages/404.blade.php'),
         ], 'hyde-page-404');
+
+        $this->publishes([
+            Hyde::vendorPath('resources/views/homepages/welcome.blade.php') => Hyde::path('_pages/index.blade.php'),
+        ], 'hyde-welcome-page');
     }
 
     /**
