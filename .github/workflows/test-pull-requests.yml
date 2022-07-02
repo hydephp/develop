@@ -67,6 +67,9 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-source
 
+      - name: Create cache directory
+        run: mkdir build/cache -p
+
       - name: Check syntax (PHP Parallel Lint)
         run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
 
