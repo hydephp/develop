@@ -7,6 +7,9 @@ use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Arr;
 
+/**
+ * @see \Hyde\Framework\Testing\MarkdownDocumentTest
+ */
 class MarkdownDocument implements MarkdownDocumentContract
 {
     public array $matter;
