@@ -20,11 +20,11 @@ class ChecksIfConfigIsUpToDate implements ActionContract
 
     public function execute(): bool
     {
-        if (self::$isUpToDate === null) {
-            self::$isUpToDate = $this->isUpToDate();
+        if (static::$isUpToDate === null) {
+            static::$isUpToDate = $this->isUpToDate();
         }
 
-        return self::$isUpToDate;
+        return static::$isUpToDate;
     }
 
     protected function isUpToDate(): bool

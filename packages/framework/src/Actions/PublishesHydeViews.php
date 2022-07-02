@@ -43,7 +43,7 @@ class PublishesHydeViews implements ActionContract
 
     public function execute(): bool|int
     {
-        if (! array_key_exists($this->selected, self::$options)) {
+        if (! array_key_exists($this->selected, static::$options)) {
             return 404;
         }
 
