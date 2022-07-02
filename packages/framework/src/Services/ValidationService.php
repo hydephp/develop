@@ -14,7 +14,7 @@ class ValidationService
 {
     public static function checks(): array
     {
-        $service = new static();
+        $service = new self();
         $checks = [];
         foreach (get_class_methods($service) as $method) {
             if (str_starts_with($method, 'check_')) {

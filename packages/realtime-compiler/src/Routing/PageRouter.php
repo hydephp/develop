@@ -103,6 +103,6 @@ class PageRouter
 
     public static function handle(Request $request): Response
     {
-        return (new static($request))->handlePageRequest();
+        return (new self($request))->handlePageRequest();
     }
 }

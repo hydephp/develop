@@ -178,7 +178,8 @@ class MonorepoMakeReleaseCommand extends Command
         $changelog = str_replace("\r", '', $changelog);
         $changelog = explode("\n", $changelog);
 
-        $changelog = array_slice($changelog,
+        $changelog = array_slice(
+            $changelog,
             array_search('<!-- UNRELEASED_START -->', $changelog) + 2,
             array_search('<!-- UNRELEASED_END -->', $changelog) - (array_search('<!-- UNRELEASED_START -->', $changelog) + 2)
         );

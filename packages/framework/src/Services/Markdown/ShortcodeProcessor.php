@@ -21,6 +21,7 @@ use Hyde\Framework\Services\Markdown\Shortcodes\AbstractColoredBlockquote;
  *      for each Markdown conversion.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\ShortcodeProcessorTest
+ * @phpstan-consistent-constructor
  */
 class ShortcodeProcessor implements MarkdownProcessorContract
 {

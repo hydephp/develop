@@ -19,6 +19,8 @@ use Illuminate\Support\Str;
  * @todo Refactor to use custom site output paths
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
+ *
+ * @phpstan-consistent-constructor
  */
 class GeneratesDocumentationSearchIndexFile implements ActionContract
 {

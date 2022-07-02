@@ -10,6 +10,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
  * Object containing information for a sidebar item.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarServiceTest
+ * @phpstan-consistent-constructor
  */
 class DocumentationSidebarItem
 {

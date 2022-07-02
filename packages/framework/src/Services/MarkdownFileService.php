@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Models\MarkdownDocument;
-use JetBrains\PhpStorm\Pure;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
@@ -51,7 +50,6 @@ class MarkdownFileService
      *
      * @return MarkdownDocument
      */
-    #[Pure]
     public function get(): MarkdownDocument
     {
         return new MarkdownDocument($this->matter, $this->body);
