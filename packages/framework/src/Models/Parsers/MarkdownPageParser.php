@@ -17,7 +17,7 @@ class MarkdownPageParser extends AbstractPageParser
     protected string $pageModel = MarkdownPage::class;
     protected string $slug;
 
-    /** @deprecated (handled in constructor) */
+    /** @deprecated v0.44.x (handled in constructor) */
     public string $title = '';
     public string $body;
 

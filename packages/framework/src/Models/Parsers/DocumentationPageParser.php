@@ -12,7 +12,7 @@ class DocumentationPageParser extends AbstractPageParser
     protected string $pageModel = DocumentationPage::class;
     protected string $slug;
 
-    /** @deprecated (handled in constructor) */
+    /** @deprecated v0.44.x (handled in constructor) */
     public string $title = '';
     public string $body;
 
