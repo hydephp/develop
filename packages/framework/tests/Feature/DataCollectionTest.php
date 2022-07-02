@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\LegacyMarkdownDocument;
 use Hyde\Framework\Modules\DataCollections\DataCollection;
 use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Modules\DataCollections\Facades\MarkdownCollection;
@@ -118,7 +118,7 @@ class DataCollectionTest extends TestCase
 
         $collection = DataCollection::markdown('foo');
 
-        $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
+        $this->assertContainsOnlyInstancesOf(LegacyMarkdownDocument::class, $collection);
 
         File::deleteDirectory(Hyde::path('_data/foo'));
     }

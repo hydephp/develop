@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\LegacyMarkdownDocument;
 use Hyde\Framework\Services\MarkdownFileService;
 use Hyde\Testing\TestCase;
 
@@ -26,7 +26,7 @@ class MarkdownFileServiceTest extends TestCase
     public function test_can_parse_markdown_file()
     {
         $document = (new MarkdownFileService(Hyde::path('_posts/test-post.md')))->get();
-        $this->assertInstanceOf(MarkdownDocument::class, $document);
+        $this->assertInstanceOf(LegacyMarkdownDocument::class, $document);
 
         $this->assertEquals([
             'title' => 'My New Post',

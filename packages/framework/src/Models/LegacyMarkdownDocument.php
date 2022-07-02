@@ -16,7 +16,7 @@ use Hyde\Framework\Contracts\MarkdownDocumentContract;
  * @see \Hyde\Framework\Models\MarkdownPost
  * @see \Hyde\Framework\Models\DocumentationPage
  */
-class MarkdownDocument extends AbstractPage implements MarkdownDocumentContract
+class LegacyMarkdownDocument extends AbstractPage implements MarkdownDocumentContract
 {
     use HasDynamicTitle;
 

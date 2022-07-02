@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\LegacyMarkdownDocument;
 use JetBrains\PhpStorm\Pure;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -47,13 +47,13 @@ class MarkdownFileService
     }
 
     /**
-     * Get the processed Markdown file as a MarkdownDocument.
+     * Get the processed Markdown file as a LegacyMarkdownDocument.
      *
-     * @return MarkdownDocument
+     * @return LegacyMarkdownDocument
      */
     #[Pure]
-    public function get(): MarkdownDocument
+    public function get(): LegacyMarkdownDocument
     {
-        return new MarkdownDocument($this->matter, $this->body);
+        return new LegacyMarkdownDocument($this->matter, $this->body);
     }
 }

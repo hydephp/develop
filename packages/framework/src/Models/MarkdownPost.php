@@ -10,7 +10,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Illuminate\Support\Collection;
 
-class MarkdownPost extends MarkdownDocument
+class MarkdownPost extends LegacyMarkdownDocument
 {
     use HasAuthor;
     use GeneratesPageMetadata;

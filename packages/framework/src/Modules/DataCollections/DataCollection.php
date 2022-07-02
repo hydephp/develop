@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\LegacyMarkdownDocument;
 use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Collection;
 
@@ -41,16 +41,16 @@ class DataCollection extends Collection
     public function getMarkdownFiles(): array
     {
         return glob(Hyde::path(
-            static::$sourceDirectory.'/'.$this->key.'/*'.MarkdownDocument::$fileExtension
+            static::$sourceDirectory.'/'.$this->key.'/*'.LegacyMarkdownDocument::$fileExtension
         ));
     }
 
     /**
      * Get a collection of Markdown documents in the _data/<$key> directory.
-     * Each Markdown file will be parsed into a MarkdownDocument with front matter.
+     * Each Markdown file will be parsed into a LegacyMarkdownDocument with front matter.
      *
      * @param  string  $key  for a subdirectory of the _data directory
-     * @return DataCollection<\Hyde\Framework\Models\MarkdownDocument>
+     * @return DataCollection<\Hyde\Framework\Models\LegacyMarkdownDocument>
      */
     public static function markdown(string $key): DataCollection
     {

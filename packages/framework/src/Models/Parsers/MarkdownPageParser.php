@@ -8,7 +8,7 @@ use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Services\MarkdownFileService;
 
 /**
- * Parses a Markdown file into a MarkdownPage object using the MarkdownDocument intermediary.
+ * Parses a Markdown file into a MarkdownPage object using the LegacyMarkdownDocument intermediary.
  */
 class MarkdownPageParser extends AbstractPageParser
 {

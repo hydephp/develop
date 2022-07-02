@@ -6,7 +6,7 @@ use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 
-class DocumentationPage extends MarkdownDocument
+class DocumentationPage extends LegacyMarkdownDocument
 {
     use HasTableOfContents;
 
