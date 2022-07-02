@@ -129,12 +129,35 @@ class CollectionServiceTest extends TestCase
         unlink($path);
     }
 
-    public function test_files_starting_with_underscore_are_ignored()
+    public function test_blade_page_files_starting_with_underscore_are_ignored()
+    {
+        touch(Hyde::path('_pages/_foo.blade.php'));
+        $this->assertEquals([
+            '404',
+            'index',
+        ], CollectionService::getBladePageList());
+        unlink(Hyde::path('_pages/_foo.blade.php'));
+    }
+
+    public function test_markdown_page_files_starting_with_underscore_are_ignored()
+    {
+        touch(Hyde::path('_pages/_foo.md'));
+        $this->assertEquals([], CollectionService::getMarkdownPageList());
+        unlink(Hyde::path('_pages/_foo.md'));
+    }
+
+    public function test_post_files_starting_with_underscore_are_ignored()
     {
         touch(Hyde::path('_posts/_foo.md'));
-        $this->assertNotContains('_foo', CollectionService::getMarkdownPostList());
-        $this->assertNotContains('foo', CollectionService::getMarkdownPostList());
+        $this->assertEquals([], CollectionService::getMarkdownPostList());
         unlink(Hyde::path('_posts/_foo.md'));
+    }
+
+    public function test_documentation_page_files_starting_with_underscore_are_ignored()
+    {
+        touch(Hyde::path('_docs/_foo.md'));
+        $this->assertEquals([], CollectionService::getDocumentationPageList());
+        unlink(Hyde::path('_docs/_foo.md'));
     }
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
