@@ -3,8 +3,10 @@
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\StaticPageBuilder;
 use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
@@ -151,5 +153,22 @@ class BuildStaticSiteCommandTest extends TestCase
             ->expectsOutput('Generating documentation site search index...')
             ->expectsOutput('Generating search page...')
             ->assertExitCode(0);
+    }
+
+    public function test_aborts_when_non_standard_directory_is_emptied()
+    {
+        StaticPageBuilder::$outputPath = 'foo';
+
+        mkdir(Hyde::path('foo'));
+        touch(Hyde::path('foo/keep.html'));
+
+        $this->artisan('build')
+            ->expectsOutput('Removing all files from build directory.')
+            ->expectsQuestion('The configured output directory (foo) is potentially unsafe to empty. Are you sure you want to continue?', false)
+            ->expectsOutput('Output directory will not be emptied.')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('foo/keep.html'));
+        File::deleteDirectory(Hyde::path('foo'));
     }
 }
