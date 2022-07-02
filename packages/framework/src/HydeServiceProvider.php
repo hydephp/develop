@@ -6,7 +6,7 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\RegistersDefaultDirectories;
 use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\AssetService;

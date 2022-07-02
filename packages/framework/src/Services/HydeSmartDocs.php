@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\FacadeHelpers\HydeSmartDocsFacade;
-use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Str;
 
 /**

@@ -14,7 +14,7 @@ use Hyde\Framework\Models\MarkdownDocument;
  * helpers for Markdown-based page model classes.
  * @see \Hyde\Framework\Models\Pages\MarkdownPage
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
- * @see \Hyde\Framework\Models\DocumentationPage
+ * @see \Hyde\Framework\Models\Pages\DocumentationPage
  * @see \Hyde\Framework\Contracts\AbstractPage
  *
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest

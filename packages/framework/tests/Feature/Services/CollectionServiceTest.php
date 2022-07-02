@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\CollectionService;

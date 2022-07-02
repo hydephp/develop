@@ -4,7 +4,7 @@ namespace Hyde\Framework\Concerns\Markdown;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Markdown;
-use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 
 /**
  * Allow the Markdown service to have configurable features.
