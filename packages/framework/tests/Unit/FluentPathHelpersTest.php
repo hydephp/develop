@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;

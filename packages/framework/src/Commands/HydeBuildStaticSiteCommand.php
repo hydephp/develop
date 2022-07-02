@@ -8,7 +8,7 @@ use Hyde\Framework\Concerns\Internal\BuildActionRunner;
 use Hyde\Framework\Concerns\Internal\TransfersMediaAssetsForBuildCommands;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
+use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
