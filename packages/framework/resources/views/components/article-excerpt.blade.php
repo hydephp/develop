@@ -42,7 +42,7 @@
     @endisset
 
     <footer>
-        <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}" class="text-indigo-500 hover:underline font-medium">Read
-            post</a>
+        <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}" class="text-indigo-500 hover:underline font-medium">
+            Read post</a>
     </footer>
 </article>
