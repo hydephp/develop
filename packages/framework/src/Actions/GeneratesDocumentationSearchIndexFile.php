@@ -21,7 +21,7 @@ use Illuminate\Support\Str;
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
  *
  * @phpstan-consistent-constructor
-*/
+ */
 class GeneratesDocumentationSearchIndexFile implements ActionContract
 {
     use InteractsWithDirectories;
