@@ -19,7 +19,7 @@ use Hyde\Framework\StaticPageBuilder;
  * Hyde::path('_pages/foo') becomes Hyde::getBladePagePath('foo')
  *
  * @see \Hyde\Framework\Hyde
- * @see \Hyde\Framework\Testing\Unit\FluentPathHelpersTest
+ * @see \Hyde\Framework\Testing\Feature\FluentPathHelpersTest
  */
 trait FluentPathHelpers
 {
