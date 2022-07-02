@@ -16,6 +16,8 @@ use Hyde\Framework\Models\MarkdownDocument;
  * @see \Hyde\Framework\Models\MarkdownPost
  * @see \Hyde\Framework\Models\DocumentationPage
  * @see \Hyde\Framework\Contracts\AbstractPage
+ *
+ * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractMarkdownPage extends AbstractPage
 {

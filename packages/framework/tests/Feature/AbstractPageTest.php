@@ -2,11 +2,14 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Concerns\HasDynamicTitle;
+use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
@@ -21,6 +24,7 @@ use Hyde\Testing\TestCase;
  * since it's the simplest implementation.
  *
  * @covers \Hyde\Framework\Contracts\AbstractPage
+ * @covers \Hyde\Framework\Contracts\AbstractMarkdownPage
  *
  * @backupStaticAttributes enabled
  */
@@ -260,5 +264,105 @@ class AbstractPageTest extends TestCase
         foreach ($pages as $page => $expected) {
             $this->assertEquals($expected, $page::$parserClass);
         }
+    }
+
+    // test AbstractMarkdownPage extends AbstractPage
+    public function test_abstract_markdown_page_extends_abstract_page()
+    {
+        $this->assertInstanceOf(AbstractPage::class, new class extends AbstractMarkdownPage {});
+    }
+
+    // test AbstractMarkdownPage implements PageContract interface
+    public function test_abstract_markdown_page_implements_page_contract()
+    {
+        $this->assertInstanceOf(PageContract::class, new class extends AbstractMarkdownPage {});
+    }
+
+    // test AbstractMarkdownPage uses HasDynamicTitle trait
+    public function test_abstract_markdown_page_uses_has_dynamic_title_trait()
+    {
+        $this->assertContains(HasDynamicTitle::class, class_uses_recursive(AbstractMarkdownPage::class));
+    }
+
+    // test AbstractMarkdownPage has MarkdownDocument property
+    public function test_abstract_markdown_page_has_markdown_document_property()
+    {
+        $this->assertClassHasAttribute('markdown', AbstractMarkdownPage::class);
+    }
+
+    // test AbstractMarkdownPage has fileExtension property
+    public function test_abstract_markdown_page_has_file_extension_property()
+    {
+        $this->assertClassHasAttribute('fileExtension', AbstractMarkdownPage::class);
+    }
+
+    // test AbstractMarkdownPage fileExtension property is set to '.md'
+    public function test_abstract_markdown_page_file_extension_property_is_set_to_md()
+    {
+        $this->assertEquals('.md', AbstractMarkdownPage::$fileExtension);
+    }
+
+    // test AbstractMarkdownPage constructor arguments are optional
+    public function test_abstract_markdown_page_constructor_arguments_are_optional()
+    {
+        $page = new class extends AbstractMarkdownPage {};
+        $this->assertInstanceOf(AbstractMarkdownPage::class, $page); // If we get this far, we're good as no exception was thrown
+    }
+
+    // test AbstractMarkdownPage constructor assigns MarkdownDocument property if set
+    public function test_abstract_markdown_page_constructor_assigns_markdown_document_property_if_set()
+    {
+        $document = new MarkdownDocument();
+        $page = new MarkdownPage(markdownDocument: $document);
+        $this->assertSame($document, $page->markdown);
+    }
+
+    // test AbstractMarkdownPage constructor creates a new MarkdownDocument if no MarkdownDocument is set
+    public function test_abstract_markdown_page_constructor_creates_new_markdown_document_if_no_markdown_document_is_set()
+    {
+        $page = new MarkdownPage();
+        $this->assertInstanceOf(MarkdownDocument::class, $page->markdown);
+    }
+
+    // test AbstractMarkdownPage markdown() helper returns the MarkdownDocument instance
+    public function test_abstract_markdown_page_markdown_helper_returns_the_markdown_document_instance()
+    {
+        $page = new MarkdownPage();
+        $this->assertSame($page->markdown, $page->markdown());
+    }
+
+    // test AbstractMarkdownPage markdown() helper returns the configured MarkdownDocument instance
+    public function test_abstract_markdown_page_markdown_helper_returns_the_configured_markdown_document_instance()
+    {
+        $document = new MarkdownDocument();
+        $page = new MarkdownPage(markdownDocument: $document);
+        $this->assertSame($document, $page->markdown());
+    }
+
+    // test AbstractMarkdownPage constructs dynamic title automatically in constructor
+    public function test_abstract_markdown_page_constructor_constructs_dynamic_title_automatically()
+    {
+        $page = new MarkdownPage(['title' => 'Foo']);
+        $this->assertEquals('Foo', $page->title);
+    }
+
+    // test markdown based pages extend AbstractMarkdownPage
+    public function test_markdown_based_pages_extend_abstract_markdown_page()
+    {
+        $pages = [
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class
+        ];
+
+        foreach ($pages as $page) {
+            $this->assertInstanceOf(AbstractMarkdownPage::class, new $page());
+        }
+    }
+
+    // test blade pages do not extend AbstractMarkdownPage
+    public function test_blade_pages_do_not_extend_abstract_markdown_page()
+    {
+        $this->assertNotInstanceOf(AbstractMarkdownPage::class, new BladePage('foo'));
     }
 }
