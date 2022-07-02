@@ -66,7 +66,7 @@ class HydeBuildStaticSiteCommand extends Command
 
         $this->runPreBuildActions();
 
-        $this->purge();
+        $this->cleanOutputDirectory();
 
         $this->transferMediaAssets();
 
@@ -171,18 +171,20 @@ class HydeBuildStaticSiteCommand extends Command
      *
      * @return void
      */
-    public function purge(): void
+    public function cleanOutputDirectory(): void
     {
-        $this->warn('Removing all files from build directory.');
-        if (! in_array(basename(Hyde::getSiteOutputPath()), config('hyde.safe_output_directories', ['_site', 'docs', 'build']))) {
-            if (! $this->confirm('The configured output directory ('.Hyde::getSiteOutputPath().') is potentially unsafe to empty. Are you sure you want to continue?')) {
-                $this->info('Output directory will not be emptied.');
+        if (config('hyde.empty_output_directory', true)) {
+            $this->warn('Removing all files from build directory.');
+            if (! in_array(basename(Hyde::getSiteOutputPath()), config('hyde.safe_output_directories', ['_site', 'docs', 'build']))) {
+                if (! $this->confirm('The configured output directory ('.Hyde::getSiteOutputPath().') is potentially unsafe to empty. Are you sure you want to continue?')) {
+                    $this->info('Output directory will not be emptied.');
 
-                return;
+                    return;
+                }
             }
+            array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
+            File::cleanDirectory(Hyde::getSiteOutputPath('media'));
         }
-        array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
-        File::cleanDirectory(Hyde::getSiteOutputPath('media'));
     }
 
     /** @internal */
