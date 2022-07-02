@@ -3,10 +3,11 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Concerns\HasTableOfContents;
+use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 
-class DocumentationPage extends LegacyMarkdownDocument
+class DocumentationPage extends AbstractMarkdownPage
 {
     use HasTableOfContents;
 

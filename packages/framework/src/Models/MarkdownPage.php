@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 
-class MarkdownPage extends AbstractPage
+class MarkdownPage extends AbstractMarkdownPage
 {
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
