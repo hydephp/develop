@@ -194,7 +194,7 @@ class HydeBuildStaticSiteCommand extends Command
     }
 
     /* @internal */
-    private function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
+    protected function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
     {
         $this->info($message.' This may take a second.');
 

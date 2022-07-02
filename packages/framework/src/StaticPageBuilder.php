@@ -71,7 +71,7 @@ class StaticPageBuilder
      * @param  string  $contents  to save to the file
      * @return string the path to the saved file (since v0.32.x)
      */
-    private function save(string $contents): string
+    protected function save(string $contents): string
     {
         $path = Hyde::getSiteOutputPath($this->page->getOutputPath());
 
@@ -85,7 +85,7 @@ class StaticPageBuilder
      *
      * @return string
      */
-    private function compileView(): string
+    protected function compileView(): string
     {
         return view($this->page->view)->render();
     }
@@ -95,7 +95,7 @@ class StaticPageBuilder
      *
      * @return string
      */
-    private function compilePost(): string
+    protected function compilePost(): string
     {
         return view('hyde::layouts/post')->with([
             'title' => $this->page->title,
@@ -108,7 +108,7 @@ class StaticPageBuilder
      *
      * @return string
      */
-    private function compilePage(): string
+    protected function compilePage(): string
     {
         return view('hyde::layouts/page')->with([
             'title' => $this->page->title,
@@ -121,7 +121,7 @@ class StaticPageBuilder
      *
      * @return string
      */
-    private function compileDocs(): string
+    protected function compileDocs(): string
     {
         return view('hyde::layouts/docs')->with([
             'title' => $this->page->title,
