@@ -33,22 +33,17 @@ class HydePublishHomepageCommand extends Command
             $this->canExistingIndexFileBeOverwritten()
         ))->execute();
 
-        // @deprecated version 0.10.0, can be removed as it should not be possible to select a homepage that does not exist, and we can make a pre-check for 409 case.
-        if ($returnValue === true) {
-            $this->info('Homepage published successfully!');
-        } else {
-            if (is_numeric($returnValue)) {
-                if ($returnValue == 404) {
-                    $this->error('Homepage '.$this->selected.' does not exist.');
+        if (is_numeric($returnValue)) {
+            if ($returnValue == 404) {
+                $this->error('Homepage '.$this->selected.' does not exist.');
 
-                    return 404;
-                }
+                return 404;
+            }
 
-                if ($returnValue == 409) {
-                    $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
+            if ($returnValue == 409) {
+                $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
 
-                    return 409;
-                }
+                return 409;
             }
         }
 
