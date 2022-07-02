@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
  * Generates metadata for page models that have front matter.

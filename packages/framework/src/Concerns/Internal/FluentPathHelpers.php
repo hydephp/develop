@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownPage;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\StaticPageBuilder;
 

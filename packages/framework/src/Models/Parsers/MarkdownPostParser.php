@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models\Parsers;
 
 use Hyde\Framework\Contracts\AbstractPageParser;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\MarkdownFileService;
 
 class MarkdownPostParser extends AbstractPageParser

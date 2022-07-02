@@ -6,8 +6,8 @@ use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**

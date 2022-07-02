@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Concerns\FacadeHelpers;
 
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 
 /**
  * Provide static facade methods, and instance helpers for HydeSmartDocs.
@@ -16,7 +16,7 @@ trait HydeSmartDocsFacade
     /**
      * Create a new HydeSmartDocs instance, process, and return it.
      *
-     * @param  DocumentationPage  $page  The source page object
+     * @param  \Hyde\Framework\Models\Pages\DocumentationPage  $page  The source page object
      * @param  string  $html  compiled HTML content
      * @return static new processed instance
      */

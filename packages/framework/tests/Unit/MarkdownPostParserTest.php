@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Testing\TestCase;
 

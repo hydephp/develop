@@ -4,10 +4,10 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownPage;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
  * Contains service methods to return helpful collections of arrays and lists.

@@ -7,11 +7,11 @@ use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownDocument;
-use Hyde\Framework\Models\MarkdownPage;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Testing\TestCase;
@@ -249,7 +249,7 @@ class AbstractPageTest extends TestCase
     public function test_all_page_models_have_configured_parser_class()
     {
         $pages = [
-            BladePage::class => 'Hyde\Framework\Models\BladePage',
+            BladePage::class => 'Hyde\Framework\Models\Pages\BladePage',
             MarkdownPage::class => 'Hyde\Framework\Models\Parsers\MarkdownPageParser',
             MarkdownPost::class => 'Hyde\Framework\Models\Parsers\MarkdownPostParser',
             DocumentationPage::class => 'Hyde\Framework\Models\Parsers\DocumentationPageParser',

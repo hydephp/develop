@@ -4,10 +4,10 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
-use Hyde\Framework\Models\BladePage;
-use Hyde\Framework\Models\DocumentationPage;
-use Hyde\Framework\Models\MarkdownPage;
-use Hyde\Framework\Models\MarkdownPost;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\StaticPageBuilder;
 use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;

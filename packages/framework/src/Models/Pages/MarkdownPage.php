@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;

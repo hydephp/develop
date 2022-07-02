@@ -3,11 +3,11 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\HydeServiceProvider;
-use Hyde\Framework\Models\DocumentationPage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\DocumentationPage
+ * @covers \Hyde\Framework\Models\Pages\DocumentationPage
  */
 class DocumentationPageTest extends TestCase
 {
