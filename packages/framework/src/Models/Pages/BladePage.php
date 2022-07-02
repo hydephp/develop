@@ -41,7 +41,7 @@ class BladePage extends AbstractPage implements PageParserContract
     public static string $outputDirectory = '';
 
     public static string $fileExtension = '.blade.php';
-    public static string $parserClass = self::class;
+    public static string $parserClass = static::class;
 
     /**
      * Since this model also acts as a Blade View compiler,
