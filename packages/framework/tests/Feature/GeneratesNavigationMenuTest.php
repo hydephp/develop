@@ -60,4 +60,17 @@ class GeneratesNavigationMenuTest extends TestCase
             'priority' => 999,
         ], $result[1]);
     }
+
+    public function test_files_starting_with_underscores_are_ignored()
+    {
+        touch(Hyde::path('_pages/_foo.md'));
+        touch(Hyde::path('_pages/_foo.blade.php'));
+
+        $array = GeneratesNavigationMenu::getNavigationLinks();
+        $this->assertIsArray($array);
+        $this->assertCount(1, $array);
+
+        unlink(Hyde::path('_pages/_foo.md'));
+        unlink(Hyde::path('_pages/_foo.blade.php'));
+    }
 }
