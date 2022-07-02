@@ -57,9 +57,11 @@ jobs:
           php-version: "8.0"
       - uses: actions/checkout@v3
 
+      - name: Remove composer.lock
+        run: rm composer.lock
+
       - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
         run: |
-          composer require hyde/framework:dev-${{ github.base_ref }} --no-install 
           composer require php-parallel-lint/php-parallel-lint --no-install 
           composer require squizlabs/php_codesniffer --no-install 
 
@@ -81,9 +83,11 @@ jobs:
           php-version: "8.0"
       - uses: actions/checkout@v3
 
+      - name: Remove composer.lock
+        run: rm composer.lock
+
       - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
         run: |
-          composer require hyde/framework:dev-${{ github.base_ref }} --no-install 
           composer require phpstan/phpstan --no-install 
 
       - name: Install Composer Dependencies
