@@ -174,6 +174,12 @@ class HydeBuildStaticSiteCommand extends Command
     public function purge(): void
     {
         $this->warn('Removing all files from build directory.');
+        if (! in_array(basename(Hyde::getSiteOutputPath()), config('hyde.safe_output_directories', ['_site', 'docs', 'build']))) {
+            if (! $this->confirm('The configured output directory ('.Hyde::getSiteOutputPath().') is potentially unsafe to empty. Are you sure you want to continue?')) {
+                $this->info('Aborting!');
+                exit(130);
+            }
+        }
         File::cleanDirectory(Hyde::getSiteOutputPath());
     }
 
