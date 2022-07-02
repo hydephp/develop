@@ -8,7 +8,7 @@ use Hyde\Framework\Contracts\MarkdownDocumentContract;
 
 /**
  * The base class for all Markdown-based Page Models.
- * @deprecated v0.44.0 - Extend MarkdownPage instead.
+ * @deprecated v0.44.0 - Extend AbstractMarkdownPage instead.
  *
  * It is, in itself an intermediate object model created by the MarkdownFileService
  * and contains the Front Matter and Markdown body found in a document processed by the service.
