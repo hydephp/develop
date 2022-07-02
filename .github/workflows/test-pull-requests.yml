@@ -66,7 +66,7 @@ jobs:
           composer require squizlabs/php_codesniffer --no-install 
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-autoloader
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-source --no-autoloader
 
       - name: Check syntax (PHP Parallel Lint)
         run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
@@ -91,7 +91,7 @@ jobs:
           composer require phpstan/phpstan --no-install 
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-autoloader
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-source --no-autoloader
 
       - name: Run static analysis (PHPStan)
         run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
