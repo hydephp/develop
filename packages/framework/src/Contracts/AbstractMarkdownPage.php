@@ -37,9 +37,7 @@ abstract class AbstractMarkdownPage extends AbstractPage
         $this->title = $title;
         $this->slug = $slug;
 
-        if ($markdownDocument) {
-            $this->markdown = $markdownDocument;
-        }
+        $this->markdown = $markdownDocument ?? new MarkdownDocument($matter, $body);
 
         $this->constructDynamicTitle();
     }
