@@ -21,6 +21,37 @@ This serves two purposes:
 1. People can see what changes they might expect in upcoming releases
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
+### Added
+- for new features.
+
+### Changed
+- for changes in existing functionality.
+
+### Deprecated
+- for soon-to-be removed features.
+
+### Removed
+- for now removed features.
+
+### Fixed
+- for any bug fixes.
+
+### Security
+- in case of vulnerabilities.
+
+<!-- UNRELEASED_END -->
+
+---
+
+### Changelog
+
+<!-- CHANGELOG_START -->
+
+
+## v0.44.0-beta - 2022-07-02 - Internal code restructuring
+
+### About
+
 This release mainly makes internal changes to the Framework API. If you are an end user, most of the changes are not relevant.
 However, if you are a package developer, or if you have published Blade views or otherwise extended Hyde you may want to take a look as there are internal breaking changes.
 
@@ -60,17 +91,6 @@ However, if you are a package developer, or if you have published Blade views or
 
 ### Fixed
 - Fix style bug https://github.com/hydephp/develop/issues/117, Hyde title helper should not capitalize non-principal words
-
-### Security
-- in case of vulnerabilities.
-
-<!-- UNRELEASED_END -->
-
----
-
-### Changelog
-
-<!-- CHANGELOG_START -->
 
 
 ## v0.43.0-beta - 2022-06-25 - File-based Collections
