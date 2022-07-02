@@ -28,6 +28,7 @@ This serves two purposes:
 - Update default HydeFront version to v1.12.x
 - Updates the codebase to use the new Hyde::makeTitle() helper
 - Several internal changes to how page models are structured, https://github.com/hydephp/develop/pull/122
+- Internal: Separate the MarkdownDocument into a dedicated abstract page class, https://github.com/hydephp/develop/pull/126
 
 ### Deprecated
 - Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead
