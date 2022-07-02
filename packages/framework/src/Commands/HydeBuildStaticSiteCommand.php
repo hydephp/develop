@@ -180,7 +180,8 @@ class HydeBuildStaticSiteCommand extends Command
                 return;
             }
         }
-        File::cleanDirectory(Hyde::getSiteOutputPath());
+        array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
+        File::cleanDirectory(Hyde::getSiteOutputPath('media'));
     }
 
     /** @internal */
