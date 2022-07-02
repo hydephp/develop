@@ -39,7 +39,7 @@ However, if you are a package developer, or if you have published Blade views or
 - Moved `Hyde\Framework\Models\MarkdownPost` to new namespace `Hyde\Framework\Models\Pages\MarkdownPost`
 - Moved `Hyde\Framework\Models\DocumentationPage` to new namespace `Hyde\Framework\Models\Pages\DocumentationPage`
 - Improves how the site output directory is emptied, helping prevent accidental deletion of files https://github.com/hydephp/develop/pull/135
-- The emptying of the site output directory can now be disabled by setting the new config option `hyde.empty_output_directory` to false
+- The emptying of the site output directory can now be disabled by setting the new config option `hyde.empty_output_directory` to false https://github.com/hydephp/develop/pull/136
 
 ### Deprecated
 - Deprecated Hyde::titleFromSlug(), use Hyde::makeTitle() instead
