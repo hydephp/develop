@@ -22,7 +22,7 @@ trait HydeSmartDocsFacade
      */
     public static function create(DocumentationPage $page, string $html): static
     {
-        return (new static($page, $html))->process();
+        return (new self($page, $html))->process();
     }
 
     /**
