@@ -194,7 +194,7 @@ class AbstractPageTest extends TestCase
         $pages = [
             MarkdownPage::class,
             MarkdownPost::class,
-            DocumentationPage::class
+            DocumentationPage::class,
         ];
 
         foreach ($pages as $page) {
@@ -210,7 +210,7 @@ class AbstractPageTest extends TestCase
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
-            DocumentationPage::class => '_docs'
+            DocumentationPage::class => '_docs',
         ];
 
         foreach ($pages as $page => $expected) {
@@ -224,7 +224,7 @@ class AbstractPageTest extends TestCase
             BladePage::class => '',
             MarkdownPage::class => '',
             MarkdownPost::class => 'posts',
-            DocumentationPage::class => 'docs'
+            DocumentationPage::class => 'docs',
         ];
 
         foreach ($pages as $page => $expected) {
@@ -238,7 +238,7 @@ class AbstractPageTest extends TestCase
             BladePage::class => '.blade.php',
             MarkdownPage::class => '.md',
             MarkdownPost::class => '.md',
-            DocumentationPage::class => '.md'
+            DocumentationPage::class => '.md',
         ];
 
         foreach ($pages as $page => $expected) {
@@ -252,7 +252,7 @@ class AbstractPageTest extends TestCase
             BladePage::class => 'Hyde\Framework\Models\BladePage',
             MarkdownPage::class => 'Hyde\Framework\Models\Parsers\MarkdownPageParser',
             MarkdownPost::class => 'Hyde\Framework\Models\Parsers\MarkdownPostParser',
-            DocumentationPage::class => 'Hyde\Framework\Models\Parsers\DocumentationPageParser'
+            DocumentationPage::class => 'Hyde\Framework\Models\Parsers\DocumentationPageParser',
         ];
 
         foreach ($pages as $page => $expected) {
@@ -333,7 +333,7 @@ class AbstractPageTest extends TestCase
         $pages = [
             MarkdownPage::class,
             MarkdownPost::class,
-            DocumentationPage::class
+            DocumentationPage::class,
         ];
 
         foreach ($pages as $page) {
