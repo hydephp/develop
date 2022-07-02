@@ -27,6 +27,7 @@ However, if you are a package developer, or if you have published Blade views or
 ### Added
 - Added Hyde::makeTitle() helper, an improved version of Hyde::titleFromSlug()
 - Added new helper method render() to MarkdownDocuments to compile the Markdown to HTML, fixes https://github.com/hydephp/develop/issues/109
+- Added `MarkdownPost` as a class alias, allowing you to use it directly in Blade views, without having to add full namespace.
 
 ### Changed
 - Update default HydeFront version to v1.12.x
