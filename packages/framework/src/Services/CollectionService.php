@@ -30,11 +30,14 @@ class CollectionService
             return false;
         }
 
-        return array_map(function ($filepath) use ($model) {
+        $files = [];
+        foreach (glob(Hyde::path($model::qualifyBasename('*'))) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                return basename($filepath, $model::getFileExtension());
+                $files[] = basename($filepath, $model::getFileExtension());
             }
-        }, glob(Hyde::path($model::qualifyBasename('*'))));
+        }
+
+        return $files;
     }
 
     /**

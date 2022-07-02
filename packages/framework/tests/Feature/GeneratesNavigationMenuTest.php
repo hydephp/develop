@@ -24,6 +24,8 @@ class GeneratesNavigationMenuTest extends TestCase
         $this->assertIsArray($generator->links);
 
         $this->assertContains('docs/index.html', Arr::flatten($generator->links));
+
+        unlink(Hyde::path('_docs/index.md'));
     }
 
     public function test_get_links_from_config_method()
@@ -59,5 +61,18 @@ class GeneratesNavigationMenuTest extends TestCase
             'current' => true,
             'priority' => 999,
         ], $result[1]);
+    }
+
+    public function test_files_starting_with_underscores_are_ignored()
+    {
+        touch(Hyde::path('_pages/_foo.md'));
+        touch(Hyde::path('_pages/_foo.blade.php'));
+
+        $array = GeneratesNavigationMenu::getNavigationLinks();
+        $this->assertIsArray($array);
+        $this->assertCount(1, $array);
+
+        unlink(Hyde::path('_pages/_foo.md'));
+        unlink(Hyde::path('_pages/_foo.blade.php'));
     }
 }
