@@ -8,8 +8,6 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/src" isTestSource="false" packagePrefix="Hyde\RealtimeCompiler\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
-      <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests/Hyde/Feature" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/storage/app" />
       <excludeFolder url="file://$MODULE_DIR$/storage/framework" />
