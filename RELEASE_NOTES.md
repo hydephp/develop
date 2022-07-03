@@ -25,7 +25,6 @@ This serves two purposes:
 - Remove deprecated `Hyde::docsIndexPath()`, replaced with `DocumentationPage::indexPath()`
 - Remove deprecated `DocumentationPage::getDocumentationOutputPath()`, use `DocumentationPage::getOutputPath()` instead
 
-
 ### Fixed
 - Fix minor bug in Blade view registry where merged array was not unique
 
