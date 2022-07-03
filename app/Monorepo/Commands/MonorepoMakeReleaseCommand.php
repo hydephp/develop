@@ -7,6 +7,7 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * @internal - Bodged together for a quick development aid. Don't use in production.
+ * @deprecated 
  *
  * This command is included in the Hyde Monorepo,
  * but is removed when packaging the Hyde application.
