@@ -21,7 +21,7 @@ namespace Hyde\Framework\Models\Routing;
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
  */
-class Router
+class Router implements RouterContract
 {
     // Create the magic here.
 }
