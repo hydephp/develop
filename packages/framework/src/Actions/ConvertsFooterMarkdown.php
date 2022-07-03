@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
  *
  * Tries to convert the Markdown text if supplied in the config,
  * otherwise, it falls back to a default string.
+ *
+ * @see \Hyde\Framework\Testing\Unit\ConvertsFooterMarkdownTest
  */
 class ConvertsFooterMarkdown
 {
