@@ -27,6 +27,7 @@ This serves two purposes:
 
 ### Changed
 - DataCollections are now disabled by default
+- Rename internal trait RegistersDefaultDirectories to RegistersFileLocations
 
 ### Deprecated
 - for soon-to-be removed features.
