@@ -59,10 +59,10 @@ trait RegistersFileLocations
      */
     protected function discoverBladeViewsIn(string $directory): void
     {
-        config(['view.paths' => array_merge(
+        config(['view.paths' => array_unique(array_merge(
             config('view.paths', []),
             [base_path($directory)]
-        )]);
+        ))]);
     }
 
     /**
