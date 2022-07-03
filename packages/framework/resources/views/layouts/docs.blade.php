@@ -13,8 +13,8 @@
 
 	<nav id="mobile-navigation">
 		<strong class="mr-auto">
-			@if(Hyde::docsIndexPath() !== false)
-			<a href="{{ Hyde::relativeLink(Hyde::docsIndexPath(), $currentPage) }}">
+			@if(DocumentationPage::indexPath() !== false)
+			<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
 				{{ config('docs.header_title', 'Documentation') }}
 			</a>
 			@else
@@ -33,8 +33,8 @@
 		<header id="sidebar-header">
 			<div id="sidebar-brand">
 				<strong>
-					@if(Hyde::docsIndexPath() !== false)
-					<a href="{{ Hyde::relativeLink(Hyde::docsIndexPath(), $currentPage) }}">
+					@if(DocumentationPage::indexPath() !== false)
+					<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
 						{{ config('docs.header_title', 'Documentation') }}
 					</a>
 					@else

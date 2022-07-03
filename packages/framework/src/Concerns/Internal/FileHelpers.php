@@ -15,26 +15,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 trait FileHelpers
 {
     /**
-     * Get the path to the frontpage for the documentation.
-     *
-     * @deprecated v0.44.x should be moved to the documentation page model.
-     *
-     * @return string|false returns false if no frontpage is found
-     */
-    public static function docsIndexPath(): string|false
-    {
-        if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/index.md'))) {
-            return trim(static::pageLink(DocumentationPage::getOutputDirectory().'/index.html'), '/');
-        }
-
-        if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/readme.md'))) {
-            return trim(static::pageLink(DocumentationPage::getOutputDirectory().'/readme.html'), '/');
-        }
-
-        return false;
-    }
-
-    /**
      * Get an absolute file path from a supplied relative path.
      *
      * The function returns the fully qualified path to your site's root directory.
