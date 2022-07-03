@@ -10,6 +10,14 @@
 
 </div>
 
+<div align=center>
+
+![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/framework?include_prereleases)
+![Total Downloads on Packagist](https://img.shields.io/packagist/dt/hyde/framework)
+![License MIT](https://img.shields.io/github/license/hydephp/hyde)
+
+</div>
+
 > This repository holds the source code for the HydePHP core components. If you want to create a website with Hyde, checkout the [HydePHP/Hyde repository](https://github.com/hydephp/hyde).
 
 ## Projects in this monorepo
