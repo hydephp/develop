@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Models\Routing;
 
+use Hyde\Framework\Contracts\PageContract;
 use Illuminate\Support\Collection;
 
 /**
@@ -36,5 +37,13 @@ class Router implements RouterContract
     public function getRoutes(): Collection
     {
         return $this->routes;
+    }
+
+    /** @inheritDoc */
+    public function discover(PageContract $page): self
+    {
+        // TODO: Implement discover() method.
+
+        return $this;
     }
 }
