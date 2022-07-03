@@ -8,7 +8,7 @@ echo "Preparing a new syndicated HydePHP release!\n";
 
 echo "Using NPM for versioning...\n";
 
-$version = trim(shell_exec('npm version minor --no-git-tag-version')) . '-beta';
+$version = trim(shell_exec('npm version minor --no-git-tag-version')).'-beta';
 
 echo "Version: $version\n";
 
@@ -26,7 +26,7 @@ file_put_contents(__DIR__.'./../../packages/hyde/composer.json', json_encode($co
 
 echo "Transforming upcoming release notes... \n";
 
-$notes = file_get_contents(__DIR__ . '/../../RELEASE_NOTES.md');
+$notes = file_get_contents(__DIR__.'/../../RELEASE_NOTES.md');
 
 $notes = str_replace("\r", '', $notes);
 
@@ -55,29 +55,28 @@ $notes = trim($notes);
 
 $notes = str_replace('## [Unreleased]', '## '.$version, $notes);
 $notes = str_replace('YYYY-MM-DD', date('Y-m-d'), $notes);
-$notes = $notes . "\n";
-
+$notes = $notes."\n";
 
 echo "Done. \n";
 
-echo "Resetting upcoming release notes stub";
-copy(__DIR__ .'/release-notes.stub', __DIR__ . '/../../RELEASE_NOTES.md');
+echo 'Resetting upcoming release notes stub';
+copy(__DIR__.'/release-notes.stub', __DIR__.'/../../RELEASE_NOTES.md');
 
-echo "Updating changelog with the upcoming release notes... ";
+echo 'Updating changelog with the upcoming release notes... ';
 
-$changelog = file_get_contents(__DIR__ . '/../../CHANGELOG.md');
+$changelog = file_get_contents(__DIR__.'/../../CHANGELOG.md');
 
 $needle = '<!-- CHANGELOG_START -->';
 
-$changelog = substr_replace($changelog, $needle ."\n\n". $notes, strpos($changelog, $needle), strlen($needle));
-file_put_contents(__DIR__ . '/../../CHANGELOG.md', $changelog);
+$changelog = substr_replace($changelog, $needle."\n\n".$notes, strpos($changelog, $needle), strlen($needle));
+file_put_contents(__DIR__.'/../../CHANGELOG.md', $changelog);
 
 echo "Done. \n";
 
-$title = "$version - " . date('Y-m-d');
+$title = "$version - ".date('Y-m-d');
 $body = ltrim(substr($notes, strpos($notes, "\n") + 2));
 
 echo "\nAll done!\nNext, verify the changes, then you can commit the release with the following message: \n";
 echo "$title\n";
 echo "And here is a link to publish the release: \n";
-echo "https://github.com/hydephp/develop/releases/new?tag=$version&title=".urlencode($title)."&body=".urlencode($body)."\n";
+echo "https://github.com/hydephp/develop/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($body)."\n";
