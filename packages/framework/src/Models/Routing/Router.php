@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Models\Routing;
 
+use Illuminate\Support\Collection;
+
 /**
  * @experimental Pseudo-Router for Hyde
  *
@@ -23,5 +25,16 @@ namespace Hyde\Framework\Models\Routing;
  */
 class Router implements RouterContract
 {
-    // Create the magic here.
+    /**
+     * The routes discovered by the router.
+     *
+     * @var \Illuminate\Support\Collection
+     */
+    protected Collection $routes;
+
+    /** @inheritDoc */
+    public function getRoutes(): Collection
+    {
+        return $this->routes;
+    }
 }
