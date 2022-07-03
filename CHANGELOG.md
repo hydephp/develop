@@ -1,55 +1,11 @@
-<!-- NOTE FOR EDITORS: -->
-<!-- Part of this file is machine edited, please leave the comment markers as they are. 
-	 Also, please make sure to keep an empty line before and after each marker. -->
-
 # Changelog
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<!-- UNRELEASED_START -->
+Please see the [RELEASE_NOTES.md](RELEASE_NOTES.md) for the changelog for the upcoming release.
 
-## [Unreleased] - YYYY-MM-DD
-
-### About
-
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
-
-### Added
-- Added `DocumentationPage::indexPath()`, replacing `Hyde::docsIndexPath()`
-
-### Changed
-- internal: Move service provider helper methods to the RegistersFileLocations trait
-- internal: Add helpers.php to reduce repeated code and boilerplate
-- Added `DocumentationPage` as a class alias, allowing you to use it directly in Blade views, without having to add full namespace.
-
-### Deprecated
-- for soon-to-be removed features.
-
-### Removed
-- Remove deprecated `Hyde::getDocumentationOutputDirectory()`, replaced with `DocumentationPage::getOutputDirectory()`
-- Remove deprecated `Hyde::docsIndexPath()`, replaced with `DocumentationPage::indexPath()`
-- Remove deprecated `DocumentationPage::getDocumentationOutputPath()`, use `DocumentationPage::getOutputPath()` instead
-
-
-### Fixed
-- Fix minor bug in Blade view registry where merged array was not unique
-
-### Security
-- in case of vulnerabilities.
-
-
-<!-- UNRELEASED_END -->
-
----
-
-### Changelog
 
 <!-- CHANGELOG_START -->
 
