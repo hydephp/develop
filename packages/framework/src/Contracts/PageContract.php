@@ -92,7 +92,7 @@ interface PageContract
      *
      * @return string Path relative to the project root.
      */
-    public function getSourceFilePath(): string;
+    public function getSourcePath(): string;
 
     /**
      * Get the path where the compiled page will be saved.

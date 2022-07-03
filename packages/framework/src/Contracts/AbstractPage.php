@@ -99,7 +99,7 @@ abstract class AbstractPage implements PageContract
     public string $slug;
 
     /** @inheritDoc */
-    public function getSourceFilePath(): string
+    public function getSourcePath(): string
     {
         return static::qualifyBasename($this->slug);
     }
