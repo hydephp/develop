@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Upcoming changes
+
 Please see the [RELEASE_NOTES.md](RELEASE_NOTES.md) for the changelog for the upcoming release.
+
+## About the release cycle
+
+HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Development is made in the [Hyde/Develop Monorepo](https://github.com/hydephp/develop). Major and Minor release versions are made in the Develop project. These releases are synced to the Hyde and Framework projects, and are what this changelog file tracks. Patch release versions are made in the Framework and Hyde projects independently. See https://github.com/hydephp/develop#releases for more information.
 
 
 <!-- CHANGELOG_START -->
