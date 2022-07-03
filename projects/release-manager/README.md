@@ -4,4 +4,4 @@ While in the v0.x range, we consider both major and minor release versions to be
 
 The versioning between the Framework and Hyde packages are linked together Meaning that if Hyde get's a minor release, so must Framework, and vice versa. To make this easier, we also publish minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages.
 
-To make this all easier, this directory contains tools to automate part of the process.
+To make this all easier, this directory contains tools to automate part of the process. The release manager only works for minor releases as patch releases are handled by the individual packages, and we are still in the v0.x range.
