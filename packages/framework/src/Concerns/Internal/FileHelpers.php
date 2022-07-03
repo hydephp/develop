@@ -125,7 +125,7 @@ trait FileHelpers
     }
 
     /**
-     * Gets a relative link to the given image stored in the _site/media folder.
+     * Gets a relative web link to the given image stored in the _site/media folder.
      */
     public static function image(string $name, string $current = ''): string
     {
