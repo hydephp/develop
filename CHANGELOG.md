@@ -33,6 +33,7 @@ This serves two purposes:
 
 ### Removed
 - Removes the automatic check to see if the configuration file is up to date https://github.com/hydephp/develop/pull/143
+- Remove deprecated `Hyde::titleFromSlug()` helper, use `Hyde::makeTitle()` instead
 
 ### Fixed
 - Fix bug causing files starting with underscores to add empty values to the file collection array https://github.com/hydephp/develop/pull/140

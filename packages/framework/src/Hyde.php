@@ -43,12 +43,4 @@ class Hyde
     {
         static::$basePath = $path;
     }
-
-    /**
-     * @deprecated v0.44.0-beta use Hyde::makeTitle() instead.
-     */
-    public static function titleFromSlug(string $slug): string
-    {
-        return Str::title(str_replace('-', ' ', ($slug)));
-    }
 }
