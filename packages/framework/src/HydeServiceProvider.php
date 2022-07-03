@@ -47,24 +47,7 @@ class HydeServiceProvider extends ServiceProvider
             unslash(config('hyde.output_directory', '_site'))
         ));
 
-        $this->commands([
-            Commands\HydePublishHomepageCommand::class,
-            Commands\HydeUpdateConfigsCommand::class,
-            Commands\HydePublishViewsCommand::class,
-            Commands\HydeRebuildStaticSiteCommand::class,
-            Commands\HydeBuildStaticSiteCommand::class,
-            Commands\HydeBuildSitemapCommand::class,
-            Commands\HydeBuildRssFeedCommand::class,
-            Commands\HydeBuildSearchCommand::class,
-            Commands\HydeMakePostCommand::class,
-            Commands\HydeMakePageCommand::class,
-            Commands\HydeValidateCommand::class,
-            Commands\HydeInstallCommand::class,
-            Commands\HydeDebugCommand::class,
-            Commands\HydeServeCommand::class,
-
-            Commands\HydePackageDiscoverCommand::class,
-        ]);
+        $this->registerHydeConsoleCommands();
 
         $this->registerModuleServiceProviders();
     }
@@ -97,6 +80,31 @@ class HydeServiceProvider extends ServiceProvider
         $this->publishes([
             Hyde::vendorPath('resources/views/homepages/welcome.blade.php') => Hyde::path('_pages/index.blade.php'),
         ], 'hyde-welcome-page');
+    }
+
+    /**
+     * Register the HydeCLI console commands.
+     */
+    protected function registerHydeConsoleCommands(): void
+    {
+        $this->commands([
+            Commands\HydePublishHomepageCommand::class,
+            Commands\HydeUpdateConfigsCommand::class,
+            Commands\HydePublishViewsCommand::class,
+            Commands\HydeRebuildStaticSiteCommand::class,
+            Commands\HydeBuildStaticSiteCommand::class,
+            Commands\HydeBuildSitemapCommand::class,
+            Commands\HydeBuildRssFeedCommand::class,
+            Commands\HydeBuildSearchCommand::class,
+            Commands\HydeMakePostCommand::class,
+            Commands\HydeMakePageCommand::class,
+            Commands\HydeValidateCommand::class,
+            Commands\HydeInstallCommand::class,
+            Commands\HydeDebugCommand::class,
+            Commands\HydeServeCommand::class,
+
+            Commands\HydePackageDiscoverCommand::class,
+        ]);
     }
 
     /**
