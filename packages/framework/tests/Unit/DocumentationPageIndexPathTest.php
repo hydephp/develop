@@ -1,12 +1,12 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
-class HydeDocsIndexPathTest extends TestCase
+class DocumentationPageIndexPathTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -24,26 +24,26 @@ class HydeDocsIndexPathTest extends TestCase
 
     public function test_returns_false_if_no_index_or_readme_exists()
     {
-        $this->assertEquals(false, Hyde::docsIndexPath());
+        $this->assertEquals(false, DocumentationPage::indexPath());
     }
 
     public function test_returns_readme_if_only_readme_exists()
     {
         $this->setReadme();
-        $this->assertEquals('docs/readme.html', Hyde::docsIndexPath());
+        $this->assertEquals('docs/readme.html', DocumentationPage::indexPath());
     }
 
     public function test_returns_index_if_both_readme_and_index_exists()
     {
         $this->setReadme();
         $this->setIndex();
-        $this->assertEquals('docs/index.html', Hyde::docsIndexPath());
+        $this->assertEquals('docs/index.html', DocumentationPage::indexPath());
     }
 
     public function test_returns_index_if_only_index_exist()
     {
         $this->setIndex();
-        $this->assertEquals('docs/index.html', Hyde::docsIndexPath());
+        $this->assertEquals('docs/index.html', DocumentationPage::indexPath());
     }
 
     public function test_helper_can_find_index_path_when_custom_docs_directory_is_used()
@@ -52,7 +52,7 @@ class HydeDocsIndexPathTest extends TestCase
         file_put_contents(Hyde::path('foo/index.md'), '');
 
         DocumentationPage::$sourceDirectory = 'foo';
-        $this->assertEquals('docs/index.html', Hyde::docsIndexPath());
+        $this->assertEquals('docs/index.html', DocumentationPage::indexPath());
 
         unlink(Hyde::path('foo/index.md'));
         rmdir(Hyde::path('foo'));
