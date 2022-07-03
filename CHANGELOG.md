@@ -32,7 +32,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Remove deprecated `Hyde::getDocumentationOutputDirectory()`, replaced with `DocumentationPage::getOutputDirectory()`
 
 ### Fixed
 - Fix minor bug in Blade view registry where merged array was not unique
