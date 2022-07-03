@@ -45,7 +45,7 @@ class Features
     {
         return static::enabled(static::blogPosts());
     }
-    
+
     public static function hasBladePages(): bool
     {
         return static::enabled(static::bladePages());
