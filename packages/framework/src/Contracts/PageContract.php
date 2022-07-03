@@ -97,7 +97,7 @@ interface PageContract
     /**
      * Get the path where the compiled page will be saved.
      *
-     * @return string Relative to the site output directory.
+     * @return string Path relative to the site output directory.
      */
     public function getOutputPath(): string;
 
