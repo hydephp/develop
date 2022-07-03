@@ -32,15 +32,7 @@ class DocumentationPage extends AbstractMarkdownPage
 
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
     }
-
-    /**
-     * @deprecated v0.44.x Use DocumentationPage::getOutputDirectory() instead
-     */
-    public static function getDocumentationOutputPath(): string
-    {
-        return unslash(config('docs.output_directory', 'docs'));
-    }
-
+    
     /**
      * Get the path to the frontpage for the documentation.
      *

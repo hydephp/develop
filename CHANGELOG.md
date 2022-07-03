@@ -35,6 +35,7 @@ This serves two purposes:
 ### Removed
 - Remove deprecated `Hyde::getDocumentationOutputDirectory()`, replaced with `DocumentationPage::getOutputDirectory()`
 - Remove deprecated `Hyde::docsIndexPath()`, replaced with `DocumentationPage::indexPath()`
+- Remove deprecated `DocumentationPage::getDocumentationOutputPath()`, use `DocumentationPage::getOutputPath()` instead
 
 
 ### Fixed
