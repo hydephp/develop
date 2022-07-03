@@ -25,7 +25,7 @@ class Features
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
-            static::dataCollections(),
+            // static::dataCollections(),
 
             // Frontend Features
             static::darkmode(),

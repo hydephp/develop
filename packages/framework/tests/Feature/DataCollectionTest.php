@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Modules\DataCollections\DataCollection;
@@ -19,6 +20,14 @@ use Illuminate\Support\Facades\File;
  */
 class DataCollectionTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.features' => [Features::dataCollections()]]);
+        (new DataCollectionServiceProvider($this->app))->boot();
+    }
+
     public function test_constructor_creates_new_data_collection_instance()
     {
         $class = new DataCollection('foo');
@@ -148,6 +157,8 @@ class DataCollectionTest extends TestCase
 
     public function test_data_collection_service_provider_creates_the__data_directory_if_it_does_not_exist_and_feature_is_enabled()
     {
+        config(['hyde.features' => [Features::dataCollections()]]);
+
         File::deleteDirectory(Hyde::path('_data'));
         $this->assertFileDoesNotExist(Hyde::path('_data'));
 
