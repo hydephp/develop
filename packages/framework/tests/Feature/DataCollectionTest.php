@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\File;
  */
 class DataCollectionTest extends TestCase
 {
-    // constructor creates new data collection instance
     public function test_constructor_creates_new_data_collection_instance()
     {
         $class = new DataCollection('foo');
@@ -141,7 +140,6 @@ class DataCollectionTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    // Test DataCollectionServiceProvider registers the facade as an alias
     public function test_data_collection_service_provider_registers_the_facade_as_an_alias()
     {
         $this->assertArrayHasKey('MarkdownCollection', AliasLoader::getInstance()->getAliases());
