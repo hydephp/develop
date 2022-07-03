@@ -100,19 +100,6 @@ class HydeServiceProvider extends ServiceProvider
     }
 
     /**
-     * If you are loading Blade views from a different directory,
-     * you need to add the path to the view.php config. This is
-     * here done automatically when registering this provider.
-     */
-    protected function discoverBladeViewsIn(string $directory): void
-    {
-        config(['view.paths' => array_merge(
-            config('view.paths', []),
-            [base_path($directory)]
-        )]);
-    }
-
-    /**
      * The absolute path to the directory when the compiled site is stored.
      */
     protected function storeCompiledSiteIn(string $directory): void

@@ -41,4 +41,17 @@ trait RegistersFileLocations
             $class::$outputDirectory = unslash($location);
         }
     }
+
+    /**
+     * If you are loading Blade views from a different directory,
+     * you need to add the path to the view.php config. This is
+     * here done automatically when registering the provider.
+     */
+    protected function discoverBladeViewsIn(string $directory): void
+    {
+        config(['view.paths' => array_merge(
+            config('view.paths', []),
+            [base_path($directory)]
+        )]);
+    }
 }
