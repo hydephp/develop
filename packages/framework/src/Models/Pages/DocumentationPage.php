@@ -4,7 +4,6 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 
 class DocumentationPage extends AbstractMarkdownPage
@@ -34,8 +33,7 @@ class DocumentationPage extends AbstractMarkdownPage
     }
 
     /**
-     * @since 0.39.x (replaces `Hyde::docsDirectory()`)
-     * @deprecated v0.44.x (handled in the page model property `outputDirectory`)
+     * @deprecated v0.44.x Use DocumentationPage::getOutputDirectory() instead
      */
     public static function getDocumentationOutputPath(): string
     {
