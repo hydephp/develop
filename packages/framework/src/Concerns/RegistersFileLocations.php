@@ -19,7 +19,7 @@ trait RegistersFileLocations
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var AbstractPage $class */
-            $class::$sourceDirectory = trim($location, '/\\');
+            $class::$sourceDirectory = unslash($location);
         }
     }
 
@@ -38,7 +38,7 @@ trait RegistersFileLocations
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var AbstractPage $class */
-            $class::$outputDirectory = trim($location, '/\\');
+            $class::$outputDirectory = unslash($location);
         }
     }
 }

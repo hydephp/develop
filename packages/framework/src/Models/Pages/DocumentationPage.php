@@ -37,6 +37,6 @@ class DocumentationPage extends AbstractMarkdownPage
      */
     public static function getDocumentationOutputPath(): string
     {
-        return trim(config('docs.output_directory', 'docs'), '/\\');
+        return unslash(config('docs.output_directory', 'docs'));
     }
 }

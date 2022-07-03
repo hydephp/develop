@@ -44,7 +44,7 @@ class HydeServiceProvider extends ServiceProvider
         $this->discoverBladeViewsIn('_pages');
 
         $this->storeCompiledSiteIn(Hyde::path(
-            trim(config('hyde.output_directory', '_site'), '/\\')
+            unslash(config('hyde.output_directory', '_site'))
         ));
 
         $this->commands([

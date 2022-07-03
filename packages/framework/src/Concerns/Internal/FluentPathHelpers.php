@@ -29,7 +29,7 @@ trait FluentPathHelpers
             return static::path(DiscoveryService::getFilePathForModelClassFiles($model));
         }
 
-        $path = trim($path, '/\\');
+        $path = unslash($path);
 
         return static::path(DiscoveryService::getFilePathForModelClassFiles($model).DIRECTORY_SEPARATOR.$path);
     }
@@ -63,7 +63,7 @@ trait FluentPathHelpers
             return StaticPageBuilder::$outputPath;
         }
 
-        $path = trim($path, '/\\');
+        $path = unslash($path);
 
         return StaticPageBuilder::$outputPath.DIRECTORY_SEPARATOR.$path;
     }
@@ -73,10 +73,10 @@ trait FluentPathHelpers
      */
     public static function pathToRelative(string $path): string
     {
-        return str_starts_with($path, static::path()) ? trim(str_replace(
+        return str_starts_with($path, static::path()) ? unslash(str_replace(
             static::path(),
             '',
             $path
-        ), '/\\') : $path;
+        )) : $path;
     }
 }

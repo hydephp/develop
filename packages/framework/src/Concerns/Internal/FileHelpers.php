@@ -63,7 +63,7 @@ trait FileHelpers
             return static::getBasePath();
         }
 
-        $path = trim($path, '/\\');
+        $path = unslash($path);
 
         return static::getBasePath().DIRECTORY_SEPARATOR.$path;
     }
@@ -76,7 +76,7 @@ trait FileHelpers
      */
     public static function vendorPath(string $path = ''): string
     {
-        return static::path('vendor/hyde/framework/'.trim($path, '/\\'));
+        return static::path('vendor/hyde/framework/'.unslash($path));
     }
 
     /**

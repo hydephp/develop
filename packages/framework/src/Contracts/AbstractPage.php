@@ -29,13 +29,13 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
     {
-        return trim(static::$sourceDirectory, '\\/');
+        return unslash(static::$sourceDirectory);
     }
 
     /** @inheritDoc */
     final public static function getOutputDirectory(): string
     {
-        return trim(static::$outputDirectory, '\\/');
+        return unslash(static::$outputDirectory);
     }
 
     /** @inheritDoc */
@@ -83,7 +83,7 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     public static function qualifyBasename(string $basename): string
     {
-        return static::getSourceDirectory().'/'.trim($basename, '\\/').static::getFileExtension();
+        return static::getSourceDirectory().'/'.unslash($basename).static::getFileExtension();
     }
 
     /** @inheritDoc */
@@ -91,7 +91,7 @@ abstract class AbstractPage implements PageContract
     {
         // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
         return trim(
-            static::getOutputDirectory().'/'.trim($basename, '\\/'),
+            static::getOutputDirectory().'/'.unslash($basename),
             '/'
         ).'.html';
     }
