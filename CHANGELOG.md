@@ -22,15 +22,41 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
+- for new features.
+
+### Changed
+- for changes in existing functionality.
+
+### Deprecated
+- for soon-to-be removed features.
+
+### Removed
+- for now removed features.
+
+### Fixed
+- for any bug fixes.
+
+### Security
+- in case of vulnerabilities.
+
+
+<!-- UNRELEASED_END -->
+
+---
+
+### Changelog
+
+<!-- CHANGELOG_START -->
+
+## v0.45.0-beta - 2022-07-03
+
+### Added
 - Add dummy file to persist base Tailwind utilities https://github.com/hydephp/develop/pull/141
 - Add configuration feature for DataCollections to enable/disable automatic _data directory generation https://github.com/hydephp/develop/pull/142
 
 ### Changed
 - DataCollections are now disabled by default
 - Rename internal trait RegistersDefaultDirectories to RegistersFileLocations
-
-### Deprecated
-- for soon-to-be removed features.
 
 ### Removed
 - Removes the automatic check to see if the configuration file is up to date https://github.com/hydephp/develop/pull/143
@@ -42,17 +68,6 @@ This serves two purposes:
 
 ### Fixed
 - Fix bug causing files starting with underscores to add empty values to the file collection array https://github.com/hydephp/develop/pull/140
-
-### Security
-- in case of vulnerabilities.
-
-<!-- UNRELEASED_END -->
-
----
-
-### Changelog
-
-<!-- CHANGELOG_START -->
 
 
 ## v0.44.0-beta - 2022-07-02 - Internal code restructuring
