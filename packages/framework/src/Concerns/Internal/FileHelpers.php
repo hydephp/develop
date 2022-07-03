@@ -15,23 +15,11 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 trait FileHelpers
 {
     /**
-     * Get the path to the frontpage for the documentation.
-     *
-     * @deprecated v0.44.x should be moved to the documentation page model.
-     *
-     * @return string|false returns false if no frontpage is found
+     * @deprecated v0.44.x, replaced with DocumentationPage::indexPath().
      */
     public static function docsIndexPath(): string|false
     {
-        if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/index.md'))) {
-            return trim(static::pageLink(DocumentationPage::getOutputDirectory().'/index.html'), '/');
-        }
-
-        if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/readme.md'))) {
-            return trim(static::pageLink(DocumentationPage::getOutputDirectory().'/readme.html'), '/');
-        }
-
-        return false;
+        return DocumentationPage::indexPath();
     }
 
     /**
