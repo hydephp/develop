@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
 
-class Route implements RouteContract
+abstract class Route implements RouteContract
 {
     protected PageContract $sourceModel;
 
