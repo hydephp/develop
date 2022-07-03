@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Models\Pages;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 
 class DocumentationPage extends AbstractMarkdownPage
