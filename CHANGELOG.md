@@ -22,19 +22,20 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Add dummy file to persist base Tailwind utilities https://github.com/hydephp/develop/pull/141
+- Add configuration feature for DataCollections to enable/disable automatic _data directory generation https://github.com/hydephp/develop/pull/142
 
 ### Changed
-- for changes in existing functionality.
+- DataCollections are now disabled by default
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Removes the automatic check to see if the configuration file is up to date
+- Removes the automatic check to see if the configuration file is up to date https://github.com/hydephp/develop/pull/143
 
 ### Fixed
-- for any bug fixes.
+- Fix bug causing files starting with underscores to add empty values to the file collection array https://github.com/hydephp/develop/pull/140
 
 ### Security
 - in case of vulnerabilities.
