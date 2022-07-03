@@ -67,4 +67,14 @@ class BladeDownProcessorTest extends TestCase
 
         unlink(resource_path('views/hello.blade.php'));
     }
+
+    public function test_preprocess_method_expands_shortcode()
+    {
+        $this->assertEquals('<!-- HYDE[Blade]: {{ $foo }} -->', BladeDownProcessor::preprocess('[Blade]: {{ $foo }}'));
+    }
+
+    public function test_process_method_renders_shortcode()
+    {
+        $this->assertEquals('Hello World!', BladeDownProcessor::process('<!-- HYDE[Blade]: {{ $foo }} -->', ['foo' => 'Hello World!']));
+    }
 }
