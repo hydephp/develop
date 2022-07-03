@@ -32,7 +32,7 @@ class DocumentationPage extends AbstractMarkdownPage
 
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
     }
-    
+
     /**
      * Get the path to the frontpage for the documentation.
      *
