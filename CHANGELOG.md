@@ -26,6 +26,7 @@ This serves two purposes:
 
 ### Changed
 - internal: Move service provider helper methods to the RegistersFileLocations trait
+- internal: Add helpers.php to reduce repeated code and boilerplate
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -34,7 +35,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fix minor bug in Blade view registry where merged array was not unique
 
 ### Security
 - in case of vulnerabilities.
