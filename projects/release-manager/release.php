@@ -27,8 +27,30 @@ file_put_contents(__DIR__.'./../../packages/hyde/composer.json', json_encode($co
 echo "Transforming upcoming release notes... \n";
 
 $notes = file_get_contents(__DIR__ . '/../../RELEASE_NOTES.md');
+
+$notes = str_replace("\r", '', $notes);
+
+// remove default release notes
+$defaults = [
+    '- for new features.',
+    '- for changes in existing functionality.',
+    '- for soon-to-be removed features.',
+    '- for now removed features.',
+    '- for any bug fixes.',
+    '- in case of vulnerabilities.',
+];
+
+foreach ($defaults as $default) {
+    $notes = str_replace($default, '', $notes);
+}
+
+$notes = trim($notes);
+
 $notes = str_replace('## [Unreleased]', '## '.$version, $notes);
 $notes = str_replace('YYYY-MM-DD', date('Y-m-d'), $notes);
+$notes = $notes . "\n";
+
+
 echo "Done. \n";
 
 echo "Resetting upcoming release notes stub";
