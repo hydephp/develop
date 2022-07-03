@@ -121,7 +121,7 @@ class ValidationService
     public function check_for_conflicts_between_blade_and_markdown_pages(Result $result): Result
     {
         $conflicts = array_intersect(
-            CollectionService::geMarkdownPageFiles(),
+            CollectionService::getMarkdownPageFiles(),
             CollectionService::getBladePageFiles()
         );
 
