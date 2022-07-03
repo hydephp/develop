@@ -4,6 +4,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Str;
 
@@ -81,8 +82,8 @@ class GeneratesNavigationMenu
                         'title' => 'Docs',
                         'route' => $this->getRelativeRoutePathForSlug(
                             file_exists(Hyde::getDocumentationPagePath('/index.md'))
-                                ? Hyde::getDocumentationOutputDirectory().'/index'
-                                : Hyde::getDocumentationOutputDirectory().'/readme'
+                                ? DocumentationPage::getOutputDirectory().'/index'
+                                : DocumentationPage::getOutputDirectory().'/readme'
                         ),
                         'current' => false,
                         'priority' => config('docs.navigation_link_priority', 1000),
