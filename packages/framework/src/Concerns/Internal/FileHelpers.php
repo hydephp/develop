@@ -15,18 +15,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 trait FileHelpers
 {
     /**
-     * Get the subdirectory compiled documentation files are stored in.
-     *
-     * @deprecated v0.44.x Use DocumentationPage::getOutputDirectory() instead
-     *
-     * @return string
-     */
-    public static function getDocumentationOutputDirectory(): string
-    {
-        return DocumentationPage::getOutputDirectory();
-    }
-
-    /**
      * Get the path to the frontpage for the documentation.
      *
      * @deprecated v0.44.x should be moved to the documentation page model.
