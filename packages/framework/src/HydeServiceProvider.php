@@ -41,14 +41,13 @@ class HydeServiceProvider extends ServiceProvider
             DocumentationPage::class => config('docs.output_directory', 'docs'),
         ]);
 
-        $this->discoverBladeViewsIn(BladePage::getSourceDirectory());
-
         $this->storeCompiledSiteIn(Hyde::path(
             unslash(config('hyde.output_directory', '_site'))
         ));
 
-        $this->registerHydeConsoleCommands();
+        $this->discoverBladeViewsIn(BladePage::getSourceDirectory());
 
+        $this->registerHydeConsoleCommands();
         $this->registerModuleServiceProviders();
     }
 
