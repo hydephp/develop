@@ -34,6 +34,10 @@ This serves two purposes:
 ### Removed
 - Removes the automatic check to see if the configuration file is up to date https://github.com/hydephp/develop/pull/143
 - Remove deprecated `Hyde::titleFromSlug()` helper, use `Hyde::makeTitle()` instead
+- Removed deprecated CollectionService::getBladePageList, is renamed to getBladePageFiles
+- Removed deprecated CollectionService::getMarkdownPageList, is renamed to getMarkdownPageFiles
+- Removed deprecated CollectionService::getMarkdownPostList, is renamed to getMarkdownPostFiles
+- Removed deprecated CollectionService::getDocumentationPageList, is renamed to getDocumentationPageFiles
 
 ### Fixed
 - Fix bug causing files starting with underscores to add empty values to the file collection array https://github.com/hydephp/develop/pull/140
