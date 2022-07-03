@@ -144,7 +144,6 @@ class ImageModelTest extends TestCase
         ], $image->getMetadataArray());
     }
 
-
     public function test_get_link_resolves_remote_paths()
     {
         $image = new Image([
@@ -171,5 +170,4 @@ class ImageModelTest extends TestCase
 
         $this->assertEquals('../media/image.jpg', $image->getLink('foo/bar'));
     }
-
 }
