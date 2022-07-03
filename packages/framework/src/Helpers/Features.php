@@ -20,12 +20,17 @@ class Features
     public static function enabled(string $feature): bool
     {
         return in_array($feature, config('hyde.features', [
+            // Page Modules
             static::blogPosts(),
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
-            static::documentationSearch(),
+
+            // Frontend Features
             static::darkmode(),
+            static::documentationSearch(),
+
+            // Integrations
             static::torchlight(),
         ]));
     }
