@@ -47,7 +47,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertTrue(method_exists($this->provider, 'boot'));
     }
 
-    // test provider registers AssetServiceContract
     public function test_provider_registers_asset_service_contract()
     {
         $this->assertTrue($this->app->bound(AssetServiceContract::class));
@@ -55,7 +54,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertInstanceOf(AssetService::class, $this->app->make(AssetServiceContract::class));
     }
 
-    // test provider registers source directories
     public function test_provider_registers_source_directories()
     {
         BladePage::$sourceDirectory = '';
@@ -76,7 +74,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('_docs', DocumentationPage::getSourceDirectory());
     }
 
-    // test provider registers output directories
     public function test_provider_registers_output_directories()
     {
         BladePage::$outputDirectory = 'foo';
@@ -97,7 +94,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('docs', DocumentationPage::getOutputDirectory());
     }
 
-    // test provider registers configured documentation output directory
     public function test_provider_registers_configured_documentation_output_directory()
     {
         $this->assertEquals('docs', DocumentationPage::getOutputDirectory());
@@ -109,7 +105,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
     }
 
-    // test provider registers site output directory
     public function test_provider_registers_site_output_directory()
     {
         $this->assertEquals(Hyde::path('_site'), StaticPageBuilder::$outputPath);
@@ -121,7 +116,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals(Hyde::path('foo'), StaticPageBuilder::$outputPath);
     }
 
-    // test provider registers blade view discovery location for configured blade view path
     public function test_provider_registers_blade_view_discovery_location_for_configured_blade_view_path()
     {
         config(['view.paths' => []]);
@@ -132,7 +126,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals([Hyde::path('_pages')], config('view.paths'));
     }
 
-    // test blade view locations are only registered once per key
     public function test_blade_view_locations_are_only_registered_once_per_key()
     {
         config(['view.paths' => []]);
@@ -144,7 +137,6 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals([Hyde::path('_pages')], config('view.paths'));
     }
 
-    // test provider registers console commands
     public function test_provider_registers_console_commands()
     {
         $commands = array_map(function ($command) {
@@ -158,7 +150,6 @@ class HydeServiceProviderTest extends TestCase
         }
     }
 
-    // test provider registers additional module service providers
     public function test_provider_registers_additional_module_service_providers()
     {
         $this->provider->register();
