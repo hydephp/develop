@@ -2,8 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Framework\Actions\ChecksIfConfigIsUpToDate;
-use Hyde\Framework\Commands\HydeUpdateConfigsCommand;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
@@ -17,8 +15,6 @@ class HydeUpdateConfigsCommandTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        ChecksIfConfigIsUpToDate::$isUpToDate = null;
 
         backupDirectory(Hyde::path('config'));
         deleteDirectory(Hyde::path('config'));
@@ -55,28 +51,6 @@ class HydeUpdateConfigsCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertNotEquals('foo', File::get(Hyde::path('config/hyde.php')));
-    }
-
-    /** @test */
-    public function test_command_description_warns_when_out_of_date()
-    {
-        backup(Hyde::path('config/hyde.php'));
-        $this->artisan('update:configs');
-        $this->assertStringNotContainsString('Your configuration may be out of date',
-            (new HydeUpdateConfigsCommand)->getDescription());
-
-        file_put_contents(Hyde::path('config/hyde.php'), str_replace(
-            '--------------------------------------------------------------------------',
-           '', file_get_contents(
-            Hyde::path('config/hyde.php')
-        )));
-
-        ChecksIfConfigIsUpToDate::$isUpToDate = null;
-
-        $this->assertStringContainsString('Your configuration may be out of date',
-            (new HydeUpdateConfigsCommand)->getDescription());
-
-        restore(Hyde::path('config/hyde.php'));
     }
 
     /** Teardown */

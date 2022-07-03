@@ -31,7 +31,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removes the automatic check to see if the configuration file is up to date
 
 ### Fixed
 - for any bug fixes.
