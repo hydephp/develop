@@ -28,6 +28,10 @@ class BladeDownProcessorTest extends TestCase
 
     public function test_it_renders_blade_views()
     {
+        if (! file_exists(resource_path('views'))) {
+            mkdir(resource_path('views'));
+        }
+
         file_put_contents(resource_path(
             'views/hello.blade.php'
         ), 'Hello World!');
@@ -62,5 +66,15 @@ class BladeDownProcessorTest extends TestCase
         $this->assertEquals('Hello John!', BladeDownProcessor::render('[Blade]: @include("hello", ["name" => "John"])'));
 
         unlink(resource_path('views/hello.blade.php'));
+    }
+
+    public function test_preprocess_method_expands_shortcode()
+    {
+        $this->assertEquals('<!-- HYDE[Blade]: {{ $foo }} -->', BladeDownProcessor::preprocess('[Blade]: {{ $foo }}'));
+    }
+
+    public function test_process_method_renders_shortcode()
+    {
+        $this->assertEquals('Hello World!', BladeDownProcessor::process('<!-- HYDE[Blade]: {{ $foo }} -->', ['foo' => 'Hello World!']));
     }
 }
