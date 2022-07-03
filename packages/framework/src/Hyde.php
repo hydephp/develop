@@ -6,7 +6,6 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\Internal\FileHelpers;
 use Hyde\Framework\Concerns\Internal\FluentPathHelpers;
 use Hyde\Framework\Helpers\HydeHelperFacade;
-use Illuminate\Support\Str;
 
 /**
  * General facade for Hyde services.
@@ -42,13 +41,5 @@ class Hyde
     public static function setBasePath(string $path): void
     {
         static::$basePath = $path;
-    }
-
-    /**
-     * @deprecated v0.44.0-beta use Hyde::makeTitle() instead.
-     */
-    public static function titleFromSlug(string $slug): string
-    {
-        return Str::title(str_replace('-', ' ', ($slug)));
     }
 }

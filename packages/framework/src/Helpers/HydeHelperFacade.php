@@ -21,9 +21,6 @@ trait HydeHelperFacade
         return Features::enabled($feature);
     }
 
-    /**
-     * @since 0.44.0-beta (renamed from titleFromSlug)
-     */
     public static function makeTitle(string $slug): string
     {
         $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];

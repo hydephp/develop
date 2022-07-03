@@ -155,8 +155,8 @@ class GeneratesNavigationMenu
     {
         return array_unique(
             array_merge(
-                CollectionService::getBladePageList(),
-                CollectionService::getMarkdownPageList()
+                CollectionService::getBladePageFiles(),
+                CollectionService::getMarkdownPageFiles()
             )
         );
     }

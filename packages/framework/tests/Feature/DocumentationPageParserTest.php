@@ -20,7 +20,7 @@ class DocumentationPageParserTest extends TestCase
 
         file_put_contents(Hyde::path('_docs/phpunit-test.md'), "# PHPUnit Test File \n Hello World!");
 
-        $array = CollectionService::getDocumentationPageList();
+        $array = CollectionService::getDocumentationPageFiles();
 
         $this->assertIsArray($array);
         $this->assertCount(1, $array);

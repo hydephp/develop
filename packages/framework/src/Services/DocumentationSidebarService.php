@@ -109,7 +109,7 @@ class DocumentationSidebarService implements DocumentationSidebarServiceContract
      */
     protected function getSidebarItems(): array
     {
-        return CollectionService::getDocumentationPageList();
+        return CollectionService::getDocumentationPageFiles();
     }
 
     /**
