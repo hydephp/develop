@@ -6,6 +6,9 @@ use Hyde\Framework\Hyde;
 use Illuminate\Foundation\Console\PackageDiscoverCommand as BaseCommand;
 use Illuminate\Foundation\PackageManifest;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydePackageDiscoverCommandTest
+ */
 class HydePackageDiscoverCommand extends BaseCommand
 {
     protected $hidden = true;
