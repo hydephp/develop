@@ -28,6 +28,10 @@ class BladeDownProcessorTest extends TestCase
 
     public function test_it_renders_blade_views()
     {
+        if (! file_exists(resource_path('views'))) {
+            mkdir(resource_path('views'));
+        }
+
         file_put_contents(resource_path(
             'views/hello.blade.php'
         ), 'Hello World!');
