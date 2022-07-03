@@ -25,6 +25,7 @@ class Features
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
+            static::dataCollections(),
 
             // Frontend Features
             static::darkmode(),
@@ -58,6 +59,11 @@ class Features
     public static function hasDocumentationPages(): bool
     {
         return static::enabled(static::documentationPages());
+    }
+
+    public static function hasDataCollections(): bool
+    {
+        return static::enabled(static::dataCollections());
     }
 
     public static function hasDocumentationSearch(): bool
@@ -110,6 +116,11 @@ class Features
     public static function documentationSearch(): string
     {
         return 'documentation-search';
+    }
+
+    public static function dataCollections(): string
+    {
+        return 'data-collections';
     }
 
     public static function darkmode(): string
