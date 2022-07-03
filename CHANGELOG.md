@@ -25,7 +25,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- internal: Move service provider helper methods to the RegistersFileLocations trait
 
 ### Deprecated
 - for soon-to-be removed features.

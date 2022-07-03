@@ -3,7 +3,17 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\StaticPageBuilder;
 
+/**
+ * This trait registers the file paths for important Hyde locations.
+ *
+ * If you want to customize these directories, the recommended way is to
+ * create a service provider that uses this trait, and change your
+ * paths in the register method, like in the HydeServiceProvider.
+ *
+ * Remember that your overriding provider should be loaded after the HSP.
+ */
 trait RegistersFileLocations
 {
     /**
@@ -40,5 +50,28 @@ trait RegistersFileLocations
             /** @var AbstractPage $class */
             $class::$outputDirectory = unslash($location);
         }
+    }
+
+    /**
+     * If you are loading Blade views from a different directory,
+     * you need to add the path to the view.php config. This is
+     * here done automatically when registering the provider.
+     */
+    protected function discoverBladeViewsIn(string $directory): void
+    {
+        config(['view.paths' => array_unique(array_merge(
+            config('view.paths', []),
+            [base_path($directory)]
+        ))]);
+    }
+
+    /**
+     * The absolute path to the directory when the compiled site is stored.
+     *
+     * Warning! This directory is emptied when compiling the site.
+     */
+    protected function storeCompiledSiteIn(string $directory): void
+    {
+        StaticPageBuilder::$outputPath = $directory;
     }
 }

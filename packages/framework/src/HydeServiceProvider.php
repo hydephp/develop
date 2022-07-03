@@ -41,31 +41,13 @@ class HydeServiceProvider extends ServiceProvider
             DocumentationPage::class => config('docs.output_directory', 'docs'),
         ]);
 
-        $this->discoverBladeViewsIn('_pages');
-
         $this->storeCompiledSiteIn(Hyde::path(
             unslash(config('hyde.output_directory', '_site'))
         ));
 
-        $this->commands([
-            Commands\HydePublishHomepageCommand::class,
-            Commands\HydeUpdateConfigsCommand::class,
-            Commands\HydePublishViewsCommand::class,
-            Commands\HydeRebuildStaticSiteCommand::class,
-            Commands\HydeBuildStaticSiteCommand::class,
-            Commands\HydeBuildSitemapCommand::class,
-            Commands\HydeBuildRssFeedCommand::class,
-            Commands\HydeBuildSearchCommand::class,
-            Commands\HydeMakePostCommand::class,
-            Commands\HydeMakePageCommand::class,
-            Commands\HydeValidateCommand::class,
-            Commands\HydeInstallCommand::class,
-            Commands\HydeDebugCommand::class,
-            Commands\HydeServeCommand::class,
+        $this->discoverBladeViewsIn(BladePage::getSourceDirectory());
 
-            Commands\HydePackageDiscoverCommand::class,
-        ]);
-
+        $this->registerHydeConsoleCommands();
         $this->registerModuleServiceProviders();
     }
 
@@ -100,24 +82,28 @@ class HydeServiceProvider extends ServiceProvider
     }
 
     /**
-     * If you are loading Blade views from a different directory,
-     * you need to add the path to the view.php config. This is
-     * here done automatically when registering this provider.
+     * Register the HydeCLI console commands.
      */
-    protected function discoverBladeViewsIn(string $directory): void
+    protected function registerHydeConsoleCommands(): void
     {
-        config(['view.paths' => array_merge(
-            config('view.paths', []),
-            [base_path($directory)]
-        )]);
-    }
+        $this->commands([
+            Commands\HydePublishHomepageCommand::class,
+            Commands\HydeUpdateConfigsCommand::class,
+            Commands\HydePublishViewsCommand::class,
+            Commands\HydeRebuildStaticSiteCommand::class,
+            Commands\HydeBuildStaticSiteCommand::class,
+            Commands\HydeBuildSitemapCommand::class,
+            Commands\HydeBuildRssFeedCommand::class,
+            Commands\HydeBuildSearchCommand::class,
+            Commands\HydeMakePostCommand::class,
+            Commands\HydeMakePageCommand::class,
+            Commands\HydeValidateCommand::class,
+            Commands\HydeInstallCommand::class,
+            Commands\HydeDebugCommand::class,
+            Commands\HydeServeCommand::class,
 
-    /**
-     * The absolute path to the directory when the compiled site is stored.
-     */
-    protected function storeCompiledSiteIn(string $directory): void
-    {
-        StaticPageBuilder::$outputPath = $directory;
+            Commands\HydePackageDiscoverCommand::class,
+        ]);
     }
 
     /**
