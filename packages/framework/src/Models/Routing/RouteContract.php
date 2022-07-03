@@ -6,6 +6,8 @@ use Hyde\Framework\Contracts\PageContract;
 
 interface RouteContract
 {
+    public function __construct(PageContract $sourceModel);
+
     public function getSourceModel(): PageContract;
 
     public function getSourceFilePath(): string;
