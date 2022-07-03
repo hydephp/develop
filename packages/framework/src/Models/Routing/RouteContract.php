@@ -21,6 +21,13 @@ interface RouteContract
     public function getSourceModel(): PageContract;
 
     /**
+     * Get the unique route key for the route.
+     *
+     * @return string The route key. Generally <output-directory/slug>.
+     */
+    public function getRouteKey(): string;
+
+    /**
      * Get the path to the source file.
      *
      * @return string Path relative to the root of the project.
