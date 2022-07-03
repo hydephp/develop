@@ -99,14 +99,14 @@ abstract class AbstractPage implements PageContract
     public string $slug;
 
     /** @inheritDoc */
-    public function getCurrentPagePath(): string
-    {
-        return trim(static::getOutputDirectory().'/'.$this->slug, '/');
-    }
-
-    /** @inheritDoc */
     public function getOutputPath(): string
     {
         return static::getCurrentPagePath().'.html';
+    }
+
+    /** @inheritDoc */
+    public function getCurrentPagePath(): string
+    {
+        return trim(static::getOutputDirectory().'/'.$this->slug, '/');
     }
 }
