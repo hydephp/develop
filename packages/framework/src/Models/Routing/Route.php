@@ -22,18 +22,18 @@ abstract class Route implements RouteContract
     /** @inheritDoc */
     public function getSourceModel(): PageContract
     {
-        // TODO: Implement getSourceModel() method.
+        return $this->sourceModel;
     }
 
     /** @inheritDoc */
     public function getSourceFilePath(): string
     {
-        // TODO: Implement getSourceFilePath() method.
+        return $this->sourceModel->getSourcePath();
     }
 
     /** @inheritDoc */
     public function getOutputFilePath(): string
     {
-        // TODO: Implement getOutputFilePath() method.
+        return $this->sourceModel->getOutputPath();
     }
 }
