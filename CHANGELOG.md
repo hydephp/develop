@@ -15,6 +15,26 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.46.0-beta](https://github.com/hydephp/develop/releases/tag/v0.46.0-beta) - 2022-07-03
+
+### Added
+- Added `DocumentationPage::indexPath()`, replacing `Hyde::docsIndexPath()`
+
+### Changed
+- internal: Move service provider helper methods to the RegistersFileLocations trait
+- internal: Add helpers.php to reduce repeated code and boilerplate
+- internal: Change internal monorepo scripts for semi-automating the release process
+- Added `DocumentationPage` as a class alias, allowing you to use it directly in Blade views, without having to add full namespace.
+
+### Removed
+- Remove deprecated `Hyde::getDocumentationOutputDirectory()`, replaced with `DocumentationPage::getOutputDirectory()`
+- Remove deprecated `Hyde::docsIndexPath()`, replaced with `DocumentationPage::indexPath()`
+- Remove deprecated `DocumentationPage::getDocumentationOutputPath()`, use `DocumentationPage::getOutputPath()` instead
+
+### Fixed
+- Fix minor bug in Blade view registry where merged array was not unique
+
+
 ## v0.45.0-beta - 2022-07-03
 
 ### Added
