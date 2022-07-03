@@ -216,12 +216,12 @@ class HydeBuildStaticSiteCommand extends Command
     protected function canGenerateFeed(): bool
     {
         return RssFeedService::canGenerateFeed()
-            && count(CollectionService::getMarkdownPostList()) > 0;
+            && count(CollectionService::getMarkdownPostFiles()) > 0;
     }
 
     protected function canGenerateSearch(): bool
     {
         return Features::hasDocumentationSearch()
-            && count(CollectionService::getDocumentationPageList()) > 0;
+            && count(CollectionService::getDocumentationPageFiles()) > 0;
     }
 }

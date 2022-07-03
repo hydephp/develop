@@ -38,7 +38,7 @@ class MarkdownPageTest extends TestCase
      */
     public function test_can_get_collection_of_slugs()
     {
-        $array = CollectionService::getMarkdownPageList();
+        $array = CollectionService::geMarkdownPageFiles();
 
         $this->assertIsArray($array);
         $this->assertCount(1, $array);
