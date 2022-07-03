@@ -15,14 +15,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 trait FileHelpers
 {
     /**
-     * @deprecated v0.44.x, replaced with DocumentationPage::indexPath().
-     */
-    public static function docsIndexPath(): string|false
-    {
-        return DocumentationPage::indexPath();
-    }
-
-    /**
      * Get an absolute file path from a supplied relative path.
      *
      * The function returns the fully qualified path to your site's root directory.
