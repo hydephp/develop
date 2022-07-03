@@ -5,6 +5,15 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\StaticPageBuilder;
 
+/**
+ * This trait registers the file paths for important Hyde locations.
+ *
+ * If you want to customize these directories, the recommended way is to
+ * create a service provider that uses this trait, and change your
+ * paths in the register method, like in the HydeServiceProvider.
+ *
+ * Remember that your overriding provider should be loaded after the HSP.
+ */
 trait RegistersFileLocations
 {
     /**
@@ -58,7 +67,7 @@ trait RegistersFileLocations
 
     /**
      * The absolute path to the directory when the compiled site is stored.
-     * 
+     *
      * Warning! This directory is emptied when compiling the site.
      */
     protected function storeCompiledSiteIn(string $directory): void
