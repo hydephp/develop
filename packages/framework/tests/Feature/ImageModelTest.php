@@ -143,4 +143,33 @@ class ImageModelTest extends TestCase
             'contentUrl' => null,
         ], $image->getMetadataArray());
     }
+
+
+    public function test_get_link_resolves_remote_paths()
+    {
+        $image = new Image([
+            'uri' => 'https://example.com/image.jpg',
+        ]);
+
+        $this->assertEquals('https://example.com/image.jpg', $image->getLink());
+    }
+
+    public function test_get_link_resolves_local_paths()
+    {
+        $image = new Image([
+            'path' => 'image.jpg',
+        ]);
+
+        $this->assertEquals('media/image.jpg', $image->getLink());
+    }
+
+    public function test_get_link_resolves_local_paths_when_on_nested_page()
+    {
+        $image = new Image([
+            'path' => 'image.jpg',
+        ]);
+
+        $this->assertEquals('../media/image.jpg', $image->getLink('foo/bar'));
+    }
+
 }
