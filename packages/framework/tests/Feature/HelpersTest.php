@@ -2,10 +2,9 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function hyde;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
-
-use function hyde;
 use function unslash;
 
 class HelpersTest extends TestCase
