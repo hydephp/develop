@@ -37,11 +37,11 @@ trait FileHelpers
     public static function docsIndexPath(): string|false
     {
         if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/index.md'))) {
-            return trim(static::pageLink(static::getDocumentationOutputDirectory().'/index.html'), '/');
+            return trim(static::pageLink(DocumentationPage::getOutputDirectory().'/index.html'), '/');
         }
 
         if (file_exists(static::path(DocumentationPage::getSourceDirectory().'/readme.md'))) {
-            return trim(static::pageLink(static::getDocumentationOutputDirectory().'/readme.html'), '/');
+            return trim(static::pageLink(DocumentationPage::getOutputDirectory().'/readme.html'), '/');
         }
 
         return false;
@@ -92,8 +92,8 @@ trait FileHelpers
                 if ($destination === 'index.html') {
                     return '/';
                 }
-                if ($destination === static::getDocumentationOutputDirectory().'/index.html') {
-                    return static::getDocumentationOutputDirectory().'/';
+                if ($destination === DocumentationPage::getOutputDirectory().'/index.html') {
+                    return DocumentationPage::getOutputDirectory().'/';
                 }
 
                 return substr($destination, 0, -5);
