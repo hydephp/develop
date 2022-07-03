@@ -39,7 +39,7 @@ Internally, the paths are registered in the HydeServiceProvider using the follow
 
 ```php
 // filepath Hyde\Framework\HydeServiceProvider
-use Hyde\Framework\Concerns\RegistersDefaultDirectories;
+use Hyde\Framework\Concerns\RegistersFileLocations;
 
 public function register(): void
 {

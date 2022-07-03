@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework;
 
-use Hyde\Framework\Concerns\RegistersDefaultDirectories;
+use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -16,7 +16,7 @@ use Illuminate\Support\ServiceProvider;
  */
 class HydeServiceProvider extends ServiceProvider
 {
-    use RegistersDefaultDirectories;
+    use RegistersFileLocations;
 
     /**
      * Register any application services.
