@@ -6,7 +6,6 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\Internal\FileHelpers;
 use Hyde\Framework\Concerns\Internal\FluentPathHelpers;
 use Hyde\Framework\Helpers\HydeHelperFacade;
-use Illuminate\Support\Str;
 
 /**
  * General facade for Hyde services.
