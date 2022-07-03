@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\StaticPageBuilder;
 
 trait RegistersFileLocations
 {
@@ -53,5 +54,13 @@ trait RegistersFileLocations
             config('view.paths', []),
             [base_path($directory)]
         )]);
+    }
+
+    /**
+     * The absolute path to the directory when the compiled site is stored.
+     */
+    protected function storeCompiledSiteIn(string $directory): void
+    {
+        StaticPageBuilder::$outputPath = $directory;
     }
 }

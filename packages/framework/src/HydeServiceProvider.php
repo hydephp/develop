@@ -100,14 +100,6 @@ class HydeServiceProvider extends ServiceProvider
     }
 
     /**
-     * The absolute path to the directory when the compiled site is stored.
-     */
-    protected function storeCompiledSiteIn(string $directory): void
-    {
-        StaticPageBuilder::$outputPath = $directory;
-    }
-
-    /**
      * Register module service providers.
      *
      * @todo Make modules configurable.
