@@ -879,7 +879,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "a2465cbe9e58028dd3808b325e27752761c2bb5b"
+                "reference": "48c4dcd9e35c361d6b99cf6ed9fccee6fceaab8f"
             },
             "require": {
                 "illuminate/support": "^9.5",
@@ -899,7 +899,10 @@
             "autoload": {
                 "psr-4": {
                     "Hyde\\Framework\\": "src/"
-                }
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
             },
             "autoload-dev": {
                 "psr-4": {
