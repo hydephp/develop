@@ -5,7 +5,10 @@
     "autoload": {
         "psr-4": {
             "Hyde\\Framework\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
