@@ -13,3 +13,16 @@ if (! function_exists('hyde')) {
         return new Hyde();
     }
 }
+
+if (! function_exists('unslash')) {
+    /**
+     * Remove trailing slashes from the start and end of a string.
+     *
+     * @param string $string
+     * @return string
+     */
+    function unslash(string $string): string
+    {
+        return trim($string, '/\\');
+    }
+}
