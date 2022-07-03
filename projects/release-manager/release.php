@@ -75,8 +75,13 @@ echo "Done. \n";
 
 $title = "$version - ".date('Y-m-d');
 $body = ltrim(substr($notes, strpos($notes, "\n") + 2));
+$companionBody = sprintf('Please see the release notes in the development monorepo https://github.com/hydephp/develop/releases/tag/%s', $version);
 
 echo "\nAll done!\nNext, verify the changes, then you can commit the release with the following message: \n";
 echo "$title\n";
 echo "And here is a link to publish the release: \n";
 echo "https://github.com/hydephp/develop/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($body)."\n";
+
+echo "\n\nThen you can use the following to to create the companion releases: \n";
+echo "https://github.com/hydephp/framework/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody)."\n";
+echo "https://github.com/hydephp/hyde/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody)."\n";
