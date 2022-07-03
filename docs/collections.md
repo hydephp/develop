@@ -18,6 +18,19 @@ You get the have access to all Laravel Collection methods so you are encouraged 
 
 Currently only a Markdown collection type is added, but more types like YAML are planned.
 
+### Enabling the feature
+
+You may need to enable the module by adding the feature to your Hyde configuration file's `features` array:
+
+```php
+// filepath config/hyde.php
+
+   'features' => [
+        Features::dataCollections(),
+    ],
+
+```
+
 ### High-Level Concept Overview
 
 To make collections easy to use and understand, Hyde makes a few assumptions about the structure of your collections. Follow these conventions and creating dynamic static sites will be a breeze.
