@@ -53,7 +53,7 @@ This serves two purposes:
 
 $notes = trim($notes);
 
-$notes = str_replace('## [Unreleased]', '## '.$version, $notes);
+$notes = str_replace('## [Unreleased]', "## [$version](https://github.com/hydephp/develop/releases/tag/$version)", $notes);
 $notes = str_replace('YYYY-MM-DD', date('Y-m-d'), $notes);
 $notes = $notes."\n";
 
