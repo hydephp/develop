@@ -17,8 +17,7 @@ trait FileHelpers
     /**
      * Get the subdirectory compiled documentation files are stored in.
      *
-     * @since 0.39.x (replaces `Hyde::docsDirectory()`)
-     * @deprecated v0.44.x (handled in the page model property `outputDirectory`)
+     * @deprecated v0.44.x Use DocumentationPage::getOutputDirectory() instead
      *
      * @return string
      */
