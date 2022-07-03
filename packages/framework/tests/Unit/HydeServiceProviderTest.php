@@ -5,6 +5,9 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Testing\TestCase;
 
+/**
+ * @todo Improve testing for this class.
+ */
 class HydeServiceProviderTest extends TestCase
 {
     protected HydeServiceProvider $provider;
