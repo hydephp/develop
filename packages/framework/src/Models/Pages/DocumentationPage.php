@@ -34,14 +34,6 @@ class DocumentationPage extends AbstractMarkdownPage
     }
 
     /**
-     * @deprecated v0.44.x Use DocumentationPage::getOutputDirectory() instead
-     */
-    public static function getDocumentationOutputPath(): string
-    {
-        return unslash(config('docs.output_directory', 'docs'));
-    }
-
-    /**
      * Get the path to the frontpage for the documentation.
      *
      * It is highly recommended to have an index.md file in the _docs directory,
