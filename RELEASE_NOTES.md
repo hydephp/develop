@@ -15,6 +15,7 @@ This serves two purposes:
 ### Changed
 - internal: Move service provider helper methods to the RegistersFileLocations trait
 - internal: Add helpers.php to reduce repeated code and boilerplate
+- internal: Change internal monorepo scripts for semi-automating the release process
 - Added `DocumentationPage` as a class alias, allowing you to use it directly in Blade views, without having to add full namespace.
 
 ### Deprecated
