@@ -59,18 +59,23 @@ class BuildService
         if ($this->canRunBuildAction($collection, $model)) {
             $this->withProgressBar(
                 $collection,
-                function ($basename) use ($model) {
-                    new StaticPageBuilder(
-                        DiscoveryService::getParserInstanceForModel(
-                            $model,
-                            $basename
-                        )->get(),
-                        true
-                    );
-                }
+                $this->compileModel($model)
             );
             $this->newLine(2);
         }
+    }
+
+    protected function compileModel(string $model): callable
+    {
+        return function ($basename) use ($model) {
+            new StaticPageBuilder(
+                DiscoveryService::getParserInstanceForModel(
+                    $model,
+                    $basename
+                )->get(),
+                true
+            );
+        };
     }
 
     /** @internal */
