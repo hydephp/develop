@@ -12,11 +12,10 @@ use Hyde\Framework\Services\CollectionService;
  * @see \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
  * @see \Hyde\Framework\Commands\HydeRebuildStaticSiteCommand
  *
- * @internal
+ * @deprecated Use BuildService instead
  */
 trait TransfersMediaAssetsForBuildCommands
 {
-    use BuildActionRunner;
     use InteractsWithDirectories;
 
     /** @internal */
@@ -34,5 +33,10 @@ trait TransfersMediaAssetsForBuildCommands
             );
             $this->newLine(2);
         }
+    }
+
+    protected function canRunBuildAction(): bool
+    {
+        return true;
     }
 }
