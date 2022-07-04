@@ -65,4 +65,22 @@ interface RouteContract
      * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
      */
     public static function getOrFail(string $routeKey): RouteContract;
+
+    /**
+     * Get a route from the Router index for the specified source file path.
+     *
+     * @param string $sourceFilePath Example: _posts/foo.md
+     * @return \Hyde\Framework\Modules\Routing\RouteContract|null
+     */
+    public static function getFromSource(string $sourceFilePath): ?RouteContract;
+
+    /**
+     * Same as static::getFromSource(), but throws an exception if the source file path is not found.
+     *
+     * @param string $sourceFilePath Example: _posts/foo.md
+     * @return \Hyde\Framework\Modules\Routing\RouteContract
+     *
+     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
+     */
+    public static function getFromSourceOrFail(string $sourceFilePath): RouteContract;
 }
