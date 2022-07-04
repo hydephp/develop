@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Services;
 
+use Illuminate\Console\OutputStyle;
+
 /**
  * Moves logic from the build command to a service.
  *
@@ -9,5 +11,10 @@ namespace Hyde\Framework\Services;
  */
 class BuildService
 {
-    //
+    protected OutputStyle $output;
+
+    public function __construct(OutputStyle $output)
+    {
+        $this->output = $output;
+    }
 }

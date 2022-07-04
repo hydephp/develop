@@ -13,6 +13,7 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\BuildHookService;
+use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RssFeedService;
@@ -51,6 +52,8 @@ class HydeBuildStaticSiteCommand extends Command
      */
     protected $description = 'Build the static site';
 
+    protected BuildService $service;
+
     /**
      * Execute the console command.
      *
@@ -63,6 +66,8 @@ class HydeBuildStaticSiteCommand extends Command
         $time_start = microtime(true);
 
         $this->title('Building your static site!');
+
+        $this->service = new BuildService($this->output);
 
         $this->runPreBuildActions();
 
