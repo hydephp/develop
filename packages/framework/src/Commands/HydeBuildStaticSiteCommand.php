@@ -19,7 +19,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde Command to run the Build Process.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\BuildStaticSiteCommandTest
+ * @see \Hyde\Framework\Testing\Feature\StaticSiteBuilderTest
  */
 class HydeBuildStaticSiteCommand extends Command
 {

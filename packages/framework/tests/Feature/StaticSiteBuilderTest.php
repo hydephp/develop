@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature\Commands;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\StaticPageBuilder;
