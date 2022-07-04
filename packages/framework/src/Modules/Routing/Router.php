@@ -50,15 +50,9 @@ class Router implements RouterContract
     /** @inheritDoc */
     public function discover(PageContract $page): self
     {
-        $this->routes->push($this->makeRouteArray($page));
+        $route = new Route($page);
+        $this->routes->put($route->getRouteKey(), $route);
 
         return $this;
-    }
-    
-    protected function makeRouteArray(PageContract $page): array
-    {
-        $route = new Route($page);
-
-        return [$route->getRouteKey() => $route];
     }
 }
