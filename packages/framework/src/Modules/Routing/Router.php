@@ -3,6 +3,10 @@
 namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
@@ -38,7 +42,7 @@ class Router implements RouterContract
     /** @inheritDoc */
     public function __construct()
     {
-        // Construct a new Router instance and discover all routes.
+        $this->discoverRoutes();
     }
 
     /** @inheritDoc */
@@ -54,5 +58,26 @@ class Router implements RouterContract
         $this->routes->put($route->getRouteKey(), $route);
 
         return $this;
+    }
+
+    protected function discoverRoutes(): void
+    {
+        $this->routes = new Collection();
+
+        BladePage::all()->each(function (BladePage $page) {
+            $this->discover($page);
+        });
+
+        MarkdownPage::all()->each(function (MarkdownPage $page) {
+            $this->discover($page);
+        });
+
+        MarkdownPost::all()->each(function (MarkdownPost $page) {
+            $this->discover($page);
+        });
+
+        DocumentationPage::all()->each(function (DocumentationPage $page) {
+            $this->discover($page);
+        });
     }
 }
