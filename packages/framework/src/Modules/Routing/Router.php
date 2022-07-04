@@ -64,6 +64,14 @@ class Router implements RouterContract
         return $this->routes;
     }
 
+    /** @inheritDoc */
+    public function getRoutesForModel(string $pageClass): Collection
+    {
+        return $this->routes->filter(function (RouteContract $route) use ($pageClass) {
+            return $route->getSourceModel() instanceof $pageClass;
+        });
+    }
+
     protected function discover(PageContract $page): self
     {
         $route = new Route($page);

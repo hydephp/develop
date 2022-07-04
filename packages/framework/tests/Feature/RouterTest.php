@@ -46,6 +46,23 @@ class RouterTest extends TestCase
         ]), $routes);
     }
     
+
+    /**
+     * @covers \Hyde\Framework\Modules\Routing\Router::getRoutesForModel
+     */
+    public function test_get_routes_for_model_returns_only_routes_for_the_given_model()
+    {
+        touch(Hyde::path('_pages/foo.md'));
+
+        $routes = (new Router())->getRoutesForModel(MarkdownPage::class);
+
+        $this->assertEquals(collect([
+            'foo' => new Route(MarkdownPage::parse('foo')),
+        ]), $routes);
+
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
     /**
      * Test route autodiscovery.
      *
