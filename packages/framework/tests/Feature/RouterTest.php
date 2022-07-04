@@ -38,6 +38,15 @@ class RouterTest extends TestCase
     }
 
     /**
+     * @covers \Hyde\Framework\Modules\Routing\Router::getInstance
+     */
+    public function test_get_instance_returns_the_router_instance()
+    {
+        // @todo test the singleton once implemented
+        $this->assertInstanceOf(Router::class, Router::getInstance());
+    }
+
+    /**
      * Test route autodiscovery.
      *
      * @covers \Hyde\Framework\Modules\Routing\Router::discover
