@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\File;
  * Moves logic from the build command to a service.
  *
  * Handles the build loop which generates the static site.
+ *
+ * @see \Hyde\Framework\Testing\Feature\BuildServiceTest
  */
 class BuildService
 {
