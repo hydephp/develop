@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\File;
  *
  * Handles the build loop which generates the static site.
  *
- * @see \Hyde\Framework\Testing\Feature\StaticSiteBuilderTest
+ * @see \Hyde\Framework\Testing\Feature\StaticSiteServiceTest
  */
 class BuildService
 {
