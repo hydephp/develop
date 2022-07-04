@@ -22,7 +22,7 @@ interface RouterContract
     /**
      * Get the routes discovered by the router.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\RouteContract>
      */
     public function getRoutes(): Collection;
 }
