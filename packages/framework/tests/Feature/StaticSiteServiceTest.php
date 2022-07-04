@@ -126,6 +126,7 @@ class StaticSiteServiceTest extends TestCase
             ->expectsOutput('Generating RSS feed...')
             ->assertExitCode(0);
 
+        unlink(Hyde::path('_posts/foo.md'));
         unlink(Hyde::path('_site/feed.xml'));
     }
 
@@ -145,6 +146,8 @@ class StaticSiteServiceTest extends TestCase
             ->expectsOutput('Generating documentation site search index...')
             ->expectsOutput('Generating search page...')
             ->assertExitCode(0);
+
+        unlink(Hyde::path('_docs/foo.md'));
     }
 
     public function test_site_directory_is_emptied_before_build()
