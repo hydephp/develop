@@ -57,7 +57,7 @@ class Route implements RouteContract
     /** @inheritDoc */
     public static function get(string $routeKey): ?RouteContract
     {
-        // TODO: Implement get() method.
+        return Router::getInstance()->getRoutes()->get($routeKey);
     }
 
     /** @inheritDoc */

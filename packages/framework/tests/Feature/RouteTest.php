@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
@@ -51,5 +52,16 @@ class RouteTest extends TestCase
         $route = new Route($page);
 
         $this->assertEquals($page->getOutputPath(), $route->getOutputFilePath());
+    }
+
+    public function test_get_returns_route_from_router_index()
+    {
+        $this->assertEquals(new Route(BladePage::parse('index')), Route::get('index'));
+        $this->assertInstanceOf(RouteContract::class, Route::get('index'));
+    }
+
+    public function test_get_returns_null_if_route_is_not_found()
+    {
+        $this->assertNull(Route::get('not-found'));
     }
 }
