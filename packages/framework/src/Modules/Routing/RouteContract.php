@@ -51,7 +51,7 @@ interface RouteContract
     /**
      * Get a route from the Router index for the specified route key.
      *
-     * @param  string  $routeKey
+     * @param  string  $routeKey Example: posts/foo.md
      * @return \Hyde\Framework\Modules\Routing\RouteContract|null
      */
     public static function get(string $routeKey): ?RouteContract;
@@ -59,7 +59,7 @@ interface RouteContract
     /**
      * Same as static::get(), but throws an exception if the route key is not found.
      *
-     * @param  string  $routeKey
+     * @param  string  $routeKey Example: posts/foo.md
      * @return \Hyde\Framework\Modules\Routing\RouteContract
      *
      * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
