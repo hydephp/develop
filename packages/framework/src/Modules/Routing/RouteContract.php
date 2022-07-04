@@ -40,4 +40,22 @@ interface RouteContract
      * @return string Path relative to the site output directory.
      */
     public function getOutputFilePath(): string;
+
+    /**
+     * Get a route from the Router index for the specified route key.
+     *
+     * @param string $routeKey
+     * @return \Hyde\Framework\Modules\Routing\RouteContract
+     */
+    public static function get(string $routeKey): RouteContract;
+
+    /**
+     * Same as static::get(), but throws an exception if the route key is not found.
+     *
+     * @param string $routeKey
+     * @return \Hyde\Framework\Modules\Routing\RouteContract
+     *
+     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
+     */
+    public static function getOrFail(string $routeKey): RouteContract;
 }
