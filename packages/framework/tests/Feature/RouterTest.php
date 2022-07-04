@@ -38,25 +38,10 @@ class RouterTest extends TestCase
     }
 
     /**
-     * Unit test discover helper method.
-     *
-     * @covers \Hyde\Framework\Modules\Routing\Router::discover
-     */
-    public function test_discover_method_creates_route_for_page_model_and_adds_it_to_route_collection()
-    {
-        $page = new MarkdownPage(slug: 'foo');
-        $route = new Route($page);
-
-        $router = new Router();
-        $router->discover($page);
-
-        $this->assertHasRoute($route, $router->getRoutes());
-    }
-
-    /**
      * Test route autodiscovery.
      *
      * @covers \Hyde\Framework\Modules\Routing\Router::discoverRoutes
+     * @covers \Hyde\Framework\Modules\Routing\Router::discover
      */
     public function test_discover_routes_finds_and_adds_all_pages_to_route_collection()
     {
