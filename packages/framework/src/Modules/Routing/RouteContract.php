@@ -45,9 +45,9 @@ interface RouteContract
      * Get a route from the Router index for the specified route key.
      *
      * @param string $routeKey
-     * @return \Hyde\Framework\Modules\Routing\RouteContract
+     * @return \Hyde\Framework\Modules\Routing\RouteContract|null
      */
-    public static function get(string $routeKey): RouteContract;
+    public static function get(string $routeKey): ?RouteContract;
 
     /**
      * Same as static::get(), but throws an exception if the route key is not found.

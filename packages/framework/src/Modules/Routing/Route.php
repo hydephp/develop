@@ -55,7 +55,7 @@ class Route implements RouteContract
     }
 
     /** @inheritDoc */
-    public static function get(string $routeKey): RouteContract
+    public static function get(string $routeKey): ?RouteContract
     {
         // TODO: Implement get() method.
     }
