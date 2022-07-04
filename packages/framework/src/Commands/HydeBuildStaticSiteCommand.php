@@ -174,12 +174,6 @@ class HydeBuildStaticSiteCommand extends Command
         }
     }
 
-    /** @internal */
-    protected function getModelPluralName(string $model): string
-    {
-        return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($model)).'s';
-    }
-
     /* @internal */
     protected function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
     {
