@@ -36,6 +36,12 @@ class Router implements RouterContract
     protected Collection $routes;
 
     /** @inheritDoc */
+    public function __construct()
+    {
+        // Construct a new Router instance and discover all routes.
+    }
+
+    /** @inheritDoc */
     public function getRoutes(): Collection
     {
         return $this->routes;
