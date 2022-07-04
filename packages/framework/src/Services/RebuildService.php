@@ -39,7 +39,7 @@ class RebuildService
     /**
      * Construct the service class instance.
      *
-     * @param  string  $filepath
+     * @param  string  $filepath Relative source file to compile. Example: _posts/foo.md
      */
     public function __construct(string $filepath)
     {
