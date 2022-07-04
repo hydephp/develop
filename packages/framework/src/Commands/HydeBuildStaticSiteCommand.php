@@ -30,7 +30,6 @@ use LaravelZero\Framework\Commands\Command;
  */
 class HydeBuildStaticSiteCommand extends Command
 {
-    use BuildActionRunner;
     use TransfersMediaAssetsForBuildCommands;
 
     /**
