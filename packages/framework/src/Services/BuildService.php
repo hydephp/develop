@@ -53,7 +53,6 @@ class BuildService
         return true;
     }
 
-    /** @internal */
     protected function runBuildAction(string $pageClass): void
     {
         $collection = $this->router->getRoutesForModel($pageClass);
@@ -73,7 +72,6 @@ class BuildService
         };
     }
 
-    /** @internal */
     protected function getModelPluralName(string $pageClass): string
     {
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
