@@ -45,7 +45,6 @@ class RouterTest extends TestCase
             'index' => new Route(BladePage::parse('index')),
         ]), $routes);
     }
-    
 
     /**
      * @covers \Hyde\Framework\Modules\Routing\Router::getRoutesForModel

@@ -28,7 +28,7 @@ interface RouterContract
     /**
      * Get all discovered routes for the given page class.
      *
-     * @param class-string<\Hyde\Framework\Contracts\PageContract> $pageClass
+     * @param  class-string<\Hyde\Framework\Contracts\PageContract>  $pageClass
      * @return \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\RouteContract>
      */
     public function getRoutesForModel(string $pageClass): Collection;

@@ -80,10 +80,12 @@ class BuildService
 
         if (sizeof($collection) < 1) {
             $this->line("No $name found. Skipping...\n");
+
             return false;
         }
 
         $this->comment(($verb ?? 'Creating')." $name...");
+
         return true;
     }
 
@@ -114,8 +116,9 @@ class BuildService
 
     protected function isItSafeToCleanOutputDirectory(): bool
     {
-        if (!$this->isOutputDirectoryWhitelisted() && !$this->askIfUnsafeDirectoryShouldBeEmptied()) {
+        if (! $this->isOutputDirectoryWhitelisted() && ! $this->askIfUnsafeDirectoryShouldBeEmptied()) {
             $this->info('Output directory will not be emptied.');
+
             return false;
         }
 
@@ -133,8 +136,8 @@ class BuildService
     protected function askIfUnsafeDirectoryShouldBeEmptied(): bool
     {
         return $this->confirm(sprintf(
-            "The configured output directory (%s) is potentially unsafe to empty. " .
-            "Are you sure you want to continue?",
+            'The configured output directory (%s) is potentially unsafe to empty. '.
+            'Are you sure you want to continue?',
             Hyde::getSiteOutputPath())
         );
     }

@@ -11,7 +11,6 @@ use Hyde\Framework\Services\CollectionService;
  *
  * @see \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
  * @see \Hyde\Framework\Commands\HydeRebuildStaticSiteCommand
- *
  * @deprecated Use BuildService instead
  */
 trait TransfersMediaAssetsForBuildCommands
