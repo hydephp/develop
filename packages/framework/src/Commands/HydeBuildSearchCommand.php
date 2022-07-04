@@ -40,7 +40,11 @@ class HydeBuildSearchCommand extends Command
         $actionTime = microtime(true);
 
         $this->comment('Generating documentation site search index...');
-        $this->line('<fg=gray> > This will take an estimated '.round($this->guesstimateGenerationTime() / 1000).' seconds. Terminal may seem non-responsive.</>');
+        $expected = $this->guesstimateGenerationTime();
+
+        if ($expected > 0) {
+            $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
+        }
         GeneratesDocumentationSearchIndexFile::run();
 
         $this->line(' > Created <info>'.GeneratesDocumentationSearchIndexFile::$filePath.'</> in '.
@@ -67,9 +71,12 @@ class HydeBuildSearchCommand extends Command
         $this->getExecutionTimeInMs($actionTime)."ms\n");
     }
 
-    protected function guesstimateGenerationTime(): float
+    /** @internal Estimated processing time per file in ms */
+    public static float $guesstimationFactor = 52.5;
+
+    protected function guesstimateGenerationTime(): int
     {
-        return count(CollectionService::getDocumentationPageFiles()) * 52.5;
+        return round(count(CollectionService::getDocumentationPageFiles()) * static::$guesstimationFactor) / 1000;
     }
 
     protected function getExecutionTimeInMs(float $timeStart): string
