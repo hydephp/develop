@@ -18,13 +18,4 @@ interface RouterContract
      * @return \Illuminate\Support\Collection
      */
     public function getRoutes(): Collection;
-
-    /**
-     * Construct a new Route instance for the given page model and add it to the router.
-     *
-     * @internal This is an internal helper method.
-     * @param \Hyde\Framework\Contracts\PageContract $page
-     * @return $this<\Hyde\Framework\Modules\Routing\RouteContract>
-     */
-    public function discover(PageContract $page): self;
 }
