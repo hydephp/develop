@@ -75,21 +75,7 @@ class HydeBuildStaticSiteCommand extends Command
 
         $this->transferMediaAssets();
 
-        if (Features::hasBladePages()) {
-            $this->runBuildAction(BladePage::class);
-        }
-
-        if (Features::hasMarkdownPages()) {
-            $this->runBuildAction(MarkdownPage::class);
-        }
-
-        if (Features::hasBlogPosts()) {
-            $this->runBuildAction(MarkdownPost::class);
-        }
-
-        if (Features::hasDocumentationPages()) {
-            $this->runBuildAction(DocumentationPage::class);
-        }
+        $this->service->run();
 
         $this->runPostBuildActions();
 

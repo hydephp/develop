@@ -2,7 +2,12 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Router;
+use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
@@ -22,6 +27,14 @@ class BuildService
         $this->output = $output;
 
         $this->router = Router::getInstance();
+    }
+
+    public function run(): void
+    {
+        $this->runBuildAction(BladePage::class);
+        $this->runBuildAction(MarkdownPage::class);
+        $this->runBuildAction(MarkdownPost::class);
+        $this->runBuildAction(DocumentationPage::class);
     }
 
     protected function canRunBuildAction(array $collection, string $name, ?string $verb = null): bool
