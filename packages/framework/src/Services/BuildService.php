@@ -27,7 +27,7 @@ class BuildService
         $this->router = Router::getInstance();
     }
 
-    public function run(): void
+    public function compileStaticPages(): void
     {
         $this->getDiscoveredModels()->each(function (string $pageClass) {
             $this->compilePages($pageClass);

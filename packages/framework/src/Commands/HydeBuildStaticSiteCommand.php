@@ -65,7 +65,7 @@ class HydeBuildStaticSiteCommand extends Command
 
         $this->transferMediaAssets();
 
-        (new BuildService($this->output))->run();
+        (new BuildService($this->output))->compileStaticPages();
 
         $this->runPostBuildActions();
 
