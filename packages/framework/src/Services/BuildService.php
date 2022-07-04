@@ -57,7 +57,7 @@ class BuildService
         $this->needsDirectory(Hyde::getSiteOutputPath('media'));
 
         $collection = CollectionService::getMediaAssetFiles();
-        $this->comment("Transferring Media Assets...");
+        $this->comment('Transferring Media Assets...');
 
         $this->withProgressBar($collection,
             function ($filepath) {
