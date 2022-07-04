@@ -38,7 +38,7 @@ class StaticPageBuilder
     /**
      * Run the page builder.
      *
-     * @return bool|int|void
+     * @return string|void
      */
     public function __invoke()
     {
