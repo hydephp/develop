@@ -2,15 +2,12 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\RouteContract as Route;
 use Hyde\Framework\Modules\Routing\Router;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Collection;
 
 /**
  * Moves logic from the build command to a service.
@@ -32,10 +29,16 @@ class BuildService
 
     public function run(): void
     {
-        $this->compilePages(BladePage::class);
-        $this->compilePages(MarkdownPage::class);
-        $this->compilePages(MarkdownPost::class);
-        $this->compilePages(DocumentationPage::class);
+        $this->getDiscoveredModels()->each(function (string $pageClass) {
+            $this->compilePages($pageClass);
+        });
+    }
+
+    protected function getDiscoveredModels(): Collection
+    {
+        return $this->router->getRoutes()->map(function (Route $route) {
+            return $route->getPageType();
+        })->unique();
     }
 
     protected function canRunBuildAction(\Countable $collection, string $pageClass): bool
