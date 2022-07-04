@@ -68,13 +68,12 @@ class BuildService
     protected function compileModel(string $pageClass): callable
     {
         return function ($basename) use ($pageClass) {
-            new StaticPageBuilder(
+            return (new StaticPageBuilder(
                 DiscoveryService::getParserInstanceForModel(
                     $pageClass,
                     $basename
-                )->get(),
-                true
-            );
+                )->get())
+            )->__invoke();
         };
     }
 
