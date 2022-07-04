@@ -18,7 +18,7 @@ trait TransfersMediaAssetsForBuildCommands
 {
     use InteractsWithDirectories;
 
-    /** @internal */
+    /** @deprecated */
     protected function transferMediaAssets(): void
     {
         $this->needsDirectory(Hyde::getSiteOutputPath('media'));
