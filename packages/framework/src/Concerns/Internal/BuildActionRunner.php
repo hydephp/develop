@@ -9,6 +9,8 @@ use Hyde\Framework\StaticPageBuilder;
 /**
  * Offloads build action logic for static site building commands.
  *
+ * @deprecated Use BuildService instead.
+ *
  * @see \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
  *
  * @internal
