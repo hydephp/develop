@@ -32,10 +32,10 @@ class BuildService
 
     public function run(): void
     {
-        $this->runBuildAction(BladePage::class);
-        $this->runBuildAction(MarkdownPage::class);
-        $this->runBuildAction(MarkdownPost::class);
-        $this->runBuildAction(DocumentationPage::class);
+        $this->compilePages(BladePage::class);
+        $this->compilePages(MarkdownPage::class);
+        $this->compilePages(MarkdownPost::class);
+        $this->compilePages(DocumentationPage::class);
     }
 
     protected function canRunBuildAction(\Countable $collection, string $pageClass): bool
@@ -53,7 +53,7 @@ class BuildService
         return true;
     }
 
-    protected function runBuildAction(string $pageClass): void
+    protected function compilePages(string $pageClass): void
     {
         $collection = $this->router->getRoutesForModel($pageClass);
 
