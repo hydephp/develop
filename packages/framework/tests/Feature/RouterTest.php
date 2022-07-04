@@ -60,6 +60,16 @@ class RouterTest extends TestCase
         restore(Hyde::path('_pages/index.blade.php'));
     }
 
+    public function test_routes_with_custom_source_directories_are_discovered_properly()
+    {
+        $this->markTestSkipped('TODO');
+    }
+
+    public function test_routes_with_custom_output_paths_are_registered_properly()
+    {
+        $this->markTestSkipped('TODO');
+    }
+
     protected function testRouteModelDiscoveryForPageModel(string $class)
     {
         /** @var PageContract $class */
