@@ -57,14 +57,14 @@ class BuildService
         $this->needsDirectory(Hyde::getSiteOutputPath('media'));
 
         $collection = CollectionService::getMediaAssetFiles();
-        if ($this->canRunBuildAction($collection, 'Media Assets', 'Transferring')) {
-            $this->withProgressBar($collection,
-                function ($filepath) {
-                    copy($filepath, Hyde::getSiteOutputPath('media/'.basename($filepath)));
-                }
-            );
-            $this->newLine(2);
-        }
+        $this->comment("Transferring Media Assets...");
+
+        $this->withProgressBar($collection,
+            function ($filepath) {
+                copy($filepath, Hyde::getSiteOutputPath('media/'.basename($filepath)));
+            }
+        );
+        $this->newLine(2);
     }
 
     protected function getDiscoveredModels(): Collection
@@ -74,32 +74,17 @@ class BuildService
         })->unique();
     }
 
-    protected function canRunBuildAction(array|\Countable $collection, string $pageClass, ?string $verb = null): bool
-    {
-        $name = $this->getModelPluralName($pageClass);
-
-        if (sizeof($collection) < 1) {
-            $this->line("No $name found. Skipping...\n");
-
-            return false;
-        }
-
-        $this->comment(($verb ?? 'Creating')." $name...");
-
-        return true;
-    }
-
     protected function compilePagesForClass(string $pageClass): void
     {
+        $this->comment("Creating {$this->getModelPluralName($pageClass)}...");
+
         $collection = $this->router->getRoutesForModel($pageClass);
 
-        if ($this->canRunBuildAction($collection, $pageClass)) {
-            $this->withProgressBar(
-                $collection, $this->compileRoute()
-            );
+        $this->withProgressBar(
+            $collection, $this->compileRoute()
+        );
 
-            $this->newLine(2);
-        }
+        $this->newLine(2);
     }
 
     protected function compileRoute(): \Closure
