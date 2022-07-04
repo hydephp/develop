@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Services\BuildHookService
  * @covers \Hyde\Framework\Contracts\AbstractBuildTask
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
- * 
+ *
  * @backupStaticAttributes enabled
  */
 class BuildHookServiceTest extends TestCase
