@@ -37,7 +37,7 @@ class BuildService
         $this->runBuildAction(DocumentationPage::class);
     }
 
-    protected function canRunBuildAction(array $collection, string $pageClass): bool
+    protected function canRunBuildAction(\Countable $collection, string $pageClass): bool
     {
         $name = $this->getModelPluralName($pageClass);
 
