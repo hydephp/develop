@@ -4,7 +4,6 @@ namespace Hyde\Framework\Commands;
 
 use Exception;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
-use Hyde\Framework\Concerns\Internal\TransfersMediaAssetsForBuildCommands;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
@@ -24,8 +23,6 @@ use LaravelZero\Framework\Commands\Command;
  */
 class HydeBuildStaticSiteCommand extends Command
 {
-    use TransfersMediaAssetsForBuildCommands;
-
     /**
      * The signature of the command.
      *
