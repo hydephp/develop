@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Modules\Routing\Route;
+use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Testing\TestCase;
 
 /**
@@ -9,5 +12,44 @@ use Hyde\Testing\TestCase;
  */
 class RouteTest extends TestCase
 {
-    //
+    public function test_constructor_creates_route_from_page_model()
+    {
+        $page = new MarkdownPage();
+        $route = new Route($page);
+
+        $this->assertInstanceOf(RouteContract::class, $route);
+    }
+
+    public function test_get_source_model_returns_page_model()
+    {
+        $page = new MarkdownPage();
+        $route = new Route($page);
+
+        $this->assertInstanceOf(MarkdownPage::class, $route->getSourceModel());
+        $this->assertSame($page, $route->getSourceModel());
+    }
+
+    public function test_get_route_key_returns_page_path()
+    {
+        $page = new MarkdownPage();
+        $route = new Route($page);
+
+        $this->assertEquals($page->getCurrentPagePath(), $route->getRouteKey());
+    }
+
+    public function test_get_source_file_path_returns_page_source_path()
+    {
+        $page = new MarkdownPage();
+        $route = new Route($page);
+
+        $this->assertEquals($page->getSourcePath(), $route->getSourceFilePath());
+    }
+
+    public function test_get_output_file_path_returns_page_output_path()
+    {
+        $page = new MarkdownPage();
+        $route = new Route($page);
+
+        $this->assertEquals($page->getOutputPath(), $route->getOutputFilePath());
+    }
 }
