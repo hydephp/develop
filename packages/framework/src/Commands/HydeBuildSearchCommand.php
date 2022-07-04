@@ -73,6 +73,7 @@ class HydeBuildSearchCommand extends Command
 
     /** @internal Estimated processing time per file in ms */
     public static float $guesstimationFactor = 52.5;
+
     protected function guesstimateGenerationTime(): int
     {
         return round(count(CollectionService::getDocumentationPageFiles()) * static::$guesstimationFactor) / 1000;

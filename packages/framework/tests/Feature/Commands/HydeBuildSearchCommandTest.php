@@ -26,7 +26,6 @@ class HydeBuildSearchCommandTest extends TestCase
         parent::tearDown();
     }
 
-
     public function test_it_creates_the_search_json_file()
     {
         $this->artisan('build:search')
