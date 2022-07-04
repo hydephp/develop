@@ -23,6 +23,8 @@ use Illuminate\Support\Collection;
  * The route index shall serve as a multidimensional mapping allowing you to
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
+ *
+ * @see \Hyde\Framework\Testing\Feature\RouterTest
  */
 class Router implements RouterContract
 {
