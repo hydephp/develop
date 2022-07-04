@@ -9,7 +9,7 @@ interface RouteContract
     /**
      * Construct a new Route instance for the given page model.
      *
-     * @param \Hyde\Framework\Contracts\PageContract $sourceModel
+     * @param  \Hyde\Framework\Contracts\PageContract  $sourceModel
      */
     public function __construct(PageContract $sourceModel);
 
@@ -44,7 +44,7 @@ interface RouteContract
     /**
      * Get a route from the Router index for the specified route key.
      *
-     * @param string $routeKey
+     * @param  string  $routeKey
      * @return \Hyde\Framework\Modules\Routing\RouteContract|null
      */
     public static function get(string $routeKey): ?RouteContract;
@@ -52,7 +52,7 @@ interface RouteContract
     /**
      * Same as static::get(), but throws an exception if the route key is not found.
      *
-     * @param string $routeKey
+     * @param  string  $routeKey
      * @return \Hyde\Framework\Modules\Routing\RouteContract
      *
      * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException

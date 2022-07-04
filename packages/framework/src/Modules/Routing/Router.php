@@ -10,7 +10,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
- * Pseudo-Router for Hyde
+ * Pseudo-Router for Hyde.
  *
  * This is not a router in the traditional sense that it decides where to go.
  * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.

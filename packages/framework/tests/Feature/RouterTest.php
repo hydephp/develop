@@ -76,8 +76,12 @@ class RouterTest extends TestCase
         touch(Hyde::path($class::qualifyBasename('foo')));
 
         $expectedKey = 'foo';
-        if ($class === MarkdownPost::class) $expectedKey = 'posts/foo';
-        if ($class === DocumentationPage::class) $expectedKey = 'docs/foo';
+        if ($class === MarkdownPost::class) {
+            $expectedKey = 'posts/foo';
+        }
+        if ($class === DocumentationPage::class) {
+            $expectedKey = 'docs/foo';
+        }
 
         $expected = collect([
             $expectedKey => new Route($class::parse('foo')),

@@ -12,7 +12,7 @@ class Route implements RouteContract
     /**
      * The source model for the route.
      *
-     * @var \Hyde\Framework\Contracts\PageContract $sourceModel
+     * @var \Hyde\Framework\Contracts\PageContract
      */
     protected PageContract $sourceModel;
 
