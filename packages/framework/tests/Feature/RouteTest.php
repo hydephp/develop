@@ -71,7 +71,8 @@ class RouteTest extends TestCase
         $this->assertEquals(new Route(BladePage::parse('index')), Route::getOrFail('index'));
         $this->assertInstanceOf(RouteContract::class, Route::getOrFail('index'));
     }
-    
+
+    /** @covers \Hyde\Framework\Modules\Routing\RouteNotFoundException */
     public function test_get_or_fail_throws_exception_if_route_is_not_found()
     {
         $this->expectException(RouteNotFoundException::class);
