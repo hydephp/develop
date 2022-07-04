@@ -67,9 +67,9 @@ class HydeBuildSearchCommand extends Command
         $this->getExecutionTimeInMs($actionTime)."ms\n");
     }
 
-    protected function guesstimateGenerationTime(): float
+    protected function guesstimateGenerationTime(): int
     {
-        return count(CollectionService::getDocumentationPageFiles()) * 52.5;
+        return round(count(CollectionService::getDocumentationPageFiles()) * 52.5) / 1000;
     }
 
     protected function getExecutionTimeInMs(float $timeStart): string
