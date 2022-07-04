@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -75,15 +76,20 @@ class Router implements RouterContract
     {
         $this->routes = new Collection();
 
-        $pages = [
-            BladePage::class,
-            MarkdownPage::class,
-            MarkdownPost::class,
-            DocumentationPage::class,
-        ];
+        if (Features::hasBladePages()) {
+            $this->discoverPageRoutes(BladePage::class);
+        }
 
-        foreach ($pages as $page) {
-            $this->discoverPageRoutes($page);
+        if (Features::hasMarkdownPages()) {
+            $this->discoverPageRoutes(MarkdownPage::class);
+        }
+
+        if (Features::hasBlogPosts()) {
+            $this->discoverPageRoutes(MarkdownPost::class);
+        }
+
+        if (Features::hasDocumentationPages()) {
+            $this->discoverPageRoutes(DocumentationPage::class);
         }
 
         return $this;

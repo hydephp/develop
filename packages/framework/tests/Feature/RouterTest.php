@@ -69,6 +69,23 @@ class RouterTest extends TestCase
         restore(Hyde::path('_pages/index.blade.php'));
     }
 
+    public function test_routes_are_not_discovered_for_disabled_features()
+    {
+        config(['hyde.features' => []]);
+
+        touch('_pages/blade.blade.php');
+        touch('_pages/markdown.md');
+        touch('_posts/post.md');
+        touch('_docs/doc.md');
+
+        $this->assertEmpty((new Router())->getRoutes());
+
+        unlink('_pages/blade.blade.php');
+        unlink('_pages/markdown.md');
+        unlink('_posts/post.md');
+        unlink('_docs/doc.md');
+    }
+
     public function test_routes_with_custom_source_directories_are_discovered_properly()
     {
         $this->markTestSkipped('TODO');
