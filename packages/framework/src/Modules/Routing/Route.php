@@ -75,7 +75,9 @@ class Route implements RouteContract
     /** @inheritDoc */
     public static function getFromSource(string $sourceFilePath): ?RouteContract
     {
-        // TODO: Implement getFromSource() method.
+        return Router::getInstance()->getRoutes()->first(function (RouteContract $route) use ($sourceFilePath) {
+            return $route->getSourceFilePath() === $sourceFilePath;
+        });
     }
 
     /** @inheritDoc */
