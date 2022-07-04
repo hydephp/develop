@@ -133,12 +133,10 @@ class HydeBuildStaticSiteCommand extends Command
     /** @internal */
     protected function printFinishMessage(float $time_start): void
     {
-        $time_end = microtime(true);
-        $execution_time = ($time_end - $time_start);
-        $this->info('All done! Finished in '.number_format(
-            $execution_time,
-            2
-        ).' seconds. ('.number_format(($execution_time * 1000), 2).'ms)');
+        $execution_time = (microtime(true) - $time_start);
+        $this->info(sprintf("All done! Finished in %s seconds. (%sms)",
+            number_format($execution_time, 2), number_format($execution_time * 1000, 2)
+        ));
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
