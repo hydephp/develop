@@ -37,9 +37,9 @@ class BuildService
         $this->runBuildAction(DocumentationPage::class);
     }
 
-    protected function canRunBuildAction(array $collection, string $model): bool
+    protected function canRunBuildAction(array $collection, string $pageClass): bool
     {
-        $name = $this->getModelPluralName($model);
+        $name = $this->getModelPluralName($pageClass);
 
         if (sizeof($collection) < 1) {
             $this->line("No $name found. Skipping...\n");
@@ -53,24 +53,24 @@ class BuildService
     }
 
     /** @internal */
-    protected function runBuildAction(string $model): void
+    protected function runBuildAction(string $pageClass): void
     {
-        $collection = CollectionService::getSourceFileListForModel($model);
-        if ($this->canRunBuildAction($collection, $model)) {
+        $collection = CollectionService::getSourceFileListForModel($pageClass);
+        if ($this->canRunBuildAction($collection, $pageClass)) {
             $this->withProgressBar(
                 $collection,
-                $this->compileModel($model)
+                $this->compileModel($pageClass)
             );
             $this->newLine(2);
         }
     }
 
-    protected function compileModel(string $model): callable
+    protected function compileModel(string $pageClass): callable
     {
-        return function ($basename) use ($model) {
+        return function ($basename) use ($pageClass) {
             new StaticPageBuilder(
                 DiscoveryService::getParserInstanceForModel(
-                    $model,
+                    $pageClass,
                     $basename
                 )->get(),
                 true
@@ -79,8 +79,8 @@ class BuildService
     }
 
     /** @internal */
-    protected function getModelPluralName(string $model): string
+    protected function getModelPluralName(string $pageClass): string
     {
-        return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($model)).'s';
+        return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
     }
 }
