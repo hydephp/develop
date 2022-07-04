@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Modules\Routing;
 
-use Hyde\Framework\Contracts\PageContract;
 use Illuminate\Support\Collection;
 
 interface RouterContract
