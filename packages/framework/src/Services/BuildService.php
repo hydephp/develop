@@ -10,6 +10,7 @@ use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
 
 /**
  * Moves logic from the build command to a service.
@@ -35,6 +36,22 @@ class BuildService
         $this->getDiscoveredModels()->each(function (string $pageClass) {
             $this->compilePages($pageClass);
         });
+    }
+
+    public function cleanOutputDirectory(): void
+    {
+        if (config('hyde.empty_output_directory', true)) {
+            $this->warn('Removing all files from build directory.');
+            if (! in_array(basename(Hyde::getSiteOutputPath()), config('hyde.safe_output_directories', ['_site', 'docs', 'build']))) {
+                if (! $this->confirm('The configured output directory ('.Hyde::getSiteOutputPath().') is potentially unsafe to empty. Are you sure you want to continue?')) {
+                    $this->info('Output directory will not be emptied.');
+
+                    return;
+                }
+            }
+            array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
+            File::cleanDirectory(Hyde::getSiteOutputPath('media'));
+        }
     }
 
     public function transferMediaAssets(): void
