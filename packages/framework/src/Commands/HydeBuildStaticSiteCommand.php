@@ -67,7 +67,7 @@ class HydeBuildStaticSiteCommand extends Command
 
         $this->cleanOutputDirectory();
 
-        $this->transferMediaAssets();
+        $this->service->transferMediaAssets();
 
         $this->service->compileStaticPages();
 

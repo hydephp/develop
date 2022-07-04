@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Routing\RouteContract as Route;
 use Hyde\Framework\Modules\Routing\Router;
 use Hyde\Framework\StaticPageBuilder;
@@ -17,6 +19,7 @@ use Illuminate\Support\Collection;
 class BuildService
 {
     use InteractsWithIO;
+    use InteractsWithDirectories;
 
     protected Router $router;
 
@@ -32,6 +35,22 @@ class BuildService
         $this->getDiscoveredModels()->each(function (string $pageClass) {
             $this->compilePages($pageClass);
         });
+    }
+
+    public function transferMediaAssets(): void
+    {
+        $this->needsDirectory(Hyde::getSiteOutputPath('media'));
+
+        $collection = CollectionService::getMediaAssetFiles();
+        if ($this->canRunBuildAction($collection, 'Media Assets', 'Transferring')) {
+            $this->withProgressBar(
+                $collection,
+                function ($filepath) {
+                    copy($filepath, Hyde::getSiteOutputPath('media/'.basename($filepath)));
+                }
+            );
+            $this->newLine(2);
+        }
     }
 
     protected function getDiscoveredModels(): Collection
