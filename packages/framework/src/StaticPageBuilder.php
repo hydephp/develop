@@ -19,6 +19,7 @@ class StaticPageBuilder
 
     /**
      * @var string Absolute path to the directory to place compiled files in.
+     * @deprecated v0.47.0-beta May be moved to BuildService.
      */
     public static string $outputPath;
 
