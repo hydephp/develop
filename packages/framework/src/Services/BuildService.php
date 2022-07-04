@@ -41,7 +41,7 @@ class BuildService
         })->unique();
     }
 
-    protected function canRunBuildAction(\Countable $collection, string $pageClass): bool
+    protected function canRunBuildAction(\Countable $collection, string $pageClass, ?string $verb = null): bool
     {
         $name = $this->getModelPluralName($pageClass);
 
@@ -50,7 +50,7 @@ class BuildService
             return false;
         }
 
-        $this->comment("Creating $name...");
+        $this->comment(($verb ?? 'Creating')." $name...");
         return true;
     }
 
