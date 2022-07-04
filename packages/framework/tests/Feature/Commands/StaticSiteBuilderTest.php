@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
  * @covers \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
  * @covers \Hyde\Framework\Services\BuildService
  */
-class BuildStaticSiteCommandTest extends TestCase
+class StaticSiteBuilderTest extends TestCase
 {
     use ResetsApplication;
 
