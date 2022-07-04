@@ -42,15 +42,11 @@ class BuildService
     {
         if (config('hyde.empty_output_directory', true)) {
             $this->warn('Removing all files from build directory.');
-            if (! in_array(basename(Hyde::getSiteOutputPath()), config('hyde.safe_output_directories', ['_site', 'docs', 'build']))) {
-                if (! $this->confirm('The configured output directory ('.Hyde::getSiteOutputPath().') is potentially unsafe to empty. Are you sure you want to continue?')) {
-                    $this->info('Output directory will not be emptied.');
 
-                    return;
-                }
+            if ($this->isItSafeToCleanOutputDirectory()) {
+                array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
+                File::cleanDirectory(Hyde::getSiteOutputPath('media'));
             }
-            array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
-            File::cleanDirectory(Hyde::getSiteOutputPath('media'));
         }
     }
 
@@ -112,5 +108,32 @@ class BuildService
     protected function getModelPluralName(string $pageClass): string
     {
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
+    }
+
+    protected function isItSafeToCleanOutputDirectory(): bool
+    {
+        if (!$this->isOutputDirectoryWhitelisted() && !$this->askIfUnsafeDirectoryShouldBeEmptied()) {
+            $this->info('Output directory will not be emptied.');
+
+            return false;
+        }
+        return true;
+    }
+
+    protected function isOutputDirectoryWhitelisted(): bool
+    {
+        return in_array(
+            basename(Hyde::getSiteOutputPath()),
+            config('hyde.safe_output_directories', ['_site', 'docs', 'build'])
+        );
+    }
+
+    protected function askIfUnsafeDirectoryShouldBeEmptied(): bool
+    {
+        return $this->confirm(sprintf(
+            "The configured output directory (%s) is potentially unsafe to empty. " .
+            "Are you sure you want to continue?",
+            Hyde::getSiteOutputPath())
+        );
     }
 }
