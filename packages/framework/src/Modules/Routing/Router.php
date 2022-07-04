@@ -52,6 +52,12 @@ class Router implements RouterContract
     }
 
     /** @inheritDoc */
+    public static function getInstance(): RouterContract
+    {
+        return new static();
+    }
+
+    /** @inheritDoc */
     public function getRoutes(): Collection
     {
         return $this->routes;
