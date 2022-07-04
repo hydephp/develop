@@ -6,6 +6,7 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Modules\Routing\RouteContract as Route;
 use Hyde\Framework\Modules\Routing\Router;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
@@ -55,25 +56,20 @@ class BuildService
     /** @internal */
     protected function runBuildAction(string $pageClass): void
     {
-        $collection = CollectionService::getSourceFileListForModel($pageClass);
+        $collection = $this->router->getRoutesForModel($pageClass);
+
         if ($this->canRunBuildAction($collection, $pageClass)) {
             $this->withProgressBar(
-                $collection,
-                $this->compileModel($pageClass)
+                $collection, $this->compileRoute()
             );
             $this->newLine(2);
         }
     }
 
-    protected function compileModel(string $pageClass): callable
+    protected function compileRoute(): \Closure
     {
-        return function ($basename) use ($pageClass) {
-            return (new StaticPageBuilder(
-                DiscoveryService::getParserInstanceForModel(
-                    $pageClass,
-                    $basename
-                )->get())
-            )->__invoke();
+        return function (Route $route) {
+            return (new StaticPageBuilder($route->getSourceModel()))->__invoke();
         };
     }
 
