@@ -3,8 +3,11 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\Router;
@@ -48,6 +51,44 @@ class RouterTest extends TestCase
         $router->discover($page);
 
         $this->assertHasRoute($route, $router->getRoutes());
+    }
+
+    /**
+     * Test route autodiscovery.
+     *
+     * @covers \Hyde\Framework\Modules\Routing\Router::discoverRoutes
+     */
+    public function test_discover_routes_finds_and_adds_all_pages_to_route_collection()
+    {
+        backup(Hyde::path('_pages/404.blade.php'));
+        backup(Hyde::path('_pages/index.blade.php'));
+        unlink(Hyde::path('_pages/404.blade.php'));
+        unlink(Hyde::path('_pages/index.blade.php'));
+
+        $this->testRouteModelDiscoveryForPageModel(BladePage::class);
+        $this->testRouteModelDiscoveryForPageModel(MarkdownPage::class);
+        $this->testRouteModelDiscoveryForPageModel(MarkdownPost::class);
+        $this->testRouteModelDiscoveryForPageModel(DocumentationPage::class);
+
+        restore(Hyde::path('_pages/404.blade.php'));
+        restore(Hyde::path('_pages/index.blade.php'));
+    }
+
+    protected function testRouteModelDiscoveryForPageModel(string $class)
+    {
+        /** @var PageContract $class */
+        touch(Hyde::path($class::qualifyBasename('foo')));
+
+        $expectedKey = 'foo';
+        if ($class === MarkdownPost::class) $expectedKey = 'posts/foo';
+        if ($class === DocumentationPage::class) $expectedKey = 'docs/foo';
+
+        $expected = collect([
+            $expectedKey => new Route($class::parse('foo')),
+        ]);
+
+        $this->assertEquals($expected, (new Router())->getRoutes());
+        unlink(Hyde::path($class::qualifyBasename('foo')));
     }
 
     protected function assertHasRoute(RouteContract $route, Collection $routes)
