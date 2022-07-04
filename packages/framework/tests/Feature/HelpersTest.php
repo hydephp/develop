@@ -31,7 +31,6 @@ class HelpersTest extends TestCase
         $this->assertTrue(function_exists('unslash'));
     }
 
-    // test unslash function trims trailing slashes
     /** @covers ::unslash */
     public function test_unslash_function_trims_trailing_slashes()
     {
@@ -52,5 +51,54 @@ class HelpersTest extends TestCase
         foreach ($tests as $test) {
             $this->assertSame('foo/bar', unslash($test));
         }
+    }
+
+    /** @covers ::array_map_unique */
+    public function test_array_map_unique_function_exists()
+    {
+        $this->assertTrue(function_exists('array_map_unique'));
+    }
+
+    /** @covers ::array_map_unique */
+    public function test_array_map_unique_function_accepts_array_or_collection()
+    {
+        $array = [1, 2, 3];
+        $collection = collect($array);
+
+        $this->assertSame($array, array_map_unique($array, function ($item) {
+            return $item;
+        }));
+        $this->assertSame($array, array_map_unique($collection, function ($item) {
+            return $item;
+        }));
+    }
+
+    /** @covers ::array_map_unique */
+    public function test_array_map_unique_function_returns_unique_array()
+    {
+        $array = [1, 1, 2];
+
+        $this->assertEquals([1, 2], array_map_unique($array, function ($item) {
+            return $item;
+        }));
+    }
+
+    /** @covers ::array_map_unique */
+    public function test_array_map_unique_function_returns_reset_keys()
+    {
+        $array = [1, 2, 2, 2, 3];
+
+        $this->assertEquals([1, 2, 3], array_map_unique($array, function ($item) {
+            return $item;
+        }));
+    }
+
+    public function test_array_map_unique_function_handles_string_arrays()
+    {
+        $array = ['foo', 'foo', 'bar'];
+
+        $this->assertEquals(['foo', 'bar'], array_map_unique($array, function ($item) {
+            return $item;
+        }));
     }
 }
