@@ -31,7 +31,7 @@ class Router implements RouterContract
     /**
      * The routes discovered by the router.
      *
-     * @var \Illuminate\Support\Collection
+     * @var \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\RouteContract>
      */
     protected Collection $routes;
 
