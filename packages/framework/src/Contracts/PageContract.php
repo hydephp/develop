@@ -88,6 +88,20 @@ interface PageContract
     public static function getOutputLocation(string $basename): string;
 
     /**
+     * Get the path to the source file, relative to the project root.
+     *
+     * @return string Path relative to the project root.
+     */
+    public function getSourcePath(): string;
+
+    /**
+     * Get the path where the compiled page will be saved.
+     *
+     * @return string Path relative to the site output directory.
+     */
+    public function getOutputPath(): string;
+
+    /**
      * Get the URI path relative to the site root.
      *
      * @example if the compiled page will be saved to _site/docs/index.html,
@@ -96,11 +110,4 @@ interface PageContract
      * @return string URI path relative to the site root.
      */
     public function getCurrentPagePath(): string;
-
-    /**
-     * Get the path where the compiled page will be saved.
-     *
-     * @return string Relative to the site output directory.
-     */
-    public function getOutputPath(): string;
 }

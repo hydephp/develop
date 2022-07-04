@@ -184,6 +184,14 @@ class AbstractPageTest extends TestCase
         $this->assertEquals('foo.html', $page->getOutputPath());
     }
 
+    public function test_get_source_path_returns_qualified_basename()
+    {
+        $this->assertEquals(
+            MarkdownPage::qualifyBasename('foo'),
+            (new MarkdownPage(slug: 'foo'))->getSourcePath()
+        );
+    }
+
     public function test_markdown_page_implements_page_contract()
     {
         $this->assertInstanceOf(PageContract::class, new class extends AbstractPage {});
