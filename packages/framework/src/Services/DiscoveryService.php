@@ -94,6 +94,10 @@ class DiscoveryService
      */
     public static function createClickableFilepath(string $filepath): string
     {
+        if (realpath($filepath) === false) {
+            return $filepath;
+        }
+
         return 'file://'.str_replace(
             '\\',
             '/',
