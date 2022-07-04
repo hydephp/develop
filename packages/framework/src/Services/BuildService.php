@@ -47,12 +47,10 @@ class BuildService
 
         if (sizeof($collection) < 1) {
             $this->line("No $name found. Skipping...\n");
-
             return false;
         }
 
         $this->comment("Creating $name...");
-
         return true;
     }
 
