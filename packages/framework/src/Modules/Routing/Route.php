@@ -24,6 +24,7 @@ class Route implements RouteContract
     public function __construct(PageContract $sourceModel)
     {
         $this->sourceModel = $sourceModel;
+        $this->routeKey = $this->constructRouteKey();
     }
 
     /** @inheritDoc */
@@ -48,5 +49,10 @@ class Route implements RouteContract
     public function getOutputFilePath(): string
     {
         return $this->sourceModel->getOutputPath();
+    }
+
+    protected function constructRouteKey(): string
+    {
+        return $this->sourceModel->getCurrentPagePath();
     }
 }
