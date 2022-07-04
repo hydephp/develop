@@ -53,7 +53,7 @@ class Router implements RouterContract
     }
 
     /** @inheritDoc */
-    public static function getInstance(): RouterContract
+    public static function getInstance(): static
     {
         return new static();
     }
