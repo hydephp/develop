@@ -41,7 +41,7 @@ class BuildService
         })->unique();
     }
 
-    protected function canRunBuildAction(\Countable $collection, string $pageClass, ?string $verb = null): bool
+    protected function canRunBuildAction(array|\Countable $collection, string $pageClass, ?string $verb = null): bool
     {
         $name = $this->getModelPluralName($pageClass);
 
