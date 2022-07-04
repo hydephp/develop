@@ -54,6 +54,18 @@ class Route implements RouteContract
         return $this->sourceModel->getOutputPath();
     }
 
+    /** @inheritDoc */
+    public static function get(string $routeKey): RouteContract
+    {
+        // TODO: Implement get() method.
+    }
+
+    /** @inheritDoc */
+    public static function getOrFail(string $routeKey): RouteContract
+    {
+        // TODO: Implement getOrFail() method.
+    }
+
     protected function constructRouteKey(): string
     {
         return $this->sourceModel->getCurrentPagePath();
