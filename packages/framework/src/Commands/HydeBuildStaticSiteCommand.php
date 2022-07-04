@@ -46,6 +46,8 @@ class HydeBuildStaticSiteCommand extends Command
      */
     protected $description = 'Build the static site';
 
+    protected BuildService $service;
+
     /**
      * Execute the console command.
      *
@@ -59,13 +61,15 @@ class HydeBuildStaticSiteCommand extends Command
 
         $this->title('Building your static site!');
 
+        $this->service = new BuildService($this->output);
+
         $this->runPreBuildActions();
 
         $this->cleanOutputDirectory();
 
         $this->transferMediaAssets();
 
-        (new BuildService($this->output))->compileStaticPages();
+        $this->service->compileStaticPages();
 
         $this->runPostBuildActions();
 
