@@ -59,7 +59,7 @@ class Router implements RouterContract
         return $this;
     }
 
-    protected function discoverRoutes(): void
+    protected function discoverRoutes(): self
     {
         $this->routes = new Collection();
 
@@ -78,5 +78,7 @@ class Router implements RouterContract
         DocumentationPage::all()->each(function (DocumentationPage $page) {
             $this->discover($page);
         });
+
+        return $this;
     }
 }
