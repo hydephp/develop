@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
@@ -14,8 +15,12 @@ class BuildService
 {
     use InteractsWithIO;
 
+    protected Router $router;
+
     public function __construct(OutputStyle $output)
     {
         $this->output = $output;
+
+        $this->router = Router::getInstance();
     }
 }
