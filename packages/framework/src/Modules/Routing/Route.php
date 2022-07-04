@@ -83,7 +83,7 @@ class Route implements RouteContract
     /** @inheritDoc */
     public static function getFromSourceOrFail(string $sourceFilePath): RouteContract
     {
-        // TODO: Implement getFromSourceOrFail() method.
+        return static::getFromSource($sourceFilePath) ?? throw new RouteNotFoundException($sourceFilePath);
     }
 
     protected function constructRouteKey(): string
