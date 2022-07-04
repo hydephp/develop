@@ -58,6 +58,8 @@ class DiscoveryService
     /**
      * Determine the Page Model to use for a given file path.
      *
+     * @deprecated v0.47.0-beta - Use the Router instead.
+     *
      * @param  string  $filepath
      * @return string|false The model class constant, or false if none was found.
      *
