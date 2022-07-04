@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Framework\Commands\HydeBuildSearchCommand;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -21,6 +22,7 @@ class HydeBuildSearchCommandTest extends TestCase
     {
         unlinkIfExists(Hyde::path('_site/docs/search.html'));
         unlinkIfExists(Hyde::path('_site/docs/search.json'));
+        HydeBuildSearchCommand::$guesstimationFactor = 52.5;
         parent::tearDown();
     }
 
@@ -51,5 +53,26 @@ class HydeBuildSearchCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/docs/search.html'));
+    }
+
+    public function test_it_does_not_display_the_estimation_message_when_it_is_less_than_1_second()
+    {
+        HydeBuildSearchCommand::$guesstimationFactor = 0;
+
+        $this->artisan('build:search')
+            ->expectsOutput('Generating documentation site search index...')
+            ->doesntExpectOutputToContain('> This will take an estimated')
+            ->assertExitCode(0);
+    }
+
+    public function test_it_displays_the_estimation_message_when_it_is_greater_than_1_second()
+    {
+        HydeBuildSearchCommand::$guesstimationFactor = 1000;
+        touch(Hyde::path('_docs/foo.md'));
+        $this->artisan('build:search')
+            ->expectsOutput('Generating documentation site search index...')
+            ->expectsOutputToContain('> This will take an estimated')
+            ->assertExitCode(0);
+        unlink(Hyde::path('_docs/foo.md'));
     }
 }

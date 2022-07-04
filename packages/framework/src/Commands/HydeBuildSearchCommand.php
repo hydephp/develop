@@ -41,6 +41,7 @@ class HydeBuildSearchCommand extends Command
 
         $this->comment('Generating documentation site search index...');
         $expected = $this->guesstimateGenerationTime();
+
         if ($expected > 0) {
             $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
         }
@@ -70,7 +71,7 @@ class HydeBuildSearchCommand extends Command
         $this->getExecutionTimeInMs($actionTime)."ms\n");
     }
 
-    /** @internal  */
+    /** @internal Estimated processing time per file in ms */
     public static float $guesstimationFactor = 52.5;
     protected function guesstimateGenerationTime(): int
     {
