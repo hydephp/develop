@@ -4,6 +4,9 @@ namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\RouteTest
+ */
 class Route implements RouteContract
 {
     /**
