@@ -4,34 +4,25 @@ namespace Hyde\Framework\Commands;
 
 use Exception;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
-use Hyde\Framework\Concerns\Internal\BuildActionRunner;
-use Hyde\Framework\Concerns\Internal\TransfersMediaAssetsForBuildCommands;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\BuildHookService;
+use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RssFeedService;
 use Hyde\Framework\Services\SitemapService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde Command to run the Build Process.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\BuildStaticSiteCommandTest
+ * @see \Hyde\Framework\Testing\Feature\StaticSiteServiceTest
  */
 class HydeBuildStaticSiteCommand extends Command
 {
-    use BuildActionRunner;
-    use TransfersMediaAssetsForBuildCommands;
-
     /**
      * The signature of the command.
      *
@@ -51,6 +42,8 @@ class HydeBuildStaticSiteCommand extends Command
      */
     protected $description = 'Build the static site';
 
+    protected BuildService $service;
+
     /**
      * Execute the console command.
      *
@@ -64,27 +57,15 @@ class HydeBuildStaticSiteCommand extends Command
 
         $this->title('Building your static site!');
 
+        $this->service = new BuildService($this->output);
+
         $this->runPreBuildActions();
 
-        $this->cleanOutputDirectory();
+        $this->service->cleanOutputDirectory();
 
-        $this->transferMediaAssets();
+        $this->service->transferMediaAssets();
 
-        if (Features::hasBladePages()) {
-            $this->runBuildAction(BladePage::class);
-        }
-
-        if (Features::hasMarkdownPages()) {
-            $this->runBuildAction(MarkdownPage::class);
-        }
-
-        if (Features::hasBlogPosts()) {
-            $this->runBuildAction(MarkdownPost::class);
-        }
-
-        if (Features::hasDocumentationPages()) {
-            $this->runBuildAction(DocumentationPage::class);
-        }
+        $this->service->compileStaticPages();
 
         $this->runPostBuildActions();
 
@@ -152,12 +133,10 @@ class HydeBuildStaticSiteCommand extends Command
     /** @internal */
     protected function printFinishMessage(float $time_start): void
     {
-        $time_end = microtime(true);
-        $execution_time = ($time_end - $time_start);
-        $this->info('All done! Finished in '.number_format(
-            $execution_time,
-            2
-        ).' seconds. ('.number_format(($execution_time * 1000), 2).'ms)');
+        $execution_time = (microtime(true) - $time_start);
+        $this->info(sprintf('All done! Finished in %s seconds. (%sms)',
+            number_format($execution_time, 2), number_format($execution_time * 1000, 2)
+        ));
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
@@ -166,46 +145,20 @@ class HydeBuildStaticSiteCommand extends Command
         );
     }
 
-    /**
-     * Clear the entire output directory before running the build.
-     *
-     * @return void
-     */
-    public function cleanOutputDirectory(): void
-    {
-        if (config('hyde.empty_output_directory', true)) {
-            $this->warn('Removing all files from build directory.');
-            if (! in_array(basename(Hyde::getSiteOutputPath()), config('hyde.safe_output_directories', ['_site', 'docs', 'build']))) {
-                if (! $this->confirm('The configured output directory ('.Hyde::getSiteOutputPath().') is potentially unsafe to empty. Are you sure you want to continue?')) {
-                    $this->info('Output directory will not be emptied.');
-
-                    return;
-                }
-            }
-            array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
-            File::cleanDirectory(Hyde::getSiteOutputPath('media'));
-        }
-    }
-
-    /** @internal */
-    protected function getModelPluralName(string $model): string
-    {
-        return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($model)).'s';
-    }
-
     /* @internal */
     protected function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
     {
         $this->info($message.' This may take a second.');
 
-        if (app()->environment() === 'testing') {
-            $command = 'echo '.$command;
-        }
-        $output = shell_exec($command);
-
-        $this->line(
-            $output ?? '<fg=red>Could not '.($actionMessage ?? 'run script').'! Is NPM installed?</>'
+        $output = shell_exec(sprintf('%s%s',
+            app()->environment() === 'testing' ? 'echo ' : '',
+            $command)
         );
+
+        $this->line($output ?? sprintf(
+            '<fg=red>Could not %s! Is NPM installed?</>',
+            $actionMessage ?? 'run script'
+        ));
     }
 
     protected function canGenerateSitemap(): bool

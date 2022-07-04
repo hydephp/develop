@@ -20,6 +20,15 @@ use Illuminate\Support\Collection;
 class RouterTest extends TestCase
 {
     /**
+     * @covers \Hyde\Framework\Modules\Routing\Router::getInstance
+     */
+    public function test_get_instance_returns_the_router_instance()
+    {
+        // @todo test the singleton once implemented
+        $this->assertInstanceOf(Router::class, Router::getInstance());
+    }
+
+    /**
      * Test route autodiscovery.
      *
      * @covers \Hyde\Framework\Modules\Routing\Router::__construct
@@ -38,12 +47,19 @@ class RouterTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Modules\Routing\Router::getInstance
+     * @covers \Hyde\Framework\Modules\Routing\Router::getRoutesForModel
      */
-    public function test_get_instance_returns_the_router_instance()
+    public function test_get_routes_for_model_returns_only_routes_for_the_given_model()
     {
-        // @todo test the singleton once implemented
-        $this->assertInstanceOf(Router::class, Router::getInstance());
+        touch(Hyde::path('_pages/foo.md'));
+
+        $routes = (new Router())->getRoutesForModel(MarkdownPage::class);
+
+        $this->assertEquals(collect([
+            'foo' => new Route(MarkdownPage::parse('foo')),
+        ]), $routes);
+
+        unlink(Hyde::path('_pages/foo.md'));
     }
 
     /**
@@ -67,6 +83,23 @@ class RouterTest extends TestCase
 
         restore(Hyde::path('_pages/404.blade.php'));
         restore(Hyde::path('_pages/index.blade.php'));
+    }
+
+    public function test_routes_are_not_discovered_for_disabled_features()
+    {
+        config(['hyde.features' => []]);
+
+        touch('_pages/blade.blade.php');
+        touch('_pages/markdown.md');
+        touch('_posts/post.md');
+        touch('_docs/doc.md');
+
+        $this->assertEmpty((new Router())->getRoutes());
+
+        unlink('_pages/blade.blade.php');
+        unlink('_pages/markdown.md');
+        unlink('_posts/post.md');
+        unlink('_docs/doc.md');
     }
 
     public function test_routes_with_custom_source_directories_are_discovered_properly()

@@ -31,6 +31,12 @@ class Route implements RouteContract
     }
 
     /** @inheritDoc */
+    public function getPageType(): string
+    {
+        return $this->sourceModel::class;
+    }
+
+    /** @inheritDoc */
     public function getSourceModel(): PageContract
     {
         return $this->sourceModel;

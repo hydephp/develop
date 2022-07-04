@@ -14,6 +14,13 @@ interface RouteContract
     public function __construct(PageContract $sourceModel);
 
     /**
+     * Get the page type for the route.
+     *
+     * @return class-string<\Hyde\Framework\Contracts\PageContract>
+     */
+    public function getPageType(): string;
+
+    /**
      * Get the source model for the route.
      *
      * @return \Hyde\Framework\Contracts\PageContract

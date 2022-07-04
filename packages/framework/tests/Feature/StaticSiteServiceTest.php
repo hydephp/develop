@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature\Commands;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\StaticPageBuilder;
@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeBuildStaticSiteCommand
+ * @covers \Hyde\Framework\Services\BuildService
  */
-class BuildStaticSiteCommandTest extends TestCase
+class StaticSiteServiceTest extends TestCase
 {
     use ResetsApplication;
 
@@ -125,6 +126,7 @@ class BuildStaticSiteCommandTest extends TestCase
             ->expectsOutput('Generating RSS feed...')
             ->assertExitCode(0);
 
+        unlink(Hyde::path('_posts/foo.md'));
         unlink(Hyde::path('_site/feed.xml'));
     }
 
@@ -144,6 +146,8 @@ class BuildStaticSiteCommandTest extends TestCase
             ->expectsOutput('Generating documentation site search index...')
             ->expectsOutput('Generating search page...')
             ->assertExitCode(0);
+
+        unlink(Hyde::path('_docs/foo.md'));
     }
 
     public function test_site_directory_is_emptied_before_build()

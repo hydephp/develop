@@ -19,6 +19,8 @@ class StaticPageBuilder
 
     /**
      * @var string Absolute path to the directory to place compiled files in.
+     *
+     * @deprecated v0.47.0-beta May be moved to BuildService.
      */
     public static string $outputPath;
 
@@ -38,7 +40,7 @@ class StaticPageBuilder
     /**
      * Run the page builder.
      *
-     * @return bool|int|void
+     * @return string|void
      */
     public function __invoke()
     {

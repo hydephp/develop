@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -52,7 +53,7 @@ class Router implements RouterContract
     }
 
     /** @inheritDoc */
-    public static function getInstance(): RouterContract
+    public static function getInstance(): static
     {
         return new static();
     }
@@ -61,6 +62,14 @@ class Router implements RouterContract
     public function getRoutes(): Collection
     {
         return $this->routes;
+    }
+
+    /** @inheritDoc */
+    public function getRoutesForModel(string $pageClass): Collection
+    {
+        return $this->routes->filter(function (RouteContract $route) use ($pageClass) {
+            return $route->getSourceModel() instanceof $pageClass;
+        });
     }
 
     protected function discover(PageContract $page): self
@@ -75,15 +84,20 @@ class Router implements RouterContract
     {
         $this->routes = new Collection();
 
-        $pages = [
-            BladePage::class,
-            MarkdownPage::class,
-            MarkdownPost::class,
-            DocumentationPage::class,
-        ];
+        if (Features::hasBladePages()) {
+            $this->discoverPageRoutes(BladePage::class);
+        }
 
-        foreach ($pages as $page) {
-            $this->discoverPageRoutes($page);
+        if (Features::hasMarkdownPages()) {
+            $this->discoverPageRoutes(MarkdownPage::class);
+        }
+
+        if (Features::hasBlogPosts()) {
+            $this->discoverPageRoutes(MarkdownPost::class);
+        }
+
+        if (Features::hasDocumentationPages()) {
+            $this->discoverPageRoutes(DocumentationPage::class);
         }
 
         return $this;
