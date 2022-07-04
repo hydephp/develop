@@ -34,7 +34,7 @@ class BuildService
     public function compileStaticPages(): void
     {
         $this->getDiscoveredModels()->each(function (string $pageClass) {
-            $this->compilePages($pageClass);
+            $this->compilePagesForClass($pageClass);
         });
     }
 
@@ -86,7 +86,7 @@ class BuildService
         return true;
     }
 
-    protected function compilePages(string $pageClass): void
+    protected function compilePagesForClass(string $pageClass): void
     {
         $collection = $this->router->getRoutesForModel($pageClass);
 
