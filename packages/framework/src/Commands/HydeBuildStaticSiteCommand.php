@@ -150,14 +150,15 @@ class HydeBuildStaticSiteCommand extends Command
     {
         $this->info($message.' This may take a second.');
 
-        if (app()->environment() === 'testing') {
-            $command = 'echo '.$command;
-        }
-        $output = shell_exec($command);
-
-        $this->line(
-            $output ?? '<fg=red>Could not '.($actionMessage ?? 'run script').'! Is NPM installed?</>'
+        $output = shell_exec(sprintf("%s%s",
+            app()->environment() === 'testing' ? 'echo ' : '',
+            $command)
         );
+
+        $this->line($output ?? sprintf(
+            '<fg=red>Could not %s! Is NPM installed?</>',
+            $actionMessage ?? 'run script'
+        ));
     }
 
     protected function canGenerateSitemap(): bool
