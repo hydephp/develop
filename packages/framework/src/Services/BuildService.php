@@ -56,8 +56,7 @@ class BuildService
 
         $collection = CollectionService::getMediaAssetFiles();
         if ($this->canRunBuildAction($collection, 'Media Assets', 'Transferring')) {
-            $this->withProgressBar(
-                $collection,
+            $this->withProgressBar($collection,
                 function ($filepath) {
                     copy($filepath, Hyde::getSiteOutputPath('media/'.basename($filepath)));
                 }
@@ -94,6 +93,7 @@ class BuildService
             $this->withProgressBar(
                 $collection, $this->compileRoute()
             );
+
             $this->newLine(2);
         }
     }
@@ -114,9 +114,9 @@ class BuildService
     {
         if (!$this->isOutputDirectoryWhitelisted() && !$this->askIfUnsafeDirectoryShouldBeEmptied()) {
             $this->info('Output directory will not be emptied.');
-
             return false;
         }
+
         return true;
     }
 
