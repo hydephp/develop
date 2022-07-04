@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
+use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
 /**
@@ -11,7 +12,7 @@ use Illuminate\Console\OutputStyle;
  */
 class BuildService
 {
-    protected OutputStyle $output;
+    use InteractsWithIO;
 
     public function __construct(OutputStyle $output)
     {
