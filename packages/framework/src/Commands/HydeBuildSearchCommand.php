@@ -70,9 +70,11 @@ class HydeBuildSearchCommand extends Command
         $this->getExecutionTimeInMs($actionTime)."ms\n");
     }
 
+    /** @internal  */
+    public static float $guesstimationFactor = 52.5;
     protected function guesstimateGenerationTime(): int
     {
-        return round(count(CollectionService::getDocumentationPageFiles()) * 52.5) / 1000;
+        return round(count(CollectionService::getDocumentationPageFiles()) * static::$guesstimationFactor) / 1000;
     }
 
     protected function getExecutionTimeInMs(float $timeStart): string
