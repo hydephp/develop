@@ -40,8 +40,9 @@ class RouterTest extends TestCase
     /**
      * Test route autodiscovery.
      *
-     * @covers \Hyde\Framework\Modules\Routing\Router::discoverRoutes
      * @covers \Hyde\Framework\Modules\Routing\Router::discover
+     * @covers \Hyde\Framework\Modules\Routing\Router::discoverRoutes
+     * @covers \Hyde\Framework\Modules\Routing\Router::discoverPageRoutes
      */
     public function test_discover_routes_finds_and_adds_all_pages_to_route_collection()
     {

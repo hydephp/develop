@@ -63,22 +63,25 @@ class Router implements RouterContract
     {
         $this->routes = new Collection();
 
-        BladePage::all()->each(function (BladePage $page) {
-            $this->discover($page);
-        });
+        $pages = [
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+        ];
 
-        MarkdownPage::all()->each(function (MarkdownPage $page) {
-            $this->discover($page);
-        });
-
-        MarkdownPost::all()->each(function (MarkdownPost $page) {
-            $this->discover($page);
-        });
-
-        DocumentationPage::all()->each(function (DocumentationPage $page) {
-            $this->discover($page);
-        });
+        foreach ($pages as $page) {
+            $this->discoverPageRoutes($page);
+        }
 
         return $this;
+    }
+
+    protected function discoverPageRoutes(string $pageClass): void
+    {
+        /** @var PageContract $pageClass */
+        $pageClass::all()->each(function ($page) {
+            $this->discover($page);
+        });
     }
 }
