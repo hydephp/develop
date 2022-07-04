@@ -22,6 +22,14 @@ class RouteTest extends TestCase
         $this->assertInstanceOf(RouteContract::class, $route);
     }
 
+    public function test_get_page_type_returns_fully_qualified_class_name()
+    {
+        $page = new MarkdownPage();
+        $route = new Route($page);
+
+        $this->assertEquals(MarkdownPage::class, $route->getPageType());
+    }
+
     public function test_get_source_model_returns_page_model()
     {
         $page = new MarkdownPage();
