@@ -77,7 +77,7 @@ class DiscoveryServiceTest extends TestCase
         $this->assertEquals('_pages', DiscoveryService::getFilePathForModelClassFiles(BladePage::class));
     }
 
-    public function test_create_clickable_filepath()
+    public function test_create_clickable_filepath_creates_link_for_existing_file()
     {
         $filename = 'be2329d7-3596-48f4-b5b8-deff352246a9';
         touch($filename);
@@ -85,5 +85,12 @@ class DiscoveryServiceTest extends TestCase
         $this->assertStringContainsString('file://', $output);
         $this->assertStringContainsString($filename, $output);
         unlink($filename);
+    }
+
+    public function test_create_clickable_filepath_falls_back_to_returning_input_if_file_does_not_exist()
+    {
+        $filename = 'be2329d7-3596-48f4-b5b8-deff352246a9';
+        $output = DiscoveryService::createClickableFilepath($filename);
+        $this->assertSame($filename, $output);
     }
 }
