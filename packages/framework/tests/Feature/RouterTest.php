@@ -9,6 +9,7 @@ use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\Router;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Modules\Routing\Router
@@ -46,7 +47,12 @@ class RouterTest extends TestCase
         $router = new Router();
         $router->discover($page);
 
-        $this->assertTrue($router->getRoutes()->has('foo'));
-        $this->assertEquals($route, $router->getRoutes()->get($route->getRouteKey()));
+        $this->assertHasRoute($route, $router->getRoutes());
+    }
+
+    protected function assertHasRoute(RouteContract $route, Collection $routes)
+    {
+        $this->assertTrue($routes->has($route->getRouteKey()), "Failed asserting route collection has key {$route->getRouteKey()}");
+        $this->assertEquals($route, $routes->get($route->getRouteKey()), "Failed asserting route collection has route {$route->getRouteKey()}");
     }
 }
