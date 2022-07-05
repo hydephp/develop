@@ -62,7 +62,7 @@ class DocumentationSidebarServiceTest extends TestCase
     public function test_index_page_is_removed_from_sidebar()
     {
         $this->createTestFiles();
-        touch(Hyde::path('_docs/index.md'));
+        Hyde::touch(('_docs/index.md'));
 
         $sidebar = DocumentationSidebarService::get();
         $this->assertCount(5, $sidebar);
@@ -80,9 +80,9 @@ class DocumentationSidebarServiceTest extends TestCase
     public function test_sidebar_is_ordered_alphabetically_when_no_order_is_set_in_config()
     {
         Config::set('docs.sidebar_order', []);
-        touch(Hyde::path('_docs/alpha.md'));
-        touch(Hyde::path('_docs/bravo.md'));
-        touch(Hyde::path('_docs/charlie.md'));
+        Hyde::touch(('_docs/alpha.md'));
+        Hyde::touch(('_docs/bravo.md'));
+        Hyde::touch(('_docs/charlie.md'));
 
         $sidebar = DocumentationSidebarService::get();
 
@@ -98,9 +98,9 @@ class DocumentationSidebarServiceTest extends TestCase
             'bravo',
             'alpha',
         ]);
-        touch(Hyde::path('_docs/alpha.md'));
-        touch(Hyde::path('_docs/bravo.md'));
-        touch(Hyde::path('_docs/charlie.md'));
+        Hyde::touch(('_docs/alpha.md'));
+        Hyde::touch(('_docs/bravo.md'));
+        Hyde::touch(('_docs/charlie.md'));
 
         $sidebar = DocumentationSidebarService::get();
         $this->assertEquals('charlie', $sidebar[0]->destination);
@@ -139,8 +139,8 @@ class DocumentationSidebarServiceTest extends TestCase
             'third',
             'second',
         ]);
-        touch(Hyde::path('_docs/first.md'));
-        touch(Hyde::path('_docs/second.md'));
+        Hyde::touch(('_docs/first.md'));
+        Hyde::touch(('_docs/second.md'));
         file_put_contents(Hyde::path('_docs/third.md'),
             (new ConvertsArrayToFrontMatter)->execute(['priority' => 300])
         );
@@ -264,7 +264,7 @@ class DocumentationSidebarServiceTest extends TestCase
     protected function createTestFiles(int $count = 5): void
     {
         for ($i = 0; $i < $count; $i++) {
-            touch(Hyde::path('_docs/test-'.$i.'.md'));
+            Hyde::touch(('_docs/test-'.$i.'.md'));
         }
     }
 }

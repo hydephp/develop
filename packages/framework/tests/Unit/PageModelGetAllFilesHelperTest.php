@@ -24,7 +24,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
 
     public function test_markdown_page_get_helper_returns_markdown_page_array()
     {
-        touch(Hyde::path('_pages/test-page.md'));
+        Hyde::touch(('_pages/test-page.md'));
 
         $array = MarkdownPage::files();
         $this->assertCount(1, $array);
@@ -36,7 +36,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
 
     public function test_markdown_post_get_helper_returns_markdown_post_array()
     {
-        touch(Hyde::path('_posts/test-post.md'));
+        Hyde::touch(('_posts/test-post.md'));
 
         $array = MarkdownPost::files();
         $this->assertCount(1, $array);
@@ -48,7 +48,7 @@ class PageModelGetAllFilesHelperTest extends TestCase
 
     public function test_documentation_page_get_helper_returns_documentation_page_array()
     {
-        touch(Hyde::path('_docs/test-page.md'));
+        Hyde::touch(('_docs/test-page.md'));
 
         $array = DocumentationPage::files();
         $this->assertCount(1, $array);

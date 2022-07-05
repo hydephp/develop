@@ -68,7 +68,7 @@ class StylesComponentViewTest extends TestCase
 
     public function test_component_renders_link_to_hyde_css_when_it_exists()
     {
-        touch(Hyde::path('_media/hyde.css'));
+        Hyde::touch(('_media/hyde.css'));
         $this->assertStringContainsString('<link rel="stylesheet" href="media/hyde.css"', $this->renderTestView());
         unlink(Hyde::path('_media/hyde.css'));
     }
@@ -85,7 +85,7 @@ class StylesComponentViewTest extends TestCase
 
     public function test_component_does_not_render_cdn_link_when_a_local_file_exists()
     {
-        touch(Hyde::path('_media/hyde.css'));
+        Hyde::touch(('_media/hyde.css'));
         $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
         unlink(Hyde::path('_media/hyde.css'));
     }

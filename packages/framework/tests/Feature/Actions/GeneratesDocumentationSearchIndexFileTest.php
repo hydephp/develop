@@ -29,7 +29,7 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
     {
         $this->resetDocs();
 
-        touch(Hyde::path('_docs/foo.md'));
+        Hyde::touch(('_docs/foo.md'));
 
         $expected = [
             [
@@ -51,9 +51,9 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_it_adds_all_files_to_search_index()
     {
-        touch(Hyde::path('_docs/foo.md'));
-        touch(Hyde::path('_docs/bar.md'));
-        touch(Hyde::path('_docs/baz.md'));
+        Hyde::touch(('_docs/foo.md'));
+        Hyde::touch(('_docs/bar.md'));
+        Hyde::touch(('_docs/baz.md'));
 
         $this->assertCount(3, (new Action())->generate()->searchIndex);
 
@@ -97,9 +97,9 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_get_source_file_slugs_returns_valid_array_for_source_files()
     {
-        touch(Hyde::path('_docs/a.md'));
-        touch(Hyde::path('_docs/b.md'));
-        touch(Hyde::path('_docs/c.md'));
+        Hyde::touch(('_docs/a.md'));
+        Hyde::touch(('_docs/b.md'));
+        Hyde::touch(('_docs/c.md'));
 
         $this->assertEquals(
             ['a', 'b', 'c'], (new Action())->getSourceFileSlugs()
@@ -152,7 +152,7 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_excluded_pages_are_not_present_in_the_search_index()
     {
-        touch(Hyde::path('_docs/excluded.md'));
+        Hyde::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
         $this->assertNotContains('excluded', (new Action())->getSourceFileSlugs());

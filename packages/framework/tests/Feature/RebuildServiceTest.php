@@ -30,7 +30,7 @@ class RebuildServiceTest extends TestCase
     protected function runExecuteTest(string $prefix, string $suffix = '.md')
     {
         $path = $prefix.'/foo'.$suffix;
-        touch(Hyde::path($path));
+        Hyde::touch(($path));
         $service = new RebuildService($path);
         $result = $service->execute();
         $this->assertInstanceOf(StaticPageBuilder::class, $result);

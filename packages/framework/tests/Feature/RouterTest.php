@@ -51,7 +51,7 @@ class RouterTest extends TestCase
      */
     public function test_get_routes_for_model_returns_only_routes_for_the_given_model()
     {
-        touch(Hyde::path('_pages/foo.md'));
+        Hyde::touch(('_pages/foo.md'));
 
         $routes = (new Router())->getRoutesForModel(MarkdownPage::class);
 
@@ -115,7 +115,7 @@ class RouterTest extends TestCase
     protected function testRouteModelDiscoveryForPageModel(string $class)
     {
         /** @var PageContract $class */
-        touch(Hyde::path($class::qualifyBasename('foo')));
+        Hyde::touch(($class::qualifyBasename('foo')));
 
         $expectedKey = 'foo';
         if ($class === MarkdownPost::class) {
