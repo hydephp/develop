@@ -60,6 +60,11 @@ class Route implements RouteContract, RouteFacadeContract
         return $this->sourceModel->getOutputPath();
     }
 
+    protected function constructRouteKey(): string
+    {
+        return $this->sourceModel->getCurrentPagePath();
+    }
+
     /** @inheritDoc */
     public static function get(string $routeKey): ?RouteContract
     {
@@ -84,10 +89,5 @@ class Route implements RouteContract, RouteFacadeContract
     public static function getFromModel(PageContract $page): ?RouteContract
     {
         return $page->getRoute();
-    }
-
-    protected function constructRouteKey(): string
-    {
-        return $this->sourceModel->getCurrentPagePath();
     }
 }
