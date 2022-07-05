@@ -9,7 +9,6 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
-use Hyde\Framework\Modules\Routing\RouteNotFoundException;
 use Hyde\Testing\TestCase;
 
 /**
@@ -77,28 +76,6 @@ class RouteTest extends TestCase
         $this->assertNull(Route::get('not-found'));
     }
 
-    public function test_get_or_fail_returns_route_from_router_index()
-    {
-        $this->assertEquals(new Route(BladePage::parse('index')), Route::getOrFail('index'));
-        $this->assertInstanceOf(RouteContract::class, Route::getOrFail('index'));
-    }
-
-    /** @covers \Hyde\Framework\Modules\Routing\RouteNotFoundException */
-    public function test_get_or_fail_throws_exception_if_route_is_not_found()
-    {
-        $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage("Route not found: 'not-found'");
-        $this->expectExceptionCode(404);
-
-        Route::getOrFail('not-found');
-    }
-
-    public function test_get_or_fail_does_not_return_null_if_route_is_not_found()
-    {
-        $this->expectException(RouteNotFoundException::class);
-        $this->assertNotNull(Route::getOrFail('not-found'));
-    }
-
     public function test_get_from_source_returns_route_from_router_index()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Route::getFromSource('_pages/index.blade.php'));
@@ -108,28 +85,6 @@ class RouteTest extends TestCase
     public function test_get_from_source_returns_null_if_route_is_not_found()
     {
         $this->assertNull(Route::getFromSource('not-found'));
-    }
-
-    public function test_get_from_source_or_fail_returns_route_from_router_index()
-    {
-        $this->assertEquals(new Route(BladePage::parse('index')), Route::getFromSourceOrFail('_pages/index.blade.php'));
-        $this->assertInstanceOf(RouteContract::class, Route::getFromSourceOrFail('_pages/index.blade.php'));
-    }
-
-    /** @covers \Hyde\Framework\Modules\Routing\RouteNotFoundException */
-    public function test_get_from_source_or_fail_throws_exception_if_route_is_not_found()
-    {
-        $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage("Route not found: 'not-found'");
-        $this->expectExceptionCode(404);
-
-        Route::getFromSourceOrFail('not-found');
-    }
-
-    public function test_get_from_source_or_fail_does_not_return_null_if_route_is_not_found()
-    {
-        $this->expectException(RouteNotFoundException::class);
-        $this->assertNotNull(Route::getFromSourceOrFail('not-found'));
     }
 
     public function test_get_from_source_can_find_blade_pages()
