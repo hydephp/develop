@@ -27,4 +27,14 @@ interface NavigationMenuItemContract
      * @return string
      */
     public function navigationMenuLabel(): string;
+
+    /**
+     * Not yet implemented.
+     *
+     * If an item returns a route collection,
+     * it will automatically be made into a dropdown.
+     *
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\Route>
+     */
+    // public function navigationMenuChildren(): Collection;
 }
