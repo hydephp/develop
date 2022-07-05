@@ -34,7 +34,10 @@ class NavigationMenu extends Collection
     public function generate(): self
     {
         Router::getInstance()->getRoutes()->each(function (Route $route) {
-            $this->addItem($route);
+            $item = $route->getSourceModel();
+            if ($item instanceof NavigationMenuItemContract && $item->showInNavigation()) {
+                $this->addItem($item);
+            }
         });
 
         return $this;
@@ -49,10 +52,10 @@ class NavigationMenu extends Collection
         return $this;
     }
 
-    protected function addItem(Route $route): void
+    protected function addItem(NavigationMenuItemContract $item): void
     {
-        if ($route instanceof NavigationMenuItemContract && $route->showInNavigation()) {
-            $this->put($route->getRouteKey(), $route);
+        if ($item->showInNavigation()) {
+            $this->put($item->getRoute()->getRouteKey(), $item);
         }
     }
 
