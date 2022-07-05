@@ -6,6 +6,7 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\Internal\FileHelpers;
 use Hyde\Framework\Concerns\Internal\FluentPathHelpers;
 use Hyde\Framework\Helpers\HydeHelperFacade;
+use Illuminate\Support\Traits\Macroable;
 
 /**
  * General facade for Hyde services.
@@ -21,6 +22,7 @@ class Hyde
     use FileHelpers;
     use FluentPathHelpers;
     use HydeHelperFacade;
+    use Macroable;
 
     protected static string $basePath;
 
