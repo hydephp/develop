@@ -14,6 +14,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
+use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -352,5 +353,11 @@ class AbstractPageTest extends TestCase
     public function test_blade_pages_do_not_extend_abstract_markdown_page()
     {
         $this->assertNotInstanceOf(AbstractMarkdownPage::class, new BladePage('foo'));
+    }
+
+    public function test_get_route_returns_page_route()
+    {
+        $page = new MarkdownPage();
+        $this->assertEquals(new Route($page), $page->getRoute());
     }
 }
