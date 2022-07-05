@@ -47,4 +47,12 @@ interface RouteContract
      * @return string Path relative to the site output directory.
      */
     public function getOutputFilePath(): string;
+
+    /**
+     * Resolve a site web link to the file, using pretty URLs if enabled.
+     *
+     * @param string $currentPage The current page path, or blank to get use the site root as base.
+     * @return string Relative path to the page
+     */
+    public function getLink(string $currentPage = ''): string;
 }

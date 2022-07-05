@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Modules\Routing;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Contracts\PageContract;
 use Illuminate\Support\Collection;
 
@@ -59,6 +60,12 @@ class Route implements RouteContract, RouteFacadeContract
     public function getOutputFilePath(): string
     {
         return $this->sourceModel->getOutputPath();
+    }
+
+    /** @inheritDoc */
+    public function getLink(string $currentPage = ''): string
+    {
+        return Hyde::relativeLink($this->getOutputFilePath(), $currentPage);
     }
 
     protected function constructRouteKey(): string
