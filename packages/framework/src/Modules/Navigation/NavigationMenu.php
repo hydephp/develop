@@ -12,9 +12,8 @@ class NavigationMenu extends Collection
     protected Route $homeRoute;
     protected Route $currentRoute;
 
-    public function __construct(Route $currentRoute)
+    public function __construct()
     {
-        $this->currentRoute = $currentRoute;
         $this->homeRoute = $this->getHomeRoute();
 
         parent::__construct();
@@ -22,7 +21,14 @@ class NavigationMenu extends Collection
 
     public static function create(Route $currentRoute): static
     {
-        return (new static($currentRoute))->generate()->sortItems();
+        return (new static())->setCurrentRoute($currentRoute)->generate()->sortItems();
+    }
+
+    public function setCurrentRoute(Route $currentRoute): self
+    {
+        $this->currentRoute = $currentRoute;
+
+        return $this;
     }
 
     public function generate(): self
