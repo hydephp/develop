@@ -35,7 +35,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
     public function test_markdown_posts_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/blog'));
-        touch(Hyde::path('testSourceDir/blog/test.md'));
+        Hyde::touch(('testSourceDir/blog/test.md'));
 
         MarkdownPost::$sourceDirectory = 'testSourceDir/blog';
 
@@ -55,7 +55,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
     public function test_markdown_pages_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/pages'));
-        touch(Hyde::path('testSourceDir/pages/test.md'));
+        Hyde::touch(('testSourceDir/pages/test.md'));
 
         MarkdownPage::$sourceDirectory = 'testSourceDir/pages';
 
@@ -75,7 +75,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
     public function test_documentation_pages_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/documentation'));
-        touch(Hyde::path('testSourceDir/documentation/test.md'));
+        Hyde::touch(('testSourceDir/documentation/test.md'));
 
         DocumentationPage::$sourceDirectory = 'testSourceDir/documentation';
 
@@ -95,7 +95,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
     public function test_blade_pages_in_changed_directory_can_be_compiled()
     {
         mkdir(Hyde::path('testSourceDir/blade'));
-        touch(Hyde::path('testSourceDir/blade/test.blade.php'));
+        Hyde::touch(('testSourceDir/blade/test.blade.php'));
 
         BladePage::$sourceDirectory = 'testSourceDir/blade';
         Config::set('view.paths', ['testSourceDir/blade']);

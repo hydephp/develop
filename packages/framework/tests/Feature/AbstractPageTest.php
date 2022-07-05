@@ -74,7 +74,7 @@ class AbstractPageTest extends TestCase
 
     public function test_get_parser_returns_the_configured_parser_class()
     {
-        touch(Hyde::path('_posts/foo.md'));
+        Hyde::touch(('_posts/foo.md'));
 
         MarkdownPage::$parserClass = MarkdownPostParser::class;
         $this->assertInstanceOf(MarkdownPostParser::class, MarkdownPage::getParser('foo'));
@@ -84,7 +84,7 @@ class AbstractPageTest extends TestCase
 
     public function test_get_parser_returns_instantiated_parser_for_the_supplied_slug()
     {
-        touch(Hyde::path('_pages/foo.md'));
+        Hyde::touch(('_pages/foo.md'));
 
         $this->assertInstanceOf(MarkdownPageParser::class, $parser = MarkdownPage::getParser('foo'));
         $this->assertEquals('foo', $parser->get()->slug);
@@ -94,7 +94,7 @@ class AbstractPageTest extends TestCase
 
     public function test_parse_parses_supplied_slug_into_a_page_model()
     {
-        touch(Hyde::path('_pages/foo.md'));
+        Hyde::touch(('_pages/foo.md'));
 
         $this->assertInstanceOf(MarkdownPage::class, $page = MarkdownPage::parse('foo'));
         $this->assertEquals('foo', $page->slug);
@@ -104,14 +104,14 @@ class AbstractPageTest extends TestCase
 
     public function test_files_returns_array_of_source_files()
     {
-        touch(Hyde::path('_pages/foo.md'));
+        Hyde::touch(('_pages/foo.md'));
         $this->assertEquals(['foo'], MarkdownPage::files());
         unlink(Hyde::path('_pages/foo.md'));
     }
 
     public function test_all_returns_collection_of_all_source_files_parsed_into_the_model()
     {
-        touch(Hyde::path('_pages/foo.md'));
+        Hyde::touch(('_pages/foo.md'));
         $this->assertEquals(
             collect([new MarkdownPage([], '', '', 'foo')]),
             MarkdownPage::all()

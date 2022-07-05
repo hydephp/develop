@@ -31,7 +31,7 @@ class HydeRebuildStaticSiteCommandTest extends TestCase
         deleteDirectory(Hyde::path('_site/media'));
         mkdir(Hyde::path('_site/media'));
 
-        touch(Hyde::path('_media/test.jpg'));
+        Hyde::touch(('_media/test.jpg'));
 
         $this->artisan('rebuild _media')
             ->assertExitCode(0);
@@ -59,7 +59,7 @@ class HydeRebuildStaticSiteCommandTest extends TestCase
 
     public function test_rebuild_documentation_page()
     {
-        touch(Hyde::path('_docs/foo.md'));
+        Hyde::touch(('_docs/foo.md'));
 
         $this->artisan('rebuild _docs/foo.md')
             ->assertExitCode(0);
@@ -72,7 +72,7 @@ class HydeRebuildStaticSiteCommandTest extends TestCase
 
     public function test_rebuild_blog_post()
     {
-        touch(Hyde::path('_posts/foo.md'));
+        Hyde::touch(('_posts/foo.md'));
 
         $this->artisan('rebuild _posts/foo.md')
             ->assertExitCode(0);

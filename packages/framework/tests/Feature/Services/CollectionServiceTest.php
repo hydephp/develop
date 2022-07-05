@@ -27,21 +27,21 @@ class CollectionServiceTest extends TestCase
 
     public function test_get_source_file_list_for_markdown_page()
     {
-        touch(Hyde::path('_pages/foo.md'));
+        Hyde::touch(('_pages/foo.md'));
         $this->assertEquals(['foo'], CollectionService::getMarkdownPageFiles());
         unlink(Hyde::path('_pages/foo.md'));
     }
 
     public function test_get_source_file_list_for_markdown_post()
     {
-        touch(Hyde::path('_posts/foo.md'));
+        Hyde::touch(('_posts/foo.md'));
         $this->assertEquals(['foo'], CollectionService::getMarkdownPostFiles());
         unlink(Hyde::path('_posts/foo.md'));
     }
 
     public function test_get_source_file_list_for_documentation_page()
     {
-        touch(Hyde::path('_docs/foo.md'));
+        Hyde::touch(('_docs/foo.md'));
         $this->assertEquals(['foo'], CollectionService::getDocumentationPageFiles());
         unlink(Hyde::path('_docs/foo.md'));
     }
@@ -131,7 +131,7 @@ class CollectionServiceTest extends TestCase
 
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
-        touch(Hyde::path('_pages/_foo.blade.php'));
+        Hyde::touch(('_pages/_foo.blade.php'));
         $this->assertEquals([
             '404',
             'index',
@@ -141,28 +141,28 @@ class CollectionServiceTest extends TestCase
 
     public function test_markdown_page_files_starting_with_underscore_are_ignored()
     {
-        touch(Hyde::path('_pages/_foo.md'));
+        Hyde::touch(('_pages/_foo.md'));
         $this->assertEquals([], CollectionService::getMarkdownPageFiles());
         unlink(Hyde::path('_pages/_foo.md'));
     }
 
     public function test_post_files_starting_with_underscore_are_ignored()
     {
-        touch(Hyde::path('_posts/_foo.md'));
+        Hyde::touch(('_posts/_foo.md'));
         $this->assertEquals([], CollectionService::getMarkdownPostFiles());
         unlink(Hyde::path('_posts/_foo.md'));
     }
 
     public function test_documentation_page_files_starting_with_underscore_are_ignored()
     {
-        touch(Hyde::path('_docs/_foo.md'));
+        Hyde::touch(('_docs/_foo.md'));
         $this->assertEquals([], CollectionService::getDocumentationPageFiles());
         unlink(Hyde::path('_docs/_foo.md'));
     }
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
     {
-        touch(Hyde::path($path));
+        Hyde::touch(($path));
 
         $expected = $expected ?? basename($path, '.md');
 
