@@ -9,6 +9,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
+use Hyde\Framework\Modules\Routing\Router;
 use Hyde\Testing\TestCase;
 
 /**
@@ -118,5 +119,16 @@ class RouteTest extends TestCase
         Hyde::touch(('_docs/foo.md'));
         $this->assertEquals(new Route(DocumentationPage::parse('foo')), Route::getFromSource('_docs/foo.md'));
         unlink(Hyde::path('_docs/foo.md'));
+    }
+
+    public function test_get_from_model_returns_the_models_route()
+    {
+        $page = new BladePage('index');
+        $this->assertEquals(new Route($page), Route::getFromModel($page));
+    }
+
+    public function test_route_facade_all_method_returns_all_routes()
+    {
+        $this->assertEquals(Router::getInstance()->getRoutes(), Route::all());
     }
 }

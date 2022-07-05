@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
+use Illuminate\Support\Collection;
 
 interface RouteFacadeContract
 {
@@ -39,4 +40,11 @@ interface RouteFacadeContract
      * @return \Hyde\Framework\Modules\Routing\RouteContract|null
      */
     public static function getFromModel(PageContract $page): ?RouteContract;
+
+    /**
+     * Get all routes from the Router index.
+     *
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\RouteContract>
+     */
+    public static function all(): Collection;
 }
