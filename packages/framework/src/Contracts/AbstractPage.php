@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Concerns\HasPageMetadata;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
@@ -179,5 +180,25 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
         }
 
         return 1000;
+    }
+
+    /** @inheritDoc */
+    public function navigationMenuTitle(): string
+    {
+        if ($this instanceof MarkdownDocument) {
+            if ($this->matter('navigation.title') !== null) {
+                return $this->matter('navigation.title');
+            }
+        }
+
+        if (isset($this->title) ) {
+            return $this->title;
+        }
+
+        if ($this->slug === 'index') {
+            return 'Home';
+        }
+
+        return Hyde::makeTitle($this->slug);
     }
 }
