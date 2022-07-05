@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\StaticPageBuilder;
 
 /**
@@ -20,15 +21,6 @@ class RebuildService
     public string $filepath;
 
     /**
-     * The model of the source file.
-     *
-     * @var string
-     *
-     * @internal
-     */
-    public string $model;
-
-    /**
      * The page builder instance.
      * Used to get debug output from the builder.
      *
@@ -44,7 +36,6 @@ class RebuildService
     public function __construct(string $filepath)
     {
         $this->filepath = $filepath;
-        $this->model = DiscoveryService::findModelFromFilePath($this->filepath);
     }
 
     /**
@@ -53,17 +44,7 @@ class RebuildService
     public function execute(): StaticPageBuilder
     {
         return $this->builder = (new StaticPageBuilder(
-            DiscoveryService::getParserInstanceForModel(
-                $this->model,
-                basename(
-                    str_replace(
-                        DiscoveryService::getFilePathForModelClassFiles($this->model).'/',
-                        '',
-                        $this->filepath
-                    ),
-                    DiscoveryService::getFileExtensionForModelFiles($this->model)
-                )
-            )->get(),
+            Route::getFromSource($this->filepath)->getSourceModel(),
             true
         ));
     }

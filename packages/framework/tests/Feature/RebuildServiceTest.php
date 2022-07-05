@@ -15,16 +15,6 @@ use Hyde\Testing\TestCase;
  */
 class RebuildServiceTest extends TestCase
 {
-    public function test_service_method()
-    {
-        touch(Hyde::path('_posts/foo.md'));
-        $service = new RebuildService('_posts/foo.md');
-        $service->execute();
-        $this->assertNotNull($service->model);
-        unlink(Hyde::path('_posts/foo.md'));
-        unlink(Hyde::path('_site/posts/foo.html'));
-    }
-
     public function test_execute_methods()
     {
         $this->runExecuteTest('_posts');
