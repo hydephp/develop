@@ -163,7 +163,7 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
             }
         }
 
-        if (array_key_exists($this->slug, config('hyde.navigation.order'))) {
+        if (array_key_exists($this->slug, config('hyde.navigation.order', []))) {
             return (int) config('hyde.navigation.order.'.$this->slug);
         }
 
