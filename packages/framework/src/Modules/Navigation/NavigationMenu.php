@@ -41,10 +41,8 @@ class NavigationMenu extends Collection
 
     protected function addItem(Route $route): void
     {
-        if ($route instanceof NavigationMenuItemContract) {
-            if ($route->showInNavigation()) {
-                $this->put($route->getRouteKey(), $route);
-            }
+        if ($route instanceof NavigationMenuItemContract && $route->showInNavigation()) {
+            $this->put($route->getRouteKey(), $route);
         }
     }
 
