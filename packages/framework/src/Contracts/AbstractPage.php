@@ -3,6 +3,10 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Concerns\HasPageMetadata;
+use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Modules\Navigation\NavigationMenuItemContract;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Services\CollectionService;
@@ -122,5 +126,30 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
     public function getRoute(): RouteContract
     {
         return new Route($this);
+    }
+
+    /** @inheritDoc */
+    public function showInNavigation(): bool
+    {
+        if ($this instanceof MarkdownPost) {
+            return false;
+        }
+
+        if ($this instanceof DocumentationPage) {
+            return $this->slug === 'index';
+        }
+
+        if ($this instanceof MarkdownDocument) {
+            if ($this->matter('hidden', false)) {
+                return false;
+            }
+        }
+
+        if (in_array($this->slug, config('hyde.navigation_menu_blacklist', [])))
+        {
+            return false;
+        }
+
+        return true;
     }
 }
