@@ -59,6 +59,8 @@ interface RouteContract
     /**
      * Same as static::get(), but throws an exception if the route key is not found.
      *
+     * @deprecated To reduce complexity. You can throw exceptions if the return value is null.
+     *
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Framework\Modules\Routing\RouteContract
      *
@@ -76,6 +78,8 @@ interface RouteContract
 
     /**
      * Same as static::getFromSource(), but throws an exception if the source file path is not found.
+     *
+     * @deprecated To reduce complexity. You can throw exceptions if the return value is null.
      *
      * @param  string  $sourceFilePath  Example: _posts/foo.md
      * @return \Hyde\Framework\Modules\Routing\RouteContract
