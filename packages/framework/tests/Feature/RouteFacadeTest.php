@@ -34,4 +34,9 @@ class RouteFacadeTest extends TestCase
         $page = new BladePage('index');
         $this->assertEquals(BaseRoute::getFromModel($page), Route::getFromModel($page));
     }
+
+    public function test_route_facade_all_method_calls_all_method()
+    {
+        $this->assertEquals(BaseRoute::all(), Route::all());
+    }
 }

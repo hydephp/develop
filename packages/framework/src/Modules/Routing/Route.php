@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
+use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
@@ -89,5 +90,11 @@ class Route implements RouteContract, RouteFacadeContract
     public static function getFromModel(PageContract $page): ?RouteContract
     {
         return $page->getRoute();
+    }
+
+    /** @inheritDoc */
+    public static function all(): Collection
+    {
+        return Router::getInstance()->getRoutes();
     }
 }

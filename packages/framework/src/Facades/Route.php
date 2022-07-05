@@ -6,6 +6,7 @@ use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Modules\Routing\Route as RouteModel;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\RouteFacadeContract;
+use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Modules\Routing\Route
@@ -35,5 +36,11 @@ class Route implements RouteFacadeContract
     public static function getFromModel(PageContract $page): ?RouteContract
     {
         return RouteModel::getFromModel($page);
+    }
+
+    /** @inheritDoc */
+    public static function all(): Collection
+    {
+        return RouteModel::all();
     }
 }
