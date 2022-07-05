@@ -33,18 +33,18 @@ class NavigationMenu extends Collection
     public function generate(): self
     {
         Router::getInstance()->getRoutes()->each(function (Route $route) {
-            if ($route instanceof NavigationMenuItemContract) {
-                $this->addLink($route);
-            }
+            $this->addItem($route);
         });
 
         return $this;
     }
 
-    protected function addLink(NavigationMenuItemContract|RouteContract $page): void
+    protected function addItem(Route $route): void
     {
-        if ($page->showInNavigation()) {
-            $this->put($page->getRouteKey(), $page);
+        if ($route instanceof NavigationMenuItemContract) {
+            if ($route->showInNavigation()) {
+                $this->put($route->getRouteKey(), $route);
+            }
         }
     }
 
