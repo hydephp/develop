@@ -65,13 +65,18 @@ class RouteTest extends TestCase
         $this->assertEquals($page->getOutputPath(), $route->getOutputFilePath());
     }
 
-    public function test_get_returns_route_from_router_index()
+    public function test_get_is_alias_for_get_from_key()
+    {
+        $this->assertEquals(Route::getFromKey('index'), Route::get('index'));
+    }
+
+    public function test_get_from_key_returns_route_from_router_index()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Route::get('index'));
         $this->assertInstanceOf(RouteContract::class, Route::get('index'));
     }
 
-    public function test_get_returns_null_if_route_is_not_found()
+    public function test_get_from_key_returns_null_if_route_is_not_found()
     {
         $this->assertNull(Route::get('not-found'));
     }
