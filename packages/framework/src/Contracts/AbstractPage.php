@@ -140,12 +140,12 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
         }
 
         if ($this instanceof MarkdownDocument) {
-            if ($this->matter('hidden', false)) {
+            if ($this->matter('navigation.hidden', false)) {
                 return false;
             }
         }
 
-        if (in_array($this->slug, config('hyde.navigation_menu_blacklist', [])))
+        if (in_array($this->slug, config('hyde.navigation.exclude', [])))
         {
             return false;
         }
