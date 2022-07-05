@@ -8,6 +8,9 @@ use Hyde\Framework\Modules\Routing\Route as BaseRoute;
 use Hyde\Testing\TestCase;
 
 /**
+ * The Route facade serves as a convenient wrapper for the Route class,
+ * which contains has its own test where the actual logic is tested.
+ *
  * @covers \Hyde\Framework\Facades\Route
  */
 class RouteFacadeTest extends TestCase
