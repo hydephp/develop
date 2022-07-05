@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Modules\Navigation;
 
-use Illuminate\Support\Collection;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\Router;
-use Hyde\Framework\Models\Pages\MarkdownPage;
+use Illuminate\Support\Collection;
 
 class NavigationMenu extends Collection
 {
