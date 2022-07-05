@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Facades\Route as RouteFacade;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -10,7 +11,6 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\RouteNotFoundException;
-use Hyde\Framework\Facades\Route as RouteFacade;
 use Hyde\Testing\TestCase;
 
 /**
@@ -161,7 +161,7 @@ class RouteTest extends TestCase
         $this->assertEquals(new Route(DocumentationPage::parse('foo')), Route::getFromSource('_docs/foo.md'));
         unlink(Hyde::path('_docs/foo.md'));
     }
-    
+
     /** @covers RouteFacade::get */
     public function test_route_facade_get_method_calls_get_method()
     {

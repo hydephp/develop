@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Facades;
 
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\Route as RouteModel;
+use Hyde\Framework\Modules\Routing\RouteContract;
 
 /**
  * @see \Hyde\Framework\Modules\Routing\Route
@@ -19,7 +19,6 @@ class Route
     public static function get(string $routeKey): ?RouteContract
     {
         return RouteModel::get($routeKey);
-
     }
 
     /**
