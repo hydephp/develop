@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Modules\Routing;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Hyde;
 use Illuminate\Support\Collection;
 
 /**
