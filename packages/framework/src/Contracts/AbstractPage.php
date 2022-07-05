@@ -189,14 +189,21 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
             if ($this->matter('navigation.title') !== null) {
                 return $this->matter('navigation.title');
             }
-        }
 
-        if (isset($this->title) ) {
-            return $this->title;
+            if ($this->matter('title') !== null) {
+                return $this->matter('title');
+            }
         }
 
         if ($this->slug === 'index') {
+            if ($this instanceof DocumentationPage) {
+                return 'Docs';
+            }
             return 'Home';
+        }
+
+        if (isset($this->title) && ! blank($this->title)) {
+            return $this->title;
         }
 
         return Hyde::makeTitle($this->slug);
