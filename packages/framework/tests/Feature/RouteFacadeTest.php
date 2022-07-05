@@ -8,8 +8,10 @@ use Hyde\Framework\Modules\Routing\Route as BaseRoute;
 use Hyde\Testing\TestCase;
 
 /**
+ * The Route facade serves as a convenient wrapper for the Route class,
+ * which contains has its own test where the actual logic is tested.
+ *
  * @covers \Hyde\Framework\Facades\Route
- * @covers \Hyde\Framework\Modules\Routing\Route
  */
 class RouteFacadeTest extends TestCase
 {
@@ -33,5 +35,10 @@ class RouteFacadeTest extends TestCase
     {
         $page = new BladePage('index');
         $this->assertEquals(BaseRoute::getFromModel($page), Route::getFromModel($page));
+    }
+
+    public function test_route_facade_all_method_calls_all_method()
+    {
+        $this->assertEquals(BaseRoute::all(), Route::all());
     }
 }
