@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Modules\Navigation;
 
-use Hyde\Framework\Modules\Routing\Route;
-use Hyde\Framework\Modules\Routing\RouteNotFoundException;
-use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Modules\Routing\Route;
+use Hyde\Framework\Modules\Routing\Router;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 
 class NavigationMenu extends Collection
 {
@@ -46,6 +46,6 @@ class NavigationMenu extends Collection
 
     protected function getHomeRoute(): Route
     {
-        return Route::get('index') ?? throw new RouteNotFoundException('index');
+        return Route::get('index') ?? Route::get('404') ?? new Route(new MarkdownPage);
     }
 }
