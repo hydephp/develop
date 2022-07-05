@@ -9,8 +9,8 @@ use Illuminate\Support\Collection;
 
 class NavigationMenu extends Collection
 {
-    protected Route $homeRoute;
-    protected Route $currentRoute;
+    public Route $homeRoute;
+    public Route $currentRoute;
 
     public function __construct()
     {
