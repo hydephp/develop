@@ -8,22 +8,13 @@ use Hyde\Framework\StaticPageBuilder;
 use Hyde\Testing\TestCase;
 
 /**
- * Note that we don't actually test if the files were created,
- * since the service is just a proxy for the actual builders,
- * which have their own tests that include this feature.
+ * Note that we don't fully test the created files since the service is
+ * just a proxy for the actual builders, which have their own tests.
+ *
+ * @covers \Hyde\Framework\Services\RebuildService
  */
 class RebuildServiceTest extends TestCase
 {
-    public function test_service_method()
-    {
-        createTestPost();
-        $service = new RebuildService('_posts/test-post.md');
-        $service->execute();
-        $this->assertNotNull($service->model);
-        unlink(Hyde::path('_posts/test-post.md'));
-        unlink(Hyde::path('_site/posts/test-post.html'));
-    }
-
     public function test_execute_methods()
     {
         $this->runExecuteTest('_posts');
@@ -31,15 +22,15 @@ class RebuildServiceTest extends TestCase
         $this->runExecuteTest('_docs');
         $this->runExecuteTest('_pages', '.blade.php');
 
-        unlink(Hyde::path('_site/test-file.html'));
-        unlink(Hyde::path('_site/docs/test-file.html'));
-        unlink(Hyde::path('_site/posts/test-file.html'));
+        unlink(Hyde::path('_site/foo.html'));
+        unlink(Hyde::path('_site/docs/foo.html'));
+        unlink(Hyde::path('_site/posts/foo.html'));
     }
 
     protected function runExecuteTest(string $prefix, string $suffix = '.md')
     {
-        $path = $prefix.'/test-file'.$suffix;
-        createTestPost($path);
+        $path = $prefix.'/foo'.$suffix;
+        touch(Hyde::path($path));
         $service = new RebuildService($path);
         $result = $service->execute();
         $this->assertInstanceOf(StaticPageBuilder::class, $result);
