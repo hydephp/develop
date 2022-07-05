@@ -1,6 +1,6 @@
 @php
-$links = Hyde\Framework\Actions\GeneratesNavigationMenu::getNavigationLinks($currentPage);
-$homeRoute = ($links[array_search('Home', array_column($links, 'title'))])['route'] ?? Hyde::pageLink('index.html');
+$navigation = \Hyde\Framework\Modules\Navigation\NavigationMenu::create($page->getRoute());
+$homeRoute = $navigation->homeRoute->getSourceModel()->navigationMenuTitle();
 @endphp
 
 <nav aria-label="Main navigation" id="main-navigation" class="flex flex-wrap items-center justify-between p-4 shadow-lg sm:shadow-xl md:shadow-none dark:bg-gray-800">
@@ -21,7 +21,7 @@ $homeRoute = ($links[array_search('Home', array_column($links, 'title'))])['rout
 
 	<div id="main-navigation-links" class="w-full hidden md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700">
 		<ul aria-label="Navigation links" class="md:flex-grow md:flex justify-end">
-			@foreach ($links as $item)
+			@foreach ($navigation as $item)
 			<li class="md:mx-2">
 				@include('hyde::components.navigation.navigation-link')
 			</li>
