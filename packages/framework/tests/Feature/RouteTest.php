@@ -131,4 +131,36 @@ class RouteTest extends TestCase
     {
         $this->assertEquals(Router::getInstance()->getRoutes(), Route::all());
     }
+
+    // test getLink uses hyde::relativeLink() to get the correct path for root pages
+    public function test_get_link_returns_correct_path_for_root_pages()
+    {
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals('foo.html', $route->getLink());
+    }
+
+    // test getLink uses hyde::relativeLink() to get the correct path for nested pages
+    public function test_get_link_returns_correct_path_for_nested_pages()
+    {
+        $route = new Route(new MarkdownPage(slug: 'foo/bar'));
+        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals('foo/bar.html', $route->getLink());
+    }
+
+    public function test_get_link_returns_correct_path_for_nested_current_page()
+    {
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath(), 'foo/bar'), $route->getLink('foo/bar'));
+        $this->assertEquals('../foo.html', $route->getLink('foo/bar'));
+    }
+
+    // test getLink returns pretty url if enabled
+    public function test_get_link_returns_pretty_url_if_enabled()
+    {
+        config(['hyde.pretty_urls' => true]);
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals('foo', $route->getLink());
+    }
 }
