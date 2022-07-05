@@ -7,6 +7,7 @@ use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
+use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\RouteNotFoundException;
 use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Support\Collection;
@@ -32,31 +33,19 @@ class NavigationMenu extends Collection
     public function generate(): self
     {
         Router::getInstance()->getRoutes()->each(function (Route $route) {
-            $this->addLink($route);
+            if ($route instanceof NavigationMenuItemContract) {
+                $this->addLink($route);
+            }
         });
 
         return $this;
     }
 
-    protected function addLink(Route $route): void
+    protected function addLink(NavigationMenuItemContract|RouteContract $page): void
     {
-        if ($this->isRouteHidden($route)) {
-            return;
+        if ($page->showInNavigation()) {
+            $this->put($page->getRouteKey(), $page);
         }
-
-        $this->put($route->getRouteKey(), $route);
-    }
-
-    protected function isRouteHidden(Route $route): bool
-    {
-        return $this->hasHiddenProperty($route->getSourceModel())
-            || ($route->getSourceModel() instanceof DocumentationPage)
-            || ($route->getSourceModel() instanceof MarkdownPost);
-    }
-
-    protected function hasHiddenProperty(PageContract $page): bool
-    {
-        return ($page instanceof AbstractMarkdownPage) && $page->markdown()->matter('hidden');
     }
 
     protected function getHomeRoute(): Route
