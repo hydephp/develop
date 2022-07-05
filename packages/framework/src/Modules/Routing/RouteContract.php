@@ -56,7 +56,6 @@ interface RouteContract
      */
     public static function get(string $routeKey): ?RouteContract;
 
-
     /**
      * Get a route from the Router index for the specified source file path.
      *
@@ -68,7 +67,7 @@ interface RouteContract
     /**
      * Get a route from the Router index for the supplied page model.
      *
-     * @param \Hyde\Framework\Contracts\PageContract $page
+     * @param  \Hyde\Framework\Contracts\PageContract  $page
      * @return \Hyde\Framework\Modules\Routing\RouteContract|null
      */
     public static function getFromModel(PageContract $page): ?RouteContract;

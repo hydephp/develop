@@ -17,7 +17,6 @@ class RouteFacadeTest extends TestCase
         $this->assertEquals(BaseRoute::get('index'), Route::get('index'));
     }
 
-
     /** @covers Route::getFromSource */
     public function test_route_facade_get_from_source_method_calls_get_from_source_method()
     {
