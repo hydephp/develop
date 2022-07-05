@@ -205,6 +205,7 @@ return [
     |
     */
 
+    /** @deprecated pending rename */
     'navigation_menu_blacklist' => [
         '404',
     ],
