@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Modules\Navigation;
 
+use Hyde\Framework\Modules\Routing\RouteContract;
+
 /**
  * Defines the requirements for a model to be displayed in the navigation menu.
  */
@@ -37,4 +39,11 @@ interface NavigationMenuItemContract
      * @return \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\Route>
      */
     // public function navigationMenuChildren(): Collection;
+
+    /**
+     * Get the route corresponding to the item.
+     *
+     * @return \Hyde\Framework\Modules\Routing\RouteContract
+     */
+    public function getRoute(): RouteContract;
 }
