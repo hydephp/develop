@@ -128,7 +128,6 @@ abstract class AbstractPage implements PageContract
         return new Route($this);
     }
 
-
     /**
      * Should the item should be displayed in the navigation menu?
      *
@@ -150,8 +149,7 @@ abstract class AbstractPage implements PageContract
             }
         }
 
-        if (in_array($this->slug, config('hyde.navigation.exclude', [])))
-        {
+        if (in_array($this->slug, config('hyde.navigation.exclude', []))) {
             return false;
         }
 
@@ -211,6 +209,7 @@ abstract class AbstractPage implements PageContract
             if ($this instanceof DocumentationPage) {
                 return 'Docs';
             }
+
             return 'Home';
         }
 
