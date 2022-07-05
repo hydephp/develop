@@ -34,6 +34,16 @@ class NavigationMenu extends Collection
 
         return $this;
     }
+
+    protected function addLink(Route $route): void
+    {
+        if ($this->isRouteHidden($route)) {
+            return;
+        }
+
+        $this->put($route->getRouteKey(), $route);
+    }
+
     protected function isRouteHidden(Route $route): bool
     {
         return $this->hasHiddenProperty($route->getSourceModel())
