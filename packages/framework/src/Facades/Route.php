@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Facades;
 
+use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Modules\Routing\Route as RouteModel;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\RouteFacadeContract;
@@ -19,8 +20,20 @@ class Route implements RouteFacadeContract
     }
 
     /** @inheritDoc */
+    public static function getFromKey(string $routeKey): ?RouteContract
+    {
+        return RouteModel::getFromKey($routeKey);
+    }
+
+    /** @inheritDoc */
     public static function getFromSource(string $sourceFilePath): ?RouteContract
     {
         return RouteModel::getFromSource($sourceFilePath);
+    }
+
+    /** @inheritDoc */
+    public static function getFromModel(PageContract $page): ?RouteContract
+    {
+        return RouteModel::getFromModel($page);
     }
 }
