@@ -149,7 +149,7 @@ abstract class AbstractPage implements PageContract
             }
         }
 
-        if (in_array($this->slug, config('hyde.navigation.exclude', []))) {
+        if (in_array($this->slug, config('hyde.navigation.exclude', ['404']))) {
             return false;
         }
 
