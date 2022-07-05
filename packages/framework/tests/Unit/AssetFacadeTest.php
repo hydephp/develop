@@ -1,5 +1,7 @@
 <?php
 
+namespace Hyde\Framework\Testing\Unit;
+
 use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Facades\Asset;
 use Hyde\Framework\Services\AssetService;
