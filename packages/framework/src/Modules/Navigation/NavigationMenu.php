@@ -2,12 +2,7 @@
 
 namespace Hyde\Framework\Modules\Navigation;
 
-use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\RouteNotFoundException;
 use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Support\Collection;
