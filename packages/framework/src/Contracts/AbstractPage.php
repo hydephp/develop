@@ -7,7 +7,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Modules\Navigation\NavigationMenuItemContract;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Services\CollectionService;
@@ -24,7 +23,7 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractPage implements PageContract, NavigationMenuItemContract
+abstract class AbstractPage implements PageContract
 {
     use HasPageMetadata;
 
@@ -129,7 +128,12 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
         return new Route($this);
     }
 
-    /** @inheritDoc */
+
+    /**
+     * Should the item should be displayed in the navigation menu?
+     *
+     * @return bool
+     */
     public function showInNavigation(): bool
     {
         if ($this instanceof MarkdownPost) {
@@ -154,7 +158,11 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
         return true;
     }
 
-    /** @inheritDoc */
+    /**
+     * The relative priority, determining the position of the item in the menu.
+     *
+     * @return int
+     */
     public function navigationMenuPriority(): int
     {
         if ($this instanceof MarkdownDocument) {
@@ -167,6 +175,10 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
             return (int) config('hyde.navigation.order.'.$this->slug);
         }
 
+        if ($this instanceof DocumentationPage) {
+            return 100;
+        }
+
         if ($this->slug === 'index') {
             return 0;
         }
@@ -175,14 +187,14 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
             return 10;
         }
 
-        if ($this instanceof DocumentationPage) {
-            return 100;
-        }
-
         return 1000;
     }
 
-    /** @inheritDoc */
+    /**
+     * The page title to display in the navigation menu.
+     *
+     * @return string
+     */
     public function navigationMenuTitle(): string
     {
         if ($this instanceof MarkdownDocument) {
@@ -208,4 +220,14 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
 
         return Hyde::makeTitle($this->slug);
     }
+
+    /**
+     * Not yet implemented.
+     *
+     * If an item returns a route collection,
+     * it will automatically be made into a dropdown.
+     *
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\Route>
+     */
+    // public function navigationMenuChildren(): Collection;
 }

@@ -34,9 +34,8 @@ class NavigationMenu extends Collection
     public function generate(): self
     {
         Router::getInstance()->getRoutes()->each(function (Route $route) {
-            $item = $route->getSourceModel();
-            if ($item instanceof NavigationMenuItemContract && $item->showInNavigation()) {
-                $this->addItem($item);
+            if ($route->getSourceModel()->showInNavigation()) {
+                $this->put($route->getRouteKey(), $route);
             }
         });
 
@@ -45,18 +44,11 @@ class NavigationMenu extends Collection
 
     public function sortItems(): self
     {
-        $this->sortBy(function (NavigationMenuItemContract $item) {
-            return $item->navigationMenuPriority();
+        $this->sortBy(function (Route $route) {
+            return $route->getSourceModel()->navigationMenuPriority();
         });
 
         return $this;
-    }
-
-    protected function addItem(NavigationMenuItemContract $item): void
-    {
-        if ($item->showInNavigation()) {
-            $this->put($item->getRoute()->getRouteKey(), $item);
-        }
     }
 
     protected function getHomeRoute(): Route
