@@ -12,11 +12,11 @@ use Illuminate\Support\Collection;
 
 class NavigationMenu extends Collection
 {
-    protected Route $route;
+    protected Route $currentRoute;
 
-    public function __construct(Route $route)
+    public function __construct(Route $currentRoute)
     {
-        $this->route = $route;
+        $this->currentRoute = $currentRoute;
 
         parent::__construct();
     }
