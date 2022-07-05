@@ -22,13 +22,22 @@ class NavigationMenu extends Collection
 
     public static function create(Route $currentRoute): static
     {
-        return (new static($currentRoute))->generate();
+        return (new static($currentRoute))->generate()->sortItems();
     }
 
     public function generate(): self
     {
         Router::getInstance()->getRoutes()->each(function (Route $route) {
             $this->addItem($route);
+        });
+
+        return $this;
+    }
+
+    public function sortItems(): self
+    {
+        $this->sortBy(function (NavigationMenuItemContract $item) {
+            return $item->navigationMenuPriority();
         });
 
         return $this;
