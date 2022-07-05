@@ -28,7 +28,7 @@ interface NavigationMenuItemContract
      *
      * @return string
      */
-    public function navigationMenuLabel(): string;
+    public function navigationMenuTitle(): string;
 
     /**
      * Not yet implemented.
