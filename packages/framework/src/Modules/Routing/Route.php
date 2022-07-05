@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\PageContract;
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements RouteContract
+class Route implements RouteContract, RouteFacadeContract
 {
     /**
      * The source model for the route.
@@ -60,16 +60,21 @@ class Route implements RouteContract
         return $this->sourceModel->getOutputPath();
     }
 
-    /** @inheritDoc */
-    public static function get(string $routeKey): ?RouteContract
+    protected function constructRouteKey(): string
     {
-        return Router::getInstance()->getRoutes()->get($routeKey);
+        return $this->sourceModel->getCurrentPagePath();
     }
 
     /** @inheritDoc */
-    public static function getOrFail(string $routeKey): RouteContract
+    public static function get(string $routeKey): ?RouteContract
     {
-        return static::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return static::getFromKey($routeKey);
+    }
+
+    /** @inheritDoc */
+    public static function getFromKey(string $routeKey): ?RouteContract
+    {
+        return Router::getInstance()->getRoutes()->get($routeKey);
     }
 
     /** @inheritDoc */
@@ -81,13 +86,8 @@ class Route implements RouteContract
     }
 
     /** @inheritDoc */
-    public static function getFromSourceOrFail(string $sourceFilePath): RouteContract
+    public static function getFromModel(PageContract $page): ?RouteContract
     {
-        return static::getFromSource($sourceFilePath) ?? throw new RouteNotFoundException($sourceFilePath);
-    }
-
-    protected function constructRouteKey(): string
-    {
-        return $this->sourceModel->getCurrentPagePath();
+        return $page->getRoute();
     }
 }

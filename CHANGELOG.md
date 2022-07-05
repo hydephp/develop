@@ -15,6 +15,12 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.47.0-beta](https://github.com/hydephp/develop/releases/tag/v0.47.0-beta) - 2022-07-05
+
+### Added
+- Add macroable trait to Hyde facade
+
+
 ## [v0.46.0-beta](https://github.com/hydephp/develop/releases/tag/v0.46.0-beta) - 2022-07-03
 
 ### Added
