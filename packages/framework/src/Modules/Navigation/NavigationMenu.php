@@ -35,7 +35,6 @@ class NavigationMenu extends Collection
             $this->addLink($route);
         });
 
-
         return $this;
     }
 
