@@ -4,8 +4,6 @@ namespace Hyde\Framework\Modules\Navigation;
 
 /**
  * Defines the requirements for a model to be displayed in the navigation menu.
- *
- * @method string getRouteKey() The getRouteKey method should be implemented by the model.
  */
 interface NavigationMenuItemContract
 {
