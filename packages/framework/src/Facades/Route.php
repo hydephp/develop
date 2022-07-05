@@ -4,30 +4,21 @@ namespace Hyde\Framework\Facades;
 
 use Hyde\Framework\Modules\Routing\Route as RouteModel;
 use Hyde\Framework\Modules\Routing\RouteContract;
+use Hyde\Framework\Modules\Routing\RouteFacadeContract;
 
 /**
  * @see \Hyde\Framework\Modules\Routing\Route
  * @see \Hyde\Framework\Testing\Feature\RouteFacadeTest
  */
-class Route
+class Route implements RouteFacadeContract
 {
-    /**
-     * Get a route from the Router index for the specified route key.
-     *
-     * @param  string  $routeKey  Example: posts/foo.md
-     * @return \Hyde\Framework\Modules\Routing\RouteContract|null
-     */
+    /** @inheritDoc */
     public static function get(string $routeKey): ?RouteContract
     {
         return RouteModel::get($routeKey);
     }
 
-    /**
-     * Get a route from the Router index for the specified source file path.
-     *
-     * @param  string  $sourceFilePath  Example: _posts/foo.md
-     * @return \Hyde\Framework\Modules\Routing\RouteContract|null
-     */
+    /** @inheritDoc */
     public static function getFromSource(string $sourceFilePath): ?RouteContract
     {
         return RouteModel::getFromSource($sourceFilePath);

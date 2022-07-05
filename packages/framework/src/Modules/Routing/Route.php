@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\PageContract;
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements RouteContract
+class Route implements RouteContract, RouteFacadeContract
 {
     /**
      * The source model for the route.
