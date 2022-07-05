@@ -21,7 +21,7 @@ class NavigationMenu extends Collection
 
     public static function create(Route $currentRoute): static
     {
-        return (new static())->setCurrentRoute($currentRoute)->generate()->sortItems();
+        return (new static())->setCurrentRoute($currentRoute)->generate();
     }
 
     public function setCurrentRoute(Route $currentRoute): self
@@ -33,19 +33,12 @@ class NavigationMenu extends Collection
 
     public function generate(): self
     {
-        Router::getInstance()->getRoutes()->each(function (Route $route) {
-            if ($route->getSourceModel()->showInNavigation()) {
-                $this->put($route->getRouteKey(), $route);
-            }
-        });
-
-        return $this;
-    }
-
-    public function sortItems(): self
-    {
-        $this->sortBy(function (Route $route) {
+        Router::getInstance()->getRoutes()->sortBy(function (Route $route) {
             return $route->getSourceModel()->navigationMenuPriority();
+        })->each(function (Route $route) {
+            if ($route->getSourceModel()->showInNavigation()) {
+                $this->push($route);
+            }
         });
 
         return $this;
