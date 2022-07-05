@@ -152,4 +152,32 @@ abstract class AbstractPage implements PageContract, NavigationMenuItemContract
 
         return true;
     }
+
+    /** @inheritDoc */
+    public function navigationMenuPriority(): int
+    {
+        if ($this instanceof MarkdownDocument) {
+            if ($this->matter('navigation.priority') !== null) {
+                return $this->matter('navigation.priority');
+            }
+        }
+
+        if (array_key_exists($this->slug, config('hyde.navigation.order'))) {
+            return (int) config('hyde.navigation.order.'.$this->slug);
+        }
+
+        if ($this->slug === 'index') {
+            return 0;
+        }
+
+        if ($this->slug === 'posts') {
+            return 10;
+        }
+
+        if ($this instanceof DocumentationPage) {
+            return 100;
+        }
+
+        return 1000;
+    }
 }
