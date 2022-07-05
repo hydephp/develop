@@ -6,7 +6,7 @@ use Hyde\Framework\Modules\Routing\RouteNotFoundException;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
+ * @covers \Hyde\Framework\Modules\Routing\RouteNotFoundException
  */
 class RouteNotFoundExceptionTest extends TestCase
 {
