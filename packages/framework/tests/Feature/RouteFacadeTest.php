@@ -9,6 +9,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Facades\Route
+ * @covers \Hyde\Framework\Modules\Routing\Route
  */
 class RouteFacadeTest extends TestCase
 {
