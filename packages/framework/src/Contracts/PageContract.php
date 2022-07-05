@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Modules\Routing\RouteContract;
 use Illuminate\Support\Collection;
 
 interface PageContract
@@ -110,4 +111,11 @@ interface PageContract
      * @return string URI path relative to the site root.
      */
     public function getCurrentPagePath(): string;
+
+    /**
+     * Get the route for the page.
+     *
+     * @return \Hyde\Framework\Modules\Routing\RouteContract
+     */
+    public function getRoute(): RouteContract;
 }

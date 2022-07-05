@@ -47,44 +47,4 @@ interface RouteContract
      * @return string Path relative to the site output directory.
      */
     public function getOutputFilePath(): string;
-
-    /**
-     * Get a route from the Router index for the specified route key.
-     *
-     * @param  string  $routeKey  Example: posts/foo.md
-     * @return \Hyde\Framework\Modules\Routing\RouteContract|null
-     */
-    public static function get(string $routeKey): ?RouteContract;
-
-    /**
-     * Same as static::get(), but throws an exception if the route key is not found.
-     *
-     * @deprecated To reduce complexity. You can throw exceptions if the return value is null.
-     *
-     * @param  string  $routeKey  Example: posts/foo.md
-     * @return \Hyde\Framework\Modules\Routing\RouteContract
-     *
-     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
-     */
-    public static function getOrFail(string $routeKey): RouteContract;
-
-    /**
-     * Get a route from the Router index for the specified source file path.
-     *
-     * @param  string  $sourceFilePath  Example: _posts/foo.md
-     * @return \Hyde\Framework\Modules\Routing\RouteContract|null
-     */
-    public static function getFromSource(string $sourceFilePath): ?RouteContract;
-
-    /**
-     * Same as static::getFromSource(), but throws an exception if the source file path is not found.
-     *
-     * @deprecated To reduce complexity. You can throw exceptions if the return value is null.
-     *
-     * @param  string  $sourceFilePath  Example: _posts/foo.md
-     * @return \Hyde\Framework\Modules\Routing\RouteContract
-     *
-     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
-     */
-    public static function getFromSourceOrFail(string $sourceFilePath): RouteContract;
 }
