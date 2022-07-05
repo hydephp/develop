@@ -17,10 +17,10 @@ class DiscoveryServiceTest extends TestCase
 {
     public function createContentSourceTestFiles()
     {
-        touch(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(MarkdownPost::class).'/test.md'));
-        touch(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(MarkdownPage::class).'/test.md'));
-        touch(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(DocumentationPage::class).'/test.md'));
-        touch(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(BladePage::class).'/test.blade.php'));
+        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(MarkdownPost::class).'/test.md'));
+        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(MarkdownPage::class).'/test.md'));
+        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(DocumentationPage::class).'/test.md'));
+        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(BladePage::class).'/test.blade.php'));
     }
 
     public function deleteContentSourceTestFiles()

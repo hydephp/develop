@@ -30,7 +30,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function test_component_has_link_to_app_js_file_when_it_exists()
     {
-        touch(Hyde::path('_media/app.js'));
+        Hyde::touch(('_media/app.js'));
         $this->assertStringContainsString('<script defer src="media/app.js"', $this->renderTestView());
         unlink(Hyde::path('_media/app.js'));
     }
@@ -42,7 +42,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function test_component_uses_relative_path_to_app_js_file_for_nested_pages()
     {
-        touch(Hyde::path('_media/app.js'));
+        Hyde::touch(('_media/app.js'));
         $this->mockCurrentPage = 'foo';
         $this->assertStringContainsString('<script defer src="media/app.js"', $this->renderTestView());
         $this->mockCurrentPage = 'foo/bar';
@@ -70,7 +70,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function test_component_renders_link_to_hyde_js_when_it_exists()
     {
-        touch(Hyde::path('_media/hyde.js'));
+        Hyde::touch(('_media/hyde.js'));
         $this->assertStringContainsString('<script defer src="media/hyde.js"', $this->renderTestView());
         unlink(Hyde::path('_media/hyde.js'));
     }
@@ -87,7 +87,7 @@ class ScriptsComponentViewTest extends TestCase
 
     public function test_component_does_not_render_cdn_link_when_a_local_file_exists()
     {
-        touch(Hyde::path('_media/hyde.js'));
+        Hyde::touch(('_media/hyde.js'));
         $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
         unlink(Hyde::path('_media/hyde.js'));
     }

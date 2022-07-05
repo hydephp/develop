@@ -18,7 +18,7 @@ class GeneratesNavigationMenuTest extends TestCase
 
     public function test_generated_links_include_documentation_pages()
     {
-        touch(Hyde::path('_docs/index.md'));
+        Hyde::touch(('_docs/index.md'));
 
         $generator = new GeneratesNavigationMenu('index');
         $this->assertIsArray($generator->links);
@@ -65,8 +65,8 @@ class GeneratesNavigationMenuTest extends TestCase
 
     public function test_files_starting_with_underscores_are_ignored()
     {
-        touch(Hyde::path('_pages/_foo.md'));
-        touch(Hyde::path('_pages/_foo.blade.php'));
+        Hyde::touch(('_pages/_foo.md'));
+        Hyde::touch(('_pages/_foo.blade.php'));
 
         $array = GeneratesNavigationMenu::getNavigationLinks();
         $this->assertIsArray($array);

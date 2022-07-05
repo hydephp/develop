@@ -39,7 +39,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_markdown_pages_to_xml()
     {
-        touch(Hyde::path('_pages/foo.md'));
+        Hyde::touch(('_pages/foo.md'));
 
         $service = new SitemapService();
         $service->generate();
@@ -51,7 +51,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_markdown_posts_to_xml()
     {
-        touch(Hyde::path('_posts/foo.md'));
+        Hyde::touch(('_posts/foo.md'));
 
         $service = new SitemapService();
         $service->generate();
@@ -63,7 +63,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_documentation_pages_to_xml()
     {
-        touch(Hyde::path('_docs/foo.md'));
+        Hyde::touch(('_docs/foo.md'));
 
         $service = new SitemapService();
         $service->generate();
@@ -114,7 +114,7 @@ class SitemapServiceTest extends TestCase
     {
         config(['hyde.pretty_urls' => false]);
         config(['hyde.site_url' => 'https://example.com']);
-        touch(Hyde::path('_pages/0-test.blade.php'));
+        Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
         $date = date('c'); // Cache the expected date as around one in 1000 runs the second will switch over during execution
@@ -132,7 +132,7 @@ class SitemapServiceTest extends TestCase
     {
         config(['hyde.pretty_urls' => true]);
         config(['hyde.site_url' => 'https://example.com']);
-        touch(Hyde::path('_pages/0-test.blade.php'));
+        Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
         $service->generate();
