@@ -192,9 +192,71 @@ class CanBeInNavigationTest extends TestCase
         $this->assertEquals(1000, $page->navigationMenuPriority());
     }
 
-    // test navigationMenuTitle
-    public function test_navigation_menu_title()
+    // test navigationMenuTitle if AbstractMarkdownPage and matter('navigation.title') !== null) should return navigation.title matter
+    public function test_navigation_menu_title_returns_navigation_title_matter_if_set()
     {
+        $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
+        $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
+        $page->markdown->shouldReceive('matter')->with('navigation.title', null)->andReturn('foo');
+        $this->assertEquals('foo', $page->navigationMenuTitle());
+    }
 
+    // test navigationMenuTitle if AbstractMarkdownPage and matter('title') !== null) should return title matter
+    public function test_navigation_menu_title_returns_title_matter_if_set()
+    {
+        $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
+        $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
+        $page->markdown->matter = ['title' => 'foo'];
+        $this->assertEquals('foo', $page->navigationMenuTitle());
+    }
+
+    // test navigationMenuTitle navigation.title has precedence over title
+    public function test_navigation_menu_title_navigation_title_has_precedence_over_title()
+    {
+        $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
+        $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
+        $page->markdown->matter = ['title' => 'foo', 'navigation.title' => 'bar'];
+        $this->assertEquals('bar', $page->navigationMenuTitle());
+    }
+
+    // test navigationMenuTitle if slug === index and model instance of documentation page should return docs
+    public function test_navigation_menu_title_returns_docs_if_slug_is_index_and_model_is_documentation_page()
+    {
+        $page = $this->mock(DocumentationPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'index';
+
+        $this->assertEquals('Docs', $page->navigationMenuTitle());
+    }
+
+    // test navigationMenuTitle if slug === index and model not instance of documentation page should return home
+    public function test_navigation_menu_title_returns_home_if_slug_is_index_and_model_is_not_documentation_page()
+    {
+        $page = $this->mock(MarkdownPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'index';
+
+        $this->assertEquals('Home', $page->navigationMenuTitle());
+    }
+
+    // test navigationMenuTitle if title isset and is not empty should return title
+    public function test_navigation_menu_title_returns_title_if_title_is_set_and_not_empty()
+    {
+        $page = $this->mock(MarkdownPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->title = 'foo';
+        $page->slug = 'bar';
+
+        $this->assertEquals('foo', $page->navigationMenuTitle());
+    }
+
+    // test navigationMenuTitle if no other conditions are met should fall back to Hyde::makeTitle from slug
+    public function test_navigation_menu_title_falls_back_to_hyde_make_title_from_slug()
+    {
+        $page = $this->mock(MarkdownPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'foo';
+
+        $this->assertEquals('Foo', $page->navigationMenuTitle());
     }
 }
