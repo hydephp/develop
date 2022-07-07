@@ -142,8 +142,8 @@ abstract class AbstractPage implements PageContract
             return $this->slug === 'index';
         }
 
-        if ($this instanceof MarkdownDocument) {
-            if ($this->matter('navigation.hidden', false)) {
+        if ($this instanceof AbstractMarkdownPage) {
+            if ($this->markdown->matter('navigation.hidden', false)) {
                 return false;
             }
         }
