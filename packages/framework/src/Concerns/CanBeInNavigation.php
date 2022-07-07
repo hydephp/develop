@@ -50,7 +50,7 @@ trait CanBeInNavigation
      */
     public function navigationMenuPriority(): int
     {
-        if ($this instanceof MarkdownDocument) {
+        if ($this instanceof AbstractMarkdownPage) {
             if ($this->matter('navigation.priority') !== null) {
                 return $this->matter('navigation.priority');
             }
@@ -82,7 +82,7 @@ trait CanBeInNavigation
      */
     public function navigationMenuTitle(): string
     {
-        if ($this instanceof MarkdownDocument) {
+        if ($this instanceof AbstractMarkdownPage) {
             if ($this->matter('navigation.title') !== null) {
                 return $this->matter('navigation.title');
             }
