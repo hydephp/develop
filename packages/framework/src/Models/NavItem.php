@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 
 /**
