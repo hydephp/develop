@@ -132,7 +132,7 @@ class NavigationMenuTest extends TestCase
 
         Hyde::unlink('_pages/foo.md');
     }
-    
+
     public function test_collection_only_contains_nav_items()
     {
         $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create(Route::get('index'))->items);
