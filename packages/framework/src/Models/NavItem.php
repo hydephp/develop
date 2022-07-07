@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 
@@ -25,10 +24,10 @@ class NavItem
     public bool $hidden;
 
     /**
-     * @param \Hyde\Framework\Modules\Routing\RouteContract $route
-     * @param string $title
-     * @param int $priority
-     * @param bool $hidden
+     * @param  \Hyde\Framework\Modules\Routing\RouteContract  $route
+     * @param  string  $title
+     * @param  int  $priority
+     * @param  bool  $hidden
      */
     public function __construct(RouteContract $route, string $title, int $priority = 500, bool $hidden = false)
     {
@@ -48,11 +47,10 @@ class NavItem
         );
     }
 
-
     /**
      * Resolve a link to the navigation item.
      *
-     * @param string $currentPage
+     * @param  string  $currentPage
      * @return string
      */
     public function resolveLink(string $currentPage = ''): string
