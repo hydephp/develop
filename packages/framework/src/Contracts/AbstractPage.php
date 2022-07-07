@@ -8,7 +8,6 @@ use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Collection;
 
@@ -123,7 +122,7 @@ abstract class AbstractPage implements PageContract
     }
 
     /** @inheritDoc */
-    public function getRoute(): RouteContract
+    public function getRoute(): Route
     {
         return new Route($this);
     }

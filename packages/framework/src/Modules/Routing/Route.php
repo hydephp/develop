@@ -94,7 +94,7 @@ class Route implements RouteContract, RouteFacadeContract
     }
 
     /** @inheritDoc */
-    public static function getFromModel(PageContract $page): ?RouteContract
+    public static function getFromModel(PageContract $page): static
     {
         return $page->getRoute();
     }

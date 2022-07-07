@@ -4,6 +4,7 @@ namespace Hyde\Framework\Modules\Navigation;
 
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Modules\Routing\Route;
+use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Support\Collection;
 
@@ -12,8 +13,8 @@ use Illuminate\Support\Collection;
  */
 class NavigationMenu extends Collection
 {
-    public Route $homeRoute;
-    public Route $currentRoute;
+    public RouteContract $homeRoute;
+    public RouteContract $currentRoute;
 
     public function __construct()
     {
@@ -22,12 +23,12 @@ class NavigationMenu extends Collection
         parent::__construct();
     }
 
-    public static function create(Route $currentRoute): static
+    public static function create(RouteContract $currentRoute): static
     {
         return (new static())->setCurrentRoute($currentRoute)->generate();
     }
 
-    public function setCurrentRoute(Route $currentRoute): self
+    public function setCurrentRoute(RouteContract $currentRoute): self
     {
         $this->currentRoute = $currentRoute;
 
