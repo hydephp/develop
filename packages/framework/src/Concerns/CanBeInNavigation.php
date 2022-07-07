@@ -11,7 +11,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 /**
  * Offloads logic related to navigation menu items for AbstractPage classes.
  *
- *
+ * @see \Hyde\Framework\Testing\Feature\Concerns\CanBeInNavigationTest
  */
 trait CanBeInNavigation
 {
