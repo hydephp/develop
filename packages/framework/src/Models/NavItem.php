@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 
@@ -25,15 +26,15 @@ class NavItem
 
     /**
      * @param string|\Hyde\Framework\Modules\Routing\RouteContract $destination
-     * @param string $title
+     * @param string|null $title
      * @param int $priority
      * @param bool $hidden
      */
-    public function __construct(string|RouteContract $destination, string $title, int $priority, bool $hidden)
+    public function __construct(string|RouteContract $destination, ?string $title = null, int $priority = 500, bool $hidden = false)
     {
         $this->leadsTo($destination);
 
-        $this->title = $title;
+        $this->title = $title ?? Hyde::makeTitle(basename($destination));
         $this->priority = $priority;
         $this->hidden = $hidden;
     }
