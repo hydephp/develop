@@ -28,6 +28,10 @@ abstract class TestCase extends BaseTestCase
                 return touch(Hyde::path($path));
             });
 
+            Hyde::macro('unlink', function (string $path) {
+                return unlink(Hyde::path($path));
+            });
+
             static::$booted = true;
         }
     }
