@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 /**
  * Generate the dynamic navigation menu.
- * 
+ *
  * @deprecated v0.48.0-beta
  */
 class GeneratesNavigationMenu
