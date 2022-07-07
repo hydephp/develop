@@ -64,8 +64,12 @@ jobs:
       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist 
 
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: vendor/bin/pest
-          
+      run: vendor/bin/pest --testdox-text testdox.txt
+    
+    - name: Ping statistics server with test results
+      run: |
+        wget https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/96b46368cebad2af37b069aebb3935c8dcc47499/ping-openanalytics-testrunner.php -O ping.php
+        php ping.php "Monorepo CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
 
   build-hydefront-assets:
 
