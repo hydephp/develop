@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Concerns\CanBeInNavigation;
+use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Collection;

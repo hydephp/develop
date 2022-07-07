@@ -4,7 +4,6 @@ namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 

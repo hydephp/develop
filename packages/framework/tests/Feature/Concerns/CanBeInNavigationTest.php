@@ -4,10 +4,10 @@ namespace Hyde\Framework\Testing\Feature\Concerns;
 
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Models\MarkdownDocument;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Testing\TestCase;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\CanBeInNavigation
