@@ -48,4 +48,9 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownPage
     {
         return $this->markdown;
     }
+
+    public function matter(string $key = null, mixed $default = null): mixed
+    {
+        return $this->markdown->matter($key, $default);
+    }
 }
