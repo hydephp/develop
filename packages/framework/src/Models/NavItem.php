@@ -11,8 +11,8 @@ use Hyde\Framework\Modules\Routing\RouteContract;
  *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly
- *   2. Or, pass a source file path, which will be resolved into a Route
- *   3. Or supply a fully qualified URI starting with HTTP(S)
+ *   2. (NYI) Or, pass a source file path, which will be resolved into a Route
+ *   3. (NYI) Or supply a fully qualified URI starting with HTTP(S)
  *      and the item will lead directly to that link.
  */
 class NavItem
@@ -25,49 +25,29 @@ class NavItem
     public bool $hidden;
 
     /**
-     * @param string|\Hyde\Framework\Modules\Routing\RouteContract $destination
-     * @param string|null $title
+     * @param \Hyde\Framework\Modules\Routing\RouteContract $route
+     * @param string $title
      * @param int $priority
      * @param bool $hidden
      */
-    public function __construct(string|RouteContract $destination, ?string $title = null, int $priority = 500, bool $hidden = false)
+    public function __construct(RouteContract $route, string $title, int $priority = 500, bool $hidden = false)
     {
-        $this->leadsTo($destination);
-
-        $this->title = $title ?? Hyde::makeTitle(basename($destination));
+        $this->route = $route;
+        $this->title = $title;
         $this->priority = $priority;
         $this->hidden = $hidden;
     }
 
-    /**
-     * Static alias for __construct().
-     *
-     * @param ...$params
-     * @return static
-     */
-    public static function make(...$params): static
+    public static function fromRoute(RouteContract $route): static
     {
-        return new static(...$params);
+        return new static(
+            $route,
+            $route->getSourceModel()->navigationMenuTitle(),
+            $route->getSourceModel()->navigationMenuPriority(),
+            ! $route->getSourceModel()->showInNavigation()
+        );
     }
 
-    /**
-     * @param string|\Hyde\Framework\Modules\Routing\RouteContract $destination
-     * @return $this
-     */
-    public function leadsTo(string|RouteContract $destination): self
-    {
-        if ($destination instanceof RouteContract) {
-            $this->route = $destination;
-        }
-
-        if (str_starts_with($destination, 'http')) {
-            $this->href = $destination;
-        }
-
-        $this->route = Route::get($destination);
-
-        return $this;
-    }
 
     /**
      * Resolve a link to the navigation item.
@@ -77,7 +57,7 @@ class NavItem
      */
     public function resolveLink(string $currentPage = ''): string
     {
-        return $this->href ?? $this->route->getLink($currentPage);
+        return $this->route->getLink($currentPage);
     }
 
     public function __toString(): string
