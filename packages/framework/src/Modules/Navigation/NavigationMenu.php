@@ -27,7 +27,7 @@ class NavigationMenu
 
     public static function create(RouteContract $currentRoute): static
     {
-        return (new static())->setCurrentRoute($currentRoute)->generate()->sort();
+        return (new static())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
     }
 
     public function setCurrentRoute(RouteContract $currentRoute): self
@@ -42,6 +42,15 @@ class NavigationMenu
         Router::getInstance()->getRoutes()->each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route));
         });
+
+        return $this;
+    }
+
+    public function filter(): self
+    {
+        $this->items = $this->items->reject(function (NavItem $item) {
+            return $item->hidden;
+        })->values();
 
         return $this;
     }
