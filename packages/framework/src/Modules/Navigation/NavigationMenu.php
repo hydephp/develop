@@ -7,6 +7,9 @@ use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Support\Collection;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
+ */
 class NavigationMenu extends Collection
 {
     public Route $homeRoute;
