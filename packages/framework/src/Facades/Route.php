@@ -4,7 +4,6 @@ namespace Hyde\Framework\Facades;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Modules\Routing\Route as RouteModel;
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\RouteFacadeContract;
 use Illuminate\Support\Collection;
 
