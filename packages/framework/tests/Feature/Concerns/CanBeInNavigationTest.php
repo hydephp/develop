@@ -106,12 +106,91 @@ class CanBeInNavigationTest extends TestCase
         $this->assertTrue($page->showInNavigation());
     }
 
-    // test navigationMenuPriority
-    public function test_navigation_menu_priority()
+    // test navigationMenuPriority returns front matter value of navigation.priority if AbstractMarkdownPage and not null
+    public function test_navigation_menu_priority_returns_front_matter_value_of_navigation_priority_if_abstract_markdown_page_and_not_null()
     {
-
+        $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
+        $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
+        $page->markdown->shouldReceive('matter')->with('navigation.priority', null)->andReturn(1);
+        $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
+    // test navigationMenuPriority returns specified config value if slug exists in config('hyde.navigation.order', [])
+    public function test_navigation_menu_priority_returns_specified_config_value_if_slug_exists_in_config_hyde_navigation_order()
+    {
+        $page = $this->mock(MarkdownPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'foo';
+
+        $this->assertEquals(1000, $page->navigationMenuPriority());
+
+        config(['hyde.navigation.order' => ['foo' => 1]]);
+        $this->assertEquals(1, $page->navigationMenuPriority());
+    }
+
+    // test navigationMenuPriority gives precedence to front matter over config('hyde.navigation.order', [])
+    public function test_navigation_menu_priority_gives_precedence_to_front_matter_over_config_hyde_navigation_order()
+    {
+        $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
+        $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
+        $page->markdown->shouldReceive('matter')->with('navigation.priority', null)->andReturn(1);
+        $page->slug = 'foo';
+
+        $this->assertEquals(1, $page->navigationMenuPriority());
+
+        config(['hyde.navigation.order' => ['foo' => 2]]);
+        $this->assertEquals(1, $page->navigationMenuPriority());
+    }
+
+    // test navigationMenuPriority returns 100 for DocumentationPage
+    public function test_navigation_menu_priority_returns_100_for_documentation_page()
+    {
+        $page = $this->mock(DocumentationPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'foo';
+
+        $this->assertEquals(100, $page->navigationMenuPriority());
+    }
+
+    // test navigationMenuPriority returns 0 if slug is index
+    public function test_navigation_menu_priority_returns_0_if_slug_is_index()
+    {
+        $page = $this->mock(MarkdownPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'index';
+
+        $this->assertEquals(0, $page->navigationMenuPriority());
+    }
+
+    // test navigationMenuPriority does not return 0 if slug is index but model is documentation page
+    public function test_navigation_menu_priority_does_not_return_0_if_slug_is_index_but_model_is_documentation_page()
+    {
+        $page = $this->mock(DocumentationPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'index';
+
+        $this->assertEquals(100, $page->navigationMenuPriority());
+    }
+
+    // test navigationMenuPriority returns 10 if slug is posts
+    public function test_navigation_menu_priority_returns_10_if_slug_is_posts()
+    {
+        $page = $this->mock(MarkdownPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'posts';
+
+        $this->assertEquals(10, $page->navigationMenuPriority());
+    }
+
+    // test navigationMenuPriority defaults to 1000 if no other conditions are met
+    public function test_navigation_menu_priority_defaults_to_1000_if_no_other_conditions_are_met()
+    {
+        $page = $this->mock(MarkdownPage::class)->makePartial();
+        $page->markdown = new MarkdownDocument();
+        $page->slug = 'foo';
+
+        $this->assertEquals(1000, $page->navigationMenuPriority());
+    }
 
     // test navigationMenuTitle
     public function test_navigation_menu_title()
