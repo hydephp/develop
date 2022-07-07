@@ -4,7 +4,6 @@ namespace Hyde\Framework\Facades;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Modules\Routing\Route as RouteModel;
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\RouteFacadeContract;
 use Illuminate\Support\Collection;
 
@@ -15,25 +14,25 @@ use Illuminate\Support\Collection;
 class Route implements RouteFacadeContract
 {
     /** @inheritDoc */
-    public static function get(string $routeKey): ?RouteContract
+    public static function get(string $routeKey): ?RouteModel
     {
         return RouteModel::get($routeKey);
     }
 
     /** @inheritDoc */
-    public static function getFromKey(string $routeKey): ?RouteContract
+    public static function getFromKey(string $routeKey): ?RouteModel
     {
         return RouteModel::getFromKey($routeKey);
     }
 
     /** @inheritDoc */
-    public static function getFromSource(string $sourceFilePath): ?RouteContract
+    public static function getFromSource(string $sourceFilePath): ?RouteModel
     {
         return RouteModel::getFromSource($sourceFilePath);
     }
 
     /** @inheritDoc */
-    public static function getFromModel(PageContract $page): ?RouteContract
+    public static function getFromModel(PageContract $page): ?RouteModel
     {
         return RouteModel::getFromModel($page);
     }

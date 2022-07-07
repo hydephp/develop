@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Concerns\CanBeInNavigation;
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Modules\Routing\Route;
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Services\CollectionService;
 use Illuminate\Support\Collection;
 
@@ -22,6 +22,7 @@ use Illuminate\Support\Collection;
 abstract class AbstractPage implements PageContract
 {
     use HasPageMetadata;
+    use CanBeInNavigation;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -119,7 +120,7 @@ abstract class AbstractPage implements PageContract
     }
 
     /** @inheritDoc */
-    public function getRoute(): RouteContract
+    public function getRoute(): Route
     {
         return new Route($this);
     }

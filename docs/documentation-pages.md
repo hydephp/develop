@@ -17,9 +17,9 @@ What is "the rest", you may ask? Well, for starters:
 
 - Hyde compiles your Markdown content into a beautiful static HTML page based on [the Lagrafo frontend](https://github.com/caendesilva/lagrafo)
 - A sidebar (which is responsive) is automatically created based on your Markdown files
-  - If you have an `index.md` or `readme.md` in the `_docs/` directory, it will be used as the sidebar header
+  - If you have an `index.md` in the `_docs/` directory, it will be used as the sidebar header
   - You can even [customize the order and labels](#sidebar-page-order) of sidebar items
-- If you have an `index.md` or `readme.md` in the `_docs/` directory,
+- If you have an `index.md` in the `_docs/` directory,
   a link to it will be added to the site navigation menu named "Docs".
 - If you have a Torchlight API token in your .env file, Hyde will even automatically enable Syntax Highlighting for you.
   See more about this in the [extensions page](extensions.html#torchlight).
@@ -171,7 +171,7 @@ for example to specify a version like the Hyde docs does, you can specify the ou
 
 ### Automatic navigation menu
 
-By default, a link to the documentation page is added to the navigation menu when an index.md or readme.md file is found in the `_docs` directory.
+By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory.
 In version v0.38.0-beta and lower, this link had the internal priority of 500 putting it to the left of the automatic menu. In v0.39.0-beta and higher, the priority is set to 1000 to be placed at the end of the menu. See the reasoning behind this in [this GitHub issue](https://github.com/hydephp/develop/issues/24).
 
 You can customize the priority using the following config value in the `config/docs.php` file:

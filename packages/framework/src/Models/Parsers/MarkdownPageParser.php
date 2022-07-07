@@ -19,6 +19,7 @@ class MarkdownPageParser extends AbstractPageParser
 
     /** @deprecated v0.44.x (handled in constructor) */
     public string $title = '';
+    public array $matter;
     public string $body;
 
     public function execute(): void
@@ -27,13 +28,14 @@ class MarkdownPageParser extends AbstractPageParser
             Hyde::getMarkdownPagePath("/$this->slug.md")
         ))->get();
 
+        $this->matter = $document->matter;
         $this->body = $document->body;
     }
 
     public function get(): MarkdownPage
     {
         return new MarkdownPage(
-            matter: [],
+            matter: $this->matter,
             body: $this->body,
             title: $this->title,
             slug: $this->slug
