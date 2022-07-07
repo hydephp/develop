@@ -83,7 +83,7 @@ One of my (the author's) favourite features with Hyde is its automatic navigatio
 #### How it works:
 The sidebar works by creating a list of all the documentation pages.
 
-The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages. It also adds an automatic link to the docs if there is an `index.md` or `readme.md` in the `_docs` directory.
+The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages. It also adds an automatic link to the docs if there is an `index.md` in the `_docs` directory.
 
 #### Reordering Items
 Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this), so you will probably want to set a custom order.
