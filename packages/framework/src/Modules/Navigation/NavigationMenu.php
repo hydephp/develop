@@ -73,6 +73,6 @@ class NavigationMenu
     /** @internal */
     public function getHomeLink(string $currentPage): string
     {
-        return Route::get('index')->getLink($currentPage) ?? '404';
+        return Route::get('index')->getLink($currentPage);
     }
 }
