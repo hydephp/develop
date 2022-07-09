@@ -19,7 +19,7 @@
       <data directive="@csrf" />
       <data directive="@dd" injection="true" prefix="&lt;?php dd(" suffix="); ?&gt;" />
       <data directive="@default" />
-      <data directive="@disabled" injection="true" prefix="&lt;?php if(" suffix="): echo 'disabled'; endif; ?&gt;" />
+      <data directive="@disabled" injection="true" prefix="&lt;?php if(" suffix=") {echo 'disabled';}?&gt;" />
       <data directive="@dump" injection="true" prefix="&lt;?php dump(" suffix="); ?&gt;" />
       <data directive="@each" injection="true" prefix="&lt;?php echo $__env-&gt;renderEach(" suffix="); ?&gt;" />
       <data directive="@else" />
@@ -100,6 +100,8 @@
       <data directive="@unless" injection="true" prefix="&lt;?php if (! (" suffix=")): ?&gt;" />
       <data directive="@unset" injection="true" prefix="&lt;?php unset(" suffix="); ?&gt;" />
       <data directive="@verbatim" />
+      <data directive="@vite" injection="true" prefix="&lt;?php echo app('\\Illuminate\\Foundation\\Vite')(" suffix="); ?&gt;" />
+      <data directive="@viteReactRefresh" />
       <data directive="@while" injection="true" prefix="&lt;?php while(" suffix="): ?&gt;" />
       <data directive="@yield" injection="true" prefix="&lt;?php echo $__env-&gt;yieldContent(" suffix="); ?&gt;" />
     </directives>
