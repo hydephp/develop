@@ -5,6 +5,11 @@ namespace Hyde\Framework\Modules\Routing;
 use Hyde\Framework\Contracts\PageContract;
 use Illuminate\Support\Collection;
 
+/**
+* This contract defines the static facade methods for the Route class.
+ *
+ * @see \Hyde\Framework\Modules\Routing\RouteContract for the interface that each route model must implement.
+ */
 interface RouteFacadeContract
 {
     /**
