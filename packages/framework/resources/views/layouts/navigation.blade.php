@@ -1,6 +1,5 @@
 @php
 $navigation = \Hyde\Framework\Modules\Navigation\NavigationMenu::create($page->getRoute());
-$homeRoute = $navigation->getHomeRoute()->getLink($currentPage);
 @endphp
 
 <nav aria-label="Main navigation" id="main-navigation" class="flex flex-wrap items-center justify-between p-4 shadow-lg sm:shadow-xl md:shadow-none dark:bg-gray-800">
