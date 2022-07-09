@@ -26,7 +26,6 @@ class RouterTest extends TestCase
     {
         $this->assertInstanceOf(Router::class, Router::getInstance());
         $this->assertEquals(Router::getInstance(), Router::getInstance());
-        $this->assertSame(Router::getInstance(), Router::getInstance());
     }
 
     /**
