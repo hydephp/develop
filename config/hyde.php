@@ -168,6 +168,29 @@ return [
         'markdown' => 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Navigation Menu Configuration
+    |--------------------------------------------------------------------------
+    |
+    | If you are looking to customize the navigation menu links, this is the place!
+    |
+    | See the documentation for the full list of options:
+    | https://hydephp.com/docs/master/customization#navigation-menu-configuration
+    |
+    */
+
+    'navigation' => [
+        // This configuration sets the priorities used to determine the order of the menu.
+        // The default values have been added below for reference and easy editing.
+        'order' => [
+            'index' => 0,
+            'posts' => 10,
+            'docs/index' => 100,
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Navigation Menu Links
