@@ -206,48 +206,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Custom Navigation Menu Links
-    |--------------------------------------------------------------------------
-    |
-    | If you are looking to add custom navigation menu links, this is the place!
-    |
-    | Linking to an external site? Supply the full URI to the 'destination'.
-    | Keeping it internal? Pass the 'slug' relative to the document root.
-    |
-    | To get started quickly, you can uncomment the defaults here.
-    | Tip: Only the title and slug parameters are required.
-    |
-    */
-
-    /** @deprecated pending rename */
-    'navigation_menu_links' => [
-        // [
-        //     'title' => 'GitHub',
-        //     'destination' => 'https://github.com/hydephp/hyde',
-        //     'priority' => 1200,
-        // ],
-        // [
-        //     'title' => 'Featured Blog Post',
-        //     'slug' => 'posts/hello-world',
-        // ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Navigation Menu Blacklist
-    |--------------------------------------------------------------------------
-    | There may be pages you want to exclude from the automatic navigation menu,
-    | such as error pages. Add their slugs here and they will not be included.
-    |
-    */
-
-    /** @deprecated pending rename */
-    'navigation_menu_blacklist' => [
-        '404',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Site Output Directory (Experimental 🧪)
     |--------------------------------------------------------------------------
     |
