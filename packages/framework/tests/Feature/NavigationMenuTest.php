@@ -25,8 +25,7 @@ class NavigationMenuTest extends TestCase
     {
         $menu = new NavigationMenu();
 
-        $this->assertInstanceOf(Route::class, $menu->homeRoute);
-        $this->assertEquals('index', $menu->homeRoute->getRouteKey());
+        $this->assertEquals('index.html', $menu->getHomeLink(''));
     }
 
     public function test_set_current_route()
@@ -136,5 +135,67 @@ class NavigationMenuTest extends TestCase
     public function test_collection_only_contains_nav_items()
     {
         $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create(Route::get('index'))->items);
+    }
+
+    public function test_external_link_can_be_added_in_config()
+    {
+        config(['hyde.navigation.custom' => [NavItem::toLink('https://example.com', 'foo')]]);
+
+        $menu = NavigationMenu::create(Route::get('index'));
+
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::toLink('https://example.com', 'foo'),
+        ]);
+
+        $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_path_link_can_be_added_in_config()
+    {
+        config(['hyde.navigation.custom' => [NavItem::toLink('foo', 'foo')]]);
+
+        $menu = NavigationMenu::create(Route::get('index'));
+
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::toLink('foo', 'foo'),
+        ]);
+
+        $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_duplicates_are_removed_when_adding_in_config()
+    {
+        config(['hyde.navigation.custom' => [
+            NavItem::toLink('foo', 'foo'),
+            NavItem::toLink('foo', 'foo'),
+        ]]);
+
+        $menu = NavigationMenu::create(Route::get('index'));
+
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::toLink('foo', 'foo'),
+        ]);
+
+        $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_label()
+    {
+        config(['hyde.navigation.custom' => [
+            NavItem::toLink('foo', 'foo'),
+            NavItem::toLink('foo', 'bar'),
+        ]]);
+
+        $menu = NavigationMenu::create(Route::get('index'));
+
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::toLink('foo', 'foo'),
+        ]);
+
+        $this->assertEquals($expected, $menu->items);
     }
 }

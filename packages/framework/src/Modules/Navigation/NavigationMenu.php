@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Modules\Navigation;
 
 use Hyde\Framework\Models\NavItem;
-use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\Router;
@@ -14,7 +13,6 @@ use Illuminate\Support\Collection;
  */
 class NavigationMenu
 {
-    public RouteContract $homeRoute;
     public RouteContract $currentRoute;
 
     public Collection $items;
@@ -22,12 +20,11 @@ class NavigationMenu
     public function __construct()
     {
         $this->items = new Collection();
-        $this->homeRoute = $this->getHomeRoute();
     }
 
     public static function create(RouteContract $currentRoute): static
     {
-        return (new static())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
+        return (new self())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
     }
 
     public function setCurrentRoute(RouteContract $currentRoute): self
@@ -43,14 +40,24 @@ class NavigationMenu
             $this->items->push(NavItem::fromRoute($route));
         });
 
+        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item) {
+            $this->items->push($item);
+        });
+
         return $this;
     }
 
     public function filter(): self
     {
+        // Remove hidden items
         $this->items = $this->items->reject(function (NavItem $item) {
             return $item->hidden;
         })->values();
+
+        // Remove duplicate items
+        $this->items = $this->items->unique(function (NavItem $item) {
+            return $item->resolveLink();
+        });
 
         return $this;
     }
@@ -63,8 +70,8 @@ class NavigationMenu
     }
 
     /** @internal */
-    public function getHomeRoute(): Route
+    public function getHomeLink(string $currentPage): string
     {
-        return Route::get('index') ?? Route::get('404') ?? new Route(new MarkdownPage);
+        return Route::get('index')->getLink($currentPage);
     }
 }

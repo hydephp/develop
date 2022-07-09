@@ -200,26 +200,26 @@ navigation:
 Note that since Blade pages do not support front matter, this will only work for Markdown pages.
 
 #### Adding Custom Navigation Menu Links
-> Until the navigation link order is implemented, you can use this feature to reorder navigation menu items.
 
-The links are added in the config/hyde.php file, and the syntax for adding custom links is documented in the config. Here are some examples:
+You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array. 
+
+When linking to an external site, you should use the `NavItem::toLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional.
 
 ```php
-// torchlight! {"lineNumbers": false}
-// External link
-[
-    'title' => 'GitHub',
-    'destination' => 'https://github.com/hydephp/hyde',
-    'priority' => 1200,
-],
-
-// Internal link (Hyde automatically resolves relative paths)
-[
-    'title' => 'Featured Blog Post',
-    'slug' => 'posts/hello-world',
-    // The 'priority' is not required.
+// filepath config/hyde.php
+'navigation' => [
+    'custom' => [
+        NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+    ]
 ]
 ```
+
+Simplified, this will then be rendered as follows:
+
+```html
+<a href="https://github.com/hydephp/hyde">GitHub</a>
+```
+
 
 #### Excluding Items (Blacklist)
 
