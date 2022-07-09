@@ -200,7 +200,6 @@ return [
         // See the documentation link above for more information.
         'custom' => [
             // NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
-            // NavItem::fromRoute('index', 'Home', 100),
         ],
     ],
 

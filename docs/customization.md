@@ -203,38 +203,23 @@ Note that since Blade pages do not support front matter, this will only work for
 
 You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array. 
 
-You have a few different options on how to construct the model depending on your coding style. To get started quickly, you already have two examples in the `config/hyde.php` file.
-
-When linking to an external site, you should use the `NavItem::toLink()` method facade. When linking to a page in the site you should use `NavItem::fromRoute` so relative links can be properly resolved, and the active page be highlighted.
-
-The third argument is the priority, which is optional.
+When linking to an external site, you should use the `NavItem::toLink()` method facade. The first two arguments are the destination and label, both required. Third argument is the priority, which is optional.
 
 ```php
 // filepath config/hyde.php
 'navigation' => [
     'custom' => [
-        // Linking to an external site? Supply the full URI to the 'destination'.
         NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
-        
-        // Keeping it internal? Pass the route key ('slug' relative to the document root.)
-        NavItem::fromRoute('posts/hello-world', 'Featured Blog Post', 100),
     ]
 ]
 ```
 
-Simplified, these will then be rendered as follows:
+Simplified, this will then be rendered as follows:
 
 ```html
 <a href="https://github.com/hydephp/hyde">GitHub</a>
-<a href="posts/hello-world.html">Featured Blog Post</a>
 ```
 
-You can also specify a route directly, for example, the following are both equivalent:
-
-```php
-NavItem::fromRoute(Route::get('index'), 'Home'),
-NavItem::fromRoute('index', 'Home'),
-```
 
 #### Excluding Items (Blacklist)
 
