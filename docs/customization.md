@@ -221,14 +221,25 @@ The links are added in the config/hyde.php file, and the syntax for adding custo
 ]
 ```
 
-#### Removing Items (Blacklist)
+#### Excluding Items (Blacklist)
 
-Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you.
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you. Note that we don't specify the page type, since only top level pages are added to the navigation menu.
 
 ```php
-'navigationMenuBlacklist' => [
-    '404'
-],
+'navigation' => [
+    'exclude' => [
+        '404'
+    ]
+]
+```
+
+You can also specify that a page should be excluded by setting the page front matter. Note that since Blade pages do not support front matter, this will only work for Markdown pages.
+
+```markdown
+---
+navigation:
+    hidden: true
+---
 ```
 
 ## Blade Views

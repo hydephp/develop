@@ -188,7 +188,12 @@ return [
             'index' => 0,
             'posts' => 10,
             'docs' => 100,
-        ]
+        ],
+
+        // These are the pages that should not show up in the navigation menu.
+        'exclude' => [
+            '404',
+        ],
     ],
 
     /*
