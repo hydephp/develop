@@ -1,9 +1,7 @@
 <?php
 
-namespace Hyde\Framework\Modules\Routing;
+namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Contracts\RouteContract;
 use Illuminate\Support\Collection;
 
 /**

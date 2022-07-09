@@ -8,7 +8,7 @@ namespace Hyde\Framework\Contracts;
  *
  * In Hyde, the route models also serve as a facade for all routes, see the dedicated interface:
  *
- * @see \Hyde\Framework\Modules\Routing\RouteFacadeContract for the static facade methods.
+ * @see \Hyde\Framework\Contracts\RouteFacadeContract for the static facade methods.
  */
 interface RouteContract
 {
