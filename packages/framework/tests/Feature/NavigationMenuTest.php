@@ -236,5 +236,4 @@ class NavigationMenuTest extends TestCase
 
         $this->assertEquals($expected, $menu->items);
     }
-
 }
