@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Modules\Routing;
+namespace Hyde\Framework\Contracts;
 
 use Illuminate\Support\Collection;
 

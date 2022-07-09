@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Contracts\RouterContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
