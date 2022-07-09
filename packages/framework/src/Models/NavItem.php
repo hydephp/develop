@@ -5,6 +5,7 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
+use Hyde\Framework\Modules\Routing\RouteNotFoundException;
 
 /**
  * Abstraction for a navigation menu item.
@@ -48,7 +49,7 @@ class NavItem
     public static function toRoute(RouteContract|string $route, ?string $title = null, ?int $priority = null, ?bool $hidden = null): static
     {
         if (is_string($route)) {
-            $route = Route::get($route);
+            $route = Route::get($route) ?? throw new RouteNotFoundException($route);
         }
 
         return new static(
