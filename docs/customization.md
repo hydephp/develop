@@ -155,7 +155,7 @@ The sidebar works by creating a list of all the documentation pages.
 
 The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages. It also adds an automatic link to the docs if there is an `index.md` in the `_docs` directory.
 
-#### Reordering Items
+#### Reordering Sidebar Items
 Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this), so you will probably want to set a custom order.
 
 Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If a slug is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
@@ -172,7 +172,32 @@ Let's see an example:
 ]
 ```
 
-> Navigation menu items will be ordered in the same way in a coming update, but for now, they can be reordered by overriding them which you can learn in the next section.
+
+#### Reordering Navigation Menu Items
+
+Hyde makes an effort to organize the menu items in a sensible way. Putting your most important pages first. This of course may not always be how you want, so it's easy to reorder the menu items. Simply override the `navigation.order` array in the Hyde config. The priorities set will determine the order of the menu items. Lower values are higher in the menu. Any pages not listed will get priority 999.
+
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'order' => [
+        'index' => 0, // _pages/index.md (or .blade.php)
+        'posts' => 10, // _pages/posts.md (or .blade.php)
+        'docs' => 100, // _docs/index.md
+    ]
+]
+```
+
+You can also set the priority of a page directly in the front matter. This will override any dynamically infered or config defined priority. While this is useful for one-offs, it can make it harder to reorder items later on. It's up to you which method you prefer to use.
+
+```markdown
+---
+navigation:
+    priority: 10
+---
+```
+
+Note that since Blade pages do not support front matter, this will only work for Markdown pages.
 
 #### Adding Custom Navigation Menu Links
 > Until the navigation link order is implemented, you can use this feature to reorder navigation menu items.
@@ -196,17 +221,42 @@ The links are added in the config/hyde.php file, and the syntax for adding custo
 ]
 ```
 
-#### Removing Items (Blacklist)
+#### Excluding Items (Blacklist)
 
-Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you.
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you. Note that we don't specify the page type, since only top level pages are added to the navigation menu.
 
 ```php
-'navigationMenuBlacklist' => [
-    '404'
-],
+'navigation' => [
+    'exclude' => [
+        '404'
+    ]
+]
 ```
 
-> Tip: You can publish the included 404 page using `php hyde publish:404`!
+You can also specify that a page should be excluded by setting the page front matter. Note that since Blade pages do not support front matter, this will only work for Markdown pages.
+
+```markdown
+---
+navigation:
+    hidden: true
+---
+```
+
+#### Changing the menu item labels
+
+Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles. You can override the title using the `navigation.title` front matter property.
+
+From the Hyde config you can also override the title of the documentation label and home page link using the following options:
+    
+```php
+// filepath config/hyde.php
+'navigation' => [
+    'labels' => [
+        'docs' => 'Documentation',
+        'index' => 'Start',
+    ]
+]
+```
 
 ## Blade Views
 Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.

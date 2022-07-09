@@ -55,23 +55,23 @@ trait CanBeInNavigation
             }
         }
 
+        if ($this instanceof DocumentationPage) {
+            return (int) config('hyde.navigation.order.docs', 100);
+        }
+
+        if ($this->slug === 'index') {
+            return (int) config('hyde.navigation.order.index', 0);
+        }
+
+        if ($this->slug === 'posts') {
+            return (int) config('hyde.navigation.order.posts', 10);
+        }
+
         if (array_key_exists($this->slug, config('hyde.navigation.order', []))) {
             return (int) config('hyde.navigation.order.'.$this->slug);
         }
 
-        if ($this instanceof DocumentationPage) {
-            return 100;
-        }
-
-        if ($this->slug === 'index') {
-            return 0;
-        }
-
-        if ($this->slug === 'posts') {
-            return 10;
-        }
-
-        return 1000;
+        return 999;
     }
 
     /**
@@ -93,10 +93,10 @@ trait CanBeInNavigation
 
         if ($this->slug === 'index') {
             if ($this instanceof DocumentationPage) {
-                return 'Docs';
+                return config('hyde.navigation.labels.docs', 'Docs');
             }
 
-            return 'Home';
+            return config('hyde.navigation.labels.home', 'Home');
         }
 
         if (isset($this->title) && ! blank($this->title)) {
