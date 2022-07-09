@@ -93,10 +93,10 @@ trait CanBeInNavigation
 
         if ($this->slug === 'index') {
             if ($this instanceof DocumentationPage) {
-                return 'Docs';
+                return config('hyde.navigation.labels.docs', 'Docs');
             }
 
-            return 'Home';
+            return config('hyde.navigation.labels.home', 'Home');
         }
 
         if (isset($this->title) && ! blank($this->title)) {
