@@ -175,7 +175,7 @@ Let's see an example:
 
 #### Reordering Navigation Menu Items
 
-Hyde makes an effort to organize the menu items in a sensible way. Putting your most important pages first. This of course may not always be how you want, so it's easy to reorder the menu items. Simply override the `navigation.order` array in the Hyde config. The priorities set will determine the order of the menu items. Lower values are higher in the menu.
+Hyde makes an effort to organize the menu items in a sensible way. Putting your most important pages first. This of course may not always be how you want, so it's easy to reorder the menu items. Simply override the `navigation.order` array in the Hyde config. The priorities set will determine the order of the menu items. Lower values are higher in the menu. Any pages not listed will get priority 999.
 
 ```php
 // filepath config/hyde.php
@@ -186,7 +186,14 @@ Hyde makes an effort to organize the menu items in a sensible way. Putting your 
 ]
 ```
 
-Any pages not listed will get priority 999.
+You can also set the priority of a page directly in the front matter. This will override any dynamically infered or config defined priority. While this is useful for one-offs, it can make it harder to reorder items later on. It's up to you which method you prefer to use.
+
+```markdown
+---
+navigation:
+    priority: 10
+---
+```
 
 
 #### Adding Custom Navigation Menu Links
