@@ -197,6 +197,7 @@ navigation:
 ---
 ```
 
+Note that since Blade pages do not support front matter, this will only work for Markdown pages.
 
 #### Adding Custom Navigation Menu Links
 > Until the navigation link order is implemented, you can use this feature to reorder navigation menu items.
