@@ -40,7 +40,7 @@ class NavigationMenu
     public function generate(): self
     {
         Router::getInstance()->getRoutes()->each(function (Route $route) {
-            $this->items->push(NavItem::fromRoute($route));
+            $this->items->push(NavItem::toRoute($route));
         });
 
         collect(config('hyde.navigation.custom', []))->each(function (NavItem $item) {
@@ -52,9 +52,15 @@ class NavigationMenu
 
     public function filter(): self
     {
+        // Remove hidden items
         $this->items = $this->items->reject(function (NavItem $item) {
             return $item->hidden;
         })->values();
+
+        // Remove duplicate items
+        $this->items = $this->items->unique(function (NavItem $item) {
+            return $item->resolveLink();
+        });
 
         return $this;
     }

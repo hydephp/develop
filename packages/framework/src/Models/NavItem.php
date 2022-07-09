@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 
 /**
@@ -43,20 +45,24 @@ class NavItem
     /**
      * Create a new navigation menu item from a route.
      */
-    public static function fromRoute(RouteContract $route): static
+    public static function toRoute(RouteContract|string $route, ?string $title = null, ?int $priority = null, ?bool $hidden = null): static
     {
+        if (is_string($route)) {
+            $route = Route::get($route);
+        }
+
         return new static(
             $route,
-            $route->getSourceModel()->navigationMenuTitle(),
-            $route->getSourceModel()->navigationMenuPriority(),
-            ! $route->getSourceModel()->showInNavigation()
+            $title ?? $route->getSourceModel()->navigationMenuTitle(),
+            $priority ?? $route->getSourceModel()->navigationMenuPriority(),
+            $hidden ?? ! $route->getSourceModel()->showInNavigation()
         );
     }
 
     /**
      * Create a new navigation menu item leading to an external URI.
      */
-    public static function leadsTo(string $href, string $title, int $priority = 500): static
+    public static function toLink(string $href, string $title, int $priority = 500): static
     {
         return (new static(null, $title, $priority, false))->setDestination($href);
     }
@@ -78,13 +84,15 @@ class NavItem
     }
 
     /**
-     * While you can always add the priority to the constructor,
-     * this fluent method is provided for convenience.
+     * Check if the NavItem instance is the current page.
      */
-    public function withPriority(int $priority): self
+    public function isCurrent(PageContract $current): bool
     {
-        $this->priority = $priority;
-        return $this;
+        if (! isset($this->route)) {
+            return false;
+        }
+
+        return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
     }
 
     protected function setDestination(string $href): self

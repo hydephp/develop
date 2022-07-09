@@ -20,6 +20,7 @@
 use Hyde\Framework\Helpers\Author;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Models\NavItem;
 
 return [
@@ -199,8 +200,8 @@ return [
         // To get started quickly, you can uncomment the defaults here.
         // See the documentation link above for more information.
         'custom' => [
-            // NavItem::leadsTo('https://github.com/hydephp/hyde', 'GitHub')->withPriority(1200),
-            // NavItem::leadsTo('posts/hello-world', 'Featured Blog Post', 200),
+            // NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+            // NavItem::toRoute('index', 'Home', 100),
         ]
     ],
 

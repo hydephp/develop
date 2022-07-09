@@ -54,8 +54,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('404')),
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::toRoute(Route::get('404')),
+            NavItem::toRoute(Route::get('index')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -67,8 +67,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate()->sort();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('404')),
+            NavItem::toRoute(Route::get('index')),
+            NavItem::toRoute(Route::get('404')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -80,7 +80,7 @@ class NavigationMenuTest extends TestCase
         $menu->generate()->filter();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::toRoute(Route::get('index')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -106,9 +106,9 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('docs/index')),
-            NavItem::fromRoute(Route::get('foo')),
+            NavItem::toRoute(Route::get('index')),
+            NavItem::toRoute(Route::get('docs/index')),
+            NavItem::toRoute(Route::get('foo')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -124,8 +124,8 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('foo')),
+            NavItem::toRoute(Route::get('index')),
+            NavItem::toRoute(Route::get('foo')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
