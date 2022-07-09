@@ -10,7 +10,7 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\Modules\Routing\Router;
+use Hyde\Framework\Services\Router;
 use Hyde\Testing\TestCase;
 
 /**
