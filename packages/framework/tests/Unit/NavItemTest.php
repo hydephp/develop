@@ -30,7 +30,7 @@ class NavItemTest extends TestCase
     public function testFromRoute()
     {
         $route = Route::get('index');
-        $item = NavItem::fromRoute($route);
+        $item = NavItem::toRoute($route);
 
         $this->assertSame($route, $item->route);
         $this->assertSame('Home', $item->title);
@@ -41,7 +41,7 @@ class NavItemTest extends TestCase
     public function testResolveLink()
     {
         $route = Route::get('index');
-        $item = NavItem::fromRoute($route);
+        $item = NavItem::toRoute($route);
 
         $this->assertSame('index.html', $item->resolveLink());
     }
@@ -49,7 +49,7 @@ class NavItemTest extends TestCase
     public function test__toString()
     {
         $route = Route::get('index');
-        $item = NavItem::fromRoute($route);
+        $item = NavItem::toRoute($route);
 
         $this->assertSame('index.html', (string) $item);
     }
