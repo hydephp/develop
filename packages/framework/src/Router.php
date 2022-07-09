@@ -43,7 +43,10 @@ class Router implements RouterContract
      */
     protected Collection $routes;
 
-    protected static Router $instance;
+    /**
+     * @var \Hyde\Framework\Router|null The singleton instance of the router.
+     */
+    protected static Router|null $instance = null;
 
     /** @inheritDoc */
     public function __construct()
@@ -54,7 +57,7 @@ class Router implements RouterContract
     /** @inheritDoc */
     public static function getInstance(): static
     {
-        if (! isset(static::$instance)) {
+        if (static::$instance === null) {
             static::$instance = new self();
         }
 
