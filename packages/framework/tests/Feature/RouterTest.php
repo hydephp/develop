@@ -24,8 +24,8 @@ class RouterTest extends TestCase
      */
     public function test_get_instance_returns_the_router_instance()
     {
-        // @todo test the singleton once implemented
         $this->assertInstanceOf(Router::class, Router::getInstance());
+        $this->assertEquals(Router::getInstance(), Router::getInstance());
     }
 
     /**
