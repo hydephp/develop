@@ -1,6 +1,6 @@
 @php
 /** @var \Hyde\Framework\Contracts\PageContract $page */
-$isCurrent = $page->getRoute()->getRouteKey() === $item->route->getRouteKey();
+$isCurrent = isset($item->route) ? $page->getRoute()->getRouteKey() === $item->route->getRouteKey() : false;
 @endphp
 
 <a href="{{ $item->resolveLink($currentPage) }}" {{ $isCurrent ? 'aria-current="page"' : '' }}
