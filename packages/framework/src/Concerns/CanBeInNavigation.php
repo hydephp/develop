@@ -60,15 +60,15 @@ trait CanBeInNavigation
         }
 
         if ($this instanceof DocumentationPage) {
-            return 100;
+            return (int) config('hyde.navigation.order.docs/index', 100);
         }
 
         if ($this->slug === 'index') {
-            return 0;
+            return (int) config('hyde.navigation.order.index', 0);
         }
 
         if ($this->slug === 'posts') {
-            return 10;
+            return (int) config('hyde.navigation.order.posts', 10);
         }
 
         return 999;
