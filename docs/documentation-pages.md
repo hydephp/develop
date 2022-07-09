@@ -171,14 +171,7 @@ for example to specify a version like the Hyde docs does, you can specify the ou
 
 ### Automatic navigation menu
 
-By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory.
-In version v0.38.0-beta and lower, this link had the internal priority of 500 putting it to the left of the automatic menu. In v0.39.0-beta and higher, the priority is set to 1000 to be placed at the end of the menu. See the reasoning behind this in [this GitHub issue](https://github.com/hydephp/develop/issues/24).
-
-You can customize the priority using the following config value in the `config/docs.php` file:
-
-```php
-'navigation_link_priority' => 500
-```
+By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory. Please see the [the customization page](customization.html#navigation-menu--sidebar) for more information.
 
 ### Sidebar header name
 
