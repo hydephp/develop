@@ -194,6 +194,11 @@ return [
         'exclude' => [
             '404',
         ],
+
+        // Any extra links you want to add to the navigation menu can be added here.
+        'custom' => [
+            \Hyde\Framework\Models\NavItem::leadsTo('https://github.com/hydephp/hyde', 'GitHub')->withPriority(1000),
+        ]
     ],
 
     /*
