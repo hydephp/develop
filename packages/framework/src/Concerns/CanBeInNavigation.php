@@ -71,7 +71,7 @@ trait CanBeInNavigation
             return 10;
         }
 
-        return 1000;
+        return 999;
     }
 
     /**
