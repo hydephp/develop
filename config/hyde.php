@@ -168,7 +168,6 @@ return [
         'markdown' => 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
     ],
 
-
     /*
     |--------------------------------------------------------------------------
     | Navigation Menu Configuration
