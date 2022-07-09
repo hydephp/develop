@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\Router;
+use Hyde\Framework\Router;
 use Illuminate\Support\Collection;
 
 /**

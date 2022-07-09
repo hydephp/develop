@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Framework;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
