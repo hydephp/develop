@@ -46,17 +46,13 @@ class NavItem
     /**
      * Create a new navigation menu item from a route.
      */
-    public static function fromRoute(RouteContract|string $route, ?string $title = null, ?int $priority = null, ?bool $hidden = null): static
+    public static function fromRoute(RouteContract $route): static
     {
-        if (is_string($route)) {
-            $route = Route::get($route) ?? throw new RouteNotFoundException($route);
-        }
-
         return new static(
             $route,
-            $title ?? $route->getSourceModel()->navigationMenuTitle(),
-            $priority ?? $route->getSourceModel()->navigationMenuPriority(),
-            $hidden ?? ! $route->getSourceModel()->showInNavigation()
+            $route->getSourceModel()->navigationMenuTitle(),
+            $route->getSourceModel()->navigationMenuPriority(),
+            ! $route->getSourceModel()->showInNavigation()
         );
     }
 
