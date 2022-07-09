@@ -3,6 +3,7 @@
 namespace Hyde\Testing;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Router;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -20,6 +21,8 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Router::resetInstance();
 
         if (! static::$booted) {
             $this->resetApplication();

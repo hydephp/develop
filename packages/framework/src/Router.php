@@ -109,6 +109,12 @@ class Router implements RouterContract
         return $this;
     }
 
+    /** @internal  */
+    public static function resetInstance(): void
+    {
+        static::$instance = null;
+    }
+
     protected function discoverPageRoutes(string $pageClass): void
     {
         /** @var PageContract $pageClass */
