@@ -230,8 +230,6 @@ Sometimes, especially if you have a lot of pages, you may want to prevent links 
 ],
 ```
 
-> Tip: You can publish the included 404 page using `php hyde publish:404`!
-
 ## Blade Views
 Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.
 
