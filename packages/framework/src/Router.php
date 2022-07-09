@@ -55,7 +55,7 @@ class Router implements RouterContract
     }
 
     /** @inheritDoc */
-    public static function getInstance(): static
+    public static function getInstance(): self
     {
         if (static::$instance === null || app()->environment('testing')) {
             static::$instance = new self();
