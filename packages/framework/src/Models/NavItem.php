@@ -86,7 +86,7 @@ class NavItem
     {
         if (! isset($this->route)) {
             return ($current->getRoute()->getRouteKey() === $this->href)
-            || ($current->getRoute()->getRouteKey() . '.html' === $this->href);
+            || ($current->getRoute()->getRouteKey().'.html' === $this->href);
         }
 
         return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
