@@ -155,7 +155,7 @@ The sidebar works by creating a list of all the documentation pages.
 
 The navigation menu is a bit more sophisticated, it adds all the top-level Blade and Markdown pages. It also adds an automatic link to the docs if there is an `index.md` in the `_docs` directory.
 
-#### Reordering Items
+#### Reordering Sidebar Items
 Sadly, Hyde is not intelligent enough to determine what order items should be in (blame Dr Jekyll for this), so you will probably want to set a custom order.
 
 Reordering items in the documentation sidebar is as easy as can be. In the hyde config, there is an array just for this. When the sidebar is generated it looks through this config array. If a slug is found here it will get priority according to its position in the list. If a page does not exist in the list they get priority 999, which puts them last.
@@ -172,7 +172,22 @@ Let's see an example:
 ]
 ```
 
-> Navigation menu items will be ordered in the same way in a coming update, but for now, they can be reordered by overriding them which you can learn in the next section.
+
+#### Reordering Navigation Menu Items
+
+Hyde makes an effort to organize the menu items in a sensible way. Putting your most important pages first. This of course may not always be how you want, so it's easy to reorder the menu items. Simply override the `navigation.order` array in the Hyde config. The priorities set will determine the order of the menu items. Lower values are higher in the menu.
+
+```php
+// filepath config/hyde.php
+'order' => [
+    'index' => 0, // _pages/index.md (or .blade.php)
+    'posts' => 10, // _pages/posts.md (or .blade.php)
+    'docs/index' => 100, // _docs/index.md
+]
+```
+
+Any pages not listed will get priority 999.
+
 
 #### Adding Custom Navigation Menu Links
 > Until the navigation link order is implemented, you can use this feature to reorder navigation menu items.
