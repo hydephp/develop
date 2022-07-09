@@ -57,6 +57,7 @@ class Router implements RouterContract
     /** @inheritDoc */
     public static function getInstance(): self
     {
+        // This creates a singleton pattern. When testing we always create a new instance.
         if (static::$instance === null || app()->environment('testing')) {
             static::$instance = new self();
         }
@@ -73,6 +74,7 @@ class Router implements RouterContract
     /** @inheritDoc */
     public function getRoutesForModel(string $pageClass): Collection
     {
+        // Return a new filtered collection with only routes that are for the given page class.
         return $this->routes->filter(function (RouteContract $route) use ($pageClass) {
             return $route->getSourceModel() instanceof $pageClass;
         });
@@ -80,6 +82,7 @@ class Router implements RouterContract
 
     protected function discover(PageContract $page): self
     {
+        // Create a new route for the given page, and add it to the index.
         $route = new Route($page);
         $this->routes->put($route->getRouteKey(), $route);
 
