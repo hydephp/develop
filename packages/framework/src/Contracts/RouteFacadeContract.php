@@ -19,7 +19,7 @@ interface RouteFacadeContract
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Framework\Contracts\RouteContract
      *
-     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function get(string $routeKey): RouteContract;
 
@@ -29,7 +29,7 @@ interface RouteFacadeContract
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Framework\Contracts\RouteContract
      *
-     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function getFromKey(string $routeKey): RouteContract;
 
@@ -39,7 +39,7 @@ interface RouteFacadeContract
      * @param  string  $sourceFilePath  Example: _posts/foo.md
      * @return \Hyde\Framework\Contracts\RouteContract
      *
-     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function getFromSource(string $sourceFilePath): RouteContract;
 
@@ -49,7 +49,7 @@ interface RouteFacadeContract
      * @param  \Hyde\Framework\Contracts\PageContract  $page
      * @return \Hyde\Framework\Contracts\RouteContract
      *
-     * @throws \Hyde\Framework\Modules\Routing\RouteNotFoundException
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function getFromModel(PageContract $page): RouteContract;
 
