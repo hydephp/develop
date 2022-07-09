@@ -187,7 +187,7 @@ return [
         'order' => [
             'index' => 0,
             'posts' => 10,
-            'docs/index' => 100,
+            'docs' => 100,
         ]
     ],
 

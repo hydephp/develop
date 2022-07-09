@@ -60,7 +60,7 @@ trait CanBeInNavigation
         }
 
         if ($this instanceof DocumentationPage) {
-            return (int) config('hyde.navigation.order.docs/index', 100);
+            return (int) config('hyde.navigation.order.docs', 100);
         }
 
         if ($this->slug === 'index') {
