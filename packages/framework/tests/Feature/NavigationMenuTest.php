@@ -53,8 +53,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate();
 
         $expected = collect([
-            NavItem::toRoute(Route::get('404')),
-            NavItem::toRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('404')),
+            NavItem::fromRoute(Route::get('index')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -66,8 +66,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate()->sort();
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
-            NavItem::toRoute(Route::get('404')),
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('404')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -79,7 +79,7 @@ class NavigationMenuTest extends TestCase
         $menu->generate()->filter();
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('index')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -105,9 +105,9 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
-            NavItem::toRoute(Route::get('docs/index')),
-            NavItem::toRoute(Route::get('foo')),
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('docs/index')),
+            NavItem::fromRoute(Route::get('foo')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -123,8 +123,8 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
-            NavItem::toRoute(Route::get('foo')),
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('foo')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -145,7 +145,7 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('index')),
             NavItem::toLink('https://example.com', 'foo'),
         ]);
 
@@ -160,7 +160,7 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('index')),
             NavItem::toLink('foo', 'foo'),
         ]);
 
@@ -171,13 +171,13 @@ class NavigationMenuTest extends TestCase
     public function test_route_link_can_be_added_in_config_with_route_key()
     {
         Hyde::touch('_pages/foo.md');
-        config(['hyde.navigation.custom' => [NavItem::toRoute('foo')]]);
+        config(['hyde.navigation.custom' => [NavItem::fromRoute('foo')]]);
 
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
-            NavItem::toRoute(Route::get('foo')),
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('foo')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -189,13 +189,13 @@ class NavigationMenuTest extends TestCase
     public function test_route_link_can_be_added_in_config_with_route_object()
     {
         Hyde::touch('_pages/foo.md');
-        config(['hyde.navigation.custom' => [NavItem::toRoute(Route::get('foo'))]]);
+        config(['hyde.navigation.custom' => [NavItem::fromRoute(Route::get('foo'))]]);
 
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
-            NavItem::toRoute(Route::get('foo')),
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('foo')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -207,14 +207,14 @@ class NavigationMenuTest extends TestCase
     public function test_duplicates_are_removed_when_adding_in_config()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::toRoute(Route::get('index')),
-            NavItem::toRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('index')),
         ]]);
 
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('index')),
         ]);
 
         $this->assertEquals($expected, $menu->items);
@@ -224,14 +224,14 @@ class NavigationMenuTest extends TestCase
     public function test_duplicates_are_removed_when_adding_in_config_regardless_of_label()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::toRoute(Route::get('index'), 'foo'),
-            NavItem::toRoute(Route::get('index'), 'bar'),
+            NavItem::fromRoute(Route::get('index'), 'foo'),
+            NavItem::fromRoute(Route::get('index'), 'bar'),
         ]]);
 
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
-            NavItem::toRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('index')),
         ]);
 
         $this->assertEquals($expected, $menu->items);

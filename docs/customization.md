@@ -205,7 +205,7 @@ You can easily add custom navigation menu links similar how we add Authors. Simp
 
 You have a few different options on how to construct the model depending on your coding style. To get started quickly, you already have two examples in the `config/hyde.php` file.
 
-When linking to an external site, you should use the `NavItem::toLink()` method facade. When linking to a page in the site you should use `NavItem::toRoute` so relative links can be properly resolved, and the active page be highlighted.
+When linking to an external site, you should use the `NavItem::toLink()` method facade. When linking to a page in the site you should use `NavItem::fromRoute` so relative links can be properly resolved, and the active page be highlighted.
 
 The third argument is the priority, which is optional.
 
@@ -217,7 +217,7 @@ The third argument is the priority, which is optional.
         NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
         
         // Keeping it internal? Pass the route key ('slug' relative to the document root.)
-        NavItem::toRoute('posts/hello-world', 'Featured Blog Post', 100),
+        NavItem::fromRoute('posts/hello-world', 'Featured Blog Post', 100),
     ]
 ]
 ```
@@ -232,8 +232,8 @@ Simplified, these will then be rendered as follows:
 You can also specify a route directly, for example, the following are both equivalent:
 
 ```php
-NavItem::toRoute(Route::get('index'), 'Home'),
-NavItem::toRoute('index', 'Home'),
+NavItem::fromRoute(Route::get('index'), 'Home'),
+NavItem::fromRoute('index', 'Home'),
 ```
 
 #### Excluding Items (Blacklist)

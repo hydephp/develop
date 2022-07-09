@@ -37,7 +37,7 @@ class NavigationMenu
     public function generate(): self
     {
         Router::getInstance()->getRoutes()->each(function (Route $route) {
-            $this->items->push(NavItem::toRoute($route));
+            $this->items->push(NavItem::fromRoute($route));
         });
 
         collect(config('hyde.navigation.custom', []))->each(function (NavItem $item) {
