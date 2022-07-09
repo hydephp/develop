@@ -55,10 +55,6 @@ trait CanBeInNavigation
             }
         }
 
-        if (array_key_exists($this->slug, config('hyde.navigation.order', []))) {
-            return (int) config('hyde.navigation.order.'.$this->slug);
-        }
-
         if ($this instanceof DocumentationPage) {
             return (int) config('hyde.navigation.order.docs', 100);
         }
@@ -69,6 +65,10 @@ trait CanBeInNavigation
 
         if ($this->slug === 'posts') {
             return (int) config('hyde.navigation.order.posts', 10);
+        }
+
+        if (array_key_exists($this->slug, config('hyde.navigation.order', []))) {
+            return (int) config('hyde.navigation.order.'.$this->slug);
         }
 
         return 999;
