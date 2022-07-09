@@ -177,7 +177,7 @@ return [
     | If you are looking to customize the navigation menu links, this is the place!
     |
     | See the documentation for the full list of options:
-    | https://hydephp.com/docs/master/customization#navigation-menu-configuration
+    | https://hydephp.com/docs/master/customization#navigation-menu--sidebar
     |
     */
 
