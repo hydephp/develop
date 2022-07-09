@@ -1,8 +1,7 @@
 <?php
 
-namespace Hyde\Framework\Modules\Navigation;
+namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Models\NavItem;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\Router;
