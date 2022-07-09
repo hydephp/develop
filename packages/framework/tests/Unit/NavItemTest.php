@@ -9,6 +9,9 @@ use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Testing\TestCase;
 
 /**
+ * This unit test covers the basics of the NavItem class.
+ * For the full feature test, see the NavigationMenuTest class.
+ *
  * @covers \Hyde\Framework\Models\NavItem
  */
 class NavItemTest extends TestCase
@@ -52,5 +55,30 @@ class NavItemTest extends TestCase
         $item = NavItem::fromRoute($route);
 
         $this->assertSame('index.html', (string) $item);
+    }
+
+    public function testToLink()
+    {
+        $item = NavItem::toLink('foo', 'bar', 10);
+
+        $this->assertSame('foo', $item->href);
+        $this->assertSame('bar', $item->title);
+        $this->assertSame(10, $item->priority);
+        $this->assertFalse($item->hidden);
+    }
+
+    public function testIsCurrentRoute()
+    {
+        $route = Route::get('index');
+        $item = NavItem::fromRoute($route);
+
+        $this->assertTrue($item->isCurrent($route->getSourceModel()));
+    }
+
+    public function testIsCurrentLink()
+    {
+        $item = NavItem::toLink('index.html', 'Home');
+
+        $this->assertTrue($item->isCurrent(Route::get('index')->getSourceModel()));
     }
 }
