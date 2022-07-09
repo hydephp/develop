@@ -85,7 +85,8 @@ class NavItem
     public function isCurrent(PageContract $current): bool
     {
         if (! isset($this->route)) {
-            return $current->getRoute()->getRouteKey() === $this->href;
+            return ($current->getRoute()->getRouteKey() === $this->href)
+            || ($current->getRoute()->getRouteKey() . '.html' === $this->href);
         }
 
         return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
