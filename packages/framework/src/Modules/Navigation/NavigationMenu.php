@@ -24,7 +24,7 @@ class NavigationMenu
 
     public static function create(RouteContract $currentRoute): static
     {
-        return (new static())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
+        return (new self())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
     }
 
     public function setCurrentRoute(RouteContract $currentRoute): self

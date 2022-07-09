@@ -47,7 +47,7 @@ class NavItem
      */
     public static function fromRoute(RouteContract $route): static
     {
-        return new static(
+        return new self(
             $route,
             $route->getSourceModel()->navigationMenuTitle(),
             $route->getSourceModel()->navigationMenuPriority(),
@@ -60,7 +60,7 @@ class NavItem
      */
     public static function toLink(string $href, string $title, int $priority = 500): static
     {
-        return (new static(null, $title, $priority, false))->setDestination($href);
+        return (new self(null, $title, $priority, false))->setDestination($href);
     }
 
     /**
