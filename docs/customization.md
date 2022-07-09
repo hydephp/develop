@@ -31,6 +31,76 @@ With a concept directly inspired by [Laravel Jetstream](https://jetstream.larave
 ],
 ```
 
+### Site URL Configuration
+
+
+Hyde offers a few options to configure URLs and links for compiled files. Here is an overview.
+
+#### Site URL
+
+If you want, you can set your site's URL in the Hyde config, or in the .env file.
+
+The URL will then be used in meta tags to create permalinks.
+If you are serving your site from a subdirectory, you will
+need to include that in the path without a trailing slash.
+
+
+```php
+// Default
+'site_url' => env('SITE_URL', null),
+
+// Examples
+'site_url' => env('https://example.org'),
+'site_url' => env('https://example.org/blog'),
+```
+
+#### Pretty URLs (Links that do not end in .html)
+
+Introduced in v0.25.0, you can now enable "pretty URLs". When the setting
+is enabled, generated links in the compiled HTML site are without the
+`.html` extension. Since this breaks local browsing you can leave
+the setting disabled, and instead add the `--pretty-urls` flag
+when running the `php hyde build` command for deployment.
+
+
+```php
+'prettyUrls' => false, // Default is false
+```
+
+
+#### Generate sitemap.xml
+
+When enabled, a sitemap.xml will automatically be generated when you compile your static site.
+Note that this requires that a site_url is set!
+
+```php // config/hyde.php
+'generateSitemap' => true, // Default is true
+```
+
+#### RSS feed generation
+
+When enabled, an RSS feed with your Markdown blog posts will be generated when you compile your static site.
+Note that this requires that a site_url is set!
+
+```php // config/hyde.php
+'generateRssFeed' => true, // Default is true
+```
+
+You can customize the output filename using the following:
+
+```php // config/hyde.php
+'rssFilename' => 'feed.rss', // Default is feed.xml
+```
+
+You can set the RSS channel description using the following:
+
+```php // config/hyde.php
+'rssDescription' => 'A collection of articles and tutorials from my blog', // Example
+```
+
+If an rssDescription is not set one is created by appending "RSS Feed" to your site name.
+
+
 ### Authors
 Hyde has support for adding authors in front matter, for example to
 automatically add a link to your website or social media profiles.
