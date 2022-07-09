@@ -137,7 +137,6 @@ class NavigationMenuTest extends TestCase
         $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create(Route::get('index'))->items);
     }
 
-    // test external link can be added in config
     public function test_external_link_can_be_added_in_config()
     {
         config(['hyde.navigation.custom' => [NavItem::toLink('https://example.com', 'foo')]]);
@@ -152,7 +151,6 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    // test path link can be added in config
     public function test_path_link_can_be_added_in_config()
     {
         config(['hyde.navigation.custom' => [NavItem::toLink('foo', 'foo')]]);
@@ -167,71 +165,36 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    // test route link can be added in config (with route key)
-    public function test_route_link_can_be_added_in_config_with_route_key()
-    {
-        Hyde::touch('_pages/foo.md');
-        config(['hyde.navigation.custom' => [NavItem::fromRoute('foo')]]);
 
-        $menu = NavigationMenu::create(Route::get('index'));
-
-        $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('foo')),
-        ]);
-
-        $this->assertEquals($expected, $menu->items);
-
-        Hyde::unlink('_pages/foo.md');
-    }
-
-    // test route link can be added in config (with route object)
-    public function test_route_link_can_be_added_in_config_with_route_object()
-    {
-        Hyde::touch('_pages/foo.md');
-        config(['hyde.navigation.custom' => [NavItem::fromRoute(Route::get('foo'))]]);
-
-        $menu = NavigationMenu::create(Route::get('index'));
-
-        $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('foo')),
-        ]);
-
-        $this->assertEquals($expected, $menu->items);
-
-        Hyde::unlink('_pages/foo.md');
-    }
-
-    // test duplicates are removed when adding in config
     public function test_duplicates_are_removed_when_adding_in_config()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('index')),
+            NavItem::toLink('foo', 'foo'),
+            NavItem::toLink('foo', 'foo'),
         ]]);
 
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
+            NavItem::toLink('foo', 'foo'),
         ]);
 
         $this->assertEquals($expected, $menu->items);
     }
 
-    // test duplicates are removed when adding in config regardless of label
     public function test_duplicates_are_removed_when_adding_in_config_regardless_of_label()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::fromRoute(Route::get('index'), 'foo'),
-            NavItem::fromRoute(Route::get('index'), 'bar'),
+            NavItem::toLink('foo', 'foo'),
+            NavItem::toLink('foo', 'bar'),
         ]]);
 
         $menu = NavigationMenu::create(Route::get('index'));
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
+            NavItem::toLink('foo', 'foo'),
         ]);
 
         $this->assertEquals($expected, $menu->items);
