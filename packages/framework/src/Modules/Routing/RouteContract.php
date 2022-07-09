@@ -4,6 +4,14 @@ namespace Hyde\Framework\Modules\Routing;
 
 use Hyde\Framework\Contracts\PageContract;
 
+/**
+ * This contract defines the methods that a Route object must implement.
+ * These methods are each applied to the single route instance.
+ *
+ * In Hyde, the route models also serve as a facade for all routes, see the dedicated interface:
+ *
+ * @see \Hyde\Framework\Modules\Routing\RouteFacadeContract for the static facade methods.
+ */
 interface RouteContract
 {
     /**

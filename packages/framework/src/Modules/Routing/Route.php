@@ -74,23 +74,23 @@ class Route implements RouteContract, RouteFacadeContract
     }
 
     /** @inheritDoc */
-    public static function get(string $routeKey): ?static
+    public static function get(string $routeKey): static
     {
         return static::getFromKey($routeKey);
     }
 
     /** @inheritDoc */
-    public static function getFromKey(string $routeKey): ?static
+    public static function getFromKey(string $routeKey): static
     {
-        return Router::getInstance()->getRoutes()->get($routeKey);
+        return Router::getInstance()->getRoutes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /** @inheritDoc */
-    public static function getFromSource(string $sourceFilePath): ?static
+    public static function getFromSource(string $sourceFilePath): static
     {
         return Router::getInstance()->getRoutes()->first(function (RouteContract $route) use ($sourceFilePath) {
             return $route->getSourceFilePath() === $sourceFilePath;
-        });
+        }) ?? throw new RouteNotFoundException($sourceFilePath);
     }
 
     /** @inheritDoc */
