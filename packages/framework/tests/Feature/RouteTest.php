@@ -9,6 +9,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
+use Hyde\Framework\Modules\Routing\RouteNotFoundException;
 use Hyde\Framework\Modules\Routing\Router;
 use Hyde\Testing\TestCase;
 
@@ -77,9 +78,10 @@ class RouteTest extends TestCase
         $this->assertInstanceOf(RouteContract::class, Route::get('index'));
     }
 
-    public function test_get_from_key_returns_null_if_route_is_not_found()
+    public function test_get_from_key_throws_exception_if_route_is_not_found()
     {
-        $this->assertNull(Route::get('not-found'));
+        $this->expectException(RouteNotFoundException::class);
+        Route::get('not-found');
     }
 
     public function test_get_from_source_returns_route_from_router_index()
@@ -90,7 +92,8 @@ class RouteTest extends TestCase
 
     public function test_get_from_source_returns_null_if_route_is_not_found()
     {
-        $this->assertNull(Route::getFromSource('not-found'));
+        $this->expectException(RouteNotFoundException::class);
+        Route::getFromSource('not-found');
     }
 
     public function test_get_from_source_can_find_blade_pages()

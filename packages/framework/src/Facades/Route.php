@@ -14,25 +14,25 @@ use Illuminate\Support\Collection;
 class Route implements RouteFacadeContract
 {
     /** @inheritDoc */
-    public static function get(string $routeKey): ?RouteModel
+    public static function get(string $routeKey): RouteModel
     {
         return RouteModel::get($routeKey);
     }
 
     /** @inheritDoc */
-    public static function getFromKey(string $routeKey): ?RouteModel
+    public static function getFromKey(string $routeKey): RouteModel
     {
         return RouteModel::getFromKey($routeKey);
     }
 
     /** @inheritDoc */
-    public static function getFromSource(string $sourceFilePath): ?RouteModel
+    public static function getFromSource(string $sourceFilePath): RouteModel
     {
         return RouteModel::getFromSource($sourceFilePath);
     }
 
     /** @inheritDoc */
-    public static function getFromModel(PageContract $page): ?RouteModel
+    public static function getFromModel(PageContract $page): RouteModel
     {
         return RouteModel::getFromModel($page);
     }
