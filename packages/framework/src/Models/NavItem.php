@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
-use Hyde\Framework\Modules\Routing\RouteNotFoundException;
 
 /**
  * Abstraction for a navigation menu item.
