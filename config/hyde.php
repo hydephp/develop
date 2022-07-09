@@ -196,8 +196,11 @@ return [
         ],
 
         // Any extra links you want to add to the navigation menu can be added here.
+        // To get started quickly, you can uncomment the defaults here.
+        // See the documentation link above for more information.
         'custom' => [
-            NavItem::leadsTo('https://github.com/hydephp/hyde', 'GitHub')->withPriority(1000),
+            // NavItem::leadsTo('https://github.com/hydephp/hyde', 'GitHub')->withPriority(1200),
+            // NavItem::leadsTo('posts/hello-world', 'Featured Blog Post', 200),
         ]
     ],
 

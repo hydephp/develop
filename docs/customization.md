@@ -200,26 +200,50 @@ navigation:
 Note that since Blade pages do not support front matter, this will only work for Markdown pages.
 
 #### Adding Custom Navigation Menu Links
-> Until the navigation link order is implemented, you can use this feature to reorder navigation menu items.
 
-The links are added in the config/hyde.php file, and the syntax for adding custom links is documented in the config. Here are some examples:
+You can easily add custom navigation menu links similar how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array. 
+
+You have a few different options on how to construct the model depending on your coding style. To get started quickly, you already have two examples in the `config/hyde.php` file.
+
+Here are the minimum setup. The first argument is the destionation (href) and the second is the text to display.
 
 ```php
-// torchlight! {"lineNumbers": false}
-// External link
-[
-    'title' => 'GitHub',
-    'destination' => 'https://github.com/hydephp/hyde',
-    'priority' => 1200,
-],
+// filepath config/hyde.php
+'navigation' => [
+    'custom' => [
+        // Linking to an external site? Supply the full URI to the 'destination'.
+        NavItem::leadsTo('https://github.com/hydephp/hyde', 'GitHub'),
 
-// Internal link (Hyde automatically resolves relative paths)
-[
-    'title' => 'Featured Blog Post',
-    'slug' => 'posts/hello-world',
-    // The 'priority' is not required.
+        // Keeping it internal? Pass the 'slug' relative to the document root.
+        NavItem::leadsTo('posts/hello-world', 'Featured Blog Post'),
+    ]
 ]
 ```
+
+Simplified, these will then be rendered as follows:
+
+```html
+<a href="https://github.com/hydephp/hyde">GitHub</a>
+<a href="posts/hello-world.html">Featured Blog Post</a>
+```
+
+You can also specify the priorities, either by passing a third argument, or by using the fluent `withPriority()` method chain. The following two examples are equivalent:
+
+```php
+NavItem::leadsTo('foo', 'bar')->withPriority(10),
+NavItem::leadsTo('foo', 'bar', 10),
+```
+
+If you prefer working with routes, you can also use the fromRoute facade. This has the added benefit that relative links will automatically be resolved. The following two examples are more or less equivalent, with the latter not supporting relative links:
+
+    
+```php
+NavItem::fromRoute(Route::get('index')),
+NavItem::leadsTo('/index.html', 'Home'),
+```
+
+As you can see, we don't specify a title when using a Route, that's because the title will be taken from the page itself. This is exactly what Hyde does internally when automatically generating the navigation menu.
+
 
 #### Excluding Items (Blacklist)
 
