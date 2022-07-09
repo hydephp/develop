@@ -1,8 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Modules\Routing;
-
-use Hyde\Framework\Contracts\PageContract;
+namespace Hyde\Framework\Contracts;
 
 /**
  * This contract defines the methods that a Route object must implement.

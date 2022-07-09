@@ -3,9 +3,9 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Models\NavItem;
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Testing\TestCase;
 
 /**

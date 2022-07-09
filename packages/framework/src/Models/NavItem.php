@@ -3,8 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Facades\Route;
-use Hyde\Framework\Modules\Routing\RouteContract;
+use Hyde\Framework\Contracts\RouteContract;
 
 /**
  * Abstraction for a navigation menu item.
@@ -26,7 +25,7 @@ class NavItem
     /**
      * Create a new navigation menu item.
      *
-     * @param  \Hyde\Framework\Modules\Routing\RouteContract|null  $route
+     * @param  \Hyde\Framework\Contracts\RouteContract|null  $route
      * @param  string  $title
      * @param  int  $priority
      * @param  bool  $hidden
