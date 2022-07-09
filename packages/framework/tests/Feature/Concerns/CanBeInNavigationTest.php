@@ -110,7 +110,7 @@ class CanBeInNavigationTest extends TestCase
         $page->markdown = new MarkdownDocument();
         $page->slug = 'foo';
 
-        $this->assertEquals(1000, $page->navigationMenuPriority());
+        $this->assertEquals(999, $page->navigationMenuPriority());
 
         config(['hyde.navigation.order' => ['foo' => 1]]);
         $this->assertEquals(1, $page->navigationMenuPriority());
@@ -165,13 +165,13 @@ class CanBeInNavigationTest extends TestCase
         $this->assertEquals(10, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_defaults_to_1000_if_no_other_conditions_are_met()
+    public function test_navigation_menu_priority_defaults_to_999_if_no_other_conditions_are_met()
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
         $page->slug = 'foo';
 
-        $this->assertEquals(1000, $page->navigationMenuPriority());
+        $this->assertEquals(999, $page->navigationMenuPriority());
     }
 
     public function test_navigation_menu_title_returns_navigation_title_matter_if_set()
