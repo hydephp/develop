@@ -12,8 +12,10 @@ This serves two purposes:
 ### Added
 - Added a pseudo-router module which will internally be used to improve Hyde auto-discovery
 - Added a Route facade that allows you to quickly get a route instance from a route key or path
+- Added a new NavItem model to represent navigation menu items
 
 ### Changed
+- Changed how the navigation menu is generated, configuration files and published views must be updated
 - internal refactor: Creates a new build service to handle the build process
 
 ### Deprecated
