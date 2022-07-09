@@ -25,8 +25,7 @@ class NavigationMenuTest extends TestCase
     {
         $menu = new NavigationMenu();
 
-        $this->assertInstanceOf(Route::class, $menu->homeRoute);
-        $this->assertEquals('index', $menu->homeRoute->getRouteKey());
+        $this->assertEquals('index.html', $menu->getHomeLink(''));
     }
 
     public function test_set_current_route()
