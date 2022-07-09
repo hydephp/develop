@@ -20,6 +20,7 @@
 use Hyde\Framework\Helpers\Author;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Models\NavItem;
 
 return [
 
@@ -196,7 +197,7 @@ return [
 
         // Any extra links you want to add to the navigation menu can be added here.
         'custom' => [
-            \Hyde\Framework\Models\NavItem::leadsTo('https://github.com/hydephp/hyde', 'GitHub')->withPriority(1000),
+            NavItem::leadsTo('https://github.com/hydephp/hyde', 'GitHub')->withPriority(1000),
         ]
     ],
 
