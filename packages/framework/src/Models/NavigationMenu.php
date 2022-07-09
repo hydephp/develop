@@ -1,11 +1,9 @@
 <?php
 
-namespace Hyde\Framework\Modules\Navigation;
+namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Models\NavItem;
-use Hyde\Framework\Modules\Routing\Route;
-use Hyde\Framework\Modules\Routing\RouteContract;
-use Hyde\Framework\Modules\Routing\Router;
+use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Router;
 use Illuminate\Support\Collection;
 
 /**

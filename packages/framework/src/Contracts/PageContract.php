@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Modules\Routing\RouteContract;
 use Illuminate\Support\Collection;
 
 interface PageContract
@@ -115,7 +114,7 @@ interface PageContract
     /**
      * Get the route for the page.
      *
-     * @return \Hyde\Framework\Modules\Routing\RouteContract
+     * @return \Hyde\Framework\Contracts\RouteContract
      */
     public function getRoute(): RouteContract;
 }

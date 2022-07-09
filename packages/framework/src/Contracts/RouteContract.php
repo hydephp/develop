@@ -1,8 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Modules\Routing;
-
-use Hyde\Framework\Contracts\PageContract;
+namespace Hyde\Framework\Contracts;
 
 /**
  * This contract defines the methods that a Route object must implement.
@@ -10,7 +8,7 @@ use Hyde\Framework\Contracts\PageContract;
  *
  * In Hyde, the route models also serve as a facade for all routes, see the dedicated interface:
  *
- * @see \Hyde\Framework\Modules\Routing\RouteFacadeContract for the static facade methods.
+ * @see \Hyde\Framework\Contracts\RouteFacadeContract for the static facade methods.
  */
 interface RouteContract
 {

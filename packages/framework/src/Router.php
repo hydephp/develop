@@ -1,13 +1,16 @@
 <?php
 
-namespace Hyde\Framework\Modules\Routing;
+namespace Hyde\Framework;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Contracts\RouterContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
 /**
@@ -42,7 +45,7 @@ class Router implements RouterContract
     /**
      * The routes discovered by the router.
      *
-     * @var \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\RouteContract>
+     * @var \Illuminate\Support\Collection<\Hyde\Framework\Contracts\RouteContract>
      */
     protected Collection $routes;
 

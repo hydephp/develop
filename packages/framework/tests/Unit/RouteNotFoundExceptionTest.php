@@ -2,11 +2,11 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Modules\Routing\RouteNotFoundException;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Modules\Routing\RouteNotFoundException
+ * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
  */
 class RouteNotFoundExceptionTest extends TestCase
 {

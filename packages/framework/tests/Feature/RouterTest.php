@@ -3,24 +3,24 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Modules\Routing\Route;
-use Hyde\Framework\Modules\Routing\RouteContract;
-use Hyde\Framework\Modules\Routing\Router;
+use Hyde\Framework\Models\Route;
+use Hyde\Framework\Router;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\Modules\Routing\Router
+ * @covers \Hyde\Framework\Router
  */
 class RouterTest extends TestCase
 {
     /**
-     * @covers \Hyde\Framework\Modules\Routing\Router::getInstance
+     * @covers \Hyde\Framework\Router::getInstance
      */
     public function test_get_instance_returns_the_router_instance()
     {
@@ -31,8 +31,8 @@ class RouterTest extends TestCase
     /**
      * Test route autodiscovery.
      *
-     * @covers \Hyde\Framework\Modules\Routing\Router::__construct
-     * @covers \Hyde\Framework\Modules\Routing\Router::getRoutes
+     * @covers \Hyde\Framework\Router::__construct
+     * @covers \Hyde\Framework\Router::getRoutes
      */
     public function test_get_routes_returns_discovered_routes()
     {
@@ -47,7 +47,7 @@ class RouterTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Modules\Routing\Router::getRoutesForModel
+     * @covers \Hyde\Framework\Router::getRoutesForModel
      */
     public function test_get_routes_for_model_returns_only_routes_for_the_given_model()
     {
@@ -65,9 +65,9 @@ class RouterTest extends TestCase
     /**
      * Test route autodiscovery.
      *
-     * @covers \Hyde\Framework\Modules\Routing\Router::discover
-     * @covers \Hyde\Framework\Modules\Routing\Router::discoverRoutes
-     * @covers \Hyde\Framework\Modules\Routing\Router::discoverPageRoutes
+     * @covers \Hyde\Framework\Router::discover
+     * @covers \Hyde\Framework\Router::discoverRoutes
+     * @covers \Hyde\Framework\Router::discoverPageRoutes
      */
     public function test_discover_routes_finds_and_adds_all_pages_to_route_collection()
     {

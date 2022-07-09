@@ -3,9 +3,9 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Contracts\RouteContract as Route;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Modules\Routing\RouteContract as Route;
-use Hyde\Framework\Modules\Routing\Router;
+use Hyde\Framework\Router;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;

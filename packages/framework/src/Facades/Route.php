@@ -3,12 +3,12 @@
 namespace Hyde\Framework\Facades;
 
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Modules\Routing\Route as RouteModel;
-use Hyde\Framework\Modules\Routing\RouteFacadeContract;
+use Hyde\Framework\Contracts\RouteFacadeContract;
+use Hyde\Framework\Models\Route as RouteModel;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\Modules\Routing\Route
+ * @see \Hyde\Framework\Models\Route
  * @see \Hyde\Framework\Testing\Feature\RouteFacadeTest
  */
 class Route implements RouteFacadeContract
