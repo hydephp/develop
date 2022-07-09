@@ -20,7 +20,6 @@
 use Hyde\Framework\Helpers\Author;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Models\NavItem;
 
 return [
@@ -202,7 +201,7 @@ return [
         'custom' => [
             // NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
             // NavItem::toRoute('index', 'Home', 100),
-        ]
+        ],
     ],
 
     /*

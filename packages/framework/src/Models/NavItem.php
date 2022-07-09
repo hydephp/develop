@@ -27,10 +27,10 @@ class NavItem
     /**
      * Create a new navigation menu item.
      *
-     * @param \Hyde\Framework\Modules\Routing\RouteContract|null $route
-     * @param string $title
-     * @param int $priority
-     * @param bool $hidden
+     * @param  \Hyde\Framework\Modules\Routing\RouteContract|null  $route
+     * @param  string  $title
+     * @param  int  $priority
+     * @param  bool  $hidden
      */
     public function __construct(?RouteContract $route, string $title, int $priority = 500, bool $hidden = false)
     {
@@ -99,6 +99,7 @@ class NavItem
     protected function setDestination(string $href): self
     {
         $this->href = $href;
+
         return $this;
     }
 }

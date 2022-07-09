@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Modules\Navigation;
 
 use Hyde\Framework\Models\NavItem;
-use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\RouteContract;
 use Hyde\Framework\Modules\Routing\Router;
