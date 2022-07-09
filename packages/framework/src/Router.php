@@ -32,12 +32,6 @@ use Illuminate\Support\Collection;
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
  *
- * @todo Convert into Singleton.
- *       As the constructor needs to load and parse every single page,
- *       this could be a rather expensive operation that would benefit
- *       from being a singleton. It could also be a good idea to cache
- *       the parsed route index using the Laravel cache in the future.
- *
  * @see \Hyde\Framework\Testing\Feature\RouterTest
  */
 class Router implements RouterContract
@@ -49,6 +43,8 @@ class Router implements RouterContract
      */
     protected Collection $routes;
 
+    protected static Router $instance;
+
     /** @inheritDoc */
     public function __construct()
     {
@@ -58,7 +54,11 @@ class Router implements RouterContract
     /** @inheritDoc */
     public static function getInstance(): static
     {
-        return new static();
+        if (! isset(static::$instance)) {
+            static::$instance = new self();
+        }
+
+        return static::$instance;
     }
 
     /** @inheritDoc */
