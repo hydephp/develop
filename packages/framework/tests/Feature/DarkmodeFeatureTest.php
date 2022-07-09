@@ -38,6 +38,7 @@ class DarkmodeFeatureTest extends TestCase
     {
         Config::set('hyde.features', [
             Features::markdownPages(),
+            Features::bladePages(),
             Features::darkmode(),
         ]);
 
@@ -74,6 +75,7 @@ class DarkmodeFeatureTest extends TestCase
     {
         Config::set('hyde.features', [
             Features::markdownPages(),
+            Features::bladePages(),
         ]);
 
         $view = view('hyde::layouts/page')->with([
