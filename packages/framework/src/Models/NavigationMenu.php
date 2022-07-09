@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Modules\Routing\Route;
 use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Support\Collection;
 

@@ -1,12 +1,13 @@
 <?php
 
-namespace Hyde\Framework\Modules\Routing;
+namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Modules\Routing\Router;
 use Illuminate\Support\Collection;
 
 /**

@@ -14,7 +14,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
 use Hyde\Framework\Models\Parsers\MarkdownPostParser;
-use Hyde\Framework\Modules\Routing\Route;
+use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**

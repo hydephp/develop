@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Modules\Routing\Route;
+use Hyde\Framework\Models\Route;
 use Hyde\Framework\StaticPageBuilder;
 
 /**

@@ -112,7 +112,7 @@ trait CanBeInNavigation
      * If an item returns a route collection,
      * it will automatically be made into a dropdown.
      *
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Modules\Routing\Route>
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Models\Route>
      */
     // public function navigationMenuChildren(): Collection;
 }

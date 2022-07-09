@@ -9,12 +9,12 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Modules\Routing\Route;
+use Hyde\Framework\Models\Route;
 use Hyde\Framework\Modules\Routing\Router;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Modules\Routing\Route
+ * @covers \Hyde\Framework\Models\Route
  */
 class RouteTest extends TestCase
 {

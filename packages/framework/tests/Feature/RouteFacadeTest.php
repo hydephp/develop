@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Modules\Routing\Route as BaseRoute;
+use Hyde\Framework\Models\Route as BaseRoute;
 use Hyde\Testing\TestCase;
 
 /**
