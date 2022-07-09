@@ -14,7 +14,6 @@ use Illuminate\Support\Collection;
  */
 class NavigationMenu
 {
-    public RouteContract $homeRoute;
     public RouteContract $currentRoute;
 
     public Collection $items;
@@ -22,7 +21,6 @@ class NavigationMenu
     public function __construct()
     {
         $this->items = new Collection();
-        $this->homeRoute = $this->getHomeRoute();
     }
 
     public static function create(RouteContract $currentRoute): static
