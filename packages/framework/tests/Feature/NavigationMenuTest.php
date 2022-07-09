@@ -165,7 +165,6 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-
     public function test_duplicates_are_removed_when_adding_in_config()
     {
         config(['hyde.navigation.custom' => [
