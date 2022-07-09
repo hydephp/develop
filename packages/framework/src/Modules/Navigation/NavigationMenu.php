@@ -43,6 +43,10 @@ class NavigationMenu
             $this->items->push(NavItem::fromRoute($route));
         });
 
+        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item) {
+            $this->items->push($item);
+        });
+
         return $this;
     }
 
