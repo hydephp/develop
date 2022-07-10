@@ -16,6 +16,7 @@ You will also need to update navigation related Blade templates, if you have pre
 
 ### Changed
 - Changed how the navigation menu is generated, configuration files and published views must be updated
+- Changed bootstrap.php to Stt Hyde base path using dirname instead of getcwd 
 - Reversed deprecation for `StaticPageBuilder::$outputPath`
 - internal refactor: Creates a new build service to handle the build process
 
