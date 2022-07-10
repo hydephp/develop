@@ -61,13 +61,13 @@ class NavItem
     {
         return (new self(null, $title, $priority, false))->setDestination($href);
     }
-    
+
     /**
      * Create a new navigation menu item leading to a Route model.
      */
     public static function toRoute(RouteContract $route, string $title, int $priority = 500): static
     {
-        return (new self($route, $title, $priority, false));
+        return new self($route, $title, $priority, false);
     }
 
     /**
