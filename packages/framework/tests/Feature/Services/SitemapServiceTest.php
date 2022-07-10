@@ -141,4 +141,31 @@ class SitemapServiceTest extends TestCase
 
         unlink(Hyde::path('_pages/0-test.blade.php'));
     }
+
+    public function test_all_route_types_are_discovered()
+    {
+        config(['hyde.site_url' => 'foo']);
+        Hyde::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
+
+        $files = [
+            '_pages/blade.blade.php',
+            '_pages/markdown.md',
+            '_posts/post.md',
+            '_docs/doc.md',
+        ];
+
+        Hyde::touch($files);
+
+        $service = new SitemapService();
+        $service->generate();
+
+        $this->assertCount(4, $service->xmlElement->url);
+
+        $this->assertEquals('foo/blade.html', $service->xmlElement->url[0]->loc);
+        $this->assertEquals('foo/markdown.html', $service->xmlElement->url[1]->loc);
+        $this->assertEquals('foo/posts/post.html', $service->xmlElement->url[2]->loc);
+        $this->assertEquals('foo/docs/doc.html', $service->xmlElement->url[3]->loc);
+
+        Hyde::unlink($files);
+    }
 }
