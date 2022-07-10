@@ -4,21 +4,20 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Route;
+use Hyde\Framework\StaticPageBuilder;
 use Hyde\RealtimeCompiler\Actions\Compiler;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 
 /**
  * Handle routing for a web page request.
- *
- * Does not send 404 responses upon missing source files,
- * instead letting an exception be thrown, as it is
- * better handled by the ExceptionHandler.
  */
 class PageRouter
 {
@@ -35,11 +34,14 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
-        $requestPath = $this->normalizePath($this->request->path);
-        $sourceFilePath = $this->decodeSourceFilePath($requestPath);
-        $sourceFileModel = $this->decodeSourceFileModel($sourceFilePath);
 
-        $html = $this->getHtml($sourceFileModel, $sourceFilePath);
+        $requestPath = $this->normalizePath($this->request->path);
+        $route = Route::getFromKey($requestPath);
+
+        $sourceFilePath = $route->getSourceFilePath();
+        $sourceFileModel = $route->getSourceModel();
+
+        $html = $this->getHtml($sourceFileModel);
 
         return (new Response(200, 'OK', [
             'body' => $html,
@@ -61,7 +63,7 @@ class PageRouter
             $path = '/index';
         }
 
-        return $path;
+        return ltrim($path, '/');
     }
 
     protected function decodeSourceFilePath(string $path): string
@@ -95,10 +97,10 @@ class PageRouter
         return BladePage::class;
     }
 
-    protected function getHtml(string $model, string $path): string
+    protected function getHtml(AbstractPage $model): string
     {
         // todo add caching as we don't need to recompile pages that have not changed
-        return (new Compiler($model, $path))->render();
+        return file_get_contents((new StaticPageBuilder($model))->__invoke());
     }
 
     public static function handle(Request $request): Response
