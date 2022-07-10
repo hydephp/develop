@@ -52,6 +52,17 @@ class HydeBuildSitemapCommand extends Command
         if (! SitemapService::canGenerateSitemap()) {
             $this->error('Cannot generate sitemap.xml, please check your configuration.');
 
+            if ((Hyde::uriPath() === false)) {
+                $this->warn('Hint: You don\'t have a site URL configured. Check config/hyde.php');
+            }
+            if (config('hyde.generate_sitemap', true) !== true) {
+                $this->warn('Hint: You have disabled sitemap generation in config/hyde.php');
+                $this->line(' > You can enable sitemap generation by setting <info>`hyde.generate_sitemap`</> to <info>`true`</>');
+            }
+            if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
+                $this->warn('Hint: You don\'t have the <info>`simplexml`</> extension installed. Check your PHP installation.');
+            }
+
             return false;
         }
 
