@@ -5,6 +5,7 @@ namespace Hyde\RealtimeCompiler\Routing;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -34,14 +35,9 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
-
-        $requestPath = $this->normalizePath($this->request->path);
-        $route = Route::getFromKey($requestPath);
-
-        $sourceFilePath = $route->getSourceFilePath();
-        $sourceFileModel = $route->getSourceModel();
-
-        $html = $this->getHtml($sourceFileModel);
+        $html = $this->getHtml(Route::getFromKey(
+            $this->normalizePath($this->request->path)
+        )->getSourceModel());
 
         return (new Response(200, 'OK', [
             'body' => $html,
@@ -66,41 +62,10 @@ class PageRouter
         return ltrim($path, '/');
     }
 
-    protected function decodeSourceFilePath(string $path): string
-    {
-        // Todo get paths from model class instead of hardcoded
-        if (str_starts_with($path, '/posts/')) {
-            return '_posts/'.basename($path);
-        }
-
-        if (str_starts_with($path, '/docs/')) {
-            return '_docs/'.basename($path);
-        }
-
-        return '_pages/'.basename($path);
-    }
-
-    protected function decodeSourceFileModel(string $path): string
-    {
-        if (str_starts_with($path, '_posts/')) {
-            return MarkdownPost::class;
-        }
-
-        if (str_starts_with($path, '_docs/')) {
-            return DocumentationPage::class;
-        }
-
-        if (file_exists(Hyde::path($path.'.md'))) {
-            return MarkdownPage::class;
-        }
-
-        return BladePage::class;
-    }
-
-    protected function getHtml(AbstractPage $model): string
+    protected function getHtml(PageContract $page): string
     {
         // todo add caching as we don't need to recompile pages that have not changed
-        return file_get_contents((new StaticPageBuilder($model))->__invoke());
+        return file_get_contents((new StaticPageBuilder($page))->__invoke());
     }
 
     public static function handle(Request $request): Response
