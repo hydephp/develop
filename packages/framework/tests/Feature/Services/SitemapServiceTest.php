@@ -117,18 +117,17 @@ class SitemapServiceTest extends TestCase
         Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
-        $date = date('c'); // Cache the expected date as around one in 1000 runs the second will switch over during execution
         $service->generate();
 
         $url = $service->xmlElement->url[0];
         $this->assertEquals('https://example.com/0-test.html', $url->loc);
         $this->assertEquals('daily', $url->changefreq);
-        $this->assertEquals($date, $url->lastmod);
+        $this->assertTrue(isset($url->lastmod));
 
         unlink(Hyde::path('_pages/0-test.blade.php'));
     }
 
-    public function test_url_item_is_generated_with_pretty_ur_ls_if_enabled()
+    public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
         config(['hyde.pretty_urls' => true]);
         config(['hyde.site_url' => 'https://example.com']);
