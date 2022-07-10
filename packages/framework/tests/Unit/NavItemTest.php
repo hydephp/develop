@@ -67,6 +67,17 @@ class NavItemTest extends TestCase
         $this->assertFalse($item->hidden);
     }
 
+    public function testToRoute()
+    {
+        $route = Route::get('index');
+        $item = NavItem::toRoute($route, 'foo', 10);
+
+        $this->assertSame($route, $item->route);
+        $this->assertSame('foo', $item->title);
+        $this->assertSame(10, $item->priority);
+        $this->assertFalse($item->hidden);
+    }
+
     public function testIsCurrentRoute()
     {
         $route = Route::get('index');
