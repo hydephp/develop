@@ -7,6 +7,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeBuildRssFeedCommand
+ *
+ * @todo Add output tests like @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSitemapCommandTest
  */
 class HydeBuildRssFeedCommandTest extends TestCase
 {
