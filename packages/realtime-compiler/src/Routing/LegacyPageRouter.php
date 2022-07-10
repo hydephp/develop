@@ -19,7 +19,7 @@ use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
  * Does not send 404 responses upon missing source files,
  * instead letting an exception be thrown, as it is
  * better handled by the ExceptionHandler.
- * 
+ *
  * @deprecated v2.4 - Provides compatibility for Hyde/Framework versions lower than v0.48.0-beta
  */
 class LegacyPageRouter
