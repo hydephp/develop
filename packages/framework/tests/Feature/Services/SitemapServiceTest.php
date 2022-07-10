@@ -117,18 +117,17 @@ class SitemapServiceTest extends TestCase
         Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
-        $date = date('c'); // Cache the expected date as around one in 1000 runs the second will switch over during execution
         $service->generate();
 
         $url = $service->xmlElement->url[0];
         $this->assertEquals('https://example.com/0-test.html', $url->loc);
         $this->assertEquals('daily', $url->changefreq);
-        $this->assertEquals($date, $url->lastmod);
+        $this->assertTrue(isset($url->lastmod));
 
         unlink(Hyde::path('_pages/0-test.blade.php'));
     }
 
-    public function test_url_item_is_generated_with_pretty_ur_ls_if_enabled()
+    public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
         config(['hyde.pretty_urls' => true]);
         config(['hyde.site_url' => 'https://example.com']);
@@ -141,5 +140,35 @@ class SitemapServiceTest extends TestCase
         $this->assertEquals('https://example.com/0-test', $url->loc);
 
         unlink(Hyde::path('_pages/0-test.blade.php'));
+    }
+
+    public function test_all_route_types_are_discovered()
+    {
+        config(['hyde.site_url' => 'foo']);
+        Hyde::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
+
+        $files = [
+            '_pages/blade.blade.php',
+            '_pages/markdown.md',
+            '_posts/post.md',
+            '_docs/doc.md',
+        ];
+
+        Hyde::touch($files);
+
+        $service = new SitemapService();
+        $service->generate();
+
+        $this->assertCount(4, $service->xmlElement->url);
+
+        $this->assertEquals('foo/blade.html', $service->xmlElement->url[0]->loc);
+        $this->assertEquals('foo/markdown.html', $service->xmlElement->url[1]->loc);
+        $this->assertEquals('foo/posts/post.html', $service->xmlElement->url[2]->loc);
+        $this->assertEquals('foo/docs/doc.html', $service->xmlElement->url[3]->loc);
+
+        Hyde::unlink($files);
+
+        Hyde::copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
+        Hyde::copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 }

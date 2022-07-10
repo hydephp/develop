@@ -2,7 +2,8 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Facades\Route;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -30,31 +31,9 @@ class SitemapService
 
     public function generate(): self
     {
-        if (Features::hasBladePages()) {
-            $this->addPageModelUrls(
-                BladePage::class
-            );
-        }
-
-        if (Features::hasMarkdownPages()) {
-            $this->addPageModelUrls(
-                MarkdownPage::class
-            );
-        }
-
-        if (Features::hasBlogPosts()) {
-            $this->addPageModelUrls(
-                MarkdownPost::class,
-                'posts/'
-            );
-        }
-
-        if (Features::hasDocumentationPages()) {
-            $this->addPageModelUrls(
-                DocumentationPage::class,
-                DocumentationPage::getOutputDirectory().'/'
-            );
-        }
+        Route::all()->each(function ($route) {
+            $this->addRoute($route);
+        });
 
         return $this;
     }
@@ -66,26 +45,21 @@ class SitemapService
         return $this->xmlElement->asXML();
     }
 
-    public function addPageModelUrls(string $pageClass, string $routePrefix = ''): void
+    public function addRoute(RouteContract $route): void
     {
-        $collection = CollectionService::getSourceFileListForModel($pageClass);
-
-        foreach ($collection as $slug) {
-            $urlItem = $this->xmlElement->addChild('url');
-            $urlItem->addChild('loc', htmlentities(Hyde::uriPath(Hyde::pageLink($routePrefix.$slug.'.html'))));
-            $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($pageClass, $slug)));
-            $urlItem->addChild('changefreq', 'daily');
-            if (config('hyde.sitemap.dynamic_priority', true)) {
-                $urlItem->addChild('priority', $this->getPriority($pageClass, $slug));
-            }
+        $urlItem = $this->xmlElement->addChild('url');
+        $urlItem->addChild('loc', htmlentities(Hyde::uriPath($route->getLink())));
+        $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($route->getSourceFilePath())));
+        $urlItem->addChild('changefreq', 'daily');
+        if (config('hyde.sitemap.dynamic_priority', true)) {
+            $urlItem->addChild('priority', $this->getPriority($route->getPageType(), $route->getSourceModel()->slug));
         }
     }
 
-    protected function getLastModDate(string $pageClass, string $slug): string
+    protected function getLastModDate(string $file): string
     {
         return date('c', filemtime(
-            /** @var \Hyde\Framework\Contracts\AbstractPage $pageClass */
-            Hyde::path($pageClass::getSourceDirectory().DIRECTORY_SEPARATOR.$slug.$pageClass::getFileExtension())
+            $file
         ));
     }
 
