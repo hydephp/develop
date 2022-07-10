@@ -8,6 +8,8 @@ use Hyde\Framework\StaticPageBuilder;
 /**
  * Hooks into the Hyde application to parse and compile
  * a page source file to static HTML for the request.
+ *
+ * @deprecated v2.4 - Not needed since Hyde/Framework version v0.48.0-beta
  */
 class Compiler extends StaticPageBuilder
 {
