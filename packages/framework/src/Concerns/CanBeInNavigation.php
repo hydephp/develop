@@ -26,7 +26,7 @@ trait CanBeInNavigation
         }
 
         if ($this instanceof DocumentationPage) {
-            return $this->slug === 'index';
+            return $this->slug === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
         }
 
         if ($this instanceof AbstractMarkdownPage) {
