@@ -167,5 +167,8 @@ class SitemapServiceTest extends TestCase
         $this->assertEquals('foo/docs/doc.html', $service->xmlElement->url[3]->loc);
 
         Hyde::unlink($files);
+
+        Hyde::copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
+        Hyde::copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 }
