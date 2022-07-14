@@ -17,5 +17,5 @@
 	</footer>
 </dialog>
 
-<script src="_media/HydeSearchWindow.js"></script>
+<script defer src="{{ Asset::cdnLink('HydeSearchWindow.js') }}"></script>
 @endpush
