@@ -88,7 +88,7 @@ class MarkdownConverterService
 
         if (config('markdown.allow_html', false)) {
             $this->addExtension(DisallowedRawHtmlExtension::class);
-            
+
             $this->config = array_merge([
                 'disallowed_raw_html' => [
                     'disallowed_tags' => [],
