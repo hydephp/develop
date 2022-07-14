@@ -75,8 +75,10 @@ Please see the [GitHub Pages documentation](https://help.github.com/pages/gettin
 
 Hyde works amazing with GitHub Pages and GitHub Actions and the entire build and deploy process can be automated.
 
-HydePHP.com is hosted on GitHub Pages, and the site is compiled in a GitHub Action workflow that compiles and 
-deploys the site automatically when the source is updated. This is done in the [DocsCI repository](https://github.com/hydephp/DocsCI).
+- We have a great blog post on how to do this, [Automate HydePHP sites using GitHub Actions and GitHub Pages](https://hydephp.com/posts/github-actions-deployment).
 
-You can take a look at the workflow HydePHP.com uses to create your own workflow.
-See the [DocsCI build.yml on GitHub](https://github.com/hydephp/DocsCI/blob/master/.github/workflows/build.yml)
+- You can also copy our sample [GitHub Actions Workflow.yml file](https://github.com/hyde-staging/ci-demo/blob/master/.github/workflows/main.yml).
+
+
+By the way, HydePHP.com is hosted on GitHub Pages, and the site is compiled in a GitHub Action workflow that compiles and 
+deploys the site automatically when the source is updated using [this GitHub workflow](https://github.com/hydephp/hydephp.com/blob/master/.github/workflows/build.yml).
