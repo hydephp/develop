@@ -12,6 +12,7 @@ phpunit.xml.dist export-ignore
 BACKERS.md export-ignore
 CONTRIBUTING.md export-ignore
 CHANGELOG.md export-ignore
+RELEASE_NOTES.md export-ignore
 
 /.github export-ignore
 /tests export-ignore
