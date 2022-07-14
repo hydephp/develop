@@ -84,14 +84,14 @@
 
 	@if(Hyde\Framework\Helpers\Features::hasDocumentationSearch())
 	@include('hyde::components.docs.search')
-		<script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
-		<script>
-			window.addEventListener('load', function() {
-				const searchIndexLocation = 'search.json';
-				const Search = new HydeSearch(searchIndexLocation);
+	<script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+	<script>
+		window.addEventListener('load', function() {
+			const searchIndexLocation = 'search.json';
+			const Search = new HydeSearch(searchIndexLocation);
 
-				Search.init();
-			});
+			Search.init();
+		});
 	</script>
 	@endif
 

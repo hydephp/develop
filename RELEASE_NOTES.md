@@ -14,6 +14,7 @@ This serves two purposes:
 
 ### Changed
 - The DataCollection module now no longers filters out files starting with an underscore
+- Moves the scripts that create the documentation page search window to HydeFront CDN
 
 ### Deprecated
 - for soon-to-be removed features.
