@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added configuration option to quickly enable HTML tags in Markdown
 
 ### Changed
 - The DataCollection module now no longers filters out files starting with an underscore
