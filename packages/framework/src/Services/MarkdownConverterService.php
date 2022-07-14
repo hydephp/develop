@@ -8,6 +8,7 @@ use Hyde\Framework\Services\Markdown\BladeDownProcessor;
 use Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor;
 use Hyde\Framework\Services\Markdown\ShortcodeProcessor;
 use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use Torchlight\Commonmark\V2\TorchlightExtension;
 
@@ -83,6 +84,16 @@ class MarkdownConverterService
 
         if ($this->canEnableTorchlight()) {
             $this->addExtension(TorchlightExtension::class);
+        }
+
+        if (config('markdown.allow_html', false)) {
+            $this->addExtension(DisallowedRawHtmlExtension::class);
+
+            $this->config = array_merge([
+                'disallowed_raw_html' => [
+                    'disallowed_tags' => [],
+                ],
+            ], $this->config);
         }
 
         // Add any custom extensions defined in config

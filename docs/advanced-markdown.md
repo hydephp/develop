@@ -8,8 +8,19 @@ category: "Digging Deeper"
 
 ## Introduction
 
-Since HydePHP makes heavy use of Markdown there are some extra features and helpers
-created just for Hyde to make using Markdown even easier!
+Since HydePHP makes heavy use of Markdown there are some extra features and helpers created just for Hyde to make using Markdown even easier!
+
+## Raw HTML Tags
+
+HydePHP uses the GitHub Flavored Markdown extension to convert Markdown. This, by default strips out some HTML tags. If you want to allow all arbitrary HTML tags, and understand the risks involved, enable all HTML tags by setting the following option to true in your `config/markdown.php` file.
+
+```php
+// filepath: config/markdown.php
+// torchlight! {"lineNumbers": false}
+'allow_html' => true,
+```
+
+This, will behind the scenes add the bundled `DisallowedRawHtml` extension, and configure it so that no HTML tags are stripped out.
 
 ## Blade Support
 
