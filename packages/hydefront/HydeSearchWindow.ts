@@ -6,7 +6,14 @@
  * @author      Caen De Silva
  */
 
-if (typeof HTMLDialogElement === 'function') {
+if (typeof HTMLDialogElement !== 'function') {
+    // The browser does not support the <dialog> element
+    document.getElementById('searchMenu').remove();
+
+    function toggleSearchMenu() {
+        window.location.href = 'search.html';
+    }
+} else {
     const searchMenu = document.getElementById('searchMenu');
 
     function toggleSearchMenu() {
@@ -74,11 +81,4 @@ if (typeof HTMLDialogElement === 'function') {
         }
     });
 
-} else {
-    // The browser does not support the <dialog> element
-    document.getElementById('searchMenu').remove();
-
-    function toggleSearchMenu() {
-        window.location.href = 'search.html';
-    }
 }
