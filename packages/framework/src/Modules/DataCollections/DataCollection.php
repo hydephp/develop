@@ -8,8 +8,8 @@ use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Collection;
 
 /**
- * Generates Laravel Collections from static data files,
- * such as Markdown components and YAML files.
+ * Automatically generates Laravel Collections from static data files,
+ * such as Markdown components and YAML files using Hyde Autodiscovery.
  *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
@@ -56,11 +56,9 @@ class DataCollection extends Collection
     {
         $collection = new DataCollection($key);
         foreach ($collection->getMarkdownFiles() as $file) {
-            if (! str_starts_with(basename($file), '_')) {
-                $collection->push(
-                    (new MarkdownFileService($file))->get()
-                );
-            }
+            $collection->push(
+                (new MarkdownFileService($file))->get()
+            );
         }
 
         return $collection->getCollection();

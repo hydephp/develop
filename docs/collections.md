@@ -40,7 +40,7 @@ To make collections easy to use and understand, Hyde makes a few assumptions abo
 3. Data collections are automatically generated when you use the Facade you will learn about below.
 4. When using one of the facades, you need to specify the collection name, this name is the name of the subdirectory.
 5. Each subdirectory should probably only have the same filetype to prevent developer confusion, but this is not enforced.
-6. Files starting with an underscore are ignored by Hyde.
+6. Unlike Markdown pages, files starting with underscores are not ignored.
 7. You can customize the base `_data` directory through a service provider.
 
 

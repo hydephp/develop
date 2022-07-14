@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- The DataCollection module now no longers filters out files starting with an underscore
 
 ### Deprecated
 - for soon-to-be removed features.

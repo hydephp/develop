@@ -113,6 +113,18 @@ class DataCollectionTest extends TestCase
         File::deleteDirectory(Hyde::path('_data/foo'));
     }
 
+    // test get markdown files method does not remove files starting with an underscore
+    public function test_get_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
+    {
+        mkdir(Hyde::path('_data/foo'));
+        Hyde::touch(('_data/foo/_foo.md'));
+
+        $this->assertEquals([
+            Hyde::path('_data/foo/_foo.md'),
+        ], (new DataCollection('foo'))->getMarkdownFiles());
+        File::deleteDirectory(Hyde::path('_data/foo'));
+    }
+
     public function test_static_markdown_helper_returns_new_data_collection_instance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
@@ -131,12 +143,12 @@ class DataCollectionTest extends TestCase
         File::deleteDirectory(Hyde::path('_data/foo'));
     }
 
-    public function test_static_markdown_helper_ignores_files_starting_with_an_underscore()
+    public function test_static_markdown_helper_doest_not_ignore_files_starting_with_an_underscore()
     {
         mkdir(Hyde::path('_data/foo'));
         Hyde::touch(('_data/foo/foo.md'));
         Hyde::touch(('_data/foo/_bar.md'));
-        $this->assertCount(1, DataCollection::markdown('foo'));
+        $this->assertCount(2, DataCollection::markdown('foo'));
         File::deleteDirectory(Hyde::path('_data/foo'));
     }
 
