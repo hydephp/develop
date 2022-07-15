@@ -3,7 +3,7 @@
 <title>{{ isset($title) ? config('hyde.name', 'HydePHP') . ' - ' . $title : config('hyde.name', 'HydePHP') }}</title>
 
 @if (file_exists(Hyde::path('_media/favicon.ico'))) 
-<link rel="shortcut icon" href="{{ Hyde::relativeLink('media/favicon.ico', $currentPage) }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ Hyde::relativeLink('media/favicon.ico') }}" type="image/x-icon">
 @endif
 
 {{-- App Meta Tags --}}
