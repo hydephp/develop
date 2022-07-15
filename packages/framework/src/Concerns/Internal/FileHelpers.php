@@ -82,6 +82,10 @@ trait FileHelpers
      */
     public static function relativeLink(string $destination, ?string $current = null): string
     {
+        if (str_starts_with($destination, '../')) {
+            return $destination;
+        }
+
         if ($current === null) {
             $current = static::currentPage();
         }
