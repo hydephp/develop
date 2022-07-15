@@ -108,7 +108,7 @@ trait FileHelpers
      */
     public static function currentPage(): string
     {
-        return View::shared('currentPage') ?? '';
+        return View::shared('currentPage', '');
     }
 
     /**
@@ -116,7 +116,7 @@ trait FileHelpers
      */
     public static function currentRoute(): ?RouteContract
     {
-        return View::shared('currentRoute') ?? null;
+        return View::shared('currentRoute');
     }
 
     /**
