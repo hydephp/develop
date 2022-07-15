@@ -3,8 +3,8 @@
 namespace Hyde\Testing;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Route;
 use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Route;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -59,7 +59,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::tearDown();
     }
-    
+
     protected function mockRoute()
     {
         view()->share('currentRoute', (new Route(new MarkdownPage())));
