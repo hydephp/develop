@@ -6,9 +6,9 @@ use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers Hyde::currentPage
+ * @covers \Hyde\Framework\Hyde
  */
-class HydeCurrentPageTest extends TestCase
+class HydeFileHelpersTest extends TestCase
 {
     public function test_current_page_returns_current_page_view_property()
     {
