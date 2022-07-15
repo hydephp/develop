@@ -41,4 +41,10 @@ class RouteFacadeTest extends TestCase
     {
         $this->assertEquals(BaseRoute::all(), Route::all());
     }
+
+    public function test_route_facade_current_method_calls_current_method()
+    {
+        $this->mockRoute();
+        $this->assertEquals(BaseRoute::current(), Route::current());
+    }
 }
