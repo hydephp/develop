@@ -42,4 +42,10 @@ class Route implements RouteFacadeContract
     {
         return RouteModel::all();
     }
+
+    /** @inheritDoc */
+    public static function current(): RouteModel
+    {
+        return RouteModel::current();
+    }
 }

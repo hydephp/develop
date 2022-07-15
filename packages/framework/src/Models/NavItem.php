@@ -72,15 +72,15 @@ class NavItem
 
     /**
      * Resolve a link to the navigation item.
-     *
-     * @param  string  $currentPage
-     * @return string
      */
-    public function resolveLink(string $currentPage = ''): string
+    public function resolveLink(): string
     {
-        return $this->href ?? $this->route->getLink($currentPage);
+        return $this->href ?? $this->route->getLink();
     }
 
+    /**
+     * Resolve a link to the navigation item.
+     */
     public function __toString(): string
     {
         return $this->resolveLink();

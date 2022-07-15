@@ -2,7 +2,9 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Illuminate\Support\Facades\View;
 
 /**
  * Offloads file helper methods for the Hyde Facade.
@@ -73,14 +75,24 @@ trait FileHelpers
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
-     * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
+     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
      *
      * @param  string  $destination  relative to output directory on compiled site
-     * @param  string  $current  the current URI path relative to the site root
+     * @param  string|null  $current  the current URI path relative to the site root
      * @return string
+     *
+     * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
      */
-    public static function relativeLink(string $destination, string $current = ''): string
+    public static function relativeLink(string $destination, ?string $current = null): string
     {
+        if (str_starts_with($destination, '../')) {
+            return $destination;
+        }
+
+        if ($current === null) {
+            $current = static::currentPage();
+        }
+
         $nestCount = substr_count($current, '/');
         $route = '';
         if ($nestCount > 0) {
@@ -92,10 +104,31 @@ trait FileHelpers
     }
 
     /**
-     * Gets a relative web link to the given image stored in the _site/media folder.
+     * Get the current page path, or fall back to the root path.
      */
-    public static function image(string $name, string $current = ''): string
+    public static function currentPage(): string
     {
+        return View::shared('currentPage', '');
+    }
+
+    /**
+     * Get the current page route, or fall back to null.
+     */
+    public static function currentRoute(): ?RouteContract
+    {
+        return View::shared('currentRoute');
+    }
+
+    /**
+     * Gets a relative web link to the given image stored in the _site/media folder.
+     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
+     */
+    public static function image(string $name, string $current = null): string
+    {
+        if ($current === null) {
+            $current = static::currentPage();
+        }
+
         if (str_starts_with($name, 'http')) {
             return $name;
         }
