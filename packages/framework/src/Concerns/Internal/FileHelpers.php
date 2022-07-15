@@ -74,14 +74,18 @@ trait FileHelpers
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
+     * @param string $destination relative to output directory on compiled site
+     * @param string|null $current the current URI path relative to the site root
+     * @return string
      * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
      *
-     * @param  string  $destination  relative to output directory on compiled site
-     * @param  string  $current  the current URI path relative to the site root
-     * @return string
      */
-    public static function relativeLink(string $destination, string $current = ''): string
+    public static function relativeLink(string $destination, ?string $current = null): string
     {
+        if ($current === null) {
+            $current = static::currentPage();
+        }
+
         $nestCount = substr_count($current, '/');
         $route = '';
         if ($nestCount > 0) {
@@ -103,8 +107,12 @@ trait FileHelpers
     /**
      * Gets a relative web link to the given image stored in the _site/media folder.
      */
-    public static function image(string $name, string $current = ''): string
+    public static function image(string $name, string $current = null): string
     {
+        if ($current === null) {
+            $current = static::currentPage();
+        }
+
         if (str_starts_with($name, 'http')) {
             return $name;
         }
