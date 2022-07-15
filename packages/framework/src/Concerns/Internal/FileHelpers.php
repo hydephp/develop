@@ -74,6 +74,8 @@ trait FileHelpers
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
+     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
+     *
      * @param  string  $destination  relative to output directory on compiled site
      * @param  string|null  $current  the current URI path relative to the site root
      * @return string
@@ -110,6 +112,7 @@ trait FileHelpers
 
     /**
      * Gets a relative web link to the given image stored in the _site/media folder.
+     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
      */
     public static function image(string $name, string $current = null): string
     {
