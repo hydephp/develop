@@ -13,7 +13,7 @@ class LinkComponent extends Component
 
     public function __construct(string|RouteContract $href)
     {
-        $this->href = Hyde::relativeLink($href, View::shared('currentPage'));
+        $this->href = Hyde::relativeLink($href, View::shared('currentPage') ?? '');
     }
 
     public function render(): \Illuminate\Contracts\View\View
