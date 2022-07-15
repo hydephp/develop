@@ -97,4 +97,9 @@ class FileHelperRelativeLinkTest extends TestCase
         $this->assertEquals('../docs/', Hyde::relativeLink('docs/index.html', 'foo/bar.html'));
         $this->assertEquals('../docs/', Hyde::relativeLink('docs/index.html', 'docs/foo.html'));
     }
+
+    public function test_helper_does_not_rewrite_already_processed_links()
+    {
+        $this->assertEquals('../foo', Hyde::relativeLink('../foo', 'foo/bar.html'));
+    }
 }
