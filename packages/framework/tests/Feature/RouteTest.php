@@ -152,8 +152,9 @@ class RouteTest extends TestCase
     public function test_get_link_returns_correct_path_for_nested_current_page()
     {
         $route = new Route(new MarkdownPage(slug: 'foo'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath(), 'foo/bar'), $route->getLink('foo/bar'));
-        $this->assertEquals('../foo.html', $route->getLink('foo/bar'));
+        view()->share('currentPage', 'foo/bar');
+        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath(), 'foo/bar'), $route->getLink());
+        $this->assertEquals('../foo.html', $route->getLink());
     }
 
     public function test_get_link_returns_pretty_url_if_enabled()
