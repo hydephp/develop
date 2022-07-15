@@ -57,10 +57,9 @@ interface RouteContract
     /**
      * Resolve a site web link to the file, using pretty URLs if enabled.
      *
-     * @param  string  $currentPage  The current page path, or blank to get use the site root as base.
      * @return string Relative path to the page
      */
-    public function getLink(string $currentPage = ''): string;
+    public function getLink(): string;
 
     /**
      * Cast a route object into a string that can be used in a href attribute.

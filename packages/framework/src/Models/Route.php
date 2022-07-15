@@ -67,9 +67,9 @@ class Route implements RouteContract, RouteFacadeContract
     }
 
     /** @inheritDoc */
-    public function getLink(string $currentPage = ''): string
+    public function getLink(): string
     {
-        return Hyde::relativeLink($this->getOutputFilePath(), $currentPage);
+        return Hyde::relativeLink($this->getOutputFilePath());
     }
 
     /** @inheritDoc */
