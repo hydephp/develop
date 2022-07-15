@@ -61,4 +61,9 @@ interface RouteContract
      * @return string Relative path to the page
      */
     public function getLink(string $currentPage = ''): string;
+
+    /**
+     * Cast a route object into a string that can be used in a href attribute.
+     */
+    public function __toString(): string;
 }
