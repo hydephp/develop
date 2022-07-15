@@ -59,4 +59,9 @@ interface RouteFacadeContract
      * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\RouteContract>
      */
     public static function all(): Collection;
+
+    /**
+     * Get the current route for the page being rendered.
+     */
+    public static function current(): RouteContract;
 }

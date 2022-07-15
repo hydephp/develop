@@ -114,4 +114,10 @@ class Route implements RouteContract, RouteFacadeContract
     {
         return Router::getInstance()->getRoutes();
     }
+
+    /** @inheritDoc */
+    public static function current(): static
+    {
+        return Hyde::currentRoute() ?? throw new RouteNotFoundException('current');
+    }
 }

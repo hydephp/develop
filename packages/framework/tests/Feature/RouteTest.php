@@ -170,4 +170,17 @@ class RouteTest extends TestCase
         $route = new Route(new MarkdownPage(slug: 'foo'));
         $this->assertEquals($route->getLink(), (string) $route);
     }
+
+    public function test_current_returns_current_route()
+    {
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        view()->share('currentRoute', $route);
+        $this->assertEquals($route, Route::current());
+    }
+
+    public function test_current_throws_exception_if_route_is_not_found()
+    {
+        $this->expectException(RouteNotFoundException::class);
+        Route::current();
+    }
 }
