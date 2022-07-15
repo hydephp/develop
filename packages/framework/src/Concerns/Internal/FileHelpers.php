@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Facades\View;
 
@@ -108,6 +109,14 @@ trait FileHelpers
     public static function currentPage(): string
     {
         return View::shared('currentPage') ?? '';
+    }
+
+    /**
+     * Get the current page route, or fall back to null.
+     */
+    public static function currentRoute(): ?RouteContract
+    {
+        return View::shared('currentRoute') ?? null;
     }
 
     /**
