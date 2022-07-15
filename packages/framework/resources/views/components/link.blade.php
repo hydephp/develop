@@ -1,1 +1,1 @@
-<a href="{{ $href }}" {{ $attributes }}>{!! $slot !!}</a>
+<a {{ $attributes->merge(['href' => $href]) }}>{!! $slot !!}</a>
