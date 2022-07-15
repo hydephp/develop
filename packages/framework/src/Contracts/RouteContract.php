@@ -63,6 +63,7 @@ interface RouteContract
 
     /**
      * Cast a route object into a string that can be used in a href attribute.
+     * Should be the same as getLink().
      */
     public function __toString(): string;
 }

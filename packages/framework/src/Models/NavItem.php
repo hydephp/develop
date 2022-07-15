@@ -81,6 +81,9 @@ class NavItem
         return $this->href ?? $this->route->getLink($currentPage);
     }
 
+    /**
+     * Resolve a link to the navigation item.
+     */
     public function __toString(): string
     {
         return $this->resolveLink();
