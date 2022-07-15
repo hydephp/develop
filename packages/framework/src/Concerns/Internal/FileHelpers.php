@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Illuminate\Support\Facades\View;
 
 /**
  * Offloads file helper methods for the Hyde Facade.
@@ -89,6 +90,14 @@ trait FileHelpers
         $route .= static::pageLink($destination);
 
         return str_replace('//', '/', $route);
+    }
+
+    /**
+     * Get the current page path, or fall back to the root path.
+     */
+    public static function currentPage(): string
+    {
+        return View::shared('currentPage') ?? '';
     }
 
     /**
