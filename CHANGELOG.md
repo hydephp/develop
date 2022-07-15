@@ -15,6 +15,17 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.49.0-beta](https://github.com/hydephp/develop/releases/tag/v0.49.0-beta) - 2022-07-15
+
+### Added
+- Added configuration option to quickly enable HTML tags in Markdown
+
+### Changed
+- The DataCollection module now no longers filters out files starting with an underscore
+- Moves the scripts that create the documentation page search window to HydeFront CDN
+- Updated autoloaded HydeFront version to 1.13.x
+
+
 ## [v0.48.0-beta](https://github.com/hydephp/develop/releases/tag/v0.48.0-beta) - 2022-07-10 - Internal Pseudo-Router Service Refactoring
 
 ### About
