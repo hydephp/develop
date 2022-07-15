@@ -123,3 +123,23 @@ Route::get('posts.my-post')
 // Compiled file: _site/docs/readme.html
 Route::get('docs.readme')
 ```
+
+### Using the `x-link` component
+
+When designing Blade layouts it can be useful to use the `x-link` component to automatically resolve relative links.
+
+You can of course, use it just like a normal anchor tag like so:
+```blade
+<x-link href="index.html">Home</x-link>
+```
+
+But where it really shines is when you supply a route. This will then resolve the proper relative link, and format it to use pretty URLs if your site is configured to use them.
+
+```blade
+<x-link :href="Route::get('index')">Home</x-link>
+```
+
+You can of course, also supply extra attributes like classes:
+```blade
+<x-link :href="Route::get('index')" class="btn btn-primary">Home</x-link>
+```
