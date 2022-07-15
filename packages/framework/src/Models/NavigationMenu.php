@@ -68,8 +68,8 @@ class NavigationMenu
     }
 
     /** @internal */
-    public function getHomeLink(string $currentPage): string
+    public function getHomeLink(): string
     {
-        return Route::get('index')->getLink($currentPage);
+        return Route::get('index');
     }
 }
