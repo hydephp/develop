@@ -166,4 +166,11 @@ class RouteTest extends TestCase
         $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());
     }
+
+    // test to string is alias for getLink
+    public function test_to_string_is_alias_for_get_link()
+    {
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $this->assertEquals($route->getLink(), (string) $route);
+    }
 }
