@@ -2,8 +2,9 @@
 
 namespace Hyde\Framework\Views\Components;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Route;
-use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;
 
 class LinkComponent extends Component
@@ -12,10 +13,10 @@ class LinkComponent extends Component
 
     public function __construct(string|Route $href)
     {
-        $this->href = $href;
+        $this->href = Hyde::relativeLink($href, View::shared('currentPage'));
     }
 
-    public function render(): View
+    public function render(): \Illuminate\Contracts\View\View
     {
         return view('hyde::components.link');
     }
