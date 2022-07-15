@@ -74,11 +74,11 @@ trait FileHelpers
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
-     * @param string $destination relative to output directory on compiled site
-     * @param string|null $current the current URI path relative to the site root
+     * @param  string  $destination  relative to output directory on compiled site
+     * @param  string|null  $current  the current URI path relative to the site root
      * @return string
-     * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
      *
+     * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
      */
     public static function relativeLink(string $destination, ?string $current = null): string
     {
