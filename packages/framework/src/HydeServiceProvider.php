@@ -9,6 +9,8 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Framework\Views\Components\LinkComponent;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -79,6 +81,8 @@ class HydeServiceProvider extends ServiceProvider
         $this->publishes([
             Hyde::vendorPath('resources/views/homepages/welcome.blade.php') => Hyde::path('_pages/index.blade.php'),
         ], 'hyde-welcome-page');
+
+        Blade::component('link', LinkComponent::class);
     }
 
     /**
