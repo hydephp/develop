@@ -232,6 +232,9 @@ jobs:
     - name: Copy test files
       run: cp -rf develop/tests/. hyde/tests -v
 
+    - name: Remove test fixtures
+      run: rm -rf hyde/tests/fixtures -v
+
     - name: Commit and push changes
       run: |
         cd hyde
