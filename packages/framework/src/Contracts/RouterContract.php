@@ -14,7 +14,7 @@ interface RouterContract
     /**
      * Get the Singleton instance of the Router.
      *
-     * @return \Hyde\Framework\Modules\Routing\RouterContract
+     * @return \Hyde\Framework\Contracts\RouterContract
      */
     public static function getInstance(): RouterContract;
 
