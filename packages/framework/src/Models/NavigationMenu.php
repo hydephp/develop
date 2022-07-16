@@ -71,7 +71,7 @@ class NavigationMenu
         return $this;
     }
 
-    /** @internal */
+    /** @deprecated v0.50.x - use Route::home() instead */
     public function getHomeLink(): string
     {
         return Route::get('index');
