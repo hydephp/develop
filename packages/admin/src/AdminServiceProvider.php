@@ -2,6 +2,8 @@
 
 namespace Hyde\Admin;
 
+use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
@@ -29,7 +31,7 @@ class AdminServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'admin');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+         $this->loadViewsFrom(__DIR__.'/../resources/views', 'hyde-admin');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -56,5 +58,9 @@ class AdminServiceProvider extends ServiceProvider
             // Registering package commands.
             // $this->commands([]);
         }
+
+        RoutingService::getInstance()->addRoute(
+            (new AdminPage('hyde-admin::dashboard'))->getRoute()
+        );
     }
 }
