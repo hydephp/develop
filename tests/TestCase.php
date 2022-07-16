@@ -64,4 +64,9 @@ abstract class TestCase extends BaseTestCase
     {
         view()->share('currentRoute', (new Route(new MarkdownPage())));
     }
+    protected function mockPage()
+    {
+        view()->share('page', new MarkdownPage());
+        view()->share('currentPage', 'PHPUnit');
+    }
 }
