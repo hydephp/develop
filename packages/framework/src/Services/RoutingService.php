@@ -80,11 +80,21 @@ class RoutingService implements RoutingServiceContract
         });
     }
 
+    /**
+     * This internal method adds the specified route to the route index.
+     * It's intended to be used for package developers to hook into the routing system.
+     */
+    public function addRoute(RouteContract $route): self
+    {
+        $this->routes->put($route->getRouteKey(), $route);
+
+        return $this;
+    }
+
     protected function discover(PageContract $page): self
     {
         // Create a new route for the given page, and add it to the index.
-        $route = new Route($page);
-        $this->routes->put($route->getRouteKey(), $route);
+        $this->addRoute(new Route($page));
 
         return $this;
     }
