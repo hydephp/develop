@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Framework\Models\NavItem;
+use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -33,4 +34,16 @@ class NavigationLinkViewTest extends TestCase
     {
         $this->assertStringContainsString('Foo', $this->render());
     }
+
+    public function test_component_is_current_when_current_route_matches()
+    {
+        $this->mockRoute(Route::get('index'));
+        $this->assertStringContainsString('current', $this->render(NavItem::toRoute(Route::get('index'), 'Home')));
+    }
+
+    public function test_component_has_aria_current_when_current_route_matches()
+    {
+        $this->mockRoute(Route::get('index'));
+        $this->assertStringContainsString('aria-current="page"', $this->render(NavItem::toRoute(Route::get('index'), 'Home')));
+	}
 }
