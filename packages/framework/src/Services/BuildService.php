@@ -5,7 +5,6 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\RouteContract as Route;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Router;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
@@ -24,13 +23,13 @@ class BuildService
     use InteractsWithIO;
     use InteractsWithDirectories;
 
-    protected Router $router;
+    protected RoutingService $router;
 
     public function __construct(OutputStyle $output)
     {
         $this->output = $output;
 
-        $this->router = Router::getInstance();
+        $this->router = RoutingService::getInstance();
     }
 
     public function compileStaticPages(): void

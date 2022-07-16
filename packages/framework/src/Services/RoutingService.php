@@ -1,10 +1,10 @@
 <?php
 
-namespace Hyde\Framework;
+namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Contracts\RouterContract;
+use Hyde\Framework\Contracts\RoutingServiceContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -32,9 +32,9 @@ use Illuminate\Support\Collection;
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
  *
- * @see \Hyde\Framework\Testing\Feature\RouterTest
+ * @see \Hyde\Framework\Testing\Feature\RoutingServiceTest
  */
-class Router implements RouterContract
+class RoutingService implements RoutingServiceContract
 {
     /**
      * The routes discovered by the router.
@@ -44,9 +44,9 @@ class Router implements RouterContract
     protected Collection $routes;
 
     /**
-     * @var \Hyde\Framework\Router|null The singleton instance of the router.
+     * @var \Hyde\Framework\Services\RoutingService|null The singleton instance of the router.
      */
-    protected static Router|null $instance = null;
+    protected static RoutingService|null $instance = null;
 
     /** @inheritDoc */
     public function __construct()

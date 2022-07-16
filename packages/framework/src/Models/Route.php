@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Router;
+use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Collection;
 
 /**
@@ -92,13 +92,13 @@ class Route implements RouteContract, RouteFacadeContract
     /** @inheritDoc */
     public static function getFromKey(string $routeKey): static
     {
-        return Router::getInstance()->getRoutes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return RoutingService::getInstance()->getRoutes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /** @inheritDoc */
     public static function getFromSource(string $sourceFilePath): static
     {
-        return Router::getInstance()->getRoutes()->first(function (RouteContract $route) use ($sourceFilePath) {
+        return RoutingService::getInstance()->getRoutes()->first(function (RouteContract $route) use ($sourceFilePath) {
             return $route->getSourceFilePath() === $sourceFilePath;
         }) ?? throw new RouteNotFoundException($sourceFilePath);
     }
@@ -112,7 +112,7 @@ class Route implements RouteContract, RouteFacadeContract
     /** @inheritDoc */
     public static function all(): Collection
     {
-        return Router::getInstance()->getRoutes();
+        return RoutingService::getInstance()->getRoutes();
     }
 
     /** @inheritDoc */
