@@ -78,7 +78,7 @@
 			<form class="mt-6 mb-4 md:hidden">
 				<div class="mb-3 pt-0">
 					<input type="text" placeholder="Search"
-						class="border-0 px-3 py-2 h-12 border border-solid border-slate-500 placeholder-slate-300 text-slate-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+						class="px-3 py-2 h-12 border border-solid border-slate-500 placeholder-slate-300 text-slate-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
 				</div>
 			</form>
 			<!-- Divider -->
