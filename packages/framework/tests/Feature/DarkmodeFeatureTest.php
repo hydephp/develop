@@ -18,7 +18,8 @@ class DarkmodeFeatureTest extends TestCase
     {
         parent::setUp();
 
-        view()->share('page', new MarkdownPage([], ''));
+        $this->mockRoute();
+        $this->mockPage();
     }
 
     public function test_has_darkmode()
