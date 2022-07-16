@@ -717,14 +717,14 @@
                                             About Us </a>
                                     </li>
                                     <li>
-                                        <a href="http://blog.creative-tim.com?ref=njs-dashboard"
+                                        <a href="https://demos.creative-tim.com/notus-js/pages/admin/dashboard.html"
                                             class="text-slate-600 hover:text-slate-800 text-sm font-semibold block py-1 px-3">
-                                            Blog </a>
+                                            Notus Demo </a>
                                     </li>
                                     <li>
-                                        <a href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-dashboard"
+                                        <a href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus"
                                             class="text-slate-600 hover:text-slate-800 text-sm font-semibold block py-1 px-3">
-                                            MIT License </a>
+                                            Notus Docs </a>
                                     </li>
                                 </ul>
                             </div>
