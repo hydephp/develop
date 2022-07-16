@@ -4,7 +4,7 @@ namespace Hyde\Framework\Contracts;
 
 use Illuminate\Support\Collection;
 
-interface RouterContract
+interface RoutingServiceContract
 {
     /**
      * Construct a new Router instance and discover all routes.
@@ -14,9 +14,9 @@ interface RouterContract
     /**
      * Get the Singleton instance of the Router.
      *
-     * @return \Hyde\Framework\Contracts\RouterContract
+     * @return \Hyde\Framework\Contracts\RoutingServiceContract
      */
-    public static function getInstance(): RouterContract;
+    public static function getInstance(): RoutingServiceContract;
 
     /**
      * Get the routes discovered by the router.

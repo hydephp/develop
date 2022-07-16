@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Router;
+use Hyde\Framework\RoutingService;
 use Illuminate\Support\Collection;
 
 /**
@@ -38,7 +38,7 @@ class NavigationMenu
 
     public function generate(): self
     {
-        Router::getInstance()->getRoutes()->each(function (Route $route) {
+        RoutingService::getInstance()->getRoutes()->each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route));
         });
 

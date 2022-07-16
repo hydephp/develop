@@ -10,33 +10,33 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\Router;
+use Hyde\Framework\RoutingService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\Router
+ * @covers \Hyde\Framework\RoutingService
  */
 class RouterTest extends TestCase
 {
     /**
-     * @covers \Hyde\Framework\Router::getInstance
+     * @covers \Hyde\Framework\RoutingService::getInstance
      */
     public function test_get_instance_returns_the_router_instance()
     {
-        $this->assertInstanceOf(Router::class, Router::getInstance());
-        $this->assertEquals(Router::getInstance(), Router::getInstance());
+        $this->assertInstanceOf(RoutingService::class, RoutingService::getInstance());
+        $this->assertEquals(RoutingService::getInstance(), RoutingService::getInstance());
     }
 
     /**
      * Test route autodiscovery.
      *
-     * @covers \Hyde\Framework\Router::__construct
-     * @covers \Hyde\Framework\Router::getRoutes
+     * @covers \Hyde\Framework\RoutingService::__construct
+     * @covers \Hyde\Framework\RoutingService::getRoutes
      */
     public function test_get_routes_returns_discovered_routes()
     {
-        $routes = (new Router())->getRoutes();
+        $routes = (new RoutingService())->getRoutes();
 
         $this->assertContainsOnlyInstancesOf(RouteContract::class, $routes);
 
@@ -47,13 +47,13 @@ class RouterTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Router::getRoutesForModel
+     * @covers \Hyde\Framework\RoutingService::getRoutesForModel
      */
     public function test_get_routes_for_model_returns_only_routes_for_the_given_model()
     {
         Hyde::touch(('_pages/foo.md'));
 
-        $routes = (new Router())->getRoutesForModel(MarkdownPage::class);
+        $routes = (new RoutingService())->getRoutesForModel(MarkdownPage::class);
 
         $this->assertEquals(collect([
             'foo' => new Route(MarkdownPage::parse('foo')),
@@ -65,9 +65,9 @@ class RouterTest extends TestCase
     /**
      * Test route autodiscovery.
      *
-     * @covers \Hyde\Framework\Router::discover
-     * @covers \Hyde\Framework\Router::discoverRoutes
-     * @covers \Hyde\Framework\Router::discoverPageRoutes
+     * @covers \Hyde\Framework\RoutingService::discover
+     * @covers \Hyde\Framework\RoutingService::discoverRoutes
+     * @covers \Hyde\Framework\RoutingService::discoverPageRoutes
      */
     public function test_discover_routes_finds_and_adds_all_pages_to_route_collection()
     {
@@ -94,7 +94,7 @@ class RouterTest extends TestCase
         touch('_posts/post.md');
         touch('_docs/doc.md');
 
-        $this->assertEmpty((new Router())->getRoutes());
+        $this->assertEmpty((new RoutingService())->getRoutes());
 
         unlink('_pages/blade.blade.php');
         unlink('_pages/markdown.md');
@@ -129,7 +129,7 @@ class RouterTest extends TestCase
             $expectedKey => new Route($class::parse('foo')),
         ]);
 
-        $this->assertEquals($expected, (new Router())->getRoutes());
+        $this->assertEquals($expected, (new RoutingService())->getRoutes());
         unlink(Hyde::path($class::qualifyBasename('foo')));
     }
 

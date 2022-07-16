@@ -10,7 +10,7 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\Router;
+use Hyde\Framework\RoutingService;
 use Hyde\Testing\TestCase;
 
 /**
@@ -132,7 +132,7 @@ class RouteTest extends TestCase
 
     public function test_route_facade_all_method_returns_all_routes()
     {
-        $this->assertEquals(Router::getInstance()->getRoutes(), Route::all());
+        $this->assertEquals(RoutingService::getInstance()->getRoutes(), Route::all());
     }
 
     public function test_get_link_returns_correct_path_for_root_pages()
