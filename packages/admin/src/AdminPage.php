@@ -14,4 +14,9 @@ final class AdminPage extends BladePage implements PageContract
     {
         return 'admin';
     }
+
+    public function navigationMenuTitle(): string
+    {
+        return 'Admin Panel';
+    }
 }
