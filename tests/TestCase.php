@@ -60,10 +60,13 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
+    /** @internal */
     protected function mockRoute()
     {
         view()->share('currentRoute', (new Route(new MarkdownPage())));
     }
+
+    /** @internal */
     protected function mockPage()
     {
         view()->share('page', new MarkdownPage());
