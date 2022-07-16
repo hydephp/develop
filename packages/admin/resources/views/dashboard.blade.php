@@ -29,7 +29,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Dashboard | Notus JS by Creative Tim</title>
 </head>
-<body class="text-blueGray-700 antialiased">
+<body class="text-slate-700 antialiased">
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root">
     <nav
@@ -46,7 +46,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <a
-                    class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                    class="md:block text-left md:pb-2 text-slate-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                     href="../../index.html"
             >
                 Notus JS
@@ -54,7 +54,7 @@
             <ul class="md:hidden items-center flex flex-wrap list-none">
                 <li class="inline-block relative">
                     <a
-                            class="text-blueGray-500 block py-1 px-3"
+                            class="text-slate-500 block py-1 px-3"
                             href="#pablo"
                             onclick="openDropdown(event,'notification-dropdown')"
                     ><i class="fas fa-bell"></i
@@ -65,35 +65,35 @@
                     >
                         <a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Action</a
                         ><a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Another action</a
                         ><a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Something else here</a
                         >
                         <div
-                                class="h-0 my-2 border border-solid border-blueGray-100"
+                                class="h-0 my-2 border border-solid border-slate-100"
                         ></div>
                         <a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Seprated link</a
                         >
                     </div>
                 </li>
                 <li class="inline-block relative">
                     <a
-                            class="text-blueGray-500 block"
+                            class="text-slate-500 block"
                             href="#pablo"
                             onclick="openDropdown(event,'user-responsive-dropdown')"
                     ><div class="items-center flex">
                   <span
-                          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                          class="w-12 h-12 text-sm text-white bg-slate-200 inline-flex items-center justify-center rounded-full"
                   ><img
                               alt="..."
                               class="w-full rounded-full align-middle border-none shadow-lg"
@@ -106,23 +106,23 @@
                     >
                         <a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Action</a
                         ><a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Another action</a
                         ><a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Something else here</a
                         >
                         <div
-                                class="h-0 my-2 border border-solid border-blueGray-100"
+                                class="h-0 my-2 border border-solid border-slate-100"
                         ></div>
                         <a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Seprated link</a
                         >
                     </div>
@@ -133,12 +133,12 @@
                     id="example-collapse-sidebar"
             >
                 <div
-                        class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
+                        class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-slate-200"
                 >
                     <div class="flex flex-wrap">
                         <div class="w-6/12">
                             <a
-                                    class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                                    class="md:block text-left md:pb-2 text-slate-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                                     href="../../index.html"
                             >
                                 Notus JS
@@ -160,7 +160,7 @@
                         <input
                                 type="text"
                                 placeholder="Search"
-                                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
+                                class="border-0 px-3 py-2 h-12 border border-solid border-slate-500 placeholder-slate-300 text-slate-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
                         />
                     </div>
                 </form>
@@ -168,7 +168,7 @@
                 <hr class="my-4 md:min-w-full" />
                 <!-- Heading -->
                 <h6
-                        class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+                        class="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
                 >
                     Admin Layout Pages
                 </h6>
@@ -188,9 +188,9 @@
                     <li class="items-center">
                         <a
                                 href="./settings.html"
-                                class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                                class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500"
                         >
-                            <i class="fas fa-tools mr-2 text-sm text-blueGray-300"></i>
+                            <i class="fas fa-tools mr-2 text-sm text-slate-300"></i>
                             Settings
                         </a>
                     </li>
@@ -198,9 +198,9 @@
                     <li class="items-center">
                         <a
                                 href="./tables.html"
-                                class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                                class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500"
                         >
-                            <i class="fas fa-table mr-2 text-sm text-blueGray-300"></i>
+                            <i class="fas fa-table mr-2 text-sm text-slate-300"></i>
                             Tables
                         </a>
                     </li>
@@ -208,10 +208,10 @@
                     <li class="items-center">
                         <a
                                 href="./maps.html"
-                                class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                                class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500"
                         >
                             <i
-                                    class="fas fa-map-marked mr-2 text-sm text-blueGray-300"
+                                    class="fas fa-map-marked mr-2 text-sm text-slate-300"
                             ></i>
                             Maps
                         </a>
@@ -222,7 +222,7 @@
                 <hr class="my-4 md:min-w-full" />
                 <!-- Heading -->
                 <h6
-                        class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+                        class="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
                 >
                     Auth Layout Pages
                 </h6>
@@ -234,10 +234,10 @@
                     <li class="items-center">
                         <a
                                 href="../auth/login.html"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                                class="text-slate-700 hover:text-slate-500 text-xs uppercase py-3 font-bold block"
                         >
                             <i
-                                    class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"
+                                    class="fas fa-fingerprint text-slate-300 mr-2 text-sm"
                             ></i>
                             Login
                         </a>
@@ -246,10 +246,10 @@
                     <li class="items-center">
                         <a
                                 href="../auth/register.html"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                                class="text-slate-700 hover:text-slate-500 text-xs uppercase py-3 font-bold block"
                         >
                             <i
-                                    class="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"
+                                    class="fas fa-clipboard-list text-slate-300 mr-2 text-sm"
                             ></i>
                             Register
                         </a>
@@ -260,7 +260,7 @@
                 <hr class="my-4 md:min-w-full" />
                 <!-- Heading -->
                 <h6
-                        class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+                        class="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
                 >
                     No Layout Pages
                 </h6>
@@ -272,10 +272,10 @@
                     <li class="items-center">
                         <a
                                 href="../landing.html"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                                class="text-slate-700 hover:text-slate-500 text-xs uppercase py-3 font-bold block"
                         >
                             <i
-                                    class="fas fa-newspaper text-blueGray-300 mr-2 text-sm"
+                                    class="fas fa-newspaper text-slate-300 mr-2 text-sm"
                             ></i>
                             Landing Page
                         </a>
@@ -284,10 +284,10 @@
                     <li class="items-center">
                         <a
                                 href="../profile.html"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                                class="text-slate-700 hover:text-slate-500 text-xs uppercase py-3 font-bold block"
                         >
                             <i
-                                    class="fas fa-user-circle text-blueGray-300 mr-2 text-sm"
+                                    class="fas fa-user-circle text-slate-300 mr-2 text-sm"
                             ></i>
                             Profile Page
                         </a>
@@ -298,7 +298,7 @@
                 <hr class="my-4 md:min-w-full" />
                 <!-- Heading -->
                 <h6
-                        class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+                        class="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
                 >
                     Documentation
                 </h6>
@@ -310,10 +310,10 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/js/colors/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
                             <i
-                                    class="fas fa-paint-brush mr-2 text-blueGray-300 text-base"
+                                    class="fas fa-paint-brush mr-2 text-slate-300 text-base"
                             ></i>
                             Styles
                         </a>
@@ -323,10 +323,10 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/js/alerts/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
                             <i
-                                    class="fab fa-css3-alt mr-2 text-blueGray-300 text-base"
+                                    class="fab fa-css3-alt mr-2 text-slate-300 text-base"
                             ></i>
                             CSS Components
                         </a>
@@ -336,10 +336,10 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
                             <i
-                                    class="fab fa-angular mr-2 text-blueGray-300 text-base"
+                                    class="fab fa-angular mr-2 text-slate-300 text-base"
                             ></i>
                             Angular
                         </a>
@@ -349,10 +349,10 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
                             <i
-                                    class="fab fa-js-square mr-2 text-blueGray-300 text-base"
+                                    class="fab fa-js-square mr-2 text-slate-300 text-base"
                             ></i>
                             Javascript
                         </a>
@@ -362,9 +362,9 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/overview/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
-                            <i class="fab fa-react mr-2 text-blueGray-300 text-base"></i>
+                            <i class="fab fa-react mr-2 text-slate-300 text-base"></i>
                             NextJS
                         </a>
                     </li>
@@ -373,9 +373,9 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
-                            <i class="fab fa-react mr-2 text-blueGray-300 text-base"></i>
+                            <i class="fab fa-react mr-2 text-slate-300 text-base"></i>
                             React
                         </a>
                     </li>
@@ -384,9 +384,9 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/svelte/overview/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
-                            <i class="fas fa-link mr-2 text-blueGray-300 text-base"></i>
+                            <i class="fas fa-link mr-2 text-slate-300 text-base"></i>
                             Svelte
                         </a>
                     </li>
@@ -395,9 +395,9 @@
                         <a
                                 href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus"
                                 target="_blank"
-                                class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                                class="text-slate-700 hover:text-slate-500 text-sm block mb-4 no-underline font-semibold"
                         >
-                            <i class="fab fa-vuejs mr-2 text-blueGray-300 text-base"></i>
+                            <i class="fab fa-vuejs mr-2 text-slate-300 text-base"></i>
                             VueJS
                         </a>
                     </li>
@@ -405,7 +405,7 @@
             </div>
         </div>
     </nav>
-    <div class="relative md:ml-64 bg-blueGray-50">
+    <div class="relative md:ml-64 bg-slate-50">
         <nav
                 class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
         >
@@ -422,13 +422,13 @@
                 >
                     <div class="relative flex w-full flex-wrap items-stretch">
                 <span
-                        class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"
+                        class="z-10 h-full leading-snug font-normal absolute text-center text-slate-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"
                 ><i class="fas fa-search"></i
                     ></span>
                         <input
                                 type="text"
                                 placeholder="Search here..."
-                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
+                                class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
                         />
                     </div>
                 </form>
@@ -436,13 +436,13 @@
                         class="flex-col md:flex-row list-none items-center hidden md:flex"
                 >
                     <a
-                            class="text-blueGray-500 block"
+                            class="text-slate-500 block"
                             href="#pablo"
                             onclick="openDropdown(event,'user-dropdown')"
                     >
                         <div class="items-center flex">
                   <span
-                          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                          class="w-12 h-12 text-sm text-white bg-slate-200 inline-flex items-center justify-center rounded-full"
                   ><img
                               alt="..."
                               class="w-full rounded-full align-middle border-none shadow-lg"
@@ -456,23 +456,23 @@
                     >
                         <a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Action</a
                         ><a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Another action</a
                         ><a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Something else here</a
                         >
                         <div
-                                class="h-0 my-2 border border-solid border-blueGray-100"
+                                class="h-0 my-2 border border-solid border-slate-100"
                         ></div>
                         <a
                                 href="#pablo"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
                         >Seprated link</a
                         >
                     </div>
@@ -495,11 +495,11 @@
                                                 class="relative w-full pr-4 max-w-full flex-grow flex-1"
                                         >
                                             <h5
-                                                    class="text-blueGray-400 uppercase font-bold text-xs"
+                                                    class="text-slate-400 uppercase font-bold text-xs"
                                             >
                                                 Traffic
                                             </h5>
-                                            <span class="font-semibold text-xl text-blueGray-700">
+                                            <span class="font-semibold text-xl text-slate-700">
                             350,897
                           </span>
                                         </div>
@@ -511,7 +511,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="text-sm text-blueGray-400 mt-4">
+                                    <p class="text-sm text-slate-400 mt-4">
                         <span class="text-emerald-500 mr-2">
                           <i class="fas fa-arrow-up"></i> 3.48%
                         </span>
@@ -532,11 +532,11 @@
                                                 class="relative w-full pr-4 max-w-full flex-grow flex-1"
                                         >
                                             <h5
-                                                    class="text-blueGray-400 uppercase font-bold text-xs"
+                                                    class="text-slate-400 uppercase font-bold text-xs"
                                             >
                                                 New users
                                             </h5>
-                                            <span class="font-semibold text-xl text-blueGray-700">
+                                            <span class="font-semibold text-xl text-slate-700">
                             2,356
                           </span>
                                         </div>
@@ -548,7 +548,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="text-sm text-blueGray-400 mt-4">
+                                    <p class="text-sm text-slate-400 mt-4">
                         <span class="text-red-500 mr-2">
                           <i class="fas fa-arrow-down"></i> 3.48%
                         </span>
@@ -567,11 +567,11 @@
                                                 class="relative w-full pr-4 max-w-full flex-grow flex-1"
                                         >
                                             <h5
-                                                    class="text-blueGray-400 uppercase font-bold text-xs"
+                                                    class="text-slate-400 uppercase font-bold text-xs"
                                             >
                                                 Sales
                                             </h5>
-                                            <span class="font-semibold text-xl text-blueGray-700">
+                                            <span class="font-semibold text-xl text-slate-700">
                             924
                           </span>
                                         </div>
@@ -583,7 +583,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="text-sm text-blueGray-400 mt-4">
+                                    <p class="text-sm text-slate-400 mt-4">
                         <span class="text-orange-500 mr-2">
                           <i class="fas fa-arrow-down"></i> 1.10%
                         </span>
@@ -602,23 +602,23 @@
                                                 class="relative w-full pr-4 max-w-full flex-grow flex-1"
                                         >
                                             <h5
-                                                    class="text-blueGray-400 uppercase font-bold text-xs"
+                                                    class="text-slate-400 uppercase font-bold text-xs"
                                             >
                                                 Performance
                                             </h5>
-                                            <span class="font-semibold text-xl text-blueGray-700">
+                                            <span class="font-semibold text-xl text-slate-700">
                             49,65%
                           </span>
                                         </div>
                                         <div class="relative w-auto pl-4 flex-initial">
                                             <div
-                                                    class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lightBlue-500"
+                                                    class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-indigo-500"
                                             >
                                                 <i class="fas fa-percent"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="text-sm text-blueGray-400 mt-4">
+                                    <p class="text-sm text-slate-400 mt-4">
                         <span class="text-emerald-500 mr-2">
                           <i class="fas fa-arrow-up"></i> 12%
                         </span>
@@ -637,13 +637,13 @@
             <div class="flex flex-wrap">
                 <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
                     <div
-                            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700"
+                            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-slate-700"
                     >
                         <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
                             <div class="flex flex-wrap items-center">
                                 <div class="relative w-full max-w-full flex-grow flex-1">
                                     <h6
-                                            class="uppercase text-blueGray-100 mb-1 text-xs font-semibold"
+                                            class="uppercase text-slate-100 mb-1 text-xs font-semibold"
                                     >
                                         Overview
                                     </h6>
@@ -665,15 +665,15 @@
                     <div
                             class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
                     >
-                        <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+                        <div class="rounded-t mb-0 px-4 py-3 bg-white">
                             <div class="flex flex-wrap items-center">
                                 <div class="relative w-full max-w-full flex-grow flex-1">
                                     <h6
-                                            class="uppercase text-blueGray-400 mb-1 text-xs font-semibold"
+                                            class="uppercase text-slate-400 mb-1 text-xs font-semibold"
                                     >
                                         Performance
                                     </h6>
-                                    <h2 class="text-blueGray-700 text-xl font-semibold">
+                                    <h2 class="text-slate-700 text-xl font-semibold">
                                         Total orders
                                     </h2>
                                 </div>
@@ -698,7 +698,7 @@
                                 <div
                                         class="relative w-full px-4 max-w-full flex-grow flex-1"
                                 >
-                                    <h3 class="font-semibold text-base text-blueGray-700">
+                                    <h3 class="font-semibold text-base text-slate-700">
                                         Page visits
                                     </h3>
                                 </div>
@@ -722,22 +722,22 @@
                                 <thead>
                                 <tr>
                                     <th
-                                            class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                                            class="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                                     >
                                         Page name
                                     </th>
                                     <th
-                                            class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                                            class="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                                     >
                                         Visitors
                                     </th>
                                     <th
-                                            class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                                            class="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                                     >
                                         Unique users
                                     </th>
                                     <th
-                                            class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                                            class="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                                     >
                                         Bounce rate
                                     </th>
@@ -873,7 +873,7 @@
                                 <div
                                         class="relative w-full px-4 max-w-full flex-grow flex-1"
                                 >
-                                    <h3 class="font-semibold text-base text-blueGray-700">
+                                    <h3 class="font-semibold text-base text-slate-700">
                                         Social traffic
                                     </h3>
                                 </div>
@@ -897,17 +897,17 @@
                                 <thead class="thead-light">
                                 <tr>
                                     <th
-                                            class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                                            class="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                                     >
                                         Referral
                                     </th>
                                     <th
-                                            class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                                            class="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                                     >
                                         Visitors
                                     </th>
                                     <th
-                                            class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px"
+                                            class="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px"
                                     ></th>
                                 </tr>
                                 </thead>
@@ -1017,11 +1017,11 @@
                                             <span class="mr-2">75%</span>
                                             <div class="relative w-full">
                                                 <div
-                                                        class="overflow-hidden h-2 text-xs flex rounded bg-lightBlue-200"
+                                                        class="overflow-hidden h-2 text-xs flex rounded bg-indigo-200"
                                                 >
                                                     <div
                                                             style="width: 75%"
-                                                            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-lightBlue-500"
+                                                            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"
                                                     ></div>
                                                 </div>
                                             </div>
@@ -1065,18 +1065,18 @@
             </div>
             <footer class="block py-4">
                 <div class="container mx-auto px-4">
-                    <hr class="mb-4 border-b-1 border-blueGray-200" />
+                    <hr class="mb-4 border-b-1 border-slate-200" />
                     <div
                             class="flex flex-wrap items-center md:justify-between justify-center"
                     >
                         <div class="w-full md:w-4/12 px-4">
                             <div
-                                    class="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left"
+                                    class="text-sm text-slate-500 font-semibold py-1 text-center md:text-left"
                             >
                                 Copyright © <span id="get-current-year"></span>
                                 <a
                                         href="https://www.creative-tim.com?ref=njs-dashboard"
-                                        class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
+                                        class="text-slate-500 hover:text-slate-700 text-sm font-semibold py-1"
                                 >
                                     Creative Tim
                                 </a>
@@ -1089,7 +1089,7 @@
                                 <li>
                                     <a
                                             href="https://www.creative-tim.com?ref=njs-dashboard"
-                                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                                            class="text-slate-600 hover:text-slate-800 text-sm font-semibold block py-1 px-3"
                                     >
                                         Creative Tim
                                     </a>
@@ -1097,7 +1097,7 @@
                                 <li>
                                     <a
                                             href="https://www.creative-tim.com/presentation?ref=njs-dashboard"
-                                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                                            class="text-slate-600 hover:text-slate-800 text-sm font-semibold block py-1 px-3"
                                     >
                                         About Us
                                     </a>
@@ -1105,7 +1105,7 @@
                                 <li>
                                     <a
                                             href="http://blog.creative-tim.com?ref=njs-dashboard"
-                                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                                            class="text-slate-600 hover:text-slate-800 text-sm font-semibold block py-1 px-3"
                                     >
                                         Blog
                                     </a>
@@ -1113,7 +1113,7 @@
                                 <li>
                                     <a
                                             href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-dashboard"
-                                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                                            class="text-slate-600 hover:text-slate-800 text-sm font-semibold block py-1 px-3"
                                     >
                                         MIT License
                                     </a>
