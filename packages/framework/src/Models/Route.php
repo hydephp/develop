@@ -120,4 +120,10 @@ class Route implements RouteContract, RouteFacadeContract
     {
         return Hyde::currentRoute() ?? throw new RouteNotFoundException('current');
     }
+
+    /** @inheritDoc */
+    public static function home(): RouteContract
+    {
+        return static::getFromKey('index');
+    }
 }

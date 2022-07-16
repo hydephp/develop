@@ -183,4 +183,9 @@ class RouteTest extends TestCase
         $this->expectException(RouteNotFoundException::class);
         Route::current();
     }
+
+    public function test_home_helper_returns_index_route()
+    {
+        $this->assertEquals(Route::get('index'), Route::home());
+    }
 }
