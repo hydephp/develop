@@ -25,6 +25,9 @@ class NavigationMenu
         return (new self())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
     }
 
+    /**
+     * @deprecated v0.50.0 - Automatically inferred from the view.
+     */
     public function setCurrentRoute(RouteContract $currentRoute): self
     {
         $this->currentRoute = $currentRoute;
