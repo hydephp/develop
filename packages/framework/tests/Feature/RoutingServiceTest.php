@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Framework\Services\RoutingService
  */
-class RouterTest extends TestCase
+class RoutingServiceTest extends TestCase
 {
     /**
      * @covers \Hyde\Framework\Services\RoutingService::getInstance
@@ -100,6 +100,28 @@ class RouterTest extends TestCase
         unlink('_pages/markdown.md');
         unlink('_posts/post.md');
         unlink('_docs/doc.md');
+    }
+
+    public function test_add_route_adds_a_route_to_the_routes_collection()
+    {
+        $routes = (new RoutingService())->getRoutes();
+
+        $this->assertEquals(collect([
+            '404' => new Route(BladePage::parse('404')),
+            'index' => new Route(BladePage::parse('index')),
+        ]), $routes);
+
+        Hyde::touch('_pages/foo.md');
+        (new RoutingService())->addRoute(new Route(MarkdownPage::parse('foo')));
+        $routes = (new RoutingService())->getRoutes();
+
+        $this->assertEquals(collect([
+            '404' => new Route(BladePage::parse('404')),
+            'index' => new Route(BladePage::parse('index')),
+            'foo' => new Route(MarkdownPage::parse('foo')),
+        ]), $routes);
+
+        Hyde::unlink('_pages/foo.md');
     }
 
     public function test_routes_with_custom_source_directories_are_discovered_properly()
