@@ -61,9 +61,9 @@ abstract class TestCase extends BaseTestCase
     }
 
     /** @internal */
-    protected function mockRoute()
+    protected function mockRoute(?Route $route = null)
     {
-        view()->share('currentRoute', (new Route(new MarkdownPage())));
+        view()->share('currentRoute', $route ?? (new Route(new MarkdownPage())));
     }
 
     /** @internal */
