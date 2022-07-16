@@ -45,5 +45,5 @@ class NavigationLinkViewTest extends TestCase
     {
         $this->mockRoute(Route::get('index'));
         $this->assertStringContainsString('aria-current="page"', $this->render(NavItem::toRoute(Route::get('index'), 'Home')));
-	}
+    }
 }
