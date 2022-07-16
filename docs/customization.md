@@ -67,6 +67,7 @@ when running the `php hyde build` command for deployment.
 'prettyUrls' => false, // Default is false
 ```
 
+> Note that this can cause issues when you are serving your site from a subdirectory. See [#228](https://github.com/hydephp/develop/issues/228)
 
 #### Generate sitemap.xml
 
