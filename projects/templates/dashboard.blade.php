@@ -1,8 +1,8 @@
 @php
-    use Hyde\Framework\Models\BladePage;
-    use Hyde\Framework\Models\MarkdownPage;
-    use Hyde\Framework\Models\DocumentationPage;
-    use Hyde\Framework\Models\MarkdownPost;
+    use Hyde\Framework\Models\Pages\BladePage;
+    use Hyde\Framework\Models\Pages\MarkdownPage;
+    use Hyde\Framework\Models\Pages\DocumentationPage;
+    use Hyde\Framework\Models\Pages\MarkdownPost;
     use Hyde\Framework\Services\CollectionService;
 
 	$github = new class {
@@ -52,7 +52,7 @@
             text-align: right;
         }
     </style>
-    
+
     <main class="mx-auto max-w-7xl py-16 px-8">
         <header class="text-center prose dark:prose-invert mx-auto">
             <h1 class="text-3xl font-bold">Project Dashboard</h1>
@@ -86,7 +86,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{ config('hyde.name', Hyde::titleFromSlug(basename(Hyde::path()))) }}</td>
+                        <td>{{ config('hyde.name', Hyde::makeTitle(basename(Hyde::path()))) }}</td>
                         <td>{{ Hyde::path() }}</td>
                         <td>{{ Hyde::version() }}</td>
                         <td>{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>
@@ -156,7 +156,7 @@
             <header>
                 <h2>Your Content</h2>
             </header>
-        
+
             <h3>Content Overview</h3>
             <table class="table-justified">
                 <thead>
@@ -171,22 +171,22 @@
                 <tr>
                     <td>
                         <a href="#blade-pages">
-                            <b>{{ count(CollectionService::getBladePageList()) }}</b> pages
+                            <b>{{ count(CollectionService::getBladePageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#markdown-pages">
-                            <b>{{ count(CollectionService::getMarkdownPageList()) }}</b> pages
+                            <b>{{ count(CollectionService::getMarkdownPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#documentation-pages">
-                            <b>{{ count(CollectionService::getDocumentationPageList()) }}</b> pages
+                            <b>{{ count(CollectionService::getDocumentationPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#blog-posts">
-                            <b>{{ count(CollectionService::getMarkdownPostList()) }}</b> posts
+                            <b>{{ count(CollectionService::getMarkdownPostFiles()) }}</b> posts
                         </a>
                     </td>
                 </tr>
@@ -210,7 +210,7 @@
                         <tr>
                             <td>
                                 <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
-                                    {{ Hyde::titleFromSlug($page->view) }}
+                                    {{ Hyde::makeTitle($page->view) }}
                                 </a>
                             </td>
                             <td>
