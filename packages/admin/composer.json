@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/support": "^8.0",
+        "illuminate/support": "^9.5",
         "hyde/framework": "dev-master"
     },
     "require-dev": {
