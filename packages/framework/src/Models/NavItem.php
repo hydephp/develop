@@ -4,6 +4,7 @@ namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Hyde;
 
 /**
  * Abstraction for a navigation menu item.
@@ -89,8 +90,12 @@ class NavItem
     /**
      * Check if the NavItem instance is the current page.
      */
-    public function isCurrent(PageContract $current): bool
+    public function isCurrent(?PageContract $current = null): bool
     {
+        if ($current === null) {
+            $current = Hyde::currentRoute()->getSourceModel();
+        }
+
         if (! isset($this->route)) {
             return ($current->getRoute()->getRouteKey() === $this->href)
             || ($current->getRoute()->getRouteKey().'.html' === $this->href);

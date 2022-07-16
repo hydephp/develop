@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
@@ -18,7 +17,8 @@ class DarkmodeFeatureTest extends TestCase
     {
         parent::setUp();
 
-        view()->share('page', new MarkdownPage([], ''));
+        $this->mockRoute();
+        $this->mockPage();
     }
 
     public function test_has_darkmode()

@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Router;
 use Illuminate\Support\Collection;
 
@@ -20,11 +21,14 @@ class NavigationMenu
         $this->items = new Collection();
     }
 
-    public static function create(RouteContract $currentRoute): static
+    public static function create(?RouteContract $currentRoute = null): static
     {
-        return (new self())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
+        return (new self())->setCurrentRoute($currentRoute ?? Hyde::currentRoute())->generate()->filter()->sort();
     }
 
+    /**
+     * @deprecated v0.50.0 - Automatically inferred from the view.
+     */
     public function setCurrentRoute(RouteContract $currentRoute): self
     {
         $this->currentRoute = $currentRoute;
@@ -67,7 +71,7 @@ class NavigationMenu
         return $this;
     }
 
-    /** @internal */
+    /** @deprecated v0.50.x - use Route::home() instead */
     public function getHomeLink(): string
     {
         return Route::get('index');
