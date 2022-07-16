@@ -104,7 +104,7 @@ class Route implements RouteContract, RouteFacadeContract
     }
 
     /** @inheritDoc */
-    public static function getFromModel(PageContract $page): static
+    public static function getFromModel(PageContract $page): RouteContract
     {
         return $page->getRoute();
     }
@@ -116,8 +116,14 @@ class Route implements RouteContract, RouteFacadeContract
     }
 
     /** @inheritDoc */
-    public static function current(): static
+    public static function current(): RouteContract
     {
         return Hyde::currentRoute() ?? throw new RouteNotFoundException('current');
+    }
+
+    /** @inheritDoc */
+    public static function home(): RouteContract
+    {
+        return static::getFromKey('index');
     }
 }

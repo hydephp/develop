@@ -64,4 +64,9 @@ interface RouteFacadeContract
      * Get the current route for the page being rendered.
      */
     public static function current(): RouteContract;
+
+    /**
+     * Get the home route, usually the index page route.
+     */
+    public static function home(): RouteContract;
 }
