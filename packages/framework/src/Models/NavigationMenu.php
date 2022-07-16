@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Router;
 use Illuminate\Support\Collection;
 
@@ -20,9 +21,9 @@ class NavigationMenu
         $this->items = new Collection();
     }
 
-    public static function create(RouteContract $currentRoute): static
+    public static function create(?RouteContract $currentRoute = null): static
     {
-        return (new self())->setCurrentRoute($currentRoute)->generate()->filter()->sort();
+        return (new self())->setCurrentRoute($currentRoute ?? Hyde::currentRoute())->generate()->filter()->sort();
     }
 
     /**
