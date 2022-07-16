@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- internal: Refactor navigation menu components and improve link helpers
 
 ### Deprecated
 - for soon-to-be removed features.
