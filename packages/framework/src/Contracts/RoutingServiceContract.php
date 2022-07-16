@@ -39,7 +39,7 @@ interface RoutingServiceContract
      * This internal method adds the specified route to the route index.
      * It's intended to be used for package developers to hook into the routing system.
      *
-     * @param \Hyde\Framework\Contracts\RouteContract $route
+     * @param  \Hyde\Framework\Contracts\RouteContract  $route
      * @return $this
      */
     public function addRoute(RouteContract $route): self;
