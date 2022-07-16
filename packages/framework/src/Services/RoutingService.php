@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework;
+namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
@@ -44,7 +44,7 @@ class RoutingService implements RoutingServiceContract
     protected Collection $routes;
 
     /**
-     * @var \Hyde\Framework\RoutingService|null The singleton instance of the router.
+     * @var \Hyde\Framework\Services\RoutingService|null The singleton instance of the router.
      */
     protected static RoutingService|null $instance = null;
 

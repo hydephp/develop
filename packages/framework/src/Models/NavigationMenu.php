@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\RoutingService;
+use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Collection;
 
 /**

@@ -10,17 +10,17 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\RoutingService;
+use Hyde\Framework\Services\RoutingService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\RoutingService
+ * @covers \Hyde\Framework\Services\RoutingService
  */
 class RouterTest extends TestCase
 {
     /**
-     * @covers \Hyde\Framework\RoutingService::getInstance
+     * @covers \Hyde\Framework\Services\RoutingService::getInstance
      */
     public function test_get_instance_returns_the_router_instance()
     {
@@ -31,8 +31,8 @@ class RouterTest extends TestCase
     /**
      * Test route autodiscovery.
      *
-     * @covers \Hyde\Framework\RoutingService::__construct
-     * @covers \Hyde\Framework\RoutingService::getRoutes
+     * @covers \Hyde\Framework\Services\RoutingService::__construct
+     * @covers \Hyde\Framework\Services\RoutingService::getRoutes
      */
     public function test_get_routes_returns_discovered_routes()
     {
@@ -47,7 +47,7 @@ class RouterTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\RoutingService::getRoutesForModel
+     * @covers \Hyde\Framework\Services\RoutingService::getRoutesForModel
      */
     public function test_get_routes_for_model_returns_only_routes_for_the_given_model()
     {
@@ -65,9 +65,9 @@ class RouterTest extends TestCase
     /**
      * Test route autodiscovery.
      *
-     * @covers \Hyde\Framework\RoutingService::discover
-     * @covers \Hyde\Framework\RoutingService::discoverRoutes
-     * @covers \Hyde\Framework\RoutingService::discoverPageRoutes
+     * @covers \Hyde\Framework\Services\RoutingService::discover
+     * @covers \Hyde\Framework\Services\RoutingService::discoverRoutes
+     * @covers \Hyde\Framework\Services\RoutingService::discoverPageRoutes
      */
     public function test_discover_routes_finds_and_adds_all_pages_to_route_collection()
     {
