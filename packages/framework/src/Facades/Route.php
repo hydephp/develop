@@ -8,6 +8,8 @@ use Hyde\Framework\Models\Route as RouteModel;
 use Illuminate\Support\Collection;
 
 /**
+ * @deprecated v0.50.x - use \Hyde\Framework\Models\Route instead
+ *
  * @see \Hyde\Framework\Models\Route
  * @see \Hyde\Framework\Testing\Feature\RouteFacadeTest
  */
