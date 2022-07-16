@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Framework\Services\RoutingService
  */
-class RouterTest extends TestCase
+class RoutingServiceTest extends TestCase
 {
     /**
      * @covers \Hyde\Framework\Services\RoutingService::getInstance
