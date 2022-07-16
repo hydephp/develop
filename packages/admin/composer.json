@@ -17,7 +17,8 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^8.0",
+        "hyde/framework": "dev-master"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
