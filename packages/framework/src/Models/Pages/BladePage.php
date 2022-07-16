@@ -44,7 +44,7 @@ class BladePage extends AbstractPage implements PageParserContract
     public static string $parserClass = self::class;
 
     /**
-     * Since this model also acts as a Blade View compiler,
+     * Since this model also acts as a Page parser,
      * we implement the get method for compatability.
      */
     public function get(): BladePage
@@ -53,7 +53,7 @@ class BladePage extends AbstractPage implements PageParserContract
     }
 
     /**
-     * Since this model also acts as a Blade View compiler,
+     * Since this model also acts as a Page parser,
      * we implement the execute method for compatability.
      */
     public function execute(): void
