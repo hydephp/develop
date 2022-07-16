@@ -7,6 +7,20 @@ use Illuminate\Support\ServiceProvider;
 class AdminServiceProvider extends ServiceProvider
 {
     /**
+     * Register the application services.
+     */
+    public function register()
+    {
+        // Automatically apply the package configuration
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'admin');
+
+        // Register the main class to use with the facade
+        $this->app->singleton('admin', function () {
+            return new Admin;
+        });
+    }
+
+    /**
      * Bootstrap the application services.
      */
     public function boot()
@@ -42,19 +56,5 @@ class AdminServiceProvider extends ServiceProvider
             // Registering package commands.
             // $this->commands([]);
         }
-    }
-
-    /**
-     * Register the application services.
-     */
-    public function register()
-    {
-        // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'admin');
-
-        // Register the main class to use with the facade
-        $this->app->singleton('admin', function () {
-            return new Admin;
-        });
     }
 }
