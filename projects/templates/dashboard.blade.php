@@ -267,7 +267,7 @@
                     @foreach (DocumentationPage::all() as $page)
                         <tr>
                             <td>
-                                <a href="{{ Hyde::docsDirectory() .'/'. Hyde::pageLink($page->slug . '.html') }}">
+                                <a href="{{ DocumentationPage::$outputDirectory .'/'. Hyde::pageLink($page->slug . '.html') }}">
                                     {{ $page->title }}
                                 </a>
                             </td>
