@@ -39,9 +39,11 @@
         <div class="relative md:ml-64 bg-slate-50">
             @include('hyde-admin::components.navigation')
 
-            <main>
+            <main class="relative pb-32">
                 @include('hyde-admin::pages.dashboard')
             </main>
+       
+            @include('hyde-admin::components.footer')
         </div>
     </div>
 </body>
