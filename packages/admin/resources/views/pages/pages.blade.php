@@ -41,15 +41,15 @@
                         @foreach (BladePage::all() as $page)
                             <tr>
                                 <td class="px-3">
-                                    <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+                                    <a href="{{ $page->getRoute() }}">
                                         {{ Hyde::makeTitle($page->view) }}
                                     </a>
                                 </td>
                                 <td class="px-3">
-                                    {{ (BladePage::$sourceDirectory .'/'. $page->slug . BladePage::$fileExtension) }}
+                                    {{ $page->getSourcePath() }}
                                 </td>
                                 <td class="px-3 text-right not-prose">
-                                    <a href="{{ Hyde::pageLink($page->slug . '.html') }}" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700" title="View compiled page">
+                                    <a href="{{ $page->getRoute() }}" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700" title="View compiled page">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700 ml-1" title="Edit source">
@@ -98,15 +98,15 @@
                     @foreach (MarkdownPage::all() as $page)
                         <tr>
                             <td class="px-3">
-                                <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+                                <a href="{{ $page->getRoute() }}">
                                     {{ $page->title }}
                                 </a>
                             </td>
                             <td class="px-3">
-                                {{ (MarkdownPage::$sourceDirectory .'/'. $page->slug . MarkdownPage::$fileExtension) }}
+                                {{ $page->getSourcePath() }}
                             </td>
                             <td class="px-3 text-right not-prose">
-                                <a href="{{ Hyde::pageLink($page->slug . '.html') }}" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700" title="View compiled page">
+                                <a href="{{ $page->getRoute() }}" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700" title="View compiled page">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <a href="" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700 ml-1" title="Edit source">
