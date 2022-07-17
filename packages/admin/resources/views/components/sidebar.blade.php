@@ -8,15 +8,15 @@
 			<i class="fas fa-bars"></i>
 		</button>
 		<a class="md:block text-left md:pb-2 text-slate-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-			href="../../index.html"> Notus JS </a>
+			href="?route=dashboard"> {{ config('hyde.name') }} Admin </a>
 		
-		<div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
+		<div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
 			id="example-collapse-sidebar">
 			<div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-slate-200">
 				<div class="flex flex-wrap">
 					<div class="w-6/12">
 						<a class="md:block text-left md:pb-2 text-slate-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-							href="../../index.html"> Notus JS </a>
+							href="?route=dashboard"> {{ config('hyde.name') }} Admin </a>
 					</div>
 					<div class="w-6/12 flex justify-end">
 						<button type="button"
@@ -37,28 +37,28 @@
 			<hr class="my-4 md:min-w-full" />
 			<!-- Heading -->
 			<h6 class="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-				Admin Layout Pages </h6>
+				Site Content </h6>
 			<!-- Navigation -->
 			<ul class="md:flex-col md:min-w-full flex flex-col list-none">
 				<li class="items-center">
-					<a href="./dashboard.html"
+					<a href="?route=pages"
 						class="text-xs uppercase py-3 font-bold block text-pink-500 hover:text-pink-600">
-						<i class="fas fa-tv mr-2 text-sm opacity-75"></i> Dashboard </a>
+						<i class="fas fa-tv mr-2 text-sm opacity-75"></i> Static Pages </a>
 				</li>
 				<li class="items-center">
-					<a href="./settings.html"
+					<a href="?route=posts"
 						class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500">
-						<i class="fas fa-tools mr-2 text-sm text-slate-300"></i> Settings </a>
+						<i class="fas fa-tools mr-2 text-sm text-slate-300"></i> Blog Posts </a>
 				</li>
 				<li class="items-center">
-					<a href="./tables.html"
+					<a href="?route=docs"
 						class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500">
-						<i class="fas fa-table mr-2 text-sm text-slate-300"></i> Tables </a>
+						<i class="fas fa-table mr-2 text-sm text-slate-300"></i> Documentation </a>
 				</li>
 				<li class="items-center">
-					<a href="./maps.html"
+					<a href="?route=media"
 						class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500">
-						<i class="fas fa-map-marked mr-2 text-sm text-slate-300"></i> Maps </a>
+						<i class="fas fa-map-marked mr-2 text-sm text-slate-300"></i> Media Library </a>
 				</li>
 			</ul>
 			<!-- Divider -->
