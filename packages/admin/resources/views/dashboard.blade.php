@@ -32,16 +32,16 @@
 
 <body class="text-slate-700 antialiased">
     <div id="root">
-        @include('hyde-admin::components.sidebar')
+        @include('hyde-admin::layouts.sidebar')
 
         <div class="relative md:ml-64 min-h-screen flex flex-col bg-slate-50">
-            @include('hyde-admin::components.navigation')
+            @include('hyde-admin::layouts.navigation')
 
             <main class="relative pb-32 flex-1">
                 @include($page->view())
             </main>
        
-            @include('hyde-admin::components.footer')
+            @include('hyde-admin::layouts.footer')
         </div>
     </div>
 </body>
