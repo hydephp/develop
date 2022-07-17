@@ -38,7 +38,7 @@
             @include('hyde-admin::components.navigation')
 
             <main class="relative pb-32">
-                @include('hyde-admin::pages.dashboard')
+                @include($page->view())
             </main>
        
             @include('hyde-admin::components.footer')
