@@ -41,24 +41,16 @@
 			<!-- Navigation -->
 			<ul class="md:flex-col md:min-w-full flex flex-col list-none">
 				<li class="items-center">
-					<a href="?route=pages"
-						class="text-xs uppercase py-3 font-bold block text-pink-500 hover:text-pink-600">
-						<i class="fas fa-tv mr-2 text-sm opacity-75"></i> Static Pages </a>
+					<x-hyde-admin::sidebar-link route="pages" label="Static Pages" />
 				</li>
 				<li class="items-center">
-					<a href="?route=posts"
-						class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500">
-						<i class="fas fa-tools mr-2 text-sm text-slate-300"></i> Blog Posts </a>
+					<x-hyde-admin::sidebar-link route="posts" label="Blog Posts" />
 				</li>
 				<li class="items-center">
-					<a href="?route=docs"
-						class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500">
-						<i class="fas fa-table mr-2 text-sm text-slate-300"></i> Documentation </a>
+					<x-hyde-admin::sidebar-link route="docs" label="Documentation" />
 				</li>
 				<li class="items-center">
-					<a href="?route=media"
-						class="text-xs uppercase py-3 font-bold block text-slate-700 hover:text-slate-500">
-						<i class="fas fa-map-marked mr-2 text-sm text-slate-300"></i> Media Library </a>
+					<x-hyde-admin::sidebar-link route="media" label="Media Library" />
 				</li>
 			</ul>
 			<!-- Divider -->
