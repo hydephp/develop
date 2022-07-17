@@ -34,10 +34,10 @@
     <div id="root">
         @include('hyde-admin::components.sidebar')
 
-        <div class="relative md:ml-64 bg-slate-50">
+        <div class="relative md:ml-64 min-h-screen flex flex-col bg-slate-50">
             @include('hyde-admin::components.navigation')
 
-            <main class="relative pb-32">
+            <main class="relative pb-32 flex-1">
                 @include($page->view())
             </main>
        
