@@ -21,9 +21,9 @@
                             <h3 class="font-semibold text-lg text-slate-700"> Blade Pages </h3>
                         </div>
                         <div class="relative w-full px-0 max-w-full flex-grow flex-1 text-right">
-                            <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                            Create new
-                            </button>
+                            {{-- <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                Create new
+                            </button> --}}
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,6 @@
                         <tr>
                             <th class="px-3 pt-2">Title</th>
                             <th class="px-3 pt-2">Source File</th>
-                            <th class="px-3 pt-2 text-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,21 +46,6 @@
                                 </td>
                                 <td class="px-3">
                                     {{ $page->getSourcePath() }}
-                                </td>
-                                <td class="px-3 text-right not-prose">
-                                    <a href="{{ $page->getRoute() }}" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700" title="View compiled page">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700 ml-1" title="Edit source">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    <form class="inline ml-1" action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this file? If you do not use version control it may not be recoverable.')">
-                                        @method('DELETE')
-
-                                        <button class="text-red-500 opacity-75 hover:opacity-100 hover:text-red-700" title="Delete">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -78,9 +62,9 @@
                         <h3 class="font-semibold text-lg text-slate-700"> Markdown Pages </h3>
                     </div>
                     <div class="relative w-full px-0 max-w-full flex-grow flex-1 text-right">
-                        <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        {{-- <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             Create new
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>
@@ -91,7 +75,6 @@
                     <tr>
                         <th class="px-3 pt-2">Title</th>
                         <th class="px-3 pt-2">Source File</th>
-                        <th class="px-3 pt-2 text-right">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -104,21 +87,6 @@
                             </td>
                             <td class="px-3">
                                 {{ $page->getSourcePath() }}
-                            </td>
-                            <td class="px-3 text-right not-prose">
-                                <a href="{{ $page->getRoute() }}" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700" title="View compiled page">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="" class="text-blue-500 opacity-75 hover:opacity-100 hover:text-blue-700 ml-1" title="Edit source">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                <form class="inline ml-1" action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this file? If you do not use version control it may not be recoverable.')">
-                                    @method('DELETE')
-
-                                    <button class="text-red-500 opacity-75 hover:opacity-100 hover:text-red-700" title="Delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
                             </td>
                         </tr>
                     @endforeach
