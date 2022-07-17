@@ -126,16 +126,38 @@ use Hyde\Framework\Services\CollectionService;
 				<div class="rounded-t mb-0 px-4 py-3 bg-white">
 					<div class="flex flex-wrap items-center">
 						<div class="relative w-full max-w-full flex-grow flex-1">
-							<h6 class="uppercase text-slate-400 mb-1 text-xs font-semibold"> Performance
+							<h6 class="uppercase text-slate-400 mb-1 text-xs font-semibold"> Welcome to Hyde!
 							</h6>
-							<h2 class="text-slate-700 text-xl font-semibold"> Total orders </h2>
+							<h2 class="text-slate-700 text-xl font-semibold"> Project Details							</h2>
 						</div>
 					</div>
 				</div>
 				<div class="p-4 flex-auto">
 					<!-- Chart -->
-					<div class="relative h-350-px">
-						<canvas id="bar-chart"></canvas>
+					<div class="relative prose">
+						<table class="-mt-3">
+							<tbody>
+								<tr>
+									<th class="w-fit whitespace-nowrap pr-3" scope="row">Project Name:</th>
+									<td class="w-full">{{ config('hyde.name', Hyde::makeTitle(basename(Hyde::path()))) }}</td>
+								</tr>
+						
+								<tr>
+									<th class="w-fit whitespace-nowrap pr-3" scope="row">Project Path:</th>
+									<td class="w-full">{{ Hyde::path() }}</td>
+								</tr>
+						
+								<tr>
+									<th class="w-fit whitespace-nowrap pr-3" scope="row">Framework Version:</th>
+									<td class="w-full">{{ Hyde::version() }}</td>
+								</tr>
+						
+								<tr>
+									<th class="w-fit whitespace-nowrap pr-3" scope="row">PHP Version:</th>
+									<td class="w-full">{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
