@@ -31,9 +31,7 @@
 </head>
 
 <body class="text-slate-700 antialiased">
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-
         @include('hyde-admin::components.sidebar')
 
         <div class="relative md:ml-64 bg-slate-50">
