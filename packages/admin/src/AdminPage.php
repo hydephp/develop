@@ -11,6 +11,18 @@ final class AdminPage extends BladePage implements PageContract
     /** Not yet implemented, but could be used by the framework to ignore this when compiling */
     protected static bool $compilable = false;
 
+    public string $route;
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(string $view)
+    {
+        parent::__construct($view);
+
+        $this->route = $this->request()->get('route', 'dashboard');
+    }
+
     public function getCurrentPagePath(): string
     {
         return 'admin';
@@ -26,14 +38,9 @@ final class AdminPage extends BladePage implements PageContract
         return Request::capture();
     }
 
-    public function adminRoute(): string
-    {
-        return $this->request()->get('route', 'dashboard');
-    }
-
     public function view(): string
     {
-        $view = 'hyde-admin::pages.' . $this->adminRoute();
+        $view = 'hyde-admin::pages.' . $this->route;
         return view()->exists($view) ? $view : 'hyde-admin::pages.404';
     }
 }
