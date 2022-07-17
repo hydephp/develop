@@ -36,7 +36,7 @@ use Hyde\Framework\Services\CollectionService;
 							<th class="px-3 pt-2">Filename</th>
 							<th class="px-3 pt-2">Type</th>
 							<th class="px-3 pt-2">Size</th>
-							<th class="px-3 pt-2">Last mod</th>
+							<th class="px-3 pt-2">Last modified</th>
 						</tr>
 					</thead>
 					<tbody>
