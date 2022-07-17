@@ -44,13 +44,13 @@
 					<x-hyde-admin::sidebar-link route="pages" label="Static Pages" />
 				</li>
 				<li class="items-center">
-					<x-hyde-admin::sidebar-link route="posts" label="Blog Posts" />
+					<x-hyde-admin::sidebar-link route="posts" label="Blog Posts" icon="rss" />
 				</li>
 				<li class="items-center">
-					<x-hyde-admin::sidebar-link route="docs" label="Documentation" />
+					<x-hyde-admin::sidebar-link route="docs" label="Documentation" icon="book" />
 				</li>
 				<li class="items-center">
-					<x-hyde-admin::sidebar-link route="media" label="Media Library" />
+					<x-hyde-admin::sidebar-link route="media" label="Media Library" icon="photo-film" />
 				</li>
 			</ul>
 			<!-- Divider -->
