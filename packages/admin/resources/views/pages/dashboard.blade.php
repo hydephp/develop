@@ -1,3 +1,7 @@
+@php
+use Hyde\Framework\Services\CollectionService;
+@endphp
+
 <x-hyde-admin::header>
 	<!-- Card stats -->
 	<div class="flex flex-wrap">
@@ -6,8 +10,8 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-slate-400 uppercase font-bold text-xs"> Traffic </h5>
-							<span class="font-semibold text-xl text-slate-700"> 350,897 </span>
+							<h5 class="text-slate-400 uppercase font-bold text-xs"> Blade Pages </h5>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getBladePageFiles()) }}</b> pages </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div
@@ -16,11 +20,11 @@
 							</div>
 						</div>
 					</div>
-					<p class="text-sm text-slate-400 mt-4">
+					{{-- <p class="text-sm text-slate-400 mt-4">
 								<span class="text-emerald-500 mr-2">
 									<i class="fas fa-arrow-up"></i> 3.48% </span>
 						<span class="whitespace-nowrap"> Since last month </span>
-					</p>
+					</p> --}}
 				</div>
 			</div>
 		</div>
@@ -29,8 +33,8 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-slate-400 uppercase font-bold text-xs"> New users </h5>
-							<span class="font-semibold text-xl text-slate-700"> 2,356 </span>
+							<h5 class="text-slate-400 uppercase font-bold text-xs"> Markdown Pages </h5>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getMarkdownPageFiles()) }}</b> pages </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div
@@ -39,11 +43,11 @@
 							</div>
 						</div>
 					</div>
-					<p class="text-sm text-slate-400 mt-4">
+					{{-- <p class="text-sm text-slate-400 mt-4">
 								<span class="text-red-500 mr-2">
 									<i class="fas fa-arrow-down"></i> 3.48% </span>
 						<span class="whitespace-nowrap"> Since last week </span>
-					</p>
+					</p> --}}
 				</div>
 			</div>
 		</div>
@@ -52,8 +56,8 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-slate-400 uppercase font-bold text-xs"> Sales </h5>
-							<span class="font-semibold text-xl text-slate-700"> 924 </span>
+							<h5 class="text-slate-400 uppercase font-bold text-xs"> Documentation Pages </h5>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getDocumentationPageFiles()) }}</b> pages </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div
@@ -62,11 +66,11 @@
 							</div>
 						</div>
 					</div>
-					<p class="text-sm text-slate-400 mt-4">
+					{{-- <p class="text-sm text-slate-400 mt-4">
 								<span class="text-orange-500 mr-2">
 									<i class="fas fa-arrow-down"></i> 1.10% </span>
 						<span class="whitespace-nowrap"> Since yesterday </span>
-					</p>
+					</p> --}}
 				</div>
 			</div>
 		</div>
@@ -75,9 +79,8 @@
 				<div class="flex-auto p-4">
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-							<h5 class="text-slate-400 uppercase font-bold text-xs"> Performance
-							</h5>
-							<span class="font-semibold text-xl text-slate-700"> 49,65% </span>
+							<h5 class="text-slate-400 uppercase font-bold text-xs"> Markdown Posts </h5>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getMarkdownPostFiles()) }}</b> posts </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div
@@ -86,11 +89,11 @@
 							</div>
 						</div>
 					</div>
-					<p class="text-sm text-slate-400 mt-4">
+					{{-- <p class="text-sm text-slate-400 mt-4">
 								<span class="text-emerald-500 mr-2">
 									<i class="fas fa-arrow-up"></i> 12% </span>
 						<span class="whitespace-nowrap"> Since last month </span>
-					</p>
+					</p> --}}
 				</div>
 			</div>
 		</div>
