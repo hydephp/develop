@@ -2,8 +2,8 @@
 
 namespace Hyde\Admin;
 
-use Illuminate\Support\ServiceProvider;
 use Hyde\Framework\Services\RoutingService;
+use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
 {

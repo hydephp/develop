@@ -35,14 +35,15 @@ final class AdminPage extends BladePage implements PageContract
 
     public function request(): ?Request
     {
-        return isset($_SERVER['REQUEST_METHOD']) 
+        return isset($_SERVER['REQUEST_METHOD'])
             ? Request::capture()
             : null;
     }
 
     public function view(): string
     {
-        $view = 'hyde-admin::pages.' . $this->route;
+        $view = 'hyde-admin::pages.'.$this->route;
+
         return view()->exists($view) ? $view : 'hyde-admin::pages.404';
     }
 }
