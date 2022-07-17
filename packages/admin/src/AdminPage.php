@@ -20,7 +20,7 @@ final class AdminPage extends BladePage implements PageContract
     {
         parent::__construct($view);
 
-        $this->route = $this->request()->get('route', 'dashboard');
+        $this->route = $this->request()?->get('route', 'dashboard') ?? 'dashboard';
     }
 
     public function getCurrentPagePath(): string
@@ -33,9 +33,11 @@ final class AdminPage extends BladePage implements PageContract
         return 'Admin Panel';
     }
 
-    public function request(): Request
+    public function request(): ?Request
     {
-        return Request::capture();
+        return isset($_SERVER['REQUEST_METHOD']) 
+            ? Request::capture()
+            : null;
     }
 
     public function view(): string
