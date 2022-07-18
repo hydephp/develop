@@ -42,9 +42,6 @@ return [
     */
 
     /** @deprecated v0.50.x - Use equivalent in site.php */
-    'pretty_urls' => false,
-
-    /** @deprecated v0.50.x - Use equivalent in site.php */
     'generate_sitemap' => true,
 
     /*
