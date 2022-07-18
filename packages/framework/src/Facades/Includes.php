@@ -6,6 +6,8 @@ use Hyde\Framework\Contracts\IncludeFacadeContract;
 
 class Includes implements IncludeFacadeContract
 {
+    protected static string $includesDirectory = 'resources/_includes';
+
     /** @inheritDoc */
     public static function get(string $partial, ?string $default = null): ?string
     {
