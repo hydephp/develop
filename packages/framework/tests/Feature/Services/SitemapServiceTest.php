@@ -112,7 +112,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_url_item_is_generated_correctly()
     {
-        config(['hyde.pretty_urls' => false]);
+        config(['site.pretty_urls' => false]);
         config(['site.site_url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
@@ -129,7 +129,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        config(['site.pretty_urls' => true]);
         config(['site.site_url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 

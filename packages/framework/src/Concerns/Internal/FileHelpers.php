@@ -56,7 +56,7 @@ trait FileHelpers
      */
     public static function pageLink(string $destination): string
     {
-        if (config('hyde.pretty_urls', false) === true) {
+        if (config('site.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
                 if ($destination === 'index.html') {
                     return '/';

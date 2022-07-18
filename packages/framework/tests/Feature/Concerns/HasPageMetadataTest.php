@@ -20,7 +20,7 @@ class HasPageMetadataTest extends TestCase
 
         config(['hyde.meta' => []]);
         config(['site.site_url' => null]);
-        config(['hyde.pretty_urls' => false]);
+        config(['site.pretty_urls' => false]);
         config(['hyde.generate_sitemap' => false]);
     }
 
@@ -47,7 +47,7 @@ class HasPageMetadataTest extends TestCase
     {
         $page = $this->makePage();
         config(['site.site_url' => 'https://example.com']);
-        config(['hyde.pretty_urls' => true]);
+        config(['site.pretty_urls' => true]);
 
         $this->assertEquals('https://example.com/foo', $page->getCanonicalUrl());
     }
