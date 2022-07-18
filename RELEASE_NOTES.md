@@ -24,12 +24,13 @@ This update makes breaking changes to the configuration. You will need to update
 - Merged configuration options for the footer, see below
 
 ### Deprecated
-- Deprecate ConvertsFooterMarkdown.php
+- for soon-to-be removed features.
 
 ### Removed
 - Removed `\Hyde\Framework\Facades\Route`. You can swap out usages with `\Hyde\Framework\Models\Route` without side effects.
 
 - Removed internal `$siteName` config variable from `config/hyde.php`
+- Removed ConvertsFooterMarkdown.php
 
 ### Fixed
 - for any bug fixes.
