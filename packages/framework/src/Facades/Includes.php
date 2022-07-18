@@ -11,6 +11,13 @@ class Includes implements IncludeFacadeContract
 {
     protected static string $includesDirectory = 'resources/_includes';
 
+    public static function path(?string $partial = null): string
+    {
+        return $partial === null
+            ? Hyde::path(static::$includesDirectory)
+            : Hyde::path(static::$includesDirectory . '/' . $partial);
+    }
+
     /** @inheritDoc */
     public static function get(string $partial, ?string $default = null): ?string
     {
