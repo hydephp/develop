@@ -58,10 +58,10 @@ class IncludesFacadeTest extends TestCase
         unlink(Hyde::path('resources/_includes/foo.md'));
     }
 
-    public function test_markdown_returns_default_value_when_not_found()
+    public function test_markdown_returns_rendered_default_value_when_not_found()
     {
         $this->assertNull(Includes::markdown('foo.md'));
-        $this->assertEquals('default', Includes::markdown('foo.md', 'default'));
+        $this->assertEquals("<h1>default</h1>\n", Includes::markdown('foo.md', '# default'));
     }
 
     public function test_blade_returns_rendered_partial()
@@ -72,9 +72,9 @@ class IncludesFacadeTest extends TestCase
         unlink(Hyde::path('resources/_includes/foo.blade.php'));
     }
 
-    public function test_blade_returns_default_value_when_not_found()
+    public function test_blade_returns_rendered_default_value_when_not_found()
     {
         $this->assertNull(Includes::blade('foo.blade.php'));
-        $this->assertEquals('default', Includes::blade('foo.blade.php', 'default'));
+        $this->assertEquals('default', Includes::blade('foo.blade.php', '{{ "default" }}'));
     }
 }

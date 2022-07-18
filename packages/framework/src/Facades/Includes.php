@@ -38,7 +38,7 @@ class Includes implements IncludeFacadeContract
         $path = static::path(basename($filename, '.md').'.md');
 
         if (! file_exists($path)) {
-            return $default;
+            return $default === null ? null : MarkdownConverter::parse($default);
         }
 
         return MarkdownConverter::parse(file_get_contents($path));
@@ -50,7 +50,7 @@ class Includes implements IncludeFacadeContract
         $path = static::path(basename($filename, '.blade.php').'.blade.php');
 
         if (! file_exists($path)) {
-            return $default;
+            return $default === null ? null : Blade::render($default);
         }
 
         return Blade::render(file_get_contents($path));
