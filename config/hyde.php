@@ -41,9 +41,6 @@ return [
     |
     */
 
-    /** @deprecated v0.50.x - Use equivalent in site.php */
-    'generate_sitemap' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Site Language
