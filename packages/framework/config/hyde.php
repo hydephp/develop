@@ -42,9 +42,6 @@ return [
     */
 
     /** @deprecated v0.50.x - Use equivalent in site.php */
-    'site_url' => env('SITE_URL', null),
-
-    /** @deprecated v0.50.x - Use equivalent in site.php */
     'pretty_urls' => false,
 
     /** @deprecated v0.50.x - Use equivalent in site.php */
