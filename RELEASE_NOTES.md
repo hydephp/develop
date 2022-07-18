@@ -18,6 +18,8 @@ This update makes breaking changes to the configuration. You will need to update
 - Moved config option `hyde.language` to `site.language`
 - Moved config option `hyde.output_directory` to `site.output_directory`
 
+- The default `site.site_url` is now `http://localhost` instead of `null`
+
 ### Deprecated
 - for soon-to-be removed features.
 
