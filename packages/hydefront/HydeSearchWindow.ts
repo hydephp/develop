@@ -8,7 +8,7 @@
 let HTMLDialogElement;
 let toggleSearchMenu;
 if (typeof HTMLDialogElement !== 'function') {
-    // The browser does not support the <dialog> element
+    // If the browser does not support the <dialog> element we'll redirect to the search page.
     document.getElementById('searchMenu').remove();
 
     toggleSearchMenu = () => {

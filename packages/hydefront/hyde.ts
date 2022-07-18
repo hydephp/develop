@@ -123,9 +123,7 @@ if (document.getElementById("hyde-docs")) {
                 backdrop.parentNode.removeChild(backdrop);
             }
             document.getElementById('content').classList.remove('sidebar-active');
-
         }
-
     }
 
     // On click of sidebar toggle button

@@ -4,15 +4,14 @@
  * @package     HydePHP - HydeFront
  * @author      Caen De Silva
  *
- * @see app.css where TailwindCSS is included,
- *	           to declare your own styles.
+ * @see app.css where TailwindCSS is included, to declare your own styles.
  */
 
 @use 'sass/HydeDocs';
 @use 'sass/HydeSearchMenu';
 @use 'sass/MarkdownFeatures';
 
-/* Base styles for compatibility */
+/* Base styles for compatibility in case the Tailwind styles are not loaded */
 
 .post-article {
 	max-width: 960px;
