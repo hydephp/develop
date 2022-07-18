@@ -4,11 +4,11 @@
 |--------------------------------------------------------------------------
 | The HydePHP Configuration File
 |--------------------------------------------------------------------------
-| 
-| This configuration file lets you change and customize the behaviour 
-| of your HydePHP site. To customize the presentation options, like 
-| the site name, please see the new config/site.php file instead. 
-| 
+|
+| This configuration file lets you change and customize the behaviour
+| of your HydePHP site. To customize the presentation options, like
+| the site name, please see the new config/site.php file instead.
+|
 */
 
 use Hyde\Framework\Helpers\Author;
