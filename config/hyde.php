@@ -26,6 +26,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Site Name
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the name of your site and is, for example, used in
+    | the compiled page titles and more. The default value is HydePHP.
+    |
+    | The name is stored in the $siteName variable so it can be
+    | used again later on in this config.
+    |
+    */
+
+    'name' => $siteName = env('SITE_NAME', 'HydePHP'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Site URL Configuration
     |--------------------------------------------------------------------------
     |
