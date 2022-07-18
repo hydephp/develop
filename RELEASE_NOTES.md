@@ -5,7 +5,7 @@
 This update makes breaking changes to the configuration. You will need to update your configuration to continue using the new changes. Each one has been documented in this changelog entry, which at the end has an upgrade guide.
 
 ### Added
-- for new features.
+- Added a new configuration file, `config/site.php`, see below.
 
 ### Changed
 - internal: Refactor navigation menu components and improve link helpers
