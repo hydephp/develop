@@ -9,7 +9,44 @@ category: "Digging Deeper"
 ## Introduction
 
 Hyde favours <a href="https://en.wikipedia.org/wiki/Convention_over_configuration">"Convention over Configuration"</a>
-and thus comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable hackable if you need it. This page guides you through the endless options available!
+and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable if you need it. This page guides you through the many options available!
+
+When referencing configuration options, we often use "dot notation" to specify the configuration file. For example, <code>config('site.name')</code> means that we are looking for the <code>name</code> option in the <code>config/site.php</code> file.
+
+If you want to reference these configuration options in your Blade views, or other integrations, please take a look at the [Laravel Documentation](https://laravel.com/docs/9.x/configuration).
+
+There are a few configuration files available in the `config` directory. You'll learn more about them in the next sections. All options are documented, so feel free to look through the files and get familiar with the options available to you. The options have been categorized for your convenience.
+
+
+## HydePHP Configuration Files
+
+### Overview
+
+These are the main configuration files for HydePHP and lets you customize the look and feel of your site, as well as the behaviour of HydePHP.
+
+| Config File                                                         | Description                                                                         | See default                                                                                                                                                                                                                                                                    |
+|---------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| [site.php](#site.php "Jump to documentation for this file")         | Configuration file for the site presentation settings, like site name and base URL. | <a href="https://github.com/hydephp/hyde/blob/master/config/site.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a>     |
+| [hyde.php](#hyde.php "Jump to documentation for this file")         | HydePHP Framework settings, like what features to enable, and navigation menus.     | <a href="https://github.com/hydephp/hyde/blob/master/config/hyde.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a>     |
+| [docs.php](#docs.php "Jump to documentation for this file")         | Options for the HydePHP documentation site generator module.                        | <a href="https://github.com/hydephp/hyde/blob/master/config/docs.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a>     |
+| [markdown.php](#markdown.php "Jump to documentation for this file") | Configure Markdown related services, as well as change the CommonMark extensions.   | <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a> |
+{.align-top}
+
+
+## Laravel & Package Configuration Files
+
+### Overview
+
+Since HydePHP is based on Laravel we also have a few configuration files related to them. You probably don't need to edit any of these unless you want to make changes to the application core.
+
+| Config File                                                             | Description                                                             | See default                                                                                                                                                                                                                                                                      |
+|-------------------------------------------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| [app.php](#app.php "Jump to documentation for this file")               | Configures the underlying Laravel application.                          | <a href="https://github.com/hydephp/hyde/blob/master/config/app.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a>        |
+| [commands.php](#commands.php "Jump to documentation for this file")     | Configures the Laravel Zero commands for the HydeCLI.                   | <a href="https://github.com/hydephp/hyde/blob/master/config/commands.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a>   |
+| [cache.php](#cache.php "Jump to documentation for this file")           | Configures the cache driver and cache path locations.                   | <a href="https://github.com/hydephp/hyde/blob/master/config/cache.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a>      |
+| [view.php](#view.php "Jump to documentation for this file")             | Configures the paths for the Blade View compiler.                       | <a href="https://github.com/hydephp/hyde/blob/master/config/view.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a>       |
+| [torchlight.php](#torchlight.php "Jump to documentation for this file") | Configures settings for the Torchlight syntax highlighting integration. | <a href="https://github.com/hydephp/hyde/blob/master/config/torchlight.php" rel="nofollow noopener"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="24px" style="margin: 0;" alt="GitHub Logo Icon" title="View file on GitHub"></a> |
+{.align-top}
 
 
 ## Main Configuration File
