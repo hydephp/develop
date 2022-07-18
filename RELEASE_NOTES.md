@@ -22,7 +22,7 @@ This update makes breaking changes to the configuration. You will need to update
 - The default `site.url` is now `http://localhost` instead of `null`
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecate ConvertsFooterMarkdown.php
 
 ### Removed
 - Removed `\Hyde\Framework\Facades\Route`. You can swap out usages with `\Hyde\Framework\Models\Route` without side effects.
