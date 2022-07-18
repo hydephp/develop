@@ -164,10 +164,7 @@ return [
     |
     */
 
-    'footer' => [
-        'enabled' => true,
-        'markdown' => require_once(Hyde\Framework\Hyde::path('_includes/footer.php')),
-    ],
+    'footer' => require_once(Hyde\Framework\Hyde::path('_includes/footer.php')),
 
     /*
     |--------------------------------------------------------------------------
