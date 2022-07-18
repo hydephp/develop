@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Facades;
 
+use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Contracts\IncludeFacadeContract;
 
 class Includes implements IncludeFacadeContract
@@ -23,9 +24,13 @@ class Includes implements IncludeFacadeContract
     /** @inheritDoc */
     public static function markdown(string $partial, ?string $default = null): ?string
     {
-        // TODO: Implement markdown() method.
+        $path = static::$includesDirectory . '/' . $partial . '.md';
 
-        return $default;
+        if (! file_exists($path)) {
+            return $default;
+        }
+
+        return MarkdownConverter::parse(file_get_contents($path));
     }
 
     /** @inheritDoc */
