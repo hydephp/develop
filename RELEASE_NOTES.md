@@ -58,6 +58,7 @@ If you have published and Blade views or written custom code that uses the confi
 
 The footer configuration options have been merged. Prior to this update, the config option looked as follows:
 ```php
+// filepath: config/hyde.php
 'footer' => [
   'enabled' => true,
   'markdown' => 'Markdown text...'
@@ -66,6 +67,8 @@ The footer configuration options have been merged. Prior to this update, the con
 
 Now, the config option looks as follows:
 ```php
+// filepath: config/hyde.php
+
 // To use Markdown text
 'footer' => 'Markdown text...',
 
