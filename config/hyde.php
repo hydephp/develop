@@ -32,13 +32,10 @@ return [
     | This value sets the name of your site and is, for example, used in
     | the compiled page titles and more. The default value is HydePHP.
     |
-    | The name is stored in the $siteName variable so it can be
-    | used again later on in this config.
-    |
     */
 
     /** @deprecated v0.50.x - Use equivalent in site.php */
-    'name' => $siteName = env('SITE_NAME', 'HydePHP'),
+    'name' => env('SITE_NAME', 'HydePHP'),
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +98,7 @@ return [
         // Meta::name('description', 'My Hyde Blog'),
         // Meta::name('keywords', 'Static Sites, Blogs, Documentation'),
         Meta::name('generator', 'HydePHP '.Hyde\Framework\Hyde::version()),
-        Meta::property('site_name', $siteName),
+        Meta::property('site_name', config('site.name', 'HydePHP')),
     ],
 
     /*
