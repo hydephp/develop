@@ -11,6 +11,22 @@ use Hyde\Testing\TestCase;
  */
 class IncludesFacadeTest extends TestCase
 {
+    public function test_path_returns_the_includes_directory()
+    {
+        $this->assertEquals(
+            Hyde::path('resources/_includes'),
+            Includes::path()
+        );
+    }
+
+    public function test_path_returns_a_partial_within_the_includes_directory()
+    {
+        $this->assertEquals(
+            Hyde::path('resources/_includes/partial.html'),
+            Includes::path('partial.html')
+        );
+    }
+
     public function test_get_returns_partial()
     {
         $expected = 'foo bar';
