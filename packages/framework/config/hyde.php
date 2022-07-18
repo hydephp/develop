@@ -25,24 +25,6 @@ use Hyde\Framework\Models\NavItem;
 return [
     /*
     |--------------------------------------------------------------------------
-    | Site URL Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here are some configuration options for URL generation.
-    |
-    | A site_url is required to use sitemaps and RSS feeds.
-    |
-    | `site_url` is used to create canonical URLs and permalinks.
-    | `prettyUrls` will when enabled create links that do not end in .html.
-    | `generateSitemap` determines if a sitemap.xml file should be generated.
-    |
-    | To see the full documentation, please visit the documentation link below.
-    | https://hydephp.com/docs/master/customization#site-url-configuration
-    |
-    */
-
-    /*
-    |--------------------------------------------------------------------------
     | Site Language
     |--------------------------------------------------------------------------
     |
