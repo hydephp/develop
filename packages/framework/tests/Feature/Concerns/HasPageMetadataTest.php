@@ -21,7 +21,7 @@ class HasPageMetadataTest extends TestCase
         config(['hyde.meta' => []]);
         config(['site.site_url' => null]);
         config(['site.pretty_urls' => false]);
-        config(['hyde.generate_sitemap' => false]);
+        config(['site.generate_sitemap' => false]);
     }
 
     protected function makePage(): AbstractPage
@@ -192,7 +192,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
         };
         config(['site.site_url' => 'https://example.com']);
-        config(['hyde.generate_sitemap' => true]);
+        config(['site.generate_sitemap' => true]);
 
         $this->assertEquals(['<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />'],
             $page->getDynamicMetadata()
@@ -206,7 +206,7 @@ class HasPageMetadataTest extends TestCase
             use HasPageMetadata;
         };
         config(['site.site_url' => 'https://example.com']);
-        config(['hyde.generate_sitemap' => false]);
+        config(['site.generate_sitemap' => false]);
 
         $this->assertEquals([],
             $page->getDynamicMetadata()

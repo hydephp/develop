@@ -106,7 +106,7 @@ class SitemapServiceTest extends TestCase
     public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
     {
         config(['site.site_url' => 'foo']);
-        config(['hyde.generate_sitemap' => false]);
+        config(['site.generate_sitemap' => false]);
         $this->assertFalse(SitemapService::canGenerateSitemap());
     }
 

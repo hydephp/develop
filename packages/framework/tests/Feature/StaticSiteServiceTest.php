@@ -87,7 +87,7 @@ class StaticSiteServiceTest extends TestCase
     public function test_sitemap_is_not_generated_when_conditions_are_not_met()
     {
         config(['site.site_url' => '']);
-        config(['hyde.generate_sitemap' => false]);
+        config(['site.generate_sitemap' => false]);
 
         $this->artisan('build')
             ->doesntExpectOutput('Generating sitemap...')
@@ -97,7 +97,7 @@ class StaticSiteServiceTest extends TestCase
     public function test_sitemap_is_generated_when_conditions_are_met()
     {
         config(['site.site_url' => 'https://example.com']);
-        config(['hyde.generate_sitemap' => true]);
+        config(['site.generate_sitemap' => true]);
 
         $this->artisan('build')
             ->expectsOutput('Generating sitemap...')
