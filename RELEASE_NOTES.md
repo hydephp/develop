@@ -23,6 +23,7 @@ This update makes breaking changes to the configuration. You will need to update
 
 - The default `site.url` is now `http://localhost` instead of `null`
 - Merged configuration options for the footer, see below
+- Rebrand `lagrafo` documentation driver to `HydeDocs`
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -80,3 +81,10 @@ Now, the config option looks as follows:
 ```
 
 As you can see, the new config option is a string or the boolean false instead of an array. We use the same option for both the Markdown text and the footer disabled state.
+
+#### Updating Blade Documentation Views
+
+This release also rebrands the documentation driver from `lagrafo` to `HydeDocs`. While the current docs layout is still based on Lagrafo it's been customized so much for Hyde it makes more sense to use the new name.
+
+In most cases you won't need to do anything to update, however, if you have previously published the documentation views, you will need to update them.
+
