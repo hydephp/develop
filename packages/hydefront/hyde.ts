@@ -82,7 +82,6 @@ if (navigationToggleButton) {
 
 /**
  * Lagrafo Frontend Scripts
- * @version v0.2.0-beta
  */
 if (document.getElementById("hyde-docs")) {
     let sidebarOpen:boolean = false;
