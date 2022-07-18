@@ -17,7 +17,7 @@ class Includes implements IncludeFacadeContract
 
         return $partial === null
             ? Hyde::path(static::$includesDirectory)
-            : Hyde::path(static::$includesDirectory . '/' . $partial);
+            : Hyde::path(static::$includesDirectory.'/'.$partial);
     }
 
     /** @inheritDoc */

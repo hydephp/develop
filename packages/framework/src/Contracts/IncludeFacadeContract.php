@@ -7,7 +7,7 @@ interface IncludeFacadeContract
     /**
      * Return the path to the includes directory, or a partial within it, if requested.
      *
-     * @param string|null $partial The partial to return, or null to return the directory.
+     * @param  string|null  $partial  The partial to return, or null to return the directory.
      * @return string Absolute Hyde::path() to the partial, or the includes directory.
      */
     public static function path(?string $partial = null): string;
