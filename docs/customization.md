@@ -59,22 +59,22 @@ When enabled, an RSS feed with your Markdown blog posts will be generated when y
 Note that this requires that a site_url is set!
 
 ```php // config/hyde.php
-'generateRssFeed' => true, // Default is true
+'generate_rss_feed' => true, // Default is true
 ```
 
 You can customize the output filename using the following:
 
 ```php // config/hyde.php
-'rssFilename' => 'feed.rss', // Default is feed.xml
+'rss_filename' => 'feed.rss', // Default is feed.xml
 ```
 
 You can set the RSS channel description using the following:
 
 ```php // config/hyde.php
-'rssDescription' => 'A collection of articles and tutorials from my blog', // Example
+'rss_description' => 'A collection of articles and tutorials from my blog', // Example
 ```
 
-If an rssDescription is not set one is created by appending "RSS Feed" to your site name.
+If an rss_description is not set one is created by appending "RSS Feed" to your site name.
 
 
 ### Authors
