@@ -31,7 +31,7 @@ class NavigationBrandViewTest extends TestCase
     public function test_component_uses_site_name()
     {
         $this->assertStringContainsString('HydePHP', $this->render());
-        config(['hyde.name' => 'foo']);
+        config(['site.name' => 'foo']);
         $this->assertStringContainsString('foo', $this->render());
     }
 }

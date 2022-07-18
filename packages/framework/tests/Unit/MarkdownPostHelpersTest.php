@@ -18,14 +18,14 @@ class MarkdownPostHelpersTest extends TestCase
 
     public function test_get_canonical_link_returns_canonical_uri_path_for_post_slug()
     {
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.site_url' => 'https://example.com']);
         $post = new MarkdownPost([], '', '', 'foo-bar');
         $this->assertEquals('https://example.com/posts/foo-bar.html', $post->getCanonicalLink());
     }
 
     public function test_get_canonical_link_returns_pretty_url_when_enabled()
     {
-        config(['hyde.site_url' => 'https://example.com', 'hyde.pretty_urls' => true]);
+        config(['site.site_url' => 'https://example.com', 'site.pretty_urls' => true]);
         $post = new MarkdownPost([], '', '', 'foo-bar');
         $this->assertEquals('https://example.com/posts/foo-bar', $post->getCanonicalLink());
     }

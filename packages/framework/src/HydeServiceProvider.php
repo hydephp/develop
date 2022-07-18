@@ -44,7 +44,7 @@ class HydeServiceProvider extends ServiceProvider
         ]);
 
         $this->storeCompiledSiteIn(Hyde::path(
-            unslash(config('hyde.output_directory', '_site'))
+            unslash(config('site.output_directory', '_site'))
         ));
 
         $this->discoverBladeViewsIn(BladePage::getSourceDirectory());
@@ -102,7 +102,7 @@ class HydeServiceProvider extends ServiceProvider
             Commands\HydeMakePostCommand::class,
             Commands\HydeMakePageCommand::class,
             Commands\HydeValidateCommand::class,
-            Commands\HydeInstallCommand::class,
+            // Commands\HydeInstallCommand::class,
             Commands\HydeDebugCommand::class,
             Commands\HydeServeCommand::class,
 

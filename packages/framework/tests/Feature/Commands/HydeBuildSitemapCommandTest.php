@@ -12,8 +12,8 @@ class HydeBuildSitemapCommandTest extends TestCase
 {
     public function test_sitemap_is_generated_when_conditions_are_met()
     {
-        config(['hyde.site_url' => 'https://example.com']);
-        config(['hyde.generate_sitemap' => true]);
+        config(['site.site_url' => 'https://example.com']);
+        config(['site.generate_sitemap' => true]);
 
         unlinkIfExists(Hyde::path('_site/sitemap.xml'));
         $this->artisan('build:sitemap')
@@ -27,8 +27,8 @@ class HydeBuildSitemapCommandTest extends TestCase
 
     public function test_sitemap_is_not_generated_when_conditions_are_not_met()
     {
-        config(['hyde.site_url' => '']);
-        config(['hyde.generate_sitemap' => false]);
+        config(['site.site_url' => '']);
+        config(['site.generate_sitemap' => false]);
         unlinkIfExists(Hyde::path('_site/sitemap.xml'));
 
         $this->artisan('build:sitemap')
@@ -40,8 +40,8 @@ class HydeBuildSitemapCommandTest extends TestCase
 
     public function test_sitemap_returns_helpful_error_message_when_no_site_url_is_configured()
     {
-        config(['hyde.site_url' => '']);
-        config(['hyde.generate_sitemap' => true]);
+        config(['site.site_url' => '']);
+        config(['site.generate_sitemap' => true]);
 
         unlinkIfExists(Hyde::path('_site/sitemap.xml'));
         $this->artisan('build:sitemap')
@@ -54,14 +54,14 @@ class HydeBuildSitemapCommandTest extends TestCase
 
     public function test_sitemap_returns_helpful_error_message_when_sitemap_generation_is_disabled()
     {
-        config(['hyde.site_url' => 'https://example.com']);
-        config(['hyde.generate_sitemap' => false]);
+        config(['site.site_url' => 'https://example.com']);
+        config(['site.generate_sitemap' => false]);
 
         unlinkIfExists(Hyde::path('_site/sitemap.xml'));
         $this->artisan('build:sitemap')
             ->expectsOutput('Cannot generate sitemap.xml, please check your configuration.')
             ->expectsOutputToContain('You have disabled sitemap generation in config/hyde.php')
-            ->expectsOutputToContain('You can enable sitemap generation by setting `hyde.generate_sitemap` to `true`')
+            ->expectsOutputToContain('You can enable sitemap generation by setting `site.generate_sitemap` to `true`')
             ->assertExitCode(1);
     }
 

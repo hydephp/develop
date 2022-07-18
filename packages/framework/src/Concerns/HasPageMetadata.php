@@ -42,10 +42,10 @@ trait HasPageMetadata
 
         if (isset($this->title)) {
             if ($this->hasTwitterTitleInConfig()) {
-                $array[] = '<meta name="twitter:title" content="'.config('hyde.name', 'HydePHP').' - '.$this->title.'" />';
+                $array[] = '<meta name="twitter:title" content="'.config('site.name', 'HydePHP').' - '.$this->title.'" />';
             }
             if ($this->hasOpenGraphTitleInConfig()) {
-                $array[] = '<meta property="og:title" content="'.config('hyde.name', 'HydePHP').' - '.$this->title.'" />';
+                $array[] = '<meta property="og:title" content="'.config('site.name', 'HydePHP').' - '.$this->title.'" />';
             }
         }
 

@@ -159,7 +159,7 @@ class RouteTest extends TestCase
 
     public function test_get_link_returns_pretty_url_if_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        config(['site.pretty_urls' => true]);
         $route = new Route(new MarkdownPage(slug: 'foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());

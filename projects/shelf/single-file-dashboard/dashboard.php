@@ -50,7 +50,7 @@ try {
         public function __construct()
         {
             $this->path = BASE_PATH;
-            $this->name = config('hyde.name', ucwords(str_replace('-', ' ', basename(BASE_PATH))));
+            $this->name = config('site.name', ucwords(str_replace('-', ' ', basename(BASE_PATH))));
         }
     };
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('hyde.language', 'en') }}">
+<html lang="{{ config('site.language', 'en') }}">
 <head>
     @include('hyde::layouts.head')
 </head>

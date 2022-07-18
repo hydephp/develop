@@ -32,8 +32,8 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_element_has_required_elements()
     {
-        config(['hyde.name' => 'Test Blog']);
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.name' => 'Test Blog']);
+        config(['site.site_url' => 'https://example.com']);
 
         $service = new RssFeedService();
         $this->assertObjectHasAttribute('title', $service->feed->channel);
@@ -47,7 +47,7 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_element_has_additional_elements()
     {
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.site_url' => 'https://example.com']);
 
         $service = new RssFeedService();
         $this->assertObjectHasAttribute('link', $service->feed->channel);
@@ -62,8 +62,8 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_data_can_be_customized()
     {
-        config(['hyde.name' => 'Foo']);
-        config(['hyde.site_url' => 'https://blog.foo.com/bar']);
+        config(['site.name' => 'Foo']);
+        config(['site.site_url' => 'https://blog.foo.com/bar']);
         config(['hyde.rss_description' => 'Foo is a web log about stuff']);
 
         $service = new RssFeedService();
@@ -90,7 +90,7 @@ class RssFeedServiceTest extends TestCase
             MD
         );
 
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.site_url' => 'https://example.com']);
 
         file_put_contents(Hyde::path('_media/rss-test.jpg'), 'statData'); // 8 bytes to test stat gets file length
 
@@ -128,19 +128,19 @@ class RssFeedServiceTest extends TestCase
 
     public function test_can_generate_sitemap_helper_returns_true_if_hyde_has_base_url()
     {
-        config(['hyde.site_url' => 'foo']);
+        config(['site.site_url' => 'foo']);
         $this->assertTrue(RssFeedService::canGenerateFeed());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_hyde_does_not_have_base_url()
     {
-        config(['hyde.site_url' => '']);
+        config(['site.site_url' => '']);
         $this->assertFalse(RssFeedService::canGenerateFeed());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
     {
-        config(['hyde.site_url' => 'foo']);
+        config(['site.site_url' => 'foo']);
         config(['hyde.generate_rss_feed' => false]);
         $this->assertFalse(RssFeedService::canGenerateFeed());
     }

@@ -56,7 +56,7 @@ trait FileHelpers
      */
     public static function pageLink(string $destination): string
     {
-        if (config('hyde.pretty_urls', false) === true) {
+        if (config('site.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
                 if ($destination === 'index.html') {
                     return '/';
@@ -144,8 +144,8 @@ trait FileHelpers
      */
     public static function uriPath(?string $path = ''): string|false
     {
-        if (config('hyde.site_url', false)) {
-            return rtrim(config('hyde.site_url'), '/').'/'.(trim($path, '/') ?? '');
+        if (config('site.site_url', false)) {
+            return rtrim(config('site.site_url'), '/').'/'.(trim($path, '/') ?? '');
         }
 
         return false;

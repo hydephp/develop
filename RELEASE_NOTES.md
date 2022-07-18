@@ -2,12 +2,7 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This update makes breaking changes to the configuration. You will need to update your configuration to continue using the new changes. Each one has been documented in this changelog entry, which at the end has an upgrade guide.
 
 ### Added
 - for new features.
@@ -15,14 +10,39 @@ This serves two purposes:
 ### Changed
 - internal: Refactor navigation menu components and improve link helpers
 
+- Moved config option `hyde.name` to `site.name`
+- Moved config option `hyde.site_url` to `site.site_url`
+- Moved config option `hyde.pretty_urls` to `site.pretty_urls`
+- Moved config option `hyde.generate_sitemap` to `site.generate_sitemap`
+- Moved config option `hyde.language` to `site.language`
+- Moved config option `hyde.output_directory` to `site.output_directory`
+
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
 - Removed `\Hyde\Framework\Facades\Route`. You can swap out usages with `\Hyde\Framework\Models\Route` without side effects.
 
+- Removed internal `$siteName` config variable from `config/hyde.php`
+
 ### Fixed
 - for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
+
+
+### Upgrade Guide
+
+Site-specific config options have been moved from `config/hyde.php` to `config/site.php`. The Hyde config is now used to configure behaviour of the site, while the site config is used to customize the look and feel, the presentation, of the site.
+
+The following configuration options have been moved. The actual usages remain the same, so you can upgrade by using copying over these options to the new file.
+
+- `hyde.name`
+- `hyde.site_url`
+- `hyde.pretty_urls`
+- `hyde.generate_sitemap`
+- `hyde.language`
+- `hyde.output_directory`
+
+If you have published and Blade views or written custom code that uses the config options, you may need to update them. You can do this by republishing the Blade views, and/or using search and replace across your code. VSCode has a useful feature to make this a breeze: `CMD/CTRL+Shift+F`.

@@ -92,7 +92,7 @@ class RssFeedService
 
     protected function addAdditionalChannelData(): void
     {
-        $this->feed->channel->addChild('language', config('hyde.language', 'en'));
+        $this->feed->channel->addChild('language', config('site.language', 'en'));
         $this->feed->channel->addChild('generator', 'HydePHP '.Hyde::version());
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
     }
@@ -115,7 +115,7 @@ class RssFeedService
     public static function getTitle(): string
     {
         return static::xmlEscape(
-            config('hyde.name', 'HydePHP')
+            config('site.name', 'HydePHP')
         );
     }
 
@@ -123,7 +123,7 @@ class RssFeedService
     {
         return static::xmlEscape(
             rtrim(
-                config('hyde.site_url') ?? 'http://localhost',
+                config('site.site_url') ?? 'http://localhost',
                 '/'
             )
         );
