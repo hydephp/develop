@@ -115,7 +115,7 @@ class RssFeedService
     public static function getTitle(): string
     {
         return static::xmlEscape(
-            config('hyde.name', 'HydePHP')
+            config('site.name', 'HydePHP')
         );
     }
 

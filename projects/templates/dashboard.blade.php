@@ -86,7 +86,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{ config('hyde.name', Hyde::makeTitle(basename(Hyde::path()))) }}</td>
+                        <td>{{ config('site.name', Hyde::makeTitle(basename(Hyde::path()))) }}</td>
                         <td>{{ Hyde::path() }}</td>
                         <td>{{ Hyde::version() }}</td>
                         <td>{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>

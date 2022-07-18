@@ -32,7 +32,7 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_element_has_required_elements()
     {
-        config(['hyde.name' => 'Test Blog']);
+        config(['site.name' => 'Test Blog']);
         config(['hyde.site_url' => 'https://example.com']);
 
         $service = new RssFeedService();
@@ -62,7 +62,7 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_data_can_be_customized()
     {
-        config(['hyde.name' => 'Foo']);
+        config(['site.name' => 'Foo']);
         config(['hyde.site_url' => 'https://blog.foo.com/bar']);
         config(['hyde.rss_description' => 'Foo is a web log about stuff']);
 

@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ isset($title) ? config('hyde.name', 'HydePHP') . ' - ' . $title : config('hyde.name', 'HydePHP') }}</title>
+<title>{{ isset($title) ? config('site.name', 'HydePHP') . ' - ' . $title : config('site.name', 'HydePHP') }}</title>
 
 @if (file_exists(Hyde::path('_media/favicon.ico'))) 
 <link rel="shortcut icon" href="{{ Hyde::relativeLink('media/favicon.ico') }}" type="image/x-icon">
