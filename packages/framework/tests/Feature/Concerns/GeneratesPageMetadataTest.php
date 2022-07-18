@@ -24,7 +24,7 @@ class GeneratesPageMetadataTest extends TestCase
     {
         parent::setUp();
 
-        Config::set('site.site_url', null);
+        Config::set('site.url', null);
     }
 
     protected function tearDown(): void
@@ -71,7 +71,7 @@ class GeneratesPageMetadataTest extends TestCase
     // Note that this currently assumes that the object using it is a Blog Post.
     public function test_get_meta_properties_contains_og_url_when_uri_path_set()
     {
-        Config::set('site.site_url', 'https://example.com/foo');
+        Config::set('site.url', 'https://example.com/foo');
         $this->slug = 'bar';
         $this->constructMetadata();
 

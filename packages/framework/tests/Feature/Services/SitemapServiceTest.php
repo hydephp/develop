@@ -93,19 +93,19 @@ class SitemapServiceTest extends TestCase
 
     public function test_can_generate_sitemap_helper_returns_true_if_hyde_has_base_url()
     {
-        config(['site.site_url' => 'foo']);
+        config(['site.url' => 'foo']);
         $this->assertTrue(SitemapService::canGenerateSitemap());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_hyde_does_not_have_base_url()
     {
-        config(['site.site_url' => '']);
+        config(['site.url' => '']);
         $this->assertFalse(SitemapService::canGenerateSitemap());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
     {
-        config(['site.site_url' => 'foo']);
+        config(['site.url' => 'foo']);
         config(['site.generate_sitemap' => false]);
         $this->assertFalse(SitemapService::canGenerateSitemap());
     }
@@ -113,7 +113,7 @@ class SitemapServiceTest extends TestCase
     public function test_url_item_is_generated_correctly()
     {
         config(['site.pretty_urls' => false]);
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
@@ -130,7 +130,7 @@ class SitemapServiceTest extends TestCase
     public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
         config(['site.pretty_urls' => true]);
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
@@ -144,7 +144,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_all_route_types_are_discovered()
     {
-        config(['site.site_url' => 'foo']);
+        config(['site.url' => 'foo']);
         Hyde::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
 
         $files = [

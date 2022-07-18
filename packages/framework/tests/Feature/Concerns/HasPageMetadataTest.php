@@ -19,7 +19,7 @@ class HasPageMetadataTest extends TestCase
         parent::setUp();
 
         config(['hyde.meta' => []]);
-        config(['site.site_url' => null]);
+        config(['site.url' => null]);
         config(['site.pretty_urls' => false]);
         config(['site.generate_sitemap' => false]);
     }
@@ -38,7 +38,7 @@ class HasPageMetadataTest extends TestCase
     public function test_get_canonical_url_returns_url_for_top_level_page()
     {
         $page = $this->makePage();
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         $this->assertEquals('https://example.com/foo.html', $page->getCanonicalUrl());
     }
@@ -46,7 +46,7 @@ class HasPageMetadataTest extends TestCase
     public function test_get_canonical_url_returns_pretty_url_for_top_level_page()
     {
         $page = $this->makePage();
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
         config(['site.pretty_urls' => true]);
 
         $this->assertEquals('https://example.com/foo', $page->getCanonicalUrl());
@@ -66,7 +66,7 @@ class HasPageMetadataTest extends TestCase
                 return 'bar/'.$this->slug;
             }
         };
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         $this->assertEquals('https://example.com/bar/foo.html', $page->getCanonicalUrl());
     }
@@ -85,7 +85,7 @@ class HasPageMetadataTest extends TestCase
                 return 'bar/baz/'.$this->slug;
             }
         };
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         $this->assertEquals('https://example.com/bar/baz/foo.html', $page->getCanonicalUrl());
     }
@@ -93,7 +93,7 @@ class HasPageMetadataTest extends TestCase
     public function test_can_use_canonical_url_returns_true_when_both_uri_path_and_slug_is_set()
     {
         $page = $this->makePage();
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         $this->assertTrue($page->canUseCanonicalUrl());
     }
@@ -120,7 +120,7 @@ class HasPageMetadataTest extends TestCase
             public string $slug;
             public static string $outputDirectory = '';
         };
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         $this->assertFalse($page->canUseCanonicalUrl());
 
@@ -130,7 +130,7 @@ class HasPageMetadataTest extends TestCase
 
             public string $slug = 'foo';
         };
-        config(['site.site_url' => null]);
+        config(['site.url' => null]);
 
         $this->assertFalse($page->canUseCanonicalUrl());
     }
@@ -138,7 +138,7 @@ class HasPageMetadataTest extends TestCase
     public function test_render_page_metadata_returns_string_with_merged_metadata()
     {
         $page = $this->makePage();
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         config(['hyde.meta' => [
             Meta::name('foo', 'bar'),
@@ -174,7 +174,7 @@ class HasPageMetadataTest extends TestCase
     public function test_get_dynamic_metadata_adds_canonical_url_when_conditions_are_met()
     {
         $page = $this->makePage();
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         config(['hyde.meta' => [
             Meta::name('foo', 'bar'),
@@ -191,7 +191,7 @@ class HasPageMetadataTest extends TestCase
         {
             use HasPageMetadata;
         };
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
 
         $this->assertEquals(['<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />'],
@@ -205,7 +205,7 @@ class HasPageMetadataTest extends TestCase
         {
             use HasPageMetadata;
         };
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => false]);
 
         $this->assertEquals([],
