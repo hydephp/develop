@@ -67,6 +67,7 @@ class HydeBuildSitemapCommandTest extends TestCase
 
     public function test_sitemap_returns_helpful_error_message_when_simplexml_is_not_installed()
     {
+        config(['site.site_url' => null]);
         config(['testing.mock_disabled_extensions' => true]);
 
         $this->artisan('build:sitemap')
