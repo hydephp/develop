@@ -21,9 +21,10 @@ This update makes breaking changes to the configuration. You will need to update
 - Moved config option `hyde.output_directory` to `site.output_directory`
 
 - The default `site.url` is now `http://localhost` instead of `null`
+- Merged configuration options for the footer, see below
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecate ConvertsFooterMarkdown.php
 
 ### Removed
 - Removed `\Hyde\Framework\Facades\Route`. You can swap out usages with `\Hyde\Framework\Models\Route` without side effects.
@@ -39,6 +40,8 @@ This update makes breaking changes to the configuration. You will need to update
 
 ### Upgrade Guide
 
+#### Using the new site config
+
 Site-specific config options have been moved from `config/hyde.php` to `config/site.php`. The Hyde config is now used to configure behaviour of the site, while the site config is used to customize the look and feel, the presentation, of the site.
 
 The following configuration options have been moved. The actual usages remain the same, so you can upgrade by using copying over these options to the new file.
@@ -51,3 +54,27 @@ The following configuration options have been moved. The actual usages remain th
 - `hyde.output_directory`
 
 If you have published and Blade views or written custom code that uses the config options, you may need to update them. You can do this by republishing the Blade views, and/or using search and replace across your code. VSCode has a useful feature to make this a breeze: `CMD/CTRL+Shift+F`.
+
+#### Using the new footer config
+
+The footer configuration options have been merged. Prior to this update, the config option looked as follows:
+```php
+// filepath: config/hyde.php
+'footer' => [
+  'enabled' => true,
+  'markdown' => 'Markdown text...'
+],
+```
+
+Now, the config option looks as follows:
+```php
+// filepath: config/hyde.php
+
+// To use Markdown text
+'footer' => 'Markdown text...',
+
+// To disable it completely
+'footer' => false,
+```
+
+As you can see, the new config option is a string or the boolean false instead of an array. We use the same option for both the Markdown text and the footer disabled state.

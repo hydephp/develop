@@ -113,14 +113,42 @@ author: mr_hyde
 ```
 
 ### Footer
-The footer can be customized using Markdown, and even disabled completely.
+
+Most websites have a footer with copyright details and contact information. You probably want to change the Markdown to include your information, though you are of course welcome to keep the default attribution link!
+
+The footer component is made up of a few levels of components, depending on how much you want to customize.
+
+#### Customizing the Markdown text
+
+There are two ways to customize the footer text. First, you can set it in the configuration file:
 
 ```php
-// torchlight! {"lineNumbers": false}
-'footer' => [
-  'enabled' => true,
-  'markdown' => 'Site built with [HydePHP](https://github.com/hydephp/hyde).'
-],
+// filepath: config/hyde.php
+'footer' => 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
+```
+
+If you don't want to write Markdown in the configuration file, you can create a Markdown file in your includes directory. When this file is found, it will be used instead of the configuration setting.
+
+```markdown
+// filepath: resources/_includes/footer.md
+Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩
+```
+
+In both cases the parsed Markdown will be rendered in the footer Blade component.
+
+#### Customizing the Blade component
+
+The actual footer component is rendered using the [`layouts/footer.blade.php`](https://github.com/hydephp/framework/blob/master/resources/views/layouts/footer.blade.php) Blade template.
+
+In this template we automatically render the configured footer Markdown text. If you want to change this behaviour, for example, HydePHP.com uses a more sophisticated footer, simply [publish the footer component](#blade-views). 
+
+#### Disabling the footer entirely
+
+If you don't want to have a footer on your site, you can set the `'footer'` configuration option to `false`.
+
+```php
+// filepath: config/hyde.php
+'footer' => 'false',
 ```
 
 ### Navigation Menu & Sidebar
