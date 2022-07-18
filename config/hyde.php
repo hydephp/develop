@@ -26,19 +26,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Site Name
-    |--------------------------------------------------------------------------
-    |
-    | This value sets the name of your site and is, for example, used in
-    | the compiled page titles and more. The default value is HydePHP.
-    |
-    */
-
-    /** @deprecated v0.50.x - Use equivalent in site.php */
-    'name' => env('SITE_NAME', 'HydePHP'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Site URL Configuration
     |--------------------------------------------------------------------------
     |
@@ -55,13 +42,10 @@ return [
     |
     */
 
-    /** @deprecated v0.50.x - Use equivalent in site.php */
     'site_url' => env('SITE_URL', null),
 
-    /** @deprecated v0.50.x - Use equivalent in site.php */
     'pretty_urls' => false,
 
-    /** @deprecated v0.50.x - Use equivalent in site.php */
     'generate_sitemap' => true,
 
     /*
@@ -74,7 +58,6 @@ return [
     |
     */
 
-    /** @deprecated v0.50.x - Use equivalent in site.php */
     'language' => 'en',
 
     /*
@@ -98,7 +81,7 @@ return [
         // Meta::name('description', 'My Hyde Blog'),
         // Meta::name('keywords', 'Static Sites, Blogs, Documentation'),
         Meta::name('generator', 'HydePHP '.Hyde\Framework\Hyde::version()),
-        Meta::property('site_name', config('site.name', 'HydePHP')),
+        Meta::property('site_name', $siteName),
     ],
 
     /*
@@ -219,7 +202,6 @@ return [
     |
     */
 
-    /** @deprecated v0.50.x - Use equivalent in site.php */
     'output_directory' => '_site',
 
 ];
