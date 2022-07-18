@@ -11,19 +11,19 @@ class Includes implements IncludeFacadeContract
 {
     protected static string $includesDirectory = 'resources/_includes';
 
-    public static function path(?string $partial = null): string
+    public static function path(?string $filename = null): string
     {
         static::needsDirectory(static::$includesDirectory);
 
-        return $partial === null
+        return $filename === null
             ? Hyde::path(static::$includesDirectory)
-            : Hyde::path(static::$includesDirectory.'/'.$partial);
+            : Hyde::path(static::$includesDirectory.'/'.$filename);
     }
 
     /** @inheritDoc */
-    public static function get(string $partial, ?string $default = null): ?string
+    public static function get(string $filename, ?string $default = null): ?string
     {
-        $path = static::path($partial);
+        $path = static::path($filename);
 
         if (! file_exists($path)) {
             return $default;
@@ -33,9 +33,9 @@ class Includes implements IncludeFacadeContract
     }
 
     /** @inheritDoc */
-    public static function markdown(string $partial, ?string $default = null): ?string
+    public static function markdown(string $filename, ?string $default = null): ?string
     {
-        $path = static::path(basename($partial, '.md').'.md');
+        $path = static::path(basename($filename, '.md').'.md');
 
         if (! file_exists($path)) {
             return $default;
@@ -45,9 +45,9 @@ class Includes implements IncludeFacadeContract
     }
 
     /** @inheritDoc */
-    public static function blade(string $partial, ?string $default = null): ?string
+    public static function blade(string $filename, ?string $default = null): ?string
     {
-        $path = static::path(basename($partial, '.blade.php').'.blade.php');
+        $path = static::path(basename($filename, '.blade.php').'.blade.php');
 
         if (! file_exists($path)) {
             return $default;
