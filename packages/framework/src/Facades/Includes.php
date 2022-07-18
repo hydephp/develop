@@ -11,6 +11,8 @@ class Includes implements \Hyde\Framework\Contracts\IncludeFacadeContract
     public static function get(string $partial, ?string $default = null): ?string
     {
         // TODO: Implement get() method.
+
+        return $default;
     }
 
     /**
@@ -19,6 +21,8 @@ class Includes implements \Hyde\Framework\Contracts\IncludeFacadeContract
     public static function markdown(string $partial, ?string $default = null): ?string
     {
         // TODO: Implement markdown() method.
+
+        return $default;
     }
 
     /**
@@ -27,5 +31,7 @@ class Includes implements \Hyde\Framework\Contracts\IncludeFacadeContract
     public static function blade(string $partial, ?string $default = null): ?string
     {
         // TODO: Implement blade() method.
+
+        return $default;
     }
 }
