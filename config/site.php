@@ -33,25 +33,43 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Site URL Configuration
+    | Site Base URL
     |--------------------------------------------------------------------------
     |
-    | Here are some configuration options for URL generation.
+    | Setting a base URL is highly reccomended, and is required to use some
+    | HydePHP features, like automatic sitemaps and RSS feeds.
     |
-    | A site_url is required to use sitemaps and RSS feeds.
-    |
-    | `site_url` is used to create canonical URLs and permalinks.
-    | `prettyUrls` will when enabled create links that do not end in .html.
-    | `generateSitemap` determines if a sitemap.xml file should be generated.
-    |
-    | To see the full documentation, please visit the documentation link below.
-    | https://hydephp.com/docs/master/customization#site-url-configuration
+    | If you are serving your site from a subdirectory,
+    | you will need to include that in the path.
     |
     */
 
     'site_url' => env('SITE_URL', null),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Pretty URLs
+    |--------------------------------------------------------------------------
+    |
+    | When the setting is enabled, generated links in the compiled HTML site
+    | are without the .html extension. Since this breaks local browsing you
+    | can leave the setting disabled, and instead add the --pretty-urls flag
+    | when running the php hyde build command for deployment.
+    |
+    */
+
     'pretty_urls' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sitemap Generation
+    |--------------------------------------------------------------------------
+    |
+    | When the setting is enabled, a sitemap.xml file will automatically be
+    | generated when the site is built. Note that this requires that you
+    | have a base URL set in the site configuration above.
+    |
+    */
 
     'generate_sitemap' => true,
 
