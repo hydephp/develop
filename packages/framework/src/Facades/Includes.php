@@ -11,9 +11,13 @@ class Includes implements IncludeFacadeContract
     /** @inheritDoc */
     public static function get(string $partial, ?string $default = null): ?string
     {
-        // TODO: Implement get() method.
+        $path = static::$includesDirectory . '/' . $partial;
 
-        return $default;
+        if (! file_exists($path)) {
+            return $default;
+        }
+
+        return file_get_contents($path);
     }
 
     /** @inheritDoc */
