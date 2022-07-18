@@ -34,9 +34,9 @@ Note that HydeFront is included in Hyde/Hyde through the CDN out of the box.
 See https://www.jsdelivr.com/package/npm/hydefront
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.8/dist/hyde.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.13/dist/hyde.css">
 
-<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.8/dist/hyde.js"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.13/dist/hyde.js"></script>
 ```
 
 ### Using NPM (with Laravel Mix)
