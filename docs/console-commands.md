@@ -75,9 +75,9 @@ Maybe the most important command is the Build command, which -- you guessed it -
 
 #### Sitemaps and RSS feeds
 
-Sitemaps and RSS feeeds require that you have a base site URL set, (and that you have not disabled them).
+Sitemaps and RSS feeds require that you have a base site URL set, (and that you have not disabled them).
 
-When the features are avaliable the build commnad will generate a sitemap and RSS feed.
+When the features are available the build command will generate a sitemap and RSS feed.
 
 You can also rebuild just the sitemap and RSS feed by using their respective commands:
 
