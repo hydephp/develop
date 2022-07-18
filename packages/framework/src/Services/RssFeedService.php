@@ -123,7 +123,7 @@ class RssFeedService
     {
         return static::xmlEscape(
             rtrim(
-                config('site.site_url') ?? 'http://localhost',
+                config('site.url') ?? 'http://localhost',
                 '/'
             )
         );

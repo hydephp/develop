@@ -144,8 +144,8 @@ trait FileHelpers
      */
     public static function uriPath(?string $path = ''): string|false
     {
-        if (config('site.site_url', false)) {
-            return rtrim(config('site.site_url'), '/').'/'.(trim($path, '/') ?? '');
+        if (config('site.url', false)) {
+            return rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? '');
         }
 
         return false;

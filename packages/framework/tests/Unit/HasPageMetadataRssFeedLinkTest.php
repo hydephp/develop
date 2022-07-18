@@ -18,7 +18,7 @@ class HasPageMetadataRssFeedLinkTest extends TestCase
     {
         parent::setUp();
 
-        config(['site.site_url' => 'foo']);
+        config(['site.url' => 'foo']);
     }
 
     public function test_can_use_rss_feed_link_adds_meta_link_for_markdown_posts()
@@ -73,7 +73,7 @@ class HasPageMetadataRssFeedLinkTest extends TestCase
 
     public function test_can_use_rss_feed_uses_configured_site_url()
     {
-        config(['site.site_url' => 'https://example.org']);
+        config(['site.url' => 'https://example.org']);
         $page = new MarkdownPost([], '');
 
         $this->assertStringContainsString(
@@ -95,7 +95,7 @@ class HasPageMetadataRssFeedLinkTest extends TestCase
 
     public function test_link_is_not_added_if_site_url_is_not_set()
     {
-        config(['site.site_url' => '']);
+        config(['site.url' => '']);
         $page = new MarkdownPost([], '');
 
         $this->assertStringNotContainsString(

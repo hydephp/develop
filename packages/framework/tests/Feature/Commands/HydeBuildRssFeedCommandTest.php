@@ -14,7 +14,7 @@ class HydeBuildRssFeedCommandTest extends TestCase
 {
     public function test_rss_feed_is_not_generated_when_conditions_are_not_met()
     {
-        config(['site.site_url' => '']);
+        config(['site.url' => '']);
         config(['hyde.generate_rss_feed' => false]);
 
         unlinkIfExists(Hyde::path('_site/feed.xml'));
@@ -26,7 +26,7 @@ class HydeBuildRssFeedCommandTest extends TestCase
 
     public function test_rss_feed_is_generated_when_conditions_are_met()
     {
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
         config(['hyde.generate_rss_feed' => true]);
 
         unlinkIfExists(Hyde::path('_site/feed.xml'));
@@ -40,7 +40,7 @@ class HydeBuildRssFeedCommandTest extends TestCase
 
     public function test_rss_filename_can_be_changed()
     {
-        config(['site.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
         config(['hyde.generate_rss_feed' => true]);
         config(['hyde.rss_filename' => 'blog.xml']);
 

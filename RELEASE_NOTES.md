@@ -12,13 +12,13 @@ This update makes breaking changes to the configuration. You will need to update
 - internal: Refactor navigation menu components and improve link helpers
 
 - Moved config option `hyde.name` to `site.name`
-- Moved config option `hyde.site_url` to `site.site_url`
+- Moved config option `hyde.site_url` to `site.url`
 - Moved config option `hyde.pretty_urls` to `site.pretty_urls`
 - Moved config option `hyde.generate_sitemap` to `site.generate_sitemap`
 - Moved config option `hyde.language` to `site.language`
 - Moved config option `hyde.output_directory` to `site.output_directory`
 
-- The default `site.site_url` is now `http://localhost` instead of `null`
+- The default `site.url` is now `http://localhost` instead of `null`
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -42,7 +42,7 @@ Site-specific config options have been moved from `config/hyde.php` to `config/s
 The following configuration options have been moved. The actual usages remain the same, so you can upgrade by using copying over these options to the new file.
 
 - `hyde.name`
-- `hyde.site_url`
+- `hyde.site_url` (is now just `site.url`)
 - `hyde.pretty_urls`
 - `hyde.generate_sitemap`
 - `hyde.language`
