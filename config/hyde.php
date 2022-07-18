@@ -150,22 +150,4 @@ return [
             // NavItem::toLink('https://github.com/hydephp/hyde', 'GitHub', 200),
         ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Site Output Directory (Experimental 🧪)
-    |--------------------------------------------------------------------------
-    |
-    | This setting specifies the output path for your site, useful to for
-    | example, store the site in the docs/ directory for GitHub Pages.
-    | The path is relative to the root of your project.
-    |
-    | To use an absolute path, or just to learn more:
-    | @see https://hydephp.com/docs/master/advanced-customization#customizing-the-output-directory-
-    |
-    */
-
-    /** @deprecated v0.50.x - Use equivalent in site.php */
-    'output_directory' => '_site',
-
 ];
