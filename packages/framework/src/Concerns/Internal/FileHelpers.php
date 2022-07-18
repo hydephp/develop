@@ -144,8 +144,8 @@ trait FileHelpers
      */
     public static function uriPath(?string $path = ''): string|false
     {
-        if (config('hyde.site_url', false)) {
-            return rtrim(config('hyde.site_url'), '/').'/'.(trim($path, '/') ?? '');
+        if (config('site.site_url', false)) {
+            return rtrim(config('site.site_url'), '/').'/'.(trim($path, '/') ?? '');
         }
 
         return false;

@@ -123,7 +123,7 @@ class RssFeedService
     {
         return static::xmlEscape(
             rtrim(
-                config('hyde.site_url') ?? 'http://localhost',
+                config('site.site_url') ?? 'http://localhost',
                 '/'
             )
         );
