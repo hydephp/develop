@@ -81,7 +81,7 @@ if (navigationToggleButton) {
 
 
 /**
- * Lagrafo Frontend Scripts
+ * HydeDocs Frontend Scripts
  */
 if (document.getElementById("hyde-docs")) {
     let sidebarOpen:boolean = false;
