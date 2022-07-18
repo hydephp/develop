@@ -33,6 +33,73 @@ These are the main configuration files for HydePHP and lets you customize the lo
 {.align-top}
 
 
+### Site.php - Site Presentation Settings
+
+#### Overview
+**Configuration file for the site presentation settings, like site name and base URL.**
+
+HydePHP favours convention over configuration and as such requires virtually no configuration out of the box to get started. Though, you may want to change the options to personalize your site and make it your own!
+
+#### `site.name` - Site Name
+
+This value sets the name of your site and is, for example, used in the compiled page titles and more. The default value is HydePHP.
+
+```php
+// filepath: config/site.php
+'name' => env('SITE_NAME', 'HydePHP'),
+```
+
+#### `site.site_url` - Site Base URL
+
+Setting a base URL is highly reccomended, and is required to use some HydePHP features, like automatic sitemaps and RSS feeds.
+
+If you are serving your site from a subdirectory, you will need to include that in the path.
+
+```php
+// filepath: config/site.php
+'site_url' => env('SITE_URL', 'http://localhost'),
+```
+
+#### `site.pretty_urls` - Pretty URLs
+
+When the setting is enabled, generated links in the compiled HTML site are without the `.html` extension. Since this breaks local browsing you can leave the setting disabled, and instead add the `--pretty-urls` flag when running the `php hyde build` command for deployment.
+
+```php
+// filepath: config/site.php
+'pretty_urls' => false,
+```
+
+#### `site.generate_sitemap` - Sitemap Generation
+
+When the setting is enabled, a `sitemap.xml` file will automatically be generated when the site is built. Note that this requires that you have a base URL set in the site configuration above.
+
+```php
+// filepath: config/site.php
+'generate_sitemap' => true,
+```
+
+#### `site.language` - Site Language
+
+This value sets the language of your site and is used for the `<html lang="">` element in the app layout, and the RSS feed. Default is `'en'`.
+
+```php
+// filepath: config/site.php
+'language' => 'en',
+```
+
+#### `site.output_directory` - Site Output Directory (Experimental 🧪)
+
+This setting specifies the output path for your site, useful to for example, store the site in the `docs/` directory for GitHub Pages. The path is relative to the root of your project. To use an absolute path, or just to learn more:
+
+```php
+// filepath: config/site.php
+'output_directory' => '_site',
+```
+
+See [Customizing the output directory](https://hydephp.com/docs/master/advanced-customization#customizing-the-output-directory-) for more information.
+
+<br>
+
 ---
 
 ## Laravel & Package Configuration Files
