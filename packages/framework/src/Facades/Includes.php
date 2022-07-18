@@ -2,12 +2,11 @@
 
 namespace Hyde\Framework\Facades;
 
-class Includes implements \Hyde\Framework\Contracts\IncludeFacadeContract
-{
+use Hyde\Framework\Contracts\IncludeFacadeContract;
 
-    /**
-     * @inheritDoc
-     */
+class Includes implements IncludeFacadeContract
+{
+    /** @inheritDoc */
     public static function get(string $partial, ?string $default = null): ?string
     {
         // TODO: Implement get() method.
@@ -15,9 +14,7 @@ class Includes implements \Hyde\Framework\Contracts\IncludeFacadeContract
         return $default;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public static function markdown(string $partial, ?string $default = null): ?string
     {
         // TODO: Implement markdown() method.
@@ -25,9 +22,7 @@ class Includes implements \Hyde\Framework\Contracts\IncludeFacadeContract
         return $default;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public static function blade(string $partial, ?string $default = null): ?string
     {
         // TODO: Implement blade() method.
