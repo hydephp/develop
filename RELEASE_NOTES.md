@@ -9,6 +9,7 @@ This update makes breaking changes to the configuration. You will need to update
 - Added RSS feed configuration stubs to `config/site.php`
 - Added an `Includes` facade that can quickly import partials
 - Added an automatic option to load footer Markdown from partial
+- Added the `hyde.load_app_styles_from_cdn` option to load `_media/app.css` from the CDN
 
 ### Changed
 - internal: Refactor navigation menu components and improve link helpers
