@@ -20,6 +20,13 @@ class GeneratesPageMetadataTest extends TestCase
 
     protected bool $forceOpenGraph = true;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Config::set('site.site_url', null);
+    }
+
     protected function tearDown(): void
     {
         unset($this->metadata);
