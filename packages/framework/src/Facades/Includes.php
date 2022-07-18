@@ -13,6 +13,8 @@ class Includes implements IncludeFacadeContract
 
     public static function path(?string $partial = null): string
     {
+        static::needsDirectory(static::$includesDirectory);
+
         return $partial === null
             ? Hyde::path(static::$includesDirectory)
             : Hyde::path(static::$includesDirectory . '/' . $partial);
@@ -52,5 +54,12 @@ class Includes implements IncludeFacadeContract
         }
 
         return Blade::render(file_get_contents($path));
+    }
+
+    protected static function needsDirectory(string $directory): void
+    {
+        if (! file_exists($directory)) {
+            mkdir($directory, recursive: true);
+        }
     }
 }

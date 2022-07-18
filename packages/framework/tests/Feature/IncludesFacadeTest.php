@@ -5,6 +5,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Facades\Includes;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Facades\Includes
@@ -25,6 +26,14 @@ class IncludesFacadeTest extends TestCase
             Hyde::path('resources/_includes/partial.html'),
             Includes::path('partial.html')
         );
+    }
+
+    public function test_path_creates_directory_if_it_does_not_exist()
+    {
+        $path = Includes::path();
+        File::deleteDirectory($path);
+        $this->assertFalse(File::exists($path));
+        $this->assertTrue(File::exists(Includes::path()));
     }
 
     public function test_get_returns_partial()
