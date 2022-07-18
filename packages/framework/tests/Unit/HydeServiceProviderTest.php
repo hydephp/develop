@@ -109,7 +109,7 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->assertEquals(Hyde::path('_site'), StaticPageBuilder::$outputPath);
 
-        config(['hyde.output_directory' => 'foo']);
+        config(['site.output_directory' => 'foo']);
 
         $this->provider->register();
 
