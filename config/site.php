@@ -58,7 +58,7 @@ return [
     |
     | Note that this can cause issues when you are serving from a subdirectory.
     | See https://github.com/hydephp/develop/issues/228
-    | 
+    |
     */
 
     'pretty_urls' => false,
