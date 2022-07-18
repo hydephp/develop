@@ -11,7 +11,7 @@
         @yield('content') 
     </section>
 
-    @includeWhen(config('hyde.footer.enabled', true), 'hyde::layouts.footer') 
+    @include('hyde::layouts.footer') 
 
     @include('hyde::layouts.scripts') 
 </body>
