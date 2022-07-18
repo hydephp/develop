@@ -7,6 +7,7 @@ This update makes breaking changes to the configuration. You will need to update
 ### Added
 - Added a new configuration file, `config/site.php`, see below
 - Added RSS feed configuration stubs to `config/site.php`
+- Added an `Includes` facade that can quickly import partials.
 
 ### Changed
 - internal: Refactor navigation menu components and improve link helpers
