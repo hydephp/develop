@@ -56,6 +56,9 @@ return [
     | can leave the setting disabled, and instead add the --pretty-urls flag
     | when running the php hyde build command for deployment.
     |
+    | Note that this can cause issues when you are serving from a subdirectory.
+    | See https://github.com/hydephp/develop/issues/228
+    | 
     */
 
     'pretty_urls' => false,
@@ -94,8 +97,8 @@ return [
     | example, store the site in the docs/ directory for GitHub Pages.
     | The path is relative to the root of your project.
     |
-    | To use an absolute path, or just to learn more:
-    | @see https://hydephp.com/docs/master/advanced-customization#customizing-the-output-directory-
+    | To use an absolute path, or just to learn more, see the following:
+    | https://hydephp.com/docs/master/advanced-customization#customizing-the-output-directory-
     |
     */
 
