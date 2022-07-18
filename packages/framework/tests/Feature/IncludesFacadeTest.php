@@ -25,7 +25,6 @@ class IncludesFacadeTest extends TestCase
         $this->assertEquals('default', Includes::get('foo.txt', 'default'));
     }
 
-
     public function test_markdown_returns_rendered_partial()
     {
         $expected = "<h1>foo bar</h1>\n";
@@ -40,10 +39,9 @@ class IncludesFacadeTest extends TestCase
         $this->assertEquals('default', Includes::markdown('foo.md', 'default'));
     }
 
-
     public function test_blade_returns_rendered_partial()
     {
-        $expected = "foo bar";
+        $expected = 'foo bar';
         file_put_contents(Hyde::path('resources/_includes/foo.blade.php'), '{{ "foo bar" }}');
         $this->assertEquals($expected, Includes::blade('foo.blade.php'));
         unlink(Hyde::path('resources/_includes/foo.blade.php'));
