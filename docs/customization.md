@@ -9,76 +9,51 @@ category: "Digging Deeper"
 ## Introduction
 
 Hyde favours <a href="https://en.wikipedia.org/wiki/Convention_over_configuration">"Convention over Configuration"</a>
-and thus comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable hackable if you need it. This page guides you through the endless options available!
+and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable if you need it. This page guides you through the many options available!
+
+When referencing configuration options, we often use "dot notation" to specify the configuration file. For example, <code>config('site.name')</code> means that we are looking for the <code>name</code> option in the <code>config/site.php</code> file.
+
+If you want to reference these configuration options in your Blade views, or other integrations, please take a look at the [Laravel Documentation](https://laravel.com/docs/9.x/configuration).
+
+## Configuration Files Overview
+
+There are a few configuration files available in the `config` directory. All options are documented, so feel free to look through the files and get familiar with the options available to you.
+
+Below are two tables over the different configuration files. Click on a file name to see the default file on GitHub.
+
+### HydePHP Configuration Files
+
+These are the main configuration files for HydePHP and lets you customize the look and feel of your site, as well as the behaviour of HydePHP.
+
+| Config File                                                                                                        | Description                                                                         |
+|--------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| <a href="https://github.com/hydephp/hyde/blob/master/config/site.php" rel="nofollow noopener">site.php</a>         | Configuration file for the site presentation settings, like site name and base URL. |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/hyde.php" rel="nofollow noopener">hyde.php</a>         | HydePHP Framework settings, like what features to enable, and navigation menus.     |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/docs.php" rel="nofollow noopener">docs.php</a>         | Options for the HydePHP documentation site generator module.                        |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a> | Configure Markdown related services, as well as change the CommonMark extensions.   |
+{.align-top}
 
 
-## Main Configuration File
-The main configuration file is in `config/hyde.php`. The [config file](https://github.com/hydephp/hyde/blob/master/config/hyde.php) is fully documented, so I recommend you take a look to see all the options.
+### Laravel & Package Configuration Files
 
-In this config file, you can customize the site name, what modules to enable, and programmatically customize the navigation menu and documentation sidebar. 
+Since HydePHP is based on Laravel we also have a few configuration files related to them. You probably don't need to edit any of these unless you want to make changes to the application core.
 
-Here are a few examples of the config options.
+| Config File                                                                                                            | Description                                                             |
+|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| <a href="https://github.com/hydephp/hyde/blob/master/config/app.php" rel="nofollow noopener">app.php</a>               | Configures the underlying Laravel application.                          |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/commands.php" rel="nofollow noopener">commands.php</a>     | Configures the Laravel Zero commands for the HydeCLI.                   |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/cache.php" rel="nofollow noopener">cache.php</a>           | Configures the cache driver and cache path locations.                   |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/view.php" rel="nofollow noopener">view.php</a>             | Configures the paths for the Blade View compiler.                       |
+| <a href="https://github.com/hydephp/hyde/blob/master/config/torchlight.php" rel="nofollow noopener">torchlight.php</a> | Configures settings for the Torchlight syntax highlighting integration. |
 
-### Modules
-With a concept directly inspired by [Laravel Jetstream](https://jetstream.laravel.com/), this setting allows you to toggle various modules.
-```php
-// torchlight! {"lineNumbers": false}
-'features' => [
-    Features::blogPosts(),
-    Features::bladePages(),
-    Features::markdownPages(),
-    // Features::documentationPages(),
-],
-```
-
-### Site URL Configuration
+{.align-top}
 
 
-Hyde offers a few options to configure URLs and links for compiled files. Here is an overview.
+## Configuration Options
 
-#### Site URL
+While all options are already documented within the files, here are some further explanations of some of the options.
 
-If you want, you can set your site's URL in the Hyde config, or in the .env file.
-
-The URL will then be used in meta tags to create permalinks.
-If you are serving your site from a subdirectory, you will
-need to include that in the path without a trailing slash.
-
-
-```php
-// Default
-'site_url' => env('SITE_URL', null),
-
-// Examples
-'site_url' => env('https://example.org'),
-'site_url' => env('https://example.org/blog'),
-```
-
-#### Pretty URLs (Links that do not end in .html)
-
-Introduced in v0.25.0, you can now enable "pretty URLs". When the setting
-is enabled, generated links in the compiled HTML site are without the
-`.html` extension. Since this breaks local browsing you can leave
-the setting disabled, and instead add the `--pretty-urls` flag
-when running the `php hyde build` command for deployment.
-
-
-```php
-'prettyUrls' => false, // Default is false
-```
-
-> Note that this can cause issues when you are serving your site from a subdirectory. See [#228](https://github.com/hydephp/develop/issues/228)
-
-#### Generate sitemap.xml
-
-When enabled, a sitemap.xml will automatically be generated when you compile your static site.
-Note that this requires that a site_url is set!
-
-```php // config/hyde.php
-'generateSitemap' => true, // Default is true
-```
-
-#### RSS feed generation
+### RSS feed generation
 
 When enabled, an RSS feed with your Markdown blog posts will be generated when you compile your static site.
 Note that this requires that a site_url is set!
@@ -113,8 +88,8 @@ When writing posts, just specify the username in the front matter,
 and the rest of the data will be pulled from a matching entry.
 
 #### Example
-// torchlight! {"lineNumbers": false}
 ```php
+// torchlight! {"lineNumbers": false}
 'authors' => [
     Author::create(
         username: 'mr_hyde', // Required username
