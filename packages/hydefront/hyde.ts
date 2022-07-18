@@ -84,7 +84,7 @@ if (navigationToggleButton) {
  * Lagrafo Frontend Scripts
  * @version v0.2.0-beta
  */
-if (document.getElementById("lagrafo-app")) {
+if (document.getElementById("hyde-docs")) {
     let sidebarOpen:boolean = false;
 
     const sidebarToggleButton = document.getElementById('sidebar-toggle') as HTMLButtonElement;

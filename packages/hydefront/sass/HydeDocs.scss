@@ -14,7 +14,7 @@ html {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
 }
 
-#lagrafo-app {
+#hyde-docs {
     min-height: 100vh;
     width: 100vw;
     position: relative;
@@ -224,7 +224,7 @@ html {
  * device does not support JavaScript the user won't be able to open the sidebar at all.
  */
 
-#lagrafo-app {
+#hyde-docs {
     // Hide the mobile navigation by default as the interaction depends on JavaScript.
     #mobile-navigation {
         display: none;
@@ -378,7 +378,7 @@ body [id] {
  * Opinionated styles
  */
 
-#lagrafo-app {
+#hyde-docs {
     .prose {
         h1,h2,h3,h4,h5,h6 {
             width: fit-content;

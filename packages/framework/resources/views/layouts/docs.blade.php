@@ -4,7 +4,7 @@
     @include('hyde::layouts.head')
 </head>
 	
-<body id="lagrafo-app" class="bg-white dark:bg-gray-900">
+<body id="hyde-docs" class="bg-white dark:bg-gray-900">
 	<a href="#content" id="skip-to-content">Skip to content</a>
 	
 	<script>
