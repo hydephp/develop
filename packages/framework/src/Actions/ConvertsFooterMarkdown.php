@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
  * otherwise, it falls back to a default string.
  *
  * @see \Hyde\Framework\Testing\Unit\ConvertsFooterMarkdownTest
+ * @deprecated v0.50.x
  */
 class ConvertsFooterMarkdown
 {
