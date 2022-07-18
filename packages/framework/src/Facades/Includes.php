@@ -4,6 +4,7 @@ namespace Hyde\Framework\Facades;
 
 use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Contracts\IncludeFacadeContract;
+use Illuminate\Support\Facades\Blade;
 
 class Includes implements IncludeFacadeContract
 {
@@ -36,8 +37,12 @@ class Includes implements IncludeFacadeContract
     /** @inheritDoc */
     public static function blade(string $partial, ?string $default = null): ?string
     {
-        // TODO: Implement blade() method.
+        $path = static::$includesDirectory . '/' . $partial . '.blade.php';
 
-        return $default;
+        if (! file_exists($path)) {
+            return $default;
+        }
+
+        return Blade::render(file_get_contents($path));
     }
 }
