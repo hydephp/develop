@@ -102,7 +102,7 @@ class HydeServiceProvider extends ServiceProvider
             Commands\HydeMakePostCommand::class,
             Commands\HydeMakePageCommand::class,
             Commands\HydeValidateCommand::class,
-            Commands\HydeInstallCommand::class,
+            // Commands\HydeInstallCommand::class,
             Commands\HydeDebugCommand::class,
             Commands\HydeServeCommand::class,
 
