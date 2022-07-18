@@ -37,6 +37,7 @@ return [
     |
     */
 
+    /** @deprecated v0.50.x - Use equivalent in site.php */
     'name' => $siteName = env('SITE_NAME', 'HydePHP'),
 
     /*
@@ -57,10 +58,13 @@ return [
     |
     */
 
+    /** @deprecated v0.50.x - Use equivalent in site.php */
     'site_url' => env('SITE_URL', null),
 
+    /** @deprecated v0.50.x - Use equivalent in site.php */
     'pretty_urls' => false,
 
+    /** @deprecated v0.50.x - Use equivalent in site.php */
     'generate_sitemap' => true,
 
     /*
@@ -73,6 +77,7 @@ return [
     |
     */
 
+    /** @deprecated v0.50.x - Use equivalent in site.php */
     'language' => 'en',
 
     /*
@@ -217,6 +222,7 @@ return [
     |
     */
 
+    /** @deprecated v0.50.x - Use equivalent in site.php */
     'output_directory' => '_site',
 
 ];
