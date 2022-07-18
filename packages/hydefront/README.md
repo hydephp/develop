@@ -64,6 +64,14 @@ Next, depending on your setup, you may need to tell Hyde where to find the style
 - NPM https://www.npmjs.com/package/hydefront
 - jsDelivr https://www.jsdelivr.com/package/npm/hydefront
 
+
+## Supported Versions
+
+| Version | Supported          | Notes    |
+|---------|--------------------|----------|
+| 1.x     | :white_check_mark: | Latest   |
+
+
 ## Warranty:
 HydeFront is not intended to be used for standalone projects and comes with no warranties. Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
 
