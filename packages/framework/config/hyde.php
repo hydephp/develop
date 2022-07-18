@@ -25,19 +25,6 @@ use Hyde\Framework\Models\NavItem;
 return [
     /*
     |--------------------------------------------------------------------------
-    | Site Language
-    |--------------------------------------------------------------------------
-    |
-    | This value sets the language of your site and is used for the
-    | <html lang=""> element in the app layout. Default is 'en'.
-    |
-    */
-
-    /** @deprecated v0.50.x - Use equivalent in site.php */
-    'language' => 'en',
-
-    /*
-    |--------------------------------------------------------------------------
     | Global Site Meta Tags
     |--------------------------------------------------------------------------
     |
