@@ -120,7 +120,7 @@ class HydeServiceProvider extends ServiceProvider
         $this->app->register(Modules\DataCollections\DataCollectionServiceProvider::class);
 
         if (env('DUSK_ENABLED', false)) {
-            $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
+            $this->app->register(\Hyde\Testing\Browser\DuskServiceProvider::class);
         }
     }
 }
