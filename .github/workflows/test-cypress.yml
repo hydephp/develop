@@ -8,46 +8,23 @@ on:
 
 jobs:
 
-  build-fixtures:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
-    - name: Install Composer Dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: Build base site
-      run: |
-        php hyde build
-        echo "# Fixture 1: Base Install" > _site/README.md
-
-    - name: Upload site artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: 'fixture-0'
-        path: '_site'
-
   run-cypress-tests:
-    needs: build-fixtures
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Download fixtures
-        id: download-fixtures
-        uses: actions/download-artifact@v3
+
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
         with:
-          name: 'fixture-0'
-          path: 'tests/Cypress/fixtures/fixture-0'
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
