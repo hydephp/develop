@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Browser;
+namespace Hyde\Testing\Browser;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
+use Hyde\Testing\DuskTestCase;
 
 class ExampleTest extends DuskTestCase
 {

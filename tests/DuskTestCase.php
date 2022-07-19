@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Hyde\Testing;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;

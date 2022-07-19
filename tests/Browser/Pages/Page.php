@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Pages;
+namespace Hyde\Testing\Browser\Pages;
 
 use Laravel\Dusk\Page as BasePage;
 
