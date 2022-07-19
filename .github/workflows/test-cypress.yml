@@ -9,11 +9,8 @@ on:
 jobs:
 
   build-fixtures:
-
     runs-on: ubuntu-latest
-
     steps:
-   
     - uses: actions/checkout@v3
 
     - name: Cache Composer packages
@@ -38,3 +35,15 @@ jobs:
       with:
         name: 'fixture-0'
         path: '_site'
+
+  run-cypress-tests:
+    needs: build-fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Cypress
+        run: cd tests/Cypress && npm install
+
+      - name: Run Cypress Tests
+        run: npx cypress run
