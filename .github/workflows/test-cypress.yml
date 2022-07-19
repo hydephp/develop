@@ -66,5 +66,6 @@ jobs:
         with:
           name: 'cypress-media'
           path: |
-            'tests/Cypress/screenshots'
-            'tests/Cypress/vid'
+            tests/Cypress/cypress/screenshots
+            tests/Cypress/cypress/videos
+            
