@@ -47,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: 'fixture-0'
-          path: 'tests/Cypress/cypress/fixtures/fixture-0'
+          path: 'tests/Cypress/fixtures/fixture-0'
 
       - name: Install Cypress
         run: cd tests/Cypress && npm install
