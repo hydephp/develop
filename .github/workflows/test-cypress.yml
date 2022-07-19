@@ -46,4 +46,4 @@ jobs:
         run: cd tests/Cypress && npm install
 
       - name: Run Cypress Tests
-        run: cd tests/Cypress npx cypress run
+        run: cd tests/Cypress && npx cypress run
