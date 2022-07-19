@@ -2,8 +2,8 @@
 
 namespace Hyde\Testing\Browser;
 
-use Laravel\Dusk\Browser;
 use Hyde\Testing\DuskTestCase;
+use Laravel\Dusk\Browser;
 
 class ExampleTest extends DuskTestCase
 {
