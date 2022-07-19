@@ -49,8 +49,14 @@ jobs:
           name: 'fixture-0'
           path: 'tests/Cypress/fixtures/fixture-0'
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+
       - name: Install Cypress
-        run: cd tests/Cypress && npm install
+        working-directory: 'tests/Cypress'
+        run: npm ci
 
       - name: Run Cypress Tests
         run: cd tests/Cypress && npx cypress run
