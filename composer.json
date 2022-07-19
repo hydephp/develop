@@ -20,9 +20,10 @@
         "hyde/framework": "dev-master"
     },
     "require-dev": {
+        "hyde/realtime-compiler": "dev-master",
+        "laravel/dusk": "^6.25",
         "mockery/mockery": "^1.4.4",
-        "pestphp/pest": "^1.21.1",
-        "hyde/realtime-compiler": "dev-master"
+        "pestphp/pest": "^1.21.1"
     },
     "autoload": {
         "psr-4": {
