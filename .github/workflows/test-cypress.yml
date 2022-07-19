@@ -31,7 +31,7 @@ jobs:
         echo "# Fixture 1: Base Install" > _site/README.md
 
     - name: Upload site artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: 'fixture-0'
         path: '_site'
@@ -47,3 +47,12 @@ jobs:
 
       - name: Run Cypress Tests
         run: cd tests/Cypress && npx cypress run
+
+      - name: Upload Cypress Test Media
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'cypress-media'
+          path: |
+            'tests/Cypress/cypress/screenshots'
+            'tests/Cypress/cypress/vid'
+            
