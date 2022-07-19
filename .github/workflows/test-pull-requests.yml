@@ -53,6 +53,55 @@ jobs:
         curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/24257c1f3ec4ce8a2c16601bbfa33f054f873be9/ping-openanalytics-testrunner.php -o ping.php
         php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
 
+
+  dusk-browser-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Prepare the Environment
+        run: echo -e "APP_URL=http://localhost:8080 \nDUSK_ENABLED=true" > .env
+
+      - name: Upgrade Chrome Driver
+        run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
+      - name: Start Chrome Driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Run HydeRC Server
+        run: php hyde serve &
+
+      - name: Run Dusk Tests
+        env:
+          APP_URL: "http://127.0.0.1:8080"
+        run: php hyde dusk
+
+      - name: Upload Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: tests/Browser/screenshots
+
+      - name: Upload Console Logs
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: console
+          path: tests/Browser/console
+
+
   check-coding-standards:
     runs-on: ubuntu-latest
     steps:
