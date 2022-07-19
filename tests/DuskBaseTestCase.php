@@ -2,11 +2,11 @@
 
 namespace Hyde\Testing;
 
-use Laravel\Dusk\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Facade;
+use Laravel\Dusk\Browser;
+use Laravel\Dusk\TestCase as BaseTestCase;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\ArgumentFormatter;
-use Laravel\Dusk\Browser;
 
 abstract class DuskBaseTestCase extends BaseTestCase
 {
@@ -35,7 +35,7 @@ abstract class DuskBaseTestCase extends BaseTestCase
         $this->setUpHasRun = true;
 
         // \Laravel\Dusk\TestCase
- 
+
         Browser::$baseUrl = 'http://localhost:8080';
         // Browser::$baseUrl = $this->baseUrl();
 
@@ -53,8 +53,8 @@ abstract class DuskBaseTestCase extends BaseTestCase
     /**
      * Assert that a command was called using the given arguments.
      *
-     * @param string $command
-     * @param array $arguments
+     * @param  string  $command
+     * @param  array  $arguments
      */
     protected function assertCommandCalled(string $command, array $arguments = []): void
     {
@@ -68,8 +68,8 @@ abstract class DuskBaseTestCase extends BaseTestCase
     /**
      * Assert that a command was not called using the given arguments.
      *
-     * @param string $command
-     * @param array $arguments
+     * @param  string  $command
+     * @param  array  $arguments
      */
     protected function assertCommandNotCalled(string $command, array $arguments = []): void
     {
