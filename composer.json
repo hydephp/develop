@@ -48,6 +48,13 @@
             "pestphp/pest-plugin": true
         }
     },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "laravel/dusk"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "bin": ["hyde"],
