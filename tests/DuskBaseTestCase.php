@@ -53,8 +53,8 @@ abstract class DuskBaseTestCase extends BaseTestCase
     /**
      * Assert that a command was called using the given arguments.
      *
-     * @param string $command
-     * @param array $arguments
+     * @param  string  $command
+     * @param  array  $arguments
      */
     protected function assertCommandCalled(string $command, array $arguments = []): void
     {
@@ -68,8 +68,8 @@ abstract class DuskBaseTestCase extends BaseTestCase
     /**
      * Assert that a command was not called using the given arguments.
      *
-     * @param string $command
-     * @param array $arguments
+     * @param  string  $command
+     * @param  array  $arguments
      */
     protected function assertCommandNotCalled(string $command, array $arguments = []): void
     {
