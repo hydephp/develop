@@ -35,6 +35,9 @@ jobs:
         working-directory: 'tests/Cypress'
         run: npm ci
 
+      - name: Start HydeRC server
+        run: php hyde serve --host=127.0.0.1 &
+
       - name: Run Cypress Tests
         run: cd tests/Cypress && npx cypress run
 
