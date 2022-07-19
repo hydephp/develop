@@ -378,27 +378,3 @@ body [id] {
  * Opinionated styles
  */
 
-#hyde-docs {
-    .prose {
-        h1,h2,h3,h4,h5,h6 {
-            width: fit-content;
-            &:hover, &:focus {
-                .heading-permalink {
-                    opacity: 0.75;
-                    filter: grayscale(100%);
-                    transition: opacity 0.1s ease-out;
-                }
-            }
-            .heading-permalink {
-                opacity: 0;
-                &:hover, &:focus {
-                    opacity: 1;
-                    filter: unset;
-                }
-                margin-left: 0.25rem;
-                transition: opacity 0.3s ease;
-                padding: 0 0.25rem;
-            }
-        }
-    }
-}
