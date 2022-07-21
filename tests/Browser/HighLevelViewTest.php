@@ -62,4 +62,12 @@ class HighLevelViewTest extends DuskTestCase
 					->storeSource('posts_homepage.html');
 		});
 	}
+
+	public function test_reset_state()
+	{
+		$this->artisan('publish:homepage welcome -n');
+		unlink(Hyde::path('_site/index.html'));
+		unlink(Hyde::path('_site/404.html'));
+		$this->assertTrue(true);
+	}
 }
