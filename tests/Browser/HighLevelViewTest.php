@@ -14,6 +14,8 @@ use Laravel\Dusk\Browser;
  */
 class HighLevelViewTest extends DuskTestCase
 {
+    public $mockConsoleOutput = false;
+
     public function test_welcome_homepage()
     {
         $this->browse(function (Browser $browser) {
@@ -61,6 +63,23 @@ class HighLevelViewTest extends DuskTestCase
 					->screenshot('posts_homepage')
 					->storeSource('posts_homepage.html');
 		});
+	}
+
+	public function test_posts_homepage_with_posts()
+	{
+		$this->artisan('publish:homepage posts -n');
+		$this->artisan('make:post -n');
+
+		$this->browse(function (Browser $browser) {
+			$browser->visit('/')
+					->assertSee('HydePHP')
+					->assertSee('Latest Posts')
+					->assertSee('My New Post')
+					->screenshot('posts_homepage_with_posts')
+					->storeSource('posts_homepage_with_posts.html');
+		});
+
+		unlink(Hyde::path('_posts/my-new-post.md'));
 	}
 
 	public function test_reset_state()
