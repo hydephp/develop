@@ -7,11 +7,12 @@ use Laravel\Dusk\Browser;
 
 class DefaultHomepageTest extends DuskTestCase
 {
-    public function testExample()
+    public function testDefaultHomepageIsWelcomePage()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('Laravel');
+                    ->assertSee('You\'re running on')
+                    ->assertSee('HydePHP');
         });
     }
 }
