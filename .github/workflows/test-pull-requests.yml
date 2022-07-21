@@ -94,6 +94,13 @@ jobs:
           name: screenshots
           path: tests/Browser/screenshots
 
+      - name: Upload Compiled Source
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: source
+          path: tests/Browser/source
+
       - name: Upload Console Logs
         if: failure()
         uses: actions/upload-artifact@v2
