@@ -118,5 +118,9 @@ class HydeServiceProvider extends ServiceProvider
     protected function registerModuleServiceProviders(): void
     {
         $this->app->register(Modules\DataCollections\DataCollectionServiceProvider::class);
+
+        if (env('DUSK_ENABLED', false)) {
+            $this->app->register(\Hyde\Testing\Browser\DuskServiceProvider::class);
+        }
     }
 }
