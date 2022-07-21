@@ -9,7 +9,7 @@
         Latest Posts</h1>
     </header>
 
-    <div class="max-w-3xl mx-auto">
+    <div id="post-feed" class="max-w-3xl mx-auto">
         @include('hyde::components.blog-post-feed')
     </div>
 </main>
