@@ -25,6 +25,8 @@ class HighLevelViewTest extends DuskTestCase
 					->screenshot('welcome_homepage')
 					->storeSource('welcome_homepage.html');
         });
+
+		unlink(Hyde::path('_site/index.html'));
     }
 
 	public function test_404_page()
@@ -36,6 +38,8 @@ class HighLevelViewTest extends DuskTestCase
 					->screenshot('404_page')
 					->storeSource('404_page.html');
 		});
+
+		unlink(Hyde::path('_site/404.html'));
 	}
 
 	public function test_blank_homepage()
@@ -49,6 +53,9 @@ class HighLevelViewTest extends DuskTestCase
 					->screenshot('blank_homepage')
 					->storeSource('blank_homepage.html');
 		});
+
+		$this->artisan('publish:homepage welcome -n');
+		unlink(Hyde::path('_site/index.html'));
 	}
 
 	public function test_posts_homepage()
@@ -63,6 +70,9 @@ class HighLevelViewTest extends DuskTestCase
 					->screenshot('posts_homepage')
 					->storeSource('posts_homepage.html');
 		});
+
+		$this->artisan('publish:homepage welcome -n');
+		unlink(Hyde::path('_site/index.html'));
 	}
 
 	public function test_posts_homepage_with_posts()
@@ -79,15 +89,8 @@ class HighLevelViewTest extends DuskTestCase
 					->storeSource('posts_homepage_with_posts.html');
 		});
 
-		unlink(Hyde::path('_posts/my-new-post.md'));
-	}
-
-	protected function tearDown(): void
-	{
 		$this->artisan('publish:homepage welcome -n');
-		unlinkIfExists(Hyde::path('_site/index.html'));
-		unlinkIfExists(Hyde::path('_site/404.html'));
-
-		parent::tearDown();
+		unlink(Hyde::path('_posts/my-new-post.md'));
+		unlink(Hyde::path('_site/index.html'));
 	}
 }
