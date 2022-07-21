@@ -85,7 +85,7 @@ jobs:
       - name: Run Dusk Tests
         env:
           APP_URL: "http://127.0.0.1:8080"
-        run: php hyde dusk
+        run: php hyde dusk --pest
 
       - name: Upload Screenshots
         if: failure()
