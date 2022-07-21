@@ -82,11 +82,12 @@ class HighLevelViewTest extends DuskTestCase
 		unlink(Hyde::path('_posts/my-new-post.md'));
 	}
 
-	public function test_reset_state()
+	protected function tearDown(): void
 	{
 		$this->artisan('publish:homepage welcome -n');
-		unlink(Hyde::path('_site/index.html'));
-		unlink(Hyde::path('_site/404.html'));
-		$this->assertTrue(true);
+		unlinkIfExists(Hyde::path('_site/index.html'));
+		unlinkIfExists(Hyde::path('_site/404.html'));
+
+		parent::tearDown();
 	}
 }
