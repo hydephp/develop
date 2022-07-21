@@ -232,8 +232,12 @@ jobs:
     - name: Copy test files
       run: cp -rf develop/tests/. hyde/tests -v
 
-    - name: Remove test fixtures
-      run: rm -rf hyde/tests/fixtures -v
+    - name: Remove monorepo test files 
+      run: |
+        rm -rf hyde/tests/fixtures -v
+        rm -rf hyde/tests/Browser -v
+        rm -rf hyde/tests/Cypress -v
+        rm hyde/tests/DuskTestCase.php -v
 
     - name: Commit and push changes
       run: |
