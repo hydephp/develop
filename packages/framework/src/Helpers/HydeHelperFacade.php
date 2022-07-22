@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
  * Provides convenient access to Hyde helpers, through the main Hyde facade.
  *
  * @see \Hyde\Framework\Testing\Feature\HydeHelperFacadeTest
+ * @deprecated Should be merged into the main Hyde class.
  */
 trait HydeHelperFacade
 {
