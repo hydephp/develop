@@ -20,6 +20,7 @@ use Hyde\Framework\StaticPageBuilder;
  *
  * @see \Hyde\Framework\Hyde
  * @see \Hyde\Framework\Testing\Feature\FluentPathHelpersTest
+ * @deprecated Should be merged into the main Hyde class.
  */
 trait FluentPathHelpers
 {
