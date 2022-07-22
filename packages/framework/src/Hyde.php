@@ -5,7 +5,8 @@ namespace Hyde\Framework;
 use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\Internal\FileHelpers;
 use Hyde\Framework\Concerns\Internal\FluentPathHelpers;
-use Hyde\Framework\Helpers\HydeHelperFacade;
+use Hyde\Framework\Helpers\Features;
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
 /**
@@ -21,7 +22,6 @@ class Hyde
 {
     use FileHelpers;
     use FluentPathHelpers;
-    use HydeHelperFacade;
     use Macroable;
 
     protected static string $basePath;
@@ -47,5 +47,28 @@ class Hyde
     public static function setBasePath(string $path): void
     {
         static::$basePath = $path;
+    }
+
+    // HydeHelperFacade
+
+    public static function features(): Features
+    {
+        return new Features;
+    }
+
+    public static function hasFeature(string $feature): bool
+    {
+        return Features::enabled($feature);
+    }
+
+    public static function makeTitle(string $slug): string
+    {
+        $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
+
+        return ucfirst(str_ireplace(
+            $alwaysLowercase,
+            $alwaysLowercase,
+            Str::headline($slug)
+        ));
     }
 }
