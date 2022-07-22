@@ -26,7 +26,6 @@
         "illuminate/support": "^9.5",
         "illuminate/view": "^9.0",
         "symfony/yaml": "^6.0",
-        "laravel-zero/framework": "^9.1",
         "league/commonmark": "^2.2",
         "spatie/yaml-front-matter": "^2.0.7",
         "torchlight/torchlight-commonmark": "^0.5.5"
