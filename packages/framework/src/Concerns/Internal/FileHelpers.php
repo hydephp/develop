@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\View;
  * if a method uses the name `link` it refers to a web link used in Blade templates.
  *
  * @see \Hyde\Framework\Hyde
+ * @deprecated Should be merged into the main Hyde class.
  */
 trait FileHelpers
 {
