@@ -33,6 +33,7 @@ class Hyde
 
     public static function getBasePath(): string
     {
+        /** @deprecated Set path in constructor when instantiating the Singleton. */
         if (! isset(static::$basePath)) {
             static::$basePath = getcwd();
         }
@@ -40,6 +41,9 @@ class Hyde
         return static::$basePath;
     }
 
+    /**
+     * @deprecated Set path in constructor when instantiating the Singleton.
+     */
     public static function setBasePath(string $path): void
     {
         static::$basePath = $path;
