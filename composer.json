@@ -22,10 +22,7 @@
     },
     "require-dev": {
         "hyde/realtime-compiler": "dev-master",
-        "hyde/testing": "dev-master",
-        "laravel/dusk": "^6.25",
-        "mockery/mockery": "^1.4.4",
-        "pestphp/pest": "^1.21.1"
+        "hyde/testing": "dev-master"
     },
     "autoload": {
         "psr-4": {
