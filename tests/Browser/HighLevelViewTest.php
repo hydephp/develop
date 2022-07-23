@@ -2,8 +2,10 @@
 
 namespace Hyde\Testing\Browser;
 
+use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\DuskTestCase;
+use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 
 /**
@@ -140,5 +142,51 @@ class HighLevelViewTest extends DuskTestCase
         unlink(Hyde::path('_docs/page2.md'));
         unlink(Hyde::path('_docs/page3.md'));
         unlink(Hyde::path('_site/docs/page1.html'));
+    }
+
+    public function test_documentation_site_with_grouped_pages() {
+        $this->makeDocumentationTestPage('Page1', ['category' => 'Group 1']);
+        $this->makeDocumentationTestPage('Page2', ['category' => 'Group 1']);
+        $this->makeDocumentationTestPage('Page3');
+
+        if (! is_dir(Browser::$storeSourceAt.'/docs')) {
+            mkdir(Browser::$storeSourceAt.'/docs');
+        }
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/docs/page1')
+                ->assertSee('HydePHP Docs')
+                ->assertSee('Page1')
+                ->assertSee('Page2')
+                ->assertSee('Page3')
+                ->assertAttribute('#sidebar-navigation-menu > li', 'class', 'sidebar-category')
+                ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(1) > h4.sidebar-category-heading', 'Group 1')
+                ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
+                ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(2) > h4.sidebar-category-heading', 'Other')
+                ->screenshot('docs/with_grouped_sidebar_pages')
+                ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
+        });
+
+        unlink(Hyde::path('_docs/page1.md'));
+        unlink(Hyde::path('_docs/page2.md'));
+        unlink(Hyde::path('_docs/page3.md'));
+        unlink(Hyde::path('_site/docs/page1.html'));
+    }
+
+    protected function makeDocumentationTestPage(string $name, ?array $matter = null)
+    {
+        $path = Hyde::path('_docs/'.Str::slug($name).'.md');
+
+        $contents = '';
+
+        if ($matter !== null) {
+            $contents = (new ConvertsArrayToFrontMatter())->execute($matter) . "\n";
+        }
+
+        $contents .= '# '.$name;
+
+        file_put_contents($path, $contents);
+
+        return $path;
     }
 }
