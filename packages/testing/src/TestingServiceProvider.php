@@ -11,7 +11,8 @@ class TestingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(new class($this->app) extends \Laravel\Dusk\DuskServiceProvider {
+        $this->app->register(new class($this->app) extends \Laravel\Dusk\DuskServiceProvider
+        {
             /** @inheritDoc */
             public function boot()
             {
