@@ -98,14 +98,14 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: source
+          name: dusk-source
           path: tests/Browser/source
 
       - name: Upload Console Logs
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: console
+          name: dusk-console
           path: tests/Browser/console
 
 
