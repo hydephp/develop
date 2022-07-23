@@ -131,7 +131,6 @@ class HighLevelViewTest extends DuskTestCase
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
-                ->assertNotPresent('#sidebar-navigation-menu > li')
                 ->assertPresent('#sidebar-navigation-menu > li.active')
                 ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > a', 'current', 'true')
                 ->screenshot('docs/with_sidebar_pages')
