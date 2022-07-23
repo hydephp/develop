@@ -119,8 +119,6 @@ jobs:
 
       - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
         run: |
-          composer require hyde/framework:* --no-update 
-          composer require hyde/realtime-compiler:* --no-update --dev
           composer require php-parallel-lint/php-parallel-lint --no-install 
           composer require squizlabs/php_codesniffer --no-install 
 
@@ -147,8 +145,6 @@ jobs:
 
       - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
         run: |
-          composer require hyde/framework:* --no-update 
-          composer require hyde/realtime-compiler:* --no-update --dev
           composer require phpstan/phpstan --no-install 
 
       - name: Install Composer Dependencies
