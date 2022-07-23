@@ -6207,7 +6207,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
-                "reference": "05ca2f663e04439be77799bf5e1e1701faaf23c3"
+                "reference": "8e5961017419a03d5b310eadc27a1d43932cdcd0"
             },
             "require": {
                 "illuminate/support": "^9.5",
