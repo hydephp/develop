@@ -117,13 +117,6 @@ jobs:
           php-version: "8.0"
       - uses: actions/checkout@v3
 
-      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
-        run: |
-          composer require hyde/framework:* --no-update 
-          composer require hyde/realtime-compiler:* --no-update 
-          composer require php-parallel-lint/php-parallel-lint --no-install 
-          composer require squizlabs/php_codesniffer --no-install 
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
@@ -144,12 +137,6 @@ jobs:
         with:
           php-version: "8.0"
       - uses: actions/checkout@v3
-
-      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
-        run: |
-          composer require hyde/framework:* --no-update 
-          composer require hyde/realtime-compiler:* --no-update 
-          composer require phpstan/phpstan --no-install 
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist

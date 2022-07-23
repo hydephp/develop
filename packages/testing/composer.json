@@ -1,0 +1,38 @@
+{
+    "name": "hyde/testing",
+    "description": "Testing helpers for HydePHP.",
+    "keywords": [
+        "hyde",
+        "hydephp",
+        "testing"
+    ],
+    "homepage": "https://github.com/hyde/testing",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Caen De Silva",
+            "email": "caen@desilva.se",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9.5",
+        "laravel/dusk": "^6.25",
+        "mockery/mockery": "^1.4.4",
+        "pestphp/pest": "^1.21.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hyde\\Testing\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hyde\\Testing\\TestingServiceProvider"
+            ]
+        }
+    }
+}
