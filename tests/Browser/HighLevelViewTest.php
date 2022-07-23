@@ -93,4 +93,23 @@ class HighLevelViewTest extends DuskTestCase
         unlink(Hyde::path('_posts/my-new-post.md'));
         unlink(Hyde::path('_site/index.html'));
     }
+
+    public function test_documentation_index()
+    {
+        $this->artisan('make:page Index --type="documentation" -n');
+
+        if (! is_dir(Browser::$storeSourceAt . '/docs')) {
+            mkdir(Browser::$storeSourceAt . '/docs');
+        }
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/docs/index')
+                ->assertSee('HydePHP')
+                ->screenshot('docs/index')
+                ->storeSourceAsHtml('docs/index');
+        });
+
+        unlink(Hyde::path('_docs/index.md'));
+        unlink(Hyde::path('_site/docs/index.html'));
+    }
 }
