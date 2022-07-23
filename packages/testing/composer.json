@@ -18,9 +18,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^9.5"
-    },
-    "require-dev": {
+        "illuminate/support": "^9.5",
         "laravel/dusk": "^6.25",
         "mockery/mockery": "^1.4.4",
         "pestphp/pest": "^1.21.1"
