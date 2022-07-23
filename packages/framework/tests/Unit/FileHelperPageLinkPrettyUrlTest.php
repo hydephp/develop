@@ -8,7 +8,7 @@ use Hyde\Testing\TestCase;
 /**
  * Class FileHelperPageLinkPrettyUrlTest.
  *
- * @covers \Hyde\Framework\Concerns\Internal\FileHelpers
+ * @covers \Hyde\Framework\Hyde
  */
 class FileHelperPageLinkPrettyUrlTest extends TestCase
 {
