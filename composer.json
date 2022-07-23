@@ -36,6 +36,7 @@
     },
     "scripts": {
         "post-autoload-dump": [
+            "@php -r \"@unlink('./storage/framework/cache/packages.php');\"",
             "@php hyde package:discover --ansi"
         ]
     },
