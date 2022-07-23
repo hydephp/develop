@@ -1,8 +1,9 @@
 {
     "name": "hyde/testing",
-    "description": "Testing helpers for HydePHP. Should only be used as a dev-dependency, and never in production.",
+    "description": "Testing helpers for HydePHP.",
     "keywords": [
         "hyde",
+        "hydephp",
         "testing"
     ],
     "homepage": "https://github.com/hyde/testing",
@@ -34,22 +35,11 @@
             "Hyde\\Testing\\Tests\\": "tests"
         }
     },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
-    },
-    "config": {
-        "sort-packages": true
-    },
     "extra": {
         "laravel": {
             "providers": [
                 "Hyde\\Testing\\TestingServiceProvider"
-            ],
-            "aliases": {
-                "Testing": "Hyde\\Testing\\TestingFacade"
-            }
+            ]
         }
     }
 }
