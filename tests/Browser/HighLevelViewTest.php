@@ -118,9 +118,9 @@ class HighLevelViewTest extends DuskTestCase
 
     public function test_documentation_site_with_pages()
     {
-        $this->artisan('make:page Page1 --type="documentation" -n');
-        $this->artisan('make:page Page2 --type="documentation" -n');
-        $this->artisan('make:page Page3 --type="documentation" -n');
+        $this->makeDocumentationTestPage('Page1');
+        $this->makeDocumentationTestPage('Page2');
+        $this->makeDocumentationTestPage('Page3');
 
         if (! is_dir(Browser::$storeSourceAt.'/docs')) {
             mkdir(Browser::$storeSourceAt.'/docs');
