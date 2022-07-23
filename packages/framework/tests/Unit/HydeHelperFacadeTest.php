@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
