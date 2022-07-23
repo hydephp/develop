@@ -1,13 +1,13 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Hyde
+ * @covers \Hyde\Framework\HydeKernel
  */
 class HydeHelperFacadeTest extends TestCase
 {
