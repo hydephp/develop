@@ -9,6 +9,8 @@ use Hyde\Framework\Models\Route;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 use Tests\CreatesApplication;
 
+require_once __DIR__.'/helpers.php';
+
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
