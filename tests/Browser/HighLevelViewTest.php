@@ -98,8 +98,8 @@ class HighLevelViewTest extends DuskTestCase
     {
         $this->artisan('make:page Index --type="documentation" -n');
 
-        if (! is_dir(Browser::$storeSourceAt . '/docs')) {
-            mkdir(Browser::$storeSourceAt . '/docs');
+        if (! is_dir(Browser::$storeSourceAt.'/docs')) {
+            mkdir(Browser::$storeSourceAt.'/docs');
         }
 
         $this->browse(function (Browser $browser) {
