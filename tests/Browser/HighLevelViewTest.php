@@ -23,7 +23,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->assertSee('You\'re running on')
                     ->assertSee('HydePHP')
                     ->screenshot('welcome_homepage')
-                    ->storeSource('welcome_homepage.html');
+                    ->storeSourceAsHtml('welcome_homepage');
         });
 
         unlink(Hyde::path('_site/index.html'));
@@ -36,7 +36,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->assertSee('404')
                     ->assertSee('Sorry, the page you are looking for could not be found.')
                     ->screenshot('404_page')
-                    ->storeSource('404_page.html');
+                    ->storeSourceAsHtml('404_page');
         });
 
         unlink(Hyde::path('_site/404.html'));
@@ -51,7 +51,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->assertSee('HydePHP')
                     ->assertSee('Hello World!')
                     ->screenshot('blank_homepage')
-                    ->storeSource('blank_homepage.html');
+                    ->storeSourceAsHtml('blank_homepage');
         });
 
         $this->artisan('publish:homepage welcome -n');
@@ -68,7 +68,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->assertSee('Latest Posts')
                     ->assertSeeNothingIn('#post-feed')
                     ->screenshot('posts_homepage')
-                    ->storeSource('posts_homepage.html');
+                    ->storeSourceAsHtml('posts_homepage');
         });
 
         $this->artisan('publish:homepage welcome -n');
@@ -86,7 +86,7 @@ class HighLevelViewTest extends DuskTestCase
                     ->assertSee('Latest Posts')
                     ->assertSee('My New Post')
                     ->screenshot('posts_homepage_with_posts')
-                    ->storeSource('posts_homepage_with_posts.html');
+                    ->storeSourceAsHtml('posts_homepage_with_posts');
         });
 
         $this->artisan('publish:homepage welcome -n');
