@@ -19,8 +19,6 @@ class TestingServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (env('DUSK_ENABLED', false)) {
-            $this->app->register(\Hyde\Testing\DuskServiceProvider::class);
-        }
+        $this->app->register(\Hyde\Testing\DuskServiceProvider::class);
     }
 }
