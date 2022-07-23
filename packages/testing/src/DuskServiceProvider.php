@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing\Browser;
+namespace Hyde\Testing;
 
 class DuskServiceProvider extends \Laravel\Dusk\DuskServiceProvider
 {
