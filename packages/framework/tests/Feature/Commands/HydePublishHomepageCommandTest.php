@@ -58,8 +58,17 @@ class HydePublishHomepageCommandTest extends TestCase
                 'Which homepage do you want to publish?',
                 'welcome: The default welcome page.'
             )
-            ->expectsOutput('Selected page [welcome]')
+            ->expectsOutput('Published page [welcome]')
             ->expectsConfirmation('Would you like to rebuild the site?')
+            ->assertExitCode(0);
+    }
+
+    public function test_command_shows_feedback_output_when_supplying_a_homepage_name()
+    {
+        unlinkIfExists($this->file);
+        $this->artisan('publish:homepage welcome')
+            ->expectsOutput('Published page [welcome]')
+            ->expectsConfirmation('Would you like to rebuild the site?', false)
             ->assertExitCode(0);
     }
 
