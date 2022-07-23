@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Testing;
+namespace Tests;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
