@@ -1,7 +1,7 @@
 <?php
 
-use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Contracts\HydeKernelContract;
+use Hyde\Framework\HydeKernel;
 use Illuminate\Support\Collection;
 
 if (! function_exists('hyde')) {

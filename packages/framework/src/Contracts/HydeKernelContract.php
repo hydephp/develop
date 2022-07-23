@@ -10,7 +10,9 @@ namespace Hyde\Framework\Contracts;
  * and can be accessed in a few ways.
  *
  * - Commonly, you'll use the Hyde facade:
+ *
  * @see \Hyde\Framework\Hyde (previosly this namespace contained the actual Kernel)
+ *
  * @example \Hyde\Framework\Hyde::foo()
  *
  * - You can also use Dependency Injection to inject the Kernel into your own classes:
@@ -21,7 +23,6 @@ namespace Hyde\Framework\Contracts;
  *
  * - And finally, you can access the global `$hyde` variable defined in bootstrap.php:
  * @example `global $hyde; return $hyde;`
- *
  */
 interface HydeKernelContract
 {
