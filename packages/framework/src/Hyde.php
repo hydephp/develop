@@ -31,9 +31,9 @@ class Hyde
 
     protected string $basePath;
 
-    public function __construct(string $basePath)
+    public function __construct(?string $basePath = null)
     {
-        $this->basePath = $basePath;
+        $this->basePath = $basePath ?? getcwd();
     }
 
     public static function version(): string
