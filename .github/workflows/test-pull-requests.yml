@@ -116,7 +116,7 @@ jobs:
       - name: Download Dusk generated pages
         uses: actions/download-artifact@v2
         with:
-          name: source
+          name: dusk-source
           path: _site
           
       # @TODO compile latest hydefront version
