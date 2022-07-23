@@ -7,7 +7,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Helpers\HydeHelperFacade
+ * @covers \Hyde\Framework\Hyde
  */
 class HydeHelperFacadeTest extends TestCase
 {

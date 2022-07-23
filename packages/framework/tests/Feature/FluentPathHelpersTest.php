@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
 /**
  * Class FluentPathHelpersTest.
  *
- * @covers \Hyde\Framework\Concerns\Internal\FluentPathHelpers
+ * @covers \Hyde\Framework\Hyde
  */
 class FluentPathHelpersTest extends TestCase
 {

@@ -6,7 +6,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Concerns\Internal\FileHelpers::image
+ * @covers \Hyde\Framework\Hyde::image
  */
 class FileHelpersImageTest extends TestCase
 {
