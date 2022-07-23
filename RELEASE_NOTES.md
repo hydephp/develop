@@ -13,6 +13,7 @@ This update makes breaking changes to the configuration. You will need to update
 
 ### Changed
 - internal: Refactor navigation menu components and improve link helpers
+- internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
 
 - Moved config option `hyde.name` to `site.name`
 - Moved config option `hyde.site_url` to `site.url`
