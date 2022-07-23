@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 /**
  * Class HydePathHelperTest.
  *
- * @covers \Hyde\Framework\Hyde::path
+ * @covers \Hyde\Framework\HydeKernel::path
  */
 class HydePathHelperTest extends TestCase
 {

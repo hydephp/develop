@@ -8,9 +8,9 @@ use Hyde\Testing\TestCase;
 /**
  * Class HydeBasePathCanBeChangedTest.
  *
- * @covers \Hyde\Framework\Hyde::getBasePath
- * @covers \Hyde\Framework\Hyde::setBasePath
- * @covers \Hyde\Framework\Hyde::path
+ * @covers \Hyde\Framework\HydeKernel::getBasePath
+ * @covers \Hyde\Framework\HydeKernel::setBasePath
+ * @covers \Hyde\Framework\HydeKernel::path
  */
 class HydeBasePathCanBeChangedTest extends TestCase
 {

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Artisan;
 /**
  * @todo #162 Improve testing for this class.
  *
- * @covers \Hyde\Framework\HydeServiceProvider
+ * @covers \Hyde\Framework\HydeKernelServiceProvider
  * @covers \Hyde\Framework\Concerns\RegistersFileLocations
  */
 class HydeServiceProviderTest extends TestCase

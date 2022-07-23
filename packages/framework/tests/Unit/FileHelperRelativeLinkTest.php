@@ -8,7 +8,7 @@ use Hyde\Testing\TestCase;
 /**
  * Class FileHelperRelativeLinkTest.
  *
- * @covers \Hyde\Framework\Hyde
+ * @covers \Hyde\Framework\HydeKernel
  */
 class FileHelperRelativeLinkTest extends TestCase
 {
