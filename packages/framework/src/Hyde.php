@@ -21,4 +21,9 @@ class Hyde extends Facade
     {
         return HydeKernel::class;
     }
+
+    public static function version()
+    {
+        return HydeKernel::version();
+    }
 }
