@@ -116,7 +116,8 @@ class HighLevelViewTest extends DuskTestCase
         unlink(Hyde::path('_site/docs/index.html'));
     }
 
-    public function test_documentation_site_with_pages() {
+    public function test_documentation_site_with_pages()
+    {
         $this->artisan('make:page Page1 --type="documentation" -n');
         $this->artisan('make:page Page2 --type="documentation" -n');
         $this->artisan('make:page Page3 --type="documentation" -n');
@@ -143,7 +144,8 @@ class HighLevelViewTest extends DuskTestCase
         unlink(Hyde::path('_site/docs/page1.html'));
     }
 
-    public function test_documentation_site_with_grouped_pages() {
+    public function test_documentation_site_with_grouped_pages()
+    {
         $this->makeDocumentationTestPage('Page1', ['category' => 'Group 1']);
         $this->makeDocumentationTestPage('Page2', ['category' => 'Group 1']);
         $this->makeDocumentationTestPage('Page3');
@@ -179,7 +181,7 @@ class HighLevelViewTest extends DuskTestCase
         $contents = '';
 
         if ($matter !== null) {
-            $contents = (new ConvertsArrayToFrontMatter())->execute($matter) . "\n";
+            $contents = (new ConvertsArrayToFrontMatter())->execute($matter)."\n";
         }
 
         $contents .= '# '.$name;
