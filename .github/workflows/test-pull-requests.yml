@@ -121,6 +121,11 @@ jobs:
         run: cd _site && bash -c 'for f in *.txt; do mv -- "$f" "${f%.txt}"; done'
 
       # @TODO compile latest hydefront version
+      - name: Download app.css
+        run: |
+          mkdir _site/media
+          cd _site/media
+          wget https://raw.githubusercontent.com/hydephp/develop/master/_media/app.css
       
       - name: Upload build to Percy
         run: npx percy snapshot _site/
