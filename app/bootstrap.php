@@ -45,7 +45,7 @@ $app->singleton(
 |
 */
 
-$hyde = new \Hyde\Framework\HydeKernel(dirname(__DIR__));
+$hyde = new Hyde\Framework\HydeKernel(dirname(__DIR__));
 
 /*
 |--------------------------------------------------------------------------
