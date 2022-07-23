@@ -10,6 +10,7 @@ use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\ArgumentFormatter;
+use Tests\CreatesApplication;
 
 abstract class DuskTestCase extends BaseTestCase
 {
