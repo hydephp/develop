@@ -47,6 +47,11 @@ class HydeKernel implements HydeKernelContract
         return $this->basePath;
     }
 
+    public function setBasePath($basePath)
+    {
+        $this->basePath = rtrim($basePath, '/\\');
+    }
+
     // HydeHelperFacade
 
     public function features(): Features
