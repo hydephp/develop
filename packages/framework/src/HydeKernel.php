@@ -3,6 +3,7 @@
 namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
+use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -25,7 +26,7 @@ use Illuminate\Support\Traits\Macroable;
  *
  * @link https://hydephp.com/
  */
-class HydeKernel
+class HydeKernel implements HydeKernelContract
 {
     use Macroable;
 
