@@ -23,6 +23,7 @@
     "require-dev": {
         "hyde/realtime-compiler": "dev-master",
         "hyde/testing": "dev-master",
+        "php-parallel-lint/php-parallel-lint": "^1.3",
         "phpstan/phpstan": "^1.8"
     },
     "autoload": {
