@@ -34,7 +34,7 @@ class HydeKernel implements HydeKernelContract
 
     public function __construct(?string $basePath = null)
     {
-        $this->basePath = $basePath ?? getcwd();
+        $this->setBasePath($basePath ?? getcwd());
     }
 
     public static function getInstance(): static
