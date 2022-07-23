@@ -15,7 +15,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
 /**
- * General facade for Hyde services.
+ * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
+ *
+ * @see \Hyde\Framework\Facades\Hyde
  *
  * @author  Caen De Silva <caen@desilva.se>
  * @copyright 2022 Caen De Silva
