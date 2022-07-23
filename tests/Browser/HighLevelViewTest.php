@@ -104,7 +104,8 @@ class HighLevelViewTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/docs/index')
-                ->assertSee('HydePHP')
+                ->assertSee('HydePHP Docs')
+                ->assertNotPresent('#sidebar-navigation-menu > li')
                 ->screenshot('docs/index')
                 ->storeSourceAsHtml('docs/index');
         });
@@ -124,10 +125,13 @@ class HighLevelViewTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/docs/page1')
-                ->assertSee('HydePHP')
+                ->assertSee('HydePHP Docs')
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
+                ->assertNotPresent('#sidebar-navigation-menu > li')
+                ->assertPresent('#sidebar-navigation-menu > li.active')
+                ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > a', 'current', 'true')
                 ->screenshot('docs/with_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_sidebar_pages');
         });
