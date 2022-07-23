@@ -53,6 +53,18 @@ abstract class DuskTestCase extends BaseTestCase
         Browser::$userResolver = function () {
             return $this->user();
         };
+
+        Browser::macro('storeSourceAsHtml', function ($name) {
+            $source = $this->driver->getPageSource();
+
+            if (! empty($source)) {
+                file_put_contents(
+                    sprintf('%s/%s.html', rtrim(static::$storeSourceAt, '/'), $name), $source
+                );
+            }
+
+            return $this;
+        });
     }
 
     /**

@@ -117,9 +117,6 @@ jobs:
           name: dusk-source
           path: _site
           
-      - name: Remove .txt extension from HTML files
-        run: cd _site && bash -c 'for f in *.txt; do mv -- "$f" "${f%.txt}"; done'
-
       # @TODO compile latest hydefront version
       - name: Download app.css
         run: |
