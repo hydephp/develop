@@ -84,7 +84,6 @@ class Hyde
      * These are intended to be used as a dynamic alternative to legacy code
      * Hyde::path('_pages/foo') becomes Hyde::getBladePagePath('foo')
      */
-
     public static function getModelSourcePath(string $model, string $path = ''): string
     {
         if (empty($path)) {
