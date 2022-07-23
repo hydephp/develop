@@ -118,7 +118,9 @@ jobs:
         with:
           name: source
           path: _site
-
+          
+      # @TODO compile latest hydefront version
+      
       - name: Upload build to Percy
         run: npx percy snapshot _site/
         env:
