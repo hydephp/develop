@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47c853aaf8e47931314dc351325a5f41",
+    "content-hash": "3d274cd3d6c1d11fee1adf59ff83afd7",
     "packages": [
         {
             "name": "brick/math",
@@ -6202,6 +6202,71 @@
             }
         },
         {
+            "name": "hyde/testing",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./packages/testing",
+                "reference": "c9f2aa88cbb81d72599fd0bfcb7193286784f4a4"
+            },
+            "require": {
+                "illuminate/support": "^9.5",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hyde\\Testing\\TestingServiceProvider"
+                    ],
+                    "aliases": {
+                        "Testing": "Hyde\\Testing\\TestingFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyde\\Testing\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Hyde\\Testing\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "test-coverage": [
+                    "vendor/bin/phpunit --coverage-html coverage"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caen De Silva",
+                    "email": "caen@desilva.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Testing helpers for HydePHP. Should only be used as a dev-dependency, and never in production.",
+            "homepage": "https://github.com/hyde/testing",
+            "keywords": [
+                "hyde",
+                "testing"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "laravel/dusk",
             "version": "v6.25.0",
             "source": {
@@ -8488,7 +8553,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hyde/framework": 20,
-        "hyde/realtime-compiler": 20
+        "hyde/realtime-compiler": 20,
+        "hyde/testing": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
