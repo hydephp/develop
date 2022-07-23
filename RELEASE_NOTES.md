@@ -36,7 +36,7 @@ This update makes breaking changes to the configuration. You will need to update
 - Removed ConvertsFooterMarkdown.php
 
 ### Fixed
-- for any bug fixes.
+- Fixed bug [#260](https://github.com/hydephp/develop/issues/260) where the command to publish a homepage did not display the selected value when it was supplied as a parameter
 
 ### Security
 - in case of vulnerabilities.
