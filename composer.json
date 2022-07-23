@@ -31,7 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Hyde\\Testing\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
