@@ -45,7 +45,7 @@ $app->singleton(
 |
 */
 
-\Hyde\Framework\Hyde::setBasePath(dirname(__DIR__));
+$hyde = new \Hyde\Framework\Hyde(dirname(__DIR__));
 
 /*
 |--------------------------------------------------------------------------

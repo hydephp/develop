@@ -29,7 +29,12 @@ class Hyde
 {
     use Macroable;
 
-    protected static string $basePath;
+    protected string $basePath;
+
+    public function __construct(string $basePath)
+    {
+        $this->basePath = $basePath;
+    }
 
     public static function version(): string
     {
