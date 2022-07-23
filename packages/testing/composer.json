@@ -28,11 +28,6 @@
             "Hyde\\Testing\\": "src"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Hyde\\Testing\\Tests\\": "tests"
-        }
-    },
     "extra": {
         "laravel": {
             "providers": [
