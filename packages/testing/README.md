@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/testing.svg?style=flat-square)](https://packagist.org/packages/hyde/testing)
 [![Total Downloads](https://img.shields.io/packagist/dt/hyde/testing.svg?style=flat-square)](https://packagist.org/packages/hyde/testing)
-![GitHub Actions](https://github.com/hyde/testing/actions/workflows/main.yml/badge.svg)
+
 
 Warning: This package should only be used as a dev-dependency, and never in production.
 
