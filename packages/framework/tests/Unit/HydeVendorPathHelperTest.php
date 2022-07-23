@@ -3,13 +3,14 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 class HydeVendorPathHelperTest extends TestCase
 {
     public function test_method_exists()
     {
-        $this->assertTrue(method_exists('Hyde', 'vendorPath'));
+        $this->assertTrue(method_exists(HydeKernel::class, 'vendorPath'));
     }
 
     public function test_method_returns_string()
