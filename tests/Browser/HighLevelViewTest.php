@@ -112,4 +112,29 @@ class HighLevelViewTest extends DuskTestCase
         unlink(Hyde::path('_docs/index.md'));
         unlink(Hyde::path('_site/docs/index.html'));
     }
+
+    public function test_documentation_site_with_pages() {
+        $this->artisan('make:page Page1 --type="documentation" -n');
+        $this->artisan('make:page Page2 --type="documentation" -n');
+        $this->artisan('make:page Page3 --type="documentation" -n');
+
+        if (! is_dir(Browser::$storeSourceAt.'/docs')) {
+            mkdir(Browser::$storeSourceAt.'/docs');
+        }
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/docs/page1')
+                ->assertSee('HydePHP')
+                ->assertSee('Page1')
+                ->assertSee('Page2')
+                ->assertSee('Page3')
+                ->screenshot('docs/with_sidebar_pages')
+                ->storeSourceAsHtml('docs/with_sidebar_pages');
+        });
+
+        unlink(Hyde::path('_docs/page1.md'));
+        unlink(Hyde::path('_docs/page2.md'));
+        unlink(Hyde::path('_docs/page3.md'));
+        unlink(Hyde::path('_site/docs/page1.html'));
+    }
 }
