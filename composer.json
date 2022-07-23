@@ -22,7 +22,8 @@
     },
     "require-dev": {
         "hyde/realtime-compiler": "dev-master",
-        "hyde/testing": "dev-master"
+        "hyde/testing": "dev-master",
+        "phpstan/phpstan": "^1.8"
     },
     "autoload": {
         "psr-4": {
