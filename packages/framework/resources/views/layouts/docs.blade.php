@@ -27,13 +27,19 @@
 			{{ config('docs.header_title', 'Documentation') }}
 			@endif
 		</strong>
-        @include('hyde::components.navigation.theme-toggle-button')
-		<button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu">
-			<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-			<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-			<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-			<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-		</button>
+        <ul class="flex items-center">
+			<li class="h-8 flex mr-1">
+				@include('hyde::components.navigation.theme-toggle-button')
+			</li>
+			<li class="h-8 flex">
+				<button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu">
+					<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+					<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+					<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+					<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+				</button>
+			</li>
+		</ul>
 	</nav>
 	<aside id="sidebar" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 hidden md:block">
 		<header id="sidebar-header" class="h-16">
