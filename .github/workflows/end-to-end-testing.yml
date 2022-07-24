@@ -60,38 +60,16 @@ jobs:
           name: dusk-console
           path: tests/Browser/console
 
-
-  build-tailwindcss:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        cache: 'npm'
-
-    - name: Install Node.js dependencies
-      run: npm ci
-
-    - name: Update Tailwind content path
-      run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
-
-    - name: Build assets for production
-      run: npm run prod
-
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: 'app.css'
-        path: '_media/app.css'
+      - name: Upload app.css
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'app.css'
+          path: '_media/app.css'
 
 
   visual-regression-testing:
     runs-on: ubuntu-latest
-    needs: [dusk-browser-tests, build-tailwindcss]
+    needs: dusk-browser-tests
     steps:
       - name: Download Dusk generated pages
         uses: actions/download-artifact@v2
