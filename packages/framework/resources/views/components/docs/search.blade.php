@@ -7,7 +7,7 @@
 </button>
 @push('scripts')
 	
-<dialog id="searchMenu" class="prose dark:prose-invert bg-gray-100 dark:bg-gray-800 fixed p-4 rounded-lg overflow-y-hidden mt-[10vh] min-h-[300px] max-h-[75vh] w-[70ch] max-w-[90vw]">
+<dialog id="searchMenu" class="prose dark:prose-invert bg-gray-100 dark:bg-gray-800 fixed z-50 p-4 rounded-lg overflow-y-hidden mt-[10vh] min-h-[300px] max-h-[75vh] w-[70ch] max-w-[90vw]">
 	@include('hyde::components.docs.search-input')
 	<footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
 		<small>

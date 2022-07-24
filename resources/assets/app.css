@@ -47,6 +47,17 @@
 	margin-top: 0;
 }
 
+.backdrop {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+	background-color: rgba(0,0,0,.5);
+    z-index: 25;
+}
+
 /* TOC and permalinks */
 
 #hyde-docs .prose h1,
