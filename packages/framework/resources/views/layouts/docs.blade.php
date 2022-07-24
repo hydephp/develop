@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('site.language', 'en') }}">
+<html id="lagrafo-app" lang="{{ config('site.language', 'en') }}">
 <head>
     @include('hyde::layouts.head')
 
