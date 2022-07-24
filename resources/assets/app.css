@@ -9,8 +9,11 @@
 
 /* // Hyde Docs Styles */
 
-.bg-darken {
+.dark .bg-darken {
 	background-color: rgba(0, 0, 0, .1);
+}
+.bg-darken {
+	background-color: rgba(221,221,221,.5);
 }
 
 .hover\:bg-darken:hover {
