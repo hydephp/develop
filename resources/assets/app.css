@@ -258,6 +258,29 @@ pre code {
 	max-width: unset;
 }
 
+
+pre>code>.filepath {
+    position: relative;
+    top: -.25rem;
+    right: 0.25rem;
+    float: right;
+    opacity: .5;
+    transition: opacity 0.25s;
+}
+pre>code>.filepath:hover {
+	opacity: 1;
+}
+
+.torchlight-enabled pre>code>.filepath {
+    right: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+	pre>code>.filepath {
+		display: none;
+	}
+}
+
 /**
  * Styles for Torchlight
  *
