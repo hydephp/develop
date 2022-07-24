@@ -146,3 +146,43 @@
 .prose blockquote.danger {
 	@apply border-red-600;
 }
+/**
+ * Styles for Torchlight
+ *
+ * Uses the styles from https://torchlight.dev/docs/css
+ */
+ 
+
+/*
+ Margin and rounding are personal preferences,
+ overflow-x-auto is recommended.
+*/
+.torchlight-enabled pre {
+    @apply my-4 rounded overflow-x-auto p-0;
+}
+ 
+/*
+ Add some vertical padding and expand the width
+ to fill its container. The horizontal padding
+ comes at the line level so that background
+ colors extend edge to edge.
+*/
+.torchlight-enabled pre code.torchlight {
+    @apply block py-4 min-w-max;
+}
+ 
+/*
+ Horizontal line padding.
+*/
+.torchlight-enabled pre code.torchlight .line {
+    @apply px-4;
+}
+ 
+/*
+ Push the code away from the line numbers and
+ summary caret indicators.
+*/
+.torchlight-enabled pre code.torchlight .line-number,
+.torchlight-enabled pre code.torchlight .summary-caret {
+    @apply mr-4;
+}
