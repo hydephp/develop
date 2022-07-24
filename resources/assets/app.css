@@ -33,6 +33,19 @@
 	@apply	mt-0 mb-3 mr-4
 }
 
+.hyde-search-context {
+	margin-bottom: 10px;
+}
+
+.hyde-search-results {
+	max-height: 60vh;
+	overflow-y: auto;
+	margin-top: 1.25em;
+}
+
+#search-status {
+	margin-top: 0;
+}
 
 /* TOC and permalinks */
 
