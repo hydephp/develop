@@ -5,378 +5,403 @@
  * @deprecated
  */
 
-@use 'HydeDocs-darkmode-compat';
-@use 'HydeDocs-print-compat';
-
-body,
-html {
-    scroll-behavior: smooth;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
-}
-
-#hyde-docs {
-    min-height: 100vh;
-    width: 100vw;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-    #sidebar {
-        height: 100vh;
-        width: 16rem;
-        background-color: #eee;
-        position: fixed;
-        z-index: 10;
-
-        #sidebar-header {
-            height: 4rem;
-            #sidebar-brand {
-				display: flex;
-				align-items: center;
-                justify-content: space-between;
-                height: 4rem;
-                padding: 1rem;
-                button {
-                    padding: 0;
-                }
-            }
-        }
-
-        #sidebar-navigation {
-            height: calc(100vh - 8rem);
-            padding: 1rem;
-            border-top: #ddd 1px solid;
-            border-bottom: #ddd 1px solid;
-            overflow-y: auto;
-
-            .sidebar-navigation-item {
-				margin-left: -1rem;
-				padding-left: 1rem;
-                > a {
-					margin-left: -1rem;
-                    padding:0.5rem;
-                    display: block;
-					border-left: transparent solid 0.325rem;
-					transition: background-color 0.3s ease-in-out;
-					&:hover {
-						background-color: #ddd;
-						transition: background-color 0.2s ease-in-out;
-					}
-				}
-
-                &.active {
-					background-color: rgba(221, 221, 221, 0.5);
-                    > a {
-                        color: #4338ca;
-						border-left: #4f46e5 solid 0.325rem;
-					}	
-                }
-            }
-			.table-of-contents {
-				padding-bottom: 0.75rem;
-
-                > li  {
-                    margin-top: 0.15rem;
-                    margin-bottom: 0.35rem;
-                }
-				
-                ul {
-					padding-left: 0.5rem;
-				}
-				a {
-					display: block;
-					padding-left: 2rem;
-					margin-left: -2rem;
-					opacity: 0.825;
-					&::before {
-						content: "#";
-						font-size: 75%;
-						opacity: 0.5;
-						margin-right: 4px;
-						transition: opacity 0.3s ease-in-out;
-					}
-					&:hover {
-						&::before {
-							opacity: 1;
-						}
-						opacity: 1;
-						transition: opacity, background 0.3s ease-in-out;
-						background-color: rgba(221, 221, 221, 0.5);
-					}
-				}
-			}
-
-            .sidebar-category {
-                &:not(:first-child) {
-                    margin-top: 1rem;
-                }
-                margin-bottom: 1rem;
-                .sidebar-category-heading {
-                    font-size: 1rem;
-                    font-weight: 600;
-                    margin-bottom: 0.5rem;
-                    margin-left: -0.25rem;
-                }
-                .sidebar-category-list {
-                    margin-left: 1rem;
-                    .sidebar-navigation-item {
-                        &.active {
-                            margin-left: -2rem;
-                            padding-left: 2rem;
-                        }
-
-                        > a {
-                            margin-left: -2rem;
-                            padding-left: 1rem;
-                            /* Decrease vertical spacing for a more compact layout */
-                            padding-top: 0.2rem;
-                            padding-bottom: 0.2rem;
-                            margin-top: 0.2rem;
-                            margin-bottom: 0.2rem;
-                        }
-                    }
-                }
-            }
-        }
-
-        #sidebar-footer {
-            height: 4rem;
-            position: absolute;
-            padding: 1rem;
-
-            width: 100%;
-            bottom: 0;
-            left: 0;
-            text-align: center;
-            line-height: 2rem;
-        }
-    }
-
-    #content {
-        min-height: calc(100vh);
-        width: calc(100vw - 16rem);
-        background-color: #fff;
-        position: absolute;
-        left: 16rem;
-
-        #document {
-            padding: 3rem 4rem;
-            max-width: 1000px;
-            min-height: calc(100vh - 4rem);
-        }
-
-        #document-header, #document-footer {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            p {
-                margin-top: 0.75rem;
-                margin-bottom: 0.75rem;
-            }
-            h1 {
-                margin-top: 0;
-                margin-bottom: 0.75rem;
-                margin-right: 1rem;
-            }
-        }
-        #document-footer {
-            margin-top: 2rem;
-            justify-content: space-between;
-            font-size: 90%;
-        }
-
-        #pagination {
-            a {
-                text-decoration: none;
-
-                span.label {
-                    text-decoration: underline;
-                }
-
-                &#previous {
-                    margin-right: 0.25rem;
-                }
-
-                &#next {
-                    margin-left: 0.25rem;
-                }
-            }
-        }
-    }
-
-    #page-footer {
-        min-height: 4rem;
-        padding: 1rem;
-        text-align: center;
-        line-height: 2rem;
-        width: calc(100vw - 16rem);
-        background-color: whitesmoke;
-        a {
-            text-decoration: underline;
-        }
-    }
-}
-
-/**
- * HydeDocs Responsive Styles
- *
- * The sidebar media queries are only enabled if JavaScript is supported.
- * The reason for this is that if it is hidden using CSS media queries and the mobile
- * device does not support JavaScript the user won't be able to open the sidebar at all.
- */
-
-#hyde-docs {
-    // Hide the mobile navigation by default as the interaction depends on JavaScript.
-    #mobile-navigation {
-        display: none;
-    }
-    &.js-enabled {
-        @media (max-width: 767px) {
-            #mobile-navigation {
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-                height: 4rem;
-                position: fixed;
-                top: 0;
-                left: 0;
-                background-color: #fff;
-                box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0,
-                rgba(0, 0, 0, 0.075) 0 8px 12px -3px,
-                rgba(0, 0, 0, 0.075) 0 4px 6px -4px;
-                z-index: 100;
-                padding: 1rem;
-                line-height: 2rem;
-                strong {
-                    padding: 0 0.5rem;
-                }
-
-                // Hamburger menu icon based on Google Material Design Icons, SVG converted to HTML.
-                #sidebar-toggle {
-                    position: relative;
-                    display: inline-block;
-                    width: 2rem;
-                    height: 2rem;
-                    span.icon-bar {
-                        display: block;
-                        width: 20px;
-                        height: 2.375px;
-                        background-color: black;
-                        position: absolute;
-                        left: 5.5px;
-                        &:first-child {
-                            top: 9px;
-                        }
-                        &:nth-child(2),
-                        &:nth-child(3) {
-                            top: calc(9px + 6px);
-                            transform-origin: center;
-                        }
-                        &:last-child {
-                            top: calc(9px + 12px);
-                        }
-                        transition: all 0.3s ease-out;
-                    }
-                    &.active {
-                        span.icon-bar {
-                            &:first-child {
-                                opacity: 0;
-                            }
-                            &:nth-child(2) {
-                                transform: rotate(45deg);
-                            }
-                            &:nth-child(3) {
-                                transform: rotate(-45deg);
-                            }
-                            &:last-child {
-                                opacity: 0;
-                            }
-                        }
-                    }
-                }
-            }
-            #sidebar {
-                visibility: hidden;
-                left: -16rem;
-                transition: all 0.3s ease-out;
-                &.active {
-                    visibility: visible;
-                    left: 0;
-                }
-                box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
-                #sidebar-header {
-                    height: 4rem;
-                    #sidebar-brand {
-                        height: 4rem;
-                        visibility: hidden;
-                    }
-                }
-                #sidebar-navigation {
-                    height: calc(100vh - 8rem);
-                }
-            }
-
-            #content {
-                width: 100vw;
-                left: 0;
-                top: 4rem;
-                #document {
-                    padding: 3rem;
-                }
-
-                background-color: #f9f9f9;
-                transition: background-color 0.3s ease-out;
-                &.sidebar-active {
-                    background-color: #7e7e7e;
-                }
-            }
-
-            #page-footer {
-                width: 100vw;
-                left: 0;
-                bottom: 0;
-            }
-        }
-    }
-}
-
-/**
- * HydeDocs Utilities
- */
-
-.interactive-element {
-    cursor: pointer;
-}
-
-html [id],
-body [id] {
-    scroll-margin: 1rem;
-}
-
-.backdrop {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-}
-
-/**
- * Accessibility
- */
-
-// If prefers-reduced-motion is set, disable all animations
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation: none !important;
-        transition: none !important;
-    }
-}
-
-
-/**
- * Opinionated styles
- */
-
+ @use 'HydeDocs-darkmode-compat';
+ @use 'HydeDocs-print-compat';
+ 
+ body,
+ html {
+	 scroll-behavior: smooth;
+	 font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+	 "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+	 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+ }
+ 
+ #hyde-docs {
+	 min-height: 100vh;
+	 width: 100vw;
+	 position: relative;
+	 overflow-x: hidden;
+	 overflow-y: auto;
+	 #sidebar {
+		 height: 100vh;
+		 width: 16rem;
+		 background-color: #eee;
+		 position: fixed;
+		 z-index: 10;
+ 
+		 #sidebar-header {
+			 height: 4rem;
+			 #sidebar-brand {
+				 display: flex;
+				 align-items: center;
+				 justify-content: space-between;
+				 height: 4rem;
+				 padding: 1rem;
+				 button {
+					 padding: 0;
+				 }
+			 }
+		 }
+ 
+		 #sidebar-navigation {
+			 height: calc(100vh - 8rem);
+			 padding: 1rem;
+			 border-top: #ddd 1px solid;
+			 border-bottom: #ddd 1px solid;
+			 overflow-y: auto;
+ 
+			 .sidebar-navigation-item {
+				 margin-left: -1rem;
+				 padding-left: 1rem;
+				 > a {
+					 margin-left: -1rem;
+					 padding:0.5rem;
+					 display: block;
+					 border-left: transparent solid 0.325rem;
+					 transition: background-color 0.3s ease-in-out;
+					 &:hover {
+						 background-color: #ddd;
+						 transition: background-color 0.2s ease-in-out;
+					 }
+				 }
+ 
+				 &.active {
+					 background-color: rgba(221, 221, 221, 0.5);
+					 > a {
+						 color: #4338ca;
+						 border-left: #4f46e5 solid 0.325rem;
+					 }	
+				 }
+			 }
+			 .table-of-contents {
+				 padding-bottom: 0.75rem;
+ 
+				 > li  {
+					 margin-top: 0.15rem;
+					 margin-bottom: 0.35rem;
+				 }
+				 
+				 ul {
+					 padding-left: 0.5rem;
+				 }
+				 a {
+					 display: block;
+					 padding-left: 2rem;
+					 margin-left: -2rem;
+					 opacity: 0.825;
+					 &::before {
+						 content: "#";
+						 font-size: 75%;
+						 opacity: 0.5;
+						 margin-right: 4px;
+						 transition: opacity 0.3s ease-in-out;
+					 }
+					 &:hover {
+						 &::before {
+							 opacity: 1;
+						 }
+						 opacity: 1;
+						 transition: opacity, background 0.3s ease-in-out;
+						 background-color: rgba(221, 221, 221, 0.5);
+					 }
+				 }
+			 }
+ 
+			 .sidebar-category {
+				 &:not(:first-child) {
+					 margin-top: 1rem;
+				 }
+				 margin-bottom: 1rem;
+				 .sidebar-category-heading {
+					 font-size: 1rem;
+					 font-weight: 600;
+					 margin-bottom: 0.5rem;
+					 margin-left: -0.25rem;
+				 }
+				 .sidebar-category-list {
+					 margin-left: 1rem;
+					 .sidebar-navigation-item {
+						 &.active {
+							 margin-left: -2rem;
+							 padding-left: 2rem;
+						 }
+ 
+						 > a {
+							 margin-left: -2rem;
+							 padding-left: 1rem;
+							 /* Decrease vertical spacing for a more compact layout */
+							 padding-top: 0.2rem;
+							 padding-bottom: 0.2rem;
+							 margin-top: 0.2rem;
+							 margin-bottom: 0.2rem;
+						 }
+					 }
+				 }
+			 }
+		 }
+ 
+		 #sidebar-footer {
+			 height: 4rem;
+			 position: absolute;
+			 padding: 1rem;
+ 
+			 width: 100%;
+			 bottom: 0;
+			 left: 0;
+			 text-align: center;
+			 line-height: 2rem;
+		 }
+	 }
+ 
+	 #content {
+		 min-height: calc(100vh);
+		 width: calc(100vw - 16rem);
+		 background-color: #fff;
+		 position: absolute;
+		 left: 16rem;
+ 
+		 #document {
+			 padding: 3rem 4rem;
+			 max-width: 1000px;
+			 min-height: calc(100vh - 4rem);
+		 }
+ 
+		 #document-header, #document-footer {
+			 display: flex;
+			 align-items: center;
+			 flex-wrap: wrap;
+			 p {
+				 margin-top: 0.75rem;
+				 margin-bottom: 0.75rem;
+			 }
+			 h1 {
+				 margin-top: 0;
+				 margin-bottom: 0.75rem;
+				 margin-right: 1rem;
+			 }
+		 }
+		 #document-footer {
+			 margin-top: 2rem;
+			 justify-content: space-between;
+			 font-size: 90%;
+		 }
+ 
+		 #pagination {
+			 a {
+				 text-decoration: none;
+ 
+				 span.label {
+					 text-decoration: underline;
+				 }
+ 
+				 &#previous {
+					 margin-right: 0.25rem;
+				 }
+ 
+				 &#next {
+					 margin-left: 0.25rem;
+				 }
+			 }
+		 }
+	 }
+ 
+	 #page-footer {
+		 min-height: 4rem;
+		 padding: 1rem;
+		 text-align: center;
+		 line-height: 2rem;
+		 width: calc(100vw - 16rem);
+		 background-color: whitesmoke;
+		 a {
+			 text-decoration: underline;
+		 }
+	 }
+ }
+ 
+ /**
+  * HydeDocs Responsive Styles
+  *
+  * The sidebar media queries are only enabled if JavaScript is supported.
+  * The reason for this is that if it is hidden using CSS media queries and the mobile
+  * device does not support JavaScript the user won't be able to open the sidebar at all.
+  */
+ 
+ #hyde-docs {
+	 // Hide the mobile navigation by default as the interaction depends on JavaScript.
+	 #mobile-navigation {
+		 display: none;
+	 }
+	 &.js-enabled {
+		 @media (max-width: 767px) {
+			 #mobile-navigation {
+				 display: flex;
+				 justify-content: space-between;
+				 width: 100%;
+				 height: 4rem;
+				 position: fixed;
+				 top: 0;
+				 left: 0;
+				 background-color: #fff;
+				 box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0,
+				 rgba(0, 0, 0, 0.075) 0 8px 12px -3px,
+				 rgba(0, 0, 0, 0.075) 0 4px 6px -4px;
+				 z-index: 100;
+				 padding: 1rem;
+				 line-height: 2rem;
+				 strong {
+					 padding: 0 0.5rem;
+				 }
+ 
+				 // Hamburger menu icon based on Google Material Design Icons, SVG converted to HTML.
+				 #sidebar-toggle {
+					 position: relative;
+					 display: inline-block;
+					 width: 2rem;
+					 height: 2rem;
+					 span.icon-bar {
+						 display: block;
+						 width: 20px;
+						 height: 2.375px;
+						 background-color: black;
+						 position: absolute;
+						 left: 5.5px;
+						 &:first-child {
+							 top: 9px;
+						 }
+						 &:nth-child(2),
+						 &:nth-child(3) {
+							 top: calc(9px + 6px);
+							 transform-origin: center;
+						 }
+						 &:last-child {
+							 top: calc(9px + 12px);
+						 }
+						 transition: all 0.3s ease-out;
+					 }
+					 &.active {
+						 span.icon-bar {
+							 &:first-child {
+								 opacity: 0;
+							 }
+							 &:nth-child(2) {
+								 transform: rotate(45deg);
+							 }
+							 &:nth-child(3) {
+								 transform: rotate(-45deg);
+							 }
+							 &:last-child {
+								 opacity: 0;
+							 }
+						 }
+					 }
+				 }
+			 }
+			 #sidebar {
+				 visibility: hidden;
+				 left: -16rem;
+				 transition: all 0.3s ease-out;
+				 &.active {
+					 visibility: visible;
+					 left: 0;
+				 }
+				 box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+				 #sidebar-header {
+					 height: 4rem;
+					 #sidebar-brand {
+						 height: 4rem;
+						 visibility: hidden;
+					 }
+				 }
+				 #sidebar-navigation {
+					 height: calc(100vh - 8rem);
+				 }
+			 }
+ 
+			 #content {
+				 width: 100vw;
+				 left: 0;
+				 top: 4rem;
+				 #document {
+					 padding: 3rem;
+				 }
+ 
+				 background-color: #f9f9f9;
+				 transition: background-color 0.3s ease-out;
+				 &.sidebar-active {
+					 background-color: #7e7e7e;
+				 }
+			 }
+ 
+			 #page-footer {
+				 width: 100vw;
+				 left: 0;
+				 bottom: 0;
+			 }
+		 }
+	 }
+ }
+ 
+ /**
+  * HydeDocs Utilities
+  */
+ 
+ .interactive-element {
+	 cursor: pointer;
+ }
+ 
+ html [id],
+ body [id] {
+	 scroll-margin: 1rem;
+ }
+ 
+ .backdrop {
+	 width: 100vw;
+	 height: 100vh;
+	 position: fixed;
+	 top: 0;
+	 left: 0;
+	 cursor: pointer;
+ }
+ 
+ /**
+  * Accessibility
+  */
+ 
+ // If prefers-reduced-motion is set, disable all animations
+ @media (prefers-reduced-motion: reduce) {
+	 * {
+		 animation: none !important;
+		 transition: none !important;
+	 }
+ }
+ 
+ 
+ /**
+  * Opinionated styles
+  */
+ 
+ #hyde-docs {
+	 .prose {
+		 h1,h2,h3,h4,h5,h6 {
+			 width: fit-content;
+			 &:hover, &:focus {
+				 .heading-permalink {
+					 opacity: 0.75;
+					 filter: grayscale(100%);
+					 transition: opacity 0.1s ease-out;
+				 }
+			 }
+			 .heading-permalink {
+				 opacity: 0;
+				 &:hover, &:focus {
+					 opacity: 1;
+					 filter: unset;
+				 }
+				 margin-left: 0.25rem;
+				 transition: opacity 0.3s ease;
+				 padding: 0 0.25rem;
+			 }
+		 }
+	 }
+ }
+ 
