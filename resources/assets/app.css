@@ -146,6 +146,20 @@
 .prose blockquote.danger {
 	@apply border-red-600;
 }
+
+
+code {
+	max-width: 80vw;
+	overflow-x: auto;
+	display: inline-block;
+	vertical-align: top;
+}
+
+pre code {
+	display: block;
+	max-width: unset;
+}
+
 /**
  * Styles for Torchlight
  *
