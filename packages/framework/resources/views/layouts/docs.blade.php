@@ -17,7 +17,7 @@
 		document.body.classList.add('js-enabled');
 	</script>
 
-	<nav id="mobile-navigation" class="dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8">
+	<nav id="mobile-navigation" class="dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
 		<strong class="px-2 mr-auto">
 			@if(DocumentationPage::indexPath() !== false)
 			<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
