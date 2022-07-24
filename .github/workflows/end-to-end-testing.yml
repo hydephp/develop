@@ -88,3 +88,9 @@ jobs:
         run: npx percy snapshot _site/
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      
+      - name: Upload artifact for debug
+        uses: actions/upload-artifact@v2
+        with:
+          name: percy-debug
+          path: _site
