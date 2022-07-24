@@ -7,9 +7,9 @@
 </button>
 @push('scripts')
 	
-<dialog id="searchMenu" class="prose dark:prose-invert bg-gray-100 dark:bg-gray-800 fixed">
+<dialog id="searchMenu" class="prose dark:prose-invert bg-gray-100 dark:bg-gray-800 fixed p-4 rounded-lg overflow-y-hidden">
 	@include('hyde::components.docs.search-input')
-	<footer>
+	<footer class="mt-auto -mb-2 leading-4 text-center font-mono">
 		<small>
 			Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
 			Use <code><kbd title="Escape key">esc</kbd></code> to close.
