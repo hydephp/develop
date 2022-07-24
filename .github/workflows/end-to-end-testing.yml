@@ -61,9 +61,38 @@ jobs:
           path: tests/Browser/console
 
 
+  build-tailwindcss:
+
+    runs-on: ubuntu-latest
+    needs: run-smoke-tests
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        cache: 'npm'
+
+    - name: Install Node.js dependencies
+      run: npm ci
+
+    - name: Update Tailwind content path
+      run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
+
+    - name: Build assets for production
+      run: npm run prod
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: 'app.css'
+        path: '_media/app.css'
+
+
   visual-regression-testing:
     runs-on: ubuntu-latest
-    needs: dusk-browser-tests
+    needs: [dusk-browser-tests, build-tailwindcss]
     steps:
       - name: Download Dusk generated pages
         uses: actions/download-artifact@v2
@@ -73,11 +102,11 @@ jobs:
           
       # @TODO compile latest hydefront version
       - name: Download app.css
-        run: |
-          mkdir _site/media
-          cd _site/media
-          wget https://raw.githubusercontent.com/hydephp/develop/master/_media/app.css
-      
+        uses: actions/download-artifact@v2
+        with:
+          name: app.css
+          path: _site/media/app.css
+
       - name: Upload build to Percy
         run: npx percy snapshot _site/
         env:
