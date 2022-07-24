@@ -48,14 +48,14 @@
 }
 
 .backdrop {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-	background-color: rgba(0,0,0,.5);
-    z-index: 25;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, .5);
+	z-index: 25;
 }
 
 #searchMenuCloseButton {
@@ -66,6 +66,7 @@
 	opacity: 0.75;
 	margin-right: 1rem;
 }
+
 #searchMenuCloseButton:hover {
 	opacity: 1;
 }
@@ -76,8 +77,9 @@
 	display: inline-block;
 	width: 2rem;
 	height: 2rem;
-  }
-  #sidebar-toggle span.icon-bar {
+}
+
+#sidebar-toggle span.icon-bar {
 	display: block;
 	width: 20px;
 	height: 2.375px;
@@ -85,39 +87,48 @@
 	position: absolute;
 	left: 5.5px;
 	transition: all 0.3s ease-out;
-  }
-  #sidebar-toggle span.icon-bar:first-child {
+}
+
+#sidebar-toggle span.icon-bar:first-child {
 	top: 9px;
-  }
-  #sidebar-toggle span.icon-bar:nth-child(2), #sidebar-toggle span.icon-bar:nth-child(3) {
+}
+
+#sidebar-toggle span.icon-bar:nth-child(2),
+#sidebar-toggle span.icon-bar:nth-child(3) {
 	top: calc(9px + 6px);
 	transform-origin: center;
-  }
-  #sidebar-toggle span.icon-bar:last-child {
+}
+
+#sidebar-toggle span.icon-bar:last-child {
 	top: calc(9px + 12px);
-  }
-  #sidebar-toggle.active span.icon-bar:first-child {
+}
+
+#sidebar-toggle.active span.icon-bar:first-child {
 	opacity: 0;
-  }
-  #sidebar-toggle.active span.icon-bar:nth-child(2) {
+}
+
+#sidebar-toggle.active span.icon-bar:nth-child(2) {
 	transform: rotate(45deg);
-  }
-  #sidebar-toggle.active span.icon-bar:nth-child(3) {
+}
+
+#sidebar-toggle.active span.icon-bar:nth-child(3) {
 	transform: rotate(-45deg);
-  }
-  #sidebar-toggle.active span.icon-bar:last-child {
+}
+
+#sidebar-toggle.active span.icon-bar:last-child {
 	opacity: 0;
-  }
+}
 
-.dark  	#sidebar-toggle span.icon-bar {
-		background-color: #fff;
-		height: 2px;
-	}
+.dark #sidebar-toggle span.icon-bar {
+	background-color: #fff;
+	height: 2px;
+}
 
-	#hyde-docs #sidebar.active {
-		display: block;
-		left: 0;
-	}
+#hyde-docs #sidebar.active {
+	display: block;
+	left: 0;
+}
+
 /* TOC and permalinks */
 
 #hyde-docs .prose h1,
@@ -221,12 +232,15 @@
 .prose blockquote.info {
 	@apply border-blue-500;
 }
+
 .prose blockquote.success {
 	@apply border-green-500;
 }
+
 .prose blockquote.warning {
 	@apply border-amber-500;
 }
+
 .prose blockquote.danger {
 	@apply border-red-600;
 }
@@ -252,16 +266,16 @@ pre code {
  * The .torchlight-enabled class is to not interfere
  * with any pages or sites not using Torchlight.
  */
- 
+
 
 /*
  Margin and rounding are personal preferences,
  overflow-x-auto is recommended.
 */
 .torchlight-enabled pre {
-    @apply my-4 rounded overflow-x-auto p-0;
+	@apply my-4 rounded overflow-x-auto p-0;
 }
- 
+
 /*
  Add some vertical padding and expand the width
  to fill its container. The horizontal padding
@@ -269,21 +283,21 @@ pre code {
  colors extend edge to edge.
 */
 .torchlight-enabled pre code.torchlight {
-    @apply block py-4 min-w-max;
+	@apply block py-4 min-w-max;
 }
- 
+
 /*
  Horizontal line padding.
 */
 .torchlight-enabled pre code.torchlight .line {
-    @apply px-4;
+	@apply px-4;
 }
- 
+
 /*
  Push the code away from the line numbers and
  summary caret indicators.
 */
 .torchlight-enabled pre code.torchlight .line-number,
 .torchlight-enabled pre code.torchlight .summary-caret {
-    @apply mr-4;
+	@apply mr-4;
 }
