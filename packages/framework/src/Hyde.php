@@ -2,14 +2,12 @@
 
 namespace Hyde\Framework;
 
-use Composer\InstalledVersions;
-use Hyde\Framework\Concerns\Internal\FileHelpers;
-use Hyde\Framework\Concerns\Internal\FluentPathHelpers;
-use Hyde\Framework\Helpers\HydeHelperFacade;
-use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\Facades\Facade;
 
 /**
  * General facade for Hyde services.
+ *
+ * @see \Hyde\Framework\HydeKernel
  *
  * @author  Caen De Silva <caen@desilva.se>
  * @copyright 2022 Caen De Silva
@@ -17,31 +15,15 @@ use Illuminate\Support\Traits\Macroable;
  *
  * @link https://hydephp.com/
  */
-class Hyde
+class Hyde extends Facade
 {
-    use FileHelpers;
-    use FluentPathHelpers;
-    use HydeHelperFacade;
-    use Macroable;
-
-    protected static string $basePath;
-
-    public static function version(): string
+    protected static function getFacadeAccessor(): string
     {
-        return InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased';
+        return HydeKernel::class;
     }
 
-    public static function getBasePath(): string
+    public static function version()
     {
-        if (! isset(static::$basePath)) {
-            static::$basePath = getcwd();
-        }
-
-        return static::$basePath;
-    }
-
-    public static function setBasePath(string $path): void
-    {
-        static::$basePath = $path;
+        return HydeKernel::version();
     }
 }

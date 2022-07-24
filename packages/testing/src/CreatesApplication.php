@@ -5,8 +5,6 @@ namespace Hyde\Testing;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
 
-require_once __DIR__.'/helpers.php';
-
 trait CreatesApplication
 {
     /**
@@ -16,7 +14,7 @@ trait CreatesApplication
      */
     public function createApplication(): Application
     {
-        $app = require __DIR__.'/../app/bootstrap.php';
+        $app = require getcwd().'/app/bootstrap.php';
 
         $app->make(Kernel::class)->bootstrap();
 

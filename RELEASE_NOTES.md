@@ -13,6 +13,9 @@ This update makes breaking changes to the configuration. You will need to update
 
 ### Changed
 - internal: Refactor navigation menu components and improve link helpers
+- internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
+- internal: Move tests foundation to new testing package
+- Move laravel-zero/framework Composer dependency to hyde/hyde package
 
 - Moved config option `hyde.name` to `site.name`
 - Moved config option `hyde.site_url` to `site.url`
@@ -35,7 +38,7 @@ This update makes breaking changes to the configuration. You will need to update
 - Removed ConvertsFooterMarkdown.php
 
 ### Fixed
-- for any bug fixes.
+- Fixed bug [#260](https://github.com/hydephp/develop/issues/260) where the command to publish a homepage did not display the selected value when it was supplied as a parameter
 
 ### Security
 - in case of vulnerabilities.

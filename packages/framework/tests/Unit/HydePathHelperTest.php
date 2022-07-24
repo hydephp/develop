@@ -3,18 +3,19 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**
  * Class HydePathHelperTest.
  *
- * @covers \Hyde\Framework\Hyde::path
+ * @covers \Hyde\Framework\HydeKernel::path
  */
 class HydePathHelperTest extends TestCase
 {
     public function test_method_exists()
     {
-        $this->assertTrue(method_exists(Hyde::class, 'path'));
+        $this->assertTrue(method_exists(HydeKernel::class, 'path'));
     }
 
     public function test_string_is_returned()

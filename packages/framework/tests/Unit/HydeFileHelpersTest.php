@@ -7,7 +7,7 @@ use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Hyde
+ * @covers \Hyde\Framework\HydeKernel
  */
 class HydeFileHelpersTest extends TestCase
 {

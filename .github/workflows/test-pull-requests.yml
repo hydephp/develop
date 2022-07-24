@@ -53,6 +53,7 @@ jobs:
         curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/24257c1f3ec4ce8a2c16601bbfa33f054f873be9/ping-openanalytics-testrunner.php -o ping.php
         php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
 
+
   check-coding-standards:
     runs-on: ubuntu-latest
     steps:
@@ -60,13 +61,6 @@ jobs:
         with:
           php-version: "8.0"
       - uses: actions/checkout@v3
-
-      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
-        run: |
-          composer require hyde/framework:* --no-update 
-          composer require hyde/realtime-compiler:* --no-update 
-          composer require php-parallel-lint/php-parallel-lint --no-install 
-          composer require squizlabs/php_codesniffer --no-install 
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -88,12 +82,6 @@ jobs:
         with:
           php-version: "8.0"
       - uses: actions/checkout@v3
-
-      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
-        run: |
-          composer require hyde/framework:* --no-update 
-          composer require hyde/realtime-compiler:* --no-update 
-          composer require phpstan/phpstan --no-install 
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist

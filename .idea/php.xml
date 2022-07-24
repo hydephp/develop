@@ -126,6 +126,13 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/hyde/framework" />
       <path value="$PROJECT_DIR$/vendor/_laravel_idea" />
+      <path value="$PROJECT_DIR$/vendor/laravel/dusk" />
+      <path value="$PROJECT_DIR$/vendor/php-webdriver/webdriver" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/termwind" />
+      <path value="$PROJECT_DIR$/vendor/hyde/testing" />
+      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/vendor/php-parallel-lint/php-parallel-lint" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

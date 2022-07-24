@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 class HydeSafeCopyHelperTest extends TestCase
@@ -21,7 +22,7 @@ class HydeSafeCopyHelperTest extends TestCase
 
     public function test_copy_method_exists()
     {
-        $this->assertTrue(method_exists(Hyde::class, 'copy'));
+        $this->assertTrue(method_exists(HydeKernel::class, 'copy'));
     }
 
     public function test_copy_method_returns404_if_source_file_does_not_exist()

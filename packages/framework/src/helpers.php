@@ -1,17 +1,18 @@
 <?php
 
-use Hyde\Framework\Hyde;
+use Hyde\Framework\Contracts\HydeKernelContract;
+use Hyde\Framework\HydeKernel;
 use Illuminate\Support\Collection;
 
 if (! function_exists('hyde')) {
     /**
-     * Get the Hyde facade class.
+     * Get the available HydeKernel instance.
      *
-     * @return \Hyde\Framework\Hyde
+     * @return \Hyde\Framework\HydeKernel
      */
-    function hyde(): Hyde
+    function hyde(): HydeKernel
     {
-        return new Hyde();
+        return app(HydeKernelContract::class);
     }
 }
 

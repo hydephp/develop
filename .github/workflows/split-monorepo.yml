@@ -232,8 +232,11 @@ jobs:
     - name: Copy test files
       run: cp -rf develop/tests/. hyde/tests -v
 
-    - name: Remove test fixtures
-      run: rm -rf hyde/tests/fixtures -v
+    - name: Remove monorepo test files 
+      run: |
+        rm -rf hyde/tests/fixtures -v
+        rm -rf hyde/tests/Browser -v
+        rm hyde/tests/DuskTestCase.php -v
 
     - name: Commit and push changes
       run: |
@@ -246,4 +249,46 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
+        git push upstream master
+
+
+  testing: 
+    runs-on: ubuntu-latest
+    environment:
+      name: hydephp/testing
+      url: https://github.com/hydephp/testing/tree/master
+      
+    steps:
+    - name: Checkout hydephp/develop
+      uses: actions/checkout@v3
+      with:
+        path: develop
+        persist-credentials: false 
+
+    - name: Checkout hydephp/testing
+      uses: actions/checkout@v3
+      with:
+        repository: hydephp/testing
+        path: testing
+        ref: master
+        fetch-depth: 0
+        persist-credentials: false 
+    
+    - name: Empty the destination directory
+      run: rm -rf testing/* 
+
+    - name: Copy over files
+      run: cp -rf develop/packages/testing/. testing -v
+
+    - name: Commit and push changes
+      run: |
+        cd testing
+
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/testing.git
+
+        git add .
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+        
         git push upstream master

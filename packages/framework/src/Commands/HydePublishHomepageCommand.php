@@ -47,6 +47,8 @@ class HydePublishHomepageCommand extends Command
             }
         }
 
+        $this->line("<info>Published page</info> [<comment>$this->selected</comment>]");
+
         $this->askToRebuildSite();
 
         return 0;
@@ -60,12 +62,7 @@ class HydePublishHomepageCommand extends Command
             0
         );
 
-        $choice = $this->parseChoiceIntoKey($choice);
-
-        $this->line("<info>Selected page</info> [<comment>$choice</comment>]");
-        $this->newLine();
-
-        return $choice;
+        return $this->parseChoiceIntoKey($choice);
     }
 
     protected function formatPublishableChoices(): array

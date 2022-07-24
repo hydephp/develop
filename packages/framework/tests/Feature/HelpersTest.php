@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 class HelpersTest extends TestCase
@@ -14,9 +15,9 @@ class HelpersTest extends TestCase
     }
 
     /** @covers ::hyde */
-    public function test_hyde_function_returns_hyde_class()
+    public function test_hyde_function_returns_hyde_kernel_class()
     {
-        $this->assertInstanceOf(Hyde::class, hyde());
+        $this->assertInstanceOf(HydeKernel::class, hyde());
     }
 
     /** @covers ::hyde */
