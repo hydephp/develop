@@ -10,7 +10,7 @@
 		{!! ($page->tableOfContents) !!}
 		@endif
 		@else
-		<a href="{{ Hyde::pageLink($item->destination . '.html') }}">{{ $item->label }}</a>
+		<a href="{{ Hyde::pageLink($item->destination . '.html') }}" class="block -ml-4 p-2 border-l-[0.325rem] border-transparent">{{ $item->label }}</a>
 		@endif
 	</li>
 	@endforeach
