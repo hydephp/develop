@@ -9,6 +9,10 @@
 
 /* // Hyde Docs Styles */
 
+html {
+	scroll-behavior: smooth;
+}
+
 .dark .bg-darken {
 	background-color: rgba(0, 0, 0, .1);
 }
