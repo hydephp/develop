@@ -150,6 +150,9 @@
  * Styles for Torchlight
  *
  * Uses the styles from https://torchlight.dev/docs/css
+ *
+ * The .torchlight-enabled class is to not interfere
+ * with any pages or sites not using Torchlight.
  */
  
 
