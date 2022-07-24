@@ -70,6 +70,50 @@
 	opacity: 1;
 }
 
+/* // Hamburger menu icon based on Google Material Design Icons, SVG converted to HTML. */
+#sidebar-toggle {
+	position: relative;
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+  }
+  #sidebar-toggle span.icon-bar {
+	display: block;
+	width: 20px;
+	height: 2.375px;
+	background-color: black;
+	position: absolute;
+	left: 5.5px;
+	transition: all 0.3s ease-out;
+  }
+  #sidebar-toggle span.icon-bar:first-child {
+	top: 9px;
+  }
+  #sidebar-toggle span.icon-bar:nth-child(2), #sidebar-toggle span.icon-bar:nth-child(3) {
+	top: calc(9px + 6px);
+	transform-origin: center;
+  }
+  #sidebar-toggle span.icon-bar:last-child {
+	top: calc(9px + 12px);
+  }
+  #sidebar-toggle.active span.icon-bar:first-child {
+	opacity: 0;
+  }
+  #sidebar-toggle.active span.icon-bar:nth-child(2) {
+	transform: rotate(45deg);
+  }
+  #sidebar-toggle.active span.icon-bar:nth-child(3) {
+	transform: rotate(-45deg);
+  }
+  #sidebar-toggle.active span.icon-bar:last-child {
+	opacity: 0;
+  }
+
+.dark  	#sidebar-toggle span.icon-bar {
+		background-color: #fff;
+		height: 2px;
+	}
+
 /* TOC and permalinks */
 
 #hyde-docs .prose h1,
