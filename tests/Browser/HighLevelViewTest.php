@@ -2,8 +2,10 @@
 
 namespace Hyde\Testing\Browser;
 
+use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\DuskTestCase;
+use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 
 /**
@@ -92,5 +94,104 @@ class HighLevelViewTest extends DuskTestCase
         $this->artisan('publish:homepage welcome -n');
         unlink(Hyde::path('_posts/my-new-post.md'));
         unlink(Hyde::path('_site/index.html'));
+    }
+
+    public function test_documentation_index()
+    {
+        $this->artisan('make:page Index --type="documentation" -n');
+
+        if (! is_dir(Browser::$storeSourceAt.'/docs')) {
+            mkdir(Browser::$storeSourceAt.'/docs');
+        }
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/docs/index')
+                ->assertSee('HydePHP Docs')
+                ->assertNotPresent('#sidebar-navigation-menu > li')
+                ->screenshot('docs/index')
+                ->storeSourceAsHtml('docs/index');
+        });
+
+        unlink(Hyde::path('_docs/index.md'));
+        unlink(Hyde::path('_site/docs/index.html'));
+    }
+
+    public function test_documentation_site_with_pages()
+    {
+        $this->makeDocumentationTestPage('Page1', withText: true);
+        $this->makeDocumentationTestPage('Page2');
+        $this->makeDocumentationTestPage('Page3');
+
+        if (! is_dir(Browser::$storeSourceAt.'/docs')) {
+            mkdir(Browser::$storeSourceAt.'/docs');
+        }
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/docs/page1')
+                ->assertSee('HydePHP Docs')
+                ->assertSee('Page1')
+                ->assertSee('Page2')
+                ->assertSee('Page3')
+                ->assertPresent('#sidebar-navigation-menu > li.active')
+                ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > a', 'current', 'true')
+                ->screenshot('docs/with_sidebar_pages')
+                ->storeSourceAsHtml('docs/with_sidebar_pages');
+        });
+
+        unlink(Hyde::path('_docs/page1.md'));
+        unlink(Hyde::path('_docs/page2.md'));
+        unlink(Hyde::path('_docs/page3.md'));
+        unlink(Hyde::path('_site/docs/page1.html'));
+    }
+
+    public function test_documentation_site_with_grouped_pages()
+    {
+        $this->makeDocumentationTestPage('Page1', ['category' => 'Group 1'], true);
+        $this->makeDocumentationTestPage('Page2', ['category' => 'Group 1']);
+        $this->makeDocumentationTestPage('Page3');
+
+        if (! is_dir(Browser::$storeSourceAt.'/docs')) {
+            mkdir(Browser::$storeSourceAt.'/docs');
+        }
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/docs/page1')
+                ->assertSee('HydePHP Docs')
+                ->assertSee('Page1')
+                ->assertSee('Page2')
+                ->assertSee('Page3')
+                ->assertAttribute('#sidebar-navigation-menu > li', 'class', 'sidebar-category')
+                ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(1) > h4.sidebar-category-heading', 'Group 1')
+                ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
+                ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(2) > h4.sidebar-category-heading', 'Other')
+                ->screenshot('docs/with_grouped_sidebar_pages')
+                ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
+        });
+
+        unlink(Hyde::path('_docs/page1.md'));
+        unlink(Hyde::path('_docs/page2.md'));
+        unlink(Hyde::path('_docs/page3.md'));
+        unlink(Hyde::path('_site/docs/page1.html'));
+    }
+
+    protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false)
+    {
+        $path = Hyde::path('_docs/'.Str::slug($name).'.md');
+
+        $contents = '';
+
+        if ($matter !== null) {
+            $contents = (new ConvertsArrayToFrontMatter())->execute($matter)."\n";
+        }
+
+        $contents .= '# '.$name;
+
+        if ($withText) {
+            $contents .= "\n\n".file_get_contents(__DIR__.'/../fixtures/markdown-features.md');
+        }
+
+        file_put_contents($path, $contents);
+
+        return $path;
     }
 }
