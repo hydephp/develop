@@ -8,7 +8,7 @@
 		@include('hyde::components.navigation.navigation-brand')
 
 		<div class="ml-auto">
-			@include('hyde::components.navigation.theme-toggle-button')
+			<x-hyde::navigation.theme-toggle-button />
 		</div>
 	</div>
 
