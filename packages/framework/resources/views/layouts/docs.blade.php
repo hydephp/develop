@@ -17,8 +17,8 @@
 		document.body.classList.add('js-enabled');
 	</script>
 
-	<nav id="mobile-navigation" class="dark:bg-gray-800 hidden">
-		<strong class="mr-auto">
+	<nav id="mobile-navigation" class="dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-10 fixed left-0 top-0 p-4 leading-8">
+		<strong class="px-2 mr-auto">
 			@if(DocumentationPage::indexPath() !== false)
 			<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
 				{{ config('docs.header_title', 'Documentation') }}
@@ -35,7 +35,7 @@
 			<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
 		</button>
 	</nav>
-	<aside id="sidebar" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-10">
+	<aside id="sidebar" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-10 hidden md:block">
 		<header id="sidebar-header" class="h-16">
 			<div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
 				<strong class="px-2">
@@ -67,13 +67,13 @@
 			</p>
 		</footer>
 	</aside>
-	<main id="content" class="dark:bg-gray-900 min-h-screen bg-white absolute left-64 w-[calc(100vw_-_16rem)]">
+	<main id="content" class="dark:bg-gray-900 min-h-screen bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
 
 		@php
 		$document = \Hyde\Framework\Services\HydeSmartDocs::create($page, $markdown);
 		@endphp
 		<article id="document" itemscope itemtype="http://schema.org/Article" @class(['mx-auto lg:ml-8 prose dark:prose-invert
-			max-w-3xl py-12 px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)]', 'torchlight-enabled'=> $document->hasTorchlight()])>
+			max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)]', 'torchlight-enabled'=> $document->hasTorchlight()])>
 			@yield('content')
 
 			<header id="document-header" class="flex items-center flex-wrap">
