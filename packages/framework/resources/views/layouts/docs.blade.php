@@ -11,7 +11,7 @@
 </head>
 	
 <body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto">
-	<a href="#content" id="skip-to-content">Skip to content</a>
+	@include('hyde::components.skip-to-content-button')
 	
 	<script>
 		document.body.classList.add('js-enabled');

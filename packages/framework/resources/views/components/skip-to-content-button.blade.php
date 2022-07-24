@@ -1,0 +1,1 @@
+<a href="#content" id="skip-to-content">Skip to content</a>
