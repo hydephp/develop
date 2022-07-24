@@ -1003,6 +1003,14 @@ video {
   border-width: 0;
 }
 
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
 .static {
   position: static;
 }
@@ -1037,6 +1045,10 @@ video {
 
 .top-0 {
   top: 0px;
+}
+
+.-left-64 {
+  left: -16rem;
 }
 
 .bottom-0 {
@@ -1857,6 +1869,12 @@ video {
   transition-duration: 150ms;
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .duration-75 {
   transition-duration: 75ms;
 }
@@ -1867,6 +1885,10 @@ video {
 
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[x-cloak] {
+  display: none !important;
 }
 
 /* // Hyde Docs Styles */
