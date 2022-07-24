@@ -29,7 +29,7 @@
 		</strong>
         <ul class="flex items-center">
 			<li class="h-8 flex mr-1">
-				<x-hyde::navigation.theme-toggle-button />
+				<x-hyde::navigation.theme-toggle-button class="opacity-75 hover:opacity-100" />
 			</li>
 			<li class="h-8 flex">
 				<button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu">
@@ -53,7 +53,7 @@
 					{{ config('docs.header_title', 'Documentation') }}
 					@endif
 				</strong>
-				<x-hyde::navigation.theme-toggle-button />
+				<x-hyde::navigation.theme-toggle-button class="opacity-75 hover:opacity-100" />
 			</div>
 		</header>
 		<nav id="sidebar-navigation" class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-[calc(100vh_-_8rem)]">
