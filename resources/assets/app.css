@@ -135,14 +135,14 @@
 /* Markdown Features */
 
 .prose blockquote.info {
-	border-color: DodgerBlue;
+	@apply border-blue-500;
 }
 .prose blockquote.success {
-	border-color: MediumSeaGreen;
+	@apply border-green-500;
 }
 .prose blockquote.warning {
-	border-color: orange;
+	@apply border-amber-500;
 }
 .prose blockquote.danger {
-	border-color: red;
+	@apply border-red-600;
 }
