@@ -187,60 +187,11 @@ class HighLevelViewTest extends DuskTestCase
         $contents .= '# '.$name;
 
         if ($withText) {
-            $contents .= "\n\n" . $this->getLoremMarkdownum();
+            $contents .= "\n\n" . file_get_contents(__DIR__.'/../fixtures/markdown-features.md');
         }
 
         file_put_contents($path, $contents);
 
         return $path;
     }
-
-    protected function getLoremMarkdownum()
-    {
-        return <<<EOT
-<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-
-## Illam creavit crine
-
-[Lorem markdownum](https://jaspervdj.be/lorem-markdownum) talia,
-erit tempora **et rupit** proque. Ego **tamen** has Solis atque Laurenti ripas,
-Riphea discrimine, verba. Sospes hora ab genis.
-
->info Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-- Proceres Boreas Hymenaeus ullas
-- Faenilibus at alte quod
-
-1. In formidatis filis tincto
-2. Miseram Tenedos utque
-
-## Hoc pro manibus saltem summum
-
-> Longa inmanis donisque. Non falsi leaena adsumus admoto vultum, signorum
-
-Tellusque vitare capiti quod ut urbe, **coniurataeque** spernite te turbasti.
-Exspiravit commune leto iam siquis magos medere prolemque dentes fibras.
-
-    architectureRuntime = 93;
-    if (3 <= kdeIeeePassword) {
-        rateShortcutTopology -= storage_firmware;
-        memoryWysiwygTiger(key_ppga_southbridge(case_printer_checksum, wan, 5),
-                firmware, 1);
-        file = services(media, default) * 48 - vdslFriendly;
-    }
-    var scsiPixelIpv = dockingSkuZero;
-
-*Tulit genitus* et ipsum simulacra natos quis sedes **curvo**; te te, utinam
-premitur tradunt dextera illius ventris [in](https://www.foret.io/et.html)!
-[Undis](https://veros.com/ora-heu.aspx) oculis; aliter iras; **est** siste
-augusta: minis vanum captum prohibent ferrumque parsque ruunt usum.
-
-Primo videtur Aethionque ignarus ceu adspicit, coma quam doleam guttura tectam.
-Corpus quoque aeratis, at est indiciique regentis alterius deposuitque ademptas
-membra residens gradus omnipotens illic caecae fortibus certa. Augerem diu et
-geminae flerunt, est tecum tangeret silvas collo adspexit, *regna*?
-
-EOT;
-    }
-
 }
