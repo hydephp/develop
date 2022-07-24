@@ -131,10 +131,6 @@ html {
 	height: 2px;
 }
 
-#hyde-docs #sidebar.active {
-	display: block;
-	left: 0;
-}
 
 /* TOC and permalinks */
 
