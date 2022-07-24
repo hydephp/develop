@@ -187,7 +187,7 @@ class HighLevelViewTest extends DuskTestCase
         $contents .= '# '.$name;
 
         if ($withText) {
-            $contents .= "\n\n" . file_get_contents(__DIR__.'/../fixtures/markdown-features.md');
+            $contents .= "\n\n".file_get_contents(__DIR__.'/../fixtures/markdown-features.md');
         }
 
         file_put_contents($path, $contents);
