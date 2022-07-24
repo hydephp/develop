@@ -80,7 +80,17 @@ class HighLevelViewTest extends DuskTestCase
     public function test_posts_homepage_with_posts()
     {
         $this->artisan('publish:homepage posts -n');
-        $this->artisan('make:post -n');
+        file_put_contents(Hyde::path('_posts/my-new-post.md'),
+        '---
+title: My New Post
+description: A short description used in previews and SEO
+category: blog
+author: Mr. Hyde
+date: 2022-01-01 12:00
+---
+## Write something awesome.
+
+');
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
