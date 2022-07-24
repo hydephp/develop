@@ -15,5 +15,5 @@
         #search-results {
             max-height: unset !important;
         }</style>
-    @include('hyde::components.docs.search-input')
+    <x-hyde::docs.search-input />
 @endsection
