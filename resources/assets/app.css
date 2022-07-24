@@ -131,3 +131,18 @@
 .table-of-contents a:hover::before {
 	opacity: 1;
 }
+
+/* Markdown Features */
+
+.prose blockquote.info {
+	border-color: DodgerBlue;
+}
+.prose blockquote.success {
+	border-color: MediumSeaGreen;
+}
+.prose blockquote.warning {
+	border-color: orange;
+}
+.prose blockquote.danger {
+	border-color: red;
+}
