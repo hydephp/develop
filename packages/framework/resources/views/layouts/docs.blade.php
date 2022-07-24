@@ -10,7 +10,7 @@
 	</style>
 </head>
 	
-<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto">
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto" x-data="{ sidebarOpen: true }">
 	@include('hyde::components.skip-to-content-button')
 	
 	<script>
@@ -32,7 +32,7 @@
 				<x-hyde::navigation.theme-toggle-button class="opacity-75 hover:opacity-100" />
 			</li>
 			<li class="h-8 flex">
-				<button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu">
+				<button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen">
 					<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
 					<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
 					<span class="icon-bar dark:bg-white h-0" role="presentation"></span>
@@ -41,7 +41,7 @@
 			</li>
 		</ul>
 	</nav>
-	<aside id="sidebar" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 hidden md:block">
+	<aside id="sidebar" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 hidden md:block" :class="{ 'active': ! sidebarOpen }">
 		<header id="sidebar-header" class="h-16">
 			<div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
 				<strong class="px-2">
