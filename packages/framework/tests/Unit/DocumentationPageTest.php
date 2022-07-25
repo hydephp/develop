@@ -14,7 +14,7 @@ class DocumentationPageTest extends TestCase
     public function test_can_generate_table_of_contents()
     {
         $page = (new DocumentationPage([], '# Foo'));
-        $this->assertIsString($page->tableOfContents);
+        $this->assertIsString($page->getTableOfContents());
     }
 
     public function test_can_get_current_page_path()
