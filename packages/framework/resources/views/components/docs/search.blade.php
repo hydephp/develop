@@ -14,7 +14,7 @@
 @push('scripts')
 	
 <dialog :open="searchWindowOpen" x-on:click.away="searchWindowOpen " id="searchMenu" class="prose dark:prose-invert bg-white dark:bg-gray-800 fixed z-50 p-4 rounded-lg overflow-y-hidden mt-[10vh] min-h-[300px] max-h-[75vh] w-[70ch] max-w-[90vw]">
-	<header class="flex justify-between pb-3 mb-3 border-b md:hidden">
+	<header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
 		<strong>Search the documentation site</strong>
 		<button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100" aria-label="Close search window">
 			<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
