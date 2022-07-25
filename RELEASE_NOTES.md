@@ -54,6 +54,7 @@ Note that the goal with this release is to make the framework more stable and de
 
 ### Fixed
 - Fixed bug [#260](https://github.com/hydephp/develop/issues/260) where the command to publish a homepage did not display the selected value when it was supplied as a parameter
+- Fixed bug [#272](https://github.com/hydephp/develop/issues/272), only generate the table of contents when and where it is actually used
 
 ### Security
 - in case of vulnerabilities.
