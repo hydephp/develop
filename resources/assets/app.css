@@ -19,10 +19,6 @@ html {
 .heading-permalink { scroll-margin: 1rem; }
 
 
-#hyde-docs #document-header p {
-	@apply	mt-3 mb-3
-}
-
 #hyde-docs #document-footer p {
 	@apply mt-3 mb-3
 }
@@ -31,9 +27,6 @@ html {
 	@apply mt-0 mb-3 mr-4
 }
 
-#hyde-docs #document-footer h1 {
-	@apply	mt-0 mb-3 mr-4
-}
 
 .hyde-search-context {
 	margin-bottom: 10px;
