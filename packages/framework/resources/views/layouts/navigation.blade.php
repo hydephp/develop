@@ -13,15 +13,15 @@
 	</div>
 
 	<div class="block md:hidden">
-		<button id="navigation-toggle-button" class="flex items-center px-3 py-1 hover:text-gray-700 dark:text-gray-200"
+		<button id="navigation-toggle-button" @click="navigationOpen = ! navigationOpen" class="flex items-center px-3 py-1 hover:text-gray-700 dark:text-gray-200"
 				aria-label="Toggle navigation menu">
-			<svg title="Open Navigation Menu" class="dark:fill-gray-200" style="display: block;"
+			<svg x-show="! navigationOpen" title="Open Navigation Menu" class="dark:fill-gray-200" style="display: block;"
 				 id="open-main-navigation-menu-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
 				 width="24"><title>Open Menu</title>
 				<path d="M0 0h24v24H0z" fill="none"/>
 				<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
 			</svg>
-			<svg title="Close Navigation Menu" class="dark:fill-gray-200" style="display: none;"
+			<svg x-show="navigationOpen" title="Close Navigation Menu" class="dark:fill-gray-200" style="display: none;"
 				 id="close-main-navigation-menu-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
 				 width="24"><title>Close Menu</title>
 				<path d="M0 0h24v24H0z" fill="none"></path>
@@ -31,7 +31,8 @@
 	</div>
 
 	<div id="main-navigation-links"
-		 class="w-full hidden md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700">
+		 class="w-full  md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700"
+		 :class="navigationOpen ? '' : 'hidden'" x-cloak>
 		<ul aria-label="Navigation links" class="md:flex-grow md:flex justify-end">
 			@foreach ($navigation->items as $item)
 				<li class="md:mx-2">
