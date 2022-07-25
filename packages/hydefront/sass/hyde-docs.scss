@@ -6,3 +6,7 @@
 @use 'docs/sidebar-toggle';
 @use 'docs/table-of-contents';
 @use 'docs/heading-permalinks';
+
+html {
+	scroll-behavior: smooth;
+}
