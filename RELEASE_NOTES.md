@@ -10,6 +10,7 @@ As there are a lot of changes, here is first a quick overview of the major ones.
 
 - Alpine.js is now used for interactions.
 - HydeFront has been rewritten and is now on version 2.x.
+- The hyde.css and hyde.js files have now for all intents and purposes been merge into app.css and refactored to Alpine.js, respectively.
 - The documentation pages are now styled using TailwindCSS instead of Lagrafo.
 - Moved some configuration options and Composer dependencies
 - internal: The main Hyde facade now operates as a singleton bound in the bootstrap file and into the service container.
