@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Concerns\HasTableOfContents
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesTableOfContentsTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
 class HasTableOfContentsTest extends TestCase
 {

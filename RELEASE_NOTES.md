@@ -42,6 +42,7 @@ Note that the goal with this release is to make the framework more stable and de
 - internal: Refactor navigation menu components and improve link helpers
 - internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
 - internal: Move tests foundation to new testing package
+- internal: Renamed `GeneratesTableOfContents.php` to `GeneratesSidebarTableOfContents.php`
   
 
 ### Deprecated

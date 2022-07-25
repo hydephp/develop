@@ -12,9 +12,9 @@ use League\CommonMark\MarkdownConverter;
 /**
  * Generates a table of contents for the Markdown document.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesTableOfContentsTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
-class GeneratesTableOfContents implements ActionContract
+class GeneratesSidebarTableOfContents implements ActionContract
 {
     protected string $markdown;
 
