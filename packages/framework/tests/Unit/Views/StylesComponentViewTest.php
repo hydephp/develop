@@ -67,23 +67,6 @@ class StylesComponentViewTest extends TestCase
         );
     }
 
-    public function test_component_renders_link_to_hyde_css_when_it_exists()
-    {
-        Hyde::touch(('_media/hyde.css'));
-        $this->assertStringContainsString('<link rel="stylesheet" href="media/hyde.css"', $this->renderTestView());
-        unlink(Hyde::path('_media/hyde.css'));
-    }
-
-    public function test_component_does_not_render_link_to_hyde_css_when_it_does_not_exist()
-    {
-        $this->assertStringNotContainsString('<link rel="stylesheet" href="media/hyde.css"', $this->renderTestView());
-    }
-
-    public function test_component_renders_cdn_link_when_no_local_file_exists()
-    {
-        $this->assertStringContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
-    }
-
     public function test_component_renders_app_cdn_link_when_enabled_in_config()
     {
         config(['hyde.load_app_styles_from_cdn' => true]);
@@ -101,14 +84,5 @@ class StylesComponentViewTest extends TestCase
         Hyde::touch(('_media/hyde.css'));
         $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
         unlink(Hyde::path('_media/hyde.css'));
-    }
-
-    public function test_cdn_link_uses_the_correct_version_defined_in_the_asset_manager()
-    {
-        $expectedVersion = (new AssetService)->version();
-        $this->assertStringContainsString(
-            'https://cdn.jsdelivr.net/npm/hydefront@'.$expectedVersion.'/dist/hyde.css',
-            $this->renderTestView()
-        );
     }
 }
