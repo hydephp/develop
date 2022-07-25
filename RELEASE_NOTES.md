@@ -4,6 +4,18 @@
 
 This update makes breaking changes to the configuration. You will need to update your configuration to continue using the new changes. Each one has been documented in this changelog entry, which at the end has an upgrade guide.
 
+### Overview of major changes
+
+As there are a lot of changes, here is first a quick overview of the major ones. See the full list after this section.
+
+- Alpine.js is now used for interactions.
+- HydeFront has been rewritten and is now on version 2.x.
+- The documentation pages are now styled using TailwindCSS instead of Lagrafo.
+- Moved some configuration options and Composer dependencies
+- internal: The main Hyde facade now operates as a singleton bound in the bootstrap file and into the service container.
+
+Note that the goal with this release is to make the framework more stable and developer friendly, but without it affecting the end user experience. For example, the visual experience as well as the interactions of the refactored documentation pages are minimal and most users won't notice any change. However, for developers, the changes are significant and will reduce a lot of complexity in the future.
+
 ### Added
 - Added [Alpine.js](https://alpinejs.dev/) to the default HydePHP layout
 - Added a new configuration file, `config/site.php`, see below
