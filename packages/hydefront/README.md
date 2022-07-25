@@ -4,7 +4,7 @@
 [![jsDelivr hits (NPM)](https://data.jsdelivr.com/v1/package/npm/hydefront/badge?style=rounded)](https://www.jsdelivr.com/package/npm/hydefront)
 ![NPM Downloads](https://img.shields.io/npm/dm/hydefront)
 [![Build & Push CI](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml)
-[![CodeQL](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml)
+[//]: # ([![CodeQL]&#40;https://github.com/hydephp/hydefront/actions/workflows/codeql.yml/badge.svg&#41;]&#40;https://github.com/hydephp/hydefront/actions/workflows/codeql.yml&#41;)
 
 ## About this repository
 
