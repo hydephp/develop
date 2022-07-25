@@ -10,7 +10,7 @@
 	</style>
 </head>
 	
-<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto" x-data="{ sidebarOpen: false }">
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto" x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false" x-on:keydown.slash="searchWindowOpen = true">
 	@include('hyde::components.skip-to-content-button')
 	
 	<script>
@@ -109,6 +109,7 @@
 
 	<div id="support">
 		<div id="sidebar-backdrop" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+		<div id="search-window-backdrop" x-show="searchWindowOpen" @click="searchWindowOpen = false" title="Click to close search window" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-40 bg-black/50"></div>
 	</div>
 	
 	@include('hyde::layouts.scripts')
