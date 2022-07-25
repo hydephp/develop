@@ -118,8 +118,8 @@ date: 2022-01-01 12:00
             $browser->visit('/docs/index')
                 ->assertSee('HydePHP Docs')
                 ->assertNotPresent('#sidebar-navigation-menu > li')
-                ->screenshot('docs/index')
-                ->storeSourceAsHtml('docs/index');
+                ->screenshot('docs/index');
+                // ->storeSourceAsHtml('docs/index');
         });
 
         unlink(Hyde::path('_docs/index.md'));
