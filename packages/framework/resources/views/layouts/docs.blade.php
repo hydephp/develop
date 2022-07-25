@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="lagrafo-app" lang="{{ config('site.language', 'en') }}">
+<html lang="{{ config('site.language', 'en') }}">
 <head>
 	@include('hyde::layouts.head')
 	<style> html [id], body [id] { scroll-margin: 1rem; } </style>
