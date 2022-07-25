@@ -32,6 +32,4 @@
 		</small>
 	</footer>
 </dialog>
-
-{{-- <script defer src="{{ Asset::cdnLink('HydeSearchWindow.js') }}"></script> --}}
 @endpush
