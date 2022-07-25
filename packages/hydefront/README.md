@@ -32,3 +32,12 @@ HydeFront is not intended to be used for standalone projects and comes with no w
 
 ## Beta software notice
 HydePHP is currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
+
+## v2.0 Release Notes
+
+HydeFront version 2.0 is a major release and has several breaking changes.
+It is not compatible with HydePHP versions lower than v0.50.0-beta.
+
+Many files have been removed, as HydePHP now uses Alpine.js for interactions, and TailwindCSS for the documentation pages.
+
+HydeFront v1.x will receive security fixes only.
