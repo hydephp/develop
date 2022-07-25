@@ -41,7 +41,7 @@
 			</li>
 		</ul>
 	</nav>
-	<aside id="sidebar" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:block shadow-lg transition-all duration-300" :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" x-cloak>
+	<aside id="sidebar" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:block shadow-lg md:shadow-none transition-all duration-300" :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" x-cloak>
 		<header id="sidebar-header" class="h-16">
 			<div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
 				<strong class="px-2">
