@@ -2,7 +2,6 @@
 <html lang="{{ config('site.language', 'en') }}">
 <head>
 	@include('hyde::layouts.head')
-	<style> html [id], body [id] { scroll-margin: 1rem; } </style>
 </head>
 
 <body id="hyde-docs"
