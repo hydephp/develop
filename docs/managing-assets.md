@@ -12,11 +12,9 @@ Managing and compiling assets is a very common task in web development. Unfortun
 With hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is.
 But as always with Hyde, you can customize everything if you want to.
 
-Hyde ships with a complete frontend where base styles and scripts are included through [HydeFront](https://github.com/hydephp/hydefront) which adds accessibility and mobile support as well as interactions for dark mode switching and navigation and sidebar interactions.
+Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions. Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Laravel Mix.
 
-HydeFront is split into two files, `hyde.css` and `hyde.js`. These are loaded in the default Blade views using the [jsDelivr CDN](https://www.jsdelivr.com/package/npm/hydefront). This is the recommended way to load the base styles as the [Hyde Framework](https://github.com/hydephp/framework) automatically makes sure that the correct HydeFront version for the current version of Hyde is loaded. If you don't want to use HydeFront you can of course customize this. See the [Telling Hyde where to find assets](#telling-hyde-where-to-find-assets) section for more information.
-
-The bulk of the frontend is built with [TailwindCSS](https://tailwindcss.com/). To get you started, when installing Hyde, all the Tailwind styles you need come precompiled and minified into `_media/app.css`.
+To get you started quickly, all the styles are already compiled minified into `_media/app.css`, which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
 
 ## Some extra information, and answers to possible questions
 
@@ -29,7 +27,7 @@ No. NPM is optional as all the compiled styles you need are already installed. Y
 If you want to customize the Tailwind settings or add custom styles, you will need to take care of compiling the styles yourself.
 
 #### When adding new classes
-The `_media/app.css` file that comes with Hyde contains TailwindCSS for all classes that are used in the default Blade views, but nothing more.
+The `_media/app.css` file that comes with Hyde contains TailwindCSS for all classes that are used in the default Blade views, as well as the HydeFront custom styles.
 
 If you customize the Blade views and add new classes, or if you add new classes in Blade-based pages, you may need to compile the assets yourself to get the new styles.
 
@@ -39,7 +37,7 @@ If you stick to using Markdown based pages, you don't need to compile anything.
 
 Currently, the frontend assets are separated into three places.
 
-The `resources/assets` contains **source** files, meaning files that will be compiled into something else. Here you will find the `app.css` file that bootstraps the TailwindCSS styles. This file is also an excellent place to add your custom styles.
+The `resources/assets` contains **source** files, meaning files that will be compiled into something else. Here you will find the `app.css` file that bootstraps the TailwindCSS styles. This file is also an excellent place to add your custom styles. It is also where we import HydeFront.
 
 The `_media` folder contains **compiled** (and usually minified) files. When Hyde compiles your static site, all asset files here will get copied as they are into the `_site/media` folder.
 
@@ -65,20 +63,8 @@ Hyde uses [Laravel Mix](https://laravel-mix.com/) (which is a wrapper for [webpa
 When running the `npm run dev/prod` command, the following happens:
 
 1. Laravel Mix will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
-2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
+2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`, making blend perfectly with the realtime compiler (`php hyde serve`).
 
-
-### Compile TailwindCSS directly
-
-Since Laravel Mix can be a bit slow to boot, you can also run the TailwindCSS compiler directly.
-You'll need to have the [TailwindCSS CLI](https://tailwindcss.com/docs/cli) installed, and you will
-need to run the build command afterwards to transfer the compiled styles into the build output.
-
-```bash
-npx tailwindcss -i resources/assets/app.css -o _media/app.css
-
-php hyde build OR php hyde rebuild _media
-```
 
 ## Telling Hyde where to find assets
 
@@ -95,25 +81,13 @@ To customize them, run the following command:
 php hyde publish:views layouts
 ```
 
-Then edit the files found in `resources/views/vendor/hyde/layouts` of your project.
+Then edit the files found in `resources/views/vendor/hyde/layouts` directory of your project.
 
 ### You might not even need to do anything!
 
-For the absolute majority of the cases, you don't need to mess with these files. The idea behind using a CDN is that your styles will be automatically updated when needed.
+For the absolute majority of the cases, you don't need to mess with these files. Hyde will automatically load the app.css file when it exists in the `_media` directory.
 
-Furthermore, Hyde does some automatic configuration which is roughly as follows:
-
-- If there is no `_media/app.css` file, Hyde won't attempt to load it.
-- If there is no `_media/app.js` file, Hyde won't attempt to load it.
-
-- If there is no `_media/hyde.css` file, the correct version will be loaded through the CDN.
-- If there is no `_media/hyde.js` file, the correct version will be loaded through the CDN.
-
-- If there is a `_media/hyde.css` file, it will be loaded instead of the CDN.
-- If there is a `_media/hyde.js` file, it will be loaded instead of the CDN.
-{.list-compact}
-
-Note that this automatic configuration behaviour was implemented in v0.41.x. Prior to that, only the first two bullets were implemented and you would need to change the layouts to load local HydeFront files manually.
+If you want to load the same pre-compiled file included with Hyde but from a CDN, you can set `load_app_styles_from_cdn` to `true` in the `config/hyde.php` file. While you lose the ability to customize it, your styles will be automatically updated when needed.
 
 
 ## Managing images

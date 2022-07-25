@@ -118,8 +118,8 @@ date: 2022-01-01 12:00
             $browser->visit('/docs/index')
                 ->assertSee('HydePHP Docs')
                 ->assertNotPresent('#sidebar-navigation-menu > li')
-                ->screenshot('docs/index')
-                ->storeSourceAsHtml('docs/index');
+                ->screenshot('docs/index');
+            // ->storeSourceAsHtml('docs/index');
         });
 
         unlink(Hyde::path('_docs/index.md'));
@@ -170,7 +170,7 @@ date: 2022-01-01 12:00
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
-                ->assertAttribute('#sidebar-navigation-menu > li', 'class', 'sidebar-category')
+                ->assertAttributeContains('#sidebar-navigation-menu > li', 'class', 'sidebar-category')
                 ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(1) > h4.sidebar-category-heading', 'Group 1')
                 ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
                 ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(2) > h4.sidebar-category-heading', 'Other')

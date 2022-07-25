@@ -4,7 +4,6 @@
 ![NPM Downloads](https://img.shields.io/npm/dm/hydefront)
 [![Build & Push CI](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml)
 
-
 ## About this repository
 
 Contains the frontend assets for HydePHP.
@@ -12,10 +11,12 @@ Contains the frontend assets for HydePHP.
 ### About the files
 
 - **Hyde.css**:
-The Hyde stylesheet contains a small set of styles that don't make sense to use with Tailwind. Normally, this file is imported into the main.css file.
+The Hyde stylesheet contains a small set of styles that don't make sense to use with Tailwind, or that belong to generated content that is harder to modify.
+
+Normally, this file is imported into the main.css file.
 
 - **App.css**:
-A compiled and minified file containing the TailwindCSS styles for a base Hyde installation. It includes the Hyde.css file.
+A compiled and minified file containing the TailwindCSS styles for a base Hyde installation. It includes the Hyde.css file. This file is identical to what one would get by running `npm run prod` in a new HydePHP project (which incidentally is exactly how this file is generated).
 
 ## Usage
 

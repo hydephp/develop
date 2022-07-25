@@ -60,6 +60,12 @@ jobs:
           name: dusk-console
           path: tests/Browser/console
 
+      - name: Upload app.css
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'app.css'
+          path: '_media/app.css'
+
 
   visual-regression-testing:
     runs-on: ubuntu-latest
@@ -73,13 +79,12 @@ jobs:
           
       # @TODO compile latest hydefront version
       - name: Download app.css
-        run: |
-          mkdir _site/media
-          cd _site/media
-          wget https://raw.githubusercontent.com/hydephp/develop/master/_media/app.css
-      
+        uses: actions/download-artifact@v2
+        with:
+          name: app.css
+          path: _site/media
+
       - name: Upload build to Percy
         run: npx percy snapshot _site/
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-

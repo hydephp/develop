@@ -3,8 +3,9 @@
 <head>
     @include('hyde::layouts.head')
 </head>
-<body id="app" class="flex flex-col min-h-screen overflow-x-hidden dark:bg-gray-900 dark:text-white">
-    <a href="#content" id="skip-to-content">Skip to content</a>
+<body id="app" class="flex flex-col min-h-screen overflow-x-hidden dark:bg-gray-900 dark:text-white"
+    x-data="{ navigationOpen: false }" x-on:keydown.escape="navigationOpen = false;">
+    @include('hyde::components.skip-to-content-button')
     @include('hyde::layouts.navigation') 
 
     <section>
