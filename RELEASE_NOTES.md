@@ -13,31 +13,30 @@ This update makes breaking changes to the configuration. You will need to update
 - Added the `hyde.load_app_styles_from_cdn` option to load `_media/app.css` from the CDN
 
 ### Changed
-- Hyde now requires a minimum version of HydeFront v2.x, see release notes below
-- internal: Refactor navigation menu components and improve link helpers
-- internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
-- internal: Move tests foundation to new testing package
-- Move laravel-zero/framework Composer dependency to hyde/hyde package
 
+- Move laravel-zero/framework Composer dependency to hyde/hyde package
 - Moved config option `hyde.name` to `site.name`
 - Moved config option `hyde.site_url` to `site.url`
 - Moved config option `hyde.pretty_urls` to `site.pretty_urls`
 - Moved config option `hyde.generate_sitemap` to `site.generate_sitemap`
 - Moved config option `hyde.language` to `site.language`
 - Moved config option `hyde.output_directory` to `site.output_directory`
-
 - The default `site.url` is now `http://localhost` instead of `null`
 - Merged configuration options for the footer, see below
 - Rebrand `lagrafo` documentation driver to `HydeDocs`
+- Hyde now requires a minimum version of HydeFront v2.x, see release notes below
+- internal: Refactor navigation menu components and improve link helpers
+- internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
+- internal: Move tests foundation to new testing package
+  
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
 - Removed `\Hyde\Framework\Facades\Route`. You can swap out usages with `\Hyde\Framework\Models\Route` without side effects.
-
-- Removed internal `$siteName` config variable from `config/hyde.php`
 - Removed ConvertsFooterMarkdown.php
+- Removed internal `$siteName` config variable from `config/hyde.php`
 
 ### Fixed
 - Fixed bug [#260](https://github.com/hydephp/develop/issues/260) where the command to publish a homepage did not display the selected value when it was supplied as a parameter
