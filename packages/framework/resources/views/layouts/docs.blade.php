@@ -86,13 +86,13 @@
 			$document->hasTorchlight()])>
 			@yield('content')
 
-			<header id="document-header" class="flex items-center flex-wrap">
+			<header id="document-header" class="flex items-center flex-wrap prose-h1:mb-3">
 				{!! $document->renderHeader() !!}
 			</header>
 			<section id="document-main-content" itemprop="articleBody">
 				{!! $document->renderBody() !!}
 			</section>
-			<footer id="document-footer" class="flex items-center flex-wrap mt-8 justify-between text-[90%]">
+			<footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
 				{!! $document->renderFooter() !!}
 			</footer>
 		</article>
