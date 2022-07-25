@@ -16,16 +16,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-.dark .bg-darken {
-	background-color: rgba(0, 0, 0, .1);
-}
-.bg-darken {
-	background-color: rgba(221,221,221,.5);
-}
-
-.hover\:bg-darken:hover {
-	background-color: rgba(0, 0, 0, .1);
-}
 
 #hyde-docs #document-header p {
 	@apply	mt-3 mb-3
