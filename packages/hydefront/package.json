@@ -26,5 +26,5 @@
     "typescript": "^4.6.4",
     "uglify-js": "^3.15.4"
   },
-  "main": "dist/hyde.js"
+  "main": "dist/hyde.css"
 }
