@@ -3,7 +3,7 @@
   "version": "2.x",
   "description": "Frontend assets for HydePHP",
   "scripts": {
-    "prod": "sass hyde.scss dist/hyde.css --style=compressed --no-source-map",
+    "prod": "sass hyde.scss dist/hyde.css --style=compressed",
     "dev": "sass hyde.scss dist/hyde.css",
     "watch": "sass hyde.scss dist/hyde.css --watch"
   },
