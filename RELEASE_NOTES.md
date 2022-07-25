@@ -13,6 +13,7 @@ This update makes breaking changes to the configuration. You will need to update
 - Added the `hyde.load_app_styles_from_cdn` option to load `_media/app.css` from the CDN
 
 ### Changed
+- Hyde now requires a minimum version of HydeFront v2.x, see release notes below
 - internal: Refactor navigation menu components and improve link helpers
 - internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
 - internal: Move tests foundation to new testing package
@@ -92,3 +93,11 @@ This release also rebrands the documentation driver from `lagrafo` to `HydeDocs`
 
 In most cases you won't need to do anything to update, however, if you have previously published the documentation views, you will need to update them.
 
+### Release Notes for HydeFront v2.x
+
+HydeFront version 2.0 is a major release and has several breaking changes.
+It is not compatible with HydePHP versions lower than v0.50.0-beta. HydePHP versions equal to or later than v0.50.0-beta require HydeFront version 2.0 or higher.
+
+Many files have been removed, as HydePHP now uses Alpine.js for interactions, and TailwindCSS for the documentation pages.
+
+HydeFront v1.x will receive security fixes only.
