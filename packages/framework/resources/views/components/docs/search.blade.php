@@ -14,7 +14,17 @@
 @push('scripts')
 	
 <dialog :open="searchWindowOpen" x-on:click.away="searchWindowOpen " id="searchMenu" class="prose dark:prose-invert bg-white dark:bg-gray-800 fixed z-50 p-4 rounded-lg overflow-y-hidden mt-[10vh] min-h-[300px] max-h-[75vh] w-[70ch] max-w-[90vw]">
-	<x-hyde::docs.search-input />
+	<header class="flex justify-between pb-3 mb-3 border-b md:hidden">
+		<strong>Search the documentation site</strong>
+		<button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100" aria-label="Close search window">
+			<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+				<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+			</svg>
+		</button>
+	</header>
+	<div>
+		<x-hyde::docs.search-input />
+	</div>
 	<footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
 		<small>
 			Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
