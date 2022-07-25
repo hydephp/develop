@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Framework\Facades\Asset;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
