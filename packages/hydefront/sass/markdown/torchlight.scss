@@ -2,6 +2,9 @@
  * Styles for Torchlight
  *
  * Uses the styles from https://torchlight.dev/docs/css
+ *
+ * The .torchlight-enabled class is to not interfere
+ * with any pages or sites not using Torchlight.
  */
 
 .torchlight-enabled {
@@ -25,8 +28,7 @@
         padding-right: 1rem;
       }
 
-      .line-number,
-      .summary-caret {
+      .line-number, .summary-caret {
         margin-right: 1rem;
       }
     }
