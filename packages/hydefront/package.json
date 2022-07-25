@@ -4,7 +4,8 @@
   "description": "Frontend assets for HydePHP",
   "scripts": {
     "prod": "sass hyde.scss dist/hyde.css --style=compressed --no-source-map",
-    "dev": "sass hyde.scss dist/hyde.css"
+    "dev": "sass hyde.scss dist/hyde.css",
+    "watch": "sass hyde.scss dist/hyde.css --watch"
   },
   "repository": {
     "type": "git",
