@@ -19,8 +19,6 @@ class DocumentationPage extends AbstractMarkdownPage
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
     {
         parent::__construct($matter, $body, $title, $slug);
-
-        $this->constructTableOfContents();
     }
 
     /** @internal */

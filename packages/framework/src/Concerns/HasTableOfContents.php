@@ -11,12 +11,8 @@ use Hyde\Framework\Actions\GeneratesTableOfContents;
  */
 trait HasTableOfContents
 {
-    public string $tableOfContents;
-
-    public function constructTableOfContents(): void
+    public function getTableOfContents(): string
     {
-        if (config('docs.table_of_contents.enabled', true)) {
-            $this->tableOfContents = (new GeneratesTableOfContents($this->body))->execute();
-        }
+        return (new GeneratesTableOfContents($this->body))->execute();
     }
 }
