@@ -101,9 +101,7 @@ As you can see, the new config option is a string or the boolean false instead o
 
 #### Updating Blade Documentation Views
 
-This release also rebrands the documentation driver from `lagrafo` to `HydeDocs`. While the current docs layout is still based on Lagrafo it's been customized so much for Hyde it makes more sense to use the new name.
-
-In most cases you won't need to do anything to update, however, if you have previously published the documentation views, you will need to update them.
+This release rewrites almost all of the documentation page components to use TailwindCSS. In most cases you won't need to do anything to update, however, if you have previously published the documentation views, you will need to update them.
 
 ### Release Notes for HydeFront v2.x
 
