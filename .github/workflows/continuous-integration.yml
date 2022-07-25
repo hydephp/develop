@@ -103,6 +103,7 @@ jobs:
       with:
         add: 'packages/hydefront/dist'
         message: 'Compile HydeFront assets for production'
+        new_branch: compile-hydefront
 
 
   build-tailwindcss:
@@ -138,6 +139,7 @@ jobs:
       with:
         add: '_media/app.css'
         message: 'Compile TailwindCSS for production'
+        new_branch: compile-tailwindcss
 
   
   build-test-coverage:
