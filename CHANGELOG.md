@@ -32,7 +32,6 @@ As there are a lot of changes, here is first a quick overview of the major ones.
 - Moved some configuration options from hyde.php to site.php
 - Moved Composer dependencies, you will laravel-zero/framework added to your Hyde composer.json file.
 
-
 Note that the goal with this release is to make the framework more stable and developer friendly, but without it affecting the end user experience. For example, the visual experience as well as the interactions of the refactored documentation pages are minimal and most users won't notice any change. However, for developers, the changes are significant and will reduce a lot of complexity in the future.
 
 ### Added
@@ -61,10 +60,6 @@ Note that the goal with this release is to make the framework more stable and de
 - internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
 - internal: Move tests foundation to new testing package
 - internal: Renamed `GeneratesTableOfContents.php` to `GeneratesSidebarTableOfContents.php`
-  
-
-### Deprecated
-
 
 ### Removed
 - Removed `\Hyde\Framework\Facades\Route`. You can swap out usages with `\Hyde\Framework\Models\Route` without side effects.
@@ -75,9 +70,6 @@ Note that the goal with this release is to make the framework more stable and de
 - Fixed bug [#260](https://github.com/hydephp/develop/issues/260) where the command to publish a homepage did not display the selected value when it was supplied as a parameter
 - Fixed bug [#272](https://github.com/hydephp/develop/issues/272), only generate the table of contents when and where it is actually used
 - Fixed bug [#41](https://github.com/hydephp/develop/issues/41) where search window does not work reliably on Safari
-
-### Security
-
 
 ### Upgrade Guide
 
@@ -112,7 +104,6 @@ When updating an existing project, you may need to add laravel-zero/framework to
         "laravel-zero/framework": "^9.1"
     },
 ```
-
 
 #### Using the new site config
 
