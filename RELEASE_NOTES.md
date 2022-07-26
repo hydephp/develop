@@ -82,6 +82,7 @@ Here is an overview of the core files that have changed and that you will most l
 - `resources\assets\app.css` (changed)
 - `_pages\404.blade.php` (changed)
 
+A large number of Blade views have also changed. You may want to update pretty much all of them. See the diff for a list of files that have changed.
 
 #### Updating Composer
 
