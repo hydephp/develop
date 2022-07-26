@@ -12,8 +12,9 @@ As there are a lot of changes, here is first a quick overview of the major ones.
 - HydeFront has been rewritten and is now on version 2.x.
 - The hyde.css and hyde.js files have now for all intents and purposes been merge into app.css and refactored to Alpine.js, respectively.
 - The documentation pages are now styled using TailwindCSS instead of Lagrafo.
-- Moved some configuration options and Composer dependencies
-- internal: The main Hyde facade now operates as a singleton bound in the bootstrap file and into the service container.
+- Moved some configuration options from hyde.php to site.php
+- Moved Composer dependencies, you will laravel-zero/framework added to your Hyde composer.json file.
+
 
 Note that the goal with this release is to make the framework more stable and developer friendly, but without it affecting the end user experience. For example, the visual experience as well as the interactions of the refactored documentation pages are minimal and most users won't notice any change. However, for developers, the changes are significant and will reduce a lot of complexity in the future.
 
@@ -61,8 +62,39 @@ Note that the goal with this release is to make the framework more stable and de
 ### Security
 - in case of vulnerabilities.
 
-
 ### Upgrade Guide
+
+Here are some instructions for upgrading an existing project.
+You should also read the standard upgrade guide first for general advice, https://hydephp.com/docs/master/updating-hyde.
+
+If you use Git, you may be able to automatically configure some of these by merging https://github.com/hydephp/hyde into your project. Alternatively, you can download the release and unzip it into your project directory, and using GitHub Desktop or VS Code (or whatever you use) to stage the new changes without affecting your project's configuration.
+
+#### Core file changes
+
+Here is an overview of the core files that have changed and that you will most likely need to update. Some of these have detailed instructions further down.
+
+- `config/site.php` (new)
+- `config/hyde.php` (changed)
+- `config/app.php` (changed)
+- `app/bootstrap.php` (changed)
+- `composer.json` (changed)
+- `package.json` (changed)
+- `resources\assets\app.css` (changed)
+- `_pages\404.blade.php` (changed)
+
+
+#### Updating Composer
+
+When updating an existing project, you may need to add laravel-zero/framework to your Hyde composer.json file.
+
+```json
+    "require": {
+        "php": "^8.0",
+        "hyde/framework": "^0.50",
+        "laravel-zero/framework": "^9.1"
+    },
+```
+
 
 #### Using the new site config
 
