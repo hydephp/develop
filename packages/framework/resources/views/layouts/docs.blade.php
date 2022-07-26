@@ -98,23 +98,22 @@
 		</article>
 	</main>
 
-	@if(Hyde\Framework\Helpers\Features::hasDocumentationSearch())
-		@include('hyde::components.docs.search')
-		<script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
-		<script>
-			window.addEventListener('load', function() {
-				const searchIndexLocation = 'search.json';
-				const Search = new HydeSearch(searchIndexLocation);
-
-				Search.init();
-			});
-		</script>
-	@endif
-
 	<div id="support">
 		<div id="sidebar-backdrop" x-show="sidebarOpen" x-transition @click="sidebarOpen = false"
 			title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50">
 		</div>
+		@if(Hyde\Framework\Helpers\Features::hasDocumentationSearch())
+			@include('hyde::components.docs.search')
+			<script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+			<script>
+				window.addEventListener('load', function() {
+					const searchIndexLocation = 'search.json';
+					const Search = new HydeSearch(searchIndexLocation);
+
+					Search.init();
+				});
+			</script>
+		@endif
 	</div>
 
 	@include('hyde::layouts.scripts')
