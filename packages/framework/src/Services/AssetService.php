@@ -22,14 +22,12 @@ class AssetService implements AssetServiceContract
         return $this->version;
     }
 
+    /**
+     * @deprecated v0.50.x - Use cdnLink() instead.
+     */
     public function stylePath(): string
     {
         return $this->constructCdnPath('hyde.css');
-    }
-
-    public function scriptPath(): string
-    {
-        return $this->constructCdnPath('hyde.js');
     }
 
     public function constructCdnPath(string $file): string
