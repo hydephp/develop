@@ -42,12 +42,14 @@ jobs:
         run: php hyde dusk --pest
 
       - name: Upload Screenshots
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: screenshots
           path: tests/Browser/screenshots
 
       - name: Upload Compiled Source
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: dusk-source
