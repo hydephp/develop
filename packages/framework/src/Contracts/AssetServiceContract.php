@@ -11,6 +11,7 @@ interface AssetServiceContract
 
     /**
      * Return the main Hyde stylesheet location/path.
+     *
      * @deprecated v0.50.x - Use cdnLink() instead.
      */
     public function stylePath(): string;
