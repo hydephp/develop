@@ -81,7 +81,7 @@ $developCreateLink = "https://github.com/hydephp/develop/releases/new?tag=$versi
 $frameworkCreateLink = "https://github.com/hydephp/framework/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody);
 $hydeCreateLink = "https://github.com/hydephp/hyde/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody);
 
-echo "Creating HTML file...";
+echo 'Creating HTML file...';
 
 file_put_contents(getcwd().'/release.html', <<<HTML
 <!DOCTYPE html>
@@ -117,7 +117,6 @@ HTML
 );
 
 echo "Done. \n";
-
 
 echo "\nAll done!\nNext, verify the changes, then you can commit the release with the following message: \n";
 echo "$title\n";
