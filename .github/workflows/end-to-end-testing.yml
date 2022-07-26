@@ -84,6 +84,14 @@ jobs:
           name: app.css
           path: _site/media
 
+      # Since some of the browser tests visually overlap,
+      # we don't gain any real value from a visual regression test on them.
+      - name: Remove overlapping fixtures
+        run: |
+          rm _site/blank_homepage.html
+          rm _site/posts_homepage.html
+          rm _site/docs/index.html
+
       - name: Upload build to Percy
         run: npx percy snapshot _site/
         env:
