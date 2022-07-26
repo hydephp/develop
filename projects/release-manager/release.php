@@ -77,11 +77,56 @@ $title = "$version - ".date('Y-m-d');
 $body = ltrim(substr($notes, strpos($notes, "\n") + 2));
 $companionBody = sprintf('Please see the release notes in the development monorepo https://github.com/hydephp/develop/releases/tag/%s', $version);
 
+$developCreateLink = "https://github.com/hydephp/develop/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($body);
+$frameworkCreateLink = "https://github.com/hydephp/framework/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody);
+$hydeCreateLink = "https://github.com/hydephp/hyde/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody);
+
+echo "Creating HTML file...";
+
+file_put_contents(getcwd().'/release.html', <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Release $version</title>
+</head>
+<body>
+    <h1>Release $version</h1>
+    <details>
+        <summary>Release notes</summary>
+        <pre>$notes</pre>
+    </details>
+    <p>
+        <h2>Create the Git commit</h2>
+        <label>Suggested message:</label><br>
+        <input readonly type="text" value="$title">
+    </p>
+    <p>
+        <h2>Publish the GitHub releases</h2>
+        <ul>
+            <li style="margin-bottom: 8px";><a href="$developCreateLink">Create a new release on the <strong>development monorepo</strong></a></li>
+            <li style="margin-bottom: 8px";><a href="$frameworkCreateLink">Create a new release on the <strong>framework repo</strong></a></li>
+            <li style="margin-bottom: 8px";><a href="$hydeCreateLink">Create a new release on the <strong>hyde repo</strong></a></li>
+        </ul>
+    </p>
+</body>
+</html>
+HTML
+);
+
+echo "Done. \n";
+
+
 echo "\nAll done!\nNext, verify the changes, then you can commit the release with the following message: \n";
 echo "$title\n";
 echo "And here is a link to publish the release: \n";
-echo "https://github.com/hydephp/develop/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($body)."\n";
+echo "$developCreateLink\n";
 
 echo "\n\nThen you can use the following to to create the companion releases: \n";
-echo "https://github.com/hydephp/framework/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody)."\n";
-echo "https://github.com/hydephp/hyde/releases/new?tag=$version&title=".urlencode($title).'&body='.urlencode($companionBody)."\n";
+echo "$frameworkCreateLink\n";
+echo "$hydeCreateLink\n";
+
+echo "\nYou can also open the following file in your browser, to create the releases through that: \n";
+echo 'file://'.str_replace('\\', '/', getcwd()).'/release.html';
