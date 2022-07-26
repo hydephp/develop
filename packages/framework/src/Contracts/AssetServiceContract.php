@@ -15,11 +15,6 @@ interface AssetServiceContract
     public function stylePath(): string;
 
     /**
-     * Return the main Hyde script location/path.
-     */
-    public function scriptPath(): string;
-
-    /**
      * Construct a URI path for the CDN using the static dist version.
      */
     public function constructCdnPath(string $file): string;
