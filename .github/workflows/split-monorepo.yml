@@ -230,16 +230,11 @@ jobs:
       run: cp -rf develop/packages/hyde/. hyde -v
 
     - name: Copy test files
-      run: cp -rf develop/tests/. hyde/tests -v
-
-    - name: Remove monorepo test files 
       run: |
-        rm -rf hyde/tests/fixtures -v
-        rm -rf hyde/tests/Browser -v
-        rm -rf hyde/tests/Framework -v
-        rm hyde/tests/DuskTestCase.php -v
-        cp -rf hyde/tests/Hyde/. tests -v                                                     
-        rm -rf hyde/tests/Hyde -v
+        cp -rf develop/tests/Hyde/Feature/. hyde/tests/Feature -v
+        cp -f develop/tests/Hyde/Pest.php. hyde/tests/Pest.php -v
+        cp -f develop/tests/Hyde/TestCase.php. hyde/tests/TestCase.php -v
+        cp -f develop/tests/Hyde/TestListener.php. hyde/tests/TestListener.php -v
 
     - name: Commit and push changes
       run: |
