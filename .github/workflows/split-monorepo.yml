@@ -235,7 +235,6 @@ jobs:
         cp -rf develop/tests/Hyde/Feature/. hyde/tests/Feature -v
         cp -f develop/tests/Pest.php hyde/tests/Pest.php -v
         cp -f develop/tests/TestCase.php hyde/tests/TestCase.php -v
-        cp -f develop/tests/TestListener.php hyde/tests/TestListener.php -v
 
     - name: Commit and push changes
       run: |
