@@ -236,6 +236,7 @@ jobs:
       run: |
         rm -rf hyde/tests/fixtures -v
         rm -rf hyde/tests/Browser -v
+        rm -rf hyde/tests/Framework -v
         rm hyde/tests/DuskTestCase.php -v
 
     - name: Commit and push changes
