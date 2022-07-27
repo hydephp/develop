@@ -238,6 +238,8 @@ jobs:
         rm -rf hyde/tests/Browser -v
         rm -rf hyde/tests/Framework -v
         rm hyde/tests/DuskTestCase.php -v
+        cp -rf tests/Hyde/. tests -v                                                     
+        rm -rf tests/Hyde -v
 
     - name: Commit and push changes
       run: |
