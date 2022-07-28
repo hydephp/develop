@@ -229,6 +229,10 @@ jobs:
     - name: Copy over persisted files
       run: cp -rf develop/packages/hyde/. hyde -v
 
+    - name: Remove test files
+      run: |
+        rm hyde/phpunit.dusk.xml
+
     - name: Commit and push changes
       run: |
         cd hyde
