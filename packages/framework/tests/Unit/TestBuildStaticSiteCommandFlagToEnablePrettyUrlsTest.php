@@ -20,7 +20,7 @@ class TestBuildStaticSiteCommandFlagToEnablePrettyUrlsTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertTrue(config('site.pretty_urls', false));
-    
+
         File::cleanDirectory(Hyde::path('_site'));
     }
 
