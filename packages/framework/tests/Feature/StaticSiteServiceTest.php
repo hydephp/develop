@@ -25,7 +25,7 @@ class StaticSiteServiceTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->resetSite();
+        File::cleanDirectory(Hyde::path('_site'));
 
         parent::tearDown();
     }
