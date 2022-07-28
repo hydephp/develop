@@ -8,6 +8,13 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Str;
 
+/**
+ * Parses a Markdown file in the configured docs directory into a DocumentationPage object.
+ * 
+ * If the file is in a subdirectory relative to the base source directory (default _docs),
+ * the subdirectory name will be used as the page's category. This only works for one level,
+ * and the resulting file will still be put in the root of the docs output directory.
+ */
 class DocumentationPageParser extends AbstractPageParser
 {
     protected string $pageModel = DocumentationPage::class;
@@ -34,7 +41,7 @@ class DocumentationPageParser extends AbstractPageParser
             matter: $this->matter,
             body: $this->body,
             title: $this->title,
-            slug: $this->slug,
+            slug: basename($this->slug),
             category: $this->getCategory()
         );
     }
