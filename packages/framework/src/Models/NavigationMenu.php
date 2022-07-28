@@ -21,9 +21,9 @@ class NavigationMenu
         $this->items = new Collection();
     }
 
-    public static function create(?RouteContract $currentRoute = null): self
+    public static function create(?RouteContract $currentRoute = null): static
     {
-        return (new self())->setCurrentRoute($currentRoute ?? Hyde::currentRoute())->generate()->filter()->sort();
+        return (new static())->setCurrentRoute($currentRoute ?? Hyde::currentRoute())->generate()->filter()->sort();
     }
 
     /**
