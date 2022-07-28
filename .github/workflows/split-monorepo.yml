@@ -229,13 +229,6 @@ jobs:
     - name: Copy over persisted files
       run: cp -rf develop/packages/hyde/. hyde -v
 
-    - name: Copy test files
-      run: |
-        mkdir hyde/tests/Feature -p
-        cp -rf develop/tests/Hyde/Feature/. hyde/tests/Feature -v
-        cp -f develop/tests/Pest.php hyde/tests/Pest.php -v
-        cp -f develop/tests/TestCase.php hyde/tests/TestCase.php -v
-
     - name: Commit and push changes
       run: |
         cd hyde
