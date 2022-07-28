@@ -24,6 +24,8 @@ class HydeMakePageCommand extends Command
     protected $signature = 'make:page 
 		{title? : The name of the page file to create. Will be used to generate the slug}
 		{--type=markdown : The type of page to create (markdown, blade, or docs)}
+        {--blade : Create a Blade page}
+        {--docs : Create a Documentation page}
 		{--force : Overwrite any existing files}';
 
     /**
@@ -115,6 +117,18 @@ class HydeMakePageCommand extends Command
      */
     protected function getSelectedType(): string
     {
-        return $this->selectedType = strtolower($this->option('type') ?? 'markdown');
+        $type = 'markdown';
+
+        if ($this->option('type') !== null) {
+            $type = strtolower($this->option('type'));
+        } 
+        
+        if ($this->option('blade')) {
+            $type = 'blade';
+        } elseif ($this->option('docs')) {
+            $type = 'documentation';
+        }
+
+        return $this->selectedType = $type;
     }
 }
