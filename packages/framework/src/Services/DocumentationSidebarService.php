@@ -6,6 +6,7 @@ use Hyde\Framework\Concerns\HasDocumentationSidebarCategories;
 use Hyde\Framework\Contracts\DocumentationSidebarServiceContract;
 use Hyde\Framework\Models\DocumentationSidebar;
 use Hyde\Framework\Models\DocumentationSidebarItem;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 
 /**
  * Service class to create and manage the sidebar collection object.
@@ -45,9 +46,9 @@ class DocumentationSidebarService implements DocumentationSidebarServiceContract
     {
         $this->sidebar = new DocumentationSidebar();
 
-        foreach ($this->getSidebarItems() as $slug) {
+        foreach ($this->getSidebarItems() as $page) {
             $this->sidebar->addItem(
-                $this->createSidebarItemFromSlug($slug)
+                $this->createSidebarItemFromPage($page)
             );
         }
 
@@ -105,18 +106,18 @@ class DocumentationSidebarService implements DocumentationSidebarServiceContract
     }
 
     /**
-     * Get an array of source files to add to the sidebar.
+     * Get the files to be added to the sidebar.
      */
-    protected function getSidebarItems(): array
+    protected function getSidebarItems(): \Illuminate\Support\Collection
     {
-        return CollectionService::getDocumentationPageFiles();
+        return DocumentationPage::all();
     }
 
     /**
-     * Generate a SidebarItem object from a source file referenced by its slug.
+     * Generate a SidebarItem object from a page object.
      */
-    protected function createSidebarItemFromSlug(string $slug): DocumentationSidebarItem
+    protected function createSidebarItemFromPage(DocumentationPage $page): DocumentationSidebarItem
     {
-        return DocumentationSidebarItem::parseFromFile($slug);
+        return DocumentationSidebarItem::fromPage($page);
     }
 }

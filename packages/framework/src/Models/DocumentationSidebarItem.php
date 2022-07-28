@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Str;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -64,6 +65,17 @@ class DocumentationSidebarItem
             $matter['priority'] ?? null,
             $matter['category'] ?? null,
             $matter['hidden'] ?? false
+        );
+    }
+
+    public static function fromPage(DocumentationPage $page): static
+    {
+        return new static(
+            $page->matter['label'] ?? $page->title,
+            $page->slug,
+            $page->matter['priority'] ?? null,
+            $page->category ?? null,
+            $page->matter['hidden'] ?? false
         );
     }
 
