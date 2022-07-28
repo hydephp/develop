@@ -2,10 +2,8 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Str;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
  * Object containing information for a sidebar item.
