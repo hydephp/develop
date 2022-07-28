@@ -121,8 +121,8 @@ class HydeMakePageCommand extends Command
 
         if ($this->option('type') !== null) {
             $type = strtolower($this->option('type'));
-        } 
-        
+        }
+
         if ($this->option('blade')) {
             $type = 'blade';
         } elseif ($this->option('docs')) {
