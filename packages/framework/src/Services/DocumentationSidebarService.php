@@ -87,7 +87,7 @@ class DocumentationSidebarService implements DocumentationSidebarServiceContract
     protected function withoutIndex(): self
     {
         $this->sidebar = $this->sidebar->reject(function (DocumentationSidebarItem $item) {
-            return $item->destination === 'index';
+            return $item->route->getRouteKey() === 'docs/index';
         });
 
         return $this;

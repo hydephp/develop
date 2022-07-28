@@ -16,16 +16,16 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class DocumentationSidebarItem
 {
     public string $label;
-    public string $destination;
+    public Route $route;
     public int $priority;
     public bool $hidden = false;
     public ?string $category = null;
 
-    public function __construct(string $label, string $destination, ?int $priority = null, ?string $category = null, bool $hidden = false)
+    public function __construct(string $label, Route $route, ?int $priority = null, ?string $category = null, bool $hidden = false)
     {
         $this->label = $label;
-        $this->destination = $destination;
-        $this->priority = $priority ?? $this->findPriorityInConfig($destination);
+        $this->route = $route;
+        $this->priority = $priority ?? $this->findPriorityInConfig($route);
         $this->category = $this->normalizeCategoryKey($category);
         $this->hidden = $hidden;
     }
@@ -72,7 +72,7 @@ class DocumentationSidebarItem
     {
         return new static(
             $page->matter['label'] ?? $page->title,
-            $page->slug,
+            $page->getRoute(),
             $page->matter['priority'] ?? null,
             $page->category ?? null,
             $page->matter['hidden'] ?? false
