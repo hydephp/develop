@@ -10,8 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Add Laravel Tinker as a development dependency for the Monorepo
-- Improved the `hyde make:page` command to add page type selection shorthands
+- for new features.
 
 ### Changed
 - for changes in existing functionality.
@@ -20,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- Removed test files from the hyde/hyde sub repository
+- for now removed features.
 
 ### Fixed
 - for any bug fixes.

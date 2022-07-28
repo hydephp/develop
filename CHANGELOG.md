@@ -15,6 +15,16 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.51.0-beta](https://github.com/hydephp/develop/releases/tag/v0.51.0-beta) - 2022-07-28
+
+### Added
+- Add Laravel Tinker as a development dependency for the Monorepo
+- Improved the `hyde make:page` command to add page type selection shorthands
+
+### Removed
+- Removed test files from the hyde/hyde sub repository
+
+
 ## [v0.50.0-beta](https://github.com/hydephp/develop/releases/tag/v0.50.0-beta) - 2022-07-26
 
 ### About
