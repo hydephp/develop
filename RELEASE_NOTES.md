@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Add Laravel Tinker as a development dependency for the Monorepo
+- Improved the `hyde make:page` command to add page type selection shorthands
 
 ### Changed
 - for changes in existing functionality.

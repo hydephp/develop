@@ -126,7 +126,7 @@ class HydeMakePageCommandTest extends TestCase
     {
         $this->artisan('make:page')
             ->expectsQuestion('What is the title of the page?', 'Test Page')
-            ->expectsOutput("Creating page with title: Test Page\n")
+            ->expectsOutput("Creating a new Markdown page with title: Test Page\n")
             ->assertExitCode(0);
 
         unlink(Hyde::path('_pages/test-page.md'));
@@ -137,9 +137,30 @@ class HydeMakePageCommandTest extends TestCase
     {
         $this->artisan('make:page')
             ->expectsQuestion('What is the title of the page?', null)
-            ->expectsOutput("Creating page with title: My New Page\n")
+            ->expectsOutput("Creating a new Markdown page with title: My New Page\n")
             ->assertExitCode(0);
 
         unlink(Hyde::path('_pages/my-new-page.md'));
+    }
+
+    // assert page type shorthand can be used to create blade pages
+    public function test_page_type_shorthand_can_be_used_to_create_blade_pages()
+    {
+        $this->artisan('make:page "foo test page" --blade')
+            ->expectsOutput("Creating a new Blade page with title: foo test page\n")
+            ->assertExitCode(0);
+
+        $this->assertFileExists($this->bladePath);
+    }
+
+    // assert page type shorthand can be used to create documentation pages
+    public function test_page_type_shorthand_can_be_used_to_create_documentation_pages()
+    {
+        $this->artisan('make:page "foo test page" --docs')
+            ->expectsOutput("Creating a new Documentation page with title: foo test page\n")
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_docs/foo-test-page.md'));
+        unlink(Hyde::path('_docs/foo-test-page.md'));
     }
 }
