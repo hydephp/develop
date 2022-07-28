@@ -14,7 +14,7 @@ trait CreatesApplication
      */
     public function createApplication(): Application
     {
-        $app = require file_exists(__DIR__.'/../../../app/bootstrap.php') ?  __DIR__.'/../../../app/bootstrap.php' : getcwd().'/app/bootstrap.php';
+        $app = require file_exists(__DIR__.'/../../../app/bootstrap.php') ? __DIR__.'/../../../app/bootstrap.php' : getcwd().'/app/bootstrap.php';
 
         $app->make(Kernel::class)->bootstrap();
 
