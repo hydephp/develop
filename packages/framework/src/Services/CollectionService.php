@@ -10,6 +10,8 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
+ * The core service that powers all HydePHP file auto-discovery.
+ * 
  * Contains service methods to return helpful collections of arrays and lists.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\CollectionServiceTest
@@ -41,7 +43,7 @@ class CollectionService
     }
 
     /**
-     * Get all the Blade files in the resources/views/vendor/hyde/pages directory.
+     * Get all the Blade files in the _pages directory.
      *
      * @return array
      */

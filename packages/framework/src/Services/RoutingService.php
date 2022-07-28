@@ -82,7 +82,7 @@ class RoutingService implements RoutingServiceContract
 
     /**
      * This internal method adds the specified route to the route index.
-     * It's intended to be used for package developers to hook into the routing system.
+     * It's made publics so package developers can hook into the routing system.
      */
     public function addRoute(RouteContract $route): self
     {
