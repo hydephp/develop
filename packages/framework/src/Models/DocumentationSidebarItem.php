@@ -49,6 +49,9 @@ class DocumentationSidebarItem
         return $this->hidden;
     }
 
+    /**
+     * @deprecated Use Routes instead
+     */
     public static function parseFromFile(string $documentationPageSlug): static
     {
         $matter = YamlFrontMatter::markdownCompatibleParse(
