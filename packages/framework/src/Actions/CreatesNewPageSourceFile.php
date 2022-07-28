@@ -37,16 +37,15 @@ class CreatesNewPageSourceFile
     {
         return Str::afterLast('/', $title);
     }
-    
+
     public function parseSlug(string $title): string
     {
         if (str_contains($title, '/')) {
-            $this->subDir = Str::beforeLast($title, '/') . '/';
+            $this->subDir = Str::beforeLast($title, '/').'/';
         }
 
         return Str::slug(basename($title));
     }
-
 
     public function canSaveFile(string $path): void
     {
@@ -59,22 +58,22 @@ class CreatesNewPageSourceFile
     {
         $subDir = $this->subDir;
         if ($subDir !== '') {
-            $subDir =  '/' . rtrim($subDir, '/\\');
+            $subDir = '/'.rtrim($subDir, '/\\');
         }
 
         if ($type === MarkdownPage::class) {
-            $this->needsDirectory(MarkdownPage::getSourceDirectory() . $subDir);
+            $this->needsDirectory(MarkdownPage::getSourceDirectory().$subDir);
 
             return $this->createMarkdownFile();
         }
         if ($type === BladePage::class) {
-            $this->needsDirectory(BladePage::getSourceDirectory() . $subDir);
+            $this->needsDirectory(BladePage::getSourceDirectory().$subDir);
 
             return $this->createBladeFile();
         }
 
         if ($type === DocumentationPage::class) {
-            $this->needsDirectory(DocumentationPage::getSourceDirectory() . $subDir);
+            $this->needsDirectory(DocumentationPage::getSourceDirectory().$subDir);
 
             return $this->createDocumentationFile();
         }
