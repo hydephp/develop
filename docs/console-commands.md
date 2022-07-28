@@ -171,6 +171,8 @@ php hyde make:page "Photo Gallery" --type=blade
 php hyde make:page "Hyde CLI Guide" --type=docs
 ```
 
+> Tip: You can also use the shorthand `--blade` or `--docs` instead of `--type=blade` or `--type=docs`.
+
 ### Publish a default homepage
 ```bash
 php hyde publish:homepage [<name>]
