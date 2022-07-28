@@ -33,7 +33,7 @@ class CollectionService
         }
 
         // Scan the source directory, and directories therein, for files that match the model's file extension.
-        
+
         $files = [];
         foreach (glob(Hyde::path($model::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
