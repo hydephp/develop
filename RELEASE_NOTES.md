@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed test files from the hyde/hyde sub repository
 
 ### Fixed
 - for any bug fixes.
