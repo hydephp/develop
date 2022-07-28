@@ -13,14 +13,13 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- internal: Refactor how documentation sidebars are generated and handled
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- internal: Deleted internal trait `HasDocumentationSidebarCategories.php` (merged into service)
-- internal: Delete internal interface `DocumentationSidebarServiceContract.php`
+- for now removed features.
 
 ### Fixed
 - for any bug fixes.
