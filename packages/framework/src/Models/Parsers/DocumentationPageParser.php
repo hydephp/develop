@@ -15,6 +15,7 @@ class DocumentationPageParser extends AbstractPageParser
     /** @deprecated v0.44.x (handled in constructor) */
     public string $title = '';
     public string $body;
+    public array $matter;
 
     public function execute(): void
     {
@@ -32,7 +33,8 @@ class DocumentationPageParser extends AbstractPageParser
             matter: $this->matter,
             body: $this->body,
             title: $this->title,
-            slug: $this->slug
+            slug: $this->slug,
+            category: $this->matter['category'] ?? null
         );
     }
 }

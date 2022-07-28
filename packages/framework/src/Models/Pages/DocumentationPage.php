@@ -16,9 +16,13 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static string $parserClass = DocumentationPageParser::class;
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
+    public ?string $category;
+   
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null)
     {
         parent::__construct($matter, $body, $title, $slug);
+
+        $this->category = $category;
     }
 
     /** @internal */
