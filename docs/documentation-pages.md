@@ -148,6 +148,8 @@ Since [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-bet
 
 For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter in the step above.
 
+> Note that the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the sub-directories.
+
 
 ### Hiding items
 
