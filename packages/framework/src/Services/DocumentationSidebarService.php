@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Contracts\DocumentationSidebarServiceContract;
 use Hyde\Framework\Models\DocumentationSidebar;
 use Hyde\Framework\Models\DocumentationSidebarItem;
 use Illuminate\Support\Str;
@@ -13,7 +12,7 @@ use Illuminate\Support\Str;
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarServiceTest
  * @phpstan-consistent-constructor
  */
-class DocumentationSidebarService implements DocumentationSidebarServiceContract
+class DocumentationSidebarService
 {
     protected array $categories = [];
 

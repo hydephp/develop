@@ -20,6 +20,7 @@ This serves two purposes:
 
 ### Removed
 - internal: Deleted internal trait `HasDocumentationSidebarCategories.php` (merged into service)
+- internal: Delete internal interface `DocumentationSidebarServiceContract.php`
 
 ### Fixed
 - for any bug fixes.
