@@ -60,8 +60,9 @@
 		<nav id="sidebar-navigation"
 			class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-[calc(100vh_-_8rem)]">
 			@php
-				$sidebar = Hyde\Framework\Services\DocumentationSidebarService::create();
+				$sidebar = \Hyde\Framework\Models\DocumentationSidebar::create();
 			@endphp
+
 
 			@if($sidebar->hasCategories())
 				@include('hyde::components.docs.labeled-sidebar-navigation-menu')
