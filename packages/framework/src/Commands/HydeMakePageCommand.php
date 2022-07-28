@@ -39,6 +39,11 @@ class HydeMakePageCommand extends Command
     public string $title;
 
     /**
+     * The selected page type.
+     */
+    public string $selectedType;
+
+    /**
      * The page type.
      */
     public string $type;
@@ -59,9 +64,9 @@ class HydeMakePageCommand extends Command
             ?? $this->ask('What is the title of the page?')
             ?? 'My New Page';
 
-        $this->line('<info>Creating page with title:</> '.$this->title."\n");
-
         $this->validateOptions();
+
+        $this->line('<info>Creating a new '.ucwords($this->selectedType).' page with title:</> '.$this->title."\n");
 
         $this->force = $this->option('force') ?? false;
 
@@ -81,7 +86,7 @@ class HydeMakePageCommand extends Command
      */
     protected function validateOptions(): void
     {
-        $type = strtolower($this->option('type') ?? 'markdown');
+        $type = $this->getSelectedType();
 
         // Set the type to the fully qualified class name
         if ($type === 'markdown') {
@@ -101,5 +106,15 @@ class HydeMakePageCommand extends Command
         }
 
         throw new UnsupportedPageTypeException("Invalid page type: $type");
+    }
+
+    /**
+     * Get the selected page type.
+     *
+     * @return string
+     */
+    protected function getSelectedType(): string
+    {
+        return $this->selectedType = strtolower($this->option('type') ?? 'markdown');
     }
 }
