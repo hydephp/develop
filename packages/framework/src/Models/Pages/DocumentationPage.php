@@ -16,7 +16,15 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static string $parserClass = DocumentationPageParser::class;
 
+    /**
+     * The sidebar category group, if any.
+     */
     public ?string $category;
+
+    /**
+     * The path to the page relative to the configured docs directory.
+     * Generally only needed if the page is in a subdirectory.
+     */
     public ?string $localPath;
 
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null, ?string $localPath = null)
