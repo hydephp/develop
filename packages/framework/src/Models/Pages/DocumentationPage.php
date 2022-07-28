@@ -17,12 +17,19 @@ class DocumentationPage extends AbstractMarkdownPage
     public static string $parserClass = DocumentationPageParser::class;
 
     public ?string $category;
+    public ?string $localPath;
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null)
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null, ?string $localPath = null)
     {
         parent::__construct($matter, $body, $title, $slug);
-
         $this->category = $category;
+        $this->localPath = $localPath;
+    }
+
+    /** @inheritDoc */
+    public function getSourcePath(): string
+    {
+        return is_null($this->localPath) ? parent::getSourcePath() : static::qualifyBasename($this->localPath);
     }
 
     /** @internal */

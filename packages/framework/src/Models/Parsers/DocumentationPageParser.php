@@ -42,7 +42,8 @@ class DocumentationPageParser extends AbstractPageParser
             body: $this->body,
             title: $this->title,
             slug: basename($this->slug),
-            category: $this->getCategory()
+            category: $this->getCategory(),
+            localPath: $this->slug
         );
     }
 
