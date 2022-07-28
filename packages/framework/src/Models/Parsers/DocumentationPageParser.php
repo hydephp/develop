@@ -6,6 +6,7 @@ use Hyde\Framework\Contracts\AbstractPageParser;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\MarkdownFileService;
+use Illuminate\Support\Str;
 
 class DocumentationPageParser extends AbstractPageParser
 {
@@ -34,7 +35,16 @@ class DocumentationPageParser extends AbstractPageParser
             body: $this->body,
             title: $this->title,
             slug: $this->slug,
-            category: $this->matter['category'] ?? null
+            category: $this->getCategory()
         );
+    }
+
+    public function getCategory(): ?string
+    {
+        if (str_contains($this->slug, '/')) {
+            return Str::before($this->slug, '/');
+        }
+
+        return $this->matter['category'] ?? null;
     }
 }
