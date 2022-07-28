@@ -23,14 +23,30 @@ class CreatesNewPageSourceFile
     public string $title;
     public string $slug;
     public string $outputPath;
+    public string $subDir = '';
 
     public function __construct(string $title, string $type = MarkdownPage::class, public bool $force = false)
     {
-        $this->title = $title;
-        $this->slug = Str::slug($title);
+        $this->title = $this->parseTitle($title);
+        $this->slug = $this->parseSlug($title);
 
         $this->createPage($type);
     }
+
+    public function parseTitle(string $title): string
+    {
+        return Str::afterLast('/', $title);
+    }
+    
+    public function parseSlug(string $title): string
+    {
+        if (str_contains($title, '/')) {
+            $this->subDir = Str::beforeLast($title, '/') . '/';
+        }
+
+        return Str::slug(basename($title));
+    }
+
 
     public function canSaveFile(string $path): void
     {
@@ -41,19 +57,24 @@ class CreatesNewPageSourceFile
 
     public function createPage(string $type): int|false
     {
+        $subDir = $this->subDir;
+        if ($subDir !== '') {
+            $subDir =  '/' . rtrim($subDir, '/\\');
+        }
+
         if ($type === MarkdownPage::class) {
-            $this->needsDirectory(MarkdownPage::getSourceDirectory());
+            $this->needsDirectory(MarkdownPage::getSourceDirectory() . $subDir);
 
             return $this->createMarkdownFile();
         }
         if ($type === BladePage::class) {
-            $this->needsDirectory(BladePage::getSourceDirectory());
+            $this->needsDirectory(BladePage::getSourceDirectory() . $subDir);
 
             return $this->createBladeFile();
         }
 
         if ($type === DocumentationPage::class) {
-            $this->needsDirectory(DocumentationPage::getSourceDirectory());
+            $this->needsDirectory(DocumentationPage::getSourceDirectory() . $subDir);
 
             return $this->createDocumentationFile();
         }
@@ -63,7 +84,7 @@ class CreatesNewPageSourceFile
 
     public function createMarkdownFile(): int|false
     {
-        $this->outputPath = Hyde::path("_pages/$this->slug.md");
+        $this->outputPath = Hyde::path("_pages/$this->subDir$this->slug.md");
 
         $this->canSaveFile($this->outputPath);
 
@@ -75,7 +96,7 @@ class CreatesNewPageSourceFile
 
     public function createBladeFile(): int|false
     {
-        $this->outputPath = Hyde::path("_pages/$this->slug.blade.php");
+        $this->outputPath = Hyde::path("_pages/$this->subDir$this->slug.blade.php");
 
         $this->canSaveFile($this->outputPath);
 
@@ -98,7 +119,7 @@ EOF
 
     public function createDocumentationFile(): int|false
     {
-        $this->outputPath = Hyde::path("_docs/$this->slug.md");
+        $this->outputPath = Hyde::path("_docs/$this->subDir$this->slug.md");
 
         $this->canSaveFile($this->outputPath);
 
