@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- internal: Deleted internal trait `HasDocumentationSidebarCategories.php` (merged into service)
 
 ### Fixed
 - for any bug fixes.
