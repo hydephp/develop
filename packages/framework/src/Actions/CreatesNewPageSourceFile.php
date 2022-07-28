@@ -35,7 +35,7 @@ class CreatesNewPageSourceFile
 
     public function parseTitle(string $title): string
     {
-        return Str::afterLast('/', $title);
+        return Str::afterLast($title, '/');
     }
 
     public function parseSlug(string $title): string
