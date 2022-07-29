@@ -63,8 +63,7 @@
 				$sidebar = \Hyde\Framework\Models\DocumentationSidebar::create();
 			@endphp
 
-
-			@if($sidebar->hasCategories())
+			@if($sidebar->hasGroups())
 				@include('hyde::components.docs.labeled-sidebar-navigation-menu')
 			@else
 				@include('hyde::components.docs.sidebar-navigation-menu')
