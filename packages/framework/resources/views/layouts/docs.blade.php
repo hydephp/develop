@@ -64,7 +64,7 @@
 			@endphp
 
 			@if($sidebar->hasGroups())
-				@include('hyde::components.docs.labeled-sidebar-navigation-menu')
+				@include('hyde::components.docs.grouped-sidebar')
 			@else
 				@include('hyde::components.docs.sidebar-navigation-menu')
 			@endif
