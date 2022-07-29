@@ -101,12 +101,12 @@ class HydeKernel implements HydeKernelContract
     public function path(string $path = ''): string
     {
         if (empty($path)) {
-            return static::getBasePath();
+            return $this->getBasePath();
         }
 
         $path = unslash($path);
 
-        return static::getBasePath().DIRECTORY_SEPARATOR.$path;
+        return $this->getBasePath().DIRECTORY_SEPARATOR.$path;
     }
 
     /**
@@ -161,7 +161,7 @@ class HydeKernel implements HydeKernelContract
         }
 
         if ($current === null) {
-            $current = static::currentPage();
+            $current = $this->currentPage();
         }
 
         $nestCount = substr_count($current, '/');
@@ -169,7 +169,7 @@ class HydeKernel implements HydeKernelContract
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
-        $route .= static::pageLink($destination);
+        $route .= $this->pageLink($destination);
 
         return str_replace('//', '/', $route);
     }
@@ -197,14 +197,14 @@ class HydeKernel implements HydeKernelContract
     public function image(string $name, string $current = null): string
     {
         if ($current === null) {
-            $current = static::currentPage();
+            $current = $this->currentPage();
         }
 
         if (str_starts_with($name, 'http')) {
             return $name;
         }
 
-        return static::relativeLink('media/'.basename($name), $current);
+        return $this->relativeLink('media/'.basename($name), $current);
     }
 
     /**
@@ -265,22 +265,22 @@ class HydeKernel implements HydeKernelContract
 
     public function getBladePagePath(string $path = ''): string
     {
-        return static::getModelSourcePath(BladePage::class, $path);
+        return $this->getModelSourcePath(BladePage::class, $path);
     }
 
     public function getMarkdownPagePath(string $path = ''): string
     {
-        return static::getModelSourcePath(MarkdownPage::class, $path);
+        return $this->getModelSourcePath(MarkdownPage::class, $path);
     }
 
     public function getMarkdownPostPath(string $path = ''): string
     {
-        return static::getModelSourcePath(MarkdownPost::class, $path);
+        return $this->getModelSourcePath(MarkdownPost::class, $path);
     }
 
     public function getDocumentationPagePath(string $path = ''): string
     {
-        return static::getModelSourcePath(DocumentationPage::class, $path);
+        return $this->getModelSourcePath(DocumentationPage::class, $path);
     }
 
     /**
