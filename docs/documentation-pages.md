@@ -162,7 +162,6 @@ hidden: true
 This can be useful to create redirects or other items that should not be shown in the sidebar.
 
 > The index page is by default not shown as a sidebar item, but instead is linked in the sidebar header. <br>
-> In the future, this might be disabled by setting the `hidden` property to `false` in the front matter.
 
 ## Customization
 
@@ -191,6 +190,8 @@ You can change this in the Docs configuration file.
 ```php
 'title' => 'API Documentation',
 ```
+
+> Tip: The header will link to the docs/index page, if it exists.
 
 ### Sidebar page order
 

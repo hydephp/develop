@@ -11,6 +11,7 @@ This update internally refactors how documentation sidebars are handled. If you 
 - internal: Refactor how documentation sidebars are generated and handled
 - internal: (Sidebar) categories are now internally referred to as "groups"
 - internal: The sidebar related Blade views have been renamed
+- `DocumentationPage::indexPath()` was renamed to `DocumentationPage::home()` and now returns a `Route` instead of a URL. It no longer resolves to README files. 
 
 ### Deprecated
 - for soon-to-be removed features.

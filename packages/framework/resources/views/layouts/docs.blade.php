@@ -18,7 +18,7 @@
 		class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
 		<strong class="px-2 mr-auto">
 			@if(Route::exists('docs/index'))
-			<a href="{{ Route::get('docs/index') }}">
+			<a href="{{ DocumentationPage::home() }}">
 				{{ config('docs.header_title', 'Documentation') }}
 			</a>
 			@else
@@ -47,7 +47,7 @@
 			<div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
 				<strong class="px-2">
 					@if(Route::exists('docs/index'))
-					<a href="{{ Route::get('docs/index') }}">
+					<a href="{{ DocumentationPage::home() }}">
 						{{ config('docs.header_title', 'Documentation') }}
 					</a>
 					@else
