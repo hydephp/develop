@@ -67,15 +67,15 @@ class DocumentationSidebarTest extends TestCase
     public function test_sidebar_is_ordered_alphabetically_when_no_order_is_set_in_config()
     {
         Config::set('docs.sidebar_order', []);
-        Hyde::touch(('_docs/alpha.md'));
-        Hyde::touch(('_docs/bravo.md'));
-        Hyde::touch(('_docs/charlie.md'));
+        Hyde::touch(('_docs/a.md'));
+        Hyde::touch(('_docs/b.md'));
+        Hyde::touch(('_docs/c.md'));
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/alpha'))->setPriority(500),
-                NavItem::fromRoute(Route::get('docs/bravo'))->setPriority(500),
-                NavItem::fromRoute(Route::get('docs/charlie'))->setPriority(500),
+                NavItem::fromRoute(Route::get('docs/a'))->setPriority(500),
+                NavItem::fromRoute(Route::get('docs/b'))->setPriority(500),
+                NavItem::fromRoute(Route::get('docs/c'))->setPriority(500),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -84,19 +84,19 @@ class DocumentationSidebarTest extends TestCase
     public function test_sidebar_is_ordered_by_priority_when_priority_is_set_in_config()
     {
         Config::set('docs.sidebar_order', [
-            'charlie',
-            'bravo',
-            'alpha',
+            'c',
+            'b',
+            'a',
         ]);
-        Hyde::touch(('_docs/alpha.md'));
-        Hyde::touch(('_docs/bravo.md'));
-        Hyde::touch(('_docs/charlie.md'));
+        Hyde::touch(('_docs/a.md'));
+        Hyde::touch(('_docs/b.md'));
+        Hyde::touch(('_docs/c.md'));
 
         $this->assertEquals(
             collect([
-                NavItem::fromRoute(Route::get('docs/charlie'))->setPriority(250),
-                NavItem::fromRoute(Route::get('docs/bravo'))->setPriority(251),
-                NavItem::fromRoute(Route::get('docs/alpha'))->setPriority(252),
+                NavItem::fromRoute(Route::get('docs/c'))->setPriority(250),
+                NavItem::fromRoute(Route::get('docs/b'))->setPriority(251),
+                NavItem::fromRoute(Route::get('docs/a'))->setPriority(252),
             ]),
             DocumentationSidebar::create()->items
         );
@@ -104,21 +104,14 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_sidebar_item_priority_can_be_set_in_front_matter()
     {
-        file_put_contents(
-            Hyde::path('_docs/foo.md'),
-            (new ConvertsArrayToFrontMatter)->execute([
-                'priority' => 25,
-            ])
-        );
+        $this->makePage('foo', ['priority' => 25]);
 
         $this->assertEquals(25, DocumentationSidebar::create()->items->first()->priority);
     }
 
     public function test_sidebar_item_priority_set_in_config_overrides_front_matter()
     {
-        file_put_contents(Hyde::path('_docs/foo.md'),
-            (new ConvertsArrayToFrontMatter)->execute(['priority' => 25])
-        );
+        $this->makePage('foo', ['priority' => 25]);
 
         Config::set('docs.sidebar_order', ['foo']);
 
@@ -150,12 +143,7 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_category_can_be_set_in_front_matter()
     {
-        file_put_contents(
-            Hyde::path('_docs/foo.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                ])
-        );
+        $this->makePage('foo', ['category' => 'bar']);
 
         $this->assertEquals('bar', DocumentationSidebar::create()->items->first()->getGroup());
     }
@@ -167,12 +155,7 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_has_groups_returns_true_when_there_are_groups()
     {
-        file_put_contents(
-            Hyde::path('_docs/foo.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                ])
-        );
+        $this->makePage('foo', ['category' => 'bar']);
 
         $this->assertTrue(DocumentationSidebar::create()->hasGroups());
     }
@@ -184,63 +167,25 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_groups_returns_array_of_groups_when_there_are_groups()
     {
-        file_put_contents(
-            Hyde::path('_docs/foo.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                ])
-        );
+        $this->makePage('foo', ['category' => 'bar']);
 
         $this->assertEquals(['bar'], DocumentationSidebar::create()->getGroups());
     }
 
     public function test_get_groups_returns_array_with_no_duplicates()
     {
-        file_put_contents(
-            Hyde::path('_docs/foo.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/bar.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/baz.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'baz',
-                ])
-        );
+        $this->makePage('foo', ['category' => 'bar']);
+        $this->makePage('bar', ['category' => 'bar']);
+        $this->makePage('baz', ['category' => 'baz']);
 
         $this->assertEquals(['bar', 'baz'], DocumentationSidebar::create()->getGroups());
     }
 
     public function test_groups_are_sorted_by_lowest_found_priority_in_each_group()
     {
-        file_put_contents(
-            Hyde::path('_docs/foo.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                    'priority' => 100,
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/bar.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                    'priority' => 200,
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/baz.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'baz',
-                    'priority' => 10,
-                ])
-        );
+        $this->makePage('foo', ['category' => 'bar', 'priority' => 100]);
+        $this->makePage('bar', ['category' => 'bar', 'priority' => 200]);
+        $this->makePage('baz', ['category' => 'baz', 'priority' => 10]);
 
         $this->assertEquals(['baz', 'bar'], DocumentationSidebar::create()->getGroups());
     }
@@ -252,24 +197,9 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_returns_collection_of_items_in_group()
     {
-        file_put_contents(
-            Hyde::path('_docs/foo.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/bar.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'bar',
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/baz.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'baz',
-                ])
-        );
+        $this->makePage('foo', ['category' => 'bar']);
+        $this->makePage('bar', ['category' => 'bar']);
+        $this->makePage('baz', ['category' => 'baz']);
 
         $this->assertEquals(
             collect([
@@ -289,24 +219,9 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_normalizes_group_name_to_slug_format()
     {
-        file_put_contents(
-            Hyde::path('_docs/a.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'foo bar',
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/b.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'Foo Bar',
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/c.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'foo-bar',
-                ])
-        );
+        $this->makePage('a', ['category' => 'foo bar']);
+        $this->makePage('b', ['category' => 'Foo Bar']);
+        $this->makePage('c', ['category' => 'foo-bar']);
 
         $this->assertEquals(
             collect([
@@ -320,24 +235,11 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_does_not_include_items_with_hidden_front_matter()
     {
-        file_put_contents(
-            Hyde::path('_docs/a.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'foo',
-                    'hidden' => true,
-                ])
-        );
-        file_put_contents(
-            Hyde::path('_docs/b.md'),
-                (new ConvertsArrayToFrontMatter)->execute([
-                    'category' => 'foo',
-                ])
-        );
+        $this->makePage('a', ['hidden' => true, 'category' => 'foo']);
+        $this->makePage('b', ['category' => 'foo']);
 
         $this->assertEquals(
-            collect([
-                NavItem::fromRoute(Route::get('docs/b'))->setPriority(500),
-            ]),
+            collect([NavItem::fromRoute(Route::get('docs/b'))->setPriority(500)]),
             DocumentationSidebar::create()->getItemsInGroup('foo')
         );
     }
@@ -348,9 +250,7 @@ class DocumentationSidebarTest extends TestCase
         Hyde::touch('_docs/index.md');
 
         $this->assertEquals(
-            collect([
-                NavItem::fromRoute(Route::get('docs/foo'))->setPriority(500),
-            ]),
+            collect([NavItem::fromRoute(Route::get('docs/foo'))->setPriority(500)]),
             DocumentationSidebar::create()->items
         );
     }
@@ -360,5 +260,13 @@ class DocumentationSidebarTest extends TestCase
         for ($i = 0; $i < $count; $i++) {
             Hyde::touch('_docs/test-'.$i.'.md');
         }
+    }
+
+    protected function makePage(string $name, ?array $matter = null): void
+    {
+        file_put_contents(
+            Hyde::path('_docs/'.$name.'.md'),
+                (new ConvertsArrayToFrontMatter)->execute($matter ?? [])
+        );
     }
 }
