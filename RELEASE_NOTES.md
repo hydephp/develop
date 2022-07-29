@@ -14,12 +14,13 @@ This serves two purposes:
 
 ### Changed
 - internal: DiscoveryService.php is no longer deprecated
+- internal: CollectionService.php was merged into DiscoveryService
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService
 
 ### Fixed
 - for any bug fixes.
