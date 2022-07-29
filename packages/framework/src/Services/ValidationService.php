@@ -66,7 +66,7 @@ class ValidationService
             return $result->skip('The documentation page feature is disabled in config');
         }
 
-        if (count(NewDiscoveryService::getDocumentationPageFiles()) === 0) {
+        if (count(DiscoveryService::getDocumentationPageFiles()) === 0) {
             return $result->skip('There are no documentation pages');
         }
 
@@ -121,8 +121,8 @@ class ValidationService
     public function check_for_conflicts_between_blade_and_markdown_pages(Result $result): Result
     {
         $conflicts = array_intersect(
-            NewDiscoveryService::getMarkdownPageFiles(),
-            NewDiscoveryService::getBladePageFiles()
+            DiscoveryService::getMarkdownPageFiles(),
+            DiscoveryService::getBladePageFiles()
         );
 
         if (count($conflicts)) {

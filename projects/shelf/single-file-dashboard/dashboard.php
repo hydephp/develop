@@ -17,7 +17,7 @@ use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
-use Hyde\Framework\Services\NewDiscoveryService;
+use Hyde\Framework\Services\DiscoveryService;
 
 const VERSION = 'dev-master';
 
@@ -265,18 +265,18 @@ try {
                                  </thead>
                                  <tbody>
                                    <tr>
-                                       <td><?= count(NewDiscoveryService::getBladePageList()) ?> pages</td>
-                                       <td><?= count(NewDiscoveryService::getMarkdownPageList()) ?> pages</td>
-                                       <td><?= count(NewDiscoveryService::getDocumentationPageList()) ?> pages</td>
-                                       <td><?= count(NewDiscoveryService::getMarkdownPostList()) ?> posts</td>
+                                       <td><?= count(DiscoveryService::getBladePageList()) ?> pages</td>
+                                       <td><?= count(DiscoveryService::getMarkdownPageList()) ?> pages</td>
+                                       <td><?= count(DiscoveryService::getDocumentationPageList()) ?> pages</td>
+                                       <td><?= count(DiscoveryService::getMarkdownPostList()) ?> posts</td>
                                    </tr>
                                  </tbody>
                               </table>
                            </section>
                            <section class="card">
                               <?php
-                                    $documentation = NewDiscoveryService::getDocumentationPageList();
-                                    $posts = NewDiscoveryService::getMarkdownPostList();
+                                    $documentation = DiscoveryService::getDocumentationPageList();
+                                    $posts = DiscoveryService::getMarkdownPostList();
                               ?>
                               <h3 class="h5">Your Pages</h3>
                               <table class="table">

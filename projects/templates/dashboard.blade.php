@@ -3,7 +3,7 @@
     use Hyde\Framework\Models\Pages\MarkdownPage;
     use Hyde\Framework\Models\Pages\DocumentationPage;
     use Hyde\Framework\Models\Pages\MarkdownPost;
-    use Hyde\Framework\Services\NewDiscoveryService;
+    use Hyde\Framework\Services\DiscoveryService;
 
 	$github = new class {
 		public bool $enabled;
@@ -206,22 +206,22 @@
                 <tr>
                     <td>
                         <a href="#blade-pages">
-                            <b>{{ count(NewDiscoveryService::getBladePageFiles()) }}</b> pages
+                            <b>{{ count(DiscoveryService::getBladePageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#markdown-pages">
-                            <b>{{ count(NewDiscoveryService::getMarkdownPageFiles()) }}</b> pages
+                            <b>{{ count(DiscoveryService::getMarkdownPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#documentation-pages">
-                            <b>{{ count(NewDiscoveryService::getDocumentationPageFiles()) }}</b> pages
+                            <b>{{ count(DiscoveryService::getDocumentationPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#blog-posts">
-                            <b>{{ count(NewDiscoveryService::getMarkdownPostFiles()) }}</b> posts
+                            <b>{{ count(DiscoveryService::getMarkdownPostFiles()) }}</b> posts
                         </a>
                     </td>
                 </tr>

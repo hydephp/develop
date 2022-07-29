@@ -10,7 +10,7 @@ namespace Hyde\Framework\Services;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\CollectionServiceTest
  */
-class NewDiscoveryService extends DiscoveryService
+class DiscoveryService extends DiscoveryService
 {
 
 }

@@ -126,7 +126,7 @@ class DiscoveryService
      * @param  string  $model
      * @return array|false array on success, false if the class was not found
      *
-     * @example NewDiscoveryService::getSourceFileListForModel(BladePage::class)
+     * @example DiscoveryService::getSourceFileListForModel(BladePage::class)
      */
     public static function getSourceFileListForModel(string $model): array|false
     {

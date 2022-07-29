@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
-use Hyde\Framework\Services\NewDiscoveryService;
+use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -73,7 +73,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
     public function getSourceFileSlugs(): array
     {
         return array_diff(
-            NewDiscoveryService::getDocumentationPageFiles(),
+            DiscoveryService::getDocumentationPageFiles(),
             config('docs.exclude_from_search', [])
         );
     }

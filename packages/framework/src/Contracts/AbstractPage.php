@@ -5,7 +5,7 @@ namespace Hyde\Framework\Contracts;
 use Hyde\Framework\Concerns\CanBeInNavigation;
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\Services\NewDiscoveryService;
+use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
 
 /**
@@ -68,7 +68,7 @@ abstract class AbstractPage implements PageContract
     /** @inheritDoc */
     public static function files(): array
     {
-        return NewDiscoveryService::getSourceFileListForModel(static::class);
+        return DiscoveryService::getSourceFileListForModel(static::class);
     }
 
     /** @inheritDoc */
