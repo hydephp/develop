@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -132,7 +132,7 @@ class DiscoveryService
      */
     public static function getSourceFileListForModel(string $model): array|false
     {
-        if (!class_exists($model) || !is_subclass_of($model, AbstractPage::class)) {
+        if (! class_exists($model) || ! is_subclass_of($model, AbstractPage::class)) {
             return false;
         }
 
@@ -140,7 +140,7 @@ class DiscoveryService
 
         $files = [];
         foreach (glob(Hyde::path($model::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
-            if (!str_starts_with(basename($filepath), '_')) {
+            if (! str_starts_with(basename($filepath), '_')) {
                 $files[] = self::formatSlugForModel($model, $filepath);
             }
         }
@@ -178,11 +178,11 @@ class DiscoveryService
      */
     public static function getMediaAssetFiles(): array
     {
-        return glob(Hyde::path('_media/*.{' . str_replace(
+        return glob(Hyde::path('_media/*.{'.str_replace(
                 ' ',
                 '',
                 config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
-            ) . '}'), GLOB_BRACE);
+            ).'}'), GLOB_BRACE);
     }
 
     /**
