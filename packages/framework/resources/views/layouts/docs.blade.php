@@ -17,8 +17,8 @@
 	<nav id="mobile-navigation"
 		class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
 		<strong class="px-2 mr-auto">
-			@if(DocumentationPage::indexPath() !== false)
-			<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
+			@if(Route::exists('docs/index'))
+			<a href="{{ Route::get('docs/index') }}">
 				{{ config('docs.header_title', 'Documentation') }}
 			</a>
 			@else
