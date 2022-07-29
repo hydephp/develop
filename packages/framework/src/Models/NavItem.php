@@ -118,4 +118,14 @@ class NavItem
 
         return $this;
     }
+
+    public function getGroup(): ?string
+    {
+        return $this->normalizeGroupKey($this->route->getSourceModel()->matter('category'));
+    }
+
+    protected function normalizeGroupKey(?string $group): ?string
+    {
+        return empty($group) ? null : Str::slug($group);
+    }
 }
