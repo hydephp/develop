@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Models\Route;
 
