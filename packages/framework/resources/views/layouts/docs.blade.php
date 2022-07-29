@@ -46,8 +46,8 @@
 		<header id="sidebar-header" class="h-16">
 			<div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
 				<strong class="px-2">
-					@if(DocumentationPage::indexPath() !== false)
-					<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
+					@if(Route::exists('docs/index'))
+					<a href="{{ Route::get('docs/index') }}">
 						{{ config('docs.header_title', 'Documentation') }}
 					</a>
 					@else
