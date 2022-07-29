@@ -143,3 +143,34 @@ You can of course, also supply extra attributes like classes:
 ```blade
 <x-link :href="Route::get('index')" class="btn btn-primary">Home</x-link>
 ```
+
+## Nested directories
+
+### Introduction
+
+Starting with Hyde v0.52.x-beta, there is limited support for nested directories, please be mindful that the behaviour of this may change until the next few versions. Please report any issues you encounter on [GitHub](https://github.com/hydephp/develop/issues).
+
+#### First of, what do we mean by "nested directories"?
+
+Simply put, a nested directory in Hyde is a source directory that contains a subdirectory. For example, if you have a directory _inside_ the `_pages` directory, that's a nested directory.
+
+### Behaviour of nested pages
+
+#### Automatically routed pages
+
+As it is now, when you put a source file within a subdirectory of one of the following, it will be compiled into the corresponding output directory. 
+
+The following page types use this behaviour:
+- Blade pages (`_pages/`)
+- Markdown pages (`_pages/`)
+- Markdown blog posts (`_posts/`)
+
+For example, a source file stored as `_pages/about/contact.md` will be compiled into `_site/about/contact.html`, and a blog post stored as `_posts/2022/my-post.md` will be compiled into `_site/posts/2022/my-post.html`.
+
+#### Documentation pages
+
+Documentation pages behave a bit differently. Here, all documentation source files will still be compiled to the `_site/docs/` directory, but the subdirectory name will be used to assign a sidebar group/category to the page.
+
+So for example, a source file stored as `_docs/getting-started/installation.md` will be compiled into `_site/docs/installation.html`, and placed in the sidebar group `Getting Started`.
+
+You can learn more about this in the [documentation pages documentation](documentation-pages.html#using-sub-directories).
