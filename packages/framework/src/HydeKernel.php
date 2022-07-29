@@ -210,10 +210,10 @@ class HydeKernel implements HydeKernelContract
     /**
      * Return a qualified URI path, if SITE_URL is set in .env, else return false.
      *
-     * @param  string|null  $path  optional relative path suffix. Omit to return base url.
+     * @param  string  $path  optional relative path suffix. Omit to return base url.
      * @return string|false
      */
-    public function uriPath(?string $path = ''): string|false
+    public function uriPath(string $path = ''): string|false
     {
         if (config('site.url', false)) {
             return rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? '');
