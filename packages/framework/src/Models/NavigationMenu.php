@@ -23,18 +23,9 @@ class NavigationMenu
 
     public static function create(?RouteContract $currentRoute = null): static
     {
-        return (new static())->setCurrentRoute($currentRoute ?? Hyde::currentRoute())->generate()->filter()->sort();
+        return (new static())->generate()->filter()->sort();
     }
 
-    /**
-     * @deprecated v0.50.0 - Automatically inferred from the view.
-     */
-    public function setCurrentRoute(RouteContract $currentRoute): self
-    {
-        $this->currentRoute = $currentRoute;
-
-        return $this;
-    }
 
     public function generate(): self
     {
