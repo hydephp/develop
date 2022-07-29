@@ -8,7 +8,6 @@ use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Framework\Services\BuildService;
-use Hyde\Framework\Services\CollectionService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RssFeedService;
 use Hyde\Framework\Services\SitemapService;
@@ -169,12 +168,12 @@ class HydeBuildStaticSiteCommand extends Command
     protected function canGenerateFeed(): bool
     {
         return RssFeedService::canGenerateFeed()
-            && count(CollectionService::getMarkdownPostFiles()) > 0;
+            && count(DiscoveryService::getMarkdownPostFiles()) > 0;
     }
 
     protected function canGenerateSearch(): bool
     {
         return Features::hasDocumentationSearch()
-            && count(CollectionService::getDocumentationPageFiles()) > 0;
+            && count(DiscoveryService::getDocumentationPageFiles()) > 0;
     }
 }

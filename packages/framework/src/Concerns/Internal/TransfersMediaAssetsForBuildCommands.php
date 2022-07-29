@@ -4,7 +4,7 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\CollectionService;
+use Hyde\Framework\Services\DiscoveryService;
 
 /**
  * Transfer all media assets to the build directory.
@@ -22,7 +22,7 @@ trait TransfersMediaAssetsForBuildCommands
     {
         $this->needsDirectory(Hyde::getSiteOutputPath('media'));
 
-        $collection = CollectionService::getMediaAssetFiles();
+        $collection = DiscoveryService::getMediaAssetFiles();
         if ($this->canRunBuildAction($collection, 'Media Assets', 'Transferring')) {
             $this->withProgressBar(
                 $collection,
