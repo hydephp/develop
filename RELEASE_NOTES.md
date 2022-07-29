@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- internal: DiscoveryService.php is no longer deprecated
 
 ### Deprecated
 - for soon-to-be removed features.

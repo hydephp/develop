@@ -15,8 +15,6 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
  * Contains service methods to return helpful collections of arrays and lists,
  * and provides helper methods for source file auto-discovery used in the site
  * building process to determine where files are located and how to parse them.
- *
- * @deprecated v0.48.0 as autodiscovery is now powered by the Router.
  */
 class DiscoveryService
 {
