@@ -35,7 +35,7 @@ class DocumentationSidebar extends NavigationMenu
     public function getItemsInGroup(?string $group): Collection
     {
         return $this->items->filter(function ($item) use ($group) {
-            return $item->getGroup() === Str::slug($group);
+            return $item->getGroup() === $group || $item->getGroup() === Str::slug($group);
         })->sortBy('priority')->values();
     }
 
