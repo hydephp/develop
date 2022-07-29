@@ -9,6 +9,15 @@ use Illuminate\Support\Str;
 
 class DocumentationSidebar extends NavigationMenu
 {
+    public function generate(): self
+    {
+        RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
+            $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
+        });
+
+        return $this;
+    }
+
     public function hasGroups(): bool
     {
         return $this->items->map(function (NavItem $item) {
@@ -28,15 +37,6 @@ class DocumentationSidebar extends NavigationMenu
         return $this->items->filter(function ($item) use ($group) {
             return $item->getGroup() === Str::slug($group);
         })->sortBy('priority')->values();
-    }
-
-    public function generate(): self
-    {
-        RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
-            $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
-        });
-
-        return $this;
     }
 
     protected function filterHiddenItems(): Collection
