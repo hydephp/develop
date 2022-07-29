@@ -81,4 +81,23 @@ class DocumentationPageParserTest extends TestCase
         unlink(Hyde::path('_docs/phpunit-test.md'));
         $this->assertTrue(true);
     }
+
+    public function test_can_get_category_from_front_matter()
+    {
+        file_put_contents(Hyde::path('_docs/foo.md'), "---\ncategory: foo\n---\n");
+        $parser = new DocumentationPageParser('foo');
+        $this->assertEquals('foo', $parser->getCategory());
+        unlink(Hyde::path('_docs/foo.md'));
+    }
+
+    public function test_can_get_category_automatically_from_nested_page()
+    {
+        mkdir(Hyde::path('_docs/foo'));
+        touch(Hyde::path('_docs/foo/bar.md'));
+        $parser = new DocumentationPageParser('foo/bar');
+        $this->assertEquals('foo', $parser->getCategory());
+
+        unlink(Hyde::path('_docs/foo/bar.md'));
+        rmdir(Hyde::path('_docs/foo'));
+    }
 }
