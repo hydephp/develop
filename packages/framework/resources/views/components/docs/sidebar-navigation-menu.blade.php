@@ -1,16 +1,16 @@
 <ul id="sidebar-navigation-menu" role="list">
-	@foreach ($sidebar->getSortedSidebar() as $item)
-	<li @class(['sidebar-navigation-item -ml-4 pl-4' , 'active bg-black/5 dark:bg-black/10'=> $item->destination === basename($currentPage)])>
-		@if($item->destination === basename($currentPage))
-		<a href="{{ Hyde::pageLink($item->destination . '.html') }}" aria-current="true" class="-ml-4 p-2 block hover:bg-black/5 dark:hover:bg-black/10  text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300	ease-in-out">{{
-			$item->label }}</a>
+	@foreach ($sidebar->items as $item)
+	<li @class(['sidebar-navigation-item -ml-4 pl-4' , 'active bg-black/5 dark:bg-black/10'=> $item->route === $currentRoute])>
+			@if($item->route === $currentRoute)
+		<a href="{{ $item->route }}" aria-current="true" class="-ml-4 p-2 block hover:bg-black/5 dark:hover:bg-black/10  text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300	ease-in-out">{{
+			$item->title }}</a>
 
 		@if(config('docs.table_of_contents.enabled', true))
 		<span class="sr-only">Table of contents</span>
 		{!! ($page->getTableOfContents()) !!}
 		@endif
 		@else
-		<a href="{{ Hyde::pageLink($item->destination . '.html') }}" class="block -ml-4 p-2 border-l-[0.325rem] border-transparent hover:bg-black/5 dark:hover:bg-black/10">{{ $item->label }}</a>
+		<a href="{{ $item->route }}" class="block -ml-4 p-2 border-l-[0.325rem] border-transparent hover:bg-black/5 dark:hover:bg-black/10">{{ $item->title }}</a>
 		@endif
 	</li>
 	@endforeach
