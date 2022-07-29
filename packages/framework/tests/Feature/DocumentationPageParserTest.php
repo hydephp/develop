@@ -9,6 +9,9 @@ use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Testing\TestCase;
 
+/**
+ * @covers \Hyde\Framework\Models\Parsers\DocumentationPageParser
+ */
 class DocumentationPageParserTest extends TestCase
 {
     public function test_can_parse_markdown_file()
