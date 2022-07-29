@@ -164,4 +164,12 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->assertEquals('/foo/', $action->subDir);
         Hyde::unlink('_pages/foo.md');
     }
+
+    public function test_action_can_generate_nested_pages()
+    {
+        new CreatesNewPageSourceFile('foo/bar');
+        $this->assertFileExists(Hyde::path('_pages/foo/bar.md'));
+        Hyde::unlink('_pages/foo/bar.md');
+        rmdir(Hyde::path('_pages/foo'));
+    }
 }
