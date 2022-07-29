@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Collection;
 
@@ -25,7 +24,6 @@ class NavigationMenu
     {
         return (new static())->generate()->filter()->sort();
     }
-
 
     public function generate(): self
     {
