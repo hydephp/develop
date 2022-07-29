@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
