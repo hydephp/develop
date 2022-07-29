@@ -11,9 +11,16 @@ use Hyde\Testing\TestCase;
 
 class DocumentationPageParserTest extends TestCase
 {
-    /**
-     * Test the Parser.
-     */
+     // Test the Parser.
+
+    public function test_can_parse_markdown_file()
+    {
+        file_put_contents(Hyde::path('_docs/test.md'), "# Title Heading \n\nMarkdown Content");
+        $page = (new DocumentationPageParser('test'))->get();
+        $this->assertInstanceOf(DocumentationPage::class, $page);
+        unlink(Hyde::path('_docs/test.md'));
+    }
+
     public function test_can_get_collection_of_slugs()
     {
         $this->resetDocs();
@@ -55,9 +62,8 @@ class DocumentationPageParserTest extends TestCase
         $this->assertEquals("# PHPUnit Test File \n Hello World!", $parser->body);
     }
 
-    /**
-     * Test the Model.
-     */
+    // Test the Model.
+
     public function test_can_get_page_model_object(): DocumentationPage
     {
         $parser = new DocumentationPageParser('phpunit-test');
