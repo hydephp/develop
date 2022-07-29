@@ -78,7 +78,7 @@ class CollectionServiceTest extends TestCase
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.md');
 
             // Set file extension to a custom value
-            $model::$fileExtension = 'foo';
+            $model::$fileExtension = '.foo';
 
             // Test customized file extension
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.foo', 'foo');
