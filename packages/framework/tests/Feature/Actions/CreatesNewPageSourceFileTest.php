@@ -140,4 +140,26 @@ class CreatesNewPageSourceFileTest extends TestCase
             (new CreatesNewPageSourceFile('682072b Test Page', BladePage::class))->outputPath
         );
     }
+
+    public function test_parse_slug_returns_slug_generated_from_title()
+    {
+        $action = new CreatesNewPageSourceFile('Foo Bar');
+        $this->assertEquals('foo-bar', $action->parseSlug('Foo Bar'));
+        Hyde::unlink('_pages/foo-bar.md');
+    }
+
+    public function test_parse_slug_does_not_include_path_information()
+    {
+        $action = new CreatesNewPageSourceFile('Foo Bar');
+        $this->assertEquals('foo-bar', $action->parseSlug('/foo/bar/Foo Bar'));
+        Hyde::unlink('_pages/foo-bar.md');
+    }
+
+    public function test_parse_slug_sets_sub_dir_property_for_nested_pages()
+    {
+        $action = new CreatesNewPageSourceFile('foo');
+        $this->assertEquals('bar', $action->parseSlug('/foo/bar'));
+        $this->assertEquals('/foo/', $action->subDir);
+        Hyde::unlink('_pages/foo.md');
+    }
 }
