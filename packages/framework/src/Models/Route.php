@@ -126,4 +126,10 @@ class Route implements RouteContract, RouteFacadeContract
     {
         return static::getFromKey('index');
     }
+
+    /** @todo add to contract */
+    public static function exists(string $routeKey): bool
+    {
+        return RoutingService::getInstance()->getRoutes()->has($routeKey);
+    }
 }
