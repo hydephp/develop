@@ -11,8 +11,6 @@ use Hyde\Testing\TestCase;
 
 class DocumentationPageParserTest extends TestCase
 {
-     // Test the Parser.
-
     public function test_can_parse_markdown_file()
     {
         file_put_contents(Hyde::path('_docs/test.md'), "# Title Heading \n\nMarkdown Content");
@@ -62,22 +60,17 @@ class DocumentationPageParserTest extends TestCase
         $this->assertEquals("# PHPUnit Test File \n Hello World!", $parser->body);
     }
 
-    // Test the Model.
-
-    public function test_can_get_page_model_object(): DocumentationPage
+    public function test_can_get_page_model_object()
     {
         $parser = new DocumentationPageParser('phpunit-test');
         $object = $parser->get();
         $this->assertInstanceOf(DocumentationPage::class, $object);
-
-        return $object;
     }
 
-    /**
-     * @depends test_can_get_page_model_object
-     */
-    public function test_created_model_contains_expected_data(DocumentationPage $object)
+    public function test_created_model_contains_expected_data()
     {
+        $parser = new DocumentationPageParser('phpunit-test');
+        $object = $parser->get();
         $this->assertEquals('PHPUnit Test File', $object->title);
         $this->assertEquals("# PHPUnit Test File \n Hello World!", $object->body);
         $this->assertEquals('phpunit-test', $object->slug);
