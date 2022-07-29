@@ -1,4 +1,4 @@
-<ul id="sidebar-navigation-menu" role="list">
+<ul id="sidebar" role="list">
 	@foreach ($sidebar->items as $item)
 	<li @class(['sidebar-navigation-item -ml-4 pl-4' , 'active bg-black/5 dark:bg-black/10'=> $item->route->getRouteKey() === $currentRoute->getRouteKey()])>
 			@if($item->route->getRouteKey() === $currentRoute->getRouteKey())

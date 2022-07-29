@@ -117,7 +117,7 @@ date: 2022-01-01 12:00
         $this->browse(function (Browser $browser) {
             $browser->visit('/docs/index')
                 ->assertSee('HydePHP Docs')
-                ->assertNotPresent('#sidebar-navigation-menu > li')
+                ->assertNotPresent('#sidebar > li')
                 ->screenshot('docs/index')
                 ->storeSourceAsHtml('docs/index');
         });
@@ -142,8 +142,8 @@ date: 2022-01-01 12:00
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
-                ->assertPresent('#sidebar-navigation-menu > li.active')
-                ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > a', 'current', 'true')
+                ->assertPresent('#sidebar > li.active')
+                ->assertAriaAttribute('#sidebar > li:nth-child(1) > a', 'current', 'true')
                 ->screenshot('docs/with_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_sidebar_pages');
         });
@@ -170,10 +170,10 @@ date: 2022-01-01 12:00
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
-                ->assertAttributeContains('#sidebar-navigation-menu > li', 'class', 'sidebar-category')
-                ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(1) > h4.sidebar-category-heading', 'Group 1')
-                ->assertAriaAttribute('#sidebar-navigation-menu > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
-                ->assertSeeIn('#sidebar-navigation-menu > li:nth-child(2) > h4.sidebar-category-heading', 'Other')
+                ->assertAttributeContains('#sidebar > li', 'class', 'sidebar-category')
+                ->assertSeeIn('#sidebar > li:nth-child(1) > h4.sidebar-category-heading', 'Group 1')
+                ->assertAriaAttribute('#sidebar > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
+                ->assertSeeIn('#sidebar > li:nth-child(2) > h4.sidebar-category-heading', 'Other')
                 ->screenshot('docs/with_grouped_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
         });
