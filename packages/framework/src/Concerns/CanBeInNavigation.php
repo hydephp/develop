@@ -103,7 +103,7 @@ trait CanBeInNavigation
             return $this->title;
         }
 
-        return Hyde::makeTitle($this->slug);
+        return Hyde::makeTitle(basename($this->slug));
     }
 
     /**

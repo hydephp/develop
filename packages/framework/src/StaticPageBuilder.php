@@ -44,7 +44,7 @@ class StaticPageBuilder
         view()->share('currentRoute', $this->page->getRoute());
 
         $this->needsDirectory(static::$outputPath);
-        $this->needsDirectory(Hyde::getSiteOutputPath($this->page::getOutputDirectory()));
+        $this->needsDirectory(dirname(Hyde::getSiteOutputPath($this->page->getOutputPath())));
 
         if ($this->page instanceof BladePage) {
             return $this->save($this->compileView());

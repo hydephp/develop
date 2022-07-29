@@ -134,11 +134,21 @@ The feature is enabled automatically when one or more of your documentation page
 in the front matter. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
 Any pages without the category front matter will get put in the "Other" category.
 
+#### Using Front Matter
+
 To enable sidebar grouping, you can add the following front matter to your documentation pages:
 
 ```yaml
 category: "Getting Started"
 ```
+
+#### Using sub-directories
+
+Since [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-beta), you can also automatically group your documentation pages by placing source files in sub-directories.
+
+For example, putting a Markdown file in `_docs/getting-started/`, is equivalent to adding the same front matter in the step above.
+
+> Note that the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the sub-directories.
 
 
 ### Hiding items
