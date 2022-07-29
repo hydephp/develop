@@ -15,6 +15,7 @@ class DocumentationPageParser extends AbstractPageParser
     /** @deprecated v0.44.x (handled in constructor) */
     public string $title = '';
     public string $body;
+    public array $matter;
 
     public function execute(): void
     {
@@ -23,12 +24,13 @@ class DocumentationPageParser extends AbstractPageParser
         ))->get();
 
         $this->body = $document->body;
+        $this->matter = $document->matter;
     }
 
     public function get(): DocumentationPage
     {
         return new DocumentationPage(
-            matter: [],
+            matter: $this->matter,
             body: $this->body,
             title: $this->title,
             slug: $this->slug
