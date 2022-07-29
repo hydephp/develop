@@ -15,6 +15,22 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-beta) - 2022-07-29
+
+### About
+
+This update internally refactors how documentation sidebars are handled. If you have published Blade views relating to these, or built framework integrations you may want to take a closer look at the changed files.
+
+### Added
+- Hyde now supports nested pages!
+
+### Changed
+- internal: Refactor how documentation sidebars are generated and handled
+- internal: (Sidebar) categories are now internally referred to as "groups"
+- internal: The sidebar related Blade views have been renamed
+- `DocumentationPage::indexPath()` was renamed to `DocumentationPage::home()` and now returns a `Route` instead of a URL. It no longer resolves to README files.
+
+
 ## [v0.51.0-beta](https://github.com/hydephp/develop/releases/tag/v0.51.0-beta) - 2022-07-28
 
 ### Added

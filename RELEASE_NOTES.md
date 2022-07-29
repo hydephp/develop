@@ -2,16 +2,18 @@
 
 ### About
 
-This update internally refactors how documentation sidebars are handled. If you have published Blade views relating to these, or built framework integrations you may want to take a closer look at the changed files.
+Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
 - for new features.
 
 ### Changed
-- internal: Refactor how documentation sidebars are generated and handled
-- internal: (Sidebar) categories are now internally referred to as "groups"
-- internal: The sidebar related Blade views have been renamed
-- `DocumentationPage::indexPath()` was renamed to `DocumentationPage::home()` and now returns a `Route` instead of a URL. It no longer resolves to README files. 
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
