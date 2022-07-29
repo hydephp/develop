@@ -28,17 +28,6 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals('index.html', $menu->getHomeLink(''));
     }
 
-    public function test_set_current_route()
-    {
-        $menu = new NavigationMenu();
-
-        $this->assertFalse(isset($menu->currentRoute));
-        $menu->setCurrentRoute(Route::get('index'));
-        $this->assertTrue(isset($menu->currentRoute));
-        $this->assertInstanceOf(Route::class, $menu->currentRoute);
-        $this->assertEquals('index', $menu->currentRoute->getRouteKey());
-    }
-
     public function test_generate_method_creates_collection_of_nav_items()
     {
         $menu = new NavigationMenu();
@@ -92,7 +81,7 @@ class NavigationMenuTest extends TestCase
 
         $this->assertInstanceOf(NavigationMenu::class, $menu);
         $this->assertEquals(
-            (new NavigationMenu())->setCurrentRoute(Route::get('index'))->generate()->filter()->sort(),
+            (new NavigationMenu())->generate()->filter()->sort(),
             NavigationMenu::create(Route::get('index'))
         );
     }

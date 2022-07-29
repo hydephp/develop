@@ -5,6 +5,7 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
+use Illuminate\Support\Str;
 
 /**
  * Abstraction for a navigation menu item.
@@ -109,5 +110,22 @@ class NavItem
         $this->href = $href;
 
         return $this;
+    }
+
+    public function setPriority(int $priority): self
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function getGroup(): ?string
+    {
+        return $this->normalizeGroupKey($this->route->getSourceModel()->matter('category'));
+    }
+
+    protected function normalizeGroupKey(?string $group): ?string
+    {
+        return empty($group) ? null : Str::slug($group);
     }
 }

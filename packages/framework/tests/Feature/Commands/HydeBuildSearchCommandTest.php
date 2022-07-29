@@ -68,6 +68,7 @@ class HydeBuildSearchCommandTest extends TestCase
     {
         HydeBuildSearchCommand::$guesstimationFactor = 1000;
         Hyde::touch(('_docs/foo.md'));
+        $this->mockRoute();
         $this->artisan('build:search')
             ->expectsOutput('Generating documentation site search index...')
             ->expectsOutputToContain('> This will take an estimated')

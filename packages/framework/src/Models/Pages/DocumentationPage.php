@@ -57,6 +57,7 @@ class DocumentationPage extends AbstractMarkdownPage
      * however, this method will fall back to a readme.
      *
      * @since 0.46.x (moved from Hyde::docsIndexPath).
+     * @deprecated 0.52.x (use the route instead)
      *
      * @return string|false returns false if no suitable frontpage is found
      */

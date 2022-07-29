@@ -17,8 +17,8 @@
 	<nav id="mobile-navigation"
 		class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
 		<strong class="px-2 mr-auto">
-			@if(DocumentationPage::indexPath() !== false)
-			<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
+			@if(Route::exists('docs/index'))
+			<a href="{{ Route::get('docs/index') }}">
 				{{ config('docs.header_title', 'Documentation') }}
 			</a>
 			@else
@@ -46,8 +46,8 @@
 		<header id="sidebar-header" class="h-16">
 			<div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
 				<strong class="px-2">
-					@if(DocumentationPage::indexPath() !== false)
-					<a href="{{ Hyde::relativeLink(DocumentationPage::indexPath(), $currentPage) }}">
+					@if(Route::exists('docs/index'))
+					<a href="{{ Route::get('docs/index') }}">
 						{{ config('docs.header_title', 'Documentation') }}
 					</a>
 					@else
@@ -60,13 +60,13 @@
 		<nav id="sidebar-navigation"
 			class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-[calc(100vh_-_8rem)]">
 			@php
-				$sidebar = Hyde\Framework\Services\DocumentationSidebarService::create();
+				$sidebar = \Hyde\Framework\Models\DocumentationSidebar::create();
 			@endphp
 
-			@if($sidebar->hasCategories())
-				@include('hyde::components.docs.labeled-sidebar-navigation-menu')
+			@if($sidebar->hasGroups())
+				@include('hyde::components.docs.grouped-sidebar')
 			@else
-				@include('hyde::components.docs.sidebar-navigation-menu')
+				@include('hyde::components.docs.sidebar')
 			@endif
 		</nav>
 		<footer id="sidebar-footer" class="h-16 absolute p-4 w-full bottom-0 left-0 text-center leading-8">
