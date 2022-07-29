@@ -4,8 +4,9 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Hyde;
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
+use Hyde\Framework\Models\Route;
 
 class DocumentationPage extends AbstractMarkdownPage
 {
@@ -31,27 +32,8 @@ class DocumentationPage extends AbstractMarkdownPage
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
     }
 
-    /**
-     * Get the path to the frontpage for the documentation.
-     *
-     * It is highly recommended to have an index.md file in the _docs directory,
-     * however, this method will fall back to a readme.
-     *
-     * @since 0.46.x (moved from Hyde::docsIndexPath).
-     * @deprecated 0.52.x (use the route instead)
-     *
-     * @return string|false returns false if no suitable frontpage is found
-     */
-    public static function indexPath(): string|false
+    public static function home(): ?RouteContract
     {
-        if (file_exists(Hyde::path(static::getSourceDirectory().'/index.md'))) {
-            return trim(Hyde::pageLink(static::getOutputDirectory().'/index.html'), '/');
-        }
-
-        if (file_exists(Hyde::path(static::getSourceDirectory().'/readme.md'))) {
-            return trim(Hyde::pageLink(static::getOutputDirectory().'/readme.html'), '/');
-        }
-
-        return false;
+        return Route::exists('docs/index') ? Route::get('docs/index') : null;
     }
 }

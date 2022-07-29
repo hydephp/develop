@@ -2,8 +2,10 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -78,5 +80,18 @@ class DocumentationPageTest extends TestCase
             (new HydeServiceProvider($this->app))->register();
             $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
         }
+    }
+
+    public function test_home_method_returns_null_when_there_is_no_index_page()
+    {
+        $this->assertNull(DocumentationPage::home());
+    }
+
+    public function test_home_method_returns_docs_index_route_when_it_exists()
+    {
+        Hyde::touch('_docs/index.md');
+        $this->assertInstanceOf(Route::class, DocumentationPage::home());
+        $this->assertEquals(Route::get('docs/index'), DocumentationPage::home());
+        Hyde::unlink('_docs/index.md');
     }
 }
