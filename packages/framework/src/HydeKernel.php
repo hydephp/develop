@@ -37,7 +37,7 @@ class HydeKernel implements HydeKernelContract
         $this->setBasePath($basePath ?? getcwd());
     }
 
-    public static function getInstance(): static
+    public static function getInstance(): HydeKernelContract
     {
         return app(HydeKernelContract::class);
     }
