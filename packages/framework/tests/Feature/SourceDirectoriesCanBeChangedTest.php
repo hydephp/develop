@@ -8,7 +8,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Testing\TestCase;
 
 /**

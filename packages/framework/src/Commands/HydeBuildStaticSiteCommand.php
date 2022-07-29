@@ -9,7 +9,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RssFeedService;
 use Hyde\Framework\Services\SitemapService;
 use Illuminate\Support\Facades\Artisan;
