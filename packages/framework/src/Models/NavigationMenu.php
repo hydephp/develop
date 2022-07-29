@@ -51,15 +51,8 @@ class NavigationMenu
 
     public function filter(): self
     {
-        // Remove hidden items
-        $this->items = $this->items->reject(function (NavItem $item) {
-            return $item->hidden;
-        })->values();
-
-        // Remove duplicate items
-        $this->items = $this->items->unique(function (NavItem $item) {
-            return $item->resolveLink();
-        });
+        $this->items = $this->filterHiddenItems();
+        $this->items = $this->filterDuplicateItems();
 
         return $this;
     }
@@ -75,5 +68,19 @@ class NavigationMenu
     public function getHomeLink(): string
     {
         return Route::get('index');
+    }
+
+    protected function filterHiddenItems(): Collection
+    {
+        return $this->items->reject(function (NavItem $item) {
+            return $item->hidden;
+        })->values();
+    }
+
+    protected function filterDuplicateItems(): Collection
+    {
+        return $this->items->unique(function (NavItem $item) {
+            return $item->resolveLink();
+        });
     }
 }
