@@ -126,6 +126,8 @@ class CreatesNewPageSourceFileTest extends TestCase
             "# 682072b Test Page\n",
             file_get_contents(Hyde::path('_docs/682072b-test-page.md'))
         );
+
+        Hyde::unlink('_docs/682072b-test-page.md');
     }
 
     public function test_that_the_file_path_can_be_returned()
