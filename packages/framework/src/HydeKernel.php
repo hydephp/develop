@@ -146,25 +146,18 @@ class HydeKernel implements HydeKernelContract
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
-     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
-     *
      * @param  string  $destination  relative to output directory on compiled site
-     * @param  string|null  $current  the current URI path relative to the site root
      * @return string
      *
      * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
      */
-    public function relativeLink(string $destination, ?string $current = null): string
+    public function relativeLink(string $destination): string
     {
         if (str_starts_with($destination, '../')) {
             return $destination;
         }
 
-        if ($current === null) {
-            $current = $this->currentPage();
-        }
-
-        $nestCount = substr_count($current, '/');
+        $nestCount = substr_count($this->currentPage(), '/');
         $route = '';
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
@@ -192,19 +185,14 @@ class HydeKernel implements HydeKernelContract
 
     /**
      * Gets a relative web link to the given image stored in the _site/media folder.
-     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
      */
-    public function image(string $name, string $current = null): string
+    public function image(string $name): string
     {
-        if ($current === null) {
-            $current = $this->currentPage();
-        }
-
         if (str_starts_with($name, 'http')) {
             return $name;
         }
 
-        return $this->relativeLink('media/'.basename($name), $current);
+        return $this->relativeLink('media/'.basename($name));
     }
 
     /**
