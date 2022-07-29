@@ -32,14 +32,30 @@ class CollectionService
             return false;
         }
 
+        // Scan the source directory, and directories therein, for files that match the model's file extension.
+
         $files = [];
-        foreach (glob(Hyde::path($model::qualifyBasename('*'))) as $filepath) {
+        foreach (glob(Hyde::path($model::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $files[] = basename($filepath, $model::getFileExtension());
+                $files[] = static::formatSlugForModel($model, $filepath);
             }
         }
 
         return $files;
+    }
+
+    public static function formatSlugForModel(string $model, string $filepath): string
+    {
+        /** @var AbstractPage $model */
+        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
+
+        if (str_ends_with($slug, $model::$fileExtension)) {
+            $slug = substr($slug, 0, -strlen($model::$fileExtension));
+        }
+
+        $slug = unslash($slug);
+
+        return $slug;
     }
 
     /**

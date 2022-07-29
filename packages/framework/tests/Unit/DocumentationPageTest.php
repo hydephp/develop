@@ -82,6 +82,22 @@ class DocumentationPageTest extends TestCase
         }
     }
 
+    public function test_get_source_path_returns_qualified_basename()
+    {
+        $this->assertEquals(
+            DocumentationPage::qualifyBasename('foo'),
+            (new DocumentationPage(slug: 'foo'))->getSourcePath()
+        );
+    }
+
+    public function test_get_source_path_returns_qualified_basename_for_nested_page()
+    {
+        $this->assertEquals(
+            DocumentationPage::qualifyBasename('foo/bar'),
+            (new DocumentationPage(slug: 'foo/bar'))->getSourcePath()
+        );
+    }
+
     public function test_home_method_returns_null_when_there_is_no_index_page()
     {
         $this->assertNull(DocumentationPage::home());

@@ -9,11 +9,19 @@ use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Services\CollectionService;
 use Hyde\Testing\TestCase;
 
+/**
+ * @covers \Hyde\Framework\Models\Parsers\DocumentationPageParser
+ */
 class DocumentationPageParserTest extends TestCase
 {
-    /**
-     * Test the Parser.
-     */
+    public function test_can_parse_markdown_file()
+    {
+        file_put_contents(Hyde::path('_docs/test.md'), "# Title Heading \n\nMarkdown Content");
+        $page = (new DocumentationPageParser('test'))->get();
+        $this->assertInstanceOf(DocumentationPage::class, $page);
+        unlink(Hyde::path('_docs/test.md'));
+    }
+
     public function test_can_get_collection_of_slugs()
     {
         $this->resetDocs();
@@ -55,23 +63,17 @@ class DocumentationPageParserTest extends TestCase
         $this->assertEquals("# PHPUnit Test File \n Hello World!", $parser->body);
     }
 
-    /**
-     * Test the Model.
-     */
-    public function test_can_get_page_model_object(): DocumentationPage
+    public function test_can_get_page_model_object()
     {
         $parser = new DocumentationPageParser('phpunit-test');
         $object = $parser->get();
         $this->assertInstanceOf(DocumentationPage::class, $object);
-
-        return $object;
     }
 
-    /**
-     * @depends test_can_get_page_model_object
-     */
-    public function test_created_model_contains_expected_data(DocumentationPage $object)
+    public function test_created_model_contains_expected_data()
     {
+        $parser = new DocumentationPageParser('phpunit-test');
+        $object = $parser->get();
         $this->assertEquals('PHPUnit Test File', $object->title);
         $this->assertEquals("# PHPUnit Test File \n Hello World!", $object->body);
         $this->assertEquals('phpunit-test', $object->slug);
@@ -81,5 +83,24 @@ class DocumentationPageParserTest extends TestCase
     {
         unlink(Hyde::path('_docs/phpunit-test.md'));
         $this->assertTrue(true);
+    }
+
+    public function test_can_get_category_from_front_matter()
+    {
+        file_put_contents(Hyde::path('_docs/foo.md'), "---\ncategory: foo\n---\n");
+        $parser = new DocumentationPageParser('foo');
+        $this->assertEquals('foo', $parser->getCategory());
+        unlink(Hyde::path('_docs/foo.md'));
+    }
+
+    public function test_can_get_category_automatically_from_nested_page()
+    {
+        mkdir(Hyde::path('_docs/foo'));
+        touch(Hyde::path('_docs/foo/bar.md'));
+        $parser = new DocumentationPageParser('foo/bar');
+        $this->assertEquals('foo', $parser->getCategory());
+
+        unlink(Hyde::path('_docs/foo/bar.md'));
+        rmdir(Hyde::path('_docs/foo'));
     }
 }

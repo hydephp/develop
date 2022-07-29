@@ -17,9 +17,28 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static string $parserClass = DocumentationPageParser::class;
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
+    /**
+     * The sidebar category group, if any.
+     */
+    public ?string $category;
+
+    /**
+     * The path to the page relative to the configured docs directory.
+     * Generally only needed if the page is in a subdirectory.
+     */
+    public ?string $localPath;
+
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null, ?string $localPath = null)
     {
         parent::__construct($matter, $body, $title, $slug);
+        $this->category = $category;
+        $this->localPath = $localPath;
+    }
+
+    /** @inheritDoc */
+    public function getSourcePath(): string
+    {
+        return is_null($this->localPath) ? parent::getSourcePath() : static::qualifyBasename($this->localPath);
     }
 
     /** @internal */
