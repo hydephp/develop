@@ -61,6 +61,7 @@ class CollectionServiceTest extends TestCase
             DocumentationPage::class,
         ];
 
+        /** @var MarkdownPage $model */
         foreach ($matrix as $model) {
             // Setup
             @mkdir(Hyde::path('foo'));
@@ -73,13 +74,13 @@ class CollectionServiceTest extends TestCase
             // Set the source directory to a custom value
             $model::$sourceDirectory = 'foo';
 
-            // Test customized
+            // Test customized source directory
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.md');
 
             // Set file extension to a custom value
             $model::$fileExtension = 'foo';
 
-            // Test customized
+            // Test customized file extension
             $this->unitTestMarkdownBasedPageList($model, 'foo/foo.foo', 'foo');
 
             // Cleanup
