@@ -10,6 +10,7 @@ This update internally refactors how documentation sidebars are handled. If you 
 ### Changed
 - internal: Refactor how documentation sidebars are generated and handled
 - internal: (Sidebar) categories are now internally referred to as "groups"
+- internal: The sidebar related Blade views have been renamed
 
 ### Deprecated
 - for soon-to-be removed features.
