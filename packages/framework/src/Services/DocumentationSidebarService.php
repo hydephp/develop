@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarServiceTest
  * @phpstan-consistent-constructor
+ *
  * @deprecated
  */
 class DocumentationSidebarService
