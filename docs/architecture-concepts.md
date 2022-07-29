@@ -5,6 +5,11 @@ category: "Getting Started"
 
 # Some key concepts in Hyde
 
+## Introduction to Hyde
+
+HydePHP contains a few "magic" features so that you can focus on your content. It's encouraged that you read this page to get a high-level overview of what's going on behind the scenes.
+
+
 ## The HydeCLI
 
 When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the
