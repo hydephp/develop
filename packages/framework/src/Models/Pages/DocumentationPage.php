@@ -34,6 +34,6 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static function home(): ?RouteContract
     {
-        return Route::getFromKey('docs/index');
+        return Route::exists('docs/index') ? Route::get('docs/index') : null;
     }
 }
