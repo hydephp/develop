@@ -16,7 +16,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\CollectionServiceTest
  */
-class CollectionService
+class NewDiscoveryService
 {
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
@@ -24,7 +24,7 @@ class CollectionService
      * @param  string  $model
      * @return array|false array on success, false if the class was not found
      *
-     * @example CollectionService::getSourceFileListForModel(BladePage::class)
+     * @example NewDiscoveryService::getSourceFileListForModel(BladePage::class)
      */
     public static function getSourceFileListForModel(string $model): array|false
     {

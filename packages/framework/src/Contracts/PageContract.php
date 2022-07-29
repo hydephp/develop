@@ -52,7 +52,7 @@ interface PageContract
 
     /**
      * Get an array of all the source file slugs for the model.
-     * Essentially an alias of CollectionService::getAbstractPageList().
+     * Essentially an alias of NewDiscoveryService::getAbstractPageList().
      *
      * @return array<string>
      *

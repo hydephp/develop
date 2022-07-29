@@ -3,7 +3,7 @@
     use Hyde\Framework\Models\Pages\MarkdownPage;
     use Hyde\Framework\Models\Pages\DocumentationPage;
     use Hyde\Framework\Models\Pages\MarkdownPost;
-    use Hyde\Framework\Services\CollectionService;
+    use Hyde\Framework\Services\NewDiscoveryService;
 
 	$github = new class {
 		public bool $enabled;
@@ -42,12 +42,15 @@
         .dashboard-table td, .dashboard-table th {
             width: 50%;
         }
+
         .table-justified td, .table-justified th {
             text-align: center;
         }
+
         .table-justified td:first-child, .table-justified th:first-child {
             text-align: left;
         }
+
         .table-justified td:last-child, .table-justified th:last-child {
             text-align: right;
         }
@@ -142,7 +145,39 @@
                                         <br>
                                         Add the following to your <code>config/hyde.php</code> file:
                                     </p>
-                                    <pre class="text-left w-fit py-0 px-4 mx-auto"><code class="my-0"><div style="color: rgb(191, 199, 213); font-family: 'Fira Code Regular', Consolas, 'Courier New', monospace; font-size: 14px; line-height: 18px;"><div style="line-height: 18px;"><div><span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">github_dashboard</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> [</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">enabled</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #82aaff;">true</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">username</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">octocat</span><span style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">repository</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">homepage</span><span style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">branch</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">main</span><span style="color: #d9f5dd;">'</span>,</div><div>]</div></div></div></code></pre>
+                                    <pre class="text-left w-fit py-0 px-4 mx-auto"><code class="my-0"><div
+                                                    style="color: rgb(191, 199, 213); font-family: 'Fira Code Regular', Consolas, 'Courier New', monospace; font-size: 14px; line-height: 18px;"><div
+                                                        style="line-height: 18px;"><div><span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">github_dashboard</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> [</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">enabled</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #82aaff;">true</span>,</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">username</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">octocat</span><span
+                                                                style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">repository</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">homepage</span><span
+                                                                style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">branch</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">main</span><span
+                                                                style="color: #d9f5dd;">'</span>,</div><div>]</div></div></div></code></pre>
                                 </details>
                             </td>
                         @endif
@@ -171,22 +206,22 @@
                 <tr>
                     <td>
                         <a href="#blade-pages">
-                            <b>{{ count(CollectionService::getBladePageFiles()) }}</b> pages
+                            <b>{{ count(NewDiscoveryService::getBladePageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#markdown-pages">
-                            <b>{{ count(CollectionService::getMarkdownPageFiles()) }}</b> pages
+                            <b>{{ count(NewDiscoveryService::getMarkdownPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#documentation-pages">
-                            <b>{{ count(CollectionService::getDocumentationPageFiles()) }}</b> pages
+                            <b>{{ count(NewDiscoveryService::getDocumentationPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#blog-posts">
-                            <b>{{ count(CollectionService::getMarkdownPostFiles()) }}</b> posts
+                            <b>{{ count(NewDiscoveryService::getMarkdownPostFiles()) }}</b> posts
                         </a>
                     </td>
                 </tr>

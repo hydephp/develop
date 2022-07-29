@@ -6,7 +6,7 @@ use Exception;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Parsers\MarkdownPageParser;
-use Hyde\Framework\Services\CollectionService;
+use Hyde\Framework\Services\NewDiscoveryService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
@@ -38,7 +38,7 @@ class MarkdownPageTest extends TestCase
      */
     public function test_can_get_collection_of_slugs()
     {
-        $array = CollectionService::getMarkdownPageFiles();
+        $array = NewDiscoveryService::getMarkdownPageFiles();
 
         $this->assertIsArray($array);
         $this->assertCount(1, $array);

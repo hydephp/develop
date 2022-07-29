@@ -6,7 +6,7 @@ use Exception;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Parsers\DocumentationPageParser;
-use Hyde\Framework\Services\CollectionService;
+use Hyde\Framework\Services\NewDiscoveryService;
 use Hyde\Testing\TestCase;
 
 /**
@@ -28,7 +28,7 @@ class DocumentationPageParserTest extends TestCase
 
         file_put_contents(Hyde::path('_docs/phpunit-test.md'), "# PHPUnit Test File \n Hello World!");
 
-        $array = CollectionService::getDocumentationPageFiles();
+        $array = NewDiscoveryService::getDocumentationPageFiles();
 
         $this->assertIsArray($array);
         $this->assertCount(1, $array);
