@@ -184,6 +184,58 @@ date: 2022-01-01 12:00
         unlink(Hyde::path('_site/docs/page1.html'));
     }
 
+    public function test_blog_post_pages()
+    {
+        copy(Hyde::path('tests/fixtures/_posts/typography-simple.md'), Hyde::path('_posts/typography-simple.md'));
+        copy(Hyde::path('tests/fixtures/_posts/typography-front-matter.md'), Hyde::path('_posts/typography-front-matter.md'));
+
+        $this->artisan('publish:homepage posts -n');
+
+        if (! is_dir(Browser::$storeSourceAt.'/posts')) {
+            mkdir(Browser::$storeSourceAt.'/posts');
+        }
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->assertSee('HydePHP')
+                ->assertSee('Latest Posts')
+                ->assertSee('Typography Should Be Easy.')
+                ->assertSee('A TailwindCSS Typography demo with a bit more front matter, and a featured image.')
+                ->assertSee('A TailwindCSS Typography demo with little front matter.')
+                ->assertSee('Nov 7th, 2021, by TailwindLabs')
+                ->screenshot('typography_blog_post_feed');
+
+            $browser->assertSeeLink('Read post')
+                ->clickLink('Typography Should Be Easy. Simple.')
+                ->assertPathIs('/posts/typography-simple.html')
+                ->assertSee('Typography Should Be Easy. Simple.')
+                ->screenshot('typography_blog_post_page')
+                ->storeSourceAsHtml('posts/typography-simple');
+
+            $browser->back()
+                ->assertPathIs('/')
+                ->clickLink('Typography Should Be Easy. With Images.')
+                ->assertPathIs('/posts/typography-front-matter.html')
+                ->assertSee('Typography Should Be Easy. With Images.')
+                ->assertSee('Posted Nov 7th, 2021 by author TailwindLabs in the category "testing"')
+                ->assertPresent('article > figure > img')
+                ->assertSee('Image by Blake Wisz. License the Unsplash License')
+                ->assertSeeLink('TailwindLabs')
+                ->assertSeeLink('Blake Wisz')
+                ->assertSeeLink('the Unsplash License')
+                ->screenshot('typography_blog_post_page_with_front_matter')
+                ->storeSourceAsHtml('posts/typography-front-matter');
+        });
+
+        $this->artisan('publish:homepage welcome -n');
+
+        unlink(Hyde::path('_posts/typography-simple.md'));
+        unlink(Hyde::path('_posts/typography-front-matter.md'));
+        unlink(Hyde::path('_site/posts/typography-simple.html'));
+        unlink(Hyde::path('_site/posts/typography-front-matter.html'));
+        unlink(Hyde::path('_site/index.html'));
+    }
+
     protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false)
     {
         $path = Hyde::path('_docs/'.Str::slug($name).'.md');
