@@ -4,7 +4,10 @@ namespace Hyde\Framework\Testing\Feature\Concerns;
 
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -283,7 +286,12 @@ class HasPageMetadataTest extends TestCase
 
             public function htmlTitle(?string $title = null): string
             {
-                return 'foo';
+                return $title ?? '';
+            }
+
+            public function getRoute(): RouteContract
+            {
+                return new Route(new MarkdownPage());
             }
         };
     }
