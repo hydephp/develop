@@ -61,7 +61,7 @@ trait HasPageMetadata
     public function renderPageMetadata(): string
     {
         return Meta::render(
-            $this->getDynamicMetadata()
+            withMergedData: $this->getDynamicMetadata()
         );
     }
 
