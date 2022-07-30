@@ -19,7 +19,7 @@ trait HasPageMetadata
 
     public function getCanonicalUrl(): string
     {
-        return Hyde::url(Hyde::formatHtmlPath($this->getCurrentPagePath().'.html'));
+        return Hyde::url($this->getCurrentPagePath().'.html');
     }
 
     public function getDynamicMetadata(): array

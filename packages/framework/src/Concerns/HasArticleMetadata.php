@@ -59,7 +59,7 @@ trait HasArticleMetadata
     {
         $this->properties['og:type'] = 'article';
         if (Hyde::hasSiteUrl()) {
-            $this->properties['og:url'] = Hyde::url(Hyde::formatHtmlPath('posts/'.$this->slug.'.html'));
+            $this->properties['og:url'] = Hyde::url('posts/'.$this->slug.'.html');
         }
 
         if (isset($this->matter['title'])) {
