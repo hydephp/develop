@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
+use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 use Hyde\Framework\Foundation\Filesystem;
 
@@ -10,9 +11,12 @@ use Hyde\Framework\Foundation\Filesystem;
  */
 class FilesystemTest extends TestCase
 {
-    public function test_get_base_path()
+    public function test_get_base_path_returns_kernels_base_path()
     {
-
+        $kernel = $this->mock(HydeKernel::class);
+        $kernel->shouldReceive('getBasePath')->andReturn('/path/to/project');
+        $filesystem = new Filesystem($kernel);
+        $this->assertEquals('/path/to/project', $filesystem->getBasePath());
     }
 
     public function test_path()
