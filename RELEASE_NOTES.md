@@ -2,12 +2,7 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This release refactors some internal code. If you have published any Blade views or created any custom integrations, you may want to take a closer look at the changes. Otherwise, this should not affect most existing sites.
 
 ### Added
 - Added `Hyde::url()` and `Hyde::hasSiteUrl()` helpers, replacing now deprecated `Hyde::uriPath()` helper
