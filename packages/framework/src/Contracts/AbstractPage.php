@@ -4,7 +4,6 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Concerns\CanBeInNavigation;
 use Hyde\Framework\Concerns\HasPageMetadata;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;

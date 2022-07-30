@@ -6,12 +6,12 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
- * Generates metadata for page models that have front matter.
+ * Generates article metadata for a MarkdownPost.
  *
  * @see \Hyde\Framework\Models\Metadata
- * @see \Hyde\Framework\Testing\Feature\Concerns\GeneratesPageMetadataTest
+ * @see \Hyde\Framework\Testing\Feature\Concerns\HasArticleMetadataTest
  */
-trait GeneratesPageMetadata
+trait HasArticleMetadata
 {
     public array $metadata = [];
     public array $properties = [];
@@ -20,9 +20,7 @@ trait GeneratesPageMetadata
     {
         $this->parseFrontMatterMetadata();
 
-        if ($this instanceof MarkdownPost || isset($this->forceOpenGraph) && $this->forceOpenGraph) {
-            $this->makeOpenGraphPropertiesForArticle();
-        }
+        $this->makeOpenGraphPropertiesForArticle();
     }
 
     public function getMetadata(): array
@@ -61,7 +59,7 @@ trait GeneratesPageMetadata
     {
         $this->properties['og:type'] = 'article';
         if (Hyde::hasSiteUrl()) {
-            $this->properties['og:url'] = Hyde::url(Hyde::pageLink('posts/'.$this->slug.'.html'));
+            $this->properties['og:url'] = $this->getRoute()->getQualifiedUrl();
         }
 
         if (isset($this->matter['title'])) {
@@ -73,16 +71,7 @@ trait GeneratesPageMetadata
         }
 
         if (isset($this->matter['image'])) {
-            if (is_string($this->matter['image'])) {
-                $this->properties['og:image'] = $this->matter['image'];
-            } else {
-                if (isset($this->matter['image']['path'])) {
-                    $this->properties['og:image'] = $this->matter['image']['path'];
-                }
-                if (isset($this->matter['image']['uri'])) {
-                    $this->properties['og:image'] = $this->matter['image']['uri'];
-                }
-            }
+            $this->setImageMetadata();
         }
     }
 
@@ -99,5 +88,19 @@ trait GeneratesPageMetadata
         }
 
         return $author['name'] ?? $author['username'] ?? 'Guest';
+    }
+
+    protected function setImageMetadata(): void
+    {
+        if (is_string($this->matter['image'])) {
+            $this->properties['og:image'] = $this->matter['image'];
+        } else {
+            if (isset($this->matter['image']['path'])) {
+                $this->properties['og:image'] = $this->matter['image']['path'];
+            }
+            if (isset($this->matter['image']['uri'])) {
+                $this->properties['og:image'] = $this->matter['image']['uri'];
+            }
+        }
     }
 }

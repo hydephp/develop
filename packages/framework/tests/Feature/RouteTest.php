@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -169,6 +170,33 @@ class RouteTest extends TestCase
     {
         $route = new Route(new MarkdownPage(slug: 'foo'));
         $this->assertEquals($route->getLink(), (string) $route);
+    }
+
+    public function test_get_qualified_url_returns_hyde_url_for_output_file_path()
+    {
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $this->assertEquals(Hyde::url('foo.html'), $route->getQualifiedUrl());
+    }
+
+    public function test_get_qualified_url_returns_hyde_url_for_nested_pages()
+    {
+        $route = new Route(new MarkdownPage(slug: 'foo/bar'));
+        $this->assertEquals(Hyde::url('foo/bar.html'), $route->getQualifiedUrl());
+    }
+
+    public function test_get_qualified_url_returns_pretty_url_if_enabled()
+    {
+        config(['site.pretty_urls' => true]);
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $this->assertEquals(Hyde::url('foo'), $route->getQualifiedUrl());
+    }
+
+    public function test_get_qualified_url_throws_exception_when_a_base_url_is_not_set()
+    {
+        config(['site.url' => null]);
+        $this->expectException(BaseUrlNotSetException::class);
+        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route->getQualifiedUrl();
     }
 
     public function test_current_returns_current_route()

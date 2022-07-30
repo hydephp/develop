@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Pages;
 
-use Hyde\Framework\Concerns\GeneratesPageMetadata;
+use Hyde\Framework\Concerns\HasArticleMetadata;
 use Hyde\Framework\Concerns\HasAuthor;
 use Hyde\Framework\Concerns\HasDateString;
 use Hyde\Framework\Concerns\HasFeaturedImage;
@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 class MarkdownPost extends AbstractMarkdownPage
 {
     use HasAuthor;
-    use GeneratesPageMetadata;
+    use HasArticleMetadata;
     use HasDateString;
     use HasFeaturedImage;
 
@@ -39,7 +39,7 @@ class MarkdownPost extends AbstractMarkdownPage
 
     public function getCanonicalLink(): string
     {
-        return Hyde::url(Hyde::pageLink($this->getCurrentPagePath().'.html'));
+        return Hyde::url($this->getCurrentPagePath().'.html');
     }
 
     public function getPostDescription(): string

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string vendorPath(string $path = '')
  * @method static string getMarkdownPagePath(string $path = '')
  * @method static string getSiteOutputPath(string $path = '')
- * @method static string pageLink(string $destination)
+ * @method static string formatHtmlPath(string $destination)
  * @method static string getBladePagePath(string $path = '')
  * @method static string pathToRelative(string $path)
  * @method static string path(string $path = '')

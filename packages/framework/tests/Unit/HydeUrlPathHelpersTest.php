@@ -2,12 +2,14 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\HydeKernel::hasSiteUrl
  * @covers \Hyde\Framework\HydeKernel::url
+ * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  */
 class HydeUrlPathHelpersTest extends TestCase
 {
@@ -71,7 +73,7 @@ class HydeUrlPathHelpersTest extends TestCase
     public function test_qualified_url_throws_exception_when_no_site_url_is_set()
     {
         config(['site.url' => null]);
-        $this->expectException(\Exception::class);
+        $this->expectException(BaseUrlNotSetException::class);
         $this->expectExceptionMessage('No site URL has been set in config (or .env).');
         Hyde::url();
     }
@@ -94,5 +96,14 @@ class HydeUrlPathHelpersTest extends TestCase
     {
         config(['site.url' => 'https://example.com']);
         $this->assertEquals('https://example.com/foo/bar.html', Hyde::url('foo/bar.html'));
+    }
+
+    // test returned url uses pretty urls when enabled
+    public function test_helper_returns_expected_string_when_pretty_urls_are_enabled()
+    {
+        config(['site.url' => 'https://example.com', 'site.pretty_urls' => true]);
+        $this->assertEquals('https://example.com', Hyde::url('index.html'));
+        $this->assertEquals('https://example.com/foo', Hyde::url('foo.html'));
+        $this->assertEquals('https://example.com/docs', Hyde::url('docs/index.html'));
     }
 }

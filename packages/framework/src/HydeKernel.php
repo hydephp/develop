@@ -5,6 +5,7 @@ namespace Hyde\Framework;
 use Composer\InstalledVersions;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -125,7 +126,7 @@ class HydeKernel implements HydeKernelContract
      *
      * @see \Hyde\Framework\Testing\Unit\FileHelperPageLinkPrettyUrlTest
      */
-    public function pageLink(string $destination): string
+    public function formatHtmlPath(string $destination): string
     {
         if (config('site.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
@@ -162,7 +163,7 @@ class HydeKernel implements HydeKernelContract
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
-        $route .= $this->pageLink($destination);
+        $route .= $this->formatHtmlPath($destination);
 
         return str_replace('//', '/', $route);
     }
@@ -227,19 +228,21 @@ class HydeKernel implements HydeKernelContract
      * @param  string|null  $default  optional default value to return if no site url is set.
      * @return string
      *
-     * @throws \Exception If no site URL is set and no default is provided
+     * @throws BaseUrlNotSetException If no site URL is set and no default is provided
      */
     public function url(string $path = '', ?string $default = null): string
     {
+        $path = $this->formatHtmlPath(trim($path, '/'));
+
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? ''), '/');
+            return rtrim(rtrim(config('site.url'), '/').'/'.($path ?? ''), '/');
         }
 
         if ($default !== null) {
-            return $default.'/'.(trim($path, '/') ?? '');
+            return $default.'/'.($path ?? '');
         }
 
-        throw new \Exception('No site URL has been set in config (or .env).');
+        throw new BaseUrlNotSetException();
     }
 
     /**

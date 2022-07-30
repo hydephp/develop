@@ -16,80 +16,80 @@ class FileHelperPageLinkPrettyUrlTest extends TestCase
     {
         config(['site.pretty_urls' => false]);
 
-        $this->assertEquals('foo/bar.html', Hyde::pageLink('foo/bar.html'));
+        $this->assertEquals('foo/bar.html', Hyde::formatHtmlPath('foo/bar.html'));
     }
 
     public function test_helper_returns_pretty_url_if_pretty_urls_is_true()
     {
         config(['site.pretty_urls' => true]);
 
-        $this->assertEquals('foo/bar', Hyde::pageLink('foo/bar.html'));
+        $this->assertEquals('foo/bar', Hyde::formatHtmlPath('foo/bar.html'));
     }
 
     public function test_non_pretty_urls_is_default_value_when_config_is_not_set()
     {
         config(['site.pretty_urls' => null]);
 
-        $this->assertEquals('foo/bar.html', Hyde::pageLink('foo/bar.html'));
+        $this->assertEquals('foo/bar.html', Hyde::formatHtmlPath('foo/bar.html'));
     }
 
     public function test_helper_respects_absolute_urls()
     {
         config(['site.pretty_urls' => false]);
-        $this->assertEquals('/foo/bar.html', Hyde::pageLink('/foo/bar.html'));
+        $this->assertEquals('/foo/bar.html', Hyde::formatHtmlPath('/foo/bar.html'));
     }
 
     public function test_helper_respects_pretty_absolute_urls()
     {
         config(['site.pretty_urls' => true]);
-        $this->assertEquals('/foo/bar', Hyde::pageLink('/foo/bar.html'));
+        $this->assertEquals('/foo/bar', Hyde::formatHtmlPath('/foo/bar.html'));
     }
 
     public function test_helper_respects_relative_urls()
     {
         config(['site.pretty_urls' => false]);
-        $this->assertEquals('../foo/bar.html', Hyde::pageLink('../foo/bar.html'));
+        $this->assertEquals('../foo/bar.html', Hyde::formatHtmlPath('../foo/bar.html'));
     }
 
     public function test_helper_respects_pretty_relative_urls()
     {
         config(['site.pretty_urls' => true]);
-        $this->assertEquals('../foo/bar', Hyde::pageLink('../foo/bar.html'));
+        $this->assertEquals('../foo/bar', Hyde::formatHtmlPath('../foo/bar.html'));
     }
 
     public function test_non_html_links_are_not_modified()
     {
         config(['site.pretty_urls' => true]);
-        $this->assertEquals('/foo/bar.jpg', Hyde::pageLink('/foo/bar.jpg'));
+        $this->assertEquals('/foo/bar.jpg', Hyde::formatHtmlPath('/foo/bar.jpg'));
     }
 
     public function test_helper_respects_absolute_urls_with_pretty_urls_enabled()
     {
         config(['site.pretty_urls' => true]);
-        $this->assertEquals('/foo/bar.jpg', Hyde::pageLink('/foo/bar.jpg'));
+        $this->assertEquals('/foo/bar.jpg', Hyde::formatHtmlPath('/foo/bar.jpg'));
     }
 
     public function test_helper_rewrites_index_when_using_pretty_urls()
     {
         config(['site.pretty_urls' => true]);
-        $this->assertEquals('/', Hyde::pageLink('index.html'));
+        $this->assertEquals('/', Hyde::formatHtmlPath('index.html'));
     }
 
     public function test_helper_does_not_rewrite_index_when_not_using_pretty_urls()
     {
         config(['site.pretty_urls' => false]);
-        $this->assertEquals('index.html', Hyde::pageLink('index.html'));
+        $this->assertEquals('index.html', Hyde::formatHtmlPath('index.html'));
     }
 
     public function test_helper_rewrites_documentation_page_index_when_using_pretty_urls()
     {
         config(['site.pretty_urls' => true]);
-        $this->assertEquals('docs/', Hyde::pageLink('docs/index.html'));
+        $this->assertEquals('docs/', Hyde::formatHtmlPath('docs/index.html'));
     }
 
     public function test_helper_does_not_rewrite_documentation_page_index_when_not_using_pretty_urls()
     {
         config(['site.pretty_urls' => false]);
-        $this->assertEquals('docs/index.html', Hyde::pageLink('docs/index.html'));
+        $this->assertEquals('docs/index.html', Hyde::formatHtmlPath('docs/index.html'));
     }
 }

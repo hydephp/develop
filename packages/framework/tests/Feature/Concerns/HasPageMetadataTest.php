@@ -219,10 +219,7 @@ class HasPageMetadataTest extends TestCase
             Meta::name('twitter:title', 'foo'),
         ]]);
 
-        $page = new class
-        {
-            use HasPageMetadata;
-        };
+        $page = $this->makeTestClass();
 
         $this->assertTrue($page->hasTwitterTitleInConfig());
     }
@@ -231,10 +228,7 @@ class HasPageMetadataTest extends TestCase
     {
         config(['hyde.meta' => []]);
 
-        $page = new class
-        {
-            use HasPageMetadata;
-        };
+        $page = $this->makeTestClass();
 
         $this->assertFalse($page->hasTwitterTitleInConfig());
     }
@@ -245,10 +239,7 @@ class HasPageMetadataTest extends TestCase
             Meta::property('title', 'foo'),
         ]]);
 
-        $page = new class
-        {
-            use HasPageMetadata;
-        };
+        $page = $this->makeTestClass();
 
         $this->assertTrue($page->hasOpenGraphTitleInConfig());
     }
@@ -257,10 +248,7 @@ class HasPageMetadataTest extends TestCase
     {
         config(['hyde.meta' => []]);
 
-        $page = new class
-        {
-            use HasPageMetadata;
-        };
+        $page = $this->makeTestClass();
 
         $this->assertFalse($page->hasOpenGraphTitleInConfig());
     }
@@ -285,5 +273,18 @@ class HasPageMetadataTest extends TestCase
         ],
             $page->getDynamicMetadata()
         );
+    }
+
+    protected function makeTestClass(): object
+    {
+        return new class
+        {
+            use HasPageMetadata;
+
+            public function htmlTitle(?string $title = null): string
+            {
+                return 'foo';
+            }
+        };
     }
 }

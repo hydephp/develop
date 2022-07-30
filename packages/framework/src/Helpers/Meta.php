@@ -21,14 +21,14 @@ class Meta
         return '<meta property="'.e($property).'" content="'.e($content).'">';
     }
 
-    public static function render(array $overridesGlobalMeta = []): string
+    public static function render(array $withMergedData = []): string
     {
         return implode(
             "\n",
             static::filterUnique(
                 array_merge(
                     static::getGlobalMeta(),
-                    $overridesGlobalMeta
+                    $withMergedData
                 )
             )
         );

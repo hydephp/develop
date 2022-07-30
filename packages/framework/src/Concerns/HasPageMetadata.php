@@ -15,9 +15,11 @@ use Hyde\Framework\Services\SitemapService;
  */
 trait HasPageMetadata
 {
+    abstract public function htmlTitle(?string $title = null): string;
+
     public function getCanonicalUrl(): string
     {
-        return Hyde::url(Hyde::pageLink($this->getCurrentPagePath().'.html'));
+        return $this->getRoute()->getQualifiedUrl();
     }
 
     public function getDynamicMetadata(): array
@@ -32,12 +34,8 @@ trait HasPageMetadata
             $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::url('sitemap.xml').'" />';
         }
 
-        if ($this->canUseRssFeedlink()) {
-            $array[] = '<link rel="alternate" type="application/rss+xml" title="'
-            .RssFeedService::getTitle()
-            .' RSS Feed" href="'
-            .Hyde::url(RssFeedService::getDefaultOutputFilename())
-            .'" />';
+        if ($this->canUseRssFeedLink()) {
+            $array[] = $this->makeRssFeedLink();
         }
 
         if (isset($this->title)) {
@@ -50,7 +48,6 @@ trait HasPageMetadata
         }
 
         if ($this instanceof MarkdownPost) {
-            // Temporarily merge data with GeneratesPageMetadata trait for compatibility
             $array[] = "\n<!-- Blog Post Meta Tags -->";
             foreach ($this->getMetadata() as $name => $content) {
                 $array[] = Meta::name($name, $content);
@@ -65,10 +62,8 @@ trait HasPageMetadata
 
     public function renderPageMetadata(): string
     {
-        $dynamicMetadata = $this->getDynamicMetadata();
-
         return Meta::render(
-            $dynamicMetadata
+            withMergedData: $this->getDynamicMetadata()
         );
     }
 
@@ -109,5 +104,13 @@ trait HasPageMetadata
     public function hasOpenGraphTitleInConfig(): bool
     {
         return str_contains(json_encode(config('hyde.meta', [])), 'og:title');
+    }
+
+    protected function makeRssFeedLink(): string
+    {
+        return sprintf('<link rel="alternate" type="application/rss+xml" title="%s" href="%s" />',
+            RssFeedService::getDescription(),
+            Hyde::url(RssFeedService::getDefaultOutputFilename())
+        );
     }
 }

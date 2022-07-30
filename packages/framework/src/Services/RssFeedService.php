@@ -80,7 +80,7 @@ class RssFeedService
     {
         $this->feed->channel->addChild('title', static::getTitle());
         $this->feed->channel->addChild('link', static::getLink());
-        $this->feed->channel->addChild('description', $this->getDescription());
+        $this->feed->channel->addChild('description', static::getDescription());
 
         $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
         $atomLink->addAttribute('href', static::getLink().'/'.static::getDefaultOutputFilename());
@@ -97,7 +97,12 @@ class RssFeedService
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
     }
 
-    protected function getDescription(): string
+    protected static function xmlEscape(string $string): string
+    {
+        return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+    }
+
+    public static function getDescription(): string
     {
         return static::xmlEscape(
             config(
@@ -105,11 +110,6 @@ class RssFeedService
                 static::getTitle().' RSS Feed'
             )
         );
-    }
-
-    protected static function xmlEscape(string $string): string
-    {
-        return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
     }
 
     public static function getTitle(): string

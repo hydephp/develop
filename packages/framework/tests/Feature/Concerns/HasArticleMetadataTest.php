@@ -2,29 +2,37 @@
 
 namespace Hyde\Framework\Testing\Feature\Concerns;
 
-use Hyde\Framework\Concerns\GeneratesPageMetadata;
+use Hyde\Framework\Concerns\HasArticleMetadata;
+use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Concerns\GeneratesPageMetadata
+ * @covers \Hyde\Framework\Concerns\HasArticleMetadata
  *
  * @see \Hyde\Framework\Models\Metadata
  */
-class GeneratesPageMetadataTest extends TestCase
+class HasArticleMetadataTest extends TestCase
 {
-    use GeneratesPageMetadata;
+    use HasArticleMetadata;
 
     public array $matter;
     protected string $slug;
-
-    protected bool $forceOpenGraph = true;
+    protected RouteContract $route;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         Config::set('site.url', null);
+        $this->route = new Route(new MarkdownPost());
+    }
+
+    protected function getRoute(): RouteContract
+    {
+        return $this->route;
     }
 
     protected function tearDown(): void
@@ -72,7 +80,7 @@ class GeneratesPageMetadataTest extends TestCase
     public function test_get_meta_properties_contains_og_url_when_uri_path_set()
     {
         Config::set('site.url', 'https://example.com/foo');
-        $this->slug = 'bar';
+        $this->route = new Route(new MarkdownPost(slug: 'bar'));
         $this->constructMetadata();
 
         $this->assertEquals([
