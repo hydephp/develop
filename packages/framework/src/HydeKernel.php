@@ -7,6 +7,7 @@ use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Foundation\Filesystem;
+use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Facades\View;
@@ -30,11 +31,13 @@ class HydeKernel implements HydeKernelContract
 
     protected string $basePath;
     protected Filesystem $filesystem;
+    protected Hyperlinks $hyperlinks;
 
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
         $this->filesystem = new Filesystem($this);
+        $this->hyperlinks = new Hyperlinks($this);
     }
 
     public static function getInstance(): HydeKernelContract
