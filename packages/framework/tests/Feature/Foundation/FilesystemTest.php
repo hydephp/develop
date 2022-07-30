@@ -77,9 +77,37 @@ class FilesystemTest extends TestCase
         $this->assertEquals($expected, $this->filesystem->path('\\/directory/file.php/'));
     }
 
-    public function test_vendor_path()
+    public function test_vendor_path_method_exists()
     {
+        $this->assertTrue(method_exists(Filesystem::class, 'vendorPath'));
+    }
 
+    public function test_vendor_path_method_returns_string()
+    {
+        $this->assertIsString($this->filesystem->vendorPath());
+    }
+
+    public function test_vendor_path_method_returns_qualified_file_path_when_supplied_with_argument()
+    {
+        $this->assertEquals($this->filesystem->vendorPath('file.php'), $this->filesystem->vendorPath().'/file.php');
+    }
+
+    public function test_vendor_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
+    {
+        $this->assertEquals($this->filesystem->vendorPath('\\/file.php/'), $this->filesystem->vendorPath().'/file.php');
+
+        $this->assertEquals($this->filesystem->vendorPath('directory/file.php'), $this->filesystem->vendorPath().'/directory/file.php');
+        $this->assertEquals($this->filesystem->vendorPath('directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+        $this->assertEquals($this->filesystem->vendorPath('/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+        $this->assertEquals($this->filesystem->vendorPath('\\/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+
+        $this->assertEquals($this->filesystem->vendorPath('\\/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+        $this->assertEquals($this->filesystem->vendorPath('/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+        $this->assertEquals($this->filesystem->vendorPath('\\/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+
+        $this->assertEquals($this->filesystem->vendorPath('\\/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+        $this->assertEquals($this->filesystem->vendorPath('/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
+        $this->assertEquals($this->filesystem->vendorPath('\\/directory/file.php/'), $this->filesystem->vendorPath().'/directory/file.php');
     }
 
     public function test_copy()
