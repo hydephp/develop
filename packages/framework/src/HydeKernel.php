@@ -125,7 +125,7 @@ class HydeKernel implements HydeKernelContract
      *
      * @see \Hyde\Framework\Testing\Unit\FileHelperPageLinkPrettyUrlTest
      */
-    public function pageLink(string $destination): string
+    public function formatHtmlPath(string $destination): string
     {
         if (config('site.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
@@ -162,7 +162,7 @@ class HydeKernel implements HydeKernelContract
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
-        $route .= $this->pageLink($destination);
+        $route .= $this->formatHtmlPath($destination);
 
         return str_replace('//', '/', $route);
     }
@@ -231,7 +231,7 @@ class HydeKernel implements HydeKernelContract
      */
     public function url(string $path = '', ?string $default = null): string
     {
-        $path = $this->pageLink(trim($path, '/'));
+        $path = $this->formatHtmlPath(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
             return rtrim(rtrim(config('site.url'), '/').'/'.($path ?? ''), '/');

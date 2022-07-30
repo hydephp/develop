@@ -14,6 +14,7 @@ This serves two purposes:
 
 ### Changed
 - The HTML page titles are now generated in the page object, using the new `htmlTitle()` helper
+- Renamed helper `Hyde::pageLink()` to `Hyde::formatHtmlPath()`
 - internal: DiscoveryService.php is no longer deprecated
 - internal: CollectionService.php was merged into DiscoveryService
 

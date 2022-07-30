@@ -9,7 +9,7 @@
     @endif
 
     <header>
-        <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}" class="block w-fit">
+        <a href="posts/{{ Hyde::formatHtmlPath($post->slug . '.html') }}" class="block w-fit">
             <h2 class="text-2xl font-bold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-colors duration-75">
                 {{ $post->matter['title'] ?? $post->title }}
             </h2>
@@ -42,7 +42,7 @@
     @endisset
 
     <footer>
-        <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}" class="text-indigo-500 hover:underline font-medium">
+        <a href="posts/{{ Hyde::formatHtmlPath($post->slug . '.html') }}" class="text-indigo-500 hover:underline font-medium">
             Read post</a>
     </footer>
 </article>

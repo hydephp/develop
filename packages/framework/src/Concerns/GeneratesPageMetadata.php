@@ -61,7 +61,7 @@ trait GeneratesPageMetadata
     {
         $this->properties['og:type'] = 'article';
         if (Hyde::hasSiteUrl()) {
-            $this->properties['og:url'] = Hyde::url(Hyde::pageLink('posts/'.$this->slug.'.html'));
+            $this->properties['og:url'] = Hyde::url(Hyde::formatHtmlPath('posts/'.$this->slug.'.html'));
         }
 
         if (isset($this->matter['title'])) {
