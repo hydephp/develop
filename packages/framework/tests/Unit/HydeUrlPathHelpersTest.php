@@ -2,12 +2,14 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\HydeKernel::hasSiteUrl
  * @covers \Hyde\Framework\HydeKernel::url
+ * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  */
 class HydeUrlPathHelpersTest extends TestCase
 {
@@ -71,7 +73,7 @@ class HydeUrlPathHelpersTest extends TestCase
     public function test_qualified_url_throws_exception_when_no_site_url_is_set()
     {
         config(['site.url' => null]);
-        $this->expectException(\Exception::class);
+        $this->expectException(BaseUrlNotSetException::class);
         $this->expectExceptionMessage('No site URL has been set in config (or .env).');
         Hyde::url();
     }
