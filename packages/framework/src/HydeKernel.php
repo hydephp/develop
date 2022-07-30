@@ -223,8 +223,8 @@ class HydeKernel implements HydeKernelContract
     /**
      * Return a qualified URI path to the supplied path if a base URL is set.
      *
-     * @param string $path optional relative path suffix. Omit to return base url.
-     * @param string|null $default optional default value to return if no site url is set.
+     * @param  string  $path  optional relative path suffix. Omit to return base url.
+     * @param  string|null  $default  optional default value to return if no site url is set.
      * @return string
      *
      * @throws \Exception If no site URL is set and no default is provided
@@ -236,7 +236,7 @@ class HydeKernel implements HydeKernelContract
         }
 
         if ($default !== null) {
-            return $default . '/'.(trim($path, '/') ?? '');
+            return $default.'/'.(trim($path, '/') ?? '');
         }
 
         throw new \Exception('No site URL has been set in config (or .env).');
