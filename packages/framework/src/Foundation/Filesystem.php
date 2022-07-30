@@ -27,7 +27,7 @@ class Filesystem
 
     public function getBasePath(): string
     {
-        return $this->basePath;
+        return $this->kernel->getBasePath();
     }
 
     /**
