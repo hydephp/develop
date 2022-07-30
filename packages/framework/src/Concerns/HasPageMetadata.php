@@ -74,7 +74,7 @@ trait HasPageMetadata
 
     public function canUseCanonicalUrl(): bool
     {
-        return Hyde::uriPath() && isset($this->slug);
+        return Hyde::hasSiteUrl() && isset($this->slug);
     }
 
     public function canUseSitemapLink(): bool

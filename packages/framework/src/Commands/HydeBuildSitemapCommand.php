@@ -52,7 +52,7 @@ class HydeBuildSitemapCommand extends Command
         if (! SitemapService::canGenerateSitemap()) {
             $this->error('Cannot generate sitemap.xml, please check your configuration.');
 
-            if ((Hyde::uriPath() === false)) {
+            if (! Hyde::hasSiteUrl()) {
                 $this->warn('Hint: You don\'t have a site URL configured. Check config/hyde.php');
             }
             if (config('site.generate_sitemap', true) !== true) {
