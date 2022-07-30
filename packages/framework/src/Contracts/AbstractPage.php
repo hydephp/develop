@@ -4,6 +4,7 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Concerns\CanBeInNavigation;
 use Hyde\Framework\Concerns\HasPageMetadata;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
@@ -123,5 +124,15 @@ abstract class AbstractPage implements PageContract
     public function getRoute(): Route
     {
         return new Route($this);
+    }
+
+    /** @inheritDoc */
+    public function htmlTitle(?string $title = null): string
+    {
+        $pageTitle = $title ?? $this->title ?? null;
+
+        return $pageTitle
+            ? config('site.name', 'HydePHP').' - '.$pageTitle
+            : config('site.name', 'HydePHP');
     }
 }
