@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework;
 
+use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Helpers\Features;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -22,7 +24,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getBladePagePath(string $path = '')
  * @method static string pathToRelative(string $path)
  * @method static string path(string $path = '')
- * @method static \Hyde\Framework\Helpers\Features features()
+ * @method static Features features()
  * @method static bool hasFeature(string $feature)
  * @method static string relativeLink(string $destination)
  * @method static string getMarkdownPostPath(string $path = '')
@@ -30,7 +32,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getModelSourcePath(string $model, string $path = '')
  * @method static string image(string $name)
  * @method static void macro(string $name, callable|object $macro)
- * @method static \Hyde\Framework\Contracts\RouteContract|null currentRoute()
+ * @method static RouteContract|null currentRoute()
  * @method static string currentPage()
  * @method static false|string uriPath(null|string $path = '')
  * @method static void setBasePath($basePath)
