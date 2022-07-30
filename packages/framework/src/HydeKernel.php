@@ -198,6 +198,8 @@ class HydeKernel implements HydeKernelContract
     /**
      * Return a qualified URI path, if SITE_URL is set in .env, else return false.
      *
+     * @deprecated v0.53.0-beta - Use Hyde::qualifiedUrl() or Hyde::hasSiteUrl() instead.
+     *
      * @param  string  $path  optional relative path suffix. Omit to return base url.
      * @return string|false
      */

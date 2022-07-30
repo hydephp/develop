@@ -17,7 +17,7 @@ This serves two purposes:
 - internal: CollectionService.php was merged into DiscoveryService
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated `Hyde::uriPath()`, use `Hyde::qualifiedUrl()` or `Hyde::hasSiteUrl()` instead
 
 ### Removed
 - internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService
