@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
 use Hyde\Framework\Foundation\Filesystem;
-use Hyde\Framework\HydeKernel;
+use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
@@ -14,16 +14,24 @@ use Hyde\Testing\TestCase;
  */
 class FilesystemTest extends TestCase
 {
-    // Filesystem with mocked Kernel path. Use the real one if you actually need to access the filesystem.
+    protected string $originalBasePath;
+
     protected Filesystem $filesystem;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $kernel = $this->mock(HydeKernel::class);
-        $kernel->shouldReceive('getBasePath')->andReturn('/foo');
-        $this->filesystem = new Filesystem($kernel);
+        $this->originalBasePath = Hyde::getBasePath();
+        $this->filesystem = new Filesystem(Hyde::getInstance());
+        Hyde::getInstance()->setBasePath('/foo');
+    }
+
+    protected function tearDown(): void
+    {
+        Hyde::getInstance()->setBasePath($this->originalBasePath);
+
+        parent::tearDown();
     }
 
     public function test_get_base_path_returns_kernels_base_path()
