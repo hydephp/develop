@@ -13,6 +13,7 @@ This serves two purposes:
 - Added `Hyde::url()` and `Hyde::hasSiteUrl()` helpers, replacing now deprecated `Hyde::uriPath()` helper
 
 ### Changed
+- The HTML page titles are now generated in the page object, using the new `htmlTitle()` helper
 - internal: DiscoveryService.php is no longer deprecated
 - internal: CollectionService.php was merged into DiscoveryService
 
