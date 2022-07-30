@@ -10,14 +10,14 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added `Hyde::qualifiedUrl()` and `Hyde::hasSiteUrl()` helpers, replacing now deprecated `Hyde::uriPath()` helper
+- Added `Hyde::url()` and `Hyde::hasSiteUrl()` helpers, replacing now deprecated `Hyde::uriPath()` helper
 
 ### Changed
 - internal: DiscoveryService.php is no longer deprecated
 - internal: CollectionService.php was merged into DiscoveryService
 
 ### Deprecated
-- Deprecated `Hyde::uriPath()`, use `Hyde::qualifiedUrl()` or `Hyde::hasSiteUrl()` instead
+- Deprecated `Hyde::uriPath()`, use `Hyde::url()` or `Hyde::hasSiteUrl()` instead
 
 ### Removed
 - internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService

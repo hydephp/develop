@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string currentPage()
  * @method static false|string uriPath(null|string $path = '')
  * @method static bool hasSiteUrl()
- * @method static string qualifiedUrl(string $path = '', ?string $default = null)
+ * @method static string url(string $path = '', ?string $default = null)
  * @method static void setBasePath($basePath)
  * @method static void mixin(object $mixin, bool $replace = true)
  * @method static string makeTitle(string $slug)

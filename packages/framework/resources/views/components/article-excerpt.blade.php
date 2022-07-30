@@ -5,7 +5,7 @@
 <article class="mt-4 mb-8" itemscope itemtype="http://schema.org/Article">
     <meta itemprop="identifier" content="{{ $post->slug }}">
     @if(Hyde::hasSiteUrl())
-        <meta itemprop="url" content="{{ Hyde::qualifiedUrl('posts/' . $post->slug) }}">
+        <meta itemprop="url" content="{{ Hyde::url('posts/' . $post->slug) }}">
     @endif
 
     <header>
