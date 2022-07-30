@@ -1,12 +1,15 @@
 <?php
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
-class HydeSafeCopyHelperTest extends TestCase
+/**
+ * @covers \Hyde\Framework\Foundation\Filesystem::copy
+ */
+class FilesystemSafeCopyHelperTest extends TestCase
 {
     protected static function testDir(string $path = ''): string
     {

@@ -88,9 +88,33 @@ class FilesystemTest extends TestCase
         $this->assertEquals('/foo' . DIRECTORY_SEPARATOR . 'vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
     }
 
-    public function test_copy()
+    /** @see \Hyde\Framework\Testing\Unit\Foundation\FilesystemSafeCopyHelperTest for more exensive tests */
+    public function test_copy_method()
     {
+        $this->assertTrue(method_exists(Filesystem::class, 'copy'));
+    }
 
+    public function test_copy_method_returns_404_when_file_does_not_exist()
+    {
+        $this->assertEquals(404, $this->filesystem->copy('foo/bar.php', 'foo/baz.php'));
+    }
+
+    public function test_copy_method_returns_409_when_destination_file_exists()
+    {
+        touch('foo');
+        touch('bar');
+        $this->assertEquals(409, $this->filesystem->copy('foo', 'bar'));
+        unlink('foo');
+        unlink('bar');
+    }
+
+    public function test_copy_method_overwrites_destination_file_when_overwrite_is_true()
+    {
+        touch('foo');
+        touch('bar');
+        $this->assertTrue($this->filesystem->copy('foo', 'bar', true));
+        unlink('foo');
+        unlink('bar');
     }
 
     public function test_get_model_source_path()
