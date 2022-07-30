@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Remove deprecated Hyde::uriPath() helper
 
 ### Fixed
 - for any bug fixes.

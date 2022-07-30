@@ -82,23 +82,6 @@ class Hyperlinks
     }
 
     /**
-     * Return a qualified URI path, if SITE_URL is set in .env, else return false.
-     *
-     * @deprecated v0.53.0-beta - Use Hyde::url() or Hyde::hasSiteUrl() instead.
-     *
-     * @param  string  $path  optional relative path suffix. Omit to return base url.
-     * @return string|false
-     */
-    public function uriPath(string $path = ''): string|false
-    {
-        if (config('site.url', false)) {
-            return rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? '');
-        }
-
-        return false;
-    }
-
-    /**
      * Check if a site base URL has been set in config (or .env).
      */
     public function hasSiteUrl(): bool
