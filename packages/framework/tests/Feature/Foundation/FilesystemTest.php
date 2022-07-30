@@ -11,21 +11,21 @@ use Hyde\Framework\Foundation\Filesystem;
  */
 class FilesystemTest extends TestCase
 {
+    // Filesystem with mocked Kernel path. Use the real one if you actually need to access the filesystem.
     protected Filesystem $filesystem;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->filesystem = new Filesystem(new HydeKernel());
+        $kernel = $this->mock(HydeKernel::class);
+        $kernel->shouldReceive('getBasePath')->andReturn('/foo');
+        $this->filesystem = new Filesystem($kernel);
     }
 
     public function test_get_base_path_returns_kernels_base_path()
     {
-        $kernel = $this->mock(HydeKernel::class);
-        $kernel->shouldReceive('getBasePath')->andReturn('/path/to/project');
-        $filesystem = new Filesystem($kernel);
-        $this->assertEquals('/path/to/project', $filesystem->getBasePath());
+        $this->assertEquals('/foo', $this->filesystem->getBasePath());
     }
 
     public function test_path_method_exists()
@@ -40,41 +40,32 @@ class FilesystemTest extends TestCase
 
     public function test_path_method_returns_base_path_when_not_supplied_with_argument()
     {
-        $kernel = $this->mock(HydeKernel::class);
-        $kernel->shouldReceive('getBasePath')->andReturn('/path/to/project');
-        $filesystem = new Filesystem($kernel);
-        $this->assertEquals('/path/to/project', $filesystem->path());
+        $this->assertEquals('/foo', $this->filesystem->path());
     }
 
     public function test_path_method_returns_path_relative_to_base_path_when_supplied_with_argument()
     {
-        $kernel = $this->mock(HydeKernel::class);
-        $kernel->shouldReceive('getBasePath')->andReturn('/path/to/project');
-        $filesystem = new Filesystem($kernel);
-        $this->assertEquals('/path/to/project'.DIRECTORY_SEPARATOR.'foo/bar.php', $filesystem->path('foo/bar.php'));
+        $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'foo/bar.php', $this->filesystem->path('foo/bar.php'));
     }
 
     public function test_path_method_returns_qualified_file_path_when_supplied_with_argument()
     {
-        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('file.php'));
+        $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('file.php'));
     }
 
     public function test_path_method_returns_expected_value_for_nested_path_arguments()
     {
-        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php', $this->filesystem->path('directory/file.php'));
+        $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'directory/file.php', $this->filesystem->path('directory/file.php'));
     }
 
     public function test_path_method_strips_trailing_directory_separators_from_argument()
     {
-        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('\\/file.php/'));
+        $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('\\/file.php/'));
     }
 
     public function test_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
     {
-        $expected = $this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php';
-        $this->assertEquals($expected, $this->filesystem->path('directory/file.php/'));
-        $this->assertEquals($expected, $this->filesystem->path('/directory/file.php/'));
-        $this->assertEquals($expected, $this->filesystem->path('\\/directory/file.php/'));
+        $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'bar/file.php', $this->filesystem->path('\\/bar/file.php/'));
     }
 
     public function test_vendor_path_method_exists()
@@ -94,20 +85,7 @@ class FilesystemTest extends TestCase
 
     public function test_vendor_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
     {
-        $this->assertEquals($this->filesystem->vendorPath('\\/file.php/'), $this->filesystem->vendorPath().'/file.php');
-
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('directory/file.php'));
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('directory/file.php/'));
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('/directory/file.php/'));
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('\\/directory/file.php/'));
-
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('\\/directory/file.php/'));
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('/directory/file.php/'));
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('\\/directory/file.php/'));
-
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('\\/directory/file.php/'));
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('/directory/file.php/'));
-        $this->assertEquals($this->filesystem->vendorPath().'/directory/file.php', $this->filesystem->vendorPath('\\/directory/file.php/'));
+        $this->assertEquals('/foo' . DIRECTORY_SEPARATOR . 'vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
     }
 
     public function test_copy()
