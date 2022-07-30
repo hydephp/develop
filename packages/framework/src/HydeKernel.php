@@ -6,6 +6,7 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
+use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -32,10 +33,12 @@ class HydeKernel implements HydeKernelContract
     use Macroable;
 
     protected string $basePath;
+    protected Filesystem $filesystem;
 
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
+        $this->filesystem = new Filesystem($this->basePath);
     }
 
     public static function getInstance(): HydeKernelContract
