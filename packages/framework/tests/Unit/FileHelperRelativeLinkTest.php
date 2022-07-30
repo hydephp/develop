@@ -50,9 +50,9 @@ class FileHelperRelativeLinkTest extends TestCase
     public function test_helper_handles_case_with_mixed_file_extensions()
     {
         $this->mockCurrentPage('foo/bar.md');
-        $this->assertEquals('../foo.md', Hyde::relativeLink('foo.md', 'foo/bar.md'));
+        $this->assertEquals('../foo.md', Hyde::relativeLink('foo.md'));
         $this->mockCurrentPage('foo/bar.txt');
-        $this->assertEquals('../foo.txt', Hyde::relativeLink('foo.txt', 'foo/bar.txt'));
+        $this->assertEquals('../foo.txt', Hyde::relativeLink('foo.txt'));
     }
 
     public function test_helper_handles_different_file_extensions()
