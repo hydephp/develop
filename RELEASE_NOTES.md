@@ -2,25 +2,24 @@
 
 ### About
 
-This release refactors some internal code. If you have published any Blade views or created any custom integrations, you may want to take a closer look at the changes. Otherwise, this should not affect most existing sites.
+Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added `Hyde::url()` and `Hyde::hasSiteUrl()` helpers, replacing now deprecated `Hyde::uriPath()` helper
+- for new features.
 
 ### Changed
-- The HTML page titles are now generated in the page object, using the new `htmlTitle()` helper
-- Renamed helper `Hyde::pageLink()` to `Hyde::formatHtmlPath()`
-- internal: DiscoveryService.php is no longer deprecated
-- internal: CollectionService.php was merged into DiscoveryService
-- internal: Renamed trait GeneratesPageMetadata to HasArticleMetadata
+- for changes in existing functionality.
 
 ### Deprecated
-- Deprecated `Hyde::uriPath()`, use `Hyde::url()` or `Hyde::hasSiteUrl()` instead
-- Deprecated `Helpers\Author.php`, will be merged into `Models\Author.php`
+- for soon-to-be removed features.
 
 ### Removed
-- internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService
-- internal: The `$currentPage` parameter of a few methods has been removed, it is no longer necessary due to it being inferred from the view being rendered
+- for now removed features.
 
 ### Fixed
 - for any bug fixes.

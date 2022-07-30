@@ -15,6 +15,31 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.53.0-beta](https://github.com/hydephp/develop/releases/tag/v0.53.0-beta) - 2022-07-30
+
+### About
+
+This release refactors some internal code. If you have published any Blade views or created any custom integrations, you may want to take a closer look at the changes. Otherwise, this should not affect most existing sites.
+
+### Added
+- Added `Hyde::url()` and `Hyde::hasSiteUrl()` helpers, replacing now deprecated `Hyde::uriPath()` helper
+
+### Changed
+- The HTML page titles are now generated in the page object, using the new `htmlTitle()` helper
+- Renamed helper `Hyde::pageLink()` to `Hyde::formatHtmlPath()`
+- internal: DiscoveryService.php is no longer deprecated
+- internal: CollectionService.php was merged into DiscoveryService
+- internal: Renamed trait GeneratesPageMetadata to HasArticleMetadata
+
+### Deprecated
+- Deprecated `Hyde::uriPath()`, use `Hyde::url()` or `Hyde::hasSiteUrl()` instead
+- Deprecated `Helpers\Author.php`, will be merged into `Models\Author.php`
+
+### Removed
+- internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService
+- internal: The `$currentPage` parameter of a few methods has been removed, it is no longer necessary due to it being inferred from the view being rendered
+
+
 ## [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-beta) - 2022-07-29
 
 ### About
