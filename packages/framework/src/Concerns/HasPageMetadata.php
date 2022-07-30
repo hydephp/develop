@@ -15,6 +15,8 @@ use Hyde\Framework\Services\SitemapService;
  */
 trait HasPageMetadata
 {
+    abstract public function htmlTitle(?string $title = null): string;
+
     public function getCanonicalUrl(): string
     {
         return Hyde::url(Hyde::pageLink($this->getCurrentPagePath().'.html'));
