@@ -108,10 +108,9 @@ trait HasPageMetadata
 
     protected function makeRssFeedLink(): string
     {
-        return '<link rel="alternate" type="application/rss+xml" title="'
-            . RssFeedService::getDescription()
-            . '" href="'
-            . Hyde::url(RssFeedService::getDefaultOutputFilename())
-            . '" />';
+        return sprintf('<link rel="alternate" type="application/rss+xml" title="%s" href="%s" />',
+            RssFeedService::getDescription(),
+            Hyde::url(RssFeedService::getDefaultOutputFilename())
+        );
     }
 }
