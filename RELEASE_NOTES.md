@@ -12,6 +12,7 @@ This release refactors some internal code. If you have published any Blade views
 - Renamed helper `Hyde::pageLink()` to `Hyde::formatHtmlPath()`
 - internal: DiscoveryService.php is no longer deprecated
 - internal: CollectionService.php was merged into DiscoveryService
+- internal: Renamed trait GeneratesPageMetadata to HasArticleMetadata
 
 ### Deprecated
 - Deprecated `Hyde::uriPath()`, use `Hyde::url()` or `Hyde::hasSiteUrl()` instead

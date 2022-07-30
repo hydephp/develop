@@ -2,18 +2,18 @@
 
 namespace Hyde\Framework\Testing\Feature\Concerns;
 
-use Hyde\Framework\Concerns\GeneratesPageMetadata;
+use Hyde\Framework\Concerns\HasArticleMetadata;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Concerns\GeneratesPageMetadata
+ * @covers \Hyde\Framework\Concerns\HasArticleMetadata
  *
  * @see \Hyde\Framework\Models\Metadata
  */
-class GeneratesPageMetadataTest extends TestCase
+class HasArticleMetadataTest extends TestCase
 {
-    use GeneratesPageMetadata;
+    use HasArticleMetadata;
 
     public array $matter;
     protected string $slug;

@@ -6,12 +6,12 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
- * Generates metadata for page models that have front matter.
+ * Generates article metadata for a MarkdownPost.
  *
  * @see \Hyde\Framework\Models\Metadata
- * @see \Hyde\Framework\Testing\Feature\Concerns\GeneratesPageMetadataTest
+ * @see \Hyde\Framework\Testing\Feature\Concerns\HasArticleMetadataTest
  */
-trait GeneratesPageMetadata
+trait HasArticleMetadata
 {
     public array $metadata = [];
     public array $properties = [];
