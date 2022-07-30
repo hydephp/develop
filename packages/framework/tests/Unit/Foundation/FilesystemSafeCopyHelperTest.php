@@ -2,12 +2,14 @@
 
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
+use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Foundation\Filesystem::copy
+ * @covers \Hyde\Framework\HydeKernel::copy
  */
 class FilesystemSafeCopyHelperTest extends TestCase
 {
@@ -26,6 +28,7 @@ class FilesystemSafeCopyHelperTest extends TestCase
     public function test_copy_method_exists()
     {
         $this->assertTrue(method_exists(HydeKernel::class, 'copy'));
+        $this->assertTrue(method_exists(Filesystem::class, 'copy'));
     }
 
     public function test_copy_method_returns404_if_source_file_does_not_exist()
