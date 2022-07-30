@@ -20,7 +20,7 @@ class HyperlinksTest extends TestCase
         $this->class = new Hyperlinks(HydeKernel::getInstance());
     }
 
-	public function test_image_helper_gets_relative_web_link_to_image_stored_in_site_media_folder()
+    public function test_image_helper_gets_relative_web_link_to_image_stored_in_site_media_folder()
     {
         $tests = [
             'test.jpg' => 'media/test.jpg',

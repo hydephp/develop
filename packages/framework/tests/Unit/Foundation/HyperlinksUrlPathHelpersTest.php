@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Foundation\Hyperlinks;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
