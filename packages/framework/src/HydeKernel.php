@@ -104,11 +104,6 @@ class HydeKernel implements HydeKernelContract
         return $this->hyperlinks->image($name);
     }
 
-    public function uriPath(string $path = ''): string|false
-    {
-        return $this->hyperlinks->uriPath($path);
-    }
-
     public function hasSiteUrl(): bool
     {
         return $this->hyperlinks->hasSiteUrl();
