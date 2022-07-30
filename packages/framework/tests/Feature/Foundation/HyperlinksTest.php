@@ -11,5 +11,12 @@ use Hyde\Testing\TestCase;
  */
 class HyperlinksTest extends TestCase
 {
-	//
+    protected Hyperlinks $class;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->class = new Hyperlinks(HydeKernel::getInstance());
+    }
 }
