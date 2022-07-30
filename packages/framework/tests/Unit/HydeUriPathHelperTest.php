@@ -3,6 +3,9 @@
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
+/**
+ * @deprecated as method is deprecated
+ */
 class HydeUriPathHelperTest extends TestCase
 {
     public function test_helper_returns_false_when_no_site_url_is_set()
