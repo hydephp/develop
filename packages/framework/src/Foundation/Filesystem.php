@@ -63,7 +63,6 @@ class Filesystem
         return $this->path('vendor/hyde/framework/'.unslash($path));
     }
 
-
     /**
      * Wrapper for the copy function, but allows choosing if files may be overwritten.
      *
