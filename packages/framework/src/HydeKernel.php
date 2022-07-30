@@ -5,11 +5,9 @@ namespace Hyde\Framework;
 use Composer\InstalledVersions;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -83,51 +81,14 @@ class HydeKernel implements HydeKernelContract
         ));
     }
 
-    /**
-     * Format a link to an HTML file, allowing for pretty URLs, if enabled.
-     *
-     * @see \Hyde\Framework\Testing\Unit\FileHelperPageLinkPrettyUrlTest
-     */
     public function formatHtmlPath(string $destination): string
     {
-        if (config('site.pretty_urls', false) === true) {
-            if (str_ends_with($destination, '.html')) {
-                if ($destination === 'index.html') {
-                    return '/';
-                }
-                if ($destination === DocumentationPage::getOutputDirectory().'/index.html') {
-                    return DocumentationPage::getOutputDirectory().'/';
-                }
-
-                return substr($destination, 0, -5);
-            }
-        }
-
-        return $destination;
+        return $this->hyperlinks->formatHtmlPath($destination);
     }
 
-    /**
-     * Inject the proper number of `../` before the links in Blade templates.
-     *
-     * @param  string  $destination  relative to output directory on compiled site
-     * @return string
-     *
-     * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
-     */
     public function relativeLink(string $destination): string
     {
-        if (str_starts_with($destination, '../')) {
-            return $destination;
-        }
-
-        $nestCount = substr_count($this->currentPage(), '/');
-        $route = '';
-        if ($nestCount > 0) {
-            $route .= str_repeat('../', $nestCount);
-        }
-        $route .= $this->formatHtmlPath($destination);
-
-        return str_replace('//', '/', $route);
+        return $this->hyperlinks->relativeLink($destination);
     }
 
     /**
@@ -146,65 +107,24 @@ class HydeKernel implements HydeKernelContract
         return View::shared('currentRoute');
     }
 
-    /**
-     * Gets a relative web link to the given image stored in the _site/media folder.
-     */
     public function image(string $name): string
     {
-        if (str_starts_with($name, 'http')) {
-            return $name;
-        }
-
-        return $this->relativeLink('media/'.basename($name));
+        return $this->hyperlinks->image($name);
     }
 
-    /**
-     * Return a qualified URI path, if SITE_URL is set in .env, else return false.
-     *
-     * @deprecated v0.53.0-beta - Use Hyde::url() or Hyde::hasSiteUrl() instead.
-     *
-     * @param  string  $path  optional relative path suffix. Omit to return base url.
-     * @return string|false
-     */
     public function uriPath(string $path = ''): string|false
     {
-        if (config('site.url', false)) {
-            return rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? '');
-        }
-
-        return false;
+        return $this->hyperlinks->uriPath($path);
     }
 
-    /**
-     * Check if a site base URL has been set in config (or .env).
-     */
     public function hasSiteUrl(): bool
     {
-        return ! blank(config('site.url'));
+        return $this->hyperlinks->hasSiteUrl();
     }
 
-    /**
-     * Return a qualified URI path to the supplied path if a base URL is set.
-     *
-     * @param  string  $path  optional relative path suffix. Omit to return base url.
-     * @param  string|null  $default  optional default value to return if no site url is set.
-     * @return string
-     *
-     * @throws BaseUrlNotSetException If no site URL is set and no default is provided
-     */
     public function url(string $path = '', ?string $default = null): string
     {
-        $path = $this->formatHtmlPath(trim($path, '/'));
-
-        if ($this->hasSiteUrl()) {
-            return rtrim(rtrim(config('site.url'), '/').'/'.($path ?? ''), '/');
-        }
-
-        if ($default !== null) {
-            return $default.'/'.($path ?? '');
-        }
-
-        throw new BaseUrlNotSetException();
+        return $this->hyperlinks->url($path, $default);
     }
 
     public function path(string $path = ''): string
