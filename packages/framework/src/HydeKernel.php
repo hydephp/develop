@@ -84,16 +84,6 @@ class HydeKernel implements HydeKernelContract
         ));
     }
 
-    public function path(string $path = ''): string
-    {
-       return $this->filesystem->path($path);
-    }
-
-    public function vendorPath(string $path = ''): string
-    {
-        return $this->filesystem->vendorPath($path);
-    }
-
     /**
      * Format a link to an HTML file, allowing for pretty URLs, if enabled.
      *
@@ -216,6 +206,16 @@ class HydeKernel implements HydeKernelContract
         }
 
         throw new BaseUrlNotSetException();
+    }
+
+    public function path(string $path = ''): string
+    {
+        return $this->filesystem->path($path);
+    }
+
+    public function vendorPath(string $path = ''): string
+    {
+        return $this->filesystem->vendorPath($path);
     }
 
     public function copy(string $from, string $to, bool $force = false): bool|int
