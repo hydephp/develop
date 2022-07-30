@@ -59,21 +59,22 @@ class FilesystemTest extends TestCase
         $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('file.php'));
     }
 
-    public function test_path_method_strips_trailing_directory_separators_from_argument()
-    {
-        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('\\/file.php/'));
-    }
-
     public function test_path_method_returns_expected_value_for_nested_path_arguments()
     {
         $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php', $this->filesystem->path('directory/file.php'));
     }
 
+    public function test_path_method_strips_trailing_directory_separators_from_argument()
+    {
+        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('\\/file.php/'));
+    }
+
     public function test_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
     {
-        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php', $this->filesystem->path('directory/file.php/'));
-        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php', $this->filesystem->path('/directory/file.php/'));
-        $this->assertEquals($this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php', $this->filesystem->path('\\/directory/file.php/'));
+        $expected = $this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php';
+        $this->assertEquals($expected, $this->filesystem->path('directory/file.php/'));
+        $this->assertEquals($expected, $this->filesystem->path('/directory/file.php/'));
+        $this->assertEquals($expected, $this->filesystem->path('\\/directory/file.php/'));
     }
 
     public function test_vendor_path()
