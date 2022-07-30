@@ -51,7 +51,7 @@ class Hyperlinks
      * @param  string  $destination  relative to output directory on compiled site
      * @return string
      *
-     * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
+     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkFileHelperRelativeLinkTest
      */
     public function relativeLink(string $destination): string
     {
