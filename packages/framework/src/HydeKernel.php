@@ -15,7 +15,7 @@ use Illuminate\Support\Traits\Macroable;
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
  *
- * @see \Hyde\Framework\Hyde
+ * @see \Hyde\Framework\Hyde for the facade commonly used to access this class.
  *
  * @author  Caen De Silva <caen@desilva.se>
  * @copyright 2022 Caen De Silva
