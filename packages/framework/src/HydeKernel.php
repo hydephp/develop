@@ -246,7 +246,7 @@ class HydeKernel implements HydeKernelContract
 
     public function getSiteOutputPath(string $path = ''): string
     {
-       return $this->filesystem->getSiteOutputPath($path);
+        return $this->filesystem->getSiteOutputPath($path);
     }
 
     public function pathToRelative(string $path): string
