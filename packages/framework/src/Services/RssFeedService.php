@@ -70,7 +70,7 @@ class RssFeedService
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
-            $image->addAttribute('url', isset($post->image->path) ? Hyde::uriPath('media/'.basename($post->image->path)) : $post->image->getSource());
+            $image->addAttribute('url', isset($post->image->path) ? Hyde::url('media/'.basename($post->image->path)) : $post->image->getSource());
             $image->addAttribute('type', str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg');
             $image->addAttribute('length', $post->image->getContentLength());
         }
@@ -141,7 +141,7 @@ class RssFeedService
 
     public static function canGenerateFeed(): bool
     {
-        return (Hyde::uriPath() !== false)
+        return Hyde::hasSiteUrl()
             && config('hyde.generate_rss_feed', true)
             && Features::hasBlogPosts()
             && extension_loaded('simplexml');

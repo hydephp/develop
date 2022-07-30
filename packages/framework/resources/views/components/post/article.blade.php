@@ -1,8 +1,8 @@
-<article aria-label="Article" id="{{ Hyde::uriPath() ?? '' }}posts/{{ $page->slug }}" itemscope itemtype="http://schema.org/Article"
+<article aria-label="Article" id="{{ Hyde::url("posts/$page->slug", '') }}" itemscope itemtype="http://schema.org/Article"
     @class(['post-article mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Framework\Helpers\Features::hasTorchlight()])>
     <meta itemprop="identifier" content="{{ $page->slug }}">
-    @if(Hyde::uriPath())
-    <meta itemprop="url" content="{{ Hyde::uriPath('posts/' . $page->slug) }}">
+    @if(Hyde::hasSiteUrl())
+    <meta itemprop="url" content="{{ Hyde::url('posts/' . $page->slug) }}">
     @endif
     
     <header aria-label="Header section" role="doc-pageheader">

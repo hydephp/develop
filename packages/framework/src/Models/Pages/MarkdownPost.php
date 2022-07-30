@@ -39,7 +39,7 @@ class MarkdownPost extends AbstractMarkdownPage
 
     public function getCanonicalLink(): string
     {
-        return Hyde::uriPath(Hyde::pageLink($this->getCurrentPagePath().'.html'));
+        return Hyde::url(Hyde::pageLink($this->getCurrentPagePath().'.html'));
     }
 
     public function getPostDescription(): string

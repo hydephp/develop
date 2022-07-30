@@ -198,6 +198,8 @@ class HydeKernel implements HydeKernelContract
     /**
      * Return a qualified URI path, if SITE_URL is set in .env, else return false.
      *
+     * @deprecated v0.53.0-beta - Use Hyde::url() or Hyde::hasSiteUrl() instead.
+     *
      * @param  string  $path  optional relative path suffix. Omit to return base url.
      * @return string|false
      */
@@ -208,6 +210,36 @@ class HydeKernel implements HydeKernelContract
         }
 
         return false;
+    }
+
+    /**
+     * Check if a site base URL has been set in config (or .env).
+     */
+    public function hasSiteUrl(): bool
+    {
+        return ! blank(config('site.url'));
+    }
+
+    /**
+     * Return a qualified URI path to the supplied path if a base URL is set.
+     *
+     * @param  string  $path  optional relative path suffix. Omit to return base url.
+     * @param  string|null  $default  optional default value to return if no site url is set.
+     * @return string
+     *
+     * @throws \Exception If no site URL is set and no default is provided
+     */
+    public function url(string $path = '', ?string $default = null): string
+    {
+        if ($this->hasSiteUrl()) {
+            return rtrim(rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? ''), '/');
+        }
+
+        if ($default !== null) {
+            return $default.'/'.(trim($path, '/') ?? '');
+        }
+
+        throw new \Exception('No site URL has been set in config (or .env).');
     }
 
     /**

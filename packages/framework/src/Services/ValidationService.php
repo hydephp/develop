@@ -94,7 +94,7 @@ class ValidationService
 
     public function check_site_has_a_base_url_set(Result $result): Result
     {
-        if ((bool) Hyde::uriPath() === true) {
+        if (Hyde::hasSiteUrl()) {
             return $result->pass('Your site has a base URL set')
                 ->withTip('This will allow Hyde to generate canonical URLs, sitemaps, RSS feeds, and more.');
         }

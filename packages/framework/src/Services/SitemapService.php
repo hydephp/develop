@@ -95,7 +95,7 @@ class SitemapService
 
     public static function canGenerateSitemap(): bool
     {
-        return (Hyde::uriPath() !== false)
+        return Hyde::hasSiteUrl()
             && config('site.generate_sitemap', true)
             && extension_loaded('simplexml');
     }

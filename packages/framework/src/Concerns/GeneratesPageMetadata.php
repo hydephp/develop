@@ -60,8 +60,8 @@ trait GeneratesPageMetadata
     protected function makeOpenGraphPropertiesForArticle(): void
     {
         $this->properties['og:type'] = 'article';
-        if (Hyde::uriPath()) {
-            $this->properties['og:url'] = Hyde::uriPath(Hyde::pageLink('posts/'.$this->slug.'.html'));
+        if (Hyde::hasSiteUrl()) {
+            $this->properties['og:url'] = Hyde::url(Hyde::pageLink('posts/'.$this->slug.'.html'));
         }
 
         if (isset($this->matter['title'])) {
