@@ -37,7 +37,7 @@ class HydeKernel implements HydeKernelContract
         $this->setBasePath($basePath ?? getcwd());
     }
 
-    public static function getInstance(): static
+    public static function getInstance(): HydeKernelContract
     {
         return app(HydeKernelContract::class);
     }
@@ -101,12 +101,12 @@ class HydeKernel implements HydeKernelContract
     public function path(string $path = ''): string
     {
         if (empty($path)) {
-            return static::getBasePath();
+            return $this->getBasePath();
         }
 
         $path = unslash($path);
 
-        return static::getBasePath().DIRECTORY_SEPARATOR.$path;
+        return $this->getBasePath().DIRECTORY_SEPARATOR.$path;
     }
 
     /**
@@ -146,30 +146,23 @@ class HydeKernel implements HydeKernelContract
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
-     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
-     *
      * @param  string  $destination  relative to output directory on compiled site
-     * @param  string|null  $current  the current URI path relative to the site root
      * @return string
      *
      * @see \Hyde\Framework\Testing\Unit\FileHelperRelativeLinkTest
      */
-    public function relativeLink(string $destination, ?string $current = null): string
+    public function relativeLink(string $destination): string
     {
         if (str_starts_with($destination, '../')) {
             return $destination;
         }
 
-        if ($current === null) {
-            $current = static::currentPage();
-        }
-
-        $nestCount = substr_count($current, '/');
+        $nestCount = substr_count($this->currentPage(), '/');
         $route = '';
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
-        $route .= static::pageLink($destination);
+        $route .= $this->pageLink($destination);
 
         return str_replace('//', '/', $route);
     }
@@ -192,28 +185,23 @@ class HydeKernel implements HydeKernelContract
 
     /**
      * Gets a relative web link to the given image stored in the _site/media folder.
-     * Since v0.50.x you no longer have to supply a current page as it will be automatically retrieved from the View.
      */
-    public function image(string $name, string $current = null): string
+    public function image(string $name): string
     {
-        if ($current === null) {
-            $current = static::currentPage();
-        }
-
         if (str_starts_with($name, 'http')) {
             return $name;
         }
 
-        return static::relativeLink('media/'.basename($name), $current);
+        return $this->relativeLink('media/'.basename($name));
     }
 
     /**
      * Return a qualified URI path, if SITE_URL is set in .env, else return false.
      *
-     * @param  string|null  $path  optional relative path suffix. Omit to return base url.
+     * @param  string  $path  optional relative path suffix. Omit to return base url.
      * @return string|false
      */
-    public function uriPath(?string $path = ''): string|false
+    public function uriPath(string $path = ''): string|false
     {
         if (config('site.url', false)) {
             return rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? '');
@@ -265,22 +253,22 @@ class HydeKernel implements HydeKernelContract
 
     public function getBladePagePath(string $path = ''): string
     {
-        return static::getModelSourcePath(BladePage::class, $path);
+        return $this->getModelSourcePath(BladePage::class, $path);
     }
 
     public function getMarkdownPagePath(string $path = ''): string
     {
-        return static::getModelSourcePath(MarkdownPage::class, $path);
+        return $this->getModelSourcePath(MarkdownPage::class, $path);
     }
 
     public function getMarkdownPostPath(string $path = ''): string
     {
-        return static::getModelSourcePath(MarkdownPost::class, $path);
+        return $this->getModelSourcePath(MarkdownPost::class, $path);
     }
 
     public function getDocumentationPagePath(string $path = ''): string
     {
-        return static::getModelSourcePath(DocumentationPage::class, $path);
+        return $this->getModelSourcePath(DocumentationPage::class, $path);
     }
 
     /**

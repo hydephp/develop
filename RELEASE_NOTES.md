@@ -21,6 +21,7 @@ This serves two purposes:
 
 ### Removed
 - internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService
+- internal: The `$currentPage` parameter of a few methods has been removed, it is no longer necessary due to it being inferred from the view being rendered
 
 ### Fixed
 - for any bug fixes.

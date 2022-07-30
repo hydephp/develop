@@ -34,7 +34,8 @@ class FileHelpersImageTest extends TestCase
         ];
 
         foreach ($tests as $input => $expected) {
-            $this->assertEquals(Hyde::image($input, 'foo/bar'), $expected);
+            $this->mockCurrentPage('foo/bar');
+            $this->assertEquals(Hyde::image($input), $expected);
         }
     }
 }

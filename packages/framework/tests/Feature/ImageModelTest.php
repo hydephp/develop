@@ -168,6 +168,7 @@ class ImageModelTest extends TestCase
             'path' => 'image.jpg',
         ]);
 
-        $this->assertEquals('../media/image.jpg', $image->getLink('foo/bar'));
+        $this->mockCurrentPage('foo/bar');
+        $this->assertEquals('../media/image.jpg', $image->getLink());
     }
 }

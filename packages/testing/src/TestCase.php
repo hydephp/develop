@@ -75,4 +75,10 @@ abstract class TestCase extends BaseTestCase
         view()->share('page', $page ?? new MarkdownPage());
         view()->share('currentPage', $currentPage ?? 'PHPUnit');
     }
+
+    /** @internal */
+    protected function mockCurrentPage(string $currentPage)
+    {
+        view()->share('currentPage', $currentPage);
+    }
 }

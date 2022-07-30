@@ -153,7 +153,7 @@ class RouteTest extends TestCase
     {
         $route = new Route(new MarkdownPage(slug: 'foo'));
         view()->share('currentPage', 'foo/bar');
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath(), 'foo/bar'), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
         $this->assertEquals('../foo.html', $route->getLink());
     }
 
