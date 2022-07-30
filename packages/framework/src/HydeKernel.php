@@ -213,6 +213,30 @@ class HydeKernel implements HydeKernelContract
     }
 
     /**
+     * Check if a site base URL has been set in config (or .env).
+     */
+    public function hasSiteUrl(): bool
+    {
+        return config('site.url') !== null;
+    }
+
+    /**
+     * Return a qualified URI path, if a SITE_URL is set, else an exception is thrown.
+     *
+     * @param  string  $path  optional relative path suffix. Omit to return base url.
+     * @return string
+     * @throws \Exception
+     */
+    public function qualifiedUrl(string $path = ''): string
+    {
+        if ($this->hasSiteUrl()) {
+            return rtrim(rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? ''), '/');
+        }
+
+        throw new \Exception('No site URL has been set in config (or .env).');
+    }
+
+    /**
      * Wrapper for the copy function, but allows choosing if files may be overwritten.
      *
      * @param  string  $from  The source file path.
