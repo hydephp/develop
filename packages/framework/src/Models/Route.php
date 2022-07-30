@@ -66,7 +66,7 @@ class Route implements RouteContract, RouteFacadeContract
         return $this->sourceModel->getOutputPath();
     }
 
-    /** @todo add to contract */
+    /** @inheritDoc */
     public function getQualifiedUrl(): string
     {
         return Hyde::url($this->getOutputFilePath());
