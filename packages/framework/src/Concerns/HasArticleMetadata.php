@@ -71,16 +71,7 @@ trait HasArticleMetadata
         }
 
         if (isset($this->matter['image'])) {
-            if (is_string($this->matter['image'])) {
-                $this->properties['og:image'] = $this->matter['image'];
-            } else {
-                if (isset($this->matter['image']['path'])) {
-                    $this->properties['og:image'] = $this->matter['image']['path'];
-                }
-                if (isset($this->matter['image']['uri'])) {
-                    $this->properties['og:image'] = $this->matter['image']['uri'];
-                }
-            }
+            $this->setImageMetadata();
         }
     }
 
@@ -97,5 +88,19 @@ trait HasArticleMetadata
         }
 
         return $author['name'] ?? $author['username'] ?? 'Guest';
+    }
+
+    protected function setImageMetadata(): void
+    {
+        if (is_string($this->matter['image'])) {
+            $this->properties['og:image'] = $this->matter['image'];
+        } else {
+            if (isset($this->matter['image']['path'])) {
+                $this->properties['og:image'] = $this->matter['image']['path'];
+            }
+            if (isset($this->matter['image']['uri'])) {
+                $this->properties['og:image'] = $this->matter['image']['uri'];
+            }
+        }
     }
 }
