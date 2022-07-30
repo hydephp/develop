@@ -93,6 +93,6 @@ class HydeUrlPathHelpersTest extends TestCase
     public function test_helper_returns_expected_string_when_site_url_is_set()
     {
         config(['site.url' => 'https://example.com']);
-        $this->assertEquals('https://example.com/foo/bar.html', Hyde::uriPath('foo/bar.html'));
+        $this->assertEquals('https://example.com/foo/bar.html', Hyde::qualifiedUrl('foo/bar.html'));
     }
 }

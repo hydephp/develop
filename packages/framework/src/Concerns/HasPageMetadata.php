@@ -17,7 +17,7 @@ trait HasPageMetadata
 {
     public function getCanonicalUrl(): string
     {
-        return Hyde::uriPath(Hyde::pageLink($this->getCurrentPagePath().'.html'));
+        return Hyde::qualifiedUrl(Hyde::pageLink($this->getCurrentPagePath().'.html'));
     }
 
     public function getDynamicMetadata(): array
@@ -29,14 +29,14 @@ trait HasPageMetadata
         }
 
         if ($this->canUseSitemapLink()) {
-            $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::uriPath('sitemap.xml').'" />';
+            $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::qualifiedUrl('sitemap.xml').'" />';
         }
 
         if ($this->canUseRssFeedlink()) {
             $array[] = '<link rel="alternate" type="application/rss+xml" title="'
             .RssFeedService::getTitle()
             .' RSS Feed" href="'
-            .Hyde::uriPath(RssFeedService::getDefaultOutputFilename())
+            .Hyde::qualifiedUrl(RssFeedService::getDefaultOutputFilename())
             .'" />';
         }
 
