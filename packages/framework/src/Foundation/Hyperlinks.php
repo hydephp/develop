@@ -25,7 +25,7 @@ class Hyperlinks
     /**
      * Format a link to an HTML file, allowing for pretty URLs, if enabled.
      *
-     * @see \Hyde\Framework\Testing\Unit\FileHelperPageLinkPrettyUrlTest
+     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkFormatHtmlPathTest
      */
     public function formatHtmlPath(string $destination): string
     {
