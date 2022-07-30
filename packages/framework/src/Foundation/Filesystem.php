@@ -15,6 +15,8 @@ use Hyde\Framework\StaticPageBuilder;
  *
  * If a method uses the name `path` it refers to an internal file path.
  * if a method uses the name `link` it refers to a web link used in Blade templates.
+ *
+ * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
 class Filesystem
 {
