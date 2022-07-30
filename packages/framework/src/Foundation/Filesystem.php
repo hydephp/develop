@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Foundation;
 
+use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -17,11 +18,11 @@ use Hyde\Framework\StaticPageBuilder;
  */
 class Filesystem
 {
-    protected string $basePath;
+    protected HydeKernelContract $kernel;
 
-    public function __construct(string $basePath)
+    public function __construct(HydeKernelContract $kernel)
     {
-        $this->basePath = $basePath;
+        $this->kernel = $kernel;
     }
 
     public function getBasePath(): string
