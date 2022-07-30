@@ -225,6 +225,7 @@ class HydeKernel implements HydeKernelContract
      *
      * @param  string  $path  optional relative path suffix. Omit to return base url.
      * @return string
+     *
      * @throws \Exception
      */
     public function qualifiedUrl(string $path = ''): string
