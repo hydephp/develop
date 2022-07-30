@@ -33,11 +33,7 @@ trait HasPageMetadata
         }
 
         if ($this->canUseRssFeedlink()) {
-            $array[] = '<link rel="alternate" type="application/rss+xml" title="'
-            .RssFeedService::getTitle()
-            .' RSS Feed" href="'
-            .Hyde::url(RssFeedService::getDefaultOutputFilename())
-            .'" />';
+            $array[] = $this->makeRssFeedLink();
         }
 
         if (isset($this->title)) {
@@ -108,5 +104,14 @@ trait HasPageMetadata
     public function hasOpenGraphTitleInConfig(): bool
     {
         return str_contains(json_encode(config('hyde.meta', [])), 'og:title');
+    }
+
+    protected function makeRssFeedLink(): string
+    {
+        return '<link rel="alternate" type="application/rss+xml" title="'
+            . RssFeedService::getTitle()
+            . ' RSS Feed" href="'
+            . Hyde::url(RssFeedService::getDefaultOutputFilename())
+            . '" />';
     }
 }
