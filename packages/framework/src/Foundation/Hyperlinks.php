@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Foundation;
 
+use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 
 /**
  * Contains helpers and logic for resolving web paths for compiled files.
