@@ -20,9 +20,7 @@ trait HasArticleMetadata
     {
         $this->parseFrontMatterMetadata();
 
-        if ($this instanceof MarkdownPost || isset($this->forceOpenGraph) && $this->forceOpenGraph) {
-            $this->makeOpenGraphPropertiesForArticle();
-        }
+        $this->makeOpenGraphPropertiesForArticle();
     }
 
     public function getMetadata(): array

@@ -18,8 +18,6 @@ class HasArticleMetadataTest extends TestCase
     public array $matter;
     protected string $slug;
 
-    protected bool $forceOpenGraph = true;
-
     protected function setUp(): void
     {
         parent::setUp();
