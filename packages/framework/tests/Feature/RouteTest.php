@@ -193,6 +193,7 @@ class RouteTest extends TestCase
 
     public function test_get_qualified_url_throws_exception_when_a_base_url_is_not_set()
     {
+        config(['site.url' => null]);
         $this->expectException(BaseUrlNotSetException::class);
         $route = new Route(new MarkdownPage(slug: 'foo'));
         $route->getQualifiedUrl();
