@@ -118,32 +118,4 @@ class FilesystemTest extends TestCase
         unlink('foo');
         unlink('bar');
     }
-
-    public function test_get_model_source_path()
-    {
-    }
-
-    public function test_get_blade_page_path()
-    {
-    }
-
-    public function test_get_markdown_page_path()
-    {
-    }
-
-    public function test_get_markdown_post_path()
-    {
-    }
-
-    public function test_get_documentation_page_path()
-    {
-    }
-
-    public function test_get_site_output_path()
-    {
-    }
-
-    public function test_path_to_relative()
-    {
-    }
 }
