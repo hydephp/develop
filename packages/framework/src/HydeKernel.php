@@ -231,12 +231,14 @@ class HydeKernel implements HydeKernelContract
      */
     public function url(string $path = '', ?string $default = null): string
     {
+        $path = $this->pageLink(trim($path, '/'));
+
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim(config('site.url'), '/').'/'.(trim($path, '/') ?? ''), '/');
+            return rtrim(rtrim(config('site.url'), '/').'/'.($path ?? ''), '/');
         }
 
         if ($default !== null) {
-            return $default.'/'.(trim($path, '/') ?? '');
+            return $default.'/'.($path ?? '');
         }
 
         throw new \Exception('No site URL has been set in config (or .env).');

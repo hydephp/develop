@@ -95,4 +95,13 @@ class HydeUrlPathHelpersTest extends TestCase
         config(['site.url' => 'https://example.com']);
         $this->assertEquals('https://example.com/foo/bar.html', Hyde::url('foo/bar.html'));
     }
+
+    // test returned url uses pretty urls when enabled
+    public function test_helper_returns_expected_string_when_pretty_urls_are_enabled()
+    {
+        config(['site.url' => 'https://example.com', 'site.pretty_urls' => true]);
+        $this->assertEquals('https://example.com', Hyde::url('index.html'));
+        $this->assertEquals('https://example.com/foo', Hyde::url('foo.html'));
+        $this->assertEquals('https://example.com/docs', Hyde::url('docs/index.html'));
+    }
 }
