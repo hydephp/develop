@@ -11,6 +11,15 @@ use Hyde\Framework\Foundation\Filesystem;
  */
 class FilesystemTest extends TestCase
 {
+    protected Filesystem $filesystem;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->filesystem = new Filesystem(new HydeKernel());
+    }
+
     public function test_get_base_path_returns_kernels_base_path()
     {
         $kernel = $this->mock(HydeKernel::class);
