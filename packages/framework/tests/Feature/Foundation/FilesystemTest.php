@@ -28,9 +28,30 @@ class FilesystemTest extends TestCase
         $this->assertEquals('/path/to/project', $filesystem->getBasePath());
     }
 
-    public function test_path_method()
+    public function test_path_method_exists()
     {
         $this->assertTrue(method_exists(Filesystem::class, 'path'));
+    }
+
+    public function test_path_method_returns_string()
+    {
+        $this->assertIsString($this->filesystem->path());
+    }
+
+    public function test_path_method_returns_base_path_when_not_supplied_with_argument()
+    {
+        $kernel = $this->mock(HydeKernel::class);
+        $kernel->shouldReceive('getBasePath')->andReturn('/path/to/project');
+        $filesystem = new Filesystem($kernel);
+        $this->assertEquals('/path/to/project', $filesystem->path());
+    }
+
+    public function test_path_method_returns_path_relative_to_base_path_when_supplied_with_argument()
+    {
+        $kernel = $this->mock(HydeKernel::class);
+        $kernel->shouldReceive('getBasePath')->andReturn('/path/to/project');
+        $filesystem = new Filesystem($kernel);
+        $this->assertEquals('/path/to/project'.DIRECTORY_SEPARATOR.'foo/bar.php', $filesystem->path('foo/bar.php'));
     }
 
     public function test_path_method_returns_qualified_file_path_when_supplied_with_argument()
