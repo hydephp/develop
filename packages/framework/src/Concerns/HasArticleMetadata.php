@@ -17,7 +17,7 @@ trait HasArticleMetadata
     public array $metadata = [];
     public array $properties = [];
 
-    abstract function getRoute(): RouteContract;
+    abstract public function getRoute(): RouteContract;
 
     public function constructMetadata(): void
     {

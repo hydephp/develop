@@ -17,7 +17,8 @@ use Hyde\Framework\Services\SitemapService;
 trait HasPageMetadata
 {
     abstract public function htmlTitle(?string $title = null): string;
-    abstract function getRoute(): RouteContract;
+
+    abstract public function getRoute(): RouteContract;
 
     public function getCanonicalUrl(): string
     {
