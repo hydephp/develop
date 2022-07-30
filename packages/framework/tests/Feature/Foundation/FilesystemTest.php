@@ -8,6 +8,9 @@ use Hyde\Framework\Foundation\Filesystem;
 
 /**
  * @covers \Hyde\Framework\Foundation\Filesystem
+ *
+ * @see \Hyde\Framework\Testing\Unit\Foundation\FilesystemSafeCopyHelperTest
+ * @see \Hyde\Framework\Testing\Unit\Foundation\FluentFilesystemModelPathHelpersTest
  */
 class FilesystemTest extends TestCase
 {
@@ -88,7 +91,6 @@ class FilesystemTest extends TestCase
         $this->assertEquals('/foo' . DIRECTORY_SEPARATOR . 'vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
     }
 
-    /** @see \Hyde\Framework\Testing\Unit\Foundation\FilesystemSafeCopyHelperTest for more exensive tests */
     public function test_copy_method()
     {
         $this->assertTrue(method_exists(Filesystem::class, 'copy'));
