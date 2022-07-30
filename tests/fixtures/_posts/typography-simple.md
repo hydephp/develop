@@ -1,5 +1,5 @@
 ---
-title: Typography Should Be Easy.
+title: Typography Should Be Easy. Simple.
 description: A TailwindCSS Typography demo with little front matter.
 ---
 
