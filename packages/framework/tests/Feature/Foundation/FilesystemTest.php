@@ -28,9 +28,31 @@ class FilesystemTest extends TestCase
         $this->assertEquals('/path/to/project', $filesystem->getBasePath());
     }
 
-    public function test_path()
+    public function test_path_method()
     {
+        $this->assertTrue(method_exists(Filesystem::class, 'path'));
+    }
 
+    public function test_path_method_returns_qualified_file_path_when_supplied_with_argument()
+    {
+        $this->assertEquals($this->filesystem->path('file.php'), $this->filesystem->path().DIRECTORY_SEPARATOR.'file.php');
+    }
+
+    public function test_path_method_strips_trailing_directory_separators_from_argument()
+    {
+        $this->assertEquals($this->filesystem->path('\\/file.php/'), $this->filesystem->path().DIRECTORY_SEPARATOR.'file.php');
+    }
+
+    public function test_path_method_returns_expected_value_for_nested_path_arguments()
+    {
+        $this->assertEquals($this->filesystem->path('directory/file.php'), $this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php');
+    }
+
+    public function test_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
+    {
+        $this->assertEquals($this->filesystem->path('directory/file.php/'), $this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php');
+        $this->assertEquals($this->filesystem->path('/directory/file.php/'), $this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php');
+        $this->assertEquals($this->filesystem->path('\\/directory/file.php/'), $this->filesystem->path().DIRECTORY_SEPARATOR.'directory/file.php');
     }
 
     public function test_vendor_path()
