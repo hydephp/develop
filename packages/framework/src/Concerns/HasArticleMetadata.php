@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Concerns;
 
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
@@ -15,6 +16,8 @@ trait HasArticleMetadata
 {
     public array $metadata = [];
     public array $properties = [];
+
+    abstract function getRoute(): RouteContract;
 
     public function constructMetadata(): void
     {
