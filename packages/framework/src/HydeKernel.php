@@ -217,7 +217,7 @@ class HydeKernel implements HydeKernelContract
      */
     public function hasSiteUrl(): bool
     {
-        return config('site.url') !== null;
+        return ! blank(config('site.url'));
     }
 
     /**
