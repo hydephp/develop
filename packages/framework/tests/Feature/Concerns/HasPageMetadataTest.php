@@ -281,7 +281,10 @@ class HasPageMetadataTest extends TestCase
         {
             use HasPageMetadata;
 
-            public function htmlTitle(?string $title = null): string { return 'foo'; }
+            public function htmlTitle(?string $title = null): string
+            {
+                return 'foo';
+            }
         };
     }
 }
