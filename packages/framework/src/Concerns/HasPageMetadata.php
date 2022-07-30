@@ -34,7 +34,7 @@ trait HasPageMetadata
             $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::url('sitemap.xml').'" />';
         }
 
-        if ($this->canUseRssFeedlink()) {
+        if ($this->canUseRssFeedLink()) {
             $array[] = $this->makeRssFeedLink();
         }
 
