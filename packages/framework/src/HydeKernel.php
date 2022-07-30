@@ -58,8 +58,6 @@ class HydeKernel implements HydeKernelContract
         $this->basePath = rtrim($basePath, '/\\');
     }
 
-    // HydeHelperFacade
-
     public function features(): Features
     {
         return new Features;
@@ -70,17 +68,11 @@ class HydeKernel implements HydeKernelContract
         return Features::enabled($feature);
     }
 
-    /**
-     * Get the current page path, or fall back to the root path.
-     */
     public function currentPage(): string
     {
         return View::shared('currentPage', '');
     }
 
-    /**
-     * Get the current page route, or fall back to null.
-     */
     public function currentRoute(): ?RouteContract
     {
         return View::shared('currentRoute');
