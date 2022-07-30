@@ -41,7 +41,6 @@ class Hyperlinks
         return $destination;
     }
 
-
     /**
      * Inject the proper number of `../` before the links in Blade templates.
      *
