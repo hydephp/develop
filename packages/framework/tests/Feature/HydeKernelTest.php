@@ -8,6 +8,9 @@ use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**
+ * This test class runs high-level tests on the HydeKernel class,
+ * as most of the logic actually resides in linked service classes.
+ *
  * @covers \Hyde\Framework\HydeKernel
  */
 class HydeKernelTest extends TestCase
