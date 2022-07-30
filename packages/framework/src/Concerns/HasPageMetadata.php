@@ -60,10 +60,8 @@ trait HasPageMetadata
 
     public function renderPageMetadata(): string
     {
-        $dynamicMetadata = $this->getDynamicMetadata();
-
         return Meta::render(
-            $dynamicMetadata
+            $this->getDynamicMetadata()
         );
     }
 
