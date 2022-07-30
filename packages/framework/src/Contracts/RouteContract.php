@@ -64,7 +64,7 @@ interface RouteContract
     /**
      * Resolve a site web link to the file, using pretty URLs if enabled.
      *
-     * @return string Relative path to the page
+     * @return string Relative URL path to the route site file.
      */
     public function getLink(): string;
 
