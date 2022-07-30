@@ -73,7 +73,7 @@ class Route implements RouteContract, RouteFacadeContract
     }
 
     /** @todo add to contract */
-    public function getPermalink(): string
+    public function getQualifiedUrl(): string
     {
         return Hyde::url($this->getOutputFilePath());
     }

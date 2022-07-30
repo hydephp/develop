@@ -48,7 +48,7 @@ class SitemapService
     public function addRoute(RouteContract $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
-        $urlItem->addChild('loc', htmlentities($route->getPermalink()));
+        $urlItem->addChild('loc', htmlentities($route->getQualifiedUrl()));
         $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($route->getSourceFilePath())));
         $urlItem->addChild('changefreq', 'daily');
         if (config('hyde.sitemap.dynamic_priority', true)) {

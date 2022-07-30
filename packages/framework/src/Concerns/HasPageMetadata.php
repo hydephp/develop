@@ -19,7 +19,7 @@ trait HasPageMetadata
 
     public function getCanonicalUrl(): string
     {
-        return $this->getRoute()->getPermalink();
+        return $this->getRoute()->getQualifiedUrl();
     }
 
     public function getDynamicMetadata(): array
