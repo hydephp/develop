@@ -130,8 +130,9 @@ abstract class AbstractPage implements PageContract
     public function htmlTitle(?string $title = null): string
     {
         $pageTitle = $title ?? $this->title ?? null;
+
         return $pageTitle
-            ? config('site.name', 'HydePHP') . ' - ' . $pageTitle
+            ? config('site.name', 'HydePHP').' - '.$pageTitle
             : config('site.name', 'HydePHP');
     }
 }
