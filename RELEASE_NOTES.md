@@ -15,6 +15,7 @@ This release refactors some internal code. If you have published any Blade views
 
 ### Deprecated
 - Deprecated `Hyde::uriPath()`, use `Hyde::url()` or `Hyde::hasSiteUrl()` instead
+- Deprecated `Helpers\Author.php`, will be merged into `Models\Author.php`
 
 ### Removed
 - internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService
