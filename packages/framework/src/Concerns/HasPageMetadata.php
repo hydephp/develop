@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Concerns;
 
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
@@ -16,6 +17,8 @@ use Hyde\Framework\Services\SitemapService;
 trait HasPageMetadata
 {
     abstract public function htmlTitle(?string $title = null): string;
+
+    abstract public function getRoute(): RouteContract;
 
     public function getCanonicalUrl(): string
     {
