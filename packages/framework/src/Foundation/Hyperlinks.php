@@ -2,18 +2,18 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Contracts\HydeKernelContract;
-use Hyde\Framework\Exceptions\BaseUrlNotSetException;
+use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 
 /**
  * Contains helpers and logic for resolving web paths for compiled files.
  */
 class Hyperlinks
 {
-    protected HydeKernelContract $kernel;
+    protected HydeKernel $kernel;
 
-    public function __construct(HydeKernelContract $kernel)
+    public function __construct(HydeKernel $kernel)
     {
         $this->kernel = $kernel;
     }
