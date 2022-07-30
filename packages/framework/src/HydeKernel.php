@@ -70,6 +70,22 @@ class HydeKernel implements HydeKernelContract
         return Features::enabled($feature);
     }
 
+    /**
+     * Get the current page path, or fall back to the root path.
+     */
+    public function currentPage(): string
+    {
+        return View::shared('currentPage', '');
+    }
+
+    /**
+     * Get the current page route, or fall back to null.
+     */
+    public function currentRoute(): ?RouteContract
+    {
+        return View::shared('currentRoute');
+    }
+
     public function makeTitle(string $slug): string
     {
         $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
@@ -89,22 +105,6 @@ class HydeKernel implements HydeKernelContract
     public function relativeLink(string $destination): string
     {
         return $this->hyperlinks->relativeLink($destination);
-    }
-
-    /**
-     * Get the current page path, or fall back to the root path.
-     */
-    public function currentPage(): string
-    {
-        return View::shared('currentPage', '');
-    }
-
-    /**
-     * Get the current page route, or fall back to null.
-     */
-    public function currentRoute(): ?RouteContract
-    {
-        return View::shared('currentRoute');
     }
 
     public function image(string $name): string
