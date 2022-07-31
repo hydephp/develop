@@ -5,8 +5,9 @@ namespace Hyde\Framework\Helpers;
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
  *
- * Based entirely on Laravel Jetstream (License MIT)
+ * @see \Hyde\Framework\Testing\Feature\ConfigurableFeaturesTest
  *
+ * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/
  */
 class Features
