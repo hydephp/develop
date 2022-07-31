@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpEntryPointsManager">
+    <entry_point>
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_a_torchlight_api_token_is_set" />
+      <entry_point TYPE="phpClass" FQNAME="\Hyde\Framework\Services\ValidationService" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_documentation_site_has_an_index_page" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_for_conflicts_between_blade_and_markdown_pages" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_a_404_page" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_a_base_url_set" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_an_app_css_stylesheet" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_an_index_page" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_validators_can_run" />
+    </entry_point>
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_a_torchlight_api_token_is_set" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_documentation_site_has_an_index_page" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_for_conflicts_between_blade_and_markdown_pages" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_a_404_page" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_a_base_url_set" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_an_app_css_stylesheet" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_an_index_page" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_validators_can_run" />
+  </component>
+</project>
