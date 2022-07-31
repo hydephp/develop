@@ -1,15 +1,25 @@
 <?php
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Feature\Foundation;
 
-use Hyde\Framework\Hyde;
+use Hyde\Framework\Foundation\Hyperlinks;
+use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\HydeKernel::image
+ * @covers \Hyde\Framework\Foundation\Hyperlinks
  */
-class FileHelpersImageTest extends TestCase
+class HyperlinksTest extends TestCase
 {
+    protected Hyperlinks $class;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->class = new Hyperlinks(HydeKernel::getInstance());
+    }
+
     public function test_image_helper_gets_relative_web_link_to_image_stored_in_site_media_folder()
     {
         $tests = [
@@ -20,7 +30,7 @@ class FileHelpersImageTest extends TestCase
         ];
 
         foreach ($tests as $input => $expected) {
-            $this->assertEquals(Hyde::image($input), $expected);
+            $this->assertEquals($this->class->image($input), $expected);
         }
     }
 
@@ -35,7 +45,7 @@ class FileHelpersImageTest extends TestCase
 
         foreach ($tests as $input => $expected) {
             $this->mockCurrentPage('foo/bar');
-            $this->assertEquals(Hyde::image($input), $expected);
+            $this->assertEquals($this->class->image($input), $expected);
         }
     }
 }

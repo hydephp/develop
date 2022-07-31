@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -10,11 +10,12 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * Class FluentPathHelpersTest.
- *
  * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Framework\Foundation\Filesystem
+ *
+ * @todo Merge into FilesystemTest
  */
-class FluentPathHelpersTest extends TestCase
+class FluentFilesystemModelPathHelpersTest extends TestCase
 {
     public function test_get_model_source_path_method_returns_path_for_model_classes()
     {

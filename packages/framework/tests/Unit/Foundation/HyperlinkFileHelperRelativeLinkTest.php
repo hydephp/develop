@@ -1,16 +1,14 @@
 <?php
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * Class FileHelperRelativeLinkTest.
- *
- * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Framework\Foundation\Hyperlinks::relativeLink
  */
-class FileHelperRelativeLinkTest extends TestCase
+class HyperlinkFileHelperRelativeLinkTest extends TestCase
 {
     public function test_helper_returns_string_as_is_if_current_is_not_set()
     {

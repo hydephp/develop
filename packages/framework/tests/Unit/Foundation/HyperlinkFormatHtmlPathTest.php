@@ -1,16 +1,14 @@
 <?php
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * Class FileHelperPageLinkPrettyUrlTest.
- *
- * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Framework\Foundation\Hyperlinks::formatHtmlPath
  */
-class FileHelperPageLinkPrettyUrlTest extends TestCase
+class HyperlinkFormatHtmlPathTest extends TestCase
 {
     public function test_helper_returns_string_as_is_if_pretty_urls_is_not_true()
     {

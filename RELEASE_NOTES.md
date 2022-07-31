@@ -13,13 +13,13 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- internal: The HydeKernel has been refactored to move related logic to service classes. This does not change the end usage as the Hyde facade still works the same
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Remove deprecated Hyde::uriPath() helper
 
 ### Fixed
 - for any bug fixes.
