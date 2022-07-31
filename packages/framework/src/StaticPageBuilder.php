@@ -12,6 +12,8 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
  * Converts a Page Model into a static HTML page.
+ *
+ * @see \Hyde\Framework\Testing\Feature\StaticPageBuilderTest
  */
 class StaticPageBuilder
 {
