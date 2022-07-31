@@ -11,6 +11,8 @@
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_an_app_css_stylesheet" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_an_index_page" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_validators_can_run" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Application registerBaseBindings" />
+      <entry_point TYPE="phpClass" FQNAME="\Hyde\Framework\Application" />
     </entry_point>
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_a_torchlight_api_token_is_set" />
     <pattern value="\Hyde\Framework\Services\ValidationService" />
@@ -21,5 +23,7 @@
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_an_app_css_stylesheet" />
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_an_index_page" />
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_validators_can_run" />
+    <pattern value="\Hyde\Framework\Application" member="registerBaseBindings" />
+    <pattern value="\Hyde\Framework\Application" />
   </component>
 </project>
