@@ -65,11 +65,11 @@ class Filesystem
     }
 
     /**
-     * Wrapper for the copy function
+     * Wrapper for the copy function, but using project relative paths.
      */
     public function copy(string $from, string $to): bool
     {
-        return copy($from, $to);
+        return copy($this->path($from), $this->path($to));
     }
 
     /**

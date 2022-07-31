@@ -21,6 +21,7 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 - `DiscoveryService::getSourceFileListForModel()` now throws an exception instead of returning false when given an invalid model class
 - `DiscoveryService::getFilePathForModelClassFiles` method was renamed to `DiscoveryService::getModelSourceDirectory`
 - `DiscoveryService::getFileExtensionForModelFiles` method was renamed to `DiscoveryService::getModelFileExtension`
+- The `Hyde::copy()` helper now always uses paths relative to the project
 - The `Hyde::copy()` helper will always overwrite existing files
 
 ### Deprecated
