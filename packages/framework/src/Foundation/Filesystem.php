@@ -13,8 +13,7 @@ use Hyde\Framework\StaticPageBuilder;
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
  *
- * If a method uses the name `path` it refers to an internal file path.
- * if a method uses the name `link` it refers to a web link used in Blade templates.
+ * All paths are relative to the root of the application.
  *
  * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
