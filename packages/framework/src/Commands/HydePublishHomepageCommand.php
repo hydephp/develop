@@ -28,9 +28,9 @@ class HydePublishHomepageCommand extends Command
     {
         $this->selected = $this->argument('homepage') ?? $this->promptForHomepage();
 
-        if (! $this->canExistingIndexFileBeOverwritten())
-        {
+        if (! $this->canExistingIndexFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
+
             return 409;
         }
 
