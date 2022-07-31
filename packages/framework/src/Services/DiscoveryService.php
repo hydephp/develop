@@ -47,10 +47,11 @@ class DiscoveryService
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
-     * @param string<AbstractPage> $model
+     * @param  string<AbstractPage>  $model
      * @return array
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
+     *
      * @example DiscoveryService::getSourceFileListForModel(BladePage::class)
      */
     public static function getSourceFileListForModel(string $model): array
@@ -70,7 +71,7 @@ class DiscoveryService
 
         return $files;
     }
-        
+
     public static function getFileExtensionForModelFiles(string $model): string
     {
         /** @var AbstractPage $model */
@@ -115,7 +116,7 @@ class DiscoveryService
                 config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
             ).'}'), GLOB_BRACE);
     }
-    
+
     /**
      * Create a filepath that can be opened in the browser from a terminal.
      *
@@ -135,7 +136,6 @@ class DiscoveryService
         );
     }
 
-    
     public static function formatSlugForModel(string $model, string $filepath): string
     {
         /** @var AbstractPage $model */

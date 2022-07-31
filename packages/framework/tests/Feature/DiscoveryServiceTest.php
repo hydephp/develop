@@ -86,7 +86,6 @@ class DiscoveryServiceTest extends TestCase
         $this->assertSame($filename, $output);
     }
 
-
     public function test_get_source_file_list_for_blade_page()
     {
         $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
