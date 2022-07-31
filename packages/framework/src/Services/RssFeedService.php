@@ -145,11 +145,4 @@ class RssFeedService
         return (new static)->generate()->getXML();
     }
 
-    public static function canGenerateFeed(): bool
-    {
-        return Hyde::hasSiteUrl()
-            && config('hyde.generate_rss_feed', true)
-            && Features::hasBlogPosts()
-            && extension_loaded('simplexml');
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RssFeedService;
 use Hyde\Testing\TestCase;
@@ -138,19 +139,19 @@ class RssFeedServiceTest extends TestCase
     public function test_can_generate_sitemap_helper_returns_true_if_hyde_has_base_url()
     {
         config(['site.url' => 'foo']);
-        $this->assertTrue(RssFeedService::canGenerateFeed());
+        $this->assertTrue(Features::canGenerateFeed());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_hyde_does_not_have_base_url()
     {
         config(['site.url' => '']);
-        $this->assertFalse(RssFeedService::canGenerateFeed());
+        $this->assertFalse(Features::canGenerateFeed());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
     {
         config(['site.url' => 'foo']);
         config(['hyde.generate_rss_feed' => false]);
-        $this->assertFalse(RssFeedService::canGenerateFeed());
+        $this->assertFalse(Features::canGenerateFeed());
     }
 }

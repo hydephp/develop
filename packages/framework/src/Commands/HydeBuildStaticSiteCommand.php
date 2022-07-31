@@ -170,7 +170,7 @@ class HydeBuildStaticSiteCommand extends Command
 
     protected function canGenerateFeed(): bool
     {
-        return RssFeedService::canGenerateFeed()
+        return Features::canGenerateFeed()
             && count(DiscoveryService::getMarkdownPostFiles()) > 0;
     }
 

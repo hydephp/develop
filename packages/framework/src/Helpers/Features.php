@@ -144,4 +144,12 @@ class Features
             && config('site.generate_sitemap', true)
             && extension_loaded('simplexml');
     }
+
+    public static function canGenerateFeed(): bool
+    {
+        return Hyde::hasSiteUrl()
+            && config('hyde.generate_rss_feed', true)
+            && Features::hasBlogPosts()
+            && extension_loaded('simplexml');
+    }
 }
