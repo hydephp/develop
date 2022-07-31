@@ -9,7 +9,7 @@ use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Arr;
 
 /**
- * @see \Hyde\Framework\Testing\MarkdownDocumentTest
+ * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
 class MarkdownDocument implements MarkdownDocumentContract
 {

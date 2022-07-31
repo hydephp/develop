@@ -6,7 +6,7 @@ use Hyde\Framework\Services\ValidationService;
 use LaravelZero\Framework\Commands\Command;
 
 /**
- * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
  */
 class HydeValidateCommand extends Command
 {

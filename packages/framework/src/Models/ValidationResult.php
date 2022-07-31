@@ -3,8 +3,8 @@
 namespace Hyde\Framework\Models;
 
 /**
- * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
- * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
  */
 class ValidationResult
 {
