@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -156,9 +157,11 @@ class DiscoveryServiceTest extends TestCase
         }
     }
 
-    public function test_get_source_file_list_returns_false_for_invalid_method()
+    public function test_get_source_file_list_throws_exception_for_invalid_model_class()
     {
-        $this->assertFalse(DiscoveryService::getSourceFileListForModel('NonExistentModel'));
+        $this->expectException(UnsupportedPageTypeException::class);
+
+        DiscoveryService::getSourceFileListForModel('NonExistentModel');
     }
 
     public function test_get_media_asset_files()
