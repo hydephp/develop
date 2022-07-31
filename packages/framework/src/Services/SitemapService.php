@@ -98,11 +98,4 @@ class SitemapService
     {
         return (new static)->generate()->getXML();
     }
-
-    public static function canGenerateSitemap(): bool
-    {
-        return Hyde::hasSiteUrl()
-            && config('site.generate_sitemap', true)
-            && extension_loaded('simplexml');
-    }
 }

@@ -165,7 +165,7 @@ class HydeBuildStaticSiteCommand extends Command
 
     protected function canGenerateSitemap(): bool
     {
-        return SitemapService::canGenerateSitemap();
+        return Features::sitemap();
     }
 
     protected function canGenerateFeed(): bool

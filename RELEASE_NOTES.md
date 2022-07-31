@@ -24,6 +24,7 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 - `DiscoveryService::getFileExtensionForModelFiles` method was renamed to `DiscoveryService::getModelFileExtension`
 - The `Hyde::copy()` helper now always uses paths relative to the project
 - The `Hyde::copy()` helper will always overwrite existing files
+- Replaced `SitemapService::canGenerateSitemap()` with `Features::sitemap()`
 
 ### Deprecated
 - for soon-to-be removed features.
