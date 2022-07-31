@@ -12,7 +12,6 @@ namespace Hyde\Framework\Contracts;
  * and can be accessed in a few ways.
  *
  * - Commonly, you'll use the Hyde facade:
- *
  * @see \Hyde\Framework\Hyde (previosly this namespace contained the actual Kernel)
  *
  * @example \Hyde\Framework\Hyde::foo()
