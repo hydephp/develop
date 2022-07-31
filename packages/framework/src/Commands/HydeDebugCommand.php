@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Commands;
 
+use Composer\InstalledVersions;
 use Hyde\Framework\Hyde;
 use LaravelZero\Framework\Commands\Command;
 
@@ -44,8 +45,8 @@ class HydeDebugCommand extends Command
 
         $this->newLine();
         $this->comment('Git Version: '.app('git.version'));
-        $this->comment('Hyde Version: '.(\Composer\InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased'));
-        $this->comment('Framework Version: '.(\Composer\InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased'));
+        $this->comment('Hyde Version: '.(InstalledVersions::getPrettyVersion('hyde/hyde') ?: 'unreleased'));
+        $this->comment('Framework Version: '.(InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased'));
 
         $this->newLine();
         $this->comment('App Env: '.app('env'));

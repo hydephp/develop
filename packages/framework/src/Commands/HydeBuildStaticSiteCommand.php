@@ -133,8 +133,10 @@ class HydeBuildStaticSiteCommand extends Command
     protected function printFinishMessage(float $time_start): void
     {
         $execution_time = (microtime(true) - $time_start);
-        $this->info(sprintf('All done! Finished in %s seconds. (%sms)',
-            number_format($execution_time, 2), number_format($execution_time * 1000, 2)
+        $this->info(sprintf(
+            'All done! Finished in %s seconds. (%sms)',
+            number_format($execution_time, 2),
+            number_format($execution_time * 1000, 2)
         ));
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
@@ -149,10 +151,11 @@ class HydeBuildStaticSiteCommand extends Command
     {
         $this->info($message.' This may take a second.');
 
-        $output = shell_exec(sprintf('%s%s',
+        $output = shell_exec(sprintf(
+            '%s%s',
             app()->environment() === 'testing' ? 'echo ' : '',
-            $command)
-        );
+            $command
+        ));
 
         $this->line($output ?? sprintf(
             '<fg=red>Could not %s! Is NPM installed?</>',

@@ -4,7 +4,6 @@ namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
  * Generates article metadata for a MarkdownPost.

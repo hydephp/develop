@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavItem::fromRoute() to use data from the route
- *   3. You can use NavItem::leadsTo(URI, Title, ?priority) for an external or unrouted link
+ *   3. You can use NavItem::leadsTo(URI, Title, ?priority) for an external or un-routed link
  */
 class NavItem
 {
