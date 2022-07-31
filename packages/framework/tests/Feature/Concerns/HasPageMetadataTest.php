@@ -146,7 +146,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
     {
-        $page = $this->mock(HasPageMetadata::class);
+        $page = $this->makePage();
 
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
@@ -158,7 +158,7 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_does_not_add_sitemap_link_when_conditions_are_not_met()
     {
-        $page = $this->mock(HasPageMetadata::class);
+        $page = $this->makePage();
 
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => false]);
