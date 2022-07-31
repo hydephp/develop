@@ -46,6 +46,18 @@ class HydeKernelTest extends TestCase
         $this->assertSame(app(HydeKernelContract::class), hyde());
     }
 
+    public function test_facade_returns_same_instance_as_kernel()
+    {
+        $this->assertSame(HydeKernel::getInstance(), Hyde::getFacadeRoot());
+    }
+
+    public function test_changes_are_persisted_over_all_instance_getting_methods()
+    {
+        app(HydeKernelContract::class)->setBasePath('foo');
+        $this->assertSame('foo', HydeKernel::getInstance()->getBasePath());
+        $this->assertSame('foo', Hyde::getBasePath());
+    }
+
     public function test_features_helper_returns_new_features_instance()
     {
         $this->assertInstanceOf(Features::class, Hyde::features());

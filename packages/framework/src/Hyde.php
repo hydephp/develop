@@ -58,4 +58,10 @@ class Hyde extends Facade
     {
         return HydeKernel::version();
     }
+
+    /** @inheritDoc */
+    public static function getFacadeRoot()
+    {
+        return app(HydeKernelContract::class);
+    }
 }
