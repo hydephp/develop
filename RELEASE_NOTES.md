@@ -36,3 +36,8 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 
 ### Security
 - in case of vulnerabilities.
+
+
+### Upgrade tips
+
+When refactoring the Hyde::copy() helper change, you have two options (that you can combine). If one or more of your inputs are already qualified Hyde paths, use the native copy helper. If you don't want to overwrite existing files, make that check first.
