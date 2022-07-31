@@ -5,6 +5,7 @@ namespace Hyde\Framework\Commands;
 use Exception;
 use Hyde\Framework\Concerns\Internal\TransfersMediaAssetsForBuildCommands;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RebuildService;
 use LaravelZero\Framework\Commands\Command;
@@ -50,7 +51,7 @@ class HydeRebuildStaticSiteCommand extends Command
         $time_start = microtime(true);
 
         if ($this->argument('path') === '_media') {
-            $this->transferMediaAssets();
+            (new BuildService($this->getOutput()))->transferMediaAssets();
 
             return 0;
         }
