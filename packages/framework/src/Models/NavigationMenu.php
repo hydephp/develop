@@ -20,7 +20,7 @@ class NavigationMenu
         $this->items = new Collection();
     }
 
-    public static function create(?RouteContract $currentRoute = null): static
+    public static function create(): static
     {
         return (new static())->generate()->filter()->sort();
     }
