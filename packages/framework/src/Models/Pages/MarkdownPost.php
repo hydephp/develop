@@ -22,8 +22,8 @@ class MarkdownPost extends AbstractMarkdownPage
 
     public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
-
     public static string $parserClass = MarkdownPostParser::class;
+    public static string $template = 'hyde::layouts/post';
 
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
     {

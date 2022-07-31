@@ -14,8 +14,8 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
-
     public static string $parserClass = DocumentationPageParser::class;
+    public static string $template = 'hyde::layouts/docs';
 
     /**
      * The sidebar category group, if any.

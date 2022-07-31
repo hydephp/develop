@@ -60,4 +60,10 @@ class BladePage extends AbstractPage implements PageParserContract
     {
         // There's nothing to do here.
     }
+
+    /** @inheritDoc */
+    public function getBladeView(): string
+    {
+        return $this->view;
+    }
 }
