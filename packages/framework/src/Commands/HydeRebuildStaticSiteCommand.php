@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Commands;
 
 use Exception;
-use Hyde\Framework\Concerns\Internal\TransfersMediaAssetsForBuildCommands;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\DiscoveryService;
@@ -17,8 +16,6 @@ use LaravelZero\Framework\Commands\Command;
  */
 class HydeRebuildStaticSiteCommand extends Command
 {
-    use TransfersMediaAssetsForBuildCommands;
-
     /**
      * The signature of the command.
      *
