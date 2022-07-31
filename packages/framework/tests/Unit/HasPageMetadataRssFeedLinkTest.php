@@ -9,7 +9,6 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Concerns\HasPageMetadata::canUseRssFeedLink
  * @covers \Hyde\Framework\Concerns\HasPageMetadata::getDynamicMetadata
  */
 class HasPageMetadataRssFeedLinkTest extends TestCase
