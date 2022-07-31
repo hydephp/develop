@@ -6,6 +6,7 @@ interface CompilableContract
 {
     /**
      * Compile the page into static HTML.
+     *
      * @return string The compiled HTML for the page.
      */
     public function compile(): string;
