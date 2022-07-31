@@ -45,10 +45,9 @@ class PublishesHomepageView implements ActionContract
             return 404;
         }
 
-        return Hyde::copy(
+        return copy(
             Hyde::vendorPath(static::$homePages[$this->selected]['path']),
-            Hyde::getBladePagePath('index.blade.php'),
-            $this->force
+            Hyde::getBladePagePath('index.blade.php')
         );
     }
 }
