@@ -97,7 +97,7 @@ class HasPageMetadataTest extends TestCase
             Meta::name('foo', 'bar'),
         ]]);
 
-        $this->assertEquals(
+        $this->assertStringContainsString(
             '<meta name="foo" content="bar">'."\n".
             '<link rel="canonical" href="https://example.com/foo.html" />',
             $page->renderPageMetadata()
@@ -133,7 +133,7 @@ class HasPageMetadataTest extends TestCase
             Meta::name('foo', 'bar'),
         ]]);
 
-        $this->assertEquals(['<link rel="canonical" href="https://example.com/foo.html" />'],
+        $this->assertContains('<link rel="canonical" href="https://example.com/foo.html" />',
             $page->getDynamicMetadata()
         );
     }
@@ -145,7 +145,7 @@ class HasPageMetadataTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertEquals(['<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />'],
+        $this->assertContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />',
             $page->getDynamicMetadata()
         );
     }
@@ -157,7 +157,7 @@ class HasPageMetadataTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => false]);
 
-        $this->assertEquals([],
+        $this->assertNotContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />',
             $page->getDynamicMetadata()
         );
     }
