@@ -78,7 +78,7 @@ class HydePublishHomepageCommandTest extends TestCase
             ->assertExitCode(404);
     }
 
-    public function test_command_handles_error_code_409()
+    public function test_command_does_not_overwrite_modified_files_without_force_flag()
     {
         file_put_contents($this->file, 'foo');
 
@@ -88,7 +88,7 @@ class HydePublishHomepageCommandTest extends TestCase
         $this->assertEquals('foo', file_get_contents($this->file));
     }
 
-    public function test_command_does_not_return_409_if_force_flag_is_set()
+    public function test_command_overwrites_modified_files_if_force_flag_is_set()
     {
         file_put_contents($this->file, 'foo');
 

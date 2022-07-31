@@ -15,12 +15,15 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 
 ### Added
 - internal: Adds methods to the HydeKernelContract interface
+- Added new filesystem helpers, `Hyde::touch()`, and `Hyde::unlink()`
 
 ### Changed
 - internal: The HydeKernel has been refactored to move related logic to service classes. This does not change the end usage as the Hyde facade still works the same
 - `DiscoveryService::getSourceFileListForModel()` now throws an exception instead of returning false when given an invalid model class
 - `DiscoveryService::getFilePathForModelClassFiles` method was renamed to `DiscoveryService::getModelSourceDirectory`
 - `DiscoveryService::getFileExtensionForModelFiles` method was renamed to `DiscoveryService::getModelFileExtension`
+- The `Hyde::copy()` helper now always uses paths relative to the project
+- The `Hyde::copy()` helper will always overwrite existing files
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -34,3 +37,8 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 
 ### Security
 - in case of vulnerabilities.
+
+
+### Upgrade tips
+
+When refactoring the Hyde::copy() helper change, you have two options (that you can combine). If one or more of your inputs are already qualified Hyde paths, use the native copy helper. If you don't want to overwrite existing files, make that check first.

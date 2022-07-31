@@ -9,7 +9,6 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Foundation\Filesystem
  *
- * @see \Hyde\Framework\Testing\Unit\Foundation\FilesystemSafeCopyHelperTest
  * @see \Hyde\Framework\Testing\Unit\Foundation\FluentFilesystemModelPathHelpersTest
  */
 class FilesystemTest extends TestCase
@@ -101,29 +100,43 @@ class FilesystemTest extends TestCase
 
     public function test_copy_method()
     {
+        touch(Hyde::path('foo'));
         $this->assertTrue(method_exists(Filesystem::class, 'copy'));
+        $this->assertTrue(Hyde::copy('foo', 'bar'));
+        $this->assertFileExists(Hyde::path('bar'));
+        unlink(Hyde::path('foo'));
+        unlink(Hyde::path('bar'));
     }
 
-    public function test_copy_method_returns_404_when_file_does_not_exist()
+    public function test_touch_helper_creates_file_at_given_path()
     {
-        $this->assertEquals(404, $this->filesystem->copy('foo/bar.php', 'foo/baz.php'));
+        $this->assertTrue(Hyde::touch('foo'));
+        $this->assertFileExists(Hyde::path('foo'));
+        unlink(Hyde::path('foo'));
     }
 
-    public function test_copy_method_returns_409_when_destination_file_exists()
+    public function test_touch_helper_creates_multiple_files_at_given_paths()
     {
-        touch('foo');
-        touch('bar');
-        $this->assertEquals(409, $this->filesystem->copy('foo', 'bar'));
-        unlink('foo');
-        unlink('bar');
+        $this->assertTrue(Hyde::touch(['foo', 'bar']));
+        $this->assertFileExists(Hyde::path('foo'));
+        $this->assertFileExists(Hyde::path('bar'));
+        unlink(Hyde::path('foo'));
+        unlink(Hyde::path('bar'));
     }
 
-    public function test_copy_method_overwrites_destination_file_when_overwrite_is_true()
+    public function test_unlink_helper_deletes_file_at_given_path()
     {
-        touch('foo');
-        touch('bar');
-        $this->assertTrue($this->filesystem->copy('foo', 'bar', true));
-        unlink('foo');
-        unlink('bar');
+        touch(Hyde::path('foo'));
+        $this->assertTrue(Hyde::unlink('foo'));
+        $this->assertFileDoesNotExist(Hyde::path('foo'));
+    }
+
+    public function test_unlink_helper_deletes_multiple_files_at_given_paths()
+    {
+        touch(Hyde::path('foo'));
+        touch(Hyde::path('bar'));
+        $this->assertTrue(Hyde::unlink(['foo', 'bar']));
+        $this->assertFileDoesNotExist(Hyde::path('foo'));
+        $this->assertFileDoesNotExist(Hyde::path('bar'));
     }
 }
