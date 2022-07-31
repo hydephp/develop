@@ -124,9 +124,9 @@ class HydeKernel implements HydeKernelContract
         return $this->filesystem->vendorPath($path);
     }
 
-    public function copy(string $from, string $to, bool $force = false): bool|int
+    public function copy(string $from, string $to): bool
     {
-        return $this->filesystem->copy($from, $to, $force);
+        return $this->filesystem->copy($from, $to);
     }
 
     public function touch(string|array $path): bool
