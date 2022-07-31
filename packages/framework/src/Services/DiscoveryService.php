@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\PageParserContract;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -35,9 +36,9 @@ class DiscoveryService
      *
      * @example getParserForModel(MarkdownPost::class, 'hello-world')
      *
-     * @return object The constructed Parser instance.
+     * @return PageParserContract The constructed Parser instance.
      */
-    public static function getParserInstanceForModel(string $model, string $slug): object
+    public static function getParserInstanceForModel(string $model, string $slug): PageParserContract
     {
         /** @var AbstractPage $model */
         return new $model::$parserClass($slug);
