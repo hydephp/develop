@@ -103,10 +103,6 @@ class FilesystemTest extends TestCase
         $this->assertTrue(method_exists(Filesystem::class, 'copy'));
     }
 
-    public function test_copy_method_returns_404_when_file_does_not_exist()
-    {
-        $this->assertEquals(404, $this->filesystem->copy('foo/bar.php', 'foo/baz.php'));
-    }
 
     public function test_copy_method_returns_409_when_destination_file_exists()
     {

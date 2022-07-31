@@ -65,23 +65,10 @@ class Filesystem
     }
 
     /**
-     * Wrapper for the copy function, but allows choosing if files may be overwritten.
-     *
-     * @param  string  $from  The source file path.
-     * @param  string  $to  The destination file path.
-     * @param  bool  $force  If true, existing files will be overwritten.
-     * @return bool|int Returns true|false on copy() success|failure, or an error code on failure
+     * Wrapper for the copy function
      */
-    public function copy(string $from, string $to, bool $force = false): int|bool
+    public function copy(string $from, string $to): bool
     {
-        if (! file_exists($from)) {
-            return 404;
-        }
-
-        if (file_exists($to) && ! $force) {
-            return 409;
-        }
-
         return copy($from, $to);
     }
 
