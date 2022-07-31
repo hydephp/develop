@@ -4,6 +4,15 @@
 
 This release refactors and cleans up a large part of the internal code base. For most end users, this will not have any visible effect. If you have developed integrations that depend on methods you may want to take a closer look at the associated pull requests as it is not practical to list them all here.
 
+#### Overview
+
+Here is a short overview of the areas that are impacted. If you don't know what any of these mean, they don't affect you.
+
+- HydeKernel has been internally separated into foundation classes
+- DiscoveryService has been refactored
+- Page compiling logic are now handled within the page models
+
+
 ### Added
 - internal: Adds methods to the HydeKernelContract interface
 
