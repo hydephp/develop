@@ -3,7 +3,6 @@
 namespace Hyde\Testing;
 
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Route;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
