@@ -15,7 +15,8 @@ trait HasConfigurableMarkdownFeatures
 {
     protected array $features = [];
 
-    public function addFeature(string $feature): self
+    /** @return $this */
+    public function addFeature(string $feature): static
     {
         if (! in_array($feature, $this->features)) {
             $this->features[] = $feature;
@@ -24,7 +25,8 @@ trait HasConfigurableMarkdownFeatures
         return $this;
     }
 
-    public function removeFeature(string $feature): self
+    /** @return $this */
+    public function removeFeature(string $feature): static
     {
         if (in_array($feature, $this->features)) {
             $this->features = array_diff($this->features, [$feature]);
@@ -33,14 +35,16 @@ trait HasConfigurableMarkdownFeatures
         return $this;
     }
 
-    public function withTableOfContents(): self
+    /** @return $this */
+    public function withTableOfContents(): static
     {
         $this->addFeature('table-of-contents');
 
         return $this;
     }
 
-    public function withPermalinks(): self
+    /** @return $this */
+    public function withPermalinks(): static
     {
         $this->addFeature('permalinks');
 
