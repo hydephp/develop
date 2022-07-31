@@ -88,6 +88,12 @@ class HasPageMetadataTest extends TestCase
         $this->assertFalse($page->canUseCanonicalUrl());
     }
 
+    public function test_render_page_metadata_returns_string()
+    {
+        $page = $this->makePage();
+        $this->assertIsString($page->renderPageMetadata());
+    }
+
     public function test_render_page_metadata_returns_string_with_merged_metadata()
     {
         $page = $this->makePage();
