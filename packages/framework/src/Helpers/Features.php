@@ -145,7 +145,7 @@ class Features
             && extension_loaded('simplexml');
     }
 
-    public static function canGenerateFeed(): bool
+    public static function rss(): bool
     {
         return Hyde::hasSiteUrl()
             && config('hyde.generate_rss_feed', true)
