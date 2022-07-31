@@ -21,7 +21,7 @@ class DataCollectionServiceProvider extends ServiceProvider
         );
     }
 
-    public function boot()
+    public function boot(): void
     {
         if (Features::hasDataCollections()) {
             // Create the _data directory if it doesn't exist
