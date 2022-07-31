@@ -19,7 +19,7 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractPage implements PageContract
+abstract class AbstractPage implements PageContract, CompilableContract
 {
     use HasPageMetadata;
     use CanBeInNavigation;
