@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -90,15 +91,16 @@ class DiscoveryService
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
-     * @param  string  $model
-     * @return array|false array on success, false if the class was not found
+     * @param string $model
+     * @return array
      *
+     * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      * @example DiscoveryService::getSourceFileListForModel(BladePage::class)
      */
-    public static function getSourceFileListForModel(string $model): array|false
+    public static function getSourceFileListForModel(string $model): array
     {
         if (! class_exists($model) || ! is_subclass_of($model, AbstractPage::class)) {
-            return false;
+            throw new UnsupportedPageTypeException($model);
         }
 
         // Scan the source directory, and directories therein, for files that match the model's file extension.
