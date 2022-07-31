@@ -25,7 +25,6 @@ class NavigationMenu
         return (new static())->generate()->filter()->sort();
     }
 
-
     /** @return $this */
     public function generate(): static
     {
