@@ -39,9 +39,9 @@ class Features
         ]));
     }
 
-     // ================================================
-     // Determine if a given feature is enabled.
-     // ================================================
+    // ================================================
+    // Determine if a given feature is enabled.
+    // ================================================
 
     public static function hasBlogPosts(): bool
     {
@@ -90,9 +90,9 @@ class Features
             && (app('env') !== 'testing');
     }
 
-     // ================================================
-     // Enable a given feature to be used in the config.
-     // ================================================
+    // ================================================
+    // Enable a given feature to be used in the config.
+    // ================================================
 
     public static function blogPosts(): string
     {

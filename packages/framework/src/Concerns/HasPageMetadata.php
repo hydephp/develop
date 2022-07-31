@@ -8,7 +8,6 @@ use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\RssFeedService;
-use Hyde\Framework\Services\SitemapService;
 
 /**
  * @todo Move logic into service class to make it easier to test.

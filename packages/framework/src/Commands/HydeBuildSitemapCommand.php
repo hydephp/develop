@@ -50,7 +50,7 @@ class HydeBuildSitemapCommand extends Command
 
     protected function runPreflightCheck(): bool
     {
-        if (!Features::sitemap()) {
+        if (! Features::sitemap()) {
             $this->error('Cannot generate sitemap.xml, please check your configuration.');
 
             if (! Hyde::hasSiteUrl()) {

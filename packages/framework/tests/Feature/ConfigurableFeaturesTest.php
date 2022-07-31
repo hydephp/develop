@@ -18,7 +18,7 @@ class ConfigurableFeaturesTest extends TestCase
         foreach (get_class_methods(Features::class) as $method) {
             if (str_starts_with($method, 'has')) {
                 // Call method and assert false
-                $this->assertFalse(Features::$method(), 'Method ' . $method . ' should return false when feature is not enabled');
+                $this->assertFalse(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
             }
         }
     }
@@ -35,7 +35,7 @@ class ConfigurableFeaturesTest extends TestCase
         Config::set('hyde.features', $features);
 
         foreach ($features as $feature) {
-            $this->assertTrue(Features::enabled($feature), 'Method ' . $feature . ' should return true when feature is enabled');
+            $this->assertTrue(Features::enabled($feature), 'Method '.$feature.' should return true when feature is enabled');
         }
     }
 
