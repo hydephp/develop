@@ -29,7 +29,7 @@ class SitemapService
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
     }
 
-    public function generate(): self
+    public function generate(): static
     {
         Route::all()->each(function ($route) {
             $this->addRoute($route);

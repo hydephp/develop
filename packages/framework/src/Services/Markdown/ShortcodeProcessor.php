@@ -47,7 +47,7 @@ class ShortcodeProcessor implements MarkdownProcessorContract
         $this->discoverShortcodes();
     }
 
-    public function processInput(): self
+    public function processInput(): static
     {
         $this->output = implode("\n", array_map(function ($line) {
             return $this->expandShortcode($line);
@@ -78,7 +78,7 @@ class ShortcodeProcessor implements MarkdownProcessorContract
         ));
     }
 
-    public function addShortcodesFromArray(array $shortcodes): self
+    public function addShortcodesFromArray(array $shortcodes): static
     {
         foreach ($shortcodes as $shortcode) {
             $this->addShortcode($shortcode);
@@ -87,7 +87,7 @@ class ShortcodeProcessor implements MarkdownProcessorContract
         return $this;
     }
 
-    public function addShortcode(MarkdownShortcodeContract $shortcode): self
+    public function addShortcode(MarkdownShortcodeContract $shortcode): static
     {
         $this->shortcodes[$shortcode::signature()] = $shortcode;
 

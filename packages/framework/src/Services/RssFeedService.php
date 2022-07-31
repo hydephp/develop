@@ -28,7 +28,7 @@ class RssFeedService
     /**
      * @throws \Exception
      */
-    public function generate(): self
+    public function generate(): static
     {
         /** @var MarkdownPost $post */
         foreach (MarkdownPost::getLatestPosts() as $post) {
