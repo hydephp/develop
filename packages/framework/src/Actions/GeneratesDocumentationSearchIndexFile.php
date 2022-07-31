@@ -47,7 +47,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         $this->save();
     }
 
-    public function generate(): self
+    public function generate(): static
     {
         foreach ($this->getSourceFileSlugs() as $page) {
             $this->searchIndex->push(
@@ -88,7 +88,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         return json_encode($this->getObject());
     }
 
-    public function save(): self
+    public function save(): static
     {
         $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
 
