@@ -25,7 +25,9 @@ class NavigationMenu
         return (new static())->generate()->filter()->sort();
     }
 
-    public function generate(): self
+
+    /** @return $this */
+    public function generate(): static
     {
         RoutingService::getInstance()->getRoutes()->each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route));
@@ -38,7 +40,8 @@ class NavigationMenu
         return $this;
     }
 
-    public function filter(): self
+    /** @return $this */
+    public function filter(): static
     {
         $this->items = $this->filterHiddenItems();
         $this->items = $this->filterDuplicateItems();
@@ -46,7 +49,8 @@ class NavigationMenu
         return $this;
     }
 
-    public function sort(): self
+    /** @return $this */
+    public function sort(): static
     {
         $this->items = $this->items->sortBy('priority')->values();
 
