@@ -7,7 +7,10 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
@@ -126,5 +129,45 @@ class HydeKernelTest extends TestCase
         Config::set('site.pretty_urls', true);
         $this->assertEquals('https://example.com/foo', Hyde::url('foo.html'));
         $this->assertEquals('https://example.com', Hyde::url('index.html'));
+    }
+
+    public function test_path_returns_qualified_path_for_given_path()
+    {
+        $this->assertEquals(Hyde::getBasePath(), Hyde::path());
+        $this->assertEquals(Hyde::getBasePath().DIRECTORY_SEPARATOR.'foo', Hyde::path('foo'));
+    }
+
+    public function test_vendor_path_returns_qualified_path_for_given_path()
+    {
+        $this->assertEquals(Hyde::getBasePath().DIRECTORY_SEPARATOR.'vendor/hyde/framework', Hyde::vendorPath());
+        $this->assertEquals(Hyde::getBasePath().DIRECTORY_SEPARATOR.'vendor/hyde/framework/foo', Hyde::vendorPath('foo'));
+    }
+
+    public function test_copy_helper_copies_file_from_given_path_to_given_path()
+    {
+        touch('foo');
+        $this->assertTrue(Hyde::copy('foo', 'bar'));
+        $this->assertFileExists('bar');
+        unlink('foo');
+        unlink('bar');
+    }
+
+    public function test_fluent_model_source_path_helpers()
+    {
+        $this->assertEquals(Hyde::path('_posts'), Hyde::getModelSourcePath(MarkdownPost::class));
+        $this->assertEquals(Hyde::path('_pages'), Hyde::getModelSourcePath(MarkdownPage::class));
+        $this->assertEquals(Hyde::path('_docs'), Hyde::getModelSourcePath(DocumentationPage::class));
+        $this->assertEquals(Hyde::path('_pages'), Hyde::getModelSourcePath(BladePage::class));
+
+        $this->assertEquals( Hyde::path('_pages'), Hyde::getBladePagePath());
+        $this->assertEquals( Hyde::path('_pages'), Hyde::getMarkdownPagePath());
+        $this->assertEquals( Hyde::path('_posts'), Hyde::getMarkdownPostPath());
+        $this->assertEquals( Hyde::path('_docs'), Hyde::getDocumentationPagePath());
+        $this->assertEquals( Hyde::path('_site'), Hyde::getSiteOutputPath());
+    }
+
+    public function test_path_to_relative_helper_returns_relative_path_for_given_path()
+    {
+        $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('foo')));
     }
 }
