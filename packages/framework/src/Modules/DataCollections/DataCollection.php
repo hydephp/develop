@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Collection;
 
