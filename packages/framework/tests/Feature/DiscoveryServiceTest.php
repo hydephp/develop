@@ -55,10 +55,10 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_get_file_extension_for_model_files()
     {
-        $this->assertEquals('.md', DiscoveryService::getFileExtensionForModelFiles(MarkdownPage::class));
-        $this->assertEquals('.md', DiscoveryService::getFileExtensionForModelFiles(MarkdownPost::class));
-        $this->assertEquals('.md', DiscoveryService::getFileExtensionForModelFiles(DocumentationPage::class));
-        $this->assertEquals('.blade.php', DiscoveryService::getFileExtensionForModelFiles(BladePage::class));
+        $this->assertEquals('.md', DiscoveryService::getModelFileExtension(MarkdownPage::class));
+        $this->assertEquals('.md', DiscoveryService::getModelFileExtension(MarkdownPost::class));
+        $this->assertEquals('.md', DiscoveryService::getModelFileExtension(DocumentationPage::class));
+        $this->assertEquals('.blade.php', DiscoveryService::getModelFileExtension(BladePage::class));
     }
 
     public function test_get_file_path_for_model_class_files()
