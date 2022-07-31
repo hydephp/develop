@@ -148,8 +148,8 @@ class Features
     public static function rss(): bool
     {
         return Hyde::hasSiteUrl()
+            && static::hasBlogPosts()
             && config('hyde.generate_rss_feed', true)
-            && Features::hasBlogPosts()
             && extension_loaded('simplexml');
     }
 }
