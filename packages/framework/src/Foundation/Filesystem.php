@@ -98,12 +98,12 @@ class Filesystem
     public function getModelSourcePath(string $model, string $path = ''): string
     {
         if (empty($path)) {
-            return $this->path(DiscoveryService::getFilePathForModelClassFiles($model));
+            return $this->path(DiscoveryService::getModelSourceDirectory($model));
         }
 
         $path = unslash($path);
 
-        return $this->path(DiscoveryService::getFilePathForModelClassFiles($model).DIRECTORY_SEPARATOR.$path);
+        return $this->path(DiscoveryService::getModelSourceDirectory($model).DIRECTORY_SEPARATOR.$path);
     }
 
     public function getBladePagePath(string $path = ''): string

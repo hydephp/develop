@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\PageParserContract;
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -29,109 +31,33 @@ class DiscoveryService
     /**
      * Create and get a constructed instance of a Model's Parser class.
      *
-     * @param  string  $model  Class constant of the Model to get the Parser for.
+     * @param  string<AbstractPage>  $model  Class constant of the Model to get the Parser for.
      * @param  string  $slug  The slug of the source file to parse.
      *
      * @example getParserForModel(MarkdownPost::class, 'hello-world')
      *
-     * @return object The constructed Parser instance.
+     * @return PageParserContract The constructed Parser instance.
      */
-    public static function getParserInstanceForModel(string $model, string $slug): object
+    public static function getParserInstanceForModel(string $model, string $slug): PageParserContract
     {
         /** @var AbstractPage $model */
         return new $model::$parserClass($slug);
     }
 
     /**
-     * Get the file extension for a models source files.
-     */
-    public static function getFileExtensionForModelFiles(string $model): string
-    {
-        /** @var AbstractPage $model */
-        return $model::getFileExtension();
-    }
-
-    /**
-     * Get the source directory path of a model.
-     */
-    public static function getFilePathForModelClassFiles(string $model): string
-    {
-        /** @var AbstractPage $model */
-        return $model::getSourceDirectory();
-    }
-
-    /**
-     * Determine the Page Model to use for a given file path.
-     *
-     * @deprecated v0.47.0-beta - Use the Router instead.
-     *
-     * @param  string  $filepath
-     * @return string|false The model class constant, or false if none was found.
-     *
-     * @see \Hyde\Framework\Testing\Unit\DiscoveryServiceCanFindModelFromCustomSourceFilePathTest
-     */
-    public static function findModelFromFilePath(string $filepath): string|false
-    {
-        if (str_starts_with($filepath, MarkdownPost::getSourceDirectory())) {
-            return MarkdownPost::class;
-        }
-
-        if (str_starts_with($filepath, DocumentationPage::getSourceDirectory())) {
-            return DocumentationPage::class;
-        }
-
-        if (str_starts_with($filepath, MarkdownPage::getSourceDirectory())
-            && str_ends_with($filepath, '.md')) {
-            return MarkdownPage::class;
-        }
-
-        if (str_starts_with($filepath, BladePage::getSourceDirectory())
-            && str_ends_with($filepath, '.blade.php')) {
-            return BladePage::class;
-        }
-
-        return false;
-    }
-
-    /**
-     * Create a filepath that can be opened in the browser from a terminal.
-     *
-     * @param  string  $filepath
-     * @return string
-     */
-    public static function createClickableFilepath(string $filepath): string
-    {
-        if (realpath($filepath) === false) {
-            return $filepath;
-        }
-
-        return 'file://'.str_replace(
-            '\\',
-            '/',
-            realpath($filepath)
-        );
-    }
-
-    /**
-     *  Get all the Markdown files in the _docs directory.
-     */
-    public static function getDocumentationPageFiles(): array|false
-    {
-        return self::getSourceFileListForModel(DocumentationPage::class);
-    }
-
-    /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
-     * @param  string  $model
-     * @return array|false array on success, false if the class was not found
+     * @param  string<AbstractPage>  $model
+     * @return array
+     *
+     * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      *
      * @example DiscoveryService::getSourceFileListForModel(BladePage::class)
      */
-    public static function getSourceFileListForModel(string $model): array|false
+    public static function getSourceFileListForModel(string $model): array
     {
         if (! class_exists($model) || ! is_subclass_of($model, AbstractPage::class)) {
-            return false;
+            throw new UnsupportedPageTypeException($model);
         }
 
         // Scan the source directory, and directories therein, for files that match the model's file extension.
@@ -146,27 +72,36 @@ class DiscoveryService
         return $files;
     }
 
-    public static function formatSlugForModel(string $model, string $filepath): string
+    public static function getModelFileExtension(string $model): string
     {
         /** @var AbstractPage $model */
-        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
-
-        if (str_ends_with($slug, $model::$fileExtension)) {
-            $slug = substr($slug, 0, -strlen($model::$fileExtension));
-        }
-
-        $slug = unslash($slug);
-
-        return $slug;
+        return $model::getFileExtension();
     }
 
-    /**
-     * @return array
-     *               Get all the Markdown files in the _pages directory.
-     */
-    public static function getMarkdownPageFiles(): array|false
+    public static function getModelSourceDirectory(string $model): string
+    {
+        /** @var AbstractPage $model */
+        return $model::getSourceDirectory();
+    }
+
+    public static function getBladePageFiles(): array
+    {
+        return self::getSourceFileListForModel(BladePage::class);
+    }
+
+    public static function getMarkdownPageFiles(): array
     {
         return self::getSourceFileListForModel(MarkdownPage::class);
+    }
+
+    public static function getMarkdownPostFiles(): array
+    {
+        return self::getSourceFileListForModel(MarkdownPost::class);
+    }
+
+    public static function getDocumentationPageFiles(): array
+    {
+        return self::getSourceFileListForModel(DocumentationPage::class);
     }
 
     /**
@@ -183,20 +118,33 @@ class DiscoveryService
     }
 
     /**
-     * @return array
-     *               Get all the Blade files in the _pages directory.
+     * Create a filepath that can be opened in the browser from a terminal.
+     *
+     * @param  string<AbstractPage>  $filepath
+     * @return string
      */
-    public static function getBladePageFiles(): array|false
+    public static function createClickableFilepath(string $filepath): string
     {
-        return self::getSourceFileListForModel(BladePage::class);
+        if (realpath($filepath) === false) {
+            return $filepath;
+        }
+
+        return 'file://'.str_replace(
+            '\\',
+            '/',
+            realpath($filepath)
+        );
     }
 
-    /**
-     * @return array
-     *               Get all the Markdown files in the _posts directory.
-     */
-    public static function getMarkdownPostFiles(): array|false
+    public static function formatSlugForModel(string $model, string $filepath): string
     {
-        return self::getSourceFileListForModel(MarkdownPost::class);
+        /** @var AbstractPage $model */
+        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
+
+        if (str_ends_with($slug, $model::$fileExtension)) {
+            $slug = substr($slug, 0, -strlen($model::$fileExtension));
+        }
+
+        return unslash($slug);
     }
 }
