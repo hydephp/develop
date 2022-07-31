@@ -73,6 +73,38 @@ class Filesystem
     }
 
     /**
+     * Touch one or more files in the project root directory.
+     */
+    public function touch(string|array $path): bool
+    {
+        if (is_string($path)) {
+            return touch($this->path($path));
+        }
+
+        foreach ($path as $p) {
+            touch($this->path($p));
+        }
+
+        return true;
+    }
+
+    /**
+     * Unlink one or more files in the project root directory.
+     */
+    public function unlink(string|array $path): bool
+    {
+        if (is_string($path)) {
+            return unlink($this->path($path));
+        }
+
+        foreach ($path as $p) {
+            unlink($this->path($p));
+        }
+
+        return true;
+    }
+
+    /**
      * Fluent file helper methods.
      *
      * Provides a more fluent way of getting either the absolute path

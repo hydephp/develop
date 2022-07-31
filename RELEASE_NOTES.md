@@ -15,6 +15,7 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 
 ### Added
 - internal: Adds methods to the HydeKernelContract interface
+- Added new filesystem helpers, `Hyde::touch()`, and `Hyde::unlink()`
 
 ### Changed
 - internal: The HydeKernel has been refactored to move related logic to service classes. This does not change the end usage as the Hyde facade still works the same

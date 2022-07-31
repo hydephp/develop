@@ -129,6 +129,16 @@ class HydeKernel implements HydeKernelContract
         return $this->filesystem->copy($from, $to, $force);
     }
 
+    public function touch(string|array $path): bool
+    {
+        return $this->filesystem->touch($path);
+    }
+
+    public function unlink(string|array $path): bool
+    {
+        return $this->filesystem->unlink($path);
+    }
+
     public function getModelSourcePath(string $model, string $path = ''): string
     {
         return $this->filesystem->getModelSourcePath($model, $path);
