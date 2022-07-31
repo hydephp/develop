@@ -116,7 +116,8 @@ trait HasPageMetadata
 
     protected function makeRssFeedLink(): string
     {
-        return sprintf('<link rel="alternate" type="application/rss+xml" title="%s" href="%s" />',
+        return sprintf(
+            '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" />',
             RssFeedService::getDescription(),
             Hyde::url(RssFeedService::getDefaultOutputFilename())
         );
