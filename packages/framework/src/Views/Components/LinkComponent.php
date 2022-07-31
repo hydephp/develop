@@ -14,7 +14,7 @@ class LinkComponent extends Component
         $this->href = Hyde::relativeLink($href);
     }
 
-    public function render(): \Illuminate\Contracts\View\View
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
         return view('hyde::components.link');
     }

@@ -54,11 +54,11 @@ interface PageContract
      * Get an array of all the source file slugs for the model.
      * Essentially an alias of DiscoveryService::getAbstractPageList().
      *
-     * @return array<string>
+     * @return array<string>|false
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetAllFilesHelperTest
      */
-    public static function files(): array;
+    public static function files(): array|false;
 
     /**
      * Get a collection of all pages, parsed into page models.

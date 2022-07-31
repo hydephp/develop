@@ -73,7 +73,7 @@ class Filesystem
      * @param  bool  $force  If true, existing files will be overwritten.
      * @return bool|int Returns true|false on copy() success|failure, or an error code on failure
      */
-    public function copy(string $from, string $to, bool $force = false): bool|int
+    public function copy(string $from, string $to, bool $force = false): int|bool
     {
         if (! file_exists($from)) {
             return 404;

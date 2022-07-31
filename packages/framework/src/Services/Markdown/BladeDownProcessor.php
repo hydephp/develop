@@ -48,7 +48,7 @@ class BladeDownProcessor
         $this->pageData = $pageData;
     }
 
-    public function run(): self
+    public function run(): static
     {
         $this->output = implode("\n", array_map(function ($line) {
             return $this->lineStartsWithDirective($line)

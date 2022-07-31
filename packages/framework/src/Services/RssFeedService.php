@@ -28,7 +28,7 @@ class RssFeedService
     /**
      * @throws \Exception
      */
-    public function generate(): self
+    public function generate(): static
     {
         /** @var MarkdownPost $post */
         foreach (MarkdownPost::getLatestPosts() as $post) {
@@ -38,7 +38,7 @@ class RssFeedService
         return $this;
     }
 
-    public function getXML(): string
+    public function getXML(): string|false
     {
         return $this->feed->asXML();
     }

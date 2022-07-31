@@ -113,11 +113,9 @@ class DiscoveryService
     }
 
     /**
-     * Get all the Markdown files in the _docs directory.
-     *
-     * @return array
+     *  Get all the Markdown files in the _docs directory.
      */
-    public static function getDocumentationPageFiles(): array
+    public static function getDocumentationPageFiles(): array|false
     {
         return self::getSourceFileListForModel(DocumentationPage::class);
     }
@@ -163,11 +161,10 @@ class DiscoveryService
     }
 
     /**
-     * Get all the Markdown files in the _pages directory.
-     *
      * @return array
+     *               Get all the Markdown files in the _pages directory.
      */
-    public static function getMarkdownPageFiles(): array
+    public static function getMarkdownPageFiles(): array|false
     {
         return self::getSourceFileListForModel(MarkdownPage::class);
     }
@@ -186,21 +183,19 @@ class DiscoveryService
     }
 
     /**
-     * Get all the Blade files in the _pages directory.
-     *
      * @return array
+     *               Get all the Blade files in the _pages directory.
      */
-    public static function getBladePageFiles(): array
+    public static function getBladePageFiles(): array|false
     {
         return self::getSourceFileListForModel(BladePage::class);
     }
 
     /**
-     * Get all the Markdown files in the _posts directory.
-     *
      * @return array
+     *               Get all the Markdown files in the _posts directory.
      */
-    public static function getMarkdownPostFiles(): array
+    public static function getMarkdownPostFiles(): array|false
     {
         return self::getSourceFileListForModel(MarkdownPost::class);
     }

@@ -32,7 +32,7 @@ class HydePublishViewsCommand extends Command
         return 0;
     }
 
-    protected function publishOption($selected)
+    protected function publishOption($selected): void
     {
         (new PublishesHydeViews($selected))->execute();
 

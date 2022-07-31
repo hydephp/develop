@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
 
 class DocumentationSidebar extends NavigationMenu
 {
-    public function generate(): self
+    /** @return $this */
+    public function generate(): static
     {
         RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));

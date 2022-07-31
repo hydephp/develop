@@ -111,7 +111,7 @@ class Image
         return (new FindsContentLengthForImageObject($this))->execute();
     }
 
-    public function getImageAuthorAttributionString(): ?string
+    public function getImageAuthorAttributionString(): string|null
     {
         if (isset($this->author)) {
             if (isset($this->credit)) {
@@ -124,7 +124,7 @@ class Image
         return null;
     }
 
-    public function getCopyrightString(): ?string
+    public function getCopyrightString(): string|null
     {
         if (isset($this->copyright)) {
             return '<span itemprop="copyrightNotice">'.e($this->copyright).'</span>';
@@ -133,7 +133,7 @@ class Image
         return null;
     }
 
-    public function getLicenseString(): ?string
+    public function getLicenseString(): string|null
     {
         if (isset($this->license) && isset($this->licenseUrl)) {
             return '<a href="'.e($this->licenseUrl).'" rel="license nofollow noopener" itemprop="license">'.e($this->license).'</a>';

@@ -66,7 +66,7 @@ abstract class AbstractPage implements PageContract
     }
 
     /** @inheritDoc */
-    public static function files(): array
+    public static function files(): array|false
     {
         return DiscoveryService::getSourceFileListForModel(static::class);
     }

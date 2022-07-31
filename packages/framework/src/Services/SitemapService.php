@@ -29,7 +29,7 @@ class SitemapService
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
     }
 
-    public function generate(): self
+    public function generate(): static
     {
         Route::all()->each(function ($route) {
             $this->addRoute($route);
@@ -38,7 +38,7 @@ class SitemapService
         return $this;
     }
 
-    public function getXML(): string
+    public function getXML(): string|false
     {
         $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->time_start) * 1000, 2));
 
