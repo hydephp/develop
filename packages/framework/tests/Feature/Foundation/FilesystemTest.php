@@ -100,25 +100,11 @@ class FilesystemTest extends TestCase
 
     public function test_copy_method()
     {
+        touch(Hyde::path('foo'));
         $this->assertTrue(method_exists(Filesystem::class, 'copy'));
-    }
-
-
-    public function test_copy_method_returns_409_when_destination_file_exists()
-    {
-        touch('foo');
-        touch('bar');
-        $this->assertEquals(409, $this->filesystem->copy('foo', 'bar'));
-        unlink('foo');
-        unlink('bar');
-    }
-
-    public function test_copy_method_overwrites_destination_file_when_overwrite_is_true()
-    {
-        touch('foo');
-        touch('bar');
-        $this->assertTrue($this->filesystem->copy('foo', 'bar', true));
-        unlink('foo');
-        unlink('bar');
+        $this->assertTrue(Hyde::copy('foo', 'bar'));
+        $this->assertFileExists(Hyde::path('bar'));
+        unlink(Hyde::path('foo'));
+        unlink(Hyde::path('bar'));
     }
 }
