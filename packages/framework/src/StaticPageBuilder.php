@@ -37,9 +37,9 @@ class StaticPageBuilder
     /**
      * Run the page builder.
      *
-     * @return string|void
+     * @return string
      */
-    public function __invoke()
+    public function __invoke(): string
     {
         view()->share('page', $this->page);
         view()->share('currentPage', $this->page->getCurrentPagePath());
