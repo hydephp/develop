@@ -38,7 +38,7 @@ class SitemapService
         return $this;
     }
 
-    public function getXML(): string
+    public function getXML(): string|false
     {
         $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->time_start) * 1000, 2));
 
