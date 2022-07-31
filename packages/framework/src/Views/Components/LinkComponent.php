@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Views\Components;
 
 use Hyde\Framework\Hyde;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class LinkComponent extends Component
@@ -14,7 +16,7 @@ class LinkComponent extends Component
         $this->href = Hyde::relativeLink($href);
     }
 
-    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    public function render(): View|Factory
     {
         return view('hyde::components.link');
     }
