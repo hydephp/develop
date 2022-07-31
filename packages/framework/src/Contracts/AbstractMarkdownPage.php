@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Concerns\HasDynamicTitle;
 use Hyde\Framework\Models\MarkdownDocument;
 
@@ -52,5 +53,14 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownPage
     public function matter(string $key = null, mixed $default = null): mixed
     {
         return $this->markdown->matter($key, $default);
+    }
+
+    /** @inheritDoc */
+    public function compile(): string
+    {
+        return view($this->getBladeView())->with([
+            'title' => $this->title,
+            'markdown' => MarkdownConverter::parse($this->body, static::class),
+        ])->render();
     }
 }

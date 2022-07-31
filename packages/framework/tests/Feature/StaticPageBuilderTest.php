@@ -61,6 +61,7 @@ class StaticPageBuilderTest extends TestCase
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
 
         unlink(BladePage::$sourceDirectory.'/foo.blade.php');
+        unlink(Hyde::path('_site/foo.html'));
     }
 
     public function test_can_build_markdown_post()
@@ -84,6 +85,7 @@ class StaticPageBuilderTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/foo.html')));
+        unlink(Hyde::path('_site/foo.html'));
     }
 
     public function test_can_build_documentation_page()
@@ -107,5 +109,6 @@ class StaticPageBuilderTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/docs/foo/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/docs/foo/foo.html')));
+        unlink(Hyde::path('_site/docs/foo/foo.html'));
     }
 }

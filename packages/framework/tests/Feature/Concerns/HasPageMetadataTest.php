@@ -3,11 +3,8 @@
 namespace Hyde\Framework\Testing\Feature\Concerns;
 
 use Hyde\Framework\Concerns\HasPageMetadata;
-use Hyde\Framework\Contracts\AbstractPage;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -27,15 +24,9 @@ class HasPageMetadataTest extends TestCase
         config(['site.generate_sitemap' => false]);
     }
 
-    protected function makePage(): AbstractPage
+    protected function makePage(string $slug = 'foo'): MarkdownPage
     {
-        return new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-        };
+        return new MarkdownPage(slug: $slug);
     }
 
     public function test_get_canonical_url_returns_url_for_top_level_page()
@@ -57,40 +48,19 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_canonical_url_returns_url_for_nested_page()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-
-            public function getCurrentPagePath(): string
-            {
-                return 'bar/'.$this->slug;
-            }
-        };
+        $page = $this->makePage('foo/bar');
         config(['site.url' => 'https://example.com']);
 
-        $this->assertEquals('https://example.com/bar/foo.html', $page->getCanonicalUrl());
+        $this->assertEquals('https://example.com/foo/bar.html', $page->getCanonicalUrl());
     }
 
     public function test_get_canonical_url_returns_url_for_deeply_nested_page()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
+        $page = $this->makePage('foo/bar/baz');
 
-            public string $slug = 'foo';
-            public static string $outputDirectory = '';
-
-            public function getCurrentPagePath(): string
-            {
-                return 'bar/baz/'.$this->slug;
-            }
-        };
         config(['site.url' => 'https://example.com']);
 
-        $this->assertEquals('https://example.com/bar/baz/foo.html', $page->getCanonicalUrl());
+        $this->assertEquals('https://example.com/foo/bar/baz.html', $page->getCanonicalUrl());
     }
 
     public function test_can_use_canonical_url_returns_true_when_both_uri_path_and_slug_is_set()
@@ -103,37 +73,17 @@ class HasPageMetadataTest extends TestCase
 
     public function test_can_use_canonical_url_returns_false_no_conditions_are_met()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug;
-            public static string $outputDirectory = '';
-        };
-
+        $page = new MarkdownPage();
         $this->assertFalse($page->canUseCanonicalUrl());
     }
 
     public function test_can_use_canonical_url_returns_false_when_only_one_condition_is_met()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug;
-            public static string $outputDirectory = '';
-        };
-        config(['site.url' => 'https://example.com']);
-
+        $page = new MarkdownPage();
         $this->assertFalse($page->canUseCanonicalUrl());
 
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $slug = 'foo';
-        };
         config(['site.url' => null]);
+        $page = $this->makePage();
 
         $this->assertFalse($page->canUseCanonicalUrl());
     }
@@ -190,10 +140,8 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-        };
+        $page = $this->mock(HasPageMetadata::class);
+
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
 
@@ -204,10 +152,8 @@ class HasPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_does_not_add_sitemap_link_when_conditions_are_not_met()
     {
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-        };
+        $page = $this->mock(HasPageMetadata::class);
+
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => false]);
 
@@ -222,7 +168,7 @@ class HasPageMetadataTest extends TestCase
             Meta::name('twitter:title', 'foo'),
         ]]);
 
-        $page = $this->makeTestClass();
+        $page = new MarkdownPage();
 
         $this->assertTrue($page->hasTwitterTitleInConfig());
     }
@@ -231,7 +177,7 @@ class HasPageMetadataTest extends TestCase
     {
         config(['hyde.meta' => []]);
 
-        $page = $this->makeTestClass();
+        $page = new MarkdownPage();
 
         $this->assertFalse($page->hasTwitterTitleInConfig());
     }
@@ -242,7 +188,7 @@ class HasPageMetadataTest extends TestCase
             Meta::property('title', 'foo'),
         ]]);
 
-        $page = $this->makeTestClass();
+        $page = new MarkdownPage();
 
         $this->assertTrue($page->hasOpenGraphTitleInConfig());
     }
@@ -251,7 +197,7 @@ class HasPageMetadataTest extends TestCase
     {
         config(['hyde.meta' => []]);
 
-        $page = $this->makeTestClass();
+        $page = new MarkdownPage();
 
         $this->assertFalse($page->hasOpenGraphTitleInConfig());
     }
@@ -263,36 +209,13 @@ class HasPageMetadataTest extends TestCase
             Meta::property('title', 'foo'),
         ]]);
 
-        $page = new class extends AbstractPage
-        {
-            use HasPageMetadata;
-
-            public string $title = 'bar';
-        };
+        $page = new MarkdownPage(title: 'Foo Bar');
 
         $this->assertEquals([
-            '<meta name="twitter:title" content="HydePHP - bar" />',
-            '<meta property="og:title" content="HydePHP - bar" />',
+            '<meta name="twitter:title" content="HydePHP - Foo Bar" />',
+            '<meta property="og:title" content="HydePHP - Foo Bar" />',
         ],
             $page->getDynamicMetadata()
         );
-    }
-
-    protected function makeTestClass(): object
-    {
-        return new class
-        {
-            use HasPageMetadata;
-
-            public function htmlTitle(?string $title = null): string
-            {
-                return $title ?? '';
-            }
-
-            public function getRoute(): RouteContract
-            {
-                return new Route(new MarkdownPage());
-            }
-        };
     }
 }
