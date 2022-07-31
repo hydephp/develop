@@ -28,9 +28,14 @@ class HydePublishHomepageCommand extends Command
     {
         $this->selected = $this->argument('homepage') ?? $this->promptForHomepage();
 
+        if (! $this->canExistingIndexFileBeOverwritten()) {
+            $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
+
+            return 409;
+        }
+
         $returnValue = (new PublishesHomepageView(
-            $this->selected,
-            $this->canExistingIndexFileBeOverwritten()
+            $this->selected
         ))->execute();
 
         if (is_numeric($returnValue)) {
@@ -38,12 +43,6 @@ class HydePublishHomepageCommand extends Command
                 $this->error('Homepage '.$this->selected.' does not exist.');
 
                 return 404;
-            }
-
-            if ($returnValue == 409) {
-                $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
-
-                return 409;
             }
         }
 

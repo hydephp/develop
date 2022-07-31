@@ -6,7 +6,10 @@ use Exception;
 
 class FileConflictException extends Exception
 {
+    /** @var string */
     protected $message = 'A file already exists at this path.';
+
+    /** @var int */
     protected $code = 409;
 
     public function __construct(?string $path = null)

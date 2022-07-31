@@ -19,7 +19,7 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractPage implements PageContract
+abstract class AbstractPage implements PageContract, CompilableContract
 {
     use HasPageMetadata;
     use CanBeInNavigation;
@@ -28,6 +28,7 @@ abstract class AbstractPage implements PageContract
     public static string $outputDirectory;
     public static string $fileExtension;
     public static string $parserClass;
+    public static string $template;
 
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
@@ -134,4 +135,13 @@ abstract class AbstractPage implements PageContract
             ? config('site.name', 'HydePHP').' - '.$pageTitle
             : config('site.name', 'HydePHP');
     }
+
+    /** @inheritDoc */
+    public function getBladeView(): string
+    {
+        return static::$template;
+    }
+
+    /** @inheritDoc */
+    abstract public function compile(): string;
 }

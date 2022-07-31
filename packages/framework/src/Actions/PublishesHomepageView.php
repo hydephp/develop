@@ -31,11 +31,9 @@ class PublishesHomepageView implements ActionContract
     ];
 
     protected string $selected;
-    protected bool $force = false;
 
-    public function __construct(string $selected, bool $force = false)
+    public function __construct(string $selected)
     {
-        $this->force = $force;
         $this->selected = $selected;
     }
 
@@ -45,10 +43,9 @@ class PublishesHomepageView implements ActionContract
             return 404;
         }
 
-        return Hyde::copy(
+        return copy(
             Hyde::vendorPath(static::$homePages[$this->selected]['path']),
-            Hyde::getBladePagePath('index.blade.php'),
-            $this->force
+            Hyde::getBladePagePath('index.blade.php')
         );
     }
 }

@@ -13,8 +13,7 @@ use Hyde\Framework\StaticPageBuilder;
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
  *
- * If a method uses the name `path` it refers to an internal file path.
- * if a method uses the name `link` it refers to a web link used in Blade templates.
+ * All paths are relative to the root of the application.
  *
  * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
@@ -66,24 +65,43 @@ class Filesystem
     }
 
     /**
-     * Wrapper for the copy function, but allows choosing if files may be overwritten.
-     *
-     * @param  string  $from  The source file path.
-     * @param  string  $to  The destination file path.
-     * @param  bool  $force  If true, existing files will be overwritten.
-     * @return bool|int Returns true|false on copy() success|failure, or an error code on failure
+     * Wrapper for the copy function, but using project relative paths.
      */
-    public function copy(string $from, string $to, bool $force = false): int|bool
+    public function copy(string $from, string $to): bool
     {
-        if (! file_exists($from)) {
-            return 404;
+        return copy($this->path($from), $this->path($to));
+    }
+
+    /**
+     * Touch one or more files in the project's directory.
+     */
+    public function touch(string|array $path): bool
+    {
+        if (is_string($path)) {
+            return touch($this->path($path));
         }
 
-        if (file_exists($to) && ! $force) {
-            return 409;
+        foreach ($path as $p) {
+            touch($this->path($p));
         }
 
-        return copy($from, $to);
+        return true;
+    }
+
+    /**
+     * Unlink one or more files in the project's directory.
+     */
+    public function unlink(string|array $path): bool
+    {
+        if (is_string($path)) {
+            return unlink($this->path($path));
+        }
+
+        foreach ($path as $p) {
+            unlink($this->path($p));
+        }
+
+        return true;
     }
 
     /**
