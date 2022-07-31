@@ -31,11 +31,9 @@ class PublishesHomepageView implements ActionContract
     ];
 
     protected string $selected;
-    protected bool $force = false;
 
-    public function __construct(string $selected, bool $force = false)
+    public function __construct(string $selected)
     {
-        $this->force = $force;
         $this->selected = $selected;
     }
 
