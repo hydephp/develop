@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature\Concerns;
 
-use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
