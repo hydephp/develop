@@ -6,11 +6,12 @@ namespace Hyde\Framework\Contracts;
  * The HydeKernel encapsulates a HydePHP project,
  * providing helpful methods for interacting with it.
  *
+ * @see \Hyde\Framework\HydeKernel
+ *
  * It is bound into the Laravel Application Service Container,
  * and can be accessed in a few ways.
  *
  * - Commonly, you'll use the Hyde facade:
- *
  * @see \Hyde\Framework\Hyde (previosly this namespace contained the actual Kernel)
  *
  * @example \Hyde\Framework\Hyde::foo()
@@ -26,5 +27,7 @@ namespace Hyde\Framework\Contracts;
  */
 interface HydeKernelContract
 {
-    //
+    public function getBasePath(): string;
+
+    public function setBasePath(string $basePath);
 }
