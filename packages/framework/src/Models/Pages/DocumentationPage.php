@@ -23,7 +23,7 @@ class DocumentationPage extends AbstractMarkdownPage
     public ?string $category;
 
     /**
-     * The path to the page relative to the configured docs directory.
+     * The path to the page relative to the configured `_docs` directory.
      * Generally only needed if the page is in a subdirectory.
      */
     public ?string $localPath;

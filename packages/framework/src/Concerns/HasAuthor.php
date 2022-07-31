@@ -19,8 +19,8 @@ trait HasAuthor
     {
         if (isset($this->matter['author'])) {
             if (is_string($this->matter['author'])) {
-                // If the author is a string, we assume it's a username
-                // and we'll try to find the author in the config
+                // If the author is a string, we assume it's a username,
+                // so we'll try to find the author in the config
                 $this->author = $this->findAuthor($this->matter['author']);
             }
             if (is_array($this->matter['author'])) {
