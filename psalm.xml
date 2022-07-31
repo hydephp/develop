@@ -8,6 +8,7 @@
 >
     <projectFiles>
         <directory name="app" />
+        <directory name="packages/framework/src" />
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>
