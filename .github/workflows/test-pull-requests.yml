@@ -88,3 +88,6 @@ jobs:
 
       - name: Run static analysis (PHPStan)
         run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
+
+      - name: Run static analysis (Psalm/Shepherd)
+        run: vendor/bin/psalm --shepherd || true
