@@ -14,13 +14,16 @@ This serves two purposes:
 
 ### Changed
 - internal: The HydeKernel has been refactored to move related logic to service classes. This does not change the end usage as the Hyde facade still works the same
+- `DiscoveryService::getSourceFileListForModel()` now throws an exception instead of returning false when given an invalid model class
+- `DiscoveryService::getFilePathForModelClassFiles` method was renamed to `DiscoveryService::getModelSourceDirectory`
+- `DiscoveryService::getFileExtensionForModelFiles` method was renamed to `DiscoveryService::getModelFileExtension`
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Removed deprecated Hyde::uriPath() helper
-- Removed deprecated CollectionService::findModelFromFilePath()
+- Removed deprecated `Hyde::uriPath()` helper
+- Removed deprecated `CollectionService::findModelFromFilePath()`
 
 ### Fixed
 - for any bug fixes.
