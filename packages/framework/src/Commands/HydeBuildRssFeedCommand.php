@@ -50,7 +50,7 @@ class HydeBuildRssFeedCommand extends Command
 
     protected function runPreflightCheck(): bool
     {
-        if (!Features::rss()) {
+        if (! Features::rss()) {
             $this->error('Cannot generate an RSS feed, please check your configuration.');
 
             return false;

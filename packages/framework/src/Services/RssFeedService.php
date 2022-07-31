@@ -4,7 +4,6 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use SimpleXMLElement;
@@ -144,5 +143,4 @@ class RssFeedService
     {
         return (new static)->generate()->getXML();
     }
-
 }
