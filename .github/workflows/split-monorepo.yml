@@ -233,7 +233,6 @@ jobs:
       run: |
         rm hyde/CHANGELOG.md
         rm hyde/phpunit.dusk.xml
-        rm hyde/phpunit.xml.dist
         rm hyde/psalm.xml
 
     - name: Commit and push changes
