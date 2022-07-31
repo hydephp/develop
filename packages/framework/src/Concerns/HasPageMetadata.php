@@ -42,7 +42,7 @@ trait HasPageMetadata
             $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::url('sitemap.xml').'" />';
         }
 
-        if ($this->canUseRssFeedLink()) {
+        if (RssFeedService::canGenerateFeed()) {
             $array[] = $this->makeRssFeedLink();
         }
 
@@ -78,11 +78,6 @@ trait HasPageMetadata
     public function canUseCanonicalUrl(): bool
     {
         return Hyde::hasSiteUrl() && isset($this->slug);
-    }
-
-    public function canUseRssFeedLink(): bool
-    {
-        return RssFeedService::canGenerateFeed();
     }
 
     public function hasTwitterTitleInConfig(): bool
