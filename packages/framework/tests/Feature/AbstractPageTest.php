@@ -195,7 +195,7 @@ class AbstractPageTest extends TestCase
 
     public function test_markdown_page_implements_page_contract()
     {
-        $this->assertInstanceOf(PageContract::class, new class extends AbstractPage {});
+        $this->assertInstanceOf(PageContract::class, new MarkdownPage());
     }
 
     public function test_all_page_models_extend_abstract_page()
