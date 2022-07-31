@@ -44,42 +44,6 @@ class DiscoveryService
         return new $model::$parserClass($slug);
     }
 
-    public static function getFileExtensionForModelFiles(string $model): string
-    {
-        /** @var AbstractPage $model */
-        return $model::getFileExtension();
-    }
-
-    public static function getFilePathForModelClassFiles(string $model): string
-    {
-        /** @var AbstractPage $model */
-        return $model::getSourceDirectory();
-    }
-
-    /**
-     * Create a filepath that can be opened in the browser from a terminal.
-     *
-     * @param  string<AbstractPage>  $filepath
-     * @return string
-     */
-    public static function createClickableFilepath(string $filepath): string
-    {
-        if (realpath($filepath) === false) {
-            return $filepath;
-        }
-
-        return 'file://'.str_replace(
-            '\\',
-            '/',
-            realpath($filepath)
-        );
-    }
-
-    public static function getDocumentationPageFiles(): array
-    {
-        return self::getSourceFileListForModel(DocumentationPage::class);
-    }
-
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
@@ -106,24 +70,37 @@ class DiscoveryService
 
         return $files;
     }
-
-    public static function formatSlugForModel(string $model, string $filepath): string
+        
+    public static function getFileExtensionForModelFiles(string $model): string
     {
         /** @var AbstractPage $model */
-        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
+        return $model::getFileExtension();
+    }
 
-        if (str_ends_with($slug, $model::$fileExtension)) {
-            $slug = substr($slug, 0, -strlen($model::$fileExtension));
-        }
+    public static function getFilePathForModelClassFiles(string $model): string
+    {
+        /** @var AbstractPage $model */
+        return $model::getSourceDirectory();
+    }
 
-        $slug = unslash($slug);
-
-        return $slug;
+    public static function getBladePageFiles(): array
+    {
+        return self::getSourceFileListForModel(BladePage::class);
     }
 
     public static function getMarkdownPageFiles(): array
     {
         return self::getSourceFileListForModel(MarkdownPage::class);
+    }
+
+    public static function getMarkdownPostFiles(): array
+    {
+        return self::getSourceFileListForModel(MarkdownPost::class);
+    }
+
+    public static function getDocumentationPageFiles(): array
+    {
+        return self::getSourceFileListForModel(DocumentationPage::class);
     }
 
     /**
@@ -138,14 +115,38 @@ class DiscoveryService
                 config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
             ).'}'), GLOB_BRACE);
     }
-
-    public static function getBladePageFiles(): array
+    
+    /**
+     * Create a filepath that can be opened in the browser from a terminal.
+     *
+     * @param  string<AbstractPage>  $filepath
+     * @return string
+     */
+    public static function createClickableFilepath(string $filepath): string
     {
-        return self::getSourceFileListForModel(BladePage::class);
+        if (realpath($filepath) === false) {
+            return $filepath;
+        }
+
+        return 'file://'.str_replace(
+            '\\',
+            '/',
+            realpath($filepath)
+        );
     }
 
-    public static function getMarkdownPostFiles(): array
+    
+    public static function formatSlugForModel(string $model, string $filepath): string
     {
-        return self::getSourceFileListForModel(MarkdownPost::class);
+        /** @var AbstractPage $model */
+        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
+
+        if (str_ends_with($slug, $model::$fileExtension)) {
+            $slug = substr($slug, 0, -strlen($model::$fileExtension));
+        }
+
+        $slug = unslash($slug);
+
+        return $slug;
     }
 }
