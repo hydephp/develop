@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 class DocumentationSidebar extends NavigationMenu
 {
+    /** @return $this */
     public function generate(): self
     {
         RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
