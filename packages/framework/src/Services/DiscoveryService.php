@@ -145,8 +145,6 @@ class DiscoveryService
             $slug = substr($slug, 0, -strlen($model::$fileExtension));
         }
 
-        $slug = unslash($slug);
-
-        return $slug;
+        return unslash($slug);
     }
 }
