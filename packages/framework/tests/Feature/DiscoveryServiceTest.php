@@ -19,18 +19,18 @@ class DiscoveryServiceTest extends TestCase
 {
     public function createContentSourceTestFiles()
     {
-        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(MarkdownPost::class).'/test.md'));
-        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(MarkdownPage::class).'/test.md'));
-        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(DocumentationPage::class).'/test.md'));
-        Hyde::touch((DiscoveryService::getFilePathForModelClassFiles(BladePage::class).'/test.blade.php'));
+        Hyde::touch((DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md'));
+        Hyde::touch((DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md'));
+        Hyde::touch((DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md'));
+        Hyde::touch((DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php'));
     }
 
     public function deleteContentSourceTestFiles()
     {
-        unlink(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(MarkdownPost::class).'/test.md'));
-        unlink(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(MarkdownPage::class).'/test.md'));
-        unlink(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(DocumentationPage::class).'/test.md'));
-        unlink(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(BladePage::class).'/test.blade.php'));
+        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(MarkdownPost::class).'/test.md'));
+        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md'));
+        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md'));
+        unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php'));
     }
 
     public function test_get_parser_class_for_model()
@@ -63,10 +63,10 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_get_file_path_for_model_class_files()
     {
-        $this->assertEquals('_posts', DiscoveryService::getFilePathForModelClassFiles(MarkdownPost::class));
-        $this->assertEquals('_pages', DiscoveryService::getFilePathForModelClassFiles(MarkdownPage::class));
-        $this->assertEquals('_docs', DiscoveryService::getFilePathForModelClassFiles(DocumentationPage::class));
-        $this->assertEquals('_pages', DiscoveryService::getFilePathForModelClassFiles(BladePage::class));
+        $this->assertEquals('_posts', DiscoveryService::getModelSourceDirectory(MarkdownPost::class));
+        $this->assertEquals('_pages', DiscoveryService::getModelSourceDirectory(MarkdownPage::class));
+        $this->assertEquals('_docs', DiscoveryService::getModelSourceDirectory(DocumentationPage::class));
+        $this->assertEquals('_pages', DiscoveryService::getModelSourceDirectory(BladePage::class));
     }
 
     public function test_create_clickable_filepath_creates_link_for_existing_file()

@@ -77,7 +77,7 @@ class DiscoveryService
         return $model::getFileExtension();
     }
 
-    public static function getFilePathForModelClassFiles(string $model): string
+    public static function getModelSourceDirectory(string $model): string
     {
         /** @var AbstractPage $model */
         return $model::getSourceDirectory();
