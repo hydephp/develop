@@ -161,9 +161,8 @@ class DiscoveryService
     }
 
     /**
-     *
      * @return array
-     *  Get all the Markdown files in the _pages directory.
+     *               Get all the Markdown files in the _pages directory.
      */
     public static function getMarkdownPageFiles(): array|false
     {
@@ -184,9 +183,8 @@ class DiscoveryService
     }
 
     /**
-     *
      * @return array
-     *  Get all the Blade files in the _pages directory.
+     *               Get all the Blade files in the _pages directory.
      */
     public static function getBladePageFiles(): array|false
     {
@@ -194,9 +192,8 @@ class DiscoveryService
     }
 
     /**
-     *
      * @return array
-     *  Get all the Markdown files in the _posts directory.
+     *               Get all the Markdown files in the _posts directory.
      */
     public static function getMarkdownPostFiles(): array|false
     {
