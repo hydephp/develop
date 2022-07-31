@@ -28,6 +28,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public static string $outputDirectory;
     public static string $fileExtension;
     public static string $parserClass;
+    public static string $template;
 
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
@@ -133,5 +134,11 @@ abstract class AbstractPage implements PageContract, CompilableContract
         return $pageTitle
             ? config('site.name', 'HydePHP').' - '.$pageTitle
             : config('site.name', 'HydePHP');
+    }
+
+    /** @inheritDoc */
+    public function getBladeView(): string
+    {
+        return static::$template;
     }
 }
