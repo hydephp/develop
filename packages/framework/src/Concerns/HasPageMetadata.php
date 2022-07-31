@@ -82,21 +82,7 @@ trait HasPageMetadata
 
     public function canUseRssFeedLink(): bool
     {
-        if (RssFeedService::canGenerateFeed() && isset($this->slug)) {
-            if ($this instanceof MarkdownPost) {
-                return true;
-            }
-
-            if (str_starts_with($this->getCurrentPagePath(), 'post')) {
-                return true;
-            }
-
-            if ($this->getCurrentPagePath() === 'index') {
-                return true;
-            }
-        }
-
-        return false;
+        return RssFeedService::canGenerateFeed();
     }
 
     public function hasTwitterTitleInConfig(): bool
