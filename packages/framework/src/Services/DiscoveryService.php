@@ -61,39 +61,6 @@ class DiscoveryService
     }
 
     /**
-     * Determine the Page Model to use for a given file path.
-     *
-     * @deprecated v0.47.0-beta - Use the Router instead.
-     *
-     * @param  string  $filepath
-     * @return string|false The model class constant, or false if none was found.
-     *
-     * @see \Hyde\Framework\Testing\Unit\DiscoveryServiceCanFindModelFromCustomSourceFilePathTest
-     */
-    public static function findModelFromFilePath(string $filepath): string|false
-    {
-        if (str_starts_with($filepath, MarkdownPost::getSourceDirectory())) {
-            return MarkdownPost::class;
-        }
-
-        if (str_starts_with($filepath, DocumentationPage::getSourceDirectory())) {
-            return DocumentationPage::class;
-        }
-
-        if (str_starts_with($filepath, MarkdownPage::getSourceDirectory())
-            && str_ends_with($filepath, '.md')) {
-            return MarkdownPage::class;
-        }
-
-        if (str_starts_with($filepath, BladePage::getSourceDirectory())
-            && str_ends_with($filepath, '.blade.php')) {
-            return BladePage::class;
-        }
-
-        return false;
-    }
-
-    /**
      * Create a filepath that can be opened in the browser from a terminal.
      *
      * @param  string  $filepath

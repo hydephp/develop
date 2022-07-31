@@ -31,16 +31,6 @@ class DiscoveryServiceTest extends TestCase
         unlink(Hyde::path(DiscoveryService::getFilePathForModelClassFiles(BladePage::class).'/test.blade.php'));
     }
 
-    public function test_find_model_from_file_path()
-    {
-        $this->assertEquals(MarkdownPage::class, DiscoveryService::findModelFromFilePath('_pages/test.md'));
-        $this->assertEquals(MarkdownPost::class, DiscoveryService::findModelFromFilePath('_posts/test.md'));
-        $this->assertEquals(DocumentationPage::class, DiscoveryService::findModelFromFilePath('_docs/test.md'));
-        $this->assertEquals(BladePage::class, DiscoveryService::findModelFromFilePath('_pages/test.blade.php'));
-
-        $this->assertFalse(DiscoveryService::findModelFromFilePath('_foo/test.txt'));
-    }
-
     public function test_get_parser_class_for_model()
     {
         $this->assertEquals(MarkdownPageParser::class, DiscoveryService::getParserClassForModel(MarkdownPage::class));
