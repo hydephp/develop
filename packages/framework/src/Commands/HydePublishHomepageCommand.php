@@ -88,6 +88,6 @@ class HydePublishHomepageCommand extends Command
 
         return FileCacheService::checksumMatchesAny(FileCacheService::unixsumFile(
             Hyde::getBladePagePath('index.blade.php')
-        )) ?? $this->option('force');
+        )) || $this->option('force');
     }
 }

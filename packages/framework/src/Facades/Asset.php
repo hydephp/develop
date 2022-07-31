@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Asset extends Facade
 {
+    /** @psalm-return AssetServiceContract::class */
     protected static function getFacadeAccessor(): string
     {
         return AssetServiceContract::class;

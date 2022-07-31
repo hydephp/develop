@@ -91,7 +91,7 @@ class RoutingService implements RoutingServiceContract
         return $this;
     }
 
-    protected function discover(PageContract $page): self
+    protected function discover(PageContract $page): static
     {
         // Create a new route for the given page, and add it to the index.
         $this->addRoute(new Route($page));
@@ -99,7 +99,7 @@ class RoutingService implements RoutingServiceContract
         return $this;
     }
 
-    protected function discoverRoutes(): self
+    protected function discoverRoutes(): static
     {
         $this->routes = new Collection();
 

@@ -42,14 +42,14 @@ class BuildHookService
         );
     }
 
-    public function run(string $task): self
+    public function run(string $task): static
     {
         $this->runTask(new $task($this->output));
 
         return $this;
     }
 
-    public function runIf(string $task, callable|bool $condition): self
+    public function runIf(string $task, callable|bool $condition): static
     {
         if (is_bool($condition) ? $condition : $condition()) {
             $this->run($task);
@@ -58,7 +58,7 @@ class BuildHookService
         return $this;
     }
 
-    protected function runTask(BuildTaskContract $task): self
+    protected function runTask(BuildTaskContract $task): static
     {
         $task->handle();
 

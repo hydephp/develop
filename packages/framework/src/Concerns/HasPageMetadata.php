@@ -25,6 +25,11 @@ trait HasPageMetadata
         return $this->getRoute()->getQualifiedUrl();
     }
 
+    /**
+     * @return string[]
+     *
+     * @psalm-return list<string>
+     */
     public function getDynamicMetadata(): array
     {
         $array = [];

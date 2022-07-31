@@ -30,7 +30,7 @@ class DataCollection extends Collection
         parent::__construct();
     }
 
-    public function getCollection(): DataCollection
+    public function getCollection(): static
     {
         $this->parseTimeInMs = round((microtime(true) - $this->timeStart) * 1000, 2);
         unset($this->timeStart);
