@@ -7,8 +7,8 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\ValidationResult as Result;
 
 /**
- * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
- * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
  */
 class ValidationService
 {
