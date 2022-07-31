@@ -229,9 +229,12 @@ jobs:
     - name: Copy over persisted files
       run: cp -rf develop/packages/hyde/. hyde -v
 
-    - name: Remove test files
+    - name: Remove monorepo support files
       run: |
+        rm hyde/CHANGELOG.md
         rm hyde/phpunit.dusk.xml
+        rm hyde/phpunit.xml.dist
+        rm hyde/psalm.xml
 
     - name: Commit and push changes
       run: |
