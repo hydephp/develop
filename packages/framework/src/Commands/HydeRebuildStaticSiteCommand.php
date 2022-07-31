@@ -11,6 +11,8 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde Command to build a single static site file.
+ *
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeRebuildStaticSiteCommandTest
  */
 class HydeRebuildStaticSiteCommand extends Command
 {
