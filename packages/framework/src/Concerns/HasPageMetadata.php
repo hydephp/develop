@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
@@ -38,7 +39,7 @@ trait HasPageMetadata
             $array[] = '<link rel="canonical" href="'.$this->getCanonicalUrl().'" />';
         }
 
-        if ($this->canUseSitemapLink()) {
+        if (Features::sitemap()) {
             $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::url('sitemap.xml').'" />';
         }
 
@@ -78,11 +79,6 @@ trait HasPageMetadata
     public function canUseCanonicalUrl(): bool
     {
         return Hyde::hasSiteUrl() && isset($this->slug);
-    }
-
-    public function canUseSitemapLink(): bool
-    {
-        return SitemapService::canGenerateSitemap();
     }
 
     public function canUseRssFeedLink(): bool
