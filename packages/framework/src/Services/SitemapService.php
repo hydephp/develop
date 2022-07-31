@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace Hyde\Framework\Services;
 
@@ -23,6 +23,10 @@ class SitemapService
 
     public function __construct()
     {
+        if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
+            throw new \Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
+        }
+
         $this->time_start = microtime(true);
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
