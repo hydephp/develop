@@ -25,6 +25,7 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 - The `Hyde::copy()` helper now always uses paths relative to the project
 - The `Hyde::copy()` helper will always overwrite existing files
 - Replaced `SitemapService::canGenerateSitemap()` with `Features::sitemap()`
+- Replaced `RssFeedService::canGenerateFeed()` with `Features::rss()`
 
 ### Deprecated
 - for soon-to-be removed features.
