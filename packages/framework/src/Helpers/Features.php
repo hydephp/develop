@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Hyde;
+
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
  *
@@ -130,5 +132,16 @@ class Features
     public static function torchlight(): string
     {
         return 'torchlight';
+    }
+
+    // ================================================
+    // Dynamic features.
+    // ================================================
+
+    public static function sitemap(): bool
+    {
+        return Hyde::hasSiteUrl()
+            && config('site.generate_sitemap', true)
+            && extension_loaded('simplexml');
     }
 }
