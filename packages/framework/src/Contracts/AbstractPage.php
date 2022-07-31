@@ -141,4 +141,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     {
         return static::$template;
     }
+    
+    /** @inheritDoc */
+    abstract public function compile(): string;
 }
