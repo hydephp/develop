@@ -138,6 +138,7 @@ class Features
     // Dynamic features.
     // ================================================
 
+    /** Can a sitemap be generated? */
     public static function sitemap(): bool
     {
         return Hyde::hasSiteUrl()
@@ -145,6 +146,7 @@ class Features
             && extension_loaded('simplexml');
     }
 
+    /** Can an RSS feed be generated? */
     public static function rss(): bool
     {
         return Hyde::hasSiteUrl()
