@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace Hyde\Framework\Services;
 
@@ -18,6 +18,10 @@ class RssFeedService
 
     public function __construct()
     {
+        if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
+            throw new \Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
+        }
+
         $this->feed = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
             <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />');
         $this->feed->addChild('channel');
