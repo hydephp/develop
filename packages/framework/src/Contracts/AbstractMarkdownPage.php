@@ -58,7 +58,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownPage
     /** @inheritDoc */
     public function compile(): string
     {
-        return view(static::$template)->with([
+        return view($this->getBladeView())->with([
             'title' => $this->title,
             'markdown' => MarkdownConverter::parse($this->body, static::class),
         ])->render();
