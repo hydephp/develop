@@ -6,6 +6,8 @@ namespace Hyde\Framework\Contracts;
  * The HydeKernel encapsulates a HydePHP project,
  * providing helpful methods for interacting with it.
  *
+ * @see \Hyde\Framework\HydeKernel
+ *
  * It is bound into the Laravel Application Service Container,
  * and can be accessed in a few ways.
  *
