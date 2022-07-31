@@ -9,7 +9,7 @@ use Hyde\Framework\Services\MarkdownFileService;
 use Illuminate\Support\Str;
 
 /**
- * Parses a Markdown file in the configured docs directory into a DocumentationPage object.
+ * Parses a Markdown file in the configured `_docs` directory into a DocumentationPage object.
  *
  * If the file is in a subdirectory relative to the base source directory (default _docs),
  * the subdirectory name will be used as the page's category. This only works for one level,
