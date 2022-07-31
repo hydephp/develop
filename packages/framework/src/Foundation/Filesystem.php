@@ -73,7 +73,7 @@ class Filesystem
     }
 
     /**
-     * Touch one or more files in the project root directory.
+     * Touch one or more files in the project's directory.
      */
     public function touch(string|array $path): bool
     {
@@ -89,7 +89,7 @@ class Filesystem
     }
 
     /**
-     * Unlink one or more files in the project root directory.
+     * Unlink one or more files in the project's directory.
      */
     public function unlink(string|array $path): bool
     {
