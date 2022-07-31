@@ -19,8 +19,8 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- Removed deprecated Hyde::uriPath() helper
-- Removed deprecated CollectionService::findModelFromFilePath()
+- Removed deprecated `Hyde::uriPath()` helper
+- Removed deprecated `CollectionService::findModelFromFilePath()`
 
 ### Fixed
 - for any bug fixes.
