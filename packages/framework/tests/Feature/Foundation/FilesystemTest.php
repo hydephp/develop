@@ -9,7 +9,6 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Foundation\Filesystem
  *
- * @see \Hyde\Framework\Testing\Unit\Foundation\FilesystemSafeCopyHelperTest
  * @see \Hyde\Framework\Testing\Unit\Foundation\FluentFilesystemModelPathHelpersTest
  */
 class FilesystemTest extends TestCase
