@@ -31,7 +31,7 @@ class DiscoveryService
     /**
      * Create and get a constructed instance of a Model's Parser class.
      *
-     * @param  string  $model  Class constant of the Model to get the Parser for.
+     * @param  string<AbstractPage>  $model  Class constant of the Model to get the Parser for.
      * @param  string  $slug  The slug of the source file to parse.
      *
      * @example getParserForModel(MarkdownPost::class, 'hello-world')
@@ -65,7 +65,7 @@ class DiscoveryService
     /**
      * Create a filepath that can be opened in the browser from a terminal.
      *
-     * @param  string  $filepath
+     * @param  string<AbstractPage>  $filepath
      * @return string
      */
     public static function createClickableFilepath(string $filepath): string
