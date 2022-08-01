@@ -49,7 +49,7 @@ class Report
         $this->php_version = PHP_VERSION;
         $this->php_sapi = php_sapi_name();
         $this->runner_os = PHP_OS;
-        $this->runner_arch = PHP_INT_SIZE * 8 . '-bit';
+        $this->runner_arch = PHP_INT_SIZE * 8 .'-bit';
         $this->xdebug_enabled = extension_loaded('xdebug');
         $this->opcache_enabled = extension_loaded('opcache');
     }

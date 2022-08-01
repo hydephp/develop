@@ -29,13 +29,13 @@ trait TrackingHelpers
         $memory = memory_get_usage(true);
 
         if ($memory < 1024) {
-            return $memory . 'B';
+            return $memory.'B';
         }
 
         if ($memory < 1048576) {
-            return round($memory / 1024, 2) . 'KB';
+            return round($memory / 1024, 2).'KB';
         }
 
-        return round($memory / 1048576, 2) . 'MB';
+        return round($memory / 1048576, 2).'MB';
     }
 }

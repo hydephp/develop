@@ -6,8 +6,8 @@ class ExampleBenchmark extends BenchCase
 {
     public function testExample()
     {
-         $this->benchmark(function () {
-             return 'Hello World!';
-         });
+        $this->benchmark(function () {
+            return 'Hello World!';
+        });
     }
 }

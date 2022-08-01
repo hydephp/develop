@@ -6,6 +6,7 @@ namespace Tests\Benchmarks\CBench;
  * Based on CBench, ported to PSR-4.
  *
  * @link https://github.com/caendesilva/CBench
+ *
  * @license MIT
  */
 class Benchmark
@@ -40,6 +41,7 @@ class Benchmark
     {
         $benchmark = new Benchmark($iterations, $name, $silent);
         $benchmark->execute($callback);
+
         return $benchmark;
     }
 
@@ -48,11 +50,11 @@ class Benchmark
         $this->comment(str_repeat('=', 40))
             ->line('Preparing Benchmark script')
             ->comment(str_repeat('-', 40))
-            ->line('Script version:    ' . self::VERSION)
-            ->line('Current time:      ' . date('Y-m-d H:i:s'))
+            ->line('Script version:    '.self::VERSION)
+            ->line('Current time:      '.date('Y-m-d H:i:s'))
             ->line()
-            ->line('Iterations to run: ' . $this->iterations)
-            ->line('Name of benchmark: ' . ($this->name ?? '[not set]'))
+            ->line('Iterations to run: '.$this->iterations)
+            ->line('Name of benchmark: '.($this->name ?? '[not set]'))
             ->comment(str_repeat('=', 40))
             ->line();
     }
@@ -65,24 +67,24 @@ class Benchmark
             ->comment(str_repeat('-', 40));
 
         $this->info('Run information:')
-            ->line('Script version:    ' . self::VERSION)
-            ->line('Today\'s date:      ' . date('Y-m-d'))
-            ->line('Name of benchmark: ' . ($this->name ?? '[not set]'))
+            ->line('Script version:    '.self::VERSION)
+            ->line('Today\'s date:      '.date('Y-m-d'))
+            ->line('Name of benchmark: '.($this->name ?? '[not set]'))
             ->newline();
 
         $this->info('Benchmark information:')
-            ->line('Total iterations:       ' . $this->iterations)
-            ->line('Total execution time:   ' . $this->getExecutionTimeInMs() . 'ms')
-            ->line('Avg.  iteration time:   ' . $this->getAverageExecutionTimeInMs() . 'ms')
-            ->line('Avg.  iterations/sec:   ' . $this->getAverageIterationsPerSecond())
-            ->line('Approx. Memory usage:   ' . $this->getMemoryUsage())
+            ->line('Total iterations:       '.$this->iterations)
+            ->line('Total execution time:   '.$this->getExecutionTimeInMs().'ms')
+            ->line('Avg.  iteration time:   '.$this->getAverageExecutionTimeInMs().'ms')
+            ->line('Avg.  iterations/sec:   '.$this->getAverageIterationsPerSecond())
+            ->line('Approx. Memory usage:   '.$this->getMemoryUsage())
             ->newline();
 
         $this->info('System information:')
-            ->line('PHP version: ' . PHP_VERSION . ' (' . php_sapi_name() . ')')
-            ->line('OS/Arch:     ' . PHP_OS . ' (' . PHP_INT_SIZE * 8 . '-bit' . ')')
-            ->line('xdebug:      ' . (extension_loaded('xdebug') ? 'enabled ✅' : 'disabled ❌'))
-            ->line('opcache:     ' . (extension_loaded('opcache') ? 'enabled ✅' : 'disabled ❌'))
+            ->line('PHP version: '.PHP_VERSION.' ('.php_sapi_name().')')
+            ->line('OS/Arch:     '.PHP_OS.' ('.PHP_INT_SIZE * 8 .'-bit'.')')
+            ->line('xdebug:      '.(extension_loaded('xdebug') ? 'enabled ✅' : 'disabled ❌'))
+            ->line('opcache:     '.(extension_loaded('opcache') ? 'enabled ✅' : 'disabled ❌'))
             ->comment(str_repeat('=', 40));
     }
 

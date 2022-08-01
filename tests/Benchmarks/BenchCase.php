@@ -14,11 +14,11 @@ class BenchCase extends TestCase
         $class = (basename(static::class, 'Test'));
         $method = substr(debug_backtrace()[1]['function'], 4);
 
-        $benchmark = Benchmark::run($callback, $iterations, $name ?? $class. '::' .$method, env('SILENCE_BENCHMARKS', true));
+        $benchmark = Benchmark::run($callback, $iterations, $name ?? $class.'::'.$method, env('SILENCE_BENCHMARKS', true));
 
         file_put_contents(sprintf(
-            "%s/reports/%s.json", __DIR__,  (
-                Str::snake($class . '-' . lcfirst($method)))),
+            '%s/reports/%s.json', __DIR__, (
+                Str::snake($class.'-'.lcfirst($method)))),
             json_encode(new Report($benchmark), JSON_PRETTY_PRINT));
 
         $this->log($method, "Ran $benchmark->iterations iterations in {$benchmark->getExecutionTimeInMs()}ms ({$benchmark->getAverageExecutionTimeInMs()}ms avg / {$benchmark->getAverageIterationsPerSecond()} per sec)");
