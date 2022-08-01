@@ -2,18 +2,14 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This update removes the deprecated LegacyPageRouter class from the Hyde Realtime Compiler (HydeRC). Along with this release, the HydeRC is now on version 2.5, and requires Hyde version 0.48.0-beta or higher.
 
 ### Added
 - for new features.
 
 ### Changed
 - hyde/realtime-compiler no longer supports Framework versions older than v0.48.0-beta.
+- hyde/hyde now requires HydeRC version 2.5 or higher.
 
 ### Deprecated
 - for soon-to-be removed features.
