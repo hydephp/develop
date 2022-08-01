@@ -8,7 +8,7 @@ use Tests\Benchmarks\CBench\Benchmark;
 use Tests\Benchmarks\CBench\Report;
 
 /**
- * Run with vendor/bin/pest tests/Benchmarks --test-suffix="Benchmark.php"
+ * Run with vendor/bin/pest tests/Benchmarks --test-suffix="Benchmark.php".
  */
 class BenchCase extends TestCase
 {
