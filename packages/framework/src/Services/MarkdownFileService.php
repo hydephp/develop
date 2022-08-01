@@ -6,8 +6,9 @@ use Hyde\Framework\Models\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
- * Prepares a Markdown file for further usage.
- * The service splits the Front Matter and creates a Markdown Document Object.
+ * Prepares a Markdown file for further usage by extracting the Front Matter and creating MarkdownDocument object.
+ *
+ * @see \Hyde\Framework\Testing\Feature\MarkdownFileServiceTest
  */
 class MarkdownFileService
 {
@@ -47,8 +48,6 @@ class MarkdownFileService
 
     /**
      * Get the processed Markdown file as a MarkdownDocument.
-     *
-     * @return MarkdownDocument
      */
     public function get(): MarkdownDocument
     {
