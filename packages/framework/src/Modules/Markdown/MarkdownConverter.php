@@ -6,14 +6,14 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 
 /**
- * "Extends" {@see \League\CommonMark\CommonMarkConverter}
+ * "Extends" {@see \League\CommonMark\CommonMarkConverter}.
  */
 class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 {
     /**
-     * Create a new Markdown converter pre-configured for CommonMark
+     * Create a new Markdown converter pre-configured for CommonMark.
      *
-     * @param array<string, mixed> $config
+     * @param  array<string, mixed>  $config
      */
     public function __construct(array $config = [])
     {
