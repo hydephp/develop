@@ -3,13 +3,11 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Concerns\HasPageMetadata::canUseRssFeedLink
  * @covers \Hyde\Framework\Concerns\HasPageMetadata::getDynamicMetadata
  */
 class HasPageMetadataRssFeedLinkTest extends TestCase
@@ -56,16 +54,6 @@ class HasPageMetadataRssFeedLinkTest extends TestCase
         $page = new BladePage('index');
 
         $this->assertStringContainsString(
-            '<link rel="alternate" type="application/rss+xml" title="HydePHP RSS Feed" href="foo/feed.xml" />',
-            $page->renderPageMetadata()
-        );
-    }
-
-    public function test_can_use_rss_feed_link_does_not_add_meta_link_for_documentation_index_page()
-    {
-        $page = new DocumentationPage([], '', slug: 'index');
-
-        $this->assertStringNotContainsString(
             '<link rel="alternate" type="application/rss+xml" title="HydePHP RSS Feed" href="foo/feed.xml" />',
             $page->renderPageMetadata()
         );

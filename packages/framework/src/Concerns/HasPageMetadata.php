@@ -3,11 +3,11 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\RssFeedService;
-use Hyde\Framework\Services\SitemapService;
 
 /**
  * @todo Move logic into service class to make it easier to test.
@@ -38,11 +38,11 @@ trait HasPageMetadata
             $array[] = '<link rel="canonical" href="'.$this->getCanonicalUrl().'" />';
         }
 
-        if ($this->canUseSitemapLink()) {
+        if (Features::sitemap()) {
             $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::url('sitemap.xml').'" />';
         }
 
-        if ($this->canUseRssFeedLink()) {
+        if (Features::rss()) {
             $array[] = $this->makeRssFeedLink();
         }
 
@@ -78,30 +78,6 @@ trait HasPageMetadata
     public function canUseCanonicalUrl(): bool
     {
         return Hyde::hasSiteUrl() && isset($this->slug);
-    }
-
-    public function canUseSitemapLink(): bool
-    {
-        return SitemapService::canGenerateSitemap();
-    }
-
-    public function canUseRssFeedLink(): bool
-    {
-        if (RssFeedService::canGenerateFeed() && isset($this->slug)) {
-            if ($this instanceof MarkdownPost) {
-                return true;
-            }
-
-            if (str_starts_with($this->getCurrentPagePath(), 'post')) {
-                return true;
-            }
-
-            if ($this->getCurrentPagePath() === 'index') {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function hasTwitterTitleInConfig(): bool

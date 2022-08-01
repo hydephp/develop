@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature\Concerns;
 
-use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
@@ -88,6 +87,12 @@ class HasPageMetadataTest extends TestCase
         $this->assertFalse($page->canUseCanonicalUrl());
     }
 
+    public function test_render_page_metadata_returns_string()
+    {
+        $page = $this->makePage();
+        $this->assertIsString($page->renderPageMetadata());
+    }
+
     public function test_render_page_metadata_returns_string_with_merged_metadata()
     {
         $page = $this->makePage();
@@ -97,7 +102,7 @@ class HasPageMetadataTest extends TestCase
             Meta::name('foo', 'bar'),
         ]]);
 
-        $this->assertEquals(
+        $this->assertStringContainsString(
             '<meta name="foo" content="bar">'."\n".
             '<link rel="canonical" href="https://example.com/foo.html" />',
             $page->renderPageMetadata()
@@ -133,31 +138,31 @@ class HasPageMetadataTest extends TestCase
             Meta::name('foo', 'bar'),
         ]]);
 
-        $this->assertEquals(['<link rel="canonical" href="https://example.com/foo.html" />'],
+        $this->assertContains('<link rel="canonical" href="https://example.com/foo.html" />',
             $page->getDynamicMetadata()
         );
     }
 
     public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
     {
-        $page = $this->mock(HasPageMetadata::class);
+        $page = $this->makePage();
 
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertEquals(['<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />'],
+        $this->assertContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />',
             $page->getDynamicMetadata()
         );
     }
 
     public function test_get_dynamic_metadata_does_not_add_sitemap_link_when_conditions_are_not_met()
     {
-        $page = $this->mock(HasPageMetadata::class);
+        $page = $this->makePage();
 
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => false]);
 
-        $this->assertEquals([],
+        $this->assertNotContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />',
             $page->getDynamicMetadata()
         );
     }

@@ -2,11 +2,14 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Hyde;
+
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
  *
- * Based entirely on Laravel Jetstream (License MIT)
+ * @see \Hyde\Framework\Testing\Feature\ConfigurableFeaturesTest
  *
+ * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/
  */
 class Features
@@ -36,11 +39,10 @@ class Features
         ]));
     }
 
-    /**
-     * ================================================
-     * Determine if a given feature is enabled.
-     * ================================================.
-     */
+    // ================================================
+    // Determine if a given feature is enabled.
+    // ================================================
+
     public static function hasBlogPosts(): bool
     {
         return static::enabled(static::blogPosts());
@@ -88,11 +90,10 @@ class Features
             && (app('env') !== 'testing');
     }
 
-    /**
-     * ================================================
-     * Enable a given feature to be used in the config.
-     * ================================================.
-     */
+    // ================================================
+    // Enable a given feature to be used in the config.
+    // ================================================
+
     public static function blogPosts(): string
     {
         return 'blog-posts';
@@ -131,5 +132,26 @@ class Features
     public static function torchlight(): string
     {
         return 'torchlight';
+    }
+
+    // ================================================
+    // Dynamic features.
+    // ================================================
+
+    /** Can a sitemap be generated? */
+    public static function sitemap(): bool
+    {
+        return Hyde::hasSiteUrl()
+            && config('site.generate_sitemap', true)
+            && extension_loaded('simplexml');
+    }
+
+    /** Can an RSS feed be generated? */
+    public static function rss(): bool
+    {
+        return Hyde::hasSiteUrl()
+            && static::hasBlogPosts()
+            && config('hyde.generate_rss_feed', true)
+            && extension_loaded('simplexml');
     }
 }

@@ -9,8 +9,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Framework\Services\RssFeedService;
-use Hyde\Framework\Services\SitemapService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
@@ -165,12 +163,12 @@ class HydeBuildStaticSiteCommand extends Command
 
     protected function canGenerateSitemap(): bool
     {
-        return SitemapService::canGenerateSitemap();
+        return Features::sitemap();
     }
 
     protected function canGenerateFeed(): bool
     {
-        return RssFeedService::canGenerateFeed()
+        return Features::rss()
             && count(DiscoveryService::getMarkdownPostFiles()) > 0;
     }
 

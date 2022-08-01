@@ -4,7 +4,6 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use SimpleXMLElement;
@@ -143,13 +142,5 @@ class RssFeedService
     public static function generateFeed(): string
     {
         return (new static)->generate()->getXML();
-    }
-
-    public static function canGenerateFeed(): bool
-    {
-        return Hyde::hasSiteUrl()
-            && config('hyde.generate_rss_feed', true)
-            && Features::hasBlogPosts()
-            && extension_loaded('simplexml');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Commands;
 
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\SitemapService;
 use LaravelZero\Framework\Commands\Command;
@@ -49,7 +50,7 @@ class HydeBuildSitemapCommand extends Command
 
     protected function runPreflightCheck(): bool
     {
-        if (! SitemapService::canGenerateSitemap()) {
+        if (! Features::sitemap()) {
             $this->error('Cannot generate sitemap.xml, please check your configuration.');
 
             if (! Hyde::hasSiteUrl()) {
