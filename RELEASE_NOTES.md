@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- hyde/realtime-compiler no longer supports Framework versions older than v0.48.0-beta.
 
 ### Deprecated
 - for soon-to-be removed features.
