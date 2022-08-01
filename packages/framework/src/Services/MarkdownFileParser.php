@@ -10,7 +10,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
  *
  * @see \Hyde\Framework\Testing\Feature\MarkdownFileServiceTest
  */
-class MarkdownFileService
+class MarkdownFileParser
 {
     /**
      * The extracted Front Matter.
