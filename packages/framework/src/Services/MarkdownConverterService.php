@@ -4,16 +4,16 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Modules\Markdown\MarkdownConverter;
 use Hyde\Framework\Services\Markdown\BladeDownProcessor;
 use Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor;
 use Hyde\Framework\Services\Markdown\ShortcodeProcessor;
-use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
- * Interface for the CommonMarkConverter,
+ * Interface for the MarkdownConverter,
  * allowing for easy configuration of extensions.
  *
  * @see \Hyde\Framework\Testing\Feature\MarkdownConverterServiceTest
@@ -25,7 +25,7 @@ class MarkdownConverterService
 
     protected array $config = [];
     protected array $extensions = [];
-    protected CommonMarkConverter $converter;
+    protected MarkdownConverter $converter;
 
     protected string $html;
     protected array $features = [];
@@ -104,7 +104,7 @@ class MarkdownConverterService
         // Merge any custom configuration options
         $this->config = array_merge(config('markdown.config', []), $this->config);
 
-        $this->converter = new CommonMarkConverter($this->config);
+        $this->converter = new MarkdownConverter($this->config);
 
         foreach ($this->extensions as $extension) {
             $this->initializeExtension($extension);
