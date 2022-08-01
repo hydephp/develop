@@ -13,7 +13,7 @@ class Benchmark
     use ConsoleHelpers;
     use TrackingHelpers;
 
-    protected const VERSION = 'dev-master';
+    public const VERSION = 'dev-master';
 
     protected int $iterations;
     protected float $time_start;
