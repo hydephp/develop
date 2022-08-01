@@ -2,36 +2,36 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Concerns\Markdown\HasConfigurableMarkdownFeatures;
-use Hyde\Framework\Concerns\Markdown\HasTorchlightIntegration;
-use Hyde\Framework\Services\Markdown\BladeDownProcessor;
-use Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor;
-use Hyde\Framework\Services\Markdown\ShortcodeProcessor;
-use League\CommonMark\CommonMarkConverter;
+use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Modules\Markdown\BladeDownProcessor;
+use Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor;
+use Hyde\Framework\Modules\Markdown\MarkdownConverter;
+use Hyde\Framework\Modules\Markdown\ShortcodeProcessor;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
- * Interface for the CommonMarkConverter,
- * allowing for easy configuration of extensions.
+ * Dynamically creates a Markdown converter tailored for the target model and setup,
+ * then converts the Markdown to HTML using both pre- and post-processors.
  *
- * @see \Hyde\Framework\Testing\Feature\MarkdownConverterServiceTest
- * @see \Hyde\Framework\Testing\Feature\Services\HasConfigurableMarkdownFeaturesTest
+ * @see \Hyde\Framework\Testing\Feature\MarkdownServiceTest
  */
-class MarkdownConverterService
+class MarkdownService
 {
-    use HasConfigurableMarkdownFeatures;
-    use HasTorchlightIntegration;
-
     public string $markdown;
     public ?string $sourceModel = null;
 
     protected array $config = [];
     protected array $extensions = [];
-    protected CommonMarkConverter $converter;
+    protected MarkdownConverter $converter;
 
     protected string $html;
+    protected array $features = [];
+
+    protected bool $useTorchlight;
+    protected bool $torchlightAttribution;
 
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
@@ -104,7 +104,7 @@ class MarkdownConverterService
         // Merge any custom configuration options
         $this->config = array_merge(config('markdown.config', []), $this->config);
 
-        $this->converter = new CommonMarkConverter($this->config);
+        $this->converter = new MarkdownConverter($this->config);
 
         foreach ($this->extensions as $extension) {
             $this->initializeExtension($extension);
@@ -143,5 +143,81 @@ class MarkdownConverterService
     public function getExtensions(): array
     {
         return $this->extensions;
+    }
+
+    public function removeFeature(string $feature): static
+    {
+        if (in_array($feature, $this->features)) {
+            $this->features = array_diff($this->features, [$feature]);
+        }
+
+        return $this;
+    }
+
+    public function addFeature(string $feature): static
+    {
+        if (! in_array($feature, $this->features)) {
+            $this->features[] = $feature;
+        }
+
+        return $this;
+    }
+
+    public function withPermalinks(): static
+    {
+        $this->addFeature('permalinks');
+
+        return $this;
+    }
+
+    public function isDocumentationPage(): bool
+    {
+        return isset($this->sourceModel) && $this->sourceModel === DocumentationPage::class;
+    }
+
+    public function withTableOfContents(): static
+    {
+        $this->addFeature('table-of-contents');
+
+        return $this;
+    }
+
+    public function canEnableTorchlight(): bool
+    {
+        return $this->hasFeature('torchlight') ||
+            Features::hasTorchlight();
+    }
+
+    public function canEnablePermalinks(): bool
+    {
+        if ($this->hasFeature('permalinks')) {
+            return true;
+        }
+
+        if ($this->isDocumentationPage() && DocumentationPage::hasTableOfContents()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function hasFeature(string $feature): bool
+    {
+        return in_array($feature, $this->features);
+    }
+
+    protected function determineIfTorchlightAttributionShouldBeInjected(): bool
+    {
+        return ! $this->isDocumentationPage()
+            && config('torchlight.attribution.enabled', true)
+            && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
+    }
+
+    protected function injectTorchlightAttribution(): string
+    {
+        return '<br>'.$this->converter->convert(config(
+                'torchlight.attribution.markdown',
+                'Syntax highlighted by torchlight.dev'
+            ));
     }
 }

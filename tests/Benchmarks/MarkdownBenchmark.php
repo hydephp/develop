@@ -2,7 +2,7 @@
 
 namespace Tests\Benchmarks;
 
-use Hyde\Framework\Actions\MarkdownConverter;
+use Hyde\Framework\Facades\Markdown;
 
 class MarkdownBenchmark extends BenchCase
 {
@@ -13,7 +13,7 @@ class MarkdownBenchmark extends BenchCase
     public function testMarkdownParserFacadeShort()
     {
         $this->benchmark(function () {
-            return MarkdownConverter::parse('Hello World!');
+            return Markdown::parse('Hello World!');
         }, 1500);
     }
 
@@ -25,7 +25,7 @@ class MarkdownBenchmark extends BenchCase
     {
         $markdown = file_get_contents(__DIR__.'/../fixtures/markdown.md');
         $this->benchmark(function () use ($markdown) {
-            return MarkdownConverter::parse($markdown);
+            return Markdown::parse($markdown);
         }, 500);
     }
 }

@@ -55,4 +55,9 @@ class DocumentationPage extends AbstractMarkdownPage
     {
         return Route::exists('docs/index') ? Route::get('docs/index') : null;
     }
+
+    public static function hasTableOfContents(): bool
+    {
+        return config('docs.table_of_contents.enabled', true);
+    }
 }

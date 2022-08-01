@@ -1,10 +1,10 @@
 <?php
 
-namespace Hyde\Framework\Services\Markdown;
+namespace Hyde\Framework\Modules\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownProcessorContract;
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
-use Hyde\Framework\Services\Markdown\Shortcodes\AbstractColoredBlockquote;
+use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
 
 /**
  * Handle shortcode processing for Markdown conversions.

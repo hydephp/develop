@@ -5,7 +5,7 @@ namespace Hyde\Framework\Models\Parsers;
 use Hyde\Framework\Contracts\AbstractPageParser;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Services\MarkdownFileService;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
 class MarkdownPostParser extends AbstractPageParser
 {
@@ -19,7 +19,7 @@ class MarkdownPostParser extends AbstractPageParser
 
     public function execute(): void
     {
-        $document = (new MarkdownFileService(
+        $document = (new MarkdownFileParser(
             Hyde::getMarkdownPostPath("/$this->slug.md")
         ))->get();
 

@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Concerns\HasDynamicTitle;
+use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 
 /**
@@ -60,7 +60,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownPage
     {
         return view($this->getBladeView())->with([
             'title' => $this->title,
-            'markdown' => MarkdownConverter::parse($this->body, static::class),
+            'markdown' => Markdown::parse($this->body, static::class),
         ])->render();
     }
 }

@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\MarkdownFileService;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Collection;
 
 /**
@@ -56,7 +56,7 @@ class DataCollection extends Collection
         $collection = new DataCollection($key);
         foreach ($collection->getMarkdownFiles() as $file) {
             $collection->push(
-                (new MarkdownFileService($file))->get()
+                (new MarkdownFileParser($file))->get()
             );
         }
 

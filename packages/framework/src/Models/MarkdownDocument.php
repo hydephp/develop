@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\MarkdownFileService;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Arr;
 
 /**
@@ -48,11 +48,11 @@ class MarkdownDocument implements MarkdownDocumentContract
 
     public function render(): string
     {
-        return MarkdownConverter::parse($this->body);
+        return Markdown::parse($this->body);
     }
 
     public static function parseFile(string $localFilepath): static
     {
-        return (new MarkdownFileService(Hyde::path($localFilepath)))->get();
+        return (new MarkdownFileParser(Hyde::path($localFilepath)))->get();
     }
 }

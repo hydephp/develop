@@ -2,11 +2,11 @@
 
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
-use Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor;
+use Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor
+ * @covers \Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor
  */
 class CodeblockFilepathProcessorTest extends TestCase
 {
@@ -53,10 +53,10 @@ class CodeblockFilepathProcessorTest extends TestCase
             $markdown = "\n```{$language}\n// filepath: foo.{$language}\nfoo\n```";
             $expected = "\n<!-- HYDE[Filepath]foo.{$language} -->\n```{$language}\nfoo\n```";
 
-            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+            $this->assertEquals($expected, \Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor::preprocess($markdown));
         }
 
-        $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        $this->assertEquals($expected, \Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function test_preprocess_accepts_multiple_input_blocks()
@@ -112,7 +112,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         ```
         MD;
 
-        $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        $this->assertEqualsIgnoringLineReturnType($expected, \Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function test_space_after_filepath_is_optional()
@@ -134,8 +134,8 @@ class CodeblockFilepathProcessorTest extends TestCase
         ```
         MD;
 
-        $this->assertEqualsIgnoringLineReturnType(CodeblockFilepathProcessor::preprocess($expected),
-            CodeblockFilepathProcessor::preprocess($markdown));
+        $this->assertEqualsIgnoringLineReturnType(\Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor::preprocess($expected),
+            \Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function test_processor_expands_filepath_directive_in_standard_codeblock()
