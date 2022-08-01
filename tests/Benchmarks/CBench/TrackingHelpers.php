@@ -19,6 +19,11 @@ trait TrackingHelpers
         return round($this->iterations / $this->getExecutionTimeInMs(32), 2);
     }
 
+    public function getUnformattedMemoryUsage(): string
+    {
+        return memory_get_usage(true);
+    }
+
     public function getMemoryUsage(): string
     {
         $memory = memory_get_usage(true);
