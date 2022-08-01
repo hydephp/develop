@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Helpers\Markdown;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
