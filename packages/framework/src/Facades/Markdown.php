@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Facades;
 
+use Hyde\Framework\Modules\Markdown\MarkdownConverter;
 use Hyde\Framework\Services\MarkdownService;
 
 /**
