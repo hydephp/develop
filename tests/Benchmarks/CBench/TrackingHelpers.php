@@ -4,22 +4,22 @@ namespace Tests\Benchmarks\CBench;
 
 trait TrackingHelpers
 {
-    protected function getExecutionTimeInMs(int $precision = 2): float
+    public function getExecutionTimeInMs(int $precision = 2): float
     {
         return round(($this->time_end - $this->time_start) * 1000, $precision);
     }
 
-    protected function getAverageExecutionTimeInMs(int $precision = 8): float
+    public function getAverageExecutionTimeInMs(int $precision = 8): float
     {
         return round($this->getExecutionTimeInMs(32) / $this->iterations, $precision);
     }
 
-    protected function getAverageIterationsPerSecond(): float
+    public function getAverageIterationsPerSecond(): float
     {
         return round($this->iterations / $this->getExecutionTimeInMs(32), 2);
     }
 
-    protected function getMemoryUsage(): string
+    public function getMemoryUsage(): string
     {
         $memory = memory_get_usage(true);
 
