@@ -6,7 +6,9 @@ trait ConsoleHelpers
 {
     protected function line(string $message = ''): self
     {
-        echo $message . PHP_EOL;
+        if  (! $this->silent) {
+            echo $message . PHP_EOL;
+        }
 
         return $this;
     }

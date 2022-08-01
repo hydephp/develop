@@ -14,7 +14,7 @@ class BenchCase extends TestCase
         $class = (basename(static::class, 'Test'));
         $method = substr(debug_backtrace()[1]['function'], 4);
 
-        $benchmark = Benchmark::run($callback, $iterations, $name ?? $class. '::' .$method);
+        $benchmark = Benchmark::run($callback, $iterations, $name ?? $class. '::' .$method, true);
 
         file_put_contents(sprintf(
             "%s/reports/%s.json", __DIR__,  (

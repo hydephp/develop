@@ -20,10 +20,13 @@ class Benchmark
     public float $time_end;
     public ?string $name;
 
-    public function __construct(int $iterations, ?string $name = null)
+    protected bool $silent;
+
+    public function __construct(int $iterations, ?string $name = null, bool $silent = false)
     {
         $this->iterations = $iterations;
         $this->name = $name;
+        $this->silent = $silent;
 
         $this->init();
     }
@@ -33,9 +36,9 @@ class Benchmark
         $this->disengage();
     }
 
-    public static function run(callable $callback, int $iterations = 100, ?string $name = null): Benchmark
+    public static function run(callable $callback, int $iterations = 100, ?string $name = null, bool $silent = false): Benchmark
     {
-        $benchmark = new Benchmark($iterations, $name);
+        $benchmark = new Benchmark($iterations, $name, $silent);
         $benchmark->execute($callback);
         return $benchmark;
     }
