@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Services\Markdown\Shortcodes\AbstractColoredBlockquote;
+use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
 use Hyde\Testing\TestCase;
 
 /**
  * Class ColoredBlockquoteShortcodesTest.
  *
- * @covers \Hyde\Framework\Services\Markdown\Shortcodes\AbstractColoredBlockquote
+ * @covers \Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote
  */
 class ColoredBlockquoteShortcodesTest extends TestCase
 {
