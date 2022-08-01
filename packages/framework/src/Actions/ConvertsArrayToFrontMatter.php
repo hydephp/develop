@@ -4,6 +4,8 @@ namespace Hyde\Framework\Actions;
 
 /**
  * Convert an array into YAML Front Matter.
+ *
+ * Currently does not support nested arrays.
  */
 class ConvertsArrayToFrontMatter
 {
