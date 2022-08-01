@@ -6,6 +6,8 @@ This update makes changes to the internal Markdown services. If you have written
 
 Many Markdown related classes have been moved to a new namespace, and the classes themselves have been restructured. Again, this only affects those who in the past have used these classes outside of what Hyde normally provides.
 
+Due to the nature of this refactor, where so much have been changed, not everything is documented here. See the attached pull request for the full Markdown change diff: https://github.com/hydephp/develop/pull/318
+
 ### Added
 - for new features.
 
