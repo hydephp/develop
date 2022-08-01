@@ -15,6 +15,20 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.55.0-beta](https://github.com/hydephp/develop/releases/tag/v0.55.0-beta) - 2022-08-01
+
+### About
+
+This update removes the deprecated LegacyPageRouter class from the Hyde Realtime Compiler (HydeRC). Along with this release, the HydeRC is now on version 2.5, and requires Hyde version 0.48.0-beta or higher.
+
+### Changed
+- hyde/hyde now requires HydeRC version 2.5 or higher.
+- hyde/realtime-compiler no longer supports Framework versions older than v0.48.0-beta.
+
+### Removed
+- Remove the deprecated LegacyPageRouter class from the HydeRC.
+
+
 ## [v0.54.0-beta](https://github.com/hydephp/develop/releases/tag/v0.54.0-beta) - 2022-08-01
 
 ### About

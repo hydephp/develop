@@ -2,20 +2,24 @@
 
 ### About
 
-This update removes the deprecated LegacyPageRouter class from the Hyde Realtime Compiler (HydeRC). Along with this release, the HydeRC is now on version 2.5, and requires Hyde version 0.48.0-beta or higher.
+Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
 - for new features.
 
 ### Changed
-- hyde/hyde now requires HydeRC version 2.5 or higher.
-- hyde/realtime-compiler no longer supports Framework versions older than v0.48.0-beta.
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Remove the deprecated LegacyPageRouter class from the HydeRC.
+- for now removed features.
 
 ### Fixed
 - for any bug fixes.
