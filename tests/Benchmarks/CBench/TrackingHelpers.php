@@ -16,7 +16,7 @@ trait TrackingHelpers
 
     public function getAverageIterationsPerSecond(): float
     {
-        return round($this->iterations / $this->getExecutionTimeInMs(32), 2);
+        return round($this->iterations / ($this->getExecutionTimeInMs(32) / 1000), 2);
     }
 
     public function getUnformattedMemoryUsage(): string
