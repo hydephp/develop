@@ -2,12 +2,7 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This update makes changes to the internal Markdown services. If you have written code or integrations that uses any of these services, you may want to take a closer look. Otherwise, this should not affect you much.
 
 ### Added
 - for new features.
