@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Facades;
 
-use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Contracts\IncludeFacadeContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Modules\Markdown\Markdown;
 use Illuminate\Support\Facades\Blade;
 
 class Includes implements IncludeFacadeContract
@@ -38,10 +38,10 @@ class Includes implements IncludeFacadeContract
         $path = static::path(basename($filename, '.md').'.md');
 
         if (! file_exists($path)) {
-            return $default === null ? null : MarkdownConverter::parse($default);
+            return $default === null ? null : Markdown::parse($default);
         }
 
-        return MarkdownConverter::parse(file_get_contents($path));
+        return Markdown::parse(file_get_contents($path));
     }
 
     /** @inheritDoc */
