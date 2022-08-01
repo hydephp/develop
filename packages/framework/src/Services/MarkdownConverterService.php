@@ -2,8 +2,9 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Concerns\Markdown\HasConfigurableMarkdownFeatures;
 use Hyde\Framework\Concerns\Markdown\HasTorchlightIntegration;
+use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\Markdown\BladeDownProcessor;
 use Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor;
 use Hyde\Framework\Services\Markdown\ShortcodeProcessor;
@@ -17,11 +18,9 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
  * allowing for easy configuration of extensions.
  *
  * @see \Hyde\Framework\Testing\Feature\MarkdownConverterServiceTest
- * @see \Hyde\Framework\Testing\Feature\Services\HasConfigurableMarkdownFeaturesTest
  */
 class MarkdownConverterService
 {
-    use HasConfigurableMarkdownFeatures;
     use HasTorchlightIntegration;
 
     public string $markdown;
@@ -32,6 +31,7 @@ class MarkdownConverterService
     protected CommonMarkConverter $converter;
 
     protected string $html;
+    protected array $features = [];
 
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
@@ -143,5 +143,66 @@ class MarkdownConverterService
     public function getExtensions(): array
     {
         return $this->extensions;
+    }
+
+    public function removeFeature(string $feature): static
+    {
+        if (in_array($feature, $this->features)) {
+            $this->features = array_diff($this->features, [$feature]);
+        }
+
+        return $this;
+    }
+
+    public function addFeature(string $feature): static
+    {
+        if (!in_array($feature, $this->features)) {
+            $this->features[] = $feature;
+        }
+
+        return $this;
+    }
+
+    public function withPermalinks(): static
+    {
+        $this->addFeature('permalinks');
+
+        return $this;
+    }
+
+    public function isDocumentationPage(): bool
+    {
+        return isset($this->sourceModel) && $this->sourceModel === DocumentationPage::class;
+    }
+
+    public function withTableOfContents(): static
+    {
+        $this->addFeature('table-of-contents');
+
+        return $this;
+    }
+
+    public function canEnableTorchlight(): bool
+    {
+        return $this->hasFeature('torchlight') ||
+            Features::hasTorchlight();
+    }
+
+    public function canEnablePermalinks(): bool
+    {
+        if ($this->hasFeature('permalinks')) {
+            return true;
+        }
+
+        if ($this->isDocumentationPage() && DocumentationPage::hasTableOfContents()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function hasFeature(string $feature): bool
+    {
+        return in_array($feature, $this->features);
     }
 }

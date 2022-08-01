@@ -2,8 +2,10 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\MarkdownConverterService;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Services\MarkdownConverterService
@@ -95,5 +97,138 @@ class MarkdownConverterServiceTest extends TestCase
         $service = new MarkdownConverterService($markdown);
         $html = $service->parse();
         $this->assertEquals("<p>foo</p><style>bar</style><script>hat</script>\n", $html);
+    }
+
+
+    public function test_has_features_array()
+    {
+        $service = $this->makeService();
+
+        $this->assertIsArray($service->features);
+    }
+
+    public function test_the_features_array_is_empty_by_default()
+    {
+        $service = $this->makeService();
+
+        $this->assertEmpty($service->features);
+    }
+
+    public function test_features_can_be_added_to_the_array()
+    {
+        $service = $this->makeService();
+
+        $service->addFeature('test');
+        $this->assertContains('test', $service->features);
+    }
+
+    public function test_features_can_be_removed_from_the_array()
+    {
+        $service = $this->makeService();
+
+        $service->addFeature('test');
+        $service->removeFeature('test');
+        $this->assertNotContains('test', $service->features);
+    }
+
+    public function test_method_chaining_can_be_used_to_programmatically_add_features_to_the_array()
+    {
+        $service = $this->makeService();
+
+        $service->addFeature('test')->addFeature('test2');
+        $this->assertContains('test', $service->features);
+        $this->assertContains('test2', $service->features);
+    }
+
+    public function test_method_chaining_can_be_used_to_programmatically_remove_features_from_the_array()
+    {
+        $service = $this->makeService();
+
+        $service->addFeature('test')->addFeature('test2')->removeFeature('test');
+        $this->assertNotContains('test', $service->features);
+        $this->assertContains('test2', $service->features);
+    }
+
+    public function test_method_with_table_of_contents_method_chain_adds_the_table_of_contents_feature()
+    {
+        $service = $this->makeService();
+
+        $service->withTableOfContents();
+        $this->assertContains('table-of-contents', $service->features);
+    }
+
+    public function test_method_with_permalinks_method_chain_adds_the_permalinks_feature()
+    {
+        $service = $this->makeService();
+
+        $service->withPermalinks();
+        $this->assertContains('permalinks', $service->features);
+    }
+
+    public function test_has_feature_returns_true_if_the_feature_is_in_the_array()
+    {
+        $service = $this->makeService();
+
+        $service->addFeature('test');
+        $this->assertTrue($service->hasFeature('test'));
+    }
+
+    public function test_has_feature_returns_false_if_the_feature_is_not_in_the_array()
+    {
+        $service = $this->makeService();
+
+        $this->assertFalse($service->hasFeature('test'));
+    }
+
+    public function test_method_can_enable_permalinks_returns_true_if_the_permalinks_feature_is_in_the_array()
+    {
+        $service = $this->makeService();
+
+        $service->addFeature('permalinks');
+        $this->assertTrue($service->canEnablePermalinks());
+    }
+
+    public function test_method_can_enable_permalinks_is_automatically_for_documentation_pages()
+    {
+        $service = $this->makeService();
+
+        Config::set('docs.table_of_contents.enabled', true);
+        $service->sourceModel = DocumentationPage::class;
+
+        $this->assertTrue($service->canEnablePermalinks());
+    }
+
+    public function test_method_can_enable_permalinks_returns_false_if_the_permalinks_feature_is_not_in_the_array()
+    {
+        $service = $this->makeService();
+
+        $this->assertFalse($service->canEnablePermalinks());
+    }
+
+    public function test_method_can_enable_torchlight_returns_true_if_the_torchlight_feature_is_in_the_array()
+    {
+        $service = $this->makeService();
+
+        $service->addFeature('torchlight');
+        $this->assertTrue($service->canEnableTorchlight());
+    }
+
+    public function test_method_can_enable_torchlight_returns_false_if_the_torchlight_feature_is_not_in_the_array()
+    {
+        $service = $this->makeService();
+
+        $this->assertFalse($service->canEnableTorchlight());
+    }
+
+    protected function makeService()
+    {
+        return new class extends MarkdownConverterService {
+            public array $features = [];
+
+            public function __construct(string $markdown = '', ?string $sourceModel = null)
+            {
+                parent::__construct($markdown, $sourceModel);
+            }
+        };
     }
 }
