@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Modules\Markdown\Markdown;
+use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Arr;
 

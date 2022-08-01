@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Modules\Markdown\Markdown;
+use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Services\HydeSmartDocs;
 use Hyde\Testing\TestCase;
 

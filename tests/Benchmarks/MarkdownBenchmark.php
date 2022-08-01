@@ -2,7 +2,7 @@
 
 namespace Tests\Benchmarks;
 
-use Hyde\Framework\Modules\Markdown\Markdown;
+use Hyde\Framework\Facades\Markdown;
 
 class MarkdownBenchmark extends BenchCase
 {

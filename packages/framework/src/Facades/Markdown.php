@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Modules\Markdown;
+namespace Hyde\Framework\Facades;
 
 use Hyde\Framework\Services\MarkdownService;
 

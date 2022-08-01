@@ -4,7 +4,7 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Concerns\HasDynamicTitle;
 use Hyde\Framework\Models\MarkdownDocument;
-use Hyde\Framework\Modules\Markdown\Markdown;
+use Hyde\Framework\Facades\Markdown;
 
 /**
  * The base class for all Markdown-based Page Models.
