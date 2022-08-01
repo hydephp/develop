@@ -15,10 +15,10 @@ class Benchmark
 
     public const VERSION = 'dev-master';
 
-    protected int $iterations;
-    protected float $time_start;
-    protected float $time_end;
-    protected ?string $name;
+    public int $iterations;
+    public float $time_start;
+    public float $time_end;
+    public ?string $name;
 
     public function __construct(int $iterations, ?string $name = null)
     {
