@@ -10,7 +10,7 @@ class MarkdownBenchmark extends BenchCase
     {
         $this->benchmark(function () {
             return MarkdownConverter::parse('Hello World!');
-        }, 500);
+        }, 1500);
     }
 
     public function testMarkdownParserFacadeFull()
@@ -18,6 +18,6 @@ class MarkdownBenchmark extends BenchCase
         $markdown = file_get_contents(__DIR__ . '/../fixtures/markdown.md');
         $this->benchmark(function () use ($markdown) {
             return MarkdownConverter::parse($markdown);
-        });
+        }, 500);
     }
 }
