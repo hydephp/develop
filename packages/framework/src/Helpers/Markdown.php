@@ -9,8 +9,4 @@ namespace Hyde\Framework\Helpers;
  */
 class Markdown
 {
-    public static function hasTableOfContents(): bool
-    {
-        return config('docs.table_of_contents.enabled', true);
-    }
 }

@@ -60,7 +60,7 @@ trait HasConfigurableMarkdownFeatures
             return true;
         }
 
-        if ($this->isDocumentationPage() && Markdown::hasTableOfContents()) {
+        if ($this->isDocumentationPage() && DocumentationPage::hasTableOfContents()) {
             return true;
         }
 

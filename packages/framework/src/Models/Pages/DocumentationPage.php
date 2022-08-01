@@ -35,6 +35,11 @@ class DocumentationPage extends AbstractMarkdownPage
         $this->localPath = $localPath;
     }
 
+    public static function hasTableOfContents(): bool
+    {
+        return config('docs.table_of_contents.enabled', true);
+    }
+
     /** @inheritDoc */
     public function getSourcePath(): string
     {
