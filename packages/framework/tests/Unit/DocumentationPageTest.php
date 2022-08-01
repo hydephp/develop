@@ -7,6 +7,7 @@ use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Models\Pages\DocumentationPage
@@ -109,5 +110,16 @@ class DocumentationPageTest extends TestCase
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('docs/index'), DocumentationPage::home());
         Hyde::unlink('_docs/index.md');
+    }
+
+    public function test_has_table_of_contents()
+    {
+        $this->assertIsBool(DocumentationPage::hasTableOfContents());
+
+        Config::set('docs.table_of_contents.enabled', true);
+        $this->assertTrue(DocumentationPage::hasTableOfContents());
+
+        Config::set('docs.table_of_contents.enabled', false);
+        $this->assertFalse(DocumentationPage::hasTableOfContents());
     }
 }
