@@ -2,8 +2,6 @@
 
 namespace Hyde\Framework\Modules\Markdown;
 
-use Hyde\Framework\Services\MarkdownService;
-
 /**
  * Markdown facade to access Markdown services.
  */
