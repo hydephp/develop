@@ -12,18 +12,18 @@ class Report
     public string $commit_sha;
     public string $script_version;
 
-    public string $total_iterations;
-    public string $total_execution_time;
-    public string $avg_iteration_time;
-    public string $avg_iterations_sec;
-    public string $approx_memory_usage;
+    public float $total_iterations;
+    public float $total_execution_time;
+    public float $avg_iteration_time;
+    public float $avg_iterations_sec;
+    public float $approx_memory_usage;
 
     public string $php_version;
     public string $php_sapi;
     public string $runner_os;
     public string $runner_arch;
-    public string $xdebug_enabled;
-    public string $opcache_enabled;
+    public bool $xdebug_enabled;
+    public bool $opcache_enabled;
 
     public function __construct(Benchmark $benchmark)
     {
