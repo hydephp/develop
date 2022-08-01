@@ -27,8 +27,6 @@ class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 
     public function getEnvironment(): Environment
     {
-        \assert($this->environment instanceof Environment);
-
         return $this->environment;
     }
 }
