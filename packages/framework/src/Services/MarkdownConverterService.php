@@ -156,7 +156,7 @@ class MarkdownConverterService
 
     public function addFeature(string $feature): static
     {
-        if (!in_array($feature, $this->features)) {
+        if (! in_array($feature, $this->features)) {
             $this->features[] = $feature;
         }
 

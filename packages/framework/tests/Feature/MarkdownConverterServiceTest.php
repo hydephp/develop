@@ -99,7 +99,6 @@ class MarkdownConverterServiceTest extends TestCase
         $this->assertEquals("<p>foo</p><style>bar</style><script>hat</script>\n", $html);
     }
 
-
     public function test_has_features_array()
     {
         $service = $this->makeService();
@@ -222,7 +221,8 @@ class MarkdownConverterServiceTest extends TestCase
 
     protected function makeService()
     {
-        return new class extends MarkdownConverterService {
+        return new class extends MarkdownConverterService
+        {
             public array $features = [];
 
             public function __construct(string $markdown = '', ?string $sourceModel = null)
