@@ -2,8 +2,6 @@
 
 namespace Hyde\Framework\Helpers;
 
-use Hyde\Framework\Concerns\Markdown\HasMarkdownFeatures;
-
 /**
  * General interface for Markdown services.
  *
@@ -11,5 +9,8 @@ use Hyde\Framework\Concerns\Markdown\HasMarkdownFeatures;
  */
 class Markdown
 {
-    use HasMarkdownFeatures;
+    public static function hasTableOfContents(): bool
+    {
+        return config('docs.table_of_contents.enabled', true);
+    }
 }

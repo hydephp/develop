@@ -2,25 +2,23 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Concerns\Markdown\HasMarkdownFeatures;
+use Hyde\Framework\Helpers\Markdown;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Concerns\Markdown\HasMarkdownFeatures
+ * @covers \Hyde\Framework\Helpers\Markdown
  */
 class HasMarkdownFeaturesTest extends TestCase
 {
-    use HasMarkdownFeatures;
-
     public function test_has_table_of_contents()
     {
-        $this->assertIsBool(static::hasTableOfContents());
+        $this->assertIsBool(Markdown::hasTableOfContents());
 
         Config::set('docs.table_of_contents.enabled', true);
-        $this->assertTrue(static::hasTableOfContents());
+        $this->assertTrue(Markdown::hasTableOfContents());
 
         Config::set('docs.table_of_contents.enabled', false);
-        $this->assertFalse(static::hasTableOfContents());
+        $this->assertFalse(Markdown::hasTableOfContents());
     }
 }

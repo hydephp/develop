@@ -8,8 +8,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 
 /**
  * Allow the Markdown service to have configurable features.
- *
- * @see HasMarkdownFeatures for global feature management.
  */
 trait HasConfigurableMarkdownFeatures
 {
