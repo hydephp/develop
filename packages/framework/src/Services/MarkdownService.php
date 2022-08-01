@@ -7,7 +7,7 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Modules\Markdown\MarkdownConverter;
 use Hyde\Framework\Services\Markdown\BladeDownProcessor;
 use Hyde\Framework\Services\Markdown\CodeblockFilepathProcessor;
-use Hyde\Framework\Services\Markdown\ShortcodeProcessor;
+use Hyde\Framework\Modules\Markdown\ShortcodeProcessor;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use Torchlight\Commonmark\V2\TorchlightExtension;

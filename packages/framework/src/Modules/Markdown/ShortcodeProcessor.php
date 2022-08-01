@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Services\Markdown;
+namespace Hyde\Framework\Modules\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownProcessorContract;
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
