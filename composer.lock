@@ -6767,16 +6767,14 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "c03da07261e0ede2837bc9e4dfc614b471ab5652"
+                "reference": "f18d3215aea31f116019cd26b2a8f3beb0c4927e"
             },
             "require": {
-                "desilva/microserve": "^1.0"
-            },
-            "require-dev": {
-                "hyde/framework": "dev-master"
+                "desilva/microserve": "^1.0",
+                "hyde/framework": "*"
             },
             "suggest": {
-                "hyde/framework": ">=v0.42.0-beta"
+                "hyde/framework": "This package requires Hyde Framework version v0.48.0-beta or higher."
             },
             "bin": [
                 "bin/server.php"
@@ -6796,6 +6794,7 @@
                     "email": "caen@desilva.se"
                 }
             ],
+            "description": "HydePHP Realtime Compiler Server",
             "transport-options": {
                 "relative": true
             }
