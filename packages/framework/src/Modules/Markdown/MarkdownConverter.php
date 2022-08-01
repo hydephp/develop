@@ -6,7 +6,9 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 
 /**
- * "Extends" {@see \League\CommonMark\CommonMarkConverter}.
+ * The base Markdown converter class.
+ *
+ * "Extends" \League\CommonMark\CommonMarkConverter.
  */
 class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 {
