@@ -342,11 +342,6 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
-        run: |
-          composer require php-parallel-lint/php-parallel-lint 
-          composer require squizlabs/php_codesniffer 
-
       - name: Check syntax (PHP Parallel Lint)
         run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
 
@@ -367,9 +362,6 @@ jobs:
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-     
-      - name: Require additional dependencies # @TODO add these as actual dependencies for monorepo, but remove when packaging hyde
-        run: composer require phpstan/phpstan
 
       - name: Run static analysis (PHPStan)
         run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
