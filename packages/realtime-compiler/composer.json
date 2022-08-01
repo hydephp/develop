@@ -1,5 +1,6 @@
 {
     "name": "hyde/realtime-compiler",
+    "description": "HydePHP Realtime Compiler Server",
     "type": "library",
     "license": "MIT",
     "autoload": {
