@@ -2,9 +2,9 @@
 
 namespace Tests\Benchmarks;
 
-class ExampleBenchTest extends BenchCase
+class ExampleBenchmark extends BenchCase
 {
-    public function testExampleBench()
+    public function testExample()
     {
          $this->benchmark(function () {
              return 'Hello World!';

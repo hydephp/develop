@@ -19,7 +19,7 @@
             <directory suffix="Test.php">./packages/framework/tests/Unit</directory>
         </testsuite>
         <testsuite name="Benchmarks">
-            <directory suffix="Test.php">./tests/Benchmarks</directory>
+            <directory suffix="Benchmark.php">./tests/Benchmarks</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
