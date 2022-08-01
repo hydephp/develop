@@ -13,8 +13,8 @@ use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
- * Interface for the MarkdownConverter,
- * allowing for easy configuration of extensions.
+ * Dynamically creates a Markdown converter tailored for the target model and setup,
+ * then converts the Markdown to HTML using both pre- and post-processors.
  *
  * @see \Hyde\Framework\Testing\Feature\MarkdownServiceTest
  */
