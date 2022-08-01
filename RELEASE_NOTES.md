@@ -29,7 +29,7 @@ Here is a short overview of the areas that are impacted. If you don't know what 
 - RSS feed is now always present on all pages, see reasoning in [`a93e30020`](https://github.com/hydephp/develop/commit/a93e30020e2a791398d95afb5da493285541708a)
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated trait `HasMarkdownFeatures.php`
 
 ### Removed
 - Removed deprecated `Hyde::uriPath()` helper
