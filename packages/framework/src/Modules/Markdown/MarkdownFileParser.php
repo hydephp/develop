@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Framework\Modules\Markdown;
 
 use Hyde\Framework\Models\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;

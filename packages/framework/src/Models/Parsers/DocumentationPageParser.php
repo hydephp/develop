@@ -5,7 +5,7 @@ namespace Hyde\Framework\Models\Parsers;
 use Hyde\Framework\Contracts\AbstractPageParser;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Services\MarkdownFileParser;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Str;
 
 /**

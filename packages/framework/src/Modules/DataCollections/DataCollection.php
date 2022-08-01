@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\MarkdownFileParser;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Collection;
 
 /**

@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
-use Hyde\Framework\Services\MarkdownFileParser;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Hyde\Testing\TestCase;
 
 class MarkdownFileParserTest extends TestCase
