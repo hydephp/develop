@@ -21,7 +21,7 @@ class BenchCase extends TestCase
                 Str::snake($class . '-' . lcfirst($method)))),
             json_encode(new Report($benchmark), JSON_PRETTY_PRINT));
 
-        $this->log($method, "Ran $benchmark->iterations iterations in {$benchmark->getExecutionTimeInMs()}ms ({$benchmark->getAverageIterationsPerSecond()}/sec)");
+        $this->log($method, "Ran $benchmark->iterations iterations in {$benchmark->getExecutionTimeInMs()}ms ({$benchmark->getAverageExecutionTimeInMs()}ms avg / {$benchmark->getAverageIterationsPerSecond()} per sec)");
 
         $this->assertTrue(true);
     }
