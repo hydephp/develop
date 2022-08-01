@@ -21,6 +21,6 @@
         "hyde/framework": "dev-master"
     },
     "suggest": {
-        "hyde/framework": ">=v0.42.0-beta"
+        "hyde/framework": ">=v0.48.0-beta"
     }
 }
