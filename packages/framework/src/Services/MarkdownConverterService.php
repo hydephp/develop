@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Concerns\Markdown\HasTorchlightIntegration;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\Markdown\BladeDownProcessor;
@@ -21,8 +20,6 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
  */
 class MarkdownConverterService
 {
-    use HasTorchlightIntegration;
-
     public string $markdown;
     public ?string $sourceModel = null;
 
@@ -32,6 +29,9 @@ class MarkdownConverterService
 
     protected string $html;
     protected array $features = [];
+
+    protected bool $useTorchlight;
+    protected bool $torchlightAttribution;
 
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
@@ -204,5 +204,20 @@ class MarkdownConverterService
     public function hasFeature(string $feature): bool
     {
         return in_array($feature, $this->features);
+    }
+
+    protected function determineIfTorchlightAttributionShouldBeInjected(): bool
+    {
+        return ! $this->isDocumentationPage()
+            && config('torchlight.attribution.enabled', true)
+            && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
+    }
+
+    protected function injectTorchlightAttribution(): string
+    {
+        return '<br>'.$this->converter->convert(config(
+                'torchlight.attribution.markdown',
+                'Syntax highlighted by torchlight.dev'
+            ));
     }
 }
