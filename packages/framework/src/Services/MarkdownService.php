@@ -16,9 +16,9 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
  * Interface for the MarkdownConverter,
  * allowing for easy configuration of extensions.
  *
- * @see \Hyde\Framework\Testing\Feature\MarkdownConverterServiceTest
+ * @see \Hyde\Framework\Testing\Feature\MarkdownServiceTest
  */
-class MarkdownConverterService
+class MarkdownService
 {
     public string $markdown;
     public ?string $sourceModel = null;

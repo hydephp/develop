@@ -3,20 +3,20 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Services\MarkdownConverterService;
+use Hyde\Framework\Services\MarkdownService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Services\MarkdownConverterService
+ * @covers \Hyde\Framework\Services\MarkdownService
  */
-class MarkdownConverterServiceTest extends TestCase
+class MarkdownServiceTest extends TestCase
 {
     public function test_service_can_parse_markdown_to_html()
     {
         $markdown = '# Hello World!';
 
-        $html = (new MarkdownConverterService($markdown))->parse();
+        $html = (new MarkdownService($markdown))->parse();
 
         $this->assertIsString($html);
         $this->assertEquals("<h1>Hello World!</h1>\n", $html);
@@ -26,7 +26,7 @@ class MarkdownConverterServiceTest extends TestCase
     {
         $markdown = '## Hello World!';
 
-        $html = (new MarkdownConverterService($markdown))->withPermalinks()->parse();
+        $html = (new MarkdownService($markdown))->withPermalinks()->parse();
 
         $this->assertIsString($html);
         $this->assertEquals(
@@ -39,7 +39,7 @@ class MarkdownConverterServiceTest extends TestCase
     public function test_torchlight_extension_is_not_enabled_by_default()
     {
         $markdown = '# Hello World!';
-        $service = new MarkdownConverterService($markdown);
+        $service = new MarkdownService($markdown);
         $service->parse();
         $this->assertNotContains('Torchlight\Commonmark\V2\TorchlightExtension', $service->getExtensions());
     }
@@ -47,7 +47,7 @@ class MarkdownConverterServiceTest extends TestCase
     public function test_torchlight_extension_is_enabled_automatically_when_has_torchlight_feature()
     {
         $markdown = '# Hello World!';
-        $service = new MarkdownConverterService($markdown);
+        $service = new MarkdownService($markdown);
         $service->addFeature('torchlight')->parse();
         $this->assertContains('Torchlight\Commonmark\V2\TorchlightExtension', $service->getExtensions());
     }
@@ -58,7 +58,7 @@ class MarkdownConverterServiceTest extends TestCase
 
         // Enable the extension in config
 
-        $service = new MarkdownConverterService($markdown);
+        $service = new MarkdownService($markdown);
 
         $html = $service->parse();
 
@@ -68,14 +68,14 @@ class MarkdownConverterServiceTest extends TestCase
 
     public function test_bladedown_is_not_enabled_by_default()
     {
-        $service = new MarkdownConverterService('[Blade]: {{ "Hello World!" }}');
+        $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
         $this->assertEquals("<p>[Blade]: {{ &quot;Hello World!&quot; }}</p>\n", $service->parse());
     }
 
     public function test_bladedown_can_be_enabled()
     {
         config(['markdown.enable_blade' => true]);
-        $service = new MarkdownConverterService('[Blade]: {{ "Hello World!" }}');
+        $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
         $service->addFeature('bladedown')->parse();
         $this->assertEquals("Hello World!\n", $service->parse());
     }
@@ -84,7 +84,7 @@ class MarkdownConverterServiceTest extends TestCase
     public function test_raw_html_tags_are_stripped_by_default()
     {
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
-        $service = new MarkdownConverterService($markdown);
+        $service = new MarkdownService($markdown);
         $html = $service->parse();
         $this->assertEquals("<p>foo</p>&lt;style>bar&lt;/style>&lt;script>hat&lt;/script>\n", $html);
     }
@@ -94,7 +94,7 @@ class MarkdownConverterServiceTest extends TestCase
     {
         config(['markdown.allow_html' =>true]);
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
-        $service = new MarkdownConverterService($markdown);
+        $service = new MarkdownService($markdown);
         $html = $service->parse();
         $this->assertEquals("<p>foo</p><style>bar</style><script>hat</script>\n", $html);
     }
@@ -221,7 +221,7 @@ class MarkdownConverterServiceTest extends TestCase
 
     protected function makeService()
     {
-        return new class extends MarkdownConverterService
+        return new class extends MarkdownService
         {
             public array $features = [];
 
