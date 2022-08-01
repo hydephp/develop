@@ -17,6 +17,6 @@
     "bin": ["bin/server.php"],
     "require": {
         "desilva/microserve": "^1.0",
-        "hyde/framework": "^0.48"
+        "hyde/framework": ">=0.48"
     }
 }
