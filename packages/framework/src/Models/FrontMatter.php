@@ -3,12 +3,13 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  */
-class FrontMatter
+class FrontMatter implements Arrayable
 {
     public array $matter;
 
@@ -33,6 +34,11 @@ class FrontMatter
             return Arr::get($this->matter, $key, $default);
         }
 
+        return $this->matter;
+    }
+
+    public function toArray(): array
+    {
         return $this->matter;
     }
 

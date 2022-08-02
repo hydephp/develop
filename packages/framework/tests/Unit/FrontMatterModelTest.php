@@ -83,4 +83,10 @@ class FrontMatterModelTest extends TestCase
         $matter = new FrontMatter(['foo' => 'bar']);
         $this->assertEquals('bar', $matter->get('foo'));
     }
+
+    public function test_to_array_returns_front_matter_array()
+    {
+        $matter = new FrontMatter(['foo' => 'bar']);
+        $this->assertEquals(['foo' => 'bar'], $matter->toArray());
+    }
 }
