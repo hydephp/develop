@@ -5,7 +5,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Hyde;
 
 /**
- * Replaces @see \Hyde\Framework\Concerns\HasDynamicTitle
+ * Replaces @see \Hyde\Framework\Concerns\HasDynamicTitle.
  */
 class FindsTitleForDocument
 {
@@ -18,7 +18,6 @@ class FindsTitleForDocument
         return static::findTitleTagInMarkdown($markdown)
             ?: Hyde::makeTitle($slug);
     }
-
 
     /** Attempt to find the title based on the first H1 tag. */
     protected function findTitleTagInMarkdown(string $markdown): string|false

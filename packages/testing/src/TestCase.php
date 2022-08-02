@@ -90,6 +90,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected function markdown(string $path, string $contents = '', array $matter = []): void
     {
-        $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter) . $contents);
+        $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter).$contents);
     }
 }

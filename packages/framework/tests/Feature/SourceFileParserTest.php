@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Testing\TestCase;
 
 /**
@@ -10,5 +9,4 @@ use Hyde\Testing\TestCase;
  */
 class SourceFileParserTest extends TestCase
 {
-    
 }
