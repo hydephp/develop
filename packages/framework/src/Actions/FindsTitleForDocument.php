@@ -20,7 +20,7 @@ class FindsTitleForDocument
     }
 
     /** Attempt to find the title based on the first H1 tag. */
-    protected function findTitleTagInMarkdown(string $markdown): string|false
+    protected static function findTitleTagInMarkdown(string $markdown): string|false
     {
         $lines = explode("\n", $markdown);
 
