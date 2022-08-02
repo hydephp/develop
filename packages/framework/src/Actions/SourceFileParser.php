@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Contracts\PageContract;
 
 /**
@@ -9,8 +10,12 @@ use Hyde\Framework\Contracts\PageContract;
  */
 class SourceFileParser
 {
+    use ValidatesExistence;
+
     public function __construct(protected string $model, protected string $slug)
     {
+        $this->validateExistence($model, $slug);
+
         $this->parse();
     }
 
