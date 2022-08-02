@@ -46,7 +46,7 @@ class SourceFileParser
     protected function parseMarkdownPage(): MarkdownPage
     {
         $document = (new MarkdownFileParser(
-            Hyde::getMarkdownPagePath("/$this->slug.md")
+            Hyde::getMarkdownPagePath($this->slug.MarkdownPage::$fileExtension)
         ))->get();
 
         $matter = array_merge($document->matter, [
@@ -66,7 +66,7 @@ class SourceFileParser
     protected function parseMarkdownPost(): MarkdownPost
     {
         $document = (new MarkdownFileParser(
-            Hyde::getMarkdownPostPath("/$this->slug.md")
+            Hyde::getMarkdownPostPath($this->slug.MarkdownPost::$fileExtension)
         ))->get();
 
         $matter = array_merge($document->matter, [
