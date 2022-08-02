@@ -15,19 +15,19 @@ class SourceFileParser
     use ValidatesExistence;
 
     /** @var class-string<PageContract> */
-    protected string $model;
+    protected string $pageClass;
     protected string $slug;
 
     /**
-     * @param class-string<PageContract> $model
+     * @param class-string<PageContract> $pageClass
      * @param string $slug
      * @throws \Hyde\Framework\Exceptions\FileNotFoundException
      */
-    public function __construct(string $model, string $slug)
+    public function __construct(string $pageClass, string $slug)
     {
         $this->slug = $slug;
-        $this->model = $model;
-        $this->validateExistence($model, $slug);
+        $this->pageClass = $pageClass;
+        $this->validateExistence($pageClass, $slug);
 
         $this->parse();
     }
@@ -39,6 +39,6 @@ class SourceFileParser
 
     public function get(): PageContract
     {
-        return new $this->model($this->slug);
+        return new $this->pageClass($this->slug);
     }
 }
