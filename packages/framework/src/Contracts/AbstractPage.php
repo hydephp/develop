@@ -66,7 +66,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
-    public static function parse(string $slug): static
+    public static function parse(string $slug): PageContract
     {
         return (new SourceFileParser(static::class, $slug))->get();
     }

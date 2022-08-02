@@ -48,7 +48,7 @@ interface PageContract
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): static;
+    public static function parse(string $slug): PageContract;
 
     /**
      * Get an array of all the source file slugs for the model.
