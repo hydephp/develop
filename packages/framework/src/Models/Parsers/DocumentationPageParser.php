@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
  * If the file is in a subdirectory relative to the base source directory (default _docs),
  * the subdirectory name will be used as the page's category. This only works for one level,
  * and the resulting file will still be put in the root of the docs output directory.
+ *
+ * @deprecated v0.56.0-beta
  */
 class DocumentationPageParser extends AbstractPageParser
 {

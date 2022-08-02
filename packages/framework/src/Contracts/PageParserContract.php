@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Contracts;
 
+/**
+ * @deprecated v0.56.0-beta
+ */
 interface PageParserContract
 {
     /**

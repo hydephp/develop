@@ -7,6 +7,9 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
+/**
+ * @deprecated v0.56.0-beta
+ */
 class MarkdownPostParser extends AbstractPageParser
 {
     protected string $pageModel = MarkdownPost::class;

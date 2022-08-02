@@ -27,6 +27,10 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
+
+    /**
+     * @deprecated
+     */
     public static string $parserClass;
     public static string $template;
 
@@ -48,13 +52,13 @@ abstract class AbstractPage implements PageContract, CompilableContract
         return '.'.ltrim(static::$fileExtension, '.');
     }
 
-    /** @inheritDoc */
+    /** @deprecated */
     final public static function getParserClass(): string
     {
         return static::$parserClass;
     }
 
-    /** @inheritDoc */
+    /** @deprecated */
     public static function getParser(string $slug): PageParserContract
     {
         return new static::$parserClass($slug);

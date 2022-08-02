@@ -10,6 +10,8 @@ use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 /**
  * Parses a Markdown file into a MarkdownPage object using the MarkdownPage intermediary.
  *
+ * @deprecated v0.56.0-beta
+ *
  * @todo Refactor to use dynamic path and extension resolvers
  */
 class MarkdownPageParser extends AbstractPageParser

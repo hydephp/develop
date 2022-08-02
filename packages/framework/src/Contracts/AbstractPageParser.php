@@ -14,6 +14,8 @@ use Hyde\Framework\Concerns\ValidatesExistence;
  *
  * To ensure that all page parsing jobs are handled consistently,
  * all page parsers should extend this class.
+ *
+ * @deprecated v0.56.0-beta
  */
 abstract class AbstractPageParser implements PageParserContract
 {
