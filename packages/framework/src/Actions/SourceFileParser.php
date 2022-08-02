@@ -60,7 +60,7 @@ class SourceFileParser
         return new MarkdownPage(
             matter: $matter,
             body: $body,
-            title: '@todo convert trait to action',
+            title: FindsTitleForDocument::get($this->slug, $matter, $body),
             slug: $this->slug
         );
     }
@@ -80,7 +80,7 @@ class SourceFileParser
         return new MarkdownPost(
             matter: $matter,
             body: $body,
-            title: '@todo convert trait to action',
+            title: FindsTitleForDocument::get($this->slug, $matter, $body),
             slug: $this->slug
         );
     }
