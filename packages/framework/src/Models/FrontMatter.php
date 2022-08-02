@@ -9,7 +9,7 @@ class FrontMatter
 {
     public array $matter;
 
-    public function __construct(array $matter)
+    public function __construct(array $matter = [])
     {
         $this->matter = $matter;
     }
