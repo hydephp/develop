@@ -9,7 +9,6 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Str;
 
