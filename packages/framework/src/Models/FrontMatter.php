@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
+use Illuminate\Support\Arr;
 
 class FrontMatter
 {
@@ -16,6 +17,20 @@ class FrontMatter
     public function __toString(): string
     {
         return (new ConvertsArrayToFrontMatter())->execute($this->matter);
+    }
+
+    public function __get(string $key): mixed
+    {
+        return $this->get($key);
+    }
+
+    public function get(string $key = null, mixed $default = null): mixed
+    {
+        if ($key) {
+            return Arr::get($this->matter, $key, $default);
+        }
+
+        return $this->matter;
     }
 
     public static function fromArray(array $matter): static
