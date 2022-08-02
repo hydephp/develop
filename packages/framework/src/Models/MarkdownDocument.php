@@ -12,12 +12,12 @@ use Illuminate\Support\Arr;
  */
 class MarkdownDocument
 {
-    public array $matter;
+    public FrontMatter $matter;
     public string $body;
 
-    public function __construct(array $matter = [], string $body = '')
+    public function __construct(FrontMatter|array $matter = [], string $body = '')
     {
-        $this->matter = $matter;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->body = $body;
     }
 
@@ -26,28 +26,19 @@ class MarkdownDocument
         return $this->body;
     }
 
-    public function __get(string $key): mixed
+    public function render(): string
     {
-        return $this->matter($key);
+        return Markdown::parse($this->body);
     }
 
-    public function matter(string $key = null, mixed $default = null): mixed
+    public function matter(): FrontMatter
     {
-        if ($key) {
-            return Arr::get($this->matter, $key, $default);
-        }
-
         return $this->matter;
     }
 
     public function body(): string
     {
         return $this->body;
-    }
-
-    public function render(): string
-    {
-        return Markdown::parse($this->body);
     }
 
     public static function parseFile(string $localFilepath): static
