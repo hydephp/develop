@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
-use Illuminate\Support\Arr;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
