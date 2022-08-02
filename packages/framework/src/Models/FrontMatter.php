@@ -17,4 +17,9 @@ class FrontMatter
     {
         return (new ConvertsArrayToFrontMatter())->execute($this->matter);
     }
+
+    public static function fromArray(array $matter): static
+    {
+        return new static($matter);
+    }
 }
