@@ -18,7 +18,7 @@ Due to the nature of this refactor, where so much have been changed, not everyth
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed interface MarkdownDocumentContract
 
 ### Fixed
 - for any bug fixes.
