@@ -30,17 +30,13 @@ class SourceFileParser
 
         $this->slug = $slug;
 
-        if ($pageClass === BladePage::class) {
-            $this->page = $this->parseBladePage();
-        } elseif ($pageClass === MarkdownPage::class) {
-            $this->page = $this->parseMarkdownPage();
-        } elseif ($pageClass === MarkdownPost::class) {
-            $this->page = $this->parseMarkdownPost();
-        } elseif($pageClass === DocumentationPage::class) {
-            $this->page = $this->parseDocumentationPage();
-        } else {
-            throw new \InvalidArgumentException("Invalid page class: $pageClass");
-        }
+        $this->page = match ($pageClass) {
+            BladePage::class => $this->parseBladePage(),
+            MarkdownPage::class => $this->parseMarkdownPage(),
+            MarkdownPost::class => $this->parseMarkdownPost(),
+            DocumentationPage::class => $this->parseDocumentationPage(),
+            default => throw new \InvalidArgumentException("Invalid page class: $pageClass"),
+        };
     }
 
     protected function parseBladePage(): BladePage
