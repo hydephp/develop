@@ -49,7 +49,10 @@ class SourceFileParser
             Hyde::getMarkdownPagePath("/$this->slug.md")
         ))->get();
 
-        $matter = $document->matter;
+        $matter = array_merge($document->matter, [
+            'slug' => $this->slug,
+        ]);
+
         $body = $document->body;
 
         return new MarkdownPage(
