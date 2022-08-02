@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\CanBeInNavigation;
 use Hyde\Framework\Concerns\HasPageMetadata;
 use Hyde\Framework\Models\Route;
@@ -67,7 +68,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public static function parse(string $slug): static
     {
-        return (new static::$parserClass($slug))->get();
+        return (new SourceFileParser(static::class, $slug))->get();
     }
 
     /** @inheritDoc */
