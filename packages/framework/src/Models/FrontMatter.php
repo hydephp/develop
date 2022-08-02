@@ -5,6 +5,9 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Illuminate\Support\Arr;
 
+/**
+ * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
+ */
 class FrontMatter
 {
     public array $matter;
