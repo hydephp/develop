@@ -50,10 +50,7 @@ class SourceFileParser
             Hyde::getMarkdownPagePath($this->slug.MarkdownPage::$fileExtension)
         ))->get();
 
-        $matter = array_merge($document->matter, [
-            'slug' => $this->slug,
-        ]);
-
+        $matter = $document->matter;
         $body = $document->body;
 
         return new MarkdownPage(
@@ -70,10 +67,7 @@ class SourceFileParser
             Hyde::getMarkdownPostPath($this->slug.MarkdownPost::$fileExtension)
         ))->get();
 
-        $matter = array_merge($document->matter, [
-            'slug' => $this->slug,
-        ]);
-
+        $matter = $document->matter;
         $body = $document->body;
 
         return new MarkdownPost(
