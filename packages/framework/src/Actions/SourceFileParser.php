@@ -35,7 +35,6 @@ class SourceFileParser
             MarkdownPage::class => $this->parseMarkdownPage(),
             MarkdownPost::class => $this->parseMarkdownPost(),
             DocumentationPage::class => $this->parseDocumentationPage(),
-            default => throw new \InvalidArgumentException("Invalid page class: $pageClass"),
         };
     }
 
