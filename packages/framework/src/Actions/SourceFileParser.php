@@ -7,6 +7,8 @@ use Hyde\Framework\Contracts\PageContract;
 
 /**
  * Parses a source file and returns a new page model instance for it.
+ *
+ * @see \Hyde\Framework\Testing\Feature\SourceFileParserTest
  */
 class SourceFileParser
 {
