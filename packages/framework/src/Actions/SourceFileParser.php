@@ -14,13 +14,18 @@ class SourceFileParser
 {
     use ValidatesExistence;
 
+    protected string $model;
+    protected string $slug;
+
     /**
      * @param string<PageContract> $model
      * @param string $slug
      * @throws \Hyde\Framework\Exceptions\FileNotFoundException
      */
-    public function __construct(protected string $model, protected string $slug)
+    public function __construct(string $model, string $slug)
     {
+        $this->slug = $slug;
+        $this->model = $model;
         $this->validateExistence($model, $slug);
 
         $this->parse();
