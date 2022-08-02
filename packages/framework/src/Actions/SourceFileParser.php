@@ -15,6 +15,11 @@ use Illuminate\Support\Str;
 /**
  * Parses a source file and returns a new page model instance for it.
  *
+ * Page Parsers are responsible for parsing a source file into a Page object,
+ * and may also conduct pre-processing and/or data validation/assembly.
+ *
+ * Note that the Page Parsers do not compile any HTML or Markdown.
+ *
  * @see \Hyde\Framework\Testing\Feature\SourceFileParserTest
  */
 class SourceFileParser
