@@ -50,9 +50,9 @@ class SourceFileParser
 
     protected function parseMarkdownPage(): MarkdownPage
     {
-        $document = (new MarkdownFileParser(
+        $document = MarkdownFileParser::parse(
             MarkdownPage::qualifyBasename($this->slug)
-        ))->get();
+        );
 
         $matter = $document->matter;
         $body = $document->body;
@@ -67,9 +67,9 @@ class SourceFileParser
 
     protected function parseMarkdownPost(): MarkdownPost
     {
-        $document = (new MarkdownFileParser(
+        $document = MarkdownFileParser::parse(
             MarkdownPost::qualifyBasename($this->slug)
-        ))->get();
+        );
 
         $matter = $document->matter;
         $body = $document->body;
@@ -84,9 +84,9 @@ class SourceFileParser
 
     protected function parseDocumentationPage(): DocumentationPage
     {
-        $document = (new MarkdownFileParser(
+        $document = MarkdownFileParser::parse(
             DocumentationPage::qualifyBasename($this->slug)
-        ))->get();
+        );
 
         $matter = array_merge($document->matter, [
             'slug' => $this->slug,
