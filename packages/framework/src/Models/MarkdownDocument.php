@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
@@ -31,9 +32,9 @@ class MarkdownDocument implements MarkdownDocumentContract, Arrayable
         return Markdown::parse($this->body);
     }
 
-    public function matter(): FrontMatter
+    public function matter(string $key = null, mixed $default = null): mixed
     {
-        return $this->matter;
+        return $key ? $this->matter->get($key, $default) : $this->matter;
     }
 
     public function body(): string

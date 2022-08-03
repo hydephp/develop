@@ -19,7 +19,7 @@ use Hyde\Framework\Models\MarkdownDocument;
  *
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractMarkdownPage extends AbstractPage
+abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract
 {
     public MarkdownDocument $markdown;
 
@@ -48,6 +48,11 @@ abstract class AbstractMarkdownPage extends AbstractPage
     public function matter(string $key = null, mixed $default = null): mixed
     {
         return $this->markdown->matter($key, $default);
+    }
+
+    public function body(): string
+    {
+        return $this->markdown->body();
     }
 
     /** @inheritDoc */
