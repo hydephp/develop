@@ -20,23 +20,16 @@ class DocumentationPage extends AbstractMarkdownPage
      */
     public ?string $category;
 
-    /**
-     * The path to the page relative to the configured `_docs` directory.
-     * Generally only needed if the page is in a subdirectory.
-     */
-    public ?string $localPath;
-
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null, ?string $localPath = null)
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null)
     {
         parent::__construct($matter, $body, $title, $slug);
         $this->category = $category;
-        $this->localPath = $localPath;
     }
 
     /** @inheritDoc */
-    public function getSourcePath(): string
+    public function getCurrentPagePath(): string
     {
-        return is_null($this->localPath) ? parent::getSourcePath() : static::qualifyBasename($this->localPath);
+        return trim(static::getOutputDirectory().'/'.basename($this->slug), '/');
     }
 
     /** @internal */

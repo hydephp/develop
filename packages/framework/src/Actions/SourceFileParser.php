@@ -100,7 +100,6 @@ class SourceFileParser
             title: FindsTitleForDocument::get($this->slug, $matter, $body),
             slug: basename($this->slug),
             category: $this->getDocumentationPageCategory($matter),
-            localPath: $this->slug
         );
     }
 

@@ -122,4 +122,10 @@ class DocumentationPageTest extends TestCase
         Config::set('docs.table_of_contents.enabled', false);
         $this->assertFalse(DocumentationPage::hasTableOfContents());
     }
+
+    public function test_compiled_pages_originating_in_subdirectories_get_output_to_root_docs_path()
+    {
+        $page = (new DocumentationPage([], '', '', 'foo/bar'));
+        $this->assertEquals('docs/bar.html', $page->getOutputPath());
+    }
 }

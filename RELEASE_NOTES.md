@@ -13,13 +13,13 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed `$localPath` property from DocumentationPage class, see above
 
 ### Fixed
 - for any bug fixes.
