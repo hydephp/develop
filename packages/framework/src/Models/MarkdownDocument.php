@@ -54,6 +54,8 @@ class MarkdownDocument implements MarkdownDocumentContract, Arrayable
 
     /**
      * Return the Markdown document body explored by line into an array.
+     *
+     * @return string[]
      */
     public function toArray(): array
     {

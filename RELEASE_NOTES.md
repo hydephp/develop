@@ -14,6 +14,7 @@ This update refactors the internal page source model parsing. This will likely n
 - MarkdownDocument now implements the `Arrayable` interface
 - Markdown page models no longer includes the slug merged into the front matter 
 - internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
+- internal: Refactor search index generator to use route system
 
 ### Deprecated
 - Deprecated `MarkdownDocument::parseFile()`, will be renamed to `MarkdownDocument::parse()`

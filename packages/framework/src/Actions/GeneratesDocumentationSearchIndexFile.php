@@ -6,7 +6,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -48,33 +47,26 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     public function generate(): static
     {
-        foreach ($this->getSourceFileSlugs() as $page) {
-            $this->searchIndex->push(
-                $this->generatePageObject($page)
-            );
+        /** @var DocumentationPage $page */
+        foreach (DocumentationPage::all() as $page) {
+            if (! in_array($page->slug, config('docs.exclude_from_search', []))) {
+                $this->searchIndex->push(
+                    $this->generatePageObject($page)
+                );
+            }
         }
 
         return $this;
     }
 
-    public function generatePageObject(string $slug): object
+    public function generatePageObject(DocumentationPage $page): object
     {
-        $page = DocumentationPage::parse($slug);
-
         return (object) [
             'slug' => $page->slug,
             'title' => trim($page->findTitleForDocument()),
             'content' => trim($this->getSearchContentForDocument($page)),
             'destination' => $this->getDestinationForSlug($page->slug),
         ];
-    }
-
-    public function getSourceFileSlugs(): array
-    {
-        return array_diff(
-            DiscoveryService::getDocumentationPageFiles(),
-            config('docs.exclude_from_search', [])
-        );
     }
 
     public function getObject(): object
