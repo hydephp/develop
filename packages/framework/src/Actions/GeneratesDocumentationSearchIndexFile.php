@@ -63,7 +63,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
     {
         return (object) [
             'slug' => $page->slug,
-            'title' => trim($page->findTitleForDocument()),
+            'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
             'destination' => $this->getDestinationForSlug($page->slug),
         ];
