@@ -12,7 +12,7 @@ This update refactors the internal page source model parsing. This will likely n
 - Blog post front matter no longer includes merged slug
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated `MarkdownDocument::parseFile()`, will be renamed to `MarkdownDocument::parse()`
 
 ### Removed
 - The PageParserContract interface, and all of its implementations have been removed
