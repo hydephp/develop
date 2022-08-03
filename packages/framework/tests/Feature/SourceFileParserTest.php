@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
