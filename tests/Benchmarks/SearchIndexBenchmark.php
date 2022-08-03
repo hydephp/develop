@@ -8,6 +8,7 @@ class SearchIndexBenchmark extends BenchCase
 {
     /**
      * Results history:
+     * #5555b676b 'avg_iteration_time': '26.75ms'
      */
     public function testBuildSearchIndexCommandNoFiles()
     {
@@ -21,6 +22,7 @@ class SearchIndexBenchmark extends BenchCase
 
     /**
      * Results history:
+     * #5555b676b 'avg_iteration_time': '120.45ms'
      */
     public function testBuildSearchIndexCommandWithFiles()
     {
