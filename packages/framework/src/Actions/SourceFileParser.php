@@ -85,12 +85,11 @@ class SourceFileParser
             return $this->page->matter('title');
         }
 
-        return $this->findTitleInMarkdown() ?: Hyde::makeTitle($this->slug);
+        return $this->findTitleFromMarkdownHeadings() ?: Hyde::makeTitle($this->slug);
     }
 
-    protected function findTitleInMarkdown(): string|false
+    protected function findTitleFromMarkdownHeadings(): string|false
     {
-        // Attempt to find the title based on the first H1 tag.
         foreach ($this->page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
                 return trim(substr($line, 2), ' ');
