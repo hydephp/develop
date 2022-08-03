@@ -30,7 +30,7 @@ class MarkdownPostParserTest extends TestCase
     {
         $post = (new MarkdownPostParser('test-post'))->get();
         $this->assertInstanceOf(MarkdownPost::class, $post);
-        $this->assertCount(4, ($post->matter));
+        $this->assertCount(3, ($post->matter));
         $this->assertIsArray($post->matter);
         $this->assertIsString($post->body);
         $this->assertIsString($post->slug);
@@ -44,6 +44,5 @@ class MarkdownPostParserTest extends TestCase
         $this->assertEquals('My New Post', $post->matter['title']);
         $this->assertEquals('Mr. Hyde', $post->matter['author']);
         $this->assertEquals('blog', $post->matter['category']);
-        $this->assertEquals('test-post', $post->matter['slug']);
     }
 }
