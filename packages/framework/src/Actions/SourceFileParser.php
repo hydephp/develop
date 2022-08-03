@@ -51,7 +51,7 @@ class SourceFileParser
     protected function parseMarkdownPage(): MarkdownPage
     {
         $document = (new MarkdownFileParser(
-            Hyde::getMarkdownPagePath($this->slug.MarkdownPage::$fileExtension)
+            MarkdownPage::qualifyBasename($this->slug)
         ))->get();
 
         $matter = $document->matter;
@@ -68,7 +68,7 @@ class SourceFileParser
     protected function parseMarkdownPost(): MarkdownPost
     {
         $document = (new MarkdownFileParser(
-            Hyde::getMarkdownPostPath($this->slug.MarkdownPost::$fileExtension)
+            MarkdownPost::qualifyBasename($this->slug)
         ))->get();
 
         $matter = $document->matter;
@@ -85,7 +85,7 @@ class SourceFileParser
     protected function parseDocumentationPage(): DocumentationPage
     {
         $document = (new MarkdownFileParser(
-            Hyde::getDocumentationPagePath($this->slug.DocumentationPage::$fileExtension)
+            DocumentationPage::qualifyBasename($this->slug)
         ))->get();
 
         $matter = array_merge($document->matter, [
