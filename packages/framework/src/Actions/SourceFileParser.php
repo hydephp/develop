@@ -62,7 +62,7 @@ class SourceFileParser
         return new $pageClass(
             matter: $matter,
             body: $body,
-            slug: $this->slug
+            identifier: $this->slug
         );
     }
 

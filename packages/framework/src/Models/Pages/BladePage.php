@@ -25,7 +25,7 @@ class BladePage extends AbstractPage
      *
      * @var string
      */
-    public string $slug;
+    public string $identifier;
 
     /**
      * @param  string  $view
@@ -33,7 +33,7 @@ class BladePage extends AbstractPage
     public function __construct(string $view)
     {
         $this->view = $view;
-        $this->slug = $view;
+        $this->identifier = $view;
     }
 
     public static string $sourceDirectory = '_pages';

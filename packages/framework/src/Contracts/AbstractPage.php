@@ -89,12 +89,12 @@ abstract class AbstractPage implements PageContract, CompilableContract
         ).'.html';
     }
 
-    public string $slug;
+    public string $identifier;
 
     /** @inheritDoc */
     public function getSourcePath(): string
     {
-        return static::qualifyBasename($this->slug);
+        return static::qualifyBasename($this->identifier);
     }
 
     /** @inheritDoc */
@@ -106,7 +106,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public function getCurrentPagePath(): string
     {
-        return trim(static::getOutputDirectory().'/'.$this->slug, '/');
+        return trim(static::getOutputDirectory().'/'.$this->identifier, '/');
     }
 
     /** @inheritDoc */

@@ -32,9 +32,9 @@ class MarkdownPostParserTest extends TestCase
         $this->assertCount(3, ($post->matter));
         $this->assertIsArray($post->matter);
         $this->assertIsString($post->body);
-        $this->assertIsString($post->slug);
+        $this->assertIsString($post->identifier);
         $this->assertTrue(strlen($post->body) > 32);
-        $this->assertTrue(strlen($post->slug) > 8);
+        $this->assertTrue(strlen($post->identifier) > 8);
     }
 
     public function test_parsed_markdown_post_contains_valid_front_matter()

@@ -20,15 +20,15 @@ class DocumentationPage extends AbstractMarkdownPage
      */
     public ?string $category;
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $identifier = '')
     {
-        parent::__construct($matter, $body, $title, $slug);
+        parent::__construct($matter, $body, $title, $identifier);
     }
 
     /** @inheritDoc */
     public function getCurrentPagePath(): string
     {
-        return trim(static::getOutputDirectory().'/'.basename($this->slug), '/');
+        return trim(static::getOutputDirectory().'/'.basename($this->identifier), '/');
     }
 
     /** @internal */
@@ -38,7 +38,7 @@ class DocumentationPage extends AbstractMarkdownPage
             return false;
         }
 
-        return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
+        return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
     public static function home(): ?RouteContract

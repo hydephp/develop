@@ -49,7 +49,7 @@ class DocumentationSidebar extends NavigationMenu
 
     protected function getPriorityForRoute(Route $route): int
     {
-        return $route->getSourceModel()->matter('priority') ?? $this->findPriorityInConfig($route->getSourceModel()->slug);
+        return $route->getSourceModel()->matter('priority') ?? $this->findPriorityInConfig($route->getSourceModel()->identifier);
     }
 
     protected function findPriorityInConfig(string $slug): int

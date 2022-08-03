@@ -25,7 +25,7 @@ class HasPageMetadataTest extends TestCase
 
     protected function makePage(string $slug = 'foo'): MarkdownPage
     {
-        return new MarkdownPage(slug: $slug);
+        return new MarkdownPage(identifier: $slug);
     }
 
     public function test_get_canonical_url_returns_url_for_top_level_page()

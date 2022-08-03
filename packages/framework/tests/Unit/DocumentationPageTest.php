@@ -87,7 +87,7 @@ class DocumentationPageTest extends TestCase
     {
         $this->assertEquals(
             DocumentationPage::qualifyBasename('foo'),
-            (new DocumentationPage(slug: 'foo'))->getSourcePath()
+            (new DocumentationPage(identifier: 'foo'))->getSourcePath()
         );
     }
 
@@ -95,7 +95,7 @@ class DocumentationPageTest extends TestCase
     {
         $this->assertEquals(
             DocumentationPage::qualifyBasename('foo/bar'),
-            (new DocumentationPage(slug: 'foo/bar'))->getSourcePath()
+            (new DocumentationPage(identifier: 'foo/bar'))->getSourcePath()
         );
     }
 
