@@ -28,19 +28,6 @@ interface PageContract
     public static function getFileExtension(): string;
 
     /**
-     * Get the class that parses source files into page models.
-     *
-     * @return string<\Hyde\Framework\Contracts\PageParserContract>
-     */
-    public static function getParserClass(): string;
-
-    /**
-     * Create and return a new PageParser instance for this model,
-     * with the given slug passed to the constructor.
-     */
-    public static function getParser(string $slug): PageParserContract;
-
-    /**
      * Parse a source file slug into a page model.
      *
      * @param  string  $slug
@@ -48,7 +35,7 @@ interface PageContract
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): static;
+    public static function parse(string $slug): PageContract;
 
     /**
      * Get an array of all the source file slugs for the model.

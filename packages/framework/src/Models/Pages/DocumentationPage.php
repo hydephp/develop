@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Models\Route;
 
 class DocumentationPage extends AbstractMarkdownPage
@@ -14,7 +13,6 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
-    public static string $parserClass = DocumentationPageParser::class;
     public static string $template = 'hyde::layouts/docs';
 
     /**

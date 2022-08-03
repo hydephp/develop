@@ -8,7 +8,6 @@ use Hyde\Framework\Concerns\HasDateString;
 use Hyde\Framework\Concerns\HasFeaturedImage;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Illuminate\Support\Collection;
 
 class MarkdownPost extends AbstractMarkdownPage
@@ -22,7 +21,6 @@ class MarkdownPost extends AbstractMarkdownPage
 
     public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
-    public static string $parserClass = MarkdownPostParser::class;
     public static string $template = 'hyde::layouts/post';
 
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')

@@ -10,6 +10,8 @@ use Hyde\Framework\Hyde;
  * First check the front matter for a title. If one is not found,
  * it searches the Markdown for a level one heading. Falls back to
  * generating a title from the slug if no other title could be found.
+ *
+ * @deprecated Move to action to generate when constructing a page.
  */
 trait HasDynamicTitle
 {

@@ -60,5 +60,7 @@ class InteractsWithDirectoriesConcernTest extends TestCase
         $this->needsDirectories([Hyde::path('foo'), Hyde::path('bar')]);
         $this->assertDirectoryExists(Hyde::path('foo'));
         $this->assertDirectoryExists(Hyde::path('bar'));
+
+        File::deleteDirectory(Hyde::path('bar'));
     }
 }
