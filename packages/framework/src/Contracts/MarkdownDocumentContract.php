@@ -2,8 +2,6 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Models\FrontMatter;
-
 interface MarkdownDocumentContract
 {
     /**
