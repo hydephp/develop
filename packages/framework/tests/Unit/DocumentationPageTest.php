@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\DocumentationPage;

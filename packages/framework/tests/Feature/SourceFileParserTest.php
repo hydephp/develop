@@ -84,7 +84,6 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('Foo Bar', $page->title);
     }
 
-
     public function test_documentation_page_parser_can_get_category_from_front_matter()
     {
         $this->markdown('_docs/foo.md', '# Foo Bar', ['category' => 'foo']);
