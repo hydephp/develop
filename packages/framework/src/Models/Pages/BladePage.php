@@ -10,18 +10,14 @@ use Hyde\Framework\Contracts\AbstractPage;
 class BladePage extends AbstractPage
 {
     /**
-     * The name of the Blade View to compile.
+     * The name of the Blade View to compile. Commonly stored in _pages/{$identifier}.blade.php.
      *
      * @var string
-     *
-     * Must be a top level file relative to
-     * resources\views\pages\ and ending
-     * in .blade.php to be compiled.
      */
     public string $view;
 
     /**
-     * The page slug for compatibility.
+     * The page identifier for compatibility.
      *
      * @var string
      */
