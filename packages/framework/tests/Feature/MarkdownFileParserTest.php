@@ -68,4 +68,13 @@ This is a post stub used in the automated tests
         $this->assertEquals('Mr. Hyde', $post->matter['author']);
         $this->assertEquals('blog', $post->matter['category']);
     }
+
+    public function test_parsed_front_matter_does_not_contain_slug_key()
+    {
+        file_put_contents(Hyde::path('_posts/test-post.md'), "---\nslug: foo\n---\n");
+
+        $post = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
+        $this->assertArrayNotHasKey('slug', $post->matter);
+        $this->assertEquals([], $post->matter);
+    }
 }
