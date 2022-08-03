@@ -105,7 +105,7 @@ class SourceFileParser
             return Str::before($this->slug, '/');
         }
 
-        return $this->page->matter['category'] ?? null;
+        return $this->page->matter('category');
     }
 
     public function get(): PageContract
