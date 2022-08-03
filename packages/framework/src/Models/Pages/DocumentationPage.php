@@ -20,9 +20,9 @@ class DocumentationPage extends AbstractMarkdownPage
      */
     public ?string $category;
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $identifier = '')
     {
-        parent::__construct($matter, $body, $title, $slug);
+        parent::__construct($matter, $body, $title, $identifier);
     }
 
     /** @inheritDoc */

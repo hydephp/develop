@@ -160,7 +160,7 @@ class AbstractPageTest extends TestCase
     {
         $this->assertEquals(
             MarkdownPage::qualifyBasename('foo'),
-            (new MarkdownPage(slug: 'foo'))->getSourcePath()
+            (new MarkdownPage(identifier: 'foo'))->getSourcePath()
         );
     }
 

@@ -23,9 +23,9 @@ class MarkdownPost extends AbstractMarkdownPage
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $identifier = '')
     {
-        parent::__construct($matter, $body, $title, $slug);
+        parent::__construct($matter, $body, $title, $identifier);
 
         $this->constructAuthor();
         $this->constructMetadata();
