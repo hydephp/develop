@@ -28,10 +28,14 @@ class SourceFileParser
     public function __construct(string $pageClass, string $slug)
     {
         $this->validateExistence($pageClass, $slug);
-
         $this->slug = $slug;
 
-        $this->page = $pageClass === BladePage::class
+        $this->page = $this->constructBaseModel($pageClass);
+    }
+
+    protected function constructBaseModel(string $pageClass): BladePage|AbstractMarkdownPage
+    {
+        return $pageClass === BladePage::class
             ? $this->parseBladePage()
             : $this->parseMarkdownPage($pageClass);
     }
@@ -63,4 +67,5 @@ class SourceFileParser
     {
         return $this->page;
     }
+
 }
