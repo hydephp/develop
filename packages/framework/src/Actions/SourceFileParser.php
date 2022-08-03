@@ -100,5 +100,4 @@ class SourceFileParser
     {
         return $this->page;
     }
-
 }
