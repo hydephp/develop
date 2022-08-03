@@ -85,10 +85,10 @@ class SourceFileParser
             return $this->page->matter('title');
         }
 
-        return $this->findTitleFromMarkdownHeadings() ?: Hyde::makeTitle($this->slug);
+        return $this->findTitleFromMarkdownHeadings() ?? Hyde::makeTitle($this->slug);
     }
 
-    protected function findTitleFromMarkdownHeadings(): string|false
+    protected function findTitleFromMarkdownHeadings(): ?string
     {
         foreach ($this->page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
@@ -96,7 +96,7 @@ class SourceFileParser
             }
         }
 
-        return false;
+        return null;
     }
 
     protected function getDocumentationPageCategory(): ?string
