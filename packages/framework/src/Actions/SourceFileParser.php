@@ -4,7 +4,6 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
