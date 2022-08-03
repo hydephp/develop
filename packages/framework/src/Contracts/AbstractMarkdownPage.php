@@ -30,11 +30,11 @@ abstract class AbstractMarkdownPage extends AbstractPage
 
     public static string $fileExtension = '.md';
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?MarkdownDocument $markdownDocument = null)
+    public function __construct(array $matter = [], string $body = '', ?string $title = null, string $slug = '', ?MarkdownDocument $markdownDocument = null)
     {
         $this->matter = $matter;
         $this->body = $body;
-        $this->title = $title;
+        $this->title = $title ?? $matter['title'] ?? '';
         $this->slug = $slug;
 
         $this->markdown = $markdownDocument ?? new MarkdownDocument($matter, $body);
