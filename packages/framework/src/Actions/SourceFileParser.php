@@ -69,6 +69,7 @@ class SourceFileParser
     protected function constructDynamicData(): void
     {
         $this->page->title = $this->findTitleForPage();
+
         if ($this->page instanceof DocumentationPage) {
             $this->page->category = $this->getDocumentationPageCategory();
         }
