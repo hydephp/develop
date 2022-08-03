@@ -101,6 +101,7 @@ class SourceFileParser
 
     protected function getDocumentationPageCategory(): ?string
     {
+        // If the documentation page is in a subdirectory, we use that as the category name
         return str_contains($this->slug, '/')
             ? Str::before($this->slug, '/')
             : $this->page->matter('category');
