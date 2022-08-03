@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\ValidatesExistence;
+use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -33,12 +34,11 @@ class SourceFileParser
 
         $this->slug = $slug;
 
-        $this->page = match ($pageClass) {
-            BladePage::class => $this->parseBladePage(),
-            MarkdownPage::class => $this->parseMarkdownPage(),
-            MarkdownPost::class => $this->parseMarkdownPost(),
-            DocumentationPage::class => $this->parseDocumentationPage(),
-        };
+        if ($pageClass === BladePage::class) {
+            $this->page = $this->parseBladePage();
+        } else {
+            $this->page = $this->parseMarkdownPage($pageClass);
+        }
     }
 
     protected function parseBladePage(): BladePage
@@ -46,54 +46,21 @@ class SourceFileParser
         return new BladePage($this->slug);
     }
 
-    protected function parseMarkdownPage(): MarkdownPage
+    protected function parseMarkdownPage(string $pageClass): AbstractMarkdownPage
     {
+        /** @var AbstractMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
-            MarkdownPage::qualifyBasename($this->slug)
+            $pageClass::qualifyBasename($this->slug)
         );
 
         $matter = $document->matter;
         $body = $document->body;
 
-        return new MarkdownPage(
+        return new $pageClass(
             matter: $matter,
             body: $body,
             title: FindsTitleForDocument::get($this->slug, $matter, $body),
             slug: $this->slug
-        );
-    }
-
-    protected function parseMarkdownPost(): MarkdownPost
-    {
-        $document = MarkdownFileParser::parse(
-            MarkdownPost::qualifyBasename($this->slug)
-        );
-
-        $matter = $document->matter;
-        $body = $document->body;
-
-        return new MarkdownPost(
-            matter: $matter,
-            body: $body,
-            title: FindsTitleForDocument::get($this->slug, $matter, $body),
-            slug: $this->slug
-        );
-    }
-
-    protected function parseDocumentationPage(): DocumentationPage
-    {
-        $document = MarkdownFileParser::parse(
-            DocumentationPage::qualifyBasename($this->slug)
-        );
-
-        $matter = $document->matter;
-        $body = $document->body;
-
-        return new DocumentationPage(
-            matter: $matter,
-            body: $body,
-            title: FindsTitleForDocument::get($this->slug, $matter, $body),
-            slug: $this->slug,
         );
     }
 
