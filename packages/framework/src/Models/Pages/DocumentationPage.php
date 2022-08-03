@@ -20,19 +20,10 @@ class DocumentationPage extends AbstractMarkdownPage
      */
     public ?string $category;
 
-    /**
-     * The path to the page relative to the configured `_docs` directory.
-     * Generally only needed if the page is in a subdirectory.
-     *
-     * @deprecated It's better to modify the slug to get the basename when needed
-     */
-    public ?string $localPath;
-
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null, ?string $localPath = null)
     {
         parent::__construct($matter, $body, $title, $slug);
         $this->category = $category;
-        $this->localPath = $localPath;
     }
 
     /** @internal */
