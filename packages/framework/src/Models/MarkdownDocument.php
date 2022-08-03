@@ -6,12 +6,13 @@ use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class MarkdownDocument implements MarkdownDocumentContract
+class MarkdownDocument implements MarkdownDocumentContract, Arrayable
 {
     public array $matter;
     public string $body;
@@ -49,6 +50,14 @@ class MarkdownDocument implements MarkdownDocumentContract
     public function render(): string
     {
         return Markdown::parse($this->body);
+    }
+
+    /**
+     * Return the Markdown document body explored by line into an array.
+     */
+    public function toArray(): array
+    {
+        return explode("\n", $this->body);
     }
 
     /**
