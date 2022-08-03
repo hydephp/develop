@@ -9,7 +9,7 @@ This update refactors the internal page source model parsing. This will likely n
 
 ### Changed
 - All source model parsing is now handled by the new SourceFileParser action
-- Blog post front matter no longer includes merged slug
+- Markdown page models no longer includes the slug merged into the front matter 
 - internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
 
 ### Deprecated
