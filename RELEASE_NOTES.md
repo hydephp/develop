@@ -2,24 +2,20 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This update refactors the internal page source model parsing. This will likely not affect you directly, however, if you have written custom code that interacts with any class relating to the PageParser contract, you'll want to take a closer look at the changes.
 
 ### Added
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- All source model parsing is now handled by the new SourceFileParser action
+- Blog post front matter no longer includes merged slug
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- The PageParserContract interface, and all of its implementations have been removed
 
 ### Fixed
 - for any bug fixes.
