@@ -31,7 +31,7 @@ class HasPageMetadataRssFeedLinkTest extends TestCase
 
     public function test_can_use_rss_feed_link_adds_meta_link_for_post_related_pages()
     {
-        $page = new MarkdownPage([], '', slug: 'posts');
+        $page = new MarkdownPage(identifier: 'posts', matter: [], body: '', title: 'posts');
 
         $this->assertStringContainsString(
             '<link rel="alternate" type="application/rss+xml" title="HydePHP RSS Feed" href="foo/feed.xml" />',
@@ -41,7 +41,7 @@ class HasPageMetadataRssFeedLinkTest extends TestCase
 
     public function test_can_use_rss_feed_link_adds_meta_link_for_markdown_index_page()
     {
-        $page = new MarkdownPage([], '', slug: 'index');
+        $page = new MarkdownPage(identifier: 'index', matter: [], body: '', title: 'index');
 
         $this->assertStringContainsString(
             '<link rel="alternate" type="application/rss+xml" title="HydePHP RSS Feed" href="foo/feed.xml" />',

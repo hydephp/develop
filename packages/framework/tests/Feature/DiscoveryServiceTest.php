@@ -8,9 +8,6 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Parsers\DocumentationPageParser;
-use Hyde\Framework\Models\Parsers\MarkdownPageParser;
-use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
@@ -31,26 +28,6 @@ class DiscoveryServiceTest extends TestCase
         unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(MarkdownPage::class).'/test.md'));
         unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(DocumentationPage::class).'/test.md'));
         unlink(Hyde::path(DiscoveryService::getModelSourceDirectory(BladePage::class).'/test.blade.php'));
-    }
-
-    public function test_get_parser_class_for_model()
-    {
-        $this->assertEquals(MarkdownPageParser::class, DiscoveryService::getParserClassForModel(MarkdownPage::class));
-        $this->assertEquals(MarkdownPostParser::class, DiscoveryService::getParserClassForModel(MarkdownPost::class));
-        $this->assertEquals(DocumentationPageParser::class, DiscoveryService::getParserClassForModel(DocumentationPage::class));
-        $this->assertEquals(BladePage::class, DiscoveryService::getParserClassForModel(BladePage::class));
-    }
-
-    public function test_get_parser_instance_for_model()
-    {
-        $this->createContentSourceTestFiles();
-
-        $this->assertInstanceOf(MarkdownPageParser::class, DiscoveryService::getParserInstanceForModel(MarkdownPage::class, 'test'));
-        $this->assertInstanceOf(MarkdownPostParser::class, DiscoveryService::getParserInstanceForModel(MarkdownPost::class, 'test'));
-        $this->assertInstanceOf(DocumentationPageParser::class, DiscoveryService::getParserInstanceForModel(DocumentationPage::class, 'test'));
-        $this->assertInstanceOf(BladePage::class, DiscoveryService::getParserInstanceForModel(BladePage::class, 'test'));
-
-        $this->deleteContentSourceTestFiles();
     }
 
     public function test_get_file_extension_for_model_files()

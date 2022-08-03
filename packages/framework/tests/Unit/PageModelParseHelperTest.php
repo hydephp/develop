@@ -16,8 +16,12 @@ class PageModelParseHelperTest extends TestCase
 {
     public function test_blade_page_get_helper_returns_blade_page_object()
     {
+        Hyde::touch(('_pages/foo.blade.php'));
+
         $object = BladePage::parse('foo');
         $this->assertInstanceOf(BladePage::class, $object);
+
+        unlink(Hyde::path('_pages/foo.blade.php'));
     }
 
     public function test_markdown_page_get_helper_returns_markdown_page_object()

@@ -51,7 +51,7 @@ class RssFeedService
     protected function addItem(MarkdownPost $post): void
     {
         $item = $this->feed->channel->addChild('item');
-        $item->addChild('title', $post->findTitleForDocument());
+        $item->addChild('title', $post->title);
         $item->addChild('link', $post->getCanonicalLink());
         $item->addChild('guid', $post->getCanonicalLink());
         $item->addChild('description', $post->getPostDescription());

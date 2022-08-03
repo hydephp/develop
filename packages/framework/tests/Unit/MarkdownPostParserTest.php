@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Testing\TestCase;
 
 /**
@@ -28,22 +27,21 @@ class MarkdownPostParserTest extends TestCase
 
     public function test_can_parse_markdown_file()
     {
-        $post = (new MarkdownPostParser('test-post'))->get();
+        $post = MarkdownPost::parse('test-post');
         $this->assertInstanceOf(MarkdownPost::class, $post);
-        $this->assertCount(4, ($post->matter));
+        $this->assertCount(3, ($post->matter));
         $this->assertIsArray($post->matter);
         $this->assertIsString($post->body);
-        $this->assertIsString($post->slug);
+        $this->assertIsString($post->identifier);
         $this->assertTrue(strlen($post->body) > 32);
-        $this->assertTrue(strlen($post->slug) > 8);
+        $this->assertTrue(strlen($post->identifier) > 8);
     }
 
     public function test_parsed_markdown_post_contains_valid_front_matter()
     {
-        $post = (new MarkdownPostParser('test-post'))->get();
+        $post = MarkdownPost::parse('test-post');
         $this->assertEquals('My New Post', $post->matter['title']);
         $this->assertEquals('Mr. Hyde', $post->matter['author']);
         $this->assertEquals('blog', $post->matter['category']);
-        $this->assertEquals('test-post', $post->matter['slug']);
     }
 }

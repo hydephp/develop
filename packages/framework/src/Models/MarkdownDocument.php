@@ -5,11 +5,13 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class MarkdownDocument
+class MarkdownDocument implements MarkdownDocumentContract, Arrayable
 {
     public FrontMatter $matter;
     public string $body;
@@ -40,6 +42,19 @@ class MarkdownDocument
         return $this->body;
     }
 
+    /**
+     * Return the Markdown document body explored by line into an array.
+     *
+     * @return string[]
+     */
+    public function toArray(): array
+    {
+        return explode("\n", $this->body);
+    }
+
+    /**
+     * @deprecated v0.56.0 - Will be renamed to parse()
+     */
     public static function parseFile(string $localFilepath): static
     {
         return (new MarkdownFileParser(Hyde::path($localFilepath)))->get();

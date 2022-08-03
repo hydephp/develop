@@ -79,7 +79,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_can_build_markdown_page()
     {
-        $page = new MarkdownPage([], '# Body', 'Title', 'foo');
+        $page = new MarkdownPage('foo', [], '# Body', 'Title');
 
         new StaticPageBuilder($page, true);
 

@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Concerns\HasDynamicTitle;
 use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 
@@ -20,29 +19,25 @@ use Hyde\Framework\Models\MarkdownDocument;
  *
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownPageContract
+abstract class AbstractMarkdownPage extends AbstractPage
 {
-    use HasDynamicTitle;
-
     public MarkdownDocument $markdown;
 
     public array $matter;
     public string $body;
     public string $title;
-    public string $slug;
+    public string $identifier;
 
     public static string $fileExtension = '.md';
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?MarkdownDocument $markdownDocument = null)
+    public function __construct(string $identifier = '', array $matter = [], string $body = '', ?string $title = null, ?MarkdownDocument $markdownDocument = null)
     {
         $this->matter = $matter;
         $this->body = $body;
-        $this->title = $title;
-        $this->slug = $slug;
+        $this->title = $title ?? $matter['title'] ?? '';
+        $this->identifier = $identifier;
 
         $this->markdown = $markdownDocument ?? new MarkdownDocument($matter, $body);
-
-        $this->constructDynamicTitle();
     }
 
     public function markdown(): MarkdownDocument

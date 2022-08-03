@@ -15,6 +15,63 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.57.0-beta](https://github.com/hydephp/develop/releases/tag/v0.57.0-beta) - 2022-08-03
+
+### About
+
+This update refactors the internal page source model parsing. This will likely not affect you directly, however, if you have written custom code that interacts with any class relating to the PageParser contract, you'll want to take a closer look at the changes.
+
+### Added
+- Added a new static shorthand to quickly parse Markdown files into MarkdownDocuments (`MarkdownFileParser::parse()`)
+- Added `toArray()` method to MarkdownDocuments, which returns an array of all the body lines
+
+### Changed
+- All source model parsing is now handled by the new SourceFileParser action
+- Blog post front matter no longer includes merged slug
+- MarkdownDocument now implements the `Arrayable` interface
+- Markdown page models no longer includes the slug merged into the front matter 
+- All Markdown page models now have the title property inferred when parsing
+- internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
+- internal: Refactor search index generator to use route system
+
+### Deprecated
+- Deprecated `MarkdownDocument::parseFile()`, will be renamed to `MarkdownDocument::parse()`
+
+### Removed
+- The PageParserContract interface, and all of its implementations have been removed
+- Removed `$localPath` property from DocumentationPage class, see above
+- Removed trait HasDynamicTitle
+
+
+## [v0.56.0-beta](https://github.com/hydephp/develop/releases/tag/v0.56.0-beta) - 2022-08-03
+
+### About
+
+This update makes changes to the internal Markdown services. If you have written code or integrations that uses any of these services, you may want to take a closer look. Otherwise, this should not affect you much.
+
+Many Markdown related classes have been moved to a new namespace, and the classes themselves have been restructured. Again, this only affects those who in the past have used these classes outside of what Hyde normally provides.
+
+Due to the nature of this refactor, where so much have been changed, not everything is documented here. See the attached pull request for the full Markdown change diff: https://github.com/hydephp/develop/pull/318
+
+### Added
+- Added model FrontMatter.php
+- Create MarkdownConverter.php
+- Create MarkdownServiceProvider.php
+- internal: Added Benchmarking framework
+
+### Changed
+
+- Move `Markdown::hasTableOfContents()` to `DocumentationPage::hasTableOfContents() `
+- Move most Markdown related classes into `Modules\Markdown` namespace
+- Rename MarkdownConverterService to MarkdownService
+- Rename MarkdownFileService to MarkdownFileParser
+- Replace CommonMarkConverter with Hyde MarkdownConverter
+
+### Removed
+- Remove old MarkdownConverter action
+- Delete HasMarkdownFeatures.php
+
+
 ## [v0.55.0-beta](https://github.com/hydephp/develop/releases/tag/v0.55.0-beta) - 2022-08-01
 
 ### About

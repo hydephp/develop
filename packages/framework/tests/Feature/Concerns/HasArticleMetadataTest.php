@@ -80,7 +80,7 @@ class HasArticleMetadataTest extends TestCase
     public function test_get_meta_properties_contains_og_url_when_uri_path_set()
     {
         Config::set('site.url', 'https://example.com/foo');
-        $this->route = new Route(new MarkdownPost(slug: 'bar'));
+        $this->route = new Route(new MarkdownPost(identifier: 'bar'));
         $this->constructMetadata();
 
         $this->assertEquals([

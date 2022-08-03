@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Models\Route;
 
 class DocumentationPage extends AbstractMarkdownPage
@@ -14,7 +13,6 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
-    public static string $parserClass = DocumentationPageParser::class;
     public static string $template = 'hyde::layouts/docs';
 
     /**
@@ -22,23 +20,15 @@ class DocumentationPage extends AbstractMarkdownPage
      */
     public ?string $category;
 
-    /**
-     * The path to the page relative to the configured `_docs` directory.
-     * Generally only needed if the page is in a subdirectory.
-     */
-    public ?string $localPath;
-
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '', ?string $category = null, ?string $localPath = null)
+    public function __construct(array $matter = [], string $body = '', string $title = '', string $identifier = '')
     {
-        parent::__construct($matter, $body, $title, $slug);
-        $this->category = $category;
-        $this->localPath = $localPath;
+        parent::__construct($identifier, $matter, $body, $title);
     }
 
     /** @inheritDoc */
-    public function getSourcePath(): string
+    public function getCurrentPagePath(): string
     {
-        return is_null($this->localPath) ? parent::getSourcePath() : static::qualifyBasename($this->localPath);
+        return trim(static::getOutputDirectory().'/'.basename($this->identifier), '/');
     }
 
     /** @internal */
@@ -48,7 +38,7 @@ class DocumentationPage extends AbstractMarkdownPage
             return false;
         }
 
-        return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
+        return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
     public static function home(): ?RouteContract

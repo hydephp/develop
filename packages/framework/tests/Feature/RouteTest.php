@@ -138,21 +138,21 @@ class RouteTest extends TestCase
 
     public function test_get_link_returns_correct_path_for_root_pages()
     {
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
         $this->assertEquals('foo.html', $route->getLink());
     }
 
     public function test_get_link_returns_correct_path_for_nested_pages()
     {
-        $route = new Route(new MarkdownPage(slug: 'foo/bar'));
+        $route = new Route(new MarkdownPage(identifier: 'foo/bar'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
         $this->assertEquals('foo/bar.html', $route->getLink());
     }
 
     public function test_get_link_returns_correct_path_for_nested_current_page()
     {
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         view()->share('currentPage', 'foo/bar');
         $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
         $this->assertEquals('../foo.html', $route->getLink());
@@ -161,33 +161,33 @@ class RouteTest extends TestCase
     public function test_get_link_returns_pretty_url_if_enabled()
     {
         config(['site.pretty_urls' => true]);
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());
     }
 
     public function test_to_string_is_alias_for_get_link()
     {
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         $this->assertEquals($route->getLink(), (string) $route);
     }
 
     public function test_get_qualified_url_returns_hyde_url_for_output_file_path()
     {
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         $this->assertEquals(Hyde::url('foo.html'), $route->getQualifiedUrl());
     }
 
     public function test_get_qualified_url_returns_hyde_url_for_nested_pages()
     {
-        $route = new Route(new MarkdownPage(slug: 'foo/bar'));
+        $route = new Route(new MarkdownPage(identifier: 'foo/bar'));
         $this->assertEquals(Hyde::url('foo/bar.html'), $route->getQualifiedUrl());
     }
 
     public function test_get_qualified_url_returns_pretty_url_if_enabled()
     {
         config(['site.pretty_urls' => true]);
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         $this->assertEquals(Hyde::url('foo'), $route->getQualifiedUrl());
     }
 
@@ -195,13 +195,13 @@ class RouteTest extends TestCase
     {
         config(['site.url' => null]);
         $this->expectException(BaseUrlNotSetException::class);
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         $route->getQualifiedUrl();
     }
 
     public function test_current_returns_current_route()
     {
-        $route = new Route(new MarkdownPage(slug: 'foo'));
+        $route = new Route(new MarkdownPage(identifier: 'foo'));
         view()->share('currentRoute', $route);
         $this->assertEquals($route, Route::current());
     }

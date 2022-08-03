@@ -2,17 +2,28 @@
 
 ### About
 
-This update makes changes to the internal Markdown services. If you have written code or integrations that uses any of these services, you may want to take a closer look. Otherwise, this should not affect you much.
+This update contains **breaking changes** to the internal API regarding page models. This should only affect you directly if you've written any code that interacts with the internal page models, such as constructing them using non-built-in Hyde helpers.
 
-Many Markdown related classes have been moved to a new namespace, and the classes themselves have been restructured. Again, this only affects those who in the past have used these classes outside of what Hyde normally provides.
+#### Rename slugs to identifiers
 
-Due to the nature of this refactor, where so much have been changed, not everything is documented here. See the attached pull request for the full Markdown change diff: https://github.com/hydephp/develop/pull/318
+Previously internally called `slug(s)`, are now called `identifier(s)`. In all honestly, this has 90% to do with the fact that I hate the word "slug".
+I considered using `basename` as an alternative, but that does not fit with nested pages. Here instead is the definition of an `identifier` in the context of HydePHP:
+
+> An identifier is a string that is in essence everything in the filepath between the source directory and the file extension.
+
+So, for example, a page source file stored as `_pages/foo/bar.md` would have the identifier `foo/bar`. Each page type can only have one identifier of the same name.
+But since you could have a file with the same identifier in the `_posts` directory, we internally always need to specify what source model we are using.
+
+The identifier property is closely related to the page model's route key property, which consists of the site output directory followed by the identifier. 
 
 ### Added
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
+- Breaking: Rename AbstractPage property `slug` to `identifier`
+- Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
+- Begin changing references to slugs to identifiers, see motivation above
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -25,3 +36,4 @@ Due to the nature of this refactor, where so much have been changed, not everyth
 
 ### Security
 - in case of vulnerabilities.
+
