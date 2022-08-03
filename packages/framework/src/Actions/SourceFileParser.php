@@ -101,11 +101,9 @@ class SourceFileParser
 
     protected function getDocumentationPageCategory(): ?string
     {
-        if (str_contains($this->slug, '/')) {
-            return Str::before($this->slug, '/');
-        }
-
-        return $this->page->matter('category');
+        return str_contains($this->slug, '/')
+            ? Str::before($this->slug, '/')
+            : $this->page->matter('category');
     }
 
     public function get(): PageContract
