@@ -8,7 +8,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 /**
  * Prepares a Markdown file for further usage by extracting the Front Matter and creating MarkdownDocument object.
  *
- * @see \Hyde\Framework\Testing\Feature\MarkdownFileServiceTest
+ * @see \Hyde\Framework\Testing\Feature\MarkdownFileParserTest
  */
 class MarkdownFileParser
 {
