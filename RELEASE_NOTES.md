@@ -2,23 +2,21 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This update refactors the internal page source model parsing. This will likely not affect you directly, however, if you have written custom code that interacts with any class relating to the PageParser contract, you'll want to take a closer look at the changes.
 
 ### Added
-- for new features.
+- Added a new static shorthand to quickly parse Markdown files into MarkdownDocuments (`MarkdownFileParser::parse()`)
 
 ### Changed
+- All source model parsing is now handled by the new SourceFileParser action
+- Blog post front matter no longer includes merged slug
 - internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated `MarkdownDocument::parseFile()`, will be renamed to `MarkdownDocument::parse()`
 
 ### Removed
+- The PageParserContract interface, and all of its implementations have been removed
 - Removed `$localPath` property from DocumentationPage class, see above
 
 ### Fixed

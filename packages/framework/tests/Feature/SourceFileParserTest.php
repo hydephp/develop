@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -59,31 +58,5 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('foo', $page->slug);
         $this->assertEquals('# Foo Bar', $page->body);
         $this->assertEquals('Foo Bar Baz', $page->title);
-    }
-
-    public function test_documentation_page_parser_can_get_category_from_front_matter()
-    {
-        $this->markdown('_docs/foo.md', '# Foo Bar', ['category' => 'foo']);
-
-        $parser = new SourceFileParser(DocumentationPage::class, 'foo');
-
-        /** @var DocumentationPage $page */
-        $page = $parser->get();
-        $this->assertEquals('foo', $page->category);
-    }
-
-    public function test_documentation_page_parser_can_get_category_automatically_from_nested_page()
-    {
-        mkdir(Hyde::path('_docs/foo'));
-        touch(Hyde::path('_docs/foo/bar.md'));
-
-        $parser = new SourceFileParser(DocumentationPage::class, 'foo/bar');
-
-        /** @var DocumentationPage $page */
-        $page = $parser->get();
-        $this->assertEquals('foo', $page->category);
-
-        unlink(Hyde::path('_docs/foo/bar.md'));
-        rmdir(Hyde::path('_docs/foo'));
     }
 }
