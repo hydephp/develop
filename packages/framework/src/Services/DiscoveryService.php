@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\AbstractPage;
-use Hyde\Framework\Contracts\PageParserContract;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -22,28 +21,6 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
  */
 class DiscoveryService
 {
-    public static function getParserClassForModel(string $model): string
-    {
-        /** @var AbstractPage $model */
-        return $model::getParserClass();
-    }
-
-    /**
-     * Create and get a constructed instance of a Model's Parser class.
-     *
-     * @param  string<AbstractPage>  $model  Class constant of the Model to get the Parser for.
-     * @param  string  $slug  The slug of the source file to parse.
-     *
-     * @example getParserForModel(MarkdownPost::class, 'hello-world')
-     *
-     * @return PageParserContract The constructed Parser instance.
-     */
-    public static function getParserInstanceForModel(string $model, string $slug): PageParserContract
-    {
-        /** @var AbstractPage $model */
-        return new $model::$parserClass($slug);
-    }
-
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *

@@ -6,7 +6,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Parsers\DocumentationPageParser;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -60,7 +59,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     public function generatePageObject(string $slug): object
     {
-        $page = (new DocumentationPageParser($slug))->get();
+        $page = DocumentationPage::parse($slug);
 
         return (object) [
             'slug' => $page->slug,

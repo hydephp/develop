@@ -12,8 +12,6 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Parsers\MarkdownPageParser;
-use Hyde\Framework\Models\Parsers\MarkdownPostParser;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
@@ -65,32 +63,6 @@ class AbstractPageTest extends TestCase
     {
         MarkdownPage::$fileExtension = 'foo';
         $this->assertEquals('.foo', MarkdownPage::getFileExtension());
-    }
-
-    public function test_get_parser_class_returns_static_property()
-    {
-        MarkdownPage::$parserClass = 'foo';
-        $this->assertEquals('foo', MarkdownPage::getParserClass());
-    }
-
-    public function test_get_parser_returns_the_configured_parser_class()
-    {
-        Hyde::touch(('_posts/foo.md'));
-
-        MarkdownPage::$parserClass = MarkdownPostParser::class;
-        $this->assertInstanceOf(MarkdownPostParser::class, MarkdownPage::getParser('foo'));
-
-        unlink(Hyde::path('_posts/foo.md'));
-    }
-
-    public function test_get_parser_returns_instantiated_parser_for_the_supplied_slug()
-    {
-        Hyde::touch(('_pages/foo.md'));
-
-        $this->assertInstanceOf(MarkdownPageParser::class, $parser = MarkdownPage::getParser('foo'));
-        $this->assertEquals('foo', $parser->get()->slug);
-
-        unlink(Hyde::path('_pages/foo.md'));
     }
 
     public function test_parse_parses_supplied_slug_into_a_page_model()
@@ -252,20 +224,6 @@ class AbstractPageTest extends TestCase
 
         foreach ($pages as $page => $expected) {
             $this->assertEquals($expected, $page::$fileExtension);
-        }
-    }
-
-    public function test_all_page_models_have_configured_parser_class()
-    {
-        $pages = [
-            BladePage::class => 'Hyde\Framework\Models\Pages\BladePage',
-            MarkdownPage::class => 'Hyde\Framework\Models\Parsers\MarkdownPageParser',
-            MarkdownPost::class => 'Hyde\Framework\Models\Parsers\MarkdownPostParser',
-            DocumentationPage::class => 'Hyde\Framework\Models\Parsers\DocumentationPageParser',
-        ];
-
-        foreach ($pages as $page => $expected) {
-            $this->assertEquals($expected, $page::$parserClass);
         }
     }
 

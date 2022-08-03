@@ -39,12 +39,8 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
         MarkdownPost::$sourceDirectory = 'testSourceDir/blog';
 
-        // Uses the same logic as the BuildActionRunner for an accurate test.
         new StaticPageBuilder(
-            DiscoveryService::getParserInstanceForModel(
-                MarkdownPost::class,
-                'test'
-            )->get(),
+            MarkdownPost::parse('test'),
             true
         );
 
@@ -59,12 +55,8 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
         MarkdownPage::$sourceDirectory = 'testSourceDir/pages';
 
-        // Uses the same logic as the BuildActionRunner for an accurate test.
         new StaticPageBuilder(
-            DiscoveryService::getParserInstanceForModel(
-                MarkdownPage::class,
-                'test'
-            )->get(),
+            MarkdownPage::parse('test'),
             true
         );
 
@@ -79,12 +71,8 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
         DocumentationPage::$sourceDirectory = 'testSourceDir/documentation';
 
-        // Uses the same logic as the BuildActionRunner for an accurate test.
         new StaticPageBuilder(
-            DiscoveryService::getParserInstanceForModel(
-                DocumentationPage::class,
-                'test'
-            )->get(),
+            DocumentationPage::parse('test'),
             true
         );
 
@@ -100,12 +88,8 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         BladePage::$sourceDirectory = 'testSourceDir/blade';
         Config::set('view.paths', ['testSourceDir/blade']);
 
-        // Uses the same logic as the BuildActionRunner for an accurate test.
         new StaticPageBuilder(
-            DiscoveryService::getParserInstanceForModel(
-                BladePage::class,
-                'test'
-            )->get(),
+            BladePage::parse('test'),
             true
         );
 

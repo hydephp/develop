@@ -3,12 +3,11 @@
 namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Contracts\AbstractPage;
-use Hyde\Framework\Contracts\PageParserContract;
 
 /**
  * A basic wrapper for the custom Blade View compiler.
  */
-class BladePage extends AbstractPage implements PageParserContract
+class BladePage extends AbstractPage
 {
     /**
      * The name of the Blade View to compile.
@@ -41,25 +40,6 @@ class BladePage extends AbstractPage implements PageParserContract
     public static string $outputDirectory = '';
 
     public static string $fileExtension = '.blade.php';
-    public static string $parserClass = self::class;
-
-    /**
-     * Since this model also acts as a Page parser,
-     * we implement the get method for compatability.
-     */
-    public function get(): BladePage
-    {
-        return $this;
-    }
-
-    /**
-     * Since this model also acts as a Page parser,
-     * we implement the execute method for compatability.
-     */
-    public function execute(): void
-    {
-        // There's nothing to do here.
-    }
 
     /** @inheritDoc */
     public function getBladeView(): string
