@@ -25,7 +25,7 @@ class MarkdownPost extends AbstractMarkdownPage
 
     public function __construct(array $matter = [], string $body = '', string $title = '', string $identifier = '')
     {
-        parent::__construct($matter, $body, $title, $identifier);
+        parent::__construct($identifier, $matter, $body, $title);
 
         $this->constructAuthor();
         $this->constructMetadata();
