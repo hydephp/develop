@@ -6,7 +6,6 @@ use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Arr;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
