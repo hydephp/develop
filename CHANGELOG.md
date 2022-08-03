@@ -15,6 +15,34 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.57.0-beta](https://github.com/hydephp/develop/releases/tag/v0.57.0-beta) - 2022-08-03
+
+### About
+
+This update refactors the internal page source model parsing. This will likely not affect you directly, however, if you have written custom code that interacts with any class relating to the PageParser contract, you'll want to take a closer look at the changes.
+
+### Added
+- Added a new static shorthand to quickly parse Markdown files into MarkdownDocuments (`MarkdownFileParser::parse()`)
+- Added `toArray()` method to MarkdownDocuments, which returns an array of all the body lines
+
+### Changed
+- All source model parsing is now handled by the new SourceFileParser action
+- Blog post front matter no longer includes merged slug
+- MarkdownDocument now implements the `Arrayable` interface
+- Markdown page models no longer includes the slug merged into the front matter 
+- All Markdown page models now have the title property inferred when parsing
+- internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
+- internal: Refactor search index generator to use route system
+
+### Deprecated
+- Deprecated `MarkdownDocument::parseFile()`, will be renamed to `MarkdownDocument::parse()`
+
+### Removed
+- The PageParserContract interface, and all of its implementations have been removed
+- Removed `$localPath` property from DocumentationPage class, see above
+- Removed trait HasDynamicTitle
+
+
 ## [v0.56.0-beta](https://github.com/hydephp/develop/releases/tag/v0.56.0-beta) - 2022-08-03
 
 ### About

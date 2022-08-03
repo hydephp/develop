@@ -2,28 +2,24 @@
 
 ### About
 
-This update refactors the internal page source model parsing. This will likely not affect you directly, however, if you have written custom code that interacts with any class relating to the PageParser contract, you'll want to take a closer look at the changes.
+Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added a new static shorthand to quickly parse Markdown files into MarkdownDocuments (`MarkdownFileParser::parse()`)
-- Added `toArray()` method to MarkdownDocuments, which returns an array of all the body lines
+- for new features.
 
 ### Changed
-- All source model parsing is now handled by the new SourceFileParser action
-- Blog post front matter no longer includes merged slug
-- MarkdownDocument now implements the `Arrayable` interface
-- Markdown page models no longer includes the slug merged into the front matter 
-- All Markdown page models now have the title property inferred when parsing
-- internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
-- internal: Refactor search index generator to use route system
+- for changes in existing functionality.
 
 ### Deprecated
-- Deprecated `MarkdownDocument::parseFile()`, will be renamed to `MarkdownDocument::parse()`
+- for soon-to-be removed features.
 
 ### Removed
-- The PageParserContract interface, and all of its implementations have been removed
-- Removed `$localPath` property from DocumentationPage class, see above
-- Removed trait HasDynamicTitle
+- for now removed features.
 
 ### Fixed
 - for any bug fixes.
