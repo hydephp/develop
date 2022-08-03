@@ -105,4 +105,10 @@ class MarkdownDocumentTest extends TestCase
         $this->assertEquals([], $document->matter());
         unlink(Hyde::path('_pages/foo.md'));
     }
+
+    public function test_to_array_method_returns_array_markdown_body_lines()
+    {
+        $document = new MarkdownDocument(body: "foo\nbar\nbaz");
+        $this->assertEquals(["foo", "bar", "baz"], $document->toArray());
+    }
 }
