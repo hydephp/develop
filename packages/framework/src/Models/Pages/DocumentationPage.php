@@ -23,6 +23,8 @@ class DocumentationPage extends AbstractMarkdownPage
     /**
      * The path to the page relative to the configured `_docs` directory.
      * Generally only needed if the page is in a subdirectory.
+     *
+     * @deprecated It's better to modify the slug to get the basename when needed
      */
     public ?string $localPath;
 
