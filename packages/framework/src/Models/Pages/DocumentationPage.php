@@ -35,12 +35,6 @@ class DocumentationPage extends AbstractMarkdownPage
         $this->localPath = $localPath;
     }
 
-    /** @inheritDoc */
-    public function getSourcePath(): string
-    {
-        return is_null($this->localPath) ? parent::getSourcePath() : static::qualifyBasename($this->localPath);
-    }
-
     /** @internal */
     public function getOnlineSourcePath(): string|false
     {
