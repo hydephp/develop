@@ -84,12 +84,12 @@ class SourceFileParser
             return $this->page->matter('title');
         }
 
-        return $this->findTitleTagInMarkdown() ?: Hyde::makeTitle($this->slug);
+        return $this->findTitleInMarkdown() ?: Hyde::makeTitle($this->slug);
     }
 
-    /** Attempt to find the title based on the first H1 tag. */
-    protected function findTitleTagInMarkdown(): string|false
+    protected function findTitleInMarkdown(): string|false
     {
+        // Attempt to find the title based on the first H1 tag.
         foreach ($this->page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
                 return trim(substr($line, 2), ' ');
@@ -101,9 +101,11 @@ class SourceFileParser
 
     protected function getDocumentationPageCategory(): ?string
     {
-        // If the documentation page is in a subdirectory, we use that as the category name
+        // If the documentation page is in a subdirectory
         return str_contains($this->slug, '/')
+            // Then we can use that as the category name
             ? Str::before($this->slug, '/')
+            // Otherwise, we search in front matter, falling back to null
             : $this->page->matter('category');
     }
 
