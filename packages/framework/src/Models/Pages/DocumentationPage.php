@@ -6,7 +6,6 @@ use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\Route;
-use Illuminate\Support\Str;
 
 class DocumentationPage extends AbstractMarkdownPage
 {
@@ -24,16 +23,6 @@ class DocumentationPage extends AbstractMarkdownPage
     public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
     {
         parent::__construct($matter, $body, $title, $slug);
-        $this->category = $this->getDocumentationPageCategory();
-    }
-
-    protected function getDocumentationPageCategory(): ?string
-    {
-        if (str_contains($this->slug, '/')) {
-            return Str::before($this->slug, '/');
-        }
-
-        return $this->matter['category'] ?? null;
     }
 
     /** @inheritDoc */
