@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Concerns\HasDynamicTitle;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
@@ -235,11 +234,6 @@ class AbstractPageTest extends TestCase
     public function test_abstract_markdown_page_implements_page_contract()
     {
         $this->assertInstanceOf(PageContract::class, new class extends AbstractMarkdownPage {});
-    }
-
-    public function test_abstract_markdown_page_uses_has_dynamic_title_trait()
-    {
-        $this->assertContains(HasDynamicTitle::class, class_uses_recursive(AbstractMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_has_markdown_document_property()

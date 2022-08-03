@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Concerns\HasDynamicTitle;
 use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 
@@ -22,8 +21,6 @@ use Hyde\Framework\Models\MarkdownDocument;
  */
 abstract class AbstractMarkdownPage extends AbstractPage
 {
-    use HasDynamicTitle;
-
     public MarkdownDocument $markdown;
 
     public array $matter;
@@ -41,8 +38,6 @@ abstract class AbstractMarkdownPage extends AbstractPage
         $this->slug = $slug;
 
         $this->markdown = $markdownDocument ?? new MarkdownDocument($matter, $body);
-
-        $this->constructDynamicTitle();
     }
 
     public function markdown(): MarkdownDocument

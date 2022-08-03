@@ -21,6 +21,7 @@ This update refactors the internal page source model parsing. This will likely n
 ### Removed
 - The PageParserContract interface, and all of its implementations have been removed
 - Removed `$localPath` property from DocumentationPage class, see above
+- Removed trait HasDynamicTitle
 
 ### Fixed
 - for any bug fixes.
