@@ -85,7 +85,7 @@ class AbstractPageTest extends TestCase
     {
         Hyde::touch(('_pages/foo.md'));
         $this->assertEquals(
-            collect([new MarkdownPage([], '', '', 'foo')]),
+            collect([new MarkdownPage([], '', 'Foo', 'foo')]),
             MarkdownPage::all()
         );
         unlink(Hyde::path('_pages/foo.md'));

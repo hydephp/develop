@@ -13,6 +13,7 @@ This update refactors the internal page source model parsing. This will likely n
 - Blog post front matter no longer includes merged slug
 - MarkdownDocument now implements the `Arrayable` interface
 - Markdown page models no longer includes the slug merged into the front matter 
+- All Markdown page models now have the title property inferred when parsing
 - internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
 - internal: Refactor search index generator to use route system
 
