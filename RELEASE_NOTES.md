@@ -21,7 +21,7 @@ The identifier property is closely related to the page model's route key propert
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
-- Breaking: Rename AbstractMarkdownPage property `slug` to `identifier`
+- Breaking: Rename AbstractPage property `slug` to `identifier`
 - Begin changing references to slugs to identifiers, see motivation above
 
 ### Deprecated
