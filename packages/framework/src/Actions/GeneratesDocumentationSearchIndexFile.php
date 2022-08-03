@@ -48,19 +48,20 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     public function generate(): static
     {
-        foreach ($this->getSourceFileSlugs() as $page) {
-            $this->searchIndex->push(
-                $this->generatePageObject($page)
-            );
+        /** @var DocumentationPage $page */
+        foreach (DocumentationPage::all() as $page) {
+            if (! in_array($page->slug, config('docs.exclude_from_search', []))) {
+                $this->searchIndex->push(
+                    $this->generatePageObject($page)
+                );
+            }
         }
 
         return $this;
     }
 
-    public function generatePageObject(string $slug): object
+    public function generatePageObject(DocumentationPage $page): object
     {
-        $page = DocumentationPage::parse($slug);
-
         return (object) [
             'slug' => $page->slug,
             'title' => trim($page->findTitleForDocument()),

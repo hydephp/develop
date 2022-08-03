@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile as Action;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
@@ -89,7 +90,7 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         file_put_contents(Hyde::path('_docs/foo.md'), "# Bar\n\n Hello World");
 
         $this->assertEquals(
-            $expected, (new Action())->generatePageObject('foo')
+            $expected, (new Action())->generatePageObject(DocumentationPage::parse('foo'))
         );
 
         unlink(Hyde::path('_docs/foo.md'));
