@@ -9,10 +9,8 @@ use Hyde\Testing\TestCase;
 
 class MarkdownFileParserTest extends TestCase
 {
-    protected function setUp(): void
+    protected function makeTestPost(): void
     {
-        parent::setUp();
-
         file_put_contents(Hyde::path('_posts/test-post.md'), '---
 title: My New Post
 category: blog
@@ -44,6 +42,8 @@ This is a post stub used in the automated tests
 
     public function test_can_parse_markdown_file_with_front_matter()
     {
+        $this->makeTestPost();
+
         $document = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
@@ -61,6 +61,8 @@ This is a post stub used in the automated tests
 
     public function test_parsed_markdown_post_contains_valid_front_matter()
     {
+        $this->makeTestPost();
+
         $post = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
         $this->assertEquals('My New Post', $post->matter['title']);
         $this->assertEquals('Mr. Hyde', $post->matter['author']);
