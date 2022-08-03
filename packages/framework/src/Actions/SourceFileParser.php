@@ -34,11 +34,9 @@ class SourceFileParser
 
         $this->slug = $slug;
 
-        if ($pageClass === BladePage::class) {
-            $this->page = $this->parseBladePage();
-        } else {
-            $this->page = $this->parseMarkdownPage($pageClass);
-        }
+        $this->page = $pageClass === BladePage::class
+            ? $this->parseBladePage()
+            : $this->parseMarkdownPage($pageClass);
     }
 
     protected function parseBladePage(): BladePage
