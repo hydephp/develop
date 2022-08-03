@@ -28,7 +28,7 @@ class DocumentationPage extends AbstractMarkdownPage
     /** @inheritDoc */
     public function getCurrentPagePath(): string
     {
-        return trim(static::getOutputDirectory().'/'.basename($this->slug), '/');
+        return trim(static::getOutputDirectory().'/'.basename($this->identifier), '/');
     }
 
     /** @internal */
@@ -38,7 +38,7 @@ class DocumentationPage extends AbstractMarkdownPage
             return false;
         }
 
-        return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
+        return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
     public static function home(): ?RouteContract

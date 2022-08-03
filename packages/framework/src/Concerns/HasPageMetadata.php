@@ -77,7 +77,7 @@ trait HasPageMetadata
 
     public function canUseCanonicalUrl(): bool
     {
-        return Hyde::hasSiteUrl() && isset($this->slug);
+        return Hyde::hasSiteUrl() && isset($this->identifier);
     }
 
     public function hasTwitterTitleInConfig(): bool

@@ -24,7 +24,7 @@ class CanBeInNavigationTest extends TestCase
     public function test_show_in_navigation_returns_true_for_documentation_page_if_slug_is_index()
     {
         $page = $this->mock(DocumentationPage::class)->makePartial();
-        $page->slug = 'index';
+        $page->identifier = 'index';
 
         $this->assertTrue($page->showInNavigation());
     }
@@ -32,7 +32,7 @@ class CanBeInNavigationTest extends TestCase
     public function test_show_in_navigation_returns_false_for_documentation_page_if_slug_is_not_index()
     {
         $page = $this->mock(DocumentationPage::class)->makePartial();
-        $page->slug = 'not-index';
+        $page->identifier = 'not-index';
 
         $this->assertFalse($page->showInNavigation());
     }
@@ -49,7 +49,7 @@ class CanBeInNavigationTest extends TestCase
     public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_hidden_is_false()
     {
         $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
         $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
         $page->markdown->shouldReceive('matter')->with('navigation.hidden', false)->andReturn(false);
 
@@ -59,7 +59,7 @@ class CanBeInNavigationTest extends TestCase
     public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_hidden_is_not_set()
     {
         $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
         $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
         $page->markdown->shouldReceive('matter')->with('navigation.hidden', false)->andReturn(null);
 
@@ -70,7 +70,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
 
         $this->assertTrue($page->showInNavigation());
 
@@ -82,7 +82,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = '404';
+        $page->identifier = '404';
 
         $this->assertFalse($page->showInNavigation());
     }
@@ -91,7 +91,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
 
         $this->assertTrue($page->showInNavigation());
     }
@@ -108,7 +108,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
 
         $this->assertEquals(999, $page->navigationMenuPriority());
 
@@ -121,7 +121,7 @@ class CanBeInNavigationTest extends TestCase
         $page = $this->mock(AbstractMarkdownPage::class)->makePartial();
         $page->markdown = $this->mock(MarkdownDocument::class)->makePartial();
         $page->markdown->shouldReceive('matter')->with('navigation.priority', null)->andReturn(1);
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
 
         $this->assertEquals(1, $page->navigationMenuPriority());
 
@@ -133,7 +133,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(DocumentationPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
 
         $this->assertEquals(100, $page->navigationMenuPriority());
     }
@@ -142,7 +142,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'index';
+        $page->identifier = 'index';
 
         $this->assertEquals(0, $page->navigationMenuPriority());
     }
@@ -151,7 +151,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(DocumentationPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'index';
+        $page->identifier = 'index';
 
         $this->assertEquals(100, $page->navigationMenuPriority());
     }
@@ -160,7 +160,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'posts';
+        $page->identifier = 'posts';
 
         $this->assertEquals(10, $page->navigationMenuPriority());
     }
@@ -169,7 +169,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
 
         $this->assertEquals(999, $page->navigationMenuPriority());
     }
@@ -202,7 +202,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(DocumentationPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'index';
+        $page->identifier = 'index';
 
         $this->assertEquals('Docs', $page->navigationMenuTitle());
     }
@@ -211,7 +211,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'index';
+        $page->identifier = 'index';
 
         $this->assertEquals('Home', $page->navigationMenuTitle());
     }
@@ -221,7 +221,7 @@ class CanBeInNavigationTest extends TestCase
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
         $page->title = 'foo';
-        $page->slug = 'bar';
+        $page->identifier = 'bar';
 
         $this->assertEquals('foo', $page->navigationMenuTitle());
     }
@@ -230,7 +230,7 @@ class CanBeInNavigationTest extends TestCase
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new MarkdownDocument();
-        $page->slug = 'foo';
+        $page->identifier = 'foo';
 
         $this->assertEquals('Foo', $page->navigationMenuTitle());
     }

@@ -26,7 +26,7 @@ trait CanBeInNavigation
         }
 
         if ($this instanceof DocumentationPage) {
-            return $this->slug === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
+            return $this->identifier === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
         }
 
         if ($this instanceof AbstractMarkdownPage) {
@@ -35,7 +35,7 @@ trait CanBeInNavigation
             }
         }
 
-        if (in_array($this->slug, config('hyde.navigation.exclude', ['404']))) {
+        if (in_array($this->identifier, config('hyde.navigation.exclude', ['404']))) {
             return false;
         }
 
@@ -59,16 +59,16 @@ trait CanBeInNavigation
             return (int) config('hyde.navigation.order.docs', 100);
         }
 
-        if ($this->slug === 'index') {
+        if ($this->identifier === 'index') {
             return (int) config('hyde.navigation.order.index', 0);
         }
 
-        if ($this->slug === 'posts') {
+        if ($this->identifier === 'posts') {
             return (int) config('hyde.navigation.order.posts', 10);
         }
 
-        if (array_key_exists($this->slug, config('hyde.navigation.order', []))) {
-            return (int) config('hyde.navigation.order.'.$this->slug);
+        if (array_key_exists($this->identifier, config('hyde.navigation.order', []))) {
+            return (int) config('hyde.navigation.order.'.$this->identifier);
         }
 
         return 999;
@@ -91,7 +91,7 @@ trait CanBeInNavigation
             }
         }
 
-        if ($this->slug === 'index') {
+        if ($this->identifier === 'index') {
             if ($this instanceof DocumentationPage) {
                 return config('hyde.navigation.labels.docs', 'Docs');
             }
@@ -103,7 +103,7 @@ trait CanBeInNavigation
             return $this->title;
         }
 
-        return Hyde::makeTitle(basename($this->slug));
+        return Hyde::makeTitle(basename($this->identifier));
     }
 
     /**

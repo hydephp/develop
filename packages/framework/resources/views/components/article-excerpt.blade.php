@@ -3,13 +3,13 @@
 @endphp
 
 <article class="mt-4 mb-8" itemscope itemtype="http://schema.org/Article">
-    <meta itemprop="identifier" content="{{ $post->slug }}">
+    <meta itemprop="identifier" content="{{ $post->identifier }}">
     @if(Hyde::hasSiteUrl())
-        <meta itemprop="url" content="{{ Hyde::url('posts/' . $post->slug) }}">
+        <meta itemprop="url" content="{{ Hyde::url('posts/' . $post->identifier) }}">
     @endif
 
     <header>
-        <a href="posts/{{ Hyde::formatHtmlPath($post->slug . '.html') }}" class="block w-fit">
+        <a href="posts/{{ Hyde::formatHtmlPath($post->identifier . '.html') }}" class="block w-fit">
             <h2 class="text-2xl font-bold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-colors duration-75">
                 {{ $post->matter['title'] ?? $post->title }}
             </h2>
@@ -42,7 +42,8 @@
     @endisset
 
     <footer>
-        <a href="posts/{{ Hyde::formatHtmlPath($post->slug . '.html') }}" class="text-indigo-500 hover:underline font-medium">
+        <a href="posts/{{ Hyde::formatHtmlPath($post->identifier . '.html') }}"
+           class="text-indigo-500 hover:underline font-medium">
             Read post</a>
     </footer>
 </article>

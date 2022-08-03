@@ -22,7 +22,7 @@ class SourceFileParserTest extends TestCase
         $parser = new SourceFileParser(BladePage::class, 'foo');
         $page = $parser->get();
         $this->assertInstanceOf(BladePage::class, $page);
-        $this->assertEquals('foo', $page->slug);
+        $this->assertEquals('foo', $page->identifier);
     }
 
     public function test_markdown_page_parser()
@@ -32,7 +32,7 @@ class SourceFileParserTest extends TestCase
         $parser = new SourceFileParser(MarkdownPage::class, 'foo');
         $page = $parser->get();
         $this->assertInstanceOf(MarkdownPage::class, $page);
-        $this->assertEquals('foo', $page->slug);
+        $this->assertEquals('foo', $page->identifier);
         $this->assertEquals('# Foo Bar', $page->body);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
@@ -44,7 +44,7 @@ class SourceFileParserTest extends TestCase
         $parser = new SourceFileParser(MarkdownPost::class, 'foo');
         $page = $parser->get();
         $this->assertInstanceOf(MarkdownPost::class, $page);
-        $this->assertEquals('foo', $page->slug);
+        $this->assertEquals('foo', $page->identifier);
         $this->assertEquals('# Foo Bar', $page->body);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
@@ -56,7 +56,7 @@ class SourceFileParserTest extends TestCase
         $parser = new SourceFileParser(DocumentationPage::class, 'foo');
         $page = $parser->get();
         $this->assertInstanceOf(DocumentationPage::class, $page);
-        $this->assertEquals('foo', $page->slug);
+        $this->assertEquals('foo', $page->identifier);
         $this->assertEquals('# Foo Bar', $page->body);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }

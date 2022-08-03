@@ -69,7 +69,7 @@ class AbstractPageTest extends TestCase
         Hyde::touch(('_pages/foo.md'));
 
         $this->assertInstanceOf(MarkdownPage::class, $page = MarkdownPage::parse('foo'));
-        $this->assertEquals('foo', $page->slug);
+        $this->assertEquals('foo', $page->identifier);
 
         unlink(Hyde::path('_pages/foo.md'));
     }

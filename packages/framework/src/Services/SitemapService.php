@@ -58,7 +58,7 @@ class SitemapService
         $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($route->getSourceFilePath())));
         $urlItem->addChild('changefreq', 'daily');
         if (config('hyde.sitemap.dynamic_priority', true)) {
-            $urlItem->addChild('priority', $this->getPriority($route->getPageType(), $route->getSourceModel()->slug));
+            $urlItem->addChild('priority', $this->getPriority($route->getPageType(), $route->getSourceModel()->identifier));
         }
     }
 

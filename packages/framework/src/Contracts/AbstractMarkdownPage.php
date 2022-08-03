@@ -26,7 +26,7 @@ abstract class AbstractMarkdownPage extends AbstractPage
     public array $matter;
     public string $body;
     public string $title;
-    public string $slug;
+    public string $identifier;
 
     public static string $fileExtension = '.md';
 
@@ -35,7 +35,7 @@ abstract class AbstractMarkdownPage extends AbstractPage
         $this->matter = $matter;
         $this->body = $body;
         $this->title = $title ?? $matter['title'] ?? '';
-        $this->slug = $identifier;
+        $this->identifier = $identifier;
 
         $this->markdown = $markdownDocument ?? new MarkdownDocument($matter, $body);
     }
