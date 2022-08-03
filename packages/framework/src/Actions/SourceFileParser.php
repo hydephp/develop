@@ -85,9 +85,7 @@ class SourceFileParser
     /** Attempt to find the title based on the first H1 tag. */
     protected function findTitleTagInMarkdown(): string|false
     {
-        $lines = explode("\n", $this->page->markdown());
-
-        foreach ($lines as $line) {
+        foreach ($this->page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
                 return trim(substr($line, 2), ' ');
             }
