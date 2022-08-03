@@ -5,6 +5,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
@@ -31,6 +32,7 @@ class SourceFileParser
         $this->slug = $slug;
 
         $this->page = $this->constructBaseModel($pageClass);
+        $this->constructDynamicData();
     }
 
     protected function constructBaseModel(string $pageClass): BladePage|AbstractMarkdownPage
@@ -58,9 +60,40 @@ class SourceFileParser
         return new $pageClass(
             matter: $matter,
             body: $body,
-            title: FindsTitleForDocument::get($this->slug, $matter, $body),
             slug: $this->slug
         );
+    }
+
+    protected function constructDynamicData(): void
+    {
+        $this->page->title = $this->findTitleForPage();
+    }
+
+    protected function findTitleForPage(): string
+    {
+        if ($this->page instanceof BladePage) {
+            return Hyde::makeTitle($this->slug);
+        }
+
+        if ($this->page->matter('title')) {
+            return $this->page->matter('title');
+        }
+
+        return $this->findTitleTagInMarkdown() ?: Hyde::makeTitle($this->slug);
+    }
+
+    /** Attempt to find the title based on the first H1 tag. */
+    protected function findTitleTagInMarkdown(): string|false
+    {
+        $lines = explode("\n", $this->page->markdown());
+
+        foreach ($lines as $line) {
+            if (str_starts_with($line, '# ')) {
+                return trim(substr($line, 2), ' ');
+            }
+        }
+
+        return false;
     }
 
     public function get(): PageContract

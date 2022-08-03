@@ -59,4 +59,27 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('# Foo Bar', $page->body);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
+
+    public function test_dynamic_data_constructor_can_find_title_from_front_matter()
+    {
+        $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'My Title']);
+        $page = MarkdownPage::parse('foo');
+        $this->assertEquals('My Title', $page->title);
+    }
+
+    public function test_dynamic_data_constructor_can_find_title_from_h1_tag()
+    {
+        $this->markdown('_pages/foo.md', '# Foo Bar');
+        $page = MarkdownPage::parse('foo');
+
+        $this->assertEquals('Foo Bar', $page->title);
+    }
+
+    public function test_dynamic_data_constructor_can_find_title_from_slug()
+    {
+        $this->markdown('_pages/foo-bar.md');
+        $page = MarkdownPage::parse('foo-bar');
+
+        $this->assertEquals('Foo Bar', $page->title);
+    }
 }
