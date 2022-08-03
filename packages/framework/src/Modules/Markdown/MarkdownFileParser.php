@@ -56,4 +56,9 @@ class MarkdownFileParser
     {
         return new MarkdownDocument($this->matter, $this->body);
     }
+
+    public static function parse(string $filepath): MarkdownDocument
+    {
+        return (new self($filepath))->get();
+    }
 }

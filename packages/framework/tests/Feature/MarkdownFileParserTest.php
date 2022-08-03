@@ -77,4 +77,19 @@ This is a post stub used in the automated tests
         $this->assertArrayNotHasKey('slug', $post->matter);
         $this->assertEquals([], $post->matter);
     }
+
+    public function test_static_parse_shorthand()
+    {
+        $this->makeTestPost();
+
+        $post = MarkdownFileParser::parse(Hyde::path('_posts/test-post.md'));
+        $this->assertEquals('My New Post', $post->matter['title']);
+        $this->assertEquals('Mr. Hyde', $post->matter['author']);
+        $this->assertEquals('blog', $post->matter['category']);
+
+        $this->assertEquals(
+            '# My New PostThis is a post stub used in the automated tests',
+            str_replace(["\n", "\r"], '', $post->body)
+        );
+    }
 }
