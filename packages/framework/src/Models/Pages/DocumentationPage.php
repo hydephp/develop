@@ -26,6 +26,12 @@ class DocumentationPage extends AbstractMarkdownPage
         $this->category = $category;
     }
 
+    /** @inheritDoc */
+    public function getCurrentPagePath(): string
+    {
+        return trim(static::getOutputDirectory().'/'.basename($this->slug), '/');
+    }
+
     /** @internal */
     public function getOnlineSourcePath(): string|false
     {
