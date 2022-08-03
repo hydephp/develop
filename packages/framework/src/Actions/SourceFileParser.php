@@ -9,7 +9,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
-use Illuminate\Support\Str;
 
 /**
  * Parses a source file and returns a new page model instance for it.
@@ -94,18 +93,8 @@ class SourceFileParser
             matter: $matter,
             body: $body,
             title: FindsTitleForDocument::get($this->slug, $matter, $body),
-            slug: basename($this->slug),
-            category: $this->getDocumentationPageCategory($matter),
+            slug: $this->slug,
         );
-    }
-
-    protected function getDocumentationPageCategory(array $matter): ?string
-    {
-        if (str_contains($this->slug, '/')) {
-            return Str::before($this->slug, '/');
-        }
-
-        return $matter['category'] ?? null;
     }
 
     public function get(): PageContract
