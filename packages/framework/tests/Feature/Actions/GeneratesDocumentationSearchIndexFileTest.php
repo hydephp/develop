@@ -96,28 +96,6 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         unlink(Hyde::path('_docs/foo.md'));
     }
 
-    public function test_get_source_file_slugs_returns_valid_array_for_source_files()
-    {
-        Hyde::touch(('_docs/a.md'));
-        Hyde::touch(('_docs/b.md'));
-        Hyde::touch(('_docs/c.md'));
-
-        $this->assertEquals(
-            ['a', 'b', 'c'], (new Action())->getSourceFileSlugs()
-        );
-
-        unlink(Hyde::path('_docs/a.md'));
-        unlink(Hyde::path('_docs/b.md'));
-        unlink(Hyde::path('_docs/c.md'));
-    }
-
-    public function test_get_source_file_slugs_returns_empty_array_when_no_source_files_exists()
-    {
-        $this->assertEquals(
-            [], (new Action())->getSourceFileSlugs()
-        );
-    }
-
     public function test_it_generates_a_valid_JSON()
     {
         file_put_contents(Hyde::path('_docs/foo.md'), "# Bar\n\n Hello World");
@@ -156,7 +134,6 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         Hyde::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
-        $this->assertNotContains('excluded', (new Action())->getSourceFileSlugs());
         $this->assertStringNotContainsString('excluded', (new Action())->generate()->getJson());
 
         unlink(Hyde::path('_docs/excluded.md'));

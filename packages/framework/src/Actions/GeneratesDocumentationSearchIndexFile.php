@@ -70,14 +70,6 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         ];
     }
 
-    public function getSourceFileSlugs(): array
-    {
-        return array_diff(
-            DiscoveryService::getDocumentationPageFiles(),
-            config('docs.exclude_from_search', [])
-        );
-    }
-
     public function getObject(): object
     {
         return (object) $this->searchIndex;
