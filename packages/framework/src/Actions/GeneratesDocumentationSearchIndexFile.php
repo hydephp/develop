@@ -6,7 +6,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
