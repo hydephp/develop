@@ -7,7 +7,9 @@ use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
+use Illuminate\Support\Str;
 
 /**
  * Parses a source file and returns a new page model instance for it.
@@ -67,6 +69,9 @@ class SourceFileParser
     protected function constructDynamicData(): void
     {
         $this->page->title = $this->findTitleForPage();
+        if ($this->page instanceof DocumentationPage) {
+            $this->page->category = $this->getDocumentationPageCategory();
+        }
     }
 
     protected function findTitleForPage(): string
@@ -92,6 +97,15 @@ class SourceFileParser
         }
 
         return false;
+    }
+
+    protected function getDocumentationPageCategory(): ?string
+    {
+        if (str_contains($this->slug, '/')) {
+            return Str::before($this->slug, '/');
+        }
+
+        return $this->page->matter['category'] ?? null;
     }
 
     public function get(): PageContract
