@@ -87,10 +87,7 @@ class SourceFileParser
             DocumentationPage::qualifyBasename($this->slug)
         );
 
-        $matter = array_merge($document->matter, [
-            'slug' => $this->slug,
-        ]);
-
+        $matter = $document->matter;
         $body = $document->body;
 
         return new DocumentationPage(
