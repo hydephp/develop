@@ -34,6 +34,16 @@ This is a post stub used in the automated tests
 
     public function test_can_parse_markdown_file()
     {
+        file_put_contents(Hyde::path('_posts/test-post.md'), 'Foo bar');
+
+        $document = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
+        $this->assertInstanceOf(MarkdownDocument::class, $document);
+
+        $this->assertEquals('Foo bar', $document->body);
+    }
+
+    public function test_can_parse_markdown_file_with_front_matter()
+    {
         $document = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
