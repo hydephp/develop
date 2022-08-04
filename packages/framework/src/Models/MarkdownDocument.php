@@ -14,7 +14,7 @@ use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
  *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class MarkdownDocument implements MarkdownDocumentContract, Arrayable
+class MarkdownDocument implements MarkdownDocumentContract
 {
     public FrontMatter $matter;
     public Markdown $markdown;

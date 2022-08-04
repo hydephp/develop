@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * A simple object representation of a Markdown file, with helpful methods to interact with it.
  */
-class Markdown implements Arrayable
+class Markdown
 {
     public string $body;
 
