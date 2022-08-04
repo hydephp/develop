@@ -19,19 +19,4 @@ class Markdown
     {
         return static::render($markdown, $sourceModel);
     }
-
-    /**
-     * Render a Markdown string into HTML.
-     *
-     * If a source model is provided, the Markdown will be converted using the dynamic MarkdownService,
-     * otherwise, the pre-configured singleton from the service container will be used instead.
-     *
-     * @return string $html
-     */
-    public static function render(string $markdown, ?string $sourceModel = null): string
-    {
-        return $sourceModel !== null
-            ? (new MarkdownService($markdown, $sourceModel))->parse()
-            : app(MarkdownConverter::class)->convert($markdown);
-    }
 }

@@ -20,7 +20,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 - Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
 
 ### Removed
-- 
+- Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
 
 ### Fixed
 - for any bug fixes.

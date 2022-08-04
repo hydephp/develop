@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Facades\Markdown as MarkdownFacade;
+use Hyde\Framework\Modules\Markdown\MarkdownConverter;
+use Hyde\Framework\Services\MarkdownService;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -26,7 +28,7 @@ class Markdown implements Arrayable
 
     public function compile(): string
     {
-        return MarkdownFacade::render($this->body);
+        return static::render($this->body);
     }
 
     public function __toString(): string
@@ -47,5 +49,20 @@ class Markdown implements Arrayable
     public function body(): string
     {
         return $this->body;
+    }
+
+    /**
+     * Render a Markdown string into HTML.
+     *
+     * If a source model is provided, the Markdown will be converted using the dynamic MarkdownService,
+     * otherwise, the pre-configured singleton from the service container will be used instead.
+     *
+     * @return string $html
+     */
+    public static function render(string $markdown, ?string $sourceModel = null): string
+    {
+        return $sourceModel !== null
+            ? (new MarkdownService($markdown, $sourceModel))->parse()
+            : app(MarkdownConverter::class)->convert($markdown);
     }
 }
