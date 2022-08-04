@@ -23,7 +23,7 @@ class HydeSmartDocsTest extends TestCase
 
         file_put_contents(Hyde::path('_docs/foo.md'), "# Foo\n\nHello world.");
         $this->mock = DocumentationPage::parse('foo');
-        $this->html = Markdown::render($this->mock->body);
+        $this->html = Markdown::render($this->mock->markdown->body);
     }
 
     protected function tearDown(): void
