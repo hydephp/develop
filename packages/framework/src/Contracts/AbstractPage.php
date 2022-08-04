@@ -92,6 +92,12 @@ abstract class AbstractPage implements PageContract, CompilableContract
         ).'.html';
     }
 
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
+    {
+        $this->identifier = $identifier;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+    }
+
     /** @interitDoc */
     public function __get(string $name)
     {
