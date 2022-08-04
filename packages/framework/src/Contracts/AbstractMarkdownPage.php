@@ -25,6 +25,8 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     public MarkdownDocument $markdown;
 
     public FrontMatter $matter;
+
+    /** @deprecated */
     public string $body;
     public string $title;
     public string $identifier;
