@@ -70,11 +70,11 @@ class SourceFileParser
         $this->page->title = static::findTitleForPage($this->page, $this->slug);
 
         if ($this->page instanceof DocumentationPage) {
-            $this->page->category = static::getDocumentationPageCategory($this->slug, $this->page);
+            $this->page->category = static::getDocumentationPageCategory($this->page, $this->slug);
         }
     }
 
-    public static function findTitleForPage($page, $slug): string
+    public static function findTitleForPage(BladePage|AbstractMarkdownPage $page, string $slug): string
     {
         if ($page instanceof BladePage) {
             return Hyde::makeTitle($slug);
@@ -87,7 +87,7 @@ class SourceFileParser
         return static::findTitleFromMarkdownHeadings($page) ?? Hyde::makeTitle($slug);
     }
 
-    public static function findTitleFromMarkdownHeadings($page): ?string
+    public static function findTitleFromMarkdownHeadings(AbstractMarkdownPage $page): ?string
     {
         foreach ($page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
@@ -98,7 +98,7 @@ class SourceFileParser
         return null;
     }
 
-    public static function getDocumentationPageCategory($slug, $page): ?string
+    public static function getDocumentationPageCategory(DocumentationPage $page, string $slug): ?string
     {
         // If the documentation page is in a subdirectory,
         // then we can use that as the category name.
