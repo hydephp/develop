@@ -20,19 +20,19 @@ class Markdown implements Arrayable
         $this->body = $body;
     }
 
-    public static function fromFile(string $localFilepath): static
+    public function __toString(): string
     {
-        return MarkdownDocument::parseFile($localFilepath)->markdown();
+        return $this->body;
+    }
+
+    public function body(): string
+    {
+        return $this->body;
     }
 
     public function compile(): string
     {
         return static::render($this->body);
-    }
-
-    public function __toString(): string
-    {
-        return $this->body;
     }
 
     /**
@@ -45,9 +45,9 @@ class Markdown implements Arrayable
         return explode("\n", $this->body);
     }
 
-    public function body(): string
+    public static function fromFile(string $localFilepath): static
     {
-        return $this->body;
+        return MarkdownDocument::parseFile($localFilepath)->markdown();
     }
 
     /**
