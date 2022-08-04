@@ -24,7 +24,7 @@ class MarkdownFileParser
      *
      * @var string
      */
-    public string $body = '';
+    public string $markdown = '';
 
     public function __construct(string $filepath)
     {
@@ -42,10 +42,10 @@ class MarkdownFileParser
             }
 
             if ($object->body()) {
-                $this->body = $object->body();
+                $this->markdown = $object->body();
             }
         } else {
-            $this->body = $stream;
+            $this->markdown = $stream;
         }
     }
 
@@ -54,7 +54,7 @@ class MarkdownFileParser
      */
     public function get(): MarkdownDocument
     {
-        return new MarkdownDocument($this->matter, $this->body);
+        return new MarkdownDocument($this->matter, $this->markdown);
     }
 
     public static function parse(string $filepath): MarkdownDocument

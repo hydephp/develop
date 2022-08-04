@@ -45,7 +45,7 @@ class MarkdownPageTest extends TestCase
         $page = MarkdownPage::parse('test-post');
 
         $this->assertEquals('PHPUnit Test File', $page->title);
-        $this->assertEquals("# PHPUnit Test File \n Hello World!", $page->body);
+        $this->assertEquals("# PHPUnit Test File \n Hello World!", $page->markdown);
         $this->assertEquals('test-post', $page->identifier);
     }
 }

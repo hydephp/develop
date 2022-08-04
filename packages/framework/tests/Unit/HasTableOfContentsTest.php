@@ -18,7 +18,7 @@ class HasTableOfContentsTest extends TestCase
 
     public function testConstructorCreatesTableOfContentsString()
     {
-        $this->body = '## Title';
+        $this->markdown = '## Title';
         $this->assertEquals('<ul class="table-of-contents"><li><a href="#title">Title</a></li></ul>', str_replace("\n", '', $this->getTableOfContents()));
     }
 }

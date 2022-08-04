@@ -44,7 +44,7 @@ class MarkdownPost extends AbstractMarkdownPage
 
     public function getPostDescription(): string
     {
-        return $this->matter('description') ?? substr($this->body, 0, 125).'...';
+        return $this->matter('description') ?? substr($this->markdown, 0, 125).'...';
     }
 
     public static function getLatestPosts(): Collection

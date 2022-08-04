@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
@@ -32,9 +33,10 @@ class MarkdownPostParserTest extends TestCase
         $this->assertInstanceOf(MarkdownPost::class, $post);
         $this->assertCount(3, ($post->matter->toArray()));
         $this->assertInstanceOf(FrontMatter::class, $post->matter);
-        $this->assertIsString($post->body);
+        $this->assertInstanceOf(Markdown::class, $post->markdown);
+        $this->assertIsString($post->markdown->body);
         $this->assertIsString($post->identifier);
-        $this->assertTrue(strlen($post->body) > 32);
+        $this->assertTrue(strlen($post->markdown) > 32);
         $this->assertTrue(strlen($post->identifier) > 8);
     }
 
