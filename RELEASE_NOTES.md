@@ -27,6 +27,9 @@ This means that the constructor for all Markdown-based pages is completely chang
 The following syntax has been removed: `new MarkdownPage(title: 'Foo Bar')`
 Instead, you can add it with front matter: `MarkdownPage::make(matter: ['title' => 'Foo Bar'])`
 
+#### Markdown pages now have front matter in an object instead of array
+
+This means that instead of the following `$post->matter['title']`, you would use `$post->matter('title')`, which allows you to add a fallback like so: `$post->matter('title', 'Untitled')`
 
 ### Added
 - Added `render()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
