@@ -35,7 +35,7 @@ interface MarkdownPageContract
     /**
      * Get the value of the specified key from the front matter.
      *
-     * @param string $name
+     * @param  string  $name
      * @return mixed
      */
     public function __get(string $name);
