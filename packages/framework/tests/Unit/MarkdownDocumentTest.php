@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 
@@ -44,7 +45,7 @@ class MarkdownDocumentTest extends TestCase
         $this->assertEquals("<p>Hello, world!</p>\n", $document->markdown->render());
     }
 
-    public function test_parse_file_method_parses_a_file_using_the_markdown_file_service()
+    public function test_parse_method_parses_a_file_using_the_markdown_file_service()
     {
         file_put_contents('_pages/foo.md', "---\nfoo: bar\n---\nHello, world!");
         $document = MarkdownDocument::parseFile('_pages/foo.md');
@@ -58,5 +59,14 @@ class MarkdownDocumentTest extends TestCase
     {
         $document = new MarkdownDocument(body: "foo\nbar\nbaz");
         $this->assertEquals(['foo', 'bar', 'baz'], $document->markdown->toArray());
+    }
+
+    public function test_from_file_method_returns_new_markdown_document()
+    {
+        file_put_contents('_pages/foo.md', "---\nfoo: bar\n---\nHello, world!");
+        $markdown = Markdown::fromFile('_pages/foo.md');
+        $this->assertInstanceOf(Markdown::class, $markdown);
+        $this->assertEquals('Hello, world!', $markdown->body());
+        unlink(Hyde::path('_pages/foo.md'));
     }
 }
