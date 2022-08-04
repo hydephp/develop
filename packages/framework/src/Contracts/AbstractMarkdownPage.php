@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Facades\Markdown;
+use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\MarkdownDocument;
 
 /**
@@ -23,16 +24,16 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 {
     public MarkdownDocument $markdown;
 
-    public array $matter;
+    public FrontMatter|array $matter;
     public string $body;
     public string $title;
     public string $identifier;
 
     public static string $fileExtension = '.md';
 
-    public function __construct(string $identifier = '', array $matter = [], string $body = '', ?string $title = null, ?MarkdownDocument $markdownDocument = null)
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $body = '', ?string $title = null, ?MarkdownDocument $markdownDocument = null)
     {
-        $this->matter = $matter;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->body = $body;
         $this->title = $title ?? $matter['title'] ?? '';
         $this->identifier = $identifier;
