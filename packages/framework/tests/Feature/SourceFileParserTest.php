@@ -60,4 +60,11 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('# Foo Bar', $page->body);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
+
+    public function test_parsed_page_is_run_through_dynamic_constructor()
+    {
+        $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'Foo Bar Baz']);
+        $page = MarkdownPage::parse('foo');
+        $this->assertEquals('Foo Bar Baz', $page->title);
+    }
 }
