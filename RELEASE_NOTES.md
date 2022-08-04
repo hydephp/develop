@@ -16,6 +16,10 @@ But since you could have a file with the same identifier in the `_posts` directo
 
 The identifier property is closely related to the page model's route key property, which consists of the site output directory followed by the identifier. 
 
+#### Heavily refactor constructors of Markdown-based page models
+
+Adds a new interface to the Markdown page model constructors, that expects instantiated FrontMatter and MarkdownDocument objects. Normally you would use the SourceFileParser to create the object.
+
 ### Added
 - for new features.
 
