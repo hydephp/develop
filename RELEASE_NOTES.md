@@ -22,6 +22,12 @@ Adds a new interface to the Markdown page model constructors, that expects insta
 
 This means that the constructor for all Markdown-based pages is completely changed. To use a format matching the old behaviour, you can use the `MarkdownPageModel::make` method.
 
+#### Title property has been removed from page model constructors
+
+The following syntax has been removed: `new MarkdownPage(title: 'Foo Bar')`
+Instead, you can add it with front matter: `MarkdownPage::make(matter: ['title' => 'Foo Bar'])`
+
+
 ### Added
 - Added `render()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
 
