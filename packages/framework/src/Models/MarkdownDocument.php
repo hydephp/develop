@@ -45,6 +45,11 @@ class MarkdownDocument implements MarkdownDocumentContract
         return $key ? $this->matter->get($key, $default) : $this->matter;
     }
 
+    public function markdown(): Markdown
+    {
+        return $this->markdown;
+    }
+
     public function body(): string
     {
         return $this->body;
