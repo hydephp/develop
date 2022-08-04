@@ -32,7 +32,7 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->constructDateString();
         $this->constructFeaturedImage();
 
-        $this->category = $this->matter['category'] ?? null;
+        $this->category = $this->matter('category');
     }
 
     public function getCanonicalLink(): string
@@ -42,7 +42,7 @@ class MarkdownPost extends AbstractMarkdownPage
 
     public function getPostDescription(): string
     {
-        return $this->matter['description'] ?? substr($this->body, 0, 125).'...';
+        return $this->matter('description') ?? substr($this->body, 0, 125).'...';
     }
 
     public static function getLatestPosts(): Collection

@@ -24,7 +24,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 {
     public MarkdownDocument $markdown;
 
-    public FrontMatter|array $matter;
+    public FrontMatter $matter;
     public string $body;
     public string $title;
     public string $identifier;
@@ -48,7 +48,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 
     public function matter(string $key = null, mixed $default = null): mixed
     {
-        return $this->markdown->matter($key, $default);
+        return $this->matter->get($key, $default);
     }
 
     public function body(): string

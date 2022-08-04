@@ -15,8 +15,8 @@ trait HasDateString
 
     public function constructDateString(): void
     {
-        if (isset($this->matter['date'])) {
-            $this->date = new DateString($this->matter['date']);
+        if ($this->matter('date') !== null) {
+            $this->date = new DateString($this->matter('date'));
         }
     }
 }

@@ -15,12 +15,12 @@ trait HasFeaturedImage
 
     public function constructFeaturedImage(): void
     {
-        if (isset($this->matter['image'])) {
-            if (is_string($this->matter['image'])) {
-                $this->image = $this->constructBaseImage($this->matter['image']);
+        if ($this->matter('image') !== null) {
+            if (is_string($this->matter('image'))) {
+                $this->image = $this->constructBaseImage($this->matter('image'));
             }
-            if (is_array($this->matter['image'])) {
-                $this->image = $this->constructFullImage($this->matter['image']);
+            if (is_array($this->matter('image'))) {
+                $this->image = $this->constructFullImage($this->matter('image'));
             }
         }
     }
