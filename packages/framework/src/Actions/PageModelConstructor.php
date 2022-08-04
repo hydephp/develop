@@ -14,7 +14,10 @@ use Illuminate\Support\Str;
  */
 class PageModelConstructor
 {
-    protected AbstractPage $page;
+    /**
+     * @var AbstractPage|AbstractMarkdownPage|BladePage
+     */
+    protected AbstractPage|AbstractMarkdownPage|BladePage $page;
 
     public static function run(AbstractPage $page): AbstractPage
     {
