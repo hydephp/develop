@@ -37,7 +37,7 @@ class MarkdownDocument implements MarkdownDocumentContract
 
     public function render(): string
     {
-        return MarkdownFacade::parse($this->body);
+        return MarkdownFacade::render($this->body);
     }
 
     public function matter(string $key = null, mixed $default = null): mixed

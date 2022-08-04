@@ -72,7 +72,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     {
         return view($this->getBladeView())->with([
             'title' => $this->title,
-            'markdown' => MarkdownFacade::parse($this->body, static::class),
+            'markdown' => MarkdownFacade::render($this->body, static::class),
         ])->render();
     }
 }

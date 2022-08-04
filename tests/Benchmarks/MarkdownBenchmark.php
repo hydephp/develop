@@ -13,7 +13,7 @@ class MarkdownBenchmark extends BenchCase
     public function testMarkdownParserFacadeShort()
     {
         $this->benchmark(function () {
-            return Markdown::parse('Hello World!');
+            return Markdown::render('Hello World!');
         }, 1500);
     }
 
@@ -25,7 +25,7 @@ class MarkdownBenchmark extends BenchCase
     {
         $markdown = file_get_contents(__DIR__.'/../fixtures/markdown.md');
         $this->benchmark(function () use ($markdown) {
-            return Markdown::parse($markdown);
+            return Markdown::render($markdown);
         }, 500);
     }
 }
