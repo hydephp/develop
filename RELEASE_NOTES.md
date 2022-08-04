@@ -44,6 +44,7 @@ This means that instead of the following `$post->matter['title']`, you would use
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
+- Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
 
 ### Removed
 - Removed interface MarkdownDocumentContract
