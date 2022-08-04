@@ -72,7 +72,7 @@ class SourceFileParser
         $this->page->title = static::findTitleForPage($this->page, $this->slug);
 
         if ($this->page instanceof DocumentationPage) {
-            $this->page->category = static::getDocumentationPageCategory($this->slug, $this->page);
+            $this->page->category = static::getDocumentationPageCategory($this->page, $this->slug);
         }
     }
 
@@ -100,7 +100,7 @@ class SourceFileParser
         return null;
     }
 
-    public static function getDocumentationPageCategory(string $slug, DocumentationPage $page): ?string
+    public static function getDocumentationPageCategory(DocumentationPage $page, string $slug): ?string
     {
         // If the documentation page is in a subdirectory,
         // then we can use that as the category name.
