@@ -3,10 +3,9 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
-use Hyde\Framework\Facades\Markdown;
+use Hyde\Framework\Facades\Markdown as MarkdownFacade;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
-use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * A MarkdownDocument is a simpler alternative to a MarkdownPage.
@@ -18,12 +17,17 @@ use Illuminate\Contracts\Support\Arrayable;
 class MarkdownDocument implements MarkdownDocumentContract, Arrayable
 {
     public FrontMatter $matter;
+    public Markdown $markdown;
+
+    /** @deprecated */
     public string $body;
 
-    public function __construct(FrontMatter|array $matter = [], string $body = '')
+    public function __construct(FrontMatter|array $matter = [], Markdown|string $body = '')
     {
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
-        $this->body = $body;
+        $this->markdown = $body instanceof Markdown ? $body : new Markdown($body);
+
+        $this->body = $this->markdown->body;
     }
 
     public function __toString(): string
@@ -33,7 +37,7 @@ class MarkdownDocument implements MarkdownDocumentContract, Arrayable
 
     public function render(): string
     {
-        return Markdown::parse($this->body);
+        return MarkdownFacade::parse($this->body);
     }
 
     public function matter(string $key = null, mixed $default = null): mixed
