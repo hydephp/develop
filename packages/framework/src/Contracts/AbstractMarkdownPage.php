@@ -20,7 +20,7 @@ use Hyde\Framework\Models\MarkdownDocument;
  *
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract
+abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract
 {
     public MarkdownDocument $markdown;
 
