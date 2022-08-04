@@ -30,7 +30,7 @@ trait CanBeInNavigation
         }
 
         if ($this instanceof AbstractMarkdownPage) {
-            if ($this->markdown->matter('navigation.hidden', false)) {
+            if ($this->matter('navigation.hidden', false)) {
                 return false;
             }
         }
