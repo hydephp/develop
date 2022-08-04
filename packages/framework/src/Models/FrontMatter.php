@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
  *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  */
-class FrontMatter implements Arrayable
+class FrontMatter implements Arrayable, \Stringable
 {
     public array $matter;
 
@@ -37,6 +37,13 @@ class FrontMatter implements Arrayable
         }
 
         return $this->matter;
+    }
+
+    public function set(string $key, mixed $value): static
+    {
+        $this->matter[$key] = $value;
+
+        return $this;
     }
 
     public function toArray(): array

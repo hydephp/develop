@@ -51,6 +51,12 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     }
 
     /** @inheritDoc */
+    public function __set(string $name, $value): void
+    {
+        $this->matter->set($name, $value);
+    }
+
+    /** @inheritDoc */
     public function matter(string $key = null, mixed $default = null): mixed
     {
         return $this->matter->get($key, $default);
