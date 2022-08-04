@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 
