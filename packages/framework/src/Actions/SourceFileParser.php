@@ -75,7 +75,7 @@ class SourceFileParser
         }
     }
 
-    protected function findTitleForPage(): string
+    public function findTitleForPage(): string
     {
         if ($this->page instanceof BladePage) {
             return Hyde::makeTitle($this->slug);
@@ -88,7 +88,7 @@ class SourceFileParser
         return $this->findTitleFromMarkdownHeadings() ?? Hyde::makeTitle($this->slug);
     }
 
-    protected function findTitleFromMarkdownHeadings(): ?string
+    public function findTitleFromMarkdownHeadings(): ?string
     {
         foreach ($this->page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
@@ -99,7 +99,7 @@ class SourceFileParser
         return null;
     }
 
-    protected function getDocumentationPageCategory(): ?string
+    public function getDocumentationPageCategory(): ?string
     {
         // If the documentation page is in a subdirectory,
         // then we can use that as the category name.
