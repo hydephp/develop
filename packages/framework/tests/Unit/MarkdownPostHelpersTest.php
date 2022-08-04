@@ -32,7 +32,7 @@ class MarkdownPostHelpersTest extends TestCase
 
     public function test_get_post_description_returns_post_description_when_set_in_front_matter()
     {
-        $post = MarkdownPost::make( 'foo-bar', ['description' => 'This is a post description']);
+        $post = MarkdownPost::make('foo-bar', ['description' => 'This is a post description']);
         $this->assertEquals('This is a post description', $post->getPostDescription());
     }
 
