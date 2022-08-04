@@ -12,7 +12,6 @@ use Hyde\Testing\TestCase;
  */
 class PageModelConstructorTest extends TestCase
 {
-
     public function test_dynamic_data_constructor_can_find_title_from_front_matter()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'My Title']);
