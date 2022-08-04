@@ -18,6 +18,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
 - Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
+- Deprecate `$title` property in AbstractMarkdownPage, (access through front matter instead)
 
 ### Removed
 - Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
