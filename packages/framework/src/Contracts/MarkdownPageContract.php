@@ -7,11 +7,12 @@ use Hyde\Framework\Models\Markdown;
 
 interface MarkdownPageContract
 {
-    /** Alternative to constructor, using primitive data types.
+    /**
+     * Alternative to constructor, using primitive data types.
      *
-     * @param string $identifier
-     * @param array $matter
-     * @param string $body
+     * @param  string  $identifier
+     * @param  array  $matter
+     * @param  string  $body
      * @return \Hyde\Framework\Contracts\MarkdownPageContract
      */
     public static function make(string $identifier = '', array $matter = [], string $body = ''): static;
