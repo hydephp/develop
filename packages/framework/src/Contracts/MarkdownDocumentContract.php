@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Models\Markdown;
+
 interface MarkdownDocumentContract
 {
     /**
@@ -10,6 +12,13 @@ interface MarkdownDocumentContract
      * @return \Hyde\Framework\Models\FrontMatter|mixed
      */
     public function matter(string $key = null, mixed $default = null): mixed;
+
+    /**
+     * Return the document's Markdown object.
+     *
+     * @return \Hyde\Framework\Models\Markdown
+     */
+    public function markdown(): Markdown;
 
     /**
      * Get the Markdown text body.
