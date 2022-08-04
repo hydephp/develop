@@ -5,7 +5,6 @@ namespace Hyde\Framework\Contracts;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
-use Hyde\Framework\Models\Markdown as MarkdownFacade;
 
 /**
  * The base class for all Markdown-based Page Models.
@@ -62,6 +61,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
         return $this->matter->get($key, $default);
     }
 
+    /** @deprecated  */
     public function body(): string
     {
         return $this->markdown->body();
@@ -72,7 +72,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     {
         return view($this->getBladeView())->with([
             'title' => $this->title,
-            'markdown' => MarkdownFacade::render($this->body, static::class),
+            'markdown' => $this->markdown->compile(static::class),
         ])->render();
     }
 }
