@@ -3,9 +3,9 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Facades\Markdown as MarkdownFacade;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown as MarkdownFacade;
 
 /**
  * The base class for all Markdown-based Page Models.

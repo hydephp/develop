@@ -5,7 +5,7 @@
 This update contains **breaking changes** to the internal API regarding page models. This should only affect you directly if you've written any code that interacts with the internal page models, such as constructing them using non-built-in Hyde helpers.
 
 ### Added
-- Added `render()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
+- Added `compile()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
@@ -20,7 +20,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 - Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
 
 ### Removed
-- 
+- Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
 
 ### Fixed
 - for any bug fixes.

@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\HydeSmartDocs;
 use Hyde\Testing\TestCase;
