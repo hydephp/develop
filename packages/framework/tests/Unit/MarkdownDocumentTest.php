@@ -9,6 +9,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Models\MarkdownDocument
+ * @covers \Hyde\Framework\Models\Markdown
  */
 class MarkdownDocumentTest extends TestCase
 {
