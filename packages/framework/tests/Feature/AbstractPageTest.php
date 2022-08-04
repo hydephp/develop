@@ -6,7 +6,6 @@ use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
