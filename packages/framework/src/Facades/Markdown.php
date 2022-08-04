@@ -13,6 +13,8 @@ class Markdown
     /**
      * Parse a Markdown string into HTML.
      *
+     * @deprecated v0.58.0-beta use Markdown::render() instead.
+     *
      * If a source model is provided, the Markdown will be converted using the dynamic MarkdownService,
      * otherwise, the pre-configured singleton from the service container will be used instead.
      *

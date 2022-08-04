@@ -27,7 +27,7 @@ The identifier property is closely related to the page model's route key propert
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated Facades\Markdown::parse(), use Facades\Markdown::render() instead
 
 ### Removed
 - for now removed features.
