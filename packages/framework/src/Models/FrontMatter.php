@@ -39,6 +39,13 @@ class FrontMatter implements Arrayable, \Stringable
         return $this->matter;
     }
 
+    public function set(string $key, mixed $value): static
+    {
+        $this->matter[$key] = $value;
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return $this->matter;

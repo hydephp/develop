@@ -39,4 +39,13 @@ interface MarkdownPageContract
      * @return mixed
      */
     public function __get(string $name);
+
+    /**
+     * Set the value of the specified key in the front matter.
+     *
+     * @param  string  $name
+     * @param  $value
+     * @return void
+     */
+    public function __set(string $name, $value): void;
 }
