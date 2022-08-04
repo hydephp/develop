@@ -47,7 +47,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     /** Alternative to constructor, using primitive data types */
     public static function make(string $identifier, array $matter = [], string $body = ''): static
     {
-        return tap(new static($identifier, new FrontMatter($matter), new Markdown($matter, $body)), function (self $page) {
+        return tap(new static($identifier, new FrontMatter($matter), new Markdown($body)), function (self $page) {
             $page->title = SourceFileParser::findTitleForPage($page, $page->identifier);
         });
     }
