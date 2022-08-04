@@ -4,6 +4,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
+use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -75,7 +76,7 @@ class SourceFileParser
         }
     }
 
-    public static function findTitleForPage($page, $slug): string
+    public static function findTitleForPage(BladePage|AbstractMarkdownPage $page, string $slug): string
     {
         if ($page instanceof BladePage) {
             return Hyde::makeTitle($slug);
@@ -88,7 +89,7 @@ class SourceFileParser
         return static::findTitleFromMarkdownHeadings($page) ?? Hyde::makeTitle($slug);
     }
 
-    public static function findTitleFromMarkdownHeadings($page): ?string
+    public static function findTitleFromMarkdownHeadings(AbstractMarkdownPage $page): ?string
     {
         foreach ($page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
@@ -99,7 +100,7 @@ class SourceFileParser
         return null;
     }
 
-    public static function getDocumentationPageCategory($slug, $page): ?string
+    public static function getDocumentationPageCategory(string $slug, DocumentationPage $page): ?string
     {
         // If the documentation page is in a subdirectory,
         // then we can use that as the category name.
