@@ -2,9 +2,6 @@
 
 namespace Hyde\Framework\Facades;
 
-use Hyde\Framework\Modules\Markdown\MarkdownConverter;
-use Hyde\Framework\Services\MarkdownService;
-
 /**
  * Markdown facade to access Markdown services.
  *
