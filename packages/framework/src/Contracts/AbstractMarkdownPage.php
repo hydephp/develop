@@ -9,7 +9,7 @@ use Hyde\Framework\Models\MarkdownDocument;
 /**
  * The base class for all Markdown-based Page Models.
  *
- * @since 0.44.x replaces MarkdownDocument
+ * Normally, you would use the SourceFileParser to construct a MarkdownPage object.
  *
  * Extends the AbstractPage class to provide relevant
  * helpers for Markdown-based page model classes.
@@ -18,7 +18,7 @@ use Hyde\Framework\Models\MarkdownDocument;
  * @see \Hyde\Framework\Models\Pages\DocumentationPage
  * @see \Hyde\Framework\Contracts\AbstractPage
  *
- * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract
 {
