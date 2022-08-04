@@ -23,7 +23,6 @@ use Hyde\Framework\Models\Markdown;
 abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract
 {
     public string $identifier;
-    public FrontMatter $matter;
     public Markdown $markdown;
 
     /** @deprecated */

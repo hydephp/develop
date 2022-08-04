@@ -5,6 +5,7 @@ namespace Hyde\Framework\Contracts;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\CanBeInNavigation;
 use Hyde\Framework\Concerns\HasPageMetadata;
+use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
@@ -29,6 +30,8 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public static string $outputDirectory;
     public static string $fileExtension;
     public static string $template;
+
+    public FrontMatter $matter;
 
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
