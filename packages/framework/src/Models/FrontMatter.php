@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
  *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  */
-class FrontMatter implements Arrayable
+class FrontMatter implements Arrayable, \Stringable
 {
     public array $matter;
 

@@ -11,7 +11,7 @@ use Illuminate\Contracts\Support\Arrayable;
  *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class Markdown implements Arrayable
+class Markdown implements Arrayable, \Stringable
 {
     public string $body;
 

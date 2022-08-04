@@ -13,7 +13,7 @@ use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
  *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class MarkdownDocument implements MarkdownDocumentContract
+class MarkdownDocument implements MarkdownDocumentContract, \Stringable
 {
     public FrontMatter $matter;
     public Markdown $markdown;
