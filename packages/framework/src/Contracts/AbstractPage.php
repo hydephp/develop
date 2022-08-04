@@ -31,6 +31,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public static string $fileExtension;
     public static string $template;
 
+    public string $identifier;
     public FrontMatter $matter;
 
     /** @inheritDoc */
@@ -90,8 +91,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
             '/'
         ).'.html';
     }
-
-    public string $identifier;
 
     /** @interitDoc */
     public function __get(string $name)
