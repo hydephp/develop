@@ -31,14 +31,12 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 
     public static string $fileExtension = '.md';
 
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $body = '', ?string $title = null, ?MarkdownDocument $markdownDocument = null)
+    /** @interitDoc */
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?MarkdownDocument $markdownDocument = null)
     {
-        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
-        $this->body = $body;
-        $this->title = $title ?? $this->matter('title', '');
         $this->identifier = $identifier;
-
-        $this->markdown = $markdownDocument ?? new MarkdownDocument($this->matter, $body);
+        $this->matter = $matter ?? new FrontMatter();
+        $this->markdown = $markdownDocument ?? new MarkdownDocument();
     }
 
     public function markdown(): MarkdownDocument
