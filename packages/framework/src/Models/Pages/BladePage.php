@@ -23,6 +23,9 @@ class BladePage extends AbstractPage
      */
     public string $identifier;
 
+    /** @deprecated - for backwards compatibility */
+    public string $title = '';
+
     /**
      * @param  string  $view
      */

@@ -34,7 +34,8 @@ class PageModelConstructor
 
     protected function constructDynamicData(): void
     {
-        $this->page->matter->set('title', static::findTitleForPage());
+        // @todo $this->page->matter->set('title', static::findTitleForPage());
+        $this->page->title = static::findTitleForPage();
 
         if ($this->page instanceof DocumentationPage) {
             $this->page->category = static::getDocumentationPageCategory();

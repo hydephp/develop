@@ -46,7 +46,8 @@ trait HasPageMetadata
             $array[] = $this->makeRssFeedLink();
         }
 
-        if ($this->matter('title') !== null) {
+        // @todo if ($this->matter('title') !== null) {
+        if ($this->title !== null) {
             if ($this->hasTwitterTitleInConfig()) {
                 $array[] = '<meta name="twitter:title" content="'.$this->htmlTitle().'" />';
             }
