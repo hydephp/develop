@@ -21,8 +21,9 @@ interface MarkdownPageContract
     /**
      * Construct a new MarkdownPage object from constructed data types.
      * Normally, this is done by the SourceFileParser.
+     *
      * @see \Hyde\Framework\Actions\SourceFileParser
-     * 
+     *
      * The types are strictly enforced to ensure a predictable behavior and constant access interface.
      *
      * @param  string  $identifier
