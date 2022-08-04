@@ -17,7 +17,7 @@ But since you could have a file with the same identifier in the `_posts` directo
 The identifier property is closely related to the page model's route key property, which consists of the site output directory followed by the identifier. 
 
 ### Added
-- for new features.
+- Added `render()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
@@ -27,7 +27,7 @@ The identifier property is closely related to the page model's route key propert
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
 
 ### Removed
 - for now removed features.

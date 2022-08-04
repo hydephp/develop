@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
  */
 class MarkdownFacadeTest extends TestCase
 {
-    public function test_parse(): void
+    public function test_render(): void
     {
         $markdown = '# Hello World!';
 
