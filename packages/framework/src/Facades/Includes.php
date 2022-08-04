@@ -4,6 +4,7 @@ namespace Hyde\Framework\Facades;
 
 use Hyde\Framework\Contracts\IncludeFacadeContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
 class Includes implements IncludeFacadeContract
