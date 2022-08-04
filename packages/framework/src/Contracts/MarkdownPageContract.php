@@ -31,4 +31,12 @@ interface MarkdownPageContract
      * @param  \Hyde\Framework\Models\Markdown|null  $markdown
      */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null);
+
+    /**
+     * Get the value of the specified key from the front matter.
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function __get(string $name);
 }
