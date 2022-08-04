@@ -24,6 +24,7 @@ interface MarkdownDocumentContract
      * Get the Markdown text body.
      *
      * @deprecated Use markdown()->body instead.
+     *
      * @return string
      */
     public function body(): string;
