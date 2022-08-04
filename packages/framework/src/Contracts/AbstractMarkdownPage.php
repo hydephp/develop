@@ -39,6 +39,8 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
         $this->identifier = $identifier;
         $this->matter = $matter ?? new FrontMatter();
         $this->markdown = $markdown ?? new MarkdownDocument();
+
+        $this->body = $this->markdown->body;
     }
 
     /** Alternative to constructor, using primitive data types */
