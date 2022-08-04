@@ -30,9 +30,9 @@ class Markdown implements Arrayable
         return $this->body;
     }
 
-    public function compile(): string
+    public function compile(?string $sourceModel = null): string
     {
-        return static::render($this->body);
+        return static::render($this->body, $sourceModel);
     }
 
     /**
