@@ -37,4 +37,9 @@ class Markdown implements Arrayable
     {
         return explode("\n", $this->body);
     }
+
+    public function body(): string
+    {
+        return $this->body;
+    }
 }

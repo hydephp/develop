@@ -50,6 +50,7 @@ class MarkdownDocument implements MarkdownDocumentContract
         return $this->markdown;
     }
 
+    /** @deprecated  */
     public function body(): string
     {
         return $this->body;
