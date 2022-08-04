@@ -7,6 +7,7 @@ use Hyde\Framework\Services\MarkdownService;
 
 /**
  * Markdown facade to access Markdown services.
+ *
  * @deprecated v0.58.0-beta will be merged into Models\Markdown.php
  */
 class Markdown
