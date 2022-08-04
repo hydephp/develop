@@ -14,7 +14,7 @@ interface MarkdownPageContract
      *
      * @param string $identifier
      * @param \Hyde\Framework\Models\FrontMatter|null $matter
-     * @param \Hyde\Framework\Models\MarkdownDocument|null $markdownDocument
+     * @param \Hyde\Framework\Models\MarkdownDocument|null $markdown
      */
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?MarkdownDocument $markdownDocument = null);
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?MarkdownDocument $markdown = null);
 }
