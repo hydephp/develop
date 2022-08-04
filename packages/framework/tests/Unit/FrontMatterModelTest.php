@@ -83,6 +83,19 @@ class FrontMatterModelTest extends TestCase
         $this->assertEquals('bar', $matter->get('foo'));
     }
 
+    public function test_set_method_sets_front_matter_property()
+    {
+        $matter = new FrontMatter();
+        $matter->set('foo', 'bar');
+        $this->assertEquals('bar', $matter->get('foo'));
+    }
+
+    public function test_set_method_returns_self()
+    {
+        $matter = new FrontMatter();
+        $this->assertSame($matter, $matter->set('foo', 'bar'));
+    }
+
     public function test_to_array_returns_front_matter_array()
     {
         $matter = new FrontMatter(['foo' => 'bar']);
