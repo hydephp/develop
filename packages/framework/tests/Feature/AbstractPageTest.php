@@ -6,6 +6,7 @@ use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -261,15 +262,15 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_constructor_assigns_markdown_document_property_if_set()
     {
-        $document = new MarkdownDocument();
-        $page = new MarkdownPage(markdown: $document);
-        $this->assertSame($document, $page->markdown);
+        $markdown = new Markdown();
+        $page = new MarkdownPage(markdown: $markdown);
+        $this->assertSame($markdown, $page->markdown);
     }
 
     public function test_abstract_markdown_page_constructor_creates_new_markdown_document_if_no_markdown_document_is_set()
     {
         $page = new MarkdownPage();
-        $this->assertInstanceOf(MarkdownDocument::class, $page->markdown);
+        $this->assertInstanceOf(Markdown::class, $page->markdown);
     }
 
     public function test_abstract_markdown_page_markdown_helper_returns_the_markdown_document_instance()
@@ -280,9 +281,9 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_markdown_helper_returns_the_configured_markdown_document_instance()
     {
-        $document = new MarkdownDocument();
-        $page = new MarkdownPage(markdown: $document);
-        $this->assertSame($document, $page->markdown());
+        $markdown = new Markdown();
+        $page = new MarkdownPage(markdown: $markdown);
+        $this->assertSame($markdown, $page->markdown());
     }
 
     public function test_abstract_markdown_page_make_helper_constructs_dynamic_title_automatically()
