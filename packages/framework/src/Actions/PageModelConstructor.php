@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 
 /**
  * Dynamically constructs data for a page model.
+ *
+ * @see \Hyde\Framework\Testing\Feature\PageModelConstructorTest
  */
 class PageModelConstructor
 {
