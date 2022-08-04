@@ -8,6 +8,8 @@ use Hyde\Framework\Concerns\HasDateString;
 use Hyde\Framework\Concerns\HasFeaturedImage;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\MarkdownDocument;
 use Illuminate\Support\Collection;
 
 class MarkdownPost extends AbstractMarkdownPage
@@ -23,9 +25,9 @@ class MarkdownPost extends AbstractMarkdownPage
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $identifier = '')
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?MarkdownDocument $markdown = null)
     {
-        parent::__construct($identifier, $matter, $body, $title);
+        parent::__construct($identifier, $matter, $markdown);
 
         $this->constructAuthor();
         $this->constructMetadata();

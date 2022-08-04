@@ -8,6 +8,7 @@ use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Str;
 
@@ -57,12 +58,11 @@ class SourceFileParser
         );
 
         $matter = $document->matter;
-        $body = $document->body;
 
         return new $pageClass(
+            identifier: $this->slug,
             matter: $matter,
-            body: $body,
-            identifier: $this->slug
+            markdown: $document
         );
     }
 

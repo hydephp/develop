@@ -20,11 +20,6 @@ class DocumentationPage extends AbstractMarkdownPage
      */
     public ?string $category;
 
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $identifier = '')
-    {
-        parent::__construct($identifier, $matter, $body, $title);
-    }
-
     /** @inheritDoc */
     public function getCurrentPagePath(): string
     {
