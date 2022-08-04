@@ -27,9 +27,6 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     public Markdown $markdown;
 
     /** @deprecated */
-    public string $body;
-
-    /** @deprecated */
     public string $title;
 
     public static string $fileExtension = '.md';
@@ -48,8 +45,6 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
         $this->identifier = $identifier;
         $this->matter = $matter ?? new FrontMatter();
         $this->markdown = $markdown ?? new Markdown();
-
-        $this->body = $this->markdown->body;
     }
 
     /** @inheritDoc */
