@@ -42,7 +42,7 @@ class MarkdownDocumentTest extends TestCase
     public function test_render_method_returns_rendered_html()
     {
         $document = new MarkdownDocument([], 'Hello, world!');
-        $this->assertEquals("<p>Hello, world!</p>\n", $document->markdown->render());
+        $this->assertEquals("<p>Hello, world!</p>\n", $document->markdown->compile());
     }
 
     public function test_parse_method_parses_a_file_using_the_markdown_file_service()

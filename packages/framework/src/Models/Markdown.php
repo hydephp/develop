@@ -24,7 +24,7 @@ class Markdown implements Arrayable
         return MarkdownDocument::parseFile($localFilepath)->markdown();
     }
 
-    public function render(): string
+    public function compile(): string
     {
         return MarkdownFacade::render($this->body);
     }
