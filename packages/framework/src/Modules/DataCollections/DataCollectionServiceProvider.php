@@ -17,7 +17,7 @@ class DataCollectionServiceProvider extends ServiceProvider
         // Register the class alias
         AliasLoader::getInstance()->alias(
             'MarkdownCollection',
-            Facades\MarkdownCollection::class
+            Models\MarkdownCollection::class
         );
     }
 

@@ -7,7 +7,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Framework\Modules\DataCollections\DataCollection;
 use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
-use Hyde\Framework\Modules\DataCollections\Facades\MarkdownCollection;
+use Hyde\Framework\Modules\DataCollections\Models\MarkdownCollection;
 use Hyde\Testing\TestCase;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Collection;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Framework\Modules\DataCollections\DataCollection
  * @covers \Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider
- * @covers \Hyde\Framework\Modules\DataCollections\Facades\MarkdownCollection
+ * @covers \Hyde\Framework\Modules\DataCollections\Models\MarkdownCollection
  */
 class DataCollectionTest extends TestCase
 {

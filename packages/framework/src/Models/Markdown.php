@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Facades\Markdown as MarkdownFacade;
+use Hyde\Framework\Models\Markdown as MarkdownFacade;
 use Hyde\Framework\Modules\Markdown\MarkdownConverter;
 use Hyde\Framework\Services\MarkdownService;
 use Illuminate\Contracts\Support\Arrayable;
