@@ -50,7 +50,7 @@ class MarkdownDocumentTest extends TestCase
         file_put_contents('_pages/foo.md', "---\nfoo: bar\n---\nHello, world!");
         $document = MarkdownDocument::parseFile('_pages/foo.md');
         $this->assertInstanceOf(MarkdownDocument::class, $document);
-        $this->assertEquals('Hello, world!', $document->body());
+        $this->assertEquals('Hello, world!', $document->markdown()->body());
         $this->assertEquals(FrontMatter::fromArray(['foo' => 'bar']), $document->matter());
         unlink(Hyde::path('_pages/foo.md'));
     }
