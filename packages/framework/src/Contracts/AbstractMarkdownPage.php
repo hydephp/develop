@@ -51,12 +51,14 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 
         $this->body = $this->markdown->body;
     }
-    
+
+    /** @inheritDoc */
     public function matter(string $key = null, mixed $default = null): mixed
     {
         return $this->matter->get($key, $default);
     }
 
+    /** @inheritDoc */
     public function markdown(): Markdown
     {
         return $this->markdown;
