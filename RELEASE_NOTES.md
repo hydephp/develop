@@ -23,7 +23,7 @@ Adds a new interface to the Markdown page model constructors, that expects insta
 This means that the constructor for all Markdown-based pages is completely changed. To use a format matching the old behaviour, you can use the `MarkdownPageModel::make` method.
 
 ### Added
-- for new features.
+- Added `render()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
@@ -34,7 +34,7 @@ This means that the constructor for all Markdown-based pages is completely chang
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
 
 ### Removed
 - Removed interface MarkdownDocumentContract

@@ -11,14 +11,22 @@ use Hyde\Framework\Services\MarkdownService;
 class Markdown
 {
     /**
-     * Parse a Markdown string into HTML.
+     * @deprecated v0.58.0-beta use Markdown::render() instead.
+     */
+    public static function parse(string $markdown, ?string $sourceModel = null): string
+    {
+        return static::render($markdown, $sourceModel);
+    }
+
+    /**
+     * Render a Markdown string into HTML.
      *
      * If a source model is provided, the Markdown will be converted using the dynamic MarkdownService,
      * otherwise, the pre-configured singleton from the service container will be used instead.
      *
      * @return string $html
      */
-    public static function parse(string $markdown, ?string $sourceModel = null): string
+    public static function render(string $markdown, ?string $sourceModel = null): string
     {
         return $sourceModel !== null
             ? (new MarkdownService($markdown, $sourceModel))->parse()
