@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\Markdown;
 
 interface MarkdownPageContract
 {
@@ -14,7 +14,7 @@ interface MarkdownPageContract
      *
      * @param  string  $identifier
      * @param  \Hyde\Framework\Models\FrontMatter|null  $matter
-     * @param  \Hyde\Framework\Models\MarkdownDocument|null  $markdown
+     * @param  \Hyde\Framework\Models\Markdown|null  $markdown
      */
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?MarkdownDocument $markdown = null);
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null);
 }

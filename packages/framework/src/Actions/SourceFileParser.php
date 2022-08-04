@@ -57,11 +57,12 @@ class SourceFileParser
         );
 
         $matter = $document->matter;
+        $markdown = $document->markdown;
 
         return new $pageClass(
             identifier: $this->slug,
             matter: $matter,
-            markdown: $document
+            markdown: $markdown
         );
     }
 

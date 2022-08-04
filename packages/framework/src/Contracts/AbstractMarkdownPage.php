@@ -3,9 +3,9 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Facades\Markdown;
+use Hyde\Framework\Facades\Markdown as MarkdownFacade;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\Markdown;
 
 /**
  * The base class for all Markdown-based Page Models.
@@ -23,7 +23,7 @@ use Hyde\Framework\Models\MarkdownDocument;
  */
 abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract
 {
-    public MarkdownDocument $markdown;
+    public Markdown $markdown;
 
     public FrontMatter $matter;
 
@@ -35,11 +35,11 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     public static string $fileExtension = '.md';
 
     /** @interitDoc */
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?MarkdownDocument $markdown = null)
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
         $this->identifier = $identifier;
         $this->matter = $matter ?? new FrontMatter();
-        $this->markdown = $markdown ?? new MarkdownDocument();
+        $this->markdown = $markdown ?? new Markdown();
 
         $this->body = $this->markdown->body;
     }
@@ -47,12 +47,12 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     /** Alternative to constructor, using primitive data types */
     public static function make(string $identifier, array $matter = [], string $body = ''): static
     {
-        return tap(new static($identifier, new FrontMatter($matter), new MarkdownDocument($matter, $body)), function (self $page) {
+        return tap(new static($identifier, new FrontMatter($matter), new Markdown($matter, $body)), function (self $page) {
             $page->title = SourceFileParser::findTitleForPage($page, $page->identifier);
         });
     }
 
-    public function markdown(): MarkdownDocument
+    public function markdown(): Markdown
     {
         return $this->markdown;
     }
@@ -72,7 +72,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     {
         return view($this->getBladeView())->with([
             'title' => $this->title,
-            'markdown' => Markdown::parse($this->body, static::class),
+            'markdown' => MarkdownFacade::parse($this->body, static::class),
         ])->render();
     }
 }
