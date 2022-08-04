@@ -66,41 +66,6 @@ class SourceFileParser
         );
     }
 
-    public static function findTitleForPage(BladePage|AbstractMarkdownPage $page, string $slug): string
-    {
-        if ($page instanceof BladePage) {
-            return Hyde::makeTitle($slug);
-        }
-
-        if ($page->matter('title')) {
-            return $page->matter('title');
-        }
-
-        return static::findTitleFromMarkdownHeadings($page) ?? Hyde::makeTitle($slug);
-    }
-
-    public static function findTitleFromMarkdownHeadings(AbstractMarkdownPage $page): ?string
-    {
-        foreach ($page->markdown()->toArray() as $line) {
-            if (str_starts_with($line, '# ')) {
-                return trim(substr($line, 2), ' ');
-            }
-        }
-
-        return null;
-    }
-
-    public static function getDocumentationPageCategory(DocumentationPage $page, string $slug): ?string
-    {
-        // If the documentation page is in a subdirectory,
-        // then we can use that as the category name.
-        // Otherwise, we look in the front matter.
-
-        return str_contains($slug, '/')
-            ? Str::before($slug, '/')
-            : $page->matter('category');
-    }
-
     public function get(): PageContract
     {
         return $this->page;
