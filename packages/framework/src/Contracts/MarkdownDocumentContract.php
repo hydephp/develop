@@ -19,12 +19,4 @@ interface MarkdownDocumentContract
      * @return \Hyde\Framework\Models\Markdown
      */
     public function markdown(): Markdown;
-
-    /**
-     * Get the Markdown text body.
-     *
-     * @deprecated Use markdown()->body instead.
-     * @return string
-     */
-    public function body(): string;
 }

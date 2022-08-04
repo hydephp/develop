@@ -44,12 +44,6 @@ class MarkdownDocument implements MarkdownDocumentContract
         return $this->markdown;
     }
 
-    /** @deprecated  */
-    public function body(): string
-    {
-        return $this->body;
-    }
-
     /**
      * @deprecated v0.56.0 - Use static::parse() instead
      */

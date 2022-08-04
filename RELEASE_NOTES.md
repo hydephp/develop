@@ -21,6 +21,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 
 ### Removed
 - Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
+- Removed `body()` method from `MarkdownDocumentContract` interface and all its implementations. Use `markdown()->body()` instead
 
 ### Fixed
 - for any bug fixes.
