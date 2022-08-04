@@ -20,6 +20,8 @@ The identifier property is closely related to the page model's route key propert
 
 Adds a new interface to the Markdown page model constructors, that expects instantiated FrontMatter and MarkdownDocument objects. Normally you would use the SourceFileParser to create the object.
 
+This means that the constructor for all Markdown-based pages is completely changed. To use a format matching the old behaviour, you can use the `MarkdownPageModel::make` method.
+
 ### Added
 - for new features.
 
