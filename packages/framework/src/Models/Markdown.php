@@ -21,7 +21,7 @@ class Markdown implements Arrayable
 
     public static function fromFile(string $localFilepath): static
     {
-        return MarkdownDocument::parseFile($localFilepath)->markdown;
+        return MarkdownDocument::parseFile($localFilepath)->markdown();
     }
 
     public function render(): string
