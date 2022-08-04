@@ -9,6 +9,7 @@ interface MarkdownPageContract
 {
     /**
      * Alternative to constructor, using primitive data types.
+     * This method will construct then return a new instance of the class.
      *
      * @param  string  $identifier
      * @param  array  $matter
@@ -20,8 +21,9 @@ interface MarkdownPageContract
     /**
      * Construct a new MarkdownPage object from constructed data types.
      * Normally, this is done by the SourceFileParser.
-     *
      * @see \Hyde\Framework\Actions\SourceFileParser
+     * 
+     * The types are strictly enforced to ensure a predictable behavior and constant access interface.
      *
      * @param  string  $identifier
      * @param  \Hyde\Framework\Models\FrontMatter|null  $matter
