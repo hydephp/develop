@@ -18,7 +18,7 @@ trait HasArticleMetadata
 
     abstract public function getRoute(): RouteContract;
 
-    public function constructMetadata(): void
+    protected function constructMetadata(): void
     {
         $this->parseFrontMatterMetadata();
 

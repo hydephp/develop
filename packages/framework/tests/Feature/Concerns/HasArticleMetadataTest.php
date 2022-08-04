@@ -21,12 +21,6 @@ class HasArticleMetadataTest extends TestCase
         Config::set('site.url', null);
     }
 
-    public function test_get_metadata_returns_empty_array_when_uninitialized()
-    {
-        $page = MarkdownPost::make(matter: ['description' => 'foo']);
-        $this->assertEquals([], $page->getMetadata());
-    }
-
     public function test_get_metadata_returns_valid_array_when_initialized()
     {
         $page = MarkdownPost::make(matter: [
@@ -34,7 +28,6 @@ class HasArticleMetadataTest extends TestCase
             'author' => 'bar',
             'category' => 'cat',
         ]);
-        $page->constructMetadata();
         $this->assertEquals([
             'description' => 'foo',
             'author' => 'bar',
@@ -42,16 +35,9 @@ class HasArticleMetadataTest extends TestCase
         ], $page->getMetadata());
     }
 
-    public function test_get_meta_properties_returns_empty_array_when_uninitialized()
-    {
-        $page = MarkdownPost::make();
-        $this->assertEquals([], $page->getMetaProperties());
-    }
-
     public function test_get_meta_properties_returns_base_array_when_initialized_with_empty_front_matter()
     {
         $page = MarkdownPost::make();
-        $page->constructMetadata();
         $this->assertEquals(['og:type' => 'article'], $page->getMetaProperties());
     }
 
@@ -60,7 +46,6 @@ class HasArticleMetadataTest extends TestCase
     {
         Config::set('site.url', 'https://example.com/foo');
         $page = MarkdownPost::make('bar');
-        $page->constructMetadata();
 
         $this->assertEquals([
             'og:type' => 'article',
@@ -73,7 +58,6 @@ class HasArticleMetadataTest extends TestCase
         $page = MarkdownPost::make(matter: [
             'title' => 'foo',
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'og:type' => 'article',
@@ -86,7 +70,6 @@ class HasArticleMetadataTest extends TestCase
         $page = MarkdownPost::make(matter: [
             'date' => '2022-01-01 12:00',
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'og:type' => 'article',
@@ -99,7 +82,6 @@ class HasArticleMetadataTest extends TestCase
         $page = MarkdownPost::make(matter: [
             'image' => 'foo.jpg',
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'og:type' => 'article',
@@ -114,7 +96,6 @@ class HasArticleMetadataTest extends TestCase
                 'path' => 'foo.jpg',
             ],
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'og:type' => 'article',
@@ -129,7 +110,6 @@ class HasArticleMetadataTest extends TestCase
                 'uri' => 'foo.jpg',
             ],
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'og:type' => 'article',
@@ -144,7 +124,6 @@ class HasArticleMetadataTest extends TestCase
                 'username' => 'foo',
             ],
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'author' => 'foo',
@@ -158,7 +137,6 @@ class HasArticleMetadataTest extends TestCase
                 'name' => 'foo',
             ],
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'author' => 'foo',
@@ -170,7 +148,6 @@ class HasArticleMetadataTest extends TestCase
         $page = MarkdownPost::make(matter: [
             'author' => [],
         ]);
-        $page->constructMetadata();
 
         $this->assertEquals([
             'author' => 'Guest',
