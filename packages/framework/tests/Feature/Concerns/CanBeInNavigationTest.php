@@ -78,7 +78,7 @@ class CanBeInNavigationTest extends TestCase
         $this->assertFalse($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_true_if_slug_is_404()
+    public function test_show_in_navigation_returns_false_if_slug_is_404()
     {
         $page = $this->mock(MarkdownPage::class)->makePartial();
         $page->markdown = new Markdown();
