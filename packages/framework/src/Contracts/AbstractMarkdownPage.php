@@ -34,6 +34,14 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 
     public static string $fileExtension = '.md';
 
+    /** Alternative to constructor, using primitive data types */
+    public static function make(string $identifier = '', array $matter = [], string $body = ''): static
+    {
+        return tap(new static($identifier, new FrontMatter($matter), new Markdown($body)), function (self $page) {
+            $page->title = SourceFileParser::findTitleForPage($page, $page->identifier);
+        });
+    }
+
     /** @interitDoc */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
@@ -43,23 +51,15 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 
         $this->body = $this->markdown->body;
     }
-
-    /** Alternative to constructor, using primitive data types */
-    public static function make(string $identifier = '', array $matter = [], string $body = ''): static
+    
+    public function matter(string $key = null, mixed $default = null): mixed
     {
-        return tap(new static($identifier, new FrontMatter($matter), new Markdown($body)), function (self $page) {
-            $page->title = SourceFileParser::findTitleForPage($page, $page->identifier);
-        });
+        return $this->matter->get($key, $default);
     }
 
     public function markdown(): Markdown
     {
         return $this->markdown;
-    }
-
-    public function matter(string $key = null, mixed $default = null): mixed
-    {
-        return $this->matter->get($key, $default);
     }
 
     /** @inheritDoc */
