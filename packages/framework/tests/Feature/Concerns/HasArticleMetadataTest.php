@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature\Concerns;
 
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
