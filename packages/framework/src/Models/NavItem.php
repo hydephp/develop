@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
  *   2. You can use NavItem::fromRoute() to use data from the route
  *   3. You can use NavItem::leadsTo(URI, Title, ?priority) for an external or un-routed link
  */
-class NavItem
+class NavItem implements \Stringable
 {
     public RouteContract $route;
     public string $href;

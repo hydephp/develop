@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements RouteContract, RouteFacadeContract
+class Route implements RouteContract, RouteFacadeContract, \Stringable
 {
     /**
      * The source model for the route.
