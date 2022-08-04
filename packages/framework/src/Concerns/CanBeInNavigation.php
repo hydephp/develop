@@ -99,11 +99,7 @@ trait CanBeInNavigation
             return config('hyde.navigation.labels.home', 'Home');
         }
 
-        if (isset($this->title) && ! blank($this->title)) {
-            return $this->title;
-        }
-
-        return Hyde::makeTitle(basename($this->identifier));
+        return $this->title;
     }
 
     /**
