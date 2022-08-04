@@ -66,10 +66,10 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_can_build_markdown_post()
     {
-        $page = new MarkdownPost([
+        $page = MarkdownPost::make('foo', [
             'title' => 'foo',
             'author' => 'bar',
-        ], '# Body', 'Title', 'foo');
+        ], '# Body');
 
         new StaticPageBuilder($page, true);
 
@@ -79,7 +79,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_can_build_markdown_page()
     {
-        $page = new MarkdownPage('foo', [], '# Body', 'Title');
+        $page = MarkdownPage::make('foo', [], '# Body');
 
         new StaticPageBuilder($page, true);
 
@@ -90,7 +90,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_can_build_documentation_page()
     {
-        $page = new DocumentationPage([], '# Body', 'Title', 'foo');
+        $page = DocumentationPage::make('foo', [], '# Body');
 
         new StaticPageBuilder($page, true);
 
@@ -100,7 +100,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_creates_custom_documentation_directory()
     {
-        $page = new DocumentationPage([], '# Body', 'Title', 'foo');
+        $page = DocumentationPage::make('foo');
 
         Config::set('docs.output_directory', 'docs/foo');
         (new HydeServiceProvider($this->app))->register(); // Reregister the service provider to pick up the new config.
