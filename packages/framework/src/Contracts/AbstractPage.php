@@ -28,7 +28,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
-
     public static string $template;
 
     /** @inheritDoc */
