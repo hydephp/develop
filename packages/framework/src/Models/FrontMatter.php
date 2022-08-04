@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
 /**
+ * Object representing the YAML front matter of a Markdown file.
+ *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  */
 class FrontMatter implements Arrayable

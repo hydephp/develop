@@ -20,13 +20,13 @@ class StaticSiteBuilderPostModuleTest extends TestCase
     {
         parent::setUp();
 
-        $this->post = new MarkdownPost([
+        $this->post = MarkdownPost::make('test-post', [
             'title' => 'Adventures in Wonderland',
             'description' => 'All in the golden afternoon, full leisurely we glide.',
             'category' => 'novels',
             'author' => 'Lewis Carroll',
             'date' => '1865-11-18 18:52',
-        ], "## CHAPTER I. DOWN THE RABBIT-HOLE. \n\nSo she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.", 'Test Title', 'test-post');
+        ], "## CHAPTER I. DOWN THE RABBIT-HOLE. \n\nSo she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.", 'Test Title');
 
         // Make sure no file exists which could cause unintended results.
         unlinkIfExists(Hyde::path('_site/posts/test-post.html'));

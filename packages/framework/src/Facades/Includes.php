@@ -37,10 +37,10 @@ class Includes implements IncludeFacadeContract
         $path = static::path(basename($filename, '.md').'.md');
 
         if (! file_exists($path)) {
-            return $default === null ? null : Markdown::parse($default);
+            return $default === null ? null : Markdown::render($default);
         }
 
-        return Markdown::parse(file_get_contents($path));
+        return Markdown::render(file_get_contents($path));
     }
 
     /** @inheritDoc */

@@ -3,69 +3,62 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
-use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Arr;
 
 /**
+ * A MarkdownDocument is a simpler alternative to a MarkdownPage.
+ *
+ * It's an object that contains a parsed FrontMatter split from the body of the Markdown file.
+ *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class MarkdownDocument implements MarkdownDocumentContract, Arrayable
+class MarkdownDocument implements MarkdownDocumentContract
 {
-    public array $matter;
+    public FrontMatter $matter;
+    public Markdown $markdown;
+
+    /** @deprecated */
     public string $body;
 
-    public function __construct(array $matter = [], string $body = '')
+    public function __construct(FrontMatter|array $matter = [], Markdown|string $body = '')
     {
-        $this->matter = $matter;
-        $this->body = $body;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+        $this->markdown = $body instanceof Markdown ? $body : new Markdown($body);
+
+        $this->body = $this->markdown->body;
     }
 
     public function __toString(): string
     {
-        return $this->body;
-    }
-
-    public function __get(string $key): mixed
-    {
-        return $this->matter($key);
+        return $this->markdown;
     }
 
     public function matter(string $key = null, mixed $default = null): mixed
     {
-        if ($key) {
-            return Arr::get($this->matter, $key, $default);
-        }
-
-        return $this->matter;
+        return $key ? $this->matter->get($key, $default) : $this->matter;
     }
 
+    public function markdown(): Markdown
+    {
+        return $this->markdown;
+    }
+
+    /** @deprecated  */
     public function body(): string
     {
         return $this->body;
     }
 
-    public function render(): string
-    {
-        return Markdown::parse($this->body);
-    }
-
     /**
-     * Return the Markdown document body explored by line into an array.
-     *
-     * @return string[]
-     */
-    public function toArray(): array
-    {
-        return explode("\n", $this->body);
-    }
-
-    /**
-     * @deprecated v0.56.0 - Will be renamed to parse()
+     * @deprecated v0.56.0 - Use static::parse() instead
      */
     public static function parseFile(string $localFilepath): static
+    {
+        return static::parse($localFilepath);
+    }
+
+    public static function parse(string $localFilepath): static
     {
         return (new MarkdownFileParser(Hyde::path($localFilepath)))->get();
     }

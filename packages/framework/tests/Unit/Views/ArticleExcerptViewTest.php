@@ -21,18 +21,18 @@ class ArticleExcerptViewTest extends TestCase
 
     public function test_component_can_be_rendered()
     {
-        $view = $this->renderTestView(new MarkdownPost([], ''));
+        $view = $this->renderTestView(MarkdownPost::make());
         $this->assertStringContainsString('http://schema.org/Article', $view);
     }
 
     public function test_component_renders_post_data()
     {
-        $view = $this->renderTestView(new MarkdownPost([
+        $view = $this->renderTestView(MarkdownPost::make(matter: [
             'title' => 'Test Post',
             'date' => '2022-01-01 12:00:00',
             'author' => 'John Doe',
             'description' => 'This is a test post.',
-        ], '# Foo Bar', 'Foo Bar', 'foo-bar'));
+        ]));
 
         $this->assertStringContainsString('Test Post', $view);
         $this->assertStringContainsString('Jan 1st, 2022', $view);
@@ -43,21 +43,21 @@ class ArticleExcerptViewTest extends TestCase
 
     public function test_component_renders_post_with_author_object()
     {
-        $view = $this->renderTestView(new MarkdownPost([
+        $view = $this->renderTestView(MarkdownPost::make(matter: [
             'author' => [
                 'name' => 'John Doe',
                 'url' => '#',
             ],
-        ], ''));
+        ]));
 
         $this->assertStringContainsString('John Doe', $view);
     }
 
     public function test_there_is_no_comma_after_date_string_when_there_is_no_author()
     {
-        $view = $this->renderTestView(new MarkdownPost([
+        $view = $this->renderTestView(MarkdownPost::make(matter: [
             'date' => '2022-01-01',
-        ], ''));
+        ]));
 
         $this->assertStringContainsString('Jan 1st, 2022</span>', $view);
         $this->assertStringNotContainsString('Jan 1st, 2022</span>,', $view);
@@ -65,10 +65,10 @@ class ArticleExcerptViewTest extends TestCase
 
     public function test_there_is_a_comma_after_date_string_when_there_is_a_author()
     {
-        $view = $this->renderTestView(new MarkdownPost([
+        $view = $this->renderTestView(MarkdownPost::make(matter: [
             'date' => '2022-01-01',
             'author' => 'John Doe',
-        ], ''));
+        ]));
 
         $this->assertStringContainsString('Jan 1st, 2022</span>,', $view);
     }

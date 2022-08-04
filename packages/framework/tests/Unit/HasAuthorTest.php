@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HasAuthor;
 use Hyde\Framework\Models\Author;
+use Hyde\Framework\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 
 /**
@@ -15,13 +16,18 @@ class HasAuthorTest extends TestCase
 {
     use HasAuthor;
 
-    protected array $matter;
+    protected FrontMatter $matter;
+
+    protected function matter(...$args)
+    {
+        return $this->matter->get(...$args);
+    }
 
     public function test_it_can_create_a_new_author_instance_from_username_string()
     {
-        $this->matter = [
+        $this->matter = FrontMatter::fromArray([
             'author' => 'John Doe',
-        ];
+        ]);
 
         $this->constructAuthor();
         $this->assertInstanceOf(Author::class, $this->author);
@@ -32,11 +38,11 @@ class HasAuthorTest extends TestCase
 
     public function test_it_can_create_a_new_author_instance_from_user_array()
     {
-        $this->matter['author'] = [
+        $this->matter = FrontMatter::fromArray(['author' => [
             'username' => 'john_doe',
             'name' => 'John Doe',
             'website' => 'https://example.com',
-        ];
+        ]]);
         $this->constructAuthor();
         $this->assertInstanceOf(Author::class, $this->author);
         $this->assertEquals('john_doe', $this->author->username);

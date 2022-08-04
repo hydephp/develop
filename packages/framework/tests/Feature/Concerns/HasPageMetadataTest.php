@@ -214,7 +214,7 @@ class HasPageMetadataTest extends TestCase
             Meta::property('title', 'foo'),
         ]]);
 
-        $page = new MarkdownPage(title: 'Foo Bar');
+        $page = MarkdownPage::make(matter: ['title' => 'Foo Bar']);
 
         $this->assertEquals([
             '<meta name="twitter:title" content="HydePHP - Foo Bar" />',

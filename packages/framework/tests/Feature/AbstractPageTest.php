@@ -6,7 +6,7 @@ use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -85,7 +85,9 @@ class AbstractPageTest extends TestCase
     {
         Hyde::touch(('_pages/foo.md'));
         $this->assertEquals(
-            collect([new MarkdownPage('foo', [], '', 'Foo')]),
+            collect([tap(new MarkdownPage('foo'), function ($page) {
+                $page->title = 'Foo';
+            })]),
             MarkdownPage::all()
         );
         unlink(Hyde::path('_pages/foo.md'));
@@ -132,27 +134,27 @@ class AbstractPageTest extends TestCase
 
     public function test_get_current_page_path_returns_output_directory_and_basename()
     {
-        $page = new MarkdownPage('foo', [], '', '');
+        $page = new MarkdownPage('foo');
         $this->assertEquals('foo', $page->getCurrentPagePath());
     }
 
     public function test_get_current_page_path_returns_output_directory_and_basename_for_configured_directory()
     {
         MarkdownPage::$outputDirectory = 'foo';
-        $page = new MarkdownPage('bar', [], '', '');
+        $page = new MarkdownPage('bar');
         $this->assertEquals('foo/bar', $page->getCurrentPagePath());
     }
 
     public function test_get_current_page_path_trims_trailing_slashes_from_directory_setting()
     {
         MarkdownPage::$outputDirectory = '/foo/\\';
-        $page = new MarkdownPage('bar', [], '', '');
+        $page = new MarkdownPage('bar');
         $this->assertEquals('foo/bar', $page->getCurrentPagePath());
     }
 
     public function test_get_output_path_returns_current_page_path_with_html_extension_appended()
     {
-        $page = new MarkdownPage('foo', [], '', '');
+        $page = new MarkdownPage('foo');
         $this->assertEquals('foo.html', $page->getOutputPath());
     }
 
@@ -259,15 +261,15 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_constructor_assigns_markdown_document_property_if_set()
     {
-        $document = new MarkdownDocument();
-        $page = new MarkdownPage(markdownDocument: $document);
-        $this->assertSame($document, $page->markdown);
+        $markdown = new Markdown();
+        $page = new MarkdownPage(markdown: $markdown);
+        $this->assertSame($markdown, $page->markdown);
     }
 
     public function test_abstract_markdown_page_constructor_creates_new_markdown_document_if_no_markdown_document_is_set()
     {
         $page = new MarkdownPage();
-        $this->assertInstanceOf(MarkdownDocument::class, $page->markdown);
+        $this->assertInstanceOf(Markdown::class, $page->markdown);
     }
 
     public function test_abstract_markdown_page_markdown_helper_returns_the_markdown_document_instance()
@@ -278,14 +280,14 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_markdown_helper_returns_the_configured_markdown_document_instance()
     {
-        $document = new MarkdownDocument();
-        $page = new MarkdownPage(markdownDocument: $document);
-        $this->assertSame($document, $page->markdown());
+        $markdown = new Markdown();
+        $page = new MarkdownPage(markdown: $markdown);
+        $this->assertSame($markdown, $page->markdown());
     }
 
-    public function test_abstract_markdown_page_constructor_constructs_dynamic_title_automatically()
+    public function test_abstract_markdown_page_make_helper_constructs_dynamic_title_automatically()
     {
-        $page = new MarkdownPage('', ['title' => 'Foo']);
+        $page = MarkdownPage::make('', ['title' => 'Foo']);
         $this->assertEquals('Foo', $page->title);
     }
 
@@ -315,12 +317,12 @@ class AbstractPageTest extends TestCase
 
     public function test_html_title_returns_site_name_plus_page_title()
     {
-        $this->assertEquals('HydePHP - Foo', (new MarkdownPage('', ['title' => 'Foo']))->htmlTitle());
+        $this->assertEquals('HydePHP - Foo', MarkdownPage::make('', ['title' => 'Foo'])->htmlTitle());
     }
 
     public function test_html_title_can_be_overridden()
     {
-        $this->assertEquals('HydePHP - Bar', (new MarkdownPage('', ['title' => 'Foo']))->htmlTitle('Bar'));
+        $this->assertEquals('HydePHP - Bar', MarkdownPage::make('', ['title' => 'Foo'])->htmlTitle('Bar'));
     }
 
     public function test_html_title_returns_site_name_if_no_page_title()
@@ -332,5 +334,11 @@ class AbstractPageTest extends TestCase
     {
         config(['site.name' => 'Foo Bar']);
         $this->assertEquals('Foo Bar', (new MarkdownPage())->htmlTitle());
+    }
+
+    public function test_body_helper_returns_markdown_document_body_in_markdown_pages()
+    {
+        $page = new MarkdownPage(markdown: new Markdown(body: '# Foo'));
+        $this->assertEquals('# Foo', $page->body());
     }
 }

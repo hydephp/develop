@@ -1,5 +1,5 @@
 @php
-    $page = new \Hyde\Framework\Models\Pages\DocumentationPage([], '', 'Search', 'search');
+    $page = Hyde\Framework\Models\Pages\DocumentationPage::make('search', ['title' => 'Search']);
     $title = 'Search';
     $currentPage = $page->getCurrentPagePath();
     $markdown = '';

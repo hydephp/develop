@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
@@ -30,7 +29,7 @@ trait CanBeInNavigation
         }
 
         if ($this instanceof AbstractMarkdownPage) {
-            if ($this->markdown->matter('navigation.hidden', false)) {
+            if ($this->matter('navigation.hidden', false)) {
                 return false;
             }
         }
@@ -99,11 +98,7 @@ trait CanBeInNavigation
             return config('hyde.navigation.labels.home', 'Home');
         }
 
-        if (isset($this->title) && ! blank($this->title)) {
-            return $this->title;
-        }
-
-        return Hyde::makeTitle(basename($this->identifier));
+        return $this->title;
     }
 
     /**

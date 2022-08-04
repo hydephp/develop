@@ -18,7 +18,7 @@ trait HasArticleMetadata
 
     abstract public function getRoute(): RouteContract;
 
-    public function constructMetadata(): void
+    protected function constructMetadata(): void
     {
         $this->parseFrontMatterMetadata();
 
@@ -41,16 +41,16 @@ trait HasArticleMetadata
      */
     protected function parseFrontMatterMetadata(): void
     {
-        if (isset($this->matter['description'])) {
-            $this->metadata['description'] = $this->matter['description'];
+        if ($this->matter('description') !== null) {
+            $this->metadata['description'] = $this->matter('description');
         }
 
-        if (isset($this->matter['author'])) {
-            $this->metadata['author'] = $this->getAuthorName($this->matter['author']);
+        if ($this->matter('author') !== null) {
+            $this->metadata['author'] = $this->getAuthorName($this->matter('author'));
         }
 
-        if (isset($this->matter['category'])) {
-            $this->metadata['keywords'] = $this->matter['category'];
+        if ($this->matter('category') !== null) {
+            $this->metadata['keywords'] = $this->matter('category');
         }
     }
 
@@ -64,15 +64,15 @@ trait HasArticleMetadata
             $this->properties['og:url'] = $this->getRoute()->getQualifiedUrl();
         }
 
-        if (isset($this->matter['title'])) {
-            $this->properties['og:title'] = $this->matter['title'];
+        if ($this->matter('title') !== null) {
+            $this->properties['og:title'] = $this->matter('title');
         }
 
-        if (isset($this->matter['date'])) {
-            $this->properties['og:article:published_time'] = date('c', strtotime($this->matter['date']));
+        if ($this->matter('date') !== null) {
+            $this->properties['og:article:published_time'] = date('c', strtotime($this->matter('date')));
         }
 
-        if (isset($this->matter['image'])) {
+        if ($this->matter('image') !== null) {
             $this->setImageMetadata();
         }
     }
@@ -94,14 +94,14 @@ trait HasArticleMetadata
 
     protected function setImageMetadata(): void
     {
-        if (is_string($this->matter['image'])) {
-            $this->properties['og:image'] = $this->matter['image'];
+        if (is_string($this->matter('image'))) {
+            $this->properties['og:image'] = $this->matter('image');
         } else {
-            if (isset($this->matter['image']['path'])) {
-                $this->properties['og:image'] = $this->matter['image']['path'];
+            if (isset($this->matter('image')['path'])) {
+                $this->properties['og:image'] = $this->matter('image')['path'];
             }
-            if (isset($this->matter['image']['uri'])) {
-                $this->properties['og:image'] = $this->matter['image']['uri'];
+            if (isset($this->matter('image')['uri'])) {
+                $this->properties['og:image'] = $this->matter('image')['uri'];
             }
         }
     }

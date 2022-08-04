@@ -2,52 +2,69 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Facades\Markdown;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Facades\Markdown as MarkdownFacade;
+use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown;
 
 /**
  * The base class for all Markdown-based Page Models.
  *
- * @since 0.44.x replaces MarkdownDocument
+ * Normally, you would use the SourceFileParser to construct a MarkdownPage object.
  *
  * Extends the AbstractPage class to provide relevant
  * helpers for Markdown-based page model classes.
+ *
  * @see \Hyde\Framework\Models\Pages\MarkdownPage
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  * @see \Hyde\Framework\Models\Pages\DocumentationPage
  * @see \Hyde\Framework\Contracts\AbstractPage
- *
- * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractMarkdownPage extends AbstractPage
+abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract
 {
-    public MarkdownDocument $markdown;
+    public Markdown $markdown;
 
-    public array $matter;
+    public FrontMatter $matter;
+
+    /** @deprecated */
     public string $body;
     public string $title;
     public string $identifier;
 
     public static string $fileExtension = '.md';
 
-    public function __construct(string $identifier = '', array $matter = [], string $body = '', ?string $title = null, ?MarkdownDocument $markdownDocument = null)
+    /** @interitDoc */
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
-        $this->matter = $matter;
-        $this->body = $body;
-        $this->title = $title ?? $matter['title'] ?? '';
         $this->identifier = $identifier;
+        $this->matter = $matter ?? new FrontMatter();
+        $this->markdown = $markdown ?? new Markdown();
 
-        $this->markdown = $markdownDocument ?? new MarkdownDocument($matter, $body);
+        $this->body = $this->markdown->body;
     }
 
-    public function markdown(): MarkdownDocument
+    /** Alternative to constructor, using primitive data types */
+    public static function make(string $identifier = '', array $matter = [], string $body = ''): static
+    {
+        return tap(new static($identifier, new FrontMatter($matter), new Markdown($body)), function (self $page) {
+            $page->title = SourceFileParser::findTitleForPage($page, $page->identifier);
+        });
+    }
+
+    public function markdown(): Markdown
     {
         return $this->markdown;
     }
 
     public function matter(string $key = null, mixed $default = null): mixed
     {
-        return $this->markdown->matter($key, $default);
+        return $this->matter->get($key, $default);
+    }
+
+    public function body(): string
+    {
+        return $this->markdown->body();
     }
 
     /** @inheritDoc */
@@ -55,7 +72,7 @@ abstract class AbstractMarkdownPage extends AbstractPage
     {
         return view($this->getBladeView())->with([
             'title' => $this->title,
-            'markdown' => Markdown::parse($this->body, static::class),
+            'markdown' => MarkdownFacade::render($this->body, static::class),
         ])->render();
     }
 }

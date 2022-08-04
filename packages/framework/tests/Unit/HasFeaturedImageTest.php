@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HasFeaturedImage;
+use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Image;
 use Hyde\Testing\TestCase;
 
@@ -15,13 +16,18 @@ class HasFeaturedImageTest extends TestCase
 {
     use HasFeaturedImage;
 
-    protected array $matter;
+    protected FrontMatter $matter;
+
+    protected function matter(...$args)
+    {
+        return $this->matter->get(...$args);
+    }
 
     public function test_it_can_create_a_new_image_instance_from_a_string()
     {
-        $this->matter = [
+        $this->matter = FrontMatter::fromArray([
             'image' => 'https://example.com/image.jpg',
-        ];
+        ]);
 
         $this->constructFeaturedImage();
         $this->assertInstanceOf(Image::class, $this->image);
@@ -30,11 +36,11 @@ class HasFeaturedImageTest extends TestCase
 
     public function test_it_can_create_a_new_image_instance_from_an_array()
     {
-        $this->matter = [
+        $this->matter = FrontMatter::fromArray([
             'image' => [
                 'uri' => 'https://example.com/image.jpg',
             ],
-        ];
+        ]);
 
         $this->constructFeaturedImage();
         $this->assertInstanceOf(Image::class, $this->image);

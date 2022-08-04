@@ -59,7 +59,7 @@ class DarkmodeFeatureTest extends TestCase
             Features::darkmode(),
         ]);
 
-        view()->share('page', new DocumentationPage([], ''));
+        view()->share('page', new DocumentationPage());
 
         $view = view('hyde::layouts/docs')->with([
             'title' => 'foo',
@@ -94,7 +94,7 @@ class DarkmodeFeatureTest extends TestCase
             Features::documentationPages(),
         ]);
 
-        view()->share('page', new DocumentationPage([], ''));
+        view()->share('page', new DocumentationPage());
 
         $view = view('hyde::layouts/docs')->with([
             'title' => 'foo',
