@@ -5,11 +5,8 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
-use Illuminate\Support\Str;
 
 /**
  * Parses a source file and returns a new page model instance for it.
@@ -34,7 +31,7 @@ class SourceFileParser
         $this->slug = $slug;
 
         $this->page = $this->constructBaseModel($pageClass);
-        $this->constructDynamicData();
+        $this->page = PageModelConstructor::run($this->page);
     }
 
     protected function constructBaseModel(string $pageClass): BladePage|AbstractMarkdownPage
@@ -64,50 +61,6 @@ class SourceFileParser
             matter: $matter,
             markdown: $markdown
         );
-    }
-
-    protected function constructDynamicData(): void
-    {
-        $this->page->title = static::findTitleForPage($this->page, $this->slug);
-
-        if ($this->page instanceof DocumentationPage) {
-            $this->page->category = static::getDocumentationPageCategory($this->page, $this->slug);
-        }
-    }
-
-    public static function findTitleForPage(BladePage|AbstractMarkdownPage $page, string $slug): string
-    {
-        if ($page instanceof BladePage) {
-            return Hyde::makeTitle($slug);
-        }
-
-        if ($page->matter('title')) {
-            return $page->matter('title');
-        }
-
-        return static::findTitleFromMarkdownHeadings($page) ?? Hyde::makeTitle($slug);
-    }
-
-    public static function findTitleFromMarkdownHeadings(AbstractMarkdownPage $page): ?string
-    {
-        foreach ($page->markdown()->toArray() as $line) {
-            if (str_starts_with($line, '# ')) {
-                return trim(substr($line, 2), ' ');
-            }
-        }
-
-        return null;
-    }
-
-    public static function getDocumentationPageCategory(DocumentationPage $page, string $slug): ?string
-    {
-        // If the documentation page is in a subdirectory,
-        // then we can use that as the category name.
-        // Otherwise, we look in the front matter.
-
-        return str_contains($slug, '/')
-            ? Str::before($slug, '/')
-            : $page->matter('category');
     }
 
     public function get(): PageContract

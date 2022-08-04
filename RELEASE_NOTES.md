@@ -6,6 +6,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 
 ### Added
 - Added `compile()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
+- Adds a new action, PageModelConstructor, to dynamically construct page model data
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
