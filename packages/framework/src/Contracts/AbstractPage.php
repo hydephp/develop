@@ -19,6 +19,8 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Contracts\PageContract
  * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
  * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
+ *
+ * @property string $title The title of the HTML page.
  */
 abstract class AbstractPage implements PageContract, CompilableContract
 {
