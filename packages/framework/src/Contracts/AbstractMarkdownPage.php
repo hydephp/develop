@@ -39,6 +39,12 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
         $this->markdown = $markdown ?? new MarkdownDocument();
     }
 
+    /** Alternative to constructor, using primitive data types */
+    public static function make(string $identifier, array $matter = [], string $body = ''): self
+    {
+        return new static($identifier, new FrontMatter($matter), new MarkdownDocument($matter, $body));
+    }
+
     public function markdown(): MarkdownDocument
     {
         return $this->markdown;
