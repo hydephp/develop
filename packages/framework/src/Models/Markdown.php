@@ -21,6 +21,11 @@ class Markdown implements Arrayable
         return MarkdownDocument::parseFile($localFilepath)->markdown;
     }
 
+    public function __toString(): string
+    {
+        return $this->body;
+    }
+
     /**
      * Return the Markdown document body explored by line into an array.
      *

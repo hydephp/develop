@@ -32,7 +32,7 @@ class MarkdownDocument implements MarkdownDocumentContract
 
     public function __toString(): string
     {
-        return $this->body;
+        return $this->markdown;
     }
 
     public function render(): string
