@@ -84,10 +84,6 @@ trait CanBeInNavigation
             if ($this->matter('navigation.title') !== null) {
                 return $this->matter('navigation.title');
             }
-
-            if ($this->matter('title') !== null) {
-                return $this->matter('title');
-            }
         }
 
         if ($this->identifier === 'index') {
@@ -96,6 +92,10 @@ trait CanBeInNavigation
             }
 
             return config('hyde.navigation.labels.home', 'Home');
+        }
+
+        if ($this->matter('title') !== null) {
+            return $this->matter('title');
         }
 
         return $this->title;
