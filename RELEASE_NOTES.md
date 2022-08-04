@@ -24,6 +24,7 @@ The identifier property is closely related to the page model's route key propert
 - Breaking: Rename AbstractPage property `slug` to `identifier`
 - Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
 - Begin changing references to slugs to identifiers, see motivation above
+- Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
 ### Deprecated
 - for soon-to-be removed features.
