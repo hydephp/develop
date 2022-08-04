@@ -61,6 +61,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
         return $this->matter->get($key, $default);
     }
 
+    /** @deprecated  */
     public function body(): string
     {
         return $this->markdown->body();
