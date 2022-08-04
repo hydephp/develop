@@ -54,15 +54,18 @@ class PageModelConstructor
 
     protected function findTitleForPage(): string
     {
-        if ($this->page instanceof BladePage) {
-            return Hyde::makeTitle($this->page->identifier);
+        if ($this->page instanceof AbstractMarkdownPage) {
+            return $this->findTitleForMarkdownPage();
         }
 
-        if ($this->page->matter('title')) {
-            return $this->page->matter('title');
-        }
+        return Hyde::makeTitle($this->page->identifier);
+    }
 
-        return static::findTitleFromMarkdownHeadings() ?? Hyde::makeTitle($this->page->identifier);
+    protected function findTitleForMarkdownPage(): string
+    {
+        return $this->page->matter('title')
+            ?? static::findTitleFromMarkdownHeadings()
+            ?? Hyde::makeTitle($this->page->identifier);
     }
 
     protected function findTitleFromMarkdownHeadings(): ?string
