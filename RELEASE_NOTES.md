@@ -30,6 +30,7 @@ This means that the constructor for all Markdown-based pages is completely chang
 - Breaking: Rename AbstractPage property `slug` to `identifier`
 - Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
 - Begin changing references to slugs to identifiers, see motivation above
+- Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
 ### Deprecated
 - for soon-to-be removed features.

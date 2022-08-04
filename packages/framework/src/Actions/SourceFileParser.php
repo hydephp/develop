@@ -68,29 +68,29 @@ class SourceFileParser
 
     protected function constructDynamicData(): void
     {
-        $this->page->title = $this->findTitleForPage();
+        $this->page->title = static::findTitleForPage($this->page, $this->slug);
 
         if ($this->page instanceof DocumentationPage) {
-            $this->page->category = $this->getDocumentationPageCategory();
+            $this->page->category = static::getDocumentationPageCategory($this->slug, $this->page);
         }
     }
 
-    protected function findTitleForPage(): string
+    public static function findTitleForPage($page, $slug): string
     {
-        if ($this->page instanceof BladePage) {
-            return Hyde::makeTitle($this->slug);
+        if ($page instanceof BladePage) {
+            return Hyde::makeTitle($slug);
         }
 
-        if ($this->page->matter('title')) {
-            return $this->page->matter('title');
+        if ($page->matter('title')) {
+            return $page->matter('title');
         }
 
-        return $this->findTitleFromMarkdownHeadings() ?? Hyde::makeTitle($this->slug);
+        return static::findTitleFromMarkdownHeadings($page) ?? Hyde::makeTitle($slug);
     }
 
-    protected function findTitleFromMarkdownHeadings(): ?string
+    public static function findTitleFromMarkdownHeadings($page): ?string
     {
-        foreach ($this->page->markdown()->toArray() as $line) {
+        foreach ($page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
                 return trim(substr($line, 2), ' ');
             }
@@ -99,15 +99,15 @@ class SourceFileParser
         return null;
     }
 
-    protected function getDocumentationPageCategory(): ?string
+    public static function getDocumentationPageCategory($slug, $page): ?string
     {
         // If the documentation page is in a subdirectory,
         // then we can use that as the category name.
         // Otherwise, we look in the front matter.
 
-        return str_contains($this->slug, '/')
-            ? Str::before($this->slug, '/')
-            : $this->page->matter('category');
+        return str_contains($slug, '/')
+            ? Str::before($slug, '/')
+            : $page->matter('category');
     }
 
     public function get(): PageContract
