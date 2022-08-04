@@ -51,9 +51,14 @@ class MarkdownDocument implements MarkdownDocumentContract
     }
 
     /**
-     * @deprecated v0.56.0 - Will be renamed to parse()
+     * @deprecated v0.56.0 - Use static::parse() instead
      */
     public static function parseFile(string $localFilepath): static
+    {
+        return static::parse($localFilepath);
+    }
+
+    public static function parse(string $localFilepath): static
     {
         return (new MarkdownFileParser(Hyde::path($localFilepath)))->get();
     }
