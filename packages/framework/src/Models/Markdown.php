@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Facades\Markdown as MarkdownFacade;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -21,6 +22,11 @@ class Markdown implements Arrayable
     public static function fromFile(string $localFilepath): static
     {
         return MarkdownDocument::parseFile($localFilepath)->markdown;
+    }
+
+    public function render(): string
+    {
+        return MarkdownFacade::render($this->body);
     }
 
     public function __toString(): string

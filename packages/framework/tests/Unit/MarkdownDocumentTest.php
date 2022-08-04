@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 
@@ -41,7 +42,7 @@ class MarkdownDocumentTest extends TestCase
     public function test_render_method_returns_rendered_html()
     {
         $document = new MarkdownDocument([], 'Hello, world!');
-        $this->assertEquals("<p>Hello, world!</p>\n", $document->render());
+        $this->assertEquals("<p>Hello, world!</p>\n", $document->markdown->render());
     }
 
     public function test_parse_file_method_parses_a_file_using_the_markdown_file_service()
