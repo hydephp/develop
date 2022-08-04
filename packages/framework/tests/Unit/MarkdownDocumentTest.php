@@ -56,6 +56,6 @@ class MarkdownDocumentTest extends TestCase
     public function test_to_array_method_returns_array_markdown_body_lines()
     {
         $document = new MarkdownDocument(body: "foo\nbar\nbaz");
-        $this->assertEquals(['foo', 'bar', 'baz'], $document->toArray());
+        $this->assertEquals(['foo', 'bar', 'baz'], $document->markdown->toArray());
     }
 }

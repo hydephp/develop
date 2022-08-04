@@ -56,16 +56,6 @@ class MarkdownDocument implements MarkdownDocumentContract
     }
 
     /**
-     * Return the Markdown document body explored by line into an array.
-     *
-     * @return string[]
-     */
-    public function toArray(): array
-    {
-        return explode("\n", $this->body);
-    }
-
-    /**
      * @deprecated v0.56.0 - Will be renamed to parse()
      */
     public static function parseFile(string $localFilepath): static
