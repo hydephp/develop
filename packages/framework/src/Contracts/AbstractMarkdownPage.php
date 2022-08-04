@@ -34,7 +34,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
 
     public static string $fileExtension = '.md';
 
-    /** Alternative to constructor, using primitive data types */
+    /** @interitDoc */
     public static function make(string $identifier = '', array $matter = [], string $body = ''): static
     {
         return tap(new static($identifier, new FrontMatter($matter), new Markdown($body)), function (self $page) {

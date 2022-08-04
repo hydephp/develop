@@ -7,8 +7,18 @@ use Hyde\Framework\Models\Markdown;
 
 interface MarkdownPageContract
 {
+    /** Alternative to constructor, using primitive data types.
+     *
+     * @param string $identifier
+     * @param array $matter
+     * @param string $body
+     * @return \Hyde\Framework\Contracts\MarkdownPageContract
+     */
+    public static function make(string $identifier = '', array $matter = [], string $body = ''): static;
+
     /**
-     * Construct a new MarkdownPage object. Normally, this is done by the SourceFileParser.
+     * Construct a new MarkdownPage object from constructed data types.
+     * Normally, this is done by the SourceFileParser.
      *
      * @see \Hyde\Framework\Actions\SourceFileParser
      *
