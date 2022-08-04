@@ -15,6 +15,6 @@ trait HasTableOfContents
 {
     public function getTableOfContents(): string
     {
-        return (new GeneratesSidebarTableOfContents($this->body))->execute();
+        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
     }
 }
