@@ -22,16 +22,15 @@ use Hyde\Framework\Models\Markdown;
  */
 abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract
 {
-    public Markdown $markdown;
-
+    public string $identifier;
     public FrontMatter $matter;
+    public Markdown $markdown;
 
     /** @deprecated */
     public string $body;
 
     /** @deprecated */
     public string $title;
-    public string $identifier;
 
     public static string $fileExtension = '.md';
 
