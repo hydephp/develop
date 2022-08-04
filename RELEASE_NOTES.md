@@ -4,6 +4,33 @@
 
 This update contains **breaking changes** to the internal API regarding page models. This should only affect you directly if you've written any code that interacts with the internal page models, such as constructing them using non-built-in Hyde helpers.
 
+### Added
+- Added `render()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
+
+### Changed
+- Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
+- Breaking: Rename AbstractPage property `slug` to `identifier`
+- Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
+- Breaking: Splits Markdown data from MarkdownDocument into new Markdown model class
+- Begin changing references to slugs to identifiers, see motivation below
+- Makes some helpers in SourceFileParser public static allowing them to be used outside the class
+
+### Deprecated
+- Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
+- Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
+
+### Removed
+- 
+
+### Fixed
+- for any bug fixes.
+
+### Security
+- in case of vulnerabilities.
+
+
+### Upgrade guide and extra information
+
 #### Rename slugs to identifiers
 
 Previously internally called `slug(s)`, are now called `identifier(s)`. In all honestly, this has 90% to do with the fact that I hate the word "slug".
@@ -30,28 +57,3 @@ Instead, you can add it with front matter: `MarkdownPage::make(matter: ['title' 
 #### Markdown pages now have front matter in an object instead of array
 
 This means that instead of the following `$post->matter['title']`, you would use `$post->matter('title')`, which allows you to add a fallback like so: `$post->matter('title', 'Untitled')`
-
-### Added
-- Added `render()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
-
-### Changed
-- Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
-- Breaking: Rename AbstractPage property `slug` to `identifier`
-- Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
-- Breaking: Splits Markdown data from MarkdownDocument into new Markdown model class
-- Begin changing references to slugs to identifiers, see motivation above
-- Makes some helpers in SourceFileParser public static allowing them to be used outside the class
-
-### Deprecated
-- Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
-- Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
-
-### Removed
-- 
-
-### Fixed
-- for any bug fixes.
-
-### Security
-- in case of vulnerabilities.
-
