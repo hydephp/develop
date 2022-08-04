@@ -16,13 +16,13 @@ class DocumentationPageTest extends TestCase
 {
     public function test_can_generate_table_of_contents()
     {
-        $page = (new DocumentationPage([], '# Foo'));
+        $page = DocumentationPage::make(body: '# Foo');
         $this->assertIsString($page->getTableOfContents());
     }
 
     public function test_can_get_current_page_path()
     {
-        $page = (new DocumentationPage([], '', '', 'foo'));
+        $page = DocumentationPage::make('foo');
         $this->assertEquals('docs/foo', $page->getCurrentPagePath());
 
         config(['docs.output_directory' => 'documentation/latest/']);
@@ -32,20 +32,20 @@ class DocumentationPageTest extends TestCase
 
     public function test_can_get_online_source_path()
     {
-        $page = (new DocumentationPage([], ''));
+        $page = DocumentationPage::make('foo');
         $this->assertFalse($page->getOnlineSourcePath());
     }
 
     public function test_can_get_online_source_path_with_source_file_location_base()
     {
         config(['docs.source_file_location_base' => 'docs.example.com/edit']);
-        $page = (new DocumentationPage([], '', '', 'foo'));
+        $page = DocumentationPage::make('foo');
         $this->assertEquals('docs.example.com/edit/foo.md', $page->getOnlineSourcePath());
     }
 
     public function test_can_get_online_source_path_with_trailing_slash()
     {
-        $page = (new DocumentationPage([], '', '', 'foo'));
+        $page = DocumentationPage::make('foo');
 
         config(['docs.source_file_location_base' => 'edit/']);
         $this->assertEquals('edit/foo.md', $page->getOnlineSourcePath());
@@ -125,7 +125,7 @@ class DocumentationPageTest extends TestCase
 
     public function test_compiled_pages_originating_in_subdirectories_get_output_to_root_docs_path()
     {
-        $page = (new DocumentationPage([], '', '', 'foo/bar'));
+        $page = DocumentationPage::make('foo/bar');
         $this->assertEquals('docs/bar.html', $page->getOutputPath());
     }
 }
