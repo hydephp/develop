@@ -29,10 +29,10 @@ class PageModelConstructor
 
     protected function constructDynamicData(): void
     {
-        $this->page->title = self::findTitleForPage($this->page, $this->page->identifier);
+        $this->page->title = self::findTitleForPage();
 
         if ($this->page instanceof DocumentationPage) {
-            $this->page->category = self::getDocumentationPageCategory($this->page, $this->page->identifier);
+            $this->page->category = self::getDocumentationPageCategory();
         }
     }
 
@@ -41,33 +41,33 @@ class PageModelConstructor
         return $this->page;
     }
 
-    protected function getDocumentationPageCategory(DocumentationPage $page, string $slug): ?string
+    protected function getDocumentationPageCategory(): ?string
     {
         // If the documentation page is in a subdirectory,
         // then we can use that as the category name.
         // Otherwise, we look in the front matter.
 
-        return str_contains($slug, '/')
-            ? Str::before($slug, '/')
-            : $page->matter('category');
+        return str_contains($this->page->identifier, '/')
+            ? Str::before($this->page->identifier, '/')
+            : $this->page->matter('category');
     }
 
-    protected function findTitleForPage(BladePage|AbstractMarkdownPage $page, string $slug): string
+    protected function findTitleForPage(): string
     {
-        if ($page instanceof BladePage) {
-            return Hyde::makeTitle($slug);
+        if ($this->page instanceof BladePage) {
+            return Hyde::makeTitle($this->page->identifier);
         }
 
-        if ($page->matter('title')) {
-            return $page->matter('title');
+        if ($this->page->matter('title')) {
+            return $this->page->matter('title');
         }
 
-        return static::findTitleFromMarkdownHeadings($page) ?? Hyde::makeTitle($slug);
+        return static::findTitleFromMarkdownHeadings() ?? Hyde::makeTitle($this->page->identifier);
     }
 
-    protected function findTitleFromMarkdownHeadings(AbstractMarkdownPage $page): ?string
+    protected function findTitleFromMarkdownHeadings(): ?string
     {
-        foreach ($page->markdown()->toArray() as $line) {
+        foreach ($this->page->markdown()->toArray() as $line) {
             if (str_starts_with($line, '# ')) {
                 return trim(substr($line, 2), ' ');
             }
