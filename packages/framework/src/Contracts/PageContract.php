@@ -24,6 +24,13 @@ interface PageContract
     public function __set(string $name, $value): void;
 
     /**
+     * Get the front matter object, or a value from within.
+     *
+     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     */
+    public function matter(string $key = null, mixed $default = null): mixed;
+
+    /**
      * Get the directory in where source files are stored.
      *
      * @return string Path relative to the root of the project
