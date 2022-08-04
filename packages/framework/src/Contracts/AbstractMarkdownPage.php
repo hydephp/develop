@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Facades\Markdown;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\MarkdownDocument;
@@ -46,7 +47,9 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     /** Alternative to constructor, using primitive data types */
     public static function make(string $identifier, array $matter = [], string $body = ''): static
     {
-        return new static($identifier, new FrontMatter($matter), new MarkdownDocument($matter, $body));
+        return tap(new static($identifier, new FrontMatter($matter), new MarkdownDocument($matter, $body)), function (self $page) {
+            $page->title = SourceFileParser::findTitleForPage($page, $page->identifier);
+        });
     }
 
     public function markdown(): MarkdownDocument

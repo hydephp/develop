@@ -286,9 +286,9 @@ class AbstractPageTest extends TestCase
         $this->assertSame($document, $page->markdown());
     }
 
-    public function test_abstract_markdown_page_constructor_constructs_dynamic_title_automatically()
+    public function test_abstract_markdown_page_make_helper_constructs_dynamic_title_automatically()
     {
-        $page = new MarkdownPage('', FrontMatter::fromArray(['title' => 'Foo']));
+        $page = MarkdownPage::make('', ['title' => 'Foo']);
         $this->assertEquals('Foo', $page->title);
     }
 
