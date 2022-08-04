@@ -335,4 +335,10 @@ class AbstractPageTest extends TestCase
         config(['site.name' => 'Foo Bar']);
         $this->assertEquals('Foo Bar', (new MarkdownPage())->htmlTitle());
     }
+
+    public function test_body_helper_returns_markdown_document_body_in_markdown_pages()
+    {
+        $page = new MarkdownPage(markdown: new Markdown(body: '# Foo'));
+        $this->assertEquals('# Foo', $page->body());
+    }
 }
