@@ -34,7 +34,7 @@ class SourceFileParser
         $this->slug = $slug;
 
         $this->page = $this->constructBaseModel($pageClass);
-        $this->constructDynamicData();
+        $this->page = PageModelConstructor::run($this->page);
     }
 
     protected function constructBaseModel(string $pageClass): BladePage|AbstractMarkdownPage
@@ -64,15 +64,6 @@ class SourceFileParser
             matter: $matter,
             markdown: $markdown
         );
-    }
-
-    protected function constructDynamicData(): void
-    {
-        $this->page->title = static::findTitleForPage($this->page, $this->slug);
-
-        if ($this->page instanceof DocumentationPage) {
-            $this->page->category = static::getDocumentationPageCategory($this->page, $this->slug);
-        }
     }
 
     public static function findTitleForPage(BladePage|AbstractMarkdownPage $page, string $slug): string
