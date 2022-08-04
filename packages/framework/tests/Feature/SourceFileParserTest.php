@@ -32,7 +32,7 @@ class SourceFileParserTest extends TestCase
         $page = $parser->get();
         $this->assertInstanceOf(MarkdownPage::class, $page);
         $this->assertEquals('foo', $page->identifier);
-        $this->assertEquals('# Foo Bar', $page->body);
+        $this->assertEquals('# Foo Bar', $page->markdown);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
@@ -44,7 +44,7 @@ class SourceFileParserTest extends TestCase
         $page = $parser->get();
         $this->assertInstanceOf(MarkdownPost::class, $page);
         $this->assertEquals('foo', $page->identifier);
-        $this->assertEquals('# Foo Bar', $page->body);
+        $this->assertEquals('# Foo Bar', $page->markdown);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
@@ -56,7 +56,7 @@ class SourceFileParserTest extends TestCase
         $page = $parser->get();
         $this->assertInstanceOf(DocumentationPage::class, $page);
         $this->assertEquals('foo', $page->identifier);
-        $this->assertEquals('# Foo Bar', $page->body);
+        $this->assertEquals('# Foo Bar', $page->markdown);
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
