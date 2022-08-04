@@ -35,10 +35,10 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     {
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->body = $body;
-        $this->title = $title ?? $matter['title'] ?? '';
+        $this->title = $title ?? $this->matter('title', '');
         $this->identifier = $identifier;
 
-        $this->markdown = $markdownDocument ?? new MarkdownDocument($matter, $body);
+        $this->markdown = $markdownDocument ?? new MarkdownDocument($this->matter, $body);
     }
 
     public function markdown(): MarkdownDocument
