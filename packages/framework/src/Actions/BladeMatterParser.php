@@ -6,6 +6,23 @@ namespace Hyde\Framework\Actions;
  * Parse the front matter in a Blade file.
  *
  * Accepts a string to make it easier to mock when testing.
+ *
+ * === DOCUMENTATION (draft) ===
+ *
+ * ## Front Matter in Markdown
+ *
+ * HydePHP uses a special syntax called BladeMatter that allows you to define variables in a Blade file,
+ * and have Hyde statically parse them into the front matter of the page model. This allows metadata
+ * in your Blade pages to be used when Hyde generates dynamic data like page titles and SEO tags.
+ *
+ * ### Syntax
+ *
+ * Any line following the syntax below will be added to the parsed page object's front matter.
+ * @example `@php($title = 'BladeMatter Test')`
+ * This would then be parsed into the following array in the page model: ['title' => 'BladeMatter Test']
+ *
+ * ### Limitations
+ * Each directive must be on its own line, and start with `@php($.`. Arrays are currently not supported.
  */
 class BladeMatterParser
 {
