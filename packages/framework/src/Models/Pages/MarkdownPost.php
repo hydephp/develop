@@ -36,11 +36,13 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->constructFeaturedImage();
     }
 
+    /** @deprecated v0.58.x-beta (may be moved to BlogPostSchema) */
     public function getCanonicalLink(): string
     {
         return Hyde::url($this->getCurrentPagePath().'.html');
     }
 
+    /** @deprecated v0.58.x-beta (pull description instead) */
     public function getPostDescription(): string
     {
         return $this->description;
