@@ -154,7 +154,7 @@ class BladeMatterParser
             $pair = explode('=>', $entry);
 
             // Add key/value pair to array
-            $array[static::normalizeValue($pair[0])] = static::normalizeValue($pair[1]);
+            $array[static::normalizeValue(trim(trim($pair[0]), "'"))] = static::normalizeValue(trim(trim($pair[1]), "'"));
         }
 
         return $array;
