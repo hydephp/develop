@@ -40,5 +40,6 @@ trait BlogPostSchema
     protected function constructBlogPostSchema(): void
     {
         $this->category = $this->matter('category');
+        $this->description = $this->matter('description') ?? substr($this->markdown, 0, 125) . '...';
     }
 }
