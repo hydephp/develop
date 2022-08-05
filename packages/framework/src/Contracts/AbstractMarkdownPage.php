@@ -44,6 +44,8 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
         $this->identifier = $identifier;
         $this->matter = $matter ?? new FrontMatter();
         $this->markdown = $markdown ?? new Markdown();
+
+        parent::__construct($this->identifier, $this->matter);
     }
 
     /** @inheritDoc */
