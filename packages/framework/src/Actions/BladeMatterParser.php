@@ -19,6 +19,14 @@ class BladeMatterParser
 
     public function parse(): static
     {
+        $lines = explode("\n", $this->contents);
+
+        foreach ($lines as $line) {
+            if (static::lineMatchesFrontMatter($line)) {
+                $this->matter[] = static::parseLine($line);
+            }
+        }
+
         $this->matter = [];
 
         return $this;
@@ -27,5 +35,15 @@ class BladeMatterParser
     public function get(): array
     {
         return $this->matter;
+    }
+
+    protected static function lineMatchesFrontMatter(string $line): bool
+    {
+        return false;
+    }
+
+    protected static function parseLine(string $line): array
+    {
+        return [];
     }
 }
