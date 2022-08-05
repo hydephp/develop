@@ -110,7 +110,7 @@ class BladeMatterParser
         return trim($key);
     }
 
-    /** @internal */
+    /** @internal Return the proper type for the string */
     public static function normalizeValue($value): mixed
     {
         $value = trim($value);
@@ -119,8 +119,12 @@ class BladeMatterParser
             return null;
         }
 
+        if (static::isValueArrayString($value)) {
+            return static::parseArrayString($value);
+        }
+
         // This will cast integers, floats, and booleans to their respective types
-        // Still working on a way to handle arrays and objects
+        // Still working on a way to handle multidimensional arrays and objects
         return json_decode($value) ?? $value;
     }
 
