@@ -36,4 +36,9 @@ trait BlogPostSchema
      * @yamlType string|array|optional
      */
     public ?Image $image = null;
+
+    protected function constructBlogPostSchema(): void
+    {
+        $this->category = $this->matter('category');
+    }
 }

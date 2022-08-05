@@ -29,12 +29,11 @@ class MarkdownPost extends AbstractMarkdownPage
     {
         parent::__construct($identifier, $matter, $markdown);
 
+        $this->constructBlogPostSchema();
         $this->constructAuthor();
         $this->constructMetadata();
         $this->constructDateString();
         $this->constructFeaturedImage();
-
-        $this->category = $this->matter('category');
     }
 
     public function getCanonicalLink(): string
