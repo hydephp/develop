@@ -21,19 +21,19 @@ trait BlogPostSchema
      * The date the post was published.
      *
      * @example 'YYYY-MM-DD [HH:MM]' (Must be parsable by `strtotime()`)
-     * @yamlType string|null
+     * @yamlType string|optional
      */
     public ?DateString $date;
 
     /**
      * @example See author section
-     * @yamlType string|array|null
+     * @yamlType string|array|optional
      */
     public ?Author $author;
 
     /**
      * @example See image section
-     * @yamlType string|array|null
+     * @yamlType string|array|optional
      */
     public ?Image $image;
 }
