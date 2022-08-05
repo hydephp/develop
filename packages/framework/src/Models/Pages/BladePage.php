@@ -31,8 +31,8 @@ class BladePage extends AbstractPage
      */
     public function __construct(string $view)
     {
+        parent::__construct($view);
         $this->view = $view;
-        $this->identifier = $view;
     }
 
     public static string $sourceDirectory = '_pages';

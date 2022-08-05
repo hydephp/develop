@@ -75,10 +75,17 @@ Take a look at the [customization and configuration guide](customization.html) t
 
 ## Front Matter
 
+### About
+
+Front matter is heavily used in HydePHP to store metadata about about pages. Hyde uses the front matter data to generate rich and dynamic content. For example, a blog post category, author website, or featured image.
+
+Using front matter is optional, as Hyde will dynamically generate data based on the content itself. (Though any matter you provide will take precedence over the automatically generated data.)
+
+### Markdown
+
 All Markdown content files support Front Matter. Blog posts for example make heavy use of it.
 
-The specific usage and schemas used for pages are documented in their respective documentation,
-however, here is a primer on the fundamentals.
+The specific usage and schemas used for pages are documented in their respective documentation, however, here is a primer on the fundamentals.
 
 - Front matter is stored in a block of YAML that starts and ends with a `---` line.
 - The front matter should be the very first thing in the Markdown file.
@@ -97,6 +104,21 @@ author:
 
 Lorem ipsum dolor sit amet, etc.
 ```
+
+### Blade
+
+>warning 🧪 This feature is experimental, and currently does not support multidimensional arrays or multi-line directives as the BladeMatter is statically parsed.
+
+Hyde v0.58.0-beta brings experimental support for creating front-matter in Blade templates, called BladeMatter. The actual syntax is does not use YAML; but instead PHP. However, the parsed end result is the same.
+
+To create BladeMatter, you simply use the default Laravel Blade `@php` directive to declare a variable anywhere in the template.
+
+**Example:**
+```blade
+@php($title = 'BladeMatter Demo')
+```
+
+It will then be available through the global `$page` variable, `$page->matter('title')`.
 
 
 ## Automatic Routing

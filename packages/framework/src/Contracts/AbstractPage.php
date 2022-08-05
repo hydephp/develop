@@ -5,6 +5,7 @@ namespace Hyde\Framework\Contracts;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\CanBeInNavigation;
 use Hyde\Framework\Concerns\HasPageMetadata;
+use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
@@ -30,8 +31,10 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
-
     public static string $template;
+
+    public string $identifier;
+    public FrontMatter $matter;
 
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
@@ -91,7 +94,29 @@ abstract class AbstractPage implements PageContract, CompilableContract
         ).'.html';
     }
 
-    public string $identifier;
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
+    {
+        $this->identifier = $identifier;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+    }
+
+    /** @interitDoc */
+    public function __get(string $name)
+    {
+        return $this->matter->get($name);
+    }
+
+    /** @inheritDoc */
+    public function __set(string $name, $value): void
+    {
+        $this->matter->set($name, $value);
+    }
+
+    /** @inheritDoc */
+    public function matter(string $key = null, mixed $default = null): mixed
+    {
+        return $this->matter->get($key, $default);
+    }
 
     /** @inheritDoc */
     public function getSourcePath(): string

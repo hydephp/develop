@@ -66,4 +66,18 @@ class SourceFileParserTest extends TestCase
         $page = MarkdownPage::parse('foo');
         $this->assertEquals('Foo Bar Baz', $page->title);
     }
+
+    public function test_blade_page_data_is_parsed_to_front_matter()
+    {
+        $this->file('_pages/foo.blade.php', "@php(\$foo = 'bar')\n");
+        $page = BladePage::parse('foo');
+        $this->assertEquals('bar', $page->matter('foo'));
+    }
+
+    public function test_blade_page_matter_is_used_for_the_page_title()
+    {
+        $this->file('_pages/foo.blade.php', "@php(\$title = 'Foo Bar')\n");
+        $page = BladePage::parse('foo');
+        $this->assertEquals('Foo Bar', $page->matter('title'));
+    }
 }
