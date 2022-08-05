@@ -12,6 +12,8 @@ class BladeMatterParser
     protected string $contents;
     protected array $matter;
 
+    protected const SEARCH = '@php($';
+
     public function __construct(string $contents)
     {
         $this->contents = $contents;
@@ -39,7 +41,7 @@ class BladeMatterParser
 
     protected static function lineMatchesFrontMatter(string $line): bool
     {
-        return str_starts_with($line, '@php($');
+        return str_starts_with($line, static::SEARCH);
     }
 
     protected static function parseLine(string $line): array
