@@ -19,9 +19,15 @@ trait BlogPostSchema
     /** @example "YYYY-MM-DD [HH:MM]" */
     public ?string $date;
 
-    /** @example See author section */
+    /**
+     * @example See author section
+     * @yamlType string|array|null
+     */
     public Author $author;
 
-    /** @example See image section */
+    /**
+     * @example See image section
+     * @yamlType string|array|null
+     */
     public Image $image;
 }
