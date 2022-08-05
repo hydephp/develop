@@ -34,6 +34,11 @@ class BladeMatterParser
 
     protected const SEARCH = '@php($';
 
+    public static function parseString(string $contents): array
+    {
+        return (new static($contents))->parse()->get();
+    }
+
     public function __construct(string $contents)
     {
         $this->contents = $contents;

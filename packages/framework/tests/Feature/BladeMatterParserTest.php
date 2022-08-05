@@ -17,6 +17,14 @@ class BladeMatterParserTest extends TestCase
         $this->assertEquals(['title' => 'BladeMatter Test'], $parser->get());
     }
 
+    public function test_parse_string_helper_method()
+    {
+        $this->assertSame(
+            (new BladeMatterParser('foo'))->parse()->get(),
+            BladeMatterParser::parseString('foo')
+        );
+    }
+
     public function test_line_matches_front_matter()
     {
         $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($title = "BladeMatter Test")'));
