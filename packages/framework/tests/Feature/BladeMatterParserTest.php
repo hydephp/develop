@@ -44,6 +44,20 @@ class BladeMatterParserTest extends TestCase
         $this->assertEquals(['foo' => 'bar', 'bar' => 'baz', 'baz' => 'qux'], BladeMatterParser::parseString($document));
     }
 
+    public function test_can_parse_front_matter_with_various_formats()
+    {
+        $matrix = [
+            '@php($foo = "bar")' => ['foo' => 'bar'],
+            '@php($foo = \'bar\')' => ['foo' => 'bar'],
+            '@php($foo="bar")' => ['foo' => 'bar'],
+            '@php($foo  =  "bar"  )  ' => ['foo' => 'bar'],
+        ];
+
+        foreach ($matrix as $input => $expected) {
+            $this->assertEquals($expected, BladeMatterParser::parseString($input));
+        }
+    }
+
     public function test_line_matches_front_matter()
     {
         $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($foo = "bar")'));
