@@ -11,8 +11,6 @@ use Hyde\Framework\Models\Image;
  */
 trait HasFeaturedImage
 {
-    public Image $image;
-
     public function constructFeaturedImage(): void
     {
         if ($this->matter('image') !== null) {

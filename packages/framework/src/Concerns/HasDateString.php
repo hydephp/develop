@@ -11,8 +11,6 @@ use Hyde\Framework\Models\DateString;
  */
 trait HasDateString
 {
-    public ?DateString $date = null;
-
     public function constructDateString(): void
     {
         if ($this->matter('date') !== null) {

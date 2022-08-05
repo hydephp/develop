@@ -21,8 +21,6 @@ class MarkdownPost extends AbstractMarkdownPage
     use HasFeaturedImage;
     use BlogPostSchema;
 
-    public ?string $category;
-
     public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';

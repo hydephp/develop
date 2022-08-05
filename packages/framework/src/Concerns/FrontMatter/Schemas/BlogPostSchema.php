@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
 use Hyde\Framework\Models\Author;
+use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
 
 trait BlogPostSchema
@@ -16,8 +17,13 @@ trait BlogPostSchema
     /** @example "general", "my favorite recipes" */
     public ?string $category;
 
-    /** @example "YYYY-MM-DD [HH:MM]" */
-    public ?string $date;
+    /**
+     * The date the post was published.
+     *
+     * @example 'YYYY-MM-DD [HH:MM]' (Must be parsable by `strtotime()`)
+     * @yamlType string|null
+     */
+    public ?DateString $date;
 
     /**
      * @example See author section

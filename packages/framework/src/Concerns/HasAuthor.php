@@ -13,8 +13,6 @@ use Hyde\Framework\Models\Author;
  */
 trait HasAuthor
 {
-    public Author $author;
-
     public function constructAuthor(): void
     {
         if ($this->matter('author') !== null) {
