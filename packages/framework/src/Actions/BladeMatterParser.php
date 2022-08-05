@@ -18,6 +18,7 @@ namespace Hyde\Framework\Actions;
  * ### Syntax
  *
  * Any line following the syntax below will be added to the parsed page object's front matter.
+ *
  * @example `@php($title = 'BladeMatter Test')`
  * This would then be parsed into the following array in the page model: ['title' => 'BladeMatter Test']
  *
