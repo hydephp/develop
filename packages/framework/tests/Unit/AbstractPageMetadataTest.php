@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Contracts\AbstractPage
  *
- * @see \Hyde\Framework\Testing\Unit\HasPageMetadataRssFeedLinkTest
+ * @see \Hyde\Framework\Testing\Unit\AbstractPageMetadataTest
  */
 class AbstractPageMetadataTest extends TestCase
 {

@@ -9,9 +9,9 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Concerns\HasPageMetadata::getDynamicMetadata
+ * @covers \Hyde\Framework\Contracts\AbstractPage::getDynamicMetadata
  */
-class HasPageMetadataRssFeedLinkTest extends TestCase
+class AbstractPageMetadataRssFeedLinkTest extends TestCase
 {
     protected function setUp(): void
     {
