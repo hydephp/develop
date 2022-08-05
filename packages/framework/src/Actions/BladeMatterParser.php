@@ -32,7 +32,7 @@ class BladeMatterParser
 
         foreach ($lines as $line) {
             if (static::lineMatchesFrontMatter($line)) {
-                $this->matter[static::extractKey($line)] = static::extractValue($line);
+                $this->matter[static::extractKey($line)] = static::normalizeValue(static::extractValue($line));
             }
         }
 
@@ -72,5 +72,12 @@ class BladeMatterParser
 
         // Return trimmed line
         return trim($key);
+    }
+
+    protected static function normalizeValue($value): mixed
+    {
+        // This will cast integers, floats, and booleans to their respective types
+        // Still working on a way to handle arrays and objects
+        return json_decode($value) ?? $value;
     }
 }
