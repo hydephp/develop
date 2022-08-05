@@ -39,11 +39,21 @@ class BladeMatterParser
 
     protected static function lineMatchesFrontMatter(string $line): bool
     {
-        return false;
+        return str_starts_with($line, '@php($');
     }
 
     protected static function parseLine(string $line): array
     {
-        return [];
+        return [static::extractKey($line) => static::extractValue($line)];
+    }
+
+    protected static function extractKey(string $line): string
+    {
+        return '';
+    }
+
+    protected static function extractValue(string $line): string
+    {
+        return '';
     }
 }
