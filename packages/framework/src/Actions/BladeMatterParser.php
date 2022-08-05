@@ -34,6 +34,7 @@ class BladeMatterParser
     protected string $contents;
     protected array $matter;
 
+    /** The directive signature used to determine if a line should be parsed. */
     protected const SEARCH = '@php($';
 
     public static function parseFile(string $localFilePath): array
