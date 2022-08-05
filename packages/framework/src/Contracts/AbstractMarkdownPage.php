@@ -23,7 +23,6 @@ use Hyde\Framework\Models\Markdown;
 abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract
 {
     public string $identifier;
-    public FrontMatter $matter;
     public Markdown $markdown;
 
     /** @deprecated */
@@ -45,24 +44,6 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
         $this->identifier = $identifier;
         $this->matter = $matter ?? new FrontMatter();
         $this->markdown = $markdown ?? new Markdown();
-    }
-
-    /** @interitDoc */
-    public function __get(string $name)
-    {
-        return $this->matter->get($name);
-    }
-
-    /** @inheritDoc */
-    public function __set(string $name, $value): void
-    {
-        $this->matter->set($name, $value);
-    }
-
-    /** @inheritDoc */
-    public function matter(string $key = null, mixed $default = null): mixed
-    {
-        return $this->matter->get($key, $default);
     }
 
     /** @inheritDoc */
