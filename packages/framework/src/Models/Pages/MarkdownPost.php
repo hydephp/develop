@@ -28,9 +28,7 @@ class MarkdownPost extends AbstractMarkdownPage
         parent::__construct($identifier, $matter, $markdown);
 
         $this->constructBlogPostSchema();
-        $this->constructAuthor();
         $this->constructMetadata();
-        $this->constructFeaturedImage();
     }
 
     /** @deprecated v0.58.x-beta (may be moved to BlogPostSchema) */

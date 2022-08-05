@@ -43,6 +43,8 @@ trait BlogPostSchema
         $this->category = $this->matter('category');
         $this->description = $this->matter('description', substr($this->markdown, 0, 125) . '...');
         $this->constructDateString();
+        $this->constructAuthor();
+        $this->constructImage();
     }
 
     private function constructDateString(): void
@@ -79,5 +81,35 @@ trait BlogPostSchema
         $username = $data['username'] ?? $data['name'] ?? 'Guest';
 
         return new Author($username, $data);
+    }
+
+    private function constructImage(): void
+    {
+        if ($this->matter('image') !== null) {
+            if (is_string($this->matter('image'))) {
+                $this->image = $this->constructBaseImage($this->matter('image'));
+            }
+            if (is_array($this->matter('image'))) {
+                $this->image = $this->constructFullImage($this->matter('image'));
+            }
+        }
+    }
+
+    private function constructBaseImage(string $image): Image
+    {
+        if (str_starts_with($image, 'http')) {
+            return new Image([
+                'uri' => $image,
+            ]);
+        }
+
+        return new Image([
+            'path' => $image,
+        ]);
+    }
+
+    private function constructFullImage(array $image): Image
+    {
+        return new Image($image);
     }
 }
