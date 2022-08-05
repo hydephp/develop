@@ -25,11 +25,20 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Contracts\AbstractMarkdownPage
  *
  * @see \Hyde\Framework\Testing\Unit\AbstractPageMetadataTest
- *
- * @backupStaticAttributes enabled
  */
 class AbstractPageTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        BladePage::$sourceDirectory = '_pages';
+        MarkdownPage::$sourceDirectory = '_pages';
+        MarkdownPost::$sourceDirectory = '_posts';
+        DocumentationPage::$sourceDirectory = '_docs';
+        MarkdownPage::$fileExtension = '.md';
+
+        parent::tearDown();
+    }
+
     public function test_get_source_directory_returns_static_property()
     {
         MarkdownPage::$sourceDirectory = 'foo';
