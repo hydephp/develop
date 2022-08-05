@@ -12,8 +12,5 @@ use Hyde\Framework\Models\DateString;
  */
 trait HasDateString
 {
-    public function constructDateString(): void
-    {
-        // Moved to BlogPostSchema constructor
-    }
+
 }

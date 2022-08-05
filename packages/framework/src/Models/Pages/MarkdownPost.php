@@ -15,9 +15,7 @@ use Illuminate\Support\Collection;
 
 class MarkdownPost extends AbstractMarkdownPage
 {
-    use HasAuthor;
     use HasArticleMetadata;
-    use HasDateString;
     use HasFeaturedImage;
     use BlogPostSchema;
 

@@ -14,32 +14,5 @@ use Hyde\Framework\Models\Author;
  */
 trait HasAuthor
 {
-    public function constructAuthor(): void
-    {
-        if ($this->matter('author') !== null) {
-            if (is_string($this->matter('author'))) {
-                // If the author is a string, we assume it's a username,
-                // so we'll try to find the author in the config
-                $this->author = $this->findAuthor($this->matter('author'));
-            }
-            if (is_array($this->matter('author'))) {
-                // If the author is an array, we'll assume it's a user
-                // with one-off custom data, so we create a new author.
-                // In the future we may want to merge config data with custom data
-                $this->author = $this->createAuthor($this->matter('author'));
-            }
-        }
-    }
 
-    protected function findAuthor(string $author): Author
-    {
-        return AuthorHelper::get($author);
-    }
-
-    protected function createAuthor(array $data): Author
-    {
-        $username = $data['username'] ?? $data['name'] ?? 'Guest';
-
-        return new Author($username, $data);
-    }
 }
