@@ -23,6 +23,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Contracts\AbstractPage
  * @covers \Hyde\Framework\Contracts\AbstractMarkdownPage
+ * @see \Hyde\Framework\Testing\Unit\AbstractPageMetadataTest
  *
  * @backupStaticAttributes enabled
  */
