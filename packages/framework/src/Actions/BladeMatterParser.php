@@ -7,6 +7,8 @@ namespace Hyde\Framework\Actions;
  *
  * Accepts a string to make it easier to mock when testing.
  *
+ * @see \Hyde\Framework\Testing\Feature\BladeMatterParserTest
+ *
  * === DOCUMENTATION (draft) ===
  *
  * ## Front Matter in Markdown
