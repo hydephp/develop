@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
  */
 class MarkdownPostTest extends TestCase
 {
-    public function test_it_can_create_a_new_author_instance_from_username_string()
+    public function test_constructor_can_create_a_new_author_instance_from_username_string()
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([
             'author' => 'John Doe',
@@ -25,13 +25,15 @@ class MarkdownPostTest extends TestCase
         $this->assertNull($post->author->website);
     }
 
-    public function test_it_can_create_a_new_author_instance_from_user_array()
+    public function test_constructor_can_create_a_new_author_instance_from_user_array()
     {
-        $post = new MarkdownPost(matter: FrontMatter::fromArray(['author' => [
-            'username' => 'john_doe',
-            'name' => 'John Doe',
-            'website' => 'https://example.com',
-        ]]));
+        $post = new MarkdownPost(matter: FrontMatter::fromArray([
+            'author' => [
+                'username' => 'john_doe',
+                'name' => 'John Doe',
+                'website' => 'https://example.com',
+            ]
+        ]));
 
         $this->assertInstanceOf(Author::class, $post->author);
         $this->assertEquals('john_doe', $post->author->username);
