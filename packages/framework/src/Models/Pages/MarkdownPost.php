@@ -4,7 +4,6 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Concerns\HasArticleMetadata;
-use Hyde\Framework\Concerns\HasFeaturedImage;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
@@ -17,7 +16,6 @@ use Illuminate\Support\Collection;
 class MarkdownPost extends AbstractMarkdownPage
 {
     use HasArticleMetadata;
-    use HasFeaturedImage;
     use BlogPostSchema;
 
     public static string $sourceDirectory = '_posts';
