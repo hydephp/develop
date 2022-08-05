@@ -121,4 +121,30 @@ class BladeMatterParser
         // Still working on a way to handle arrays and objects
         return trim(json_decode($value) ?? $value);
     }
+
+    /** @internal */
+    public static function parseArrayString(string $string): array
+    {
+        $array = [];
+
+        // Trim input string
+        $string = trim($string);
+
+        // Remove opening and closing brackets
+        $string = substr($string, 1, strlen($string) - 2);
+
+        // tokenize string between commas
+        $tokens = explode(',', $string);
+
+        // Parse each token
+        foreach ($tokens as $entry) {
+            // Split string into key/value pairs
+            $pair = explode('=>', $entry);
+
+            // Add key/value pair to array
+            $array[static::normalizeValue($pair[0])] = static::normalizeValue($pair[1]);
+        }
+
+        return $array;
+    }
 }
