@@ -58,6 +58,19 @@ class BladeMatterParser
 
     protected static function extractValue(string $line): string
     {
-        return '';
+        // Trim any trailing spaces and newlines
+        $key = trim($line);
+
+        // Remove everything before the first equals sign
+        $key = substr($key, strpos($key, '=') + 1);
+
+        // Remove closing parenthesis
+        $key = substr($key, 0, strlen($key) - 1);
+
+        // Remove any quotes so we can normalize the value
+        $key = trim($key, ' "\'');
+
+        // Return trimmed line
+        return trim($key);
     }
 }
