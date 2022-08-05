@@ -11,6 +11,9 @@ use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 use Illuminate\Support\Collection;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest
+ */
 class MarkdownPost extends AbstractMarkdownPage
 {
     use HasArticleMetadata;

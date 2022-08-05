@@ -23,7 +23,7 @@ use Illuminate\Support\Collection;
  *
  * @see \Hyde\Framework\Contracts\PageContract
  * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
- * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractPage implements PageContract, CompilableContract
 {
