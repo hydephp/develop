@@ -59,12 +59,14 @@ class BladeMatterParser
         return $this;
     }
 
-    protected static function lineMatchesFrontMatter(string $line): bool
+    /** @internal */
+    public static function lineMatchesFrontMatter(string $line): bool
     {
         return str_starts_with($line, static::SEARCH);
     }
 
-    protected static function extractKey(string $line): string
+    /** @internal */
+    public static function extractKey(string $line): string
     {
         // Remove search prefix
         $key = substr($line, strlen(static::SEARCH));
@@ -76,7 +78,8 @@ class BladeMatterParser
         return trim($key);
     }
 
-    protected static function extractValue(string $line): string
+    /** @internal */
+    public static function extractValue(string $line): string
     {
         // Trim any trailing spaces and newlines
         $key = trim($line);
@@ -94,7 +97,8 @@ class BladeMatterParser
         return trim($key);
     }
 
-    protected static function normalizeValue($value): mixed
+    /** @internal */
+    public static function normalizeValue($value): mixed
     {
         // This will cast integers, floats, and booleans to their respective types
         // Still working on a way to handle arrays and objects
