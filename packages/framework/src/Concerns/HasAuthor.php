@@ -10,6 +10,7 @@ use Hyde\Framework\Models\Author;
  *
  * @see \Hyde\Framework\Models\Author
  * @see \Hyde\Framework\Testing\Unit\HasAuthorTest
+ * @deprecated Will be merged into PageModelConstructor
  */
 trait HasAuthor
 {
