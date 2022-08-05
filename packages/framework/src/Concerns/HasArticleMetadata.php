@@ -10,7 +10,6 @@ use Hyde\Framework\Hyde;
  *
  * @see \Hyde\Framework\Models\Metadata
  * @see \Hyde\Framework\Testing\Feature\Concerns\HasArticleMetadataTest
- *
  * @deprecated Will be merged into BlogPostSchema
  */
 trait HasArticleMetadata

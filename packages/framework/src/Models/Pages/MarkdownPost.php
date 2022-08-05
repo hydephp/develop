@@ -4,8 +4,6 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Concerns\HasArticleMetadata;
-use Hyde\Framework\Concerns\HasAuthor;
-use Hyde\Framework\Concerns\HasDateString;
 use Hyde\Framework\Concerns\HasFeaturedImage;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Hyde;

@@ -41,7 +41,7 @@ trait BlogPostSchema
     protected function constructBlogPostSchema(): void
     {
         $this->category = $this->matter('category');
-        $this->description = $this->matter('description', substr($this->markdown, 0, 125) . '...');
+        $this->description = $this->matter('description', substr($this->markdown, 0, 125).'...');
         $this->constructDateString();
         $this->constructAuthor();
         $this->constructImage();

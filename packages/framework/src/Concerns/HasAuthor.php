@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Framework\Helpers\Author as AuthorHelper;
 use Hyde\Framework\Models\Author;
 
 /**
@@ -14,5 +13,4 @@ use Hyde\Framework\Models\Author;
  */
 trait HasAuthor
 {
-
 }

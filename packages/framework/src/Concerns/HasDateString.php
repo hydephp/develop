@@ -12,5 +12,4 @@ use Hyde\Framework\Models\DateString;
  */
 trait HasDateString
 {
-
 }
