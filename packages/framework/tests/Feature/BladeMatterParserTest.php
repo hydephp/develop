@@ -12,9 +12,9 @@ class BladeMatterParserTest extends TestCase
 {
     public function test_can_parse_front_matter()
     {
-        $parser = new BladeMatterParser('@php($title = "BladeMatter Test")');
+        $parser = new BladeMatterParser('@php($foo = "bar")');
         $parser->parse();
-        $this->assertEquals(['title' => 'BladeMatter Test'], $parser->get());
+        $this->assertEquals(['foo' => 'bar'], $parser->get());
     }
 
     public function test_parse_string_helper_method()
@@ -46,7 +46,7 @@ class BladeMatterParserTest extends TestCase
 
     public function test_line_matches_front_matter()
     {
-        $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($title = "BladeMatter Test")'));
+        $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($foo = "bar")'));
         $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('foo bar'));
     }
 
@@ -64,12 +64,12 @@ class BladeMatterParserTest extends TestCase
 
     public function test_extract_key()
     {
-        $this->assertSame('title', BladeMatterParser::extractKey('@php($title = "BladeMatter Test")'));
+        $this->assertSame('foo', BladeMatterParser::extractKey('@php($foo = "bar")'));
     }
 
     public function test_extract_value()
     {
-        $this->assertSame('BladeMatter Test', BladeMatterParser::extractValue('@php($title = "BladeMatter Test")'));
+        $this->assertSame('bar', BladeMatterParser::extractValue('@php($foo = "bar")'));
     }
 
     public function test_normalize_value()
