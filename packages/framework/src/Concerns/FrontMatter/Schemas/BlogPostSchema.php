@@ -4,10 +4,6 @@ namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
 trait BlogPostSchema
 {
-    public function constructBlogPostSchema(): void
-    {
-        //
-    }
     /** @example "My New Post" */
     public string $title;
 
