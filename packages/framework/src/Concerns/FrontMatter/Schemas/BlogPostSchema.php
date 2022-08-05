@@ -29,11 +29,11 @@ trait BlogPostSchema
      * @example See author section
      * @yamlType string|array|null
      */
-    public Author $author;
+    public ?Author $author;
 
     /**
      * @example See image section
      * @yamlType string|array|null
      */
-    public Image $image;
+    public ?Image $image;
 }
