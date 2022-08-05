@@ -33,7 +33,7 @@ class BladeMatterParserTest extends TestCase
             BladeMatterParser::parseFile('foo')
         );
     }
-    
+
     public function test_can_parse_multiple_front_matter_lines()
     {
         $document = <<<'BLADE'
@@ -89,7 +89,7 @@ class BladeMatterParserTest extends TestCase
     public function test_normalize_value()
     {
         $this->assertSame('string', BladeMatterParser::normalizeValue('string'));
-        $this->assertSame("string", BladeMatterParser::normalizeValue("string"));
+        $this->assertSame('string', BladeMatterParser::normalizeValue('string'));
         $this->assertSame(true, BladeMatterParser::normalizeValue('true'));
         $this->assertSame(false, BladeMatterParser::normalizeValue('false'));
         $this->assertSame(1, BladeMatterParser::normalizeValue('1'));
