@@ -33,7 +33,7 @@ class MarkdownPostTest extends TestCase
                 'username' => 'john_doe',
                 'name' => 'John Doe',
                 'website' => 'https://example.com',
-            ]
+            ],
         ]));
 
         $this->assertInstanceOf(Author::class, $post->author);

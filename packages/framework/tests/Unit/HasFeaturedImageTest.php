@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HasFeaturedImage;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Image;
 use Hyde\Testing\TestCase;
 
 /**
@@ -22,5 +21,4 @@ class HasFeaturedImageTest extends TestCase
     {
         return $this->matter->get(...$args);
     }
-
 }
