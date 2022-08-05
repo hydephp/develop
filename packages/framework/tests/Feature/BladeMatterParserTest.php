@@ -34,6 +34,16 @@ class BladeMatterParserTest extends TestCase
         );
     }
     
+    public function test_can_parse_multiple_front_matter_lines()
+    {
+        $document = <<<'BLADE'
+        @php($foo = 'bar')
+        @php($bar = 'baz')
+        @php($baz = 'qux')
+        BLADE;
+        $this->assertEquals(['foo' => 'bar', 'bar' => 'baz', 'baz' => 'qux'], BladeMatterParser::parseString($document));
+    }
+
     public function test_line_matches_front_matter()
     {
         $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($title = "BladeMatter Test")'));
