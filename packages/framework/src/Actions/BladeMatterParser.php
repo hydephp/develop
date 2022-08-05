@@ -32,7 +32,7 @@ class BladeMatterParser
 
         foreach ($lines as $line) {
             if (static::lineMatchesFrontMatter($line)) {
-                $this->matter[] = static::parseLine($line);
+                $this->matter[static::extractKey($line)] = static::extractValue($line);
             }
         }
 
@@ -42,11 +42,6 @@ class BladeMatterParser
     protected static function lineMatchesFrontMatter(string $line): bool
     {
         return str_starts_with($line, static::SEARCH);
-    }
-
-    protected static function parseLine(string $line): array
-    {
-        return [static::extractKey($line) => static::extractValue($line)];
     }
 
     protected static function extractKey(string $line): string
