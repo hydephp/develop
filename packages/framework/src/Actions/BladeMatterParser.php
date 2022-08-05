@@ -130,6 +130,16 @@ class BladeMatterParser
         // Trim input string
         $string = trim($string);
 
+        // Check if string is an array
+        if (! str_starts_with($string, '[') || ! str_ends_with($string, ']')) {
+            throw new \RuntimeException('Failed parsing BladeMatter array. Input string must follow array syntax.');
+        }
+
+        // Check if string is multidimensional (not yet supported)
+        if (substr_count($string, '[') > 1 || substr_count($string, ']') > 1) {
+            throw new \RuntimeException('Failed parsing BladeMatter array. Multidimensional arrays are not supported yet.');
+        }
+
         // Remove opening and closing brackets
         $string = substr($string, 1, strlen($string) - 2);
 
