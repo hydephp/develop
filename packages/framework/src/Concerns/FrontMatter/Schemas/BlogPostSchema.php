@@ -41,5 +41,8 @@ trait BlogPostSchema
     {
         $this->category = $this->matter('category');
         $this->description = $this->matter('description', substr($this->markdown, 0, 125) . '...');
+        if ($this->matter('date') !== null) {
+            $this->date = new DateString($this->matter('date'));
+        }
     }
 }

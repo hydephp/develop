@@ -14,8 +14,6 @@ trait HasDateString
 {
     public function constructDateString(): void
     {
-        if ($this->matter('date') !== null) {
-            $this->date = new DateString($this->matter('date'));
-        }
+        // Moved to BlogPostSchema constructor
     }
 }

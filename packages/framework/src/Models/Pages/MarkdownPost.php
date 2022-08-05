@@ -32,7 +32,6 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->constructBlogPostSchema();
         $this->constructAuthor();
         $this->constructMetadata();
-        $this->constructDateString();
         $this->constructFeaturedImage();
     }
 
