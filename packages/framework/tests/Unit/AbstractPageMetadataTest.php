@@ -1,17 +1,17 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature\Concerns;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Concerns\HasPageMetadata
+ * @covers \Hyde\Framework\Contracts\AbstractPage
  *
- * @see \Hyde\Framework\Testing\Unit\HasPageMetadataRssFeedLinkTest
+ * @see \Hyde\Framework\Testing\Unit\AbstractPageMetadataTest
  */
-class HasPageMetadataTest extends TestCase
+class AbstractPageMetadataTest extends TestCase
 {
     protected function setUp(): void
     {
