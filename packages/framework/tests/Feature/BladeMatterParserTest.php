@@ -10,6 +10,13 @@ use Hyde\Testing\TestCase;
  */
 class BladeMatterParserTest extends TestCase
 {
+    public function test_can_parse_front_matter()
+    {
+        $parser = new BladeMatterParser('@php($title = "BladeMatter Test")');
+        $parser->parse();
+        $this->assertEquals(['title' => 'BladeMatter Test'], $parser->get());
+    }
+
     public function test_line_matches_front_matter()
     {
         $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($title = "BladeMatter Test")'));
