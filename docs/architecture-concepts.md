@@ -107,7 +107,7 @@ Lorem ipsum dolor sit amet, etc.
 
 ### Blade
 
->warning 🧪 This feature is experimental, and currently does not support arrays or multi-line directives as the BladeMatter is statically parsed.
+>warning 🧪 This feature is experimental, and currently does not support multidimensional arrays or multi-line directives as the BladeMatter is statically parsed.
 
 Hyde v0.58.0-beta brings experimental support for creating front-matter in Blade templates, called BladeMatter. The actual syntax is does not use YAML; but instead PHP. However, the parsed end result is the same.
 
