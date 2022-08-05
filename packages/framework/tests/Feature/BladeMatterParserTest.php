@@ -25,6 +25,15 @@ class BladeMatterParserTest extends TestCase
         );
     }
 
+    public function test_parse_file_helper_method()
+    {
+        $this->file('foo', 'foo');
+        $this->assertSame(
+            (new BladeMatterParser('foo'))->parse()->get(),
+            BladeMatterParser::parseFile('foo')
+        );
+    }
+    
     public function test_line_matches_front_matter()
     {
         $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($title = "BladeMatter Test")'));

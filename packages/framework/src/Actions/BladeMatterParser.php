@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Hyde;
+
 /**
  * Parse the front matter in a Blade file.
  *
@@ -33,6 +35,11 @@ class BladeMatterParser
     protected array $matter;
 
     protected const SEARCH = '@php($';
+
+    public static function parseFile(string $localFilePath): array
+    {
+        return static::parseString(file_get_contents(Hyde::path($localFilePath)));
+    }
 
     public static function parseString(string $contents): array
     {
