@@ -26,6 +26,8 @@ class BladeMatterParser
 
     public function parse(): static
     {
+        $this->matter = [];
+
         $lines = explode("\n", $this->contents);
 
         foreach ($lines as $line) {
@@ -33,8 +35,6 @@ class BladeMatterParser
                 $this->matter[] = static::parseLine($line);
             }
         }
-
-        $this->matter = [];
 
         return $this;
     }
