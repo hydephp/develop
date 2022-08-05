@@ -113,13 +113,15 @@ class BladeMatterParser
     /** @internal */
     public static function normalizeValue($value): mixed
     {
+        $value = trim($value);
+
         if ($value === 'null') {
             return null;
         }
 
         // This will cast integers, floats, and booleans to their respective types
         // Still working on a way to handle arrays and objects
-        return trim(json_decode($value) ?? $value);
+        return json_decode($value) ?? $value;
     }
 
     /** @internal */
