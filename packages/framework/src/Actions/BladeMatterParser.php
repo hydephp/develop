@@ -17,6 +17,11 @@ class BladeMatterParser
         $this->contents = $contents;
     }
 
+    public function get(): array
+    {
+        return $this->matter;
+    }
+
     public function parse(): static
     {
         $lines = explode("\n", $this->contents);
@@ -30,11 +35,6 @@ class BladeMatterParser
         $this->matter = [];
 
         return $this;
-    }
-
-    public function get(): array
-    {
-        return $this->matter;
     }
 
     protected static function lineMatchesFrontMatter(string $line): bool
