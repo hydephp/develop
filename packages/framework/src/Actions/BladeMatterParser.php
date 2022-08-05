@@ -119,6 +119,6 @@ class BladeMatterParser
 
         // This will cast integers, floats, and booleans to their respective types
         // Still working on a way to handle arrays and objects
-        return json_decode($value) ?? $value;
+        return trim(json_decode($value) ?? $value);
     }
 }
