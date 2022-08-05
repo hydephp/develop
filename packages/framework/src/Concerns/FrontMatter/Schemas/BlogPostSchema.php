@@ -12,10 +12,10 @@ trait BlogPostSchema
     public string $title;
 
     /** @example "A short description" */
-    public ?string $description;
+    public ?string $description = null;
 
     /** @example "general", "my favorite recipes" */
-    public ?string $category;
+    public ?string $category = null;
 
     /**
      * The date the post was published.
@@ -23,17 +23,17 @@ trait BlogPostSchema
      * @example 'YYYY-MM-DD [HH:MM]' (Must be parsable by `strtotime()`)
      * @yamlType string|optional
      */
-    public ?DateString $date;
+    public ?DateString $date = null;
 
     /**
      * @example See author section
      * @yamlType string|array|optional
      */
-    public ?Author $author;
+    public ?Author $author = null;
 
     /**
      * @example See image section
      * @yamlType string|array|optional
      */
-    public ?Image $image;
+    public ?Image $image = null;
 }
