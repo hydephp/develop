@@ -50,6 +50,18 @@ class BladeMatterParserTest extends TestCase
         $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('foo bar'));
     }
 
+    public function test_directive_cannot_have_leading_whitespace()
+    {
+        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter(' @php($foo = "bar")'));
+    }
+
+    public function test_directive_signature_cannot_contain_whitespace()
+    {
+        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('@php( $foo = "bar")'));
+        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('@ php($foo = "bar")'));
+        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('@ php ($foo = "bar")'));
+    }
+
     public function test_extract_key()
     {
         $this->assertSame('title', BladeMatterParser::extractKey('@php($title = "BladeMatter Test")'));
