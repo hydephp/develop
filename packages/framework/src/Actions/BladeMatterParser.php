@@ -46,7 +46,14 @@ class BladeMatterParser
 
     protected static function extractKey(string $line): string
     {
-        return '';
+        // Remove search prefix
+        $key = substr($line, strlen(static::SEARCH));
+
+        // Remove everything after the first equals sign
+        $key = substr($key, 0, strpos($key, '='));
+
+        // Return trimmed line
+        return trim($key);
     }
 
     protected static function extractValue(string $line): string
