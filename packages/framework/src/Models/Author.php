@@ -5,7 +5,7 @@ namespace Hyde\Framework\Models;
 /**
  * The Post Author Object Model.
  */
-class Author
+class Author implements \Stringable
 {
     /**
      * The username of the author.
@@ -50,6 +50,11 @@ class Author
         if (isset($data['website'])) {
             $this->website = $data['website'];
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 
     /**
