@@ -110,15 +110,62 @@ class BladeMatterParser
         return trim($key);
     }
 
-    /** @internal */
+    /** @internal Return the proper type for the string */
     public static function normalizeValue($value): mixed
     {
+        $value = trim($value);
+
         if ($value === 'null') {
             return null;
         }
 
+        if (static::isValueArrayString($value)) {
+            return static::parseArrayString($value);
+        }
+
         // This will cast integers, floats, and booleans to their respective types
-        // Still working on a way to handle arrays and objects
+        // Still working on a way to handle multidimensional arrays and objects
         return json_decode($value) ?? $value;
+    }
+
+    /** @internal */
+    public static function parseArrayString(string $string): array
+    {
+        $array = [];
+
+        // Trim input string
+        $string = trim($string);
+
+        // Check if string is an array
+        if (! static::isValueArrayString($string)) {
+            throw new \RuntimeException('Failed parsing BladeMatter array. Input string must follow array syntax.');
+        }
+
+        // Check if string is multidimensional (not yet supported)
+        if (substr_count($string, '[') > 1 || substr_count($string, ']') > 1) {
+            throw new \RuntimeException('Failed parsing BladeMatter array. Multidimensional arrays are not supported yet.');
+        }
+
+        // Remove opening and closing brackets
+        $string = substr($string, 1, strlen($string) - 2);
+
+        // tokenize string between commas
+        $tokens = explode(',', $string);
+
+        // Parse each token
+        foreach ($tokens as $entry) {
+            // Split string into key/value pairs
+            $pair = explode('=>', $entry);
+
+            // Add key/value pair to array
+            $array[static::normalizeValue(trim(trim($pair[0]), "'"))] = static::normalizeValue(trim(trim($pair[1]), "'"));
+        }
+
+        return $array;
+    }
+
+    protected static function isValueArrayString(string $string): bool
+    {
+        return str_starts_with($string, '[') && str_ends_with($string, ']');
     }
 }

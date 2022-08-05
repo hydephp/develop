@@ -58,6 +58,12 @@ class BladeMatterParserTest extends TestCase
         }
     }
 
+    public function test_can_parse_front_matter_with_array()
+    {
+        $document = "@php(\$foo = ['bar' => 'baz'])";
+        $this->assertEquals(['foo' => ['bar' => 'baz']], BladeMatterParser::parseString($document));
+    }
+
     public function test_line_matches_front_matter()
     {
         $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($foo = "bar")'));
@@ -97,6 +103,32 @@ class BladeMatterParserTest extends TestCase
         $this->assertSame(1.0, BladeMatterParser::normalizeValue('1.0'));
         $this->assertSame(0.0, BladeMatterParser::normalizeValue('0.0'));
         $this->assertSame(null, BladeMatterParser::normalizeValue('null'));
-        $this->assertSame('["foo" => "bar"]', BladeMatterParser::normalizeValue('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], BladeMatterParser::normalizeValue('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], BladeMatterParser::normalizeValue("['foo' => 'bar']"));
+    }
+
+    public function test_parse_array_string()
+    {
+        $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString("['foo' => 'bar']"));
+
+        $this->assertSame(['foo' => 'bar', 'bar' => 'baz'], BladeMatterParser::parseArrayString('["foo" => "bar", "bar" => "baz"]'));
+        $this->assertSame(['foo' => 'true'], BladeMatterParser::parseArrayString('["foo" => "true"]'));
+        $this->assertSame(['foo' => true], BladeMatterParser::parseArrayString('["foo" => true]'));
+        $this->assertSame(['foo' => '1'], BladeMatterParser::parseArrayString('["foo" => "1"]'));
+        $this->assertSame(['foo' => 1], BladeMatterParser::parseArrayString('["foo" => 1]'));
+    }
+
+    public function test_parse_invalid_array_string()
+    {
+        $this->expectException(\RuntimeException::class);
+        BladeMatterParser::parseArrayString('foo');
+    }
+
+    public function test_parse_multidimensional_array_string()
+    {
+        $this->expectException(\RuntimeException::class);
+        BladeMatterParser::parseArrayString('["foo" => ["bar" => "baz"]]');
     }
 }
