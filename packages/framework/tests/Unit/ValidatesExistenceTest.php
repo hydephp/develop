@@ -9,6 +9,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\ValidatesExistence
+ * @covers \Hyde\Framework\Exceptions\FileNotFoundException
  */
 class ValidatesExistenceTest extends TestCase
 {
