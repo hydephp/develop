@@ -133,7 +133,7 @@ class BladeMatterParser
         $string = trim($string);
 
         // Check if string is an array
-        if (! str_starts_with($string, '[') || ! str_ends_with($string, ']')) {
+        if (! static::isValueArrayString($string)) {
             throw new \RuntimeException('Failed parsing BladeMatter array. Input string must follow array syntax.');
         }
 
@@ -158,5 +158,10 @@ class BladeMatterParser
         }
 
         return $array;
+    }
+
+    protected static function isValueArrayString(string $string): bool
+    {
+        return str_starts_with($string, '[') && str_ends_with($string, ']');
     }
 }
