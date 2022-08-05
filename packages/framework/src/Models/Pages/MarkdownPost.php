@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Models\Pages;
 
+use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Concerns\HasArticleMetadata;
 use Hyde\Framework\Concerns\HasAuthor;
 use Hyde\Framework\Concerns\HasDateString;
@@ -18,6 +19,7 @@ class MarkdownPost extends AbstractMarkdownPage
     use HasArticleMetadata;
     use HasDateString;
     use HasFeaturedImage;
+    use BlogPostSchema;
 
     public ?string $category;
 
