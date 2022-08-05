@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
+use Hyde\Framework\Models\Author;
+use Hyde\Framework\Models\Image;
+
 trait BlogPostSchema
 {
     /** @example "My New Post" */
@@ -17,8 +20,8 @@ trait BlogPostSchema
     public ?string $date;
 
     /** @example See author section */
-    public string|array|null $author;
+    public Author $author;
 
     /** @example See image section */
-    public string|array|null $image;
+    public Image $image;
 }
