@@ -110,7 +110,7 @@ class BladeMatterParserTest extends TestCase
     public function test_parse_array_string()
     {
         $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString('["foo" => "bar"]'));
-        $this->assertSame(["foo" => "bar"], BladeMatterParser::parseArrayString('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString('["foo" => "bar"]'));
         $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString("['foo' => 'bar']"));
 
         $this->assertSame(['foo' => 'bar', 'bar' => 'baz'], BladeMatterParser::parseArrayString('["foo" => "bar", "bar" => "baz"]'));
