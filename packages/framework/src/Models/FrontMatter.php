@@ -9,6 +9,10 @@ use Illuminate\Support\Arr;
 /**
  * Object representing the YAML front matter of a Markdown file.
  *
+ * The data here is equal to the YAML. Unless you are using the data to construct dynamic data,
+ * you probably want to call the `matter()` method on the Page object, as that will let you
+ * access dynamic computed data if it exists, or it will fall back to this class's data.
+ *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  */
 class FrontMatter implements Arrayable, \Stringable
