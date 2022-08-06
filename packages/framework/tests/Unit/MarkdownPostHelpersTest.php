@@ -45,6 +45,6 @@ class MarkdownPostHelpersTest extends TestCase
     public function test_dynamic_description_is_truncated_when_longer_than_128_characters()
     {
         $post = MarkdownPost::make('foo-bar', [], str_repeat('a', 128));
-        $this->assertEquals(str_repeat('a', 125) . '...', $post->getPostDescription());
+        $this->assertEquals(str_repeat('a', 125).'...', $post->getPostDescription());
     }
 }
