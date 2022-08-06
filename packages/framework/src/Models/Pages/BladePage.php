@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Models\FrontMatter;
 
 /**
  * A basic wrapper for the custom Blade View compiler.
@@ -24,11 +25,12 @@ class BladePage extends AbstractPage
     public string $identifier;
 
     /**
-     * @param  string  $view
+     * @param string $view
+     * @param \Hyde\Framework\Models\FrontMatter|array $matter
      */
-    public function __construct(string $view)
+    public function __construct(string $view, FrontMatter|array $matter = [])
     {
-        parent::__construct($view);
+        parent::__construct($view, $matter);
         $this->view = $view;
     }
 
