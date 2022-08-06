@@ -51,7 +51,7 @@ trait BlogPostSchema
     protected function makeDescription(): string
     {
         if (strlen($this->markdown) >= 180) {
-            return substr($this->markdown, 0, 125) . '...';
+            return substr($this->markdown, 0, 125).'...';
         }
 
         return $this->markdown;
