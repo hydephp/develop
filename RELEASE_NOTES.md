@@ -25,6 +25,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 - Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
 - Removed `body()` method from `MarkdownDocumentContract` interface and all its implementations. Use `markdown()->body()` (or cast to string) instead
 - Removed `body` property from Markdown pages. Use `markdown()->body()` (or cast to string) instead
+- Removed deprecated `Helpers\Author` (fully merged into `Models\Author`, simply swap namespace to upgrade)
 
 ### Fixed
 - for any bug fixes.
