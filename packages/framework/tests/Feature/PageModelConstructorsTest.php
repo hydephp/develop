@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
  */
-class PageModelConstructorTest extends TestCase
+class PageModelConstructorsTest extends TestCase
 {
     public function test_dynamic_data_constructor_can_find_title_from_front_matter()
     {
