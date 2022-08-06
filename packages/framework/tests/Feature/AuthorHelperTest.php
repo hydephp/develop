@@ -100,4 +100,12 @@ class AuthorHelperTest extends TestCase
 
         $this->assertEquals('username', $author->getName());
     }
+
+    public function test_to_string_helper_returns_the_name()
+    {
+        $author = new Author('username');
+        $author->name = 'John Doe';
+
+        $this->assertEquals('John Doe', (string) $author);
+    }
 }
