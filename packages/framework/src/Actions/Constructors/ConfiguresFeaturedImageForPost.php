@@ -17,7 +17,9 @@ class ConfiguresFeaturedImageForPost
         return (new static($page))->constructImage();
     }
 
-    protected function __construct(protected MarkdownPost $page) {}
+    protected function __construct(protected MarkdownPost $page)
+    {
+    }
 
     private function constructImage(): Image|null
     {

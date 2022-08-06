@@ -15,7 +15,9 @@ class FindsAuthorForPost
         return (new static($page))->findAuthorForPost();
     }
 
-    protected function __construct(protected MarkdownPost $page){}
+    protected function __construct(protected MarkdownPost $page)
+    {
+    }
 
     protected function findAuthorForPost(): Author|null
     {
