@@ -9,7 +9,7 @@ trait DocumentationPageSchema
     /**
      * The sidebar category group, if any.
      */
-    public ?string $category;
+    public ?string $category = null;
 
     protected function constructDocumentationPageSchema(): void
     {
