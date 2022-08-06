@@ -38,6 +38,7 @@ class PageModelConstructor
             $this->page->title = static::findTitleForPage();
         }
 
+        // @deprecated v0.58.x-beta (will be added to docpage schema)
         if ($this->page instanceof DocumentationPage) {
             $this->page->category = static::getDocumentationPageCategory();
         }
