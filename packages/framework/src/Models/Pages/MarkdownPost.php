@@ -96,8 +96,8 @@ class MarkdownPost extends AbstractMarkdownPage
             $this->properties['og:url'] = $this->getRoute()->getQualifiedUrl();
         }
 
-        if ($this->matter('title') !== null) {
-            $this->properties['og:title'] = $this->matter('title');
+        if ($this->title) {
+            $this->properties['og:title'] = $this->title;
         }
 
         if ($this->matter('date') !== null) {
