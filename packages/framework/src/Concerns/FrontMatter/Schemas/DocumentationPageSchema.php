@@ -11,6 +11,21 @@ trait DocumentationPageSchema
      */
     public ?string $category = null;
 
+    /**
+     * The label for the page shown in the sidebar
+     */
+    public ?string $label;
+
+    /**
+     * Hides the page from the sidebar.
+     */
+    public ?bool $hidden = false;
+
+    /**
+     * The priority of the page used for ordering the sidebar
+     */
+    public ?int $priority = 500;
+
     protected function constructDocumentationPageSchema(): void
     {
         $this->category = static::getDocumentationPageCategory();
