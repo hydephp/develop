@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Str;
@@ -35,7 +35,7 @@ class PageModelConstructor
     protected function constructDynamicData(): void
     {
         if (optional($this->page)->title === null) {
-            $this->page->title = static::findTitleForPage();
+            $this->page->title = FindsTitleForPage::run($this->page);
         }
 
         // @deprecated v0.58.x-beta (will be added to docpage schema)
@@ -58,30 +58,5 @@ class PageModelConstructor
         return str_contains($this->page->identifier, '/')
             ? Str::before($this->page->identifier, '/')
             : $this->page->matter('category');
-    }
-
-    protected function findTitleForPage(): string
-    {
-        return $this->page instanceof AbstractMarkdownPage
-            ? $this->findTitleForMarkdownPage()
-            : Hyde::makeTitle($this->page->identifier);
-    }
-
-    protected function findTitleForMarkdownPage(): string
-    {
-        return $this->page->matter('title')
-            ?? static::findTitleFromMarkdownHeadings()
-            ?? Hyde::makeTitle($this->page->identifier);
-    }
-
-    protected function findTitleFromMarkdownHeadings(): ?string
-    {
-        foreach ($this->page->markdown()->toArray() as $line) {
-            if (str_starts_with($line, '# ')) {
-                return trim(substr($line, 2), ' ');
-            }
-        }
-
-        return null;
     }
 }

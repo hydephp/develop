@@ -9,6 +9,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\PageModelConstructor
+ * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
  */
 class PageModelConstructorTest extends TestCase
 {
