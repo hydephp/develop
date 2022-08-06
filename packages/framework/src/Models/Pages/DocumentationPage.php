@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Models\Pages;
 
+use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
@@ -9,6 +10,7 @@ use Hyde\Framework\Models\Route;
 
 class DocumentationPage extends AbstractMarkdownPage
 {
+    use DocumentationPageSchema;
     use HasTableOfContents;
 
     public static string $sourceDirectory = '_docs';
