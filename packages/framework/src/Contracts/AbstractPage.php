@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
@@ -27,6 +28,8 @@ use Illuminate\Support\Collection;
  */
 abstract class AbstractPage implements PageContract, CompilableContract
 {
+    use PageSchema;
+
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
