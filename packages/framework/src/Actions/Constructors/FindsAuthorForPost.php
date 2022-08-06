@@ -34,10 +34,15 @@ class FindsAuthorForPost
                 // If the author is an array, we'll assume it's a user
                 // with one-off custom data, so we create a new author.
                 // In the future we may want to merge config data with custom data
-                return new Author($this->page->matter('author')['username'] ?? $this->page->matter('author')['name'] ?? 'Guest', $this->page->matter('author'));
+                return new Author($this->getUsername(), $this->page->matter('author'));
             }
         }
 
         return null;
+    }
+
+    protected function getUsername(): string
+    {
+        return $this->page->matter('author')['username'] ?? $this->page->matter('author')['name'] ?? 'Guest';
     }
 }
