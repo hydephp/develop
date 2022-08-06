@@ -62,3 +62,12 @@ Instead, you can add it with front matter: `MarkdownPage::make(matter: ['title' 
 #### Markdown pages now have front matter in an object instead of array
 
 This means that instead of the following `$post->matter['title']`, you would use `$post->matter('title')`, which allows you to add a fallback like so: `$post->matter('title', 'Untitled')`
+
+#### Author helper has been merged into the model
+
+The deprecated `Helpers\Author` has been fully merged into `Models\Author`. Simply swap namespaces to upgrade.
+
+```diff
+-use Hyde\Framework\Helpers\Author;
++use Hyde\Framework\Models\Author;
+```
