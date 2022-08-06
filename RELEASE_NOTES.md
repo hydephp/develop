@@ -7,6 +7,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 ### Added
 - Added `compile()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
 - Adds a new action, PageModelConstructor, to dynamically construct page model data
+- Adds new actions to handle complex dynamic constructors
 - Adds new front matter schema traits
 
 ### Changed
