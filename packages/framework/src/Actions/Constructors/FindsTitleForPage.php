@@ -24,16 +24,9 @@ class FindsTitleForPage
 
     protected function findTitleForPage(): string
     {
-        return $this->page instanceof AbstractMarkdownPage
-            ? $this->findTitleForMarkdownPage()
-            : Hyde::makeTitle($this->page->identifier);
-    }
-
-    protected function findTitleForMarkdownPage(): string
-    {
-        return $this->page->matter('title')
-            ?? $this->findTitleFromMarkdownHeadings()
-            ?? Hyde::makeTitle($this->page->identifier);
+        return $this->page->matter->get('title')
+                ?? $this->findTitleFromMarkdownHeadings()
+                ?? Hyde::makeTitle($this->page->identifier);
     }
 
     protected function findTitleFromMarkdownHeadings(): ?string
