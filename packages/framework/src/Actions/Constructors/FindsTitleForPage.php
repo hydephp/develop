@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Hyde;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\PageModelConstructorTest
+ * @see \Hyde\Framework\Testing\Feature\PageModelConstructorsTest
  *
  * @internal
  */
