@@ -114,6 +114,7 @@ class MarkdownPost extends AbstractMarkdownPage
      *
      * @param  string|array  $author
      * @return string
+     *
      * @deprecated v0.58.x-beta (Use author model instead)
      */
     protected function getAuthorName(string|array $author): string
