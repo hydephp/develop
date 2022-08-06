@@ -1,17 +1,15 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature\Concerns;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Concerns\HasArticleMetadata
- *
- * @see \Hyde\Framework\Models\Metadata
+ * @covers \Hyde\Framework\Models\Pages\MarkdownPost
  */
-class HasArticleMetadataTest extends TestCase
+class ArticleMetadataTest extends TestCase
 {
     protected function setUp(): void
     {
