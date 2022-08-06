@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Models\Author;
+use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Image;
 use Hyde\Framework\Models\Pages\MarkdownPost;
@@ -62,5 +63,15 @@ class MarkdownPostTest extends TestCase
 
         $this->assertInstanceOf(Image::class, $post->image);
         $this->assertEquals('https://example.com/image.jpg', $post->image->uri);
+    }
+
+    public function test_constructor_can_create_a_new_date_string_instance_from_matter()
+    {
+        $post = new MarkdownPost(matter: FrontMatter::fromArray([
+            'date' => '2022-01-01',
+        ]));
+
+        $this->assertInstanceOf(DateString::class, $post->date);
+        $this->assertEquals('Jan 1st, 2022', $post->date->short);
     }
 }
