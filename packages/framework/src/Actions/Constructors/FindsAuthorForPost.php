@@ -10,17 +10,12 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
  */
 class FindsAuthorForPost
 {
-    protected MarkdownPost $page;
-
     public static function run(MarkdownPost $page): Author|null
     {
         return (new static($page))->findAuthorForPost();
     }
 
-    protected function __construct(MarkdownPost $page)
-    {
-        $this->page = $page;
-    }
+    protected function __construct(protected MarkdownPost $page){}
 
     protected function findAuthorForPost(): Author|null
     {

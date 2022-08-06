@@ -12,17 +12,12 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
  */
 class ConfiguresFeaturedImageForPost
 {
-    protected MarkdownPost $page;
-
     public static function run(MarkdownPost $page): Image|null
     {
         return (new static($page))->constructImage();
     }
 
-    protected function __construct(MarkdownPost $page)
-    {
-        $this->page = $page;
-    }
+    protected function __construct(protected MarkdownPost $page) {}
 
     private function constructImage(): Image|null
     {

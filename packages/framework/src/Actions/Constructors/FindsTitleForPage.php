@@ -13,17 +13,12 @@ use Hyde\Framework\Hyde;
  */
 class FindsTitleForPage
 {
-    protected AbstractPage $page;
-
     public static function run(AbstractPage $page): string
     {
         return (new static($page))->findTitleForPage();
     }
 
-    protected function __construct(AbstractPage $page)
-    {
-        $this->page = $page;
-    }
+    protected function __construct(protected AbstractPage $page) {}
 
     protected function findTitleForPage(): string
     {
