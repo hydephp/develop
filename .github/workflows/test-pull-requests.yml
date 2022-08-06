@@ -54,40 +54,40 @@ jobs:
         php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
 
 
-  check-coding-standards:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: "8.0"
-      - uses: actions/checkout@v3
+  # check-coding-standards:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+  #       with:
+  #         php-version: "8.0"
+  #     - uses: actions/checkout@v3
 
-      - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+  #     - name: Install Composer Dependencies
+  #       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Create cache directory
-        run: mkdir build/cache -p
+  #     - name: Create cache directory
+  #       run: mkdir build/cache -p
 
-      - name: Check syntax (PHP Parallel Lint)
-        run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
+  #     - name: Check syntax (PHP Parallel Lint)
+  #       run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
 
-      - name: Check coding syntax/standards (PHP CodeSniffer)
-        run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true
+  #     - name: Check coding syntax/standards (PHP CodeSniffer)
+  #       run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true
 
 
-  run-static-analysis:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: "8.0"
-      - uses: actions/checkout@v3
+  # run-static-analysis:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+  #       with:
+  #         php-version: "8.0"
+  #     - uses: actions/checkout@v3
 
-      - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+  #     - name: Install Composer Dependencies
+  #       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Run static analysis (PHPStan)
-        run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
+  #     - name: Run static analysis (PHPStan)
+  #       run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
 
-      - name: Run static analysis (Psalm/Shepherd)
-        run: vendor/bin/psalm --shepherd || true
+  #     - name: Run static analysis (Psalm/Shepherd)
+  #       run: vendor/bin/psalm --shepherd || true
