@@ -43,7 +43,7 @@ class DocumentationSidebar extends NavigationMenu
     protected function filterHiddenItems(): Collection
     {
         return $this->items->reject(function (NavItem $item) {
-            return $item->route->getSourceModel()->matter('hidden', false) || ($item->route->getRouteKey() === 'docs/index');
+            return $item->route->getSourceModel()->hidden;
         })->values();
     }
 

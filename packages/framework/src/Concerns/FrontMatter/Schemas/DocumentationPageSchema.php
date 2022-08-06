@@ -29,6 +29,8 @@ trait DocumentationPageSchema
     protected function constructDocumentationPageSchema(): void
     {
         $this->category = static::getDocumentationPageCategory();
+
+        $this->hidden = $this->identifier === 'index';
     }
 
     protected function getDocumentationPageCategory(): ?string
