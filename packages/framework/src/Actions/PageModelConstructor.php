@@ -5,8 +5,6 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Illuminate\Support\Str;
 
 /**
  * Dynamically constructs data for a page model.
