@@ -6,8 +6,6 @@ use Hyde\Framework\Models\Author;
 use Hyde\Testing\TestCase;
 
 /**
- * Class HasAuthorTest.
- *
  * @covers \Hyde\Framework\Models\Author::getName
  */
 class AuthorGetNameTest extends TestCase
