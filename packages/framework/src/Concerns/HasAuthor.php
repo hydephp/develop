@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Framework\Helpers\Author as AuthorHelper;
 use Hyde\Framework\Models\Author;
 
 /**
@@ -34,7 +33,7 @@ trait HasAuthor
 
     protected function findAuthor(string $author): Author
     {
-        return AuthorHelper::get($author);
+        return Author::get($author);
     }
 
     protected function createAuthor(array $data): Author
