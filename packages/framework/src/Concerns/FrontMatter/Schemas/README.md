@@ -21,7 +21,7 @@ However, the actual sidebar label can be changed with front matter and is thus i
 the schema constructor will assign an appropriate one.
 
 ## Data types
-The data types used for the class properties should match the ones in the front matter, and if they don't, the actual YAML values should be documented.
+The data types used for the class properties should match the ones in the front matter, and if they don't, the actual YAML values should be documented. All the trait properties must be public.
 
 For example, the blog post author model can in the YAML matter be a string or array, but internally it is always an Author object or null. So the following is used instead:
     
