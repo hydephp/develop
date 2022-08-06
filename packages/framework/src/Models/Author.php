@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Models;
 
+use Illuminate\Support\Collection;
+
 /**
  * The Post Author Object Model.
  */
@@ -67,5 +69,24 @@ class Author implements \Stringable
     public function getName(): string
     {
         return $this->name ?? $this->username;
+    }
+
+    public static function create(string $username, ?string $name = null, ?string $website = null): static
+    {
+        return new static($username, [
+            'name' => $name,
+            'website'=> $website,
+        ]);
+    }
+
+    public static function all(): Collection
+    {
+        return new Collection(config('authors', []));
+    }
+
+    public static function get(string $username): static
+    {
+        return static::all()->firstWhere('username', $username)
+            ?? static::create($username);
     }
 }

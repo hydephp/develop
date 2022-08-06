@@ -3,8 +3,8 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-use Hyde\Framework\Helpers\Author;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Author;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 

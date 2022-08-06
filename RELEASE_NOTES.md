@@ -13,6 +13,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 - Breaking: Rename AbstractPage property `slug` to `identifier`
 - Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
 - Breaking: Splits Markdown data from MarkdownDocument into new Markdown model class
+- Breaking: The default `config/hyde.php` file now uses `Models\Author` instead of `Helpers\Author`
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
@@ -25,6 +26,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 - Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
 - Removed `body()` method from `MarkdownDocumentContract` interface and all its implementations. Use `markdown()->body()` (or cast to string) instead
 - Removed `body` property from Markdown pages. Use `markdown()->body()` (or cast to string) instead
+- Removed deprecated `Helpers\Author` (fully merged into `Models\Author`, simply swap namespace to upgrade)
 
 ### Fixed
 - for any bug fixes.
@@ -60,3 +62,12 @@ Instead, you can add it with front matter: `MarkdownPage::make(matter: ['title' 
 #### Markdown pages now have front matter in an object instead of array
 
 This means that instead of the following `$post->matter['title']`, you would use `$post->matter('title')`, which allows you to add a fallback like so: `$post->matter('title', 'Untitled')`
+
+#### Author helper has been merged into the model
+
+The deprecated `Helpers\Author` has been fully merged into `Models\Author`. Simply swap namespaces to upgrade.
+
+```diff
+-use Hyde\Framework\Helpers\Author;
++use Hyde\Framework\Models\Author;
+```
