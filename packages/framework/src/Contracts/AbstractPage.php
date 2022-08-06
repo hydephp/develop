@@ -106,26 +106,18 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @interitDoc */
     public function __get(string $name)
     {
-        return $this->matter($name);
+        return $this->matter->get($name);
     }
 
     /** @inheritDoc */
     public function __set(string $name, $value): void
     {
-        if (property_exists($this, $name) && isset($this->$name)) {
-            $this->$name = $value;
-        } else {
-            $this->matter->set($name, $value);
-        }
+        $this->matter->set($name, $value);
     }
 
     /** @inheritDoc */
     public function matter(string $key = null, mixed $default = null): mixed
     {
-        if (property_exists($this, $key) && isset($this->$key)) {
-            return $this->$key;
-        }
-
         return $this->matter->get($key, $default);
     }
 
