@@ -353,40 +353,6 @@ class AbstractPageTest extends TestCase
         $this->assertEquals('# Foo', $page->markdown->body());
     }
 
-    public function test_markdown_page_magic_get_method_returns_front_matter_properties()
-    {
-        $page = MarkdownPage::make(matter: ['foo' => 'bar']);
-        $this->assertEquals('bar', $page->foo);
-    }
-
-    public function test_markdown_page_magic_get_method_gives_precedence_to_actual_class_properties()
-    {
-        $page = MarkdownPage::make(matter: ['foo' => 'bar']);
-        $page->foo = 'baz';
-        $this->assertEquals('baz', $page->foo);
-    }
-
-    public function test_markdown_page_magic_get_method_returns_null_if_property_not_found()
-    {
-        $page = MarkdownPage::make();
-        $this->assertNull($page->foo);
-    }
-
-    public function test_markdown_page_magic_set_method_sets_front_matter_properties()
-    {
-        $page = MarkdownPage::make();
-        $page->foo = 'bar';
-        $this->assertEquals('bar', $page->matter('foo'));
-    }
-
-    public function test_markdown_page_magic_set_method_does_not_override_actual_class_properties()
-    {
-        $page = MarkdownPage::make('foo', ['identifier' => 'bar']);
-        $page->identifier = 'baz';
-        $this->assertEquals('baz', $page->identifier);
-        $this->assertEquals('bar', $page->matter('identifier'));
-    }
-
     public function test_show_in_navigation_returns_false_for_markdown_post()
     {
         $page = $this->mock(MarkdownPost::class)->makePartial();
