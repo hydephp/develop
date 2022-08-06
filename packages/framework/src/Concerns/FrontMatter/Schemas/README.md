@@ -1,5 +1,9 @@
 # Working draft for front matter schema documentation
 
+## Developers:
+
+See https://github.com/hydephp/develop/issues/258 and https://github.com/hydephp/develop/pull/351
+
 ## What front matter schema traits are
 
 The schema traits define the public API used for front matter.
