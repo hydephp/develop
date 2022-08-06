@@ -19,18 +19,18 @@ trait DocumentationPageSchema
     /**
      * Hides the page from the sidebar.
      */
-    public ?bool $hidden = false;
+    public ?bool $hidden = null;
 
     /**
      * The priority of the page used for ordering the sidebar.
      */
-    public ?int $priority = 500;
+    public ?int $priority = null;
 
     protected function constructDocumentationPageSchema(): void
     {
         $this->category = static::getDocumentationPageCategory();
 
-        $this->hidden = $this->identifier === 'index';
+        $this->hidden = $this->matter('hidden', $this->identifier === 'index');
     }
 
     protected function getDocumentationPageCategory(): ?string
