@@ -85,4 +85,27 @@ class AuthorHelperTest extends TestCase
         $this->assertInstanceOf(Author::class, $author);
         $this->assertEquals('foo', $author->username);
     }
+
+    public function test_get_name_helper_returns_name_if_set()
+    {
+        $author = new Author('username');
+        $author->name = 'John Doe';
+
+        $this->assertEquals('John Doe', $author->getName());
+    }
+
+    public function test_get_name_helper_returns_username_if_name_is_not_set()
+    {
+        $author = new Author('username');
+
+        $this->assertEquals('username', $author->getName());
+    }
+
+    public function test_to_string_helper_returns_the_name()
+    {
+        $author = new Author('username');
+        $author->name = 'John Doe';
+
+        $this->assertEquals('John Doe', (string) $author);
+    }
 }

@@ -40,4 +40,10 @@ class DateStringTest extends TestCase
         $dateString = new DateString('2020-01-01 UTC');
         $this->assertEquals('Jan 1st, 2020', $dateString->short);
     }
+
+    public function test_it_can_format_date_string_into_short_human_readable_string_using_magic_method()
+    {
+        $dateString = new DateString('2022-01-01 UTC');
+        $this->assertEquals('Jan 1st, 2022', (string) $dateString);
+    }
 }

@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
@@ -23,10 +24,12 @@ use Illuminate\Support\Collection;
  *
  * @see \Hyde\Framework\Contracts\PageContract
  * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
- * @test \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractPage implements PageContract, CompilableContract
 {
+    use PageSchema;
+
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
@@ -97,6 +100,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     {
         $this->identifier = $identifier;
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+        $this->constructPageSchema();
     }
 
     /** @interitDoc */

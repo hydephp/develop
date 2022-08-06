@@ -13,16 +13,16 @@ use Illuminate\Support\Arr;
  */
 class FrontMatter implements Arrayable, \Stringable
 {
-    public array $matter;
+    public array $data;
 
     public function __construct(array $matter = [])
     {
-        $this->matter = $matter;
+        $this->data = $matter;
     }
 
     public function __toString(): string
     {
-        return (new ConvertsArrayToFrontMatter())->execute($this->matter);
+        return (new ConvertsArrayToFrontMatter())->execute($this->data);
     }
 
     public function __get(string $key): mixed
@@ -33,22 +33,22 @@ class FrontMatter implements Arrayable, \Stringable
     public function get(string $key = null, mixed $default = null): mixed
     {
         if ($key) {
-            return Arr::get($this->matter, $key, $default);
+            return Arr::get($this->data, $key, $default);
         }
 
-        return $this->matter;
+        return $this->data;
     }
 
     public function set(string $key, mixed $value): static
     {
-        $this->matter[$key] = $value;
+        $this->data[$key] = $value;
 
         return $this;
     }
 
     public function toArray(): array
     {
-        return $this->matter;
+        return $this->data;
     }
 
     public static function fromArray(array $matter): static

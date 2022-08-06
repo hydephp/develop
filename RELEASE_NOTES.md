@@ -7,6 +7,8 @@ This update contains **breaking changes** to the internal API regarding page mod
 ### Added
 - Added `compile()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
 - Adds a new action, PageModelConstructor, to dynamically construct page model data
+- Adds new actions to handle complex dynamic constructors
+- Adds new front matter schema traits
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
@@ -14,19 +16,20 @@ This update contains **breaking changes** to the internal API regarding page mod
 - Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
 - Breaking: Splits Markdown data from MarkdownDocument into new Markdown model class
 - Breaking: The default `config/hyde.php` file now uses `Models\Author` instead of `Helpers\Author`
+- Major: Restructure internal page data to use new front matter schema traits 
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
 - Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
-- Deprecate `$title` property in AbstractMarkdownPage, (access through front matter instead)
 
 ### Removed
 - Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
 - Removed `body()` method from `MarkdownDocumentContract` interface and all its implementations. Use `markdown()->body()` (or cast to string) instead
 - Removed `body` property from Markdown pages. Use `markdown()->body()` (or cast to string) instead
 - Removed deprecated `Helpers\Author` (fully merged into `Models\Author`, simply swap namespace to upgrade)
+- Several internal single-use helper traits have been merged into their respective classes
 
 ### Fixed
 - for any bug fixes.
