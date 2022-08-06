@@ -12,7 +12,7 @@ trait DocumentationPageSchema
     public ?string $category = null;
 
     /**
-     * The label for the page shown in the sidebar
+     * The label for the page shown in the sidebar.
      */
     public ?string $label;
 
@@ -22,7 +22,7 @@ trait DocumentationPageSchema
     public ?bool $hidden = false;
 
     /**
-     * The priority of the page used for ordering the sidebar
+     * The priority of the page used for ordering the sidebar.
      */
     public ?int $priority = 500;
 

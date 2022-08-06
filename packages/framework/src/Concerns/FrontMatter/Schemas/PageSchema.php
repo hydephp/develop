@@ -8,7 +8,8 @@ trait PageSchema
 {
     /**
      * The title of the page used in the HTML <title> tag, among others.
-     * @example "Home", "About", "Blog Feed" 
+     *
+     * @example "Home", "About", "Blog Feed"
      */
     public string $title;
 
