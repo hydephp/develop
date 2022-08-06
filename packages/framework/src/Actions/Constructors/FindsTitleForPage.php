@@ -15,7 +15,7 @@ class FindsTitleForPage
 {
     public static function run(AbstractPage $page): string
     {
-        return (new static($page))->findTitleForPage();
+        return trim((new static($page))->findTitleForPage());
     }
 
     protected function __construct(protected AbstractPage $page)
