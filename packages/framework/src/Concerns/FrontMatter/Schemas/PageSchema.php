@@ -6,7 +6,10 @@ use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 
 trait PageSchema
 {
-    /** @example "Home", "About", "Blog Feed" */
+    /**
+     * The title of the page used in the HTML <title> tag, among others.
+     * @example "Home", "About", "Blog Feed" 
+     */
     public string $title;
 
     protected function constructPageSchema(): void
