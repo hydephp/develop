@@ -35,14 +35,8 @@ class ConfiguresFeaturedImageForPost
 
     private function constructBaseImage(string $image): Image
     {
-        if (str_starts_with($image, 'http')) {
-            return new Image([
-                'uri' => $image,
-            ]);
-        }
-
-        return new Image([
-            'path' => $image,
-        ]);
+        return str_starts_with($image, 'http')
+            ? new Image(['uri' => $image])
+            : new Image(['path' => $image]);
     }
 }
