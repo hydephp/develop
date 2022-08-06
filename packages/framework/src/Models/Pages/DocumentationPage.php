@@ -6,6 +6,8 @@ use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Route;
 
 class DocumentationPage extends AbstractMarkdownPage
@@ -16,6 +18,14 @@ class DocumentationPage extends AbstractMarkdownPage
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
+
+    /** @inheritDoc */
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
+    {
+        parent::__construct($identifier, $matter, $markdown);
+
+        $this->constructDocumentationPageSchema();
+    }
 
     /** @inheritDoc */
     public function getCurrentPagePath(): string
