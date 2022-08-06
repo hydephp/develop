@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
-use Hyde\Framework\Helpers\Author as AuthorHelper;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
@@ -73,7 +72,7 @@ trait BlogPostSchema
 
     private function findAuthor(string $author): Author
     {
-        return AuthorHelper::get($author);
+        return Author::get($author);
     }
 
     private function createAuthor(array $data): Author
