@@ -73,7 +73,7 @@ class MarkdownPost extends AbstractMarkdownPage
      */
     protected function parseFrontMatterMetadata(): void
     {
-        if ($this->matter('description') !== null) {
+        if (! empty($this->matter('description'))) {
             $this->metadata['description'] = $this->matter('description');
         }
 
