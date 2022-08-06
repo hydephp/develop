@@ -31,7 +31,7 @@ class ConfiguresFeaturedImageForPost
                 return $this->constructBaseImage($this->page->matter('image'));
             }
             if (is_array($this->page->matter('image'))) {
-                return $this->constructFullImage($this->page->matter('image'));
+                return new Image($this->page->matter('image'));
             }
         }
 
@@ -49,10 +49,5 @@ class ConfiguresFeaturedImageForPost
         return new Image([
             'path' => $image,
         ]);
-    }
-
-    private function constructFullImage(array $image): Image
-    {
-        return new Image($image);
     }
 }
