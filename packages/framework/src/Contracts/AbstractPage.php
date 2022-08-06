@@ -237,6 +237,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     /**
      * Should the item should be displayed in the navigation menu?
+     *
      * @deprecated should be moved to schema
      *
      * @return bool
@@ -266,6 +267,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     /**
      * The relative priority, determining the position of the item in the menu.
+     *
      * @deprecated should be moved to schema
      *
      * @return int
@@ -299,7 +301,9 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     /**
      * The page title to display in the navigation menu.
+     *
      * @deprecated should be moved to schema
+     *
      * @return string
      */
     public function navigationMenuTitle(): string
