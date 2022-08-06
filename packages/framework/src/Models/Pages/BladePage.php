@@ -25,8 +25,8 @@ class BladePage extends AbstractPage
     public string $identifier;
 
     /**
-     * @param string $view
-     * @param \Hyde\Framework\Models\FrontMatter|array $matter
+     * @param  string  $view
+     * @param  \Hyde\Framework\Models\FrontMatter|array  $matter
      */
     public function __construct(string $view, FrontMatter|array $matter = [])
     {
