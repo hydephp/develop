@@ -41,16 +41,9 @@ trait BlogPostSchema
     {
         $this->category = $this->matter('category');
         $this->description = $this->matter('description', substr($this->markdown, 0, 125).'...');
-        $this->constructDateString();
+        $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
         $this->constructAuthor();
         $this->constructImage();
-    }
-
-    private function constructDateString(): void
-    {
-        if ($this->matter('date') !== null) {
-            $this->date = new DateString($this->matter('date'));
-        }
     }
 
     private function constructAuthor(): void
