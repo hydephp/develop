@@ -5,6 +5,9 @@ namespace Hyde\Framework\Actions\Constructors;
 use Hyde\Framework\Models\Image;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
+/**
+ * @internal
+ */
 class ConfiguresFeaturedImageForPost
 {
     protected MarkdownPost $page;

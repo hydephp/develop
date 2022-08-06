@@ -8,6 +8,7 @@ use Hyde\Framework\Hyde;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PageModelConstructorTest
+ * @internal
  */
 class FindsTitleForPage
 {

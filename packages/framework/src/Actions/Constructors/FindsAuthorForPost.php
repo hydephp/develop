@@ -5,6 +5,9 @@ namespace Hyde\Framework\Actions\Constructors;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
+/**
+ * @internal
+ */
 class FindsAuthorForPost
 {
     protected MarkdownPost $page;
