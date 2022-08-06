@@ -34,10 +34,6 @@ class PageModelConstructor
 
     protected function constructDynamicData(): void
     {
-        if (optional($this->page)->title === null) {
-            $this->page->title = FindsTitleForPage::run($this->page);
-        }
-
         // @deprecated v0.58.x-beta (will be added to docpage schema)
         if ($this->page instanceof DocumentationPage) {
             $this->page->category = static::getDocumentationPageCategory();

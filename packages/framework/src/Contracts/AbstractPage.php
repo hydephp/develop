@@ -100,6 +100,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     {
         $this->identifier = $identifier;
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+        $this->constructPageSchema();
     }
 
     /** @interitDoc */
