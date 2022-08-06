@@ -13,7 +13,9 @@ class DocumentationSidebar extends NavigationMenu
     public function generate(): static
     {
         RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
-            $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
+            if (! $route->getSourceModel()->matter('hidden', false)) {
+                $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
+            }
         });
 
         return $this;
@@ -42,9 +44,7 @@ class DocumentationSidebar extends NavigationMenu
 
     protected function filterHiddenItems(): Collection
     {
-        return $this->items->reject(function (NavItem $item) {
-            return $item->route->getSourceModel()->hidden;
-        })->values();
+        return $this->items;
     }
 
     protected function getPriorityForRoute(Route $route): int
