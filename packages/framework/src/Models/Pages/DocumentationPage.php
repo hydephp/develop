@@ -17,11 +17,6 @@ class DocumentationPage extends AbstractMarkdownPage
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
-    /**
-     * The sidebar category group, if any.
-     */
-    public ?string $category;
-
     /** @inheritDoc */
     public function getCurrentPagePath(): string
     {
