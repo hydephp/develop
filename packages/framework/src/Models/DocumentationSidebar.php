@@ -49,21 +49,6 @@ class DocumentationSidebar extends NavigationMenu
 
     protected function getPriorityForRoute(Route $route): int
     {
-        return $route->getSourceModel()->matter('priority') ?? $this->findPriorityInConfig($route->getSourceModel()->identifier);
-    }
-
-    protected function findPriorityInConfig(string $slug): int
-    {
-        $orderIndexArray = config('docs.sidebar_order', []);
-
-        if (! in_array($slug, $orderIndexArray)) {
-            return 500;
-        }
-
-        return array_search($slug, $orderIndexArray) + 250;
-
-        // Adding 250 makes so that pages with a front matter priority that is lower
-        // can be shown first. It's lower than the fallback of 500 so that they
-        // still come first. This is all to make it easier to mix priorities.
+        return $route->getSourceModel()->matter('priority');
     }
 }

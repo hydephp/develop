@@ -31,6 +31,7 @@ trait DocumentationPageSchema
         $this->category = static::getDocumentationPageCategory();
 
         $this->hidden = $this->matter('hidden', $this->identifier === 'index');
+        $this->priority = $this->matter('priority', $this->findPriorityInConfig());
     }
 
     protected function getDocumentationPageCategory(): ?string
@@ -42,5 +43,20 @@ trait DocumentationPageSchema
         return str_contains($this->identifier, '/')
             ? Str::before($this->identifier, '/')
             : $this->matter('category');
+    }
+
+    protected function findPriorityInConfig(): int
+    {
+        $orderIndexArray = config('docs.sidebar_order', []);
+
+        if (! in_array($this->identifier, $orderIndexArray)) {
+            return 500;
+        }
+
+        return array_search($this->identifier, $orderIndexArray) + 250;
+
+        // Adding 250 makes so that pages with a front matter priority that is lower
+        // can be shown first. It's lower than the fallback of 500 so that they
+        // still come first. This is all to make it easier to mix priorities.
     }
 }
