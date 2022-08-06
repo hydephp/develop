@@ -24,9 +24,6 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     public string $identifier;
     public Markdown $markdown;
 
-    /** @deprecated */
-    public string $title;
-
     public static string $fileExtension = '.md';
 
     /** @interitDoc */
