@@ -42,9 +42,18 @@ trait BlogPostSchema
     protected function constructBlogPostSchema(): void
     {
         $this->category = $this->matter('category');
-        $this->description = $this->matter('description', substr($this->markdown, 0, 125).'...');
+        $this->description = $this->matter('description', $this->makeDescription());
         $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
         $this->author = FindsAuthorForPost::run($this);
         $this->image = ConfiguresFeaturedImageForPost::run($this);
+    }
+
+    protected function makeDescription(): string
+    {
+        if (strlen($this->markdown) >= 180) {
+            return substr($this->markdown, 0, 125) . '...';
+        }
+
+        return $this->markdown;
     }
 }
