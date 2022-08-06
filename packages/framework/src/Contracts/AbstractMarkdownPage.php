@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Actions\PageModelConstructor;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 
@@ -33,9 +32,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     /** @interitDoc */
     public static function make(string $identifier = '', array $matter = [], string $body = ''): static
     {
-        return tap(new static($identifier, new FrontMatter($matter), new Markdown($body)), function (self $page) {
-            return PageModelConstructor::run($page);
-        });
+        return new static($identifier, new FrontMatter($matter), new Markdown($body));
     }
 
     /** @interitDoc */

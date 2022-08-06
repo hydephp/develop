@@ -8,7 +8,8 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Actions\PageModelConstructor
+ * Test the constructor actions and schema constructors for page models.
+ *
  * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
  */
 class PageModelConstructorTest extends TestCase

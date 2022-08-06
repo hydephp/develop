@@ -32,7 +32,6 @@ class SourceFileParser
         $this->slug = $slug;
 
         $this->page = $this->constructBaseModel($pageClass);
-        $this->page = PageModelConstructor::run($this->page);
     }
 
     protected function constructBaseModel(string $pageClass): BladePage|AbstractMarkdownPage
