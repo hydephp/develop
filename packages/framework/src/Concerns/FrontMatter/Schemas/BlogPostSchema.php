@@ -47,7 +47,6 @@ trait BlogPostSchema
         $this->constructImage();
     }
 
-
     private function constructImage(): void
     {
         if ($this->matter('image') !== null) {
