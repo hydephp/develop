@@ -70,7 +70,7 @@ class ArticleMetadataTest extends TestCase
 
         $this->assertEquals([
             'og:type' => 'article',
-            'og:article:published_time' => '2022-01-01T00:00:00+00:00',
+            'og:article:published_time' => '2022-01-01T12:00:00+00:00',
         ], $page->getMetaProperties());
     }
 

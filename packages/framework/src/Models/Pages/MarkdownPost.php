@@ -101,7 +101,7 @@ class MarkdownPost extends AbstractMarkdownPage
         }
 
         if ($this->matter('date') !== null) {
-            $this->properties['og:article:published_time'] = date('c', strtotime($this->matter('date')));
+            $this->properties['og:article:published_time'] = $this->date->dateTimeObject->format('c');
         }
 
         if ($this->matter('image') !== null) {
