@@ -7,6 +7,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
  * @internal
+ *
  * @see \Hyde\Framework\Testing\Unit\ConfiguresFeaturedImageForPostTest
  */
 class ConfiguresFeaturedImageForPost
