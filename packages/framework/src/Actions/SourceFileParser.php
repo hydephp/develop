@@ -43,11 +43,9 @@ class SourceFileParser
 
     protected function parseBladePage(): BladePage
     {
-        return tap(new BladePage($this->slug), function (BladePage $page) {
-            $page->matter = FrontMatter::fromArray(
-                $this->parseBladeMatter(file_get_contents($page->getSourcePath()))
-            );
-        });
+        return (new BladePage($this->slug,
+            $this->parseBladeMatter(file_get_contents(BladePage::qualifyBasename($this->slug)))
+        ));
     }
 
     protected function parseBladeMatter(string $contents): array
