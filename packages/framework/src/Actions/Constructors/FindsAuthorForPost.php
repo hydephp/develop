@@ -28,28 +28,16 @@ class FindsAuthorForPost
             if (is_string($this->page->matter('author'))) {
                 // If the author is a string, we assume it's a username,
                 // so we'll try to find the author in the config
-                return $this->findAuthor($this->page->matter('author'));
+                return Author::get($this->page->matter('author'));
             }
             if (is_array($this->page->matter('author'))) {
                 // If the author is an array, we'll assume it's a user
                 // with one-off custom data, so we create a new author.
                 // In the future we may want to merge config data with custom data
-                return $this->createAuthor($this->page->matter('author'));
+                return new Author($this->page->matter('author')['username'] ?? $this->page->matter('author')['name'] ?? 'Guest', $this->page->matter('author'));
             }
         }
 
         return null;
-    }
-
-    protected function findAuthor(string $author): Author
-    {
-        return Author::get($author);
-    }
-
-    protected function createAuthor(array $data): Author
-    {
-        $username = $data['username'] ?? $data['name'] ?? 'Guest';
-
-        return new Author($username, $data);
     }
 }
