@@ -13,6 +13,7 @@ This update contains **breaking changes** to the internal API regarding page mod
 - Breaking: Rename AbstractPage property `slug` to `identifier`
 - Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
 - Breaking: Splits Markdown data from MarkdownDocument into new Markdown model class
+- Breaking: The default `config/hyde.php` file now uses `Models\Author` instead of `Helpers\Author`
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 
