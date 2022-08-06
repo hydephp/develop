@@ -25,14 +25,14 @@ class FrontMatterModelTest extends TestCase
     public function test_constructor_arguments_are_assigned()
     {
         $matter = new FrontMatter(['foo' => 'bar']);
-        $this->assertEquals(['foo' => 'bar'], $matter->matter);
+        $this->assertEquals(['foo' => 'bar'], $matter->data);
     }
 
     public function test_static_from_array_method_creates_new_front_matter_model()
     {
         $matter = FrontMatter::fromArray(['foo' => 'bar']);
         $this->assertInstanceOf(FrontMatter::class, $matter);
-        $this->assertEquals(['foo' => 'bar'], $matter->matter);
+        $this->assertEquals(['foo' => 'bar'], $matter->data);
     }
 
     public function test_to_string_magic_method_converts_model_array_into_yaml_front_matter()
