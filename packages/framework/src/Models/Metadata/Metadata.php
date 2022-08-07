@@ -50,32 +50,29 @@ class Metadata
         return $this;
     }
 
-    public function addIf(MetadataItemContract|string $item, $condition): static
-    {
-        if ($condition) {
-            $this->add($item);
-        }
-
-        return $this;
-    }
-
     protected function generate(): void
     {
         foreach (config('hyde.meta', []) as $item) {
             $this->add($item);
         }
 
-        $this->addIf(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
-            'type' => 'application/xml', 'title' => 'Sitemap',
-        ]), Features::sitemap());
+        if (Features::sitemap()) {
+            $this->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
+                'type' => 'application/xml', 'title' => 'Sitemap',
+            ]));
+        }
 
-        $this->addIf(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
-            'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
-        ]), Features::rss());
+        if (Features::rss()) {
+            $this->add(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
+                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
+            ]));
+        }
 
-        $this->addIf(Meta::link('canonical', $this->page->canonicalUrl), ! empty($this->page->canonicalUrl));
+        if ($this->page->has('canonicalUrl')) {
+            $this->add(Meta::link('canonical', $this->page->canonicalUrl));
+        }
 
-        if (! empty($this->page->title)) {
+        if ($this->page->has('title')) {
             $this->add(Meta::name('twitter:title', $this->page->htmlTitle()));
             $this->add(Meta::property('title', $this->page->htmlTitle()));
         }
