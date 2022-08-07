@@ -173,15 +173,19 @@ abstract class AbstractPage implements PageContract, CompilableContract
         $array = [];
 
         if ($this->canonicalUrl) {
-            $array[] = '<link rel="canonical" href="'.e($this->canonicalUrl).'" />';
+            $array[] = Meta::link('canonical', $this->canonicalUrl);
         }
 
         if (Features::sitemap()) {
-            $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.e(Hyde::url('sitemap.xml')).'" />';
+            $array[] = Meta::link('sitemap', Hyde::url('sitemap.xml'), [
+                'type' => 'application/xml', 'title' => 'Sitemap'
+            ]);
         }
 
         if (Features::rss()) {
-            $array[] = $this->makeRssFeedLink();
+            $array[] = Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
+                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription()
+            ]);
         }
 
         if (! empty($this->title)) {
@@ -207,12 +211,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
         return Meta::render(
             withMergedData: $this->getDynamicMetadata()
         );
-    }
-
-    protected function makeRssFeedLink(): string
-    {
-        return '<link rel="alternate" type="application/rss+xml" title="'.RssFeedService::getDescription().
-            '" href="'.Hyde::url(RssFeedService::getDefaultOutputFilename()).'" />';
     }
 
     public function showInNavigation(): bool
