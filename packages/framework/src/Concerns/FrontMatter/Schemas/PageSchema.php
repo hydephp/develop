@@ -23,11 +23,12 @@ trait PageSchema
         $this->navigation = $this->constructNavigation();
     }
 
-    #[ArrayShape(['title' => "string", 'order' => "int"])] protected function constructNavigation(): array
-    {
-        return [
-            'title' => $this->navigationMenuTitle(),
-            'order' => $this->navigationMenuPriority(),
-        ];
-    }
+    #[ArrayShape(['title' => 'string', 'order' => 'int'])]
+ protected function constructNavigation(): array
+ {
+     return [
+         'title' => $this->navigationMenuTitle(),
+         'order' => $this->navigationMenuPriority(),
+     ];
+ }
 }
