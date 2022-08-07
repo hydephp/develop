@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
 use Hyde\Framework\Actions\Constructors\ConfiguresFeaturedImageForPost;
-use Hyde\Framework\Actions\Constructors\FindsAuthorForPost;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
