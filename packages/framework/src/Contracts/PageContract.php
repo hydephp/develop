@@ -7,6 +7,13 @@ use Illuminate\Support\Collection;
 interface PageContract
 {
     /**
+     * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
+     *
+     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     */
+    public function get(string $key = null, mixed $default = null): mixed;
+
+    /**
      * Get the front matter object, or a value from within.
      *
      * @return \Hyde\Framework\Models\FrontMatter|mixed
