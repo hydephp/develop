@@ -4,11 +4,12 @@
 
 This update contains **breaking changes** to the internal API regarding page models. This should only affect you directly if you've written any code that interacts with the internal page models, such as constructing them using non-built-in Hyde helpers.
 
+The update makes large changes to how dynamic data is constructed. Instead of generating page data at runtime, now the data is generated when constructing a page object. This gives the major benefit of being able to see all dynamic data right away, without having to render the page.
+
 ### Added
 - Added `compile()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
-- Adds a new action, PageModelConstructor, to dynamically construct page model data
 - Adds new actions to handle complex dynamic constructors
-- Adds new front matter schema traits
+- Adds new front matter schema traits to define the public API for front matter and hold their data
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`

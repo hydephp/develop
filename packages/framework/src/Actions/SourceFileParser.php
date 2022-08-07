@@ -5,7 +5,6 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
@@ -32,7 +31,6 @@ class SourceFileParser
         $this->slug = $slug;
 
         $this->page = $this->constructBaseModel($pageClass);
-        $this->page = PageModelConstructor::run($this->page);
     }
 
     protected function constructBaseModel(string $pageClass): BladePage|AbstractMarkdownPage
@@ -44,11 +42,9 @@ class SourceFileParser
 
     protected function parseBladePage(): BladePage
     {
-        return tap(new BladePage($this->slug), function (BladePage $page) {
-            $page->matter = FrontMatter::fromArray(
-                $this->parseBladeMatter(file_get_contents($page->getSourcePath()))
-            );
-        });
+        return new BladePage($this->slug,
+            $this->parseBladeMatter(file_get_contents(BladePage::qualifyBasename($this->slug)))
+        );
     }
 
     protected function parseBladeMatter(string $contents): array

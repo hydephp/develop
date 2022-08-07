@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Models\FrontMatter;
 
 /**
  * A basic wrapper for the custom Blade View compiler.
@@ -17,24 +18,17 @@ class BladePage extends AbstractPage
     public string $view;
 
     /**
-     * The page identifier for compatibility.
-     *
-     * @var string
-     */
-    public string $identifier;
-
-    /**
      * @param  string  $view
+     * @param  \Hyde\Framework\Models\FrontMatter|array  $matter
      */
-    public function __construct(string $view)
+    public function __construct(string $view, FrontMatter|array $matter = [])
     {
-        parent::__construct($view);
+        parent::__construct($view, $matter);
         $this->view = $view;
     }
 
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-
     public static string $fileExtension = '.blade.php';
 
     /** @inheritDoc */

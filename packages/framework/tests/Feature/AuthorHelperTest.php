@@ -30,6 +30,36 @@ class AuthorHelperTest extends TestCase
         $this->assertEquals('https://example.com', $author->website);
     }
 
+    public function test_make_method_creates_new_author_model_from_string()
+    {
+        $author = Author::make('foo');
+        $this->assertEquals($author, new Author('foo'));
+    }
+
+    public function test_make_method_creates_new_author_model_from_string_can_find_existing_author()
+    {
+        Config::set('authors', [
+            Author::create('foo', 'bar'),
+        ]);
+
+        $this->assertEquals(Author::make('foo'), Author::create('foo', 'bar'));
+    }
+
+    public function test_make_method_creates_new_author_model_from_array()
+    {
+        $author = Author::make([
+            'username' => 'foo',
+            'name' => 'bar',
+            'website' => 'https://example.com',
+        ]);
+        $this->assertEquals($author, Author::create('foo', 'bar', 'https://example.com'));
+    }
+
+    public function test_make_method_creates_new_author_model_from_array_only_needs_username()
+    {
+        $this->assertEquals(Author::make(['username' => 'foo']), Author::create('foo'));
+    }
+
     public function test_all_method_returns_empty_collection_if_no_authors_are_set_in_config()
     {
         Config::set('authors', []);

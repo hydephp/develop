@@ -7,11 +7,21 @@ use Hyde\Framework\Hyde;
 
 /**
  * Holds the information for an image.
+ *
+ * $schema = [
+ *    'path'         => '?string',
+ *    'uri'          => '?string',
+ *    'description'  => '?string',
+ *    'title'        => '?string',
+ *    'copyright'    => '?string',
+ *    'license'      => '?string',
+ *    'licenseUrl'   => '?string',
+ *    'author'       => '?string',
+ *    'credit'       => '?string'
+ * ];
  */
 class Image
 {
-    // Core properties
-
     /**
      * The image's path (if it is stored locally).
      * Example: _media/image.jpg.
@@ -46,8 +56,6 @@ class Image
      * @var string|null
      */
     public ?string $title;
-
-    // Extra metadata
 
     /**
      * The image's copyright.
@@ -94,6 +102,23 @@ class Image
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
         }
+    }
+
+    /** Dynamically create an image based on string or front matter array */
+    public static function make(string|array $data): static
+    {
+        if (is_string($data)) {
+            return static::fromSource($data);
+        }
+
+        return new static($data);
+    }
+
+    public static function fromSource(string $image): static
+    {
+        return str_starts_with($image, 'http')
+            ? new static(['uri' => $image])
+            : new static(['path' => $image]);
     }
 
     public function getSource(): ?string

@@ -7,21 +7,11 @@ use Illuminate\Support\Collection;
 interface PageContract
 {
     /**
-     * Get the value of the specified key from the front matter.
+     * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
      *
-     * @param  string  $name
-     * @return mixed
+     * @return \Hyde\Framework\Models\FrontMatter|mixed
      */
-    public function __get(string $name);
-
-    /**
-     * Set the value of the specified key in the front matter.
-     *
-     * @param  string  $name
-     * @param  $value
-     * @return void
-     */
-    public function __set(string $name, $value): void;
+    public function get(string $key = null, mixed $default = null): mixed;
 
     /**
      * Get the front matter object, or a value from within.
@@ -132,8 +122,7 @@ interface PageContract
     /**
      * Get the page title to display in the <head> section's <title> tag.
      *
-     * @param  string|null  $title  An optional override title, so Blade templates can use the method until we implement static Blade parsing.
      * @return string Example: "Site Name - Page Title"
      */
-    public function htmlTitle(?string $title = null): string;
+    public function htmlTitle(): string;
 }

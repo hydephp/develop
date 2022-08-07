@@ -74,4 +74,35 @@ class MarkdownPostTest extends TestCase
         $this->assertInstanceOf(DateString::class, $post->date);
         $this->assertEquals('Jan 1st, 2022', $post->date->short);
     }
+
+    public function test_featured_image_can_be_constructed_returns_null_when_no_image_is_set_in_the_page_matter()
+    {
+        $page = new MarkdownPost();
+        $this->assertNull($page->image);
+    }
+
+    public function test_featured_image_can_be_constructed_returns_image_object_with_local_path_when_matter_is_string()
+    {
+        $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
+        $image = $page->image;
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('foo.png', $image->path);
+    }
+
+    public function test_featured_image_can_be_constructed_returns_image_object_with_remote_path_when_matter_is_string()
+    {
+        $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
+        $image = $page->image;
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('https://example.com/foo.png', $image->uri);
+    }
+
+    public function test_featured_image_can_be_constructed_returns_image_object_with_supplied_data_when_matter_is_array()
+    {
+        $page = MarkdownPost::make(matter: ['image' => ['path' => 'foo.png', 'title' => 'bar']]);
+        $image = $page->image;
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('foo.png', $image->path);
+        $this->assertEquals('bar', $image->title);
+    }
 }

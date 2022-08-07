@@ -2,8 +2,6 @@
 
 namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
-use Hyde\Framework\Actions\Constructors\ConfiguresFeaturedImageForPost;
-use Hyde\Framework\Actions\Constructors\FindsAuthorForPost;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
@@ -34,17 +32,58 @@ trait BlogPostSchema
     public ?Author $author = null;
 
     /**
-     * @example See image section
      * @yamlType string|array|optional
+     *
+     * @example "image.jpg" # Expanded by Hyde to `_media/image.jpg` and is resolved automatically
+     * @example "https://cdn.example.com/image.jpg" # Full URL starting with `http(s)://`)
+     * @example ```yaml
+     * image:
+     *   path: image.jpg
+     *   uri: https://cdn.example.com/image.jpg # Takes precedence over `path`
+     *   description: 'Alt text for image'
+     *   title: 'Tooltip title'
+     *   copyright: 'Copyright (c) 2022'
+     *   license: 'CC-BY-SA-4.0'
+     *   licenseUrl: https://example.com/license/
+     *   credit: https://photographer.example.com/
+     *   author: 'John Doe'
+     * ```
      */
     public ?Image $image = null;
 
     protected function constructBlogPostSchema(): void
     {
         $this->category = $this->matter('category');
-        $this->description = $this->matter('description', substr($this->markdown, 0, 125).'...');
+        $this->description = $this->matter('description', $this->makeDescription());
         $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
-        $this->author = FindsAuthorForPost::run($this);
-        $this->image = ConfiguresFeaturedImageForPost::run($this);
+        $this->author = $this->getAuthor();
+        $this->image = $this->getImage();
+    }
+
+    protected function makeDescription(): string
+    {
+        if (strlen($this->markdown) >= 128) {
+            return substr($this->markdown, 0, 125).'...';
+        }
+
+        return $this->markdown;
+    }
+
+    protected function getAuthor(): ?Author
+    {
+        if ($this->matter('author')) {
+            return Author::make($this->matter('author'));
+        }
+
+        return null;
+    }
+
+    protected function getImage(): ?Image
+    {
+        if ($this->matter('image')) {
+            return Image::make($this->matter('image'));
+        }
+
+        return null;
     }
 }

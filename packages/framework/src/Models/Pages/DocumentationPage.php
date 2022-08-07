@@ -2,23 +2,30 @@
 
 namespace Hyde\Framework\Models\Pages;
 
+use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Route;
 
 class DocumentationPage extends AbstractMarkdownPage
 {
+    use DocumentationPageSchema;
     use HasTableOfContents;
 
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
-    /**
-     * The sidebar category group, if any.
-     */
-    public ?string $category;
+    /** @inheritDoc */
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
+    {
+        parent::__construct($identifier, $matter, $markdown);
+
+        $this->constructDocumentationPageSchema();
+    }
 
     /** @inheritDoc */
     public function getCurrentPagePath(): string

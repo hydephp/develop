@@ -36,9 +36,15 @@ class MarkdownPostHelpersTest extends TestCase
         $this->assertEquals('This is a post description', $post->getPostDescription());
     }
 
-    public function test_get_post_description_returns_truncated_post_body_when_no_description_set_in_front_matter()
+    public function test_get_post_description_returns_post_body_when_no_description_set_in_front_matter()
     {
         $post = MarkdownPost::make('foo-bar', [], 'This is a post body');
-        $this->assertEquals('This is a post body...', $post->getPostDescription());
+        $this->assertEquals('This is a post body', $post->getPostDescription());
+    }
+
+    public function test_dynamic_description_is_truncated_when_longer_than_128_characters()
+    {
+        $post = MarkdownPost::make('foo-bar', [], str_repeat('a', 128));
+        $this->assertEquals(str_repeat('a', 125).'...', $post->getPostDescription());
     }
 }

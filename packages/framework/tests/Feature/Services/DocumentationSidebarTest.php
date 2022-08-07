@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Models\DocumentationSidebar
+ * @covers Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema
  */
 class DocumentationSidebarTest extends TestCase
 {

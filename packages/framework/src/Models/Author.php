@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 
 /**
  * The Post Author Object Model.
+ *
+ * @todo Refactor to use same format for create method as constructor
  */
 class Author implements \Stringable
 {
@@ -79,6 +81,16 @@ class Author implements \Stringable
         ]);
     }
 
+    /** Dynamically get or create an author based on string or front matter array */
+    public static function make(string|array $data): static
+    {
+        if (is_string($data)) {
+            return static::get($data);
+        }
+
+        return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
+    }
+
     public static function all(): Collection
     {
         return new Collection(config('authors', []));
@@ -88,5 +100,10 @@ class Author implements \Stringable
     {
         return static::all()->firstWhere('username', $username)
             ?? static::create($username);
+    }
+
+    protected static function findUsername(array $data): string
+    {
+        return $data['username'] ?? $data['name'] ?? 'Guest';
     }
 }

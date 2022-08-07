@@ -6,7 +6,7 @@
     @endif
     
     <header aria-label="Header section" role="doc-pageheader">
-        <h1 itemprop="headline" class="mb-4">{{ $title ?? 'Blog Post' }}</h1>
+        <h1 itemprop="headline" class="mb-4">{{ $page->title }}</h1>
 		<div id="byline" aria-label="About the post" role="doc-introduction">
             @includeWhen(isset($page->date), 'hyde::components.post.date')
 		    @includeWhen(isset($page->author), 'hyde::components.post.author')

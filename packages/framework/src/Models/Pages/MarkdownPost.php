@@ -73,7 +73,7 @@ class MarkdownPost extends AbstractMarkdownPage
      */
     protected function parseFrontMatterMetadata(): void
     {
-        if ($this->matter('description') !== null) {
+        if (! empty($this->matter('description'))) {
             $this->metadata['description'] = $this->matter('description');
         }
 
@@ -96,12 +96,12 @@ class MarkdownPost extends AbstractMarkdownPage
             $this->properties['og:url'] = $this->getRoute()->getQualifiedUrl();
         }
 
-        if ($this->matter('title') !== null) {
-            $this->properties['og:title'] = $this->matter('title');
+        if ($this->title) {
+            $this->properties['og:title'] = $this->title;
         }
 
         if ($this->matter('date') !== null) {
-            $this->properties['og:article:published_time'] = date('c', strtotime($this->matter('date')));
+            $this->properties['og:article:published_time'] = $this->date->dateTimeObject->format('c');
         }
 
         if ($this->matter('image') !== null) {
@@ -128,15 +128,8 @@ class MarkdownPost extends AbstractMarkdownPage
 
     protected function setImageMetadata(): void
     {
-        if (is_string($this->matter('image'))) {
-            $this->properties['og:image'] = $this->matter('image');
-        } else {
-            if (isset($this->matter('image')['path'])) {
-                $this->properties['og:image'] = $this->matter('image')['path'];
-            }
-            if (isset($this->matter('image')['uri'])) {
-                $this->properties['og:image'] = $this->matter('image')['uri'];
-            }
+        if ($this->image) {
+            $this->properties['og:image'] = $this->image->getLink();
         }
     }
 }

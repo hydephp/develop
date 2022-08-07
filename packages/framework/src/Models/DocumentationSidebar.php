@@ -13,7 +13,9 @@ class DocumentationSidebar extends NavigationMenu
     public function generate(): static
     {
         RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
-            $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
+            if (! $route->getSourceModel()->get('hidden', false)) {
+                $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
+            }
         });
 
         return $this;
@@ -42,28 +44,11 @@ class DocumentationSidebar extends NavigationMenu
 
     protected function filterHiddenItems(): Collection
     {
-        return $this->items->reject(function (NavItem $item) {
-            return $item->route->getSourceModel()->matter('hidden', false) || ($item->route->getRouteKey() === 'docs/index');
-        })->values();
+        return $this->items;
     }
 
     protected function getPriorityForRoute(Route $route): int
     {
-        return $route->getSourceModel()->matter('priority') ?? $this->findPriorityInConfig($route->getSourceModel()->identifier);
-    }
-
-    protected function findPriorityInConfig(string $slug): int
-    {
-        $orderIndexArray = config('docs.sidebar_order', []);
-
-        if (! in_array($slug, $orderIndexArray)) {
-            return 500;
-        }
-
-        return array_search($slug, $orderIndexArray) + 250;
-
-        // Adding 250 makes so that pages with a front matter priority that is lower
-        // can be shown first. It's lower than the fallback of 500 so that they
-        // still come first. This is all to make it easier to mix priorities.
+        return $route->getSourceModel()->get('priority');
     }
 }

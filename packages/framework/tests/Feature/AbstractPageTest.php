@@ -23,6 +23,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Contracts\AbstractPage
  * @covers \Hyde\Framework\Contracts\AbstractMarkdownPage
+ * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  *
  * @see \Hyde\Framework\Testing\Unit\AbstractPageMetadataTest
  */
@@ -331,20 +332,10 @@ class AbstractPageTest extends TestCase
         $this->assertEquals('HydePHP - Foo', MarkdownPage::make('', ['title' => 'Foo'])->htmlTitle());
     }
 
-    public function test_html_title_can_be_overridden()
-    {
-        $this->assertEquals('HydePHP - Bar', MarkdownPage::make('', ['title' => 'Foo'])->htmlTitle('Bar'));
-    }
-
-    public function test_html_title_returns_site_name_if_no_page_title()
-    {
-        $this->assertEquals('HydePHP', (new MarkdownPage())->htmlTitle());
-    }
-
     public function test_html_title_uses_configured_site_name()
     {
         config(['site.name' => 'Foo Bar']);
-        $this->assertEquals('Foo Bar', (new MarkdownPage())->htmlTitle());
+        $this->assertEquals('Foo Bar - Foo', (new MarkdownPage('Foo'))->htmlTitle());
     }
 
     public function test_body_helper_returns_markdown_document_body_in_markdown_pages()
@@ -353,59 +344,23 @@ class AbstractPageTest extends TestCase
         $this->assertEquals('# Foo', $page->markdown->body());
     }
 
-    public function test_markdown_page_magic_get_method_returns_front_matter_properties()
-    {
-        $page = MarkdownPage::make(matter: ['foo' => 'bar']);
-        $this->assertEquals('bar', $page->foo);
-    }
-
-    public function test_markdown_page_magic_get_method_gives_precedence_to_actual_class_properties()
-    {
-        $page = MarkdownPage::make(matter: ['foo' => 'bar']);
-        $page->foo = 'baz';
-        $this->assertEquals('baz', $page->foo);
-    }
-
-    public function test_markdown_page_magic_get_method_returns_null_if_property_not_found()
-    {
-        $page = MarkdownPage::make();
-        $this->assertNull($page->foo);
-    }
-
-    public function test_markdown_page_magic_set_method_sets_front_matter_properties()
-    {
-        $page = MarkdownPage::make();
-        $page->foo = 'bar';
-        $this->assertEquals('bar', $page->matter('foo'));
-    }
-
-    public function test_markdown_page_magic_set_method_does_not_override_actual_class_properties()
-    {
-        $page = MarkdownPage::make('foo', ['identifier' => 'bar']);
-        $page->identifier = 'baz';
-        $this->assertEquals('baz', $page->identifier);
-        $this->assertEquals('bar', $page->matter('identifier'));
-    }
-
     public function test_show_in_navigation_returns_false_for_markdown_post()
     {
-        $page = $this->mock(MarkdownPost::class)->makePartial();
+        $page = MarkdownPost::make();
 
         $this->assertFalse($page->showInNavigation());
     }
 
     public function test_show_in_navigation_returns_true_for_documentation_page_if_slug_is_index()
     {
-        $page = $this->mock(DocumentationPage::class)->makePartial();
-        $page->identifier = 'index';
+        $page = DocumentationPage::make('index');
 
         $this->assertTrue($page->showInNavigation());
     }
 
     public function test_show_in_navigation_returns_false_for_documentation_page_if_slug_is_not_index()
     {
-        $page = $this->mock(DocumentationPage::class)->makePartial();
-        $page->identifier = 'not-index';
+        $page = DocumentationPage::make('not-index');
 
         $this->assertFalse($page->showInNavigation());
     }
@@ -434,10 +389,10 @@ class AbstractPageTest extends TestCase
     public function test_show_in_navigation_returns_false_if_slug_is_present_in_config_hyde_navigation_exclude()
     {
         $page = MarkdownPage::make('foo');
-
         $this->assertTrue($page->showInNavigation());
 
         config(['hyde.navigation.exclude' => ['foo']]);
+        $page = MarkdownPage::make('foo');
         $this->assertFalse($page->showInNavigation());
     }
 
@@ -465,6 +420,7 @@ class AbstractPageTest extends TestCase
         $this->assertEquals(999, $page->navigationMenuPriority());
 
         config(['hyde.navigation.order' => ['foo' => 1]]);
+        $page = MarkdownPage::make('foo');
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 

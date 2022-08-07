@@ -8,7 +8,6 @@ use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
@@ -103,16 +102,14 @@ abstract class AbstractPage implements PageContract, CompilableContract
         $this->constructPageSchema();
     }
 
-    /** @interitDoc */
-    public function __get(string $name)
-    {
-        return $this->matter->get($name);
-    }
-
     /** @inheritDoc */
-    public function __set(string $name, $value): void
+    public function get(string $key = null, mixed $default = null): mixed
     {
-        $this->matter->set($name, $value);
+        if (property_exists($this, $key) && isset($this->$key)) {
+            return $this->$key;
+        }
+
+        return $this->matter($key, $default);
     }
 
     /** @inheritDoc */
@@ -146,13 +143,9 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
-    public function htmlTitle(?string $title = null): string
+    public function htmlTitle(): string
     {
-        $pageTitle = $title ?? $this->title ?? null;
-
-        return $pageTitle
-            ? config('site.name', 'HydePHP').' - '.$pageTitle
-            : config('site.name', 'HydePHP');
+        return config('site.name', 'HydePHP').' - '.$this->title;
     }
 
     /** @inheritDoc */
@@ -236,99 +229,23 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     protected function makeRssFeedLink(): string
     {
-        return sprintf(
-            '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" />',
-            RssFeedService::getDescription(),
-            Hyde::url(RssFeedService::getDefaultOutputFilename())
-        );
+        return '<link rel="alternate" type="application/rss+xml" title="'.RssFeedService::getDescription().
+            '" href="'.Hyde::url(RssFeedService::getDefaultOutputFilename()).'" />';
     }
 
-    /**
-     * Should the item should be displayed in the navigation menu?
-     *
-     * @return bool
-     */
     public function showInNavigation(): bool
     {
-        if ($this instanceof MarkdownPost) {
-            return false;
-        }
-
-        if ($this instanceof DocumentationPage) {
-            return $this->identifier === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
-        }
-
-        if ($this instanceof AbstractMarkdownPage) {
-            if ($this->matter('navigation.hidden', false)) {
-                return false;
-            }
-        }
-
-        if (in_array($this->identifier, config('hyde.navigation.exclude', ['404']))) {
-            return false;
-        }
-
-        return true;
+        return ! $this->navigation['hidden'];
     }
 
-    /**
-     * The relative priority, determining the position of the item in the menu.
-     *
-     * @return int
-     */
     public function navigationMenuPriority(): int
     {
-        if ($this instanceof AbstractMarkdownPage) {
-            if ($this->matter('navigation.priority') !== null) {
-                return $this->matter('navigation.priority');
-            }
-        }
-
-        if ($this instanceof DocumentationPage) {
-            return (int) config('hyde.navigation.order.docs', 100);
-        }
-
-        if ($this->identifier === 'index') {
-            return (int) config('hyde.navigation.order.index', 0);
-        }
-
-        if ($this->identifier === 'posts') {
-            return (int) config('hyde.navigation.order.posts', 10);
-        }
-
-        if (array_key_exists($this->identifier, config('hyde.navigation.order', []))) {
-            return (int) config('hyde.navigation.order.'.$this->identifier);
-        }
-
-        return 999;
+        return $this->navigation['priority'];
     }
 
-    /**
-     * The page title to display in the navigation menu.
-     *
-     * @return string
-     */
     public function navigationMenuTitle(): string
     {
-        if ($this instanceof AbstractMarkdownPage) {
-            if ($this->matter('navigation.title') !== null) {
-                return $this->matter('navigation.title');
-            }
-
-            if ($this->matter('title') !== null) {
-                return $this->matter('title');
-            }
-        }
-
-        if ($this->identifier === 'index') {
-            if ($this instanceof DocumentationPage) {
-                return config('hyde.navigation.labels.docs', 'Docs');
-            }
-
-            return config('hyde.navigation.labels.home', 'Home');
-        }
-
-        return $this->title;
+        return $this->navigation['title'];
     }
 
     /**

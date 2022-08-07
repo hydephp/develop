@@ -11,7 +11,7 @@
     <header>
         <a href="posts/{{ Hyde::formatHtmlPath($post->identifier . '.html') }}" class="block w-fit">
             <h2 class="text-2xl font-bold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-colors duration-75">
-                {{ $post->matter('title') ?? $post->title }}
+                {{ $post->get('title') ?? $post->title }}
             </h2>
         </a>
     </header>
@@ -33,10 +33,10 @@
         @endisset
     </footer>
 
-    @if($post->matter('description') !== null)
+    @if($post->get('description') !== null)
         <section role="doc-abstract" aria-label="Excerpt">
             <p class="leading-relaxed my-1">
-                {{ $post->matter('description') }}
+                {{ $post->get('description') }}
             </p>
         </section>
     @endisset

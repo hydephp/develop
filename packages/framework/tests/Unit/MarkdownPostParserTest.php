@@ -43,8 +43,8 @@ class MarkdownPostParserTest extends TestCase
     public function test_parsed_markdown_post_contains_valid_front_matter()
     {
         $post = MarkdownPost::parse('test-post');
-        $this->assertEquals('My New Post', $post->matter('title'));
-        $this->assertEquals('Mr. Hyde', $post->matter('author'));
-        $this->assertEquals('blog', $post->matter('category'));
+        $this->assertEquals('My New Post', $post->get('title'));
+        $this->assertEquals('Mr. Hyde', $post->get('author'));
+        $this->assertEquals('blog', $post->get('category'));
     }
 }

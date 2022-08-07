@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Hyde;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\PageModelConstructorTest
+ * @see \Hyde\Framework\Testing\Feature\PageModelConstructorsTest
  *
  * @internal
  */
@@ -15,7 +15,7 @@ class FindsTitleForPage
 {
     public static function run(AbstractPage $page): string
     {
-        return (new static($page))->findTitleForPage();
+        return trim((new static($page))->findTitleForPage());
     }
 
     protected function __construct(protected AbstractPage $page)
@@ -24,16 +24,9 @@ class FindsTitleForPage
 
     protected function findTitleForPage(): string
     {
-        return $this->page instanceof AbstractMarkdownPage
-            ? $this->findTitleForMarkdownPage()
-            : Hyde::makeTitle($this->page->identifier);
-    }
-
-    protected function findTitleForMarkdownPage(): string
-    {
         return $this->page->matter('title')
-            ?? $this->findTitleFromMarkdownHeadings()
-            ?? Hyde::makeTitle($this->page->identifier);
+                ?? $this->findTitleFromMarkdownHeadings()
+                ?? Hyde::makeTitle($this->page->identifier);
     }
 
     protected function findTitleFromMarkdownHeadings(): ?string
