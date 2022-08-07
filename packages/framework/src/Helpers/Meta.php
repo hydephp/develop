@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Metadata\Link;
 use Hyde\Framework\Services\RssFeedService;
 
 /**
@@ -24,17 +25,9 @@ class Meta
         return '<meta property="'.e($property).'" content="'.e($content).'">';
     }
 
-    public static function link(string $rel, string $href, array $attr = []): string
+    public static function link(string $rel, string $href, array $attr = []): Link
     {
-        if (! $attr) {
-            return '<link rel="'.e($rel).'" href="'.e($href).'">';
-        }
-
-        $attributes = collect($attr)->map(function ($value, $key) {
-            return e($key).'="'.e($value).'"';
-        })->implode(' ');
-
-        return '<link rel="'.e($rel).'" href="'.e($href).'" '.$attributes.'>';
+        return new Link($rel, $href, $attr);
     }
 
     public static function get(array $withMergedData = []): array
