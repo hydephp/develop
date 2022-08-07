@@ -13,15 +13,10 @@ use Hyde\Testing\TestCase;
  */
 class AbstractPageMetadataTest extends TestCase
 {
-    protected function makePage(string $slug = 'foo'): MarkdownPage
-    {
-        return new MarkdownPage(identifier: $slug);
-    }
-
     public function test_get_canonical_url_returns_url_for_top_level_page()
     {
         config(['site.url' => 'https://example.com']);
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         $this->assertEquals('https://example.com/foo.html', $page->canonicalUrl);
     }
@@ -30,7 +25,7 @@ class AbstractPageMetadataTest extends TestCase
     {
         config(['site.url' => 'https://example.com']);
         config(['site.pretty_urls' => true]);
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         $this->assertEquals('https://example.com/foo', $page->canonicalUrl);
     }
@@ -38,7 +33,7 @@ class AbstractPageMetadataTest extends TestCase
     public function test_get_canonical_url_returns_url_for_nested_page()
     {
         config(['site.url' => 'https://example.com']);
-        $page = $this->makePage('foo/bar');
+        $page = new MarkdownPage('foo/bar');
 
         $this->assertEquals('https://example.com/foo/bar.html', $page->canonicalUrl);
     }
@@ -46,7 +41,7 @@ class AbstractPageMetadataTest extends TestCase
     public function test_get_canonical_url_returns_url_for_deeply_nested_page()
     {
         config(['site.url' => 'https://example.com']);
-        $page = $this->makePage('foo/bar/baz');
+        $page = new MarkdownPage('foo/bar/baz');
 
         $this->assertEquals('https://example.com/foo/bar/baz.html', $page->canonicalUrl);
     }
@@ -65,7 +60,7 @@ class AbstractPageMetadataTest extends TestCase
     public function test_canonical_url_is_not_set_when_site_url_is_null()
     {
         config(['site.url' => null]);
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
         $this->assertNull($page->canonicalUrl);
         $this->assertStringNotContainsString(
             '<link rel="canonical"',
@@ -86,7 +81,7 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_render_page_metadata_returns_string()
     {
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
         $this->assertIsString($page->renderPageMetadata());
     }
 
@@ -96,7 +91,7 @@ class AbstractPageMetadataTest extends TestCase
         config(['hyde.meta' => [
             Meta::name('foo', 'bar'),
         ]]);
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         $this->assertStringContainsString(
             '<meta name="foo" content="bar">'."\n".
@@ -109,7 +104,7 @@ class AbstractPageMetadataTest extends TestCase
     {
         config(['site.url' => null]);
         config(['hyde.meta' => []]);
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         $this->assertEquals(
             '',
@@ -121,7 +116,7 @@ class AbstractPageMetadataTest extends TestCase
     {
         config(['site.url' => null]);
         config(['hyde.meta' => []]);
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         $this->assertEquals(
             [],
@@ -135,7 +130,7 @@ class AbstractPageMetadataTest extends TestCase
         config(['hyde.meta' => [
             Meta::name('foo', 'bar'),
         ]]);
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         $this->assertContains('<link rel="canonical" href="https://example.com/foo.html" />',
             $page->getDynamicMetadata()
@@ -144,7 +139,7 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
     {
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
@@ -156,7 +151,7 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_does_not_add_sitemap_link_when_conditions_are_not_met()
     {
-        $page = $this->makePage();
+        $page = new MarkdownPage('foo');
 
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => false]);
