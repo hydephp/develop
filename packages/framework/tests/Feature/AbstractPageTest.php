@@ -643,7 +643,7 @@ class AbstractPageTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml">',
+        $this->assertContains('<link rel="sitemap" href="https://example.com/sitemap.xml" type="application/xml" title="Sitemap">',
             $page->getDynamicMetadata()
         );
     }
