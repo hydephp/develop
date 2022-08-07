@@ -13,7 +13,7 @@ class DocumentationSidebar extends NavigationMenu
     public function generate(): static
     {
         RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
-            if (! $route->getSourceModel()->matter('hidden', false)) {
+            if (! $route->getSourceModel()->get('hidden', false)) {
                 $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
             }
         });
@@ -49,6 +49,6 @@ class DocumentationSidebar extends NavigationMenu
 
     protected function getPriorityForRoute(Route $route): int
     {
-        return $route->getSourceModel()->matter('priority');
+        return $route->getSourceModel()->get('priority');
     }
 }
