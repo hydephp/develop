@@ -159,7 +159,6 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-
     public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
     {
         config(['site.url' => 'https://example.com']);
