@@ -176,6 +176,11 @@ abstract class AbstractPage implements PageContract, CompilableContract
             $array[] = Meta::link('canonical', $this->canonicalUrl);
         }
 
+        if (! empty($this->title)) {
+            $array[] = Meta::name('twitter:title', $this->htmlTitle());
+            $array[] = Meta::property('title', $this->htmlTitle());
+        }
+
         if (Features::sitemap()) {
             $array[] = Meta::link('sitemap', Hyde::url('sitemap.xml'), [
                 'type' => 'application/xml', 'title' => 'Sitemap',
@@ -186,11 +191,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
             $array[] = Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
                 'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
             ]);
-        }
-
-        if (! empty($this->title)) {
-            $array[] = Meta::name('twitter:title', $this->htmlTitle());
-            $array[] = Meta::property('title', $this->htmlTitle());
         }
 
         if ($this instanceof MarkdownPost) {
