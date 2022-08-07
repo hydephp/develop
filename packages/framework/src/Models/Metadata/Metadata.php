@@ -36,10 +36,10 @@ class Metadata
     public function get(): array
     {
         return array_merge(
-            $this->links,
-            $this->metadata,
-            $this->properties,
-            $this->generics
+            $this->getPrefixedArray('links'),
+            $this->getPrefixedArray('metadata'),
+            $this->getPrefixedArray('properties'),
+            $this->getPrefixedArray('generics')
         );
     }
 
@@ -121,5 +121,14 @@ class Metadata
         }
 
         $this->add(Meta::property('type', 'article'));
+    }
+
+    protected function getPrefixedArray(string $group): array
+    {
+        $array = [];
+        foreach ($this->{$group} as $key => $value) {
+            $array[$group.':'.$key] = $value;
+        }
+        return $array;
     }
 }
