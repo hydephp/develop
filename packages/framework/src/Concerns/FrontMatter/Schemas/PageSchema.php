@@ -21,6 +21,12 @@ trait PageSchema
     #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
     public ?array $navigation = null;
 
+    /**
+     * The canonical URL of the page.
+     * @var string|null
+     */
+    public ?string $canonicalUrl = null;
+
     protected function constructPageSchema(): void
     {
         $this->title = FindsTitleForPage::run($this);
