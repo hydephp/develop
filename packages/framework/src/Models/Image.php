@@ -104,6 +104,23 @@ class Image
         }
     }
 
+    /** Dynamically create an image based on string or front matter array */
+    public static function make(string|array $data): static
+    {
+        if (is_string($data)) {
+            return static::fromSource($data);
+        }
+
+        return new static($data);
+    }
+
+    public static function fromSource(string $image): static
+    {
+        return str_starts_with($image, 'http')
+            ? new static(['uri' => $image])
+            : new static(['path' => $image]);
+    }
+
     public function getSource(): ?string
     {
         return $this->uri ?? $this->path ?? null;

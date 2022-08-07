@@ -58,7 +58,7 @@ trait BlogPostSchema
         $this->description = $this->matter('description', $this->makeDescription());
         $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
         $this->author = $this->getAuthor();
-        $this->image = ConfiguresFeaturedImageForPost::run($this);
+        $this->image = $this->getImage();
     }
 
     protected function makeDescription(): string
@@ -74,6 +74,15 @@ trait BlogPostSchema
     {
         if ($this->matter('author')) {
             return Author::make($this->matter('author'));
+        }
+
+        return null;
+    }
+
+    protected function getImage(): ?Image
+    {
+        if ($this->matter('image')) {
+            return Image::make($this->matter('image'));
         }
 
         return null;
