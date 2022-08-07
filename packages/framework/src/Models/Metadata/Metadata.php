@@ -92,7 +92,7 @@ class Metadata
     protected function addMetadataForMarkdownPost(MarkdownPost $page): void
     {
         $this->addIf(Meta::name('description', $page->get('description')), $page->has('description'));
-        $this->addIf(Meta::name('author', $page->author->getName()), $page->has('author'));
-        $this->addIf(Meta::name('keywords', $page->category), $page->has('category'));
+        $this->addIf(Meta::name('author', $page->get('author')), $page->has('author'));
+        $this->addIf(Meta::name('keywords', $page->get('category')), $page->has('category'));
     }
 }
