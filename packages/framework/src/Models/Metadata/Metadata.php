@@ -31,18 +31,29 @@ class Metadata
         ));
     }
 
+    public function add($item): static
+    {
+        if ($item instanceof LinkItem) {
+            $this->links[] = $item;
+        } else {
+            throw new \InvalidArgumentException('Invalid item type ' . get_class($item));
+        }
+
+        return $this;
+    }
+
     protected function generate(): void
     {
         if (Features::sitemap()) {
-            $this->links[] = Meta::link('sitemap', Hyde::url('sitemap.xml'), [
+            $this->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
                 'type' => 'application/xml', 'title' => 'Sitemap',
-            ]);
+            ]));
         }
 
         if (Features::rss()) {
-            $this->links[] = Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
+            $this->add(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
                 'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
-            ]);
+            ]));
         }
     }
 }
