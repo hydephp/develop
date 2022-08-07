@@ -3,6 +3,10 @@
 namespace Hyde\Framework\Models\Metadata;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\RssFeedService;
 
 class Metadata
 {
@@ -29,6 +33,16 @@ class Metadata
 
     protected function generate(): void
     {
-        //
+        if (Features::sitemap()) {
+            $this->links[] = Meta::link('sitemap', Hyde::url('sitemap.xml'), [
+                'type' => 'application/xml', 'title' => 'Sitemap',
+            ]);
+        }
+
+        if (Features::rss()) {
+            $this->links[] = Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
+                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
+            ]);
+        }
     }
 }
