@@ -4,14 +4,12 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
-use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Framework\Services\RssFeedService;
 use Illuminate\Support\Collection;
 
 /**
@@ -163,12 +161,9 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     abstract public function compile(): string;
 
-    public function getCanonicalUrl(): string
-    {
-        return $this->getRoute()->getQualifiedUrl();
-    }
-
     /**
+     * @internal
+     *
      * @return string[]
      *
      * @psalm-return list<string>
@@ -177,25 +172,13 @@ abstract class AbstractPage implements PageContract, CompilableContract
     {
         $array = [];
 
-        if ($this->canUseCanonicalUrl()) {
-            $array[] = '<link rel="canonical" href="'.$this->getCanonicalUrl().'" />';
+        if (! empty($this->canonicalUrl)) {
+            $array[] = Meta::link('canonical', $this->canonicalUrl);
         }
 
-        if (Features::sitemap()) {
-            $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::url('sitemap.xml').'" />';
-        }
-
-        if (Features::rss()) {
-            $array[] = $this->makeRssFeedLink();
-        }
-
-        if (isset($this->title)) {
-            if ($this->hasTwitterTitleInConfig()) {
-                $array[] = '<meta name="twitter:title" content="'.$this->htmlTitle().'" />';
-            }
-            if ($this->hasOpenGraphTitleInConfig()) {
-                $array[] = '<meta property="og:title" content="'.$this->htmlTitle().'" />';
-            }
+        if (! empty($this->title)) {
+            $array[] = Meta::name('twitter:title', $this->htmlTitle());
+            $array[] = Meta::property('title', $this->htmlTitle());
         }
 
         if ($this instanceof MarkdownPost) {
@@ -216,27 +199,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
         return Meta::render(
             withMergedData: $this->getDynamicMetadata()
         );
-    }
-
-    public function canUseCanonicalUrl(): bool
-    {
-        return Hyde::hasSiteUrl() && isset($this->identifier);
-    }
-
-    public function hasTwitterTitleInConfig(): bool
-    {
-        return str_contains(json_encode(config('hyde.meta', [])), 'twitter:title');
-    }
-
-    public function hasOpenGraphTitleInConfig(): bool
-    {
-        return str_contains(json_encode(config('hyde.meta', [])), 'og:title');
-    }
-
-    protected function makeRssFeedLink(): string
-    {
-        return '<link rel="alternate" type="application/rss+xml" title="'.RssFeedService::getDescription().
-            '" href="'.Hyde::url(RssFeedService::getDefaultOutputFilename()).'" />';
     }
 
     public function showInNavigation(): bool

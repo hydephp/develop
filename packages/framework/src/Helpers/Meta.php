@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\RssFeedService;
+
 /**
  * Helpers to fluently declare HTML meta tags.
  *
@@ -19,6 +22,19 @@ class Meta
         $property = static::formatOpenGraphProperty($property);
 
         return '<meta property="'.e($property).'" content="'.e($content).'">';
+    }
+
+    public static function link(string $rel, string $href, array $attr = []): string
+    {
+        if (! $attr) {
+            return '<link rel="'.e($rel).'" href="'.e($href).'">';
+        }
+
+        $attributes = collect($attr)->map(function ($value, $key) {
+            return e($key).'="'.e($value).'"';
+        })->implode(' ');
+
+        return '<link rel="'.e($rel).'" href="'.e($href).'" '.$attributes.'>';
     }
 
     public static function render(array $withMergedData = []): string
@@ -52,6 +68,33 @@ class Meta
     }
 
     public static function getGlobalMeta(): array
+    {
+        return array_merge(
+            static::getDynamicMeta(),
+            static::getConfiguredMeta()
+        );
+    }
+
+    protected static function getDynamicMeta(): array
+    {
+        $array = [];
+
+        if (Features::sitemap()) {
+            $array[] = Meta::link('sitemap', Hyde::url('sitemap.xml'), [
+                'type' => 'application/xml', 'title' => 'Sitemap',
+            ]);
+        }
+
+        if (Features::rss()) {
+            $array[] = Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
+                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
+            ]);
+        }
+
+        return $array;
+    }
+
+    protected static function getConfiguredMeta(): array
     {
         return config('hyde.meta', []);
     }

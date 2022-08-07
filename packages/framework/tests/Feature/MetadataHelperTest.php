@@ -3,6 +3,10 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
@@ -15,6 +19,7 @@ class MetadataHelperTest extends TestCase
         parent::setUp();
 
         config(['hyde.meta' => []]);
+        config(['site.url' => null]);
     }
 
     public function test_name_method_returns_a_valid_html_meta_string()
@@ -46,6 +51,30 @@ class MetadataHelperTest extends TestCase
         $this->assertEquals(
             '<meta property="og:foo" content="bar">',
             Meta::property('foo', 'bar')
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar">',
+            Meta::link('foo', 'bar')
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string_with_attributes()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar" title="baz">',
+            Meta::link('foo', 'bar', ['title' => 'baz'])
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string_with_multiple_attributes()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar" title="baz" type="text/css">',
+            Meta::link('foo', 'bar', ['title' => 'baz', 'type' => 'text/css'])
         );
     }
 
@@ -127,6 +156,88 @@ class MetadataHelperTest extends TestCase
             Meta::render([
                 Meta::name('foo', 'baz'),
             ])
+        );
+    }
+
+    public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
+    {
+        config(['site.url' => 'https://example.com']);
+        config(['site.generate_sitemap' => true]);
+        $page = new MarkdownPage('foo');
+
+        $this->assertStringContainsString('<link rel="sitemap" href="https://example.com/sitemap.xml" type="application/xml" title="Sitemap">',
+            $page->renderPageMetadata()
+        );
+    }
+
+    public function test_get_dynamic_metadata_does_not_add_sitemap_link_when_conditions_are_not_met()
+    {
+        $page = new MarkdownPage('foo');
+
+        config(['site.url' => 'https://example.com']);
+        config(['site.generate_sitemap' => false]);
+
+        $this->assertStringNotContainsString('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml">',
+            $page->renderPageMetadata()
+        );
+    }
+
+    protected function assertPageHasFeedLink($page)
+    {
+        $this->assertStringContainsString(
+            '<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
+            $page->renderPageMetadata()
+        );
+    }
+
+    public function test_can_use_rss_feed_link_adds_meta_link_for_markdown_posts()
+    {
+        config(['site.url' => 'foo']);
+        $this->assertPageHasFeedLink(new MarkdownPost());
+    }
+
+    public function test_can_use_rss_feed_link_adds_meta_link_for_all_pages()
+    {
+        config(['site.url' => 'foo']);
+        $this->assertPageHasFeedLink(new BladePage(''));
+        $this->assertPageHasFeedLink(new MarkdownPage());
+        $this->assertPageHasFeedLink(new MarkdownPost());
+        $this->assertPageHasFeedLink(new DocumentationPage());
+    }
+
+    public function test_can_use_rss_feed_uses_configured_site_url()
+    {
+        config(['site.url' => 'foo']);
+        config(['site.url' => 'foo']);
+        $page = new MarkdownPage();
+
+        $this->assertStringContainsString(
+            '<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
+            $page->renderPageMetadata()
+        );
+    }
+
+    public function test_can_use_rss_feed_uses_configured_rss_file_name()
+    {
+        config(['site.url' => 'foo']);
+        config(['hyde.rss_filename' => 'posts.rss']);
+        $page = new MarkdownPage();
+
+        $this->assertStringContainsString(
+            '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
+            $page->renderPageMetadata()
+        );
+    }
+
+    public function test_link_is_not_added_if_site_url_is_not_set()
+    {
+        config(['site.url' => 'foo']);
+        config(['site.url' => '']);
+        $page = new MarkdownPage();
+
+        $this->assertStringNotContainsString(
+            '<link rel="alternate" type="application/rss+xml"',
+            $page->renderPageMetadata()
         );
     }
 }
