@@ -37,16 +37,21 @@ class Meta
         return '<link rel="'.e($rel).'" href="'.e($href).'" '.$attributes.'>';
     }
 
+    public static function get(array $withMergedData = []): array
+    {
+        return static::filterUnique(
+            array_merge(
+                static::getGlobalMeta(),
+                $withMergedData
+            )
+        );
+    }
+
     public static function render(array $withMergedData = []): string
     {
         return implode(
             "\n",
-            static::filterUnique(
-                array_merge(
-                    static::getGlobalMeta(),
-                    $withMergedData
-                )
-            )
+            static::get($withMergedData)
         );
     }
 

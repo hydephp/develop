@@ -78,6 +78,21 @@ class MetadataHelperTest extends TestCase
         );
     }
 
+    public function test_get_method_returns_global_metadata_merged_with_argument()
+    {
+        config(['hyde.meta' => [
+            Meta::name('foo', 'bar'),
+        ]]);
+
+        $this->assertEquals(
+            [
+                '<meta name="foo" content="bar">',
+                '<meta name="bar" content="baz">',
+            ],
+            Meta::get([Meta::name('bar', 'baz')])
+        );
+    }
+
     public function test_render_method_implodes_an_array_of_meta_tags_into_a_formatted_string()
     {
         $this->assertEquals(
