@@ -2,7 +2,7 @@
 priority: 10
 ---
 
-# Some key concepts in Hyde
+# Key HydePHP Concepts
 
 ## Introduction to Hyde
 
