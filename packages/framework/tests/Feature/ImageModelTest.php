@@ -16,6 +16,35 @@ class ImageModelTest extends TestCase
         $this->assertInstanceOf(Image::class, $image);
     }
 
+    public function test_make_can_create_an_image_based_on_string()
+    {
+        $image = Image::make('foo');
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('foo', $image->path);
+    }
+
+    public function test_make_can_create_an_image_based_on_array()
+    {
+        $image = Image::make([
+            'path' => 'foo',
+            'title' => 'bar',
+        ]);
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('foo', $image->path);
+        $this->assertEquals('bar', $image->title);
+    }
+
+    public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()
+    {
+        $image = Image::fromSource('https://example.com/image.jpg');
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('https://example.com/image.jpg', $image->uri);
+
+        $image = Image::fromSource('image.jpg');
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('image.jpg', $image->path);
+    }
+
     public function test_array_data_can_be_used_to_initialize_properties_in_constructor()
     {
         $data = [
