@@ -26,7 +26,7 @@ trait PageSchema
         $this->navigation = $this->constructNavigation();
     }
 
-     #[ArrayShape(['title' => "string", 'hidden' => "bool", 'priority' => "int"])]
+    #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
      protected function constructNavigation(): array
      {
          return [
