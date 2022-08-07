@@ -15,6 +15,9 @@ trait PageSchema
      */
     public string $title;
 
+    /**
+     * The settings for how the page should be presented in the navigation menu.
+     */
     #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
     public ?array $navigation = null;
 
