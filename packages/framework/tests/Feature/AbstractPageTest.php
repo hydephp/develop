@@ -248,12 +248,12 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_extends_abstract_page()
     {
-        $this->assertInstanceOf(AbstractPage::class, new class extends AbstractMarkdownPage {});
+        $this->assertInstanceOf(AbstractPage::class, $this->mock(AbstractMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_implements_page_contract()
     {
-        $this->assertInstanceOf(PageContract::class, new class extends AbstractMarkdownPage {});
+        $this->assertInstanceOf(PageContract::class, $this->mock(AbstractMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_has_markdown_document_property()
@@ -273,8 +273,8 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_constructor_arguments_are_optional()
     {
-        $page = new class extends AbstractMarkdownPage {};
-        $this->assertInstanceOf(AbstractMarkdownPage::class, $page); // If we get this far, we're good as no exception was thrown
+        $page = $this->mock(AbstractMarkdownPage::class);
+        $this->assertInstanceOf(AbstractMarkdownPage::class, $page);
     }
 
     public function test_abstract_markdown_page_constructor_assigns_markdown_document_property_if_set()
