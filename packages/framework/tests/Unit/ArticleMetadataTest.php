@@ -154,14 +154,12 @@ class ArticleMetadataTest extends TestCase
         ], $page->getMetadata());
     }
 
-    public function test_get_author_returns_guest_when_author_set_to_array_without_name_or_username()
+    public function test_no_author_is_set_when_author_set_to_array_without_name_or_username()
     {
         $page = MarkdownPost::make(matter: [
             'author' => [],
         ]);
 
-        $this->assertEquals([
-            'author' => 'Guest',
-        ], $page->getMetadata());
+        $this->assertEquals([], $page->getMetadata());
     }
 }

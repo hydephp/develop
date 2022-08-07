@@ -10,7 +10,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @see \Hyde\Framework\Concerns\AbstractPage::parse()
+ * @covers \Hyde\Framework\Contracts\AbstractPage::parse
  */
 class PageModelParseHelperTest extends TestCase
 {
