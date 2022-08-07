@@ -14,6 +14,8 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Adds new front matter schema traits to define the public API for front matter and hold their data
 - Adds new Meta::link() helper to create `<link>` tags
 - Adds new Meta::get() helper to get the metadata array
+- Adds a new system for creating and storing page metadata
+- Adds several new metadata model classes
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
