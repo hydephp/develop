@@ -18,7 +18,7 @@ class OpenGraphItem implements MetadataItemContract, \Stringable
 
     public function uniqueKey(): string
     {
-        return $this->property;
+        return substr($this->property, 3);
     }
 
     protected function normalizeProperty(): void
