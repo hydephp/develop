@@ -50,7 +50,7 @@ class Metadata
         return $this;
     }
 
-    public function addIf($item, $condition): static
+    public function addIf(MetadataItemContract|string $item, $condition): static
     {
         if ($condition) {
             $this->add($item);
