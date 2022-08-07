@@ -122,8 +122,7 @@ interface PageContract
     /**
      * Get the page title to display in the <head> section's <title> tag.
      *
-     * @param  string|null  $title  An optional override title, so Blade templates can use the method until we implement static Blade parsing.
      * @return string Example: "Site Name - Page Title"
      */
-    public function htmlTitle(?string $title = null): string;
+    public function htmlTitle(): string;
 }

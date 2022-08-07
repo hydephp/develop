@@ -143,13 +143,9 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
-    public function htmlTitle(?string $title = null): string
+    public function htmlTitle(): string
     {
-        $pageTitle = $title ?? $this->title;
-
-        return $pageTitle
-            ? config('site.name', 'HydePHP').' - '.$pageTitle
-            : config('site.name', 'HydePHP');
+        return config('site.name', 'HydePHP') . ' - ' . $this->title;
     }
 
     /** @inheritDoc */
