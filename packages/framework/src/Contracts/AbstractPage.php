@@ -185,8 +185,8 @@ abstract class AbstractPage implements PageContract, CompilableContract
         }
 
         if (! empty($this->title)) {
-            $array[] = '<meta name="twitter:title" content="'.$this->htmlTitle().'" />';
-            $array[] = '<meta property="og:title" content="'.$this->htmlTitle().'" />';
+            $array[] = Meta::name('twitter:title', $this->htmlTitle());
+            $array[] = Meta::property('title', $this->htmlTitle());
         }
 
         if ($this instanceof MarkdownPost) {

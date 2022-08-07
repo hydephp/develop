@@ -667,8 +667,8 @@ class AbstractPageTest extends TestCase
         $page = MarkdownPage::make(matter: ['title' => 'Foo Bar']);
 
         $this->assertEquals([
-            '<meta name="twitter:title" content="HydePHP - Foo Bar" />',
-            '<meta property="og:title" content="HydePHP - Foo Bar" />',
+            '<meta name="twitter:title" content="HydePHP - Foo Bar">',
+            '<meta property="og:title" content="HydePHP - Foo Bar">',
         ],
             $page->getDynamicMetadata()
         );
