@@ -58,7 +58,7 @@ trait BlogPostSchema
         $this->category = $this->matter('category');
         $this->description = $this->matter('description', $this->makeDescription());
         $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
-        $this->author = FindsAuthorForPost::run($this);
+        $this->author = $this->getAuthor();
         $this->image = ConfiguresFeaturedImageForPost::run($this);
     }
 
@@ -69,5 +69,14 @@ trait BlogPostSchema
         }
 
         return $this->markdown;
+    }
+
+    protected function getAuthor(): ?Author
+    {
+        if (empty($this->matter->get('author'))) {
+            return null;
+        }
+
+        return Author::make($this->matter->get('author'));
     }
 }
