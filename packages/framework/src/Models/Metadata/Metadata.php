@@ -58,6 +58,10 @@ class Metadata
 
     protected function generate(): void
     {
+        foreach (config('hyde.meta', []) as $item) {
+            $this->add($item);
+        }
+
         $this->addIf(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
             'type' => 'application/xml', 'title' => 'Sitemap',
         ]), Features::sitemap());
