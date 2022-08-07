@@ -164,6 +164,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     abstract public function compile(): string;
 
     /**
+     * @internal
      * @return string[]
      *
      * @psalm-return list<string>
