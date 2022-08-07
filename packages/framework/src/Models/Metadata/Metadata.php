@@ -30,12 +30,17 @@ class Metadata
 
     public function render(): string
     {
-        return implode("\n", array_merge(
+        return implode("\n", $this->get());
+    }
+
+    public function get(): array
+    {
+        return array_merge(
             $this->links,
             $this->metadata,
             $this->properties,
             $this->generics
-        ));
+        );
     }
 
     public function add(MetadataItemContract|string $item): static
