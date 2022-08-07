@@ -3,7 +3,10 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Models\Metadata\LinkItem;
 use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\Metadata\MetadataItem;
+use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 
@@ -30,6 +33,33 @@ class MetadataTest extends TestCase
         $this->assertNotNull($page->metadata);
         $this->assertInstanceOf(Metadata::class, $page->metadata);
         $this->assertEquals([], $page->metadata->get());
+    }
+
+    public function test_link_item_model(): void
+    {
+        $item = new LinkItem('rel', 'href');
+        $this->assertEquals('rel', $item->uniqueKey());
+        $this->assertEquals('<link rel="rel" href="href">', (string) $item);
+
+        $item = new LinkItem('rel', 'href', ['attr' => 'value']);
+        $this->assertEquals('<link rel="rel" href="href" attr="value">', (string) $item);
+    }
+
+    public function test_metadata_item_model(): void
+    {
+        $item = new MetadataItem('name', 'content');
+        $this->assertEquals('name', $item->uniqueKey());
+        $this->assertEquals('<meta name="name" content="content">', (string) $item);
+    }
+
+    public function test_open_graph_item_model(): void
+    {
+        $item = new OpenGraphItem('property', 'content');
+        $this->assertEquals('property', $item->uniqueKey());
+        $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
+
+        $item = new OpenGraphItem('og:property', 'content');
+        $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
     }
 
     public function test_link_item_can_be_added(): void
