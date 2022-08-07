@@ -332,20 +332,10 @@ class AbstractPageTest extends TestCase
         $this->assertEquals('HydePHP - Foo', MarkdownPage::make('', ['title' => 'Foo'])->htmlTitle());
     }
 
-    public function test_html_title_can_be_overridden()
-    {
-        $this->assertEquals('HydePHP - Bar', MarkdownPage::make('', ['title' => 'Foo'])->htmlTitle('Bar'));
-    }
-
-    public function test_html_title_returns_site_name_if_no_page_title()
-    {
-        $this->assertEquals('HydePHP', (new MarkdownPage())->htmlTitle());
-    }
-
     public function test_html_title_uses_configured_site_name()
     {
         config(['site.name' => 'Foo Bar']);
-        $this->assertEquals('Foo Bar', (new MarkdownPage())->htmlTitle());
+        $this->assertEquals('Foo Bar - Foo', (new MarkdownPage('Foo'))->htmlTitle());
     }
 
     public function test_body_helper_returns_markdown_document_body_in_markdown_pages()
