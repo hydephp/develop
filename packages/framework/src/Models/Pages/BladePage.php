@@ -18,13 +18,6 @@ class BladePage extends AbstractPage
     public string $view;
 
     /**
-     * The page identifier for compatibility.
-     *
-     * @var string
-     */
-    public string $identifier;
-
-    /**
      * @param  string  $view
      * @param  \Hyde\Framework\Models\FrontMatter|array  $matter
      */
