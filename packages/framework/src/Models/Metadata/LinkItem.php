@@ -6,7 +6,7 @@ use Hyde\Framework\Contracts\MetadataItemContract;
 
 class LinkItem implements MetadataItemContract, \Stringable
 {
-    public function __construct(protected string $rel, protected string $href, protected array $attr)
+    public function __construct(protected string $rel, protected string $href, protected array $attr = [])
     {
     }
 
