@@ -7,6 +7,7 @@ use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\RssFeedService;
 
 class Metadata
@@ -71,5 +72,21 @@ class Metadata
         $this->addIf(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
             'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
         ]), Features::rss());
+
+        $this->addIf(Meta::link('canonical', $this->page->canonicalUrl), !empty($this->page->canonicalUrl));
+
+        if (! empty($this->page->title)) {
+            $this->add(Meta::name('twitter:title', $this->page->htmlTitle()));
+            $this->add(Meta::property('title', $this->page->htmlTitle()));
+        }
+
+        if ($this->page instanceof MarkdownPost) {
+            foreach ($this->page->getPostMetadata() as $name => $content) {
+                $this->add(Meta::name($name, $content));
+            }
+            foreach ($this->page->getMetaProperties() as $property => $content) {
+                $this->add(Meta::property($property, $content));
+            }
+        }
     }
 }
