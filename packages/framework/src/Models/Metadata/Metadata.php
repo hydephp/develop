@@ -36,6 +36,10 @@ class Metadata
     {
         if ($item instanceof LinkItem) {
             $this->links[$item->uniqueKey()] = $item;
+        } elseif ($item instanceof MetadataItem) {
+            $this->metadata[$item->uniqueKey()] = $item;
+        } elseif ($item instanceof OpenGraphItem) {
+            $this->properties[$item->uniqueKey()] = $item;
         } else {
             throw new \InvalidArgumentException('Invalid item type ' . get_class($item));
         }
