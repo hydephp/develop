@@ -10,7 +10,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class FindsNavigationDataForPage
 {
-    #[ArrayShape(['title' => "string", 'hidden' => "bool", 'priority' => "int"])]
+    #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
     public static function run(AbstractPage $page): array
     {
         return (new static($page))->getData();
@@ -20,7 +20,7 @@ class FindsNavigationDataForPage
     {
     }
 
-    #[ArrayShape(['title' => "string", 'hidden' => "bool", 'priority' => "int"])]
+    #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
     protected function getData(): array
     {
         return [
