@@ -605,8 +605,8 @@ class AbstractPageTest extends TestCase
         config(['hyde.meta' => []]);
         $page = new MarkdownPage('foo');
 
-        $this->assertEquals(
-            '',
+        $this->assertStringNotContainsString(
+            '<link rel="canonical"',
             $page->renderPageMetadata()
         );
     }
@@ -617,9 +617,9 @@ class AbstractPageTest extends TestCase
         config(['hyde.meta' => []]);
         $page = new MarkdownPage('foo');
 
-        $this->assertEquals(
-            [],
-            $page->getDynamicMetadata()
+        $this->assertStringNotContainsString(
+            '<link rel="canonical"',
+            json_encode($page->getDynamicMetadata())
         );
     }
 
