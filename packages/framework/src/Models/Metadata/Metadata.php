@@ -129,6 +129,7 @@ class Metadata
         foreach ($this->{$group} as $key => $value) {
             $array[$group.':'.$key] = $value;
         }
+
         return $array;
     }
 }
