@@ -99,7 +99,7 @@ and the rest of the data will be pulled from a matching entry.
 ],
 ```
 
-This is equivalent to the following front matter:
+This is equivalent to the following front matter in a blog post:
 ```yaml
 author:
     username: mr_hyde
