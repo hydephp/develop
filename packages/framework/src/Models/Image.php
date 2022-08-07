@@ -7,11 +7,21 @@ use Hyde\Framework\Hyde;
 
 /**
  * Holds the information for an image.
+ *
+ * $schema = [
+ *    'path'         => '?string',
+ *    'uri'          => '?string',
+ *    'description'  => '?string',
+ *    'title'        => '?string',
+ *    'copyright'    => '?string',
+ *    'license'      => '?string',
+ *    'licenseUrl'   => '?string',
+ *    'author'       => '?string',
+ *    'credit'       => '?string'
+ * ];
  */
 class Image
 {
-    // Core properties
-
     /**
      * The image's path (if it is stored locally).
      * Example: _media/image.jpg.
@@ -46,8 +56,6 @@ class Image
      * @var string|null
      */
     public ?string $title;
-
-    // Extra metadata
 
     /**
      * The image's copyright.

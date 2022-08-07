@@ -34,8 +34,21 @@ trait BlogPostSchema
     public ?Author $author = null;
 
     /**
-     * @example See image section
      * @yamlType string|array|optional
+     * @example "image.jpg" # Expanded by Hyde to `_media/image.jpg` and is resolved automatically
+     * @example "https://cdn.example.com/image.jpg" # Full URL starting with `http(s)://`)
+     * @example ```yaml
+     * image:
+     *   path: image.jpg
+     *   uri: https://cdn.example.com/image.jpg # Takes precedence over `path`
+     *   description: 'Alt text for image'
+     *   title: 'Tooltip title'
+     *   copyright: 'Copyright (c) 2022'
+     *   license: 'CC-BY-SA-4.0'
+     *   licenseUrl: https://example.com/license/
+     *   credit: https://photographer.example.com/
+     *   author: 'John Doe'
+     * ```
      */
     public ?Image $image = null;
 
