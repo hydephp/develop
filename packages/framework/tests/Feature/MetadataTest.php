@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Testing\TestCase;
 
 /**
@@ -10,5 +9,4 @@ use Hyde\Testing\TestCase;
  */
 class MetadataTest extends TestCase
 {
-
 }
