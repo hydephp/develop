@@ -33,7 +33,7 @@ class AbstractPageMetadataTest extends TestCase
         config(['site.url' => 'https://example.com']);
         $page = $this->makePage();
 
-        $this->assertEquals('https://example.com/foo.html', $page->getCanonicalUrl());
+        $this->assertEquals('https://example.com/foo.html', $page->canonicalUrl);
     }
 
     public function test_get_canonical_url_returns_pretty_url_for_top_level_page()
@@ -42,7 +42,7 @@ class AbstractPageMetadataTest extends TestCase
         config(['site.pretty_urls' => true]);
         $page = $this->makePage();
 
-        $this->assertEquals('https://example.com/foo', $page->getCanonicalUrl());
+        $this->assertEquals('https://example.com/foo', $page->canonicalUrl);
     }
 
     public function test_get_canonical_url_returns_url_for_nested_page()
@@ -50,7 +50,7 @@ class AbstractPageMetadataTest extends TestCase
         config(['site.url' => 'https://example.com']);
         $page = $this->makePage('foo/bar');
 
-        $this->assertEquals('https://example.com/foo/bar.html', $page->getCanonicalUrl());
+        $this->assertEquals('https://example.com/foo/bar.html', $page->canonicalUrl);
     }
 
     public function test_get_canonical_url_returns_url_for_deeply_nested_page()
@@ -58,32 +58,29 @@ class AbstractPageMetadataTest extends TestCase
         config(['site.url' => 'https://example.com']);
         $page = $this->makePage('foo/bar/baz');
 
-        $this->assertEquals('https://example.com/foo/bar/baz.html', $page->getCanonicalUrl());
+        $this->assertEquals('https://example.com/foo/bar/baz.html', $page->canonicalUrl);
     }
 
-    public function test_can_use_canonical_url_returns_true_when_both_uri_path_and_slug_is_set()
+    public function test_canonical_url_is_not_set_when_identifier_is_null()
     {
-        $page = $this->makePage();
         config(['site.url' => 'https://example.com']);
-
-        $this->assertTrue($page->canUseCanonicalUrl());
+        $page = new MarkdownPage();
+        $this->assertNull($page->canonicalUrl);
+        $this->assertStringNotContainsString(
+            '<link rel="canonical"',
+            $page->renderPageMetadata()
+        );
     }
 
-    public function test_can_use_canonical_url_returns_false_no_conditions_are_met()
+    public function test_canonical_url_is_not_set_when_site_url_is_null()
     {
-        $page = new MarkdownPage();
-        $this->assertFalse($page->canUseCanonicalUrl());
-    }
-
-    public function test_can_use_canonical_url_returns_false_when_only_one_condition_is_met()
-    {
-        $page = new MarkdownPage();
-        $this->assertFalse($page->canUseCanonicalUrl());
-
         config(['site.url' => null]);
         $page = $this->makePage();
-
-        $this->assertFalse($page->canUseCanonicalUrl());
+        $this->assertNull($page->canonicalUrl);
+        $this->assertStringNotContainsString(
+            '<link rel="canonical"',
+            $page->renderPageMetadata()
+        );
     }
 
     public function test_render_page_metadata_returns_string()

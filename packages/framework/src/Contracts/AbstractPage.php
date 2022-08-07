@@ -163,11 +163,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     abstract public function compile(): string;
 
-    public function getCanonicalUrl(): string
-    {
-        return $this->getRoute()->getQualifiedUrl();
-    }
-
     /**
      * @return string[]
      *
@@ -216,11 +211,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
         return Meta::render(
             withMergedData: $this->getDynamicMetadata()
         );
-    }
-
-    public function canUseCanonicalUrl(): bool
-    {
-        return Hyde::hasSiteUrl() && isset($this->identifier);
     }
 
     public function hasTwitterTitleInConfig(): bool
