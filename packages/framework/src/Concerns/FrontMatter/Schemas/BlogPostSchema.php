@@ -72,10 +72,10 @@ trait BlogPostSchema
 
     protected function getAuthor(): ?Author
     {
-        if (empty($this->matter->get('author'))) {
-            return null;
+        if ($this->matter->get('author')) {
+            return Author::make($this->matter->get('author'));
         }
 
-        return Author::make($this->matter->get('author'));
+        return null;
     }
 }
