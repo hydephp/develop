@@ -1,0 +1,23 @@
+<?php
+
+namespace Hyde\Framework\Models\Metadata;
+
+class Link implements \Stringable
+{
+    public function __construct(protected string $rel, protected string $href, protected array $attr)
+    {
+    }
+
+    public function __toString(): string
+    {
+        if (! $this->attr) {
+            return '<link rel="'.e($this->rel).'" href="'.e($this->href).'">';
+        }
+
+        $attributes = collect($this->attr)->map(function ($value, $key) {
+            return e($key).'="'.e($value).'"';
+        })->implode(' ');
+
+        return '<link rel="'.e($this->rel).'" href="'.e($this->href).'" '.$attributes.'>';
+    }
+}
