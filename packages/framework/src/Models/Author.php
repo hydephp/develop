@@ -88,7 +88,7 @@ class Author implements \Stringable
             return static::get($data);
         }
 
-        return static::create($data['username'], $data['name'] ?? null, $data['website'] ?? null);
+        return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
     }
 
     public static function all(): Collection
@@ -100,5 +100,10 @@ class Author implements \Stringable
     {
         return static::all()->firstWhere('username', $username)
             ?? static::create($username);
+    }
+
+    protected static function findUsername(array $data): string
+    {
+        return $data['username'] ?? $data['name'] ?? 'Guest';
     }
 }
