@@ -1,7 +1,6 @@
 ---
 priority: 25
 label: "Compile & Deploy"
-category: "Creating Content"
 ---
 
 # Compile and Deploy your site

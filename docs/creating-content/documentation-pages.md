@@ -1,7 +1,6 @@
 ---
 label: Documentation Pages
 priority: 12
-category: "Creating Content"
 ---
 
 # Creating Documentation Pages
