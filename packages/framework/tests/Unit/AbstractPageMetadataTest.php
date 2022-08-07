@@ -13,16 +13,6 @@ use Hyde\Testing\TestCase;
  */
 class AbstractPageMetadataTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        config(['hyde.meta' => []]);
-        config(['site.url' => null]);
-        config(['site.pretty_urls' => false]);
-        config(['site.generate_sitemap' => false]);
-    }
-
     protected function makePage(string $slug = 'foo'): MarkdownPage
     {
         return new MarkdownPage(identifier: $slug);
@@ -117,6 +107,8 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_render_page_metadata_only_adds_canonical_if_conditions_are_met()
     {
+        config(['site.url' => null]);
+        config(['hyde.meta' => []]);
         $page = $this->makePage();
 
         $this->assertEquals(
@@ -127,6 +119,8 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_only_adds_canonical_if_conditions_are_met()
     {
+        config(['site.url' => null]);
+        config(['hyde.meta' => []]);
         $page = $this->makePage();
 
         $this->assertEquals(
@@ -214,6 +208,7 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_conditions_are_met()
     {
+        config(['site.url' => null]);
         config(['hyde.meta' => [
             Meta::name('twitter:title', 'foo'),
             Meta::property('title', 'foo'),
