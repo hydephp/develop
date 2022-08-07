@@ -120,6 +120,16 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
+    public function has(string $key, bool $strict = false): bool
+    {
+        if ($strict) {
+            return (property_exists($this, $key) && isset($this->$key)) || $this->matter->has($key);
+        }
+
+        return ! blank($this->get($key));
+    }
+
+    /** @inheritDoc */
     public function getIdentifier(): string
     {
         return $this->identifier;
