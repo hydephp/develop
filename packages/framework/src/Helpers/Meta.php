@@ -84,9 +84,4 @@ class Meta
     {
         return config('hyde.meta', []);
     }
-
-    protected static function formatOpenGraphProperty(string $property): string
-    {
-        return str_starts_with($property, 'og:') ? $property : 'og:'.$property;
-    }
 }
