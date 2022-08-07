@@ -7,6 +7,7 @@ use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
@@ -34,15 +35,14 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     public string $identifier;
     public FrontMatter $matter;
-
-    public array $metadata;
+    public Metadata $metadata;
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchema();
-        $this->metadata = Meta::get($this->getDynamicMetadata());
+        $this->metadata = new Metadata($this);
     }
 
     /** @inheritDoc */
@@ -200,7 +200,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     public function renderPageMetadata(): string
     {
-        return implode("\n", $this->metadata);
+        return $this->metadata->render();
     }
 
     public function showInNavigation(): bool
