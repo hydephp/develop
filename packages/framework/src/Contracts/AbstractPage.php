@@ -177,22 +177,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     abstract public function compile(): string;
 
-    /**
-     * @internal
-     *
-     * @deprecated pending move to service
-     *
-     * @return string[]
-     *
-     * @psalm-return list<string>
-     */
-    public function getDynamicMetadata(): array
-    {
-        $array = [];
-
-        return $array;
-    }
-
     public function renderPageMetadata(): string
     {
         return $this->metadata->render();
