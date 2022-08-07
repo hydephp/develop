@@ -49,6 +49,30 @@ class MetadataHelperTest extends TestCase
         );
     }
 
+    public function test_link_method_returns_a_valid_html_link_string()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar">',
+            Meta::link('foo', 'bar')
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string_with_attributes()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar" title="baz">',
+            Meta::link('foo', 'bar', ['title' => 'baz'])
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string_with_multiple_attributes()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar" title="baz" type="text/css">',
+            Meta::link('foo', 'bar', ['title' => 'baz', 'type' => 'text/css'])
+        );
+    }
+
     public function test_render_method_implodes_an_array_of_meta_tags_into_a_formatted_string()
     {
         $this->assertEquals(

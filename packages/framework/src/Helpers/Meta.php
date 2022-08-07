@@ -21,6 +21,19 @@ class Meta
         return '<meta property="'.e($property).'" content="'.e($content).'">';
     }
 
+    public static function link(string $rel, string $href, array $attr = []): string
+    {
+        if (! $attr) {
+            return '<link rel="'.e($rel).'" href="'.e($href).'">';
+        }
+
+        $attributes = collect($attr)->map(function ($value, $key) {
+            return e($key).'="'.e($value).'"';
+        })->implode(' ');
+
+        return '<link rel="' . e($rel) . '" href="' . e($href) . '" ' . $attributes . '>';
+    }
+
     public static function render(array $withMergedData = []): string
     {
         return implode(
