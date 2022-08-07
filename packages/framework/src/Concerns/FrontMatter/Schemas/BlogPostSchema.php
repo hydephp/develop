@@ -35,6 +35,7 @@ trait BlogPostSchema
 
     /**
      * @yamlType string|array|optional
+     *
      * @example "image.jpg" # Expanded by Hyde to `_media/image.jpg` and is resolved automatically
      * @example "https://cdn.example.com/image.jpg" # Full URL starting with `http(s)://`)
      * @example ```yaml
