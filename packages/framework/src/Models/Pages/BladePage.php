@@ -29,7 +29,6 @@ class BladePage extends AbstractPage
 
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-
     public static string $fileExtension = '.blade.php';
 
     /** @inheritDoc */
