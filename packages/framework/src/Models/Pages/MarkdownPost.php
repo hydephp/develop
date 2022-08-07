@@ -83,7 +83,6 @@ class MarkdownPost extends AbstractMarkdownPage
      */
     protected function parseFrontMatterMetadata(): void
     {
-
     }
 
     /**
@@ -93,12 +92,10 @@ class MarkdownPost extends AbstractMarkdownPage
      */
     protected function makeOpenGraphPropertiesForArticle(): void
     {
-
     }
 
     /** @deprecated pending move to service */
     protected function setImageMetadata(): void
     {
-
     }
 }
