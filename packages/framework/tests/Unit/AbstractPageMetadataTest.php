@@ -83,6 +83,17 @@ class AbstractPageMetadataTest extends TestCase
         );
     }
 
+    public function test_custom_canonical_link_can_be_set_in_front_matter()
+    {
+        config(['site.url' => 'https://example.com']);
+        $page = MarkdownPage::make(matter: ['canonicalUrl' => 'foo/bar']);
+        $this->assertEquals('foo/bar', $page->canonicalUrl);
+        $this->assertStringContainsString(
+            '<link rel="canonical" href="foo/bar" />',
+            $page->renderPageMetadata()
+        );
+    }
+
     public function test_render_page_metadata_returns_string()
     {
         $page = $this->makePage();
