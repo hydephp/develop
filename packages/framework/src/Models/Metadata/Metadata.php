@@ -81,12 +81,26 @@ class Metadata
         }
 
         if ($this->page instanceof MarkdownPost) {
-            foreach ($this->page->getPostMetadata() as $name => $content) {
-                $this->add(Meta::name($name, $content));
-            }
+            $this->addMetadataForMarkdownPost($this->page);
+
             foreach ($this->page->getMetaProperties() as $property => $content) {
                 $this->add(Meta::property($property, $content));
             }
+        }
+    }
+
+    protected function addMetadataForMarkdownPost(MarkdownPost $page): void
+    {
+        if ($page->has('description')) {
+            $this->add(Meta::name('description', $page->get('description')));
+        }
+
+        if ($page->has('author')) {
+            $this->add(Meta::name('author', $page->author->getName()));
+        }
+
+        if ($page->has('category')) {
+            $this->add(Meta::name('keywords', $page->category));
         }
     }
 }
