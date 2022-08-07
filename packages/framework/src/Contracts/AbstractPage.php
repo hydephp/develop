@@ -37,6 +37,14 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     public array $metadata;
 
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
+    {
+        $this->identifier = $identifier;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+        $this->constructPageSchema();
+        $this->metadata = Meta::get($this->getDynamicMetadata());
+    }
+
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
     {
@@ -93,14 +101,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
             static::getOutputDirectory().'/'.unslash($basename),
             '/'
         ).'.html';
-    }
-
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
-    {
-        $this->identifier = $identifier;
-        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
-        $this->constructPageSchema();
-        $this->metadata = Meta::get($this->getDynamicMetadata());
     }
 
     /** @inheritDoc */
