@@ -109,23 +109,6 @@ class MarkdownPost extends AbstractMarkdownPage
         }
     }
 
-    /**
-     * Parse the author name string from front matter with support for both flat and array notation.
-     *
-     * @param  string|array  $author
-     * @return string
-     *
-     * @deprecated v0.58.x-beta (Use author model instead)
-     */
-    protected function getAuthorName(string|array $author): string
-    {
-        if (is_string($author)) {
-            return $author;
-        }
-
-        return $author['name'] ?? $author['username'] ?? 'Guest';
-    }
-
     protected function setImageMetadata(): void
     {
         if ($this->image) {
