@@ -23,6 +23,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Contracts\AbstractPage
  * @covers \Hyde\Framework\Contracts\AbstractMarkdownPage
+ * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  *
  * @see \Hyde\Framework\Testing\Unit\AbstractPageMetadataTest
  */
