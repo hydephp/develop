@@ -24,6 +24,7 @@ trait PageSchema
 
     /**
      * The canonical URL of the page.
+     *
      * @var string|null
      */
     public ?string $canonicalUrl = null;
