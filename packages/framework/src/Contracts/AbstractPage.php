@@ -166,6 +166,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     /**
      * @internal
+     * @deprecated pending move to service
      *
      * @return string[]
      *

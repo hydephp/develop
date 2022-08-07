@@ -47,7 +47,9 @@ class MarkdownPost extends AbstractMarkdownPage
 
     // HasArticleMetadata (Generates article metadata for a MarkdownPost)
 
+    /** @deprecated pending move to service */
     public array $postMetadata = [];
+    /** @deprecated pending move to service */
     public array $properties = [];
 
     protected function constructMetadata(): void
@@ -57,11 +59,13 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->makeOpenGraphPropertiesForArticle();
     }
 
+    /** @deprecated pending move to service */
     public function getPostMetadata(): array
     {
         return $this->postMetadata;
     }
 
+    /** @deprecated pending move to service */
     public function getMetaProperties(): array
     {
         return $this->properties;
@@ -70,6 +74,7 @@ class MarkdownPost extends AbstractMarkdownPage
     /**
      * Generate metadata from the front matter that can be used in standard <meta> tags.
      * This helper is page type agnostic and works with any kind of model having front matter.
+     * @deprecated pending move to service
      */
     protected function parseFrontMatterMetadata(): void
     {
@@ -88,6 +93,7 @@ class MarkdownPost extends AbstractMarkdownPage
 
     /**
      * Generate opengraph metadata from front matter for an og:article such as a blog post.
+     * @deprecated pending move to service
      */
     protected function makeOpenGraphPropertiesForArticle(): void
     {
@@ -109,6 +115,7 @@ class MarkdownPost extends AbstractMarkdownPage
         }
     }
 
+    /** @deprecated pending move to service */
     protected function setImageMetadata(): void
     {
         if ($this->image) {
