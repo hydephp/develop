@@ -49,13 +49,10 @@ class SourceFileParser
             $pageClass::qualifyBasename($this->identifier)
         );
 
-        $matter = $document->matter;
-        $markdown = $document->markdown;
-
         return new $pageClass(
             identifier: $this->identifier,
-            matter: $matter,
-            markdown: $markdown
+            matter: $document->matter,
+            markdown: $document->markdown
         );
     }
 
