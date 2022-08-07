@@ -22,13 +22,13 @@ class SourceFileParser
 {
     use ValidatesExistence;
 
-    protected string $slug;
+    protected string $identifier;
     protected PageContract $page;
 
-    public function __construct(string $pageClass, string $slug)
+    public function __construct(string $pageClass, string $identifier)
     {
-        $this->validateExistence($pageClass, $slug);
-        $this->slug = $slug;
+        $this->validateExistence($pageClass, $identifier);
+        $this->identifier = $identifier;
 
         $this->page = $this->constructBaseModel($pageClass);
     }
@@ -42,8 +42,8 @@ class SourceFileParser
 
     protected function parseBladePage(): BladePage
     {
-        return new BladePage($this->slug,
-            (BladeMatterParser::parseFile(BladePage::qualifyBasename($this->slug)))
+        return new BladePage($this->identifier,
+            (BladeMatterParser::parseFile(BladePage::qualifyBasename($this->identifier)))
         );
     }
 
@@ -51,14 +51,14 @@ class SourceFileParser
     {
         /** @var AbstractMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
-            $pageClass::qualifyBasename($this->slug)
+            $pageClass::qualifyBasename($this->identifier)
         );
 
         $matter = $document->matter;
         $markdown = $document->markdown;
 
         return new $pageClass(
-            identifier: $this->slug,
+            identifier: $this->identifier,
             matter: $matter,
             markdown: $markdown
         );
