@@ -573,7 +573,7 @@ class AbstractPageTest extends TestCase
         $page = MarkdownPage::make(matter: ['canonicalUrl' => 'foo/bar']);
         $this->assertEquals('foo/bar', $page->canonicalUrl);
         $this->assertStringContainsString(
-            '<link rel="canonical" href="foo/bar" />',
+            '<link rel="canonical" href="foo/bar">',
             $page->renderPageMetadata()
         );
     }
@@ -594,7 +594,7 @@ class AbstractPageTest extends TestCase
 
         $this->assertStringContainsString(
             '<meta name="foo" content="bar">'."\n".
-            '<link rel="canonical" href="https://example.com/foo.html" />',
+            '<link rel="canonical" href="https://example.com/foo.html">',
             $page->renderPageMetadata()
         );
     }
@@ -631,7 +631,7 @@ class AbstractPageTest extends TestCase
         ]]);
         $page = new MarkdownPage('foo');
 
-        $this->assertContains('<link rel="canonical" href="https://example.com/foo.html" />',
+        $this->assertContains('<link rel="canonical" href="https://example.com/foo.html">',
             $page->getDynamicMetadata()
         );
     }
@@ -643,7 +643,7 @@ class AbstractPageTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />',
+        $this->assertContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml">',
             $page->getDynamicMetadata()
         );
     }
@@ -655,7 +655,7 @@ class AbstractPageTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => false]);
 
-        $this->assertNotContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml" />',
+        $this->assertNotContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml">',
             $page->getDynamicMetadata()
         );
     }
