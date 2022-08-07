@@ -42,7 +42,7 @@ trait PageSchema
             return $this->matter('canonicalUrl');
         }
 
-        if (Hyde::hasSiteUrl() && isset($this->identifier)) {
+        if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
             return $this->getRoute()->getQualifiedUrl();
         }
 
