@@ -5,6 +5,7 @@ namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use JetBrains\PhpStorm\ArrayShape;
 
 trait PageSchema
@@ -25,14 +26,15 @@ trait PageSchema
         $this->navigation = $this->constructNavigation();
     }
 
-    #[ArrayShape(['title' => 'string', 'priority' => 'int'])]
- protected function constructNavigation(): array
- {
-     return [
-         'title' => $this->getNavigationMenuTitle(),
-         'priority' => $this->getNavigationMenuPriority(),
-     ];
- }
+     #[ArrayShape(['title' => "string", 'hidden' => "bool", 'priority' => "int"])]
+     protected function constructNavigation(): array
+     {
+         return [
+             'title' => $this->getNavigationMenuTitle(),
+             'hidden' => ! $this->getNavigationMenuVisible(),
+             'priority' => $this->getNavigationMenuPriority(),
+         ];
+     }
 
     protected function getNavigationMenuTitle(): string
     {
@@ -55,6 +57,29 @@ trait PageSchema
         }
 
         return $this->title;
+    }
+
+    protected function getNavigationMenuVisible(): bool
+    {
+        if ($this instanceof MarkdownPost) {
+            return false;
+        }
+
+        if ($this instanceof DocumentationPage) {
+            return $this->identifier === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
+        }
+
+        if ($this instanceof AbstractMarkdownPage) {
+            if ($this->matter('navigation.hidden', false)) {
+                return false;
+            }
+        }
+
+        if (in_array($this->identifier, config('hyde.navigation.exclude', ['404']))) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function getNavigationMenuPriority(): int

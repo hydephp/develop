@@ -238,31 +238,11 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /**
      * Should the item should be displayed in the navigation menu?
      *
-     * @deprecated should be moved to schema
-     *
      * @return bool
      */
     public function showInNavigation(): bool
     {
-        if ($this instanceof MarkdownPost) {
-            return false;
-        }
-
-        if ($this instanceof DocumentationPage) {
-            return $this->identifier === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
-        }
-
-        if ($this instanceof AbstractMarkdownPage) {
-            if ($this->matter('navigation.hidden', false)) {
-                return false;
-            }
-        }
-
-        if (in_array($this->identifier, config('hyde.navigation.exclude', ['404']))) {
-            return false;
-        }
-
-        return true;
+        return ! $this->navigation['hidden'];
     }
 
     /**

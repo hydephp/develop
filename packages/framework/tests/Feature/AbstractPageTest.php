@@ -355,23 +355,21 @@ class AbstractPageTest extends TestCase
 
     public function test_show_in_navigation_returns_false_for_markdown_post()
     {
-        $page = $this->mock(MarkdownPost::class)->makePartial();
+        $page = MarkdownPost::make();
 
         $this->assertFalse($page->showInNavigation());
     }
 
     public function test_show_in_navigation_returns_true_for_documentation_page_if_slug_is_index()
     {
-        $page = $this->mock(DocumentationPage::class)->makePartial();
-        $page->identifier = 'index';
+        $page = DocumentationPage::make('index');
 
         $this->assertTrue($page->showInNavigation());
     }
 
     public function test_show_in_navigation_returns_false_for_documentation_page_if_slug_is_not_index()
     {
-        $page = $this->mock(DocumentationPage::class)->makePartial();
-        $page->identifier = 'not-index';
+        $page = DocumentationPage::make('not-index');
 
         $this->assertFalse($page->showInNavigation());
     }
@@ -400,10 +398,10 @@ class AbstractPageTest extends TestCase
     public function test_show_in_navigation_returns_false_if_slug_is_present_in_config_hyde_navigation_exclude()
     {
         $page = MarkdownPage::make('foo');
-
         $this->assertTrue($page->showInNavigation());
 
         config(['hyde.navigation.exclude' => ['foo']]);
+        $page = MarkdownPage::make('foo');
         $this->assertFalse($page->showInNavigation());
     }
 
