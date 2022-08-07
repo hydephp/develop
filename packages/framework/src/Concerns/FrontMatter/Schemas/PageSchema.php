@@ -25,13 +25,14 @@ trait PageSchema
         $this->navigation = $this->constructNavigation();
     }
 
-    #[ArrayShape(['title' => "string", 'priority' => "int"])] protected function constructNavigation(): array
-    {
-        return [
-            'title' => $this->getNavigationMenuTitle(),
-            'priority' => $this->getNavigationMenuPriority(),
-        ];
-    }
+    #[ArrayShape(['title' => 'string', 'priority' => 'int'])]
+ protected function constructNavigation(): array
+ {
+     return [
+         'title' => $this->getNavigationMenuTitle(),
+         'priority' => $this->getNavigationMenuPriority(),
+     ];
+ }
 
     protected function getNavigationMenuTitle(): string
     {
