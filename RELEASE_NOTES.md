@@ -35,6 +35,7 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Removed `body()` method from `MarkdownDocumentContract` interface and all its implementations. Use `markdown()->body()` (or cast to string) instead
 - Removed `body` property from Markdown pages. Use `markdown()->body()` (or cast to string) instead
 - Removed deprecated `Helpers\Author` (fully merged into `Models\Author`, simply swap namespace to upgrade)
+- Removed metadata constructor helpers from the MarkdownPost class as it is now handled in the new metadata class
 - Several internal single-use helper traits have been merged into their respective classes
 
 ### Fixed
