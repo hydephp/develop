@@ -42,18 +42,23 @@ class Metadata
         return $this;
     }
 
-    protected function generate(): void
+    public function addIf($item, $condition): static
     {
-        if (Features::sitemap()) {
-            $this->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
-                'type' => 'application/xml', 'title' => 'Sitemap',
-            ]));
+        if ($condition) {
+            $this->add($item);
         }
 
-        if (Features::rss()) {
-            $this->add(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
-                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
-            ]));
-        }
+        return $this;
+    }
+
+    protected function generate(): void
+    {
+        $this->addIf(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
+            'type' => 'application/xml', 'title' => 'Sitemap',
+        ]), Features::sitemap());
+
+        $this->addIf(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
+            'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
+        ]), Features::rss());
     }
 }
