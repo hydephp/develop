@@ -24,7 +24,7 @@ class FindsTitleForPage
 
     protected function findTitleForPage(): string
     {
-        return $this->page->matter->get('title')
+        return $this->page->matter('title')
                 ?? $this->findTitleFromMarkdownHeadings()
                 ?? Hyde::makeTitle($this->page->identifier);
     }

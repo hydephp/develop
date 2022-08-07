@@ -39,12 +39,12 @@ trait PageSchema
     protected function getNavigationMenuTitle(): string
     {
         if ($this instanceof AbstractMarkdownPage) {
-            if ($this->matter->get('navigation.title') !== null) {
-                return $this->matter->get('navigation.title');
+            if ($this->matter('navigation.title') !== null) {
+                return $this->matter('navigation.title');
             }
 
-            if ($this->matter->get('title') !== null) {
-                return $this->matter->get('title');
+            if ($this->matter('title') !== null) {
+                return $this->matter('title');
             }
         }
 

@@ -72,8 +72,8 @@ trait BlogPostSchema
 
     protected function getAuthor(): ?Author
     {
-        if ($this->matter->get('author')) {
-            return Author::make($this->matter->get('author'));
+        if ($this->matter('author')) {
+            return Author::make($this->matter('author'));
         }
 
         return null;

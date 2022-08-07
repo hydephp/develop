@@ -23,12 +23,12 @@ class ConfiguresFeaturedImageForPost
 
     private function constructImage(): Image|null
     {
-        if ($this->page->matter->get('image') !== null) {
-            if (is_string($this->page->matter->get('image'))) {
-                return $this->constructBaseImage($this->page->matter->get('image'));
+        if ($this->page->matter('image') !== null) {
+            if (is_string($this->page->matter('image'))) {
+                return $this->constructBaseImage($this->page->matter('image'));
             }
-            if (is_array($this->page->matter->get('image'))) {
-                return new Image($this->page->matter->get('image'));
+            if (is_array($this->page->matter('image'))) {
+                return new Image($this->page->matter('image'));
             }
         }
 
