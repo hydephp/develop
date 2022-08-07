@@ -9,4 +9,11 @@ use Hyde\Testing\TestCase;
  */
 class MetadataTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['site.url' => null]);
+        config(['hyde.meta' => []]);
+    }
 }
