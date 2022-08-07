@@ -2,11 +2,9 @@
 
 namespace Hyde\Framework\Helpers;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Metadata\LinkItem;
 use Hyde\Framework\Models\Metadata\MetadataItem;
 use Hyde\Framework\Models\Metadata\OpenGraphItem;
-use Hyde\Framework\Services\RssFeedService;
 
 /**
  * Helpers to fluently declare HTML meta tags.

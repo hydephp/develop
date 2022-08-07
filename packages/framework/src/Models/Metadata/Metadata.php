@@ -73,7 +73,7 @@ class Metadata
             'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
         ]), Features::rss());
 
-        $this->addIf(Meta::link('canonical', $this->page->canonicalUrl), !empty($this->page->canonicalUrl));
+        $this->addIf(Meta::link('canonical', $this->page->canonicalUrl), ! empty($this->page->canonicalUrl));
 
         if (! empty($this->page->title)) {
             $this->add(Meta::name('twitter:title', $this->page->htmlTitle()));

@@ -23,8 +23,8 @@ interface PageContract
     /**
      * See if a value exists in the computed page data or the front matter.
      *
-     * @param string $key
-     * @param bool $strict When set to true, an additional check if the property is not blank is performed.
+     * @param  string  $key
+     * @param  bool  $strict  When set to true, an additional check if the property is not blank is performed.
      * @return bool
      */
     public function has(string $key, bool $strict = false): bool;
