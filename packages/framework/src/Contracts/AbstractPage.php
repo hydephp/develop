@@ -237,31 +237,16 @@ abstract class AbstractPage implements PageContract, CompilableContract
             '" href="'.Hyde::url(RssFeedService::getDefaultOutputFilename()).'" />';
     }
 
-    /**
-     * Should the item should be displayed in the navigation menu?
-     *
-     * @return bool
-     */
     public function showInNavigation(): bool
     {
         return ! $this->navigation['hidden'];
     }
 
-    /**
-     * The relative priority, determining the position of the item in the menu.
-     *
-     * @return int
-     */
     public function navigationMenuPriority(): int
     {
         return $this->navigation['priority'];
     }
 
-    /**
-     * The page title to display in the navigation menu.
-     *
-     * @return string
-     */
     public function navigationMenuTitle(): string
     {
         return $this->navigation['title'];
