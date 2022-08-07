@@ -309,12 +309,12 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public function navigationMenuTitle(): string
     {
         if ($this instanceof AbstractMarkdownPage) {
-            if ($this->matter('navigation.title') !== null) {
-                return $this->matter('navigation.title');
+            if ($this->matter->get('navigation.title') !== null) {
+                return $this->matter->get('navigation.title');
             }
 
-            if ($this->matter('title') !== null) {
-                return $this->matter('title');
+            if ($this->matter->get('title') !== null) {
+                return $this->matter->get('title');
             }
         }
 
