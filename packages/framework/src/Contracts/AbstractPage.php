@@ -172,7 +172,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     {
         $array = [];
 
-        if ($this->canonicalUrl) {
+        if (! empty($this->canonicalUrl)) {
             $array[] = Meta::link('canonical', $this->canonicalUrl);
         }
 
