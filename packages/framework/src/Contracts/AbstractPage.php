@@ -182,18 +182,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
             $array[] = Meta::property('title', $this->htmlTitle());
         }
 
-        if (Features::sitemap()) {
-            $array[] = Meta::link('sitemap', Hyde::url('sitemap.xml'), [
-                'type' => 'application/xml', 'title' => 'Sitemap',
-            ]);
-        }
-
-        if (Features::rss()) {
-            $array[] = Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
-                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
-            ]);
-        }
-
         if ($this instanceof MarkdownPost) {
             $array[] = "\n<!-- Blog Post Meta Tags -->";
             foreach ($this->getMetadata() as $name => $content) {

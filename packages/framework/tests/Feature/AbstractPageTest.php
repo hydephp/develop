@@ -636,30 +636,6 @@ class AbstractPageTest extends TestCase
         );
     }
 
-    public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
-    {
-        $page = new MarkdownPage('foo');
-
-        config(['site.url' => 'https://example.com']);
-        config(['site.generate_sitemap' => true]);
-
-        $this->assertContains('<link rel="sitemap" href="https://example.com/sitemap.xml" type="application/xml" title="Sitemap">',
-            $page->getDynamicMetadata()
-        );
-    }
-
-    public function test_get_dynamic_metadata_does_not_add_sitemap_link_when_conditions_are_not_met()
-    {
-        $page = new MarkdownPage('foo');
-
-        config(['site.url' => 'https://example.com']);
-        config(['site.generate_sitemap' => false]);
-
-        $this->assertNotContains('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml">',
-            $page->getDynamicMetadata()
-        );
-    }
-
     public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_title_is_set()
     {
         config(['site.url' => null]);
@@ -689,62 +665,4 @@ class AbstractPageTest extends TestCase
         );
     }
 
-    protected function assertPageHasFeedLink($page)
-    {
-        $this->assertStringContainsString(
-            '<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
-            $page->renderPageMetadata()
-        );
-    }
-
-    public function test_can_use_rss_feed_link_adds_meta_link_for_markdown_posts()
-    {
-        config(['site.url' => 'foo']);
-        $this->assertPageHasFeedLink(new MarkdownPost());
-    }
-
-    public function test_can_use_rss_feed_link_adds_meta_link_for_all_pages()
-    {
-        config(['site.url' => 'foo']);
-        $this->assertPageHasFeedLink(new BladePage(''));
-        $this->assertPageHasFeedLink(new MarkdownPage());
-        $this->assertPageHasFeedLink(new MarkdownPost());
-        $this->assertPageHasFeedLink(new DocumentationPage());
-    }
-
-    public function test_can_use_rss_feed_uses_configured_site_url()
-    {
-        config(['site.url' => 'foo']);
-        config(['site.url' => 'foo']);
-        $page = new MarkdownPost();
-
-        $this->assertStringContainsString(
-            '<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
-            $page->renderPageMetadata()
-        );
-    }
-
-    public function test_can_use_rss_feed_uses_configured_rss_file_name()
-    {
-        config(['site.url' => 'foo']);
-        config(['hyde.rss_filename' => 'posts.rss']);
-        $page = new MarkdownPost();
-
-        $this->assertStringContainsString(
-            '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
-            $page->renderPageMetadata()
-        );
-    }
-
-    public function test_link_is_not_added_if_site_url_is_not_set()
-    {
-        config(['site.url' => 'foo']);
-        config(['site.url' => '']);
-        $page = new MarkdownPost();
-
-        $this->assertStringNotContainsString(
-            '<link rel="alternate" type="application/rss+xml"',
-            $page->renderPageMetadata()
-        );
-    }
 }
