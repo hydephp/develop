@@ -23,9 +23,13 @@ class MarkdownPost extends AbstractMarkdownPage
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
         parent::__construct($identifier, $matter, $markdown);
-
-        $this->constructBlogPostSchema();
         $this->constructMetadata();
+    }
+
+    protected function constructPageSchemas(): void
+    {
+        parent::constructPageSchemas();
+        $this->constructBlogPostSchema();
     }
 
     /** @deprecated v0.58.x-beta (may be moved to BlogPostSchema) */
