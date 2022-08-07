@@ -87,14 +87,34 @@ class Metadata
 
     protected function addMetadataForMarkdownPost(MarkdownPost $page): void
     {
-        $this->addIf(Meta::name('description', $page->get('description')), $page->has('description'));
-        $this->addIf(Meta::name('author', $page->get('author')), $page->has('author'));
-        $this->addIf(Meta::name('keywords', $page->get('category')), $page->has('category'));
+        if ($page->has('description')) {
+            $this->add(Meta::name('description', $page->get('description')));
+        }
+
+        if ($page->has('author')) {
+            $this->add(Meta::name('author', $page->get('author')));
+        }
+
+        if ($page->has('category')) {
+            $this->add(Meta::name('keywords', $page->get('category')));
+        }
+
+        if ($page->has('canonicalUrl')) {
+            $this->add(Meta::property('url', $page->get('canonicalUrl')));
+        }
+
+        if ($page->has('title')) {
+            $this->add(Meta::property('title', $page->get('title')));
+        }
+
+        if ($page->has('date')) {
+            $this->add(Meta::property('og:article:published_time', $page->date->datetime));
+        }
+
+        if ($page->has('image')) {
+            $this->add(Meta::property('image', optional($page->image)->getLink()));
+        }
 
         $this->add(Meta::property('type', 'article'));
-        $this->addIf(Meta::property('url', $page->get('canonicalUrl')), $page->has('canonicalUrl'));
-        $this->addIf(Meta::property('title', $page->get('title')), $page->has('title'));
-        $this->addIf(Meta::property('og:article:published_time', $page->date->datetime), $page->has('date'));
-        $this->addIf(Meta::property('image', optional($page->image)->getLink() ?? ''), $page->has('image'));
     }
 }
