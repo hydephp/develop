@@ -26,7 +26,7 @@ class MetadataTest extends TestCase
         config(['hyde.meta' => []]);
     }
 
-    public function test_metadata_object_is_generated_automatically(): void
+    public function test_metadata_object_is_generated_automatically()
     {
         $page = new MarkdownPage();
 
@@ -35,7 +35,7 @@ class MetadataTest extends TestCase
         $this->assertEquals([], $page->metadata->get());
     }
 
-    public function test_link_item_model(): void
+    public function test_link_item_model()
     {
         $item = new LinkItem('rel', 'href');
         $this->assertEquals('rel', $item->uniqueKey());
@@ -45,14 +45,14 @@ class MetadataTest extends TestCase
         $this->assertEquals('<link rel="rel" href="href" attr="value">', (string) $item);
     }
 
-    public function test_metadata_item_model(): void
+    public function test_metadata_item_model()
     {
         $item = new MetadataItem('name', 'content');
         $this->assertEquals('name', $item->uniqueKey());
         $this->assertEquals('<meta name="name" content="content">', (string) $item);
     }
 
-    public function test_open_graph_item_model(): void
+    public function test_open_graph_item_model()
     {
         $item = new OpenGraphItem('property', 'content');
         $this->assertEquals('property', $item->uniqueKey());
@@ -62,7 +62,7 @@ class MetadataTest extends TestCase
         $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
     }
 
-    public function test_link_item_can_be_added(): void
+    public function test_link_item_can_be_added()
     {
         $page = new MarkdownPage();
         $page->metadata->add(Meta::link('foo', 'bar'));
@@ -72,7 +72,7 @@ class MetadataTest extends TestCase
         ], $page->metadata->links);
     }
 
-    public function test_metadata_item_can_be_added(): void
+    public function test_metadata_item_can_be_added()
     {
         $page = new MarkdownPage();
         $page->metadata->add(Meta::name('foo', 'bar'));
@@ -82,7 +82,7 @@ class MetadataTest extends TestCase
         ], $page->metadata->metadata);
     }
 
-    public function test_open_graph_item_can_be_added(): void
+    public function test_open_graph_item_can_be_added()
     {
         $page = new MarkdownPage();
         $page->metadata->add(Meta::property('foo', 'bar'));
@@ -92,7 +92,7 @@ class MetadataTest extends TestCase
         ], $page->metadata->properties);
     }
 
-    public function test_generic_item_can_be_added(): void
+    public function test_generic_item_can_be_added()
     {
         $page = new MarkdownPage();
         $page->metadata->add('foo');
@@ -102,7 +102,7 @@ class MetadataTest extends TestCase
         ], $page->metadata->generics);
     }
 
-    public function test_multiple_items_can_be_accessed_with_get_method(): void
+    public function test_multiple_items_can_be_accessed_with_get_method()
     {
         $page = new MarkdownPage();
         $page->metadata->add(Meta::link('foo', 'bar'));
@@ -118,7 +118,7 @@ class MetadataTest extends TestCase
         ], $page->metadata->get());
     }
 
-    public function test_multiple_items_of_same_key_and_type_only_keeps_latest(): void
+    public function test_multiple_items_of_same_key_and_type_only_keeps_latest()
     {
         $page = new MarkdownPage();
         $page->metadata->add(Meta::link('foo', 'bar'));
@@ -129,7 +129,7 @@ class MetadataTest extends TestCase
         ], $page->metadata->links);
     }
 
-    public function test_render_returns_html_string_of_imploded_metadata_arrays(): void
+    public function test_render_returns_html_string_of_imploded_metadata_arrays()
     {
         $page = new MarkdownPage();
         $page->metadata->add(Meta::link('foo', 'bar'));
