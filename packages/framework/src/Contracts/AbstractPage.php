@@ -177,8 +177,8 @@ abstract class AbstractPage implements PageContract, CompilableContract
     {
         $array = [];
 
-        if ($this->canUseCanonicalUrl()) {
-            $array[] = '<link rel="canonical" href="'.$this->getCanonicalUrl().'" />';
+        if ($this->canonicalUrl) {
+            $array[] = '<link rel="canonical" href="'.$this->canonicalUrl.'" />';
         }
 
         if (Features::sitemap()) {
