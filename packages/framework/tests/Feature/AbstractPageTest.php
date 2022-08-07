@@ -664,5 +664,4 @@ class AbstractPageTest extends TestCase
             $page->getDynamicMetadata()
         );
     }
-
 }
