@@ -57,7 +57,7 @@ class AuthorHelperTest extends TestCase
 
     public function test_make_method_creates_new_author_model_from_array_only_needs_username()
     {
-        $this->assertEquals(Author::make(['username' => 'foo' ]), Author::create('foo'));
+        $this->assertEquals(Author::make(['username' => 'foo']), Author::create('foo'));
     }
 
     public function test_all_method_returns_empty_collection_if_no_authors_are_set_in_config()
