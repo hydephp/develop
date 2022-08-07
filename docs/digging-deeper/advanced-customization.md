@@ -1,7 +1,6 @@
 ---
 label: "Advanced Customization"
 priority: 30
-category: "Digging Deeper"
 ---
 
 # Advanced Customization

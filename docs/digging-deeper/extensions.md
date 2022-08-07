@@ -1,7 +1,6 @@
 ---
 label: "Extensions & Integrations"
 priority: 28
-category: "Digging Deeper"
 ---
 
 # Extensions and Integrations
