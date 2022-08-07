@@ -30,34 +30,33 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_get_canonical_url_returns_url_for_top_level_page()
     {
-        $page = $this->makePage();
         config(['site.url' => 'https://example.com']);
+        $page = $this->makePage();
 
         $this->assertEquals('https://example.com/foo.html', $page->getCanonicalUrl());
     }
 
     public function test_get_canonical_url_returns_pretty_url_for_top_level_page()
     {
-        $page = $this->makePage();
         config(['site.url' => 'https://example.com']);
         config(['site.pretty_urls' => true]);
+        $page = $this->makePage();
 
         $this->assertEquals('https://example.com/foo', $page->getCanonicalUrl());
     }
 
     public function test_get_canonical_url_returns_url_for_nested_page()
     {
-        $page = $this->makePage('foo/bar');
         config(['site.url' => 'https://example.com']);
+        $page = $this->makePage('foo/bar');
 
         $this->assertEquals('https://example.com/foo/bar.html', $page->getCanonicalUrl());
     }
 
     public function test_get_canonical_url_returns_url_for_deeply_nested_page()
     {
-        $page = $this->makePage('foo/bar/baz');
-
         config(['site.url' => 'https://example.com']);
+        $page = $this->makePage('foo/bar/baz');
 
         $this->assertEquals('https://example.com/foo/bar/baz.html', $page->getCanonicalUrl());
     }
@@ -95,12 +94,11 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_render_page_metadata_returns_string_with_merged_metadata()
     {
-        $page = $this->makePage();
         config(['site.url' => 'https://example.com']);
-
         config(['hyde.meta' => [
             Meta::name('foo', 'bar'),
         ]]);
+        $page = $this->makePage();
 
         $this->assertStringContainsString(
             '<meta name="foo" content="bar">'."\n".
@@ -131,12 +129,11 @@ class AbstractPageMetadataTest extends TestCase
 
     public function test_get_dynamic_metadata_adds_canonical_url_when_conditions_are_met()
     {
-        $page = $this->makePage();
         config(['site.url' => 'https://example.com']);
-
         config(['hyde.meta' => [
             Meta::name('foo', 'bar'),
         ]]);
+        $page = $this->makePage();
 
         $this->assertContains('<link rel="canonical" href="https://example.com/foo.html" />',
             $page->getDynamicMetadata()
