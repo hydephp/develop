@@ -4,6 +4,7 @@ namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Metadata\LinkItem;
+use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Services\RssFeedService;
 
 /**
@@ -18,11 +19,9 @@ class Meta
         return '<meta name="'.e($name).'" content="'.e($content).'">';
     }
 
-    public static function property(string $property, string $content): string
+    public static function property(string $property, string $content): OpenGraphItem
     {
-        $property = static::formatOpenGraphProperty($property);
-
-        return '<meta property="'.e($property).'" content="'.e($content).'">';
+        return new OpenGraphItem($property, $content);
     }
 
     public static function link(string $rel, string $href, array $attr = []): LinkItem
