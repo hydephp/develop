@@ -79,6 +79,16 @@ class Author implements \Stringable
         ]);
     }
 
+    /** Dynamically get or create an author based on string or front matter array */
+    public static function make(string|array $data): static
+    {
+        if (is_string($data)) {
+            return static::get($data);
+        }
+
+        return static::create($data['username'], $data['name'] ?? null, $data['website'] ?? null);
+    }
+
     public static function all(): Collection
     {
         return new Collection(config('authors', []));
