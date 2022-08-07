@@ -34,7 +34,7 @@ class Metadata
     public function add($item): static
     {
         if ($item instanceof LinkItem) {
-            $this->links[] = $item;
+            $this->links[$item->uniqueKey()] = $item;
         } else {
             throw new \InvalidArgumentException('Invalid item type ' . get_class($item));
         }

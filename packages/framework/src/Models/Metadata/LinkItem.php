@@ -20,4 +20,9 @@ class LinkItem implements \Stringable
 
         return '<link rel="'.e($this->rel).'" href="'.e($this->href).'" '.$attributes.'>';
     }
+
+    public function uniqueKey(): string
+    {
+        return $this->rel;
+    }
 }
