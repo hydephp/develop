@@ -16,6 +16,7 @@ class Metadata
     public array $links = [];
     public array $metadata = [];
     public array $properties = [];
+    public array $generics = [];
 
     public function __construct(AbstractPage $page)
     {
@@ -28,11 +29,12 @@ class Metadata
         return implode("\n", array_merge(
             $this->links,
             $this->metadata,
-            $this->properties
+            $this->properties,
+            $this->generics
         ));
     }
 
-    public function add(MetadataItemContract $item): static
+    public function add(MetadataItemContract|string $item): static
     {
         if ($item instanceof LinkItem) {
             $this->links[$item->uniqueKey()] = $item;
@@ -41,7 +43,7 @@ class Metadata
         } elseif ($item instanceof OpenGraphItem) {
             $this->properties[$item->uniqueKey()] = $item;
         } else {
-            throw new \InvalidArgumentException('Invalid item type ' . get_class($item));
+            $this->generics[] = $item;
         }
 
         return $this;
