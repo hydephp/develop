@@ -30,12 +30,7 @@ class SourceFileParser
         $this->validateExistence($pageClass, $identifier);
         $this->identifier = $identifier;
 
-        $this->page = $this->constructBaseModel($pageClass);
-    }
-
-    protected function constructBaseModel(string $pageClass): BladePage|AbstractMarkdownPage
-    {
-        return $pageClass === BladePage::class
+        $this->page = $pageClass === BladePage::class
             ? $this->parseBladePage()
             : $this->parseMarkdownPage($pageClass);
     }
