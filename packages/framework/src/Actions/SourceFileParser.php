@@ -43,13 +43,8 @@ class SourceFileParser
     protected function parseBladePage(): BladePage
     {
         return new BladePage($this->slug,
-            $this->parseBladeMatter(file_get_contents(BladePage::qualifyBasename($this->slug)))
+            (BladeMatterParser::parseFile(BladePage::qualifyBasename($this->slug)))
         );
-    }
-
-    protected function parseBladeMatter(string $contents): array
-    {
-        return (new BladeMatterParser($contents))->parse()->get();
     }
 
     protected function parseMarkdownPage(string $pageClass): AbstractMarkdownPage
