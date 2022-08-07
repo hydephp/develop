@@ -10,6 +10,9 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\RssFeedService;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\MetadataTest
+ */
 class Metadata
 {
     protected AbstractPage $page;
