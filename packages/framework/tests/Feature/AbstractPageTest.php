@@ -431,6 +431,7 @@ class AbstractPageTest extends TestCase
         $this->assertEquals(999, $page->navigationMenuPriority());
 
         config(['hyde.navigation.order' => ['foo' => 1]]);
+        $page = MarkdownPage::make('foo');
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
