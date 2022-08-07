@@ -1,7 +1,6 @@
 ---
 priority: 11
 label: "Markdown & Blade Pages"
-category: "Creating Content"
 ---
 
 # Creating Static Pages

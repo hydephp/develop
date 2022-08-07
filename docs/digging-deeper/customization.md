@@ -1,7 +1,6 @@
 ---
 label: "Customizing your Site"
 priority: 25
-category: "Digging Deeper"
 ---
 
 # Customizing your Site

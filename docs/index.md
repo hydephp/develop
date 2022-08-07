@@ -19,7 +19,7 @@ Please wait until v1.0 for production use and remember to back up your source fi
 
 HydePHP is a new Static Site Builder focused on writing content, not markup. With Hyde, it is easy to create static websites, blogs, and documentation pages using Markdown and (optionally) Blade.
 
-Hyde is different from other static site builders. It's blazingly fast and stupidly simple to get started with, yet it has the full power of Laravel when you need it. 
+Hyde is different from other static site builders. It's blazingly fast and seriously simple to get started with, yet it has the full power of Laravel when you need it. 
 
 Hyde makes creating websites easy and fun by taking care of the boring stuff, like routing, writing boilerplate, and endless configuration. Instead, when you create a new Hyde project, everything you need to get started is already there -- including precompiled TailwindCSS, well crafted Blade templates, and easy asset management.
 

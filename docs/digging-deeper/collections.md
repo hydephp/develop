@@ -1,6 +1,5 @@
 ---
 priority: 35
-category: "Digging Deeper"
 label: "File-based Collections"
 ---
 

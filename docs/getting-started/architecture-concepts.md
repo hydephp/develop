@@ -1,9 +1,8 @@
 ---
 priority: 10
-category: "Getting Started"
 ---
 
-# Some key concepts in Hyde
+# Key HydePHP Concepts
 
 ## Introduction to Hyde
 

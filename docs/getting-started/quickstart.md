@@ -1,7 +1,6 @@
 ---
 label: Quickstart Guide
 priority: 1
-category: "Getting Started"
 ---
 
 # Quickstart Guide

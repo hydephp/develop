@@ -1,6 +1,5 @@
 ---
 priority: 5
-category: "Getting Started"
 ---
 
 # Console Commands

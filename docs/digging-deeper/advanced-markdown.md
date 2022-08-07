@@ -1,7 +1,6 @@
 ---
 label: "Advanced Markdown"
 priority: 26
-category: "Digging Deeper"
 ---
 
 # Advanced Markdown

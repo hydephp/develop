@@ -1,6 +1,5 @@
 ---
 priority: 20
-category: "Creating Content"
 ---
 
 # Managing and Compiling Assets
