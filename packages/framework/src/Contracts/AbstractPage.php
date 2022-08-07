@@ -227,8 +227,8 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     protected function makeRssFeedLink(): string
     {
-        return '<link rel="alternate" type="application/rss+xml" title="' . RssFeedService::getDescription() .
-            '" href="' . Hyde::url(RssFeedService::getDefaultOutputFilename()) . '" />';
+        return '<link rel="alternate" type="application/rss+xml" title="'.RssFeedService::getDescription().
+            '" href="'.Hyde::url(RssFeedService::getDefaultOutputFilename()).'" />';
     }
 
     /**
