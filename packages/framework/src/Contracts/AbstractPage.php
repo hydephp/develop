@@ -119,6 +119,12 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+
+    /** @inheritDoc */
     public function getSourcePath(): string
     {
         return static::qualifyBasename($this->identifier);

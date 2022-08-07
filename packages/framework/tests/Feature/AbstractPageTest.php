@@ -76,6 +76,12 @@ class AbstractPageTest extends TestCase
         $this->assertEquals('.foo', MarkdownPage::getFileExtension());
     }
 
+    public function test_get_identifier_returns_identifier_property()
+    {
+        $page = new MarkdownPage('foo');
+        $this->assertEquals('foo', $page->getIdentifier());
+    }
+
     public function test_parse_parses_supplied_slug_into_a_page_model()
     {
         Hyde::touch(('_pages/foo.md'));

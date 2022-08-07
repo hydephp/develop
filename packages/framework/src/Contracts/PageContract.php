@@ -89,6 +89,13 @@ interface PageContract
     public static function getOutputLocation(string $basename): string;
 
     /**
+     * Get the page model's identifier property.
+     *
+     * @return string The page's identifier/slug.
+     */
+    public function getIdentifier(): string;
+
+    /**
      * Get the path to the source file, relative to the project root.
      *
      * @return string Path relative to the project root.
