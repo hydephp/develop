@@ -31,7 +31,7 @@ class Meta
             return e($key).'="'.e($value).'"';
         })->implode(' ');
 
-        return '<link rel="' . e($rel) . '" href="' . e($href) . '" ' . $attributes . '>';
+        return '<link rel="'.e($rel).'" href="'.e($href).'" '.$attributes.'>';
     }
 
     public static function render(array $withMergedData = []): string
