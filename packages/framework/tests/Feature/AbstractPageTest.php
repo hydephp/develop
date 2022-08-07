@@ -692,7 +692,7 @@ class AbstractPageTest extends TestCase
     protected function assertPageHasFeedLink($page)
     {
         $this->assertStringContainsString(
-            '<link rel="alternate" type="application/rss+xml" title="HydePHP RSS Feed" href="foo/feed.xml" />',
+            '<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
             $page->renderPageMetadata()
         );
     }
@@ -719,7 +719,7 @@ class AbstractPageTest extends TestCase
         $page = new MarkdownPost();
 
         $this->assertStringContainsString(
-            '<link rel="alternate" type="application/rss+xml" title="HydePHP RSS Feed" href="foo/feed.xml" />',
+            '<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
             $page->renderPageMetadata()
         );
     }
@@ -731,7 +731,7 @@ class AbstractPageTest extends TestCase
         $page = new MarkdownPost();
 
         $this->assertStringContainsString(
-            '<link rel="alternate" type="application/rss+xml" title="HydePHP RSS Feed" href="foo/posts.rss" />',
+            '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
             $page->renderPageMetadata()
         );
     }
