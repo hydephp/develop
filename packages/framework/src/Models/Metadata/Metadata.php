@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models\Metadata;
 
 use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
@@ -31,7 +32,7 @@ class Metadata
         ));
     }
 
-    public function add($item): static
+    public function add(MetadataItemContract $item): static
     {
         if ($item instanceof LinkItem) {
             $this->links[$item->uniqueKey()] = $item;
