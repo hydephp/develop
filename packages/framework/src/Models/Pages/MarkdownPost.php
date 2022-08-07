@@ -93,29 +93,12 @@ class MarkdownPost extends AbstractMarkdownPage
      */
     protected function makeOpenGraphPropertiesForArticle(): void
     {
-        $this->properties['og:type'] = 'article';
-        if (Hyde::hasSiteUrl()) {
-            $this->properties['og:url'] = $this->getRoute()->getQualifiedUrl();
-        }
 
-        if ($this->title) {
-            $this->properties['og:title'] = $this->title;
-        }
-
-        if ($this->matter('date') !== null) {
-            $this->properties['og:article:published_time'] = $this->date->dateTimeObject->format('c');
-        }
-
-        if ($this->matter('image') !== null) {
-            $this->setImageMetadata();
-        }
     }
 
     /** @deprecated pending move to service */
     protected function setImageMetadata(): void
     {
-        if ($this->image) {
-            $this->properties['og:image'] = $this->image->getLink();
-        }
+
     }
 }

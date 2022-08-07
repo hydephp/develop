@@ -82,10 +82,6 @@ class Metadata
 
         if ($this->page instanceof MarkdownPost) {
             $this->addMetadataForMarkdownPost($this->page);
-
-            foreach ($this->page->getMetaProperties() as $property => $content) {
-                $this->add(Meta::property($property, $content));
-            }
         }
     }
 
@@ -94,5 +90,11 @@ class Metadata
         $this->addIf(Meta::name('description', $page->get('description')), $page->has('description'));
         $this->addIf(Meta::name('author', $page->get('author')), $page->has('author'));
         $this->addIf(Meta::name('keywords', $page->get('category')), $page->has('category'));
+
+        $this->add(Meta::property('type', 'article'));
+        $this->addIf(Meta::property('url', $page->get('canonicalUrl')), $page->has('canonicalUrl'));
+        $this->addIf(Meta::property('title', $page->get('title')), $page->has('title'));
+        $this->addIf(Meta::property('og:article:published_time', $page->date->datetime), $page->has('date'));
+        $this->addIf(Meta::property('image', optional($page->image)->getLink() ?? ''), $page->has('image'));
     }
 }
