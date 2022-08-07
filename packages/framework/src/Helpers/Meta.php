@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Metadata\Link;
+use Hyde\Framework\Models\Metadata\LinkItem;
 use Hyde\Framework\Services\RssFeedService;
 
 /**
@@ -25,9 +25,9 @@ class Meta
         return '<meta property="'.e($property).'" content="'.e($content).'">';
     }
 
-    public static function link(string $rel, string $href, array $attr = []): Link
+    public static function link(string $rel, string $href, array $attr = []): LinkItem
     {
-        return new Link($rel, $href, $attr);
+        return new LinkItem($rel, $href, $attr);
     }
 
     public static function get(array $withMergedData = []): array

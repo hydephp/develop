@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Metadata;
 
-class Link implements \Stringable
+class LinkItem implements \Stringable
 {
     public function __construct(protected string $rel, protected string $href, protected array $attr)
     {
