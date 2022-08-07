@@ -47,7 +47,7 @@ class MarkdownPost extends AbstractMarkdownPage
 
     // HasArticleMetadata (Generates article metadata for a MarkdownPost)
 
-    public array $metadata = [];
+    public array $postMetadata = [];
     public array $properties = [];
 
     protected function constructMetadata(): void
@@ -57,9 +57,9 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->makeOpenGraphPropertiesForArticle();
     }
 
-    public function getMetadata(): array
+    public function getPostMetadata(): array
     {
-        return $this->metadata;
+        return $this->postMetadata;
     }
 
     public function getMetaProperties(): array
@@ -74,15 +74,15 @@ class MarkdownPost extends AbstractMarkdownPage
     protected function parseFrontMatterMetadata(): void
     {
         if (! empty($this->description)) {
-            $this->metadata['description'] = $this->description;
+            $this->postMetadata['description'] = $this->description;
         }
 
         if ($this->author) {
-            $this->metadata['author'] = $this->author->getName();
+            $this->postMetadata['author'] = $this->author->getName();
         }
 
         if ($this->category) {
-            $this->metadata['keywords'] = $this->category;
+            $this->postMetadata['keywords'] = $this->category;
         }
     }
 

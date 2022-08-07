@@ -186,7 +186,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
         if ($this instanceof MarkdownPost) {
             $array[] = "\n<!-- Blog Post Meta Tags -->";
-            foreach ($this->getMetadata() as $name => $content) {
+            foreach ($this->getPostMetadata() as $name => $content) {
                 $array[] = Meta::name($name, $content);
             }
             foreach ($this->getMetaProperties() as $property => $content) {

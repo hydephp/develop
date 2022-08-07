@@ -29,7 +29,7 @@ class ArticleMetadataTest extends TestCase
             'description' => 'foo',
             'author' => 'bar',
             'keywords' => 'cat',
-        ], $page->getMetadata());
+        ], $page->getPostMetadata());
     }
 
     public function test_get_meta_properties_returns_base_array_when_initialized_with_empty_front_matter()
@@ -138,7 +138,7 @@ class ArticleMetadataTest extends TestCase
 
         $this->assertEquals([
             'author' => 'foo',
-        ], $page->getMetadata());
+        ], $page->getPostMetadata());
     }
 
     public function test_get_author_returns_author_name_when_author_set_to_array_using_name()
@@ -151,7 +151,7 @@ class ArticleMetadataTest extends TestCase
 
         $this->assertEquals([
             'author' => 'foo',
-        ], $page->getMetadata());
+        ], $page->getPostMetadata());
     }
 
     public function test_no_author_is_set_when_author_set_to_array_without_name_or_username()
@@ -160,6 +160,6 @@ class ArticleMetadataTest extends TestCase
             'author' => [],
         ]);
 
-        $this->assertEquals([], $page->getMetadata());
+        $this->assertEquals([], $page->getPostMetadata());
     }
 }
