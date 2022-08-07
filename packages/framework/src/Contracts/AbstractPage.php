@@ -184,13 +184,9 @@ abstract class AbstractPage implements PageContract, CompilableContract
             $array[] = $this->makeRssFeedLink();
         }
 
-        if (isset($this->title)) {
-            if ($this->hasTwitterTitleInConfig()) {
-                $array[] = '<meta name="twitter:title" content="'.$this->htmlTitle().'" />';
-            }
-            if ($this->hasOpenGraphTitleInConfig()) {
-                $array[] = '<meta property="og:title" content="'.$this->htmlTitle().'" />';
-            }
+        if (! empty($this->title)) {
+            $array[] = '<meta name="twitter:title" content="'.$this->htmlTitle().'" />';
+            $array[] = '<meta property="og:title" content="'.$this->htmlTitle().'" />';
         }
 
         if ($this instanceof MarkdownPost) {
@@ -211,16 +207,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
         return Meta::render(
             withMergedData: $this->getDynamicMetadata()
         );
-    }
-
-    public function hasTwitterTitleInConfig(): bool
-    {
-        return str_contains(json_encode(config('hyde.meta', [])), 'twitter:title');
-    }
-
-    public function hasOpenGraphTitleInConfig(): bool
-    {
-        return str_contains(json_encode(config('hyde.meta', [])), 'og:title');
     }
 
     protected function makeRssFeedLink(): string

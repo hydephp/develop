@@ -660,53 +660,9 @@ class AbstractPageTest extends TestCase
         );
     }
 
-    public function test_has_twitter_title_in_config_returns_true_when_present_in_config()
-    {
-        config(['hyde.meta' => [
-            Meta::name('twitter:title', 'foo'),
-        ]]);
-
-        $page = new MarkdownPage();
-
-        $this->assertTrue($page->hasTwitterTitleInConfig());
-    }
-
-    public function test_has_twitter_title_in_config_returns_false_when_not_present_in_config()
-    {
-        config(['hyde.meta' => []]);
-
-        $page = new MarkdownPage();
-
-        $this->assertFalse($page->hasTwitterTitleInConfig());
-    }
-
-    public function test_has_open_graph_title_in_config_returns_true_when_present_in_config()
-    {
-        config(['hyde.meta' => [
-            Meta::property('title', 'foo'),
-        ]]);
-
-        $page = new MarkdownPage();
-
-        $this->assertTrue($page->hasOpenGraphTitleInConfig());
-    }
-
-    public function test_has_open_graph_title_in_config_returns_false_when_not_present_in_config()
-    {
-        config(['hyde.meta' => []]);
-
-        $page = new MarkdownPage();
-
-        $this->assertFalse($page->hasOpenGraphTitleInConfig());
-    }
-
-    public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_conditions_are_met()
+    public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_title_is_set()
     {
         config(['site.url' => null]);
-        config(['hyde.meta' => [
-            Meta::name('twitter:title', 'foo'),
-            Meta::property('title', 'foo'),
-        ]]);
 
         $page = MarkdownPage::make(matter: ['title' => 'Foo Bar']);
 
@@ -714,6 +670,21 @@ class AbstractPageTest extends TestCase
             '<meta name="twitter:title" content="HydePHP - Foo Bar" />',
             '<meta property="og:title" content="HydePHP - Foo Bar" />',
         ],
+            $page->getDynamicMetadata()
+        );
+    }
+
+    public function test_get_dynamic_metadata_does_not_add_twitter_and_open_graph_title_when_no_title_is_set()
+    {
+        config(['site.url' => null]);
+        config(['hyde.meta' => [
+            Meta::name('twitter:title', 'foo'),
+            Meta::property('title', 'foo'),
+        ]]);
+
+        $page = MarkdownPage::make(matter: ['title' => null]);
+
+        $this->assertEquals([],
             $page->getDynamicMetadata()
         );
     }
