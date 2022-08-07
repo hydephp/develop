@@ -173,11 +173,11 @@ abstract class AbstractPage implements PageContract, CompilableContract
         $array = [];
 
         if ($this->canonicalUrl) {
-            $array[] = '<link rel="canonical" href="'.$this->canonicalUrl.'" />';
+            $array[] = '<link rel="canonical" href="'.e($this->canonicalUrl).'" />';
         }
 
         if (Features::sitemap()) {
-            $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.Hyde::url('sitemap.xml').'" />';
+            $array[] = '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.e(Hyde::url('sitemap.xml')).'" />';
         }
 
         if (Features::rss()) {
