@@ -23,9 +23,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        return $this->items->map(function (NavItem $item) {
-            return $item->getGroup() !== null;
-        })->contains(true);
+       return count($this->getGroups()) > 1;
     }
 
     public function getGroups(): array
