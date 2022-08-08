@@ -8,6 +8,9 @@ trait DocumentationPageSchema
 {
     /**
      * The sidebar category group, if any.
+     *
+     * Can be overridden in front matter, or by putting the
+     * source file in a subdirectory of the same category name.
      */
     public ?string $category = null;
 
