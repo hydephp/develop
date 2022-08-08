@@ -27,6 +27,8 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
 - Page metadata is now stored as a page property, making it easier to see and understand
+- Page metadata is now generated at compile time instead of build time
+- Page metadata types are now strongly typed, however all types are String able, so end usage is not affected
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
