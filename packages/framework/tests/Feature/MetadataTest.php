@@ -155,7 +155,7 @@ class MetadataTest extends TestCase
             Meta::name('foo', 'bar'),
             Meta::property('foo', 'bar'),
             'foo' => 'bar',
-            'baz'
+            'baz',
         ]]);
 
         $page = new MarkdownPage();
@@ -167,6 +167,7 @@ class MetadataTest extends TestCase
             'generics:1' => 'baz',
         ], $page->metadata->get());
     }
+
     public function test_automatically_adds_sitemap_when_enabled()
     {
         config(['site.url' => 'foo']);
