@@ -23,8 +23,8 @@ use Hyde\Framework\Hyde;
 class Image
 {
     /**
-     * The image's path (if it is stored locally).
-     * Example: _media/image.jpg.
+     * The image's path (if it is stored locally (in the _media directory)).
+     * Example: image.jpg.
      *
      * @var string|null
      */
