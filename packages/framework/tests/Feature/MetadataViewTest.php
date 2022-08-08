@@ -104,7 +104,7 @@ class MetadataViewTest extends TestCase
             '<meta property="og:title" content="HydePHP - Test">',
             '<link rel="canonical" href="http://localhost/test.html">',
         ]));
-        
+
         $this->assertAllTagsWereCovered('test', $assertions);
     }
 }
