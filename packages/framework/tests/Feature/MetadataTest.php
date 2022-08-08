@@ -412,7 +412,7 @@ class MetadataTest extends TestCase
     public function test_adds_image_property_when_image_is_set_in_post()
     {
         $page = MarkdownPost::make(matter: ['image' => 'image.jpg']);
-        $this->assertPageHasMetadata($page, '<meta property="og:image" content="media/image.jpg">');
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/image.jpg">');
     }
 
     public function test_does_not_add_image_property_when_image_is_not_set_in_post()
@@ -439,13 +439,11 @@ class MetadataTest extends TestCase
             'image' => 'foo.jpg',
         ]);
 
-        $this->assertPageHasMetadata($page, '<meta property="og:image" content="media/foo.jpg">');
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/foo.jpg">');
     }
 
-    public function test_dynamic_post_meta_properties_contains_image_link_that_is_relative()
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_always_relative()
     {
-        $this->mockCurrentPage('foo/bar');
-
         $page = MarkdownPost::make(matter: [
             'image' => 'foo.jpg',
         ]);
@@ -461,7 +459,7 @@ class MetadataTest extends TestCase
             ],
         ]);
 
-        $this->assertPageHasMetadata($page, '<meta property="og:image" content="media/foo.jpg">');
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/foo.jpg">');
     }
 
     public function test_dynamic_post_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_uri()
