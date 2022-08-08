@@ -126,6 +126,6 @@ class MetadataViewTest extends TestCase
             '<meta itemprop="url" content="http://localhost/posts/test">',
         ]));
 
-        $this->assertAllTagsWereCovered('test', $assertions);
+        $this->assertAllTagsWereCovered('posts/test', $assertions);
     }
 }
