@@ -54,4 +54,12 @@ class MetadataViewTest extends TestCase
             '<meta property="og:site_name" content="HydePHP">',
         ];
     }
+
+    public function test_metadata_tags_in_empty_markdown_page()
+    {
+        $this->markdown('_pages/test.md');
+        $this->build('_pages/test.md');
+
+        $this->assertSee('test', $this->getDefaultTags());
+    }
 }
