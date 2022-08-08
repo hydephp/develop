@@ -64,11 +64,10 @@ class MetadataViewTest extends TestCase
         $this->markdown('_pages/test.md');
         $this->build('_pages/test.md');
 
-        $this->assertSee('test', $this->getDefaultTags());
-        $this->assertSee('test', [
+        $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">'
-        ]);
+        ]));
     }
 }
