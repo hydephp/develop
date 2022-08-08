@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
  * This tests ensures all metadata is rendered correctly in the compiled pages.
  * Please see the MetadataTest class which tests the construction of the metadata;
  * as this test does not cover all configuration cases and possible formatting options.
- * 
+ *
  * This test is useful both as a regression test, and also to ensure all tags are covered.
  *
  * @covers \Hyde\Framework\Models\Metadata\Metadata
@@ -150,7 +150,7 @@ class MetadataViewTest extends TestCase
     public function test_metadata_tags_in_markdown_post_with_flat_front_matter()
     {
         // Run the test above, but with all front matter properties (without array notation)
-        $this->file('_posts/test.md', <<<MARKDOWN
+        $this->file('_posts/test.md', <<<'MARKDOWN'
             ---
             title: "My title"
             description: "My description"
