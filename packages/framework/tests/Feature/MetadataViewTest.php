@@ -109,6 +109,22 @@ class MetadataViewTest extends TestCase
         $this->assertAllTagsWereCovered('test', $assertions);
     }
 
+    public function test_metadata_tags_in_empty_documentation_page()
+    {
+        $this->markdown('_docs/test.md');
+        $this->build('_docs/test.md');
+
+        $assertions = $this->assertSee('docs/test', array_merge($this->getDefaultTags(), [
+            '<title>HydePHP - Test</title>',
+            '<link rel="stylesheet" href="../media/app.css">',
+            '<link rel="canonical" href="http://localhost/docs/test.html">',
+            '<meta name="twitter:title" content="HydePHP - Test">',
+            '<meta property="og:title" content="HydePHP - Test">',
+        ]));
+
+        $this->assertAllTagsWereCovered('docs/test', $assertions);
+    }
+
     public function test_metadata_tags_in_empty_markdown_post()
     {
         $this->markdown('_posts/test.md');
@@ -127,21 +143,5 @@ class MetadataViewTest extends TestCase
         ]));
 
         $this->assertAllTagsWereCovered('posts/test', $assertions);
-    }
-
-    public function test_metadata_tags_in_empty_documentation_page()
-    {
-        $this->markdown('_docs/test.md');
-        $this->build('_docs/test.md');
-
-        $assertions = $this->assertSee('docs/test', array_merge($this->getDefaultTags(), [
-            '<title>HydePHP - Test</title>',
-            '<link rel="stylesheet" href="../media/app.css">',
-            '<link rel="canonical" href="http://localhost/docs/test.html">',
-            '<meta name="twitter:title" content="HydePHP - Test">',
-            '<meta property="og:title" content="HydePHP - Test">',
-        ]));
-
-        $this->assertAllTagsWereCovered('docs/test', $assertions);
     }
 }
