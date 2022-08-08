@@ -116,7 +116,11 @@ class MarkdownPost extends AbstractMarkdownPage
     protected function setImageMetadata(): void
     {
         if ($this->image) {
-            $this->properties['og:image'] = str_starts_with('http', $this->image->getLink()) ? $this->image->getLink() : '../'.$this->image->getLink();
+            if (str_starts_with($this->image->getLink(), 'http')) {
+                $this->properties['og:image'] = $this->image->getLink();
+            } else {
+                $this->properties['og:image'] = '../media/'.basename($this->image->getLink());
+            }
         }
     }
 }
