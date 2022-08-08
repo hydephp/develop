@@ -3,6 +3,7 @@
 namespace Tests\Benchmarks;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Tests\Benchmarks\CBench\Benchmark;
 
@@ -24,6 +25,24 @@ class PageParserBenchmark extends BenchCase
         $this->report($result);
 
         Hyde::unlink('_posts/my-new-post.md');
+    }
+
+    /**
+     * Results history:
+     * - #14c34beb1: 0.17022841ms
+     */
+    public function testParseBladePageFile()
+    {
+        $this->mockConsoleOutput = false;
+        $this->artisan('publish:homepage posts -n');
+
+        $result = $this->benchmark(function () {
+            return BladePage::parse('index');
+        }, 10000);
+
+        $this->report($result);
+
+        $this->artisan('publish:homepage welcome -n');
     }
 
     protected function report(Benchmark $benchmark): void
