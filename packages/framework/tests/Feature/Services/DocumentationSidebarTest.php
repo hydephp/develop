@@ -161,6 +161,23 @@ class DocumentationSidebarTest extends TestCase
         $this->assertTrue(DocumentationSidebar::create()->hasGroups());
     }
 
+    public function test_has_groups_returns_true_when_there_are_multiple_groups()
+    {
+        $this->makePage('foo', ['category' => 'bar']);
+        $this->makePage('bar', ['category' => 'baz']);
+
+        $this->assertTrue(DocumentationSidebar::create()->hasGroups());
+    }
+
+    public function test_has_groups_returns_true_when_there_are_multiple_groups_mixed_with_defaults()
+    {
+        $this->makePage('foo', ['category' => 'bar']);
+        $this->makePage('bar', ['category' => 'baz']);
+        $this->makePage('baz');
+
+        $this->assertTrue(DocumentationSidebar::create()->hasGroups());
+    }
+
     public function test_get_groups_returns_empty_array_when_there_are_no_groups()
     {
         $this->assertEquals([], DocumentationSidebar::create()->getGroups());
