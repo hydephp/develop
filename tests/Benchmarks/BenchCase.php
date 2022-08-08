@@ -12,10 +12,14 @@ use Tests\Benchmarks\CBench\Report;
  */
 class BenchCase extends TestCase
 {
-    public function benchmark(callable $callback, int $iterations = 100, ?string $name = null): void
+    public function benchmark(callable $callback, int $iterations = 100, ?string $name = null): Benchmark
     {
         $class = (basename(static::class, 'Test'));
         $method = substr(debug_backtrace()[1]['function'], 4);
+
+        if (extension_loaded('xdebug')) {
+            echo "Warning: xdebug is enabled, this will affect the performance of the benchmark.\n\n";
+        }
 
         $benchmark = Benchmark::run($callback, $iterations, $name ?? $class.'::'.$method, env('SILENCE_BENCHMARKS', true));
 
@@ -27,6 +31,10 @@ class BenchCase extends TestCase
         $this->log($method, "Ran $benchmark->iterations iterations in {$benchmark->getExecutionTimeInMs()}ms ({$benchmark->getAverageExecutionTimeInMs()}ms avg / {$benchmark->getAverageIterationsPerSecond()} per sec)");
 
         $this->assertTrue(true);
+
+        $benchmark->runName = $name ?? $class.'::'.$method;
+
+        return $benchmark;
     }
 
     protected function log(string $method, string $message): void
