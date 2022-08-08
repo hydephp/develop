@@ -25,6 +25,7 @@ This serves two purposes:
 - Fix [#383](https://github.com/hydephp/develop/issues/383): Navigation menu titles can't be set in BladeMatter
 - Fix [#385](https://github.com/hydephp/develop/issues/385): `DocumentationPage::home()` did not work for custom documentation page output directories
 - Fix [#386](https://github.com/hydephp/develop/issues/386): Documentation page sidebar labels were not constructed from front matter
+- Fix bugs relating to the documentation sidebar labels
 
 ### Security
 - in case of vulnerabilities.
