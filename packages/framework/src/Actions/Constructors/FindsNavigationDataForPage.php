@@ -32,14 +32,8 @@ class FindsNavigationDataForPage
 
     protected function getNavigationMenuTitle(): string
     {
-        if ($this->page instanceof AbstractMarkdownPage) {
-            if ($this->page->matter('navigation.title') !== null) {
-                return $this->page->matter('navigation.title');
-            }
-
-            if ($this->page->matter('title') !== null) {
-                return $this->page->matter('title');
-            }
+        if ($this->page->matter('navigation.title') !== null) {
+            return $this->page->matter('navigation.title');
         }
 
         if ($this->page->identifier === 'index') {
@@ -48,6 +42,10 @@ class FindsNavigationDataForPage
             }
 
             return config('hyde.navigation.labels.home', 'Home');
+        }
+
+        if ($this->page->matter('title') !== null) {
+            return $this->page->matter('title');
         }
 
         return $this->page->title;
