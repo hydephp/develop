@@ -65,7 +65,7 @@ class FindsContentLengthForImageObject implements ActionContract
 
     protected function fetchLocalImageInformation(): int
     {
-        $path = Hyde::path('_media/' . $this->image->getSource());
+        $path = Hyde::path('_media/'.$this->image->getSource());
 
         if (! file_exists($path)) {
             $this->write(' > <comment>Warning:</comment> Could not find image file at '.$path.'!');
