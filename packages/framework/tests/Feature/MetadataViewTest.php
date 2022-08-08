@@ -78,6 +78,21 @@ class MetadataViewTest extends TestCase
         ];
     }
 
+    public function test_metadata_tags_in_empty_blade_page()
+    {
+        $this->file('_pages/test.blade.php', '@extends(\'hyde::layouts.app\')');
+        $this->build('_pages/test.blade.php');
+
+        $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
+            '<title>HydePHP - Test</title>',
+            '<meta name="twitter:title" content="HydePHP - Test">',
+            '<meta property="og:title" content="HydePHP - Test">',
+            '<link rel="canonical" href="http://localhost/test.html">',
+        ]));
+
+        $this->assertAllTagsWereCovered('test', $assertions);
+    }
+
     public function test_metadata_tags_in_empty_markdown_page()
     {
         $this->markdown('_pages/test.md');
