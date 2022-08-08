@@ -33,6 +33,7 @@ trait DocumentationPageSchema
     {
         $this->category = static::getDocumentationPageCategory();
 
+        $this->label = $this->matter('label', $this->title);
         $this->hidden = $this->matter('hidden', $this->identifier === 'index');
         $this->priority = $this->matter('priority', $this->findPriorityInConfig());
     }
