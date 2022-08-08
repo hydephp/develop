@@ -104,7 +104,7 @@ class Image implements \Stringable
         }
 
         if (isset($this->path)) {
-            $this->normalizePath();
+            $this->path = basename($this->path);
         }
     }
 
@@ -224,20 +224,5 @@ class Image implements \Stringable
         $metadata['contentUrl'] = $this->getSource();
 
         return $metadata;
-    }
-
-    protected function normalizePath(): void
-    {
-        $path = $this->path;
-
-        if (str_starts_with($path, '_media/')) {
-            $path = substr($path, 7);
-        }
-
-        if (str_starts_with($path, 'media/')) {
-            $path = substr($path, 6);
-        }
-
-        $this->path = $path;
     }
 }

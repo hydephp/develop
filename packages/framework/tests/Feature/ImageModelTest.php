@@ -48,7 +48,7 @@ class ImageModelTest extends TestCase
     public function test_array_data_can_be_used_to_initialize_properties_in_constructor()
     {
         $data = [
-            'path' => 'path/to/image.jpg',
+            'path' => 'image.jpg',
             'uri' => 'https://example.com/image.jpg',
             'description' => 'This is an image',
             'title' => 'Image Title',
@@ -66,7 +66,7 @@ class ImageModelTest extends TestCase
     {
         $image = new Image();
         $image->uri = 'https://example.com/image.jpg';
-        $image->path = 'path/to/image.jpg';
+        $image->path = 'image.jpg';
 
         $this->assertEquals('https://example.com/image.jpg', $image->getSource());
     }
@@ -74,9 +74,9 @@ class ImageModelTest extends TestCase
     public function test_get_source_method_returns_path_when_only_path_is_set()
     {
         $image = new Image();
-        $image->path = 'path/to/image.jpg';
+        $image->path = 'image.jpg';
 
-        $this->assertEquals('path/to/image.jpg', $image->getSource());
+        $this->assertEquals('image.jpg', $image->getSource());
     }
 
     public function test_get_source_method_returns_null_when_no_source_is_set()
