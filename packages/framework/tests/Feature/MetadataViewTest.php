@@ -40,4 +40,18 @@ class MetadataViewTest extends TestCase
             file_get_contents(Hyde::path("_site/$page.html")),
             "Failed asserting that the page '$page' contains the text '$text'");
     }
+
+    protected function assertSeeDefaultTags(string $page)
+    {
+        $this->assertSee($page, [
+            '<meta charset="utf-8">',
+            '<meta name="viewport" content="width=device-width, initial-scale=1">',
+            '<meta id="meta-color-scheme" name="color-scheme" content="light">',
+            '<link rel="stylesheet" href="media/app.css">',
+            '<link rel="sitemap" href="http://localhost/sitemap.xml" type="application/xml" title="Sitemap">',
+            '<link rel="alternate" href="http://localhost/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
+            '<meta name="generator" content="HydePHP dev-master">',
+            '<meta property="og:site_name" content="HydePHP">',
+        ]);
+    }
 }
