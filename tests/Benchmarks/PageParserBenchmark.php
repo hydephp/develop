@@ -15,7 +15,7 @@ class PageParserBenchmark extends BenchCase
 
         $result = $this->benchmark(function () {
             return MarkdownPost::parse('my-new-post');
-        });
+        }, 10000);
 
         $this->report($result);
 
