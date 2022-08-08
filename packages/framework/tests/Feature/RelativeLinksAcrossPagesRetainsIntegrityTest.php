@@ -20,6 +20,9 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         $this->file('_pages/root1.md');
         Hyde::touch('_pages/nested/level1.md');
         Hyde::touch('_pages/nested/level1b.md');
+
+        $this->mockConsoleOutput = false;
+        $this->artisan('make:post -n');
     }
 
     protected function tearDown(): void
