@@ -6,7 +6,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\Services\RoutingService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
