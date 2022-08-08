@@ -45,7 +45,7 @@ trait DocumentationPageSchema
 
         return str_contains($this->identifier, '/')
             ? Str::before($this->identifier, '/')
-            : $this->matter('category');
+            : $this->matter('category', 'other');
     }
 
     protected function findPriorityInConfig(): int

@@ -29,6 +29,7 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Page metadata is now stored as a page property, making it easier to see and understand
 - Page metadata is now generated at compile time instead of build time
 - Page metadata types are now strongly typed, however all types are String able, so end usage is not affected
+- Documentation pages now have the default category 'other'
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
