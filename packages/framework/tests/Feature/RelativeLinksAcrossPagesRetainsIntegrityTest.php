@@ -34,6 +34,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         Hyde::unlink('_site/root.html');
         Hyde::unlink('_site/root1.html');
         $this->resetSite();
+        $this->resetPosts();
 
         parent::tearDown();
     }
