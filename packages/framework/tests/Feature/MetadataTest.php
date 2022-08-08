@@ -186,4 +186,48 @@ class MetadataTest extends TestCase
 
         $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', $page->metadata->render());
     }
+
+    public function test_automatically_adds_rss_feed_when_enabled()
+    {
+        config(['site.url' => 'foo']);
+        config(['hyde.generate_rss_feed' => true]);
+
+        $page = new MarkdownPage();
+
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', $page->metadata->render());
+    }
+
+    public function test_rss_feed_uses_configured_site_url()
+    {
+        config(['site.url' => 'bar']);
+        config(['hyde.generate_rss_feed' => true]);
+
+        $page = new MarkdownPage();
+
+        $this->assertEquals('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', $page->metadata->render());
+    }
+
+    public function test_rss_feed_uses_configured_site_name()
+    {
+        config(['site.url' => 'foo']);
+        config(['site.name' => 'Site']);
+        config(['hyde.generate_rss_feed' => true]);
+
+        $page = new MarkdownPage();
+
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', $page->metadata->render());
+    }
+
+    public function test_rss_feed_uses_configured_rss_file_name()
+    {
+        config(['site.url' => 'foo']);
+        config(['hyde.rss_filename' => 'posts.rss']);
+        config(['hyde.generate_rss_feed' => true]);
+        $page = new MarkdownPage();
+
+        $this->assertStringContainsString(
+            '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
+            $page->renderPageMetadata()
+        );
+    }
 }
