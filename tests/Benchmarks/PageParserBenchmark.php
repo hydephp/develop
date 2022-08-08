@@ -13,24 +13,6 @@ class PageParserBenchmark extends BenchCase
 {
     /**
      * Results history:
-     * - #5d044679b: 0.30337441ms
-     */
-    public function testParseMarkdownPostFile()
-    {
-        $this->mockConsoleOutput = false;
-        $this->artisan('make:post -n');
-
-        $result = $this->benchmark(function () {
-            return MarkdownPost::parse('my-new-post');
-        }, 10000);
-
-        $this->report($result);
-
-        Hyde::unlink('_posts/my-new-post.md');
-    }
-
-    /**
-     * Results history:
      * - #14c34beb1: 0.17022841ms
      */
     public function testParseBladePageFile()
@@ -63,6 +45,24 @@ class PageParserBenchmark extends BenchCase
         $this->report($result);
 
         Hyde::unlink('_pages/test.md');
+    }
+
+    /**
+     * Results history:
+     * - #5d044679b: 0.30337441ms
+     */
+    public function testParseMarkdownPostFile()
+    {
+        $this->mockConsoleOutput = false;
+        $this->artisan('make:post -n');
+
+        $result = $this->benchmark(function () {
+            return MarkdownPost::parse('my-new-post');
+        }, 10000);
+
+        $this->report($result);
+
+        Hyde::unlink('_posts/my-new-post.md');
     }
 
     /**
