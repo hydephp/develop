@@ -8,7 +8,7 @@ author:
 date: Nov 7, 2021
 updated: Jule 30, 2022
 image:
-  uri: https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=360&q=80
+  uri: https://hydephp.com/media/fixture-1.jpg
   description: Alt text
   title: Tooltip
   license: "the Unsplash License"
@@ -71,7 +71,7 @@ Finally, a figure with a caption:
 
 <figure>
   <img
-    src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&h=500&q=80"
+    src="https://hydephp.com/media/fixture-2.jpg"
     alt=""
   />
   <figcaption>
