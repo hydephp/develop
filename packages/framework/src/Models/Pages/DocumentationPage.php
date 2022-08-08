@@ -45,7 +45,7 @@ class DocumentationPage extends AbstractMarkdownPage
 
     public static function home(): ?RouteContract
     {
-        return Route::exists('docs/index') ? Route::get('docs/index') : null;
+        return Route::exists(static::$outputDirectory.'/index') ? Route::get(static::$outputDirectory.'/index') : null;
     }
 
     public static function hasTableOfContents(): bool
