@@ -46,6 +46,8 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Fix Path property in Image model should be relative to media directory [#359](https://github.com/hydephp/develop/issues/359)
 - Fix Add toString method to Image model to get the link [#370](https://github.com/hydephp/develop/issues/370)
 - Fix Blog post OpenGraph images must be resolved relatively [#374](https://github.com/hydephp/develop/issues/374)
+- Fix PageContract needs compile method [#366]((https://github.com/hydephp/develop/issues/366))
+
 
 ### Security
 - in case of vulnerabilities.
