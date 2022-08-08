@@ -50,13 +50,18 @@ class MetadataViewTest extends TestCase
     protected function assertAllTagsWereCovered(string $page, array $tags): void
     {
         $haystack = file_get_contents(Hyde::path("_site/$page.html"));
-
         $links = substr_count($haystack, '<link');
         $meta = substr_count($haystack, '<meta');
 
-        $this->assertEquals(count($tags),
+        $haystack = json_encode($tags);
+        $actualLinks = substr_count($haystack, '<link');
+        $actualMeta = substr_count($haystack, '<meta');
+
+        $this->assertEquals(
             $links + $meta,
-            "Failed asserting that all tags were covered in the page '$page'");
+            $actualLinks + $actualMeta,
+            "Failed asserting that all tags were covered in the page '$page'"
+        );
     }
 
     protected function getDefaultTags(): array
