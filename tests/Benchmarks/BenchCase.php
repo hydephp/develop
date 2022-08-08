@@ -32,6 +32,8 @@ class BenchCase extends TestCase
 
         $this->assertTrue(true);
 
+        $benchmark->runName = $name ?? $class.'::'.$method;
+
         return $benchmark;
     }
 
