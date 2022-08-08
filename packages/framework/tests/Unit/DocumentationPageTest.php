@@ -8,6 +8,7 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Models\Pages\DocumentationPage
@@ -110,6 +111,31 @@ class DocumentationPageTest extends TestCase
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertEquals(Route::get('docs/index'), DocumentationPage::home());
         Hyde::unlink('_docs/index.md');
+    }
+
+    public function test_home_method_finds_docs_index_for_custom_output_directory()
+    {
+        config(['docs.output_directory' => 'foo']);
+        (new HydeServiceProvider($this->app))->register();
+        mkdir(Hyde::path('foo'));
+        Hyde::touch('_docs/index.md');
+        $this->assertInstanceOf(Route::class, DocumentationPage::home());
+        $this->assertEquals(Route::get('foo/index'), DocumentationPage::home());
+        Hyde::unlink('_docs/index.md');
+        File::deleteDirectory(Hyde::path('foo'));
+    }
+
+    public function test_home_method_finds_docs_index_for_custom_nested_output_directory()
+    {
+        config(['docs.output_directory' => 'foo/bar']);
+        (new HydeServiceProvider($this->app))->register();
+        mkdir(Hyde::path('foo'));
+        mkdir(Hyde::path('foo/bar'));
+        Hyde::touch('_docs/index.md');
+        $this->assertInstanceOf(Route::class, DocumentationPage::home());
+        $this->assertEquals(Route::get('foo/bar/index'), DocumentationPage::home());
+        Hyde::unlink('_docs/index.md');
+        File::deleteDirectory(Hyde::path('foo'));
     }
 
     public function test_has_table_of_contents()
