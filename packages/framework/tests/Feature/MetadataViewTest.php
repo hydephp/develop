@@ -86,7 +86,8 @@ class MetadataViewTest extends TestCase
         $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
             '<meta name="twitter:title" content="HydePHP - Test">',
-            '<meta property="og:title" content="HydePHP - Test">'
+            '<meta property="og:title" content="HydePHP - Test">',
+            '<link rel="canonical" href="http://localhost/test.html">',
         ]));
         
         $this->assertAllTagsWereCovered('test', $assertions);
