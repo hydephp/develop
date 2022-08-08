@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Contracts\ActionContract;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Image;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -64,14 +65,16 @@ class FindsContentLengthForImageObject implements ActionContract
 
     protected function fetchLocalImageInformation(): int
     {
-        if (! file_exists($this->image->getSource())) {
-            $this->write(' > <comment>Warning:</comment> Could not find image file at '.$this->image->getSource().'!');
+        $path = Hyde::path('_media/' . $this->image->getSource());
+
+        if (! file_exists($path)) {
+            $this->write(' > <comment>Warning:</comment> Could not find image file at '.$path.'!');
             $this->write('         <fg=gray>   Using default content length of 0. '.'</>');
 
             return 0;
         }
 
-        return filesize($this->image->getSource());
+        return filesize($path);
     }
 
     protected function write(string $string): void
