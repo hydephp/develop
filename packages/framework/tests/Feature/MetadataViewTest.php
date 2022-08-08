@@ -146,4 +146,47 @@ class MetadataViewTest extends TestCase
 
         $this->assertAllTagsWereCovered('posts/test', $assertions);
     }
+
+    public function test_metadata_tags_in_markdown_post_with_flat_front_matter()
+    {
+        // Run the test above, but with all front matter properties (without array notation)
+        $this->file('_posts/test.md', <<<MARKDOWN
+            ---
+            title: "My title"
+            description: "My description"
+            category: "My category"
+            date: "2022-01-01"
+            author: "Mr. Hyde"
+            image: image.jpg
+            ---
+            
+            ## Hello World 
+            
+            Lorem Ipsum Dolor Amet.
+            MARKDOWN
+        );
+        $this->build('_posts/test.md');
+
+        $assertions = $this->assertSee('posts/test', array_merge($this->getDefaultTags(), [
+            '<title>HydePHP - My title</title>',
+            '<link rel="stylesheet" href="../media/app.css">',
+            '<link rel="canonical" href="http://localhost/posts/test.html">',
+            '<meta name="twitter:title" content="HydePHP - My title">',
+            '<meta name="description" content="My description">',
+            '<meta name="author" content="Mr. Hyde">',
+            '<meta name="keywords" content="My category">',
+            '<meta property="og:title" content="My title">',
+            '<meta property="og:url" content="http://localhost/posts/test.html">',
+            '<meta property="og:type" content="article">',
+            '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">',
+            // @todo fix #359 '<meta property="og:image" content="../media/image.jpg">',
+            '<meta property="og:image" content="media/image.jpg">',
+            '<meta itemprop="identifier" content="test">',
+            '<meta itemprop="url" content="http://localhost/posts/test">',
+            '<meta itemprop="url" content="image.jpg">',
+            '<meta itemprop="contentUrl" content="image.jpg">',
+        ]));
+
+        $this->assertAllTagsWereCovered('posts/test', $assertions);
+    }
 }
