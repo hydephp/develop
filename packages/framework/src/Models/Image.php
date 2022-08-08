@@ -102,6 +102,10 @@ class Image
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
         }
+
+        if (isset($this->path)) {
+            $this->normalizePath();
+        }
     }
 
     /** Dynamically create an image based on string or front matter array */
@@ -214,5 +218,20 @@ class Image
         $metadata['contentUrl'] = $this->getSource();
 
         return $metadata;
+    }
+
+    protected function normalizePath(): void
+    {
+        $path = $this->path;
+
+        if (str_starts_with($path, '_media/')) {
+            $path = substr($path, 7);
+        }
+
+        if (str_starts_with($path, 'media/')) {
+            $path = substr($path, 6);
+        }
+
+        $this->path = $path;
     }
 }

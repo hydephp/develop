@@ -200,4 +200,19 @@ class ImageModelTest extends TestCase
         $this->mockCurrentPage('foo/bar');
         $this->assertEquals('../media/image.jpg', $image->getLink());
     }
+
+    public function test_local_path_is_normalized_to_the_media_directory()
+    {
+        $this->assertEquals('image.jpg', (new Image([
+            'path' => 'image.jpg',
+        ]))->path);
+
+        $this->assertEquals('image.jpg', (new Image([
+            'path' => '_media/image.jpg',
+        ]))->path);
+
+        $this->assertEquals('image.jpg', (new Image([
+            'path' => 'media/image.jpg',
+        ]))->path);
+    }
 }
