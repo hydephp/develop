@@ -474,4 +474,34 @@ class MetadataTest extends TestCase
 
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="https://example.com/foo.jpg">');
     }
+
+    public function test_get_author_returns_author_name_when_author_set_to_array_using_username()
+    {
+        $page = MarkdownPost::make(matter: [
+            'author' => [
+                'username' => 'username',
+            ],
+        ]);
+        $this->assertPageHasMetadata($page, '<meta name="author" content="username">');
+    }
+
+    public function test_get_author_returns_author_name_when_author_set_to_array_using_name()
+    {
+        $page = MarkdownPost::make(matter: [
+            'author' => [
+                'name' => 'Name',
+            ],
+        ]);
+
+        $this->assertPageHasMetadata($page, '<meta name="author" content="Name">');
+    }
+
+    public function test_no_author_is_set_when_author_set_to_array_without_name_or_username()
+    {
+        $page = MarkdownPost::make(matter: [
+            'author' => [],
+        ]);
+
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="author"');
+    }
 }
