@@ -12,7 +12,7 @@ class LinkItem implements MetadataItemContract, \Stringable
 
     public function __toString(): string
     {
-        if (! $this->attr) {
+        if (empty($this->attr)) {
             return '<link rel="'.e($this->rel).'" href="'.e($this->href).'">';
         }
 
