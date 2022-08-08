@@ -38,6 +38,14 @@ class MetadataTest extends TestCase
         );
     }
 
+    protected function assertPageDoesNotHaveMetadata(AbstractPage $page, string $metadata)
+    {
+        $this->assertStringNotContainsString(
+            $metadata,
+            $page->metadata->render()
+        );
+    }
+
     public function test_metadata_object_is_generated_automatically()
     {
         $page = new MarkdownPage();
