@@ -26,7 +26,6 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Major: Restructure internal page data to use new front matter schema traits 
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
-- Page metadata is now stored as a page property, making it easier to see and understand
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead

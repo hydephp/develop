@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Models\Image;
 use Hyde\Testing\TestCase;
-use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -39,7 +38,7 @@ class FindsContentLengthForImageObjectTest extends TestCase
 
     public function test_it_can_find_the_content_length_for_a_remote_image()
     {
-        Http::fake(function (Request $request) {
+        Http::fake(function () {
             return Http::response(null, 200, [
                 'Content-Length' => 16,
             ]);
@@ -65,7 +64,7 @@ class FindsContentLengthForImageObjectTest extends TestCase
 
     public function test_it_returns_0_if_remote_image_is_missing()
     {
-        Http::fake(function (Request $request) {
+        Http::fake(function () {
             return Http::response(null, 404);
         });
 
