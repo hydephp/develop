@@ -582,4 +582,75 @@ class AbstractPageTest extends TestCase
         $page = new MarkdownPage('foo');
         $this->assertIsString($page->renderPageMetadata());
     }
+
+    public function test_has_method_returns_true_if_page_has_standard_property()
+    {
+        $page = new MarkdownPage('foo');
+        $this->assertTrue($page->has('identifier'));
+    }
+
+    public function test_has_method_returns_false_if_page_does_not_have_standard_property()
+    {
+        $page = new MarkdownPage();
+        $this->assertFalse($page->has('foo'));
+    }
+
+    public function test_has_method_returns_true_if_page_has_dynamic_property()
+    {
+        $page = new MarkdownPage();
+        $page->foo = 'bar';
+        $this->assertTrue($page->has('foo'));
+    }
+
+    public function test_has_method_returns_false_if_page_does_not_have_dynamic_property()
+    {
+        $page = new MarkdownPage();
+        $this->assertFalse($page->has('foo'));
+    }
+
+    public function test_has_method_returns_true_if_page_has_property_set_in_front_matter()
+    {
+        $page = MarkdownPage::make(matter: ['foo' => 'bar']);
+        $this->assertTrue($page->has('foo'));
+    }
+
+    public function test_has_method_returns_false_if_page_does_not_have_property_set_in_front_matter()
+    {
+        $page = MarkdownPage::make();
+        $this->assertFalse($page->has('foo'));
+    }
+
+    public function test_has_method_returns_false_if_property_exists_but_is_blank()
+    {
+        $page = MarkdownPage::make();
+        $page->foo = null;
+        $this->assertFalse($page->has('foo'));
+
+        $page = MarkdownPage::make();
+        $page->foo = '';
+        $this->assertFalse($page->has('foo'));
+    }
+
+    public function test_has_method_does_not_returns_false_for_blank_properties_when_strict_is_set_to_true()
+    {
+        $page = MarkdownPage::make();
+        $page->foo = null;
+        $this->assertTrue($page->has('foo', true));
+
+        $page = MarkdownPage::make();
+        $page->foo = '';
+        $this->assertTrue($page->has('foo', true));
+    }
+
+    public function test_has_method_returns_true_if_page_has_blank_property_set_in_front_matter()
+    {
+        $this->assertFalse(MarkdownPage::make(matter: ['foo' => null])->has('foo'));
+        $this->assertFalse(MarkdownPage::make(matter: ['foo' => ''])->has('foo'));
+    }
+
+    public function test_has_method_does_not_returns_false_for_blank_set_in_front_matter_when_strict_is_set_to_true()
+    {
+        $this->assertTrue(MarkdownPage::make(matter: ['foo' => null])->has('foo', true));
+        $this->assertTrue(MarkdownPage::make(matter: ['foo' => ''])->has('foo', true));
+    }
 }
