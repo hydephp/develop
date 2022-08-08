@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Metadata\LinkItem;
 use Hyde\Framework\Models\Metadata\Metadata;
@@ -26,6 +27,14 @@ class MetadataTest extends TestCase
         config(['hyde.meta' => []]);
         config(['hyde.generate_rss_feed' => false]);
         config(['site.generate_sitemap' => false]);
+    }
+
+    protected function assertPageHasMetadata(AbstractPage $page, string $metadata)
+    {
+        $this->assertStringContainsString(
+            $metadata,
+            $page->metadata->render()
+        );
     }
 
     public function test_metadata_object_is_generated_automatically()
