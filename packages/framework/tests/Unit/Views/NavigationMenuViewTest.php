@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
@@ -49,5 +50,30 @@ class NavigationMenuViewTest extends TestCase
     public function test_component_not_contains_404_html_link()
     {
         $this->assertStringNotContainsString('href="404.html"', $this->render());
+    }
+
+    public function test_navigation_menu_label_can_be_changed_in_front_matter()
+    {
+        $this->file('_pages/foo.md', '---
+navigation: 
+  title: "My custom title"
+---
+');
+        $this->artisan('rebuild _pages/foo.md');
+        $this->assertStringContainsString('My custom title', file_get_contents(Hyde::path('_site/foo.html')));
+        Hyde::unlink('_site/foo.html');
+    }
+
+    public function test_navigation_menu_label_can_be_changed_in_blade_matter()
+    {
+        $this->file('_pages/foo.blade.php', <<<'BLADE'
+@extends('hyde::layouts.app')
+@php($navigation = ['title' => 'My custom title'])
+BLADE
+);
+
+        $this->artisan('rebuild _pages/foo.blade.php');
+        $this->assertStringContainsString('My custom title', file_get_contents(Hyde::path('_site/foo.html')));
+        Hyde::unlink('_site/foo.html');
     }
 }
