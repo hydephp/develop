@@ -5,7 +5,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\BladePage;
