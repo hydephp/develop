@@ -117,7 +117,7 @@ class Metadata
         }
 
         if ($page->has('image')) {
-            $this->add(Meta::property('image', optional($page->image)->getLink()));
+            $this->add(Meta::property('image', $this->resolveImageLink($page->get('image'))));
         }
 
         $this->add(Meta::property('type', 'article'));
@@ -131,5 +131,13 @@ class Metadata
         }
 
         return $array;
+    }
+
+    protected function resolveImageLink(String $image): string
+    {
+        // Since this is run before the page is rendered, we don't have the currentPage property
+        // but since we know that this is for a blog post we know what the property will be
+        // since Hyde does not currently support custom Blog post output directories.
+        return str_starts_with($image, 'http') ? $image : "../$image";
     }
 }
