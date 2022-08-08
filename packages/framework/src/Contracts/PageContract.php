@@ -136,6 +136,13 @@ interface PageContract
     public function getRoute(): RouteContract;
 
     /**
+     * Compile the page into static HTML.
+     *
+     * @return string The compiled HTML for the page.
+     */
+    public function compile(): string;
+
+    /**
      * Get the page title to display in the <head> section's <title> tag.
      *
      * @return string Example: "Site Name - Page Title"
