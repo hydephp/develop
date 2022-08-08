@@ -14,7 +14,9 @@ class DocumentationSidebar extends NavigationMenu
     {
         RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
             if (! $route->getSourceModel()->get('hidden', false)) {
-                $this->items->push(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)));
+                $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
+                    $item->title =  $item->route->getSourceModel()->get('label');
+                }));
             }
         });
 
