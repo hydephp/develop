@@ -133,7 +133,7 @@ class Image implements \Stringable
 
     public function getSource(): ?string
     {
-        return $this->uri ?? $this->path ?? null;
+        return $this->uri ?? $this->getPath() ?? null;
     }
 
     public function getLink(): string
@@ -224,5 +224,14 @@ class Image implements \Stringable
         $metadata['contentUrl'] = $this->getSource();
 
         return $metadata;
+    }
+
+    protected function getPath(): ?string
+    {
+        if (isset($this->path)) {
+            return basename($this->path);
+        }
+
+        return null;
     }
 }
