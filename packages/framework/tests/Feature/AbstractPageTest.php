@@ -583,20 +583,4 @@ class AbstractPageTest extends TestCase
         $page = new MarkdownPage('foo');
         $this->assertIsString($page->renderPageMetadata());
     }
-
-    public function test_render_page_metadata_returns_string_with_merged_metadata()
-    {
-        config(['site.url' => 'https://example.com']);
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertStringContainsString(
-            '<meta name="foo" content="bar">'."\n".
-            '<link rel="canonical" href="https://example.com/foo.html">',
-            $page->renderPageMetadata()
-        );
-    }
-
 }
