@@ -427,13 +427,13 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:type" content="article">');
     }
 
-    public function test_get_meta_properties_returns_base_array_when_initialized_with_empty_front_matter()
+    public function test_dynamic_post_meta_properties_returns_base_array_when_initialized_with_empty_front_matter()
     {
         $page = MarkdownPost::make();
         $this->assertEquals('<meta property="og:type" content="article">', $page->metadata->render());
     }
 
-    public function test_get_meta_properties_contains_image_metadata_when_featured_image_set_to_string()
+    public function test_dynamic_post_meta_properties_contains_image_metadata_when_featured_image_set_to_string()
     {
         $page = MarkdownPost::make(matter: [
             'image' => 'foo.jpg',
@@ -442,7 +442,7 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="media/foo.jpg">');
     }
 
-    public function test_get_meta_properties_contains_image_link_that_is_relative()
+    public function test_dynamic_post_meta_properties_contains_image_link_that_is_relative()
     {
         $this->mockCurrentPage('foo/bar');
 
@@ -453,7 +453,7 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/foo.jpg">');
     }
 
-    public function test_get_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_path()
+    public function test_dynamic_post_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_path()
     {
         $page = MarkdownPost::make(matter: [
             'image' => [
@@ -464,7 +464,7 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="media/foo.jpg">');
     }
 
-    public function test_get_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_uri()
+    public function test_dynamic_post_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_uri()
     {
         $page = MarkdownPost::make(matter: [
             'image' => [
@@ -475,7 +475,7 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="https://example.com/foo.jpg">');
     }
 
-    public function test_get_author_returns_author_name_when_author_set_to_array_using_username()
+    public function test_dynamic_post_author_returns_author_name_when_author_set_to_array_using_username()
     {
         $page = MarkdownPost::make(matter: [
             'author' => [
@@ -485,7 +485,7 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta name="author" content="username">');
     }
 
-    public function test_get_author_returns_author_name_when_author_set_to_array_using_name()
+    public function test_dynamic_post_author_returns_author_name_when_author_set_to_array_using_name()
     {
         $page = MarkdownPost::make(matter: [
             'author' => [
