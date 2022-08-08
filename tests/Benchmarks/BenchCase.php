@@ -18,7 +18,7 @@ class BenchCase extends TestCase
         $method = substr(debug_backtrace()[1]['function'], 4);
 
         if (extension_loaded('xdebug')) {
-            echo ("Warning: xdebug is enabled, this will affect the performance of the benchmark.\n\n");
+            echo "Warning: xdebug is enabled, this will affect the performance of the benchmark.\n\n";
         }
 
         $benchmark = Benchmark::run($callback, $iterations, $name ?? $class.'::'.$method, env('SILENCE_BENCHMARKS', true));

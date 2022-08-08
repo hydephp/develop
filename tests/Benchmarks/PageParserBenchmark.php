@@ -13,7 +13,7 @@ class PageParserBenchmark extends BenchCase
 {
     /**
      * Results history:
-     * - #14c34beb1: 0.17022841ms
+     * - #14c34beb1: 0.17022841ms.
      */
     public function testParseBladePageFile()
     {
@@ -31,7 +31,7 @@ class PageParserBenchmark extends BenchCase
 
     /**
      * Results history:
-     * - #8e165366a: 0.1986541ms
+     * - #8e165366a: 0.1986541ms.
      */
     public function testParseMarkdownPageFile()
     {
@@ -49,7 +49,7 @@ class PageParserBenchmark extends BenchCase
 
     /**
      * Results history:
-     * - #5d044679b: 0.30337441ms
+     * - #5d044679b: 0.30337441ms.
      */
     public function testParseMarkdownPostFile()
     {
@@ -67,7 +67,7 @@ class PageParserBenchmark extends BenchCase
 
     /**
      * Results history:
-     * - #6f63f5016: 0.16660199ms
+     * - #6f63f5016: 0.16660199ms.
      */
     public function testParseDocumentationPageFile()
     {
@@ -86,7 +86,7 @@ class PageParserBenchmark extends BenchCase
     protected function report(Benchmark $benchmark): void
     {
         echo "- <b>$benchmark->runName</b> - avg_iteration_time\n";
-        echo "- #".trim(shell_exec('git rev-parse --short HEAD')).
+        echo '- #'.trim(shell_exec('git rev-parse --short HEAD')).
             ": {$benchmark->getAverageExecutionTimeInMs()}ms\n";
     }
 }
