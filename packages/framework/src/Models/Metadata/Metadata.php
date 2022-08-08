@@ -133,7 +133,7 @@ class Metadata
         return $array;
     }
 
-    protected function resolveImageLink(String $image): string
+    protected function resolveImageLink(string $image): string
     {
         // Since this is run before the page is rendered, we don't have the currentPage property
         // but since we know that this is for a blog post we know what the property will be
