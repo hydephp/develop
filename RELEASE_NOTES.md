@@ -26,6 +26,7 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Major: Restructure internal page data to use new front matter schema traits 
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
+- Page metadata is now stored as a page property, making it easier to see and understand
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
@@ -40,7 +41,9 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Several internal single-use helper traits have been merged into their respective classes
 
 ### Fixed
-- for any bug fixes.
+- Fix Path property in Image model should be relative to media directory [#359](https://github.com/hydephp/develop/issues/359)
+- Fix Add toString method to Image model to get the link [#370](https://github.com/hydephp/develop/issues/370)
+- Fix Blog post OpenGraph images must be resolved relatively [#374](https://github.com/hydephp/develop/issues/374)
 
 ### Security
 - in case of vulnerabilities.
