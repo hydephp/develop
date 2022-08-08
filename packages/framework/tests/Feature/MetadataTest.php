@@ -231,4 +231,46 @@ class MetadataTest extends TestCase
             $page->renderPageMetadata()
         );
     }
+
+    public function test_does_not_add_canonical_link_when_base_url_is_not_set()
+    {
+        config(['site.url' => null]);
+        $page = MarkdownPage::make('bar');
+
+        $this->assertStringNotContainsString('<link rel="canonical"', $page->metadata->render());
+    }
+
+    public function test_does_not_add_canonical_link_when_identifier_is_not_set()
+    {
+        config(['site.url' => 'foo']);
+        $page = MarkdownPage::make();
+
+        $this->assertStringNotContainsString('<link rel="canonical"', $page->metadata->render());
+    }
+
+    public function test_adds_canonical_link_when_base_url_and_identifier_is_set()
+    {
+        config(['site.url' => 'foo']);
+        $page = MarkdownPage::make('bar');
+
+        $this->assertStringContainsString('<link rel="canonical" href="foo/bar.html">', $page->metadata->render());
+    }
+
+    public function test_canonical_link_uses_clean_url_setting()
+    {
+        config(['site.url' => 'foo']);
+        config(['site.pretty_urls' => true]);
+        $page = MarkdownPage::make('bar');
+
+        $this->assertStringContainsString('<link rel="canonical" href="foo/bar">', $page->metadata->render());
+    }
+
+    public function test_can_override_canonical_link_with_front_matter()
+    {
+        config(['site.url' => 'foo']);
+        $page = MarkdownPage::make('bar', [
+            'canonicalUrl' => 'canonical',
+        ]);
+        $this->assertStringContainsString('<link rel="canonical" href="canonical">', $page->metadata->render());
+    }
 }

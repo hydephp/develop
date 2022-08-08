@@ -599,43 +599,6 @@ class AbstractPageTest extends TestCase
         );
     }
 
-    public function test_render_page_metadata_only_adds_canonical_if_conditions_are_met()
-    {
-        config(['site.url' => null]);
-        config(['hyde.meta' => []]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertStringNotContainsString(
-            '<link rel="canonical"',
-            $page->renderPageMetadata()
-        );
-    }
-
-    public function test_get_dynamic_metadata_only_adds_canonical_if_conditions_are_met()
-    {
-        config(['site.url' => null]);
-        config(['hyde.meta' => []]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertStringNotContainsString(
-            '<link rel="canonical"',
-            json_encode($page->getDynamicMetadata())
-        );
-    }
-
-    public function test_get_dynamic_metadata_adds_canonical_url_when_conditions_are_met()
-    {
-        config(['site.url' => 'https://example.com']);
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertContains('<link rel="canonical" href="https://example.com/foo.html">',
-            $page->getDynamicMetadata()
-        );
-    }
-
     public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_title_is_set()
     {
         config(['site.url' => null]);
