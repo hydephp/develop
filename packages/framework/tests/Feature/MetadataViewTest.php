@@ -183,8 +183,8 @@ class MetadataViewTest extends TestCase
             '<meta property="og:image" content="media/image.jpg">',
             '<meta itemprop="identifier" content="test">',
             '<meta itemprop="url" content="http://localhost/posts/test">',
-            '<meta itemprop="url" content="image.jpg">',
-            '<meta itemprop="contentUrl" content="image.jpg">',
+            '<meta itemprop="url" content="../media/image.jpg">',
+            '<meta itemprop="contentUrl" content="../media/image.jpg">',
         ]));
 
         $this->assertAllTagsWereCovered('posts/test', $assertions);
