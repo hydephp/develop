@@ -108,4 +108,24 @@ class MetadataViewTest extends TestCase
 
         $this->assertAllTagsWereCovered('test', $assertions);
     }
+
+    public function test_metadata_tags_in_empty_markdown_post()
+    {
+        $this->markdown('_posts/test.md');
+        $this->build('_posts/test.md');
+
+        $assertions = $this->assertSee('posts/test', array_merge($this->getDefaultTags(), [
+            '<title>HydePHP - Test</title>',
+            '<link rel="stylesheet" href="../media/app.css">',
+            '<link rel="canonical" href="http://localhost/posts/test.html">',
+            '<meta name="twitter:title" content="HydePHP - Test">',
+            '<meta property="og:title" content="Test">',
+            '<meta property="og:url" content="http://localhost/posts/test.html">',
+            '<meta property="og:type" content="article">',
+            '<meta itemprop="identifier" content="test">',
+            '<meta itemprop="url" content="http://localhost/posts/test">',
+        ]));
+
+        $this->assertAllTagsWereCovered('test', $assertions);
+    }
 }
