@@ -5,7 +5,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
-use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -584,84 +583,74 @@ class AbstractPageTest extends TestCase
         $this->assertIsString($page->renderPageMetadata());
     }
 
-    public function test_render_page_metadata_returns_string_with_merged_metadata()
+    public function test_has_method_returns_true_if_page_has_standard_property()
     {
-        config(['site.url' => 'https://example.com']);
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
         $page = new MarkdownPage('foo');
-
-        $this->assertStringContainsString(
-            '<meta name="foo" content="bar">'."\n".
-            '<link rel="canonical" href="https://example.com/foo.html">',
-            $page->renderPageMetadata()
-        );
+        $this->assertTrue($page->has('identifier'));
     }
 
-    public function test_render_page_metadata_only_adds_canonical_if_conditions_are_met()
+    public function test_has_method_returns_false_if_page_does_not_have_standard_property()
     {
-        config(['site.url' => null]);
-        config(['hyde.meta' => []]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertStringNotContainsString(
-            '<link rel="canonical"',
-            $page->renderPageMetadata()
-        );
+        $page = new MarkdownPage();
+        $this->assertFalse($page->has('foo'));
     }
 
-    public function test_get_dynamic_metadata_only_adds_canonical_if_conditions_are_met()
+    public function test_has_method_returns_true_if_page_has_dynamic_property()
     {
-        config(['site.url' => null]);
-        config(['hyde.meta' => []]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertStringNotContainsString(
-            '<link rel="canonical"',
-            json_encode($page->getDynamicMetadata())
-        );
+        $page = new MarkdownPage();
+        $page->foo = 'bar';
+        $this->assertTrue($page->has('foo'));
     }
 
-    public function test_get_dynamic_metadata_adds_canonical_url_when_conditions_are_met()
+    public function test_has_method_returns_false_if_page_does_not_have_dynamic_property()
     {
-        config(['site.url' => 'https://example.com']);
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertContains('<link rel="canonical" href="https://example.com/foo.html">',
-            $page->getDynamicMetadata()
-        );
+        $page = new MarkdownPage();
+        $this->assertFalse($page->has('foo'));
     }
 
-    public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_title_is_set()
+    public function test_has_method_returns_true_if_page_has_property_set_in_front_matter()
     {
-        config(['site.url' => null]);
-
-        $page = MarkdownPage::make(matter: ['title' => 'Foo Bar']);
-
-        $this->assertEquals([
-            '<meta name="twitter:title" content="HydePHP - Foo Bar">',
-            '<meta property="og:title" content="HydePHP - Foo Bar">',
-        ],
-            $page->getDynamicMetadata()
-        );
+        $page = MarkdownPage::make(matter: ['foo' => 'bar']);
+        $this->assertTrue($page->has('foo'));
     }
 
-    public function test_get_dynamic_metadata_does_not_add_twitter_and_open_graph_title_when_no_title_is_set()
+    public function test_has_method_returns_false_if_page_does_not_have_property_set_in_front_matter()
     {
-        config(['site.url' => null]);
-        config(['hyde.meta' => [
-            Meta::name('twitter:title', 'foo'),
-            Meta::property('title', 'foo'),
-        ]]);
+        $page = MarkdownPage::make();
+        $this->assertFalse($page->has('foo'));
+    }
 
-        $page = MarkdownPage::make(matter: ['title' => null]);
+    public function test_has_method_returns_false_if_property_exists_but_is_blank()
+    {
+        $page = MarkdownPage::make();
+        $page->foo = null;
+        $this->assertFalse($page->has('foo'));
 
-        $this->assertEquals([],
-            $page->getDynamicMetadata()
-        );
+        $page = MarkdownPage::make();
+        $page->foo = '';
+        $this->assertFalse($page->has('foo'));
+    }
+
+    public function test_has_method_does_not_returns_false_for_blank_properties_when_strict_is_set_to_true()
+    {
+        $page = MarkdownPage::make();
+        $page->foo = null;
+        $this->assertTrue($page->has('foo', true));
+
+        $page = MarkdownPage::make();
+        $page->foo = '';
+        $this->assertTrue($page->has('foo', true));
+    }
+
+    public function test_has_method_returns_true_if_page_has_blank_property_set_in_front_matter()
+    {
+        $this->assertFalse(MarkdownPage::make(matter: ['foo' => null])->has('foo'));
+        $this->assertFalse(MarkdownPage::make(matter: ['foo' => ''])->has('foo'));
+    }
+
+    public function test_has_method_does_not_returns_false_for_blank_set_in_front_matter_when_strict_is_set_to_true()
+    {
+        $this->assertTrue(MarkdownPage::make(matter: ['foo' => null])->has('foo', true));
+        $this->assertTrue(MarkdownPage::make(matter: ['foo' => ''])->has('foo', true));
     }
 }

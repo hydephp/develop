@@ -4,10 +4,8 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
-use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Collection;
@@ -34,6 +32,20 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     public string $identifier;
     public FrontMatter $matter;
+    public Metadata $metadata;
+
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
+    {
+        $this->identifier = $identifier;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+        $this->constructPageSchemas();
+        $this->metadata = new Metadata($this);
+    }
+
+    protected function constructPageSchemas(): void
+    {
+        $this->constructPageSchema();
+    }
 
     /** @inheritDoc */
     final public static function getSourceDirectory(): string
@@ -93,18 +105,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
         ).'.html';
     }
 
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [])
-    {
-        $this->identifier = $identifier;
-        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
-        $this->constructPageSchemas();
-    }
-
-    protected function constructPageSchemas(): void
-    {
-        $this->constructPageSchema();
-    }
-
     /** @inheritDoc */
     public function get(string $key = null, mixed $default = null): mixed
     {
@@ -119,6 +119,16 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public function matter(string $key = null, mixed $default = null): mixed
     {
         return $this->matter->get($key, $default);
+    }
+
+    /** @inheritDoc */
+    public function has(string $key, bool $strict = false): bool
+    {
+        if ($strict) {
+            return property_exists($this, $key) || $this->matter->has($key);
+        }
+
+        return ! blank($this->get($key));
     }
 
     /** @inheritDoc */
@@ -166,44 +176,9 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     abstract public function compile(): string;
 
-    /**
-     * @internal
-     *
-     * @return string[]
-     *
-     * @psalm-return list<string>
-     */
-    public function getDynamicMetadata(): array
-    {
-        $array = [];
-
-        if (! empty($this->canonicalUrl)) {
-            $array[] = Meta::link('canonical', $this->canonicalUrl);
-        }
-
-        if (! empty($this->title)) {
-            $array[] = Meta::name('twitter:title', $this->htmlTitle());
-            $array[] = Meta::property('title', $this->htmlTitle());
-        }
-
-        if ($this instanceof MarkdownPost) {
-            $array[] = "\n<!-- Blog Post Meta Tags -->";
-            foreach ($this->getMetadata() as $name => $content) {
-                $array[] = Meta::name($name, $content);
-            }
-            foreach ($this->getMetaProperties() as $property => $content) {
-                $array[] = Meta::property($property, $content);
-            }
-        }
-
-        return $array;
-    }
-
     public function renderPageMetadata(): string
     {
-        return Meta::render(
-            withMergedData: $this->getDynamicMetadata()
-        );
+        return $this->metadata->render();
     }
 
     public function showInNavigation(): bool

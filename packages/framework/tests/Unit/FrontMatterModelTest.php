@@ -96,6 +96,18 @@ class FrontMatterModelTest extends TestCase
         $this->assertSame($matter, $matter->set('foo', 'bar'));
     }
 
+    public function test_has_method_returns_true_if_property_exists()
+    {
+        $matter = new FrontMatter(['foo' => 'bar']);
+        $this->assertTrue($matter->has('foo'));
+    }
+
+    public function test_has_method_returns_false_if_property_does_not_exist()
+    {
+        $matter = new FrontMatter();
+        $this->assertFalse($matter->has('foo'));
+    }
+
     public function test_to_array_returns_front_matter_array()
     {
         $matter = new FrontMatter(['foo' => 'bar']);

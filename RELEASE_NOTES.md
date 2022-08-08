@@ -13,6 +13,9 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Adds new actions to handle complex dynamic constructors
 - Adds new front matter schema traits to define the public API for front matter and hold their data
 - Adds new Meta::link() helper to create `<link>` tags
+- Adds new Meta::get() helper to get the metadata array
+- Adds a new system for creating and storing page metadata
+- Adds several new metadata model classes
 
 ### Changed
 - Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
@@ -23,7 +26,9 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Major: Restructure internal page data to use new front matter schema traits 
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
-- The Image model and featured blog post image helpers now consistently use image paths relative to the `_media` directory as is described in the documentation 
+- Page metadata is now stored as a page property, making it easier to see and understand
+- Page metadata is now generated at compile time instead of build time
+- Page metadata types are now strongly typed, however all types are String able, so end usage is not affected
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
@@ -34,10 +39,13 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Removed `body()` method from `MarkdownDocumentContract` interface and all its implementations. Use `markdown()->body()` (or cast to string) instead
 - Removed `body` property from Markdown pages. Use `markdown()->body()` (or cast to string) instead
 - Removed deprecated `Helpers\Author` (fully merged into `Models\Author`, simply swap namespace to upgrade)
+- Removed metadata constructor helpers from the MarkdownPost class as it is now handled in the new metadata class
 - Several internal single-use helper traits have been merged into their respective classes
 
 ### Fixed
-- for any bug fixes.
+- Fix Path property in Image model should be relative to media directory [#359](https://github.com/hydephp/develop/issues/359)
+- Fix Add toString method to Image model to get the link [#370](https://github.com/hydephp/develop/issues/370)
+- Fix Blog post OpenGraph images must be resolved relatively [#374](https://github.com/hydephp/develop/issues/374)
 
 ### Security
 - in case of vulnerabilities.

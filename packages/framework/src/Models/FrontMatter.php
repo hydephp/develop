@@ -54,6 +54,11 @@ class FrontMatter implements Arrayable, \Stringable
         return $this;
     }
 
+    public function has(string $key): bool
+    {
+        return Arr::has($this->data, $key);
+    }
+
     public function toArray(): array
     {
         return $this->data;
