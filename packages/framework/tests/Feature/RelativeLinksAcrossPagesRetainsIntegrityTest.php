@@ -15,7 +15,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
     {
         parent::setUp();
 
-        $this->needsDirectory('_pages/nested/sub-nested');
+        $this->needsDirectory('_pages/nested');
     }
 
     protected function tearDown(): void
@@ -34,7 +34,6 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         $this->file('_pages/root1.md');
         Hyde::touch('_pages/nested/level1.md');
         Hyde::touch('_pages/nested/level1b.md');
-        Hyde::touch('_pages/nested/sub-nested/level2.md');
 
         $this->artisan('build');
     }
