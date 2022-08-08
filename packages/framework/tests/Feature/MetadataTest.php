@@ -147,4 +147,24 @@ class MetadataTest extends TestCase
         ]),
         $page->metadata->render());
     }
+
+    public function test_adds_config_defined_metadata()
+    {
+        config(['hyde.meta' => [
+            Meta::link('foo', 'bar'),
+            Meta::name('foo', 'bar'),
+            Meta::property('foo', 'bar'),
+            'foo' => 'bar',
+            'baz'
+        ]]);
+
+        $page = new MarkdownPage();
+        $this->assertEquals([
+            'links:foo' => Meta::link('foo', 'bar'),
+            'metadata:foo' => Meta::name('foo', 'bar'),
+            'properties:foo' => Meta::property('foo', 'bar'),
+            'generics:0' => 'bar',
+            'generics:1' => 'baz',
+        ], $page->metadata->get());
+    }
 }
