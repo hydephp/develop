@@ -9,5 +9,10 @@ use Hyde\Testing\TestCase;
  */
 class MetadataViewTest extends TestCase
 {
-    //
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['site.url' => 'http://localhost']);
+    }
 }
