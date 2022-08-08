@@ -220,8 +220,8 @@ class Image implements \Stringable
             $metadata['name'] = $this->title;
         }
 
-        $metadata['url'] = $this->getSource();
-        $metadata['contentUrl'] = $this->getSource();
+        $metadata['url'] = $this->getLink();
+        $metadata['contentUrl'] = $this->getLink();
 
         return $metadata;
     }
