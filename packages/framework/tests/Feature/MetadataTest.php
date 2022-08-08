@@ -167,4 +167,23 @@ class MetadataTest extends TestCase
             'generics:1' => 'baz',
         ], $page->metadata->get());
     }
+    public function test_automatically_adds_sitemap_when_enabled()
+    {
+        config(['site.url' => 'foo']);
+        config(['site.generate_sitemap' => true]);
+
+        $page = new MarkdownPage();
+
+        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', $page->metadata->render());
+    }
+
+    public function test_sitemap_uses_configured_site_url()
+    {
+        config(['site.url' => 'bar']);
+        config(['site.generate_sitemap' => true]);
+
+        $page = new MarkdownPage();
+
+        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', $page->metadata->render());
+    }
 }

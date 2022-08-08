@@ -173,30 +173,6 @@ class MetadataHelperTest extends TestCase
             ])
         );
     }
-
-    public function test_get_dynamic_metadata_adds_sitemap_link_when_conditions_are_met()
-    {
-        config(['site.url' => 'https://example.com']);
-        config(['site.generate_sitemap' => true]);
-        $page = new MarkdownPage('foo');
-
-        $this->assertStringContainsString('<link rel="sitemap" href="https://example.com/sitemap.xml" type="application/xml" title="Sitemap">',
-            $page->renderPageMetadata()
-        );
-    }
-
-    public function test_get_dynamic_metadata_does_not_add_sitemap_link_when_conditions_are_not_met()
-    {
-        $page = new MarkdownPage('foo');
-
-        config(['site.url' => 'https://example.com']);
-        config(['site.generate_sitemap' => false]);
-
-        $this->assertStringNotContainsString('<link rel="sitemap" type="application/xml" title="Sitemap" href="https://example.com/sitemap.xml">',
-            $page->renderPageMetadata()
-        );
-    }
-
     protected function assertPageHasFeedLink($page)
     {
         $this->assertStringContainsString(
