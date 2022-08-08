@@ -47,6 +47,18 @@ class MetadataViewTest extends TestCase
         return $text;
     }
 
+    protected function assertAllTagsWereCovered(string $page, array $tags): void
+    {
+        $haystack = file_get_contents(Hyde::path("_site/$page.html"));
+
+        $links = substr_count($haystack, '<link');
+        $meta = substr_count($haystack, '<meta');
+
+        $this->assertEquals(count($tags),
+            $links + $meta,
+            "Failed asserting that all tags were covered in the page '$page'");
+    }
+
     protected function getDefaultTags(): array
     {
         return [
@@ -66,10 +78,12 @@ class MetadataViewTest extends TestCase
         $this->markdown('_pages/test.md');
         $this->build('_pages/test.md');
 
-        $this->assertSee('test', array_merge($this->getDefaultTags(), [
+        $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">'
         ]));
+        
+        $this->assertAllTagsWereCovered('test', $assertions);
     }
 }
