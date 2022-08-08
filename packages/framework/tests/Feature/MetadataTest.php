@@ -9,6 +9,7 @@ use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Metadata\MetadataItem;
 use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
@@ -326,5 +327,53 @@ class MetadataTest extends TestCase
         $this->assertEquals('',
             $page->metadata->render()
         );
+    }
+
+    public function test_adds_description_when_description_is_set_in_post()
+    {
+        $page = MarkdownPost::make(matter: ['description' => 'My Description']);
+        $this->assertPageHasMetadata($page, '<meta name="description" content="My Description">');
+    }
+
+    public function test_adds_author_when_author_is_set_in_post()
+    {
+        $page = MarkdownPost::make(matter: ['author' => 'My Author']);
+        $this->assertPageHasMetadata($page, '<meta name="author" content="My Author">');
+    }
+
+    public function test_adds_keywords_when_category_is_set_in_post()
+    {
+        $page = MarkdownPost::make(matter: ['category' => 'My Category']);
+        $this->assertPageHasMetadata($page, '<meta name="keywords" content="My Category">');
+    }
+
+    public function test_adds_url_property_when_canonical_url_is_set_in_post()
+    {
+        $page = MarkdownPost::make(matter: ['canonicalUrl' => 'example.html']);
+        $this->assertPageHasMetadata($page, '<meta property="og:url" content="example.html">');
+    }
+
+    public function test_adds_title_property_when_title_is_set_in_post()
+    {
+        $page = MarkdownPost::make(matter: ['title' => 'My Title']);
+        $this->assertPageHasMetadata($page, '<meta property="og:title" content="My Title">');
+    }
+
+    public function test_adds_published_time_property_when_date_is_set_in_post()
+    {
+        $page = MarkdownPost::make(matter: ['date' => '2022-01-01']);
+        $this->assertPageHasMetadata($page, '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">');
+    }
+
+    public function test_adds_image_property_when_image_is_set_in_post()
+    {
+        $page = MarkdownPost::make(matter: ['image' => 'image.jpg']);
+        $this->assertPageHasMetadata($page, '<meta property="og:image" content="media/image.jpg">');
+    }
+
+    public function test_adds_type_property_automatically()
+    {
+        $page = MarkdownPost::make();
+        $this->assertPageHasMetadata($page, '<meta property="og:type" content="article">');
     }
 }
