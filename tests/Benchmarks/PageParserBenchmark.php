@@ -8,6 +8,10 @@ use Tests\Benchmarks\CBench\Benchmark;
 
 class PageParserBenchmark extends BenchCase
 {
+    /**
+     * Results history:
+     * - #5d044679b: 0.30337441ms
+     */
     public function testParseMarkdownPostFile()
     {
         $this->mockConsoleOutput = false;
