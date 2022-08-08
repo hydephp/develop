@@ -273,4 +273,24 @@ class MetadataTest extends TestCase
         ]);
         $this->assertStringContainsString('<link rel="canonical" href="canonical">', $page->metadata->render());
     }
+
+    public function test_adds_twitter_and_open_graph_title_when_title_is_set()
+    {
+        $page = MarkdownPage::make(matter: ['title' => 'Foo Bar']);
+
+        $this->assertEquals(
+            '<meta name="twitter:title" content="HydePHP - Foo Bar">'."\n".
+            '<meta property="og:title" content="HydePHP - Foo Bar">',
+            $page->metadata->render()
+        );
+    }
+
+    public function test_does_not_add_twitter_and_open_graph_title_when_no_title_is_set()
+    {
+        $page = MarkdownPage::make(matter: ['title' => null]);
+
+        $this->assertEquals('',
+            $page->metadata->render()
+        );
+    }
 }

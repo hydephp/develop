@@ -599,32 +599,4 @@ class AbstractPageTest extends TestCase
         );
     }
 
-    public function test_get_dynamic_metadata_adds_twitter_and_open_graph_title_when_title_is_set()
-    {
-        config(['site.url' => null]);
-
-        $page = MarkdownPage::make(matter: ['title' => 'Foo Bar']);
-
-        $this->assertEquals([
-            '<meta name="twitter:title" content="HydePHP - Foo Bar">',
-            '<meta property="og:title" content="HydePHP - Foo Bar">',
-        ],
-            $page->getDynamicMetadata()
-        );
-    }
-
-    public function test_get_dynamic_metadata_does_not_add_twitter_and_open_graph_title_when_no_title_is_set()
-    {
-        config(['site.url' => null]);
-        config(['hyde.meta' => [
-            Meta::name('twitter:title', 'foo'),
-            Meta::property('title', 'foo'),
-        ]]);
-
-        $page = MarkdownPage::make(matter: ['title' => null]);
-
-        $this->assertEquals([],
-            $page->getDynamicMetadata()
-        );
-    }
 }
