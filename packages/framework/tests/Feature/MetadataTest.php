@@ -168,6 +168,31 @@ class MetadataTest extends TestCase
         ], $page->metadata->get());
     }
 
+    public function test_custom_metadata_overrides_config_defined_metadata()
+    {
+        config(['hyde.meta' => [
+            Meta::name('foo', 'bar'),
+        ]]);
+        $page = new MarkdownPage();
+        $page->metadata->add(Meta::name('foo', 'baz'));
+        $this->assertEquals([
+            'metadata:foo' => Meta::name('foo', 'baz'),
+        ], $page->metadata->get());
+    }
+
+    public function test_dynamic_metadata_overrides_config_defined_metadata()
+    {
+        config(['hyde.meta' => [
+            Meta::name('twitter:title', 'bar'),
+        ]]);
+        $page = MarkdownPage::make(matter: ['title' => 'baz']);
+
+        $this->assertEquals([
+            'metadata:twitter:title' => Meta::name('twitter:title', 'HydePHP - baz'),
+            'properties:title' => Meta::property('title', 'HydePHP - baz'),
+        ], $page->metadata->get());
+    }
+
     public function test_automatically_adds_sitemap_when_enabled()
     {
         config(['site.url' => 'foo']);
