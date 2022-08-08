@@ -228,7 +228,7 @@ class MetadataTest extends TestCase
 
         $this->assertStringContainsString(
             '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
-            $page->renderPageMetadata()
+            $page->metadata->render()
         );
     }
 
