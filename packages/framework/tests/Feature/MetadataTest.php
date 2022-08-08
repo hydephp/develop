@@ -24,6 +24,8 @@ class MetadataTest extends TestCase
 
         config(['site.url' => null]);
         config(['hyde.meta' => []]);
+        config(['hyde.generate_rss_feed' => false]);
+        config(['site.generate_sitemap' => false]);
     }
 
     public function test_metadata_object_is_generated_automatically()
