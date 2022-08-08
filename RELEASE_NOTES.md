@@ -23,6 +23,7 @@ This serves two purposes:
 
 ### Fixed
 - Fix [#383](https://github.com/hydephp/develop/issues/383): Navigation menu titles can't be set in BladeMatter
+- Fix [#385](https://github.com/hydephp/develop/issues/385): `DocumentationPage::home()` did not work for custom documentation page output directories
 
 ### Security
 - in case of vulnerabilities.
