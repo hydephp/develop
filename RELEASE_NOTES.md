@@ -23,6 +23,7 @@ The way metadata tags are handled internally is also refactored. The rendered re
 - Major: Restructure internal page data to use new front matter schema traits 
 - Begin changing references to slugs to identifiers, see motivation below
 - Makes some helpers in SourceFileParser public static allowing them to be used outside the class
+- The Image model and featured blog post image helpers now consistently use image paths relative to the `_media` directory as is described in the documentation 
 
 ### Deprecated
 - Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead

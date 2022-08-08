@@ -82,7 +82,7 @@ class ArticleMetadataTest extends TestCase
 
         $this->assertEquals([
             'og:type' => 'article',
-            'og:image' => 'media/foo.jpg',
+            'og:image' => '../media/foo.jpg',
         ], $page->getMetaProperties());
     }
 
@@ -110,7 +110,7 @@ class ArticleMetadataTest extends TestCase
 
         $this->assertEquals([
             'og:type' => 'article',
-            'og:image' => 'media/foo.jpg',
+            'og:image' => '../media/foo.jpg',
         ], $page->getMetaProperties());
     }
 

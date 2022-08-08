@@ -20,11 +20,11 @@ use Hyde\Framework\Hyde;
  *    'credit'       => '?string'
  * ];
  */
-class Image
+class Image implements \Stringable
 {
     /**
-     * The image's path (if it is stored locally).
-     * Example: _media/image.jpg.
+     * The image's path (if it is stored locally (in the _media directory)).
+     * Example: image.jpg.
      *
      * @var string|null
      */
@@ -102,6 +102,16 @@ class Image
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
         }
+
+        if (isset($this->path)) {
+            $this->path = basename($this->path);
+        }
+    }
+
+    /** @inheritDoc */
+    public function __toString()
+    {
+        return $this->getLink();
     }
 
     /** Dynamically create an image based on string or front matter array */
@@ -123,12 +133,16 @@ class Image
 
     public function getSource(): ?string
     {
-        return $this->uri ?? $this->path ?? null;
+        return $this->uri ?? $this->getPath() ?? null;
     }
 
     public function getLink(): string
     {
-        return Hyde::image($this->getSource() ?? '');
+        if (! $this->getSource()) {
+            return '';
+        }
+
+        return Hyde::image($this->getSource());
     }
 
     public function getContentLength(): int
@@ -210,9 +224,18 @@ class Image
             $metadata['name'] = $this->title;
         }
 
-        $metadata['url'] = $this->getSource();
-        $metadata['contentUrl'] = $this->getSource();
+        $metadata['url'] = $this->getLink();
+        $metadata['contentUrl'] = $this->getLink();
 
         return $metadata;
+    }
+
+    protected function getPath(): ?string
+    {
+        if (isset($this->path)) {
+            return basename($this->path);
+        }
+
+        return null;
     }
 }
