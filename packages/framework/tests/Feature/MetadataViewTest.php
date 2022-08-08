@@ -6,6 +6,10 @@ use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
+ * This tests ensures all metadata is rendered correctly in the compiled pages.
+ * Please see the MetadataTest class which tests the construction of the metadata;
+ * as this test does not cover all configuration cases and possible formatting options.
+ *
  * @covers \Hyde\Framework\Models\Metadata\Metadata
  */
 class MetadataViewTest extends TestCase
