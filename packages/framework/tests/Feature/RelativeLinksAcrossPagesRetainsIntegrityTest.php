@@ -45,6 +45,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             foreach ($text as $string) {
                 $this->assertSee($page, $string);
             }
+
             return;
         }
 
