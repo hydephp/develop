@@ -9,7 +9,7 @@ class StaticSiteBuilderBenchmark extends BenchCase
 {
     /**
      * Results history:
-     * - #49834e374: 76.05051994ms
+     * - #49834e374: 76.05051994ms.
      */
     public function testParseBladePageFile()
     {
