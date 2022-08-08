@@ -20,7 +20,7 @@ use Hyde\Framework\Hyde;
  *    'credit'       => '?string'
  * ];
  */
-class Image
+class Image implements \Stringable
 {
     /**
      * The image's path (if it is stored locally (in the _media directory)).
@@ -106,6 +106,12 @@ class Image
         if (isset($this->path)) {
             $this->normalizePath();
         }
+    }
+
+    /** @inheritDoc */
+    public function __toString()
+    {
+        return $this->getLink();
     }
 
     /** Dynamically create an image based on string or front matter array */

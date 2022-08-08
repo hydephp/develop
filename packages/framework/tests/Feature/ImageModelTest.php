@@ -215,4 +215,23 @@ class ImageModelTest extends TestCase
             'path' => 'media/image.jpg',
         ]))->path);
     }
+
+    public function test_to_string_returns_the_image_source()
+    {
+        $this->assertEquals('https://example.com/image.jpg', (string) (new Image([
+            'uri' => 'https://example.com/image.jpg',
+        ])));
+
+        $this->assertEquals('media/image.jpg', (string) (new Image([
+            'path' => 'image.jpg',
+        ])));
+    }
+
+    public function test_to_string_returns_the_image_source_for_nested_pages()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $this->assertEquals('../media/image.jpg', (string) (new Image([
+            'path' => 'image.jpg',
+        ])));
+    }
 }
