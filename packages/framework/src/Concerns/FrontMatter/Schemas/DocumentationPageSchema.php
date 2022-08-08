@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
+use Hyde\Framework\Hyde;
 use Illuminate\Support\Str;
 
 trait DocumentationPageSchema
@@ -33,7 +34,7 @@ trait DocumentationPageSchema
     {
         $this->category = static::getDocumentationPageCategory();
 
-        $this->label = $this->matter('label', $this->title);
+        $this->label = $this->matter('label', Hyde::makeTitle(basename($this->identifier)));
         $this->hidden = $this->matter('hidden', $this->identifier === 'index');
         $this->priority = $this->matter('priority', $this->findPriorityInConfig());
     }
