@@ -70,7 +70,6 @@ class MetadataViewTest extends TestCase
             '<meta charset="utf-8">',
             '<meta name="viewport" content="width=device-width, initial-scale=1">',
             '<meta id="meta-color-scheme" name="color-scheme" content="light">',
-            '<link rel="stylesheet" href="media/app.css">',
             '<link rel="sitemap" href="http://localhost/sitemap.xml" type="application/xml" title="Sitemap">',
             '<link rel="alternate" href="http://localhost/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
             '<meta name="generator" content="HydePHP dev-master">',
@@ -85,6 +84,7 @@ class MetadataViewTest extends TestCase
 
         $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
+            '<link rel="stylesheet" href="media/app.css">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
             '<link rel="canonical" href="http://localhost/test.html">',
@@ -100,6 +100,7 @@ class MetadataViewTest extends TestCase
 
         $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
+            '<link rel="stylesheet" href="media/app.css">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
             '<link rel="canonical" href="http://localhost/test.html">',
