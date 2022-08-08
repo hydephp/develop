@@ -14,7 +14,7 @@ trait DocumentationPageSchema
     /**
      * The label for the page shown in the sidebar.
      */
-    public ?string $label;
+    public ?string $label = null;
 
     /**
      * Hides the page from the sidebar.
