@@ -30,19 +30,21 @@ class MetadataViewTest extends TestCase
         }
     }
 
-    protected function assertSee(string $page, string|array $text): void
+    protected function assertSee(string $page, string|array $text): string|array
     {
         if (is_array($text)) {
             foreach ($text as $string) {
                 $this->assertSee($page, $string);
             }
 
-            return;
+            return $text;
         }
 
         $this->assertStringContainsString($text,
             file_get_contents(Hyde::path("_site/$page.html")),
             "Failed asserting that the page '$page' contains the text '$text'");
+
+        return $text;
     }
 
     protected function getDefaultTags(): array
