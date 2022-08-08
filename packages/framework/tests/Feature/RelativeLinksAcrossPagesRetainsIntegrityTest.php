@@ -28,6 +28,20 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         parent::tearDown();
     }
 
+    protected function assertSee(string $page, string|array $text): void
+    {
+        if (is_array($text)) {
+            foreach ($text as $string) {
+                $this->assertSee($page, $string);
+            }
+            return;
+        }
+
+        $this->assertStringContainsString($text,
+            file_get_contents(Hyde::path("_site/$page.html")),
+            "Failed asserting that the page '$page' contains the text '$text'");
+    }
+
     public function test_relative_links_across_pages_retains_integrity()
     {
         $this->file('_pages/root.md');
