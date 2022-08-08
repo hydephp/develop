@@ -50,5 +50,23 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         Hyde::touch('_pages/nested/level1b.md');
 
         $this->artisan('build');
+
+        $this->assertSee('root', [
+            '<link rel="stylesheet" href="media/app.css">',
+            '<a href="index.html"',
+            '<a href="root.html"',
+            '<a href="root1.html"',
+            '<a href="nested/level1.html"',
+            '<a href="nested/level1b.html"',
+        ]);
+
+        $this->assertSee('nested/level1', [
+            '<link rel="stylesheet" href="../media/app.css">',
+            '<a href="../index.html"',
+            '<a href="../root.html"',
+            '<a href="../root1.html"',
+            '<a href="../nested/level1.html"',
+            '<a href="../nested/level1b.html"',
+        ]);
     }
 }
