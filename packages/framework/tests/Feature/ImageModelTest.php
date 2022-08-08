@@ -173,6 +173,43 @@ class ImageModelTest extends TestCase
         ], $image->getMetadataArray());
     }
 
+    public function test_get_metadata_array_with_remote_url()
+    {
+        $image = new Image([
+            'uri' => 'https://foo/bar',
+        ]);
+
+        $this->assertEquals([
+            'url' => 'https://foo/bar',
+            'contentUrl' => 'https://foo/bar',
+        ], $image->getMetadataArray());
+    }
+
+    public function test_get_metadata_array_with_local_path()
+    {
+        $image = new Image([
+            'path' => 'foo.png',
+        ]);
+
+        $this->assertEquals([
+            'url' => 'media/foo.png',
+            'contentUrl' => 'media/foo.png',
+        ], $image->getMetadataArray());
+    }
+
+    public function test_get_metadata_array_with_local_path_when_on_nested_page()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $image = new Image([
+            'path' => 'foo.png',
+        ]);
+
+        $this->assertEquals([
+            'url' => '../media/foo.png',
+            'contentUrl' => '../media/foo.png',
+        ], $image->getMetadataArray());
+    }
+
     public function test_get_link_resolves_remote_paths()
     {
         $image = new Image([
