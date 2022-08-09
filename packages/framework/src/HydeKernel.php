@@ -33,6 +33,7 @@ class HydeKernel implements HydeKernelContract
     protected Hyperlinks $hyperlinks;
     protected RoutingService $router;
     protected PageCollection $pages;
+    protected RouteCollection $routes;
 
     public function __construct(?string $basePath = null)
     {
@@ -44,6 +45,7 @@ class HydeKernel implements HydeKernelContract
     protected function bootKernel(): void
     {
         $this->pages = new PageCollection($this);
+        $this->routes = new RouteCollection($this);
     }
 
     public static function boot(): void
