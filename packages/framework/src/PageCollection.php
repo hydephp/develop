@@ -11,7 +11,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
-class PageCollection extends Collection
+final class PageCollection extends Collection
 {
     protected HydeKernelContract $kernel;
 
