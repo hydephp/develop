@@ -27,7 +27,7 @@ final class PageCollection extends Collection
 
     public function getPage(string $sourcePath): PageContract
     {
-        return $this->firstWhere('sourcePath', $sourcePath);
+        return $this->get($sourcePath);
     }
 
     public function getPages(?string $pageClass = null): Collection
