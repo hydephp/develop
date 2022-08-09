@@ -6,7 +6,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RoutingServiceContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Route;
-use Illuminate\Support\Collection;
+use Hyde\Framework\RouteCollection;
 
 /**
  * Pseudo-Router for Hyde.
@@ -44,13 +44,13 @@ class RoutingService implements RoutingServiceContract
     }
 
     /** @inheritDoc */
-    public function getRoutes(): Collection
+    public function getRoutes(): RouteCollection
     {
         return Hyde::routes();
     }
 
     /** @inheritDoc */
-    public function getRoutesForModel(string $pageClass): Collection
+    public function getRoutesForModel(string $pageClass): RouteCollection
     {
         // Return a new filtered collection with only routes that are for the given page class.
         return $this->getRoutes()->filter(function (RouteContract $route) use ($pageClass) {
