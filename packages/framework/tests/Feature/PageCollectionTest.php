@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -60,5 +61,12 @@ class PageCollectionTest extends TestCase
         $collection = PageCollection::boot();
         $this->assertArrayHasKey('_docs/foo.md', $collection->toArray());
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('_docs/foo.md'));
+    }
+
+    public function test_get_page_returns_parsed_page_object_for_given_source_path()
+    {
+        $this->file('_pages/foo.blade.php');
+        $collection = PageCollection::boot();
+        $this->assertEquals(new BladePage('foo'), $collection->getPage('_pages/foo.blade.php'));
     }
 }
