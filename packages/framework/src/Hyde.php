@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getMarkdownPostPath(string $path = '')
  * @method static bool|int copy(string $from, string $to, bool $force = false)
  * @method static string getModelSourcePath(string $model, string $path = '')
- * @method static string image(string $name)
+ * @method static string image(string $name,  bool $preferQualifiedUrl = false)
  * @method static RouteContract|null currentRoute()
  * @method static string currentPage()
  * @method static string url(string $path = '', null|string $default = null)
