@@ -91,6 +91,11 @@ class HydeKernel implements HydeKernelContract
         return View::shared('currentRoute');
     }
 
+    public function pages(): PageCollection
+    {
+        return $this->pages;
+    }
+
     /** @internal */
     public function registerRoutingService(RoutingService $router)
     {
