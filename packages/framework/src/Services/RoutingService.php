@@ -17,6 +17,8 @@ use Illuminate\Support\Collection;
 /**
  * Pseudo-Router for Hyde.
  *
+ * @deprecated Use Hyde::routes() instead.
+ *
  * This is not a router in the traditional sense that it decides where to go.
  * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
  *
