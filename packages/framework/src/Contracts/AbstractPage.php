@@ -31,6 +31,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     public static string $template;
 
     public string $identifier;
+    public string $routeKey;
     public FrontMatter $matter;
     public Metadata $metadata;
 
@@ -40,6 +41,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
         $this->metadata = new Metadata($this);
+        $this->routeKey = $this->getCurrentPagePath();
     }
 
     protected function constructPageSchemas(): void
