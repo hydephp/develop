@@ -6,6 +6,7 @@ use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RoutingServiceContract;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -52,6 +53,7 @@ class RoutingService implements RoutingServiceContract
     public function __construct()
     {
         $this->discoverRoutes();
+        HydeKernel::getInstance()->registerRoutingService($this);
     }
 
     /** @inheritDoc */
