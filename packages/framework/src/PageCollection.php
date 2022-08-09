@@ -30,9 +30,9 @@ final class PageCollection extends Collection
         return $this->firstWhere('sourcePath', $sourcePath);
     }
 
-    public function getPages(string $pageClass): Collection
+    public function getPages(?string $pageClass = null): Collection
     {
-        return $this->filter(function (PageContract $page) use ($pageClass): bool {
+        return ! $pageClass ? $this : $this->filter(function (PageContract $page) use ($pageClass): bool {
             return $page instanceof $pageClass;
         });
     }
