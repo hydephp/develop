@@ -46,9 +46,9 @@ class HydeKernel implements HydeKernelContract
 
     protected function bootKernel(): void
     {
+        $this->booted = true;
         $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
-        $this->booted = true;
     }
 
     public static function boot(): void
