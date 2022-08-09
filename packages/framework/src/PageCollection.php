@@ -3,6 +3,7 @@
 namespace Hyde\Framework;
 
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -27,7 +28,7 @@ final class PageCollection extends Collection
 
     public function getPage(string $sourcePath): PageContract
     {
-        return $this->get($sourcePath);
+        return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath . ' in page collection');
     }
 
     public function getPages(?string $pageClass = null): Collection
