@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\StaticPageBuilder;
 
@@ -44,7 +45,7 @@ class RebuildService
     public function execute(): StaticPageBuilder
     {
         return $this->builder = (new StaticPageBuilder(
-            Route::getFromSource($this->filepath)->getSourceModel(),
+            Hyde::pages()->getPage($this->filepath),
             true
         ));
     }
