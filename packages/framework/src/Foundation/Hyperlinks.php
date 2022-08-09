@@ -71,11 +71,19 @@ class Hyperlinks
 
     /**
      * Gets a relative web link to the given image stored in the _site/media folder.
+     * If the image is remote (starts with http) it will be returned as is.
+     *
+     * If true is passed as the second argument, and a base URL is set,
+     * the image will be returned with a qualified Absolute URI.
      */
-    public function image(string $name): string
+    public function image(string $name, bool $preferQualifiedUrl = false): string
     {
         if (str_starts_with($name, 'http')) {
             return $name;
+        }
+
+        if ($preferQualifiedUrl && $this->hasSiteUrl()) {
+            return $this->url('media/'.basename($name));
         }
 
         return $this->relativeLink('media/'.basename($name));
