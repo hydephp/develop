@@ -8,7 +8,6 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -31,7 +30,6 @@ class HydeKernel implements HydeKernelContract
     protected string $basePath;
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
-    protected RoutingService $router;
     protected PageCollection $pages;
     protected RouteCollection $routes;
 
@@ -117,12 +115,6 @@ class HydeKernel implements HydeKernelContract
         }
 
         return $this->routes;
-    }
-
-    /** @internal */
-    public function registerRoutingService(RoutingService $router)
-    {
-        $this->router = $router;
     }
 
     public function makeTitle(string $slug): string
