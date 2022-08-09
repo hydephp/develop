@@ -15,12 +15,20 @@ class PageCollection extends Collection
 {
     protected HydeKernelContract $kernel;
 
-    public function __construct(HydeKernelContract $kernel)
+    public static function boot(HydeKernelContract $kernel): self
     {
-        parent::__construct();
+        return (new self())->setKernel($kernel)->discoverPages();
+    }
 
+    protected function __construct($items = [])
+    {
+        parent::__construct($items);
+    }
+
+    protected function setKernel(HydeKernelContract $kernel): self
+    {
         $this->kernel = $kernel;
-        $this->discoverPages();
+        return $this;
     }
 
     public function getPage(string $sourcePath): PageContract

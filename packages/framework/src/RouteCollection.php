@@ -12,12 +12,20 @@ class RouteCollection extends Collection
 {
     protected HydeKernelContract $kernel;
 
-    public function __construct(HydeKernelContract $kernel)
+    public static function boot(HydeKernelContract $kernel): self
     {
-        parent::__construct();
+        return (new self())->setKernel($kernel)->discoverRoutes();
+    }
 
+    protected function __construct($items = [])
+    {
+        parent::__construct($items);
+    }
+
+    protected function setKernel(HydeKernelContract $kernel): RouteCollection
+    {
         $this->kernel = $kernel;
-        $this->discoverRoutes();
+        return $this;
     }
 
     public function getRoutes(): Collection
