@@ -84,6 +84,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable
         return $this->getLink();
     }
 
+    /** @deprecated Use the route key property */
     protected function constructRouteKey(): string
     {
         return $this->sourceModel->getCurrentPagePath();
