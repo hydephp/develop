@@ -71,6 +71,7 @@ class Hyperlinks
 
     /**
      * Gets a relative web link to the given image stored in the _site/media folder.
+     * If the image is remote (starts with http) it will be returned as is.
      */
     public function image(string $name): string
     {
