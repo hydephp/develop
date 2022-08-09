@@ -11,7 +11,6 @@ This serves two purposes:
 
 ### Added
 - Adds an option to the `Hyde::image()` helper to request the returned image path use the configured base URL if it's set
-- The Image model will now be resolved using the configured base URL if it's set, otherwise it falls back to default relative path
 
 ### Changed
 - for changes in existing functionality.
