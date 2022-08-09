@@ -32,12 +32,14 @@ class HydeKernel implements HydeKernelContract
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
     protected RoutingService $router;
+    protected PageCollection $pages;
 
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+        $this->pages = new PageCollection($this);
     }
 
     public static function getInstance(): HydeKernelContract
