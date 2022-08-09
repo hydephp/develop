@@ -84,6 +84,8 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public static function all(): Collection
     {
+        // @todo Get from the PageCollection class.
+
         $collection = new Collection();
 
         foreach (static::files() as $basename) {
