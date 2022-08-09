@@ -142,7 +142,7 @@ class Image implements \Stringable
             return '';
         }
 
-        return Hyde::image($this->getSource(), true);
+        return Hyde::image($this->getSource());
     }
 
     public function getContentLength(): int
