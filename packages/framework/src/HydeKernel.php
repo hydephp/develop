@@ -35,6 +35,8 @@ class HydeKernel implements HydeKernelContract
     protected PageCollection $pages;
     protected RouteCollection $routes;
 
+    protected bool $booted = false;
+
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
@@ -46,6 +48,7 @@ class HydeKernel implements HydeKernelContract
     {
         $this->pages = new PageCollection($this);
         $this->routes = new RouteCollection($this);
+        $this->booted = true;
     }
 
     public static function boot(): void
@@ -96,6 +99,15 @@ class HydeKernel implements HydeKernelContract
     public function pages(): PageCollection
     {
         return $this->pages;
+    }
+
+    public function routes(): RouteCollection
+    {
+        if (! $this->booted) {
+            $this->bootKernel();
+        }
+
+        return $this->routes;
     }
 
     /** @internal */
