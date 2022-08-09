@@ -39,7 +39,16 @@ class HydeKernel implements HydeKernelContract
         $this->setBasePath($basePath ?? getcwd());
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+    }
+
+    protected function bootKernel(): void
+    {
         $this->pages = new PageCollection($this);
+    }
+
+    public static function boot(): void
+    {
+        static::getInstance()->bootKernel();
     }
 
     public static function getInstance(): HydeKernelContract
