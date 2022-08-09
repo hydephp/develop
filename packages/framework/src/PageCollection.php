@@ -44,7 +44,7 @@ final class PageCollection extends Collection
         });
     }
 
-    protected function discoverPages(): static
+    protected function discoverPages(): self
     {
         if (Features::hasBladePages()) {
             $this->discoverPagesFor(BladePage::class);
@@ -75,7 +75,7 @@ final class PageCollection extends Collection
         });
     }
 
-    protected function discover(PageContract $page): static
+    protected function discover(PageContract $page): self
     {
         // Create a new route for the given page, and add it to the index.
         $this->put($page->getSourcePath(), $page);
