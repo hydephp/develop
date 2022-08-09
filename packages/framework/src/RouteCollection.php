@@ -53,7 +53,7 @@ final class RouteCollection extends Collection
         return $this;
     }
 
-    protected function discover(PageContract $page): static
+    protected function discover(PageContract $page): self
     {
         // Create a new route for the given page, and add it to the index.
         $this->addRoute(new Route($page));
@@ -61,7 +61,7 @@ final class RouteCollection extends Collection
         return $this;
     }
 
-    protected function discoverRoutes(): static
+    protected function discoverRoutes(): self
     {
         $this->kernel->pages()->each(function (PageContract $page) {
             $this->discover($page);
