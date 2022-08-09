@@ -99,9 +99,9 @@ class HydeKernel implements HydeKernelContract
         return $this->hyperlinks->relativeLink($destination);
     }
 
-    public function image(string $name): string
+    public function image(string $name, bool $preferQualifiedUrl = false): string
     {
-        return $this->hyperlinks->image($name);
+        return $this->hyperlinks->image($name, $preferQualifiedUrl);
     }
 
     public function hasSiteUrl(): bool
