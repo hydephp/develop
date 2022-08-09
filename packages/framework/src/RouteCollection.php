@@ -22,19 +22,19 @@ final class RouteCollection extends Collection
         parent::__construct($items);
     }
 
-    protected function setKernel(HydeKernelContract $kernel): RouteCollection
+    protected function setKernel(HydeKernelContract $kernel): self
     {
         $this->kernel = $kernel;
 
         return $this;
     }
 
-    public function getRoutes(): Collection
+    public function getRoutes(): self
     {
         return $this;
     }
 
-    public function getRoutesForModel(string $pageClass): Collection
+    public function getRoutesForModel(string $pageClass): self
     {
         // Return a new filtered collection with only routes that are for the given page class.
         return $this->filter(function (RouteContract $route) use ($pageClass) {
