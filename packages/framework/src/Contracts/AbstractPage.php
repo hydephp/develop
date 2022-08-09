@@ -32,16 +32,18 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     public string $identifier;
     public string $routeKey;
+
     public FrontMatter $matter;
     public Metadata $metadata;
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
+        $this->routeKey = $this->getCurrentPagePath();
+
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
         $this->metadata = new Metadata($this);
-        $this->routeKey = $this->getCurrentPagePath();
     }
 
     protected function constructPageSchemas(): void
