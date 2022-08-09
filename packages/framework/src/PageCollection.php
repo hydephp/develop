@@ -28,6 +28,7 @@ final class PageCollection extends Collection
     protected function setKernel(HydeKernelContract $kernel): self
     {
         $this->kernel = $kernel;
+
         return $this;
     }
 

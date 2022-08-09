@@ -2,16 +2,9 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RoutingServiceContract;
-use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\HydeKernel;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
@@ -35,7 +28,6 @@ use Illuminate\Support\Collection;
  * The route index serves as a multidimensional mapping allowing you to
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
- *
  * @see \Hyde\Framework\Testing\Feature\RoutingServiceTest
  */
 class RoutingService implements RoutingServiceContract

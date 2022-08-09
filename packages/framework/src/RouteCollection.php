@@ -25,6 +25,7 @@ final class RouteCollection extends Collection
     protected function setKernel(HydeKernelContract $kernel): RouteCollection
     {
         $this->kernel = $kernel;
+
         return $this;
     }
 
