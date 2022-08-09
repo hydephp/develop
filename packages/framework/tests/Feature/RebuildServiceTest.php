@@ -15,25 +15,35 @@ use Hyde\Testing\TestCase;
  */
 class RebuildServiceTest extends TestCase
 {
-    public function test_execute_methods()
+    public function test_can_rebuild_blade_page()
     {
-        $this->runExecuteTest('_posts');
-        $this->runExecuteTest('_pages');
-        $this->runExecuteTest('_docs');
-        $this->runExecuteTest('_pages', '.blade.php');
-
-        unlink(Hyde::path('_site/foo.html'));
-        unlink(Hyde::path('_site/docs/foo.html'));
-        unlink(Hyde::path('_site/posts/foo.html'));
-    }
-
-    protected function runExecuteTest(string $prefix, string $suffix = '.md')
-    {
-        $path = $prefix.'/foo'.$suffix;
-        Hyde::touch(($path));
-        $service = new RebuildService($path);
+        $this->file('_pages/foo.blade.php');
+        $service = new RebuildService('_pages/foo.blade.php');
         $result = $service->execute();
         $this->assertInstanceOf(StaticPageBuilder::class, $result);
-        unlink(Hyde::path($path));
+    }
+
+    public function test_can_rebuild_markdown_page()
+    {
+        $this->file('_pages/foo.md');
+        $service = new RebuildService('_pages/foo.md');
+        $result = $service->execute();
+        $this->assertInstanceOf(StaticPageBuilder::class, $result);
+    }
+
+    public function test_can_rebuild_markdown_post()
+    {
+        $this->file('_posts/foo.md');
+        $service = new RebuildService('_posts/foo.md');
+        $result = $service->execute();
+        $this->assertInstanceOf(StaticPageBuilder::class, $result);
+    }
+
+    public function test_can_rebuild_documentation_page()
+    {
+        $this->file('_pages/foo.md');
+        $service = new RebuildService('_pages/foo.md');
+        $result = $service->execute();
+        $this->assertInstanceOf(StaticPageBuilder::class, $result);
     }
 }
