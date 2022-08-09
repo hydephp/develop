@@ -98,6 +98,10 @@ class HydeKernel implements HydeKernelContract
 
     public function pages(): PageCollection
     {
+        if (! $this->booted) {
+            $this->bootKernel();
+        }
+
         return $this->pages;
     }
 
