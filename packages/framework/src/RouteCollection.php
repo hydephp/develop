@@ -5,11 +5,6 @@ namespace Hyde\Framework;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
