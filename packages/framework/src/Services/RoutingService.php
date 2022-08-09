@@ -52,10 +52,7 @@ class RoutingService implements RoutingServiceContract
     /** @inheritDoc */
     public function getRoutesForModel(string $pageClass): RouteCollection
     {
-        // Return a new filtered collection with only routes that are for the given page class.
-        return $this->getRoutes()->filter(function (RouteContract $route) use ($pageClass) {
-            return $route->getSourceModel() instanceof $pageClass;
-        });
+        return $this->getRoutes()->getRoutesForModel($pageClass);
     }
 
     public function addRoute(RouteContract $route): self
