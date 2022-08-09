@@ -28,7 +28,7 @@ final class PageCollection extends Collection
 
     public function getPage(string $sourcePath): PageContract
     {
-        return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath . ' in page collection');
+        return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath.' in page collection');
     }
 
     public function getPages(?string $pageClass = null): Collection

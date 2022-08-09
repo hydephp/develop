@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Route;
 use Hyde\Framework\StaticPageBuilder;
 
 /**
