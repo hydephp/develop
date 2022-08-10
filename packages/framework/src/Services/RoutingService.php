@@ -47,11 +47,13 @@ class RoutingService implements RoutingServiceContract
     /** @inheritDoc */
     public function getRoutesForModel(string $pageClass): RouteCollection
     {
-        return $this->getRoutes()->getRoutesForModel($pageClass);
+        return Hyde::routes()->getRoutesForModel($pageClass);
     }
 
     public function addRoute(RouteContract $route): self
     {
+        Hyde::routes()->addRoute($route);
+
         return $this;
     }
 }
