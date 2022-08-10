@@ -41,7 +41,7 @@ class RouteCollectionTest extends TestCase
         $this->assertEquals([
             '404' => (new Route(new BladePage('404'))),
             'index' => (new Route(new BladePage('index'))),
-        ], $collection->toArray());
+        ], $collection->all());
     }
 
     public function test_boot_method_discovers_all_page_types()
@@ -63,7 +63,7 @@ class RouteCollectionTest extends TestCase
             'markdown' => (new Route(new MarkdownPage('markdown'))),
             'posts/post' => (new Route(new MarkdownPost('post'))),
             'docs/docs' => (new Route(new DocumentationPage('docs'))),
-        ], $collection->toArray());
+        ], $collection->all());
 
         $this->restoreDefaultPages();
     }
