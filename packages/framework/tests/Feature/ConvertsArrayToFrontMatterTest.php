@@ -22,9 +22,9 @@ class ConvertsArrayToFrontMatterTest extends TestCase
         ];
         $expected = <<<'YAML'
 ---
-key: value
-string: quoted string
-boolean: 1
+key: "value"
+string: "quoted string"
+boolean: true
 integer: 100
 ---
 
