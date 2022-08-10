@@ -38,6 +38,9 @@ final class RouteCollection extends Collection
         return $this;
     }
 
+    /**
+     * @deprecated Will be merged into getRoutes()
+     */
     public function getRoutesForModel(string $pageClass): self
     {
         // Return a new filtered collection with only routes that are for the given page class.
