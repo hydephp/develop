@@ -38,19 +38,37 @@ class RoutingService implements RoutingServiceContract
         return new self();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get all routes discovered by the autodiscovery process.
+     *
+     * @return \Hyde\Framework\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
+     */
     public function getRoutes(): RouteCollection
     {
         return Hyde::routes();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get all discovered routes for the given page class.
+     *
+     * @param class-string<\Hyde\Framework\Contracts\PageContract> $pageClass
+     * @return \Hyde\Framework\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
+     */
     public function getRoutesForModel(string $pageClass): RouteCollection
     {
         return Hyde::routes()->getRoutesForModel($pageClass);
     }
 
-    public function addRoute(RouteContract $route): self
+    /**
+     * Add a route to the router index.
+     *
+     * This internal method adds the specified route to the route index.
+     * It's intended to be used for package developers to hook into the routing system.
+     *
+     * @param  \Hyde\Framework\Contracts\RouteContract  $route
+     * @return $this
+     */
+    public function addRoute(RouteContract $route): static
     {
         Hyde::routes()->addRoute($route);
 
