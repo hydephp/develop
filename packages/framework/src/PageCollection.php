@@ -68,7 +68,7 @@ final class PageCollection extends Collection
 
     protected function parsePagesFor(string $pageClass): Collection
     {
-       $collection = new Collection();
+        $collection = new Collection();
 
         /** @var PageContract $pageClass */
         foreach ($pageClass::files() as $basename) {
