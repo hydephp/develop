@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements RouteContract, RouteFacadeContract
+class Route implements RouteContract, RouteFacadeContract, \Stringable
 {
     /**
      * The source model for the route.
@@ -67,6 +67,12 @@ class Route implements RouteContract, RouteFacadeContract
     }
 
     /** @inheritDoc */
+    public function getQualifiedUrl(): string
+    {
+        return Hyde::url($this->getOutputFilePath());
+    }
+
+    /** @inheritDoc */
     public function getLink(): string
     {
         return Hyde::relativeLink($this->getOutputFilePath());
@@ -78,6 +84,7 @@ class Route implements RouteContract, RouteFacadeContract
         return $this->getLink();
     }
 
+    /** @deprecated Use the route key property */
     protected function constructRouteKey(): string
     {
         return $this->sourceModel->getCurrentPagePath();
@@ -125,5 +132,11 @@ class Route implements RouteContract, RouteFacadeContract
     public static function home(): RouteContract
     {
         return static::getFromKey('index');
+    }
+
+    /** @todo add to contract */
+    public static function exists(string $routeKey): bool
+    {
+        return RoutingService::getInstance()->getRoutes()->has($routeKey);
     }
 }

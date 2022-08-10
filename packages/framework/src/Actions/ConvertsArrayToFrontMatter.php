@@ -2,8 +2,12 @@
 
 namespace Hyde\Framework\Actions;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Convert an array into YAML Front Matter.
+ *
+ * @see \Hyde\Framework\Testing\Feature\ConvertsArrayToFrontMatterTest
  */
 class ConvertsArrayToFrontMatter
 {
@@ -15,26 +19,10 @@ class ConvertsArrayToFrontMatter
      */
     public function execute(array $array): string
     {
-        // Initialize the array
-        $yaml = [];
-
-        // Set the first line to the opening starting block
-        $yaml[] = '---';
-
-        // For each line, add the key-value pair as YAML
-        foreach ($array as $key => $value) {
-            if (trim($value) !== '' && $value !== null) {
-                $yaml[] = "$key: $value";
-            }
+        if (empty($array)) {
+            return '';
         }
 
-        // Set the closing block
-        $yaml[] = '---';
-
-        // Add an extra line
-        $yaml[] = '';
-
-        // Return the array imploded into a string with newline characters
-        return implode("\n", $yaml);
+        return "---\n".Yaml::dump($array)."---\n";
     }
 }

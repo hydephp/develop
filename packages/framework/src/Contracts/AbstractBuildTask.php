@@ -5,11 +5,6 @@ namespace Hyde\Framework\Contracts;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
-/**
- * @experimental This feature was recently added and may be changed without notice.
- *
- * @since 0.40.0
- */
 abstract class AbstractBuildTask implements BuildTaskContract
 {
     use InteractsWithIO;

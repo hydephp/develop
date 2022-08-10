@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Commands;
 
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RssFeedService;
 use LaravelZero\Framework\Commands\Command;
@@ -49,7 +50,7 @@ class HydeBuildRssFeedCommand extends Command
 
     protected function runPreflightCheck(): bool
     {
-        if (! RssFeedService::canGenerateFeed()) {
+        if (! Features::rss()) {
             $this->error('Cannot generate an RSS feed, please check your configuration.');
 
             return false;

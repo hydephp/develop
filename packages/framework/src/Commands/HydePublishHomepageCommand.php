@@ -28,9 +28,14 @@ class HydePublishHomepageCommand extends Command
     {
         $this->selected = $this->argument('homepage') ?? $this->promptForHomepage();
 
+        if (! $this->canExistingIndexFileBeOverwritten()) {
+            $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
+
+            return 409;
+        }
+
         $returnValue = (new PublishesHomepageView(
-            $this->selected,
-            $this->canExistingIndexFileBeOverwritten()
+            $this->selected
         ))->execute();
 
         if (is_numeric($returnValue)) {
@@ -39,13 +44,9 @@ class HydePublishHomepageCommand extends Command
 
                 return 404;
             }
-
-            if ($returnValue == 409) {
-                $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
-
-                return 409;
-            }
         }
+
+        $this->line("<info>Published page</info> [<comment>$this->selected</comment>]");
 
         $this->askToRebuildSite();
 
@@ -60,12 +61,7 @@ class HydePublishHomepageCommand extends Command
             0
         );
 
-        $choice = $this->parseChoiceIntoKey($choice);
-
-        $this->line("<info>Selected page</info> [<comment>$choice</comment>]");
-        $this->newLine();
-
-        return $choice;
+        return $this->parseChoiceIntoKey($choice);
     }
 
     protected function formatPublishableChoices(): array
@@ -91,6 +87,6 @@ class HydePublishHomepageCommand extends Command
 
         return FileCacheService::checksumMatchesAny(FileCacheService::unixsumFile(
             Hyde::getBladePagePath('index.blade.php')
-        )) ?? $this->option('force');
+        )) || $this->option('force');
     }
 }

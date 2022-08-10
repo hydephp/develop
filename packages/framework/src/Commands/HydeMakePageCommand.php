@@ -24,6 +24,8 @@ class HydeMakePageCommand extends Command
     protected $signature = 'make:page 
 		{title? : The name of the page file to create. Will be used to generate the slug}
 		{--type=markdown : The type of page to create (markdown, blade, or docs)}
+        {--blade : Create a Blade page}
+        {--docs : Create a Documentation page}
 		{--force : Overwrite any existing files}';
 
     /**
@@ -37,6 +39,11 @@ class HydeMakePageCommand extends Command
      * The page title.
      */
     public string $title;
+
+    /**
+     * The selected page type.
+     */
+    public string $selectedType;
 
     /**
      * The page type.
@@ -59,9 +66,9 @@ class HydeMakePageCommand extends Command
             ?? $this->ask('What is the title of the page?')
             ?? 'My New Page';
 
-        $this->line('<info>Creating page with title:</> '.$this->title."\n");
-
         $this->validateOptions();
+
+        $this->line('<info>Creating a new '.ucwords($this->selectedType).' page with title:</> '.$this->title."\n");
 
         $this->force = $this->option('force') ?? false;
 
@@ -81,7 +88,7 @@ class HydeMakePageCommand extends Command
      */
     protected function validateOptions(): void
     {
-        $type = strtolower($this->option('type') ?? 'markdown');
+        $type = $this->getSelectedType();
 
         // Set the type to the fully qualified class name
         if ($type === 'markdown') {
@@ -101,5 +108,27 @@ class HydeMakePageCommand extends Command
         }
 
         throw new UnsupportedPageTypeException("Invalid page type: $type");
+    }
+
+    /**
+     * Get the selected page type.
+     *
+     * @return string
+     */
+    protected function getSelectedType(): string
+    {
+        $type = 'markdown';
+
+        if ($this->option('type') !== null) {
+            $type = strtolower($this->option('type'));
+        }
+
+        if ($this->option('blade')) {
+            $type = 'blade';
+        } elseif ($this->option('docs')) {
+            $type = 'documentation';
+        }
+
+        return $this->selectedType = $type;
     }
 }

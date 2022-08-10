@@ -1,63 +1,26 @@
 # HydePHP Frontend Assets
-![jsDelivr hits (GitHub)](https://img.shields.io/jsdelivr/gh/hm/hydephp/hydefront)
+
 [![jsDelivr hits (NPM)](https://data.jsdelivr.com/v1/package/npm/hydefront/badge?style=rounded)](https://www.jsdelivr.com/package/npm/hydefront)
 ![NPM Downloads](https://img.shields.io/npm/dm/hydefront)
 [![Build & Push CI](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml)
-[![CodeQL](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/codeql.yml)
 
 ## About this repository
 
 Contains the frontend assets for HydePHP.
 
-### Source files
-Source files are stored in the root of the repository. These can be published to your Hyde installation or used to compile into the dist/ directory.
-
-### Compiled files
-Compiled files are stored in the dist/ directory and can be loaded through the CDN or NPM.
-
 ### About the files
 
 - **Hyde.css**:
-The Hyde stylesheet contains the base styles for the Hyde views.
+The Hyde stylesheet contains a small set of styles that don't make sense to use with Tailwind, or that belong to generated content that is harder to modify.
 
-- **Hyde.js**:
-This file contains basic scripts to make the navigation menu and sidebars interactive.
+Normally, this file is imported into the main.css file.
 
 - **App.css**:
-A compiled and minified file containing the styles for a base Hyde installation using [this configuration file](https://github.com/hydephp/hyde/blob/master/tailwind.config.js).
-
+A compiled and minified file containing the TailwindCSS styles for a base Hyde installation. It includes the Hyde.css file. This file is identical to what one would get by running `npm run prod` in a new HydePHP project (which incidentally is exactly how this file is generated).
 
 ## Usage
-Note that HydeFront is included in Hyde/Hyde through the CDN out of the box.
 
-### Using CDN
-See https://www.jsdelivr.com/package/npm/hydefront
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.8/dist/hyde.css">
-
-<script defer src="https://cdn.jsdelivr.net/gh/hydephp/hydefront@v1.8/dist/hyde.js"></script>
-```
-
-### Using NPM (with Laravel Mix)
-HydeFront is also available as an [NPM package](https://www.npmjs.com/package/hydefront), if you want to compile all your assets using Laravel Mix. Note that it is recommended to use the CDN as the Framework takes care of versioning to ensure you always have the correct HydeFront version for the Blade templates your site uses.
-
-Install the package
-```bash
-npm install hydefront
-```
-
-Next, add the following import to `resources/assets/app.css`
-```css
-@import '~hydefront/dist/hyde.css';
-```
-
-And compile your assets
-```bash
-npm run dev/prod
-```
-
-Next, depending on your setup, you may need to tell Hyde where to find the styles. See the Hyde documentation for more information. https://hydephp.com/docs/master/managing-assets.
+HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default.
 
 ## Links:
 - GitHub https://github.com/hydephp/hydefront
@@ -69,3 +32,12 @@ HydeFront is not intended to be used for standalone projects and comes with no w
 
 ## Beta software notice
 HydePHP is currently in beta. Please report any bugs and issues in the appropriate issue tracker. Versions in the 0.x series are not stable and may change at any time. No backwards compatibility guarantees are made and breaking changes are <s>possible</s> <i>expected</i>.
+
+## v2.0 Release Notes
+
+HydeFront version 2.0 is a major release and has several breaking changes.
+It is not compatible with HydePHP versions lower than v0.50.0-beta.
+
+Many files have been removed, as HydePHP now uses Alpine.js for interactions, and TailwindCSS for the documentation pages.
+
+HydeFront v1.x will receive security fixes only.

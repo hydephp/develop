@@ -7,7 +7,6 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Services\CollectionService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Testing\TestCase;
 
@@ -43,7 +42,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         $this->assertEquals(
             '_source/posts',
-            DiscoveryService::getFilePathForModelClassFiles(MarkdownPost::class)
+            DiscoveryService::getModelSourceDirectory(MarkdownPost::class)
         );
     }
 
@@ -57,7 +56,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         $this->assertEquals(
             ['test'],
-            CollectionService::getSourceFileListForModel(MarkdownPost::class)
+            DiscoveryService::getSourceFileListForModel(MarkdownPost::class)
         );
 
         unlink(Hyde::path('_posts/test/test.md'));

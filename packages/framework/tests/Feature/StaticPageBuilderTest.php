@@ -61,14 +61,15 @@ class StaticPageBuilderTest extends TestCase
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
 
         unlink(BladePage::$sourceDirectory.'/foo.blade.php');
+        unlink(Hyde::path('_site/foo.html'));
     }
 
     public function test_can_build_markdown_post()
     {
-        $page = new MarkdownPost([
+        $page = MarkdownPost::make('foo', [
             'title' => 'foo',
             'author' => 'bar',
-        ], '# Body', 'Title', 'foo');
+        ], '# Body');
 
         new StaticPageBuilder($page, true);
 
@@ -78,17 +79,18 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_can_build_markdown_page()
     {
-        $page = new MarkdownPage([], '# Body', 'Title', 'foo');
+        $page = MarkdownPage::make('foo', [], '# Body');
 
         new StaticPageBuilder($page, true);
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/foo.html')));
+        unlink(Hyde::path('_site/foo.html'));
     }
 
     public function test_can_build_documentation_page()
     {
-        $page = new DocumentationPage([], '# Body', 'Title', 'foo');
+        $page = DocumentationPage::make('foo', [], '# Body');
 
         new StaticPageBuilder($page, true);
 
@@ -98,7 +100,7 @@ class StaticPageBuilderTest extends TestCase
 
     public function test_creates_custom_documentation_directory()
     {
-        $page = new DocumentationPage([], '# Body', 'Title', 'foo');
+        $page = DocumentationPage::make('foo');
 
         Config::set('docs.output_directory', 'docs/foo');
         (new HydeServiceProvider($this->app))->register(); // Reregister the service provider to pick up the new config.
@@ -107,5 +109,6 @@ class StaticPageBuilderTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/docs/foo/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/docs/foo/foo.html')));
+        unlink(Hyde::path('_site/docs/foo/foo.html'));
     }
 }

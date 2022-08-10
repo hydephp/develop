@@ -25,18 +25,7 @@ class NavigationMenuTest extends TestCase
     {
         $menu = new NavigationMenu();
 
-        $this->assertEquals('index.html', $menu->getHomeLink(''));
-    }
-
-    public function test_set_current_route()
-    {
-        $menu = new NavigationMenu();
-
-        $this->assertFalse(isset($menu->currentRoute));
-        $menu->setCurrentRoute(Route::get('index'));
-        $this->assertTrue(isset($menu->currentRoute));
-        $this->assertInstanceOf(Route::class, $menu->currentRoute);
-        $this->assertEquals('index', $menu->currentRoute->getRouteKey());
+        $this->assertEquals('index.html', $menu->getHomeLink());
     }
 
     public function test_generate_method_creates_collection_of_nav_items()
@@ -88,12 +77,12 @@ class NavigationMenuTest extends TestCase
     public function test_static_create_method_creates_new_processed_collection()
     {
         Hyde::touch('_pages/foo.md');
-        $menu = NavigationMenu::create(Route::get('index'));
+        $menu = NavigationMenu::create();
 
         $this->assertInstanceOf(NavigationMenu::class, $menu);
         $this->assertEquals(
-            (new NavigationMenu())->setCurrentRoute(Route::get('index'))->generate()->filter()->sort(),
-            NavigationMenu::create(Route::get('index'))
+            (new NavigationMenu())->generate()->filter()->sort(),
+            NavigationMenu::create()
         );
     }
 
@@ -102,7 +91,7 @@ class NavigationMenuTest extends TestCase
         Hyde::touch('_pages/foo.md');
         Hyde::touch('_docs/index.md');
 
-        $menu = NavigationMenu::create(Route::get('index'));
+        $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
@@ -120,7 +109,7 @@ class NavigationMenuTest extends TestCase
     {
         Hyde::touch('_pages/foo.md');
 
-        $menu = NavigationMenu::create(Route::get('index'));
+        $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
@@ -134,14 +123,14 @@ class NavigationMenuTest extends TestCase
 
     public function test_collection_only_contains_nav_items()
     {
-        $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create(Route::get('index'))->items);
+        $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create()->items);
     }
 
     public function test_external_link_can_be_added_in_config()
     {
         config(['hyde.navigation.custom' => [NavItem::toLink('https://example.com', 'foo')]]);
 
-        $menu = NavigationMenu::create(Route::get('index'));
+        $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
@@ -155,7 +144,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.custom' => [NavItem::toLink('foo', 'foo')]]);
 
-        $menu = NavigationMenu::create(Route::get('index'));
+        $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
@@ -172,7 +161,7 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'foo'),
         ]]);
 
-        $menu = NavigationMenu::create(Route::get('index'));
+        $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
@@ -189,7 +178,7 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'bar'),
         ]]);
 
-        $menu = NavigationMenu::create(Route::get('index'));
+        $menu = NavigationMenu::create();
 
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),

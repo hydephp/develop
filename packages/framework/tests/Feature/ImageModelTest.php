@@ -16,10 +16,39 @@ class ImageModelTest extends TestCase
         $this->assertInstanceOf(Image::class, $image);
     }
 
+    public function test_make_can_create_an_image_based_on_string()
+    {
+        $image = Image::make('foo');
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('foo', $image->path);
+    }
+
+    public function test_make_can_create_an_image_based_on_array()
+    {
+        $image = Image::make([
+            'path' => 'foo',
+            'title' => 'bar',
+        ]);
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('foo', $image->path);
+        $this->assertEquals('bar', $image->title);
+    }
+
+    public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()
+    {
+        $image = Image::fromSource('https://example.com/image.jpg');
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('https://example.com/image.jpg', $image->uri);
+
+        $image = Image::fromSource('image.jpg');
+        $this->assertInstanceOf(Image::class, $image);
+        $this->assertEquals('image.jpg', $image->path);
+    }
+
     public function test_array_data_can_be_used_to_initialize_properties_in_constructor()
     {
         $data = [
-            'path' => 'path/to/image.jpg',
+            'path' => 'image.jpg',
             'uri' => 'https://example.com/image.jpg',
             'description' => 'This is an image',
             'title' => 'Image Title',
@@ -37,7 +66,7 @@ class ImageModelTest extends TestCase
     {
         $image = new Image();
         $image->uri = 'https://example.com/image.jpg';
-        $image->path = 'path/to/image.jpg';
+        $image->path = 'image.jpg';
 
         $this->assertEquals('https://example.com/image.jpg', $image->getSource());
     }
@@ -45,9 +74,9 @@ class ImageModelTest extends TestCase
     public function test_get_source_method_returns_path_when_only_path_is_set()
     {
         $image = new Image();
-        $image->path = 'path/to/image.jpg';
+        $image->path = 'image.jpg';
 
-        $this->assertEquals('path/to/image.jpg', $image->getSource());
+        $this->assertEquals('image.jpg', $image->getSource());
     }
 
     public function test_get_source_method_returns_null_when_no_source_is_set()
@@ -144,6 +173,43 @@ class ImageModelTest extends TestCase
         ], $image->getMetadataArray());
     }
 
+    public function test_get_metadata_array_with_remote_url()
+    {
+        $image = new Image([
+            'uri' => 'https://foo/bar',
+        ]);
+
+        $this->assertEquals([
+            'url' => 'https://foo/bar',
+            'contentUrl' => 'https://foo/bar',
+        ], $image->getMetadataArray());
+    }
+
+    public function test_get_metadata_array_with_local_path()
+    {
+        $image = new Image([
+            'path' => 'foo.png',
+        ]);
+
+        $this->assertEquals([
+            'url' => 'media/foo.png',
+            'contentUrl' => 'media/foo.png',
+        ], $image->getMetadataArray());
+    }
+
+    public function test_get_metadata_array_with_local_path_when_on_nested_page()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $image = new Image([
+            'path' => 'foo.png',
+        ]);
+
+        $this->assertEquals([
+            'url' => '../media/foo.png',
+            'contentUrl' => '../media/foo.png',
+        ], $image->getMetadataArray());
+    }
+
     public function test_get_link_resolves_remote_paths()
     {
         $image = new Image([
@@ -168,6 +234,41 @@ class ImageModelTest extends TestCase
             'path' => 'image.jpg',
         ]);
 
-        $this->assertEquals('../media/image.jpg', $image->getLink('foo/bar'));
+        $this->mockCurrentPage('foo/bar');
+        $this->assertEquals('../media/image.jpg', $image->getLink());
+    }
+
+    public function test_local_path_is_normalized_to_the_media_directory()
+    {
+        $this->assertEquals('image.jpg', (new Image([
+            'path' => 'image.jpg',
+        ]))->path);
+
+        $this->assertEquals('image.jpg', (new Image([
+            'path' => '_media/image.jpg',
+        ]))->path);
+
+        $this->assertEquals('image.jpg', (new Image([
+            'path' => 'media/image.jpg',
+        ]))->path);
+    }
+
+    public function test_to_string_returns_the_image_source()
+    {
+        $this->assertEquals('https://example.com/image.jpg', (string) (new Image([
+            'uri' => 'https://example.com/image.jpg',
+        ])));
+
+        $this->assertEquals('media/image.jpg', (string) (new Image([
+            'path' => 'image.jpg',
+        ])));
+    }
+
+    public function test_to_string_returns_the_image_source_for_nested_pages()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $this->assertEquals('../media/image.jpg', (string) (new Image([
+            'path' => 'image.jpg',
+        ])));
     }
 }

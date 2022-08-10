@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Hyde\Framework\Facades\Asset;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
@@ -66,21 +66,16 @@ class StylesComponentViewTest extends TestCase
         );
     }
 
-    public function test_component_renders_link_to_hyde_css_when_it_exists()
+    public function test_component_renders_app_cdn_link_when_enabled_in_config()
     {
-        Hyde::touch(('_media/hyde.css'));
-        $this->assertStringContainsString('<link rel="stylesheet" href="media/hyde.css"', $this->renderTestView());
-        unlink(Hyde::path('_media/hyde.css'));
+        config(['hyde.load_app_styles_from_cdn' => true]);
+        $this->assertStringContainsString(Asset::cdnLink('app.css'), $this->renderTestView());
     }
 
-    public function test_component_does_not_render_link_to_hyde_css_when_it_does_not_exist()
+    public function test_component_does_not_render_link_to_local_app_css_when_cdn_link_is_enabled_in_config()
     {
-        $this->assertStringNotContainsString('<link rel="stylesheet" href="media/hyde.css"', $this->renderTestView());
-    }
-
-    public function test_component_renders_cdn_link_when_no_local_file_exists()
-    {
-        $this->assertStringContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
+        config(['hyde.load_app_styles_from_cdn' => true]);
+        $this->assertStringNotContainsString('<link rel="stylesheet" href="media/app.css"', $this->renderTestView());
     }
 
     public function test_component_does_not_render_cdn_link_when_a_local_file_exists()
@@ -88,14 +83,5 @@ class StylesComponentViewTest extends TestCase
         Hyde::touch(('_media/hyde.css'));
         $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
         unlink(Hyde::path('_media/hyde.css'));
-    }
-
-    public function test_cdn_link_uses_the_correct_version_defined_in_the_asset_manager()
-    {
-        $expectedVersion = (new AssetService)->version();
-        $this->assertStringContainsString(
-            'https://cdn.jsdelivr.net/npm/hydefront@'.$expectedVersion.'/dist/hyde.css',
-            $this->renderTestView()
-        );
     }
 }

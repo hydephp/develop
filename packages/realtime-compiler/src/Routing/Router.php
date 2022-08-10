@@ -46,11 +46,6 @@ class Router
             }
         }
 
-        // Temporary backwards compatibility for versions less than Hyde/Framework v0.48.0-beta
-        if (! class_exists('\Hyde\Framework\Services\RoutingService')) {
-            return LegacyPageRouter::handle($this->request);
-        }
-
         return PageRouter::handle($this->request);
     }
 

@@ -2,6 +2,10 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Models\Metadata\LinkItem;
+use Hyde\Framework\Models\Metadata\MetadataItem;
+use Hyde\Framework\Models\Metadata\OpenGraphItem;
+
 /**
  * Helpers to fluently declare HTML meta tags.
  *
@@ -9,28 +13,36 @@ namespace Hyde\Framework\Helpers;
  */
 class Meta
 {
-    public static function name(string $name, string $content): string
+    public static function name(string $name, string $content): MetadataItem
     {
-        return '<meta name="'.e($name).'" content="'.e($content).'">';
+        return new MetadataItem($name, $content);
     }
 
-    public static function property(string $property, string $content): string
+    public static function property(string $property, string $content): OpenGraphItem
     {
-        $property = static::formatOpenGraphProperty($property);
-
-        return '<meta property="'.e($property).'" content="'.e($content).'">';
+        return new OpenGraphItem($property, $content);
     }
 
-    public static function render(array $overridesGlobalMeta = []): string
+    public static function link(string $rel, string $href, array $attr = []): LinkItem
+    {
+        return new LinkItem($rel, $href, $attr);
+    }
+
+    public static function get(array $withMergedData = []): array
+    {
+        return static::filterUnique(
+            array_merge(
+                static::getGlobalMeta(),
+                $withMergedData
+            )
+        );
+    }
+
+    public static function render(array $withMergedData = []): string
     {
         return implode(
             "\n",
-            static::filterUnique(
-                array_merge(
-                    static::getGlobalMeta(),
-                    $overridesGlobalMeta
-                )
-            )
+            static::get($withMergedData)
         );
     }
 
@@ -53,11 +65,21 @@ class Meta
 
     public static function getGlobalMeta(): array
     {
-        return config('hyde.meta', []);
+        return array_merge(
+            static::getDynamicMeta(),
+            static::getConfiguredMeta()
+        );
     }
 
-    protected static function formatOpenGraphProperty(string $property): string
+    protected static function getDynamicMeta(): array
     {
-        return str_starts_with($property, 'og:') ? $property : 'og:'.$property;
+        $array = [];
+
+        return $array;
+    }
+
+    protected static function getConfiguredMeta(): array
+    {
+        return config('hyde.meta', []);
     }
 }

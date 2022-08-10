@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static string version()
  * @method static string stylePath()
- * @method static string scriptPath()
  * @method static string constructCdnPath(string $file)
  * @method static string cdnLink(string $file)
  * @method static bool hasMediaFile(string $file)
  */
 class Asset extends Facade
 {
+    /** @psalm-return AssetServiceContract::class */
     protected static function getFacadeAccessor(): string
     {
         return AssetServiceContract::class;

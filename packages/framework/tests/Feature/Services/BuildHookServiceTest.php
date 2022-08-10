@@ -6,6 +6,7 @@ use Hyde\Framework\Contracts\AbstractBuildTask;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Services\BuildHookService
@@ -21,14 +22,14 @@ class BuildHookServiceTest extends TestCase
      */
     public function test_build_command_can_run_post_build_tasks()
     {
-        config(['hyde.site_url' => 'foo']);
+        config(['site.url' => 'foo']);
 
         $this->artisan('build')
             ->expectsOutputToContain('Generating sitemap')
             ->expectsOutputToContain('Created sitemap.xml')
             ->assertExitCode(0);
 
-        unlink(Hyde::path('_site/sitemap.xml'));
+        File::cleanDirectory(Hyde::path('_site'));
     }
 
     /**

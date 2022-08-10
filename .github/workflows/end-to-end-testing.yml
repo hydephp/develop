@@ -1,0 +1,101 @@
+name: End-to-End Testing
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  dusk-browser-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Prepare the Environment
+        run: echo -e "APP_URL=http://localhost:8080 \nDUSK_ENABLED=true" > .env
+
+      - name: Upgrade Chrome Driver
+        run: php hyde dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
+      - name: Start Chrome Driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Run HydeRC Server
+        run: php hyde serve &
+
+      - name: Run Dusk Tests
+        env:
+          APP_URL: "http://127.0.0.1:8080"
+        run: php hyde dusk --pest
+
+      - name: Upload Screenshots
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: tests/Browser/screenshots
+
+      - name: Upload Compiled Source
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: dusk-source
+          path: tests/Browser/source
+
+      - name: Upload Console Logs
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: dusk-console
+          path: tests/Browser/console
+
+      - name: Upload app.css
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'app.css'
+          path: '_media/app.css'
+
+
+  visual-regression-testing:
+    runs-on: ubuntu-latest
+    needs: dusk-browser-tests
+    if: (! github.event.pull_request.draft)
+    steps:
+      - name: Download Dusk generated pages
+        uses: actions/download-artifact@v2
+        with:
+          name: dusk-source
+          path: _site
+          
+      # @TODO compile latest hydefront version
+      - name: Download app.css
+        uses: actions/download-artifact@v2
+        with:
+          name: app.css
+          path: _site/media
+
+      # Since some of the browser tests visually overlap,
+      # we don't gain any real value from a visual regression test on them.
+      - name: Remove overlapping fixtures
+        run: |
+          rm _site/blank_homepage.html
+          rm _site/posts_homepage.html
+          rm _site/docs/index.html
+
+      - name: Upload build to Percy
+        run: npx percy snapshot _site/
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

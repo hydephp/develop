@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\HydeSmartDocs;
 use Hyde\Testing\TestCase;
@@ -23,7 +23,7 @@ class HydeSmartDocsTest extends TestCase
 
         file_put_contents(Hyde::path('_docs/foo.md'), "# Foo\n\nHello world.");
         $this->mock = DocumentationPage::parse('foo');
-        $this->html = MarkdownConverter::parse($this->mock->body);
+        $this->html = Markdown::render($this->mock->markdown->body);
     }
 
     protected function tearDown(): void
@@ -88,7 +88,7 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $page = HydeSmartDocs::create($this->mock, MarkdownConverter::parse($test));
+            $page = HydeSmartDocs::create($this->mock, Markdown::render($test));
             $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
         }
     }
@@ -109,7 +109,7 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $page = HydeSmartDocs::create($this->mock, MarkdownConverter::parse($test));
+            $page = HydeSmartDocs::create($this->mock, Markdown::render($test));
             $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
         }
     }

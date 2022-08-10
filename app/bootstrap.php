@@ -41,16 +41,19 @@ $app->singleton(
 | Set Important Hyde Configurations
 |--------------------------------------------------------------------------
 |
-| Next, we need to configure Hyde to use our project's base path.
-|
-| There are two ways we can do this, previously we were using getcwd(),
-| which allows for a lot of flexibility, but can also cause problems.
-| See this issue: https://github.com/hydephp/develop/issues/212
+| Now, we create a new instance of the HydeKernel, which encapsulates
+| our Hyde project and provides helpful methods for interacting with it.
+| Then, we bind the kernel into the application service container.
 |
 */
 
-// @deprecated usage \Hyde\Framework\Hyde::setBasePath(getcwd());
-\Hyde\Framework\Hyde::setBasePath(dirname(__DIR__));
+$hyde = new Hyde\Framework\HydeKernel(
+    dirname(__DIR__)
+);
+
+$app->instance(
+    Hyde\Framework\Contracts\HydeKernelContract::class, $hyde
+);
 
 /*
 |--------------------------------------------------------------------------

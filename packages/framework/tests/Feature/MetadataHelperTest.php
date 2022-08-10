@@ -15,6 +15,7 @@ class MetadataHelperTest extends TestCase
         parent::setUp();
 
         config(['hyde.meta' => []]);
+        config(['site.url' => null]);
     }
 
     public function test_name_method_returns_a_valid_html_meta_string()
@@ -46,6 +47,45 @@ class MetadataHelperTest extends TestCase
         $this->assertEquals(
             '<meta property="og:foo" content="bar">',
             Meta::property('foo', 'bar')
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar">',
+            Meta::link('foo', 'bar')
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string_with_attributes()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar" title="baz">',
+            Meta::link('foo', 'bar', ['title' => 'baz'])
+        );
+    }
+
+    public function test_link_method_returns_a_valid_html_link_string_with_multiple_attributes()
+    {
+        $this->assertEquals(
+            '<link rel="foo" href="bar" title="baz" type="text/css">',
+            Meta::link('foo', 'bar', ['title' => 'baz', 'type' => 'text/css'])
+        );
+    }
+
+    public function test_get_method_returns_global_metadata_merged_with_argument()
+    {
+        config(['hyde.meta' => [
+            Meta::name('foo', 'bar'),
+        ]]);
+
+        $this->assertEquals(
+            [
+                '<meta name="foo" content="bar">',
+                '<meta name="bar" content="baz">',
+            ],
+            Meta::get([Meta::name('bar', 'baz')])
         );
     }
 

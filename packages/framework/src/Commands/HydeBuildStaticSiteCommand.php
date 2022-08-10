@@ -8,10 +8,7 @@ use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Framework\Services\BuildService;
-use Hyde\Framework\Services\CollectionService;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Framework\Services\RssFeedService;
-use Hyde\Framework\Services\SitemapService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
@@ -88,7 +85,7 @@ class HydeBuildStaticSiteCommand extends Command
         if ($this->option('pretty-urls')) {
             $this->info('Generating site with pretty URLs');
             $this->newLine();
-            Config::set(['hyde.pretty_urls' => true]);
+            Config::set(['site.pretty_urls' => true]);
         }
     }
 
@@ -134,8 +131,10 @@ class HydeBuildStaticSiteCommand extends Command
     protected function printFinishMessage(float $time_start): void
     {
         $execution_time = (microtime(true) - $time_start);
-        $this->info(sprintf('All done! Finished in %s seconds. (%sms)',
-            number_format($execution_time, 2), number_format($execution_time * 1000, 2)
+        $this->info(sprintf(
+            'All done! Finished in %s seconds. (%sms)',
+            number_format($execution_time, 2),
+            number_format($execution_time * 1000, 2)
         ));
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
@@ -150,10 +149,11 @@ class HydeBuildStaticSiteCommand extends Command
     {
         $this->info($message.' This may take a second.');
 
-        $output = shell_exec(sprintf('%s%s',
+        $output = shell_exec(sprintf(
+            '%s%s',
             app()->environment() === 'testing' ? 'echo ' : '',
-            $command)
-        );
+            $command
+        ));
 
         $this->line($output ?? sprintf(
             '<fg=red>Could not %s! Is NPM installed?</>',
@@ -163,18 +163,18 @@ class HydeBuildStaticSiteCommand extends Command
 
     protected function canGenerateSitemap(): bool
     {
-        return SitemapService::canGenerateSitemap();
+        return Features::sitemap();
     }
 
     protected function canGenerateFeed(): bool
     {
-        return RssFeedService::canGenerateFeed()
-            && count(CollectionService::getMarkdownPostFiles()) > 0;
+        return Features::rss()
+            && count(DiscoveryService::getMarkdownPostFiles()) > 0;
     }
 
     protected function canGenerateSearch(): bool
     {
         return Features::hasDocumentationSearch()
-            && count(CollectionService::getDocumentationPageFiles()) > 0;
+            && count(DiscoveryService::getDocumentationPageFiles()) > 0;
     }
 }

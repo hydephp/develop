@@ -18,14 +18,23 @@ class SitemapServiceTest extends TestCase
 
         File::deleteDirectory(Hyde::path('_pages'));
         File::makeDirectory(Hyde::path('_pages'));
-        Hyde::copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
-        Hyde::copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
+        copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
+        copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 
     public function test_service_instantiates_xml_element()
     {
         $service = new SitemapService();
         $this->assertInstanceOf('SimpleXMLElement', $service->xmlElement);
+    }
+
+    public function test_constructor_throws_exception_when_missing_simplexml_extension()
+    {
+        config(['testing.mock_disabled_extensions' => true]);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
+        new SitemapService();
     }
 
     public function test_generate_adds_default_pages_to_xml()
@@ -91,29 +100,10 @@ class SitemapServiceTest extends TestCase
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);
     }
 
-    public function test_can_generate_sitemap_helper_returns_true_if_hyde_has_base_url()
-    {
-        config(['hyde.site_url' => 'foo']);
-        $this->assertTrue(SitemapService::canGenerateSitemap());
-    }
-
-    public function test_can_generate_sitemap_helper_returns_false_if_hyde_does_not_have_base_url()
-    {
-        config(['hyde.site_url' => '']);
-        $this->assertFalse(SitemapService::canGenerateSitemap());
-    }
-
-    public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
-    {
-        config(['hyde.site_url' => 'foo']);
-        config(['hyde.generate_sitemap' => false]);
-        $this->assertFalse(SitemapService::canGenerateSitemap());
-    }
-
     public function test_url_item_is_generated_correctly()
     {
-        config(['hyde.pretty_urls' => false]);
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.pretty_urls' => false]);
+        config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
@@ -129,8 +119,8 @@ class SitemapServiceTest extends TestCase
 
     public function test_url_item_is_generated_with_pretty_urls_if_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.pretty_urls' => true]);
+        config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
         $service = new SitemapService();
@@ -144,7 +134,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_all_route_types_are_discovered()
     {
-        config(['hyde.site_url' => 'foo']);
+        config(['site.url' => 'foo']);
         Hyde::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
 
         $files = [
@@ -168,7 +158,7 @@ class SitemapServiceTest extends TestCase
 
         Hyde::unlink($files);
 
-        Hyde::copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
-        Hyde::copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
+        copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
+        copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 }

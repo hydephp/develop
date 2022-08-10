@@ -3,61 +3,43 @@
 namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Contracts\AbstractPage;
-use Hyde\Framework\Contracts\PageParserContract;
+use Hyde\Framework\Models\FrontMatter;
 
 /**
  * A basic wrapper for the custom Blade View compiler.
  */
-class BladePage extends AbstractPage implements PageParserContract
+class BladePage extends AbstractPage
 {
     /**
-     * The name of the Blade View to compile.
+     * The name of the Blade View to compile. Commonly stored in _pages/{$identifier}.blade.php.
      *
      * @var string
-     *
-     * Must be a top level file relative to
-     * resources\views\pages\ and ending
-     * in .blade.php to be compiled.
      */
     public string $view;
 
     /**
-     * The page slug for compatibility.
-     *
-     * @var string
-     */
-    public string $slug;
-
-    /**
      * @param  string  $view
+     * @param  \Hyde\Framework\Models\FrontMatter|array  $matter
      */
-    public function __construct(string $view)
+    public function __construct(string $view, FrontMatter|array $matter = [])
     {
+        parent::__construct($view, $matter);
         $this->view = $view;
-        $this->slug = $view;
     }
 
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-
     public static string $fileExtension = '.blade.php';
-    public static string $parserClass = self::class;
 
-    /**
-     * Since this model also acts as a Page parser,
-     * we implement the get method for compatability.
-     */
-    public function get(): BladePage
+    /** @inheritDoc */
+    public function getBladeView(): string
     {
-        return $this;
+        return $this->view;
     }
 
-    /**
-     * Since this model also acts as a Page parser,
-     * we implement the execute method for compatability.
-     */
-    public function execute(): void
+    /** @inheritDoc */
+    public function compile(): string
     {
-        // There's nothing to do here.
+        return view($this->getBladeView())->render();
     }
 }

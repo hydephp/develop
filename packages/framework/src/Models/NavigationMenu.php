@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Collection;
 
@@ -21,22 +20,13 @@ class NavigationMenu
         $this->items = new Collection();
     }
 
-    public static function create(?RouteContract $currentRoute = null): static
+    public static function create(): static
     {
-        return (new self())->setCurrentRoute($currentRoute ?? Hyde::currentRoute())->generate()->filter()->sort();
+        return (new static())->generate()->filter()->sort();
     }
 
-    /**
-     * @deprecated v0.50.0 - Automatically inferred from the view.
-     */
-    public function setCurrentRoute(RouteContract $currentRoute): self
-    {
-        $this->currentRoute = $currentRoute;
-
-        return $this;
-    }
-
-    public function generate(): self
+    /** @return $this */
+    public function generate(): static
     {
         RoutingService::getInstance()->getRoutes()->each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route));
@@ -49,22 +39,17 @@ class NavigationMenu
         return $this;
     }
 
-    public function filter(): self
+    /** @return $this */
+    public function filter(): static
     {
-        // Remove hidden items
-        $this->items = $this->items->reject(function (NavItem $item) {
-            return $item->hidden;
-        })->values();
-
-        // Remove duplicate items
-        $this->items = $this->items->unique(function (NavItem $item) {
-            return $item->resolveLink();
-        });
+        $this->items = $this->filterHiddenItems();
+        $this->items = $this->filterDuplicateItems();
 
         return $this;
     }
 
-    public function sort(): self
+    /** @return $this */
+    public function sort(): static
     {
         $this->items = $this->items->sortBy('priority')->values();
 
@@ -75,5 +60,19 @@ class NavigationMenu
     public function getHomeLink(): string
     {
         return Route::get('index');
+    }
+
+    protected function filterHiddenItems(): Collection
+    {
+        return $this->items->reject(function (NavItem $item) {
+            return $item->hidden;
+        })->values();
+    }
+
+    protected function filterDuplicateItems(): Collection
+    {
+        return $this->items->unique(function (NavItem $item) {
+            return $item->resolveLink();
+        });
     }
 }

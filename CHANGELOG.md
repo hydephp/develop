@@ -15,6 +15,404 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.58.0-beta](https://github.com/hydephp/develop/releases/tag/v0.58.0-beta) - 2022-08-08
+
+### About
+
+This update contains **breaking changes** to the internal API regarding page models. This should only affect you directly if you've written any code that interacts with the internal page models, such as constructing them using non-built-in Hyde helpers.
+
+The update makes large changes to how dynamic data is constructed. Instead of generating page data at runtime, now the data is generated when constructing a page object. This gives the major benefit of being able to see all dynamic data right away, without having to render the page.
+
+The way metadata tags are handled internally is also refactored. The rendered result should not be affected.
+
+### Added
+- Added `compile()` method to `Facades\Markdown`, replacing the `parse()` method of the same class
+- Adds new actions to handle complex dynamic constructors
+- Adds new front matter schema traits to define the public API for front matter and hold their data
+- Adds new Meta::link() helper to create `<link>` tags
+- Adds new Meta::get() helper to get the metadata array
+- Adds a new system for creating and storing page metadata
+- Adds several new metadata model classes
+
+### Changed
+- Breaking: Rename AbstractMarkdownPage constructor parameter `slug` to `identifier`
+- Breaking: Rename AbstractPage property `slug` to `identifier`
+- Breaking: Change `AbstractMarkdownPage` constructor argument positions, putting `identifier` first
+- Breaking: Splits Markdown data from MarkdownDocument into new Markdown model class
+- Breaking: The default `config/hyde.php` file now uses `Models\Author` instead of `Helpers\Author`
+- Major: Restructure internal page data to use new front matter schema traits 
+- Begin changing references to slugs to identifiers, see motivation below
+- Makes some helpers in SourceFileParser public static allowing them to be used outside the class
+- Page metadata is now stored as a page property, making it easier to see and understand
+- Page metadata is now generated at compile time instead of build time
+- Page metadata types are now strongly typed, however all types are String able, so end usage is not affected
+
+### Deprecated
+- Deprecated `Facades\Markdown::parse()`, use `Facades\Markdown::render()` instead
+- Deprecated `Facades\Markdown.php`, will be merged into `Models\Markdown.php` 
+
+### Removed
+- Removed `Facades\Markdown.php`, merged into `Models\Markdown.php`
+- Removed `body()` method from `MarkdownDocumentContract` interface and all its implementations. Use `markdown()->body()` (or cast to string) instead
+- Removed `body` property from Markdown pages. Use `markdown()->body()` (or cast to string) instead
+- Removed deprecated `Helpers\Author` (fully merged into `Models\Author`, simply swap namespace to upgrade)
+- Removed metadata constructor helpers from the MarkdownPost class as it is now handled in the new metadata class
+- Several internal single-use helper traits have been merged into their respective classes
+
+### Fixed
+- Fix Path property in Image model should be relative to media directory [#359](https://github.com/hydephp/develop/issues/359)
+- Fix Add toString method to Image model to get the link [#370](https://github.com/hydephp/develop/issues/370)
+- Fix Blog post OpenGraph images must be resolved relatively [#374](https://github.com/hydephp/develop/issues/374)
+- Fix PageContract needs compile method [#366]((https://github.com/hydephp/develop/issues/366))
+
+
+### Upgrade guide and extra information
+
+#### Rename slugs to identifiers
+
+Previously internally called `slug(s)`, are now called `identifier(s)`. In all honestly, this has 90% to do with the fact that I hate the word "slug".
+I considered using `basename` as an alternative, but that does not fit with nested pages. Here instead is the definition of an `identifier` in the context of HydePHP:
+
+> An identifier is a string that is in essence everything in the filepath between the source directory and the file extension.
+
+So, for example, a page source file stored as `_pages/foo/bar.md` would have the identifier `foo/bar`. Each page type can only have one identifier of the same name.
+But since you could have a file with the same identifier in the `_posts` directory, we internally always need to specify what source model we are using.
+
+The identifier property is closely related to the page model's route key property, which consists of the site output directory followed by the identifier. 
+
+#### Heavily refactor constructors of Markdown-based page models
+
+Adds a new interface to the Markdown page model constructors, that expects instantiated FrontMatter and MarkdownDocument objects. Normally you would use the SourceFileParser to create the object.
+
+This means that the constructor for all Markdown-based pages is completely changed. To use a format matching the old behaviour, you can use the `MarkdownPageModel::make` method.
+
+#### Title property has been removed from page model constructors
+
+The following syntax has been removed: `new MarkdownPage(title: 'Foo Bar')`
+Instead, you can add it with front matter: `MarkdownPage::make(matter: ['title' => 'Foo Bar'])`
+
+#### Markdown pages now have front matter in an object instead of array
+
+This means that instead of the following `$post->matter['title']`, you would use `$post->matter('title')`, which allows you to add a fallback like so: `$post->matter('title', 'Untitled')`
+
+#### Author helper has been merged into the model
+
+The deprecated `Helpers\Author` has been fully merged into `Models\Author`. Simply swap namespaces to upgrade.
+
+```diff
+-use Hyde\Framework\Helpers\Author;
++use Hyde\Framework\Models\Author;
+```
+
+
+## [v0.57.0-beta](https://github.com/hydephp/develop/releases/tag/v0.57.0-beta) - 2022-08-03
+
+### About
+
+This update refactors the internal page source model parsing. This will likely not affect you directly, however, if you have written custom code that interacts with any class relating to the PageParser contract, you'll want to take a closer look at the changes.
+
+### Added
+- Added a new static shorthand to quickly parse Markdown files into MarkdownDocuments (`MarkdownFileParser::parse()`)
+- Added `toArray()` method to MarkdownDocuments, which returns an array of all the body lines
+
+### Changed
+- All source model parsing is now handled by the new SourceFileParser action
+- Blog post front matter no longer includes merged slug
+- MarkdownDocument now implements the `Arrayable` interface
+- Markdown page models no longer includes the slug merged into the front matter 
+- All Markdown page models now have the title property inferred when parsing
+- internal: The DocumentationPage slug now behaves like other pages, and the basename is produced at runtime, see below
+- internal: Refactor search index generator to use route system
+
+### Deprecated
+- Deprecated `MarkdownDocument::parseFile()`, will be renamed to `MarkdownDocument::parse()`
+
+### Removed
+- The PageParserContract interface, and all of its implementations have been removed
+- Removed `$localPath` property from DocumentationPage class, see above
+- Removed trait HasDynamicTitle
+
+
+## [v0.56.0-beta](https://github.com/hydephp/develop/releases/tag/v0.56.0-beta) - 2022-08-03
+
+### About
+
+This update makes changes to the internal Markdown services. If you have written code or integrations that uses any of these services, you may want to take a closer look. Otherwise, this should not affect you much.
+
+Many Markdown related classes have been moved to a new namespace, and the classes themselves have been restructured. Again, this only affects those who in the past have used these classes outside of what Hyde normally provides.
+
+Due to the nature of this refactor, where so much have been changed, not everything is documented here. See the attached pull request for the full Markdown change diff: https://github.com/hydephp/develop/pull/318
+
+### Added
+- Added model FrontMatter.php
+- Create MarkdownConverter.php
+- Create MarkdownServiceProvider.php
+- internal: Added Benchmarking framework
+
+### Changed
+
+- Move `Markdown::hasTableOfContents()` to `DocumentationPage::hasTableOfContents() `
+- Move most Markdown related classes into `Modules\Markdown` namespace
+- Rename MarkdownConverterService to MarkdownService
+- Rename MarkdownFileService to MarkdownFileParser
+- Replace CommonMarkConverter with Hyde MarkdownConverter
+
+### Removed
+- Remove old MarkdownConverter action
+- Delete HasMarkdownFeatures.php
+
+
+## [v0.55.0-beta](https://github.com/hydephp/develop/releases/tag/v0.55.0-beta) - 2022-08-01
+
+### About
+
+This update removes the deprecated LegacyPageRouter class from the Hyde Realtime Compiler (HydeRC). Along with this release, the HydeRC is now on version 2.5, and requires Hyde version 0.48.0-beta or higher.
+
+### Changed
+- hyde/hyde now requires HydeRC version 2.5 or higher.
+- hyde/realtime-compiler no longer supports Framework versions older than v0.48.0-beta.
+
+### Removed
+- Remove the deprecated LegacyPageRouter class from the HydeRC.
+
+
+## [v0.54.0-beta](https://github.com/hydephp/develop/releases/tag/v0.54.0-beta) - 2022-08-01
+
+### About
+
+This release refactors and cleans up a large part of the internal code base. For most end users, this will not have any visible effect. If you have developed integrations that depend on methods you may want to take a closer look at the associated pull requests as it is not practical to list them all here.
+
+#### Overview
+
+Here is a short overview of the areas that are impacted. If you don't know what any of these mean, they don't affect you.
+
+- HydeKernel has been internally separated into foundation classes
+- DiscoveryService has been refactored
+- Page compiling logic are now handled within the page models
+
+
+### Added
+- internal: Adds methods to the HydeKernelContract interface
+- Added new filesystem helpers, `Hyde::touch()`, and `Hyde::unlink()`
+
+### Changed
+- internal: The HydeKernel has been refactored to move related logic to service classes. This does not change the end usage as the Hyde facade still works the same
+- `DiscoveryService::getSourceFileListForModel()` now throws an exception instead of returning false when given an invalid model class
+- `DiscoveryService::getFilePathForModelClassFiles` method was renamed to `DiscoveryService::getModelSourceDirectory`
+- `DiscoveryService::getFileExtensionForModelFiles` method was renamed to `DiscoveryService::getModelFileExtension`
+- The `Hyde::copy()` helper now always uses paths relative to the project
+- The `Hyde::copy()` helper will always overwrite existing files
+- Replaced `SitemapService::canGenerateSitemap()` with `Features::sitemap()`
+- Replaced `RssFeedService::canGenerateFeed()` with `Features::rss()`
+- RSS feed is now always present on all pages, see reasoning in [`a93e30020`](https://github.com/hydephp/develop/commit/a93e30020e2a791398d95afb5da493285541708a)
+
+### Deprecated
+- Deprecated trait `HasMarkdownFeatures.php`
+
+### Removed
+- Removed deprecated `Hyde::uriPath()` helper
+- Removed deprecated `CollectionService::findModelFromFilePath()`
+
+
+### Upgrade tips
+
+When refactoring the Hyde::copy() helper change, you have two options (that you can combine). If one or more of your inputs are already qualified Hyde paths, use the native copy helper. If you don't want to overwrite existing files, make that check first.
+
+
+## [v0.53.0-beta](https://github.com/hydephp/develop/releases/tag/v0.53.0-beta) - 2022-07-30
+
+### About
+
+This release refactors some internal code. If you have published any Blade views or created any custom integrations, you may want to take a closer look at the changes. Otherwise, this should not affect most existing sites.
+
+### Added
+- Added `Hyde::url()` and `Hyde::hasSiteUrl()` helpers, replacing now deprecated `Hyde::uriPath()` helper
+
+### Changed
+- The HTML page titles are now generated in the page object, using the new `htmlTitle()` helper
+- Renamed helper `Hyde::pageLink()` to `Hyde::formatHtmlPath()`
+- internal: DiscoveryService.php is no longer deprecated
+- internal: CollectionService.php was merged into DiscoveryService
+- internal: Renamed trait GeneratesPageMetadata to HasArticleMetadata
+
+### Deprecated
+- Deprecated `Hyde::uriPath()`, use `Hyde::url()` or `Hyde::hasSiteUrl()` instead
+- Deprecated `Helpers\Author.php`, will be merged into `Models\Author.php`
+
+### Removed
+- internal: CollectionService.php has been removed, all its functionality has been moved to DiscoveryService
+- internal: The `$currentPage` parameter of a few methods has been removed, it is no longer necessary due to it being inferred from the view being rendered
+
+
+## [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-beta) - 2022-07-29
+
+### About
+
+This update internally refactors how documentation sidebars are handled. If you have published Blade views relating to these, or built framework integrations you may want to take a closer look at the changed files.
+
+### Added
+- Hyde now supports nested pages!
+
+### Changed
+- internal: Refactor how documentation sidebars are generated and handled
+- internal: (Sidebar) categories are now internally referred to as "groups"
+- internal: The sidebar related Blade views have been renamed
+- `DocumentationPage::indexPath()` was renamed to `DocumentationPage::home()` and now returns a `Route` instead of a URL. It no longer resolves to README files.
+
+
+## [v0.51.0-beta](https://github.com/hydephp/develop/releases/tag/v0.51.0-beta) - 2022-07-28
+
+### Added
+- Add Laravel Tinker as a development dependency for the Monorepo
+- Improved the `hyde make:page` command to add page type selection shorthands
+
+### Removed
+- Removed test files from the hyde/hyde sub repository
+
+
+## [v0.50.0-beta](https://github.com/hydephp/develop/releases/tag/v0.50.0-beta) - 2022-07-26
+
+### About
+
+This update makes breaking changes to the configuration. You will need to update your configuration to continue using the new changes. Each one has been documented in this changelog entry, which at the end has an upgrade guide.
+
+### Overview of major changes
+
+As there are a lot of changes, here is first a quick overview of the major ones. See the full list after this section.
+
+- Alpine.js is now used for interactions.
+- HydeFront has been rewritten and is now on version 2.x.
+- The hyde.css and hyde.js files have now for all intents and purposes been merge into app.css and refactored to Alpine.js, respectively.
+- The documentation pages are now styled using TailwindCSS instead of Lagrafo.
+- Moved some configuration options from hyde.php to site.php
+- Moved Composer dependencies, you will laravel-zero/framework added to your Hyde composer.json file.
+
+Note that the goal with this release is to make the framework more stable and developer friendly, but without it affecting the end user experience. For example, the visual experience as well as the interactions of the refactored documentation pages are minimal and most users won't notice any change. However, for developers, the changes are significant and will reduce a lot of complexity in the future.
+
+### Added
+- Added [Alpine.js](https://alpinejs.dev/) to the default HydePHP layout
+- Added a new configuration file, `config/site.php`, see below
+- Added RSS feed configuration stubs to `config/site.php`
+- Added an `Includes` facade that can quickly import partials
+- Added an automatic option to load footer Markdown from partial
+- Added the `hyde.load_app_styles_from_cdn` option to load `_media/app.css` from the CDN
+
+### Changed
+
+- Move laravel-zero/framework Composer dependency to hyde/hyde package
+- Moved site specific configuration settings to `config/site.php`
+  - Moved config option `hyde.name` to `site.name`
+  - Moved config option `hyde.site_url` to `site.url`
+  - Moved config option `hyde.pretty_urls` to `site.pretty_urls`
+  - Moved config option `hyde.generate_sitemap` to `site.generate_sitemap`
+  - Moved config option `hyde.language` to `site.language`
+  - Moved config option `hyde.output_directory` to `site.output_directory`
+- The default `site.url` is now `http://localhost` instead of `null`
+- Merged configuration options for the footer, see below
+- Rebrand `lagrafo` documentation driver to `HydeDocs`
+- Hyde now requires a minimum version of HydeFront v2.x, see release notes below
+- internal: Refactor navigation menu components and improve link helpers
+- internal: The main Hyde facade class has been split to house the logic in the HydeKernel class, but all methods are still available through the new facade with the same namespace  
+- internal: Move tests foundation to new testing package
+- internal: Renamed `GeneratesTableOfContents.php` to `GeneratesSidebarTableOfContents.php`
+
+### Removed
+- Removed `\Hyde\Framework\Facades\Route`. You can swap out usages with `\Hyde\Framework\Models\Route` without side effects.
+- Removed ConvertsFooterMarkdown.php
+- Removed internal `$siteName` config variable from `config/hyde.php`
+
+### Fixed
+- Fixed bug [#260](https://github.com/hydephp/develop/issues/260) where the command to publish a homepage did not display the selected value when it was supplied as a parameter
+- Fixed bug [#272](https://github.com/hydephp/develop/issues/272), only generate the table of contents when and where it is actually used
+- Fixed bug [#41](https://github.com/hydephp/develop/issues/41) where search window does not work reliably on Safari
+
+### Upgrade Guide
+
+Here are some instructions for upgrading an existing project.
+You should also read the standard upgrade guide first for general advice, https://hydephp.com/docs/master/updating-hyde.
+
+If you use Git, you may be able to automatically configure some of these by merging https://github.com/hydephp/hyde into your project. Alternatively, you can download the release and unzip it into your project directory, and using GitHub Desktop or VS Code (or whatever you use) to stage the new changes without affecting your project's configuration.
+
+#### Core file changes
+
+Here is an overview of the core files that have changed and that you will most likely need to update. Some of these have detailed instructions further down.
+
+- `config/site.php` (new)
+- `config/hyde.php` (changed)
+- `config/app.php` (changed)
+- `app/bootstrap.php` (changed)
+- `composer.json` (changed)
+- `package.json` (changed)
+- `resources\assets\app.css` (changed)
+- `_pages\404.blade.php` (changed)
+
+A large number of Blade views have also changed. You may want to update pretty much all of them. See the diff for a list of files that have changed.
+
+#### Updating Composer
+
+When updating an existing project, you may need to add laravel-zero/framework to your Hyde composer.json file.
+
+```json
+    "require": {
+        "php": "^8.0",
+        "hyde/framework": "^0.50",
+        "laravel-zero/framework": "^9.1"
+    },
+```
+
+#### Using the new site config
+
+Site-specific config options have been moved from `config/hyde.php` to `config/site.php`. The Hyde config is now used to configure behaviour of the site, while the site config is used to customize the look and feel, the presentation, of the site.
+
+The following configuration options have been moved. The actual usages remain the same, so you can upgrade by using copying over these options to the new file.
+
+- `hyde.name`
+- `hyde.site_url` (is now just `site.url`)
+- `hyde.pretty_urls`
+- `hyde.generate_sitemap`
+- `hyde.language`
+- `hyde.output_directory`
+
+If you have published and Blade views or written custom code that uses the config options, you may need to update them. You can do this by republishing the Blade views, and/or using search and replace across your code. VSCode has a useful feature to make this a breeze: `CMD/CTRL+Shift+F`.
+
+#### Using the new footer config
+
+The footer configuration options have been merged. Prior to this update, the config option looked as follows:
+```php
+// filepath: config/hyde.php
+'footer' => [
+  'enabled' => true,
+  'markdown' => 'Markdown text...'
+],
+```
+
+Now, the config option looks as follows:
+```php
+// filepath: config/hyde.php
+
+// To use Markdown text
+'footer' => 'Markdown text...',
+
+// To disable it completely
+'footer' => false,
+```
+
+As you can see, the new config option is a string or the boolean false instead of an array. We use the same option for both the Markdown text and the footer disabled state.
+
+#### Updating Blade Documentation Views
+
+This release rewrites almost all of the documentation page components to use TailwindCSS. In most cases you won't need to do anything to update, however, if you have previously published the documentation views, you will need to update them.
+
+### Release Notes for HydeFront v2.x
+
+HydeFront version 2.0 is a major release and has several breaking changes.
+It is not compatible with HydePHP versions lower than v0.50.0-beta. HydePHP versions equal to or later than v0.50.0-beta require HydeFront version 2.0 or higher.
+
+Many files have been removed, as HydePHP now uses Alpine.js for interactions, and TailwindCSS for the documentation pages.
+
+HydeFront v1.x will receive security fixes only.
+
+
 ## [v0.49.0-beta](https://github.com/hydephp/develop/releases/tag/v0.49.0-beta) - 2022-07-15
 
 ### Added

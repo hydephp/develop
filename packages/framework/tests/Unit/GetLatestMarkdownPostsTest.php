@@ -22,8 +22,8 @@ class GetLatestMarkdownPostsTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(MarkdownPost::class, $collection);
 
-        $this->assertEquals('new', $collection->first()->slug);
-        $this->assertEquals('old', $collection->last()->slug);
+        $this->assertEquals('new', $collection->first()->identifier);
+        $this->assertEquals('old', $collection->last()->identifier);
 
         unlink(Hyde::path('_posts/new.md'));
         unlink(Hyde::path('_posts/old.md'));

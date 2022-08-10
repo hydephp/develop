@@ -57,7 +57,7 @@ class HydeSmartDocs
         return $this;
     }
 
-    protected function tokenize(): self
+    protected function tokenize(): static
     {
         // The HTML content is expected to be two parts. To create semantic HTML,
         // we need to split the content into header and body. We do this by
@@ -73,7 +73,7 @@ class HydeSmartDocs
         return $this;
     }
 
-    protected function addDynamicHeaderContent(): self
+    protected function addDynamicHeaderContent(): static
     {
         // Hook to add dynamic content to the header.
         // This is where we can add TOC, breadcrumbs, etc.
@@ -85,7 +85,7 @@ class HydeSmartDocs
         return $this;
     }
 
-    protected function addDynamicFooterContent(): self
+    protected function addDynamicFooterContent(): static
     {
         // Hook to add dynamic content to the footer.
         // This is where we can add copyright, attributions, info, etc.

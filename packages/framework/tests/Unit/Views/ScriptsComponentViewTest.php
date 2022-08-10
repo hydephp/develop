@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
@@ -65,39 +64,6 @@ class ScriptsComponentViewTest extends TestCase
                 
                 @include("hyde::layouts.scripts")'
              )
-        );
-    }
-
-    public function test_component_renders_link_to_hyde_js_when_it_exists()
-    {
-        Hyde::touch(('_media/hyde.js'));
-        $this->assertStringContainsString('<script defer src="media/hyde.js"', $this->renderTestView());
-        unlink(Hyde::path('_media/hyde.js'));
-    }
-
-    public function test_component_does_not_render_link_to_hyde_js_when_it_does_not_exist()
-    {
-        $this->assertStringNotContainsString('<script defer src="media/hyde.js"', $this->renderTestView());
-    }
-
-    public function test_component_renders_cdn_link_when_no_local_file_exists()
-    {
-        $this->assertStringContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
-    }
-
-    public function test_component_does_not_render_cdn_link_when_a_local_file_exists()
-    {
-        Hyde::touch(('_media/hyde.js'));
-        $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
-        unlink(Hyde::path('_media/hyde.js'));
-    }
-
-    public function test_cdn_link_uses_the_correct_version_defined_in_the_asset_manager()
-    {
-        $expectedVersion = (new AssetService)->version();
-        $this->assertStringContainsString(
-            'https://cdn.jsdelivr.net/npm/hydefront@'.$expectedVersion.'/dist/hyde.js',
-            $this->renderTestView()
         );
     }
 }

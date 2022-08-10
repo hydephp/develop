@@ -2,35 +2,53 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Contracts\DocumentationSidebarContract;
+use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
-/**
- * The documentation sidebar, containing all the sidebar items.
- *
- * Extends the \Illuminate\Support\Collection class and has helper
- * methods to fluently add DocumentationSidebarItems to the
- * collection using method chaining.
- *
- * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarServiceTest
- */
-class DocumentationSidebar extends Collection implements DocumentationSidebarContract
+class DocumentationSidebar extends NavigationMenu
 {
-    public function addItem(DocumentationSidebarItem $item): self
+    /** @return $this */
+    public function generate(): static
     {
-        $this->push($item);
+        RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
+            if (! $route->getSourceModel()->get('hidden', false)) {
+                $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
+                    $item->title = $item->route->getSourceModel()->get('label');
+                }));
+            }
+        });
 
         return $this;
     }
 
-    public function sortItems(): self
+    public function hasGroups(): bool
     {
-        return $this->sortBy('priority')
-            ->values(); // Reset the keys to consecutively numbered indexes:
+        return count($this->getGroups()) >= 1 && $this->getGroups() !== [0 => 'other'];
     }
 
-    public function getCollection(): self
+    public function getGroups(): array
     {
-        return $this;
+        return $this->items->map(function (NavItem $item) {
+            return $item->getGroup();
+        })->unique()->toArray();
+    }
+
+    public function getItemsInGroup(?string $group): Collection
+    {
+        return $this->items->filter(function ($item) use ($group) {
+            return $item->getGroup() === $group || $item->getGroup() === Str::slug($group);
+        })->sortBy('priority')->values();
+    }
+
+    protected function filterHiddenItems(): Collection
+    {
+        return $this->items;
+    }
+
+    protected function getPriorityForRoute(Route $route): int
+    {
+        return $route->getSourceModel()->get('priority');
     }
 }

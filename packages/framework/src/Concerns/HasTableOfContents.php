@@ -2,21 +2,19 @@
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Framework\Actions\GeneratesTableOfContents;
+use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 
 /**
  * Generate Table of Contents as HTML from a Markdown document body.
+ *
+ * Intended to be used for documentation pages.
  *
  * @see \Hyde\Framework\Testing\Unit\HasTableOfContentsTest
  */
 trait HasTableOfContents
 {
-    public string $tableOfContents;
-
-    public function constructTableOfContents(): void
+    public function getTableOfContents(): string
     {
-        if (config('docs.table_of_contents.enabled', true)) {
-            $this->tableOfContents = (new GeneratesTableOfContents($this->body))->execute();
-        }
+        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
     }
 }

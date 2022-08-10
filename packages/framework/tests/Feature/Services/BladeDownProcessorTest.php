@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Services\Markdown\BladeDownProcessor;
+use Hyde\Framework\Modules\Markdown\BladeDownProcessor;
 use Hyde\Testing\TestCase;
 
 /**
  * Class BladeDownProcessorTest.
  *
- * @covers \Hyde\Framework\Services\Markdown\BladeDownProcessor
+ * @covers \Hyde\Framework\Modules\Markdown\BladeDownProcessor
  */
 class BladeDownProcessorTest extends TestCase
 {

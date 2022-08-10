@@ -7,14 +7,24 @@ use Hyde\Framework\Hyde;
 
 /**
  * Holds the information for an image.
+ *
+ * $schema = [
+ *    'path'         => '?string',
+ *    'uri'          => '?string',
+ *    'description'  => '?string',
+ *    'title'        => '?string',
+ *    'copyright'    => '?string',
+ *    'license'      => '?string',
+ *    'licenseUrl'   => '?string',
+ *    'author'       => '?string',
+ *    'credit'       => '?string'
+ * ];
  */
-class Image
+class Image implements \Stringable
 {
-    // Core properties
-
     /**
-     * The image's path (if it is stored locally).
-     * Example: _media/image.jpg.
+     * The image's path (if it is stored locally (in the _media directory)).
+     * Example: image.jpg.
      *
      * @var string|null
      */
@@ -46,8 +56,6 @@ class Image
      * @var string|null
      */
     public ?string $title;
-
-    // Extra metadata
 
     /**
      * The image's copyright.
@@ -94,16 +102,47 @@ class Image
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
         }
+
+        if (isset($this->path)) {
+            $this->path = basename($this->path);
+        }
+    }
+
+    /** @inheritDoc */
+    public function __toString()
+    {
+        return $this->getLink();
+    }
+
+    /** Dynamically create an image based on string or front matter array */
+    public static function make(string|array $data): static
+    {
+        if (is_string($data)) {
+            return static::fromSource($data);
+        }
+
+        return new static($data);
+    }
+
+    public static function fromSource(string $image): static
+    {
+        return str_starts_with($image, 'http')
+            ? new static(['uri' => $image])
+            : new static(['path' => $image]);
     }
 
     public function getSource(): ?string
     {
-        return $this->uri ?? $this->path ?? null;
+        return $this->uri ?? $this->getPath() ?? null;
     }
 
-    public function getLink(?string $currentPage = ''): string
+    public function getLink(): string
     {
-        return Hyde::image($this->getSource() ?? '', $currentPage);
+        if (! $this->getSource()) {
+            return '';
+        }
+
+        return Hyde::image($this->getSource());
     }
 
     public function getContentLength(): int
@@ -111,7 +150,7 @@ class Image
         return (new FindsContentLengthForImageObject($this))->execute();
     }
 
-    public function getImageAuthorAttributionString(): ?string
+    public function getImageAuthorAttributionString(): string|null
     {
         if (isset($this->author)) {
             if (isset($this->credit)) {
@@ -124,7 +163,7 @@ class Image
         return null;
     }
 
-    public function getCopyrightString(): ?string
+    public function getCopyrightString(): string|null
     {
         if (isset($this->copyright)) {
             return '<span itemprop="copyrightNotice">'.e($this->copyright).'</span>';
@@ -133,7 +172,7 @@ class Image
         return null;
     }
 
-    public function getLicenseString(): ?string
+    public function getLicenseString(): string|null
     {
         if (isset($this->license) && isset($this->licenseUrl)) {
             return '<a href="'.e($this->licenseUrl).'" rel="license nofollow noopener" itemprop="license">'.e($this->license).'</a>';
@@ -185,9 +224,18 @@ class Image
             $metadata['name'] = $this->title;
         }
 
-        $metadata['url'] = $this->getSource();
-        $metadata['contentUrl'] = $this->getSource();
+        $metadata['url'] = $this->getLink();
+        $metadata['contentUrl'] = $this->getLink();
 
         return $metadata;
+    }
+
+    protected function getPath(): ?string
+    {
+        if (isset($this->path)) {
+            return basename($this->path);
+        }
+
+        return null;
     }
 }

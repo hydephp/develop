@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RssFeedService;
 use Hyde\Testing\TestCase;
@@ -15,6 +16,15 @@ class RssFeedServiceTest extends TestCase
     {
         $service = new RssFeedService();
         $this->assertInstanceOf('SimpleXMLElement', $service->feed);
+    }
+
+    public function test_constructor_throws_exception_when_missing_simplexml_extension()
+    {
+        config(['testing.mock_disabled_extensions' => true]);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
+        new RssFeedService();
     }
 
     public function test_xml_root_element_is_set_to_rss_2_0()
@@ -32,8 +42,8 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_element_has_required_elements()
     {
-        config(['hyde.name' => 'Test Blog']);
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.name' => 'Test Blog']);
+        config(['site.url' => 'https://example.com']);
 
         $service = new RssFeedService();
         $this->assertObjectHasAttribute('title', $service->feed->channel);
@@ -47,7 +57,7 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_element_has_additional_elements()
     {
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         $service = new RssFeedService();
         $this->assertObjectHasAttribute('link', $service->feed->channel);
@@ -62,8 +72,8 @@ class RssFeedServiceTest extends TestCase
 
     public function test_xml_channel_data_can_be_customized()
     {
-        config(['hyde.name' => 'Foo']);
-        config(['hyde.site_url' => 'https://blog.foo.com/bar']);
+        config(['site.name' => 'Foo']);
+        config(['site.url' => 'https://blog.foo.com/bar']);
         config(['hyde.rss_description' => 'Foo is a web log about stuff']);
 
         $service = new RssFeedService();
@@ -90,7 +100,7 @@ class RssFeedServiceTest extends TestCase
             MD
         );
 
-        config(['hyde.site_url' => 'https://example.com']);
+        config(['site.url' => 'https://example.com']);
 
         file_put_contents(Hyde::path('_media/rss-test.jpg'), 'statData'); // 8 bytes to test stat gets file length
 
@@ -128,20 +138,20 @@ class RssFeedServiceTest extends TestCase
 
     public function test_can_generate_sitemap_helper_returns_true_if_hyde_has_base_url()
     {
-        config(['hyde.site_url' => 'foo']);
-        $this->assertTrue(RssFeedService::canGenerateFeed());
+        config(['site.url' => 'foo']);
+        $this->assertTrue(Features::rss());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_hyde_does_not_have_base_url()
     {
-        config(['hyde.site_url' => '']);
-        $this->assertFalse(RssFeedService::canGenerateFeed());
+        config(['site.url' => '']);
+        $this->assertFalse(Features::rss());
     }
 
     public function test_can_generate_sitemap_helper_returns_false_if_sitemaps_are_disabled_in_config()
     {
-        config(['hyde.site_url' => 'foo']);
+        config(['site.url' => 'foo']);
         config(['hyde.generate_rss_feed' => false]);
-        $this->assertFalse(RssFeedService::canGenerateFeed());
+        $this->assertFalse(Features::rss());
     }
 }

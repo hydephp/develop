@@ -17,7 +17,7 @@ use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
-use Hyde\Framework\Services\CollectionService;
+use Hyde\Framework\Services\DiscoveryService;
 
 const VERSION = 'dev-master';
 
@@ -50,7 +50,7 @@ try {
         public function __construct()
         {
             $this->path = BASE_PATH;
-            $this->name = config('hyde.name', ucwords(str_replace('-', ' ', basename(BASE_PATH))));
+            $this->name = config('site.name', ucwords(str_replace('-', ' ', basename(BASE_PATH))));
         }
     };
 
@@ -265,18 +265,18 @@ try {
                                  </thead>
                                  <tbody>
                                    <tr>
-                                       <td><?= count(CollectionService::getBladePageList()) ?> pages</td>
-                                       <td><?= count(CollectionService::getMarkdownPageList()) ?> pages</td>
-                                       <td><?= count(CollectionService::getDocumentationPageList()) ?> pages</td>
-                                       <td><?= count(CollectionService::getMarkdownPostList()) ?> posts</td>
+                                       <td><?= count(DiscoveryService::getBladePageList()) ?> pages</td>
+                                       <td><?= count(DiscoveryService::getMarkdownPageList()) ?> pages</td>
+                                       <td><?= count(DiscoveryService::getDocumentationPageList()) ?> pages</td>
+                                       <td><?= count(DiscoveryService::getMarkdownPostList()) ?> posts</td>
                                    </tr>
                                  </tbody>
                               </table>
                            </section>
                            <section class="card">
                               <?php
-                                    $documentation = CollectionService::getDocumentationPageList();
-                                    $posts = CollectionService::getMarkdownPostList();
+                                    $documentation = DiscoveryService::getDocumentationPageList();
+                                    $posts = DiscoveryService::getMarkdownPostList();
                               ?>
                               <h3 class="h5">Your Pages</h3>
                               <table class="table">
@@ -295,7 +295,7 @@ try {
                                              Blade
                                           </th>
                                           <td>
-                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug.'.html') ?>"><?= $page->view ?></a>
+                                             <a title="View with realtime compiler" href="<?= Hyde::formatHtmlPath($page->slug.'.html') ?>"><?= $page->view ?></a>
                                           </td>
                                           <td>
                                              <a title="Open in CMS file manager" href="?page=file-viewer&type=bladepage&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory.'/'.$page->view.BladePage::$fileExtension ?></a>
@@ -311,7 +311,7 @@ try {
                                              Markdown
                                           </th>
                                           <td>
-                                             <a title="View with realtime compiler" href="<?= Hyde::pageLink($page->slug.'.html') ?>"><?= $page->title ?></a>
+                                             <a title="View with realtime compiler" href="<?= Hyde::formatHtmlPath($page->slug.'.html') ?>"><?= $page->title ?></a>
                                           </td>
                                           <td>
                                              <a title="Open in CMS file manager" href="?page=file-viewer&type=markdownpage&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory.'/'.$page->slug.MarkdownPage::$fileExtension ?></a>
@@ -403,7 +403,7 @@ try {
                                  <pre ><code id="filecontents" class="language-<?= $editor->type === BladePage::class ? 'html' : 'markdown' ?>"><?= e($editor->getContents()) ?></code></pre>
                               </div>
                               <div class="tab-pane fade" id="pills-compiled" role="tabpanel" aria-labelledby="pills-compiled-tab">
-                                 <iframe loading="lazy" width="100%" height="100%" style="min-height: 600px;" src="<?= Hyde::pageLink($editor->filename.'.html') ?>" frameborder="0">
+                                 <iframe loading="lazy" width="100%" height="100%" style="min-height: 600px;" src="<?= Hyde::formatHtmlPath($editor->filename.'.html') ?>" frameborder="0">
                                  Loading...
                               </iframe>
                            </div>

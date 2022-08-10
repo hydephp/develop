@@ -3,8 +3,7 @@
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
-use Hyde\Framework\Services\MarkdownFileService;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Collection;
 
 /**
@@ -30,7 +29,7 @@ class DataCollection extends Collection
         parent::__construct();
     }
 
-    public function getCollection(): DataCollection
+    public function getCollection(): static
     {
         $this->parseTimeInMs = round((microtime(true) - $this->timeStart) * 1000, 2);
         unset($this->timeStart);
@@ -57,7 +56,7 @@ class DataCollection extends Collection
         $collection = new DataCollection($key);
         foreach ($collection->getMarkdownFiles() as $file) {
             $collection->push(
-                (new MarkdownFileService($file))->get()
+                (new MarkdownFileParser($file))->get()
             );
         }
 

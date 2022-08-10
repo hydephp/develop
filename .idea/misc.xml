@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpEntryPointsManager">
+    <entry_point>
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_a_torchlight_api_token_is_set" />
+      <entry_point TYPE="phpClass" FQNAME="\Hyde\Framework\Services\ValidationService" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_documentation_site_has_an_index_page" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_for_conflicts_between_blade_and_markdown_pages" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_a_404_page" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_a_base_url_set" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_an_app_css_stylesheet" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_site_has_an_index_page" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Services\ValidationService check_validators_can_run" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\Application registerBaseBindings" />
+      <entry_point TYPE="phpClass" FQNAME="\Hyde\Framework\Application" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel copy" />
+      <entry_point TYPE="phpClass" FQNAME="\Hyde\Framework\HydeKernel" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel __construct" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel currentRoute" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel features" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel formatHtmlPath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getBladePagePath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getDocumentationPagePath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getMarkdownPagePath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getMarkdownPostPath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getModelSourcePath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getSiteOutputPath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel hasFeature" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel hasSiteUrl" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel image" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel makeTitle" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel pathToRelative" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel relativeLink" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel touch" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel unlink" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel url" />
+    </entry_point>
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_a_torchlight_api_token_is_set" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_documentation_site_has_an_index_page" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_for_conflicts_between_blade_and_markdown_pages" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_a_404_page" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_a_base_url_set" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_an_app_css_stylesheet" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_site_has_an_index_page" />
+    <pattern value="\Hyde\Framework\Services\ValidationService" member="check_validators_can_run" />
+    <pattern value="\Hyde\Framework\Application" member="registerBaseBindings" />
+    <pattern value="\Hyde\Framework\Application" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="copy" />
+    <pattern value="\Hyde\Framework\HydeKernel" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="__construct" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="currentRoute" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="features" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="formatHtmlPath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="getBladePagePath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="getDocumentationPagePath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="getMarkdownPagePath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="getMarkdownPostPath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="getModelSourcePath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="getSiteOutputPath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="hasFeature" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="hasSiteUrl" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="image" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="makeTitle" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="pathToRelative" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="relativeLink" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="touch" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="unlink" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="url" />
+  </component>
+</project>

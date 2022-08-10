@@ -9,7 +9,7 @@ use DateTime;
  *
  * @see \Hyde\Framework\Testing\Unit\DateStringTest
  */
-class DateString
+class DateString implements \Stringable
 {
     /** The original date string. */
     public string $string;
@@ -34,5 +34,10 @@ class DateString
         $this->datetime = $this->dateTimeObject->format('c');
         $this->sentence = $this->dateTimeObject->format('l M jS, Y, \a\t g:ia');
         $this->short = $this->dateTimeObject->format('M jS, Y');
+    }
+
+    public function __toString(): string
+    {
+        return $this->short;
     }
 }

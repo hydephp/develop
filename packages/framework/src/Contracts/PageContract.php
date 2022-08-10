@@ -7,6 +7,29 @@ use Illuminate\Support\Collection;
 interface PageContract
 {
     /**
+     * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
+     *
+     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     */
+    public function get(string $key = null, mixed $default = null): mixed;
+
+    /**
+     * Get the front matter object, or a value from within.
+     *
+     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     */
+    public function matter(string $key = null, mixed $default = null): mixed;
+
+    /**
+     * See if a value exists in the computed page data or the front matter.
+     *
+     * @param  string  $key
+     * @param  bool  $strict  When set to true, an additional check if the property is not blank is performed.
+     * @return bool
+     */
+    public function has(string $key, bool $strict = false): bool;
+
+    /**
      * Get the directory in where source files are stored.
      *
      * @return string Path relative to the root of the project
@@ -28,19 +51,6 @@ interface PageContract
     public static function getFileExtension(): string;
 
     /**
-     * Get the class that parses source files into page models.
-     *
-     * @return string<\Hyde\Framework\Contracts\PageParserContract>
-     */
-    public static function getParserClass(): string;
-
-    /**
-     * Create and return a new PageParser instance for this model,
-     * with the given slug passed to the constructor.
-     */
-    public static function getParser(string $slug): PageParserContract;
-
-    /**
      * Parse a source file slug into a page model.
      *
      * @param  string  $slug
@@ -48,20 +58,22 @@ interface PageContract
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): static;
+    public static function parse(string $slug): PageContract;
 
     /**
      * Get an array of all the source file slugs for the model.
-     * Essentially an alias of CollectionService::getAbstractPageList().
+     * Essentially an alias of DiscoveryService::getAbstractPageList().
      *
-     * @return array<string>
+     * @return array<string>|false
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetAllFilesHelperTest
      */
-    public static function files(): array;
+    public static function files(): array|false;
 
     /**
      * Get a collection of all pages, parsed into page models.
+     *
+     * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
      *
      * @return \Illuminate\Support\Collection<static>
      *
@@ -86,6 +98,13 @@ interface PageContract
      * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
      */
     public static function getOutputLocation(string $basename): string;
+
+    /**
+     * Get the page model's identifier property.
+     *
+     * @return string The page's identifier/slug.
+     */
+    public function getIdentifier(): string;
 
     /**
      * Get the path to the source file, relative to the project root.
@@ -119,4 +138,18 @@ interface PageContract
      * @return \Hyde\Framework\Contracts\RouteContract
      */
     public function getRoute(): RouteContract;
+
+    /**
+     * Compile the page into static HTML.
+     *
+     * @return string The compiled HTML for the page.
+     */
+    public function compile(): string;
+
+    /**
+     * Get the page title to display in the <head> section's <title> tag.
+     *
+     * @return string Example: "Site Name - Page Title"
+     */
+    public function htmlTitle(): string;
 }

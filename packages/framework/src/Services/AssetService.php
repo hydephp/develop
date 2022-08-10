@@ -15,21 +15,19 @@ class AssetService implements AssetServiceContract
      *
      * @property string $version HydeFront SemVer Tag
      */
-    public string $version = 'v1.13';
+    public string $version = 'v2.0';
 
     public function version(): string
     {
         return $this->version;
     }
 
+    /**
+     * @deprecated v0.50.x - Use cdnLink() instead.
+     */
     public function stylePath(): string
     {
         return $this->constructCdnPath('hyde.css');
-    }
-
-    public function scriptPath(): string
-    {
-        return $this->constructCdnPath('hyde.js');
     }
 
     public function constructCdnPath(string $file): string

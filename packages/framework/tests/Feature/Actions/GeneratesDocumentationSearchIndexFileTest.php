@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile as Action;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
@@ -89,32 +90,10 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         file_put_contents(Hyde::path('_docs/foo.md'), "# Bar\n\n Hello World");
 
         $this->assertEquals(
-            $expected, (new Action())->generatePageObject('foo')
+            $expected, (new Action())->generatePageObject(DocumentationPage::parse('foo'))
         );
 
         unlink(Hyde::path('_docs/foo.md'));
-    }
-
-    public function test_get_source_file_slugs_returns_valid_array_for_source_files()
-    {
-        Hyde::touch(('_docs/a.md'));
-        Hyde::touch(('_docs/b.md'));
-        Hyde::touch(('_docs/c.md'));
-
-        $this->assertEquals(
-            ['a', 'b', 'c'], (new Action())->getSourceFileSlugs()
-        );
-
-        unlink(Hyde::path('_docs/a.md'));
-        unlink(Hyde::path('_docs/b.md'));
-        unlink(Hyde::path('_docs/c.md'));
-    }
-
-    public function test_get_source_file_slugs_returns_empty_array_when_no_source_files_exists()
-    {
-        $this->assertEquals(
-            [], (new Action())->getSourceFileSlugs()
-        );
     }
 
     public function test_it_generates_a_valid_JSON()
@@ -134,7 +113,7 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_get_destination_for_slug_returns_empty_string_for_index_when_pretty_url_is_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        config(['site.pretty_urls' => true]);
 
         $this->assertEquals(
             '', (new Action())->getDestinationForSlug('index')
@@ -143,7 +122,7 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_get_destination_for_slug_returns_pretty_url_when_enabled()
     {
-        config(['hyde.pretty_urls' => true]);
+        config(['site.pretty_urls' => true]);
 
         $this->assertEquals(
             'foo', (new Action())->getDestinationForSlug('foo')
@@ -155,7 +134,6 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         Hyde::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
-        $this->assertNotContains('excluded', (new Action())->getSourceFileSlugs());
         $this->assertStringNotContainsString('excluded', (new Action())->generate()->getJson());
 
         unlink(Hyde::path('_docs/excluded.md'));

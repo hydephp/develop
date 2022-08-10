@@ -55,10 +55,11 @@ class BuildService
     {
         $this->needsDirectory(Hyde::getSiteOutputPath('media'));
 
-        $collection = CollectionService::getMediaAssetFiles();
+        $collection = DiscoveryService::getMediaAssetFiles();
         $this->comment('Transferring Media Assets...');
 
-        $this->withProgressBar($collection,
+        $this->withProgressBar(
+            $collection,
             function ($filepath) {
                 copy($filepath, Hyde::getSiteOutputPath('media/'.basename($filepath)));
             }
@@ -80,7 +81,8 @@ class BuildService
         $collection = $this->router->getRoutesForModel($pageClass);
 
         $this->withProgressBar(
-            $collection, $this->compileRoute()
+            $collection,
+            $this->compileRoute()
         );
 
         $this->newLine(2);
@@ -122,7 +124,7 @@ class BuildService
         return $this->confirm(sprintf(
             'The configured output directory (%s) is potentially unsafe to empty. '.
             'Are you sure you want to continue?',
-            Hyde::getSiteOutputPath())
-        );
+            Hyde::getSiteOutputPath()
+        ));
     }
 }

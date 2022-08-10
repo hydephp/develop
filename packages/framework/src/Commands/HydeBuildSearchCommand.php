@@ -4,7 +4,7 @@ namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\CollectionService;
+use Hyde\Framework\Services\DiscoveryService;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -74,9 +74,9 @@ class HydeBuildSearchCommand extends Command
     /** @internal Estimated processing time per file in ms */
     public static float $guesstimationFactor = 52.5;
 
-    protected function guesstimateGenerationTime(): int
+    protected function guesstimateGenerationTime(): int|float
     {
-        return round(count(CollectionService::getDocumentationPageFiles()) * static::$guesstimationFactor) / 1000;
+        return (int) round(count(DiscoveryService::getDocumentationPageFiles()) * static::$guesstimationFactor) / 1000;
     }
 
     protected function getExecutionTimeInMs(float $timeStart): string

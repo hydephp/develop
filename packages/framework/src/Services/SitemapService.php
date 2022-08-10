@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpComposerExtensionStubsInspection */
+
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\RouteContract;
@@ -23,13 +25,17 @@ class SitemapService
 
     public function __construct()
     {
+        if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
+            throw new \Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
+        }
+
         $this->time_start = microtime(true);
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
     }
 
-    public function generate(): self
+    public function generate(): static
     {
         Route::all()->each(function ($route) {
             $this->addRoute($route);
@@ -38,7 +44,7 @@ class SitemapService
         return $this;
     }
 
-    public function getXML(): string
+    public function getXML(): string|false
     {
         $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->time_start) * 1000, 2));
 
@@ -48,11 +54,11 @@ class SitemapService
     public function addRoute(RouteContract $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
-        $urlItem->addChild('loc', htmlentities(Hyde::uriPath($route->getLink())));
+        $urlItem->addChild('loc', htmlentities($route->getQualifiedUrl()));
         $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($route->getSourceFilePath())));
         $urlItem->addChild('changefreq', 'daily');
         if (config('hyde.sitemap.dynamic_priority', true)) {
-            $urlItem->addChild('priority', $this->getPriority($route->getPageType(), $route->getSourceModel()->slug));
+            $urlItem->addChild('priority', $this->getPriority($route->getPageType(), $route->getSourceModel()->getIdentifier()));
         }
     }
 
@@ -91,12 +97,5 @@ class SitemapService
     public static function generateSitemap(): string
     {
         return (new static)->generate()->getXML();
-    }
-
-    public static function canGenerateSitemap(): bool
-    {
-        return (Hyde::uriPath() !== false)
-            && config('hyde.generate_sitemap', true)
-            && extension_loaded('simplexml');
     }
 }

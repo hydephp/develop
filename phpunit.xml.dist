@@ -27,7 +27,4 @@
     <php>
         <env name="ENV" value="testing"/>
     </php>
-    <listeners>
-        <listener class="\Hyde\Testing\TestListener" />
-    </listeners>
 </phpunit>

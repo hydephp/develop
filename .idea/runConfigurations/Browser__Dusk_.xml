@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Browser (Dusk)" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <CommandLine>
+      <envs>
+        <env name="DUSK_ENABLED" value="true" />
+      </envs>
+    </CommandLine>
+    <TestRunner class="Hyde\Testing\Browser\DefaultHomepageTest" configuration_file="$PROJECT_DIR$/phpunit.dusk.xml" directory="$PROJECT_DIR$/tests/Browser" file="$PROJECT_DIR$/tests/Browser/DefaultHomepageTest.php" use_alternative_configuration_file="true" />
+    <method v="2" />
+  </configuration>
+</component>

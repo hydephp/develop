@@ -3,7 +3,7 @@
     use Hyde\Framework\Models\Pages\MarkdownPage;
     use Hyde\Framework\Models\Pages\DocumentationPage;
     use Hyde\Framework\Models\Pages\MarkdownPost;
-    use Hyde\Framework\Services\CollectionService;
+    use Hyde\Framework\Services\DiscoveryService;
 
 	$github = new class {
 		public bool $enabled;
@@ -42,12 +42,15 @@
         .dashboard-table td, .dashboard-table th {
             width: 50%;
         }
+
         .table-justified td, .table-justified th {
             text-align: center;
         }
+
         .table-justified td:first-child, .table-justified th:first-child {
             text-align: left;
         }
+
         .table-justified td:last-child, .table-justified th:last-child {
             text-align: right;
         }
@@ -86,7 +89,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{ config('hyde.name', Hyde::makeTitle(basename(Hyde::path()))) }}</td>
+                        <td>{{ config('site.name', Hyde::makeTitle(basename(Hyde::path()))) }}</td>
                         <td>{{ Hyde::path() }}</td>
                         <td>{{ Hyde::version() }}</td>
                         <td>{{ PHP_VERSION }} <small>({{ PHP_SAPI }})</small></td>
@@ -142,7 +145,39 @@
                                         <br>
                                         Add the following to your <code>config/hyde.php</code> file:
                                     </p>
-                                    <pre class="text-left w-fit py-0 px-4 mx-auto"><code class="my-0"><div style="color: rgb(191, 199, 213); font-family: 'Fira Code Regular', Consolas, 'Courier New', monospace; font-size: 14px; line-height: 18px;"><div style="line-height: 18px;"><div><span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">github_dashboard</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> [</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">enabled</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #82aaff;">true</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">username</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">octocat</span><span style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">repository</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">homepage</span><span style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">branch</span><span style="color: #d9f5dd;">'</span> <span style="color: #89ddff;">=&gt;</span> <span style="color: #d9f5dd;">'</span><span style="color: #c3e88d;">main</span><span style="color: #d9f5dd;">'</span>,</div><div>]</div></div></div></code></pre>
+                                    <pre class="text-left w-fit py-0 px-4 mx-auto"><code class="my-0"><div
+                                                    style="color: rgb(191, 199, 213); font-family: 'Fira Code Regular', Consolas, 'Courier New', monospace; font-size: 14px; line-height: 18px;"><div
+                                                        style="line-height: 18px;"><div><span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">github_dashboard</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> [</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">enabled</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #82aaff;">true</span>,</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">username</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">octocat</span><span
+                                                                style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">repository</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">homepage</span><span
+                                                                style="color: #d9f5dd;">'</span>,</div><div>&nbsp; &nbsp; <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">branch</span><span
+                                                                style="color: #d9f5dd;">'</span> <span
+                                                                style="color: #89ddff;">=&gt;</span> <span
+                                                                style="color: #d9f5dd;">'</span><span
+                                                                style="color: #c3e88d;">main</span><span
+                                                                style="color: #d9f5dd;">'</span>,</div><div>]</div></div></div></code></pre>
                                 </details>
                             </td>
                         @endif
@@ -171,22 +206,22 @@
                 <tr>
                     <td>
                         <a href="#blade-pages">
-                            <b>{{ count(CollectionService::getBladePageFiles()) }}</b> pages
+                            <b>{{ count(DiscoveryService::getBladePageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#markdown-pages">
-                            <b>{{ count(CollectionService::getMarkdownPageFiles()) }}</b> pages
+                            <b>{{ count(DiscoveryService::getMarkdownPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#documentation-pages">
-                            <b>{{ count(CollectionService::getDocumentationPageFiles()) }}</b> pages
+                            <b>{{ count(DiscoveryService::getDocumentationPageFiles()) }}</b> pages
                         </a>
                     </td>
                     <td>
                         <a href="#blog-posts">
-                            <b>{{ count(CollectionService::getMarkdownPostFiles()) }}</b> posts
+                            <b>{{ count(DiscoveryService::getMarkdownPostFiles()) }}</b> posts
                         </a>
                     </td>
                 </tr>
@@ -209,7 +244,7 @@
                     @foreach (BladePage::all() as $page)
                         <tr>
                             <td>
-                                <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+                                <a href="{{ Hyde::formatHtmlPath($page->slug . '.html') }}">
                                     {{ Hyde::makeTitle($page->view) }}
                                 </a>
                             </td>
@@ -238,7 +273,7 @@
                     @foreach (MarkdownPage::all() as $page)
                         <tr>
                             <td>
-                                <a href="{{ Hyde::pageLink($page->slug . '.html') }}">
+                                <a href="{{ Hyde::formatHtmlPath($page->slug . '.html') }}">
                                     {{ $page->title }}
                                 </a>
                             </td>
@@ -267,7 +302,7 @@
                     @foreach (DocumentationPage::all() as $page)
                         <tr>
                             <td>
-                                <a href="{{ DocumentationPage::$outputDirectory .'/'. Hyde::pageLink($page->slug . '.html') }}">
+                                <a href="{{ DocumentationPage::$outputDirectory .'/'. Hyde::formatHtmlPath($page->slug . '.html') }}">
                                     {{ $page->title }}
                                 </a>
                             </td>
@@ -296,7 +331,7 @@
                     @foreach (MarkdownPost::all() as $post)
                         <tr>
                             <td>
-                                <a href="posts/{{ Hyde::pageLink($post->slug . '.html') }}">
+                                <a href="posts/{{ Hyde::formatHtmlPath($post->slug . '.html') }}">
                                     {{ $post->title }}
                                 </a>
                             </td>

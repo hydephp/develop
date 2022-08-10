@@ -7,8 +7,8 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\ValidationResult as Result;
 
 /**
- * @see \Hyde\Testing\Feature\Services\ValidationServiceTest
- * @see \Hyde\Testing\Feature\Commands\HydeValidateCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
  */
 class ValidationService
 {
@@ -66,7 +66,7 @@ class ValidationService
             return $result->skip('The documentation page feature is disabled in config');
         }
 
-        if (count(CollectionService::getDocumentationPageFiles()) === 0) {
+        if (count(DiscoveryService::getDocumentationPageFiles()) === 0) {
             return $result->skip('There are no documentation pages');
         }
 
@@ -94,7 +94,7 @@ class ValidationService
 
     public function check_site_has_a_base_url_set(Result $result): Result
     {
-        if ((bool) Hyde::uriPath() === true) {
+        if (Hyde::hasSiteUrl()) {
             return $result->pass('Your site has a base URL set')
                 ->withTip('This will allow Hyde to generate canonical URLs, sitemaps, RSS feeds, and more.');
         }
@@ -121,8 +121,8 @@ class ValidationService
     public function check_for_conflicts_between_blade_and_markdown_pages(Result $result): Result
     {
         $conflicts = array_intersect(
-            CollectionService::getMarkdownPageFiles(),
-            CollectionService::getBladePageFiles()
+            DiscoveryService::getMarkdownPageFiles(),
+            DiscoveryService::getBladePageFiles()
         );
 
         if (count($conflicts)) {

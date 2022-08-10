@@ -2,57 +2,58 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\MarkdownFileService;
-use Illuminate\Support\Arr;
+use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
 /**
- * @see \Hyde\Framework\Testing\MarkdownDocumentTest
+ * A MarkdownDocument is a simpler alternative to a MarkdownPage.
+ *
+ * It's an object that contains a parsed FrontMatter split from the body of the Markdown file.
+ *
+ * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class MarkdownDocument implements MarkdownDocumentContract
+class MarkdownDocument implements MarkdownDocumentContract, \Stringable
 {
-    public array $matter;
+    public FrontMatter $matter;
+    public Markdown $markdown;
+
+    /** @deprecated */
     public string $body;
 
-    public function __construct(array $matter = [], string $body = '')
+    public function __construct(FrontMatter|array $matter = [], Markdown|string $body = '')
     {
-        $this->matter = $matter;
-        $this->body = $body;
+        $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+        $this->markdown = $body instanceof Markdown ? $body : new Markdown($body);
+
+        $this->body = $this->markdown->body;
     }
 
     public function __toString(): string
     {
-        return $this->body;
-    }
-
-    public function __get(string $key): mixed
-    {
-        return $this->matter($key);
+        return $this->markdown;
     }
 
     public function matter(string $key = null, mixed $default = null): mixed
     {
-        if ($key) {
-            return Arr::get($this->matter, $key, $default);
-        }
-
-        return $this->matter;
+        return $key ? $this->matter->get($key, $default) : $this->matter;
     }
 
-    public function body(): string
+    public function markdown(): Markdown
     {
-        return $this->body;
+        return $this->markdown;
     }
 
-    public function render(): string
-    {
-        return MarkdownConverter::parse($this->body);
-    }
-
+    /**
+     * @deprecated v0.56.0 - Use static::parse() instead
+     */
     public static function parseFile(string $localFilepath): static
     {
-        return (new MarkdownFileService(Hyde::path($localFilepath)))->get();
+        return static::parse($localFilepath);
+    }
+
+    public static function parse(string $localFilepath): static
+    {
+        return (new MarkdownFileParser(Hyde::path($localFilepath)))->get();
     }
 }

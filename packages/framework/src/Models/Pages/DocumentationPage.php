@@ -2,25 +2,35 @@
 
 namespace Hyde\Framework\Models\Pages;
 
+use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
 use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Parsers\DocumentationPageParser;
+use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Route;
 
 class DocumentationPage extends AbstractMarkdownPage
 {
+    use DocumentationPageSchema;
     use HasTableOfContents;
 
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
+    public static string $template = 'hyde::layouts/docs';
 
-    public static string $parserClass = DocumentationPageParser::class;
-
-    public function __construct(array $matter = [], string $body = '', string $title = '', string $slug = '')
+    /** @inheritDoc */
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
-        parent::__construct($matter, $body, $title, $slug);
+        parent::__construct($identifier, $matter, $markdown);
 
-        $this->constructTableOfContents();
+        $this->constructDocumentationPageSchema();
+    }
+
+    /** @inheritDoc */
+    public function getCurrentPagePath(): string
+    {
+        return trim(static::getOutputDirectory().'/'.basename($this->identifier), '/');
     }
 
     /** @internal */
@@ -30,29 +40,16 @@ class DocumentationPage extends AbstractMarkdownPage
             return false;
         }
 
-        return trim(config('docs.source_file_location_base'), '/').'/'.$this->slug.'.md';
+        return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
-    /**
-     * Get the path to the frontpage for the documentation.
-     *
-     * It is highly recommended to have an index.md file in the _docs directory,
-     * however, this method will fall back to a readme.
-     *
-     * @since 0.46.x (moved from Hyde::docsIndexPath).
-     *
-     * @return string|false returns false if no suitable frontpage is found
-     */
-    public static function indexPath(): string|false
+    public static function home(): ?RouteContract
     {
-        if (file_exists(Hyde::path(static::getSourceDirectory().'/index.md'))) {
-            return trim(Hyde::pageLink(static::getOutputDirectory().'/index.html'), '/');
-        }
+        return Route::exists(static::$outputDirectory.'/index') ? Route::get(static::$outputDirectory.'/index') : null;
+    }
 
-        if (file_exists(Hyde::path(static::getSourceDirectory().'/readme.md'))) {
-            return trim(Hyde::pageLink(static::getOutputDirectory().'/readme.html'), '/');
-        }
-
-        return false;
+    public static function hasTableOfContents(): bool
+    {
+        return config('docs.table_of_contents.enabled', true);
     }
 }
