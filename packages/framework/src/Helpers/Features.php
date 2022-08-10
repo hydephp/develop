@@ -4,6 +4,7 @@ namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
@@ -13,7 +14,7 @@ use Illuminate\Contracts\Support\Arrayable;
  * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/
  */
-class Features implements Arrayable
+class Features implements Arrayable, \JsonSerializable
 {
     /**
      * Determine if the given specified is enabled.
@@ -169,5 +170,10 @@ class Features implements Arrayable
             'sitemap' => static::sitemap(),
             'rss' => static::rss(),
         ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
