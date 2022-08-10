@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 class Features implements Arrayable, \JsonSerializable
 {
     use JsonSerializesArrayable;
-    
+
     /**
      * Determine if the given specified is enabled.
      *
@@ -169,6 +169,7 @@ class Features implements Arrayable, \JsonSerializable
                 $array[Str::kebab(substr($method, 3))] = static::{$method}();
             }
         }
+
         return $array;
     }
 }
