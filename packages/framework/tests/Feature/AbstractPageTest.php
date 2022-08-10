@@ -678,7 +678,7 @@ class AbstractPageTest extends TestCase
     public function test_save_method_writes_page_body_to_file()
     {
         MarkdownPage::make('foo', body: 'foo')->save();
-        $this->assertEquals("foo",
+        $this->assertEquals('foo',
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
         unlink(Hyde::path('_pages/foo.md'));

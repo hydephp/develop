@@ -19,7 +19,7 @@ class ConvertsArrayToFrontMatterTest extends TestCase
             'date' => 'My Date',
             // 'tags' => ['My Tag', 'My Other Tag'],
         ];
-        $expected = <<<YAML
+        $expected = <<<'YAML'
 ---
 title: My Title
 description: My Description
