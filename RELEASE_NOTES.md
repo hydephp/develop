@@ -2,24 +2,29 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
+This release refactors the internal routing system. Unless you have written custom code that directly uses these classes and methods, updating should be fairly smooth. If not, you may want to read through the following overview.
 
-This serves two purposes:
+The route index has been decoupled from page index and is split into two new collection classes, PageCollection and RouteCollection. The PageCollection contains all the site's parsed pages, and the RouteCollection contains all the page routes.
 
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+The RoutingService class remains for compatibility with existing code, but now only forwards calls to the new RouteCollection. The RoutingServiceContract interface is now deprecated.
 
 ### Added
+- Adds a new RouteCollection class
+- Adds a new PageCollection class
+- Adds a $routeKey property to the AbstractPage class
+- The page and route collections are now stored as properties of the HydeKernel
 - Adds an option to the `Hyde::image()` helper to request the returned image path use the configured base URL if it's set
 
 ### Changed
-- for changes in existing functionality.
+- Removed constructor from RoutingServiceContract interface
+- Refactored RoutingService to use the new RouteCollection class
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated interface RoutingServiceContract
+- Deprecated RoutingServiceContract::getInstance()
 
 ### Removed
-- for now removed features.
+- Removed all non public-contract methods from RoutingService
 
 ### Fixed
 - Fix [#383](https://github.com/hydephp/develop/issues/383): Navigation menu titles can't be set in BladeMatter
