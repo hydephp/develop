@@ -24,7 +24,7 @@ use Illuminate\Support\Traits\Macroable;
  *
  * @link https://hydephp.com/
  */
-class HydeKernel implements HydeKernelContract, Arrayable
+class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 {
     use Macroable;
 
@@ -218,5 +218,11 @@ class HydeKernel implements HydeKernelContract, Arrayable
             'pages' => $this->pages(),
             'routes' => $this->routes(),
         ];
+    }
+
+    /** @inheritDoc */
+    function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
