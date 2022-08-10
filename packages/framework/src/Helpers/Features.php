@@ -157,6 +157,7 @@ class Features implements Arrayable, \JsonSerializable
             && extension_loaded('simplexml');
     }
 
+    /** @inheritDoc */
     public function toArray()
     {
         $array = [];
@@ -168,6 +169,7 @@ class Features implements Arrayable, \JsonSerializable
         return $array;
     }
 
+    /** @inheritDoc */
     public function jsonSerialize()
     {
         return $this->toArray();
