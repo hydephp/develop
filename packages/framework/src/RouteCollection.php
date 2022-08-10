@@ -9,6 +9,7 @@ use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
 /**
+ * @see \Hyde\Framework\PageCollection
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
 final class RouteCollection extends Collection
