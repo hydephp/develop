@@ -98,14 +98,18 @@ class AbstractPageTest extends TestCase
         unlink(Hyde::path('_pages/foo.md'));
     }
 
-    public function test_all_returns_collection_of_all_source_files_parsed_into_the_model()
+    public function test_all_returns_collection_of_all_parsed_source_files_from_page_index()
     {
         Hyde::touch(('_pages/foo.md'));
         $this->assertEquals(
-            collect([tap(new MarkdownPage('foo'), function ($page) {
-                $page->title = 'Foo';
-            })]),
+            Hyde::pages()->getPages(MarkdownPage::class),
             MarkdownPage::all()
+        );
+        $this->assertEquals(
+            ['_pages/foo.md' => tap(new MarkdownPage('foo'), function ($page) {
+                $page->title = 'Foo';
+            })],
+            MarkdownPage::all()->toArray()
         );
         unlink(Hyde::path('_pages/foo.md'));
     }
