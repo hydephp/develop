@@ -2,7 +2,7 @@
 
 namespace Hyde\Admin;
 
-use Hyde\Framework\Services\RoutingService;
+use Hyde\Framework\Hyde;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
@@ -11,7 +11,7 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'hyde-admin');
 
-        RoutingService::getInstance()->addRoute(
+        Hyde::routes()->addRoute(
             (new AdminPage('hyde-admin::dashboard'))->getRoute()
         );
     }
