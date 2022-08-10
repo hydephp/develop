@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
@@ -12,7 +13,7 @@ use Hyde\Framework\Hyde;
  * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/
  */
-class Features
+class Features implements Arrayable
 {
     /**
      * Determine if the given specified is enabled.
@@ -153,5 +154,20 @@ class Features
             && static::hasBlogPosts()
             && config('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml');
+    }
+
+    public function toArray()
+    {
+        return [
+            'blog-posts' => static::hasBlogPosts(),
+            'blade-pages' => static::hasBladePages(),
+            'markdown-pages' => static::hasMarkdownPages(),
+            'documentation-pages' => static::hasDocumentationPages(),
+            'documentation-search' => static::hasDocumentationSearch(),
+            'darkmode' => static::hasDarkmode(),
+            'torchlight' => static::hasTorchlight(),
+            'sitemap' => static::sitemap(),
+            'rss' => static::rss(),
+        ];
     }
 }
