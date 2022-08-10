@@ -31,7 +31,7 @@ class ConvertsArrayToFrontMatter
         // For each line, add the key-value pair as YAML
         foreach ($array as $key => $value) {
             if (trim($value) !== '' && $value !== null) {
-                $yaml[] = "$key: ".json_encode($value);
+                $yaml[] = sprintf("%s: %s", $key, json_encode($value));
             }
         }
 
