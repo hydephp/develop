@@ -8,6 +8,9 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\RouteTest
+ */
 final class RouteCollection extends Collection
 {
     protected HydeKernelContract $kernel;
