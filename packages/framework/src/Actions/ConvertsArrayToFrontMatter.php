@@ -18,6 +18,7 @@ class ConvertsArrayToFrontMatter
      */
     public function execute(array $array): string
     {
+        // If the array is empty, return an empty string.
         if (empty($array)) {
             return '';
         }
