@@ -30,4 +30,9 @@ date: My Date
 YAML;
         $this->assertEquals($expected, (new ConvertsArrayToFrontMatter)->execute($array));
     }
+
+    public function test_action_returns_empty_string_if_array_is_empty()
+    {
+        $this->assertEquals('', (new ConvertsArrayToFrontMatter)->execute([]));
+    }
 }
