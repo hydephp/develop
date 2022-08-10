@@ -46,7 +46,7 @@ class MakePostCommandTest extends TestCase
 
         $this->assertFileExists($this->getPath());
         $this->assertStringContainsString(
-            'title: Test Post',
+            "title: 'Test Post'",
             file_get_contents($this->getPath())
         );
     }
@@ -90,7 +90,7 @@ class MakePostCommandTest extends TestCase
             file_get_contents($this->getPath())
         );
         $this->assertStringContainsString(
-            'title: Test Post',
+            "title: 'Test Post'",
             file_get_contents($this->getPath())
         );
     }

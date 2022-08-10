@@ -13,22 +13,28 @@ class ConvertsArrayToFrontMatterTest extends TestCase
     public function test_action_converts_an_array_to_front_matter()
     {
         $array = [
-            'title' => 'My Title',
-            'description' => 'My Description',
-            'author' => 'My Author',
-            'date' => 'My Date',
-            // 'tags' => ['My Tag', 'My Other Tag'],
+            'key' => 'value',
+            'string' => 'quoted string',
+            'boolean' => true,
+            'integer' => 100,
+            'array' => ['key' => 'value'],
+            'list' => ['foo', 'bar'],
         ];
         $expected = <<<'YAML'
 ---
-title: My Title
-description: My Description
-author: My Author
-date: My Date
+key: value
+string: 'quoted string'
+boolean: true
+integer: 100
+array:
+    key: value
+list:
+    - foo
+    - bar
 ---
 
 YAML;
-        $this->assertEquals($expected, (new ConvertsArrayToFrontMatter)->execute($array));
+        $this->assertEquals(str_replace("\r", '', $expected), (new ConvertsArrayToFrontMatter)->execute($array));
     }
 
     public function test_action_returns_empty_string_if_array_is_empty()
