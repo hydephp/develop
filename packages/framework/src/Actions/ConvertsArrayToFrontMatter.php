@@ -30,7 +30,7 @@ class ConvertsArrayToFrontMatter
 
         // For each line, add the key-value pair as YAML
         foreach ($array as $key => $value) {
-            if (trim($value) !== '' && $value !== null) {
+            if ($this->valueIsNotEmpty($value)) {
                 $yaml[] = sprintf("%s: %s", $key, json_encode($value));
             }
         }
@@ -43,5 +43,10 @@ class ConvertsArrayToFrontMatter
 
         // Return the array imploded into a string with newline characters
         return implode("\n", $yaml);
+    }
+
+    protected function valueIsNotEmpty(mixed $value): bool
+    {
+        return trim($value) !== '' && $value !== null;
     }
 }
