@@ -17,8 +17,8 @@ class ConvertsArrayToFrontMatterTest extends TestCase
             'string' => 'quoted string',
             'boolean' => true,
             'integer' => 100,
-            // 'array' => ['key' => 'value'],
-            // 'list' => ['foo', 'bar'],
+             'array' => ['key' => 'value'],
+             'list' => ['foo', 'bar'],
         ];
         $expected = <<<'YAML'
 ---

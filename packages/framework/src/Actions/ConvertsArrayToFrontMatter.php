@@ -31,8 +31,10 @@ class ConvertsArrayToFrontMatter
 
         // For each line, add the key-value pair as YAML
         foreach ($array as $key => $value) {
-            if ($this->valueIsNotEmpty($value)) {
-                $yaml[] = sprintf("%s: %s", $key, json_encode($value));
+            if (! is_array($value)) {
+                if ($this->valueIsNotEmpty($value)) {
+                    $yaml[] = sprintf('%s: %s', $key, json_encode($value));
+                }
             }
         }
 
