@@ -61,12 +61,21 @@ final class PageCollection extends Collection
 
     protected function discoverPagesFor(string $pageClass): void
     {
-        // @todo Parse the pages here
-
-        /** @var PageContract $pageClass */
-        $pageClass::all()->each(function ($page) {
+        $this->parsePagesFor($pageClass)->each(function ($page) {
             $this->discover($page);
         });
+    }
+
+    protected function parsePagesFor(string $pageClass): Collection
+    {
+       $collection = new Collection();
+
+        /** @var PageContract $pageClass */
+        foreach ($pageClass::files() as $basename) {
+            $collection->push($pageClass::parse($basename));
+        }
+
+        return $collection;
     }
 
     protected function discover(PageContract $page): self

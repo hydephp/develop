@@ -4,6 +4,7 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
@@ -84,15 +85,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public static function all(): Collection
     {
-        // @todo Get from the PageCollection class.
-
-        $collection = new Collection();
-
-        foreach (static::files() as $basename) {
-            $collection->push(static::parse($basename));
-        }
-
-        return $collection;
+        return Hyde::pages()->getPages(static::class);
     }
 
     /** @inheritDoc */
