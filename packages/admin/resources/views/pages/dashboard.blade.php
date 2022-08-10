@@ -1,5 +1,5 @@
 @php
-use Hyde\Framework\Services\CollectionService;
+use Hyde\Framework\Services\DiscoveryService;
 @endphp
 
 <x-hyde-admin::header>
@@ -11,7 +11,7 @@ use Hyde\Framework\Services\CollectionService;
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
 							<h5 class="text-slate-400 uppercase font-bold text-xs"> Blade Pages </h5>
-							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getBladePageFiles()) }}</b> pages </span>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(DiscoveryService::getBladePageFiles()) }}</b> pages </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div
@@ -34,7 +34,7 @@ use Hyde\Framework\Services\CollectionService;
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
 							<h5 class="text-slate-400 uppercase font-bold text-xs"> Markdown Pages </h5>
-							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getMarkdownPageFiles()) }}</b> pages </span>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(DiscoveryService::getMarkdownPageFiles()) }}</b> pages </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div
@@ -57,7 +57,7 @@ use Hyde\Framework\Services\CollectionService;
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
 							<h5 class="text-slate-400 uppercase font-bold text-xs"> Documentation Pages </h5>
-							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getDocumentationPageFiles()) }}</b> pages </span>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(DiscoveryService::getDocumentationPageFiles()) }}</b> pages </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div
@@ -80,7 +80,7 @@ use Hyde\Framework\Services\CollectionService;
 					<div class="flex flex-wrap">
 						<div class="relative w-full pr-4 max-w-full flex-grow flex-1">
 							<h5 class="text-slate-400 uppercase font-bold text-xs"> Markdown Posts </h5>
-							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(CollectionService::getMarkdownPostFiles()) }}</b> posts </span>
+							<span class="font-semibold text-xl text-slate-700"> <b>{{ count(DiscoveryService::getMarkdownPostFiles()) }}</b> posts </span>
 						</div>
 						<div class="relative w-auto pl-4 flex-initial">
 							<div

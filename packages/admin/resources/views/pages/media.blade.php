@@ -1,5 +1,5 @@
 @php
-use Hyde\Framework\Services\CollectionService;
+use Hyde\Framework\Services\DiscoveryService;
 @endphp
 
 <x-hyde-admin::header>
@@ -40,7 +40,7 @@ use Hyde\Framework\Services\CollectionService;
 						</tr>
 					</thead>
 					<tbody>
-						@foreach (CollectionService::getMediaAssetFiles() as $file)
+						@foreach (DiscoveryService::getMediaAssetFiles() as $file)
 						<tr>
 							<td class="px-3">
 								<a href="media/{{ basename($file) }}">
@@ -98,7 +98,7 @@ use Hyde\Framework\Services\CollectionService;
 			</div>
 			<div class="block w-full overflow-x-auto prose max-w-full">
 				<div class="flex flex-row flex-wrap">
-					@foreach (CollectionService::getMediaAssetFiles() as $file)
+					@foreach (DiscoveryService::getMediaAssetFiles() as $file)
 					@if(in_array(pathinfo($file, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'ico', 'svg']))
 					<a href="media/{{ basename($file) }}">
 						<img width="64px" height="auto" class="block" src="media/{{ basename($file) }}"
