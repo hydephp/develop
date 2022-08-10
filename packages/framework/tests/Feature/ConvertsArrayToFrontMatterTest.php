@@ -13,18 +13,19 @@ class ConvertsArrayToFrontMatterTest extends TestCase
     public function test_action_converts_an_array_to_front_matter()
     {
         $array = [
-            'title' => 'My Title',
-            'description' => 'My Description',
-            'author' => 'My Author',
-            'date' => 'My Date',
-            // 'tags' => ['My Tag', 'My Other Tag'],
+            'key' => 'value',
+            'string' => 'quoted string',
+            'boolean' => true,
+            'integer' => 100,
+            // 'array' => ['key' => 'value'],
+            // 'list' => ['foo', 'bar'],
         ];
         $expected = <<<'YAML'
 ---
-title: My Title
-description: My Description
-author: My Author
-date: My Date
+key: value
+string: quoted string
+boolean: 1
+integer: 100
 ---
 
 YAML;
