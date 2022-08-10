@@ -3,6 +3,7 @@
 namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\Filesystem;
@@ -27,6 +28,7 @@ use Illuminate\Support\Traits\Macroable;
 class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 {
     use Macroable;
+    use JsonSerializesArrayable;
 
     protected string $basePath;
     protected Filesystem $filesystem;
@@ -218,11 +220,5 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
             'pages' => $this->pages(),
             'routes' => $this->routes(),
         ];
-    }
-
-    /** @inheritDoc */
-    function jsonSerialize()
-    {
-        return $this->toArray();
     }
 }

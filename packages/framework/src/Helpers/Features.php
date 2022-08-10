@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
@@ -16,6 +17,8 @@ use Illuminate\Support\Str;
  */
 class Features implements Arrayable, \JsonSerializable
 {
+    use JsonSerializesArrayable;
+    
     /**
      * Determine if the given specified is enabled.
      *
@@ -167,11 +170,5 @@ class Features implements Arrayable, \JsonSerializable
             }
         }
         return $array;
-    }
-
-    /** @inheritDoc */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
     }
 }
