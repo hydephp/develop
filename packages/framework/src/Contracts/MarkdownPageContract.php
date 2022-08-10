@@ -31,4 +31,12 @@ interface MarkdownPageContract
      * @param  \Hyde\Framework\Models\Markdown|null  $markdown
      */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null);
+
+    /**
+     * Save the Markdown page object to disk by compiling the
+     * front matter array to YAML and writing the body to the file.
+     *
+     * @return $this
+     */
+    public function save(): static;
 }

@@ -657,4 +657,39 @@ class AbstractPageTest extends TestCase
         $this->assertTrue(MarkdownPage::make(matter: ['foo' => null])->has('foo', true));
         $this->assertTrue(MarkdownPage::make(matter: ['foo' => ''])->has('foo', true));
     }
+
+    public function test_markdown_pages_can_be_saved_to_disk()
+    {
+        $page = new MarkdownPage('foo');
+        $page->save();
+        $this->assertFileExists(Hyde::path('_pages/foo.md'));
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_save_method_converts_front_matter_array_to_yaml_block()
+    {
+        MarkdownPage::make('foo', matter: ['foo' => 'bar'])->save();
+        $this->assertEquals("---\nfoo: bar\n---\n\n",
+            file_get_contents(Hyde::path('_pages/foo.md'))
+        );
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_save_method_writes_page_body_to_file()
+    {
+        MarkdownPage::make('foo', body: 'foo')->save();
+        $this->assertEquals('foo',
+            file_get_contents(Hyde::path('_pages/foo.md'))
+        );
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_save_method_writes_page_body_to_file_with_front_matter()
+    {
+        MarkdownPage::make('foo', matter: ['foo' => 'bar'], body: 'foo bar')->save();
+        $this->assertEquals("---\nfoo: bar\n---\n\nfoo bar",
+            file_get_contents(Hyde::path('_pages/foo.md'))
+        );
+        unlink(Hyde::path('_pages/foo.md'));
+    }
 }

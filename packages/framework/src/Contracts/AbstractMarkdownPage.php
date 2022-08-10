@@ -56,4 +56,12 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
             'markdown' => $this->markdown->compile(static::class),
         ])->render();
     }
+
+    /** @inheritDoc */
+    public function save(): static
+    {
+        file_put_contents($this->getSourcePath(), ltrim("$this->matter\n$this->markdown"));
+
+        return $this;
+    }
 }
