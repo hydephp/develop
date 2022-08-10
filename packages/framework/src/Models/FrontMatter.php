@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
@@ -19,8 +20,10 @@ use Illuminate\Support\Arr;
  *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  */
-class FrontMatter implements Arrayable, \Stringable
+class FrontMatter implements Arrayable, \Stringable, \JsonSerializable
 {
+    use JsonSerializesArrayable;
+
     public array $data;
 
     public function __construct(array $matter = [])

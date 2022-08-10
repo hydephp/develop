@@ -2,7 +2,10 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
@@ -12,8 +15,10 @@ use Hyde\Framework\Hyde;
  * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/
  */
-class Features
+class Features implements Arrayable, \JsonSerializable
 {
+    use JsonSerializesArrayable;
+
     /**
      * Determine if the given specified is enabled.
      *
@@ -153,5 +158,18 @@ class Features
             && static::hasBlogPosts()
             && config('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml');
+    }
+
+    /** @inheritDoc */
+    public function toArray()
+    {
+        $array = [];
+        foreach (get_class_methods(static::class) as $method) {
+            if (str_starts_with($method, 'has')) {
+                $array[Str::kebab(substr($method, 3))] = static::{$method}();
+            }
+        }
+
+        return $array;
     }
 }
