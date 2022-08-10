@@ -17,6 +17,10 @@ class ConvertsArrayToFrontMatter
      */
     public function execute(array $array): string
     {
+        if (empty($array)) {
+            return '';
+        }
+
         // Initialize the array
         $yaml = [];
 
