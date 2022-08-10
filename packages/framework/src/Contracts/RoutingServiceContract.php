@@ -10,11 +10,6 @@ use Illuminate\Support\Collection;
 interface RoutingServiceContract
 {
     /**
-     * Construct a new Router instance and discover all routes.
-     */
-    public function __construct();
-
-    /**
      * Get the Singleton instance of the Router.
      *
      * @return \Hyde\Framework\Contracts\RoutingServiceContract

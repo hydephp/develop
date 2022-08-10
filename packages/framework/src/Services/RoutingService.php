@@ -31,11 +31,6 @@ use Hyde\Framework\RouteCollection;
 class RoutingService implements RoutingServiceContract
 {
     /** @inheritDoc */
-    public function __construct()
-    {
-    }
-
-    /** @inheritDoc */
     public static function getInstance(): self
     {
         return new self();
