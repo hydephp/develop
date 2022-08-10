@@ -2,19 +2,23 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RoutingService;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements RouteContract, RouteFacadeContract, \Stringable
+class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSerializable, Arrayable
 {
+    use JsonSerializesArrayable;
+
     /**
      * The source model for the route.
      *
@@ -34,6 +38,16 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable
     {
         $this->sourceModel = $sourceModel;
         $this->routeKey = $this->constructRouteKey();
+    }
+
+    /** @inheritDoc */
+    public function toArray()
+    {
+        return [
+            'routeKey' => $this->routeKey,
+            'sourceModelPath' => $this->sourceModel->getSourcePath(),
+            'sourceModelType' => $this->sourceModel::class,
+        ];
     }
 
     /** @inheritDoc */
