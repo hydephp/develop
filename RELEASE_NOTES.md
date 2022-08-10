@@ -18,6 +18,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 ### Changed
 - Removed constructor from RoutingServiceContract interface
 - Refactored RoutingService to use the new RouteCollection class
+- AbstractPage::all() now returns a PageCollection, and includes the source file path as the array key
 
 ### Deprecated
 - Deprecated interface RoutingServiceContract
