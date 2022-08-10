@@ -5,7 +5,6 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RoutingServiceContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Route;
 use Hyde\Framework\RouteCollection;
 
 /**
@@ -30,7 +29,10 @@ use Hyde\Framework\RouteCollection;
  */
 class RoutingService implements RoutingServiceContract
 {
-    /** @inheritDoc */
+    /**
+     * @deprecated
+     * @inheritDoc
+     */
     public static function getInstance(): self
     {
         return new self();
