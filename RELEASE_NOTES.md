@@ -14,6 +14,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 - Adds a $routeKey property to the AbstractPage class
 - The page and route collections are now stored as properties of the HydeKernel
 - Adds an option to the `Hyde::image()` helper to request the returned image path use the configured base URL if it's set
+- Adds a new `save()` method to Markdown pages, to save the page object to the filesystem
 
 ### Changed
 - Removed constructor from RoutingServiceContract interface
