@@ -4,6 +4,9 @@ namespace Hyde\Framework\Contracts;
 
 use Illuminate\Support\Collection;
 
+/**
+ * @deprecated v0.59.0-beta Use new RouteCollection instead.
+ */
 interface RoutingServiceContract
 {
     /**
