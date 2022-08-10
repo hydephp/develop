@@ -159,17 +159,13 @@ class Features implements Arrayable, \JsonSerializable
 
     public function toArray()
     {
-        return [
-            'blog-posts' => static::hasBlogPosts(),
-            'blade-pages' => static::hasBladePages(),
-            'markdown-pages' => static::hasMarkdownPages(),
-            'documentation-pages' => static::hasDocumentationPages(),
-            'documentation-search' => static::hasDocumentationSearch(),
-            'darkmode' => static::hasDarkmode(),
-            'torchlight' => static::hasTorchlight(),
-            'sitemap' => static::sitemap(),
-            'rss' => static::rss(),
-        ];
+        $array = [];
+        foreach (get_class_methods(static::class) as $method) {
+            if (str_starts_with($method, 'has')) {
+                $array[Str::kebab(substr($method, 3))] = static::{$method}();
+            }
+        }
+        return $array;
     }
 
     public function jsonSerialize()
