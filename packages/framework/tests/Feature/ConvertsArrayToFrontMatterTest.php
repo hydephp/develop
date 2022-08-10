@@ -29,7 +29,7 @@ integer: 100
 ---
 
 YAML;
-        $this->assertEquals($expected, (new ConvertsArrayToFrontMatter)->execute($array));
+        $this->assertEquals(str_replace("\r", '', $expected), (new ConvertsArrayToFrontMatter)->execute($array));
     }
 
     public function test_action_returns_empty_string_if_array_is_empty()
