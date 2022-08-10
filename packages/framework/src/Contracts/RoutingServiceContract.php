@@ -13,6 +13,7 @@ interface RoutingServiceContract
      * Get the Singleton instance of the Router.
      *
      * @deprecated v0.59.0-beta No longer needs to be a singleton.
+     *
      * @return \Hyde\Framework\Contracts\RoutingServiceContract
      */
     public static function getInstance(): RoutingServiceContract;

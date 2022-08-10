@@ -25,6 +25,7 @@ use Hyde\Framework\RouteCollection;
  * The route index serves as a multidimensional mapping allowing you to
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
+ *
  * @see \Hyde\Framework\Testing\Feature\RoutingServiceTest
  */
 class RoutingService implements RoutingServiceContract
@@ -51,7 +52,7 @@ class RoutingService implements RoutingServiceContract
     /**
      * Get all discovered routes for the given page class.
      *
-     * @param class-string<\Hyde\Framework\Contracts\PageContract> $pageClass
+     * @param  class-string<\Hyde\Framework\Contracts\PageContract>  $pageClass
      * @return \Hyde\Framework\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
      */
     public function getRoutesForModel(string $pageClass): RouteCollection
