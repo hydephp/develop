@@ -4,15 +4,15 @@ namespace Hyde\Framework\Contracts;
 
 use Illuminate\Support\Collection;
 
+/**
+ * @deprecated v0.59.0-beta Use new RouteCollection instead.
+ */
 interface RoutingServiceContract
 {
     /**
-     * Construct a new Router instance and discover all routes.
-     */
-    public function __construct();
-
-    /**
      * Get the Singleton instance of the Router.
+     *
+     * @deprecated v0.59.0-beta No longer needs to be a singleton.
      *
      * @return \Hyde\Framework\Contracts\RoutingServiceContract
      */

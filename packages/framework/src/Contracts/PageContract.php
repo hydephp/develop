@@ -73,6 +73,8 @@ interface PageContract
     /**
      * Get a collection of all pages, parsed into page models.
      *
+     * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
+     *
      * @return \Illuminate\Support\Collection<static>
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest

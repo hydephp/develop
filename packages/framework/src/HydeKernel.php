@@ -30,12 +30,28 @@ class HydeKernel implements HydeKernelContract
     protected string $basePath;
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
+    protected PageCollection $pages;
+    protected RouteCollection $routes;
+
+    protected bool $booted = false;
 
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+    }
+
+    protected function bootKernel(): void
+    {
+        $this->booted = true;
+        $this->pages = PageCollection::boot();
+        $this->routes = RouteCollection::boot($this);
+    }
+
+    public static function boot(): void
+    {
+        static::getInstance()->bootKernel();
     }
 
     public static function getInstance(): HydeKernelContract
@@ -76,6 +92,24 @@ class HydeKernel implements HydeKernelContract
     public function currentRoute(): ?RouteContract
     {
         return View::shared('currentRoute');
+    }
+
+    public function pages(): PageCollection
+    {
+        if (! $this->booted) {
+            $this->bootKernel();
+        }
+
+        return $this->pages;
+    }
+
+    public function routes(): RouteCollection
+    {
+        if (! $this->booted) {
+            $this->bootKernel();
+        }
+
+        return $this->routes;
     }
 
     public function makeTitle(string $slug): string

@@ -83,6 +83,8 @@ class HydeServiceProvider extends ServiceProvider
         ], 'hyde-welcome-page');
 
         Blade::component('link', LinkComponent::class);
+
+        HydeKernel::boot();
     }
 
     /**
