@@ -42,7 +42,6 @@ class RouteCollectionTest extends TestCase
             '404' => (new Route(new BladePage('404'))),
             'index' => (new Route(new BladePage('index'))),
         ], $collection->toArray());
-
     }
 
     public function test_boot_method_discovers_all_page_types()
