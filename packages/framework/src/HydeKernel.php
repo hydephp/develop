@@ -8,6 +8,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Helpers\Features;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -23,7 +24,7 @@ use Illuminate\Support\Traits\Macroable;
  *
  * @link https://hydephp.com/
  */
-class HydeKernel implements HydeKernelContract
+class HydeKernel implements HydeKernelContract, Arrayable
 {
     use Macroable;
 
@@ -206,5 +207,16 @@ class HydeKernel implements HydeKernelContract
     public function pathToRelative(string $path): string
     {
         return $this->filesystem->pathToRelative($path);
+    }
+
+    /** @inheritDoc */
+    public function toArray()
+    {
+        return [
+            'basePath' => $this->basePath,
+            'features' => $this->features(),
+            'pages' => $this->pages(),
+            'routes' => $this->routes(),
+        ];
     }
 }
