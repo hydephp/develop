@@ -8,6 +8,9 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
+ */
 class FindsNavigationDataForPage
 {
     #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
