@@ -60,9 +60,15 @@ class MetadataViewTest extends TestCase
         $actualMeta = substr_count($haystack, '<meta');
 
         $this->assertEquals(
-            $links + $meta,
-            $actualLinks + $actualMeta,
-            "Failed asserting that all tags were covered in the page '$page'"
+            $meta,
+            $actualMeta,
+            "Failed asserting that all meta tags were covered in the page '$page'"
+        );
+
+        $this->assertEquals(
+            $links,
+            $actualLinks,
+            "Failed asserting that all link tags were covered in the page '$page'"
         );
     }
 
