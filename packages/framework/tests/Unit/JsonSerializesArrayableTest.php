@@ -12,7 +12,8 @@ class JsonSerializesArrayableTest extends TestCase
 {
     public function testJsonSerialize()
     {
-        $class = new class implements \JsonSerializable {
+        $class = new class implements \JsonSerializable
+        {
             use JsonSerializesArrayable;
 
             public function toArray()
