@@ -113,7 +113,6 @@ class DataCollectionTest extends TestCase
         File::deleteDirectory(Hyde::path('_data/foo'));
     }
 
-    // test get markdown files method does not remove files starting with an underscore
     public function test_get_markdown_files_method_does_not_remove_files_starting_with_an_underscore()
     {
         mkdir(Hyde::path('_data/foo'));
