@@ -10,7 +10,6 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RoutingService;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
