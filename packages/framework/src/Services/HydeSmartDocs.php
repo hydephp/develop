@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Concerns\FacadeHelpers\HydeSmartDocsFacade;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Str;
 
@@ -16,8 +16,6 @@ use Illuminate\Support\Str;
  */
 class HydeSmartDocs
 {
-    use HydeSmartDocsFacade;
-
     protected DocumentationPage $page;
     protected string $html;
 
@@ -111,5 +109,41 @@ class HydeSmartDocs
             $this->page->getOnlineSourcePath(),
             config('docs.edit_source_link_text', 'Edit page')
         );
+    }
+
+    /**
+     * Create a new HydeSmartDocs instance, process, and return it.
+     *
+     * @param  \Hyde\Framework\Models\Pages\DocumentationPage  $page  The source page object
+     * @param  string  $html  compiled HTML content
+     * @return static new processed instance
+     */
+    public static function create(DocumentationPage $page, string $html): static
+    {
+        return (new self($page, $html))->process();
+    }
+
+    /**
+     * Does the current document use Torchlight?
+     *
+     * @return bool
+     */
+    public function hasTorchlight(): bool
+    {
+        return Features::hasTorchlight() && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
+    }
+
+    /**
+     * Do we satisfy the requirements to render an edit source button in the supplied position?
+     *
+     * @param  string  $inPosition
+     * @return bool
+     */
+    protected function canRenderSourceLink(string $inPosition): bool
+    {
+        $config = config('docs.edit_source_link_position', 'both');
+        $positions = $config === 'both' ? ['header', 'footer'] : [$config];
+
+        return ($this->page->getOnlineSourcePath() !== false) && in_array($inPosition, $positions);
     }
 }

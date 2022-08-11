@@ -10,7 +10,6 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Services\HydeSmartDocs
- * @covers \Hyde\Framework\Concerns\FacadeHelpers\HydeSmartDocsFacade
  */
 class HydeSmartDocsTest extends TestCase
 {
