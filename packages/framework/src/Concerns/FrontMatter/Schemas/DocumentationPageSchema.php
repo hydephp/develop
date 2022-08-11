@@ -32,7 +32,7 @@ trait DocumentationPageSchema
 
     protected function constructDocumentationPageSchema(): void
     {
-        $this->category = static::getDocumentationPageCategory();
+        $this->category = $this->getDocumentationPageCategory();
 
         $this->label = $this->matter('label', Hyde::makeTitle(basename($this->identifier)));
         $this->hidden = $this->matter('hidden', $this->identifier === 'index');
