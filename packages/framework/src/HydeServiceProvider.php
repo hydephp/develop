@@ -84,7 +84,7 @@ class HydeServiceProvider extends ServiceProvider
 
         Blade::component('link', LinkComponent::class);
 
-        HydeKernel::boot();
+        HydeKernel::getInstance()->boot();
     }
 
     /**

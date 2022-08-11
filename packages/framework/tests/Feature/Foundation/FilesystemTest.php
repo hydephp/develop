@@ -23,7 +23,6 @@ class FilesystemTest extends TestCase
 
         $this->originalBasePath = Hyde::getBasePath();
         $this->filesystem = new Filesystem(Hyde::getInstance());
-        Hyde::getInstance()->setBasePath('/foo');
     }
 
     protected function tearDown(): void
@@ -35,6 +34,7 @@ class FilesystemTest extends TestCase
 
     public function test_get_base_path_returns_kernels_base_path()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo', $this->filesystem->getBasePath());
     }
 
@@ -50,31 +50,37 @@ class FilesystemTest extends TestCase
 
     public function test_path_method_returns_base_path_when_not_supplied_with_argument()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo', $this->filesystem->path());
     }
 
     public function test_path_method_returns_path_relative_to_base_path_when_supplied_with_argument()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'foo/bar.php', $this->filesystem->path('foo/bar.php'));
     }
 
     public function test_path_method_returns_qualified_file_path_when_supplied_with_argument()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('file.php'));
     }
 
     public function test_path_method_returns_expected_value_for_nested_path_arguments()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'directory/file.php', $this->filesystem->path('directory/file.php'));
     }
 
     public function test_path_method_strips_trailing_directory_separators_from_argument()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'file.php', $this->filesystem->path('\\/file.php/'));
     }
 
     public function test_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'bar/file.php', $this->filesystem->path('\\/bar/file.php/'));
     }
 
@@ -95,6 +101,7 @@ class FilesystemTest extends TestCase
 
     public function test_vendor_path_method_returns_expected_value_regardless_of_trailing_directory_separators_in_argument()
     {
+        Hyde::getInstance()->setBasePath('/foo');
         $this->assertEquals('/foo'.DIRECTORY_SEPARATOR.'vendor/hyde/framework/file.php', $this->filesystem->vendorPath('\\//file.php/'));
     }
 

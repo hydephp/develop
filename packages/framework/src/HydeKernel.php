@@ -30,6 +30,8 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     use Macroable;
     use JsonSerializesArrayable;
 
+    protected static HydeKernelContract $instance;
+
     protected string $basePath;
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
@@ -45,21 +47,21 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         $this->hyperlinks = new Hyperlinks($this);
     }
 
-    protected function bootKernel(): void
+    public function boot(): void
     {
         $this->booted = true;
         $this->pages = PageCollection::boot();
         $this->routes = RouteCollection::boot($this);
     }
 
-    public static function boot(): void
+    public static function setInstance(HydeKernelContract $instance): void
     {
-        static::getInstance()->bootKernel();
+        static::$instance = $instance;
     }
 
     public static function getInstance(): HydeKernelContract
     {
-        return app(HydeKernelContract::class);
+        return static::$instance;
     }
 
     public static function version(): string
@@ -100,7 +102,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function pages(): PageCollection
     {
         if (! $this->booted) {
-            $this->bootKernel();
+            $this->boot();
         }
 
         return $this->pages;
@@ -109,7 +111,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function routes(): RouteCollection
     {
         if (! $this->booted) {
-            $this->bootKernel();
+            $this->boot();
         }
 
         return $this->routes;
