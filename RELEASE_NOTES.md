@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Blog posts now have the same opengraph title format as other pages
 
 ### Deprecated
 - for soon-to-be removed features.

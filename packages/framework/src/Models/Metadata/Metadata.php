@@ -100,16 +100,16 @@ class Metadata
             $this->add(Meta::name('author', $page->get('author')));
         }
 
+        if ($page->has('title')) {
+            $this->add(Meta::property('title', $page->htmlTitle()));
+        }
+
         if ($page->has('category')) {
             $this->add(Meta::name('keywords', $page->get('category')));
         }
 
         if ($page->has('canonicalUrl')) {
             $this->add(Meta::property('url', $page->get('canonicalUrl')));
-        }
-
-        if ($page->has('title')) {
-            $this->add(Meta::property('title', $page->get('title')));
         }
 
         if ($page->has('date')) {
