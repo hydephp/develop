@@ -92,17 +92,10 @@ class Metadata
 
     protected function addMetadataForMarkdownPost(MarkdownPost $page): void
     {
-        if ($page->has('description')) {
-            $this->add(Meta::name('description', $page->get('description')));
-        }
-
-        if ($page->has('author')) {
-            $this->add(Meta::name('author', $page->get('author')));
-        }
-
-        if ($page->has('category')) {
-            $this->add(Meta::name('keywords', $page->get('category')));
-        }
+        $this->addPostMetadataIfExists($page, 'description');
+        $this->addPostMetadataIfExists($page, 'author');
+        $this->addPostMetadataIfExists($page, 'category', 'keywords');
+        $this->addPostMetadataIfExists($page, 'canonicalUrl', 'url');
 
         if ($page->has('canonicalUrl')) {
             $this->add(Meta::property('url', $page->get('canonicalUrl')));
@@ -117,6 +110,13 @@ class Metadata
         }
 
         $this->add(Meta::property('type', 'article'));
+    }
+
+    protected function addPostMetadataIfExists(MarkdownPost $page, string $property, ?string $name = null): void
+    {
+        if ($page->has($property)) {
+            $this->add(Meta::name($name ?? $property, $page->get($property)));
+        }
     }
 
     protected function getPrefixedArray(string $group): array
