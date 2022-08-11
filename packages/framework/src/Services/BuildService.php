@@ -91,9 +91,7 @@ class BuildService
         $this->newLine(2);
     }
 
-    /**
-     * @return \Closure(Route):string
-     */
+    /** @psalm-return \Closure(Route):string */
     protected function compileRoute(): \Closure
     {
         return function (Route $route) {
