@@ -66,7 +66,7 @@ trait BlogPostSchema
             return substr($this->markdown, 0, 125).'...';
         }
 
-        return $this->markdown;
+        return (string) $this->markdown;
     }
 
     protected function getAuthor(): ?Author
