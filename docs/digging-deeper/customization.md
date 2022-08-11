@@ -251,17 +251,19 @@ navigation:
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles. You can override the title using the `navigation.title` front matter property.
 
-From the Hyde config you can also override the title of the documentation label and home page link using the following options:
+From the Hyde config you can also override the title of navigation links using the by mapping the slug (relative to the site root) to a title. Note that the front matter property will take precedence over the config property.
+
     
 ```php
 // filepath config/hyde.php
 'navigation' => [
     'labels' => [
-        'docs' => 'Documentation',
         'index' => 'Start',
+        'docs/index' => 'Documentation',
     ]
 ]
 ```
+
 
 ## Blade Views
 Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.
