@@ -38,7 +38,9 @@ class HydeBuildRssFeedCommand extends Command
         /** @var float $actionTime */
         $actionTime = microtime(true);
 
-        if (! $this->runPreflightCheck()) {
+        if (! Features::rss()) {
+            $this->error('Cannot generate an RSS feed, please check your configuration.');
+
             return 1;
         }
 
@@ -47,17 +49,6 @@ class HydeBuildRssFeedCommand extends Command
         $this->line(' > Created <info>'.RssFeedService::getDefaultOutputFilename().'</> in '.$this->getExecutionTimeInMs($actionTime)."ms\n");
 
         return 0;
-    }
-
-    protected function runPreflightCheck(): bool
-    {
-        if (! Features::rss()) {
-            $this->error('Cannot generate an RSS feed, please check your configuration.');
-
-            return false;
-        }
-
-        return true;
     }
 
     protected function getExecutionTimeInMs(float $timeStart): string
