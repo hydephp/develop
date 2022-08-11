@@ -32,7 +32,7 @@ final class PageCollection extends Collection
         return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath.' in page collection');
     }
 
-    public function getPages(?string $pageClass = null): Collection
+    public function getPages(?string $pageClass = null): self
     {
         return ! $pageClass ? $this : $this->filter(function (PageContract $page) use ($pageClass): bool {
             return $page instanceof $pageClass;
