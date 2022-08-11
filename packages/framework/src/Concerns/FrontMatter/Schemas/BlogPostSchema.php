@@ -6,9 +6,6 @@ use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
 
-/**
- * @package Hyde\Schemas
- */
 trait BlogPostSchema
 {
     /** @example "My New Post" */

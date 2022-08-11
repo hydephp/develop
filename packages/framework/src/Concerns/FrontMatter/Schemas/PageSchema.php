@@ -7,9 +7,6 @@ use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Hyde;
 use JetBrains\PhpStorm\ArrayShape;
 
-/**
- * @package Hyde\Schemas
- */
 trait PageSchema
 {
     /**
@@ -25,6 +22,7 @@ trait PageSchema
      * All array values are optional, as long as the array is not empty.
      *
      * @yamlType array|optional
+     *
      * @example ```yaml
      * navigation:
      *   title: "Home"
@@ -39,6 +37,7 @@ trait PageSchema
      * The canonical URL of the page.
      *
      * @yamlType array|optional
+     *
      * @example "https://example.com/about"
      */
     public ?string $canonicalUrl = null;
