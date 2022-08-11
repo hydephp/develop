@@ -2,17 +2,17 @@
 
 namespace Hyde\Framework\Commands;
 
+use Hyde\Framework\Concerns\ActionCommand;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\SitemapService;
-use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde Command to run the Build Process for the Sitemap.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSitemapCommandTest
  */
-class HydeBuildSitemapCommand extends Command
+class HydeBuildSitemapCommand extends ActionCommand
 {
     /**
      * The signature of the command.
@@ -35,15 +35,16 @@ class HydeBuildSitemapCommand extends Command
      */
     public function handle(): int
     {
-        $actionTime = microtime(true);
-
         if (! $this->runPreflightCheck()) {
             return 1;
         }
 
-        $this->comment('Generating sitemap...');
-        file_put_contents(Hyde::getSiteOutputPath('sitemap.xml'), SitemapService::generateSitemap());
-        $this->line(' > Created <info>sitemap.xml</> in '.$this->getExecutionTimeInMs($actionTime)."ms\n");
+        $this->action('Generating sitemap', function () {
+            file_put_contents(
+                Hyde::getSiteOutputPath('sitemap.xml'),
+                SitemapService::generateSitemap()
+            );
+        }, 'Created <info>sitemap.xml</info>');
 
         return 0;
     }
@@ -68,10 +69,5 @@ class HydeBuildSitemapCommand extends Command
         }
 
         return true;
-    }
-
-    protected function getExecutionTimeInMs(float $timeStart): string
-    {
-        return number_format(((microtime(true) - $timeStart) * 1000), 2);
     }
 }

@@ -3,9 +3,9 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile;
+use Hyde\Framework\Concerns\ActionCommand;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\DiscoveryService;
-use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde Command to run the Build Process for the DocumentationSearchIndex.
@@ -14,7 +14,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSearchCommandTest
  */
-class HydeBuildSearchCommand extends Command
+class HydeBuildSearchCommand extends ActionCommand
 {
     /**
      * The signature of the command.
@@ -37,38 +37,29 @@ class HydeBuildSearchCommand extends Command
      */
     public function handle(): int
     {
-        $actionTime = microtime(true);
+        $this->action('Generating documentation site search index', function () {
+            $expected = $this->guesstimateGenerationTime();
+            if ($expected > 0) {
+                $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
+            }
 
-        $this->comment('Generating documentation site search index...');
-        $expected = $this->guesstimateGenerationTime();
-
-        if ($expected > 0) {
-            $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
-        }
-        GeneratesDocumentationSearchIndexFile::run();
-
-        $this->line(' > Created <info>'.GeneratesDocumentationSearchIndexFile::$filePath.'</> in '.
-            $this->getExecutionTimeInMs($actionTime)."ms\n");
+            GeneratesDocumentationSearchIndexFile::run();
+        }, sprintf('Created <info>%s</info>', GeneratesDocumentationSearchIndexFile::$filePath));
 
         if (config('docs.create_search_page', true)) {
-            $this->createSearchPage();
+            $this->action('Generating search page', function () {
+                file_put_contents(
+                    Hyde::path(sprintf('_site/%s/search.html',
+                        config('docs.output_directory', 'docs')
+                    )),
+                    view('hyde::pages.documentation-search')->render()
+                );
+            }, sprintf('Created <info>_site/%s/search.html</info>',
+                config('docs.output_directory', 'docs')
+            ));
         }
 
         return 0;
-    }
-
-    protected function createSearchPage(): void
-    {
-        $actionTime = microtime(true);
-
-        $this->comment('Generating search page...');
-        file_put_contents(
-            Hyde::path('_site/'.config('docs.output_directory', 'docs').'/search.html'),
-            view('hyde::pages.documentation-search')->render()
-        );
-
-        $this->line(' > Created <info>_site/'.config('docs.output_directory', 'docs').'/search.html</> in '.
-        $this->getExecutionTimeInMs($actionTime)."ms\n");
     }
 
     /** @internal Estimated processing time per file in ms */
@@ -77,10 +68,5 @@ class HydeBuildSearchCommand extends Command
     protected function guesstimateGenerationTime(): int|float
     {
         return (int) round(count(DiscoveryService::getDocumentationPageFiles()) * static::$guesstimationFactor) / 1000;
-    }
-
-    protected function getExecutionTimeInMs(float $timeStart): string
-    {
-        return number_format(((microtime(true) - $timeStart) * 1000), 2);
     }
 }

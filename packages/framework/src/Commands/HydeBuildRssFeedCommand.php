@@ -2,17 +2,17 @@
 
 namespace Hyde\Framework\Commands;
 
+use Hyde\Framework\Concerns\ActionCommand;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RssFeedService;
-use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde Command to run the Build Process for the RSS Feed.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildRssFeedCommandTest
  */
-class HydeBuildRssFeedCommand extends Command
+class HydeBuildRssFeedCommand extends ActionCommand
 {
     /**
      * The signature of the command.
@@ -35,32 +35,19 @@ class HydeBuildRssFeedCommand extends Command
      */
     public function handle(): int
     {
-        /** @var float $actionTime */
-        $actionTime = microtime(true);
-
         if (! Features::rss()) {
             $this->error('Cannot generate an RSS feed, please check your configuration.');
 
             return 1;
         }
 
-        $this->comment('Generating RSS feed...');
-
-        file_put_contents(
-            Hyde::getSiteOutputPath(RssFeedService::getDefaultOutputFilename()),
-            RssFeedService::generateFeed()
-        );
-
-        $this->line(sprintf(" > Created <info>%s</info> in %sms\n",
-            RssFeedService::getDefaultOutputFilename(),
-            $this->getExecutionTimeInMs($actionTime)
-        ));
+        $this->action('Generating RSS feed', function () {
+            file_put_contents(
+                Hyde::getSiteOutputPath(RssFeedService::getDefaultOutputFilename()),
+                RssFeedService::generateFeed()
+            );
+        }, sprintf('Created <info>%s</info>', RssFeedService::getDefaultOutputFilename()));
 
         return 0;
-    }
-
-    protected function getExecutionTimeInMs(float $timeStart): string
-    {
-        return number_format(((microtime(true) - $timeStart) * 1000), 2);
     }
 }

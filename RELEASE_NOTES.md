@@ -24,6 +24,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 - Improved ConvertsArrayToFrontMatter action, which now supports nested arrays
 - An exception is now thrown when attempting to get the path to an Image without a defined source path or URI
 - internal: The HydeKernel is now stored as a singleton within the kernel class, instead of the service container
+- internal: Refactor commands with shared code to extend new abstract base class
 
 ### Deprecated
 - Deprecated interface RoutingServiceContract
