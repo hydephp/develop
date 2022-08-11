@@ -10,7 +10,7 @@ class SearchIndexBenchmark extends BenchCase
      * Results history:
      * - #5555b676b: 26.75ms (with xdebug)
      * - #2d73931ad: 19.41ms (with xdebug)
-     * - #fd90ee987: 10.0887394ms
+     * - #fd90ee987: 10.0887394ms.
      */
     public function testBuildSearchIndexCommandNoFiles()
     {
@@ -26,7 +26,7 @@ class SearchIndexBenchmark extends BenchCase
      * Results history:
      * - #5555b676b: 120.45ms (with xdebug)
      * - #2d73931ad: 105.91ms (with xdebug)
-     * - #fd90ee987: 36.29438877ms
+     * - #fd90ee987: 36.29438877ms.
      */
     public function testBuildSearchIndexCommandWithFiles()
     {
