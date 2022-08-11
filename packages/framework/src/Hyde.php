@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework;
 
-use Illuminate\Support\Facades\Facade;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Features;
+use Illuminate\Support\Facades\Facade;
 
 /**
  * General facade for Hyde services.
