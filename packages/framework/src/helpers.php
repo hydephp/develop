@@ -37,8 +37,8 @@ if (! function_exists('array_map_unique')) {
      *
      * Unlike array_unique, keys are reset.
      *
-     * @param array|\Illuminate\Contracts\Support\Arrayable $array
-     * @param callable $callback
+     * @param  array|\Illuminate\Contracts\Support\Arrayable  $array
+     * @param  callable  $callback
      * @return array
      */
     function array_map_unique(array|Arrayable $array, callable $callback): array
