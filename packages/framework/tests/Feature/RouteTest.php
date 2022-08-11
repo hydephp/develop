@@ -216,4 +216,13 @@ class RouteTest extends TestCase
     {
         $this->assertEquals(Route::get('index'), Route::home());
     }
+
+    public function test_to_array_method()
+    {
+        $this->assertEquals([
+            'routeKey' => 'foo',
+            'sourceModelPath' => '_pages/foo.md',
+            'sourceModelType' => MarkdownPage::class,
+        ], (new MarkdownPage('foo'))->getRoute()->toArray());
+    }
 }
