@@ -43,7 +43,7 @@ class RssFeedService
         return $this;
     }
 
-    public function getXML(): string|false
+    public function getXML(): string|bool
     {
         return $this->feed->asXML();
     }
