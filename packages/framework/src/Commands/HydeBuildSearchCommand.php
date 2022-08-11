@@ -49,12 +49,12 @@ class HydeBuildSearchCommand extends ActionCommand
         if (config('docs.create_search_page', true)) {
             $this->action('Generating search page', function () {
                 file_put_contents(
-                    Hyde::path(sprintf("_site/%s/search.html",
+                    Hyde::path(sprintf('_site/%s/search.html',
                         config('docs.output_directory', 'docs')
                     )),
                     view('hyde::pages.documentation-search')->render()
                 );
-            }, sprintf("Created <info>_site/%s/search.html</info>",
+            }, sprintf('Created <info>_site/%s/search.html</info>',
                 config('docs.output_directory', 'docs')
             ));
         }
