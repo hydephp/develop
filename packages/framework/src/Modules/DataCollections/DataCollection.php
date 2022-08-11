@@ -51,7 +51,7 @@ class DataCollection extends Collection
      * @param  string  $key  for a subdirectory of the _data directory
      * @return DataCollection<\Hyde\Framework\Models\MarkdownDocument>
      */
-    public static function markdown(string $key): DataCollection
+    public static function markdown(string $key): static
     {
         $collection = new DataCollection($key);
         foreach ($collection->getMarkdownFiles() as $file) {
