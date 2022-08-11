@@ -31,9 +31,7 @@ class HydeServeCommand extends Command
      */
     public function handle(): int
     {
-        $this->line('<info>Starting the server...</info> Press Ctrl+C to stop');
-
-        $this->warn('Running experimental HydeRC 2.0. Please report any issues on GitHub.');
+        $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
 
         $port = $this->option('port');
         $host = $this->option('host');
