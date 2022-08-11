@@ -445,7 +445,7 @@ class AbstractPageTest extends TestCase
 
     public function test_navigation_menu_priority_returns_100_for_documentation_page()
     {
-        $page = DocumentationPage::make('foo');
+        $page = DocumentationPage::make('index');
         $this->assertEquals(100, $page->navigationMenuPriority());
     }
 
@@ -453,12 +453,6 @@ class AbstractPageTest extends TestCase
     {
         $page = MarkdownPage::make('index');
         $this->assertEquals(0, $page->navigationMenuPriority());
-    }
-
-    public function test_navigation_menu_priority_does_not_return_0_if_slug_is_index_but_model_is_documentation_page()
-    {
-        $page = DocumentationPage::make('index');
-        $this->assertEquals(100, $page->navigationMenuPriority());
     }
 
     public function test_navigation_menu_priority_returns_10_if_slug_is_posts()
@@ -513,6 +507,13 @@ class AbstractPageTest extends TestCase
     {
         $page = MarkdownPage::make('foo');
         $this->assertEquals('Foo', $page->navigationMenuTitle());
+    }
+
+    public function test_documentation_page_can_be_hidden_from_navigation_using_config()
+    {
+        config(['hyde.navigation.exclude' => ['docs/index']]);
+        $page = DocumentationPage::make('index');
+        $this->assertFalse($page->showInNavigation());
     }
 
     public function test_get_canonical_url_returns_url_for_top_level_page()
