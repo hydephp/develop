@@ -131,7 +131,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     }
 
     /** @inheritDoc */
-    public static function all(): Collection
+    public static function all(): \Hyde\Framework\RouteCollection
     {
         return RoutingService::getInstance()->getRoutes();
     }
