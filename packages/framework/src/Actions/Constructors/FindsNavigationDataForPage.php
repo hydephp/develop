@@ -8,6 +8,8 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
+ * Finds the appropriate navigation data for a page.
+ *
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 class FindsNavigationDataForPage
@@ -32,6 +34,9 @@ class FindsNavigationDataForPage
         ];
     }
 
+    /**
+     * Note that this also affects the documentation sidebar titles.
+     */
     protected function getNavigationMenuTitle(): string
     {
         if ($this->page->matter('navigation.title') !== null) {
