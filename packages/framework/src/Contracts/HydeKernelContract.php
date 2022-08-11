@@ -8,8 +8,8 @@ namespace Hyde\Framework\Contracts;
  *
  * @see \Hyde\Framework\HydeKernel
  *
- * It is bound into the Laravel Application Service Container,
- * and can be accessed in a few ways.
+ * It is stored as a singleton in the HydeKernel class, and is bound into the
+ * Laravel Application Service Container, and can be accessed in a few ways.
  *
  * - Commonly, you'll use the Hyde facade:
  * @see \Hyde\Framework\Hyde (previosly this namespace contained the actual Kernel)
