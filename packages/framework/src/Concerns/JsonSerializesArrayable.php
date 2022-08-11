@@ -9,4 +9,7 @@ trait JsonSerializesArrayable
     {
         return $this->toArray();
     }
+
+    /** @inheritDoc */
+    abstract public function toArray();
 }
