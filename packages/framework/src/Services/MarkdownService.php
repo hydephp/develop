@@ -30,9 +30,6 @@ class MarkdownService
     protected string $html;
     protected array $features = [];
 
-    protected bool $useTorchlight;
-    protected bool $torchlightAttribution;
-
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
         $this->sourceModel = $sourceModel;
