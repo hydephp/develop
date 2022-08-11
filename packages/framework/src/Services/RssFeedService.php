@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection PhpComposerExtensionStubsInspection */
+/** @noinspection XmlUnusedNamespaceDeclaration */
 
 namespace Hyde\Framework\Services;
 
