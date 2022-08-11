@@ -19,7 +19,7 @@ class FindsContentLengthForImageObjectTest extends TestCase
     public function test_image_helper_shorthand_returns_content_length()
     {
         $this->assertIsInt(
-            (new Image())->getContentLength()
+            (new Image(['path' => 'foo']))->getContentLength()
         );
     }
 
