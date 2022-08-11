@@ -69,4 +69,12 @@ interface RouteFacadeContract
      * Get the home route, usually the index page route.
      */
     public static function home(): RouteContract;
+
+    /**
+     * Determine if the supplied route key exists in the route index.
+     *
+     * @param  string  $routeKey
+     * @return bool
+     */
+    public static function exists(string $routeKey): bool;
 }

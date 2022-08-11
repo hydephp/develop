@@ -48,12 +48,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Hyde extends Facade
 {
-    /** @psalm-return HydeKernel::class */
-    protected static function getFacadeAccessor(): string
-    {
-        return HydeKernel::class;
-    }
-
     public static function version(): string
     {
         return HydeKernel::version();

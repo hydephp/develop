@@ -197,4 +197,29 @@ class HydeKernelTest extends TestCase
     {
         $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('foo')));
     }
+
+    public function test_to_array_method()
+    {
+        $array = Hyde::toArray();
+
+        $this->assertTrue(is_array($array));
+        $this->assertCount(4, $array);
+
+        $this->assertArrayHasKey('basePath', $array);
+        $this->assertArrayHasKey('features', $array);
+        $this->assertArrayHasKey('pages', $array);
+        $this->assertArrayHasKey('routes', $array);
+
+        $this->assertEquals(Hyde::getBasePath(), $array['basePath']);
+        $this->assertEquals(Hyde::features(), $array['features']);
+        $this->assertEquals(Hyde::pages(), $array['pages']);
+        $this->assertEquals(Hyde::routes(), $array['routes']);
+
+        $this->assertEquals([
+            'basePath' => Hyde::getBasePath(),
+            'features' => Hyde::features(),
+            'pages' => Hyde::pages(),
+            'routes' => Hyde::routes(),
+        ], Hyde::toArray());
+    }
 }

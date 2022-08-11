@@ -41,6 +41,12 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     }
 
     /** @inheritDoc */
+    public function __toString(): string
+    {
+        return $this->getLink();
+    }
+
+    /** @inheritDoc */
     public function toArray()
     {
         return [
@@ -48,6 +54,12 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
             'sourceModelPath' => $this->sourceModel->getSourcePath(),
             'sourceModelType' => $this->sourceModel::class,
         ];
+    }
+
+    /** @inheritDoc */
+    public function getLink(): string
+    {
+        return Hyde::relativeLink($this->getOutputFilePath());
     }
 
     /** @inheritDoc */
@@ -84,18 +96,6 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     public function getQualifiedUrl(): string
     {
         return Hyde::url($this->getOutputFilePath());
-    }
-
-    /** @inheritDoc */
-    public function getLink(): string
-    {
-        return Hyde::relativeLink($this->getOutputFilePath());
-    }
-
-    /** @inheritDoc */
-    public function __toString(): string
-    {
-        return $this->getLink();
     }
 
     /** @deprecated Use the route key property */
@@ -148,7 +148,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
         return static::getFromKey('index');
     }
 
-    /** @todo add to contract */
+    /** @inheritDoc */
     public static function exists(string $routeKey): bool
     {
         return RoutingService::getInstance()->getRoutes()->has($routeKey);
