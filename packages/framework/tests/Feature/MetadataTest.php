@@ -400,7 +400,7 @@ class MetadataTest extends TestCase
     public function test_does_not_add_title_property_when_title_is_not_set_in_post()
     {
         $page = new MarkdownPost();
-        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:title" content="My Title">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:title"');
     }
 
     public function test_adds_published_time_property_when_date_is_set_in_post()
