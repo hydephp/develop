@@ -5,10 +5,10 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\RouteContract as Route;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\RouteCollection;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -67,7 +67,10 @@ class BuildService
         $this->newLine(2);
     }
 
-    protected function getDiscoveredModels(): Collection
+    /**
+     * @return \Hyde\Framework\RouteCollection<array-key, class-string<\Hyde\Framework\Contracts\PageContract>>
+     */
+    protected function getDiscoveredModels(): RouteCollection
     {
         return $this->router->getRoutes()->map(function (Route $route) {
             return $route->getPageType();
@@ -88,6 +91,9 @@ class BuildService
         $this->newLine(2);
     }
 
+    /**
+     * @return \Closure(Route):string
+     */
     protected function compileRoute(): \Closure
     {
         return function (Route $route) {

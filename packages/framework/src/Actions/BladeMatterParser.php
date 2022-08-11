@@ -111,7 +111,7 @@ class BladeMatterParser
     }
 
     /** @internal Return the proper type for the string */
-    public static function normalizeValue($value): mixed
+    public static function normalizeValue(string $value): mixed
     {
         $value = trim($value);
 

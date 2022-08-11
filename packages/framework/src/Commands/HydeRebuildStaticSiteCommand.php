@@ -122,7 +122,7 @@ class HydeRebuildStaticSiteCommand extends Command
         $this->error('Something went wrong!');
         $this->warn($exception->getMessage());
 
-        return $exception->getCode();
+        return (int) $exception->getCode();
     }
 
     /**

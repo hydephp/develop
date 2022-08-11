@@ -37,7 +37,8 @@ class SourceFileParser
 
     protected function parseBladePage(): BladePage
     {
-        return new BladePage($this->identifier,
+        return new BladePage(
+            $this->identifier,
             (BladeMatterParser::parseFile(BladePage::qualifyBasename($this->identifier)))
         );
     }

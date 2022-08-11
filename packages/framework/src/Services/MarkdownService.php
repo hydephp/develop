@@ -213,8 +213,8 @@ class MarkdownService
     protected function injectTorchlightAttribution(): string
     {
         return '<br>'.$this->converter->convert(config(
-                'torchlight.attribution.markdown',
-                'Syntax highlighted by torchlight.dev'
-            ));
+            'torchlight.attribution.markdown',
+            'Syntax highlighted by torchlight.dev'
+        ));
     }
 }

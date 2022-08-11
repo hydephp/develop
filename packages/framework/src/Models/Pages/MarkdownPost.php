@@ -38,11 +38,14 @@ class MarkdownPost extends AbstractMarkdownPage
     }
 
     /** @deprecated v0.58.x-beta (pull description instead) */
-    public function getPostDescription(): string
+    public function getPostDescription(): string|null
     {
         return $this->description;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Models\Pages\MarkdownPost>
+     */
     public static function getLatestPosts(): Collection
     {
         return static::all()->sortByDesc('matter.date');
