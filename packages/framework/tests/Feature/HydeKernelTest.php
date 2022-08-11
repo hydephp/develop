@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\View;
  * as most of the logic actually resides in linked service classes.
  *
  * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Framework\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
  */
@@ -44,6 +45,18 @@ class HydeKernelTest extends TestCase
     public function test_kernel_singleton_can_be_accessed_by_helper_function()
     {
         $this->assertSame(app(HydeKernelContract::class), hyde());
+    }
+
+    public function test_hyde_facade_version_method_returns_kernel_version()
+    {
+        $this->assertSame(HydeKernel::version(), Hyde::version());
+    }
+
+    public function test_hyde_facade_get_facade_root_method_returns_kernel_singleton()
+    {
+        $this->assertSame(app(HydeKernelContract::class), Hyde::getFacadeRoot());
+        $this->assertSame(HydeKernel::getInstance(), Hyde::getFacadeRoot());
+        $this->assertSame(Hyde::getInstance(), Hyde::getFacadeRoot());
     }
 
     public function test_features_helper_returns_new_features_instance()
