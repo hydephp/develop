@@ -79,6 +79,8 @@ class FindsContentLengthForImageObject implements ActionContract
 
     protected function write(string $string): void
     {
-        $this->output->writeln($string);
+        if (! app()->environment('testing')) {
+            $this->output->writeln($string);
+        }
     }
 }
