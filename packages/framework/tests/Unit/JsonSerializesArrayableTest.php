@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
  */
 class JsonSerializesArrayableTest extends TestCase
 {
-    public function testJsonSerialize()
+    public function test_json_serialize()
     {
         $class = new class implements \JsonSerializable {
             use JsonSerializesArrayable;
