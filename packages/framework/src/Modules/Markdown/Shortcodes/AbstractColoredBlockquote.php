@@ -37,6 +37,9 @@ abstract class AbstractColoredBlockquote implements MarkdownShortcodeContract
         return str_replace('>', '', $signature);
     }
 
+    /**
+     * @return array (AbstractColoredBlockquote)[]
+     */
     public static function get(): array
     {
         return [

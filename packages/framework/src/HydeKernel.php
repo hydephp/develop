@@ -74,7 +74,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         return $this->basePath;
     }
 
-    public function setBasePath(string $basePath)
+    public function setBasePath(string $basePath): void
     {
         $this->basePath = rtrim($basePath, '/\\');
     }
