@@ -35,6 +35,7 @@ class HydeBuildRssFeedCommand extends Command
      */
     public function handle(): int
     {
+        /** @var float $actionTime */
         $actionTime = microtime(true);
 
         if (! $this->runPreflightCheck()) {
