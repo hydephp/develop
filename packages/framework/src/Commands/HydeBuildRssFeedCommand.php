@@ -40,6 +40,7 @@ class HydeBuildRssFeedCommand extends Command
 
         if (! Features::rss()) {
             $this->error('Cannot generate an RSS feed, please check your configuration.');
+
             return 1;
         }
 
