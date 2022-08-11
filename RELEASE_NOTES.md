@@ -23,6 +23,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 - AbstractPage::all() now returns a PageCollection, and includes the source file path as the array key
 - Improved ConvertsArrayToFrontMatter action, which now supports nested arrays
 - internal: The HydeKernel is now stored as a singleton within the kernel class, instead of the service container
+- internal: Refactor commands with shared code to extend new abstract base class
 
 ### Deprecated
 - Deprecated interface RoutingServiceContract
