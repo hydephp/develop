@@ -43,6 +43,9 @@ class MarkdownPost extends AbstractMarkdownPage
         return $this->description;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Models\Pages\MarkdownPost>
+     */
     public static function getLatestPosts(): Collection
     {
         return static::all()->sortByDesc('matter.date');
