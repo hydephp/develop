@@ -51,18 +51,19 @@ class MetadataViewTest extends TestCase
 
     protected function assertAllTagsWereCovered(string $page, array $tags): void
     {
-        $haystack = file_get_contents(Hyde::path("_site/$page.html"));
-        $links = substr_count($haystack, '<link');
-        $meta = substr_count($haystack, '<meta');
-
-        $haystack = json_encode($tags);
-        $actualLinks = substr_count($haystack, '<link');
-        $actualMeta = substr_count($haystack, '<meta');
+        $expected = file_get_contents(Hyde::path("_site/$page.html"));
+        $actual = json_encode($tags);
 
         $this->assertEquals(
-            $links + $meta,
-            $actualLinks + $actualMeta,
-            "Failed asserting that all tags were covered in the page '$page'"
+            substr_count($expected, '<meta'),
+            substr_count($actual, '<meta'),
+            "Failed asserting that all meta tags were covered in the page '$page'"
+        );
+
+        $this->assertEquals(
+            substr_count($expected, '<link'),
+            substr_count($actual, '<link'),
+            "Failed asserting that all link tags were covered in the page '$page'"
         );
     }
 
@@ -137,7 +138,8 @@ class MetadataViewTest extends TestCase
             '<link rel="stylesheet" href="../media/app.css">',
             '<link rel="canonical" href="http://localhost/posts/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
-            '<meta property="og:title" content="Test">',
+            '<meta name="url" content="http://localhost/posts/test.html">',
+            '<meta property="og:title" content="HydePHP - Test">',
             '<meta property="og:url" content="http://localhost/posts/test.html">',
             '<meta property="og:type" content="article">',
             '<meta itemprop="identifier" content="test">',
@@ -175,7 +177,8 @@ class MetadataViewTest extends TestCase
             '<meta name="description" content="My description">',
             '<meta name="author" content="Mr. Hyde">',
             '<meta name="keywords" content="My category">',
-            '<meta property="og:title" content="My title">',
+            '<meta name="url" content="http://localhost/posts/test.html">',
+            '<meta property="og:title" content="HydePHP - My title">',
             '<meta property="og:url" content="http://localhost/posts/test.html">',
             '<meta property="og:type" content="article">',
             '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">',

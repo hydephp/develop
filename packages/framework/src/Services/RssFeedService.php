@@ -44,9 +44,9 @@ class RssFeedService
         return $this;
     }
 
-    public function getXML(): string|bool
+    public function getXML(): string
     {
-        return $this->feed->asXML();
+        return (string) $this->feed->asXML();
     }
 
     protected function addItem(MarkdownPost $post): void

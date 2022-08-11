@@ -76,40 +76,34 @@ class Metadata
             ]));
         }
 
-        if ($this->page->has('canonicalUrl')) {
-            $this->add(Meta::link('canonical', $this->page->get('canonicalUrl')));
+        $this->addDynamicPageMetadata($this->page);
+    }
+
+    protected function addDynamicPageMetadata(AbstractPage $page): void
+    {
+        if ($page->has('canonicalUrl')) {
+            $this->add(Meta::link('canonical', $page->get('canonicalUrl')));
         }
 
-        if ($this->page->has('title')) {
-            $this->add(Meta::name('twitter:title', $this->page->htmlTitle()));
-            $this->add(Meta::property('title', $this->page->htmlTitle()));
+        if ($page->has('title')) {
+            $this->add(Meta::name('twitter:title', $page->htmlTitle()));
+            $this->add(Meta::property('title', $page->htmlTitle()));
         }
 
-        if ($this->page instanceof MarkdownPost) {
-            $this->addMetadataForMarkdownPost($this->page);
+        if ($page instanceof MarkdownPost) {
+            $this->addMetadataForMarkdownPost($page);
         }
     }
 
     protected function addMetadataForMarkdownPost(MarkdownPost $page): void
     {
-        if ($page->has('description')) {
-            $this->add(Meta::name('description', $page->get('description')));
-        }
-
-        if ($page->has('author')) {
-            $this->add(Meta::name('author', $page->get('author')));
-        }
-
-        if ($page->has('category')) {
-            $this->add(Meta::name('keywords', $page->get('category')));
-        }
+        $this->addPostMetadataIfExists($page, 'description');
+        $this->addPostMetadataIfExists($page, 'author');
+        $this->addPostMetadataIfExists($page, 'category', 'keywords');
+        $this->addPostMetadataIfExists($page, 'canonicalUrl', 'url');
 
         if ($page->has('canonicalUrl')) {
             $this->add(Meta::property('url', $page->get('canonicalUrl')));
-        }
-
-        if ($page->has('title')) {
-            $this->add(Meta::property('title', $page->get('title')));
         }
 
         if ($page->has('date')) {
@@ -121,6 +115,13 @@ class Metadata
         }
 
         $this->add(Meta::property('type', 'article'));
+    }
+
+    protected function addPostMetadataIfExists(MarkdownPost $page, string $property, ?string $name = null): void
+    {
+        if ($page->has($property)) {
+            $this->add(Meta::name($name ?? $property, $page->get($property)));
+        }
     }
 
     protected function getPrefixedArray(string $group): array

@@ -15,6 +15,7 @@ class PageParserBenchmark extends BenchCase
      * Results history:
      * - #14c34beb1: 0.17022841ms.
      * - #0db04eaef: 0.2702086ms.
+     * - #fd90ee987: 0.28220031ms.
      */
     public function testParseBladePageFile()
     {
@@ -34,6 +35,7 @@ class PageParserBenchmark extends BenchCase
      * Results history:
      * - #8e165366a: 0.1986541ms.
      * - #0db04eaef: 0.29952221ms.
+     * - #fd90ee987: 0.30080938ms.
      */
     public function testParseMarkdownPageFile()
     {
@@ -53,6 +55,7 @@ class PageParserBenchmark extends BenchCase
      * Results history:
      * - #5d044679b: 0.30337441ms.
      * - #0db04eaef: 0.39583502ms.
+     * - #fd90ee987: 0.41671791ms.
      */
     public function testParseMarkdownPostFile()
     {
@@ -72,6 +75,7 @@ class PageParserBenchmark extends BenchCase
      * Results history:
      * - #6f63f5016: 0.16660199ms.
      * - #0db04eaef: 0.2729635ms.
+     * - #fd90ee987: 0.27649839ms.
      */
     public function testParseDocumentationPageFile()
     {
