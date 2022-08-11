@@ -186,7 +186,7 @@ Hyde makes an effort to organize the menu items in a sensible way. Putting your 
     'order' => [
         'index' => 0, // _pages/index.md (or .blade.php)
         'posts' => 10, // _pages/posts.md (or .blade.php)
-        'docs' => 100, // _docs/index.md
+        'docs/index' => 100, // _docs/index.md
     ]
 ]
 ```
