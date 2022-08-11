@@ -67,6 +67,9 @@ class BuildService
         $this->newLine(2);
     }
 
+    /**
+     * @return \Hyde\Framework\RouteCollection<array-key, class-string<\Hyde\Framework\Contracts\PageContract>>
+     */
     protected function getDiscoveredModels(): Collection
     {
         return $this->router->getRoutes()->map(function (Route $route) {
@@ -88,6 +91,9 @@ class BuildService
         $this->newLine(2);
     }
 
+    /**
+     * @return \Closure(Route):string
+     */
     protected function compileRoute(): \Closure
     {
         return function (Route $route) {
