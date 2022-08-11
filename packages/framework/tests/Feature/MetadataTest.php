@@ -385,6 +385,12 @@ class MetadataTest extends TestCase
         $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
     }
 
+    public function test_does_not_add_url_property_when_canonical_url_is_null()
+    {
+        $page = MarkdownPost::make(matter: ['canonicalUrl' => null]);
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
+    }
+
     public function test_adds_title_property_when_title_is_set_in_post()
     {
         $page = MarkdownPost::make(matter: ['title' => 'My Title']);

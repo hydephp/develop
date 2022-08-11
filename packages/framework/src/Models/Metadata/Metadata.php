@@ -77,7 +77,7 @@ class Metadata
         }
 
         if ($this->page->has('canonicalUrl')) {
-            $this->add(Meta::link('canonical', $this->page->canonicalUrl));
+            $this->add(Meta::link('canonical', $this->page->get('canonicalUrl')));
         }
 
         if ($this->page->has('title')) {
