@@ -125,10 +125,17 @@ return [
     'navigation' => [
         // This configuration sets the priorities used to determine the order of the menu.
         // The default values have been added below for reference and easy editing.
+        // The array key should match the page's route key (slug).
         'order' => [
             'index' => 0,
             'posts' => 10,
-            'docs' => 100,
+            'docs/index' => 100,
+        ],
+
+        // In case you want to customize the labels for the menu items, you can do so here.
+        'labels' => [
+            // 'index' => 'Start',
+            // 'docs/index' => 'Documentation',
         ],
 
         // These are the pages that should not show up in the navigation menu.

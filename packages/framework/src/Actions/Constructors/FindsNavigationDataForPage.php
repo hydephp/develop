@@ -2,12 +2,16 @@
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * Finds the appropriate navigation data for a page.
+ *
+ * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
+ */
 class FindsNavigationDataForPage
 {
     #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
@@ -30,6 +34,9 @@ class FindsNavigationDataForPage
         ];
     }
 
+    /**
+     * Note that this also affects the documentation sidebar titles.
+     */
     protected function getNavigationMenuTitle(): string
     {
         if ($this->page->matter('navigation.title') !== null) {
@@ -44,11 +51,7 @@ class FindsNavigationDataForPage
             return config('hyde.navigation.labels.home', 'Home');
         }
 
-        if ($this->page->matter('title') !== null) {
-            return $this->page->matter('title');
-        }
-
-        return $this->page->title;
+        return $this->page->matter('title') ?? $this->page->title;
     }
 
     protected function getNavigationMenuVisible(): bool
@@ -61,10 +64,8 @@ class FindsNavigationDataForPage
             return $this->page->identifier === 'index' && ! in_array($this->page->routeKey, config('hyde.navigation.exclude', []));
         }
 
-        if ($this->page instanceof AbstractMarkdownPage) {
-            if ($this->page->matter('navigation.hidden', false)) {
-                return false;
-            }
+        if ($this->page->matter('navigation.hidden', false)) {
+            return false;
         }
 
         if (in_array($this->page->identifier, config('hyde.navigation.exclude', ['404']))) {
@@ -76,10 +77,8 @@ class FindsNavigationDataForPage
 
     protected function getNavigationMenuPriority(): int
     {
-        if ($this->page instanceof AbstractMarkdownPage) {
-            if ($this->page->matter('navigation.priority') !== null) {
-                return $this->page->matter('navigation.priority');
-            }
+        if ($this->page->matter('navigation.priority') !== null) {
+            return $this->page->matter('navigation.priority');
         }
 
         if (array_key_exists($this->page->routeKey, config('hyde.navigation.order', []))) {

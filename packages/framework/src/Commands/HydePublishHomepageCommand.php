@@ -55,6 +55,7 @@ class HydePublishHomepageCommand extends Command
 
     protected function promptForHomepage(): string
     {
+        /** @var string $choice */
         $choice = $this->choice(
             'Which homepage do you want to publish?',
             $this->formatPublishableChoices(),

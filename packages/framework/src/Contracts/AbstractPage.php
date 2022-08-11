@@ -107,7 +107,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public function get(string $key = null, mixed $default = null): mixed
     {
-        if (property_exists($this, $key) && isset($this->$key)) {
+        if ($key !== null && property_exists($this, $key) && isset($this->$key)) {
             return $this->$key;
         }
 
@@ -145,7 +145,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public function getOutputPath(): string
     {
-        return static::getCurrentPagePath().'.html';
+        return $this->getCurrentPagePath().'.html';
     }
 
     /** @inheritDoc */

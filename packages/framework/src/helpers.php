@@ -1,16 +1,15 @@
 <?php
 
 use Hyde\Framework\Contracts\HydeKernelContract;
-use Hyde\Framework\HydeKernel;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
 
 if (! function_exists('hyde')) {
     /**
      * Get the available HydeKernel instance.
      *
-     * @return \Hyde\Framework\HydeKernel
+     * @return \Hyde\Framework\Contracts\HydeKernelContract
      */
-    function hyde(): HydeKernel
+    function hyde(): HydeKernelContract
     {
         return app(HydeKernelContract::class);
     }
@@ -38,13 +37,13 @@ if (! function_exists('array_map_unique')) {
      *
      * Unlike array_unique, keys are reset.
      *
-     * @param  array|\Illuminate\Support\Collection  $array  $array
+     * @param  array|\Illuminate\Contracts\Support\Arrayable  $array
      * @param  callable  $callback
      * @return array
      */
-    function array_map_unique(array|Collection $array, callable $callback): array
+    function array_map_unique(array|Arrayable $array, callable $callback): array
     {
-        if ($array instanceof Collection) {
+        if ($array instanceof Arrayable) {
             $array = $array->toArray();
         }
 

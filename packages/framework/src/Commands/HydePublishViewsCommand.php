@@ -41,11 +41,12 @@ class HydePublishViewsCommand extends Command
 
         $to = (PublishesHydeViews::$options[$selected]['destination']);
 
-        $this->line('<info>Copied</info> ['."<comment>$from</comment>".'] <info>to</info> ['."<comment>$to</comment>".']');
+        $this->line("<info>Copied</info> [<comment>$from</comment>] <info>to</info> [<comment>$to</comment>]");
     }
 
     protected function promptForCategory(): string
     {
+        /** @var string $choice */
         $choice = $this->choice(
             'Which category do you want to publish?',
             $this->formatPublishableChoices(),
@@ -54,8 +55,10 @@ class HydePublishViewsCommand extends Command
 
         $choice = $this->parseChoiceIntoKey($choice);
 
-        $this->line('<info>Selected category</info> [<comment>'.(empty($choice) ? 'all' : $choice).'</comment>]');
-        $this->newLine();
+        $this->line(sprintf(
+            "<info>Selected category</info> [<comment>%s</comment>]\n",
+            empty($choice) ? 'all' : $choice
+        ));
 
         return $choice;
     }
