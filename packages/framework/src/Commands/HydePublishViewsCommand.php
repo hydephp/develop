@@ -56,10 +56,9 @@ class HydePublishViewsCommand extends Command
         $choice = $this->parseChoiceIntoKey($choice);
 
         $this->line(sprintf(
-            '<info>Selected category</info> [<comment>%s</comment>]',
+            "<info>Selected category</info> [<comment>%s</comment>]\n",
             empty($choice) ? 'all' : $choice
         ));
-        $this->newLine();
 
         return $choice;
     }
