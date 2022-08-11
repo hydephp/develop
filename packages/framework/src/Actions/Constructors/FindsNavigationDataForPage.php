@@ -58,7 +58,7 @@ class FindsNavigationDataForPage
         }
 
         if ($this->page instanceof DocumentationPage) {
-            return $this->page->identifier === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
+            return $this->page->identifier === 'index' && ! in_array($this->page->routeKey, config('hyde.navigation.exclude', []));
         }
 
         if ($this->page instanceof AbstractMarkdownPage) {

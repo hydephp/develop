@@ -509,6 +509,13 @@ class AbstractPageTest extends TestCase
         $this->assertEquals('Foo', $page->navigationMenuTitle());
     }
 
+    public function test_documentation_page_can_be_hidden_from_navigation_using_config()
+    {
+        config(['hyde.navigation.exclude' => ['docs/index']]);
+        $page = DocumentationPage::make('index');
+        $this->assertFalse($page->showInNavigation());
+    }
+
     public function test_get_canonical_url_returns_url_for_top_level_page()
     {
         config(['site.url' => 'https://example.com']);

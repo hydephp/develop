@@ -61,3 +61,5 @@ This change is breaking as it requires the configuration to be updated. However,
 	],
 ],
 ```
+
+If you have used the config to hide the documentation page from the navigation menu, you also need to use the route key by changing `'exclude' => ['docs']` to `'exclude' => ['docs/index']`.
