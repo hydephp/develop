@@ -73,7 +73,7 @@ interface RouteFacadeContract
     /**
      * Determine if the supplied route key exists in the route index.
      *
-     * @param string $routeKey
+     * @param  string  $routeKey
      * @return bool
      */
     public static function exists(string $routeKey): bool;
