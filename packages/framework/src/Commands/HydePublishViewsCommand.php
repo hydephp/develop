@@ -46,6 +46,7 @@ class HydePublishViewsCommand extends Command
 
     protected function promptForCategory(): string
     {
+        /** @var string $choice */
         $choice = $this->choice(
             'Which category do you want to publish?',
             $this->formatPublishableChoices(),
