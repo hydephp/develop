@@ -27,7 +27,11 @@ namespace Hyde\Framework\Contracts;
  */
 interface HydeKernelContract
 {
-    public function getBasePath(): string;
+    public function boot(): void;
 
+    public static function setInstance(HydeKernelContract $instance): void;
+    public static function getInstance(): HydeKernelContract;
+
+    public function getBasePath(): string;
     public function setBasePath(string $basePath);
 }
