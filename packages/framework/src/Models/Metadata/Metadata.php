@@ -76,17 +76,22 @@ class Metadata
             ]));
         }
 
-        if ($this->page->has('canonicalUrl')) {
-            $this->add(Meta::link('canonical', $this->page->get('canonicalUrl')));
+        $this->addDynamicPageMetadata($this->page);
+    }
+
+    protected function addDynamicPageMetadata(AbstractPage $page): void
+    {
+        if ($page->has('canonicalUrl')) {
+            $this->add(Meta::link('canonical', $page->get('canonicalUrl')));
         }
 
-        if ($this->page->has('title')) {
-            $this->add(Meta::name('twitter:title', $this->page->htmlTitle()));
-            $this->add(Meta::property('title', $this->page->htmlTitle()));
+        if ($page->has('title')) {
+            $this->add(Meta::name('twitter:title', $page->htmlTitle()));
+            $this->add(Meta::property('title', $page->htmlTitle()));
         }
 
-        if ($this->page instanceof MarkdownPost) {
-            $this->addMetadataForMarkdownPost($this->page);
+        if ($page instanceof MarkdownPost) {
+            $this->addMetadataForMarkdownPost($page);
         }
     }
 
