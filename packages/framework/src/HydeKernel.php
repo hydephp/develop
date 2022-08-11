@@ -45,7 +45,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         $this->hyperlinks = new Hyperlinks($this);
     }
 
-    protected function bootKernel(): void
+    public function bootKernel(): void
     {
         $this->booted = true;
         $this->pages = PageCollection::boot();
