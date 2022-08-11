@@ -9,7 +9,6 @@ use Hyde\Framework\RouteCollection;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**

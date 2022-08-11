@@ -68,7 +68,7 @@ final class PageCollection extends Collection
     }
 
     /**
-     * @param class-string<\Hyde\Framework\Contracts\PageContract> $pageClass
+     * @param  class-string<\Hyde\Framework\Contracts\PageContract>  $pageClass
      * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\PageContract>
      */
     protected function parsePagesFor(string $pageClass): Collection
