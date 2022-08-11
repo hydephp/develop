@@ -8,7 +8,8 @@ class MarkdownBenchmark extends BenchCase
 {
     /**
      * Results history:
-     * #f4d8d452b 'avg_iteration_time': '0.42493788ms',.
+     * - #f4d8d452b: 0.42493788ms
+     * - #fd90ee987: 0.09853745ms
      */
     public function testMarkdownParserFacadeShort()
     {
@@ -19,7 +20,8 @@ class MarkdownBenchmark extends BenchCase
 
     /**
      * Results history:
-     * #f4d8d452b 'avg_iteration_time': '2.62538815ms',.
+     * - #f4d8d452b 2.62538815ms
+     * - #fd90ee987: 2.07124043ms
      */
     public function testMarkdownParserFacadeFull()
     {
