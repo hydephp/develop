@@ -64,10 +64,8 @@ class FindsNavigationDataForPage
             return $this->page->identifier === 'index' && ! in_array('docs', config('hyde.navigation.exclude', []));
         }
 
-        if ($this->page instanceof AbstractMarkdownPage) {
-            if ($this->page->matter('navigation.hidden', false)) {
-                return false;
-            }
+        if ($this->page->matter('navigation.hidden', false)) {
+            return false;
         }
 
         if (in_array($this->page->identifier, config('hyde.navigation.exclude', ['404']))) {
@@ -79,10 +77,8 @@ class FindsNavigationDataForPage
 
     protected function getNavigationMenuPriority(): int
     {
-        if ($this->page instanceof AbstractMarkdownPage) {
-            if ($this->page->matter('navigation.priority') !== null) {
-                return $this->page->matter('navigation.priority');
-            }
+        if ($this->page->matter('navigation.priority') !== null) {
+            return $this->page->matter('navigation.priority');
         }
 
         if ($this->page instanceof DocumentationPage) {
