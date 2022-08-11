@@ -131,9 +131,9 @@ class Image implements \Stringable
             : new static(['path' => $image]);
     }
 
-    public function getSource(): ?string
+    public function getSource(): string
     {
-        return $this->uri ?? $this->getPath() ?? null;
+        return $this->uri ?? $this->getPath() ?? throw new \Exception('Attempting to get source from Image that has no source.');
     }
 
     public function getLink(): string

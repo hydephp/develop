@@ -79,11 +79,26 @@ class ImageModelTest extends TestCase
         $this->assertEquals('image.jpg', $image->getSource());
     }
 
-    public function test_get_source_method_returns_null_when_no_source_is_set()
+    public function test_get_source_method_throws_exception_when_no_source_is_set()
     {
         $image = new Image();
 
-        $this->assertNull($image->getSource());
+        $this->expectExceptionMessage('Attempting to get source from Image that has no source.');
+        $image->getSource();
+    }
+
+    public function test_get_source_method_does_not_throw_exception_when_path_is_set()
+    {
+        $image = new Image();
+        $image->path = 'image.jpg';
+        $this->assertEquals('image.jpg', $image->getSource());
+    }
+
+    public function test_get_source_method_does_not_throw_exception_when_uri_is_set()
+    {
+        $image = new Image();
+        $image->uri = 'https://example.com/image.jpg';
+        $this->assertEquals('https://example.com/image.jpg', $image->getSource());
     }
 
     public function test_get_image_author_attribution_string_method()
@@ -163,13 +178,14 @@ class ImageModelTest extends TestCase
         $image = new Image([
             'description' => 'foo',
             'title' => 'bar',
+            'path' => 'image.jpg',
         ]);
 
         $this->assertEquals([
             'text' => 'foo',
             'name' => 'bar',
-            'url' => null,
-            'contentUrl' => null,
+            'url' => 'media/image.jpg',
+            'contentUrl' => 'media/image.jpg',
         ], $image->getMetadataArray());
     }
 
