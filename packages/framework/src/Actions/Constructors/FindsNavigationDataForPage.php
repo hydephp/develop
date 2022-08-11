@@ -38,12 +38,12 @@ class FindsNavigationDataForPage
             return $this->page->matter('navigation.title');
         }
 
-        if ($this->page instanceof DocumentationPage) {
-            return config('hyde.navigation.labels.docs/index', 'Docs');
-        }
-
         if ($this->page->identifier === 'index') {
-            return config('hyde.navigation.labels.index', 'Home');
+            if ($this->page instanceof DocumentationPage) {
+                return config('hyde.navigation.labels.docs', 'Docs');
+            }
+
+            return config('hyde.navigation.labels.home', 'Home');
         }
 
         return $this->page->matter('title') ?? $this->page->title;
