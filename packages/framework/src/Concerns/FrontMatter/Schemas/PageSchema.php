@@ -7,6 +7,9 @@ use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Hyde;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * @package Hyde\Schemas
+ */
 trait PageSchema
 {
     /**

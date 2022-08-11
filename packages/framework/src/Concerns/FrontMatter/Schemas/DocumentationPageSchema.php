@@ -5,6 +5,9 @@ namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Str;
 
+/**
+ * @package Hyde\Schemas
+ */
 trait DocumentationPageSchema
 {
     /**
