@@ -26,6 +26,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 - An exception is now thrown when attempting to get the path to an Image without a defined source path or URI
 - internal: The HydeKernel is now stored as a singleton within the kernel class, instead of the service container
 - internal: Refactor commands with shared code to extend new abstract base class
+- internal: A large part of the codebase has been refactored and cleaned up while making an effort to maintain compatibility with existing code
 
 ### Deprecated
 - Deprecated interface RoutingServiceContract
@@ -64,4 +65,3 @@ This change is breaking as the order of navigation items may be changed unless t
 
 If you have used the config to hide the documentation page from the navigation menu, you also need to use the route key by changing `'exclude' => ['docs']` to `'exclude' => ['docs/index']`.
 The same goes if you have used the config to change the navigation titles for the home and documentation pages.
-
