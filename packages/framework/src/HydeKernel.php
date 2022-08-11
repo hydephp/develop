@@ -52,11 +52,6 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         $this->routes = RouteCollection::boot($this);
     }
 
-    public static function boot(): void
-    {
-        static::getInstance()->bootKernel();
-    }
-
     public static function getInstance(): HydeKernelContract
     {
         return app(HydeKernelContract::class);
