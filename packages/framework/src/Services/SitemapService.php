@@ -44,11 +44,11 @@ class SitemapService
         return $this;
     }
 
-    public function getXML(): string|bool
+    public function getXML(): string
     {
         $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->time_start) * 1000, 2));
 
-        return $this->xmlElement->asXML();
+        return (string) $this->xmlElement->asXML();
     }
 
     public function addRoute(RouteContract $route): void
