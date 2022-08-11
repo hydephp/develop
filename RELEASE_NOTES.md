@@ -22,6 +22,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 - Refactored RoutingService to use the new RouteCollection class
 - AbstractPage::all() now returns a PageCollection, and includes the source file path as the array key
 - Improved ConvertsArrayToFrontMatter action, which now supports nested arrays
+- An exception is now thrown when attempting to get the path to an Image without a defined source path or URI
 - internal: The HydeKernel is now stored as a singleton within the kernel class, instead of the service container
 - internal: Refactor commands with shared code to extend new abstract base class
 
