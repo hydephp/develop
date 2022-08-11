@@ -49,7 +49,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 
 Prior to this release, the navigation menu priorities were based on the page slug. This has been changed to the route key. A route key in Hyde is in short the compiled page's path, relative to the site's root. For example, `_site/foo/bar.html` has the route key `foo/bar`.
 
-This change is breaking as it requires the configuration to be updated. However, this is really easy. Just change `docs` to `docs/index` in the `config/hyde.php` file.
+This change is breaking as the order of navigation items may be changed unless the configuration is updated. However, this is really easy. Just change `docs` to `docs/index` in the `config/hyde.php` file.
 
 ```diff
 'navigation' => [
@@ -63,3 +63,5 @@ This change is breaking as it requires the configuration to be updated. However,
 ```
 
 If you have used the config to hide the documentation page from the navigation menu, you also need to use the route key by changing `'exclude' => ['docs']` to `'exclude' => ['docs/index']`.
+The same goes if you have used the config to change the navigation titles for the home and documentation pages.
+
