@@ -18,6 +18,7 @@ The RoutingService class remains for compatibility with existing code, but now o
 - Added new internal helpers to improve serialization of object models
 
 ### Changed
+- **breaking**: Navigation menu priorities now use route keys instead of slugs, see upgrade notes below
 - Removed constructor from RoutingServiceContract interface
 - Refactored RoutingService to use the new RouteCollection class
 - AbstractPage::all() now returns a PageCollection, and includes the source file path as the array key
@@ -41,3 +42,22 @@ The RoutingService class remains for compatibility with existing code, but now o
 
 ### Security
 - in case of vulnerabilities.
+
+### Upgrade notes
+
+#### Route keys are now used in navigation config
+
+Prior to this release, the navigation menu priorities were based on the page slug. This has been changed to the route key. A route key in Hyde is in short the compiled page's path, relative to the site's root. For example, `_site/foo/bar.html` has the route key `foo/bar`.
+
+This change is breaking as it requires the configuration to be updated. However, this is really easy. Just change `docs` to `docs/index` in the `config/hyde.php` file.
+
+```diff
+'navigation' => [
+	'order' => [
+		'index' => 0,
+		'posts' => 10,
+-		'docs' => 100,
++		'docs/index' => 100,
+	],
+],
+```
