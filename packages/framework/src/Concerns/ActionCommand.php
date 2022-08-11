@@ -18,7 +18,7 @@ abstract class ActionCommand extends Command
 
         $result = $task();
 
-        $this->line(" > $resultMessage in " . $this->getExecutionTimeInMs($actionTime) . "ms");
+        $this->line(" > $resultMessage in ".$this->getExecutionTimeInMs($actionTime).'ms');
 
         return $result;
     }

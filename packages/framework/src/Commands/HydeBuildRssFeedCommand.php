@@ -37,6 +37,7 @@ class HydeBuildRssFeedCommand extends ActionCommand
     {
         if (! Features::rss()) {
             $this->error('Cannot generate an RSS feed, please check your configuration.');
+
             return 1;
         }
 
@@ -45,7 +46,7 @@ class HydeBuildRssFeedCommand extends ActionCommand
                 Hyde::getSiteOutputPath(RssFeedService::getDefaultOutputFilename()),
                 RssFeedService::generateFeed()
             );
-        }, sprintf("Created <info>%s</info>", RssFeedService::getDefaultOutputFilename()));
+        }, sprintf('Created <info>%s</info>', RssFeedService::getDefaultOutputFilename()));
 
         return 0;
     }
