@@ -37,7 +37,7 @@ if (! function_exists('array_map_unique')) {
      *
      * Unlike array_unique, keys are reset.
      *
-     * @param  array|\Illuminate\Support\Collection  $array  $array
+     * @param  array|\Illuminate\Support\Collection  $array
      * @param  callable  $callback
      * @return array
      */
