@@ -82,20 +82,8 @@ class FindsNavigationDataForPage
             }
         }
 
-        if ($this->page instanceof DocumentationPage) {
-            return (int) config('hyde.navigation.order.docs', 100);
-        }
-
-        if ($this->page->identifier === 'index') {
-            return (int) config('hyde.navigation.order.index', 0);
-        }
-
-        if ($this->page->identifier === 'posts') {
-            return (int) config('hyde.navigation.order.posts', 10);
-        }
-
-        if (array_key_exists($this->page->identifier, config('hyde.navigation.order', []))) {
-            return (int) config('hyde.navigation.order.'.$this->page->identifier);
+        if (array_key_exists($this->page->routeKey, config('hyde.navigation.order', []))) {
+            return (int) config('hyde.navigation.order.'.$this->page->routeKey);
         }
 
         return 999;

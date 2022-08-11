@@ -445,7 +445,7 @@ class AbstractPageTest extends TestCase
 
     public function test_navigation_menu_priority_returns_100_for_documentation_page()
     {
-        $page = DocumentationPage::make('foo');
+        $page = DocumentationPage::make('index');
         $this->assertEquals(100, $page->navigationMenuPriority());
     }
 
@@ -453,12 +453,6 @@ class AbstractPageTest extends TestCase
     {
         $page = MarkdownPage::make('index');
         $this->assertEquals(0, $page->navigationMenuPriority());
-    }
-
-    public function test_navigation_menu_priority_does_not_return_0_if_slug_is_index_but_model_is_documentation_page()
-    {
-        $page = DocumentationPage::make('index');
-        $this->assertEquals(100, $page->navigationMenuPriority());
     }
 
     public function test_navigation_menu_priority_returns_10_if_slug_is_posts()
