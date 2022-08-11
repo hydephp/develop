@@ -12,7 +12,7 @@ use Illuminate\Foundation\PackageManifest;
 class HydePackageDiscoverCommand extends BaseCommand
 {
     /** @var true */
-    protected bool $hidden = true;
+    protected $hidden = true;
 
     public function handle(PackageManifest $manifest)
     {
