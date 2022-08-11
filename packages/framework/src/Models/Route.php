@@ -148,7 +148,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
         return static::getFromKey('index');
     }
 
-    /** @todo add to contract */
+    /** @inheritDoc */
     public static function exists(string $routeKey): bool
     {
         return RoutingService::getInstance()->getRoutes()->has($routeKey);
