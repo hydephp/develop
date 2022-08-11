@@ -18,6 +18,12 @@ class HighLevelViewTest extends DuskTestCase
 {
     public $mockConsoleOutput = false;
 
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        sleep(1);
+    }
+
     public function test_welcome_homepage()
     {
         $this->browse(function (Browser $browser) {
