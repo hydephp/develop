@@ -40,13 +40,20 @@ class HydeBuildRssFeedCommand extends Command
 
         if (! Features::rss()) {
             $this->error('Cannot generate an RSS feed, please check your configuration.');
-
             return 1;
         }
 
         $this->comment('Generating RSS feed...');
-        file_put_contents(Hyde::getSiteOutputPath(RssFeedService::getDefaultOutputFilename()), RssFeedService::generateFeed());
-        $this->line(' > Created <info>'.RssFeedService::getDefaultOutputFilename().'</> in '.$this->getExecutionTimeInMs($actionTime)."ms\n");
+
+        file_put_contents(
+            Hyde::getSiteOutputPath(RssFeedService::getDefaultOutputFilename()),
+            RssFeedService::generateFeed()
+        );
+
+        $this->line(sprintf(" > Created <info>%s</info> in %sms\n",
+            RssFeedService::getDefaultOutputFilename(),
+            $this->getExecutionTimeInMs($actionTime)
+        ));
 
         return 0;
     }
