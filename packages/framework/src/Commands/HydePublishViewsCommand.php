@@ -41,7 +41,7 @@ class HydePublishViewsCommand extends Command
 
         $to = (PublishesHydeViews::$options[$selected]['destination']);
 
-        $this->line('<info>Copied</info> ['."<comment>$from</comment>".'] <info>to</info> ['."<comment>$to</comment>".']');
+        $this->line("<info>Copied</info> [<comment>$from</comment>] <info>to</info> [<comment>$to</comment>]");
     }
 
     protected function promptForCategory(): string
