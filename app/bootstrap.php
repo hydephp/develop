@@ -55,6 +55,8 @@ $app->instance(
     Hyde\Framework\Contracts\HydeKernelContract::class, $hyde
 );
 
+Hyde\Framework\HydeKernel::setInstance($hyde);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
