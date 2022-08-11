@@ -40,6 +40,8 @@ The RoutingService class remains for compatibility with existing code, but now o
 - Fix [#385](https://github.com/hydephp/develop/issues/385): `DocumentationPage::home()` did not work for custom documentation page output directories
 - Fix [#386](https://github.com/hydephp/develop/issues/386): Documentation page sidebar labels were not constructed from front matter
 - Fix bugs relating to the documentation sidebar labels that appeared in the last release
+- Fix [#410](https://github.com/hydephp/develop/issues/410): Search index generator breaks when storing documentation page source files in subdirectories
+
 
 ### Security
 - in case of vulnerabilities.
