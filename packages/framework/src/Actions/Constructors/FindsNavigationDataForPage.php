@@ -46,11 +46,7 @@ class FindsNavigationDataForPage
             return config('hyde.navigation.labels.home', 'Home');
         }
 
-        if ($this->page->matter('title') !== null) {
-            return $this->page->matter('title');
-        }
-
-        return $this->page->title;
+        return $this->page->matter('title', $this->page->title);
     }
 
     protected function getNavigationMenuVisible(): bool
