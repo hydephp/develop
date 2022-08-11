@@ -14,6 +14,10 @@ When referencing configuration options, we often use "dot notation" to specify t
 
 If you want to reference these configuration options in your Blade views, or other integrations, please take a look at the [Laravel Documentation](https://laravel.com/docs/9.x/configuration).
 
+### Front Matter or Configuration Files?
+
+In some cases, the same options can be set in the front matter of a page or in a configuration file. Both ways are always documented, and it's up to you to choose which one you prefer. Note that in most cases, if a setting is set in both the front matter and the configuration file, the front matter setting will take precedence.
+
 ## Configuration Files Overview
 
 There are a few configuration files available in the `config` directory. All options are documented, so feel free to look through the files and get familiar with the options available to you.
