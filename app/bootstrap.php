@@ -51,8 +51,10 @@ $hyde = new Hyde\Framework\HydeKernel(
     dirname(__DIR__)
 );
 
-$app->instance(
-    Hyde\Framework\Contracts\HydeKernelContract::class, $hyde
+$app->singleton(
+    Hyde\Framework\Contracts\HydeKernelContract::class, function () {
+        return \Hyde\Framework\HydeKernel::getInstance();
+    }
 );
 
 Hyde\Framework\HydeKernel::setInstance($hyde);
