@@ -45,7 +45,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         $this->hyperlinks = new Hyperlinks($this);
     }
 
-    public function bootKernel(): void
+    public function boot(): void
     {
         $this->booted = true;
         $this->pages = PageCollection::boot();
@@ -95,7 +95,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function pages(): PageCollection
     {
         if (! $this->booted) {
-            $this->bootKernel();
+            $this->boot();
         }
 
         return $this->pages;
@@ -104,7 +104,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function routes(): RouteCollection
     {
         if (! $this->booted) {
-            $this->bootKernel();
+            $this->boot();
         }
 
         return $this->routes;
