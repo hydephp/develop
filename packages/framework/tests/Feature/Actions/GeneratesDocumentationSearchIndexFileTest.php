@@ -138,4 +138,15 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
         unlink(Hyde::path('_docs/excluded.md'));
     }
+
+    public function test_nested_source_files_do_not_retain_directory_name_in_search_index()
+    {
+        mkdir(Hyde::path('_docs/foo'));
+        touch(Hyde::path('_docs/foo/bar.md'));
+
+        $this->assertStringNotContainsString('foo', (new Action())->generate()->getJson());
+
+        unlink(Hyde::path('_docs/foo/bar.md'));
+        rmdir(Hyde::path('_docs/foo'));
+    }
 }
