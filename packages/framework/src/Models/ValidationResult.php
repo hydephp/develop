@@ -105,14 +105,11 @@ class ValidationResult
 
     protected function formatResult(string $message): string
     {
-        if ($this->statusCode() === 0) {
-            return $this->formatPassed($message);
-        }
-        if ($this->statusCode() === 2) {
-            return $this->formatFailed($message);
-        }
-
-        return $this->formatSkipped($message);
+        return match ($this->statusCode()) {
+            0 => $this->formatPassed($message),
+            2 => $this->formatFailed($message),
+            default => $this->formatSkipped($message),
+        };
     }
 
     protected function formatPassed(string $message): string
