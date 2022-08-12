@@ -30,18 +30,6 @@ use Hyde\Framework\RouteCollection;
 class RoutingService
 {
     /**
-     * Get the Singleton instance of the Router.
-     *
-     * @deprecated v0.59.0-beta No longer needs to be a singleton.
-     *
-     * @return \Hyde\Framework\Services\RoutingService
-     */
-    public static function getInstance(): self
-    {
-        return new self();
-    }
-
-    /**
      * Get all routes discovered by the autodiscovery process.
      *
      * @return \Hyde\Framework\RouteCollection<\Hyde\Framework\Contracts\RouteContract>

@@ -23,13 +23,13 @@ class BuildService
     use InteractsWithIO;
     use InteractsWithDirectories;
 
-    protected RoutingService $router;
+    protected RouteCollection $router;
 
     public function __construct(OutputStyle $output)
     {
         $this->output = $output;
 
-        $this->router = RoutingService::getInstance();
+        $this->router = Hyde::routes();
     }
 
     public function compileStaticPages(): void
@@ -81,7 +81,7 @@ class BuildService
     {
         $this->comment("Creating {$this->getModelPluralName($pageClass)}...");
 
-        $collection = $this->router->getRoutesForModel($pageClass);
+        $collection = $this->router->getRoutes($pageClass);
 
         $this->withProgressBar(
             $collection,

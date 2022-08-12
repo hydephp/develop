@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Models;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -15,7 +15,7 @@ class DocumentationSidebar extends NavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        RoutingService::getInstance()->getRoutesForModel(DocumentationPage::class)->each(function (Route $route) {
+        Hyde::routes()->getRoutes(DocumentationPage::class)->each(function (Route $route) {
             if (! $route->getSourceModel()->get('hidden', false)) {
                 $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
                     $item->title = $item->route->getSourceModel()->get('label');

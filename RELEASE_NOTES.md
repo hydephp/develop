@@ -22,6 +22,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 - Removed deprecated method `parseFile` from `MarkdownDocument` (deprecated in v0.56)
 - Removed deprecated method `getPostDescription` from `MarkdownPost` (deprecated in v0.58)
 - Removed deprecated method `getRoutesForModel` from `RouteCollection`
+- Removed deprecated method `getInstance` from `RoutingService` (deprecated in v0.59)
 - Removed deprecated property `$body`  from `MarkdownDocument`
 
 ### Fixed
