@@ -11,8 +11,7 @@ use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
- * Generate a JSON file that can be used as a search index for documentation pages.
- * @internal
+ * @internal Generate a JSON file that can be used as a search index for documentation pages.
  *
  * @todo Convert into Service, and add more strategies, such as slug-only (no file parsing)
  *        search which while dumber, would be much faster to compile and take way less space.
