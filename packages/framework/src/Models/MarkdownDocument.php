@@ -18,15 +18,10 @@ class MarkdownDocument implements MarkdownDocumentContract, \Stringable
     public FrontMatter $matter;
     public Markdown $markdown;
 
-    /** @deprecated */
-    public string $body;
-
     public function __construct(FrontMatter|array $matter = [], Markdown|string $body = '')
     {
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->markdown = $body instanceof Markdown ? $body : new Markdown($body);
-
-        $this->body = $this->markdown->body;
     }
 
     public function __toString(): string

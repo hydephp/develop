@@ -30,7 +30,6 @@ class MarkdownDocumentTest extends TestCase
     {
         $document = new MarkdownDocument(['foo' => 'bar'], 'Hello, world!');
         $this->assertEquals(FrontMatter::fromArray(['foo' => 'bar']), $document->matter);
-        $this->assertEquals('Hello, world!', $document->body);
     }
 
     public function test_magic_to_string_method_returns_body()

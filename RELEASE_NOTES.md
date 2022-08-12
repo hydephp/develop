@@ -22,6 +22,7 @@ This serves two purposes:
 - Removed deprecated legacy `Compiler` class from the Hyde Realtime Compiler
 - Removed deprecated `stylePath` method from `AssetService` (deprecated in v0.50)
 - Removed deprecated `getHomeLink` method from `NavigationMenu` (deprecated in v0.50)
+- Removed deprecated `$body` property from `MarkdownDocument`
 
 ### Fixed
 - for any bug fixes.
