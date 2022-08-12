@@ -10,6 +10,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 ### Changed
 - Blog posts now have the same open graph title format as other pages
 - Merged deprecated method `getRoutesForModel` into `getRoutes` in `RouteCollection`
+- internal: Inline deprecated internal method usage `getOutputPath` replacing it `Hyde::pages()` helper with in `HydeRebuildStaticSiteCommand`
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -25,6 +26,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 - Removed deprecated method `getCanonicalLink` from `MarkdownPost` (deprecated in v0.58)
 - Removed deprecated method `getInstance` from `RoutingService` (deprecated in v0.59)
 - Removed deprecated method `getRoutesForModel` from `RouteCollection`
+- Removed deprecated method `getOutputPath` from `HydeRebuildStaticSiteCommand`
 - Removed deprecated property `$body`  from `MarkdownDocument`
 
 ### Fixed

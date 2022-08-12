@@ -82,10 +82,4 @@ class HydeRebuildStaticSiteCommandTest extends TestCase
         unlink(Hyde::path('_posts/foo.md'));
         unlink(Hyde::path('_site/posts/foo.html'));
     }
-
-    public function test_get_output_path_returns_same_input_for_out_of_bounds_page()
-    {
-        $this->assertEquals('test-page.html',
-            (new HydeRebuildStaticSiteCommand)->getOutputPath(('test-page.html')));
-    }
 }
