@@ -19,8 +19,8 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- Removed deprecated legacy Compiler class from the Hyde Realtime Compiler
-- Removed deprecated stylePath method from AssetService (deprecated in v0.50)
+- Removed deprecated legacy `Compiler` class from the Hyde Realtime Compiler
+- Removed deprecated `stylePath` method from AssetService (deprecated in v0.50)
 
 ### Fixed
 - for any bug fixes.
