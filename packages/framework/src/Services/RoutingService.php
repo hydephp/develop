@@ -57,7 +57,7 @@ class RoutingService implements RoutingServiceContract
      */
     public function getRoutesForModel(string $pageClass): RouteCollection
     {
-        return Hyde::routes()->getRoutesForModel($pageClass);
+        return Hyde::routes()->getRoutes($pageClass);
     }
 
     /**
