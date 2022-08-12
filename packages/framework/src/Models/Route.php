@@ -37,7 +37,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     public function __construct(PageContract $sourceModel)
     {
         $this->sourceModel = $sourceModel;
-        $this->routeKey = $this->constructRouteKey();
+        $this->routeKey = $sourceModel->getRouteKey();
     }
 
     /** @inheritDoc */
@@ -96,12 +96,6 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     public function getQualifiedUrl(): string
     {
         return Hyde::url($this->getOutputFilePath());
-    }
-
-    /** @deprecated Use the route key property */
-    protected function constructRouteKey(): string
-    {
-        return $this->sourceModel->getCurrentPagePath();
     }
 
     /** @inheritDoc */
