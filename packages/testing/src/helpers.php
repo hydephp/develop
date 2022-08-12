@@ -4,7 +4,7 @@ use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
 
 if (! function_exists('unlinkIfExists')) {
-    function unlinkIfExists(string $filepath)
+    function unlinkIfExists(string $filepath): void
     {
         if (file_exists($filepath)) {
             unlink($filepath);
@@ -14,7 +14,7 @@ if (! function_exists('unlinkIfExists')) {
 
 if (! function_exists('backupDirectory')) {
     /** @deprecated v0.60.x - You should not run tests in a production environment. */
-    function backupDirectory(string $directory)
+    function backupDirectory(string $directory): void
     {
         if (file_exists($directory)) {
             File::copyDirectory($directory, $directory.'-bak', true);
@@ -24,7 +24,7 @@ if (! function_exists('backupDirectory')) {
 
 if (! function_exists('restoreDirectory')) {
     /** @deprecated v0.60.x - You should not run tests in a production environment. */
-    function restoreDirectory(string $directory)
+    function restoreDirectory(string $directory): void
     {
         if (file_exists($directory.'-bak')) {
             File::moveDirectory($directory.'-bak', $directory, true);
@@ -34,7 +34,7 @@ if (! function_exists('restoreDirectory')) {
 }
 
 if (! function_exists('deleteDirectory')) {
-    function deleteDirectory(string $directory)
+    function deleteDirectory(string $directory): void
     {
         if (file_exists($directory)) {
             File::deleteDirectory($directory);
@@ -63,7 +63,7 @@ This is a post stub used in the automated tests
 }
 
 if (! function_exists('unlinkUnlessDefault')) {
-    function unlinkUnlessDefault(string $filepath)
+    function unlinkUnlessDefault(string $filepath): void
     {
         $protected = [
             'app.css',
