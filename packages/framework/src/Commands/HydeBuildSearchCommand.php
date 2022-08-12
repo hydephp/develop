@@ -52,10 +52,10 @@ class HydeBuildSearchCommand extends ActionCommand
 
         if (config('docs.create_search_page', true)) {
             $this->action('Generating search page', function () {
-                $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath( DocumentationPage::getOutputDirectory()));
+                $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));
                 $this->needsDirectory(Hyde::path($outputDirectory));
                 file_put_contents(
-                    Hyde::path($outputDirectory . '/search.html'),
+                    Hyde::path($outputDirectory.'/search.html'),
                     view('hyde::pages.documentation-search')->render()
                 );
             }, sprintf(
