@@ -78,7 +78,7 @@ class ValidationResult
 
     public function statusCode(): int
     {
-        if ($this->skipped) {
+        if ($this->skipped()) {
             return 1;
         }
         if ($this->passed()) {
