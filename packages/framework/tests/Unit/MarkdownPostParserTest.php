@@ -17,7 +17,7 @@ class MarkdownPostParserTest extends TestCase
     {
         parent::setUp();
 
-        file_put_contents(Hyde::path( '_posts/test-post.md'), '---
+        file_put_contents(Hyde::path('_posts/test-post.md'), '---
 title: My New Post
 category: blog
 author: Mr. Hyde

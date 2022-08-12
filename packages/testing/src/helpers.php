@@ -1,6 +1,5 @@
 <?php
 
-use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
 
 if (! function_exists('unlinkIfExists')) {
