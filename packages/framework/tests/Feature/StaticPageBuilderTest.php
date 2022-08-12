@@ -9,7 +9,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\StaticPageBuilder;
-use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
@@ -20,8 +19,6 @@ use Illuminate\Support\Facades\Config;
  */
 class StaticPageBuilderTest extends TestCase
 {
-    use ResetsApplication;
-
     protected function setUp(): void
     {
         parent::setUp();

@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Services\RoutingService;
+use Hyde\Framework\Hyde;
 use Illuminate\Support\Collection;
 
 /**
@@ -29,7 +29,7 @@ class NavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        RoutingService::getInstance()->getRoutes()->each(function (Route $route) {
+        Hyde::routes()->each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route));
         });
 
@@ -55,12 +55,6 @@ class NavigationMenu
         $this->items = $this->items->sortBy('priority')->values();
 
         return $this;
-    }
-
-    /** @deprecated v0.50.x - use Route::home() instead */
-    public function getHomeLink(): string
-    {
-        return Route::get('index');
     }
 
     protected function filterHiddenItems(): Collection

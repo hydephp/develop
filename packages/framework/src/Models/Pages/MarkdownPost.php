@@ -4,7 +4,6 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\PageCollection;
@@ -29,18 +28,6 @@ class MarkdownPost extends AbstractMarkdownPage
     {
         parent::constructPageSchemas();
         $this->constructBlogPostSchema();
-    }
-
-    /** @deprecated v0.58.x-beta (may be moved to BlogPostSchema) */
-    public function getCanonicalLink(): string
-    {
-        return Hyde::url($this->getCurrentPagePath().'.html');
-    }
-
-    /** @deprecated v0.58.x-beta (pull description instead) */
-    public function getPostDescription(): string|null
-    {
-        return $this->description;
     }
 
     /** @return \Hyde\Framework\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */

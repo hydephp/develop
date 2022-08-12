@@ -8,7 +8,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\RoutingService;
+use Hyde\Framework\RouteCollection;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -36,7 +36,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     public function __construct(PageContract $sourceModel)
     {
         $this->sourceModel = $sourceModel;
-        $this->routeKey = $this->constructRouteKey();
+        $this->routeKey = $sourceModel->getRouteKey();
     }
 
     /** @inheritDoc */
@@ -97,12 +97,6 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
         return Hyde::url($this->getOutputFilePath());
     }
 
-    /** @deprecated Use the route key property */
-    protected function constructRouteKey(): string
-    {
-        return $this->sourceModel->getCurrentPagePath();
-    }
-
     /** @inheritDoc */
     public static function get(string $routeKey): static
     {
@@ -112,13 +106,13 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     /** @inheritDoc */
     public static function getFromKey(string $routeKey): static
     {
-        return RoutingService::getInstance()->getRoutes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return Hyde::routes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /** @inheritDoc */
     public static function getFromSource(string $sourceFilePath): static
     {
-        return RoutingService::getInstance()->getRoutes()->first(function (RouteContract $route) use ($sourceFilePath) {
+        return Hyde::routes()->first(function (RouteContract $route) use ($sourceFilePath) {
             return $route->getSourceFilePath() === $sourceFilePath;
         }) ?? throw new RouteNotFoundException($sourceFilePath);
     }
@@ -130,9 +124,9 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     }
 
     /** @inheritDoc */
-    public static function all(): \Hyde\Framework\RouteCollection
+    public static function all(): RouteCollection
     {
-        return RoutingService::getInstance()->getRoutes();
+        return Hyde::routes();
     }
 
     /** @inheritDoc */
@@ -150,6 +144,6 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     /** @inheritDoc */
     public static function exists(string $routeKey): bool
     {
-        return RoutingService::getInstance()->getRoutes()->has($routeKey);
+        return Hyde::routes()->has($routeKey);
     }
 }

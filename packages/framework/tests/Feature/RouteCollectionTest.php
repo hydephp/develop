@@ -19,19 +19,11 @@ class RouteCollectionTest extends TestCase
 {
     protected function withoutDefaultPages(): void
     {
-        backup(Hyde::path('_pages/404.blade.php'));
-        backup(Hyde::path('_pages/index.blade.php'));
-        unlink(Hyde::path('_pages/404.blade.php'));
-        unlink(Hyde::path('_pages/index.blade.php'));
+        Hyde::unlink('_pages/404.blade.php');
+        Hyde::unlink('_pages/index.blade.php');
     }
 
-    protected function restoreDefaultPages(): void
-    {
-        restore(Hyde::path('_pages/404.blade.php'));
-        restore(Hyde::path('_pages/index.blade.php'));
-    }
-
-    public function test_boot_method_discovers_all_pages()
+    protected function test_boot_method_discovers_all_pages()
     {
         $collection = RouteCollection::boot(Hyde::getInstance());
 
@@ -44,7 +36,7 @@ class RouteCollectionTest extends TestCase
         ], $collection->all());
     }
 
-    public function test_boot_method_discovers_all_page_types()
+    protected function test_boot_method_discovers_all_page_types()
     {
         $this->withoutDefaultPages();
 
@@ -68,7 +60,7 @@ class RouteCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_get_routes_returns_all_routes()
+    protected function test_get_routes_returns_all_routes()
     {
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
@@ -78,7 +70,7 @@ class RouteCollectionTest extends TestCase
         $this->assertSame(Hyde::routes(), Hyde::routes()->getRoutes());
     }
 
-    public function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
+    protected function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
     {
         $this->withoutDefaultPages();
 
@@ -90,15 +82,15 @@ class RouteCollectionTest extends TestCase
         $collection = Hyde::routes();
 
         $this->assertCount(4, $collection);
-        $this->assertEquals(new Route(new BladePage('blade')), $collection->getRoutesForModel(BladePage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPage('markdown')), $collection->getRoutesForModel(MarkdownPage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPost('post')), $collection->getRoutesForModel(MarkdownPost::class)->first());
-        $this->assertEquals(new Route(new DocumentationPage('docs')), $collection->getRoutesForModel(DocumentationPage::class)->first());
+        $this->assertEquals(new Route(new BladePage('blade')), $collection->getRoutes(BladePage::class)->first());
+        $this->assertEquals(new Route(new MarkdownPage('markdown')), $collection->getRoutes(MarkdownPage::class)->first());
+        $this->assertEquals(new Route(new MarkdownPost('post')), $collection->getRoutes(MarkdownPost::class)->first());
+        $this->assertEquals(new Route(new DocumentationPage('docs')), $collection->getRoutes(DocumentationPage::class)->first());
 
         $this->restoreDefaultPages();
     }
 
-    public function test_add_route_adds_new_route()
+    protected function test_add_route_adds_new_route()
     {
         $collection = Hyde::routes();
         $this->assertCount(2, $collection);
