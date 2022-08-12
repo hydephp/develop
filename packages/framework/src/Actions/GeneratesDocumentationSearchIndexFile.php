@@ -17,7 +17,6 @@ use JetBrains\PhpStorm\ArrayShape;
  *        search which while dumber, would be much faster to compile and take way less space.
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
- *
  */
 final class GeneratesDocumentationSearchIndexFile implements ActionContract
 {
@@ -35,7 +34,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
     {
         $this->searchIndex = new Collection();
         $this->filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
-            DocumentationPage::getOutputDirectory() . '/search.json')
+            DocumentationPage::getOutputDirectory().'/search.json')
         );
     }
 
@@ -43,6 +42,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
     {
         $this->generate();
         $this->save();
+
         return $this;
     }
 
@@ -60,7 +60,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
         return $this;
     }
 
-    #[ArrayShape(['slug' => "string", 'title' => "string", 'content' => "string", 'destination' => "string"])]
+    #[ArrayShape(['slug' => 'string', 'title' => 'string', 'content' => 'string', 'destination' => 'string'])]
     public function generatePageEntry(DocumentationPage $page): array
     {
         return [
