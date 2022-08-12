@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\StaticPageBuilder;
-use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
@@ -14,8 +13,6 @@ use Illuminate\Support\Facades\File;
  */
 class StaticSiteServiceTest extends TestCase
 {
-    use ResetsApplication;
-
     protected function setUp(): void
     {
         parent::setUp();
