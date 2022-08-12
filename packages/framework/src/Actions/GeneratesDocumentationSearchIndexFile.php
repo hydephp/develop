@@ -28,9 +28,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     public static function run(): self
     {
-        $action = (new self());
-        $action->execute();
-        return $action;
+        return (new self())->execute();
     }
 
     public function __construct()
@@ -41,10 +39,11 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
         );
     }
 
-    public function execute(): void
+    public function execute(): self
     {
         $this->generate();
         $this->save();
+        return $this;
     }
 
     public function generate(): self
