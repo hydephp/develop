@@ -31,12 +31,6 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->constructBlogPostSchema();
     }
 
-    /** @deprecated v0.58.x-beta (may be moved to BlogPostSchema) */
-    public function getCanonicalLink(): string
-    {
-        return Hyde::url($this->getCurrentPagePath().'.html');
-    }
-
     /** @return \Hyde\Framework\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
