@@ -7,6 +7,9 @@ use Hyde\Framework\Services\RoutingService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
+ */
 class DocumentationSidebar extends NavigationMenu
 {
     /** @return $this */
