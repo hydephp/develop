@@ -1,7 +1,7 @@
 @php
     $page = Hyde\Framework\Models\Pages\DocumentationPage::make('search', ['title' => 'Search']);
-    $title = 'Search';
     $currentPage = $page->getCurrentPagePath();
+    $currentRoute = $page->getRoute();
     $markdown = '';
 @endphp
 
