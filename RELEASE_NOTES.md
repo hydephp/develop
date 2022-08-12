@@ -11,6 +11,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 - Blog posts now have the same open graph title format as other pages
 - Merged deprecated method `getRoutesForModel` into `getRoutes` in `RouteCollection`
 - Cleans up and refactors `GeneratesDocumentationSearchIndexFile`, and marks it as internal
+- Changed MarkdownFileParser to expect that the supplied filepath is relative to the root of the project (this may break method calls where an absolute path is supplied, see upgrade guide)
 - internal: Inline deprecated internal method usage `getOutputPath` replacing it `Hyde::pages()` helper with in `HydeRebuildStaticSiteCommand`
 
 ### Deprecated
@@ -32,7 +33,19 @@ This release continues refactoring the internal codebase. As part of this, a lar
 - internal: Remove deprecated testing helper functions `backup` and `restore`
 
 ### Fixed
-- for any bug fixes.
+- MarkdownFileParser not using the Hyde path [#399](https://github.com/hydephp/develop/issues/399)
 
 ### Security
 - in case of vulnerabilities.
+
+### Upgrade Guide
+
+#### MarkdownFileParser path change 
+This class now expects the supplied filepath to be relative to the root of the project. This will only affect you if you have written any custom code that uses this class. All internal Hyde code is already updated to use the new path format.
+
+To upgrade, change any calls you may have like follows:
+
+```diff
+-return (new MarkdownFileParser(Hyde::path('_posts/foo.md')))->get();
++return (new MarkdownFileParser('_posts/foo.md'))->get();
+```

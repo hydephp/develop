@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
 /**
@@ -41,6 +40,6 @@ class MarkdownDocument implements MarkdownDocumentContract, \Stringable
 
     public static function parse(string $localFilepath): static
     {
-        return (new MarkdownFileParser(Hyde::path($localFilepath)))->get();
+        return (new MarkdownFileParser($localFilepath))->get();
     }
 }
