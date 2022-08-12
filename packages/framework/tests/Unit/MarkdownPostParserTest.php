@@ -17,7 +17,16 @@ class MarkdownPostParserTest extends TestCase
     {
         parent::setUp();
 
-        createTestPost();
+        file_put_contents(Hyde::path( '_posts/test-post.md'), '---
+title: My New Post
+category: blog
+author: Mr. Hyde
+---
+
+# My New Post
+
+This is a post stub used in the automated tests
+');
     }
 
     protected function tearDown(): void
