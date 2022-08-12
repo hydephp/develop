@@ -4,7 +4,9 @@ namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile;
 use Hyde\Framework\Concerns\ActionCommand;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\DiscoveryService;
 
 /**
@@ -16,6 +18,8 @@ use Hyde\Framework\Services\DiscoveryService;
  */
 class HydeBuildSearchCommand extends ActionCommand
 {
+    use InteractsWithDirectories;
+
     /**
      * The signature of the command.
      *
@@ -48,11 +52,10 @@ class HydeBuildSearchCommand extends ActionCommand
 
         if (config('docs.create_search_page', true)) {
             $this->action('Generating search page', function () {
+                $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath( DocumentationPage::getOutputDirectory()));
+                $this->needsDirectory(Hyde::path($outputDirectory));
                 file_put_contents(
-                    Hyde::path(sprintf(
-                        '_site/%s/search.html',
-                        config('docs.output_directory', 'docs')
-                    )),
+                    Hyde::path($outputDirectory . '/search.html'),
                     view('hyde::pages.documentation-search')->render()
                 );
             }, sprintf(
