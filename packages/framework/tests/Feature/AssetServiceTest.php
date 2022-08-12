@@ -29,12 +29,6 @@ class AssetServiceTest extends TestCase
         $this->assertEquals($service->version, $service->version());
     }
 
-    public function test_style_path_method_returns_cdn_path()
-    {
-        $service = new AssetService();
-        $this->assertIsString($service->stylePath());
-        $this->assertStringContainsString('hyde.css', $service->stylePath());
-    }
 
     public function test_cdn_path_constructor_returns_cdn_uri()
     {
