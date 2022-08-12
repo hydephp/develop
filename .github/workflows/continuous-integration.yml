@@ -364,7 +364,7 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run static analysis (PHPStan)
-        run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
+        run: vendor/bin/phpstan analyse --ansi --level 1 packages/framework/src packages/realtime-compiler/src || true
 
 
   devskim-lint:
