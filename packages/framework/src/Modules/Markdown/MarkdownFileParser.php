@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Modules\Markdown;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -28,7 +29,7 @@ class MarkdownFileParser
 
     public function __construct(string $filepath)
     {
-        $stream = file_get_contents($filepath);
+        $stream = file_get_contents(Hyde::path($filepath));
 
         // Check if the file has Front Matter.
         if (str_starts_with($stream, '---')) {

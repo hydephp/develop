@@ -32,7 +32,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 - internal: Remove deprecated testing helper functions `backup` and `restore`
 
 ### Fixed
-- for any bug fixes.
+- MarkdownFileParser not using the Hyde path [#399](https://github.com/hydephp/develop/issues/399)
 
 ### Security
 - in case of vulnerabilities.
