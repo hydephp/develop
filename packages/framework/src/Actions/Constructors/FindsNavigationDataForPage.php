@@ -20,7 +20,7 @@ class FindsNavigationDataForPage
         return (new static($page))->getData();
     }
 
-    protected function __construct(protected AbstractPage $page)
+    final protected function __construct(protected AbstractPage $page)
     {
     }
 
