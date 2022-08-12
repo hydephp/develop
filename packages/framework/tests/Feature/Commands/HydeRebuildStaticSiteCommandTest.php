@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Framework\Commands\HydeRebuildStaticSiteCommand;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
