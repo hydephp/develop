@@ -155,6 +155,12 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
+    public function getRouteKey(): string
+    {
+        return $this->routeKey;
+    }
+
+    /** @inheritDoc */
     public function getRoute(): Route
     {
         return new Route($this);

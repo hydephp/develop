@@ -10,7 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added `getRouteKey` method to `PageContract` and `AbstractPage`
 
 ### Changed
 - Blog posts now have the same opengraph title format as other pages

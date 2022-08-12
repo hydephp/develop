@@ -131,6 +131,13 @@ interface PageContract
     public function getCurrentPagePath(): string;
 
     /**
+     * Get the route key for the page.
+     *
+     * @return string
+     */
+    public function getRouteKey(): string;
+
+    /**
      * Get the route for the page.
      *
      * @return \Hyde\Framework\Contracts\RouteContract
