@@ -73,7 +73,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         ];
     }
 
-    public function save(): static
+    protected function save(): static
     {
         $this->needsDirectory(Hyde::path(str_replace('/search.json', '', $this->filePath)));
 
@@ -104,7 +104,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
      * Returning $document->body as is: 500ms
      * Returning $document->body as Str::markdown(): 920ms + 10ms for regex
      */
-    public function getSearchContentForDocument(DocumentationPage $page): string
+    protected function getSearchContentForDocument(DocumentationPage $page): string
     {
         // This is compiles the Markdown body into HTML, and then strips out all
         // HTML tags to get a plain text version of the body. This takes a long

@@ -74,7 +74,7 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_save_method_saves_the_file_to_the_correct_location()
     {
-        (new Action())->save();
+        Action::run();
 
         $this->assertFileExists('_site/docs/search.json');
     }
