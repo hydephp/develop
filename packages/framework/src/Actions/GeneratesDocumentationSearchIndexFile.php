@@ -51,7 +51,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         foreach (DocumentationPage::all() as $page) {
             if (! in_array($page->identifier, config('docs.exclude_from_search', []))) {
                 $this->searchIndex->push(
-                    $this->generatePageObject($page)
+                    $this->generatePageEntry($page)
                 );
             }
         }
@@ -59,9 +59,9 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         return $this;
     }
 
-    public function generatePageObject(DocumentationPage $page): object
+    public function generatePageEntry(DocumentationPage $page): array
     {
-        return (object) [
+        return [
             'slug' => basename($page->identifier),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),

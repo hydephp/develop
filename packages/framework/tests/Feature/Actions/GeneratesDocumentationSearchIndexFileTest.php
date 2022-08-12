@@ -79,18 +79,19 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         $this->assertFileExists('_site/docs/search.json');
     }
 
-    public function test_generate_page_object_method_generates_a_page_object()
+    public function test_generate_page_entry_method_generates_a_page_entry()
     {
-        $expected = new \stdClass;
-        $expected->slug = 'foo';
-        $expected->title = 'Bar';
-        $expected->content = "Bar \n Hello World";
-        $expected->destination = 'foo.html';
+        $expected = [
+            'slug' => 'foo',
+            'title' => 'Bar',
+            'content' => "Bar \n Hello World",
+            'destination' => 'foo.html',
+        ];
 
         file_put_contents(Hyde::path('_docs/foo.md'), "# Bar\n\n Hello World");
 
         $this->assertEquals(
-            $expected, (new Action())->generatePageObject(DocumentationPage::parse('foo'))
+            $expected, (new Action())->generatePageEntry(DocumentationPage::parse('foo'))
         );
 
         unlink(Hyde::path('_docs/foo.md'));
