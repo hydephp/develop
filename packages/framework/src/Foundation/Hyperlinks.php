@@ -111,11 +111,11 @@ class Hyperlinks
         $path = $this->formatHtmlPath(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim(config('site.url'), '/').'/'.($path ?? ''), '/');
+            return rtrim(rtrim(config('site.url'), '/').'/'.($path), '/');
         }
 
         if ($default !== null) {
-            return $default.'/'.($path ?? '');
+            return $default.'/'.($path);
         }
 
         throw new BaseUrlNotSetException();
