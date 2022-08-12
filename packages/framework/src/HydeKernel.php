@@ -214,7 +214,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     }
 
     /** @inheritDoc */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'basePath' => $this->basePath,

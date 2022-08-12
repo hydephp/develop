@@ -46,7 +46,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     }
 
     /** @inheritDoc */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'routeKey' => $this->routeKey,

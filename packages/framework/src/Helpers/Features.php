@@ -161,7 +161,7 @@ class Features implements Arrayable, \JsonSerializable
     }
 
     /** @inheritDoc */
-    public function toArray()
+    public function toArray(): array
     {
         $array = [];
         foreach (get_class_methods(static::class) as $method) {
