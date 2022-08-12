@@ -27,9 +27,9 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
     public Collection $searchIndex;
     public string $filePath = '_site/docs/search.json';
 
-    public static function run(): static
+    public static function run(): self
     {
-        $action = (new static());
+        $action = (new self());
         $action->execute();
         return $action;
     }
@@ -48,7 +48,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
         $this->save();
     }
 
-    public function generate(): static
+    public function generate(): self
     {
         /** @var DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
@@ -73,7 +73,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
         ];
     }
 
-    protected function save(): static
+    protected function save(): self
     {
         $this->needsDirectory(Hyde::path(str_replace('/search.json', '', $this->filePath)));
 
