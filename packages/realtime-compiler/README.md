@@ -13,11 +13,11 @@ Any third-party integrations will need to be handled manually. v1.0x will receiv
 See the [Security Policy](https://github.com/hydephp/realtime-compiler/security/policy).
 
 
-| Version | Supported          | Notes    |
-|---------|--------------------|----------|
-| 2.0.x   | :white_check_mark: | Latest   |
-| 1.0.x   | :shield:           | (LTS*)   |
-| < 1.0   | :x:                | Alpha    |
+| Version | Supported          | Notes  |
+|---------|--------------------|--------|
+| 2.x     | :white_check_mark: | Latest |
+| 1.x     | :shield:           | (LTS*) |
+| < 1.0   | :x:                | Alpha  |
 
 *1.x LTS receives security fixes only
 
