@@ -28,6 +28,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 - Removed deprecated method `getRoutesForModel` from `RouteCollection`
 - Removed deprecated method `getOutputPath` from `HydeRebuildStaticSiteCommand`
 - Removed deprecated property `$body`  from `MarkdownDocument`
+- internal: Remove deprecated testing helper functions `backup` and `restore`
 
 ### Fixed
 - for any bug fixes.

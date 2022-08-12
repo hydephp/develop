@@ -3,28 +3,6 @@
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
 
-/**
- * @deprecated You should not run tests in a production environment.
- */
-if (! function_exists('backup')) {
-    function backup(string $filepath)
-    {
-        if (file_exists($filepath)) {
-            copy($filepath, $filepath.'.bak');
-        }
-    }
-}
-
-if (! function_exists('restore')) {
-    function restore(string $filepath)
-    {
-        if (file_exists($filepath.'.bak')) {
-            copy($filepath.'.bak', $filepath);
-            unlink($filepath.'.bak');
-        }
-    }
-}
-
 if (! function_exists('unlinkIfExists')) {
     function unlinkIfExists(string $filepath)
     {
