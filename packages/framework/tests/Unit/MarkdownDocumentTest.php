@@ -47,7 +47,7 @@ class MarkdownDocumentTest extends TestCase
     public function test_parse_method_parses_a_file_using_the_markdown_file_service()
     {
         file_put_contents('_pages/foo.md', "---\nfoo: bar\n---\nHello, world!");
-        $document = MarkdownDocument::parseFile('_pages/foo.md');
+        $document = MarkdownDocument::parse('_pages/foo.md');
         $this->assertInstanceOf(MarkdownDocument::class, $document);
         $this->assertEquals('Hello, world!', $document->markdown()->body());
         $this->assertEquals(FrontMatter::fromArray(['foo' => 'bar']), $document->matter());
