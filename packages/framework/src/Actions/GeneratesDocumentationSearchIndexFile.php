@@ -34,7 +34,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
     {
         $this->searchIndex = new Collection();
         static::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
-            DocumentationPage::getOutputDirectory() . '/search.json')
+            DocumentationPage::getOutputDirectory().'/search.json')
         );
     }
 
