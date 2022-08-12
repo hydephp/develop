@@ -29,7 +29,6 @@ class AssetServiceTest extends TestCase
         $this->assertEquals($service->version, $service->version());
     }
 
-
     public function test_cdn_path_constructor_returns_cdn_uri()
     {
         $service = new AssetService();
