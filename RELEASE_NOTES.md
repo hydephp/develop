@@ -27,6 +27,7 @@ This serves two purposes:
 - Removed deprecated `$body` property from `MarkdownDocument`
 - Removed deprecated `getRoutesForModel` method from `RouteCollection`
 - Removed deprecated interface `RoutingServiceContract` (deprecated in v0.59)
+- Removed deprecated `getPostDescription` method from `MarkdownPost` (deprecated in v0.58)
 
 ### Fixed
 - for any bug fixes.

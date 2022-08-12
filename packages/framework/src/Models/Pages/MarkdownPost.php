@@ -37,12 +37,6 @@ class MarkdownPost extends AbstractMarkdownPage
         return Hyde::url($this->getCurrentPagePath().'.html');
     }
 
-    /** @deprecated v0.58.x-beta (pull description instead) */
-    public function getPostDescription(): string|null
-    {
-        return $this->description;
-    }
-
     /** @return \Hyde\Framework\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
