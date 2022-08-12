@@ -23,7 +23,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
     use InteractsWithDirectories;
 
     public Collection $searchIndex;
-    public string $filePath = '_site/docs/search.json';
+    public static string $filePath = '_site/docs/search.json';
 
     public static function run(): self
     {
@@ -33,8 +33,8 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
     public function __construct()
     {
         $this->searchIndex = new Collection();
-        $this->filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
-            DocumentationPage::getOutputDirectory().'/search.json')
+        static::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
+            DocumentationPage::getOutputDirectory() . '/search.json')
         );
     }
 
@@ -73,9 +73,9 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     protected function save(): self
     {
-        $this->needsDirectory(Hyde::path(str_replace('/search.json', '', $this->filePath)));
+        $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
 
-        file_put_contents(Hyde::path($this->filePath), $this->searchIndex->toJson());
+        file_put_contents(Hyde::path(static::$filePath), $this->searchIndex->toJson());
 
         return $this;
     }
