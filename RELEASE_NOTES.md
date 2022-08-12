@@ -15,6 +15,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 - for soon-to-be removed features.
 
 ### Removed
+- Removed class `RoutingService` as it is no longer used
 - Removed deprecated legacy class `Compiler`  from the Hyde Realtime Compiler
 - Removed deprecated interface `RoutingServiceContract` (deprecated in v0.59)
 - Removed deprecated method `stylePath` from `AssetService` (deprecated in v0.50)
