@@ -45,4 +45,10 @@ trait ResetsApplication
         array_map('unlinkUnlessDefault', glob(Hyde::path('_site/**/*.json')));
         array_map('unlinkUnlessDefault', glob(Hyde::path('_site/*.xml')));
     }
+
+    public function restoreDefaultPages()
+    {
+        copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
+        copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
+    }
 }
