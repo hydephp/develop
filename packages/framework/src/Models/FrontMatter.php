@@ -19,6 +19,7 @@ use Illuminate\Support\Arr;
  * Use $page->matter('foo') to access raw data.
  *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
+ * @phpstan-consistent-constructor
  */
 class FrontMatter implements Arrayable, \Stringable, \JsonSerializable
 {

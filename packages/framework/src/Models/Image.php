@@ -21,6 +21,7 @@ use Hyde\Framework\Hyde;
  * ];
  *
  * @see \Hyde\Framework\Testing\Feature\ImageModelTest
+ * @phpstan-consistent-constructor
  */
 class Image implements \Stringable
 {
