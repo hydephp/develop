@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Contracts\RoutingServiceContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\RouteCollection;
 
@@ -28,11 +27,14 @@ use Hyde\Framework\RouteCollection;
  *
  * @see \Hyde\Framework\Testing\Feature\RoutingServiceTest
  */
-class RoutingService implements RoutingServiceContract
+class RoutingService
 {
     /**
-     * @deprecated
-     * @inheritDoc
+     * Get the Singleton instance of the Router.
+     *
+     * @deprecated v0.59.0-beta No longer needs to be a singleton.
+     *
+     * @return \Hyde\Framework\Services\RoutingService
      */
     public static function getInstance(): self
     {

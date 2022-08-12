@@ -26,6 +26,7 @@ This serves two purposes:
 - Removed deprecated `parseFile` method from `MarkdownDocument` (deprecated in v0.56)
 - Removed deprecated `$body` property from `MarkdownDocument`
 - Removed deprecated `getRoutesForModel` method from `RouteCollection`
+- Removed deprecated interface `RoutingServiceContract` (deprecated in v0.59)
 
 ### Fixed
 - for any bug fixes.
