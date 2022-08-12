@@ -8,8 +8,8 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
+use Hyde\Framework\PageCollection;
 use Hyde\Framework\Services\DiscoveryService;
-use Illuminate\Support\Collection;
 
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
@@ -83,7 +83,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
-    public static function all(): Collection
+    public static function all(): PageCollection
     {
         return Hyde::pages()->getPages(static::class);
     }
