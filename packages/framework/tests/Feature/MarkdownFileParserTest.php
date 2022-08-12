@@ -38,7 +38,7 @@ This is a post stub used in the automated tests
         $document = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
-        $this->assertEquals('Foo bar', $document->body);
+        $this->assertEquals('Foo bar', $document->markdown);
     }
 
     public function test_can_parse_markdown_file_with_front_matter()
@@ -56,7 +56,7 @@ This is a post stub used in the automated tests
 
         $this->assertEquals(
             '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', $document->body)
+            str_replace(["\n", "\r"], '', $document->markdown)
         );
     }
 
@@ -90,7 +90,7 @@ This is a post stub used in the automated tests
 
         $this->assertEquals(
             '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', $post->body)
+            str_replace(["\n", "\r"], '', $post->markdown)
         );
     }
 }
