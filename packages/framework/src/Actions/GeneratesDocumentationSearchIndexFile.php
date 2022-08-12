@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
  *
  * @phpstan-consistent-constructor
  */
-class GeneratesDocumentationSearchIndexFile implements ActionContract
+class GeneratesDocumentationSearchIndexFile implements ActionContract, \JsonSerializable
 {
     use InteractsWithDirectories;
 
@@ -69,16 +69,16 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         ];
     }
 
-    public function getJson(): string
+    public function jsonSerialize(): array
     {
-        return json_encode((object)$this->searchIndex);
+        return $this->searchIndex->toArray();
     }
 
     public function save(): static
     {
         $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
 
-        file_put_contents(Hyde::path(static::$filePath), $this->getJson());
+        file_put_contents(Hyde::path(static::$filePath), json_encode($this));
 
         return $this;
     }
