@@ -10,7 +10,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class HydeValidateCommand extends Command
 {
+    /** @var string */
     protected $signature = 'validate';
+
+    /** @var string */
     protected $description = 'Run a series of tests to validate your setup and help you optimize your site.';
 
     protected float $time_start;

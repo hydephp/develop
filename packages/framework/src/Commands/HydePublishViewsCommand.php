@@ -11,8 +11,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class HydePublishViewsCommand extends Command
 {
+    /** @var string */
     protected $signature = 'publish:views {category? : The category to publish}';
 
+    /** @var string */
     protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten.';
 
     protected string $selected;
