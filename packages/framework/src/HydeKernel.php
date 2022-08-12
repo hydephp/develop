@@ -215,6 +215,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 
     /**
      * @inheritDoc
+     *
      * @return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\PageCollection, routes: \Hyde\Framework\RouteCollection}
      */
     public function toArray(): array
