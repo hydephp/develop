@@ -8,6 +8,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\RouteCollection;
 use Hyde\Framework\Services\RoutingService;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -130,7 +131,7 @@ class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSer
     }
 
     /** @inheritDoc */
-    public static function all(): \Hyde\Framework\RouteCollection
+    public static function all(): RouteCollection
     {
         return RoutingService::getInstance()->getRoutes();
     }
