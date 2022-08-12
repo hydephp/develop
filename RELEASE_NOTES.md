@@ -19,7 +19,7 @@ This serves two purposes:
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed deprecated legacy Compiler class from the Hyde Realtime Compiler
 
 ### Fixed
 - for any bug fixes.
