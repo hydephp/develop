@@ -16,12 +16,12 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
     {
         parent::setUp();
 
-        unlinkIfExists(Action::$filePath);
+        unlinkIfExists(Hyde::path('_site/docs/search.json'));
     }
 
     protected function tearDown(): void
     {
-        unlinkIfExists(Action::$filePath);
+        unlinkIfExists(Hyde::path('_site/docs/search.json'));
 
         parent::tearDown();
     }
@@ -41,10 +41,10 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
             ],
         ];
 
-        Action::run();
+        $action = Action::run();
 
         $this->assertEquals(
-            json_encode($expected), file_get_contents(Action::$filePath)
+            json_encode($expected), file_get_contents($action->filePath)
         );
 
         unlink(Hyde::path('_docs/foo.md'));
@@ -65,10 +65,10 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_it_handles_generation_even_when_there_are_no_pages()
     {
-        Action::run();
+        $action = Action::run();
 
         $this->assertEquals(
-            '[]', file_get_contents(Action::$filePath)
+            '[]', file_get_contents($action->filePath)
         );
     }
 
