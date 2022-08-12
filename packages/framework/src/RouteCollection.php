@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 /**
  * Pseudo-Router for Hyde.
-
+ *
  * @see \Hyde\Framework\PageCollection
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  *
