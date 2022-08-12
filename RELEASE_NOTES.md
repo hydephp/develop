@@ -34,6 +34,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 
 ### Fixed
 - MarkdownFileParser not using the Hyde path [#399](https://github.com/hydephp/develop/issues/399)
+- Fixes issues in the documentation `search.json` and `search.html` when using custom output directories
 
 ### Security
 - in case of vulnerabilities.
