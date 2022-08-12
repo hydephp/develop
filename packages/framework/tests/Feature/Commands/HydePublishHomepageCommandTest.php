@@ -17,14 +17,13 @@ class HydePublishHomepageCommandTest extends TestCase
         parent::setUp();
 
         $this->file = Hyde::path('_pages/index.blade.php');
-        backup($this->file);
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
 
-        restore($this->file);
+        $this->restoreDefaultPages();
     }
 
     public function test_command_returns_expected_output()

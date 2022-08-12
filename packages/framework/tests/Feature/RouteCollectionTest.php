@@ -19,16 +19,8 @@ class RouteCollectionTest extends TestCase
 {
     protected function withoutDefaultPages(): void
     {
-        backup(Hyde::path('_pages/404.blade.php'));
-        backup(Hyde::path('_pages/index.blade.php'));
-        unlink(Hyde::path('_pages/404.blade.php'));
-        unlink(Hyde::path('_pages/index.blade.php'));
-    }
-
-    protected function restoreDefaultPages(): void
-    {
-        restore(Hyde::path('_pages/404.blade.php'));
-        restore(Hyde::path('_pages/index.blade.php'));
+        Hyde::unlink('_pages/404.blade.php');
+        Hyde::unlink('_pages/index.blade.php');
     }
 
     public function test_boot_method_discovers_all_pages()
