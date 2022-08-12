@@ -41,6 +41,6 @@ class MarkdownDocument implements MarkdownDocumentContract, \Stringable
 
     public static function parse(string $localFilepath): static
     {
-        return (new MarkdownFileParser(Hyde::path($localFilepath)))->get();
+        return (new MarkdownFileParser($localFilepath))->get();
     }
 }

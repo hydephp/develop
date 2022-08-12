@@ -56,7 +56,7 @@ class DataCollection extends Collection
         $collection = new DataCollection($key);
         foreach ($collection->getMarkdownFiles() as $file) {
             $collection->push(
-                (new MarkdownFileParser($file))->get()
+                (new MarkdownFileParser(Hyde::pathToRelative($file)))->get()
             );
         }
 
