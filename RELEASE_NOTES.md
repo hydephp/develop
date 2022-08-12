@@ -10,6 +10,7 @@ This release continues refactoring the internal codebase. As part of this, a lar
 ### Changed
 - Blog posts now have the same open graph title format as other pages
 - Merged deprecated method `getRoutesForModel` into `getRoutes` in `RouteCollection`
+- Cleans up and refactors `GeneratesDocumentationSearchIndexFile`, and marks it as internal
 - internal: Inline deprecated internal method usage `getOutputPath` replacing it `Hyde::pages()` helper with in `HydeRebuildStaticSiteCommand`
 
 ### Deprecated
