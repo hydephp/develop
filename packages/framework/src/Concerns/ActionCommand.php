@@ -9,7 +9,7 @@ use LaravelZero\Framework\Commands\Command;
  */
 abstract class ActionCommand extends Command
 {
-    protected function action(string $title, \Closure $task, $resultMessage = 'Finished')
+    protected function action(string $title, \Closure $task, string $resultMessage = 'Finished')
     {
         /** @var float $actionTime */
         $actionTime = microtime(true);
