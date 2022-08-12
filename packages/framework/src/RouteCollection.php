@@ -33,18 +33,9 @@ final class RouteCollection extends Collection
         return $this;
     }
 
-    public function getRoutes(): self
+    public function getRoutes(?string $pageClass = null): self
     {
-        return $this;
-    }
-
-    /**
-     * @deprecated Will be merged into getRoutes()
-     */
-    public function getRoutesForModel(string $pageClass): self
-    {
-        // Return a new filtered collection with only routes that are for the given page class.
-        return $this->filter(function (RouteContract $route) use ($pageClass) {
+        return ! $pageClass ? $this : $this->filter(function (RouteContract $route) use ($pageClass) {
             return $route->getSourceModel() instanceof $pageClass;
         });
     }

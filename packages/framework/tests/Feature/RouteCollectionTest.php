@@ -90,10 +90,10 @@ class RouteCollectionTest extends TestCase
         $collection = Hyde::routes();
 
         $this->assertCount(4, $collection);
-        $this->assertEquals(new Route(new BladePage('blade')), $collection->getRoutesForModel(BladePage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPage('markdown')), $collection->getRoutesForModel(MarkdownPage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPost('post')), $collection->getRoutesForModel(MarkdownPost::class)->first());
-        $this->assertEquals(new Route(new DocumentationPage('docs')), $collection->getRoutesForModel(DocumentationPage::class)->first());
+        $this->assertEquals(new Route(new BladePage('blade')), $collection->getRoutes(BladePage::class)->first());
+        $this->assertEquals(new Route(new MarkdownPage('markdown')), $collection->getRoutes(MarkdownPage::class)->first());
+        $this->assertEquals(new Route(new MarkdownPost('post')), $collection->getRoutes(MarkdownPost::class)->first());
+        $this->assertEquals(new Route(new DocumentationPage('docs')), $collection->getRoutes(DocumentationPage::class)->first());
 
         $this->restoreDefaultPages();
     }

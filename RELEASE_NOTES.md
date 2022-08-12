@@ -14,6 +14,7 @@ This serves two purposes:
 
 ### Changed
 - Blog posts now have the same opengraph title format as other pages
+- Merged deprecated method `getRoutesForModel` into `getRoutes` in `RouteCollection`
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -24,6 +25,7 @@ This serves two purposes:
 - Removed deprecated `getHomeLink` method from `NavigationMenu` (deprecated in v0.50)
 - Removed deprecated `parseFile` method from `MarkdownDocument` (deprecated in v0.56)
 - Removed deprecated `$body` property from `MarkdownDocument`
+- Removed deprecated `getRoutesForModel` method from `RouteCollection`
 
 ### Fixed
 - for any bug fixes.
