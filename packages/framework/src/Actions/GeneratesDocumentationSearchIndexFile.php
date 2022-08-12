@@ -27,9 +27,11 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
     public Collection $searchIndex;
     public static string $filePath = '_site/docs/search.json';
 
-    public static function run(): void
+    public static function run(): static
     {
-        (new static())->execute();
+        $action = (new static());
+        $action->execute();
+        return $action;
     }
 
     public function __construct()
