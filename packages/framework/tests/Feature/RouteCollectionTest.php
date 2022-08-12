@@ -23,7 +23,7 @@ class RouteCollectionTest extends TestCase
         Hyde::unlink('_pages/index.blade.php');
     }
 
-    public function test_boot_method_discovers_all_pages()
+    protected function test_boot_method_discovers_all_pages()
     {
         $collection = RouteCollection::boot(Hyde::getInstance());
 
@@ -36,7 +36,7 @@ class RouteCollectionTest extends TestCase
         ], $collection->all());
     }
 
-    public function test_boot_method_discovers_all_page_types()
+    protected function test_boot_method_discovers_all_page_types()
     {
         $this->withoutDefaultPages();
 
@@ -60,7 +60,7 @@ class RouteCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_get_routes_returns_all_routes()
+    protected function test_get_routes_returns_all_routes()
     {
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
@@ -70,7 +70,7 @@ class RouteCollectionTest extends TestCase
         $this->assertSame(Hyde::routes(), Hyde::routes()->getRoutes());
     }
 
-    public function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
+    protected function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
     {
         $this->withoutDefaultPages();
 
@@ -90,7 +90,7 @@ class RouteCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_add_route_adds_new_route()
+    protected function test_add_route_adds_new_route()
     {
         $collection = Hyde::routes();
         $this->assertCount(2, $collection);
