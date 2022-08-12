@@ -102,10 +102,11 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         file_put_contents(Hyde::path('_docs/foo.md'), "# Bar\n\n Hello World");
         file_put_contents(Hyde::path('_docs/bar.md'), "# Foo\n\n Hello World");
 
+        $generatesDocumentationSearchIndexFile = (new Action())->generate();
         $this->assertEquals(
             '[{"slug":"bar","title":"Foo","content":"Foo \n Hello World","destination":"bar.html"},'.
             '{"slug":"foo","title":"Bar","content":"Bar \n Hello World","destination":"foo.html"}]',
-            json_encode((new Action())->generate()->jsonSerialize())
+            json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray())
         );
 
         unlink(Hyde::path('_docs/foo.md'));
@@ -135,7 +136,8 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         Hyde::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
-        $this->assertStringNotContainsString('excluded', json_encode((new Action())->generate()->jsonSerialize()));
+        $generatesDocumentationSearchIndexFile = (new Action())->generate();
+        $this->assertStringNotContainsString('excluded', json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray()));
 
         unlink(Hyde::path('_docs/excluded.md'));
     }
@@ -145,7 +147,8 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         mkdir(Hyde::path('_docs/foo'));
         touch(Hyde::path('_docs/foo/bar.md'));
 
-        $this->assertStringNotContainsString('foo', json_encode((new Action())->generate()->jsonSerialize()));
+        $generatesDocumentationSearchIndexFile = (new Action())->generate();
+        $this->assertStringNotContainsString('foo', json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray()));
 
         unlink(Hyde::path('_docs/foo/bar.md'));
         rmdir(Hyde::path('_docs/foo'));

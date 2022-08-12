@@ -20,7 +20,7 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @phpstan-consistent-constructor
  */
-class GeneratesDocumentationSearchIndexFile implements ActionContract, \JsonSerializable
+class GeneratesDocumentationSearchIndexFile implements ActionContract
 {
     use InteractsWithDirectories;
 
@@ -71,16 +71,11 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract, \JsonSeri
         ];
     }
 
-    public function jsonSerialize(): array
-    {
-        return $this->searchIndex->toArray();
-    }
-
     public function save(): static
     {
         $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
 
-        file_put_contents(Hyde::path(static::$filePath), json_encode($this));
+        file_put_contents(Hyde::path(static::$filePath), $this->searchIndex->toJson());
 
         return $this;
     }
