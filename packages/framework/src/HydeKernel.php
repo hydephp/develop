@@ -13,7 +13,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
@@ -214,8 +213,10 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         return $this->filesystem->pathToRelative($path);
     }
 
-    /** @inheritDoc */
-    #[ArrayShape(['basePath' => "string", 'features' => "\Hyde\Framework\Helpers\Features", 'pages' => "\Hyde\Framework\PageCollection", 'routes' => "\Hyde\Framework\RouteCollection"])]
+    /**
+     * @inheritDoc
+     * @return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\PageCollection, routes: \Hyde\Framework\RouteCollection}
+     */
     public function toArray(): array
     {
         return [
