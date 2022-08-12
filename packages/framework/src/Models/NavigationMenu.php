@@ -30,7 +30,7 @@ class NavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        Hyde::routes()->getRoutes()->each(function (Route $route) {
+        Hyde::routes()->each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route));
         });
 

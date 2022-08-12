@@ -133,7 +133,7 @@ class RouteTest extends TestCase
 
     public function test_route_facade_all_method_returns_all_routes()
     {
-        $this->assertEquals(Hyde::routes()->getRoutes(), Route::all());
+        $this->assertEquals(Hyde::routes(), Route::all());
     }
 
     public function test_get_link_returns_correct_path_for_root_pages()
