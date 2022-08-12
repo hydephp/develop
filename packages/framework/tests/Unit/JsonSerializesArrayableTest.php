@@ -16,7 +16,7 @@ class JsonSerializesArrayableTest extends TestCase
         {
             use JsonSerializesArrayable;
 
-            public function toArray()
+            public function toArray(): array
             {
                 return ['foo' => 'bar'];
             }

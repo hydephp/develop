@@ -18,5 +18,5 @@ trait JsonSerializesArrayable
     }
 
     /** @inheritDoc */
-    abstract public function toArray();
+    abstract public function toArray(): array;
 }

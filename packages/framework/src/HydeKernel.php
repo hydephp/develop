@@ -213,8 +213,12 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         return $this->filesystem->pathToRelative($path);
     }
 
-    /** @inheritDoc */
-    public function toArray()
+    /**
+     * @inheritDoc
+     *
+     * @return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\PageCollection, routes: \Hyde\Framework\RouteCollection}
+     */
+    public function toArray(): array
     {
         return [
             'basePath' => $this->basePath,

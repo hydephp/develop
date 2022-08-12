@@ -11,11 +11,11 @@ use Hyde\Framework\Hyde;
  *
  * @internal
  */
-class FindsTitleForPage
+final class FindsTitleForPage
 {
     public static function run(AbstractPage $page): string
     {
-        return trim((new static($page))->findTitleForPage());
+        return trim((new self($page))->findTitleForPage());
     }
 
     protected function __construct(protected AbstractPage $page)

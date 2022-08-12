@@ -91,7 +91,7 @@ class DiscoveryService
             ' ',
             '',
             config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
-        ).'}'), GLOB_BRACE);
+        ).'}'), GLOB_BRACE) ?: [];
     }
 
     /**

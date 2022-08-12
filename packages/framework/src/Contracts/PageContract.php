@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Illuminate\Support\Collection;
+use Hyde\Framework\PageCollection;
 
 interface PageContract
 {
@@ -75,11 +75,11 @@ interface PageContract
      *
      * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
      *
-     * @return \Illuminate\Support\Collection<static>
+     * @return \Hyde\Framework\PageCollection<\Hyde\Framework\Contracts\PageContract
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
-    public static function all(): Collection;
+    public static function all(): PageCollection;
 
     /**
      * Qualify a page basename into a referenceable file path.

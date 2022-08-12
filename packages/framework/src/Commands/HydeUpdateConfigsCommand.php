@@ -13,7 +13,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class HydeUpdateConfigsCommand extends Command
 {
+    /** @var string */
     protected $signature = 'update:configs';
+
+    /** @var string */
     protected $description = 'Publish the default configuration files';
 
     public function handle(): int

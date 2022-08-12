@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
-use Illuminate\Support\Collection;
+use Hyde\Framework\PageCollection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest
@@ -43,10 +43,8 @@ class MarkdownPost extends AbstractMarkdownPage
         return $this->description;
     }
 
-    /**
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Models\Pages\MarkdownPost>
-     */
-    public static function getLatestPosts(): Collection
+    /** @return \Hyde\Framework\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
+    public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc('matter.date');
     }

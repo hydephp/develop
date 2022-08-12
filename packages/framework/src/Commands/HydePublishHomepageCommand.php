@@ -17,9 +17,11 @@ class HydePublishHomepageCommand extends Command
 {
     use AsksToRebuildSite;
 
+    /** @var string */
     protected $signature = 'publish:homepage {homepage? : The name of the page to publish}
                                 {--force : Overwrite any existing files}';
 
+    /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
     protected string $selected;

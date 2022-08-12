@@ -19,6 +19,9 @@ use Hyde\Framework\Hyde;
  *    'author'       => '?string',
  *    'credit'       => '?string'
  * ];
+ *
+ * @see \Hyde\Framework\Testing\Feature\ImageModelTest
+ * @phpstan-consistent-constructor
  */
 class Image implements \Stringable
 {
