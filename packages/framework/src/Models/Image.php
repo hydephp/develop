@@ -19,6 +19,8 @@ use Hyde\Framework\Hyde;
  *    'author'       => '?string',
  *    'credit'       => '?string'
  * ];
+ *
+ * @see \Hyde\Framework\Testing\Feature\ImageModelTest
  */
 class Image implements \Stringable
 {
