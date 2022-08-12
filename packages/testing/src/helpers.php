@@ -42,26 +42,6 @@ if (! function_exists('deleteDirectory')) {
     }
 }
 
-if (! function_exists('createTestPost')) {
-    /** @deprecated - You usually don't need an actual post file anymore. Use touch() instead. */
-    function createTestPost(?string $path = null): string
-    {
-        $path = Hyde::path($path ?? '_posts/test-post.md');
-        file_put_contents($path, '---
-title: My New Post
-category: blog
-author: Mr. Hyde
----
-
-# My New Post
-
-This is a post stub used in the automated tests
-');
-
-        return $path;
-    }
-}
-
 if (! function_exists('unlinkUnlessDefault')) {
     function unlinkUnlessDefault(string $filepath): void
     {
