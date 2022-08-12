@@ -20,7 +20,8 @@ This serves two purposes:
 
 ### Removed
 - Removed deprecated legacy `Compiler` class from the Hyde Realtime Compiler
-- Removed deprecated `stylePath` method from AssetService (deprecated in v0.50)
+- Removed deprecated `stylePath` method from `AssetService` (deprecated in v0.50)
+- Removed deprecated `getHomeLink` method from `NavigationMenu` (deprecated in v0.50)
 
 ### Fixed
 - for any bug fixes.
