@@ -18,15 +18,10 @@ class MarkdownDocument implements MarkdownDocumentContract, \Stringable
     public FrontMatter $matter;
     public Markdown $markdown;
 
-    /** @deprecated */
-    public string $body;
-
     public function __construct(FrontMatter|array $matter = [], Markdown|string $body = '')
     {
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->markdown = $body instanceof Markdown ? $body : new Markdown($body);
-
-        $this->body = $this->markdown->body;
     }
 
     public function __toString(): string
@@ -42,14 +37,6 @@ class MarkdownDocument implements MarkdownDocumentContract, \Stringable
     public function markdown(): Markdown
     {
         return $this->markdown;
-    }
-
-    /**
-     * @deprecated v0.56.0 - Use static::parse() instead
-     */
-    public static function parseFile(string $localFilepath): static
-    {
-        return static::parse($localFilepath);
     }
 
     public static function parse(string $localFilepath): static

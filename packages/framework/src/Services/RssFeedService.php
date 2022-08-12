@@ -53,9 +53,11 @@ class RssFeedService
     {
         $item = $this->feed->channel->addChild('item');
         $item->addChild('title', $post->title);
-        $item->addChild('link', $post->getCanonicalLink());
-        $item->addChild('guid', $post->getCanonicalLink());
-        $item->addChild('description', $post->getPostDescription());
+        if ($post->canonicalUrl !== null) {
+            $item->addChild('link', $post->canonicalUrl);
+            $item->addChild('guid', $post->canonicalUrl);
+        }
+        $item->addChild('description', $post->description);
 
         $this->addAdditionalItemData($item, $post);
     }

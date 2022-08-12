@@ -17,14 +17,13 @@ class HydePublishHomepageCommandTest extends TestCase
         parent::setUp();
 
         $this->file = Hyde::path('_pages/index.blade.php');
-        backup($this->file);
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
 
-        restore($this->file);
+        $this->restoreDefaultPages();
     }
 
     public function test_command_returns_expected_output()
@@ -39,7 +38,6 @@ class HydePublishHomepageCommandTest extends TestCase
     {
         backupDirectory(Hyde::path('_site'));
 
-        backup(Hyde::path('_site/index.html'));
         unlinkIfExists($this->file);
         $this->artisan('publish:homepage welcome')
             ->expectsConfirmation('Would you like to rebuild the site?', 'yes')

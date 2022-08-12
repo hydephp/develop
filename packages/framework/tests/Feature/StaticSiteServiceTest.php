@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\StaticPageBuilder;
-use Hyde\Testing\ResetsApplication;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
@@ -14,8 +13,6 @@ use Illuminate\Support\Facades\File;
  */
 class StaticSiteServiceTest extends TestCase
 {
-    use ResetsApplication;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -41,15 +38,13 @@ class StaticSiteServiceTest extends TestCase
 
     public function test_build_command_creates_html_files()
     {
-        $post = createTestPost();
+        $this->file('_posts/test-post.md');
 
         $this->artisan('build')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/index.html'));
         $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
-
-        unlinkIfExists($post);
     }
 
     public function test_build_command_transfers_media_asset_files()

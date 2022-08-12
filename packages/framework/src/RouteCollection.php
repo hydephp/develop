@@ -9,8 +9,26 @@ use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
 /**
+ * Pseudo-Router for Hyde.
+ *
  * @see \Hyde\Framework\PageCollection
  * @see \Hyde\Framework\Testing\Feature\RouteTest
+ *
+ * This is not a router in the traditional sense that it decides where to go.
+ * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
+ *
+ * This not only let us emulate Laravel route helpers, but also serve as the
+ * canonical source of truth for the vital HydePHP autodiscovery process.
+ *
+ * The routes defined can then also be used to power the RealtimeCompiler without
+ * having to reverse-engineer the source file mapping.
+ *
+ * Routes are not intended to be added manually, instead the route index is created using
+ * the exact same rules as the current autodiscovery process and compiled file output.
+ *
+ * The route index serves as a multidimensional mapping allowing you to
+ * determine where a source file will be compiled to, and where a compiled
+ * file was generated from.
  */
 final class RouteCollection extends Collection
 {
@@ -33,18 +51,9 @@ final class RouteCollection extends Collection
         return $this;
     }
 
-    public function getRoutes(): self
+    public function getRoutes(?string $pageClass = null): self
     {
-        return $this;
-    }
-
-    /**
-     * @deprecated Will be merged into getRoutes()
-     */
-    public function getRoutesForModel(string $pageClass): self
-    {
-        // Return a new filtered collection with only routes that are for the given page class.
-        return $this->filter(function (RouteContract $route) use ($pageClass) {
+        return ! $pageClass ? $this : $this->filter(function (RouteContract $route) use ($pageClass) {
             return $route->getSourceModel() instanceof $pageClass;
         });
     }
