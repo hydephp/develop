@@ -8,6 +8,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Generate a JSON file that can be used as a search index for documentation pages.
@@ -59,6 +60,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract, \JsonSeri
         return $this;
     }
 
+    #[ArrayShape(['slug' => "string", 'title' => "string", 'content' => "string", 'destination' => "string"])]
     public function generatePageEntry(DocumentationPage $page): array
     {
         return [
