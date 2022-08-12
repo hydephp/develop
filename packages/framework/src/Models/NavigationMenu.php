@@ -57,12 +57,6 @@ class NavigationMenu
         return $this;
     }
 
-    /** @deprecated v0.50.x - use Route::home() instead */
-    public function getHomeLink(): string
-    {
-        return Route::get('index');
-    }
-
     protected function filterHiddenItems(): Collection
     {
         return $this->items->reject(function (NavItem $item) {
