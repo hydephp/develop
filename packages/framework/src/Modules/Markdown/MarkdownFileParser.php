@@ -27,9 +27,9 @@ class MarkdownFileParser
      */
     public string $markdown = '';
 
-    public function __construct(string $filepath)
+    public function __construct(string $localFilepath)
     {
-        $stream = file_get_contents(Hyde::path($filepath));
+        $stream = file_get_contents(Hyde::path($localFilepath));
 
         // Check if the file has Front Matter.
         if (str_starts_with($stream, '---')) {
