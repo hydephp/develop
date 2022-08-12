@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
  *
  * @todo Convert into Service, and add more strategies, such as slug-only (no file parsing)
  *        search which while dumber, would be much faster to compile and take way less space.
- * @todo Refactor to use custom site output paths
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
  *
@@ -35,8 +34,9 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
     public function __construct()
     {
         $this->searchIndex = new Collection();
-
-        static::$filePath = '_site/'.config('docs.output_directory', 'docs').'/search.json';
+        static::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
+            DocumentationPage::getOutputDirectory() . '/search.json')
+        );
     }
 
     public function execute(): void
