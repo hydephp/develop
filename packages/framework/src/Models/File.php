@@ -21,9 +21,9 @@ class File implements Arrayable, \JsonSerializable
 
     /**
      * If the file is associated with a page, the class can be specified here.
-     * @var string<\Hyde\Framework\Contracts\AbstractPage>
+     * @var string<\Hyde\Framework\Contracts\AbstractPage>|null
      */
-    public string $belongsTo;
+    public ?string $belongsTo = null;
 
     /**
      * @param string $path The path relative to the project root.
