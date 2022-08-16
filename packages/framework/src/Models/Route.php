@@ -8,7 +8,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\RouteCollection;
+use Hyde\Framework\Foundation\RouteCollection;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**

@@ -5,7 +5,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\RouteContract as Route;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\RouteCollection;
+use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
@@ -68,7 +68,7 @@ class BuildService
     }
 
     /**
-     * @return \Hyde\Framework\RouteCollection<array-key, class-string<\Hyde\Framework\Contracts\PageContract>>
+     * @return \Hyde\Framework\Foundation\RouteCollection<array-key, class-string<\Hyde\Framework\Contracts\PageContract>>
      */
     protected function getDiscoveredModels(): RouteCollection
     {

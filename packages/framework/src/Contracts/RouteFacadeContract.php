@@ -56,7 +56,7 @@ interface RouteFacadeContract
     /**
      * Get all routes from the Router index.
      *
-     * @return \Hyde\Framework\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
+     * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
      */
     public static function all(): Collection;
 

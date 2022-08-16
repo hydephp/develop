@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework;
+namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\PageContract;

@@ -12,7 +12,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\RouteCollection
+ * @see \Hyde\Framework\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
 final class PageCollection extends Collection
