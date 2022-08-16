@@ -19,7 +19,7 @@ final class PageCollection extends Collection
 {
     public static function boot(): self
     {
-        return (new self())->discoverPages();
+        return (new self())->runDiscovery();
     }
 
     protected function __construct($items = [])
@@ -39,7 +39,7 @@ final class PageCollection extends Collection
         });
     }
 
-    protected function discoverPages(): self
+    protected function runDiscovery(): self
     {
         if (Features::hasBladePages()) {
             $this->discoverPagesFor(BladePage::class);

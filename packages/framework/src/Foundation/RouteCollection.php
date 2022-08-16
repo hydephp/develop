@@ -36,7 +36,7 @@ final class RouteCollection extends Collection
 
     public static function boot(HydeKernelContract $kernel): self
     {
-        return (new self())->setKernel($kernel)->discoverRoutes();
+        return (new self())->setKernel($kernel)->runDiscovery();
     }
 
     protected function __construct($items = [])
@@ -77,7 +77,7 @@ final class RouteCollection extends Collection
         return $this;
     }
 
-    protected function discoverRoutes(): self
+    protected function runDiscovery(): self
     {
         $this->kernel->pages()->each(function (PageContract $page) {
             $this->discover($page);
