@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * Filesystem abstraction for a file stored in the project.
  */
-class File implements Arrayable, \JsonSerializable
+class File implements Arrayable, \JsonSerializable, \Stringable
 {
     use JsonSerializesArrayable;
 
@@ -39,6 +39,14 @@ class File implements Arrayable, \JsonSerializable
     public function __construct(string $path)
     {
         $this->path = Hyde::pathToRelative($path);
+    }
+
+    /**
+     * @return string The path relative to the project root.
+     */
+    public function __toString(): string
+    {
+        return $this->path;
     }
 
     /**
