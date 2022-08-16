@@ -32,7 +32,7 @@ class File implements Arrayable, \JsonSerializable
      */
     public function __construct(string $path)
     {
-        $this->path = $path;
+        $this->path = Hyde::pathToRelative($path);
     }
 
     public function getName(): string
