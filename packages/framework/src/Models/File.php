@@ -148,6 +148,6 @@ class File implements Arrayable, \JsonSerializable, \Stringable
             return substr($this, strlen($this->belongsTo::$sourceDirectory));
         }
 
-        return Str::afterLast($this, '/');
+        return basename($this);
     }
 }
