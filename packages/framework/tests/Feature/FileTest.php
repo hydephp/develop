@@ -105,7 +105,7 @@ class FileTest extends TestCase
 
         foreach ($lookup as $extension => $mimeType) {
             $this->assertSame($mimeType, File::make('foo.'.$extension)->getMimeType());
-        }        
+        }
     }
 
     public function test_get_mime_type_returns_filetype_if_file_exists()

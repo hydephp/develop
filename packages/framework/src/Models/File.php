@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Str;
 
 /**
  * Filesystem abstraction for a file stored in the project.
@@ -31,8 +30,8 @@ class File implements Arrayable, \JsonSerializable, \Stringable
     public ?string $belongsTo = null;
 
     /**
-     * @param string $path The path relative to the project root.
-     * @param string<\Hyde\Framework\Contracts\AbstractPage>|null $belongsToClass
+     * @param  string  $path  The path relative to the project root.
+     * @param  string<\Hyde\Framework\Contracts\AbstractPage>|null  $belongsToClass
      * @return \Hyde\Framework\Models\File
      */
     public static function make(string $path, ?string $belongsToClass = null): static
@@ -41,8 +40,8 @@ class File implements Arrayable, \JsonSerializable, \Stringable
     }
 
     /**
-     * @param string $path The path relative to the project root.
-     * @param string<\Hyde\Framework\Contracts\AbstractPage>|null $belongsToClass
+     * @param  string  $path  The path relative to the project root.
+     * @param  string<\Hyde\Framework\Contracts\AbstractPage>|null  $belongsToClass
      */
     public function __construct(string $path, ?string $belongsToClass = null)
     {
@@ -62,7 +61,7 @@ class File implements Arrayable, \JsonSerializable, \Stringable
      * Supply a page class to associate with this file,
      * or leave blank to get the file's associated class.
      *
-     * @param string<\Hyde\Framework\Contracts\AbstractPage>|null $class
+     * @param  string<\Hyde\Framework\Contracts\AbstractPage>|null  $class
      * @return string|$this|null
      */
     public function belongsTo(?string $class = null): null|string|static
@@ -137,7 +136,7 @@ class File implements Arrayable, \JsonSerializable, \Stringable
     {
         return [
             'path' => $this->path,
-            'model' => $this->belongsTo
+            'model' => $this->belongsTo,
         ];
     }
 
