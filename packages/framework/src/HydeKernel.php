@@ -36,8 +36,10 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     protected static HydeKernelContract $instance;
 
     protected string $basePath;
+
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
+
     protected FileCollection $files;
     protected PageCollection $pages;
     protected RouteCollection $routes;
@@ -54,6 +56,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function boot(): void
     {
         $this->booted = true;
+
         $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot();
         $this->routes = RouteCollection::boot($this);
