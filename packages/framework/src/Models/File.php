@@ -5,6 +5,7 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 
 /**
  * Filesystem abstraction for a file stored in the project.
@@ -131,5 +132,10 @@ class File implements Arrayable, \JsonSerializable, \Stringable
         return [
             'path' => $this->path,
         ];
+    }
+
+    public function withoutDirectoryPrefix(): string
+    {
+        return substr($this, strlen(Str::before($this, '/')));
     }
 }
