@@ -58,7 +58,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         $this->booted = true;
 
         $this->files = FileCollection::boot($this);
-        $this->pages = PageCollection::boot();
+        $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
     }
 
