@@ -2,17 +2,17 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\PageCollection;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\PageCollection
+ * @covers \Hyde\Framework\Foundation\PageCollection
  */
 class PageCollectionTest extends TestCase
 {

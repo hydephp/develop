@@ -4,9 +4,9 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
-use Hyde\Framework\PageCollection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest
@@ -30,7 +30,7 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->constructBlogPostSchema();
     }
 
-    /** @return \Hyde\Framework\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
+    /** @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc('matter.date');

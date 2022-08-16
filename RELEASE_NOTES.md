@@ -13,7 +13,8 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Move class PageCollection into Foundation namespace
+- Move class RouteCollection into Foundation namespace
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -26,3 +27,18 @@ This serves two purposes:
 
 ### Security
 - in case of vulnerabilities.
+
+### Upgrade guide
+
+#### Collection namespace change
+
+> You only need to do this if you have written custom code that uses the old namespace.
+
+To upgrade the moved collection namespaces, simply replace the following namespace imports:
+
+```diff
+-use Hyde\Framework\PageCollection;
++use Hyde\Framework\Foundation\PageCollection;
+-use Hyde\Framework\RouteCollection;
++use Hyde\Framework\Foundation\RouteCollection;
+```

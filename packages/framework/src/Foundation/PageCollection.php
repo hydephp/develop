@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework;
+namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -12,7 +12,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\RouteCollection
+ * @see \Hyde\Framework\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
 final class PageCollection extends Collection
