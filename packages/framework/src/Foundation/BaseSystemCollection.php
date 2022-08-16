@@ -16,6 +16,8 @@ abstract class BaseSystemCollection extends Collection
 {
     protected HydeKernelContract $kernel;
 
+    abstract protected function runDiscovery(): self;
+
     public static function boot(HydeKernelContract $kernel): static
     {
         return (new static())->setKernel($kernel)->runDiscovery();
@@ -32,6 +34,4 @@ abstract class BaseSystemCollection extends Collection
 
         return $this;
     }
-
-    abstract protected function runDiscovery(): self;
 }
