@@ -4,9 +4,9 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
-use Hyde\Framework\Foundation\PageCollection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest

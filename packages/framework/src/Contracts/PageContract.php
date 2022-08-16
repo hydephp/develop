@@ -76,7 +76,6 @@ interface PageContract
      * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Contracts\PageContract
      *
      * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
-     *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
     public static function all(): PageCollection;
