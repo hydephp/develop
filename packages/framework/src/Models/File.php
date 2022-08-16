@@ -48,7 +48,7 @@ class File implements Arrayable, \JsonSerializable
      * @param string|null $class
      * @return string|$this|null
      */
-    public function belongsTo(?string $class): null|string|static
+    public function belongsTo(?string $class = null): null|string|static
     {
         if ($class) {
             $this->belongsTo = $class;
