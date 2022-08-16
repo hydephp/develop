@@ -107,6 +107,15 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         return View::shared('currentRoute');
     }
 
+    public function files(): FileCollection
+    {
+        if (! $this->booted) {
+            $this->boot();
+        }
+
+        return $this->files;
+    }
+
     public function pages(): PageCollection
     {
         if (! $this->booted) {
@@ -231,6 +240,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         return [
             'basePath' => $this->basePath,
             'features' => $this->features(),
+            'files' => $this->files(),
             'pages' => $this->pages(),
             'routes' => $this->routes(),
         ];
