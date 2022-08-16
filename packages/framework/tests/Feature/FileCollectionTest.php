@@ -27,7 +27,7 @@ class FileCollectionTest extends TestCase
         $this->assertEquals([
             '_pages/404.blade.php' => new File('_pages/404.blade.php', BladePage::class),
             '_pages/index.blade.php' => new File('_pages/index.blade.php', BladePage::class),
-            '_media/app.css' => new File('_media/app.css')
+            '_media/app.css' => new File('_media/app.css'),
         ], $collection->all());
     }
 
@@ -58,7 +58,7 @@ class FileCollectionTest extends TestCase
 
         $collection = FileCollection::boot(Hyde::getInstance());
         $this->assertEquals([
-            '_media/app.css' => new File('_media/app.css')
+            '_media/app.css' => new File('_media/app.css'),
         ], $collection->getMediaFiles()->all());
     }
 
