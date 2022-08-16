@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Illuminate\Support\Collection;
 use Hyde\Framework\Contracts\HydeKernelContract;
+use Illuminate\Support\Collection;
 
 /**
  * @internal Base class for the system collections.
@@ -29,6 +29,7 @@ abstract class BaseSystemCollection extends Collection
     protected function setKernel(HydeKernelContract $kernel): static
     {
         $this->kernel = $kernel;
+
         return $this;
     }
 

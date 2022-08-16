@@ -89,7 +89,6 @@ class DiscoveryServiceTest extends TestCase
         unlink(Hyde::path('_docs/foo.md'));
     }
 
-
     public function test_get_source_file_list_for_markdown_page_model()
     {
         $this->file('_pages/foo.md');
@@ -101,12 +100,13 @@ class DiscoveryServiceTest extends TestCase
         $this->file('_pages/foo.blade.php');
         $this->assertEquals(['404', 'foo', 'index'], DiscoveryService::getSourceFileListForModel(BladePage::class));
     }
-    
+
     public function test_get_source_file_list_for_markdown_post_model()
     {
         $this->file('_posts/foo.md');
         $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(MarkdownPost::class));
     }
+
     public function test_get_source_file_list_for_documentation_page_model()
     {
         $this->file('_docs/foo.md');

@@ -15,18 +15,20 @@ class File implements Arrayable, \JsonSerializable, \Stringable
 
     /**
      * @var string The path relative to the project root.
+     *
      * @example `_pages/index.blade.php`
      */
     public string $path;
 
     /**
      * If the file is associated with a page, the class can be specified here.
+     *
      * @var string<\Hyde\Framework\Contracts\AbstractPage>|null
      */
     public ?string $belongsTo = null;
 
     /**
-     * @param string $path The path relative to the project root.
+     * @param  string  $path  The path relative to the project root.
      */
     public static function make(string $path): static
     {
@@ -34,7 +36,7 @@ class File implements Arrayable, \JsonSerializable, \Stringable
     }
 
     /**
-     * @param string $path The path relative to the project root.
+     * @param  string  $path  The path relative to the project root.
      */
     public function __construct(string $path)
     {
@@ -53,13 +55,14 @@ class File implements Arrayable, \JsonSerializable, \Stringable
      * Supply a page class to associate with this file,
      * or leave blank to get the file's associated class.
      *
-     * @param string|null $class
+     * @param  string|null  $class
      * @return string|$this|null
      */
     public function belongsTo(?string $class = null): null|string|static
     {
         if ($class) {
             $this->belongsTo = $class;
+
             return $this;
         }
 
