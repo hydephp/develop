@@ -136,6 +136,6 @@ class File implements Arrayable, \JsonSerializable, \Stringable
 
     public function withoutDirectoryPrefix(): string
     {
-        return substr($this, strlen(Str::before($this, '/')));
+        return substr($this, strlen($this->belongsTo ? $this->belongsTo::$sourceDirectory : Str::before($this, '/')));
     }
 }
