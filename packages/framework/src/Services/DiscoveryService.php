@@ -42,7 +42,7 @@ class DiscoveryService
 
         $files = [];
         Hyde::files()->getSourceFiles($model)->each(function (File $file) use (&$files, $model) {
-            $files[] = self::formatSlugForModel($model, basename($file));
+            $files[] = self::formatSlugForModel($model, $file->withoutDirectoryPrefix());
         });
 
         return $files;
