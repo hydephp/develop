@@ -8,7 +8,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\PageCollection;
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Services\DiscoveryService;
 
 /**

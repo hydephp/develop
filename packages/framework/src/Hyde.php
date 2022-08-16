@@ -4,6 +4,7 @@ namespace Hyde\Framework;
 
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Support\Facades\Facade;
 

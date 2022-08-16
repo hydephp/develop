@@ -8,6 +8,7 @@ use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
@@ -216,7 +217,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     /**
      * @inheritDoc
      *
-     * @return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\PageCollection, routes: \Hyde\Framework\RouteCollection}
+     * @return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\Foundation\PageCollection, routes: \Hyde\Framework\RouteCollection}
      */
     public function toArray(): array
     {

@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\PageCollection;
+use Hyde\Framework\Foundation\PageCollection;
 
 interface PageContract
 {
@@ -73,9 +73,9 @@ interface PageContract
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
+     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Contracts\PageContract
      *
-     * @return \Hyde\Framework\PageCollection<\Hyde\Framework\Contracts\PageContract
+     * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
