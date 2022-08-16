@@ -18,7 +18,9 @@ final class FileCollection extends BaseSystemCollection
 {
     public function getSourceFiles(?string $pageClass = null): self
     {
-        return ! $pageClass ? $this : $this->filter(function (File $file) use ($pageClass): bool {
+        return ! $pageClass ? $this->filter(function (File $file) {
+            return $file->belongsTo !== null;
+        }) : $this->filter(function (File $file) use ($pageClass): bool {
             return $file->belongsTo() === $pageClass;
         });
     }
