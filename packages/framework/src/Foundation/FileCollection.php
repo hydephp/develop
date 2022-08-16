@@ -14,6 +14,13 @@ use Hyde\Framework\Services\DiscoveryService;
 
 final class FileCollection extends BaseSystemCollection
 {
+    public function getSourceFiles(?string $pageClass = null): self
+    {
+        return ! $pageClass ? $this : $this->filter(function (File $file) use ($pageClass): bool {
+            return $file->belongsTo() === $pageClass;
+        });
+    }
+
     protected function runDiscovery(): self
     {
         if (Features::hasBladePages()) {
