@@ -2,15 +2,11 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+Creates a new foundation class, the FileCollection. Which like the other foundation collections, discovers all the files. Running this part of the autodiscovery will further enrich the Hyde Kernel, and allow greater insight into the application. The end user experience should not be affected by this.
 
 ### Added
-- for new features.
+- Adds a new FileCollection class to hold all discovered source and asset files
+- Adds a new File model as an object-oriented way of representing a project file
 
 ### Changed
 - Move class PageCollection into Foundation namespace
