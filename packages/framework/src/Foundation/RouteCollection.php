@@ -11,6 +11,7 @@ use Hyde\Framework\Models\Route;
  *
  * @see \Hyde\Framework\Foundation\PageCollection
  * @see \Hyde\Framework\Testing\Feature\RouteTest
+ * @see \Hyde\Framework\Testing\Feature\RouteCollectionTest
  *
  * This is not a router in the traditional sense that it decides where to go.
  * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
