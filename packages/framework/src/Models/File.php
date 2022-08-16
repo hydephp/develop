@@ -19,6 +19,22 @@ class File implements Arrayable, \JsonSerializable
      */
     public string $path;
 
+    /**
+     * @param string $path The path relative to the project root.
+     */
+    public static function make(string $path): static
+    {
+        return new static($path);
+    }
+
+    /**
+     * @param string $path The path relative to the project root.
+     */
+    public function __construct(string $path)
+    {
+        $this->path = $path;
+    }
+
     public function getName(): string
     {
         return basename($this->path);
