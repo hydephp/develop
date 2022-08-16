@@ -11,6 +11,9 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
 
+/**
+ * @see \Hyde\Framework\Foundation\FileCollection
+ */
 final class FileCollection extends BaseSystemCollection
 {
     public function getSourceFiles(?string $pageClass = null): self
