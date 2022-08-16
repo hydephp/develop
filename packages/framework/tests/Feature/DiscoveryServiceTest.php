@@ -96,6 +96,12 @@ class DiscoveryServiceTest extends TestCase
         $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(MarkdownPage::class));
     }
 
+    public function test_get_source_file_list_for_blade_page_model()
+    {
+        $this->file('_pages/foo.blade.php');
+        $this->assertEquals(['404', 'foo', 'index'], DiscoveryService::getSourceFileListForModel(BladePage::class));
+    }
+    
     public function test_get_source_file_list_for_markdown_post_model()
     {
         $this->file('_posts/foo.md');
