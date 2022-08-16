@@ -54,8 +54,6 @@ class FileCollectionTest extends TestCase
 
     public function test_get_media_files_returns_all_discovered_media_files()
     {
-        $this->markTestSkipped('Not yet implemented.');
-
         $collection = FileCollection::boot(Hyde::getInstance());
         $this->assertEquals([
             '_media/app.css' => new File('_media/app.css'),
@@ -64,11 +62,11 @@ class FileCollectionTest extends TestCase
 
     public function test_get_media_files_does_not_include_non_media_files()
     {
-        $this->markTestSkipped('Not yet implemented.');
-
         $this->file('_media/foo.blade.php');
         $collection = FileCollection::boot(Hyde::getInstance());
-        $this->assertEquals([], $collection->getMediaFiles()->all());
+        $this->assertEquals([
+            '_media/app.css' => new File('_media/app.css'),
+        ], $collection->getMediaFiles()->all());
     }
 
     public function test_blade_pages_are_discovered()

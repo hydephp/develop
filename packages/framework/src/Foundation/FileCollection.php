@@ -35,6 +35,13 @@ final class FileCollection extends BaseSystemCollection
         });
     }
 
+    public function getMediaFiles(): self
+    {
+        return $this->filter(function (File $file): bool {
+            return str_starts_with($file, '_media');
+        });
+    }
+
     protected function runDiscovery(): self
     {
         if (Features::hasBladePages()) {
