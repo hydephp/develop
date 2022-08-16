@@ -2,11 +2,14 @@
 
 namespace Hyde\Framework\Foundation;
 
+use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Services\DiscoveryService;
 
 final class FileCollection extends BaseSystemCollection
 {
@@ -29,5 +32,15 @@ final class FileCollection extends BaseSystemCollection
         }
 
         return $this;
+    }
+
+    /** @param string<AbstractPage> $pageClass */
+    protected function discoverFilesFor(string $pageClass): void
+    {
+        foreach (glob($this->kernel->path($pageClass::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
+            if (! str_starts_with(basename($filepath), '_')) {
+                $this->put($this->kernel->pathToRelative($filepath), DiscoveryService::formatSlugForModel($pageClass, $filepath));
+            }
+        }
     }
 }
