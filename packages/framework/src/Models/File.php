@@ -131,6 +131,7 @@ class File implements Arrayable, \JsonSerializable, \Stringable
     {
         return [
             'path' => $this->path,
+            'model' => $this->belongsTo
         ];
     }
 
