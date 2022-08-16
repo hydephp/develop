@@ -43,7 +43,7 @@ final class FileCollection extends BaseSystemCollection
         // Scan the source directory, and directories therein, for files that match the model's file extension.
         foreach (glob($this->kernel->path($pageClass::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
-                $this->put($this->kernel->pathToRelative($filepath), File::make($filepath));
+                $this->put($this->kernel->pathToRelative($filepath), File::make($filepath)->belongsTo($pageClass));
             }
         }
     }

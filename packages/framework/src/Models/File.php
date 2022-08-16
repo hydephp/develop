@@ -20,6 +20,12 @@ class File implements Arrayable, \JsonSerializable
     public string $path;
 
     /**
+     * If the file is associated with a page, the class can be specified here.
+     * @var string<\Hyde\Framework\Contracts\AbstractPage>
+     */
+    public string $belongsTo;
+
+    /**
      * @param string $path The path relative to the project root.
      */
     public static function make(string $path): static
@@ -33,6 +39,23 @@ class File implements Arrayable, \JsonSerializable
     public function __construct(string $path)
     {
         $this->path = Hyde::pathToRelative($path);
+    }
+
+    /**
+     * Supply a page class to associate with this file,
+     * or leave blank to get the file's associated class.
+     *
+     * @param string|null $class
+     * @return string|$this|null
+     */
+    public function belongsTo(?string $class): null|string|static
+    {
+        if ($class) {
+            $this->belongsTo = $class;
+            return $this;
+        }
+
+        return $this->belongsTo;
     }
 
     public function getName(): string
