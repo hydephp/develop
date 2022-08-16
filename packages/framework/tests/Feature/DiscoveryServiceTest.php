@@ -226,6 +226,7 @@ class DiscoveryServiceTest extends TestCase
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
     {
         Hyde::touch(($path));
+        Hyde::boot(); // Reboot to rediscover new pages
 
         $expected = $expected ?? basename($path, '.md');
 
