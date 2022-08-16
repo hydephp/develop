@@ -89,11 +89,22 @@ class DiscoveryServiceTest extends TestCase
         unlink(Hyde::path('_docs/foo.md'));
     }
 
-    public function test_get_source_file_list_for_model_method()
+
+    public function test_get_source_file_list_for_markdown_page_model()
     {
-        $this->unitTestMarkdownBasedPageList(MarkdownPage::class, '_pages/foo.md');
-        $this->unitTestMarkdownBasedPageList(MarkdownPost::class, '_posts/foo.md');
-        $this->unitTestMarkdownBasedPageList(DocumentationPage::class, '_docs/foo.md');
+        $this->file('_pages/foo.md');
+        $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(MarkdownPage::class));
+    }
+
+    public function test_get_source_file_list_for_markdown_post_model()
+    {
+        $this->file('_posts/foo.md');
+        $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(MarkdownPost::class));
+    }
+    public function test_get_source_file_list_for_documentation_page_model()
+    {
+        $this->file('_docs/foo.md');
+        $this->assertEquals(['foo'], DiscoveryService::getSourceFileListForModel(DocumentationPage::class));
     }
 
     public function test_get_source_file_list_for_model_method_finds_customized_model_properties()
