@@ -18,12 +18,6 @@ use Illuminate\Support\Collection;
  */
 class FileCollectionTest extends TestCase
 {
-    protected function withoutDefaultPages(): void
-    {
-        Hyde::unlink('_pages/404.blade.php');
-        Hyde::unlink('_pages/index.blade.php');
-    }
-
     public function test_boot_method_creates_new_page_collection_and_discovers_pages_automatically()
     {
         $collection = FileCollection::boot(Hyde::getInstance());
