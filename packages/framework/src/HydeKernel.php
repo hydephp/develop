@@ -6,6 +6,7 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Foundation\PageCollection;
@@ -37,6 +38,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     protected string $basePath;
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
+    protected FileCollection $files;
     protected PageCollection $pages;
     protected RouteCollection $routes;
 
@@ -52,6 +54,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function boot(): void
     {
         $this->booted = true;
+        $this->files = FileCollection::boot($this);
         $this->pages = PageCollection::boot();
         $this->routes = RouteCollection::boot($this);
     }
