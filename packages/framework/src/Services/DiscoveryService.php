@@ -18,6 +18,8 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
  * building process to determine where files are located and how to parse them.
  *
  * The CollectionService was in v0.53.0 merged into this class.
+ *
+ * @see \Hyde\Framework\Testing\Feature\DiscoveryServiceTest
  */
 class DiscoveryService
 {
