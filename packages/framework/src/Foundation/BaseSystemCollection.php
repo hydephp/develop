@@ -31,4 +31,6 @@ abstract class BaseSystemCollection extends Collection
         $this->kernel = $kernel;
         return $this;
     }
+
+    abstract protected function runDiscovery(): self;
 }
