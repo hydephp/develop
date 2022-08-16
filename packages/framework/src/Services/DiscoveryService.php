@@ -5,6 +5,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\File;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -39,14 +40,10 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        // Scan the source directory, and directories therein, for files that match the model's file extension.
-
         $files = [];
-        foreach (glob(Hyde::path($model::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                $files[] = self::formatSlugForModel($model, $filepath);
-            }
-        }
+        Hyde::files()->getSourceFiles($model)->each(function (File $file) use (&$files, $model) {
+            $files[] = self::formatSlugForModel($model, basename($file));
+        });
 
         return $files;
     }
