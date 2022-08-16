@@ -203,21 +203,24 @@ class HydeKernelTest extends TestCase
         $array = Hyde::toArray();
 
         $this->assertTrue(is_array($array));
-        $this->assertCount(4, $array);
+        $this->assertCount(5, $array);
 
         $this->assertArrayHasKey('basePath', $array);
         $this->assertArrayHasKey('features', $array);
+        $this->assertArrayHasKey('files', $array);
         $this->assertArrayHasKey('pages', $array);
         $this->assertArrayHasKey('routes', $array);
 
         $this->assertEquals(Hyde::getBasePath(), $array['basePath']);
         $this->assertEquals(Hyde::features(), $array['features']);
+        $this->assertEquals(Hyde::files(), $array['files']);
         $this->assertEquals(Hyde::pages(), $array['pages']);
         $this->assertEquals(Hyde::routes(), $array['routes']);
 
         $this->assertEquals([
             'basePath' => Hyde::getBasePath(),
             'features' => Hyde::features(),
+            'files' => Hyde::files(),
             'pages' => Hyde::pages(),
             'routes' => Hyde::routes(),
         ], Hyde::toArray());

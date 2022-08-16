@@ -4,6 +4,7 @@ namespace Hyde\Framework;
 
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string path(string $path = '')
  * @method static string relativeLink(string $destination)
  * @method static PageCollection pages()
+ * @method static FileCollection files()
  * @method static string getMarkdownPostPath(string $path = '')
  * @method static bool copy(string $from, string $to)
  * @method static void boot()

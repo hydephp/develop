@@ -6,6 +6,7 @@ use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Foundation\PageCollection;
@@ -35,8 +36,11 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     protected static HydeKernelContract $instance;
 
     protected string $basePath;
+
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
+
+    protected FileCollection $files;
     protected PageCollection $pages;
     protected RouteCollection $routes;
 
@@ -52,7 +56,9 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function boot(): void
     {
         $this->booted = true;
-        $this->pages = PageCollection::boot();
+
+        $this->files = FileCollection::boot($this);
+        $this->pages = PageCollection::boot($this);
         $this->routes = RouteCollection::boot($this);
     }
 
@@ -99,6 +105,15 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     public function currentRoute(): ?RouteContract
     {
         return View::shared('currentRoute');
+    }
+
+    public function files(): FileCollection
+    {
+        if (! $this->booted) {
+            $this->boot();
+        }
+
+        return $this->files;
     }
 
     public function pages(): PageCollection
@@ -225,6 +240,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         return [
             'basePath' => $this->basePath,
             'features' => $this->features(),
+            'files' => $this->files(),
             'pages' => $this->pages(),
             'routes' => $this->routes(),
         ];

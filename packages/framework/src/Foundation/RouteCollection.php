@@ -2,17 +2,16 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\Route;
-use Illuminate\Support\Collection;
 
 /**
  * Pseudo-Router for Hyde.
  *
  * @see \Hyde\Framework\Foundation\PageCollection
  * @see \Hyde\Framework\Testing\Feature\RouteTest
+ * @see \Hyde\Framework\Testing\Feature\RouteCollectionTest
  *
  * This is not a router in the traditional sense that it decides where to go.
  * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
@@ -30,27 +29,8 @@ use Illuminate\Support\Collection;
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
  */
-final class RouteCollection extends Collection
+final class RouteCollection extends BaseSystemCollection
 {
-    protected HydeKernelContract $kernel;
-
-    public static function boot(HydeKernelContract $kernel): self
-    {
-        return (new self())->setKernel($kernel)->discoverRoutes();
-    }
-
-    protected function __construct($items = [])
-    {
-        parent::__construct($items);
-    }
-
-    protected function setKernel(HydeKernelContract $kernel): self
-    {
-        $this->kernel = $kernel;
-
-        return $this;
-    }
-
     public function getRoutes(?string $pageClass = null): self
     {
         return ! $pageClass ? $this : $this->filter(function (RouteContract $route) use ($pageClass) {
@@ -77,7 +57,7 @@ final class RouteCollection extends Collection
         return $this;
     }
 
-    protected function discoverRoutes(): self
+    protected function runDiscovery(): self
     {
         $this->kernel->pages()->each(function (PageContract $page) {
             $this->discover($page);

@@ -14,15 +14,10 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Foundation\RouteCollection
+ * @covers \Hyde\Framework\Foundation\BaseSystemCollection
  */
 class RouteCollectionTest extends TestCase
 {
-    protected function withoutDefaultPages(): void
-    {
-        Hyde::unlink('_pages/404.blade.php');
-        Hyde::unlink('_pages/index.blade.php');
-    }
-
     protected function test_boot_method_discovers_all_pages()
     {
         $collection = RouteCollection::boot(Hyde::getInstance());

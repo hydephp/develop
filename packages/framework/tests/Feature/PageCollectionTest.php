@@ -13,18 +13,13 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Foundation\PageCollection
+ * @covers \Hyde\Framework\Foundation\BaseSystemCollection
  */
 class PageCollectionTest extends TestCase
 {
-    protected function withoutDefaultPages(): void
-    {
-        Hyde::unlink('_pages/404.blade.php');
-        Hyde::unlink('_pages/index.blade.php');
-    }
-
     public function test_boot_method_creates_new_page_collection_and_discovers_pages_automatically()
     {
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
         $this->assertInstanceOf(PageCollection::class, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
 
@@ -37,7 +32,7 @@ class PageCollectionTest extends TestCase
     public function test_blade_pages_are_discovered()
     {
         $this->file('_pages/foo.blade.php');
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
 
         $this->assertArrayHasKey('_pages/foo.blade.php', $collection->toArray());
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
@@ -46,7 +41,7 @@ class PageCollectionTest extends TestCase
     public function test_markdown_pages_are_discovered()
     {
         $this->file('_pages/foo.md');
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
 
         $this->assertArrayHasKey('_pages/foo.md', $collection->toArray());
         $this->assertEquals(new MarkdownPage('foo'), $collection->get('_pages/foo.md'));
@@ -55,7 +50,7 @@ class PageCollectionTest extends TestCase
     public function test_markdown_posts_are_discovered()
     {
         $this->file('_posts/foo.md');
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
 
         $this->assertArrayHasKey('_posts/foo.md', $collection->toArray());
         $this->assertEquals(new MarkdownPost('foo'), $collection->get('_posts/foo.md'));
@@ -64,7 +59,7 @@ class PageCollectionTest extends TestCase
     public function test_documentation_pages_are_discovered()
     {
         $this->file('_docs/foo.md');
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
         $this->assertArrayHasKey('_docs/foo.md', $collection->toArray());
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('_docs/foo.md'));
     }
@@ -72,7 +67,7 @@ class PageCollectionTest extends TestCase
     public function test_get_page_returns_parsed_page_object_for_given_source_path()
     {
         $this->file('_pages/foo.blade.php');
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
         $this->assertEquals(new BladePage('foo'), $collection->getPage('_pages/foo.blade.php'));
     }
 
@@ -84,7 +79,7 @@ class PageCollectionTest extends TestCase
         $this->file('_pages/foo.md');
         $this->file('_posts/foo.md');
         $this->file('_docs/foo.md');
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
         $this->assertCount(4, $collection);
 
         $this->assertContainsOnlyInstancesOf(BladePage::class, $collection->getPages(BladePage::class));
@@ -108,7 +103,7 @@ class PageCollectionTest extends TestCase
         $this->file('_pages/foo.md');
         $this->file('_posts/foo.md');
         $this->file('_docs/foo.md');
-        $collection = PageCollection::boot()->getPages();
+        $collection = PageCollection::boot(Hyde::getInstance())->getPages();
         $this->assertCount(4, $collection);
 
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
@@ -122,7 +117,7 @@ class PageCollectionTest extends TestCase
     public function test_get_pages_returns_empty_collection_when_no_pages_are_discovered()
     {
         $this->withoutDefaultPages();
-        $collection = PageCollection::boot();
+        $collection = PageCollection::boot(Hyde::getInstance());
         $this->assertEmpty($collection->getPages());
         $this->restoreDefaultPages();
     }
@@ -136,7 +131,7 @@ class PageCollectionTest extends TestCase
         touch('_posts/post.md');
         touch('_docs/doc.md');
 
-        $this->assertEmpty(PageCollection::boot());
+        $this->assertEmpty(PageCollection::boot(Hyde::getInstance()));
 
         unlink('_pages/blade.blade.php');
         unlink('_pages/markdown.md');

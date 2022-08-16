@@ -5,6 +5,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\File;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -18,6 +19,8 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
  * building process to determine where files are located and how to parse them.
  *
  * The CollectionService was in v0.53.0 merged into this class.
+ *
+ * @see \Hyde\Framework\Testing\Feature\DiscoveryServiceTest
  */
 class DiscoveryService
 {
@@ -37,14 +40,10 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        // Scan the source directory, and directories therein, for files that match the model's file extension.
-
         $files = [];
-        foreach (glob(Hyde::path($model::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
-                $files[] = self::formatSlugForModel($model, $filepath);
-            }
-        }
+        Hyde::files()->getSourceFiles($model)->each(function (File $file) use (&$files, $model) {
+            $files[] = self::formatSlugForModel($model, $file->withoutDirectoryPrefix());
+        });
 
         return $files;
     }
@@ -87,11 +86,7 @@ class DiscoveryService
      */
     public static function getMediaAssetFiles(): array
     {
-        return glob(Hyde::path('_media/*.{'.str_replace(
-            ' ',
-            '',
-            config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
-        ).'}'), GLOB_BRACE) ?: [];
+        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
     }
 
     /**
@@ -123,5 +118,12 @@ class DiscoveryService
         }
 
         return unslash($slug);
+    }
+
+    protected static function getMediaGlobPattern(): string
+    {
+        return sprintf('_media/*.{%s}', str_replace(' ', '',
+            config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
+        ));
     }
 }
