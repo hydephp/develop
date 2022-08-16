@@ -15,18 +15,8 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
-final class PageCollection extends Collection
+final class PageCollection extends BaseSystemCollection
 {
-    public static function boot(): self
-    {
-        return (new self())->runDiscovery();
-    }
-
-    protected function __construct($items = [])
-    {
-        parent::__construct($items);
-    }
-
     public function getPage(string $sourcePath): PageContract
     {
         return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath.' in page collection');
