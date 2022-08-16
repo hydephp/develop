@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Foundation\PageCollection
+ * @covers \Hyde\Framework\Foundation\BaseSystemCollection
  */
 class PageCollectionTest extends TestCase
 {
