@@ -125,7 +125,7 @@ class File implements Arrayable, \JsonSerializable, \Stringable
             return $lookup[$extension];
         }
 
-        if (extension_loaded('fileinfo')) {
+        if (extension_loaded('fileinfo') && file_exists($this->getAbsolutePath())) {
             return mime_content_type($this->path);
         }
 
