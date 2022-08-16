@@ -32,6 +32,8 @@ final class FileCollection extends BaseSystemCollection
             $this->discoverFilesFor(DocumentationPage::class);
         }
 
+        $this->discoverMediaAssetFiles();
+
         return $this;
     }
 
@@ -43,6 +45,13 @@ final class FileCollection extends BaseSystemCollection
             if (! str_starts_with(basename($filepath), '_')) {
                 $this->put($this->kernel->pathToRelative($filepath), File::make($filepath));
             }
+        }
+    }
+
+    protected function discoverMediaAssetFiles(): void
+    {
+        foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
+            $this->put($this->kernel->pathToRelative($filepath), File::make($filepath));
         }
     }
 }
