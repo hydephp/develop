@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Contracts\HydeKernelContract;
+use Hyde\Framework\HydeKernel;
 use Illuminate\Support\Collection;
 
 /**
@@ -14,11 +14,11 @@ use Illuminate\Support\Collection;
  */
 abstract class BaseSystemCollection extends Collection
 {
-    protected HydeKernelContract $kernel;
+    protected HydeKernel $kernel;
 
     abstract protected function runDiscovery(): self;
 
-    public static function boot(HydeKernelContract $kernel): static
+    public static function boot(HydeKernel $kernel): static
     {
         return (new static())->setKernel($kernel)->runDiscovery();
     }
@@ -28,7 +28,7 @@ abstract class BaseSystemCollection extends Collection
         parent::__construct($items);
     }
 
-    protected function setKernel(HydeKernelContract $kernel): static
+    protected function setKernel(HydeKernel $kernel): static
     {
         $this->kernel = $kernel;
 

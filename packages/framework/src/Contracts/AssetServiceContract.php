@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Contracts;
 
+/**
+ * @deprecated v0.61.0-beta - Type hint the AssetService::class instead
+ */
 interface AssetServiceContract
 {
     /**

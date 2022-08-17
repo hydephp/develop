@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Contracts\HydeKernelContract;
+use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -19,9 +19,9 @@ use Hyde\Framework\StaticPageBuilder;
  */
 class Filesystem
 {
-    protected HydeKernelContract $kernel;
+    protected HydeKernel $kernel;
 
-    public function __construct(HydeKernelContract $kernel)
+    public function __construct(HydeKernel $kernel)
     {
         $this->kernel = $kernel;
     }

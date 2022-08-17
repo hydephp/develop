@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework;
 
-use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\PageCollection;
@@ -46,9 +45,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static string makeTitle(string $slug)
  * @method static array toArray()
  * @method static bool hasSiteUrl()
- * @method static void setInstance(HydeKernelContract $instance)
+ * @method static void setInstance(HydeKernel $instance)
  * @method static string getBasePath()
- * @method static HydeKernelContract getInstance()
+ * @method static HydeKernel getInstance()
  * @method static string getDocumentationPagePath(string $path = '')
  */
 class Hyde extends Facade

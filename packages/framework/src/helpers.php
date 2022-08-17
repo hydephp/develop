@@ -1,17 +1,17 @@
 <?php
 
-use Hyde\Framework\Contracts\HydeKernelContract;
+use Hyde\Framework\HydeKernel;
 use Illuminate\Contracts\Support\Arrayable;
 
 if (! function_exists('hyde')) {
     /**
      * Get the available HydeKernel instance.
      *
-     * @return \Hyde\Framework\Contracts\HydeKernelContract
+     * @return \Hyde\Framework\HydeKernel
      */
-    function hyde(): HydeKernelContract
+    function hyde(): HydeKernel
     {
-        return app(HydeKernelContract::class);
+        return app(HydeKernel::class);
     }
 }
 

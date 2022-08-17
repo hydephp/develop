@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
@@ -29,22 +28,22 @@ class HydeKernelTest extends TestCase
 {
     public function test_kernel_singleton_can_be_accessed_by_service_container()
     {
-        $this->assertSame(app(HydeKernelContract::class), app(HydeKernelContract::class));
+        $this->assertSame(app(HydeKernel::class), app(HydeKernel::class));
     }
 
     public function test_kernel_singleton_can_be_accessed_by_kernel_static_method()
     {
-        $this->assertSame(app(HydeKernelContract::class), HydeKernel::getInstance());
+        $this->assertSame(app(HydeKernel::class), HydeKernel::getInstance());
     }
 
     public function test_kernel_singleton_can_be_accessed_by_hyde_facade_method()
     {
-        $this->assertSame(app(HydeKernelContract::class), Hyde::getInstance());
+        $this->assertSame(app(HydeKernel::class), Hyde::getInstance());
     }
 
     public function test_kernel_singleton_can_be_accessed_by_helper_function()
     {
-        $this->assertSame(app(HydeKernelContract::class), hyde());
+        $this->assertSame(app(HydeKernel::class), hyde());
     }
 
     public function test_hyde_facade_version_method_returns_kernel_version()
@@ -54,7 +53,7 @@ class HydeKernelTest extends TestCase
 
     public function test_hyde_facade_get_facade_root_method_returns_kernel_singleton()
     {
-        $this->assertSame(app(HydeKernelContract::class), Hyde::getFacadeRoot());
+        $this->assertSame(app(HydeKernel::class), Hyde::getFacadeRoot());
         $this->assertSame(HydeKernel::getInstance(), Hyde::getFacadeRoot());
         $this->assertSame(Hyde::getInstance(), Hyde::getFacadeRoot());
     }
