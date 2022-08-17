@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Contracts\AssetServiceContract;
+use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -10,7 +10,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
-use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\StaticPageBuilder;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
@@ -49,9 +48,9 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_asset_service_contract()
     {
-        $this->assertTrue($this->app->bound(AssetServiceContract::class));
-        $this->assertInstanceOf(AssetServiceContract::class, $this->app->make(AssetServiceContract::class));
-        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetServiceContract::class));
+        $this->assertTrue($this->app->bound(AssetService::class));
+        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
+        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
     }
 
     public function test_provider_registers_source_directories()

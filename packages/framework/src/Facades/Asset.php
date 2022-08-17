@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Facades;
 
-use Hyde\Framework\Contracts\AssetServiceContract;
+use Hyde\Framework\Services\AssetService;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Facade;
  */
 class Asset extends Facade
 {
-    /** @psalm-return AssetServiceContract::class */
+    /** @psalm-return AssetService::class */
     protected static function getFacadeAccessor(): string
     {
-        return AssetServiceContract::class;
+        return AssetService::class;
     }
 }
