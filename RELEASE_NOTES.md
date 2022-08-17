@@ -19,7 +19,7 @@ Creates a new foundation class, the FileCollection. Which like the other foundat
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fix [#424](https://github.com/hydephp/develop/issues/424) AbstractMarkdownPage save method should use Hyde::path()
 
 ### Security
 - in case of vulnerabilities.
