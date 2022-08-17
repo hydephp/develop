@@ -14,7 +14,8 @@ Creates a new foundation class, the FileCollection. Which like the other foundat
 
 ### Deprecated
 - Deprecate interface HydeKernelContract, type hint the HydeKernel::class instead
-
+- Deprecate interface AssetServiceContract, type hint the AssetService::class instead
+  
 ### Removed
 - for now removed features.
 
