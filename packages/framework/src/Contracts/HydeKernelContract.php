@@ -6,6 +6,8 @@ namespace Hyde\Framework\Contracts;
  * The HydeKernel encapsulates a HydePHP project,
  * providing helpful methods for interacting with it.
  *
+ * @deprecated v0.61.0-beta - Type hint the HydeKernel::class instead
+ *
  * @see \Hyde\Framework\HydeKernel
  *
  * It is stored as a singleton in the HydeKernel class, and is bound into the

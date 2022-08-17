@@ -13,7 +13,7 @@ Creates a new foundation class, the FileCollection. Which like the other foundat
 - Move class RouteCollection into Foundation namespace
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecate interface HydeKernelContract, type hint the HydeKernel::class instead
 
 ### Removed
 - for now removed features.
