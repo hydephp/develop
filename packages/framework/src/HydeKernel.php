@@ -33,7 +33,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     use Macroable;
     use JsonSerializesArrayable;
 
-    protected static HydeKernelContract $instance;
+    protected static HydeKernel $instance;
 
     protected string $basePath;
 
@@ -62,12 +62,12 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         $this->routes = RouteCollection::boot($this);
     }
 
-    public static function setInstance(HydeKernelContract $instance): void
+    public static function setInstance(HydeKernel $instance): void
     {
         static::$instance = $instance;
     }
 
-    public static function getInstance(): HydeKernelContract
+    public static function getInstance(): HydeKernel
     {
         return static::$instance;
     }

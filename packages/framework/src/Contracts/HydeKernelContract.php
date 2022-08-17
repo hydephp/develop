@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\HydeKernel;
+
 /**
  * The HydeKernel encapsulates a HydePHP project,
  * providing helpful methods for interacting with it.
@@ -18,7 +20,7 @@ namespace Hyde\Framework\Contracts;
  * @example \Hyde\Framework\Hyde::foo()
  *
  * - You can also use Dependency Injection to inject the Kernel into your own classes:
- * @example `__construct(HydeKernelContract $hyde)`
+ * @example `__construct(HydeKernel $hyde)`
  *
  * - Or, you can use the hyde() function to get the Kernel:
  * @example `$hyde = hyde();
@@ -30,9 +32,9 @@ interface HydeKernelContract
 {
     public function boot(): void;
 
-    public static function setInstance(HydeKernelContract $instance): void;
+    public static function setInstance(HydeKernel $instance): void;
 
-    public static function getInstance(): HydeKernelContract;
+    public static function getInstance(): HydeKernel;
 
     public function getBasePath(): string;
 
