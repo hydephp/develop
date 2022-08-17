@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Facades\Asset;
+use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
 
 /**
