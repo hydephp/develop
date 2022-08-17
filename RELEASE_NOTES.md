@@ -2,15 +2,18 @@
 
 ### About
 
-Creates a new foundation class, the FileCollection. Which like the other foundation collections, discovers all the files. Running this part of the autodiscovery will further enrich the Hyde Kernel, and allow greater insight into the application. The end user experience should not be affected by this.
+Keep an Unreleased section at the top to track upcoming changes.
+
+This serves two purposes:
+
+1. People can see what changes they might expect in upcoming releases
+2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Adds a new FileCollection class to hold all discovered source and asset files
-- Adds a new File model as an object-oriented way of representing a project file
+- for new features.
 
 ### Changed
-- Move class PageCollection into Foundation namespace
-- Move class RouteCollection into Foundation namespace
+- for changes in existing functionality.
 
 ### Deprecated
 - Deprecate interface HydeKernelContract, type hint the HydeKernel::class instead
@@ -20,22 +23,7 @@ Creates a new foundation class, the FileCollection. Which like the other foundat
 - for now removed features.
 
 ### Fixed
-- Fix [#424](https://github.com/hydephp/develop/issues/424) AbstractMarkdownPage save method should use Hyde::path()
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
-
-### Upgrade guide
-
-#### Collection namespace change
-
-> You only need to do this if you have written custom code that uses the old namespace.
-
-To upgrade the moved collection namespaces, simply replace the following namespace imports:
-
-```diff
--use Hyde\Framework\PageCollection;
-+use Hyde\Framework\Foundation\PageCollection;
--use Hyde\Framework\RouteCollection;
-+use Hyde\Framework\Foundation\RouteCollection;
-```

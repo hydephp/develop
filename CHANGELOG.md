@@ -15,6 +15,39 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.61.0-beta](https://github.com/hydephp/develop/releases/tag/v0.61.0-beta) - 2022-08-17
+
+### About
+
+Creates a new foundation class, the FileCollection. Which like the other foundation collections, discovers all the files. Running this part of the autodiscovery will further enrich the Hyde Kernel, and allow greater insight into the application. The end user experience should not be affected by this.
+
+### Added
+- Adds a new FileCollection class to hold all discovered source and asset files
+- Adds a new File model as an object-oriented way of representing a project file
+
+### Changed
+- Move class PageCollection into Foundation namespace
+- Move class RouteCollection into Foundation namespace
+
+### Fixed
+- Fix [#424](https://github.com/hydephp/develop/issues/424) AbstractMarkdownPage save method should use Hyde::path()
+
+### Upgrade guide
+
+#### Collection namespace change
+
+> You only need to do this if you have written custom code that uses the old namespace.
+
+To upgrade the moved collection namespaces, simply replace the following namespace imports:
+
+```diff
+-use Hyde\Framework\PageCollection;
++use Hyde\Framework\Foundation\PageCollection;
+-use Hyde\Framework\RouteCollection;
++use Hyde\Framework\Foundation\RouteCollection;
+```
+
+
 ## [v0.60.0-beta](https://github.com/hydephp/develop/releases/tag/v0.60.0-beta) - 2022-08-12
 
 ### About
