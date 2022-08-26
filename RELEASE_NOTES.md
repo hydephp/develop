@@ -19,7 +19,7 @@ This update will only affect those who have written custom code that uses or typ
 - Deprecate interface AssetServiceContract, type hint the AssetService::class instead
   
 ### Removed
-- for now removed features.
+- Removed legacy `.js-enabled` class from documentation pages
 
 ### Fixed
 - for any bug fixes.

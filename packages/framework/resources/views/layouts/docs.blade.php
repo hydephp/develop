@@ -9,10 +9,6 @@
 
         @include('hyde::components.skip-to-content-button')
 
-        <script>
-            document.body.classList.add('js-enabled');
-        </script>
-
         @include('hyde::components.docs.documentation-mobile-navigation')
         @include('hyde::components.docs.documentation-sidebar')
 
