@@ -12,7 +12,7 @@ This update will only affect those who have written custom code that uses or typ
 - for new features.
 
 ### Changed
-- The documentation page layout has been internally refactored to utilize more Blade components. This only affects those who have extended or customized the documentation components.
+- The documentation page layout has been internally refactored to utilize more Blade components. This only affects those who have extended or customized the documentation components. Some documentation components have also been renamed.
 
 ### Deprecated
 - Deprecate interface HydeKernelContract, type hint the HydeKernel::class instead
