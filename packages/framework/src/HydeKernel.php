@@ -14,7 +14,6 @@ use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
 /**
@@ -32,6 +31,8 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 {
     use Macroable;
     use JsonSerializesArrayable;
+
+    use Foundation\Concerns\ImplementsStringHelpers;
 
     protected static HydeKernel $instance;
 
@@ -132,17 +133,6 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         }
 
         return $this->routes;
-    }
-
-    public function makeTitle(string $slug): string
-    {
-        $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
-
-        return ucfirst(str_ireplace(
-            $alwaysLowercase,
-            $alwaysLowercase,
-            Str::headline($slug)
-        ));
     }
 
     public function formatHtmlPath(string $destination): string
