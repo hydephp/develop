@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Models\Pages;
 
+use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
-use Hyde\Framework\Concerns\HasTableOfContents;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\FrontMatter;
@@ -13,7 +13,6 @@ use Hyde\Framework\Models\Route;
 class DocumentationPage extends AbstractMarkdownPage
 {
     use DocumentationPageSchema;
-    use HasTableOfContents;
 
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
@@ -51,5 +50,13 @@ class DocumentationPage extends AbstractMarkdownPage
     public static function hasTableOfContents(): bool
     {
         return config('docs.table_of_contents.enabled', true);
+    }
+
+    /**
+     * Generate Table of Contents as HTML from a Markdown document body.
+     */
+    public function getTableOfContents(): string
+    {
+        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
     }
 }

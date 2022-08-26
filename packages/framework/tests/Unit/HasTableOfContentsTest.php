@@ -2,23 +2,24 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Concerns\HasTableOfContents;
+use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
  * Class HasTableOfContentsTest.
  *
- * @covers \Hyde\Framework\Concerns\HasTableOfContents
+ * @covers \Hyde\Framework\Models\Pages\DocumentationPage
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
 class HasTableOfContentsTest extends TestCase
 {
-    use HasTableOfContents;
-
     public function testConstructorCreatesTableOfContentsString()
     {
-        $this->markdown = '## Title';
-        $this->assertEquals('<ul class="table-of-contents"><li><a href="#title">Title</a></li></ul>', str_replace("\n", '', $this->getTableOfContents()));
+        $page = new DocumentationPage();
+
+        $page->markdown = new Markdown('## Title');
+        $this->assertEquals('<ul class="table-of-contents"><li><a href="#title">Title</a></li></ul>', str_replace("\n", '', $page->getTableOfContents()));
     }
 }
