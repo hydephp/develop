@@ -3,8 +3,7 @@
     <header id="sidebar-header" class="h-16">
         @include('hyde::components.docs.sidebar-brand')
     </header>
-    <nav id="sidebar-navigation"
-         class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-[calc(100vh_-_8rem)]">
+    <nav id="sidebar-navigation" class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-[calc(100vh_-_8rem)]">
         @php
             $sidebar = \Hyde\Framework\Models\DocumentationSidebar::create();
         @endphp
