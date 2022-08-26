@@ -33,6 +33,7 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
     use JsonSerializesArrayable;
 
     use Foundation\Concerns\ImplementsStringHelpers;
+    use Foundation\Concerns\ForwardsHyperlinks;
 
     protected static HydeKernel $instance;
 
@@ -133,31 +134,6 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         }
 
         return $this->routes;
-    }
-
-    public function formatHtmlPath(string $destination): string
-    {
-        return $this->hyperlinks->formatHtmlPath($destination);
-    }
-
-    public function relativeLink(string $destination): string
-    {
-        return $this->hyperlinks->relativeLink($destination);
-    }
-
-    public function image(string $name, bool $preferQualifiedUrl = false): string
-    {
-        return $this->hyperlinks->image($name, $preferQualifiedUrl);
-    }
-
-    public function hasSiteUrl(): bool
-    {
-        return $this->hyperlinks->hasSiteUrl();
-    }
-
-    public function url(string $path = '', ?string $default = null): string
-    {
-        return $this->hyperlinks->url($path, $default);
     }
 
     public function path(string $path = ''): string
