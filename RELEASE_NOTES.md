@@ -22,7 +22,7 @@ This update will only affect those who have written custom code that uses or typ
 - Removed legacy `.js-enabled` class from documentation pages
 
 ### Fixed
-- for any bug fixes.
+- The list element of the documentation page sidebar had a conflicting ID (`#sidebar`) and has now been changed to `#sidebar-navigation` which may break edge cases where this component is styled or interacted with outside of the framework.
 
 ### Security
 - in case of vulnerabilities.
