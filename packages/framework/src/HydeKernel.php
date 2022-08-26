@@ -29,12 +29,12 @@ use Illuminate\Support\Traits\Macroable;
  */
 class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 {
-    use Macroable;
-    use JsonSerializesArrayable;
-
     use Foundation\Concerns\ImplementsStringHelpers;
     use Foundation\Concerns\ForwardsHyperlinks;
     use Foundation\Concerns\ForwardsFilesystem;
+
+    use JsonSerializesArrayable;
+    use Macroable;
 
     protected static HydeKernel $instance;
 
