@@ -13,22 +13,22 @@
     @include('hyde::components.docs.mobile-navigation')
     @include('hyde::components.docs.sidebar')
 
-<main id="content"
-      class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
-    <x-hyde::docs.documentation-article :document="\Hyde\Framework\Services\HydeSmartDocs::create($page, $markdown)"/>
-</main>
+    <main id="content"
+          class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <x-hyde::docs.documentation-article :document="\Hyde\Framework\Services\HydeSmartDocs::create($page, $markdown)"/>
+    </main>
 
-<div id="support">
-    <div id="sidebar-backdrop" x-show="sidebarOpen" x-transition @click="sidebarOpen = false"
-         title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50">
+    <div id="support">
+        <div id="sidebar-backdrop" x-show="sidebarOpen" x-transition @click="sidebarOpen = false"
+             title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50">
+        </div>
+
+        @if(Hyde\Framework\Helpers\Features::hasDocumentationSearch())
+            @include('hyde::components.docs.search-widget')
+            @include('hyde::components.docs.search-scripts')
+        @endif
     </div>
 
-    @if(Hyde\Framework\Helpers\Features::hasDocumentationSearch())
-        @include('hyde::components.docs.search-widget')
-        @include('hyde::components.docs.search-scripts')
-    @endif
-</div>
-
-@include('hyde::layouts.scripts')
+    @include('hyde::layouts.scripts')
 </body>
 </html>
