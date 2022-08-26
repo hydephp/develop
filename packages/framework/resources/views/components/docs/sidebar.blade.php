@@ -15,8 +15,6 @@
         @endif
     </nav>
     <footer id="sidebar-footer" class="h-16 absolute p-4 w-full bottom-0 left-0 text-center leading-8">
-        <p>
-            <a href="{{ Hyde::relativeLink('index.html') }}">Back to home page</a>
-        </p>
+        @include('hyde::components.docs.sidebar-footer')
     </footer>
 </aside>
