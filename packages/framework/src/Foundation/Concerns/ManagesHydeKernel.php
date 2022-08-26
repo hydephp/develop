@@ -23,23 +23,23 @@ trait ManagesHydeKernel
         $this->routes = RouteCollection::boot($this);
     }
 
-    public static function setInstance(HydeKernel $instance): void
-    {
-        static::$instance = $instance;
-    }
-
     public static function getInstance(): HydeKernel
     {
         return static::$instance;
     }
 
-    public function getBasePath(): string
+    public static function setInstance(HydeKernel $instance): void
     {
-        return $this->basePath;
+        static::$instance = $instance;
     }
 
     public function setBasePath(string $basePath): void
     {
         $this->basePath = rtrim($basePath, '/\\');
+    }
+
+    public function getBasePath(): string
+    {
+        return $this->basePath;
     }
 }
