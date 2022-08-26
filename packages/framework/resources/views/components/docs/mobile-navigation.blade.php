@@ -13,13 +13,7 @@
             <x-hyde::navigation.theme-toggle-button class="opacity-75 hover:opacity-100"/>
         </li>
         <li class="h-8 flex">
-            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu"
-                    @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
-                <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-                <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-                <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-                <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
-            </button>
+            @include('hyde::components.docs.sidebar-toggle-button')
         </li>
     </ul>
 </nav>
