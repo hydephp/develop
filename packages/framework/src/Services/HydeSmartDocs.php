@@ -4,6 +4,7 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 /**
@@ -104,11 +105,9 @@ class HydeSmartDocs
 
     protected function renderSourceLink(): string
     {
-        return sprintf(
-            '<p class="edit-page-link"><a href="%s">%s</a></p>',
-            $this->page->getOnlineSourcePath(),
-            config('docs.edit_source_link_text', 'Edit page')
-        );
+        return View::make('hyde::components.docs.edit-source-button', [
+            'href' => $this->page->getOnlineSourcePath(),
+        ]);
     }
 
     /**

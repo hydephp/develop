@@ -316,3 +316,7 @@ Just target the `.edit-page-link` class.
 // filepath e.g. app.css
 .edit-page-link::before {content: "✏ "}
 ```
+
+#### Changing the Blade view
+
+You can also publish the `edit-source-button.blade.php` view and change it to your liking.
