@@ -112,27 +112,21 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 
     public function files(): FileCollection
     {
-        if (! $this->booted) {
-            $this->boot();
-        }
+        $this->needsToBeBooted();
 
         return $this->files;
     }
 
     public function pages(): PageCollection
     {
-        if (! $this->booted) {
-            $this->boot();
-        }
+        $this->needsToBeBooted();
 
         return $this->pages;
     }
 
     public function routes(): RouteCollection
     {
-        if (! $this->booted) {
-            $this->boot();
-        }
+        $this->needsToBeBooted();
 
         return $this->routes;
     }
@@ -151,5 +145,12 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
             'pages' => $this->pages(),
             'routes' => $this->routes(),
         ];
+    }
+
+    protected function needsToBeBooted(): void
+    {
+        if (! $this->booted) {
+            $this->boot();
+        }
     }
 }
