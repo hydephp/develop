@@ -21,9 +21,9 @@
         @endphp
 
         @if($sidebar->hasGroups())
-            @include('hyde::components.docs.grouped-sidebar')
+            @include('hyde::components.docs.grouped-sidebar-navigation')
         @else
-            @include('hyde::components.docs.sidebar')
+            @include('hyde::components.docs.sidebar-navigation')
         @endif
     </nav>
     <footer id="sidebar-footer" class="h-16 absolute p-4 w-full bottom-0 left-0 text-center leading-8">
