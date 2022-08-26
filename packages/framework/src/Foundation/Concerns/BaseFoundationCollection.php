@@ -1,18 +1,18 @@
 <?php
 
-namespace Hyde\Framework\Foundation;
+namespace Hyde\Framework\Foundation\Concerns;
 
 use Hyde\Framework\HydeKernel;
 use Illuminate\Support\Collection;
 
 /**
- * @internal Base class for the system collections.
+ * @internal Base class for the kernel auto-discovery collections.
  *
  * @see \Hyde\Framework\Foundation\FileCollection
  * @see \Hyde\Framework\Foundation\PageCollection
  * @see \Hyde\Framework\Foundation\RouteCollection
  */
-abstract class BaseSystemCollection extends Collection
+abstract class BaseFoundationCollection extends Collection
 {
     protected HydeKernel $kernel;
 
