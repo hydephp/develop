@@ -8,10 +8,10 @@
       x-data="{ sidebarOpen: false, searchWindowOpen: false }"
       x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
 
-@include('hyde::components.skip-to-content-button')
+    @include('hyde::components.skip-to-content-button')
 
-@include('hyde::components.docs.mobile-navigation')
-@include('hyde::components.docs.sidebar')
+    @include('hyde::components.docs.mobile-navigation')
+    @include('hyde::components.docs.sidebar')
 
 <main id="content"
       class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
