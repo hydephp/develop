@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Foundation\RouteCollection
- * @covers \Hyde\Framework\Foundation\Concerns\BaseKernelCollection
+ * @covers \Hyde\Framework\Foundation\Concerns\BaseFoundationCollection
  */
 class RouteCollectionTest extends TestCase
 {

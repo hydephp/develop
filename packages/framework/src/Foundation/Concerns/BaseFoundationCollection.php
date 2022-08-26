@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Foundation\PageCollection
  * @see \Hyde\Framework\Foundation\RouteCollection
  */
-abstract class BaseKernelCollection extends Collection
+abstract class BaseFoundationCollection extends Collection
 {
     protected HydeKernel $kernel;
 

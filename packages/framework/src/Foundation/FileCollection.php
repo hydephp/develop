@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\AbstractPage;
-use Hyde\Framework\Foundation\Concerns\BaseKernelCollection;
+use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\File;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -15,7 +15,7 @@ use Hyde\Framework\Services\DiscoveryService;
 /**
  * @see \Hyde\Framework\Foundation\FileCollection
  */
-final class FileCollection extends BaseKernelCollection
+final class FileCollection extends BaseFoundationCollection
 {
     public function getSourceFiles(?string $pageClass = null): self
     {
