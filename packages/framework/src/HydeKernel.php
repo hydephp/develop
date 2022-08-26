@@ -29,6 +29,7 @@ use Illuminate\Support\Traits\Macroable;
  */
 class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 {
+    use Foundation\Concerns\HandlesFoundationCollections;
     use Foundation\Concerns\ImplementsStringHelpers;
     use Foundation\Concerns\ForwardsHyperlinks;
     use Foundation\Concerns\ForwardsFilesystem;
@@ -110,27 +111,6 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
         return View::shared('currentRoute');
     }
 
-    public function files(): FileCollection
-    {
-        $this->needsToBeBooted();
-
-        return $this->files;
-    }
-
-    public function pages(): PageCollection
-    {
-        $this->needsToBeBooted();
-
-        return $this->pages;
-    }
-
-    public function routes(): RouteCollection
-    {
-        $this->needsToBeBooted();
-
-        return $this->routes;
-    }
-
     /**
      * @inheritDoc
      *
@@ -145,12 +125,5 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
             'pages' => $this->pages(),
             'routes' => $this->routes(),
         ];
-    }
-
-    protected function needsToBeBooted(): void
-    {
-        if (! $this->booted) {
-            $this->boot();
-        }
     }
 }
