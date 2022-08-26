@@ -96,6 +96,9 @@ jobs:
           rm _site/posts_homepage.html
           rm _site/docs/index.html
 
+      - name: Install Percy
+        run: npm install --save-dev @percy/cli
+
       - name: Upload build to Percy
         run: npx percy snapshot _site/
         env:
