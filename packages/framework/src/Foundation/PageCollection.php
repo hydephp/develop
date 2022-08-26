@@ -4,7 +4,7 @@ namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Foundation\Concerns\BaseSystemCollection;
+use Hyde\Framework\Foundation\Concerns\BaseKernelCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
-final class PageCollection extends BaseSystemCollection
+final class PageCollection extends BaseKernelCollection
 {
     public function getPage(string $sourcePath): PageContract
     {
