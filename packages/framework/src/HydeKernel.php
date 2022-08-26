@@ -14,7 +14,6 @@ use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
 /**
@@ -30,8 +29,12 @@ use Illuminate\Support\Traits\Macroable;
  */
 class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 {
-    use Macroable;
+    use Foundation\Concerns\ImplementsStringHelpers;
+    use Foundation\Concerns\ForwardsHyperlinks;
+    use Foundation\Concerns\ForwardsFilesystem;
+
     use JsonSerializesArrayable;
+    use Macroable;
 
     protected static HydeKernel $instance;
 
@@ -109,125 +112,23 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 
     public function files(): FileCollection
     {
-        if (! $this->booted) {
-            $this->boot();
-        }
+        $this->needsToBeBooted();
 
         return $this->files;
     }
 
     public function pages(): PageCollection
     {
-        if (! $this->booted) {
-            $this->boot();
-        }
+        $this->needsToBeBooted();
 
         return $this->pages;
     }
 
     public function routes(): RouteCollection
     {
-        if (! $this->booted) {
-            $this->boot();
-        }
+        $this->needsToBeBooted();
 
         return $this->routes;
-    }
-
-    public function makeTitle(string $slug): string
-    {
-        $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
-
-        return ucfirst(str_ireplace(
-            $alwaysLowercase,
-            $alwaysLowercase,
-            Str::headline($slug)
-        ));
-    }
-
-    public function formatHtmlPath(string $destination): string
-    {
-        return $this->hyperlinks->formatHtmlPath($destination);
-    }
-
-    public function relativeLink(string $destination): string
-    {
-        return $this->hyperlinks->relativeLink($destination);
-    }
-
-    public function image(string $name, bool $preferQualifiedUrl = false): string
-    {
-        return $this->hyperlinks->image($name, $preferQualifiedUrl);
-    }
-
-    public function hasSiteUrl(): bool
-    {
-        return $this->hyperlinks->hasSiteUrl();
-    }
-
-    public function url(string $path = '', ?string $default = null): string
-    {
-        return $this->hyperlinks->url($path, $default);
-    }
-
-    public function path(string $path = ''): string
-    {
-        return $this->filesystem->path($path);
-    }
-
-    public function vendorPath(string $path = ''): string
-    {
-        return $this->filesystem->vendorPath($path);
-    }
-
-    public function copy(string $from, string $to): bool
-    {
-        return $this->filesystem->copy($from, $to);
-    }
-
-    public function touch(string|array $path): bool
-    {
-        return $this->filesystem->touch($path);
-    }
-
-    public function unlink(string|array $path): bool
-    {
-        return $this->filesystem->unlink($path);
-    }
-
-    public function getModelSourcePath(string $model, string $path = ''): string
-    {
-        return $this->filesystem->getModelSourcePath($model, $path);
-    }
-
-    public function getBladePagePath(string $path = ''): string
-    {
-        return $this->filesystem->getBladePagePath($path);
-    }
-
-    public function getMarkdownPagePath(string $path = ''): string
-    {
-        return $this->filesystem->getMarkdownPagePath($path);
-    }
-
-    public function getMarkdownPostPath(string $path = ''): string
-    {
-        return $this->filesystem->getMarkdownPostPath($path);
-    }
-
-    public function getDocumentationPagePath(string $path = ''): string
-    {
-        return $this->filesystem->getDocumentationPagePath($path);
-    }
-
-    public function getSiteOutputPath(string $path = ''): string
-    {
-        return $this->filesystem->getSiteOutputPath($path);
-    }
-
-    public function pathToRelative(string $path): string
-    {
-        return $this->filesystem->pathToRelative($path);
     }
 
     /**
@@ -244,5 +145,12 @@ class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
             'pages' => $this->pages(),
             'routes' => $this->routes(),
         ];
+    }
+
+    protected function needsToBeBooted(): void
+    {
+        if (! $this->booted) {
+            $this->boot();
+        }
     }
 }
