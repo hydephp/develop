@@ -4,6 +4,7 @@ namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Foundation\Concerns\BaseSystemCollection;
 use Hyde\Framework\Models\Route;
 
 /**

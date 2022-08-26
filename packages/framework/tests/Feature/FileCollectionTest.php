@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Foundation\FileCollection
- * @covers \Hyde\Framework\Foundation\BaseSystemCollection
+ * @covers \Hyde\Framework\Foundation\Concerns\BaseSystemCollection
  */
 class FileCollectionTest extends TestCase
 {

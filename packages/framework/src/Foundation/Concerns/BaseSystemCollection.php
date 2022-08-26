@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Foundation;
+namespace Hyde\Framework\Foundation\Concerns;
 
 use Hyde\Framework\HydeKernel;
 use Illuminate\Support\Collection;

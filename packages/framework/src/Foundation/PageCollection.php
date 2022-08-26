@@ -4,6 +4,7 @@ namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Framework\Foundation\Concerns\BaseSystemCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
