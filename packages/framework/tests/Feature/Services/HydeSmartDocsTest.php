@@ -35,8 +35,8 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlines(string $expected, string $actual): void
     {
         $this->assertEquals(
-            str_replace("\n", '', $expected),
-            str_replace("\n", '', $actual)
+            str_replace(["\n", "\r"], '', $expected),
+            str_replace(["\n", "\r"], '', $actual)
         );
     }
 
