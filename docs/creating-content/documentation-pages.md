@@ -125,8 +125,7 @@ label: "My Custom Sidebar Label"
 
 ### Sidebar grouping
 
-Sidebar grouping was introduced in Hyde [v0.24.0-beta](https://github.com/hydephp/framework/releases/tag/v0.24.0-beta)
-and allows you to group items in the sidebar into categories. This is useful for creating a sidebar with a lot of items.
+Sidebar grouping allows you to group items in the sidebar into categories. This is useful for creating a sidebar with a lot of items.
 The Hyde docs for instance use this.
 
 The feature is enabled automatically when one or more of your documentation pages have the category property set
@@ -227,7 +226,7 @@ You can also disable the feature completely.
 
 #### Introduction
 
-The HydeSearch plugin was introduced in v0.29.0-beta and adds a search feature to documentation pages.
+The HydeSearch plugin adds a search feature to documentation pages.
 
 The search feature is enabled by default.
 You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
@@ -246,8 +245,6 @@ You can also open the dialog using the keyboard shortcut `/`.
 
 #### Hiding pages from indexing
 
-> This feature was added in v0.40.0-beta.
-
 If you have a large page, like a changelog, on your documentation sites you may want to hide it from the search index. You can do this by adding the page slug to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden.
 
 ```php
@@ -265,7 +262,7 @@ The page will still be accessible via the URL, but will be added to the search i
 
 #### Introduction
 
-Added in v0.31, Hyde can automatically add links to documentation pages that takes the user
+Hyde can automatically add links to documentation pages that takes the user
 to a GitHub page (or similar) to edit the page. This makes it great for open-source projects
 looking to allow others to contribute to the documentation in a quick and easy manner.
 
