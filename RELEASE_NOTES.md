@@ -12,17 +12,17 @@ This update will only affect those who have written custom code that uses or typ
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- The documentation page layout has been internally refactored to utilize more Blade components. This only affects those who have extended or customized the documentation components. Some documentation components have also been renamed.
 
 ### Deprecated
 - Deprecate interface HydeKernelContract, type hint the HydeKernel::class instead
 - Deprecate interface AssetServiceContract, type hint the AssetService::class instead
   
 ### Removed
-- for now removed features.
+- Removed legacy `.js-enabled` class from documentation pages
 
 ### Fixed
-- for any bug fixes.
+- The list element of the documentation page sidebar had a conflicting ID (`#sidebar`) and has now been changed to `#sidebar-navigation` which may break edge cases where this component is styled or interacted with outside of the framework.
 
 ### Security
 - in case of vulnerabilities.

@@ -37,6 +37,11 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - You should always have an `index.md` file in the `_docs/` directory
 - Your page will be stored in `_site/docs/<slug>.html` unless you [change it in the config](#output-directory)
 
+### Advanced usage and customization
+
+Like most of HydePHP, the Hyde Documentation module is highly customizable. Much of the frontend is composed using Blade templates and components, which you can customize to your heart's content.
+Since there are so many components, it's hard to list them all here in the documentation, so I encourage you to check out the [source code](https://github.com/hydephp/framework/tree/master/resources/views/components/docs) to see how it's all put together and find the customizations you are looking for.
+
 
 ## Creating Documentation Pages
 You can create a Documentation page by adding a file to the `_docs` directory where the filename ends in `.md`.
@@ -311,3 +316,7 @@ Just target the `.edit-page-link` class.
 // filepath e.g. app.css
 .edit-page-link::before {content: "✏ "}
 ```
+
+#### Changing the Blade view
+
+You can also publish the `edit-source-button.blade.php` view and change it to your liking.
