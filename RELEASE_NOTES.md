@@ -23,6 +23,7 @@ This update will only affect those who have written custom code that uses or typ
 
 ### Fixed
 - The list element of the documentation page sidebar had a conflicting ID (`#sidebar`) and has now been changed to `#sidebar-navigation` which may break edge cases where this component is styled or interacted with outside of the framework.
+- Fix documentation page flickering [#388](https://github.com/hydephp/develop/issues/388)
 
 ### Security
 - in case of vulnerabilities.
