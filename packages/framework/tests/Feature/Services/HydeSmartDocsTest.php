@@ -43,8 +43,8 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, string $actual): void
     {
         $this->assertEquals(
-            str_replace(["\n", "\r", "    "], '', $expected),
-            str_replace(["\n", "\r", "    "], '', $actual)
+            str_replace(["\n", "\r", '    '], '', $expected),
+            str_replace(["\n", "\r", '    '], '', $actual)
         );
     }
 
