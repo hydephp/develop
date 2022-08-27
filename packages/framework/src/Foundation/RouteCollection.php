@@ -4,6 +4,7 @@ namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Models\Route;
 
 /**
@@ -29,7 +30,7 @@ use Hyde\Framework\Models\Route;
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
  */
-final class RouteCollection extends BaseSystemCollection
+final class RouteCollection extends BaseFoundationCollection
 {
     public function getRoutes(?string $pageClass = null): self
     {

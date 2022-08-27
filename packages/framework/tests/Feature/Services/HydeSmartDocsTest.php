@@ -35,8 +35,16 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlines(string $expected, string $actual): void
     {
         $this->assertEquals(
-            str_replace("\n", '', $expected),
-            str_replace("\n", '', $actual)
+            str_replace(["\n", "\r"], '', $expected),
+            str_replace(["\n", "\r"], '', $actual)
+        );
+    }
+
+    protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            str_replace(["\n", "\r", '    '], '', $expected),
+            str_replace(["\n", "\r", '    '], '', $actual)
         );
     }
 
@@ -126,7 +134,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'header']);
         $page = HydeSmartDocs::create($this->mock, $this->html);
 
-        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
+        $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
     }
 
     public function test_edit_source_link_is_added_to_footer_when_conditions_are_met()
@@ -135,7 +143,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'footer']);
         $page = HydeSmartDocs::create($this->mock, $this->html);
 
-        $this->assertEqualsIgnoringNewlines('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
+        $this->assertEqualsIgnoringNewlinesAndIndentation('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
     }
 
     public function test_edit_source_link_can_be_added_to_both_header_and_footer()
@@ -144,8 +152,8 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'both']);
         $page = HydeSmartDocs::create($this->mock, $this->html);
 
-        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
-        $this->assertEqualsIgnoringNewlines('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
+        $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
+        $this->assertEqualsIgnoringNewlinesAndIndentation('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
     }
 
     public function test_edit_source_link_text_can_be_customized()
@@ -155,8 +163,8 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_text' => 'Go to Source']);
         $page = HydeSmartDocs::create($this->mock, $this->html);
 
-        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderHeader());
-        $this->assertEqualsIgnoringNewlines('<p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderFooter());
+        $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderHeader());
+        $this->assertEqualsIgnoringNewlinesAndIndentation('<p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderFooter());
     }
 
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
