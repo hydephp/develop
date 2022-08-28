@@ -24,7 +24,8 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed [#443](https://github.com/hydephp/develop/issues/443): RSS feed meta link should not be added if there is not a feed 
+
 
 ### Security
 - in case of vulnerabilities.
