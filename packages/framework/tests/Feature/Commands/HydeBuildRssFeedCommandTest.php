@@ -28,6 +28,7 @@ class HydeBuildRssFeedCommandTest extends TestCase
     {
         config(['site.url' => 'https://example.com']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
 
         unlinkIfExists(Hyde::path('_site/feed.xml'));
         $this->artisan('build:rss')
@@ -43,6 +44,7 @@ class HydeBuildRssFeedCommandTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['hyde.generate_rss_feed' => true]);
         config(['hyde.rss_filename' => 'blog.xml']);
+        $this->file('_posts/foo.md');
 
         unlinkIfExists(Hyde::path('_site/feed.xml'));
         unlinkIfExists(Hyde::path('_site/blog.xml'));
