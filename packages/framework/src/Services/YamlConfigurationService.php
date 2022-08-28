@@ -9,12 +9,12 @@ use Hyde\Framework\Hyde;
  */
 class YamlConfigurationService
 {
-    public function boot(): void
+    public static function boot(): void
     {
         // TODO: Merge configuration files.
     }
 
-    public function hasFile(): bool
+    public static function hasFile(): bool
     {
         return file_exists(Hyde::path('hyde.yml')) || file_exists(Hyde::path('hyde.yaml'));
     }
