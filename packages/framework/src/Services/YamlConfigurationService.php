@@ -23,7 +23,8 @@ class YamlConfigurationService
 
     public static function hasFile(): bool
     {
-        return file_exists(Hyde::path('hyde.yml')) || file_exists(Hyde::path('hyde.yaml'));
+        return file_exists(Hyde::path('hyde.yml'))
+            || file_exists(Hyde::path('hyde.yaml'));
     }
 
     protected static function getFile(): string
