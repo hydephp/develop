@@ -251,9 +251,6 @@ jobs:
 
     - name: Install Composer Dependencies
       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: '@TODO - Compile all latest frontend assets'
-      run: echo '@TODO - Compile all latest frontend assets'
         
     - name: Download configuration # I'm sure there is a better way to do this
       run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config -O config.zip
