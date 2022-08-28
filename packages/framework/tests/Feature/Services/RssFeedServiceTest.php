@@ -139,12 +139,14 @@ class RssFeedServiceTest extends TestCase
     public function test_can_generate_feed_helper_returns_true_if_hyde_has_base_url()
     {
         config(['site.url' => 'foo']);
+        $this->file('_posts/foo.md');
         $this->assertTrue(Features::rss());
     }
 
     public function test_can_generate_feed_helper_returns_false_if_hyde_does_not_have_base_url()
     {
         config(['site.url' => '']);
+        $this->file('_posts/foo.md');
         $this->assertFalse(Features::rss());
     }
 
