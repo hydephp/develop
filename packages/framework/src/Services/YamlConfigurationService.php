@@ -19,7 +19,7 @@ class YamlConfigurationService
         return file_exists(Hyde::path('hyde.yml')) || file_exists(Hyde::path('hyde.yaml'));
     }
 
-    protected function getFile(): string
+    protected static function getFile(): string
     {
         return file_exists(Hyde::path('hyde.yml'))
             ? Hyde::path('hyde.yml')
