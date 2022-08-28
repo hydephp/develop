@@ -33,4 +33,11 @@ class YamlConfigurationServiceTest extends TestCase
         YamlConfigurationService::boot();
         $this->assertEquals('HydePHP', Config::get('site.name'));
     }
+
+    public function test_service_gracefully_handles_empty_file()
+    {
+        $this->file('hyde.yml', '');
+        YamlConfigurationService::boot();
+        $this->assertEquals('HydePHP', Config::get('site.name'));
+    }
 }
