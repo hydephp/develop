@@ -51,7 +51,7 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
         $this->assertEquals('Foo', config('site.name'));
     }
-    
+
     public function test_provider_registers_asset_service_contract()
     {
         $this->assertTrue($this->app->bound(AssetService::class));
