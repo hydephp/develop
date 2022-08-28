@@ -17,7 +17,7 @@
 |
 | Tip: The settings here can also be overridden by creating a hyde.yml file
 | in the root of your project directory. Note that these cannot reference
-| environment variables, and their values override any made here. 
+| environment variables, and their values override any made here.
 |
 */
 
