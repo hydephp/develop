@@ -8,6 +8,7 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Framework\Views\Components\LinkComponent;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +27,8 @@ class HydeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->initializeConfiguration();
+
         $this->app->singleton(AssetService::class, AssetService::class);
 
         $this->registerSourceDirectories([
@@ -84,6 +87,13 @@ class HydeServiceProvider extends ServiceProvider
         Blade::component('link', LinkComponent::class);
 
         HydeKernel::getInstance()->boot();
+    }
+
+    protected function initializeConfiguration()
+    {
+        if (YamlConfigurationService::hasFile()) {
+            YamlConfigurationService::boot();
+        }
     }
 
     /**

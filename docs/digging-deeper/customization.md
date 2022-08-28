@@ -36,6 +36,7 @@ These are the main configuration files for HydePHP and lets you customize the lo
 | <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a> | Configure Markdown related services, as well as change the CommonMark extensions.   |
 {.align-top}
 
+>info Tip: The values in site.php can also be set in YAML by creating a hyde.yml file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
 
 ### Laravel & Package Configuration Files
 
@@ -307,4 +308,25 @@ In the same file you can also change the config to be passed to the CommonMark e
 		'disallowed_tags' => [],
 	],
 ],
+```
+
+## YAML Configuration
+
+As a relatively new and experimental feature, the settings in the config/site.php can also be overridden by creating
+a hyde.yml file in the root of your project directory. Note that these cannot reference environment variables, 
+and their values override any made in the PHP config.
+
+Here is an example hyde.yml file matching the default site.yml:
+
+```yaml
+# filepath hyde.yml
+name: HydePHP
+url: http://localhost
+pretty_urls: false
+generate_sitemap: true
+generate_rss_feed: true
+rss_filename: feed.xml
+# rss_description:
+language: en
+output_directory: _site
 ```
