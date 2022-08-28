@@ -13,11 +13,13 @@ class YamlConfigurationService
 {
     public static function boot(): void
     {
-        $yaml = Yaml::parse(file_get_contents(static::getFile()));
-        Config::set('site', array_merge(
-            Config::get('site', []),
-            $yaml
-        ));
+        if (static::hasFile()) {
+            $yaml = Yaml::parse(file_get_contents(static::getFile()));
+            Config::set('site', array_merge(
+                Config::get('site', []),
+                $yaml
+            ));
+        }
     }
 
     public static function hasFile(): bool

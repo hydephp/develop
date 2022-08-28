@@ -27,4 +27,10 @@ class YamlConfigurationServiceTest extends TestCase
         YamlConfigurationService::boot();
         $this->assertEquals('Foo', Config::get('site.name'));
     }
+
+    public function test_service_gracefully_handles_missing_file()
+    {
+        YamlConfigurationService::boot();
+        $this->assertEquals('HydePHP', Config::get('site.name'));
+    }
 }
