@@ -14,10 +14,9 @@ class YamlConfigurationService
     public static function boot(): void
     {
         if (static::hasFile()) {
-            $yaml = Yaml::parse(file_get_contents(static::getFile()));
             Config::set('site', array_merge(
                 Config::get('site', []),
-                is_array($yaml) ? $yaml : []
+                static::getYaml()
             ));
         }
     }
@@ -32,5 +31,11 @@ class YamlConfigurationService
         return file_exists(Hyde::path('hyde.yml'))
             ? Hyde::path('hyde.yml')
             : Hyde::path('hyde.yaml');
+    }
+
+    protected static function getYaml(): array
+    {
+        $yaml = Yaml::parse(file_get_contents(static::getFile()));
+        return is_array($yaml) ? $yaml : [];
     }
 }
