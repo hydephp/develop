@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
  * by dynamically enriching them with semantic HTML.
  *
  * @experimental 🧪 Subject to change without notice.
+ * @todo #445 Rename to HydeSemanticDocs
  *
  * @see \Hyde\Framework\Testing\Feature\Services\HydeSmartDocsTest
  */
