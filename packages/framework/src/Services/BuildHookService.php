@@ -30,7 +30,7 @@ class BuildHookService
     }
 
     /**
-     * @todo Automatically discover files in the app directory?
+     * @todo #439 Automatically discover files in the app directory?
      */
     public function getPostBuildTasks(): array
     {
