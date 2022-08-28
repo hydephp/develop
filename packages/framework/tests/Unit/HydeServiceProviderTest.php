@@ -44,6 +44,14 @@ class HydeServiceProviderTest extends TestCase
         $this->assertTrue(method_exists($this->provider, 'boot'));
     }
 
+    public function test_provider_applies_yaml_configuration_when_present()
+    {
+        $this->assertEquals('HydePHP', config('site.name'));
+        $this->file('hyde.yml', 'name: Foo');
+        $this->provider->register();
+        $this->assertEquals('Foo', config('site.name'));
+    }
+    
     public function test_provider_registers_asset_service_contract()
     {
         $this->assertTrue($this->app->bound(AssetService::class));
