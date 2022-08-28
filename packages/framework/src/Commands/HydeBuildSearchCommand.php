@@ -12,8 +12,6 @@ use Hyde\Framework\Services\DiscoveryService;
 /**
  * Hyde Command to run the Build Process for the DocumentationSearchIndex.
  *
- * @todo Add configuration option to enable/disable this feature.
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSearchCommandTest
  */
 class HydeBuildSearchCommand extends ActionCommand
