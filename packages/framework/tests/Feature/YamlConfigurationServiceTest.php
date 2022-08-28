@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Services\YamlConfigurationService
+ *
  * @see \Hyde\Framework\Testing\Unit\HydeServiceProviderTest as it determines if this service should be booted.
  */
 class YamlConfigurationServiceTest extends TestCase

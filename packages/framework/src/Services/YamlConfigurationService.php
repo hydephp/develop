@@ -37,6 +37,7 @@ class YamlConfigurationService
     protected static function getYaml(): array
     {
         $yaml = Yaml::parse(file_get_contents(static::getFile()));
+
         return is_array($yaml) ? $yaml : [];
     }
 }
