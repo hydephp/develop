@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Services;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\YamlConfigurationServiceTest
+ */
 class YamlConfigurationService
 {
     public function boot(): void
