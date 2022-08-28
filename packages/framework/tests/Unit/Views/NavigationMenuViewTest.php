@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**
