@@ -173,7 +173,6 @@ class HydeBuildStaticSiteCommand extends Command
 
     protected function canGenerateSearch(): bool
     {
-        return Features::hasDocumentationSearch()
-            && count(DiscoveryService::getDocumentationPageFiles()) > 0;
+        return Features::hasDocumentationSearch();
     }
 }

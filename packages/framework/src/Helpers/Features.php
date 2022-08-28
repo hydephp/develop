@@ -77,7 +77,8 @@ class Features implements Arrayable, \JsonSerializable
     public static function hasDocumentationSearch(): bool
     {
         return static::enabled(static::documentationSearch())
-            && static::hasDocumentationPages();
+            && static::hasDocumentationPages()
+            && count(DiscoveryService::getDocumentationPageFiles()) > 0;
     }
 
     public static function hasDarkmode(): bool

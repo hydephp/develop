@@ -15,6 +15,7 @@ This serves two purposes:
 ### Changed
 - Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
 - The RSS feed related generators are now only enabled when there are blog posts
+- The documentation search related generators are now only enabled when there are documentation pages
 
 ### Deprecated
 - for soon-to-be removed features.
