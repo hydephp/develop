@@ -59,6 +59,8 @@ navigation:
   title: "My custom title"
 ---
 ');
+        Hyde::boot();
+
         $this->artisan('rebuild _pages/foo.md');
         $this->assertStringContainsString('My custom title', file_get_contents(Hyde::path('_site/foo.html')));
         Hyde::unlink('_site/foo.html');
@@ -71,6 +73,7 @@ navigation:
 @php($navigation = ['title' => 'My custom title'])
 BLADE
 );
+        Hyde::boot();
 
         $this->artisan('rebuild _pages/foo.blade.php');
         $this->assertStringContainsString('My custom title', file_get_contents(Hyde::path('_site/foo.html')));

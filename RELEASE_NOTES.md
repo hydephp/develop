@@ -14,6 +14,10 @@ This serves two purposes:
 
 ### Changed
 - Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
+- The RSS feed related generators are now only enabled when there are blog posts
+  - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts
+- The documentation search related generators are now only enabled when there are documentation pages
+  - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -22,7 +26,8 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed [#443](https://github.com/hydephp/develop/issues/443): RSS feed meta link should not be added if there is not a feed 
+
 
 ### Security
 - in case of vulnerabilities.

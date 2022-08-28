@@ -235,6 +235,7 @@ class MetadataTest extends TestCase
     {
         config(['site.url' => 'foo']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
 
         $page = new MarkdownPage();
 
@@ -245,6 +246,7 @@ class MetadataTest extends TestCase
     {
         config(['site.url' => 'bar']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
 
         $page = new MarkdownPage();
 
@@ -256,6 +258,7 @@ class MetadataTest extends TestCase
         config(['site.url' => 'foo']);
         config(['site.name' => 'Site']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
 
         $page = new MarkdownPage();
 
@@ -267,6 +270,8 @@ class MetadataTest extends TestCase
         config(['site.url' => 'foo']);
         config(['hyde.rss_filename' => 'posts.rss']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
+
         $page = new MarkdownPage();
 
         $this->assertStringContainsString(
