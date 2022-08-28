@@ -237,7 +237,6 @@ class MetadataTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-
         $page = new MarkdownPage();
 
         $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', $page->metadata->render());
@@ -248,7 +247,6 @@ class MetadataTest extends TestCase
         config(['site.url' => 'bar']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
-
 
         $page = new MarkdownPage();
 
@@ -261,7 +259,6 @@ class MetadataTest extends TestCase
         config(['site.name' => 'Site']);
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
-
 
         $page = new MarkdownPage();
 
