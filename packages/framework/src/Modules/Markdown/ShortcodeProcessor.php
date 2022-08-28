@@ -17,7 +17,7 @@ use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
  * that is used to identify the shortcode. The built-in shortcodes
  * do not use regex, as that would make them harder to read.
  *
- * @todo Refactor shortcode manager to singleton as it does not need to be re-instantiated
+ * @todo #438 Refactor or cache discovered shortcodes array to singleton as it does not need to be re-instantiated
  *      for each Markdown conversion.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\ShortcodeProcessorTest
