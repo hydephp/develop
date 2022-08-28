@@ -57,7 +57,6 @@ class PageRouter
 
     protected function getHtml(PageContract $page): string
     {
-        // todo add caching as we don't need to recompile pages that have not changed
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
     }
 
