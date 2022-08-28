@@ -91,7 +91,7 @@ class HydeServiceProvider extends ServiceProvider
 
     protected function initializeConfiguration()
     {
-        if (file_exists(Hyde::path('hyde.yml'))) {
+        if (YamlConfigurationService::hasFile()) {
             YamlConfigurationService::boot();
         }
     }
