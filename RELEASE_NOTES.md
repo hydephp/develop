@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
 
 ### Deprecated
 - for soon-to-be removed features.

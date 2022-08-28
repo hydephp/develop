@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\HydeSmartDocsTest
  */
-class HydeSmartDocs
+class SemanticDocumentationArticle
 {
     protected DocumentationPage $page;
     protected string $html;
@@ -113,7 +113,7 @@ class HydeSmartDocs
     }
 
     /**
-     * Create a new HydeSmartDocs instance, process, and return it.
+     * Create a new SemanticDocumentationArticle instance, process, and return it.
      *
      * @param  \Hyde\Framework\Models\Pages\DocumentationPage  $page  The source page object
      * @param  string  $html  compiled HTML content
