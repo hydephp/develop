@@ -4,6 +4,7 @@ namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
@@ -157,7 +158,8 @@ class Features implements Arrayable, \JsonSerializable
         return Hyde::hasSiteUrl()
             && static::hasBlogPosts()
             && config('hyde.generate_rss_feed', true)
-            && extension_loaded('simplexml');
+            && extension_loaded('simplexml')
+            && count(DiscoveryService::getMarkdownPostFiles()) > 0;
     }
 
     /** @inheritDoc */
