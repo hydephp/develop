@@ -17,7 +17,7 @@ class YamlConfigurationService
             $yaml = Yaml::parse(file_get_contents(static::getFile()));
             Config::set('site', array_merge(
                 Config::get('site', []),
-                $yaml ?? []
+                is_array($yaml) ? $yaml : []
             ));
         }
     }
