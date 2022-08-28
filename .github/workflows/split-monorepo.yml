@@ -1,10 +1,4 @@
 # Split the monorepo into readonly repositories
-# TODO: Some way to preserve commit messages? I'd love to get some help here. 
-#       ✔ Done, though it only gets the latest commit. It would be great to have something that handles all commit messages. Or at least says "<commit msg> (and X more [commits]) Maybe this could be done by creating an auto-closing PR listing all the commits since the last merge? Preferably filtered to only contain changes affecting the package.
-# @TODO add all previous commits to the commit message
-# @TODO change graceful git error handling to only catch working tree cleanness errors, allowing jobs to fail when it should
-# @TODO group similar jobs into matrix
-# @TODO merge workflow file into main ci file
 
 name: 🪓 Split monorepo
 
