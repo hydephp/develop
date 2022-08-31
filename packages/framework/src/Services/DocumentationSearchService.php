@@ -11,7 +11,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
-
+ *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
 final class DocumentationSearchService
