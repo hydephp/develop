@@ -7,7 +7,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
-use Symfony\Component\Console\Style\OutputStyle;
 
 /**
  * @covers \Hyde\Framework\Services\BuildHookService
@@ -168,7 +167,8 @@ class BuildHookServiceTest extends TestCase
 
     public function test_exception_handler_shows_error_message_and_exits_with_code_1_without_throwing_exception()
     {
-        $return = (new class extends AbstractBuildTask {
+        $return = (new class extends AbstractBuildTask
+        {
             public function run(): void
             {
                 throw new \Exception('foo', 1);
