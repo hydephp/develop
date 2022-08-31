@@ -1,0 +1,28 @@
+# This workflow is especially helpful for pull requests to quickly see if the other tests will definitely fail
+
+name: Smoke Tests
+
+on:
+  pull_request:
+
+jobs:
+
+  run-smoke-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run smoke tests
+        run: vendor/bin/pest --stop-on-failure
