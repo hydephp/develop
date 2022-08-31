@@ -24,7 +24,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
         $this->timeStart = microtime(true);
     }
 
-    public function handle(): void
+    public function handle(): ?int
     {
         $this->write('<comment>'.$this->getDescription().'...</comment> ');
 

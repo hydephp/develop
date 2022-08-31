@@ -17,7 +17,7 @@ interface BuildTaskContract
 
     public function then(): void;
 
-    public function handle(): void;
+    public function handle(): ?int;
 
     public function getDescription(): string;
 

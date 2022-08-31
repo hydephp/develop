@@ -18,6 +18,7 @@ This serves two purposes:
   - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts
 - The documentation search related generators are now only enabled when there are documentation pages
   - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
+- AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code.
 
 ### Deprecated
 - for soon-to-be removed features.
