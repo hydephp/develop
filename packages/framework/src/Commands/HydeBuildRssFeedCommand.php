@@ -13,7 +13,6 @@ use Hyde\Framework\Concerns\ActionCommand;
 class HydeBuildRssFeedCommand extends ActionCommand
 {
     protected $signature = 'build:rss';
-
     protected $description = 'Generate the RSS feed';
 
     public function handle(): int
