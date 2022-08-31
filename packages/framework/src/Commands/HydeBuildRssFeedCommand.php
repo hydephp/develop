@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Helpers\Features;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -18,11 +17,6 @@ class HydeBuildRssFeedCommand extends Command
 
     public function handle(): int
     {
-        if (! Features::rss()) {
-            $this->error('Could not generate the RSS feed, please check your configuration.');
-            return 1;
-        }
-
         return (new GenerateRssFeed($this->output))->handle() ?? 0;
     }
 }

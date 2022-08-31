@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
-use Hyde\Framework\Helpers\Features;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -18,11 +17,6 @@ class HydeBuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        if (! Features::sitemap()) {
-            $this->error('Could not generate the sitemap, please check your configuration.');
-            return 1;
-        }
-
         return (new GenerateSitemap($this->output))->handle() ?? 0;
     }
 }
