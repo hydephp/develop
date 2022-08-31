@@ -31,11 +31,11 @@ final class DocumentationSearchService
 
     public static function generateSearchPage(): string
     {
-        $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));
-        self::needsDirectory(Hyde::path($outputDirectory));
+        $outputDirectory = Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory());
+        self::needsDirectory(($outputDirectory));
 
         file_put_contents(
-            Hyde::path($outputDirectory.'/search.html'),
+            "$outputDirectory/search.html",
             view('hyde::pages.documentation-search')->render()
         );
 
