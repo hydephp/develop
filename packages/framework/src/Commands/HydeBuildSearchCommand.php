@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Helpers\Features;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -17,6 +18,12 @@ class HydeBuildSearchCommand extends Command
 
     public function handle(): int
     {
+
+        if (! Features::rss()) {
+            $this->error('Could not generate the search index, please check your configuration.');
+            return 1;
+        }
+
         return (new GenerateSearch($this->output))->handle() ?? 0;
     }
 }
