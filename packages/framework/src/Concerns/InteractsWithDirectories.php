@@ -12,7 +12,7 @@ trait InteractsWithDirectories
      *
      * @param  string  $directory  absolute file path to the directory
      */
-    public function needsDirectory(string $directory): void
+    public static function needsDirectory(string $directory): void
     {
         if (! file_exists($directory)) {
             mkdir($directory, recursive: true);
@@ -24,10 +24,10 @@ trait InteractsWithDirectories
      *
      * @param  array  $directories  array with absolute file paths to the directories
      */
-    public function needsDirectories(array $directories): void
+    public static function needsDirectories(array $directories): void
     {
         foreach ($directories as $directory) {
-            $this->needsDirectory($directory);
+            static::needsDirectory($directory);
         }
     }
 }
