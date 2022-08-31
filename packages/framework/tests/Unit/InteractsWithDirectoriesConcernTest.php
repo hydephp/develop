@@ -30,6 +30,15 @@ class InteractsWithDirectoriesConcernTest extends TestCase
         parent::tearDown();
     }
 
+    public function test_methods_can_be_called_statically()
+    {
+        static::needsDirectory(Hyde::path('foo'));
+        $this->assertDirectoryExists(Hyde::path('foo'));
+
+        static::needsDirectories([Hyde::path('foo')]);
+        $this->assertDirectoryExists(Hyde::path('foo'));
+    }
+
     public function test_needs_directory_creates_the_directory()
     {
         $this->needsDirectory(Hyde::path('foo'));
