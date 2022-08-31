@@ -32,6 +32,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
         } catch (\Throwable $exception) {
             $this->error('Failed');
             $this->error($exception->getMessage());
+            $this->exitCode = $exception->getCode();
         }
 
         $this->then();
