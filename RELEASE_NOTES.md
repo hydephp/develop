@@ -2,12 +2,7 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This release contains breaking changes regarding the PostBuildTasks that may require your attention if you have created custom tasks.
 
 ### Added
 - Added the option to define some site configuration settings in a `hyde.yml` file. See [#449](https://github.com/hydephp/develop/pull/449)
