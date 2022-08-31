@@ -29,6 +29,19 @@ final class DocumentationSearchService
         return (new self())->execute();
     }
 
+    public static function generateSearchPage(): string
+    {
+         $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath($directory = DocumentationPage::getOutputDirectory()));
+         self::needsDirectory(Hyde::path($outputDirectory));
+
+        file_put_contents(
+            Hyde::path($outputDirectory.'/search.html'),
+            view('hyde::pages.documentation-search')->render()
+        );
+
+        return $directory;
+    }
+
     public function __construct()
     {
         $this->searchIndex = new Collection();
