@@ -16,7 +16,7 @@ use JetBrains\PhpStorm\ArrayShape;
  * @todo #435 Convert into Service, and add more strategies, such as slug-only (no file parsing)
  *        search which while dumber, would be much faster to compile and take way less space.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
+ * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
 final class DocumentationSearchService implements ActionContract
 {

@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Services\DocumentationSearchService
  */
-class GeneratesDocumentationSearchIndexFileTest extends TestCase
+class DocumentationSearchServiceTest extends TestCase
 {
     protected function setUp(): void
     {
