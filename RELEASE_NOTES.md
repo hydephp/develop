@@ -2,12 +2,7 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This release contains breaking changes regarding the PostBuildTasks that may require your attention if you have created custom tasks.
 
 ### Added
 - Added the option to define some site configuration settings in a `hyde.yml` file. See [#449](https://github.com/hydephp/develop/pull/449)
@@ -18,9 +13,11 @@ This serves two purposes:
   - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts
 - The documentation search related generators are now only enabled when there are documentation pages
   - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
+- AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code.
+- The way auxiliary build actions are handled internally has been changed, see [PR #453](https://github.com/hydephp/develop/pull/453)
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated ActionCommand.php as it is no longer used
 
 ### Removed
 - for now removed features.

@@ -5,6 +5,9 @@ namespace Hyde\Framework\Contracts;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\Services\BuildHookServiceTest
+ */
 abstract class AbstractBuildTask implements BuildTaskContract
 {
     use InteractsWithIO;
@@ -12,6 +15,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
     protected static string $description = 'Generic build task';
 
     protected float $timeStart;
+    protected ?int $exitCode = null;
 
     public function __construct(?OutputStyle $output = null)
     {
@@ -19,14 +23,22 @@ abstract class AbstractBuildTask implements BuildTaskContract
         $this->timeStart = microtime(true);
     }
 
-    public function handle(): void
+    public function handle(): ?int
     {
         $this->write('<comment>'.$this->getDescription().'...</comment> ');
 
-        $this->run();
-        $this->then();
+        try {
+            $this->run();
+            $this->then();
+        } catch (\Throwable $exception) {
+            $this->writeln('<error>Failed</error>');
+            $this->writeln("<error>{$exception->getMessage()}</error>");
+            $this->exitCode = $exception->getCode();
+        }
 
         $this->write("\n");
+
+        return $this->exitCode;
     }
 
     abstract public function run(): void;

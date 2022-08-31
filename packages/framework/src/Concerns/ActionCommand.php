@@ -6,6 +6,8 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * Base class for commands that run a simple action.
+ *
+ * @deprecated v0.63.0-beta as it is no longer used.
  */
 abstract class ActionCommand extends Command
 {

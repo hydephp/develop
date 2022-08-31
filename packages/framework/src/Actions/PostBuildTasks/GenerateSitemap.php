@@ -3,7 +3,8 @@
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Contracts\AbstractBuildTask;
-use Illuminate\Support\Facades\Artisan;
+use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\SitemapService;
 
 class GenerateSitemap extends AbstractBuildTask
 {
@@ -11,11 +12,16 @@ class GenerateSitemap extends AbstractBuildTask
 
     public function run(): void
     {
-        Artisan::call('build:sitemap');
+        file_put_contents(
+            Hyde::getSiteOutputPath('sitemap.xml'),
+            SitemapService::generateSitemap()
+        );
     }
 
     public function then(): void
     {
-        $this->writeln("\n".' > Created <info>sitemap.xml</info> in '.$this->getExecutionTime());
+        $this->writeln(sprintf("\n > Created <info>sitemap.xml</info> in %s",
+            $this->getExecutionTime()
+        ));
     }
 }

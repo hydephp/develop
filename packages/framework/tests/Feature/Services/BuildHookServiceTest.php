@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\File;
  * @covers \Hyde\Framework\Services\BuildHookService
  * @covers \Hyde\Framework\Contracts\AbstractBuildTask
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
  *
  * @backupStaticAttributes enabled
  */
@@ -161,6 +163,19 @@ class BuildHookServiceTest extends TestCase
         $this->expectOutputString('');
 
         $this->assertSame($service, $return);
+    }
+
+    public function test_exception_handler_shows_error_message_and_exits_with_code_1_without_throwing_exception()
+    {
+        $return = (new class extends AbstractBuildTask
+        {
+            public function run(): void
+            {
+                throw new \Exception('foo', 1);
+            }
+        })->handle();
+
+        $this->assertEquals(1, $return);
     }
 
     protected function makeService(): BuildHookService
