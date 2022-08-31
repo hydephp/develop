@@ -7,7 +7,6 @@ use Illuminate\Console\OutputStyle;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\BuildHookServiceTest
- * @todo allow run method to return exit code
  */
 abstract class AbstractBuildTask implements BuildTaskContract
 {
