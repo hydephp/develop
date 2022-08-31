@@ -14,6 +14,7 @@ This release contains breaking changes regarding the PostBuildTasks that may req
 - The documentation search related generators are now only enabled when there are documentation pages
   - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
 - AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code.
+- The way auxiliary build actions are handled internally has been changed, see [PR #453](https://github.com/hydephp/develop/pull/453)
 
 ### Deprecated
 - Deprecated ActionCommand.php as it is no longer used
