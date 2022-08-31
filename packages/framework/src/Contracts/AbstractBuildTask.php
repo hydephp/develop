@@ -32,6 +32,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
         $this->then();
 
         $this->write("\n");
+        return $this->exitCode;
     }
 
     abstract public function run(): void;
