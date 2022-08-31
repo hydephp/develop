@@ -25,7 +25,7 @@ class GenerateSearch extends AbstractBuildTask
         if (config('docs.create_search_page', true)) {
             $directory = DocumentationSearchService::generateSearchPage();
 
-            $this->createdSiteFile($directory.'/search.html');
+            $this->createdSiteFile("$directory/search.html");
         }
     }
 
