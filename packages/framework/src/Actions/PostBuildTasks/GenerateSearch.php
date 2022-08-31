@@ -2,12 +2,12 @@
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Services\DocumentationSearchService;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\AbstractBuildTask;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Framework\Services\DocumentationSearchService;
 
 class GenerateSearch extends AbstractBuildTask
 {

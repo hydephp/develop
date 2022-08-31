@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Services\DocumentationSearchService as Action;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Services\DocumentationSearchService as Action;
 use Hyde\Testing\TestCase;
 
 /**
