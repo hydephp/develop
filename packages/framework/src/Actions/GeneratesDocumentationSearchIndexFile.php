@@ -33,7 +33,7 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
     public function __construct()
     {
         $this->searchIndex = new Collection();
-        static::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
+        self::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
             DocumentationPage::getOutputDirectory().'/search.json')
         );
     }
@@ -73,9 +73,9 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     protected function save(): self
     {
-        $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
+        $this->needsDirectory(Hyde::path(str_replace('/search.json', '', self::$filePath)));
 
-        file_put_contents(Hyde::path(static::$filePath), $this->searchIndex->toJson());
+        file_put_contents(Hyde::path(self::$filePath), $this->searchIndex->toJson());
 
         return $this;
     }
