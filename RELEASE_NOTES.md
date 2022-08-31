@@ -16,7 +16,7 @@ This release contains breaking changes regarding the PostBuildTasks that may req
 - AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code.
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated ActionCommand.php as it is no longer used
 
 ### Removed
 - for now removed features.
