@@ -22,7 +22,7 @@ class GenerateSearch extends AbstractBuildTask
             $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
         }
 
-        DocumentationSearchService::run();
+        DocumentationSearchService::generate();
 
         if (config('docs.create_search_page', true)) {
             $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));

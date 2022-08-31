@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -18,14 +17,14 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
-final class DocumentationSearchService implements ActionContract
+final class DocumentationSearchService
 {
     use InteractsWithDirectories;
 
     public Collection $searchIndex;
     public static string $filePath = '_site/docs/search.json';
 
-    public static function run(): self
+    public static function generate(): self
     {
         return (new self())->execute();
     }
@@ -40,13 +39,13 @@ final class DocumentationSearchService implements ActionContract
 
     public function execute(): self
     {
-        $this->generate();
+        $this->run();
         $this->save();
 
         return $this;
     }
 
-    public function generate(): self
+    public function run(): self
     {
         /** @var DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
