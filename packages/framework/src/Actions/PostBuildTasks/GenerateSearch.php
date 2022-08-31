@@ -42,8 +42,8 @@ class GenerateSearch extends AbstractBuildTask
     {
         $this->writeln(sprintf("\n > Created <info>%s</info> in %s",
             GeneratesDocumentationSearchIndexFile::$filePath,
-            $this->getExecutionTime())
-        );
+            $this->getExecutionTime()
+        ));
     }
 
     /** @internal Estimated processing time per file in ms */

@@ -22,7 +22,7 @@ class GenerateRssFeed extends AbstractBuildTask
     {
         $this->writeln(sprintf("\n > Created <info>%s</info> in %s",
             RssFeedService::getDefaultOutputFilename(),
-            $this->getExecutionTime())
-        );
+            $this->getExecutionTime()
+        ));
     }
 }
