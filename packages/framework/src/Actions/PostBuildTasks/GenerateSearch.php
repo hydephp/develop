@@ -16,7 +16,7 @@ class GenerateSearch extends AbstractBuildTask
     public function run(): void
     {
         $expected = $this->guesstimateGenerationTime();
-        if ($expected > 1) {
+        if ($expected >= 1) {
             $this->line("<fg=gray>This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
         }
 
