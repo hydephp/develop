@@ -17,7 +17,7 @@ class GenerateSearch extends AbstractBuildTask
     {
         $expected = $this->guesstimateGenerationTime();
         if ($expected > 1) {
-            $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
+            $this->line("<fg=gray>This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
         }
 
         DocumentationSearchService::generate();
