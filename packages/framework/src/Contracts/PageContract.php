@@ -122,8 +122,6 @@ interface PageContract
     /**
      * Get the URI path relative to the site root.
      *
-     * @deprecated v0.50.x-dev-master May be renamed to getRouteKey()
-     *
      * @example if the compiled page will be saved to _site/docs/index.html,
      *          then this method will return 'docs/index'
      *
