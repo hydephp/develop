@@ -27,7 +27,7 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run smoke tests # if standard tests fail, there is no reason to do visual tests as they are expensive and it's faster to run them in parallel here than to wait for a main test job to run
-        run: vendor/bin/pest
+        run: vendor/bin/pest --stop-on-failure
 
       - name: Prepare the Environment
         run: echo -e "APP_URL=http://localhost:8080 \nDUSK_ENABLED=true" > .env
