@@ -8,8 +8,6 @@ use Hyde\Framework\Contracts\AbstractBuildTask;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Framework\Services\RssFeedService;
-use Illuminate\Support\Facades\Artisan;
 
 class GenerateSearch extends AbstractBuildTask
 {
@@ -19,12 +17,12 @@ class GenerateSearch extends AbstractBuildTask
 
     public function run(): void
     {
-            $expected = $this->guesstimateGenerationTime();
-            if ($expected > 1) {
-                $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
-            }
+        $expected = $this->guesstimateGenerationTime();
+        if ($expected > 1) {
+            $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
+        }
 
-            GeneratesDocumentationSearchIndexFile::run();
+        GeneratesDocumentationSearchIndexFile::run();
 
         if (config('docs.create_search_page', true)) {
             $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));

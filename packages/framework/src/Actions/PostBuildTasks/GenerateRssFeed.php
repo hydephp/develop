@@ -15,6 +15,7 @@ class GenerateRssFeed extends AbstractBuildTask
     {
         if (! Features::rss()) {
             $this->error('Cannot generate an RSS feed, please check your configuration.');
+
             return;
         }
 

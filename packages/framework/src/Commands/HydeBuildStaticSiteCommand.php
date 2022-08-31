@@ -11,7 +11,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildHookService;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\DiscoveryService;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
 
