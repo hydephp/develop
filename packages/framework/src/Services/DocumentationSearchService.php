@@ -11,10 +11,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
- *
- * @todo #435 Add more strategies, such as slug-only (no file parsing)
- *        search which while dumber, would be much faster to compile and take way less space.
- *
+
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
 final class DocumentationSearchService
