@@ -26,6 +26,7 @@ class GenerateSitemap extends AbstractBuildTask
         $this->writeln("\n".' > Created <info>sitemap.xml</info> in '.$this->getExecutionTime());
     }
 
+    /** @deprecated to reduce complexity, or throw exceptions that can be caught with messages */
     protected function runPreflightCheck(): bool
     {
         if (! Features::sitemap()) {
