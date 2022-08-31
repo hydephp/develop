@@ -39,7 +39,7 @@ final class DocumentationSearchService
             view('hyde::pages.documentation-search')->render()
         );
 
-        return Hyde::pathToRelative($outputDirectory);
+        return $outputDirectory;
     }
 
     public function __construct()
