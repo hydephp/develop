@@ -31,7 +31,7 @@ final class DocumentationSearchService
 
     public static function generateSearchPage(): string
     {
-        $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath($directory = DocumentationPage::getOutputDirectory()));
+        $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));
         self::needsDirectory(Hyde::path($outputDirectory));
 
         file_put_contents(
@@ -39,7 +39,7 @@ final class DocumentationSearchService
             view('hyde::pages.documentation-search')->render()
         );
 
-        return $directory;
+        return Hyde::pathToRelative($outputDirectory);
     }
 
     public function __construct()

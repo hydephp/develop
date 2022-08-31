@@ -26,7 +26,7 @@ class GenerateSearch extends AbstractBuildTask
             $directory = DocumentationSearchService::generateSearchPage();
 
             $this->write(sprintf(
-                "\n > Created <info>_site/%s/search.html</info>",
+                "\n > Created <info>%s/search.html</info>",
                 $directory
             ));
         }
