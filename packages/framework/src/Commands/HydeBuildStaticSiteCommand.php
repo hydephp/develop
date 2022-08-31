@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Commands;
 
 use Exception;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
@@ -115,14 +117,8 @@ class HydeBuildStaticSiteCommand extends Command
         }
 
         $service->runIf(GenerateSitemap::class, $this->canGenerateSitemap());
-
-        if ($this->canGenerateFeed()) {
-            Artisan::call('build:rss', outputBuffer: $this->output);
-        }
-
-        if ($this->canGenerateSearch()) {
-            Artisan::call('build:search', outputBuffer: $this->output);
-        }
+        $service->runIf(GenerateRssFeed::class, $this->canGenerateFeed());
+        $service->runIf(GenerateSearch::class, $this->canGenerateSearch());
 
         $service->runPostBuildTasks();
     }
