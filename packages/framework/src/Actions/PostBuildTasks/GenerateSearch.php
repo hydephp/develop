@@ -23,20 +23,6 @@ class GenerateSearch extends AbstractBuildTask
         }
 
         GeneratesDocumentationSearchIndexFile::run();
-
-        /** @deprecated v0.63.x */
-        if (config('docs.create_search_page', true)) {
-            $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));
-            $this->needsDirectory(Hyde::path($outputDirectory));
-            file_put_contents(
-                Hyde::path($outputDirectory.'/search.html'),
-                view('hyde::pages.documentation-search')->render()
-            );
-            $this->write(sprintf(
-                "\n > Created <info>_site/%s/search.html</info>",
-                config('docs.output_directory', 'docs')
-            ));
-        }
     }
 
     public function then(): void
