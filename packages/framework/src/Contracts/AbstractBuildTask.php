@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
@@ -66,5 +67,12 @@ abstract class AbstractBuildTask implements BuildTaskContract
     public function writeln(string $message): void
     {
         $this->output?->writeln($message);
+    }
+
+    public function createdSiteFile(string $path): void
+    {
+        $this->write(sprintf("\n > Created <info>%s</info>",
+            str_replace('\\', '/', Hyde::pathToRelative($path))
+        ));
     }
 }

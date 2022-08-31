@@ -1,9 +1,8 @@
 <?php
 
-namespace Hyde\Framework\Actions;
+namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -13,40 +12,47 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * @internal Generate a JSON file that can be used as a search index for documentation pages.
  *
- * @todo #435 Convert into Service, and add more strategies, such as slug-only (no file parsing)
- *        search which while dumber, would be much faster to compile and take way less space.
- *
- * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
+ * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSearchServiceTest
  */
-final class GeneratesDocumentationSearchIndexFile implements ActionContract
+final class DocumentationSearchService
 {
     use InteractsWithDirectories;
 
     public Collection $searchIndex;
     public static string $filePath = '_site/docs/search.json';
 
-    public static function run(): self
+    public static function generate(): self
     {
         return (new self())->execute();
+    }
+
+    public static function generateSearchPage(): string
+    {
+        $outputDirectory = Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory());
+        self::needsDirectory(($outputDirectory));
+
+        file_put_contents(
+            "$outputDirectory/search.html",
+            view('hyde::pages.documentation-search')->render()
+        );
+
+        return $outputDirectory;
     }
 
     public function __construct()
     {
         $this->searchIndex = new Collection();
-        static::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
-            DocumentationPage::getOutputDirectory().'/search.json')
-        );
+        self::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
+            DocumentationPage::getOutputDirectory().'/search.json'
+        ));
     }
 
     public function execute(): self
     {
-        $this->generate();
-        $this->save();
-
-        return $this;
+        return $this->run()->save();
     }
 
-    public function generate(): self
+    public function run(): self
     {
         /** @var DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
@@ -73,9 +79,9 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     protected function save(): self
     {
-        $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
+        $this->needsDirectory(Hyde::path(str_replace('/search.json', '', self::$filePath)));
 
-        file_put_contents(Hyde::path(static::$filePath), $this->searchIndex->toJson());
+        file_put_contents(Hyde::path(self::$filePath), $this->searchIndex->toJson());
 
         return $this;
     }
@@ -112,11 +118,10 @@ final class GeneratesDocumentationSearchIndexFile implements ActionContract
 
     public function getDestinationForSlug(string $slug): string
     {
-        if ($slug === 'index' && config('site.pretty_urls', false)) {
-            $slug = '';
+        if (config('site.pretty_urls', false) === true) {
+            return $slug !== 'index' ? $slug : '';
         }
 
-        return (config('site.pretty_urls', false) === true)
-            ? $slug : $slug.'.html';
+        return $slug.'.html';
     }
 }

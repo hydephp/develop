@@ -2,12 +2,10 @@
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\AbstractBuildTask;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Framework\Services\DocumentationSearchService;
 
 class GenerateSearch extends AbstractBuildTask
 {
@@ -18,32 +16,30 @@ class GenerateSearch extends AbstractBuildTask
     public function run(): void
     {
         $expected = $this->guesstimateGenerationTime();
-        if ($expected > 1) {
-            $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
+        if ($expected >= 1) {
+            $this->line("<fg=gray>This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
         }
 
-        GeneratesDocumentationSearchIndexFile::run();
+        DocumentationSearchService::generate();
 
         if (config('docs.create_search_page', true)) {
-            $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));
-            $this->needsDirectory(Hyde::path($outputDirectory));
-            file_put_contents(
-                Hyde::path($outputDirectory.'/search.html'),
-                view('hyde::pages.documentation-search')->render()
-            );
-            $this->write(sprintf(
-                "\n > Created <info>_site/%s/search.html</info>",
-                config('docs.output_directory', 'docs')
-            ));
+            $directory = DocumentationSearchService::generateSearchPage();
+
+            $this->createdSiteFile("$directory/search.html");
         }
     }
 
     public function then(): void
     {
         $this->writeln(sprintf("\n > Created <info>%s</info> in %s",
-            GeneratesDocumentationSearchIndexFile::$filePath,
+            $this->normalizePath(DocumentationSearchService::$filePath),
             $this->getExecutionTime()
         ));
+    }
+
+    protected function normalizePath(string $path): string
+    {
+        return str_replace('\\', '/', $path);
     }
 
     /** @internal Estimated processing time per file in ms */
