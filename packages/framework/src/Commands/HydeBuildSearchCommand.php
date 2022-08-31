@@ -3,14 +3,14 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Concerns\ActionCommand;
+use LaravelZero\Framework\Commands\Command;
 
 /**
  * Hyde command to run the build process for the documentation search index.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSearchCommandTest
  */
-class HydeBuildSearchCommand extends ActionCommand
+class HydeBuildSearchCommand extends Command
 {
     protected $signature = 'build:search';
     protected $description = 'Generate the docs/search.json';
