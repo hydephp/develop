@@ -7,9 +7,10 @@ use Hyde\Framework\Hyde;
 class SearchIndexBenchmark extends BenchCase
 {
     /**
-     * Results history: (with xdebug)
-     * #5555b676b 'avg_iteration_time': '26.75ms'
-     * #2d73931ad 'avg_iteration_time': '19.41ms'.
+     * Results history:
+     * - #5555b676b: 26.75ms (with xdebug)
+     * - #2d73931ad: 19.41ms (with xdebug)
+     * - #fd90ee987: 10.0887394ms.
      */
     public function testBuildSearchIndexCommandNoFiles()
     {
@@ -22,9 +23,10 @@ class SearchIndexBenchmark extends BenchCase
     }
 
     /**
-     * Results history: (with xdebug)
-     * #5555b676b 'avg_iteration_time': '120.45ms'
-     * #2d73931ad 'avg_iteration_time': '105.91ms'.
+     * Results history:
+     * - #5555b676b: 120.45ms (with xdebug)
+     * - #2d73931ad: 105.91ms (with xdebug)
+     * - #fd90ee987: 36.29438877ms.
      */
     public function testBuildSearchIndexCommandWithFiles()
     {

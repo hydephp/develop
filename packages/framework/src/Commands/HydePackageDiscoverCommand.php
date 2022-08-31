@@ -11,6 +11,7 @@ use Illuminate\Foundation\PackageManifest;
  */
 class HydePackageDiscoverCommand extends BaseCommand
 {
+    /** @var true */
     protected $hidden = true;
 
     public function handle(PackageManifest $manifest)

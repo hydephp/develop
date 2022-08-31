@@ -35,17 +35,17 @@ This is a post stub used in the automated tests
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), 'Foo bar');
 
-        $document = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
+        $document = (new MarkdownFileParser(('_posts/test-post.md')))->get();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
-        $this->assertEquals('Foo bar', $document->body);
+        $this->assertEquals('Foo bar', $document->markdown);
     }
 
     public function test_can_parse_markdown_file_with_front_matter()
     {
         $this->makeTestPost();
 
-        $document = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
+        $document = (new MarkdownFileParser(('_posts/test-post.md')))->get();
         $this->assertInstanceOf(MarkdownDocument::class, $document);
 
         $this->assertEquals(FrontMatter::fromArray([
@@ -56,7 +56,7 @@ This is a post stub used in the automated tests
 
         $this->assertEquals(
             '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', $document->body)
+            str_replace(["\n", "\r"], '', $document->markdown)
         );
     }
 
@@ -64,7 +64,7 @@ This is a post stub used in the automated tests
     {
         $this->makeTestPost();
 
-        $post = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
+        $post = (new MarkdownFileParser(('_posts/test-post.md')))->get();
         $this->assertEquals('My New Post', $post->matter('title'));
         $this->assertEquals('Mr. Hyde', $post->matter('author'));
         $this->assertEquals('blog', $post->matter('category'));
@@ -74,7 +74,7 @@ This is a post stub used in the automated tests
     {
         file_put_contents(Hyde::path('_posts/test-post.md'), "---\nslug: foo\n---\n");
 
-        $post = (new MarkdownFileParser(Hyde::path('_posts/test-post.md')))->get();
+        $post = (new MarkdownFileParser(('_posts/test-post.md')))->get();
         $this->assertNull($post->matter('slug'));
         $this->assertEquals(FrontMatter::fromArray([]), $post->matter);
     }
@@ -83,14 +83,14 @@ This is a post stub used in the automated tests
     {
         $this->makeTestPost();
 
-        $post = MarkdownFileParser::parse(Hyde::path('_posts/test-post.md'));
+        $post = MarkdownFileParser::parse(('_posts/test-post.md'));
         $this->assertEquals('My New Post', $post->matter('title'));
         $this->assertEquals('Mr. Hyde', $post->matter('author'));
         $this->assertEquals('blog', $post->matter('category'));
 
         $this->assertEquals(
             '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', $post->body)
+            str_replace(["\n", "\r"], '', $post->markdown)
         );
     }
 }

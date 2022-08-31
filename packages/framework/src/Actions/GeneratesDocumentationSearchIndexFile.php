@@ -8,50 +8,51 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
- * Generate a JSON file that can be used as a search index for documentation pages.
+ * @internal Generate a JSON file that can be used as a search index for documentation pages.
  *
- * @todo Convert into Service, and add more strategies, such as slug-only (no file parsing)
+ * @todo #435 Convert into Service, and add more strategies, such as slug-only (no file parsing)
  *        search which while dumber, would be much faster to compile and take way less space.
- * @todo Refactor to use custom site output paths
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
- *
- * @phpstan-consistent-constructor
  */
-class GeneratesDocumentationSearchIndexFile implements ActionContract
+final class GeneratesDocumentationSearchIndexFile implements ActionContract
 {
     use InteractsWithDirectories;
 
     public Collection $searchIndex;
     public static string $filePath = '_site/docs/search.json';
 
-    public static function run(): void
+    public static function run(): self
     {
-        (new static())->execute();
+        return (new self())->execute();
     }
 
     public function __construct()
     {
         $this->searchIndex = new Collection();
-
-        static::$filePath = '_site/'.config('docs.output_directory', 'docs').'/search.json';
+        static::$filePath = Hyde::pathToRelative(Hyde::getSiteOutputPath(
+            DocumentationPage::getOutputDirectory().'/search.json')
+        );
     }
 
-    public function execute(): void
+    public function execute(): self
     {
         $this->generate();
         $this->save();
+
+        return $this;
     }
 
-    public function generate(): static
+    public function generate(): self
     {
         /** @var DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
             if (! in_array($page->identifier, config('docs.exclude_from_search', []))) {
                 $this->searchIndex->push(
-                    $this->generatePageObject($page)
+                    $this->generatePageEntry($page)
                 );
             }
         }
@@ -59,31 +60,22 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
         return $this;
     }
 
-    public function generatePageObject(DocumentationPage $page): object
+    #[ArrayShape(['slug' => 'string', 'title' => 'string', 'content' => 'string', 'destination' => 'string'])]
+    public function generatePageEntry(DocumentationPage $page): array
     {
-        return (object) [
-            'slug' => $page->identifier,
+        return [
+            'slug' => basename($page->identifier),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
-            'destination' => $this->getDestinationForSlug($page->identifier),
+            'destination' => $this->getDestinationForSlug(basename($page->identifier)),
         ];
     }
 
-    public function getObject(): object
-    {
-        return (object) $this->searchIndex;
-    }
-
-    public function getJson(): string
-    {
-        return json_encode($this->getObject());
-    }
-
-    public function save(): static
+    protected function save(): self
     {
         $this->needsDirectory(Hyde::path(str_replace('/search.json', '', static::$filePath)));
 
-        file_put_contents(Hyde::path(static::$filePath), $this->getJson());
+        file_put_contents(Hyde::path(static::$filePath), $this->searchIndex->toJson());
 
         return $this;
     }
@@ -110,7 +102,7 @@ class GeneratesDocumentationSearchIndexFile implements ActionContract
      * Returning $document->body as is: 500ms
      * Returning $document->body as Str::markdown(): 920ms + 10ms for regex
      */
-    public function getSearchContentForDocument(DocumentationPage $page): string
+    protected function getSearchContentForDocument(DocumentationPage $page): string
     {
         // This is compiles the Markdown body into HTML, and then strips out all
         // HTML tags to get a plain text version of the body. This takes a long

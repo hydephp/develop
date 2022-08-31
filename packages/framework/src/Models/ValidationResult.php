@@ -19,7 +19,7 @@ class ValidationResult
         $this->message = $defaultMessage;
     }
 
-    public function pass(?string $withMessage = null): self
+    public function pass(?string $withMessage = null): static
     {
         $this->passed = true;
         if ($withMessage) {
@@ -29,7 +29,7 @@ class ValidationResult
         return $this;
     }
 
-    public function fail(?string $withMessage = null): self
+    public function fail(?string $withMessage = null): static
     {
         $this->passed = false;
         if ($withMessage) {
@@ -39,7 +39,7 @@ class ValidationResult
         return $this;
     }
 
-    public function skip(?string $withMessage = null): self
+    public function skip(?string $withMessage = null): static
     {
         $this->skipped = true;
         if ($withMessage) {
@@ -49,7 +49,7 @@ class ValidationResult
         return $this;
     }
 
-    public function withTip(string $withTip): self
+    public function withTip(string $withTip): static
     {
         $this->tip = $withTip;
 
@@ -78,7 +78,7 @@ class ValidationResult
 
     public function statusCode(): int
     {
-        if ($this->skipped) {
+        if ($this->skipped()) {
             return 1;
         }
         if ($this->passed()) {
@@ -105,14 +105,11 @@ class ValidationResult
 
     protected function formatResult(string $message): string
     {
-        if ($this->statusCode() === 0) {
-            return $this->formatPassed($message);
-        }
-        if ($this->statusCode() === 2) {
-            return $this->formatFailed($message);
-        }
-
-        return $this->formatSkipped($message);
+        return match ($this->statusCode()) {
+            0 => $this->formatPassed($message),
+            2 => $this->formatFailed($message),
+            default => $this->formatSkipped($message),
+        };
     }
 
     protected function formatPassed(string $message): string

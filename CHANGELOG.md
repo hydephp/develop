@@ -15,6 +15,180 @@ HydePHP consists of two primary components, Hyde/Hyde and Hyde/Framework. Develo
 
 <!-- CHANGELOG_START -->
 
+## [v0.62.0-beta](https://github.com/hydephp/develop/releases/tag/v0.62.0-beta) - 2022-08-27
+
+### About
+
+This update deprecates two interfaces (contracts) and inlines them into their implementations. It also refactors the documentation page layout to use more Blade components which may cause you to need to republish any manually published components.
+
+The following interfaces are affected: `HydeKernelContract` and `AssetServiceContract`. These interfaces were used to access the service container bindings. Instead, you would now type hint the implementation class instead of the contract. This change will only affect those who have written custom code that uses or type hints these interfaces, which is unlikely. If this does affect you, you can see this diff to see how to upgrade. https://github.com/hydephp/develop/pull/428/commits/68d2974d54345ec7c12fedb098f6030b2c2e85ee. In short, simply replace `HydeKernelContract` and `AssetServiceContract` with `HydeKernel` and `AssetService`.
+
+
+### Changed
+- The documentation page layout has been internally refactored to utilize more Blade components. This only affects those who have extended or customized the documentation components. Some documentation components have also been renamed.
+
+### Deprecated
+- Deprecate interface HydeKernelContract, type hint the HydeKernel::class instead
+- Deprecate interface AssetServiceContract, type hint the AssetService::class instead
+  
+### Removed
+- Removed legacy `.js-enabled` class from documentation pages
+
+### Fixed
+- The list element of the documentation page sidebar had a conflicting ID (`#sidebar`) and has now been changed to `#sidebar-navigation` which may break edge cases where this component is styled or interacted with outside of the framework.
+- Fix documentation page flickering [#388](https://github.com/hydephp/develop/issues/388)
+
+
+## [v0.61.0-beta](https://github.com/hydephp/develop/releases/tag/v0.61.0-beta) - 2022-08-17
+
+### About
+
+Creates a new foundation class, the FileCollection. Which like the other foundation collections, discovers all the files. Running this part of the autodiscovery will further enrich the Hyde Kernel, and allow greater insight into the application. The end user experience should not be affected by this.
+
+### Added
+- Adds a new FileCollection class to hold all discovered source and asset files
+- Adds a new File model as an object-oriented way of representing a project file
+
+### Changed
+- Move class PageCollection into Foundation namespace
+- Move class RouteCollection into Foundation namespace
+
+### Fixed
+- Fix [#424](https://github.com/hydephp/develop/issues/424) AbstractMarkdownPage save method should use Hyde::path()
+
+### Upgrade guide
+
+#### Collection namespace change
+
+> You only need to do this if you have written custom code that uses the old namespace.
+
+To upgrade the moved collection namespaces, simply replace the following namespace imports:
+
+```diff
+-use Hyde\Framework\PageCollection;
++use Hyde\Framework\Foundation\PageCollection;
+-use Hyde\Framework\RouteCollection;
++use Hyde\Framework\Foundation\RouteCollection;
+```
+
+
+## [v0.60.0-beta](https://github.com/hydephp/develop/releases/tag/v0.60.0-beta) - 2022-08-12
+
+### About
+
+This release continues refactoring the internal codebase. As part of this, a large part of deprecated code has been removed and the package has been updated accordingly.
+
+### Added
+- Added `getRouteKey` method to `PageContract` and `AbstractPage`
+
+### Changed
+- Blog posts now have the same open graph title format as other pages
+- Merged deprecated method `getRoutesForModel` into `getRoutes` in `RouteCollection`
+- Cleans up and refactors `GeneratesDocumentationSearchIndexFile`, and marks it as internal
+- Changed MarkdownFileParser to expect that the supplied filepath is relative to the root of the project (this may break method calls where an absolute path is supplied, see upgrade guide)
+- internal: Inline deprecated internal method usage `getOutputPath` replacing it `Hyde::pages()` helper with in `HydeRebuildStaticSiteCommand`
+
+### Removed
+- Removed class `RoutingService` as it is no longer used
+- Removed deprecated legacy class `Compiler`  from the Hyde Realtime Compiler
+- Removed deprecated interface `RoutingServiceContract` (deprecated in v0.59)
+- Removed deprecated method `stylePath` from `AssetService` (deprecated in v0.50)
+- Removed deprecated method `getHomeLink` from `NavigationMenu` (deprecated in v0.50)
+- Removed deprecated method `parseFile` from `MarkdownDocument` (deprecated in v0.56)
+- Removed deprecated method `getPostDescription` from `MarkdownPost` (deprecated in v0.58)
+- Removed deprecated method `getCanonicalLink` from `MarkdownPost` (deprecated in v0.58)
+- Removed deprecated method `getInstance` from `RoutingService` (deprecated in v0.59)
+- Removed deprecated method `getRoutesForModel` from `RouteCollection`
+- Removed deprecated method `getOutputPath` from `HydeRebuildStaticSiteCommand`
+- Removed deprecated property `$body`  from `MarkdownDocument`
+- internal: Remove deprecated testing helper functions `backup` and `restore`
+
+### Fixed
+- MarkdownFileParser not using the Hyde path [#399](https://github.com/hydephp/develop/issues/399)
+- Undefined variable $currentRoute in search.html [#421](https://github.com/hydephp/develop/issues/421)
+- Fixes issues in the documentation `search.json` and `search.html` when using custom output directories
+
+### Upgrade Guide
+
+#### MarkdownFileParser path change 
+This class now expects the supplied filepath to be relative to the root of the project. This will only affect you if you have written any custom code that uses this class. All internal Hyde code is already updated to use the new path format.
+
+To upgrade, change any calls you may have like follows:
+
+```diff
+-return (new MarkdownFileParser(Hyde::path('_posts/foo.md')))->get();
++return (new MarkdownFileParser('_posts/foo.md'))->get();
+```
+
+
+## [v0.59.0-beta](https://github.com/hydephp/develop/releases/tag/v0.59.0-beta) - 2022-08-11
+
+### About
+
+This release refactors the internal routing system. Unless you have written custom code that directly uses these classes and methods, updating should be fairly smooth. If not, you may want to read through the following overview.
+
+The route index has been decoupled from page index and is split into two new collection classes, PageCollection and RouteCollection. The PageCollection contains all the site's parsed pages, and the RouteCollection contains all the page routes.
+
+The RoutingService class remains for compatibility with existing code, but now only forwards calls to the new RouteCollection. The RoutingServiceContract interface is now deprecated.
+
+### Added
+- Adds a new RouteCollection class
+- Adds a new PageCollection class
+- Adds a $routeKey property to the AbstractPage class
+- The page and route collections are now stored as properties of the HydeKernel
+- Adds an option to the `Hyde::image()` helper to request the returned image path use the configured base URL if it's set
+- Adds a new `save()` method to Markdown-based pages, to save the page object to the filesystem
+- Added new internal helpers to improve serialization of object models
+
+### Changed
+- **breaking**: Navigation menu priorities now use route keys instead of slugs, see upgrade notes below
+- Removed constructor from RoutingServiceContract interface
+- Refactored RoutingService to use the new RouteCollection class
+- AbstractPage::all() now returns a PageCollection, and includes the source file path as the array key
+- Improved ConvertsArrayToFrontMatter action, which now supports nested arrays
+- An exception is now thrown when attempting to get the path to an Image without a defined source path or URI
+- internal: The HydeKernel is now stored as a singleton within the kernel class, instead of the service container
+- internal: Refactor commands with shared code to extend new abstract base class
+- internal: A large part of the codebase has been refactored and cleaned up while making an effort to maintain compatibility with existing code
+
+### Deprecated
+- Deprecated interface RoutingServiceContract
+- Deprecated RoutingServiceContract::getInstance()
+
+### Removed
+- Removed all non public-contract methods from RoutingService
+
+### Fixed
+- Fix [#383](https://github.com/hydephp/develop/issues/383): Navigation menu titles can't be set in BladeMatter
+- Fix [#385](https://github.com/hydephp/develop/issues/385): `DocumentationPage::home()` did not work for custom documentation page output directories
+- Fix [#386](https://github.com/hydephp/develop/issues/386): Documentation page sidebar labels were not constructed from front matter
+- Fix bugs relating to the documentation sidebar labels that appeared in the last release
+- Fix [#410](https://github.com/hydephp/develop/issues/410): Search index generator breaks when storing documentation page source files in subdirectories
+
+
+### Upgrade notes
+
+#### Route keys are now used in navigation config
+
+Prior to this release, the navigation menu priorities were based on the page slug. This has been changed to the route key. A route key in Hyde is in short the compiled page's path, relative to the site's root. For example, `_site/foo/bar.html` has the route key `foo/bar`.
+
+This change is breaking as the order of navigation items may be changed unless the configuration is updated. However, this is really easy. Just change `docs` to `docs/index` in the `config/hyde.php` file.
+
+```diff
+'navigation' => [
+	'order' => [
+		'index' => 0,
+		'posts' => 10,
+-		'docs' => 100,
++		'docs/index' => 100,
+	],
+],
+```
+
+If you have used the config to hide the documentation page from the navigation menu, you also need to use the route key by changing `'exclude' => ['docs']` to `'exclude' => ['docs/index']`.
+The same goes if you have used the config to change the navigation titles for the home and documentation pages.
+
+
 ## [v0.58.0-beta](https://github.com/hydephp/develop/releases/tag/v0.58.0-beta) - 2022-08-08
 
 ### About

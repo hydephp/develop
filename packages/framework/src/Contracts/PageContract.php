@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Illuminate\Support\Collection;
+use Hyde\Framework\Foundation\PageCollection;
 
 interface PageContract
 {
@@ -73,13 +73,12 @@ interface PageContract
     /**
      * Get a collection of all pages, parsed into page models.
      *
+     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Contracts\PageContract
+     *
      * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
-     *
-     * @return \Illuminate\Support\Collection<static>
-     *
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
-    public static function all(): Collection;
+    public static function all(): PageCollection;
 
     /**
      * Qualify a page basename into a referenceable file path.
@@ -131,6 +130,13 @@ interface PageContract
      * @return string URI path relative to the site root.
      */
     public function getCurrentPagePath(): string;
+
+    /**
+     * Get the route key for the page.
+     *
+     * @return string
+     */
+    public function getRouteKey(): string;
 
     /**
      * Get the route for the page.

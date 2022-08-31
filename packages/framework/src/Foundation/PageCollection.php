@@ -1,9 +1,10 @@
 <?php
 
-namespace Hyde\Framework;
+namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -12,34 +13,24 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\RouteCollection
+ * @see \Hyde\Framework\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
-final class PageCollection extends Collection
+final class PageCollection extends BaseFoundationCollection
 {
-    public static function boot(): self
-    {
-        return (new self())->discoverPages();
-    }
-
-    protected function __construct($items = [])
-    {
-        parent::__construct($items);
-    }
-
     public function getPage(string $sourcePath): PageContract
     {
         return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath.' in page collection');
     }
 
-    public function getPages(?string $pageClass = null): Collection
+    public function getPages(?string $pageClass = null): self
     {
         return ! $pageClass ? $this : $this->filter(function (PageContract $page) use ($pageClass): bool {
             return $page instanceof $pageClass;
         });
     }
 
-    protected function discoverPages(): self
+    protected function runDiscovery(): self
     {
         if (Features::hasBladePages()) {
             $this->discoverPagesFor(BladePage::class);
@@ -67,6 +58,10 @@ final class PageCollection extends Collection
         });
     }
 
+    /**
+     * @param  string<\Hyde\Framework\Contracts\PageContract>  $pageClass
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\PageContract>
+     */
     protected function parsePagesFor(string $pageClass): Collection
     {
         $collection = new Collection();

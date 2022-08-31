@@ -12,7 +12,7 @@ class HydeServeCommandTest extends TestCase
     public function test_hyde_serve_command()
     {
         $this->artisan('serve')
-            ->expectsOutput('Starting the server... Press Ctrl+C to stop')
+            ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
     }
 }

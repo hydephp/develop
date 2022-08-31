@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 
@@ -60,7 +61,7 @@ abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocu
     /** @inheritDoc */
     public function save(): static
     {
-        file_put_contents($this->getSourcePath(), ltrim("$this->matter\n$this->markdown"));
+        file_put_contents(Hyde::path($this->getSourcePath()), ltrim("$this->matter\n$this->markdown"));
 
         return $this;
     }

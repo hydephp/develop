@@ -84,7 +84,7 @@ class HydeMakePostCommand extends Command
                 $this->comment('If you want to overwrite the file supply the --force flag.');
             }
 
-            return $exception->getCode();
+            return (int) $exception->getCode();
         }
     }
 }

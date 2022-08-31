@@ -105,14 +105,14 @@ class NavItem implements \Stringable
         return $current->getRoute()->getRouteKey() === $this->route->getRouteKey();
     }
 
-    protected function setDestination(string $href): self
+    protected function setDestination(string $href): static
     {
         $this->href = $href;
 
         return $this;
     }
 
-    public function setPriority(int $priority): self
+    public function setPriority(int $priority): static
     {
         $this->priority = $priority;
 

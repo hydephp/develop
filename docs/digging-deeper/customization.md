@@ -14,6 +14,10 @@ When referencing configuration options, we often use "dot notation" to specify t
 
 If you want to reference these configuration options in your Blade views, or other integrations, please take a look at the [Laravel Documentation](https://laravel.com/docs/9.x/configuration).
 
+### Front Matter or Configuration Files?
+
+In some cases, the same options can be set in the front matter of a page or in a configuration file. Both ways are always documented, and it's up to you to choose which one you prefer. Note that in most cases, if a setting is set in both the front matter and the configuration file, the front matter setting will take precedence.
+
 ## Configuration Files Overview
 
 There are a few configuration files available in the `config` directory. All options are documented, so feel free to look through the files and get familiar with the options available to you.
@@ -32,6 +36,7 @@ These are the main configuration files for HydePHP and lets you customize the lo
 | <a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a> | Configure Markdown related services, as well as change the CommonMark extensions.   |
 {.align-top}
 
+>info Tip: The values in site.php can also be set in YAML by creating a hyde.yml file in the root of your project. See [#yaml-configuration](#yaml-configuration) for more information.
 
 ### Laravel & Package Configuration Files
 
@@ -186,7 +191,7 @@ Hyde makes an effort to organize the menu items in a sensible way. Putting your 
     'order' => [
         'index' => 0, // _pages/index.md (or .blade.php)
         'posts' => 10, // _pages/posts.md (or .blade.php)
-        'docs' => 100, // _docs/index.md
+        'docs/index' => 100, // _docs/index.md
     ]
 ]
 ```
@@ -226,7 +231,9 @@ Simplified, this will then be rendered as follows:
 
 #### Excluding Items (Blacklist)
 
-Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you. Note that we don't specify the page type, since only top level pages are added to the navigation menu.
+Sometimes, especially if you have a lot of pages, you may want to prevent links from showing up in the main navigation menu. To remove items from being automatically added, simply add the slug to the blacklist. As you can see, the `404` page has already been filled in for you.
+
+Note that we don't specify the page type, since only top level pages are added to the navigation menu (with the exception of the automatic documentation page link, which can be hidden in the config by using `docs/index`).
 
 ```php
 'navigation' => [
@@ -249,17 +256,19 @@ navigation:
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles. You can override the title using the `navigation.title` front matter property.
 
-From the Hyde config you can also override the title of the documentation label and home page link using the following options:
+From the Hyde config you can also override the title of navigation links using the by mapping the slug (relative to the site root) to a title. Note that the front matter property will take precedence over the config property.
+
     
 ```php
 // filepath config/hyde.php
 'navigation' => [
     'labels' => [
-        'docs' => 'Documentation',
         'index' => 'Start',
+        'docs/index' => 'Documentation',
     ]
 ]
 ```
+
 
 ## Blade Views
 Hyde uses the Laravel templating system called Blade. Most parts have been extracted into components to be customized easily.
@@ -299,4 +308,25 @@ In the same file you can also change the config to be passed to the CommonMark e
 		'disallowed_tags' => [],
 	],
 ],
+```
+
+## YAML Configuration
+
+As a relatively new and experimental feature, the settings in the config/site.php can also be overridden by creating
+a hyde.yml file in the root of your project directory. Note that these cannot reference environment variables, 
+and their values override any made in the PHP config.
+
+Here is an example hyde.yml file matching the default site.yml:
+
+```yaml
+# filepath hyde.yml
+name: HydePHP
+url: http://localhost
+pretty_urls: false
+generate_sitemap: true
+generate_rss_feed: true
+rss_filename: feed.xml
+# rss_description:
+language: en
+output_directory: _site
 ```

@@ -56,7 +56,7 @@ interface RouteFacadeContract
     /**
      * Get all routes from the Router index.
      *
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\RouteContract>
+     * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
      */
     public static function all(): Collection;
 
@@ -69,4 +69,12 @@ interface RouteFacadeContract
      * Get the home route, usually the index page route.
      */
     public static function home(): RouteContract;
+
+    /**
+     * Determine if the supplied route key exists in the route index.
+     *
+     * @param  string  $routeKey
+     * @return bool
+     */
+    public static function exists(string $routeKey): bool;
 }

@@ -4,12 +4,12 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
-use Illuminate\Support\Collection;
 
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
@@ -83,7 +83,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     }
 
     /** @inheritDoc */
-    public static function all(): Collection
+    public static function all(): PageCollection
     {
         return Hyde::pages()->getPages(static::class);
     }
@@ -107,7 +107,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public function get(string $key = null, mixed $default = null): mixed
     {
-        if (property_exists($this, $key) && isset($this->$key)) {
+        if ($key !== null && property_exists($this, $key) && isset($this->$key)) {
             return $this->$key;
         }
 
@@ -145,13 +145,19 @@ abstract class AbstractPage implements PageContract, CompilableContract
     /** @inheritDoc */
     public function getOutputPath(): string
     {
-        return static::getCurrentPagePath().'.html';
+        return $this->getCurrentPagePath().'.html';
     }
 
     /** @inheritDoc */
     public function getCurrentPagePath(): string
     {
         return trim(static::getOutputDirectory().'/'.$this->identifier, '/');
+    }
+
+    /** @inheritDoc */
+    public function getRouteKey(): string
+    {
+        return $this->routeKey;
     }
 
     /** @inheritDoc */

@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection PhpComposerExtensionStubsInspection */
+/** @noinspection XmlUnusedNamespaceDeclaration */
 
 namespace Hyde\Framework\Services;
 
@@ -43,18 +44,20 @@ class RssFeedService
         return $this;
     }
 
-    public function getXML(): string|false
+    public function getXML(): string
     {
-        return $this->feed->asXML();
+        return (string) $this->feed->asXML();
     }
 
     protected function addItem(MarkdownPost $post): void
     {
         $item = $this->feed->channel->addChild('item');
         $item->addChild('title', $post->title);
-        $item->addChild('link', $post->getCanonicalLink());
-        $item->addChild('guid', $post->getCanonicalLink());
-        $item->addChild('description', $post->getPostDescription());
+        if ($post->canonicalUrl !== null) {
+            $item->addChild('link', $post->canonicalUrl);
+            $item->addChild('guid', $post->canonicalUrl);
+        }
+        $item->addChild('description', $post->description);
 
         $this->addAdditionalItemData($item, $post);
     }
@@ -75,7 +78,7 @@ class RssFeedService
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
-            $image->addAttribute('url', isset($post->image->path) ? Hyde::url('media/'.basename($post->image->path)) : $post->image->getSource());
+            $image->addAttribute('url', Hyde::image($post->image, true));
             $image->addAttribute('type', str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg');
             $image->addAttribute('length', $post->image->getContentLength());
         }

@@ -1,7 +1,7 @@
 @php
     $page = Hyde\Framework\Models\Pages\DocumentationPage::make('search', ['title' => 'Search']);
-    $title = 'Search';
     $currentPage = $page->getCurrentPagePath();
+    $currentRoute = $page->getRoute();
     $markdown = '';
 @endphp
 
@@ -13,7 +13,7 @@
         }
 
         #search-results {
-            max-height: unset !important;1
+            max-height: unset !important;
         }</style>
     <x-hyde::docs.search-input class="max-w-xs border-b-4 border-indigo-400" />
 @endsection

@@ -2,38 +2,29 @@
 
 ### About
 
-This release refactors the internal routing system. Unless you have written custom code that directly uses these classes and methods, updating should be fairly smooth. If not, you may want to read through the following overview.
-
-The route index has been decoupled from page index and is split into two new collection classes, PageCollection and RouteCollection. The PageCollection contains all the site's parsed pages, and the RouteCollection contains all the page routes.
-
-The RoutingService class remains for compatibility with existing code, but now only forwards calls to the new RouteCollection. The RoutingServiceContract interface is now deprecated.
+This release contains breaking changes regarding the PostBuildTasks that may require your attention if you have created custom tasks.
 
 ### Added
-- Adds a new RouteCollection class
-- Adds a new PageCollection class
-- Adds a $routeKey property to the AbstractPage class
-- The page and route collections are now stored as properties of the HydeKernel
-- Adds an option to the `Hyde::image()` helper to request the returned image path use the configured base URL if it's set
-- Adds a new `save()` method to Markdown-based pages, to save the page object to the filesystem
+- Added the option to define some site configuration settings in a `hyde.yml` file. See [#449](https://github.com/hydephp/develop/pull/449)
 
 ### Changed
-- Removed constructor from RoutingServiceContract interface
-- Refactored RoutingService to use the new RouteCollection class
-- AbstractPage::all() now returns a PageCollection, and includes the source file path as the array key
-- Improved ConvertsArrayToFrontMatter action, which now supports nested arrays
+- Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
+- The RSS feed related generators are now only enabled when there are blog posts
+  - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts
+- The documentation search related generators are now only enabled when there are documentation pages
+  - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
+- AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code.
+- The way auxiliary build actions are handled internally has been changed, see [PR #453](https://github.com/hydephp/develop/pull/453)
 
 ### Deprecated
-- Deprecated interface RoutingServiceContract
-- Deprecated RoutingServiceContract::getInstance()
+- Deprecated ActionCommand.php as it is no longer used
 
 ### Removed
-- Removed all non public-contract methods from RoutingService
+- for now removed features.
 
 ### Fixed
-- Fix [#383](https://github.com/hydephp/develop/issues/383): Navigation menu titles can't be set in BladeMatter
-- Fix [#385](https://github.com/hydephp/develop/issues/385): `DocumentationPage::home()` did not work for custom documentation page output directories
-- Fix [#386](https://github.com/hydephp/develop/issues/386): Documentation page sidebar labels were not constructed from front matter
-- Fix bugs relating to the documentation sidebar labels that appeared in the last release
+- Fixed [#443](https://github.com/hydephp/develop/issues/443): RSS feed meta link should not be added if there is not a feed 
+
 
 ### Security
 - in case of vulnerabilities.

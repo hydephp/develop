@@ -2,14 +2,17 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\HydeKernel;
+
 /**
  * The HydeKernel encapsulates a HydePHP project,
  * providing helpful methods for interacting with it.
  *
+ * @deprecated v0.61.0-beta - Type hint the HydeKernel::class instead
  * @see \Hyde\Framework\HydeKernel
  *
- * It is bound into the Laravel Application Service Container,
- * and can be accessed in a few ways.
+ * It is stored as a singleton in the HydeKernel class, and is bound into the
+ * Laravel Application Service Container, and can be accessed in a few ways.
  *
  * - Commonly, you'll use the Hyde facade:
  * @see \Hyde\Framework\Hyde (previosly this namespace contained the actual Kernel)
@@ -17,7 +20,7 @@ namespace Hyde\Framework\Contracts;
  * @example \Hyde\Framework\Hyde::foo()
  *
  * - You can also use Dependency Injection to inject the Kernel into your own classes:
- * @example `__construct(HydeKernelContract $hyde)`
+ * @example `__construct(HydeKernel $hyde)`
  *
  * - Or, you can use the hyde() function to get the Kernel:
  * @example `$hyde = hyde();
@@ -27,6 +30,12 @@ namespace Hyde\Framework\Contracts;
  */
 interface HydeKernelContract
 {
+    public function boot(): void;
+
+    public static function setInstance(HydeKernel $instance): void;
+
+    public static function getInstance(): HydeKernel;
+
     public function getBasePath(): string;
 
     public function setBasePath(string $basePath);

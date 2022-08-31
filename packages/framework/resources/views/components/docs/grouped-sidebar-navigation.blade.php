@@ -1,4 +1,4 @@
-<ul id="sidebar" role="list">
+<ul id="sidebar-navigation" role="list">
 	@foreach ($sidebar->getGroups() as $group)
 	<li class="sidebar-category mb-4 mt-4 first:mt-0" role="listitem">
 		<h4 class="sidebar-category-heading text-base font-semibold mb-2 -ml-1">{{ Hyde::makeTitle($group) }}</h4>

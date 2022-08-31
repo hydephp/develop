@@ -21,11 +21,11 @@
     ],
     "require": {
         "php": "^8.0",
-        "hyde/framework": "^0.58",
+        "hyde/framework": "^0.62",
         "laravel-zero/framework": "^9.1"
     },
     "require-dev": {
-        "hyde/realtime-compiler": "^2.5"
+        "hyde/realtime-compiler": "^2.6"
     },
     "autoload": {
         "psr-4": {

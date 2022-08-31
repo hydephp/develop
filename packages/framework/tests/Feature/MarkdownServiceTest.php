@@ -80,7 +80,6 @@ class MarkdownServiceTest extends TestCase
         $this->assertEquals("Hello World!\n", $service->parse());
     }
 
-    // test raw html tags are stripped by default
     public function test_raw_html_tags_are_stripped_by_default()
     {
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
@@ -89,7 +88,6 @@ class MarkdownServiceTest extends TestCase
         $this->assertEquals("<p>foo</p>&lt;style>bar&lt;/style>&lt;script>hat&lt;/script>\n", $html);
     }
 
-    // test raw html tags are not stripped when explicitly enabled
     public function test_raw_html_tags_are_not_stripped_when_explicitly_enabled()
     {
         config(['markdown.allow_html' =>true]);

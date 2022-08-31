@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+    - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
       with:
         php-version: "8.0"
         extensions: fileinfo
@@ -54,7 +54,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+    - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
       with:
         php-version: "8.0"
         extensions: fileinfo
@@ -151,7 +151,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+    - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
       with:
         php-version: "8.0"
         coverage: xdebug
@@ -236,7 +236,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+    - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
       with:
         php-version: "8.0"
     
@@ -251,9 +251,6 @@ jobs:
 
     - name: Install Composer Dependencies
       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: '@TODO - Compile all latest frontend assets'
-      run: echo '@TODO - Compile all latest frontend assets'
         
     - name: Download configuration # I'm sure there is a better way to do this
       run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config -O config.zip
@@ -334,7 +331,7 @@ jobs:
   check-coding-standards:
     runs-on: ubuntu-latest
     steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
         with:
           php-version: "8.0"
       - uses: actions/checkout@v3
@@ -355,7 +352,7 @@ jobs:
   run-static-analysis:
     runs-on: ubuntu-latest
     steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
         with:
           php-version: "8.0"
       - uses: actions/checkout@v3
@@ -364,7 +361,7 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run static analysis (PHPStan)
-        run: vendor/bin/phpstan analyse --ansi  packages/framework/src packages/realtime-compiler/src || true
+        run: vendor/bin/phpstan analyse --ansi --level 1 packages/framework/src || true
 
 
   devskim-lint:

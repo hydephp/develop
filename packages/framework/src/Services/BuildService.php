@@ -4,11 +4,11 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\RouteContract as Route;
+use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\StaticPageBuilder;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -23,13 +23,13 @@ class BuildService
     use InteractsWithIO;
     use InteractsWithDirectories;
 
-    protected RoutingService $router;
+    protected RouteCollection $router;
 
     public function __construct(OutputStyle $output)
     {
         $this->output = $output;
 
-        $this->router = RoutingService::getInstance();
+        $this->router = Hyde::routes();
     }
 
     public function compileStaticPages(): void
@@ -67,7 +67,10 @@ class BuildService
         $this->newLine(2);
     }
 
-    protected function getDiscoveredModels(): Collection
+    /**
+     * @return \Hyde\Framework\Foundation\RouteCollection<array-key, class-string<\Hyde\Framework\Contracts\PageContract>>
+     */
+    protected function getDiscoveredModels(): RouteCollection
     {
         return $this->router->getRoutes()->map(function (Route $route) {
             return $route->getPageType();
@@ -78,7 +81,7 @@ class BuildService
     {
         $this->comment("Creating {$this->getModelPluralName($pageClass)}...");
 
-        $collection = $this->router->getRoutesForModel($pageClass);
+        $collection = $this->router->getRoutes($pageClass);
 
         $this->withProgressBar(
             $collection,
@@ -88,6 +91,7 @@ class BuildService
         $this->newLine(2);
     }
 
+    /** @psalm-return \Closure(Route):string */
     protected function compileRoute(): \Closure
     {
         return function (Route $route) {

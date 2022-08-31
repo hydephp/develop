@@ -7,7 +7,8 @@ use Illuminate\Support\Collection;
 /**
  * The Post Author Object Model.
  *
- * @todo Refactor to use same format for create method as constructor
+ * @todo #437 Refactor to use same format for create method as constructor
+ * @phpstan-consistent-constructor
  */
 class Author implements \Stringable
 {

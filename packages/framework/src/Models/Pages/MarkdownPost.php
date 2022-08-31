@@ -4,10 +4,9 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Hyde;
+use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
-use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest
@@ -31,19 +30,8 @@ class MarkdownPost extends AbstractMarkdownPage
         $this->constructBlogPostSchema();
     }
 
-    /** @deprecated v0.58.x-beta (may be moved to BlogPostSchema) */
-    public function getCanonicalLink(): string
-    {
-        return Hyde::url($this->getCurrentPagePath().'.html');
-    }
-
-    /** @deprecated v0.58.x-beta (pull description instead) */
-    public function getPostDescription(): string
-    {
-        return $this->description;
-    }
-
-    public static function getLatestPosts(): Collection
+    /** @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
+    public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc('matter.date');
     }

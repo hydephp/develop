@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
@@ -18,9 +19,12 @@ use Illuminate\Support\Arr;
  * Use $page->matter('foo') to access raw data.
  *
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
+ * @phpstan-consistent-constructor
  */
-class FrontMatter implements Arrayable, \Stringable
+class FrontMatter implements Arrayable, \Stringable, \JsonSerializable
 {
+    use JsonSerializesArrayable;
+
     public array $data;
 
     public function __construct(array $matter = [])

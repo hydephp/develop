@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
 
@@ -24,6 +25,9 @@ jobs:
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run smoke tests # if standard tests fail, there is no reason to do visual tests as they are expensive and it's faster to run them in parallel here than to wait for a main test job to run
+        run: vendor/bin/pest --stop-on-failure
 
       - name: Prepare the Environment
         run: echo -e "APP_URL=http://localhost:8080 \nDUSK_ENABLED=true" > .env
@@ -80,7 +84,6 @@ jobs:
           name: dusk-source
           path: _site
           
-      # @TODO compile latest hydefront version
       - name: Download app.css
         uses: actions/download-artifact@v2
         with:
@@ -94,6 +97,9 @@ jobs:
           rm _site/blank_homepage.html
           rm _site/posts_homepage.html
           rm _site/docs/index.html
+
+      - name: Install Percy
+        run: npm install --save-dev @percy/cli
 
       - name: Upload build to Percy
         run: npx percy snapshot _site/

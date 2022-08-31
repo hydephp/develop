@@ -30,9 +30,6 @@ class MarkdownService
     protected string $html;
     protected array $features = [];
 
-    protected bool $useTorchlight;
-    protected bool $torchlightAttribution;
-
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
         $this->sourceModel = $sourceModel;
@@ -69,17 +66,7 @@ class MarkdownService
         // Determine what dynamic extensions to enable
 
         if ($this->canEnablePermalinks()) {
-            $this->addExtension(HeadingPermalinkExtension::class);
-
-            $this->config = array_merge([
-                'heading_permalink' =>[
-                    'id_prefix' => '',
-                    'fragment_prefix' => '',
-                    'symbol' => '#',
-                    'insert' => 'after',
-                    'min_heading_level' => 2,
-                ],
-            ], $this->config);
+            $this->configurePermalinksExtension();
         }
 
         if ($this->canEnableTorchlight()) {
@@ -87,13 +74,7 @@ class MarkdownService
         }
 
         if (config('markdown.allow_html', false)) {
-            $this->addExtension(DisallowedRawHtmlExtension::class);
-
-            $this->config = array_merge([
-                'disallowed_raw_html' => [
-                    'disallowed_tags' => [],
-                ],
-            ], $this->config);
+            $this->enableAllHtmlElements();
         }
 
         // Add any custom extensions defined in config
@@ -216,8 +197,34 @@ class MarkdownService
     protected function injectTorchlightAttribution(): string
     {
         return '<br>'.$this->converter->convert(config(
-                'torchlight.attribution.markdown',
-                'Syntax highlighted by torchlight.dev'
-            ));
+            'torchlight.attribution.markdown',
+            'Syntax highlighted by torchlight.dev'
+        ));
+    }
+
+    protected function configurePermalinksExtension(): void
+    {
+        $this->addExtension(HeadingPermalinkExtension::class);
+
+        $this->config = array_merge([
+            'heading_permalink' => [
+                'id_prefix' => '',
+                'fragment_prefix' => '',
+                'symbol' => '#',
+                'insert' => 'after',
+                'min_heading_level' => 2,
+            ],
+        ], $this->config);
+    }
+
+    protected function enableAllHtmlElements(): void
+    {
+        $this->addExtension(DisallowedRawHtmlExtension::class);
+
+        $this->config = array_merge([
+            'disallowed_raw_html' => [
+                'disallowed_tags' => [],
+            ],
+        ], $this->config);
     }
 }

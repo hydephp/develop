@@ -11,7 +11,6 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Route;
-use Hyde\Framework\Services\RoutingService;
 use Hyde\Testing\TestCase;
 
 /**
@@ -133,7 +132,7 @@ class RouteTest extends TestCase
 
     public function test_route_facade_all_method_returns_all_routes()
     {
-        $this->assertEquals(RoutingService::getInstance()->getRoutes(), Route::all());
+        $this->assertEquals(Hyde::routes(), Route::all());
     }
 
     public function test_get_link_returns_correct_path_for_root_pages()
@@ -215,5 +214,14 @@ class RouteTest extends TestCase
     public function test_home_helper_returns_index_route()
     {
         $this->assertEquals(Route::get('index'), Route::home());
+    }
+
+    public function test_to_array_method()
+    {
+        $this->assertEquals([
+            'routeKey' => 'foo',
+            'sourceModelPath' => '_pages/foo.md',
+            'sourceModelType' => MarkdownPage::class,
+        ], (new MarkdownPage('foo'))->getRoute()->toArray());
     }
 }

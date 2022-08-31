@@ -57,4 +57,16 @@ class ConfigurableFeaturesTest extends TestCase
         config(['site.generate_sitemap' => false]);
         $this->assertFalse(Features::sitemap());
     }
+
+    public function test_to_array_method_returns_method_array()
+    {
+        $array = (new Features)->toArray();
+        $this->assertIsArray($array);
+        $this->assertNotEmpty($array);
+        foreach ($array as $feature => $enabled) {
+            $this->assertIsString($feature);
+            $this->assertIsBool($enabled);
+            $this->assertStringStartsNotWith('has', $feature);
+        }
+    }
 }

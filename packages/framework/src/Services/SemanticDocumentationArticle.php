@@ -2,8 +2,9 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Concerns\FacadeHelpers\HydeSmartDocsFacade;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 /**
@@ -12,12 +13,12 @@ use Illuminate\Support\Str;
  *
  * @experimental 🧪 Subject to change without notice.
  *
+ * @todo #445 Rename to HydeSemanticDocs
+ *
  * @see \Hyde\Framework\Testing\Feature\Services\HydeSmartDocsTest
  */
-class HydeSmartDocs
+class SemanticDocumentationArticle
 {
-    use HydeSmartDocsFacade;
-
     protected DocumentationPage $page;
     protected string $html;
 
@@ -106,10 +107,44 @@ class HydeSmartDocs
 
     protected function renderSourceLink(): string
     {
-        return sprintf(
-            '<p class="edit-page-link"><a href="%s">%s</a></p>',
-            $this->page->getOnlineSourcePath(),
-            config('docs.edit_source_link_text', 'Edit page')
-        );
+        return View::make('hyde::components.docs.edit-source-button', [
+            'href' => $this->page->getOnlineSourcePath(),
+        ]);
+    }
+
+    /**
+     * Create a new SemanticDocumentationArticle instance, process, and return it.
+     *
+     * @param  \Hyde\Framework\Models\Pages\DocumentationPage  $page  The source page object
+     * @param  string  $html  compiled HTML content
+     * @return static new processed instance
+     */
+    public static function create(DocumentationPage $page, string $html): static
+    {
+        return (new self($page, $html))->process();
+    }
+
+    /**
+     * Does the current document use Torchlight?
+     *
+     * @return bool
+     */
+    public function hasTorchlight(): bool
+    {
+        return Features::hasTorchlight() && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
+    }
+
+    /**
+     * Do we satisfy the requirements to render an edit source button in the supplied position?
+     *
+     * @param  string  $inPosition
+     * @return bool
+     */
+    protected function canRenderSourceLink(string $inPosition): bool
+    {
+        $config = config('docs.edit_source_link_position', 'both');
+        $positions = $config === 'both' ? ['header', 'footer'] : [$config];
+
+        return ($this->page->getOnlineSourcePath() !== false) && in_array($inPosition, $positions);
     }
 }

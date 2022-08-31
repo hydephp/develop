@@ -235,6 +235,7 @@ class MetadataTest extends TestCase
     {
         config(['site.url' => 'foo']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
 
         $page = new MarkdownPage();
 
@@ -245,6 +246,7 @@ class MetadataTest extends TestCase
     {
         config(['site.url' => 'bar']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
 
         $page = new MarkdownPage();
 
@@ -256,6 +258,7 @@ class MetadataTest extends TestCase
         config(['site.url' => 'foo']);
         config(['site.name' => 'Site']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
 
         $page = new MarkdownPage();
 
@@ -267,6 +270,8 @@ class MetadataTest extends TestCase
         config(['site.url' => 'foo']);
         config(['hyde.rss_filename' => 'posts.rss']);
         config(['hyde.generate_rss_feed' => true]);
+        $this->file('_posts/foo.md');
+
         $page = new MarkdownPage();
 
         $this->assertStringContainsString(
@@ -385,16 +390,22 @@ class MetadataTest extends TestCase
         $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
     }
 
+    public function test_does_not_add_url_property_when_canonical_url_is_null()
+    {
+        $page = MarkdownPost::make(matter: ['canonicalUrl' => null]);
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
+    }
+
     public function test_adds_title_property_when_title_is_set_in_post()
     {
         $page = MarkdownPost::make(matter: ['title' => 'My Title']);
-        $this->assertPageHasMetadata($page, '<meta property="og:title" content="My Title">');
+        $this->assertPageHasMetadata($page, '<meta property="og:title" content="HydePHP - My Title">');
     }
 
     public function test_does_not_add_title_property_when_title_is_not_set_in_post()
     {
         $page = new MarkdownPost();
-        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:title" content="My Title">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:title"');
     }
 
     public function test_adds_published_time_property_when_date_is_set_in_post()

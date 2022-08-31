@@ -74,23 +74,24 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
 
     public function test_save_method_saves_the_file_to_the_correct_location()
     {
-        (new Action())->save();
+        Action::run();
 
         $this->assertFileExists('_site/docs/search.json');
     }
 
-    public function test_generate_page_object_method_generates_a_page_object()
+    public function test_generate_page_entry_method_generates_a_page_entry()
     {
-        $expected = new \stdClass;
-        $expected->slug = 'foo';
-        $expected->title = 'Bar';
-        $expected->content = "Bar \n Hello World";
-        $expected->destination = 'foo.html';
+        $expected = [
+            'slug' => 'foo',
+            'title' => 'Bar',
+            'content' => "Bar \n Hello World",
+            'destination' => 'foo.html',
+        ];
 
         file_put_contents(Hyde::path('_docs/foo.md'), "# Bar\n\n Hello World");
 
         $this->assertEquals(
-            $expected, (new Action())->generatePageObject(DocumentationPage::parse('foo'))
+            $expected, (new Action())->generatePageEntry(DocumentationPage::parse('foo'))
         );
 
         unlink(Hyde::path('_docs/foo.md'));
@@ -101,10 +102,11 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         file_put_contents(Hyde::path('_docs/foo.md'), "# Bar\n\n Hello World");
         file_put_contents(Hyde::path('_docs/bar.md'), "# Foo\n\n Hello World");
 
+        $generatesDocumentationSearchIndexFile = (new Action())->generate();
         $this->assertEquals(
             '[{"slug":"bar","title":"Foo","content":"Foo \n Hello World","destination":"bar.html"},'.
             '{"slug":"foo","title":"Bar","content":"Bar \n Hello World","destination":"foo.html"}]',
-            (new Action())->generate()->getJson()
+            json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray())
         );
 
         unlink(Hyde::path('_docs/foo.md'));
@@ -134,8 +136,21 @@ class GeneratesDocumentationSearchIndexFileTest extends TestCase
         Hyde::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
-        $this->assertStringNotContainsString('excluded', (new Action())->generate()->getJson());
+        $generatesDocumentationSearchIndexFile = (new Action())->generate();
+        $this->assertStringNotContainsString('excluded', json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray()));
 
         unlink(Hyde::path('_docs/excluded.md'));
+    }
+
+    public function test_nested_source_files_do_not_retain_directory_name_in_search_index()
+    {
+        mkdir(Hyde::path('_docs/foo'));
+        touch(Hyde::path('_docs/foo/bar.md'));
+
+        $generatesDocumentationSearchIndexFile = (new Action())->generate();
+        $this->assertStringNotContainsString('foo', json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray()));
+
+        unlink(Hyde::path('_docs/foo/bar.md'));
+        rmdir(Hyde::path('_docs/foo'));
     }
 }

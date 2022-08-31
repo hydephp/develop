@@ -95,7 +95,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
             '<meta name="author" content="Lewis Carroll">',
             '<meta name="keywords" content="novels">',
             '<meta property="og:type" content="article">',
-            '<meta property="og:title" content="Adventures in Wonderland">',
+            '<meta property="og:title" content="HydePHP - Adventures in Wonderland">',
             '<meta property="og:article:published_time" content="1865-11-18T18:52:00+00:00">',
         ]);
     }

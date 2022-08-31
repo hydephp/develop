@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
@@ -21,6 +20,7 @@ use Illuminate\Support\Facades\View;
  * as most of the logic actually resides in linked service classes.
  *
  * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Framework\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
  */
@@ -28,22 +28,34 @@ class HydeKernelTest extends TestCase
 {
     public function test_kernel_singleton_can_be_accessed_by_service_container()
     {
-        $this->assertSame(app(HydeKernelContract::class), app(HydeKernelContract::class));
+        $this->assertSame(app(HydeKernel::class), app(HydeKernel::class));
     }
 
     public function test_kernel_singleton_can_be_accessed_by_kernel_static_method()
     {
-        $this->assertSame(app(HydeKernelContract::class), HydeKernel::getInstance());
+        $this->assertSame(app(HydeKernel::class), HydeKernel::getInstance());
     }
 
     public function test_kernel_singleton_can_be_accessed_by_hyde_facade_method()
     {
-        $this->assertSame(app(HydeKernelContract::class), Hyde::getInstance());
+        $this->assertSame(app(HydeKernel::class), Hyde::getInstance());
     }
 
     public function test_kernel_singleton_can_be_accessed_by_helper_function()
     {
-        $this->assertSame(app(HydeKernelContract::class), hyde());
+        $this->assertSame(app(HydeKernel::class), hyde());
+    }
+
+    public function test_hyde_facade_version_method_returns_kernel_version()
+    {
+        $this->assertSame(HydeKernel::version(), Hyde::version());
+    }
+
+    public function test_hyde_facade_get_facade_root_method_returns_kernel_singleton()
+    {
+        $this->assertSame(app(HydeKernel::class), Hyde::getFacadeRoot());
+        $this->assertSame(HydeKernel::getInstance(), Hyde::getFacadeRoot());
+        $this->assertSame(Hyde::getInstance(), Hyde::getFacadeRoot());
     }
 
     public function test_features_helper_returns_new_features_instance()
@@ -183,5 +195,33 @@ class HydeKernelTest extends TestCase
     public function test_path_to_relative_helper_returns_relative_path_for_given_path()
     {
         $this->assertEquals('foo', Hyde::pathToRelative(Hyde::path('foo')));
+    }
+
+    public function test_to_array_method()
+    {
+        $array = Hyde::toArray();
+
+        $this->assertTrue(is_array($array));
+        $this->assertCount(5, $array);
+
+        $this->assertArrayHasKey('basePath', $array);
+        $this->assertArrayHasKey('features', $array);
+        $this->assertArrayHasKey('files', $array);
+        $this->assertArrayHasKey('pages', $array);
+        $this->assertArrayHasKey('routes', $array);
+
+        $this->assertEquals(Hyde::getBasePath(), $array['basePath']);
+        $this->assertEquals(Hyde::features(), $array['features']);
+        $this->assertEquals(Hyde::files(), $array['files']);
+        $this->assertEquals(Hyde::pages(), $array['pages']);
+        $this->assertEquals(Hyde::routes(), $array['routes']);
+
+        $this->assertEquals([
+            'basePath' => Hyde::getBasePath(),
+            'features' => Hyde::features(),
+            'files' => Hyde::files(),
+            'pages' => Hyde::pages(),
+            'routes' => Hyde::routes(),
+        ], Hyde::toArray());
     }
 }

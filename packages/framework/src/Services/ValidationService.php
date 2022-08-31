@@ -12,6 +12,7 @@ use Hyde\Framework\Models\ValidationResult as Result;
  */
 class ValidationService
 {
+    /** @return string[] */
     public static function checks(): array
     {
         $service = new self();

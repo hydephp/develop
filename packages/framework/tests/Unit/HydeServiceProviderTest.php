@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Contracts\AssetServiceContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -16,8 +15,6 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 
 /**
- * @todo #162 Improve testing for this class.
- *
  * @covers \Hyde\Framework\HydeServiceProvider
  * @covers \Hyde\Framework\Concerns\RegistersFileLocations
  */
@@ -47,11 +44,19 @@ class HydeServiceProviderTest extends TestCase
         $this->assertTrue(method_exists($this->provider, 'boot'));
     }
 
+    public function test_provider_applies_yaml_configuration_when_present()
+    {
+        $this->assertEquals('HydePHP', config('site.name'));
+        $this->file('hyde.yml', 'name: Foo');
+        $this->provider->register();
+        $this->assertEquals('Foo', config('site.name'));
+    }
+
     public function test_provider_registers_asset_service_contract()
     {
-        $this->assertTrue($this->app->bound(AssetServiceContract::class));
-        $this->assertInstanceOf(AssetServiceContract::class, $this->app->make(AssetServiceContract::class));
-        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetServiceContract::class));
+        $this->assertTrue($this->app->bound(AssetService::class));
+        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
+        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
     }
 
     public function test_provider_registers_source_directories()

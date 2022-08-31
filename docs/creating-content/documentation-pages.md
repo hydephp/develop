@@ -37,6 +37,11 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 - You should always have an `index.md` file in the `_docs/` directory
 - Your page will be stored in `_site/docs/<slug>.html` unless you [change it in the config](#output-directory)
 
+### Advanced usage and customization
+
+Like most of HydePHP, the Hyde Documentation module is highly customizable. Much of the frontend is composed using Blade templates and components, which you can customize to your heart's content.
+Since there are so many components, it's hard to list them all here in the documentation, so I encourage you to check out the [source code](https://github.com/hydephp/framework/tree/master/resources/views/components/docs) to see how it's all put together and find the customizations you are looking for.
+
 
 ## Creating Documentation Pages
 You can create a Documentation page by adding a file to the `_docs` directory where the filename ends in `.md`.
@@ -125,8 +130,7 @@ label: "My Custom Sidebar Label"
 
 ### Sidebar grouping
 
-Sidebar grouping was introduced in Hyde [v0.24.0-beta](https://github.com/hydephp/framework/releases/tag/v0.24.0-beta)
-and allows you to group items in the sidebar into categories. This is useful for creating a sidebar with a lot of items.
+Sidebar grouping allows you to group items in the sidebar into categories. This is useful for creating a sidebar with a lot of items.
 The Hyde docs for instance use this.
 
 The feature is enabled automatically when one or more of your documentation pages have the category property set
@@ -227,7 +231,7 @@ You can also disable the feature completely.
 
 #### Introduction
 
-The HydeSearch plugin was introduced in v0.29.0-beta and adds a search feature to documentation pages.
+The HydeSearch plugin adds a search feature to documentation pages.
 
 The search feature is enabled by default.
 You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
@@ -246,8 +250,6 @@ You can also open the dialog using the keyboard shortcut `/`.
 
 #### Hiding pages from indexing
 
-> This feature was added in v0.40.0-beta.
-
 If you have a large page, like a changelog, on your documentation sites you may want to hide it from the search index. You can do this by adding the page slug to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden.
 
 ```php
@@ -265,7 +267,7 @@ The page will still be accessible via the URL, but will be added to the search i
 
 #### Introduction
 
-Added in v0.31, Hyde can automatically add links to documentation pages that takes the user
+Hyde can automatically add links to documentation pages that takes the user
 to a GitHub page (or similar) to edit the page. This makes it great for open-source projects
 looking to allow others to contribute to the documentation in a quick and easy manner.
 
@@ -311,3 +313,7 @@ Just target the `.edit-page-link` class.
 // filepath e.g. app.css
 .edit-page-link::before {content: "✏ "}
 ```
+
+#### Changing the Blade view
+
+You can also publish the `edit-source-button.blade.php` view and change it to your liking.

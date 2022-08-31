@@ -19,6 +19,9 @@ use Hyde\Framework\Hyde;
  *    'author'       => '?string',
  *    'credit'       => '?string'
  * ];
+ *
+ * @see \Hyde\Framework\Testing\Feature\ImageModelTest
+ * @phpstan-consistent-constructor
  */
 class Image implements \Stringable
 {
@@ -131,9 +134,9 @@ class Image implements \Stringable
             : new static(['path' => $image]);
     }
 
-    public function getSource(): ?string
+    public function getSource(): string
     {
-        return $this->uri ?? $this->getPath() ?? null;
+        return $this->uri ?? $this->getPath() ?? throw new \Exception('Attempting to get source from Image that has no source.');
     }
 
     public function getLink(): string

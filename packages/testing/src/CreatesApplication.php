@@ -2,6 +2,8 @@
 
 namespace Hyde\Testing;
 
+use Hyde\Framework\Hyde;
+use Hyde\Framework\HydeKernel;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
 
@@ -17,6 +19,8 @@ trait CreatesApplication
         $app = require file_exists(__DIR__.'/../../../app/bootstrap.php') ? __DIR__.'/../../../app/bootstrap.php' : getcwd().'/app/bootstrap.php';
 
         $app->make(Kernel::class)->bootstrap();
+
+        HydeKernel::setInstance(new HydeKernel(Hyde::path()));
 
         return $app;
     }

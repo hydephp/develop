@@ -10,6 +10,7 @@ use Hyde\Framework\Hyde;
  * Accepts a string to make it easier to mock when testing.
  *
  * @see \Hyde\Framework\Testing\Feature\BladeMatterParserTest
+ * @phpstan-consistent-constructor
  *
  * === DOCUMENTATION (draft) ===
  *
@@ -111,7 +112,7 @@ class BladeMatterParser
     }
 
     /** @internal Return the proper type for the string */
-    public static function normalizeValue($value): mixed
+    public static function normalizeValue(string $value): mixed
     {
         $value = trim($value);
 
