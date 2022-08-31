@@ -13,8 +13,6 @@ use Illuminate\Support\Str;
  *
  * @experimental 🧪 Subject to change without notice.
  *
- * @todo #445 Rename to HydeSemanticDocs
- *
  * @see \Hyde\Framework\Testing\Feature\Services\HydeSmartDocsTest
  */
 class SemanticDocumentationArticle
