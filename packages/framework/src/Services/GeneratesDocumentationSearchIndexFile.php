@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Actions;
+namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\ActionContract;
