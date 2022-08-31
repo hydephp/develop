@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Feature\Actions;
+namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Services\DocumentationSearchService as Action;
 use Hyde\Framework\Hyde;
