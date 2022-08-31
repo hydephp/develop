@@ -64,11 +64,13 @@ class ValidationService
     public function check_documentation_site_has_an_index_page(Result $result): Result
     {
         if (! Features::hasDocumentationPages()) {
-            return $result->skip('The documentation page feature is disabled in config');
+            return $result->skip('Does documentation site have an index page?')
+                ->withTip('Skipped because: The documentation page feature is disabled in config');
         }
 
         if (count(DiscoveryService::getDocumentationPageFiles()) === 0) {
-            return $result->skip('There are no documentation pages');
+            return $result->skip('Does documentation site have an index page?')
+                ->withTip('Skipped because: There are no documentation pages');
         }
 
         if (file_exists('_docs/index.md')) {
