@@ -27,7 +27,13 @@ abstract class AbstractBuildTask implements BuildTaskContract
     {
         $this->write('<comment>'.$this->getDescription().'...</comment> ');
 
-        $this->run();
+        try {
+            $this->run();
+        } catch (\Throwable $exception) {
+            $this->error('Failed');
+            $this->error($exception->getMessage());
+        }
+
         $this->then();
 
         $this->write("\n");
