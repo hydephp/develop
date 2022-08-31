@@ -41,7 +41,7 @@ class HydeBuildSearchCommand extends ActionCommand
     {
         $this->action('Generating documentation site search index', function () {
             $expected = $this->guesstimateGenerationTime();
-            if ($expected > 0) {
+            if ($expected > 1) {
                 $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
             }
 
