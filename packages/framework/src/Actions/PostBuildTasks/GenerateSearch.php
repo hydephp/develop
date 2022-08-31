@@ -25,16 +25,21 @@ class GenerateSearch extends AbstractBuildTask
         if (config('docs.create_search_page', true)) {
             $directory = DocumentationSearchService::generateSearchPage();
 
-            $this->write("\n > Created <info>$directory/search.html</info>");
+            $this->write("\n > Created <info>{$this->normalizePath($directory)}/search.html</info>");
         }
     }
 
     public function then(): void
     {
         $this->writeln(sprintf("\n > Created <info>%s</info> in %s",
-            DocumentationSearchService::$filePath,
+            $this->normalizePath(DocumentationSearchService::$filePath),
             $this->getExecutionTime()
         ));
+    }
+
+    protected function normalizePath(string $path): string
+    {
+        return str_replace('\\', '/', $path);
     }
 
     /** @internal Estimated processing time per file in ms */
