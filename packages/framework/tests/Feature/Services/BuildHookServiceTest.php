@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\File;
  * @covers \Hyde\Framework\Services\BuildHookService
  * @covers \Hyde\Framework\Contracts\AbstractBuildTask
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
  *
  * @backupStaticAttributes enabled
  */
