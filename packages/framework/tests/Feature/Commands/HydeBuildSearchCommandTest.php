@@ -63,13 +63,13 @@ class HydeBuildSearchCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_it_displays_the_estimation_message_when_it_is_greater_than_1_second()
+    public function test_it_displays_the_estimation_message_when_it_is_greater_than_or_equal_to_1_second()
     {
-        GenerateSearch::$guesstimationFactor = 1000000;
+        GenerateSearch::$guesstimationFactor = 1000;
         Hyde::touch(('_docs/foo.md'));
         $this->mockRoute();
         $this->artisan('build:search')
-            ->expectsOutputToContain('> This will take an estimated')
+            ->expectsOutput('This will take an estimated 1 seconds. Terminal may seem non-responsive.')
             ->assertExitCode(0);
         unlink(Hyde::path('_docs/foo.md'));
     }
