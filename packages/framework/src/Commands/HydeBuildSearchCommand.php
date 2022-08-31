@@ -15,8 +15,8 @@ class HydeBuildSearchCommand extends ActionCommand
     protected $signature = 'build:search';
     protected $description = 'Generate the docs/search.json';
 
-    public function handle()
+    public function handle(): int
     {
-        (new GenerateSearch($this->output))->handle();
+        return (new GenerateSearch($this->output))->handle() ?? 0;
     }
 }

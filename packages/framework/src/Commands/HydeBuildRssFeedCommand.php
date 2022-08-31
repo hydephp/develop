@@ -16,8 +16,8 @@ class HydeBuildRssFeedCommand extends ActionCommand
 
     protected $description = 'Generate the RSS feed';
 
-    public function handle()
+    public function handle(): int
     {
-        (new GenerateRssFeed($this->output))->handle();
+        return (new GenerateRssFeed($this->output))->handle() ?? 0;
     }
 }

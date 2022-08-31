@@ -15,8 +15,8 @@ class HydeBuildSitemapCommand extends ActionCommand
     protected $signature = 'build:sitemap';
     protected $description = 'Generate the sitemap.xml';
 
-    public function handle()
+    public function handle(): int
     {
-        (new GenerateSitemap($this->output))->handle();
+        return (new GenerateSitemap($this->output))->handle() ?? 0;
     }
 }
