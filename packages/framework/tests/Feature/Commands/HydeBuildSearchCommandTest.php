@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Commands\HydeBuildSearchCommand;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -10,6 +11,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Commands\HydeBuildSearchCommand
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
  */
 class HydeBuildSearchCommandTest extends TestCase
 {
@@ -24,14 +26,13 @@ class HydeBuildSearchCommandTest extends TestCase
     {
         unlinkIfExists(Hyde::path('_site/docs/search.html'));
         unlinkIfExists(Hyde::path('_site/docs/search.json'));
-        HydeBuildSearchCommand::$guesstimationFactor = 52.5;
+        GenerateSearch::$guesstimationFactor = 52.5;
         parent::tearDown();
     }
 
     public function test_it_creates_the_search_json_file()
     {
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/docs/search.json'));
@@ -40,7 +41,6 @@ class HydeBuildSearchCommandTest extends TestCase
     public function test_it_creates_the_search_page()
     {
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/docs/search.html'));
@@ -50,7 +50,6 @@ class HydeBuildSearchCommandTest extends TestCase
     {
         config(['docs.create_search_page' => false]);
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->assertExitCode(0);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/docs/search.html'));
@@ -58,21 +57,19 @@ class HydeBuildSearchCommandTest extends TestCase
 
     public function test_it_does_not_display_the_estimation_message_when_it_is_less_than_1_second()
     {
-        HydeBuildSearchCommand::$guesstimationFactor = 0;
+        GenerateSearch::$guesstimationFactor = 0;
 
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->doesntExpectOutputToContain('> This will take an estimated')
             ->assertExitCode(0);
     }
 
     public function test_it_displays_the_estimation_message_when_it_is_greater_than_1_second()
     {
-        HydeBuildSearchCommand::$guesstimationFactor = 1000000;
+        GenerateSearch::$guesstimationFactor = 1000000;
         Hyde::touch(('_docs/foo.md'));
         $this->mockRoute();
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->expectsOutputToContain('> This will take an estimated')
             ->assertExitCode(0);
         unlink(Hyde::path('_docs/foo.md'));
@@ -82,7 +79,6 @@ class HydeBuildSearchCommandTest extends TestCase
     {
         DocumentationPage::$outputDirectory = 'foo';
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->assertExitCode(0);
         $this->assertFileExists(Hyde::path('_site/foo/search.json'));
         $this->assertFileExists(Hyde::path('_site/foo/search.html'));
@@ -95,7 +91,6 @@ class HydeBuildSearchCommandTest extends TestCase
     {
         StaticPageBuilder::$outputPath = Hyde::path('foo');
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->assertExitCode(0);
         $this->assertFileExists(Hyde::path('foo/docs/search.json'));
         $this->assertFileExists(Hyde::path('foo/docs/search.html'));
@@ -110,7 +105,6 @@ class HydeBuildSearchCommandTest extends TestCase
         DocumentationPage::$outputDirectory = 'foo';
         StaticPageBuilder::$outputPath = Hyde::path('bar');
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->assertExitCode(0);
         $this->assertFileExists(Hyde::path('bar/foo/search.json'));
         $this->assertFileExists(Hyde::path('bar/foo/search.html'));
@@ -125,7 +119,6 @@ class HydeBuildSearchCommandTest extends TestCase
         DocumentationPage::$outputDirectory = 'foo';
         StaticPageBuilder::$outputPath = Hyde::path('bar/baz');
         $this->artisan('build:search')
-            ->expectsOutput('Generating documentation site search index...')
             ->assertExitCode(0);
         $this->assertFileExists(Hyde::path('bar/baz/foo/search.json'));
         $this->assertFileExists(Hyde::path('bar/baz/foo/search.html'));
