@@ -68,7 +68,7 @@ class HydeBuildSearchCommandTest extends TestCase
 
     public function test_it_displays_the_estimation_message_when_it_is_greater_than_1_second()
     {
-        HydeBuildSearchCommand::$guesstimationFactor = 1000;
+        HydeBuildSearchCommand::$guesstimationFactor = 1000000;
         Hyde::touch(('_docs/foo.md'));
         $this->mockRoute();
         $this->artisan('build:search')
