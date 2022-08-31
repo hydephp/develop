@@ -52,10 +52,7 @@ final class DocumentationSearchService
 
     public function execute(): self
     {
-        $this->run();
-        $this->save();
-
-        return $this;
+        return $this->run()->save();
     }
 
     public function run(): self
