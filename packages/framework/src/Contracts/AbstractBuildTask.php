@@ -16,6 +16,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
     protected static string $description = 'Generic build task';
 
     protected float $timeStart;
+    protected ?int $exitCode = null ;
 
     public function __construct(?OutputStyle $output = null)
     {
