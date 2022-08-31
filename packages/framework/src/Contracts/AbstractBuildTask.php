@@ -5,7 +5,10 @@ namespace Hyde\Framework\Contracts;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
-// @todo allow run method to return exit code
+/**
+ * @see \Hyde\Framework\Testing\Feature\Services\BuildHookServiceTest
+ * @todo allow run method to return exit code
+ */
 abstract class AbstractBuildTask implements BuildTaskContract
 {
     use InteractsWithIO;
