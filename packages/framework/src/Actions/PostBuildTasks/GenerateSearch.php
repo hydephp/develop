@@ -15,7 +15,7 @@ class GenerateSearch extends AbstractBuildTask
 {
     use InteractsWithDirectories;
 
-    public static string $description = 'Generating Search Index';
+    public static string $description = 'Generating search index';
 
     public function run(): void
     {

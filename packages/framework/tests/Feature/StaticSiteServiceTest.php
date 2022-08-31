@@ -128,7 +128,7 @@ class StaticSiteServiceTest extends TestCase
     public function test_does_not_generate_search_files_when_conditions_are_not_met()
     {
         $this->artisan('build')
-            ->doesntExpectOutput('Generating documentation site search index...')
+            ->doesntExpectOutput('Generating search index...')
             ->doesntExpectOutput('Generating search page...')
             ->assertExitCode(0);
     }
@@ -138,7 +138,7 @@ class StaticSiteServiceTest extends TestCase
         Hyde::touch(('_docs/foo.md'));
 
         $this->artisan('build')
-            ->expectsOutput('Generating documentation site search index...')
+            ->expectsOutput('Generating search index...')
             ->expectsOutput('Generating search page...')
             ->assertExitCode(0);
 
