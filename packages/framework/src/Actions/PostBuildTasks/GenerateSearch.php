@@ -24,6 +24,7 @@ class GenerateSearch extends AbstractBuildTask
 
         GeneratesDocumentationSearchIndexFile::run();
 
+        /** @deprecated v0.63.x */
         if (config('docs.create_search_page', true)) {
             $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));
             $this->needsDirectory(Hyde::path($outputDirectory));

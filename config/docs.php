@@ -114,6 +114,7 @@ return [
     */
 
     // Should a docs/search.html page be generated?
+    /** @deprecated v0.63.x */
     'create_search_page' => true,
 
     // Are there any pages you don't want to show in the search results?

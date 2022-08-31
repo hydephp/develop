@@ -6,6 +6,9 @@ use Hyde\Framework\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Illuminate\Support\Facades\Blade;
 
+/**
+ * @deprecated v0.63.x
+ */
 class RendersSearchPage
 {
     use InteractsWithLaravel;
