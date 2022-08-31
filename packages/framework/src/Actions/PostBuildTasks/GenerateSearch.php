@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Services\GeneratesDocumentationSearchIndexFile;
+use Hyde\Framework\Services\DocumentationSearchService;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\AbstractBuildTask;
 use Hyde\Framework\Hyde;
@@ -22,7 +22,7 @@ class GenerateSearch extends AbstractBuildTask
             $this->line("<fg=gray> > This will take an estimated $expected seconds. Terminal may seem non-responsive.</>");
         }
 
-        GeneratesDocumentationSearchIndexFile::run();
+        DocumentationSearchService::run();
 
         if (config('docs.create_search_page', true)) {
             $outputDirectory = Hyde::pathToRelative(Hyde::getSiteOutputPath(DocumentationPage::getOutputDirectory()));
@@ -41,7 +41,7 @@ class GenerateSearch extends AbstractBuildTask
     public function then(): void
     {
         $this->writeln(sprintf("\n > Created <info>%s</info> in %s",
-            GeneratesDocumentationSearchIndexFile::$filePath,
+            DocumentationSearchService::$filePath,
             $this->getExecutionTime()
         ));
     }

@@ -18,7 +18,7 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesDocumentationSearchIndexFileTest
  */
-final class GeneratesDocumentationSearchIndexFile implements ActionContract
+final class DocumentationSearchService implements ActionContract
 {
     use InteractsWithDirectories;
 

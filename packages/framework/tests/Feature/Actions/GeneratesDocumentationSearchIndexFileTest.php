@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Framework\Services\GeneratesDocumentationSearchIndexFile as Action;
+use Hyde\Framework\Services\DocumentationSearchService as Action;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Services\GeneratesDocumentationSearchIndexFile
+ * @covers \Hyde\Framework\Services\DocumentationSearchService
  */
 class GeneratesDocumentationSearchIndexFileTest extends TestCase
 {
