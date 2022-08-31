@@ -5,8 +5,6 @@ namespace Hyde\Framework\Actions\PostBuildTasks;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndexFile;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\AbstractBuildTask;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\DiscoveryService;
 
 class GenerateSearch extends AbstractBuildTask
