@@ -124,11 +124,10 @@ final class DocumentationSearchService
 
     public function getDestinationForSlug(string $slug): string
     {
-        if ($slug === 'index' && config('site.pretty_urls', false)) {
-            $slug = '';
+        if (config('site.pretty_urls', false) === true) {
+            return $slug !== 'index' ? $slug : '';
         }
 
-        return (config('site.pretty_urls', false) === true)
-            ? $slug : $slug.'.html';
+        return $slug . '.html';
     }
 }
