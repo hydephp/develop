@@ -92,8 +92,6 @@ class Author implements \Stringable
      * Get the author's preferred name.
      *
      * @return string
-     * @see \Hyde\Framework\Testing\Unit\AuthorGetNameTest
-     *
      */
     public function getName(): string
     {
