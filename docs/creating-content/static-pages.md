@@ -129,12 +129,6 @@ If you are comfortable with it, and have the need for it, use Blade to create mo
 
 ### Live Demos
 
-The Hyde website ([hydephp.com](https://hydephp.com/)) uses both Markdown and Blade pages.
+The Hyde website ([hydephp.com](https://hydephp.com/)) uses both Markdown and Blade pages. The homepage for example, is a Blade page and uses a bunch of custom HTML.
 
-The "Privacy" which you can find at [hydephp.com/privacy](https://hydephp.com/privacy) is a Markdown page,
-which is a perfect fit for this task, where the goal was to simply inform about the privacy policy.
-
-The "Gallery" which you can find at [hydephp.com/gallery](https://hydephp.com/gallery) is a Blade page.
-While a photo gallery could be used in a Markdown page, here I opted to use a Blade page instead. This allowed me
-to create a bunch of cool and dynamic interactions and animations as I had full control over the HTML and could
-easily add scripts, styles, and iframes. I also seperated sections into components to make them easier to manage.
+A great example of a Markdown page can be found at [hydephp.github.io/portfolio-demo](https://hydephp.github.io/portfolio-demo), you can see the [page source here on GitHub](https://github.com/hydephp/portfolio-demo/blob/master/_pages/index.md).
