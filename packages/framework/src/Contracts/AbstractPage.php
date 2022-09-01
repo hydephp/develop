@@ -13,10 +13,15 @@ use Hyde\Framework\Services\DiscoveryService;
 
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
- *
  * Markdown-based Pages can extend the AbstractMarkdownPage class to get relevant helpers.
- *
  * To learn about what the methods do, see the PHPDocs in the PageContract.
+ *
+ * Unlike other frameworks, in general you don't instantiate pages yourself in Hyde,
+ * instead, the page models acts as blueprints defining information for Hyde to
+ * know how to parse a file, and what data around it should be generated.
+ *
+ * To create a parsed file instance, you'd typically just create a source file,
+ * and you can then access the parsed file from the HydeKernel's page index.
  *
  * @see \Hyde\Framework\Contracts\PageContract
  * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
