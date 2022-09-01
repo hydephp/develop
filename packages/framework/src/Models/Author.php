@@ -44,8 +44,8 @@ class Author implements \Stringable
      * Parameters are supplied through an array to make it
      * easy to load data from Markdown post front matter.
      *
-     * @param  string  $username
-     * @param  array|null  $data
+     * @param string $username
+     * @param array|null $data
      */
     public function __construct(string $username, ?array $data = [])
     {
@@ -58,31 +58,6 @@ class Author implements \Stringable
         }
     }
 
-    public function __toString(): string
-    {
-        return $this->getName();
-    }
-
-    /**
-     * Get the author's preferred name.
-     *
-     * @see \Hyde\Framework\Testing\Unit\AuthorGetNameTest
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name ?? $this->username;
-    }
-
-    public static function create(string $username, ?string $name = null, ?string $website = null): static
-    {
-        return new static($username, [
-            'name' => $name,
-            'website'=> $website,
-        ]);
-    }
-
     /** Dynamically get or create an author based on string or front matter array */
     public static function make(string|array $data): static
     {
@@ -93,15 +68,36 @@ class Author implements \Stringable
         return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
     }
 
+    public static function get(string $username): static
+    {
+        return static::all()->firstWhere('username', $username) ?? static::create($username);
+    }
+
     public static function all(): Collection
     {
         return new Collection(config('authors', []));
     }
 
-    public static function get(string $username): static
+    public static function create(string $username, ?string $name = null, ?string $website = null): static
     {
-        return static::all()->firstWhere('username', $username)
-            ?? static::create($username);
+        return new static($username, ['name' => $name, 'website' => $website,]);
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Get the author's preferred name.
+     *
+     * @return string
+     * @see \Hyde\Framework\Testing\Unit\AuthorGetNameTest
+     *
+     */
+    public function getName(): string
+    {
+        return $this->name ?? $this->username;
     }
 
     protected static function findUsername(array $data): string
