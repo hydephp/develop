@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 /**
  * The Post Author Object Model.
  *
- * @todo #437 Refactor to use same format for create method as constructor
  * @phpstan-consistent-constructor
  *
  * @see \Hyde\Framework\Testing\Feature\AuthorTest
