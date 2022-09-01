@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Class AuthorTest.
- *
  * @covers \Hyde\Framework\Models\Author
  */
 class AuthorTest extends TestCase
