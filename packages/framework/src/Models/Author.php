@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
  *
  * @todo #437 Refactor to use same format for create method as constructor
  * @phpstan-consistent-constructor
+ *
  * @see \Hyde\Framework\Testing\Feature\AuthorTest
  */
 class Author implements \Stringable
@@ -44,8 +45,8 @@ class Author implements \Stringable
      * Parameters are supplied through an array to make it
      * easy to load data from Markdown post front matter.
      *
-     * @param string $username
-     * @param array|null $data
+     * @param  string  $username
+     * @param  array|null  $data
      */
     public function __construct(string $username, ?array $data = [])
     {
@@ -80,7 +81,7 @@ class Author implements \Stringable
 
     public static function create(string $username, ?string $name = null, ?string $website = null): static
     {
-        return new static($username, ['name' => $name, 'website' => $website,]);
+        return new static($username, ['name' => $name, 'website' => $website]);
     }
 
     public function __toString(): string
