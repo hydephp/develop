@@ -6,6 +6,7 @@ This release contains breaking changes regarding the PostBuildTasks that may req
 
 ### Added
 - Added the option to define some site configuration settings in a `hyde.yml` file. See [#449](https://github.com/hydephp/develop/pull/449)
+- Build tasks are now automatically registered when placed in the app/Actions directory and end with BuildTask.php
 
 ### Changed
 - Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
@@ -24,8 +25,7 @@ This release contains breaking changes regarding the PostBuildTasks that may req
 - for now removed features.
 
 ### Fixed
-- Fixed [#443](https://github.com/hydephp/develop/issues/443): RSS feed meta link should not be added if there is not a feed 
-
+- Fixed [#443](https://github.com/hydephp/develop/issues/443): RSS feed meta link should not be added if there is not a feed
 
 ### Security
 - in case of vulnerabilities.

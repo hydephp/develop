@@ -178,6 +178,37 @@ class BuildHookServiceTest extends TestCase
         $this->assertEquals(1, $return);
     }
 
+    public function test_find_tasks_in_app_directory_method_discovers_tasks_in_app_directory()
+    {
+        File::makeDirectory(Hyde::path('app/Actions'));
+        Hyde::touch('app/Actions/FooBuildTask.php');
+
+        $this->assertEquals(['App\Actions\FooBuildTask'], BuildHookService::findTasksInAppDirectory());
+        File::deleteDirectory(Hyde::path('app/Actions'));
+    }
+
+    public function test_automatically_discovered_tasks_can_be_executed()
+    {
+        File::makeDirectory(Hyde::path('app/Actions'));
+        File::put(Hyde::path('app/Actions/FooBuildTask.php'), '<?php
+
+namespace App\Actions;
+
+use Hyde\Framework\Contracts\AbstractBuildTask;
+
+class FooBuildTask extends AbstractBuildTask {
+    public function run(): void {
+        echo "FooBuildTask";
+    }
+}');
+
+        $service = $this->makeService();
+        $service->runPostBuildTasks();
+
+        $this->expectOutputString('FooBuildTask');
+        File::deleteDirectory(Hyde::path('app/Actions'));
+    }
+
     protected function makeService(): BuildHookService
     {
         return new BuildHookService();
