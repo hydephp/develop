@@ -5,7 +5,7 @@ namespace Hyde\Framework\Models;
 use Illuminate\Support\Collection;
 
 /**
- * The Post Author Object Model.
+ * The Post Author model object.
  *
  * @phpstan-consistent-constructor
  *
