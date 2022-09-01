@@ -58,7 +58,7 @@ class Author implements \Stringable
         }
     }
 
-    /** Dynamically get or create an author based on string or front matter array */
+    /** Dynamically get or create an author based on a username string or front matter array */
     final public static function make(string|array $data): static
     {
         if (is_string($data)) {
