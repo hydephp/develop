@@ -4,12 +4,12 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Contracts\AbstractBuildTask;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\BuildHookService;
+use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Services\BuildHookService
+ * @covers \Hyde\Framework\Services\BuildTaskService
  * @covers \Hyde\Framework\Contracts\AbstractBuildTask
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
@@ -35,11 +35,11 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::runPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
      */
     public function test_run_post_build_tasks_runs_configured_tasks_does_nothing_if_no_tasks_are_configured()
     {
-        BuildHookService::$postBuildTasks = [];
+        BuildTaskService::$postBuildTasks = [];
 
         $service = $this->makeService();
         $service->runPostBuildTasks();
@@ -48,11 +48,11 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::getPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::getPostBuildTasks
      */
     public function test_get_post_build_tasks_returns_array_merged_with_config()
     {
-        BuildHookService::$postBuildTasks = ['foo'];
+        BuildTaskService::$postBuildTasks = ['foo'];
         config(['hyde.post_build_tasks' => ['bar']]);
 
         $service = $this->makeService();
@@ -60,11 +60,11 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::getPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::getPostBuildTasks
      */
     public function test_get_post_build_tasks_merges_duplicate_keys()
     {
-        BuildHookService::$postBuildTasks = ['foo'];
+        BuildTaskService::$postBuildTasks = ['foo'];
         config(['hyde.post_build_tasks' => ['foo']]);
 
         $service = $this->makeService();
@@ -72,13 +72,13 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::runPostBuildTasks
+     * @covers \Hyde\Framework\Services\BuildTaskService::runPostBuildTasks
      */
     public function test_run_post_build_tasks_runs_configured_tasks()
     {
         $task = $this->makeTask();
 
-        BuildHookService::$postBuildTasks = [get_class($task)];
+        BuildTaskService::$postBuildTasks = [get_class($task)];
 
         $service = $this->makeService();
         $service->runPostBuildTasks();
@@ -87,7 +87,7 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::run
+     * @covers \Hyde\Framework\Services\BuildTaskService::run
      */
     public function test_run_method_runs_task_by_class_name_input_and_returns_self()
     {
@@ -102,7 +102,7 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
      */
     public function test_run_if_runs_task_if_supplied_boolean_is_true()
     {
@@ -117,7 +117,7 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
      */
     public function test_run_if_does_not_run_task_if_supplied_boolean_is_false()
     {
@@ -132,7 +132,7 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
      */
     public function test_run_if_runs_task_if_supplied_callable_returns_true()
     {
@@ -149,7 +149,7 @@ class BuildHookServiceTest extends TestCase
     }
 
     /**
-     * @covers \Hyde\Framework\Services\BuildHookService::runIf
+     * @covers \Hyde\Framework\Services\BuildTaskService::runIf
      */
     public function test_run_if_does_not_run_task_if_supplied_callable_returns_false()
     {
@@ -183,7 +183,7 @@ class BuildHookServiceTest extends TestCase
         File::makeDirectory(Hyde::path('app/Actions'));
         Hyde::touch('app/Actions/FooBuildTask.php');
 
-        $this->assertEquals(['App\Actions\FooBuildTask'], BuildHookService::findTasksInAppDirectory());
+        $this->assertEquals(['App\Actions\FooBuildTask'], BuildTaskService::findTasksInAppDirectory());
         File::deleteDirectory(Hyde::path('app/Actions'));
     }
 
@@ -209,9 +209,9 @@ class FooBuildTask extends AbstractBuildTask {
         File::deleteDirectory(Hyde::path('app/Actions'));
     }
 
-    protected function makeService(): BuildHookService
+    protected function makeService(): BuildTaskService
     {
-        return new BuildHookService();
+        return new BuildTaskService();
     }
 
     protected function makeTask(): AbstractBuildTask

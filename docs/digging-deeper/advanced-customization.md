@@ -146,6 +146,6 @@ There are a few ways to register these hooks so Hyde can find them. There is a c
 ],
 ```
 
-If you are developing an extension, I recommend you do this in the `boot` method of a service provider so that it can be loaded automatically. Do this by adding the fully qualified class name to the `BuildHookService::$postBuildTasks` array.
+If you are developing an extension, I recommend you do this in the `boot` method of a service provider so that it can be loaded automatically. Do this by adding the fully qualified class name to the `BuildTaskService::$postBuildTasks` array.
 
 Hyde can also autoload them if you store the files in the `app/Actions` directory and the names end in `BuildTask.php`. For example `app/Actions/ExampleBuildTask.php`.

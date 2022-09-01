@@ -9,6 +9,8 @@ This release contains breaking changes regarding the PostBuildTasks that may req
 - Build tasks are now automatically registered when placed in the app/Actions directory and end with BuildTask.php
 
 ### Changed
+- **Breaking changes to build hooks/tasks**:
+  - Rename BuildHookService to BuildTaskService
 - Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
 - The RSS feed related generators are now only enabled when there are blog posts
   - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts

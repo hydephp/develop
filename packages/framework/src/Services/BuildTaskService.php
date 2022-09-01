@@ -9,7 +9,7 @@ use Illuminate\Console\OutputStyle;
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\BuildHookServiceTest
  */
-class BuildHookService
+class BuildTaskService
 {
     /**
      * Offers a hook for packages to add custom build tasks.
