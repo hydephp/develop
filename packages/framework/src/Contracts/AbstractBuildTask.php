@@ -69,10 +69,19 @@ abstract class AbstractBuildTask implements BuildTaskContract
         $this->output?->writeln($message);
     }
 
-    public function createdSiteFile(string $path): void
+    public function createdSiteFile(string $path): static
     {
         $this->write(sprintf("\n > Created <info>%s</info>",
             str_replace('\\', '/', Hyde::pathToRelative($path))
         ));
+
+        return $this;
+    }
+
+    public function withExecutionTime(): static
+    {
+        $this->write(" in {$this->getExecutionTime()}");
+
+        return $this;
     }
 }

@@ -31,15 +31,7 @@ class GenerateSearch extends AbstractBuildTask
 
     public function then(): void
     {
-        $this->writeln(sprintf("\n > Created <info>%s</info> in %s",
-            $this->normalizePath(DocumentationSearchService::$filePath),
-            $this->getExecutionTime()
-        ));
-    }
-
-    protected function normalizePath(string $path): string
-    {
-        return str_replace('\\', '/', $path);
+        $this->createdSiteFile(DocumentationSearchService::$filePath)->withExecutionTime();
     }
 
     /** @internal Estimated processing time per file in ms */
