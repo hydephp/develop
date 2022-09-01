@@ -88,11 +88,6 @@ class Author implements \Stringable
         return $this->getName();
     }
 
-    /**
-     * Get the author's preferred name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name ?? $this->username;
