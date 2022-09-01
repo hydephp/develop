@@ -136,7 +136,7 @@ class ExampleHook extends AbstractBuildTask
 
 ### Registering the hooks
 
-An autoloading feature is planned, but for now, you will need to register the hooks somewhere. There is a convenient place to do this, which is in the main configuration file, `config/hyde.php`.
+There are a few ways to register these hooks so Hyde can find them. There is a convenient place to do this, which is in the main configuration file, `config/hyde.php`.
 
 ```php
 // filepath config/hyde.php
@@ -148,3 +148,4 @@ An autoloading feature is planned, but for now, you will need to register the ho
 
 If you are developing an extension, I recommend you do this in the `boot` method of a service provider so that it can be loaded automatically. Do this by adding the fully qualified class name to the `BuildHookService::$postBuildTasks` array.
 
+Hyde can also autoload them if you store the files in the `app/Actions` directory and the names end in `BuildTask.php`. For example `app/Actions/ExampleBuildTask.php`.

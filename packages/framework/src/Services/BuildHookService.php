@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Contracts\BuildTaskContract;
+use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
 
 /**
@@ -29,17 +30,30 @@ class BuildHookService
         }
     }
 
-    /**
-     * @todo #439 Automatically discover files in the app directory?
-     */
     public function getPostBuildTasks(): array
     {
         return array_unique(
             array_merge(
                 config('hyde.post_build_tasks', []),
+                static::findTasksInAppDirectory(),
                 static::$postBuildTasks
             )
         );
+    }
+
+    public static function findTasksInAppDirectory(): array
+    {
+        $tasks = [];
+
+        foreach (glob(Hyde::path('app/Actions/*BuildTask.php')) as $file) {
+            $tasks[] = str_replace(
+                [Hyde::path('app'), '.php', '/'],
+                ['App', '', '\\'],
+                $file
+            );
+        }
+
+        return $tasks;
     }
 
     public function run(string $task): static
