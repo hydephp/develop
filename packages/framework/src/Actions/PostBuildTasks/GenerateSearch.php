@@ -34,11 +34,6 @@ class GenerateSearch extends AbstractBuildTask
         $this->createdSiteFile(DocumentationSearchService::$filePath)->withExecutionTime();
     }
 
-    protected function normalizePath(string $path): string
-    {
-        return str_replace('\\', '/', $path);
-    }
-
     /** @internal Estimated processing time per file in ms */
     public static float $guesstimationFactor = 52.5;
 
