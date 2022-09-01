@@ -10,6 +10,7 @@ use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
+use Illuminate\Support\Collection;
 
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
@@ -212,7 +213,10 @@ abstract class AbstractPage implements PageContract, CompilableContract
      * If an item returns a route collection,
      * it will automatically be made into a dropdown.
      *
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Models\Route>
+     * @return ?\Illuminate\Support\Collection<\Hyde\Framework\Models\Route>
      */
-    // public function navigationMenuChildren(): Collection;
+    public function navigationMenuChildren(): ?Collection
+    {
+        return null;
+    }
 }
