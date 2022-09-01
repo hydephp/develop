@@ -7,12 +7,15 @@ use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Services\BuildHookServiceTest
+ * This service manages the build tasks that are called after the site has been compiled using the build command.
+ *
+ * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  */
-class BuildHookService
+class BuildTaskService
 {
     /**
-     * Offers a hook for packages to add custom build tasks.
+     * Information for package developers: This offers a hook for packages to add custom build tasks.
+     * Make sure to add the fully qualified class name to the array and doing so by merging the array, not overwriting it.
      */
     public static array $postBuildTasks = [];
 

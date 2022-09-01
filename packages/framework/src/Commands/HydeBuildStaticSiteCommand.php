@@ -8,8 +8,8 @@ use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\BuildHookService;
 use Hyde\Framework\Services\BuildService;
+use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
@@ -97,7 +97,7 @@ class HydeBuildStaticSiteCommand extends Command
      */
     public function runPostBuildActions(): void
     {
-        $service = new BuildHookService($this->output);
+        $service = new BuildTaskService($this->output);
 
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
