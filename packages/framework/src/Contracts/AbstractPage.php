@@ -10,7 +10,6 @@ use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
-use Illuminate\Support\Collection;
 
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
