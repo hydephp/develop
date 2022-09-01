@@ -20,8 +20,6 @@ class GenerateSitemap extends AbstractBuildTask
 
     public function then(): void
     {
-        $this->writeln(sprintf("\n > Created <info>_site/sitemap.xml</info> in %s",
-            $this->getExecutionTime()
-        ));
+        $this->createdSiteFile('_site/sitemap.xml')->withExecutionTime();
     }
 }

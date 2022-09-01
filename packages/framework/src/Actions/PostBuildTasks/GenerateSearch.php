@@ -31,10 +31,7 @@ class GenerateSearch extends AbstractBuildTask
 
     public function then(): void
     {
-        $this->writeln(sprintf("\n > Created <info>%s</info> in %s",
-            $this->normalizePath(DocumentationSearchService::$filePath),
-            $this->getExecutionTime()
-        ));
+        $this->createdSiteFile(DocumentationSearchService::$filePath)->withExecutionTime();
     }
 
     protected function normalizePath(string $path): string

@@ -20,9 +20,6 @@ class GenerateRssFeed extends AbstractBuildTask
 
     public function then(): void
     {
-        $this->writeln(sprintf("\n > Created <info>_site/%s</info> in %s",
-            RssFeedService::getDefaultOutputFilename(),
-            $this->getExecutionTime()
-        ));
+        $this->createdSiteFile('_site/'.RssFeedService::getDefaultOutputFilename())->withExecutionTime();
     }
 }
