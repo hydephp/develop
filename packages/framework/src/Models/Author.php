@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
  *
  * @todo #437 Refactor to use same format for create method as constructor
  * @phpstan-consistent-constructor
+ * @see \Hyde\Framework\Testing\Feature\AuthorTest
  */
 class Author implements \Stringable
 {
