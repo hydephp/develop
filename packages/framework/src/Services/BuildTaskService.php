@@ -12,11 +12,8 @@ use Illuminate\Console\OutputStyle;
 class BuildTaskService
 {
     /**
-     * For package developers:.
-     *
-     * This offers a hook for packages to add custom build tasks.
-     * Make sure to add the fully qualified class name to the array
-     * and doing so by merging the array, not overwriting it.
+     * Information for package developers: This offers a hook for packages to add custom build tasks.
+     * Make sure to add the fully qualified class name to the array and doing so by merging the array, not overwriting it.
      */
     public static array $postBuildTasks = [];
 
