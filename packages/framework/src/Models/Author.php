@@ -5,10 +5,9 @@ namespace Hyde\Framework\Models;
 use Illuminate\Support\Collection;
 
 /**
- * The Post Author Object Model.
+ * The Post Author model object.
  *
- * @todo #437 Refactor to use same format for create method as constructor
- * @phpstan-consistent-constructor
+ * @see \Hyde\Framework\Testing\Feature\AuthorTest
  */
 class Author implements \Stringable
 {
@@ -46,44 +45,21 @@ class Author implements \Stringable
      * @param  string  $username
      * @param  array|null  $data
      */
-    public function __construct(string $username, ?array $data = [])
+    final public function __construct(string $username, ?array $data = [])
     {
         $this->username = $username;
+
         if (isset($data['name'])) {
             $this->name = $data['name'];
         }
+
         if (isset($data['website'])) {
             $this->website = $data['website'];
         }
     }
 
-    public function __toString(): string
-    {
-        return $this->getName();
-    }
-
-    /**
-     * Get the author's preferred name.
-     *
-     * @see \Hyde\Framework\Testing\Unit\AuthorGetNameTest
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name ?? $this->username;
-    }
-
-    public static function create(string $username, ?string $name = null, ?string $website = null): static
-    {
-        return new static($username, [
-            'name' => $name,
-            'website'=> $website,
-        ]);
-    }
-
-    /** Dynamically get or create an author based on string or front matter array */
-    public static function make(string|array $data): static
+    /** Dynamically get or create an author based on a username string or front matter array */
+    final public static function make(string|array $data): static
     {
         if (is_string($data)) {
             return static::get($data);
@@ -92,15 +68,29 @@ class Author implements \Stringable
         return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
     }
 
+    public static function get(string $username): static
+    {
+        return static::all()->firstWhere('username', $username) ?? static::create($username);
+    }
+
     public static function all(): Collection
     {
         return new Collection(config('authors', []));
     }
 
-    public static function get(string $username): static
+    public static function create(string $username, ?string $name = null, ?string $website = null): static
     {
-        return static::all()->firstWhere('username', $username)
-            ?? static::create($username);
+        return new static($username, ['name' => $name, 'website' => $website]);
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
+    public function getName(): string
+    {
+        return $this->name ?? $this->username;
     }
 
     protected static function findUsername(array $data): string

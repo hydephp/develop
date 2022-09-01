@@ -8,11 +8,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Class AuthorHelperTest.
- *
  * @covers \Hyde\Framework\Models\Author
  */
-class AuthorHelperTest extends TestCase
+class AuthorTest extends TestCase
 {
     public function test_create_method_creates_new_author_model()
     {
