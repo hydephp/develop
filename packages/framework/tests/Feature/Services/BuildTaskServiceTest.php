@@ -28,7 +28,7 @@ class BuildTaskServiceTest extends TestCase
 
         $this->artisan('build')
             ->expectsOutputToContain('Generating sitemap')
-            ->expectsOutputToContain('Created sitemap.xml')
+            ->expectsOutputToContain('Created _site/sitemap.xml')
             ->assertExitCode(0);
 
         File::cleanDirectory(Hyde::path('_site'));
