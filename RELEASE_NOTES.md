@@ -13,6 +13,7 @@ This release contains breaking changes regarding the PostBuildTasks that may req
   - Rename BuildHookService to BuildTaskService
   - AbstractBuildTask::handle and BuildTaskContract::handle now returns null by default instead of void. It can also return an exit code
   - The way auxiliary build actions are handled internally has been changed to use build tasks, see [PR #453](https://github.com/hydephp/develop/pull/453)
+  - The documentation has been updated to consistently refer to these as tasks instead of hooks
 - The RSS feed related generators are now only enabled when there are blog posts
   - This means that no feed.xml will be generated, nor will there be any references (like meta tags) to it when there are no blog posts
 - The documentation search related generators are now only enabled when there are documentation pages
