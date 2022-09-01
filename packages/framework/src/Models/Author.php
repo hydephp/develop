@@ -45,7 +45,7 @@ class Author implements \Stringable
      * @param  string  $username
      * @param  array|null  $data
      */
-    public function __construct(string $username, ?array $data = [])
+    final public function __construct(string $username, ?array $data = [])
     {
         $this->username = $username;
         if (isset($data['name'])) {
@@ -57,7 +57,7 @@ class Author implements \Stringable
     }
 
     /** Dynamically get or create an author based on string or front matter array */
-    public static function make(string|array $data): static
+    final public static function make(string|array $data): static
     {
         if (is_string($data)) {
             return static::get($data);
