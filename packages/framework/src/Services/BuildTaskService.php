@@ -12,7 +12,7 @@ use Illuminate\Console\OutputStyle;
 class BuildTaskService
 {
     /**
-     * For package developers:
+     * For package developers:.
      *
      * This offers a hook for packages to add custom build tasks.
      * Make sure to add the fully qualified class name to the array
