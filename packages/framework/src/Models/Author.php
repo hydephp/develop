@@ -7,8 +7,6 @@ use Illuminate\Support\Collection;
 /**
  * The Post Author model object.
  *
- * @phpstan-consistent-constructor
- *
  * @see \Hyde\Framework\Testing\Feature\AuthorTest
  */
 class Author implements \Stringable
