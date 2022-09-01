@@ -48,9 +48,11 @@ class Author implements \Stringable
     final public function __construct(string $username, ?array $data = [])
     {
         $this->username = $username;
+
         if (isset($data['name'])) {
             $this->name = $data['name'];
         }
+
         if (isset($data['website'])) {
             $this->website = $data['website'];
         }
