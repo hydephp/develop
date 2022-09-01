@@ -77,4 +77,11 @@ abstract class AbstractBuildTask implements BuildTaskContract
 
         return $this;
     }
+
+    public function withExecutionTime(): static
+    {
+        $this->write(" in {$this->getExecutionTime()}");
+
+        return $this;
+    }
 }
