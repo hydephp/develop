@@ -20,6 +20,7 @@ This release contains breaking changes regarding the PostBuildTasks that may req
   - This means that no search.json nor search.html nor any references to them will be generated when there are no documentation pages
 - The methods in InteractsWithDirectories.php are now static, this does not affect existing usages
 - Renamed HydeSmartDocs.php to SemanticDocumentationArticle.php
+- Cleans up the Author model class and makes the constructors final
 
 ### Deprecated
 - Deprecated ActionCommand.php as it is no longer used
