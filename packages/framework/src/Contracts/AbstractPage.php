@@ -206,14 +206,4 @@ abstract class AbstractPage implements PageContract, CompilableContract
     {
         return $this->navigation['title'];
     }
-
-    /**
-     * If an item returns a route collection, it will automatically be made into a dropdown.
-     *
-     * @return ?\Illuminate\Support\Collection<\Hyde\Framework\Models\Route>
-     */
-    public function navigationMenuChildren(): ?Collection
-    {
-        return null;
-    }
 }
