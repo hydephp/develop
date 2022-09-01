@@ -9,7 +9,7 @@ use Illuminate\Console\OutputStyle;
 /**
  * This service manages the build tasks that are called after the site has been compiled using the build command.
  *
- * @see \Hyde\Framework\Testing\Feature\Services\BuildHookServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  */
 class BuildTaskService
 {

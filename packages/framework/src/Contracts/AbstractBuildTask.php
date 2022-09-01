@@ -7,7 +7,7 @@ use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Services\BuildHookServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  */
 abstract class AbstractBuildTask implements BuildTaskContract
 {

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\File;
  *
  * @backupStaticAttributes enabled
  */
-class BuildHookServiceTest extends TestCase
+class BuildTaskServiceTest extends TestCase
 {
     /**
      * @covers \Hyde\Framework\Commands\HydeBuildStaticSiteCommand::runPostBuildActions
