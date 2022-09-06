@@ -29,12 +29,17 @@ class GenerateBuildManifest extends AbstractBuildTask
             $manifest->push([
                 'page' => $page->getSourcePath(),
                 'source_hash' => md5_file(Hyde::path($page->getSourcePath())),
-                'output_hash' => md5_file(Hyde::getSiteOutputPath($page->getOutputPath())),
+                'output_hash' => $this->hashOutputPath(Hyde::getSiteOutputPath($page->getOutputPath())),
             ]);
         }
 
         file_put_contents(Hyde::path(config('hyde.build_manifest_path',
             'storage/framework/cache/build-manifest.json')
         ), $manifest->toJson());
+    }
+
+    protected function hashOutputPath(string $path): string
+    {
+        return md5_file($path);
     }
 }
