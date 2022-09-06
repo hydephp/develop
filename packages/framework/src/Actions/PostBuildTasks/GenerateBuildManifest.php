@@ -4,6 +4,7 @@ namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Contracts\AbstractBuildTask;
 use Hyde\Framework\Hyde;
+use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
 class GenerateBuildManifest extends AbstractBuildTask
@@ -11,6 +12,12 @@ class GenerateBuildManifest extends AbstractBuildTask
     public static string $description = 'Generating build manifest';
 
     protected static string $manifestPath = 'storage/framework/cache/build-manifest.json';
+
+    public function __construct(?OutputStyle $output = null)
+    {
+        parent::__construct($output);
+        $this->output = null;
+    }
 
     public function run(): void
     {
