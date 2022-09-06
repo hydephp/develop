@@ -38,8 +38,8 @@ class GenerateBuildManifest extends AbstractBuildTask
         ), $manifest->toJson());
     }
 
-    protected function hashOutputPath(string $path): string
+    protected function hashOutputPath(string $path): ?string
     {
-        return md5_file($path);
+        return file_exists($path) ? md5_file($path) : null;
     }
 }
