@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Contracts\BuildTaskContract;
 use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
@@ -31,6 +32,8 @@ class BuildTaskService
         foreach ($this->getPostBuildTasks() as $task) {
             $this->run($task);
         }
+
+        $this->runIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
     }
 
     public function getPostBuildTasks(): array
