@@ -33,7 +33,7 @@ class BuildTaskService
             $this->run($task);
         }
 
-        $this->runIf(GenerateBuildManifest::class, config('hyde.build_manifest', true));
+        $this->runIf(GenerateBuildManifest::class, config('hyde.generate_build_manifest', true));
     }
 
     public function getPostBuildTasks(): array
