@@ -7,6 +7,9 @@ use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
+/**
+ * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
+ */
 class GenerateBuildManifest extends AbstractBuildTask
 {
     public static string $description = 'Generating build manifest';
