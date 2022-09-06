@@ -7,8 +7,13 @@ use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
+/**
+ * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
+ */
 class GenerateBuildManifest extends AbstractBuildTask
 {
+    public static string $description = 'Generating build manifest';
+
     public function __construct(?OutputStyle $output = null)
     {
         parent::__construct($output);
@@ -23,13 +28,18 @@ class GenerateBuildManifest extends AbstractBuildTask
         foreach (Hyde::pages() as $page) {
             $manifest->push([
                 'page' => $page->getSourcePath(),
-                'source_hash' => md5(Hyde::path($page->getSourcePath())),
-                'output_hash' => md5(Hyde::path($page->getOutputPath())),
+                'source_hash' => md5_file(Hyde::path($page->getSourcePath())),
+                'output_hash' => $this->hashOutputPath(Hyde::getSiteOutputPath($page->getOutputPath())),
             ]);
         }
 
         file_put_contents(Hyde::path(config('hyde.build_manifest_path',
             'storage/framework/cache/build-manifest.json')
         ), $manifest->toJson());
+    }
+
+    protected function hashOutputPath(string $path): ?string
+    {
+        return file_exists($path) ? md5_file($path) : null;
     }
 }
