@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Commands;
 
 use Exception;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
@@ -118,6 +119,7 @@ class HydeBuildStaticSiteCommand extends Command
         $service->runIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $service->runIf(GenerateRssFeed::class, $this->canGenerateFeed());
         $service->runIf(GenerateSearch::class, $this->canGenerateSearch());
+        $service->runIf(GenerateBuildManifest::class, config('hyde.build_manifest', true));
 
         $service->runPostBuildTasks();
     }
