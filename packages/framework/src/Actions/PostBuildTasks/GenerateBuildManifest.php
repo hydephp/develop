@@ -9,8 +9,6 @@ use Illuminate\Support\Collection;
 
 class GenerateBuildManifest extends AbstractBuildTask
 {
-    protected static string $manifestPath = 'storage/framework/cache/build-manifest.json';
-
     public function __construct(?OutputStyle $output = null)
     {
         parent::__construct($output);
@@ -30,6 +28,8 @@ class GenerateBuildManifest extends AbstractBuildTask
             ]);
         }
 
-        file_put_contents(Hyde::path(static::$manifestPath), $manifest->toJson());
+        file_put_contents(Hyde::path(config('hyde.build_manifest_path',
+            'storage/framework/cache/build-manifest.json')
+        ), $manifest->toJson());
     }
 }
