@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 
 class GenerateBuildManifest extends AbstractBuildTask
 {
+    public static string $description = 'Generating build manifest';
+
     public function __construct(?OutputStyle $output = null)
     {
         parent::__construct($output);
