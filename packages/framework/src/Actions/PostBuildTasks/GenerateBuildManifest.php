@@ -23,7 +23,7 @@ class GenerateBuildManifest extends AbstractBuildTask
         foreach (Hyde::pages() as $page) {
             $manifest->push([
                 'page' => $page->getSourcePath(),
-                'input_hash' => md5(Hyde::path($page->getSourcePath())),
+                'source_hash' => md5(Hyde::path($page->getSourcePath())),
                 'output_hash' => md5(Hyde::path($page->getOutputPath())),
             ]);
         }
