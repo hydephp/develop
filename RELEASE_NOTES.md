@@ -15,6 +15,7 @@ This release performs some refactors in preparation for the 1.0 release. Many of
 
 ### Removed
 - Removed interface IncludeFacadeContract
+- Removed deprecated interface AssetServiceContract
 
 ### Fixed
 - for any bug fixes.
