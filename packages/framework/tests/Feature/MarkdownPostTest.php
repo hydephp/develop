@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Models\Pages\MarkdownPost
  * @covers \Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema
+ * @covers \Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors\ConstructsPageSchemas
  */
 class MarkdownPostTest extends TestCase
 {
