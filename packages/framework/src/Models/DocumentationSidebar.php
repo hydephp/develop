@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Navigation\NavigationMenu;
 use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
