@@ -35,7 +35,6 @@ use Illuminate\Support\Traits\Macroable;
  * by type-hinting the HydeKernel::class, or use the hyde() function to get the Kernel.
  *
  * The Kernel instance is constructed in bootstrap.php, and is available globally as $hyde.
- *
  */
 class HydeKernel implements Arrayable, \JsonSerializable
 {
