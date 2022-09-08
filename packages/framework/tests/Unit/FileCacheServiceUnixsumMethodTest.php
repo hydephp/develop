@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Services\FileCacheService as Service;
+use Hyde\Framework\Services\ViewDiffService as Service;
 use Hyde\Testing\TestCase;
 
 class FileCacheServiceUnixsumMethodTest extends TestCase

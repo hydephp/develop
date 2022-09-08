@@ -3,17 +3,17 @@
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\FileCacheService;
+use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Services\FileCacheService
+ * @covers \Hyde\Framework\Services\ViewDiffService
  */
-class FileCacheServiceTest extends TestCase
+class ViewDiffServiceTest extends TestCase
 {
     public function test_get_filecache()
     {
-        $fileCacheService = new FileCacheService();
+        $fileCacheService = new ViewDiffService();
         $fileCache = $fileCacheService->getFilecache();
 
         $this->assertIsArray($fileCache);
@@ -24,7 +24,7 @@ class FileCacheServiceTest extends TestCase
 
     public function test_get_checksums()
     {
-        $fileCacheService = new FileCacheService();
+        $fileCacheService = new ViewDiffService();
         $checksums = $fileCacheService->getChecksums();
 
         $this->assertIsArray($checksums);
@@ -33,18 +33,18 @@ class FileCacheServiceTest extends TestCase
 
     public function test_checksum_matches_any()
     {
-        $fileCacheService = new FileCacheService();
+        $fileCacheService = new ViewDiffService();
 
-        $this->assertTrue($fileCacheService->checksumMatchesAny(FileCacheService::unixsumFile(
+        $this->assertTrue($fileCacheService->checksumMatchesAny(ViewDiffService::unixsumFile(
             Hyde::vendorPath('resources/views/layouts/app.blade.php'))
         ));
     }
 
     public function test_checksum_matches_any_false()
     {
-        $fileCacheService = new FileCacheService();
+        $fileCacheService = new ViewDiffService();
 
-        $this->assertFalse($fileCacheService->checksumMatchesAny(FileCacheService::unixsum(
+        $this->assertFalse($fileCacheService->checksumMatchesAny(ViewDiffService::unixsum(
             'foo'
         )));
     }
