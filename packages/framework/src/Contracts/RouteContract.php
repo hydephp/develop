@@ -2,6 +2,8 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Illuminate\Support\Collection;
+
 /**
  * This contract defines the methods that a Route object must implement.
  */
