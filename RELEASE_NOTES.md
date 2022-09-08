@@ -10,7 +10,7 @@ In general, these changes should only affect those who have written custom code 
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 
 ### Changed
-- for changes in existing functionality.
+- Move class StaticPageBuilder to Actions namespace
 
 ### Deprecated
 - for soon-to-be removed features.
