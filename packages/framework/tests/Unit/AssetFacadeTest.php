@@ -2,12 +2,12 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Facades\Asset;
+use Hyde\Framework\Helpers\Asset;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Facades\Asset
+ * @covers \Hyde\Framework\Helpers\Asset
  */
 class AssetFacadeTest extends TestCase
 {
