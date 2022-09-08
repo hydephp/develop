@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Framework\Facades\Asset;
+use Hyde\Framework\Helpers\Asset;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Facades;
+namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Services\AssetService;
 use Illuminate\Support\Facades\Facade;

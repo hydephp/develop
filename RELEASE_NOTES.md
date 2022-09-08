@@ -16,6 +16,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class AbstractPage to Concerns namespace
 - Moved class Application into Foundation namespace
 - Moved class Includes to Helpers namespace
+- Moved class Asset to Helpers namespace
 
 ### Deprecated
 - for soon-to-be removed features.
