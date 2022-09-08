@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Actions;
+namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;

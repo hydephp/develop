@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Actions\FindsContentLengthForImageObject;
+use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Framework\Hyde;
 
 /**
