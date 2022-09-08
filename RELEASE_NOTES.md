@@ -2,12 +2,7 @@
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
-
-This serves two purposes:
-
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+This release performs some refactors in preparation for the 1.0 release. Many of these refactors are breaking as classes are moved around to new namespaces.
 
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
