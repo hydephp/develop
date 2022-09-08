@@ -11,6 +11,9 @@ In general, these changes should only affect those who have written custom code 
 
 ### Changed
 - Move class StaticPageBuilder to Actions namespace
+- Move class AbstractBuildTask to Concerns namespace
+- Move class AbstractMarkdownPage to Concerns namespace
+- Move class AbstractPage to Concerns namespace
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -25,3 +28,4 @@ In general, these changes should only affect those who have written custom code 
 
 ### Security
 - in case of vulnerabilities.
+'
