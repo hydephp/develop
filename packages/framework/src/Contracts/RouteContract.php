@@ -4,11 +4,6 @@ namespace Hyde\Framework\Contracts;
 
 /**
  * This contract defines the methods that a Route object must implement.
- * These methods are each applied to the single route instance.
- *
- * In Hyde, the route models also serve as a facade for all routes, see the dedicated interface:
- *
- * @see \Hyde\Framework\Contracts\RouteFacadeContract for the static facade methods.
  */
 interface RouteContract
 {
@@ -73,4 +68,71 @@ interface RouteContract
      * Should be the same as getLink().
      */
     public function __toString(): string;
+
+    /**
+     * Get a route from the Router index for the specified route key.
+     *
+     * Alias for static::getFromKey().
+     *
+     * @param  string  $routeKey  Example: posts/foo.md
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
+    public static function get(string $routeKey): RouteContract;
+
+    /**
+     * Get a route from the Router index for the specified route key.
+     *
+     * @param  string  $routeKey  Example: posts/foo.md
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
+    public static function getFromKey(string $routeKey): RouteContract;
+
+    /**
+     * Get a route from the Router index for the specified source file path.
+     *
+     * @param  string  $sourceFilePath  Example: _posts/foo.md
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
+    public static function getFromSource(string $sourceFilePath): RouteContract;
+
+    /**
+     * Get a route from the Router index for the supplied page model.
+     *
+     * @param  \Hyde\Framework\Contracts\PageContract  $page
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
+    public static function getFromModel(PageContract $page): RouteContract;
+
+    /**
+     * Get all routes from the Router index.
+     *
+     * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
+     */
+    public static function all(): Collection;
+
+    /**
+     * Get the current route for the page being rendered.
+     */
+    public static function current(): RouteContract;
+
+    /**
+     * Get the home route, usually the index page route.
+     */
+    public static function home(): RouteContract;
+
+    /**
+     * Determine if the supplied route key exists in the route index.
+     *
+     * @param  string  $routeKey
+     * @return bool
+     */
+    public static function exists(string $routeKey): bool;
 }
