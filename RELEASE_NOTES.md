@@ -30,4 +30,3 @@ In general, these changes should only affect those who have written custom code 
 
 ### Security
 - in case of vulnerabilities.
-'
