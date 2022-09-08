@@ -8,7 +8,6 @@ use Hyde\Framework\Hyde;
  * Helper methods to interact with the filecache.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\ViewDiffServiceTest
- * @see \Hyde\Framework\Testing\Unit\FileCacheServiceUnixsumMethodTest
  */
 class ViewDiffService
 {
