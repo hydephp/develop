@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Facades\Includes;
+use Hyde\Framework\Helpers\Includes;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Facades\Includes
+ * @covers \Hyde\Framework\Helpers\Includes
  */
 class IncludesFacadeTest extends TestCase
 {
