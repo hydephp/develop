@@ -10,10 +10,10 @@ In general, these changes should only affect those who have written custom code 
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 
 ### Changed
-- Move class StaticPageBuilder to Actions namespace
-- Move class AbstractBuildTask to Concerns namespace
-- Move class AbstractMarkdownPage to Concerns namespace
-- Move class AbstractPage to Concerns namespace
+- Moved class StaticPageBuilder to Actions namespace
+- Moved class AbstractBuildTask to Concerns namespace
+- Moved class AbstractMarkdownPage to Concerns namespace
+- Moved class AbstractPage to Concerns namespace
 
 ### Deprecated
 - for soon-to-be removed features.
