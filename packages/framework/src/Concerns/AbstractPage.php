@@ -32,6 +32,7 @@ use Hyde\Framework\Services\DiscoveryService;
 abstract class AbstractPage implements PageContract, CompilableContract
 {
     use PageSchema;
+    use ConstructsPageSchemas;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -52,11 +53,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
         $this->metadata = new Metadata($this);
-    }
-
-    protected function constructPageSchemas(): void
-    {
-        $this->constructPageSchema();
     }
 
     /** @inheritDoc */

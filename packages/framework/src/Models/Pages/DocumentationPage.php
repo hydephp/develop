@@ -22,8 +22,6 @@ class DocumentationPage extends AbstractMarkdownPage
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
         parent::__construct($identifier, $matter, $markdown);
-
-        $this->constructDocumentationPageSchema();
     }
 
     /** @inheritDoc */
