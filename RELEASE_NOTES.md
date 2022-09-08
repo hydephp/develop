@@ -20,8 +20,11 @@ In general, these changes should only affect those who have written custom code 
 - Moved class DocumentationSidebar into Navigation namespace
 - Moved class NavigationMenu into Navigation namespace
 - Moved class NavItem into Navigation namespace
+- Moved class FindsContentLengthForImageObject into Constructors namespace
 - Merged interface RouteFacadeContract into existing interface RouteContract
-
+- Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
+- Renamed legacy FileCacheService to ViewDiffService
+  
 ### Deprecated
 - for soon-to-be removed features.
 

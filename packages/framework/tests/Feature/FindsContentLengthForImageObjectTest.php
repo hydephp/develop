@@ -7,7 +7,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
 
 /**
- * @covers \Hyde\Framework\Actions\FindsContentLengthForImageObject
+ * @covers \Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject
  */
 class FindsContentLengthForImageObjectTest extends TestCase
 {

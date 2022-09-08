@@ -7,10 +7,9 @@ use Hyde\Framework\Hyde;
 /**
  * Helper methods to interact with the filecache.
  *
- * @see \Hyde\Framework\Testing\Feature\Services\FileCacheServiceTest
- * @see \Hyde\Framework\Testing\Unit\FileCacheServiceUnixsumMethodTest
+ * @see \Hyde\Framework\Testing\Feature\Services\ViewDiffServiceTest
  */
-class FileCacheService
+class ViewDiffService
 {
     public static function getFilecache(): array
     {

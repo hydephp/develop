@@ -19,7 +19,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\StaticSiteServiceTest
  */
-class HydeBuildStaticSiteCommand extends Command
+class HydeBuildSiteCommand extends Command
 {
     /**
      * The signature of the command.
