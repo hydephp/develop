@@ -4,6 +4,7 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
+use Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors\BlogPostSchemaConstructor;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
@@ -14,6 +15,7 @@ use Hyde\Framework\Models\Markdown;
 class MarkdownPost extends AbstractMarkdownPage
 {
     use BlogPostSchema;
+    use BlogPostSchemaConstructor;
 
     public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
