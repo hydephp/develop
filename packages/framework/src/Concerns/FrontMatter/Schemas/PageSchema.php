@@ -5,7 +5,8 @@ namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
- * These are the front matter properties that are supported for Hyde Markdown pages.
+ * These are the front matter properties that are supported for all* Hyde pages.
+ * *Support for front matter in Blade pages is experimental.
  */
 trait PageSchema
 {
