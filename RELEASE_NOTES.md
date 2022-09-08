@@ -14,7 +14,7 @@ This release performs some refactors in preparation for the 1.0 release. Many of
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed interface IncludeFacadeContract
 
 ### Fixed
 - for any bug fixes.
