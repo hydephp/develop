@@ -1,7 +1,10 @@
 <?php
 
-namespace Hyde\Framework\Contracts;
+namespace Hyde\Framework\Concerns;
 
+use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Framework\Contracts\MarkdownPageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;

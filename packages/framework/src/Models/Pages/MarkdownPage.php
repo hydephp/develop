@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Pages;
 
-use Hyde\Framework\Contracts\AbstractMarkdownPage;
+use Hyde\Framework\Concerns\AbstractMarkdownPage;
 
 class MarkdownPage extends AbstractMarkdownPage
 {

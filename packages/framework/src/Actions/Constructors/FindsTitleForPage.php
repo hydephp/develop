@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Framework\Contracts\AbstractMarkdownPage;
+use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Hyde;
 
