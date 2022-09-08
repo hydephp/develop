@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
  * Test the constructor actions and schema constructors for page models.
  *
  * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
- * @covers \Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Concerns\ConstructsPageSchemas
  */
 class PageModelConstructorsTest extends TestCase
 {

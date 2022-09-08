@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Models\Pages\DocumentationPage
- * @covers \Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Concerns\ConstructsPageSchemas
  */
 class DocumentationPageTest extends TestCase
 {

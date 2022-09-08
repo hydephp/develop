@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors;
+namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
