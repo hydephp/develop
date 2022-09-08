@@ -24,6 +24,7 @@ In general, these changes should only affect those who have written custom code 
 - Merged interface RouteFacadeContract into existing interface RouteContract
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy FileCacheService to ViewDiffService
+- Extracted all constructor methods in page schemas to a new single trait ConstructPageSchemas
   
 ### Deprecated
 - for soon-to-be removed features.
