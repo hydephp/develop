@@ -7,6 +7,10 @@ use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Hyde;
 use JetBrains\PhpStorm\ArrayShape;
 
+
+/**
+ * These are the front matter properties that are supported for Hyde Markdown pages.
+ */
 trait PageSchema
 {
     /**

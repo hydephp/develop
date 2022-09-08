@@ -6,6 +6,9 @@ use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
 
+/**
+ * These are the front matter properties that are supported for Hyde blog posts.
+ */
 trait BlogPostSchema
 {
     /** @example "My New Post" */
