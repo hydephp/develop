@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\AbstractMarkdownPage;
-use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Concerns\AbstractMarkdownPage;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown;
@@ -21,8 +21,8 @@ use Hyde\Testing\TestCase;
  * so we will use the MarkdownPage class as a proxy,
  * since it's the simplest implementation.
  *
- * @covers \Hyde\Framework\Contracts\AbstractPage
- * @covers \Hyde\Framework\Contracts\AbstractMarkdownPage
+ * @covers \Hyde\Framework\Concerns\AbstractPage
+ * @covers \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  * @covers \Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema
  */

@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\StaticPageBuilder;
 
 /**
  * Build static pages, but intelligently.

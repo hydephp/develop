@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Concerns\ValidatesExistence;
-use Hyde\Framework\Contracts\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
@@ -45,7 +45,7 @@ class SourceFileParser
 
     protected function parseMarkdownPage(string $pageClass): AbstractMarkdownPage
     {
-        /** @var AbstractMarkdownPage $pageClass */
+        /** @var \Hyde\Framework\Concerns\AbstractMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
             $pageClass::qualifyBasename($this->identifier)
         );

@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Metadata\LinkItem;
 use Hyde\Framework\Models\Metadata\Metadata;

@@ -1,7 +1,9 @@
 <?php
 
-namespace Hyde\Framework\Contracts;
+namespace Hyde\Framework\Concerns;
 
+use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Framework\Contracts\MarkdownPageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
@@ -17,7 +19,7 @@ use Hyde\Framework\Models\Markdown;
  * @see \Hyde\Framework\Models\Pages\MarkdownPage
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  * @see \Hyde\Framework\Models\Pages\DocumentationPage
- * @see \Hyde\Framework\Contracts\AbstractPage
+ * @see \Hyde\Framework\Concerns\AbstractPage
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract

@@ -1,9 +1,11 @@
 <?php
 
-namespace Hyde\Framework\Contracts;
+namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
+use Hyde\Framework\Contracts\CompilableContract;
+use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
@@ -24,7 +26,7 @@ use Hyde\Framework\Services\DiscoveryService;
  * and you can then access the parsed file from the HydeKernel's page index.
  *
  * @see \Hyde\Framework\Contracts\PageContract
- * @see \Hyde\Framework\Contracts\AbstractMarkdownPage
+ * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
 abstract class AbstractPage implements PageContract, CompilableContract

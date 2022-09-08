@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Contracts\AbstractBuildTask;
+use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
@@ -24,7 +24,7 @@ class GenerateBuildManifest extends AbstractBuildTask
     {
         $manifest = new Collection();
 
-        /** @var \Hyde\Framework\Contracts\AbstractPage $page */
+        /** @var \Hyde\Framework\Concerns\AbstractPage $page */
         foreach (Hyde::pages() as $page) {
             $manifest->push([
                 'page' => $page->getSourcePath(),

@@ -1,7 +1,8 @@
 <?php
 
-namespace Hyde\Framework\Contracts;
+namespace Hyde\Framework\Concerns;
 
+use Hyde\Framework\Contracts\BuildTaskContract;
 use Hyde\Framework\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;

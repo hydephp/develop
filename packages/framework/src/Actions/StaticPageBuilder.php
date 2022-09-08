@@ -1,10 +1,11 @@
 <?php
 
-namespace Hyde\Framework;
+namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Hyde;
 
 /**
  * Converts a Page Model into a static HTML page.
@@ -21,7 +22,7 @@ class StaticPageBuilder
     /**
      * Construct the class.
      *
-     * @param  \Hyde\Framework\Contracts\AbstractPage|PageContract  $page  the Page to compile into HTML
+     * @param  \Hyde\Framework\Concerns\AbstractPage|PageContract  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
      */
     public function __construct(protected AbstractPage|PageContract $page, bool $selfInvoke = false)
