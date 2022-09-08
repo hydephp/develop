@@ -9,7 +9,7 @@ use Hyde\Framework\Hyde;
  *
  * This class is loaded into the service container, making it easy to access and modify.
  *
- * @see \Hyde\Framework\Facades\Asset
+ * @see \Hyde\Framework\Helpers\Asset
  */
 class AssetService
 {
