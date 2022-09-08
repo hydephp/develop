@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RebuildService;
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 

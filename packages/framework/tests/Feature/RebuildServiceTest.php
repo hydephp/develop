@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Services\RebuildService;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Services\RebuildService;
 use Hyde\Testing\TestCase;
 
 /**
