@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\AbstractPage;
-use Hyde\Framework\StaticPageBuilder;
+use Hyde\Framework\Actions\StaticPageBuilder;
 
 /**
  * This trait registers the file paths for important Hyde locations.

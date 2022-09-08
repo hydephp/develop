@@ -10,7 +10,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Services\AssetService;
-use Hyde\Framework\StaticPageBuilder;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 

@@ -8,14 +8,14 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\StaticPageBuilder;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
  * Feature tests for the StaticPageBuilder class.
  *
- * @covers \Hyde\Framework\StaticPageBuilder
+ * @covers \Hyde\Framework\Actions\StaticPageBuilder
  */
 class StaticPageBuilderTest extends TestCase
 {

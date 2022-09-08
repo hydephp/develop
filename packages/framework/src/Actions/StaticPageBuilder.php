@@ -1,10 +1,11 @@
 <?php
 
-namespace Hyde\Framework;
+namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Contracts\AbstractPage;
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Hyde;
 
 /**
  * Converts a Page Model into a static HTML page.

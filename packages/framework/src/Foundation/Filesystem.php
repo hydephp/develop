@@ -8,7 +8,7 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
-use Hyde\Framework\StaticPageBuilder;
+use Hyde\Framework\Actions\StaticPageBuilder;
 
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.

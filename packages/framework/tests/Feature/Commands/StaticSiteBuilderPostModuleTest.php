@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\StaticPageBuilder;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Testing\TestCase;
 
 /**
