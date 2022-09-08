@@ -16,6 +16,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class AbstractPage to Concerns namespace
 - Moved class Application into Foundation namespace
 - Moved class Includes to Helpers namespace
+- Merged interface RouteFacadeContract into existing interface RouteContract
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -26,6 +27,7 @@ In general, these changes should only affect those who have written custom code 
 - Removed deprecated interface HydeKernelContract
 - Removed deprecated and unused abstract class ActionCommand
 - Removed unused function `array_map_unique`
+- Removed interface RouteFacadeContract (merged into existing RouteContract)
 
 ### Fixed
 - for any bug fixes.
