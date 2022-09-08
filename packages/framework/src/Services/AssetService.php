@@ -8,7 +8,7 @@ use Hyde\Framework\Hyde;
  * Handles the retrieval of core asset files. Commonly used through the Asset facade.
  *
  * This class is loaded into the service container, making it easy to access and modify.
- * 
+ *
  * @see \Hyde\Framework\Facades\Asset
  */
 class AssetService
