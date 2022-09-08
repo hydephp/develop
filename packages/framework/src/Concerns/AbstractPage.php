@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors\ConstructsPageSchemas;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors\PageSchemaConstructor;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
 use Hyde\Framework\Contracts\CompilableContract;
@@ -34,6 +35,7 @@ abstract class AbstractPage implements PageContract, CompilableContract
 {
     use PageSchema;
     use PageSchemaConstructor;
+    use ConstructsPageSchemas;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -54,11 +56,6 @@ abstract class AbstractPage implements PageContract, CompilableContract
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
         $this->metadata = new Metadata($this);
-    }
-
-    protected function constructPageSchemas(): void
-    {
-        $this->constructPageSchema();
     }
 
     /** @inheritDoc */
