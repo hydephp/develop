@@ -1,7 +1,6 @@
 <?php
 
 use Hyde\Framework\HydeKernel;
-use Illuminate\Contracts\Support\Arrayable;
 
 if (! function_exists('hyde')) {
     /**
