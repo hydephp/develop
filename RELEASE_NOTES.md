@@ -24,6 +24,7 @@ In general, these changes should only affect those who have written custom code 
 - Removed deprecated interface AssetServiceContract
 - Removed deprecated interface HydeKernelContract
 - Removed deprecated and unused abstract class ActionCommand
+- Removed unused function `array_map_unique`
 
 ### Fixed
 - for any bug fixes.
