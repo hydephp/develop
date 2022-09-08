@@ -4,7 +4,6 @@ namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-use Hyde\Framework\Contracts\HydeKernelContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\Filesystem;
@@ -38,7 +37,7 @@ use Illuminate\Support\Traits\Macroable;
  * The Kernel instance is constructed in bootstrap.php, and is available globally as $hyde.
  *
  */
-class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
+class HydeKernel implements Arrayable, \JsonSerializable
 {
     use Foundation\Concerns\HandlesFoundationCollections;
     use Foundation\Concerns\ImplementsStringHelpers;
