@@ -4,6 +4,8 @@
 
 This release performs some refactors in preparation for the 1.0 release. Many of these refactors are breaking as classes are moved around to new namespaces.
 
+In general, these changes should only affect those who have written custom code that interacts with the framework, though you may need to update your configuration files, and any Blade components you may have published.
+
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 
