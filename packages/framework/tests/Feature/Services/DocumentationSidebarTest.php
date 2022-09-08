@@ -5,7 +5,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\DocumentationSidebar;
-use Hyde\Framework\Models\NavItem;
+use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
