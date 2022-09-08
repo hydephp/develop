@@ -3,11 +3,11 @@
 namespace Hyde\Framework\Models\Navigation;
 
 use Hyde\Framework\Hyde;
+use function Hyde\Framework\Models\count;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function Hyde\Framework\Models\count;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
