@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Pages;
 
-use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Models\FrontMatter;
 
 /**

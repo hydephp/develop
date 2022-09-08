@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Metadata;
 
-use Hyde\Framework\Contracts\AbstractPage;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
