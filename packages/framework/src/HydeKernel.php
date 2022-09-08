@@ -26,6 +26,17 @@ use Illuminate\Support\Traits\Macroable;
  * @license MIT License
  *
  * @link https://hydephp.com/
+ *
+ * @extra Usage information:
+ *
+ * The HydeKernel It is stored as a singleton in this class, and is bound into the
+ * Laravel Application Service Container, and can be accessed in a few ways.
+ *
+ * Commonly, you'll use the Hyde facade, but you can also use Dependency Injection
+ * by type-hinting the HydeKernel::class, or use the hyde() function to get the Kernel.
+ *
+ * The Kernel instance is constructed in bootstrap.php, and is available globally as $hyde.
+ *
  */
 class HydeKernel implements HydeKernelContract, Arrayable, \JsonSerializable
 {
