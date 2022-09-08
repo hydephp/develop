@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Concerns\FrontMatter\Schemas\Constructors\PageSchemaConstructor;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\PageContract;
@@ -32,6 +33,7 @@ use Hyde\Framework\Services\DiscoveryService;
 abstract class AbstractPage implements PageContract, CompilableContract
 {
     use PageSchema;
+    use PageSchemaConstructor;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
