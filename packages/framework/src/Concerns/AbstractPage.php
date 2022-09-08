@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Concerns\ConstructsPageSchemas;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\PageContract;
