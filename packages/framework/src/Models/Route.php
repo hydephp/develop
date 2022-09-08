@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Contracts\RouteFacadeContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;
@@ -14,7 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements RouteContract, RouteFacadeContract, \Stringable, \JsonSerializable, Arrayable
+class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
