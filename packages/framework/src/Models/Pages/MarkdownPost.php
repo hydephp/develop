@@ -24,12 +24,6 @@ class MarkdownPost extends AbstractMarkdownPage
         parent::__construct($identifier, $matter, $markdown);
     }
 
-    protected function constructPageSchemas(): void
-    {
-        parent::constructPageSchemas();
-        $this->constructBlogPostSchema();
-    }
-
     /** @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
