@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
 
 use Hyde\Framework\Hyde;
-use Illuminate\Support\Str;
 
 /**
  * These are the front matter properties that are supported for Hyde documentation pages.
