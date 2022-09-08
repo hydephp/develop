@@ -22,6 +22,7 @@ In general, these changes should only affect those who have written custom code 
 - Removed interface IncludeFacadeContract
 - Removed deprecated interface AssetServiceContract
 - Removed deprecated interface HydeKernelContract
+- Removed deprecated and unused abstract class ActionCommand
 
 ### Fixed
 - for any bug fixes.
