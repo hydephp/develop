@@ -17,6 +17,9 @@ In general, these changes should only affect those who have written custom code 
 - Moved class Application into Foundation namespace
 - Moved class Includes to Helpers namespace
 - Moved class Asset to Helpers namespace
+- Moved class DocumentationSidebar into Navigation namespace
+- Moved class NavigationMenu into Navigation namespace
+- Moved class NavItem into Navigation namespace
 - Merged interface RouteFacadeContract into existing interface RouteContract
 
 ### Deprecated

@@ -1,9 +1,10 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Navigation;
 
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
 /**

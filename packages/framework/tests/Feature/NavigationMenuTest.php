@@ -3,14 +3,14 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\NavigationMenu;
-use Hyde\Framework\Models\NavItem;
+use Hyde\Framework\Models\Navigation\NavigationMenu;
+use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\Models\NavigationMenu
+ * @covers \Hyde\Framework\Models\Navigation\NavigationMenu
  */
 class NavigationMenuTest extends TestCase
 {

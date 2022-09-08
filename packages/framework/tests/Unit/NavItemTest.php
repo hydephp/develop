@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
-use Hyde\Framework\Models\NavItem;
+use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
  * This unit test covers the basics of the NavItem class.
  * For the full feature test, see the NavigationMenuTest class.
  *
- * @covers \Hyde\Framework\Models\NavItem
+ * @covers \Hyde\Framework\Models\Navigation\NavItem
  */
 class NavItemTest extends TestCase
 {
