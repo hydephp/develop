@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Contracts\AbstractBuildTask;
+use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Testing\TestCase;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Services\BuildTaskService
- * @covers \Hyde\Framework\Contracts\AbstractBuildTask
+ * @covers \Hyde\Framework\Concerns\AbstractBuildTask
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
@@ -194,7 +194,7 @@ class BuildTaskServiceTest extends TestCase
 
 namespace App\Actions;
 
-use Hyde\Framework\Contracts\AbstractBuildTask;
+use Hyde\Framework\Concerns\AbstractBuildTask;
 
 class FooBuildTask extends AbstractBuildTask {
     public function run(): void {

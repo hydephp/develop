@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Contracts\AbstractBuildTask;
+use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\SitemapService;
 

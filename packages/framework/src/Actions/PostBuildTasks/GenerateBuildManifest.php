@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Contracts\AbstractBuildTask;
+use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
