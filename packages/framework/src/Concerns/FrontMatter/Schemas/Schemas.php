@@ -17,4 +17,16 @@ final class Schemas
             'canonicalUrl' => 'string',
         ];
     }
+
+    public static function getBlogPostArray(): array
+    {
+        return [
+            'title' => 'string',
+            'description' => 'string',
+            'category' => 'string',
+            'date' => 'string',
+            'author' => 'string|array',
+            'image' => 'string|array',
+        ];
+    }
 }
