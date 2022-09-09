@@ -4,12 +4,13 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
+use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Route;
 
-class DocumentationPage extends AbstractMarkdownPage
+class DocumentationPage extends AbstractMarkdownPage implements DocumentationPageSchema
 {
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
