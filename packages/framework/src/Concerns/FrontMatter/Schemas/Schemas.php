@@ -12,9 +12,9 @@ final class Schemas
     public static function all(): array
     {
         return [
-            'PageSchema' => self::getPageArray(),
-            'BlogPostSchema' => self::getBlogPostArray(),
-            'DocumentationPageSchema' => self::getDocumentationPageArray(),
+            'PageSchema' => self::get(PageSchema::class),
+            'BlogPostSchema' => self::get(BlogPostSchema::class),
+            'DocumentationPageSchema' => self::get(DocumentationPageSchema::class),
         ];
     }
 
