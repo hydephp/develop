@@ -112,13 +112,13 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_site_output_directory()
     {
-        $this->assertEquals(Hyde::path('_site'), StaticPageBuilder::$outputPath);
+        $this->assertEquals('_site', StaticPageBuilder::$outputPath);
 
         config(['site.output_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals(Hyde::path('foo'), StaticPageBuilder::$outputPath);
+        $this->assertEquals('foo', StaticPageBuilder::$outputPath);
     }
 
     public function test_provider_registers_blade_view_discovery_location_for_configured_blade_view_path()

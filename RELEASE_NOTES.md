@@ -25,6 +25,7 @@ In general, these changes should only affect those who have written custom code 
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy FileCacheService to ViewDiffService
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
+- The StaticPageBuilder::$outputPath property is now a relative path instead of absolute
   
 ### Deprecated
 - for soon-to-be removed features.
@@ -36,6 +37,7 @@ In general, these changes should only affect those who have written custom code 
 - Removed deprecated and unused abstract class ActionCommand
 - Removed unused function `array_map_unique`
 - Removed interface RouteFacadeContract (merged into existing RouteContract)
+- Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
 
 ### Fixed
 - Fixed validation bug in the rebuild command

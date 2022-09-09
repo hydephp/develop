@@ -88,7 +88,7 @@ class HydeBuildSearchCommandTest extends TestCase
 
     public function test_search_files_can_be_generated_for_custom_site_output_directory()
     {
-        StaticPageBuilder::$outputPath = Hyde::path('foo');
+        StaticPageBuilder::$outputPath = 'foo';
         $this->artisan('build:search')
             ->assertExitCode(0);
         $this->assertFileExists(Hyde::path('foo/docs/search.json'));
@@ -102,7 +102,7 @@ class HydeBuildSearchCommandTest extends TestCase
     public function test_search_files_can_be_generated_for_custom_site_and_docs_output_directories()
     {
         DocumentationPage::$outputDirectory = 'foo';
-        StaticPageBuilder::$outputPath = Hyde::path('bar');
+        StaticPageBuilder::$outputPath = 'bar';
         $this->artisan('build:search')
             ->assertExitCode(0);
         $this->assertFileExists(Hyde::path('bar/foo/search.json'));
@@ -116,7 +116,7 @@ class HydeBuildSearchCommandTest extends TestCase
     public function test_search_files_can_be_generated_for_custom_site_and_nested_docs_output_directories()
     {
         DocumentationPage::$outputDirectory = 'foo';
-        StaticPageBuilder::$outputPath = Hyde::path('bar/baz');
+        StaticPageBuilder::$outputPath = 'bar/baz';
         $this->artisan('build:search')
             ->assertExitCode(0);
         $this->assertFileExists(Hyde::path('bar/baz/foo/search.json'));

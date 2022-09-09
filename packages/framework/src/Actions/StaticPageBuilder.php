@@ -16,7 +16,7 @@ class StaticPageBuilder
 {
     use InteractsWithDirectories;
 
-    /** @var string The absolute path to the output directory */
+    /** @var string The relative path to the output directory */
     public static string $outputPath;
 
     /**
@@ -43,7 +43,7 @@ class StaticPageBuilder
         view()->share('currentPage', $this->page->getCurrentPagePath());
         view()->share('currentRoute', $this->page->getRoute());
 
-        $this->needsDirectory(static::$outputPath);
+        $this->needsDirectory(Hyde::getSiteOutputPath());
         $this->needsDirectory(dirname(Hyde::getSiteOutputPath($this->page->getOutputPath())));
 
         return $this->save($this->page->compile());
@@ -53,7 +53,7 @@ class StaticPageBuilder
      * Save the compiled HTML to file.
      *
      * @param  string  $contents  to save to the file
-     * @return string the path to the saved file (since v0.32.x)
+     * @return string the path to the saved file
      */
     protected function save(string $contents): string
     {
