@@ -10,8 +10,25 @@ namespace Hyde\Framework\Contracts\FrontMatter;
 interface PageSchema
 {
     public const PAGE_SCHEMA = [
-        'title' => 'string',
-        'navigation' => 'array',
-        'canonicalUrl' => 'string',
+        'title' => [
+            'type' => 'string',
+        ],
+        'navigation' => [
+            'type' => 'array',
+            'properties' => [
+                'title' => [
+                    'type' => 'string',
+                ],
+                'hidden' => [
+                    'type' => 'bool',
+                ],
+                'priority' => [
+                    'type' => 'int',
+                ],
+            ],
+        ],
+        'canonicalUrl' => [
+            'type' => 'string',
+        ],
     ];
 }
