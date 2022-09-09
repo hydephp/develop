@@ -99,7 +99,7 @@ class HydeRebuildStaticSiteCommand extends Command
     {
         if (! (
             str_starts_with($this->path, Hyde::pathToRelative(Hyde::getDocumentationPagePath())) ||
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPostPath())) ||
+            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPagePath())) ||
             str_starts_with($this->path, Hyde::pathToRelative(Hyde::getBladePagePath())) ||
             str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPostPath()))
         )) {
