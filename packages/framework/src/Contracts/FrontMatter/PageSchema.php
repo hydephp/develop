@@ -11,8 +11,8 @@ interface PageSchema
 {
     public const PAGE_SCHEMA = [
         'title'         => 'string',
-        'navigation'    => 'array|navigation',
         'canonicalUrl'  => 'string|url',
+        'navigation'    => 'array|navigation',
     ];
 
     public const NAVIGATION_SCHEMA = [
