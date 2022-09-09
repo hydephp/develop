@@ -48,7 +48,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertEquals($page->getCurrentPagePath(), $route->getRouteKey());
+        $this->assertEquals($page->getRouteKey(), $route->getRouteKey());
     }
 
     public function test_get_source_file_path_returns_page_source_path()

@@ -40,7 +40,7 @@ class StaticPageBuilder
     public function __invoke(): string
     {
         view()->share('page', $this->page);
-        view()->share('currentPage', $this->page->getCurrentPagePath());
+        view()->share('currentPage', $this->page->getRouteKey());
         view()->share('currentRoute', $this->page->getRoute());
 
         $this->needsDirectory(Hyde::sitePath());

@@ -23,7 +23,7 @@ final class AdminPage extends BladePage implements PageContract
         $this->route = $this->request()?->get('route', 'dashboard') ?? 'dashboard';
     }
 
-    public function getCurrentPagePath(): string
+    public function getRouteKey(): string
     {
         return 'admin';
     }

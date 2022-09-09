@@ -120,19 +120,15 @@ interface PageContract
     public function getOutputPath(): string;
 
     /**
-     * Get the URI path relative to the site root.
-     *
-     * @example if the compiled page will be saved to _site/docs/index.html,
-     *          then this method will return 'docs/index'
-     *
-     * @return string URI path relative to the site root.
-     */
-    public function getCurrentPagePath(): string;
-
-    /**
      * Get the route key for the page.
      *
-     * @return string
+     * The route key is the URI path relative to the site root.
+     *
+     * For example, if the compiled page will be saved to _site/docs/index.html,
+     * then this method will return 'docs/index'. Route keys are used to
+     * identify pages, similar to how named routes work in Laravel.
+     *
+     * @return string URI path relative to the site root.
      */
     public function getRouteKey(): string;
 

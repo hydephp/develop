@@ -23,6 +23,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class NavItem into Navigation namespace
 - Moved class FindsContentLengthForImageObject into Constructors namespace
 - Merged interface RouteFacadeContract into existing interface RouteContract
+- Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy FileCacheService to ViewDiffService
 - Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
@@ -41,6 +42,8 @@ In general, these changes should only affect those who have written custom code 
 - Removed deprecated and unused abstract class ActionCommand
 - Removed unused function `array_map_unique`
 - Removed interface RouteFacadeContract (merged into existing RouteContract)
+- Removed method `PageContract::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
+- Removed method `AbstractPage::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
 - Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
 
 ### Fixed

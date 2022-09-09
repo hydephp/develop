@@ -1,7 +1,7 @@
 @php
 // Emulate a page object
 $page = Hyde\Framework\Models\Pages\DocumentationPage::make('search', ['title' => 'Search']);
-$currentPage = $page->getCurrentPagePath();
+$currentPage = $page->getRouteKey();
 $currentRoute = $page->getRoute();
 $markdown = '';
 @endphp
