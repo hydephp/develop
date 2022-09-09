@@ -48,4 +48,14 @@ final class Schemas
             'priority' => 'int',
         ];
     }
+
+    public static function get(string $schema): array
+    {
+        return match ($schema) {
+            PageSchema::class => self::getPageArray(),
+            BlogPostSchema::class => self::getBlogPostArray(),
+            DocumentationPageSchema::class => self::getDocumentationPageArray(),
+            default => throw new \Exception("Schema $schema does not exist."),
+        };
+    }
 }
