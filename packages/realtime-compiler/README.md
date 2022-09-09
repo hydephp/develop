@@ -1,8 +1,8 @@
-# Hyde Realtime Server v2.0 🧪
+# Hyde Realtime Server v2.0
 
 The source code for the HydePHP Realtime Compiler/Server.
 
-This package is included with HydePHP through hyde/framework.
+This package is included with HydePHP through hyde/hyde.
 
 ## Supported Versions
 
