@@ -5,7 +5,6 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
@@ -17,7 +16,7 @@ use Hyde\Framework\Services\DiscoveryService;
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
  * Markdown-based Pages can extend the AbstractMarkdownPage class to get relevant helpers.
- * To learn about what the methods do, see the PHPDocs in the PageContract.
+ * To learn about what the methods do, see the PHPDocs in the AbstractPage.
  *
  * Unlike other frameworks, in general you don't instantiate pages yourself in Hyde,
  * instead, the page models acts as blueprints defining information for Hyde to
@@ -26,7 +25,7 @@ use Hyde\Framework\Services\DiscoveryService;
  * To create a parsed file instance, you'd typically just create a source file,
  * and you can then access the parsed file from the HydeKernel's page index.
  *
- * @see \Hyde\Framework\Contracts\PageContract
+ * @see \Hyde\Framework\Concerns\AbstractPage
  * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
@@ -97,7 +96,7 @@ abstract class AbstractPage implements CompilableContract, PageSchema
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): PageContract
+    public static function parse(string $slug): AbstractPage
     {
         return (new SourceFileParser(static::class, $slug))->get();
     }
@@ -118,7 +117,7 @@ abstract class AbstractPage implements CompilableContract, PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Contracts\PageContract
+     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\AbstractPage
      *
      * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest

@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Route;
@@ -19,7 +19,7 @@ class NavItemTest extends TestCase
     public function test__construct()
     {
         $route = $this->createMock(RouteContract::class);
-        $route->method('getSourceModel')->willReturn($this->createMock(PageContract::class));
+        $route->method('getSourceModel')->willReturn($this->createMock(AbstractPage::class));
         $route->method('getLink')->willReturn('/');
 
         $item = new NavItem($route, 'Test', 500, true);

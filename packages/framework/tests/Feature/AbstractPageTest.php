@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Concerns\AbstractPage;
-use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -189,7 +189,7 @@ class AbstractPageTest extends TestCase
 
     public function test_markdown_page_implements_page_contract()
     {
-        $this->assertInstanceOf(PageContract::class, new MarkdownPage());
+        $this->assertInstanceOf(AbstractPage::class, new MarkdownPage());
     }
 
     public function test_all_page_models_extend_abstract_page()
@@ -256,7 +256,7 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_implements_page_contract()
     {
-        $this->assertInstanceOf(PageContract::class, $this->mock(AbstractMarkdownPage::class));
+        $this->assertInstanceOf(AbstractPage::class, $this->mock(AbstractMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_has_markdown_document_property()
