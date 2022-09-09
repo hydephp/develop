@@ -17,15 +17,15 @@ trait ConstructsPageSchemas
 {
     protected function constructPageSchemas(): void
     {
-        if ($this instanceof PageSchema::class) {
+        if ($this instanceof PageSchema) {
             $this->constructPageSchema();
         }
 
-        if ($this instanceof BlogPostSchema::class) {
+        if ($this instanceof BlogPostSchema) {
             $this->constructBlogPostSchema();
         }
 
-        if ($this instanceof DocumentationPageSchema::class) {
+        if ($this instanceof DocumentationPageSchema) {
             $this->constructDocumentationPageSchema();
         }
     }
