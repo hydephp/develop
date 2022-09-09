@@ -37,7 +37,7 @@ trait PageSchema
     /**
      * The canonical URL of the page.
      *
-     * @yamlType array|optional
+     * @yamlType string|optional
      *
      * @example "https://example.com/about"
      */
