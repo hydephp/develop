@@ -15,9 +15,9 @@ For example, the `title` property will be the `title` front matter setting.
 
 ## What they're not
 
-Schemas may have constructors to assign data dynamically, but they should not include any data that cannot be entered with front matter.
-For example, the sidebar table of contents for documentation pages should not be in a schema as that cannot be changed with front matter.
-However, the actual sidebar label can be changed with front matter and is thus in the schema. If a label is not set in the front matter,
+Schemas should not include any data that cannot be entered with front matter. For example, the sidebar table of contents
+for documentation pages should not be in a schema as that cannot be changed with front matter. However, the actual
+sidebar label can be changed with front matter and is thus in the schema. If a label is not set in the front matter,
 the schema constructor will assign an appropriate one.
 
 ## Data types
