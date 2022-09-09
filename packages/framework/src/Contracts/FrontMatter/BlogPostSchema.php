@@ -17,19 +17,18 @@ interface BlogPostSchema
                 'website'   => 'string|url',
             ],
         ],
-        'image' => [
-            'type' => 'string|array',
-            'array_values' => [
-                'path'        => 'string',
-                'uri'         => 'string',
-                'description' => 'string',
-                'title'       => 'string',
-                'copyright'   => 'string',
-                'license'     => 'string',
-                'licenseUrl'  => 'string',
-                'author'      => 'string',
-                'credit'      => 'string',
-            ],
-        ],
+        'image' => 'string|array|featured_image',
+    ];
+
+    public const FEATURED_IMAGE_SCHEMA = [
+        'path'        => 'string',
+        'uri'         => 'string',
+        'description' => 'string',
+        'title'       => 'string',
+        'copyright'   => 'string',
+        'license'     => 'string',
+        'licenseUrl'  => 'string',
+        'author'      => 'string',
+        'credit'      => 'string',
     ];
 }
