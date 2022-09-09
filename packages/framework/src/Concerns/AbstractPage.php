@@ -196,8 +196,6 @@ abstract class AbstractPage implements CompilableContract, PageSchema
         return ! blank($this->get($key));
     }
 
-
-
     /**
      * Get the page model's identifier property.
      *
