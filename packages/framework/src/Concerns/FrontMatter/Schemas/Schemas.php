@@ -18,6 +18,11 @@ final class Schemas
         ];
     }
 
+    public static function json(): string
+    {
+        return json_encode(self::all());
+    }
+
     public static function getPageArray(): array
     {
         return [
