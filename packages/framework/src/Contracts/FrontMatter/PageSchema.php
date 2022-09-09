@@ -18,15 +18,7 @@ interface PageSchema
         'navigation' => [
             'type' => 'array',
             'description' => 'The settings for how the page should be presented in the navigation menu. All array values are optional, as long as the array is not empty.',
-            'example' => <<<'MARKDOWN'
-```yaml
-navigation:
-    title: "Home"
-    hidden: true
-    priority: 1
-```
-MARKDOWN
-,
+            'example' => "```yaml\nnavigation:\n    title: 'Home'\n    hidden: true\n    priority: 1\n```",
             'properties' => [
                 'title' => [
                     'type' => 'string',
