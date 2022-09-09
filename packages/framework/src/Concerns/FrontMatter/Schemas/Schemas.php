@@ -29,4 +29,14 @@ final class Schemas
             'image' => 'string|array',
         ];
     }
+
+    public static function getDocumentationPageArray(): array
+    {
+        return [
+            'category' => 'string',
+            'label' => 'string',
+            'hidden' => 'bool',
+            'priority' => 'int',
+        ];
+    }
 }
