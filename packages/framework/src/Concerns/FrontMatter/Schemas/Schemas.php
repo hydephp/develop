@@ -20,7 +20,7 @@ final class Schemas
 
     public static function json(bool $pretty = true): string
     {
-        return json_encode(self::all(), $pretty ? JSON_PRETTY_PRINT : 0);
+        return self::jsonEncode(self::all(), $pretty);
     }
 
     public static function getPageArray(): array
@@ -52,5 +52,10 @@ final class Schemas
             'hidden' => 'bool',
             'priority' => 'int',
         ];
+    }
+
+    protected static function jsonEncode(array $data, bool $pretty = true): string
+    {
+        return json_encode($data, $pretty ? JSON_PRETTY_PRINT : 0);
     }
 }
