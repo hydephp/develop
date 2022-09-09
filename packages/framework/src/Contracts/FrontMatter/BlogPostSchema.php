@@ -9,8 +9,8 @@ interface BlogPostSchema
         'description' => 'string',
         'category'    => 'string',
         'date'        => 'string',
-        'author' => 'string|array|author',
-        'image' => 'string|array|featured_image',
+        'author'      => 'string|array|author',
+        'image'       => 'string|array|featured_image',
     ];
 
     public const AUTHOR_SCHEMA = [
@@ -20,14 +20,14 @@ interface BlogPostSchema
     ];
 
     public const FEATURED_IMAGE_SCHEMA = [
-        'path'        => 'string',
-        'uri'         => 'string',
-        'description' => 'string',
-        'title'       => 'string',
-        'copyright'   => 'string',
-        'license'     => 'string',
-        'licenseUrl'  => 'string',
-        'author'      => 'string',
-        'credit'      => 'string',
+        'path'         => 'string',
+        'uri'          => 'string',
+        'description'  => 'string',
+        'title'        => 'string',
+        'copyright'    => 'string',
+        'license'      => 'string',
+        'licenseUrl'   => 'string',
+        'author'       => 'string',
+        'credit'       => 'string',
     ];
 }
