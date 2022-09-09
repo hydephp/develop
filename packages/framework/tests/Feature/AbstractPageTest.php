@@ -156,21 +156,21 @@ class AbstractPageTest extends TestCase
     public function test_get_current_page_path_returns_output_directory_and_basename()
     {
         $page = new MarkdownPage('foo');
-        $this->assertEquals('foo', $page->getCurrentPagePath());
+        $this->assertEquals('foo', $page->getRouteKey());
     }
 
     public function test_get_current_page_path_returns_output_directory_and_basename_for_configured_directory()
     {
         MarkdownPage::$outputDirectory = 'foo';
         $page = new MarkdownPage('bar');
-        $this->assertEquals('foo/bar', $page->getCurrentPagePath());
+        $this->assertEquals('foo/bar', $page->getRouteKey());
     }
 
     public function test_get_current_page_path_trims_trailing_slashes_from_directory_setting()
     {
         MarkdownPage::$outputDirectory = '/foo/\\';
         $page = new MarkdownPage('bar');
-        $this->assertEquals('foo/bar', $page->getCurrentPagePath());
+        $this->assertEquals('foo/bar', $page->getRouteKey());
     }
 
     public function test_get_output_path_returns_current_page_path_with_html_extension_appended()

@@ -25,11 +25,11 @@ class DocumentationPageTest extends TestCase
     public function test_can_get_current_page_path()
     {
         $page = DocumentationPage::make('foo');
-        $this->assertEquals('docs/foo', $page->getCurrentPagePath());
+        $this->assertEquals('docs/foo', $page->getRouteKey());
 
         config(['docs.output_directory' => 'documentation/latest/']);
         (new HydeServiceProvider($this->app))->register();
-        $this->assertEquals('documentation/latest/foo', $page->getCurrentPagePath());
+        $this->assertEquals('documentation/latest/foo', $page->getRouteKey());
     }
 
     public function test_can_get_online_source_path()

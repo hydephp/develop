@@ -13,7 +13,7 @@ class MarkdownPostHelpersTest extends TestCase
     public function test_get_current_page_path_returns_local_uri_path_for_post_slug()
     {
         $post = new MarkdownPost('foo-bar');
-        $this->assertEquals('posts/foo-bar', $post->getCurrentPagePath());
+        $this->assertEquals('posts/foo-bar', $post->getRouteKey());
     }
 
     public function test_get_canonical_link_returns_canonical_uri_path_for_post_slug()

@@ -151,7 +151,7 @@ abstract class AbstractPage implements PageContract, CompilableContract, PageSch
     /** @inheritDoc */
     public function getOutputPath(): string
     {
-        return $this->getCurrentPagePath().'.html';
+        return $this->getRouteKey().'.html';
     }
 
     /** @deprecated will be merged with route key  */
