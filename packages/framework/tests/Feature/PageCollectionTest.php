@@ -122,7 +122,7 @@ class PageCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_routes_are_not_discovered_for_disabled_features()
+    public function test_pages_are_not_discovered_for_disabled_features()
     {
         config(['hyde.features' => []]);
 
@@ -139,12 +139,12 @@ class PageCollectionTest extends TestCase
         unlink('_docs/doc.md');
     }
 
-    public function test_routes_with_custom_source_directories_are_discovered_properly()
+    public function test_pages_with_custom_source_directories_are_discovered_properly()
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function test_routes_with_custom_output_paths_are_registered_properly()
+    public function test_pages_with_custom_output_paths_are_registered_properly()
     {
         $this->markTestSkipped('TODO');
     }
