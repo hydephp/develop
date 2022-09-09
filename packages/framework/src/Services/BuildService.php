@@ -45,15 +45,15 @@ class BuildService
             $this->warn('Removing all files from build directory.');
 
             if ($this->isItSafeToCleanOutputDirectory()) {
-                array_map('unlink', glob(Hyde::getSiteOutputPath('*.{html,json}'), GLOB_BRACE));
-                File::cleanDirectory(Hyde::getSiteOutputPath('media'));
+                array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
+                File::cleanDirectory(Hyde::sitePath('media'));
             }
         }
     }
 
     public function transferMediaAssets(): void
     {
-        $this->needsDirectory(Hyde::getSiteOutputPath('media'));
+        $this->needsDirectory(Hyde::sitePath('media'));
 
         $collection = DiscoveryService::getMediaAssetFiles();
         $this->comment('Transferring Media Assets...');
@@ -61,7 +61,7 @@ class BuildService
         $this->withProgressBar(
             $collection,
             function ($filepath) {
-                copy($filepath, Hyde::getSiteOutputPath('media/'.basename($filepath)));
+                copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
             }
         );
         $this->newLine(2);
@@ -118,7 +118,7 @@ class BuildService
     protected function isOutputDirectoryWhitelisted(): bool
     {
         return in_array(
-            basename(Hyde::getSiteOutputPath()),
+            basename(Hyde::sitePath()),
             config('hyde.safe_output_directories', ['_site', 'docs', 'build'])
         );
     }

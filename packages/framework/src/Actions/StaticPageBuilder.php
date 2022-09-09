@@ -43,8 +43,8 @@ class StaticPageBuilder
         view()->share('currentPage', $this->page->getCurrentPagePath());
         view()->share('currentRoute', $this->page->getRoute());
 
-        $this->needsDirectory(Hyde::getSiteOutputPath());
-        $this->needsDirectory(dirname(Hyde::getSiteOutputPath($this->page->getOutputPath())));
+        $this->needsDirectory(Hyde::sitePath());
+        $this->needsDirectory(dirname(Hyde::sitePath($this->page->getOutputPath())));
 
         return $this->save($this->page->compile());
     }
@@ -57,7 +57,7 @@ class StaticPageBuilder
      */
     protected function save(string $contents): string
     {
-        $path = Hyde::getSiteOutputPath($this->page->getOutputPath());
+        $path = Hyde::sitePath($this->page->getOutputPath());
 
         file_put_contents($path, $contents);
 

@@ -24,7 +24,7 @@
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getMarkdownPagePath" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getMarkdownPostPath" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getModelSourcePath" />
-      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getSiteOutputPath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel sitePath" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel hasFeature" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel hasSiteUrl" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel image" />
@@ -57,7 +57,7 @@
     <pattern value="\Hyde\Framework\HydeKernel" member="getMarkdownPagePath" />
     <pattern value="\Hyde\Framework\HydeKernel" member="getMarkdownPostPath" />
     <pattern value="\Hyde\Framework\HydeKernel" member="getModelSourcePath" />
-    <pattern value="\Hyde\Framework\HydeKernel" member="getSiteOutputPath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="sitePath" />
     <pattern value="\Hyde\Framework\HydeKernel" member="hasFeature" />
     <pattern value="\Hyde\Framework\HydeKernel" member="hasSiteUrl" />
     <pattern value="\Hyde\Framework\HydeKernel" member="image" />

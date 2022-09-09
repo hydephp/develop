@@ -148,7 +148,7 @@ class Filesystem
     /**
      * Get the absolute path to the compiled site directory, or a file within it.
      */
-    public function getSiteOutputPath(string $path = ''): string
+    public function sitePath(string $path = ''): string
     {
         if (empty($path)) {
             return Hyde::path(StaticPageBuilder::$outputPath);

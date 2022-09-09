@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getMarkdownPagePath(string $path = '')
  * @method static string getMarkdownPostPath(string $path = '')
  * @method static string getDocumentationPagePath(string $path = '')
- * @method static string getSiteOutputPath(string $path = '')
+ * @method static string sitePath(string $path = '')
  * @method static string formatHtmlPath(string $destination)
  * @method static string relativeLink(string $destination)
  * @method static string image(string $name, bool $preferQualifiedUrl = false)

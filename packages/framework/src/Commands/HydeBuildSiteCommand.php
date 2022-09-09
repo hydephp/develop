@@ -101,7 +101,7 @@ class HydeBuildSiteCommand extends Command
 
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
-                'npx prettier '.Hyde::pathToRelative(Hyde::getSiteOutputPath()).'/**/*.html --write --bracket-same-line',
+                'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line',
                 'Prettifying code!',
                 'prettify code'
             );
@@ -135,7 +135,7 @@ class HydeBuildSiteCommand extends Command
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
             'Your new homepage is stored here -> '.
-            DiscoveryService::createClickableFilepath(Hyde::getSiteOutputPath('index.html'))
+            DiscoveryService::createClickableFilepath(Hyde::sitePath('index.html'))
         );
     }
 

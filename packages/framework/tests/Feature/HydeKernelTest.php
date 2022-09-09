@@ -189,7 +189,7 @@ class HydeKernelTest extends TestCase
         $this->assertEquals(Hyde::path('_pages'), Hyde::getMarkdownPagePath());
         $this->assertEquals(Hyde::path('_posts'), Hyde::getMarkdownPostPath());
         $this->assertEquals(Hyde::path('_docs'), Hyde::getDocumentationPagePath());
-        $this->assertEquals(Hyde::path('_site'), Hyde::getSiteOutputPath());
+        $this->assertEquals(Hyde::path('_site'), Hyde::sitePath());
     }
 
     public function test_path_to_relative_helper_returns_relative_path_for_given_path()
