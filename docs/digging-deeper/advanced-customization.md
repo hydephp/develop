@@ -73,6 +73,8 @@ Since Hyde v0.64.0-beta, the site output directory will always be resolved withi
 
 These tasks are code that is executed automatically after the site has been built using the `php hyde build` command. The built-in features in Hyde like sitemap generation and RSS feeds are created using tasks like these.
 
+Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory? It's easy to do, here's how!
+
 ### Minimal example
 
 Here is a minimal example to get you started. For all these examples we assume you put the file in the `App/Actions` directory, but you can put them anywhere.
