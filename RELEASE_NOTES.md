@@ -24,9 +24,9 @@ In general, these changes should only affect those who have written custom code 
 - Merged interface RouteFacadeContract into existing interface RouteContract
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy FileCacheService to ViewDiffService
-- Renamed method Hyde::getSiteOutputPath() to Hyde::sitePath()
+- Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
-- The StaticPageBuilder::$outputPath property is now a relative path instead of absolute
+- The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
   
 ### Deprecated
 - for soon-to-be removed features.
