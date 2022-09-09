@@ -59,9 +59,9 @@ trait ForwardsFilesystem
         return $this->filesystem->getDocumentationPagePath($path);
     }
 
-    public function getSiteOutputPath(string $path = ''): string
+    public function sitePath(string $path = ''): string
     {
-        return $this->filesystem->getSiteOutputPath($path);
+        return $this->filesystem->sitePath($path);
     }
 
     public function pathToRelative(string $path): string

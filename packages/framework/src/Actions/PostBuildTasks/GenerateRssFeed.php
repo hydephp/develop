@@ -13,7 +13,7 @@ class GenerateRssFeed extends AbstractBuildTask
     public function run(): void
     {
         file_put_contents(
-            Hyde::getSiteOutputPath(RssFeedService::getDefaultOutputFilename()),
+            Hyde::sitePath(RssFeedService::getDefaultOutputFilename()),
             RssFeedService::generateFeed()
         );
     }

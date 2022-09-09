@@ -13,7 +13,7 @@ class GenerateSitemap extends AbstractBuildTask
     public function run(): void
     {
         file_put_contents(
-            Hyde::getSiteOutputPath('sitemap.xml'),
+            Hyde::sitePath('sitemap.xml'),
             SitemapService::generateSitemap()
         );
     }

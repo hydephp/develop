@@ -232,7 +232,7 @@ class FilesystemTest extends TestCase
     {
         $this->assertEquals(
             Hyde::path('_site'),
-            Hyde::getSiteOutputPath()
+            Hyde::sitePath()
         );
     }
 
@@ -240,7 +240,7 @@ class FilesystemTest extends TestCase
     {
         $this->assertEquals(
             Hyde::path('_site'.DIRECTORY_SEPARATOR.'foo.html'),
-            Hyde::getSiteOutputPath('foo.html')
+            Hyde::sitePath('foo.html')
         );
     }
 
@@ -248,7 +248,7 @@ class FilesystemTest extends TestCase
     {
         $this->assertEquals(
             Hyde::path('_site'),
-            Hyde::getSiteOutputPath()
+            Hyde::sitePath()
         );
     }
 
@@ -256,7 +256,7 @@ class FilesystemTest extends TestCase
     {
         $this->assertEquals(
             Hyde::path('_site'.DIRECTORY_SEPARATOR.'foo.html'),
-            Hyde::getSiteOutputPath('/foo.html/')
+            Hyde::sitePath('/foo.html/')
         );
     }
 
