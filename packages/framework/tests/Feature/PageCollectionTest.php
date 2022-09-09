@@ -10,6 +10,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Foundation\PageCollection
@@ -141,7 +142,30 @@ class PageCollectionTest extends TestCase
 
     public function test_pages_with_custom_source_directories_are_discovered_properly()
     {
-        $this->markTestSkipped('TODO');
+        BladePage::$sourceDirectory = '.source/pages';
+        MarkdownPage::$sourceDirectory = '.source/pages';
+        MarkdownPost::$sourceDirectory = '.source/posts';
+        DocumentationPage::$sourceDirectory = '.source/docs';
+
+        mkdir(Hyde::path('.source'));
+        mkdir(Hyde::path('.source/pages'));
+        mkdir(Hyde::path('.source/posts'));
+        mkdir(Hyde::path('.source/docs'));
+
+        touch(Hyde::path('.source/pages/foo.blade.php'));
+        touch(Hyde::path('.source/pages/foo.md'));
+        touch(Hyde::path('.source/posts/foo.md'));
+        touch(Hyde::path('.source/docs/foo.md'));
+
+        $collection = PageCollection::boot(Hyde::getInstance())->getPages();
+        $this->assertCount(4, $collection);
+
+        $this->assertEquals(new BladePage('foo'), $collection->get('.source/pages/foo.blade.php'));
+        $this->assertEquals(new MarkdownPage('foo'), $collection->get('.source/pages/foo.md'));
+        $this->assertEquals(new MarkdownPost('foo'), $collection->get('.source/posts/foo.md'));
+        $this->assertEquals(new DocumentationPage('foo'), $collection->get('.source/docs/foo.md'));
+
+        File::deleteDirectory(Hyde::path('.source'));
     }
 
     public function test_pages_with_custom_output_paths_are_registered_properly()
