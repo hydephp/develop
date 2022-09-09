@@ -6,7 +6,6 @@ use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
