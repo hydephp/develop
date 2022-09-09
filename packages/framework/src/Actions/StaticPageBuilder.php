@@ -43,7 +43,7 @@ class StaticPageBuilder
         view()->share('currentPage', $this->page->getCurrentPagePath());
         view()->share('currentRoute', $this->page->getRoute());
 
-        $this->needsDirectory(Hyde::path(static::$outputPath));
+        $this->needsDirectory(Hyde::getSiteOutputPath());
         $this->needsDirectory(dirname(Hyde::getSiteOutputPath($this->page->getOutputPath())));
 
         return $this->save($this->page->compile());
