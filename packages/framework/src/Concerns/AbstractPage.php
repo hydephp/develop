@@ -6,6 +6,7 @@ use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
@@ -58,49 +59,94 @@ abstract class AbstractPage implements PageContract, CompilableContract, PageSch
         $this->metadata = new Metadata($this);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the directory in where source files are stored.
+     *
+     * @return string Path relative to the root of the project
+     */
     final public static function getSourceDirectory(): string
     {
         return unslash(static::$sourceDirectory);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the output subdirectory to store compiled HTML.
+     *
+     * @return string Relative to the site output directory.
+     */
     final public static function getOutputDirectory(): string
     {
         return unslash(static::$outputDirectory);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the file extension of the source files.
+     *
+     * @return string (e.g. ".md")
+     */
     final public static function getFileExtension(): string
     {
         return '.'.ltrim(static::$fileExtension, '.');
     }
 
-    /** @inheritDoc */
+    /**
+     * Parse a source file slug into a page model.
+     *
+     * @param  string  $slug
+     * @return static New page model instance for the parsed source file.
+     *
+     * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
+     */
     public static function parse(string $slug): PageContract
     {
         return (new SourceFileParser(static::class, $slug))->get();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get an array of all the source file slugs for the model.
+     * Essentially an alias of DiscoveryService::getAbstractPageList().
+     *
+     * @return array<string>|false
+     *
+     * @see \Hyde\Framework\Testing\Unit\PageModelGetAllFilesHelperTest
+     */
     public static function files(): array|false
     {
         return DiscoveryService::getSourceFileListForModel(static::class);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get a collection of all pages, parsed into page models.
+     *
+     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Contracts\PageContract
+     *
+     * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
+     * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
+     */
     public static function all(): PageCollection
     {
         return Hyde::pages()->getPages(static::class);
     }
 
-    /** @inheritDoc */
+    /**
+     * Qualify a page basename into a referenceable file path.
+     *
+     * @param  string  $basename  for the page model source file.
+     * @return string path to the file relative to project root
+     */
     public static function qualifyBasename(string $basename): string
     {
         return static::getSourceDirectory().'/'.unslash($basename).static::getFileExtension();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the proper site output path for a page model.
+     *
+     * @param  string  $basename  for the page model source file.
+     * @return string of the output file relative to the site output directory.
+     *
+     * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
+     */
     public static function getOutputLocation(string $basename): string
     {
         // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
@@ -110,7 +156,11 @@ abstract class AbstractPage implements PageContract, CompilableContract, PageSch
         ).'.html';
     }
 
-    /** @inheritDoc */
+    /**
+     * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
+     *
+     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     */
     public function get(string $key = null, mixed $default = null): mixed
     {
         if ($key !== null && property_exists($this, $key) && isset($this->$key)) {
@@ -120,13 +170,23 @@ abstract class AbstractPage implements PageContract, CompilableContract, PageSch
         return $this->matter($key, $default);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the front matter object, or a value from within.
+     *
+     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     */
     public function matter(string $key = null, mixed $default = null): mixed
     {
         return $this->matter->get($key, $default);
     }
 
-    /** @inheritDoc */
+    /**
+     * See if a value exists in the computed page data or the front matter.
+     *
+     * @param  string  $key
+     * @param  bool  $strict  When set to true, an additional check if the property is not blank is performed.
+     * @return bool
+     */
     public function has(string $key, bool $strict = false): bool
     {
         if ($strict) {
@@ -136,37 +196,69 @@ abstract class AbstractPage implements PageContract, CompilableContract, PageSch
         return ! blank($this->get($key));
     }
 
-    /** @inheritDoc */
+
+
+    /**
+     * Get the page model's identifier property.
+     *
+     * @return string The page's identifier/slug.
+     */
     public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the path to the source file, relative to the project root.
+     *
+     * @return string Path relative to the project root.
+     */
     public function getSourcePath(): string
     {
         return static::qualifyBasename($this->identifier);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the path where the compiled page will be saved.
+     *
+     * @return string Path relative to the site output directory.
+     */
     public function getOutputPath(): string
     {
         return $this->getRouteKey().'.html';
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the route key for the page.
+     *
+     * The route key is the URI path relative to the site root.
+     *
+     * For example, if the compiled page will be saved to _site/docs/index.html,
+     * then this method will return 'docs/index'. Route keys are used to
+     * identify pages, similar to how named routes work in Laravel.
+     *
+     * @return string URI path relative to the site root.
+     */
     public function getRouteKey(): string
     {
         return $this->routeKey;
     }
 
-    /** @inheritDoc */
-    public function getRoute(): Route
+    /**
+     * Get the route for the page.
+     *
+     * @return \Hyde\Framework\Contracts\RouteContract
+     */
+    public function getRoute(): RouteContract
     {
         return new Route($this);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the page title to display in the <head> section's <title> tag.
+     *
+     * @return string Example: "Site Name - Page Title"
+     */
     public function htmlTitle(): string
     {
         return config('site.name', 'HydePHP').' - '.$this->title;
@@ -178,7 +270,11 @@ abstract class AbstractPage implements PageContract, CompilableContract, PageSch
         return static::$template;
     }
 
-    /** @inheritDoc */
+    /**
+     * Compile the page into static HTML.
+     *
+     * @return string The compiled HTML for the page.
+     */
     abstract public function compile(): string;
 
     public function renderPageMetadata(): string
