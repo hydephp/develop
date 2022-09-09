@@ -11,14 +11,13 @@ interface PageSchema
 {
     public const PAGE_SCHEMA = [
         'title'      => 'string',
-        'navigation' => [
-            'type' => 'array',
-            'array_values' => [
-                'title'    => 'string',
-                'hidden'   => 'bool',
-                'priority' => 'int',
-            ],
-        ],
+        'navigation' => 'array|navigation',
         'canonicalUrl' => 'string|url',
+    ];
+
+    public const NAVIGATION_SCHEMA = [
+        'title'    => 'string',
+        'hidden'   => 'bool',
+        'priority' => 'int',
     ];
 }
