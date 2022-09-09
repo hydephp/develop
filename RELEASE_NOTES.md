@@ -8,6 +8,7 @@ In general, these changes should only affect those who have written custom code 
 
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
+- Adds a helper class to get an object representation of the front matter schemas and their supported types [#484](https://github.com/hydephp/develop/pull/484)
 
 ### Changed
 - Moved class StaticPageBuilder to Actions namespace
