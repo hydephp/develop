@@ -4,9 +4,8 @@ namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
-use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
-use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
-use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
+use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
@@ -17,15 +16,13 @@ trait ConstructsPageSchemas
 {
     protected function constructPageSchemas(): void
     {
-        if ($this->usesSchema(PageSchema::class)) {
-            $this->constructPageSchema();
-        }
+        $this->constructPageSchema();
 
-        if ($this->usesSchema(BlogPostSchema::class)) {
+        if ($this instanceof BlogPostSchema) {
             $this->constructBlogPostSchema();
         }
 
-        if ($this->usesSchema(DocumentationPageSchema::class)) {
+        if ($this instanceof DocumentationPageSchema) {
             $this->constructDocumentationPageSchema();
         }
     }
@@ -119,10 +116,5 @@ trait ConstructsPageSchemas
         // Adding 250 makes so that pages with a front matter priority that is lower
         // can be shown first. It's lower than the fallback of 500 so that they
         // still come first. This is all to make it easier to mix priorities.
-    }
-
-    protected function usesSchema(string $schema): bool
-    {
-        return in_array($schema, class_uses_recursive($this));
     }
 }

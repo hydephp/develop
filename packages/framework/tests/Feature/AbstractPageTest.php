@@ -24,7 +24,6 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Concerns\AbstractPage
  * @covers \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
- * @covers \Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema
  * @covers \Hyde\Framework\Concerns\ConstructsPageSchemas
  */
 class AbstractPageTest extends TestCase

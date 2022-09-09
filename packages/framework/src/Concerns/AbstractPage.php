@@ -3,8 +3,8 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
 use Hyde\Framework\Contracts\CompilableContract;
+use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Contracts\PageContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
@@ -29,9 +29,8 @@ use Hyde\Framework\Services\DiscoveryService;
  * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractPage implements PageContract, CompilableContract
+abstract class AbstractPage implements PageContract, CompilableContract, PageSchema
 {
-    use PageSchema;
     use ConstructsPageSchemas;
 
     public static string $sourceDirectory;
@@ -44,6 +43,10 @@ abstract class AbstractPage implements PageContract, CompilableContract
 
     public FrontMatter $matter;
     public Metadata $metadata;
+
+    public string $title;
+    public ?array $navigation = null;
+    public ?string $canonicalUrl = null;
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
