@@ -20,15 +20,15 @@ interface BlogPostSchema
         'image' => [
             'type' => 'string|array',
             'array_values' => [
-                 'path'        => 'string',
-                 'uri'         => 'string',
-                 'description' => 'string',
-                 'title'       => 'string',
-                 'copyright'   => 'string',
-                 'license'     => 'string',
-                 'licenseUrl'  => 'string',
-                 'author'      => 'string',
-                 'credit'      => 'string'
+                'path'        => 'string',
+                'uri'         => 'string',
+                'description' => 'string',
+                'title'       => 'string',
+                'copyright'   => 'string',
+                'license'     => 'string',
+                'licenseUrl'  => 'string',
+                'author'      => 'string',
+                'credit'      => 'string',
             ],
         ],
     ];
