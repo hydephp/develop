@@ -9,6 +9,15 @@ namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
  */
 final class Schemas
 {
+    public static function all(): array
+    {
+        return [
+            'PageSchema' => self::getPageArray(),
+            'BlogPostSchema' => self::getBlogPostArray(),
+            'DocumentationPageSchema' => self::getDocumentationPageArray(),
+        ];
+    }
+
     public static function getPageArray(): array
     {
         return [
