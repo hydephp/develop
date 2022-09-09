@@ -17,9 +17,7 @@ trait ConstructsPageSchemas
 {
     protected function constructPageSchemas(): void
     {
-        if ($this instanceof PageSchema) {
-            $this->constructPageSchema();
-        }
+        $this->constructPageSchema();
 
         if ($this instanceof BlogPostSchema) {
             $this->constructBlogPostSchema();
