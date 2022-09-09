@@ -22,6 +22,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class NavigationMenu into Navigation namespace
 - Moved class NavItem into Navigation namespace
 - Moved class FindsContentLengthForImageObject into Constructors namespace
+- Merged interface PageContract into abstract class AbstractPage
 - Merged interface RouteFacadeContract into existing interface RouteContract
 - Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
@@ -37,6 +38,7 @@ In general, these changes should only affect those who have written custom code 
 ### Removed
 - Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
+- Removed interface PageContract (merged into abstract class AbstractPage)
 - Removed deprecated interface AssetServiceContract
 - Removed deprecated interface HydeKernelContract
 - Removed deprecated and unused abstract class ActionCommand
