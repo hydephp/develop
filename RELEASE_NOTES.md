@@ -25,6 +25,7 @@ In general, these changes should only affect those who have written custom code 
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy FileCacheService to ViewDiffService
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
+- The StaticPageBuilder::$outputPath property is now a relative path instead of absolute
   
 ### Deprecated
 - for soon-to-be removed features.
