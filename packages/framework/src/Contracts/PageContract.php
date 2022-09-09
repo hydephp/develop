@@ -120,16 +120,6 @@ interface PageContract
     public function getOutputPath(): string;
 
     /**
-     * Get the URI path relative to the site root.
-     *
-     * @example if the compiled page will be saved to _site/docs/index.html,
-     *          then this method will return 'docs/index'
-     *
-     * @return string URI path relative to the site root.
-     */
-    public function getCurrentPagePath(): string;
-
-    /**
      * Get the route key for the page.
      *
      * @return string
