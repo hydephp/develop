@@ -167,9 +167,4 @@ class PageCollectionTest extends TestCase
 
         File::deleteDirectory(Hyde::path('.source'));
     }
-
-    public function test_pages_with_custom_output_paths_are_registered_properly()
-    {
-        $this->markTestSkipped('TODO');
-    }
 }
