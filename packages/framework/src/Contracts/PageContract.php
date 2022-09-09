@@ -4,6 +4,9 @@ namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Foundation\PageCollection;
 
+/**
+ * @deprecated Will be merged into AbstractPage
+ */
 interface PageContract
 {
     /**
