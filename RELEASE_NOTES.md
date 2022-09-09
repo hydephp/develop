@@ -26,6 +26,7 @@ In general, these changes should only affect those who have written custom code 
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy FileCacheService to ViewDiffService
 - Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
+- Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
   
@@ -33,6 +34,7 @@ In general, these changes should only affect those who have written custom code 
 - for soon-to-be removed features.
 
 ### Removed
+- Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
 - Removed deprecated interface AssetServiceContract
 - Removed deprecated interface HydeKernelContract
