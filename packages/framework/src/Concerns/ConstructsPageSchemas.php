@@ -4,8 +4,8 @@ namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
-use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
+use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Author;
