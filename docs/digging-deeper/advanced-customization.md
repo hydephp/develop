@@ -65,13 +65,9 @@ return [
 ];
 ```
 
-### Setting an absolute path 💔
-If you want to store the output website outside your project with an absolute path you may do so at your own risk using a service provider. This is not supported or recommended as it may cause unintentional file deletions.
+### Setting an absolute path
 
-```php
-// filepath Boot method of a service provider
-StaticPageBuilder::$outputPath = '/var/www/my-project/';
-```
+Since Hyde v0.64.0-beta, the site output directory will always be resolved within the project root. If you want to compile the site to an absolute path outside your project, it's instead recommended that you use a build task to copy the files to the desired location automatically after the site has been compiled. 
 
 ## Adding custom post-build tasks
 
