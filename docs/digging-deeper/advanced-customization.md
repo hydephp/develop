@@ -29,7 +29,7 @@ When Hyde references files, especially when passing filenames between components
 
 ## Customizing source directories 🧪
 
->warning This may cause integrations such as the realtime compiler to break.
+>warning This may cause integrations such as the realtime compiler to break. You'll also likely need to update route key names in your templates.
 
 The source directory paths are stored in the PageModel objects. 
 You can change them by modifying the static property, for example in a service provider.
