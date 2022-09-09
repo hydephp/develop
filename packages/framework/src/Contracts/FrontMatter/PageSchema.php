@@ -10,31 +10,15 @@ namespace Hyde\Framework\Contracts\FrontMatter;
 interface PageSchema
 {
     public const PAGE_SCHEMA = [
-        'title' => [
-            'type' => 'string',
-            'description' => 'The title of the page used in the HTML <title> tag, among others.',
-            'example' => '"Home", "About", "Blog Feed"',
-        ],
+        'title'      => 'string',
         'navigation' => [
             'type' => 'array',
-            'description' => 'The settings for how the page should be presented in the navigation menu. All array values are optional, as long as the array is not empty.',
-            'example' => "```yaml\nnavigation:\n    title: \"Home\"\n    hidden: true\n    priority: 1\n```",
-            'properties' => [
-                'title' => [
-                    'type' => 'string',
-                ],
-                'hidden' => [
-                    'type' => 'bool',
-                ],
-                'priority' => [
-                    'type' => 'int',
-                ],
+            'array_values' => [
+                'title'    => 'string',
+                'hidden'   => 'bool',
+                'priority' => 'int',
             ],
         ],
-        'canonicalUrl' => [
-            'type' => 'string',
-            'description' => 'The canonical URL of the page.',
-            'example' => '"https://example.com/about"',
-        ],
+        'canonicalUrl' => 'string|url',
     ];
 }
