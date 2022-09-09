@@ -16,7 +16,6 @@ use Hyde\Framework\Services\DiscoveryService;
 /**
  * To ensure compatibility with the Hyde Framework, all Page Models should extend this class.
  * Markdown-based Pages can extend the AbstractMarkdownPage class to get relevant helpers.
- * To learn about what the methods do, see the PHPDocs in the AbstractPage.
  *
  * Unlike other frameworks, in general you don't instantiate pages yourself in Hyde,
  * instead, the page models acts as blueprints defining information for Hyde to
