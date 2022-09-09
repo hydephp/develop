@@ -20,7 +20,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
 
-        StaticPageBuilder::$outputPath = Hyde::path('_site/build');
+        StaticPageBuilder::$outputPath = ('_site/build');
 
         (new RebuildService('_posts/test-post.md'))->execute();
 
@@ -33,7 +33,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
         File::deleteDirectory(Hyde::path('_site/build/foo'));
-        StaticPageBuilder::$outputPath = Hyde::path('_site/build/foo');
+        StaticPageBuilder::$outputPath = '_site/build/foo';
         (new RebuildService('_posts/test-post.md'))->execute();
 
         $this->assertFileExists(Hyde::path('_site/build/foo/posts/test-post.html'));
