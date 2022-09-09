@@ -9,5 +9,12 @@ namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
  */
 final class Schemas
 {
-    //
+    public static function getPageArray(): array
+    {
+        return [
+            'title' => 'string',
+            'navigation' => 'array',
+            'canonicalUrl' => 'string',
+        ];
+    }
 }
