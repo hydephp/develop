@@ -16,7 +16,7 @@ class StaticPageBuilder
 {
     use InteractsWithDirectories;
 
-    /** @var string The absolute path to the output directory */
+    /** @var string The relative path to the output directory */
     public static string $outputPath;
 
     /**

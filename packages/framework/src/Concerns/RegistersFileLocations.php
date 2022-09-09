@@ -65,7 +65,7 @@ trait RegistersFileLocations
     }
 
     /**
-     * The absolute path to the directory when the compiled site is stored.
+     * The relative path to the directory when the compiled site is stored.
      *
      * Warning! This directory is emptied when compiling the site.
      */
