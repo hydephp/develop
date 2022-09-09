@@ -29,7 +29,7 @@ use Hyde\Framework\Services\DiscoveryService;
  * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractPage implements PageContract, CompilableContract
+abstract class AbstractPage implements PageContract, CompilableContract, FrontMatter\PageSchema
 {
     use PageSchema;
     use ConstructsPageSchemas;
