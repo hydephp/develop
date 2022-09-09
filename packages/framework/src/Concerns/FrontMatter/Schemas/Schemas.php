@@ -6,6 +6,10 @@ namespace Hyde\Framework\Concerns\FrontMatter\Schemas;
  * Class representation of all the available schema traits with helpers to access them.
  *
  * All front matter properties are always optional in HydePHP.
+ *
+ * @see \Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema
+ * @see \Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema
+ * @see \Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema
  */
 final class Schemas
 {
