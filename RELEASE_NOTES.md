@@ -38,7 +38,7 @@ In general, these changes should only affect those who have written custom code 
 - Removed interface RouteFacadeContract (merged into existing RouteContract)
 
 ### Fixed
-- for any bug fixes.
+- Fixed validation bug in the rebuild command
 
 ### Security
 - in case of vulnerabilities.
