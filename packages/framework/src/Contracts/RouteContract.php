@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
+use Hyde\Framework\Concerns\AbstractPage;
 use Illuminate\Support\Collection;
 
 /**
