@@ -80,7 +80,7 @@ See https://hydephp.com/docs/master/updating-hyde for the upgrade guide.
 
 ### Changelog 
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see [CHANGELOG](https://github.com/hydephp/develop/blob/master/CHANGELOG.md) for more information on what has changed recently.
 
 ### Contributing
 
