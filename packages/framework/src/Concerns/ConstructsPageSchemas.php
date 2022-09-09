@@ -6,7 +6,7 @@ use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\BlogPostSchema;
 use Hyde\Framework\Concerns\FrontMatter\Schemas\DocumentationPageSchema;
-use Hyde\Framework\Concerns\FrontMatter\Schemas\PageSchema;
+use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
@@ -123,6 +123,6 @@ trait ConstructsPageSchemas
 
     protected function usesSchema(string $schema): bool
     {
-        return in_array($schema, class_uses_recursive($this));
+        return in_array($schema, class_uses_recursive($this)) || $this instanceof $schema;
     }
 }
