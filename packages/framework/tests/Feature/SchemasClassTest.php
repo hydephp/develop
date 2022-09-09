@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
  */
 class SchemasClassTest extends TestCase
 {
-    function testAll()
+    public function testAll()
     {
         $this->assertEquals([
             'PageSchema' => Schemas::getPageArray(),
@@ -22,7 +22,7 @@ class SchemasClassTest extends TestCase
         ], Schemas::all());
     }
 
-    function testGetPageArray()
+    public function testGetPageArray()
     {
         $this->assertEquals([
             'title' => 'string',
@@ -31,7 +31,7 @@ class SchemasClassTest extends TestCase
         ], Schemas::getPageArray());
     }
 
-    function testGetBlogPostArray()
+    public function testGetBlogPostArray()
     {
         $this->assertEquals([
             'title' => 'string',
@@ -43,7 +43,7 @@ class SchemasClassTest extends TestCase
         ], Schemas::getBlogPostArray());
     }
 
-    function testGetDocumentationPageArray()
+    public function testGetDocumentationPageArray()
     {
         $this->assertEquals([
             'category' => 'string',
@@ -53,7 +53,7 @@ class SchemasClassTest extends TestCase
         ], Schemas::getDocumentationPageArray());
     }
 
-    function testGet()
+    public function testGet()
     {
         $this->assertEquals(Schemas::getPageArray(), Schemas::get(PageSchema::class));
         $this->assertEquals(Schemas::getBlogPostArray(), Schemas::get(BlogPostSchema::class));
