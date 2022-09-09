@@ -9,15 +9,14 @@ interface BlogPostSchema
         'description' => 'string',
         'category'    => 'string',
         'date'        => 'string',
-        'author' => [
-            'type' => 'string|array',
-            'array_values' => [
-                'name'      => 'string',
-                'username'  => 'string',
-                'website'   => 'string|url',
-            ],
-        ],
+        'author' => 'string|array|author',
         'image' => 'string|array|featured_image',
+    ];
+
+    public const AUTHOR_SCHEMA = [
+        'name'      => 'string',
+        'username'  => 'string',
+        'website'   => 'string|url',
     ];
 
     public const FEATURED_IMAGE_SCHEMA = [
