@@ -18,11 +18,6 @@ final class Schemas
         ];
     }
 
-    public static function json(bool $pretty = true): string
-    {
-        return self::jsonEncode(self::all(), $pretty);
-    }
-
     public static function getPageArray(): array
     {
         return [
@@ -52,25 +47,5 @@ final class Schemas
             'hidden' => 'bool',
             'priority' => 'int',
         ];
-    }
-
-    public static function getPageJson(bool $pretty = true): string
-    {
-        return self::jsonEncode(self::getPageArray(), $pretty);
-    }
-
-    public static function getBlogPostJson(bool $pretty = true): string
-    {
-        return self::jsonEncode(self::getBlogPostArray(), $pretty);
-    }
-
-    public static function getDocumentationPageJson(bool $pretty = true): string
-    {
-        return self::jsonEncode(self::getDocumentationPageArray(), $pretty);
-    }
-
-    protected static function jsonEncode(array $data, bool $pretty = true): string
-    {
-        return json_encode($data, $pretty ? JSON_PRETTY_PRINT : 0);
     }
 }
