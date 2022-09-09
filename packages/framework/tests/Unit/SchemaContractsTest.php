@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Testing\TestCase;
-use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
+use Hyde\Framework\Contracts\FrontMatter\PageSchema;
+use Hyde\Testing\TestCase;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
