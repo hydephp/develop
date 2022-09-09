@@ -51,7 +51,7 @@ abstract class AbstractPage implements PageContract, CompilableContract, PageSch
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
-        $this->routeKey = $this->getCurrentPagePath();
+        $this->routeKey = trim(static::getOutputDirectory().'/'.$this->identifier, '/');
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
