@@ -18,9 +18,9 @@ final class Schemas
         ];
     }
 
-    public static function json(): string
+    public static function json(bool $pretty = true): string
     {
-        return json_encode(self::all());
+        return json_encode(self::all(), $pretty ? JSON_PRETTY_PRINT : 0);
     }
 
     public static function getPageArray(): array
