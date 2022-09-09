@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -145,17 +146,17 @@ class Filesystem
     }
 
     /**
-     * Get the relative path to the compiled site directory, or a file within it.
+     * Get the absolute path to the compiled site directory, or a file within it.
      */
     public function getSiteOutputPath(string $path = ''): string
     {
         if (empty($path)) {
-            return StaticPageBuilder::$outputPath;
+            return Hyde::path(StaticPageBuilder::$outputPath);
         }
 
         $path = unslash($path);
 
-        return StaticPageBuilder::$outputPath.DIRECTORY_SEPARATOR.$path;
+        return Hyde::path(StaticPageBuilder::$outputPath.DIRECTORY_SEPARATOR.$path);
     }
 
     /**
