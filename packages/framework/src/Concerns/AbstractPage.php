@@ -24,7 +24,6 @@ use Hyde\Framework\Services\DiscoveryService;
  * To create a parsed file instance, you'd typically just create a source file,
  * and you can then access the parsed file from the HydeKernel's page index.
  *
- * @see \Hyde\Framework\Concerns\AbstractPage
  * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
