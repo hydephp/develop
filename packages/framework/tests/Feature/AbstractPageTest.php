@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Concerns\AbstractPage;
-use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\BladePage;
