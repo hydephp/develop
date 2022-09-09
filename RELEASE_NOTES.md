@@ -23,7 +23,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class NavItem into Navigation namespace
 - Moved class FindsContentLengthForImageObject into Constructors namespace
 - Merged interface RouteFacadeContract into existing interface RouteContract
-- Merged `getCurrentPagePath()` method into `getRouteKey()` the method in PageContract and AbstractPage
+- Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy FileCacheService to ViewDiffService
 - Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
