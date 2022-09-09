@@ -37,6 +37,7 @@ In general, these changes should only affect those who have written custom code 
 - Removed deprecated and unused abstract class ActionCommand
 - Removed unused function `array_map_unique`
 - Removed interface RouteFacadeContract (merged into existing RouteContract)
+- Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
 
 ### Fixed
 - for any bug fixes.
