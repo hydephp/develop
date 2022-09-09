@@ -13,7 +13,7 @@ interface BlogPostSchema
         'description' => [
             'type' => 'string',
             'description' => 'The description of the post, used in meta tags and excerpts.',
-            'example' => '"This is a description of the post."',
+            'example' => '"A short description used in previews and SEO"',
         ],
         'category' => [
             'type' => 'string',
@@ -43,7 +43,7 @@ interface BlogPostSchema
         ],
         'image' => [
             'type' => 'string|array',
-            'description' => 'The featured cover image of the post.',
+            'description' => 'The featured cover image of the post. When supplying an array, all values are optional, but you need either an image path or URI.',
             'example' => ['"https://example.com/image.jpg"', '"image.jpg"', "```yaml\n  image:\n  path: image.jpg\n  uri: https://cdn.example.com/image.jpg # Takes precedence over `path`\n  description: 'Alt text for image'\n  title: 'Tooltip title'\n  copyright: 'Copyright (c) 2022'\n  license: 'CC-BY-SA-4.0'\n  licenseUrl: https://example.com/license/\n  credit: https://photographer.example.com/\n  author: 'John Doe'\n```"],
         ],
     ];
