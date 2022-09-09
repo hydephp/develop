@@ -11,9 +11,9 @@ use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
  * A state test to ensure the schemas can't be changed without breaking the tests.
  * This requires contributors to consider the impact of their changes as schema changes are rarely backwards compatible.
  *
- * @covers \Hyde\Framework\Contracts\FrontMatter\PageSchema
- * @covers \Hyde\Framework\Contracts\FrontMatter\BlogPostSchema
- * @covers \Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema
+ * @see \Hyde\Framework\Contracts\FrontMatter\PageSchema
+ * @see \Hyde\Framework\Contracts\FrontMatter\BlogPostSchema
+ * @see \Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema
  */
 class SchemaContractsTest extends TestCase
 {
