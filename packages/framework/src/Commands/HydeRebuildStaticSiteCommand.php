@@ -98,10 +98,10 @@ class HydeRebuildStaticSiteCommand extends Command
     public function validate(): void
     {
         if (! (
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getDocumentationPagePath())) ||
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPagePath())) ||
             str_starts_with($this->path, Hyde::pathToRelative(Hyde::getBladePagePath())) ||
-            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPostPath()))
+            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPagePath())) ||
+            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getMarkdownPostPath())) ||
+            str_starts_with($this->path, Hyde::pathToRelative(Hyde::getDocumentationPagePath()))
         )) {
             throw new Exception("Path [$this->path] is not in a valid source directory.", 400);
         }
