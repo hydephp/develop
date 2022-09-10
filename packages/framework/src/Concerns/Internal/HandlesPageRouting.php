@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
-trait HandlesPageRoutes
+trait HandlesPageRouting
 {
 
 }
