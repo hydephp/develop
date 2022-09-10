@@ -172,7 +172,7 @@ abstract class HydePage implements CompilableContract, PageSchema
      * then this method will return 'docs/index'. Route keys are used to
      * identify pages, similar to how named routes work in Laravel.
      *
-     * @return string URI path relative to the site root.
+     * @return string The page's route key.
      */
     public function getRouteKey(): string
     {
@@ -180,7 +180,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the route for the page.
+     * Get the route model for the page.
      *
      * @return \Hyde\Framework\Contracts\RouteContract
      */
