@@ -5,12 +5,10 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
-use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 
 /**
@@ -32,6 +30,7 @@ abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
     use Internal\HandlesPageFilesystem;
+    use Internal\HandlesPageRouting;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -92,14 +91,6 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Format a page identifier to a route key.
-     */
-    public static function routeKey(string $identifier): string
-    {
-        return unslash(static::outputDirectory().'/'.$identifier);
-    }
-
-    /**
      * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
      *
      * @return \Hyde\Framework\Models\FrontMatter|mixed
@@ -145,27 +136,6 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function getIdentifier(): string
     {
         return $this->identifier;
-    }
-
-    /**
-     * Get the route key for the page.
-     *
-     * The route key is the URI path relative to the site root.
-     *
-     * For example, if the compiled page will be saved to _site/docs/index.html,
-     * then this method will return 'docs/index'. Route keys are used to
-     * identify pages, similar to how named routes work in Laravel.
-     *
-     * @return string The page's route key.
-     */
-    public function getRouteKey(): string
-    {
-        return $this->routeKey;
-    }
-
-    public function getRoute(): RouteContract
-    {
-        return new Route($this);
     }
 
     /**
