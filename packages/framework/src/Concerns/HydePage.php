@@ -63,8 +63,6 @@ abstract class HydePage implements CompilableContract, PageSchema
      *
      * @param  string  $identifier  The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
-     *
-     * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
     public static function parse(string $identifier): HydePage
     {
@@ -73,11 +71,10 @@ abstract class HydePage implements CompilableContract, PageSchema
 
     /**
      * Get an array of all the source file identifiers for the model.
+     *
      * Essentially an alias of DiscoveryService::getAbstractPageList().
      *
      * @return array<string>|false
-     *
-     * @see \Hyde\Framework\Testing\Unit\PageModelGetAllFilesHelperTest
      */
     public static function files(): array|false
     {
@@ -88,8 +85,6 @@ abstract class HydePage implements CompilableContract, PageSchema
      * Get a collection of all pages, parsed into page models.
      *
      * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
-     *
-     * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
      */
     public static function all(): PageCollection
     {
@@ -97,7 +92,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Format an identifier to a route key.
+     * Format a page identifier to a route key.
      */
     public static function routeKey(string $identifier): string
     {
@@ -130,9 +125,6 @@ abstract class HydePage implements CompilableContract, PageSchema
 
     /**
      * See if a value exists in the computed page data or the front matter.
-     *
-     * @param  string  $key
-     * @return bool
      */
     public function has(string $key): bool
     {
@@ -171,9 +163,6 @@ abstract class HydePage implements CompilableContract, PageSchema
         return $this->routeKey;
     }
 
-    /**
-     * @return RouteContract The route model for the page.
-     */
     public function getRoute(): RouteContract
     {
         return new Route($this);
@@ -181,8 +170,6 @@ abstract class HydePage implements CompilableContract, PageSchema
 
     /**
      * Get the page title to display in HTML tags like <title> and <meta> tags.
-     *
-     * @return string Example: "Site Name - Page Title"
      */
     public function htmlTitle(): string
     {
@@ -196,9 +183,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Compile the page into static HTML.
-     *
-     * @return string The compiled HTML for the page.
+     * Compile the page into static HTML string.
      */
     abstract public function compile(): string;
 
