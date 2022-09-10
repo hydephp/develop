@@ -151,7 +151,13 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the page model's identifier property.
      *
-     * @return string The page's identifier/slug.
+     * The identifier is the part between the source directory and the file extension.
+     * It may also be known as a 'slug', or previously 'basename'.
+     *
+     * For example, the identifier of a source file stored as '_pages/about/contact.md'
+     * would be 'about/contact', and 'pages/about.md' would simply be 'about'.
+     *
+     * @return string The page's identifier.
      */
     public function getIdentifier(): string
     {
