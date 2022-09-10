@@ -5,10 +5,12 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
+use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 
 /**
@@ -29,7 +31,6 @@ use Hyde\Framework\Services\DiscoveryService;
 abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
-    use Internal\HandlesPageRouting;
     use Internal\HandlesPageMatter;
 
     public static string $sourceDirectory;
@@ -149,6 +150,42 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function getOutputPath(): string
     {
         return static::outputPath($this->identifier);
+    }
+
+    // Section: Routing
+
+    /**
+     * Format a page identifier to a route key.
+     */
+    public static function routeKey(string $identifier): string
+    {
+        return unslash(static::outputDirectory().'/'.$identifier);
+    }
+
+    /**
+     * Get the route key for the page.
+     *
+     * The route key is the URI path relative to the site root.
+     *
+     * For example, if the compiled page will be saved to _site/docs/index.html,
+     * then this method will return 'docs/index'. Route keys are used to
+     * identify pages, similar to how named routes work in Laravel.
+     *
+     * @return string The page's route key.
+     */
+    public function getRouteKey(): string
+    {
+        return $this->routeKey;
+    }
+
+    /**
+     * Get the route for the page.
+     *
+     * @return RouteContract The page's route.
+     */
+    public function getRoute(): RouteContract
+    {
+        return new Route($this);
     }
 
     // Section: Getters
