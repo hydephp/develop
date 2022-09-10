@@ -59,16 +59,16 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Parse a source file slug into a page model.
+     * Parse a source file into a page model instance.
      *
-     * @param  string  $slug
+     * @param  string  $identifier The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): HydePage
+    public static function parse(string $identifier): HydePage
     {
-        return (new SourceFileParser(static::class, $slug))->get();
+        return (new SourceFileParser(static::class, $identifier))->get();
     }
 
     /**
