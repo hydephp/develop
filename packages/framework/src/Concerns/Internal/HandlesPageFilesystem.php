@@ -38,7 +38,7 @@ trait HandlesPageFilesystem
      */
     public static function sourcePath(string $identifier): string
     {
-        return static::sourceDirectory().'/'.unslash($identifier).static::fileExtension();
+        return static::sourceDirectory().'/'.$identifier.static::fileExtension();
     }
 
     /**
