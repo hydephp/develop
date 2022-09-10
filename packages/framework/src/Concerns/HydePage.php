@@ -182,11 +182,6 @@ abstract class HydePage implements CompilableContract, PageSchema
         return static::$template;
     }
 
-    /**
-     * Compile the page into static HTML string.
-     */
-    abstract public function compile(): string;
-
     public function renderPageMetadata(): string
     {
         return $this->metadata->render();
