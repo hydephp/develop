@@ -1,0 +1,84 @@
+<?php
+
+namespace Hyde\Framework\Concerns\Internal;
+
+trait HandlesPageFilesystem
+{
+    /**
+     * Get the directory in where source files are stored.
+     *
+     * @return string Path relative to the root of the project
+     */
+    final public static function getSourceDirectory(): string
+    {
+        return unslash(static::$sourceDirectory);
+    }
+
+    /**
+     * Get the output subdirectory to store compiled HTML.
+     *
+     * @return string Relative to the site output directory.
+     */
+    final public static function getOutputDirectory(): string
+    {
+        return unslash(static::$outputDirectory);
+    }
+
+    /**
+     * Get the file extension of the source files.
+     *
+     * @return string (e.g. ".md")
+     */
+    final public static function getFileExtension(): string
+    {
+        return '.'.ltrim(static::$fileExtension, '.');
+    }
+
+    /**
+     * Qualify a page basename into a referenceable file path.
+     *
+     * @param  string  $basename  for the page model source file.
+     * @return string path to the file relative to project root
+     */
+    public static function qualifyBasename(string $basename): string
+    {
+        return static::getSourceDirectory().'/'.unslash($basename).static::getFileExtension();
+    }
+
+    /**
+     * Get the proper site output path for a page model.
+     *
+     * @param  string  $basename  for the page model source file.
+     * @return string of the output file relative to the site output directory.
+     *
+     * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
+     */
+    public static function getOutputLocation(string $basename): string
+    {
+        // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
+        return trim(
+                static::getOutputDirectory().'/'.unslash($basename),
+                '/'
+            ).'.html';
+    }
+
+    /**
+     * Get the path to the source file, relative to the project root.
+     *
+     * @return string Path relative to the project root.
+     */
+    public function getSourcePath(): string
+    {
+        return static::qualifyBasename($this->identifier);
+    }
+
+    /**
+     * Get the path where the compiled page will be saved.
+     *
+     * @return string Path relative to the site output directory.
+     */
+    public function getOutputPath(): string
+    {
+        return $this->getRouteKey().'.html';
+    }
+}
