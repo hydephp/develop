@@ -41,13 +41,13 @@ class HydePageTest extends TestCase
     public function test_get_source_directory_returns_static_property()
     {
         MarkdownPage::$sourceDirectory = 'foo';
-        $this->assertEquals('foo', MarkdownPage::getSourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
     }
 
     public function test_get_source_directory_trims_trailing_slashes()
     {
         MarkdownPage::$sourceDirectory = '/foo/\\';
-        $this->assertEquals('foo', MarkdownPage::getSourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
     }
 
     public function test_get_output_directory_returns_static_property()

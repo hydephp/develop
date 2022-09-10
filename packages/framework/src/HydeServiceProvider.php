@@ -47,7 +47,7 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->storeCompiledSiteIn(unslash(config('site.output_directory', '_site')));
 
-        $this->discoverBladeViewsIn(BladePage::getSourceDirectory());
+        $this->discoverBladeViewsIn(BladePage::sourceDirectory());
 
         $this->registerHydeConsoleCommands();
         $this->registerModuleServiceProviders();

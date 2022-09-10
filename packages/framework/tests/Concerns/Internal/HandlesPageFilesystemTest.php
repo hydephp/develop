@@ -16,7 +16,7 @@ class HandlesPageFilesystemTest extends TestCase
     {
         $this->assertSame(
             'source',
-            HandlesPageFilesystemTestClass::getSourceDirectory()
+            HandlesPageFilesystemTestClass::sourceDirectory()
         );
     }
 

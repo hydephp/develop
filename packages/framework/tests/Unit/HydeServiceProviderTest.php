@@ -66,17 +66,17 @@ class HydeServiceProviderTest extends TestCase
         MarkdownPost::$sourceDirectory = '';
         DocumentationPage::$sourceDirectory = '';
 
-        $this->assertEquals('', BladePage::getSourceDirectory());
-        $this->assertEquals('', MarkdownPage::getSourceDirectory());
-        $this->assertEquals('', MarkdownPost::getSourceDirectory());
-        $this->assertEquals('', DocumentationPage::getSourceDirectory());
+        $this->assertEquals('', BladePage::sourceDirectory());
+        $this->assertEquals('', MarkdownPage::sourceDirectory());
+        $this->assertEquals('', MarkdownPost::sourceDirectory());
+        $this->assertEquals('', DocumentationPage::sourceDirectory());
 
         $this->provider->register();
 
-        $this->assertEquals('_pages', BladePage::getSourceDirectory());
-        $this->assertEquals('_pages', MarkdownPage::getSourceDirectory());
-        $this->assertEquals('_posts', MarkdownPost::getSourceDirectory());
-        $this->assertEquals('_docs', DocumentationPage::getSourceDirectory());
+        $this->assertEquals('_pages', BladePage::sourceDirectory());
+        $this->assertEquals('_pages', MarkdownPage::sourceDirectory());
+        $this->assertEquals('_posts', MarkdownPost::sourceDirectory());
+        $this->assertEquals('_docs', DocumentationPage::sourceDirectory());
     }
 
     public function test_provider_registers_output_directories()

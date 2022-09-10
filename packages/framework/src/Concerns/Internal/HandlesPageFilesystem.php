@@ -11,7 +11,7 @@ trait HandlesPageFilesystem
      *
      * @example output: '_pages'
      */
-    final public static function getSourceDirectory(): string
+    final public static function sourceDirectory(): string
     {
         return unslash(static::$sourceDirectory);
     }
@@ -49,7 +49,7 @@ trait HandlesPageFilesystem
      */
     public static function qualifyBasename(string $basename): string
     {
-        return static::getSourceDirectory().'/'.unslash($basename).static::getFileExtension();
+        return static::sourceDirectory().'/'.unslash($basename).static::getFileExtension();
     }
 
     /**

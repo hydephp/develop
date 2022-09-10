@@ -62,18 +62,18 @@ class CreatesNewPageSourceFile
         }
 
         if ($type === MarkdownPage::class) {
-            $this->needsDirectory(MarkdownPage::getSourceDirectory().$subDir);
+            $this->needsDirectory(MarkdownPage::sourceDirectory().$subDir);
 
             return $this->createMarkdownFile();
         }
         if ($type === BladePage::class) {
-            $this->needsDirectory(BladePage::getSourceDirectory().$subDir);
+            $this->needsDirectory(BladePage::sourceDirectory().$subDir);
 
             return $this->createBladeFile();
         }
 
         if ($type === DocumentationPage::class) {
-            $this->needsDirectory(DocumentationPage::getSourceDirectory().$subDir);
+            $this->needsDirectory(DocumentationPage::sourceDirectory().$subDir);
 
             return $this->createDocumentationFile();
         }
