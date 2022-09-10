@@ -190,7 +190,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the page title to display in the <head> section's <title> tag.
+     * Get the page title to display in HTML tags like <title> and <meta> tags.
      *
      * @return string Example: "Site Name - Page Title"
      */
