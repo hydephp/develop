@@ -3,12 +3,10 @@
 namespace Hyde\Framework\Testing\Concerns\Internal;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Concerns\Internal\HandlesPageFilesystem;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\HydePage
- * @covers \Hyde\Framework\Concerns\Internal\HandlesPageFilesystem
  */
 class HandlesPageFilesystemTest extends TestCase
 {
