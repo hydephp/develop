@@ -116,7 +116,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
+     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage>
      *
      * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
