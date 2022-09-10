@@ -8,6 +8,7 @@ trait HandlesPageFilesystem
      * Get the directory in where source files are stored.
      *
      * @return string Path relative to the root of the project
+     *
      * @example output: '_pages'
      */
     final public static function getSourceDirectory(): string
@@ -19,6 +20,7 @@ trait HandlesPageFilesystem
      * Get the output subdirectory to store compiled HTML.
      *
      * @return string Relative to the site output directory.
+     *
      * @example output: '', 'posts, 'docs
      */
     final public static function getOutputDirectory(): string

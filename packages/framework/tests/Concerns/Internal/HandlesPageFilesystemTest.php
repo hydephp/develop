@@ -73,7 +73,7 @@ class HandlesPageFilesystemTest extends TestCase
         $this->assertCount(
             (count(array_filter(
                 get_class_methods($this),
-                fn($method) => str_starts_with($method, 'test')
+                fn ($method) => str_starts_with($method, 'test')
             )) - 1),
             get_class_methods(HandlesPageFilesystem::class),
         );
