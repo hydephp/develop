@@ -53,13 +53,13 @@ class HydePageTest extends TestCase
     public function test_get_output_directory_returns_static_property()
     {
         MarkdownPage::$outputDirectory = 'foo';
-        $this->assertEquals('foo', MarkdownPage::getOutputDirectory());
+        $this->assertEquals('foo', MarkdownPage::outputDirectory());
     }
 
     public function test_get_output_directory_trims_trailing_slashes()
     {
         MarkdownPage::$outputDirectory = '/foo/\\';
-        $this->assertEquals('foo', MarkdownPage::getOutputDirectory());
+        $this->assertEquals('foo', MarkdownPage::outputDirectory());
     }
 
     public function test_get_file_extension_returns_static_property()

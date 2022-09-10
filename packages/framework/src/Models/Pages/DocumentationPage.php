@@ -37,7 +37,7 @@ class DocumentationPage extends AbstractMarkdownPage implements DocumentationPag
     /** @inheritDoc */
     public function getRouteKey(): string
     {
-        return trim(static::getOutputDirectory().'/'.basename($this->identifier), '/');
+        return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
     }
 
     /** @internal */

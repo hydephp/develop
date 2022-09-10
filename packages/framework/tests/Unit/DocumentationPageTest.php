@@ -58,14 +58,14 @@ class DocumentationPageTest extends TestCase
 
     public function test_can_get_documentation_output_path()
     {
-        $this->assertEquals('docs', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('docs', DocumentationPage::outputDirectory());
     }
 
     public function test_can_get_documentation_output_path_with_custom_output_directory()
     {
         config(['docs.output_directory' => 'foo']);
         (new HydeServiceProvider($this->app))->register();
-        $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('foo', DocumentationPage::outputDirectory());
     }
 
     public function test_can_get_documentation_output_path_with_trailing_slashes()
@@ -81,7 +81,7 @@ class DocumentationPageTest extends TestCase
         foreach ($tests as $test) {
             config(['docs.output_directory' => $test]);
             (new HydeServiceProvider($this->app))->register();
-            $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
+            $this->assertEquals('foo', DocumentationPage::outputDirectory());
         }
     }
 

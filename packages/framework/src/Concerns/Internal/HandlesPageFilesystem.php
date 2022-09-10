@@ -23,7 +23,7 @@ trait HandlesPageFilesystem
      *
      * @example output: '', 'posts, 'docs
      */
-    final public static function getOutputDirectory(): string
+    final public static function outputDirectory(): string
     {
         return unslash(static::$outputDirectory);
     }
@@ -64,7 +64,7 @@ trait HandlesPageFilesystem
     {
         // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
         return trim(
-                static::getOutputDirectory().'/'.unslash($basename),
+                static::outputDirectory().'/'.unslash($basename),
                 '/'
             ).'.html';
     }

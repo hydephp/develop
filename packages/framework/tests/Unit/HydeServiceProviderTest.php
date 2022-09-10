@@ -86,28 +86,28 @@ class HydeServiceProviderTest extends TestCase
         MarkdownPost::$outputDirectory = 'foo';
         DocumentationPage::$outputDirectory = 'foo';
 
-        $this->assertEquals('foo', BladePage::getOutputDirectory());
-        $this->assertEquals('foo', MarkdownPage::getOutputDirectory());
-        $this->assertEquals('foo', MarkdownPost::getOutputDirectory());
-        $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('foo', BladePage::outputDirectory());
+        $this->assertEquals('foo', MarkdownPage::outputDirectory());
+        $this->assertEquals('foo', MarkdownPost::outputDirectory());
+        $this->assertEquals('foo', DocumentationPage::outputDirectory());
 
         $this->provider->register();
 
-        $this->assertEquals('', BladePage::getOutputDirectory());
-        $this->assertEquals('', MarkdownPage::getOutputDirectory());
-        $this->assertEquals('posts', MarkdownPost::getOutputDirectory());
-        $this->assertEquals('docs', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('', BladePage::outputDirectory());
+        $this->assertEquals('', MarkdownPage::outputDirectory());
+        $this->assertEquals('posts', MarkdownPost::outputDirectory());
+        $this->assertEquals('docs', DocumentationPage::outputDirectory());
     }
 
     public function test_provider_registers_configured_documentation_output_directory()
     {
-        $this->assertEquals('docs', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('docs', DocumentationPage::outputDirectory());
 
         config(['docs.output_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('foo', DocumentationPage::outputDirectory());
     }
 
     public function test_provider_registers_site_output_directory()
