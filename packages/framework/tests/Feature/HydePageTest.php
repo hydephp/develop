@@ -635,27 +635,10 @@ class HydePageTest extends TestCase
         $this->assertFalse($page->has('foo'));
     }
 
-    public function test_has_method_does_not_returns_false_for_blank_properties_when_strict_is_set_to_true()
-    {
-        $page = MarkdownPage::make();
-        $page->foo = null;
-        $this->assertTrue($page->has('foo', true));
-
-        $page = MarkdownPage::make();
-        $page->foo = '';
-        $this->assertTrue($page->has('foo', true));
-    }
-
     public function test_has_method_returns_true_if_page_has_blank_property_set_in_front_matter()
     {
         $this->assertFalse(MarkdownPage::make(matter: ['foo' => null])->has('foo'));
         $this->assertFalse(MarkdownPage::make(matter: ['foo' => ''])->has('foo'));
-    }
-
-    public function test_has_method_does_not_returns_false_for_blank_set_in_front_matter_when_strict_is_set_to_true()
-    {
-        $this->assertTrue(MarkdownPage::make(matter: ['foo' => null])->has('foo', true));
-        $this->assertTrue(MarkdownPage::make(matter: ['foo' => ''])->has('foo', true));
     }
 
     public function test_markdown_pages_can_be_saved_to_disk()
