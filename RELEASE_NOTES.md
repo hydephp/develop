@@ -11,6 +11,8 @@ In general, these changes should only affect those who have written custom code 
 - Adds a helper class to get an object representation of the front matter schemas and their supported types [#484](https://github.com/hydephp/develop/pull/484)
 
 ### Changed
+
+#### General
 - Renamed base class AbstractPage to HydePage
 - Moved class StaticPageBuilder to Actions namespace
 - Moved class AbstractBuildTask to Concerns namespace
@@ -32,6 +34,8 @@ In general, these changes should only affect those who have written custom code 
 - Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
+
+#### Page-model specific
 - Renamed method outputLocation to outputPath in HydePage.php
 - Renamed method qualifyBasename to sourcePath in HydePage.php
 - Renamed method getOutputLocation to outputLocation in HydePage.php
