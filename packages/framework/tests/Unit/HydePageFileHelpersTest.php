@@ -8,7 +8,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Concerns\HydePage
  */
-class HandlesPageFilesystemTest extends TestCase
+class HydePageFileHelpersTest extends TestCase
 {
     public function testSourceDirectory()
     {
