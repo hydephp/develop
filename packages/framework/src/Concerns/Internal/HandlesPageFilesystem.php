@@ -62,11 +62,7 @@ trait HandlesPageFilesystem
      */
     public static function outputPath(string $identifier): string
     {
-        // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
-        return trim(
-                static::outputDirectory().'/'.unslash($identifier),
-                '/'
-            ).'.html';
+        return unslash(static::outputDirectory().'/'.unslash($identifier)).'.html';
     }
 
     /**
