@@ -87,6 +87,6 @@ trait HandlesPageFilesystem
      */
     public function getOutputPath(): string
     {
-        return $this->getRouteKey().'.html';
+        return static::outputPath($this->identifier);
     }
 }
