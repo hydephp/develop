@@ -62,7 +62,7 @@ trait HandlesPageFilesystem
      */
     public static function outputPath(string $identifier): string
     {
-        return unslash(static::outputDirectory().'/'.unslash($identifier)).'.html';
+        return unslash(static::routeKey($identifier)).'.html';
     }
 
     /**
