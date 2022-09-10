@@ -25,7 +25,7 @@ class MarkdownPage extends HydePage implements MarkdownDocumentContract, Markdow
         $this->matter = $matter ?? new FrontMatter();
         $this->markdown = $markdown ?? new Markdown();
 
-        HydePage::__construct($this->identifier, $this->matter);
+        parent::__construct($this->identifier, $this->matter);
     }
 
     /** @interitDoc */
