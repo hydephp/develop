@@ -39,39 +39,39 @@ trait HandlesPageFilesystem
     }
 
     /**
-     * Qualify a page basename into a referenceable local file path.
+     * Qualify a page identifier into a referenceable local file path.
      *
-     * @param  string  $basename  for the page model source file.
+     * @param  string  $identifier  for the page model source file.
      * @return string path to the file relative to project root
      *
      * @example input: MarkdownPost::qualifyFilepath('hello-world')
      * @example output: '_posts/hello-world.md'
      */
-    public static function sourcePath(string $basename): string
+    public static function sourcePath(string $identifier): string
     {
-        return static::sourceDirectory().'/'.unslash($basename).static::fileExtension();
+        return static::sourceDirectory().'/'.unslash($identifier).static::fileExtension();
     }
 
     /**
      * Get the proper site output path for a page model.
      *
-     * @param  string  $basename  for the page model source file.
+     * @param  string  $identifier  for the page model source file.
      * @return string of the output file relative to the site output directory.
      *
      * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
      */
-    public static function outputPath(string $basename): string
+    public static function outputPath(string $identifier): string
     {
         // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
         return trim(
-                static::outputDirectory().'/'.unslash($basename),
+                static::outputDirectory().'/'.unslash($identifier),
                 '/'
             ).'.html';
     }
 
     /**
      * Get the path to the source file, relative to the project root.
-     * In other words, qualify the basename of the page instance.
+     * In other words, qualify the identifier of the page instance.
      *
      * @return string Path relative to the project root.
      */
