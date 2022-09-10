@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
  */
 class HandlesPageFilesystemTest extends TestCase
 {
-    public function testGetSourceDirectory()
+    public function testSourceDirectory()
     {
         $this->assertSame(
             'source',
@@ -20,7 +20,7 @@ class HandlesPageFilesystemTest extends TestCase
         );
     }
 
-    public function testGetOutputDirectory()
+    public function testOutputDirectory()
     {
         $this->assertSame(
             'output',
@@ -28,7 +28,7 @@ class HandlesPageFilesystemTest extends TestCase
         );
     }
 
-    public function testGetFileExtension()
+    public function testFileExtension()
     {
         $this->assertSame(
             '.md',
@@ -36,7 +36,7 @@ class HandlesPageFilesystemTest extends TestCase
         );
     }
 
-    public function testQualifyBasename()
+    public function testSourcePath()
     {
         $this->assertSame(
             'source/hello-world.md',
@@ -44,7 +44,7 @@ class HandlesPageFilesystemTest extends TestCase
         );
     }
 
-    public function testGetOutputLocation()
+    public function testOutputPath()
     {
         $this->assertSame(
             'output/hello-world.html',
