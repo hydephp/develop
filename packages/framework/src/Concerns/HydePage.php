@@ -98,9 +98,6 @@ abstract class HydePage implements CompilableContract, PageSchema
 
     /**
      * Format an identifier to a route key.
-     *
-     * @param  string  $identifier
-     * @return string
      */
     public static function routeKey(string $identifier): string
     {
@@ -180,9 +177,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the route model for the page.
-     *
-     * @return \Hyde\Framework\Contracts\RouteContract
+     * @return RouteContract The route model for the page.
      */
     public function getRoute(): RouteContract
     {
