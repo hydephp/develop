@@ -132,24 +132,24 @@ class HydePageTest extends TestCase
 
     public function test_get_output_location_returns_the_file_output_path_for_the_supplied_basename()
     {
-        $this->assertEquals('foo.html', MarkdownPage::getOutputLocation('foo'));
+        $this->assertEquals('foo.html', MarkdownPage::outputLocation('foo'));
     }
 
     public function test_get_output_location_returns_the_configured_location()
     {
         MarkdownPage::$outputDirectory = 'foo';
-        $this->assertEquals('foo/bar.html', MarkdownPage::getOutputLocation('bar'));
+        $this->assertEquals('foo/bar.html', MarkdownPage::outputLocation('bar'));
     }
 
     public function test_get_output_location_trims_trailing_slashes_from_directory_setting()
     {
         MarkdownPage::$outputDirectory = '/foo/\\';
-        $this->assertEquals('foo/bar.html', MarkdownPage::getOutputLocation('bar'));
+        $this->assertEquals('foo/bar.html', MarkdownPage::outputLocation('bar'));
     }
 
     public function test_get_output_location_trims_trailing_slashes_from_basename()
     {
-        $this->assertEquals('foo.html', MarkdownPage::getOutputLocation('/foo/\\'));
+        $this->assertEquals('foo.html', MarkdownPage::outputLocation('/foo/\\'));
     }
 
     public function test_get_current_page_path_returns_output_directory_and_basename()

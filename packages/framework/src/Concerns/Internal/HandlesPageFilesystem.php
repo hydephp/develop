@@ -60,7 +60,7 @@ trait HandlesPageFilesystem
      *
      * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
      */
-    public static function getOutputLocation(string $basename): string
+    public static function outputLocation(string $basename): string
     {
         // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
         return trim(
