@@ -11,6 +11,8 @@ use Hyde\Framework\Models\Markdown;
 /**
  * The base class for all Markdown-based Page Models.
  *
+ * @deprecated Will be merged into MarkdownPage
+ *
  * Normally, you would use the SourceFileParser to construct a MarkdownPage object.
  *
  * Extends the HydePage class to provide relevant
