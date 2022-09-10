@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Models\Pages;
 
-use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Models\Author;
