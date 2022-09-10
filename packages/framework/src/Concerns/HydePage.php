@@ -107,18 +107,18 @@ abstract class HydePage implements CompilableContract, PageSchema
         return $this->identifier;
     }
 
+    /** @inheritDoc */
+    public function getBladeView(): string
+    {
+        return static::$template;
+    }
+
     /**
      * Get the page title to display in HTML tags like <title> and <meta> tags.
      */
     public function htmlTitle(): string
     {
         return config('site.name', 'HydePHP').' - '.$this->title;
-    }
-
-    /** @inheritDoc */
-    public function getBladeView(): string
-    {
-        return static::$template;
     }
 
     public function renderPageMetadata(): string
