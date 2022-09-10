@@ -32,6 +32,14 @@ In general, these changes should only affect those who have written custom code 
 - Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
+- Renamed method outputLocation to outputPath in HydePage.php
+- Renamed method qualifyBasename to sourcePath in HydePage.php
+- Renamed method getOutputLocation to outputLocation in HydePage.php
+- Renamed method getFileExtension to fileExtension in HydePage.php
+- Renamed method getOutputDirectory to outputDirectory in HydePage.php
+- Renamed method getSourceDirectory to sourceDirectory in HydePage.php
+- Changed named variable $basename to $identifier in HydePage.php
+- Removed $strict option from the has() method HydePage.php
   
 ### Deprecated
 - for soon-to-be removed features.
