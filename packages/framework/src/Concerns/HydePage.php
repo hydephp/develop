@@ -107,7 +107,9 @@ abstract class HydePage implements CompilableContract, PageSchema
         return $this->identifier;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the Blade template key for the page.
+     */
     public function getBladeView(): string
     {
         return static::$template;
