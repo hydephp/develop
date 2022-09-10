@@ -4,10 +4,12 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
+use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Framework\Contracts\MarkdownPageContract;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 
-class MarkdownPage extends AbstractMarkdownPage
+class MarkdownPage extends HydePage implements MarkdownDocumentContract, MarkdownPageContract
 {
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
