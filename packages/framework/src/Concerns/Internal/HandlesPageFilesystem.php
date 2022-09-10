@@ -8,6 +8,7 @@ trait HandlesPageFilesystem
      * Get the directory in where source files are stored.
      *
      * @return string Path relative to the root of the project
+     * @example output: '_pages'
      */
     final public static function getSourceDirectory(): string
     {
@@ -18,6 +19,7 @@ trait HandlesPageFilesystem
      * Get the output subdirectory to store compiled HTML.
      *
      * @return string Relative to the site output directory.
+     * @example output: '', 'posts, 'docs
      */
     final public static function getOutputDirectory(): string
     {
@@ -35,10 +37,13 @@ trait HandlesPageFilesystem
     }
 
     /**
-     * Qualify a page basename into a referenceable file path.
+     * Qualify a page basename into a referenceable local file path.
      *
      * @param  string  $basename  for the page model source file.
      * @return string path to the file relative to project root
+     *
+     * @example input: MarkdownPost::qualifyFilepath('hello-world')
+     * @example output: '_posts/hello-world.md'
      */
     public static function qualifyBasename(string $basename): string
     {
@@ -64,6 +69,7 @@ trait HandlesPageFilesystem
 
     /**
      * Get the path to the source file, relative to the project root.
+     * In other words, qualify the basename of the page instance.
      *
      * @return string Path relative to the project root.
      */
