@@ -15,6 +15,7 @@ class MarkdownPage extends HydePage implements MarkdownDocumentContract, Markdow
     public static string $outputDirectory = '';
     public static string $template = 'hyde::layouts/page';
     public static string $fileExtension = '.md';
+
     public string $identifier;
     public Markdown $markdown;
 
