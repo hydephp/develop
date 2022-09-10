@@ -65,13 +65,13 @@ class HydePageTest extends TestCase
     public function test_get_file_extension_returns_static_property()
     {
         MarkdownPage::$fileExtension = '.foo';
-        $this->assertEquals('.foo', MarkdownPage::getFileExtension());
+        $this->assertEquals('.foo', MarkdownPage::fileExtension());
     }
 
     public function test_get_file_extension_forces_leading_period()
     {
         MarkdownPage::$fileExtension = 'foo';
-        $this->assertEquals('.foo', MarkdownPage::getFileExtension());
+        $this->assertEquals('.foo', MarkdownPage::fileExtension());
     }
 
     public function test_get_identifier_returns_identifier_property()

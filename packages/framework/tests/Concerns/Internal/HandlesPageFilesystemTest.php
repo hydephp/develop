@@ -32,7 +32,7 @@ class HandlesPageFilesystemTest extends TestCase
     {
         $this->assertSame(
             '.md',
-            HandlesPageFilesystemTestClass::getFileExtension()
+            HandlesPageFilesystemTestClass::fileExtension()
         );
     }
 

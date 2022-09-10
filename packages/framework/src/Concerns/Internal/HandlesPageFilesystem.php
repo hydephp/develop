@@ -33,7 +33,7 @@ trait HandlesPageFilesystem
      *
      * @return string (e.g. ".md")
      */
-    final public static function getFileExtension(): string
+    final public static function fileExtension(): string
     {
         return '.'.ltrim(static::$fileExtension, '.');
     }
@@ -49,7 +49,7 @@ trait HandlesPageFilesystem
      */
     public static function qualifyBasename(string $basename): string
     {
-        return static::sourceDirectory().'/'.unslash($basename).static::getFileExtension();
+        return static::sourceDirectory().'/'.unslash($basename).static::fileExtension();
     }
 
     /**
