@@ -14,7 +14,7 @@ use Hyde\Framework\Models\Markdown;
 /**
  * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest
  */
-class MarkdownPost extends AbstractMarkdownPage implements BlogPostSchema
+class MarkdownPost extends MarkdownPage implements BlogPostSchema
 {
     public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
