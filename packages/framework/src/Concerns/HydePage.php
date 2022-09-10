@@ -58,6 +58,8 @@ abstract class HydePage implements CompilableContract, PageSchema
         $this->metadata = new Metadata($this);
     }
 
+    // Section: Query
+
     /**
      * Parse a source file into a page model instance.
      *
@@ -91,6 +93,8 @@ abstract class HydePage implements CompilableContract, PageSchema
         return Hyde::pages()->getPages(static::class);
     }
 
+    // Section: Getters
+
     /**
      * Get the page model's identifier property.
      *
@@ -114,6 +118,8 @@ abstract class HydePage implements CompilableContract, PageSchema
     {
         return static::$template;
     }
+
+    // Section: Accessors
 
     /**
      * Get the page title to display in HTML tags like <title> and <meta> tags.
