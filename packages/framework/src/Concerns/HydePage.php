@@ -61,7 +61,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Parse a source file into a page model instance.
      *
-     * @param  string  $identifier The identifier of the page to parse.
+     * @param  string  $identifier  The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
