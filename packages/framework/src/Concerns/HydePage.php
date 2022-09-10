@@ -72,7 +72,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get an array of all the source file slugs for the model.
+     * Get an array of all the source file identifiers for the model.
      * Essentially an alias of DiscoveryService::getAbstractPageList().
      *
      * @return array<string>|false
