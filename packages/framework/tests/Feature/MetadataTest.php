@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Metadata\LinkItem;
 use Hyde\Framework\Models\Metadata\Metadata;
@@ -30,7 +30,7 @@ class MetadataTest extends TestCase
         config(['site.generate_sitemap' => false]);
     }
 
-    protected function assertPageHasMetadata(AbstractPage $page, string $metadata)
+    protected function assertPageHasMetadata(HydePage $page, string $metadata)
     {
         $this->assertStringContainsString(
             $metadata,
@@ -38,7 +38,7 @@ class MetadataTest extends TestCase
         );
     }
 
-    protected function assertPageDoesNotHaveMetadata(AbstractPage $page, string $metadata)
+    protected function assertPageDoesNotHaveMetadata(HydePage $page, string $metadata)
     {
         $this->assertStringNotContainsString(
             $metadata,

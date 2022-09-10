@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Metadata;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
@@ -15,14 +15,14 @@ use Hyde\Framework\Services\RssFeedService;
  */
 class Metadata
 {
-    protected AbstractPage $page;
+    protected HydePage $page;
 
     public array $links = [];
     public array $metadata = [];
     public array $properties = [];
     public array $generics = [];
 
-    public function __construct(AbstractPage $page)
+    public function __construct(HydePage $page)
     {
         $this->page = $page;
         $this->generate();
@@ -79,7 +79,7 @@ class Metadata
         $this->addDynamicPageMetadata($this->page);
     }
 
-    protected function addDynamicPageMetadata(AbstractPage $page): void
+    protected function addDynamicPageMetadata(HydePage $page): void
     {
         if ($page->has('canonicalUrl')) {
             $this->add(Meta::link('canonical', $page->get('canonicalUrl')));

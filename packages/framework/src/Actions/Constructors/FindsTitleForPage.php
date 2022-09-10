@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 
 /**
@@ -13,12 +13,12 @@ use Hyde\Framework\Hyde;
  */
 final class FindsTitleForPage
 {
-    public static function run(AbstractPage $page): string
+    public static function run(HydePage $page): string
     {
         return trim((new self($page))->findTitleForPage());
     }
 
-    protected function __construct(protected AbstractPage $page)
+    protected function __construct(protected HydePage $page)
     {
     }
 

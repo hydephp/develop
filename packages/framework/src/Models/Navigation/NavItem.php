@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Navigation;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Str;
@@ -91,7 +91,7 @@ class NavItem implements \Stringable
     /**
      * Check if the NavItem instance is the current page.
      */
-    public function isCurrent(?AbstractPage $current = null): bool
+    public function isCurrent(?HydePage $current = null): bool
     {
         if ($current === null) {
             $current = Hyde::currentRoute()->getSourceModel();

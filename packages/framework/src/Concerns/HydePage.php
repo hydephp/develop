@@ -27,7 +27,7 @@ use Hyde\Framework\Services\DiscoveryService;
  * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
  */
-abstract class AbstractPage implements CompilableContract, PageSchema
+abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
 
@@ -94,7 +94,7 @@ abstract class AbstractPage implements CompilableContract, PageSchema
      *
      * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): AbstractPage
+    public static function parse(string $slug): HydePage
     {
         return (new SourceFileParser(static::class, $slug))->get();
     }
@@ -115,7 +115,7 @@ abstract class AbstractPage implements CompilableContract, PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\AbstractPage
+     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
      *
      * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
      * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest

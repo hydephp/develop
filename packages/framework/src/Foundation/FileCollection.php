@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\File;
@@ -66,7 +66,7 @@ final class FileCollection extends BaseFoundationCollection
         return $this;
     }
 
-    /** @param string<AbstractPage> $pageClass */
+    /** @param string<HydePage> $pageClass */
     protected function discoverFilesFor(string $pageClass): void
     {
         // Scan the source directory, and directories therein, for files that match the model's file extension.

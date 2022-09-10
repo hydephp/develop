@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -14,13 +14,13 @@ use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * Test the AbstractPage class.
+ * Test the HydePage class.
  *
  * Since the class is abstract, we can't test it directly,
  * so we will use the MarkdownPage class as a proxy,
  * since it's the simplest implementation.
  *
- * @covers \Hyde\Framework\Concerns\AbstractPage
+ * @covers \Hyde\Framework\Concerns\HydePage
  * @covers \Hyde\Framework\Concerns\AbstractMarkdownPage
  * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  * @covers \Hyde\Framework\Concerns\ConstructsPageSchemas
@@ -188,7 +188,7 @@ class AbstractPageTest extends TestCase
 
     public function test_markdown_page_implements_page_contract()
     {
-        $this->assertInstanceOf(AbstractPage::class, new MarkdownPage());
+        $this->assertInstanceOf(HydePage::class, new MarkdownPage());
     }
 
     public function test_all_page_models_extend_abstract_page()
@@ -200,10 +200,10 @@ class AbstractPageTest extends TestCase
         ];
 
         foreach ($pages as $page) {
-            $this->assertInstanceOf(AbstractPage::class, new $page());
+            $this->assertInstanceOf(HydePage::class, new $page());
         }
 
-        $this->assertInstanceOf(AbstractPage::class, new BladePage('foo'));
+        $this->assertInstanceOf(HydePage::class, new BladePage('foo'));
     }
 
     public function test_all_page_models_have_configured_source_directory()
@@ -250,12 +250,12 @@ class AbstractPageTest extends TestCase
 
     public function test_abstract_markdown_page_extends_abstract_page()
     {
-        $this->assertInstanceOf(AbstractPage::class, $this->mock(AbstractMarkdownPage::class));
+        $this->assertInstanceOf(HydePage::class, $this->mock(AbstractMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_implements_page_contract()
     {
-        $this->assertInstanceOf(AbstractPage::class, $this->mock(AbstractMarkdownPage::class));
+        $this->assertInstanceOf(HydePage::class, $this->mock(AbstractMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_has_markdown_document_property()

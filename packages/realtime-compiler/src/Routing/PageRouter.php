@@ -5,7 +5,7 @@ namespace Hyde\RealtimeCompiler\Routing;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Models\Route;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
@@ -55,7 +55,7 @@ class PageRouter
         return ltrim($path, '/');
     }
 
-    protected function getHtml(AbstractPage $page): string
+    protected function getHtml(HydePage $page): string
     {
         return file_get_contents((new StaticPageBuilder($page))->__invoke());
     }

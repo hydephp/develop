@@ -68,7 +68,7 @@ class BuildService
     }
 
     /**
-     * @return \Hyde\Framework\Foundation\RouteCollection<array-key, class-string<\Hyde\Framework\Concerns\AbstractPage>>
+     * @return \Hyde\Framework\Foundation\RouteCollection<array-key, class-string<\Hyde\Framework\Concerns\HydePage>>
      */
     protected function getDiscoveredModels(): RouteCollection
     {

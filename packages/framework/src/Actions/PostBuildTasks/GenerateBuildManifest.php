@@ -24,7 +24,7 @@ class GenerateBuildManifest extends AbstractBuildTask
     {
         $manifest = new Collection();
 
-        /** @var \Hyde\Framework\Concerns\AbstractPage $page */
+        /** @var \Hyde\Framework\Concerns\HydePage $page */
         foreach (Hyde::pages() as $page) {
             $manifest->push([
                 'page' => $page->getSourcePath(),

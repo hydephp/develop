@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\Concerns\AbstractPage::all()
+ * @see \Hyde\Framework\Concerns\HydePage::all()
  */
 class PageModelGetHelperTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\AbstractMarkdownPage;
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
@@ -23,7 +23,7 @@ class SourceFileParser
     use ValidatesExistence;
 
     protected string $identifier;
-    protected AbstractPage $page;
+    protected HydePage $page;
 
     public function __construct(string $pageClass, string $identifier)
     {
@@ -57,7 +57,7 @@ class SourceFileParser
         );
     }
 
-    public function get(): AbstractPage
+    public function get(): HydePage
     {
         return $this->page;
     }
