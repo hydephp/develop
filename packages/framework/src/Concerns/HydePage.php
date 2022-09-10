@@ -98,6 +98,17 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
+     * Format an identifier to a route key.
+     *
+     * @param string $identifier
+     * @return string
+     */
+    public static function routeKey(string $identifier): string
+    {
+        return trim(static::outputDirectory().'/'.$identifier, '/');
+    }
+
+    /**
      * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
      *
      * @return \Hyde\Framework\Models\FrontMatter|mixed
