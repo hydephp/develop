@@ -115,19 +115,19 @@ class HydePageTest extends TestCase
 
     public function test_qualify_basename_properly_expands_basename_for_the_model()
     {
-        $this->assertEquals('_pages/foo.md', MarkdownPage::qualifyBasename('foo'));
+        $this->assertEquals('_pages/foo.md', MarkdownPage::sourcePath('foo'));
     }
 
     public function test_qualify_basename_trims_slashes_from_input()
     {
-        $this->assertEquals('_pages/foo.md', MarkdownPage::qualifyBasename('/foo/\\'));
+        $this->assertEquals('_pages/foo.md', MarkdownPage::sourcePath('/foo/\\'));
     }
 
     public function test_qualify_basename_uses_the_static_properties()
     {
         MarkdownPage::$sourceDirectory = 'foo';
         MarkdownPage::$fileExtension = 'txt';
-        $this->assertEquals('foo/bar.txt', MarkdownPage::qualifyBasename('bar'));
+        $this->assertEquals('foo/bar.txt', MarkdownPage::sourcePath('bar'));
     }
 
     public function test_get_output_location_returns_the_file_output_path_for_the_supplied_basename()
@@ -181,7 +181,7 @@ class HydePageTest extends TestCase
     public function test_get_source_path_returns_qualified_basename()
     {
         $this->assertEquals(
-            MarkdownPage::qualifyBasename('foo'),
+            MarkdownPage::sourcePath('foo'),
             (new MarkdownPage('foo'))->getSourcePath()
         );
     }

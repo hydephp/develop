@@ -47,7 +47,7 @@ trait HandlesPageFilesystem
      * @example input: MarkdownPost::qualifyFilepath('hello-world')
      * @example output: '_posts/hello-world.md'
      */
-    public static function qualifyBasename(string $basename): string
+    public static function sourcePath(string $basename): string
     {
         return static::sourceDirectory().'/'.unslash($basename).static::fileExtension();
     }
@@ -77,7 +77,7 @@ trait HandlesPageFilesystem
      */
     public function getSourcePath(): string
     {
-        return static::qualifyBasename($this->identifier);
+        return static::sourcePath($this->identifier);
     }
 
     /**

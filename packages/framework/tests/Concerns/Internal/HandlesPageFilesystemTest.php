@@ -40,7 +40,7 @@ class HandlesPageFilesystemTest extends TestCase
     {
         $this->assertSame(
             'source/hello-world.md',
-            HandlesPageFilesystemTestClass::qualifyBasename('hello-world')
+            HandlesPageFilesystemTestClass::sourcePath('hello-world')
         );
     }
 
