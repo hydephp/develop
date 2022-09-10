@@ -20,7 +20,7 @@ use Hyde\Framework\Models\Markdown;
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  * @see \Hyde\Framework\Models\Pages\DocumentationPage
  * @see \Hyde\Framework\Concerns\HydePage
- * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 abstract class AbstractMarkdownPage extends HydePage implements MarkdownDocumentContract, MarkdownPageContract
 {

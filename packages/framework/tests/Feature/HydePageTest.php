@@ -25,7 +25,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  * @covers \Hyde\Framework\Concerns\ConstructsPageSchemas
  */
-class AbstractPageTest extends TestCase
+class HydePageTest extends TestCase
 {
     protected function tearDown(): void
     {

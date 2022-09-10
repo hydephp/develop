@@ -25,7 +25,7 @@ use Hyde\Framework\Services\DiscoveryService;
  * and you can then access the parsed file from the HydeKernel's page index.
  *
  * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
- * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 abstract class HydePage implements CompilableContract, PageSchema
 {

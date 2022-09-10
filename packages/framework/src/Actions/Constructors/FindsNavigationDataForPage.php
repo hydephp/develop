@@ -10,7 +10,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * Finds the appropriate navigation data for a page.
  *
- * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 class FindsNavigationDataForPage
 {
