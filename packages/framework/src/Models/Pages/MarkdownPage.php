@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Models\Pages;
 
-use Hyde\Framework\Concerns\AbstractMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Contracts\MarkdownPageContract;
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 
