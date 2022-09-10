@@ -100,7 +100,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Format an identifier to a route key.
      *
-     * @param string $identifier
+     * @param  string  $identifier
      * @return string
      */
     public static function routeKey(string $identifier): string
