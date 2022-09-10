@@ -11,6 +11,7 @@ In general, these changes should only affect those who have written custom code 
 - Adds a helper class to get an object representation of the front matter schemas and their supported types [#484](https://github.com/hydephp/develop/pull/484)
 
 ### Changed
+- Renamed base class AbstractPage to HydePage
 - Moved class StaticPageBuilder to Actions namespace
 - Moved class AbstractBuildTask to Concerns namespace
 - Moved class AbstractMarkdownPage to Concerns namespace
