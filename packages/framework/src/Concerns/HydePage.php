@@ -50,63 +50,32 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
-        $this->routeKey = trim(static::getOutputDirectory().'/'.$this->identifier, '/');
+        $this->routeKey = static::routeKey($identifier);
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
         $this->metadata = new Metadata($this);
     }
 
-    /**
-     * Get the directory in where source files are stored.
-     *
-     * @return string Path relative to the root of the project
-     */
-    final public static function getSourceDirectory(): string
-    {
-        return unslash(static::$sourceDirectory);
-    }
+    // Section: Query
 
     /**
-     * Get the output subdirectory to store compiled HTML.
+     * Parse a source file into a page model instance.
      *
-     * @return string Relative to the site output directory.
-     */
-    final public static function getOutputDirectory(): string
-    {
-        return unslash(static::$outputDirectory);
-    }
-
-    /**
-     * Get the file extension of the source files.
-     *
-     * @return string (e.g. ".md")
-     */
-    final public static function getFileExtension(): string
-    {
-        return '.'.ltrim(static::$fileExtension, '.');
-    }
-
-    /**
-     * Parse a source file slug into a page model.
-     *
-     * @param  string  $slug
+     * @param  string  $identifier  The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
-     *
-     * @see \Hyde\Framework\Testing\Unit\PageModelParseHelperTest
      */
-    public static function parse(string $slug): HydePage
+    public static function parse(string $identifier): HydePage
     {
-        return (new SourceFileParser(static::class, $slug))->get();
+        return (new SourceFileParser(static::class, $identifier))->get();
     }
 
     /**
-     * Get an array of all the source file slugs for the model.
+     * Get an array of all the source file identifiers for the model.
+     *
      * Essentially an alias of DiscoveryService::getAbstractPageList().
      *
      * @return array<string>|false
-     *
-     * @see \Hyde\Framework\Testing\Unit\PageModelGetAllFilesHelperTest
      */
     public static function files(): array|false
     {
@@ -116,43 +85,135 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage>
-     *
-     * @since v0.59.0-beta the returned collection is a PageCollection, and now includes the source file path as the array key
-     * @see \Hyde\Framework\Testing\Unit\PageModelGetHelperTest
+     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
      */
     public static function all(): PageCollection
     {
         return Hyde::pages()->getPages(static::class);
     }
 
+    // Section: Filesystem
+
     /**
-     * Qualify a page basename into a referenceable file path.
-     *
-     * @param  string  $basename  for the page model source file.
-     * @return string path to the file relative to project root
+     * Get the directory in where source files are stored.
      */
-    public static function qualifyBasename(string $basename): string
+    final public static function sourceDirectory(): string
     {
-        return static::getSourceDirectory().'/'.unslash($basename).static::getFileExtension();
+        return unslash(static::$sourceDirectory);
+    }
+
+    /**
+     * Get the output subdirectory to store compiled HTML.
+     */
+    final public static function outputDirectory(): string
+    {
+        return unslash(static::$outputDirectory);
+    }
+
+    /**
+     * Get the file extension of the source files.
+     */
+    final public static function fileExtension(): string
+    {
+        return '.'.ltrim(static::$fileExtension, '.');
+    }
+
+    /**
+     * Qualify a page identifier into a referenceable local file path.
+     */
+    public static function sourcePath(string $identifier): string
+    {
+        return static::sourceDirectory().'/'.unslash($identifier).static::fileExtension();
     }
 
     /**
      * Get the proper site output path for a page model.
-     *
-     * @param  string  $basename  for the page model source file.
-     * @return string of the output file relative to the site output directory.
-     *
-     * @example DocumentationPage::getOutputPath('index') => 'docs/index.html'
      */
-    public static function getOutputLocation(string $basename): string
+    public static function outputPath(string $identifier): string
     {
-        // Using the trim function we ensure we don't have a leading slash when the output directory is the root directory.
-        return trim(
-            static::getOutputDirectory().'/'.unslash($basename),
-            '/'
-        ).'.html';
+        return static::routeKey($identifier).'.html';
     }
+
+    /**
+     * Get the path to the source file, relative to the project root.
+     * In other words, qualify the identifier of the page instance.
+     */
+    public function getSourcePath(): string
+    {
+        return static::sourcePath($this->identifier);
+    }
+
+    /**
+     * Get the path where the compiled page instance will be saved.
+     */
+    public function getOutputPath(): string
+    {
+        return static::outputPath($this->identifier);
+    }
+
+    // Section: Routing
+
+    /**
+     * Format a page identifier to a route key.
+     */
+    public static function routeKey(string $identifier): string
+    {
+        return unslash(static::outputDirectory().'/'.$identifier);
+    }
+
+    /**
+     * Get the route key for the page.
+     *
+     * The route key is the URI path relative to the site root.
+     *
+     * For example, if the compiled page will be saved to _site/docs/index.html,
+     * then this method will return 'docs/index'. Route keys are used to
+     * identify pages, similar to how named routes work in Laravel.
+     *
+     * @return string The page's route key.
+     */
+    public function getRouteKey(): string
+    {
+        return $this->routeKey;
+    }
+
+    /**
+     * Get the route for the page.
+     *
+     * @return RouteContract The page's route.
+     */
+    public function getRoute(): RouteContract
+    {
+        return new Route($this);
+    }
+
+    // Section: Getters
+
+    /**
+     * Get the page model's identifier property.
+     *
+     * The identifier is the part between the source directory and the file extension.
+     * It may also be known as a 'slug', or previously 'basename'.
+     *
+     * For example, the identifier of a source file stored as '_pages/about/contact.md'
+     * would be 'about/contact', and 'pages/about.md' would simply be 'about'.
+     *
+     * @return string The page's identifier.
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * Get the Blade template key for the page.
+     */
+    public function getBladeView(): string
+    {
+        return static::$template;
+    }
+
+    // Section: Front Matter
 
     /**
      * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
@@ -180,98 +241,21 @@ abstract class HydePage implements CompilableContract, PageSchema
 
     /**
      * See if a value exists in the computed page data or the front matter.
-     *
-     * @param  string  $key
-     * @param  bool  $strict  When set to true, an additional check if the property is not blank is performed.
-     * @return bool
      */
-    public function has(string $key, bool $strict = false): bool
+    public function has(string $key): bool
     {
-        if ($strict) {
-            return property_exists($this, $key) || $this->matter->has($key);
-        }
-
         return ! blank($this->get($key));
     }
 
-    /**
-     * Get the page model's identifier property.
-     *
-     * @return string The page's identifier/slug.
-     */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    // Section: Accessors
 
     /**
-     * Get the path to the source file, relative to the project root.
-     *
-     * @return string Path relative to the project root.
-     */
-    public function getSourcePath(): string
-    {
-        return static::qualifyBasename($this->identifier);
-    }
-
-    /**
-     * Get the path where the compiled page will be saved.
-     *
-     * @return string Path relative to the site output directory.
-     */
-    public function getOutputPath(): string
-    {
-        return $this->getRouteKey().'.html';
-    }
-
-    /**
-     * Get the route key for the page.
-     *
-     * The route key is the URI path relative to the site root.
-     *
-     * For example, if the compiled page will be saved to _site/docs/index.html,
-     * then this method will return 'docs/index'. Route keys are used to
-     * identify pages, similar to how named routes work in Laravel.
-     *
-     * @return string URI path relative to the site root.
-     */
-    public function getRouteKey(): string
-    {
-        return $this->routeKey;
-    }
-
-    /**
-     * Get the route for the page.
-     *
-     * @return \Hyde\Framework\Contracts\RouteContract
-     */
-    public function getRoute(): RouteContract
-    {
-        return new Route($this);
-    }
-
-    /**
-     * Get the page title to display in the <head> section's <title> tag.
-     *
-     * @return string Example: "Site Name - Page Title"
+     * Get the page title to display in HTML tags like <title> and <meta> tags.
      */
     public function htmlTitle(): string
     {
         return config('site.name', 'HydePHP').' - '.$this->title;
     }
-
-    /** @inheritDoc */
-    public function getBladeView(): string
-    {
-        return static::$template;
-    }
-
-    /**
-     * Compile the page into static HTML.
-     *
-     * @return string The compiled HTML for the page.
-     */
-    abstract public function compile(): string;
 
     public function renderPageMetadata(): string
     {

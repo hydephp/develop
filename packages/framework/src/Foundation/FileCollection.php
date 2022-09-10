@@ -70,7 +70,7 @@ final class FileCollection extends BaseFoundationCollection
     protected function discoverFilesFor(string $pageClass): void
     {
         // Scan the source directory, and directories therein, for files that match the model's file extension.
-        foreach (glob($this->kernel->path($pageClass::qualifyBasename('{*,**/*}')), GLOB_BRACE) as $filepath) {
+        foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename($filepath), '_')) {
                 $this->put($this->kernel->pathToRelative($filepath), File::make($filepath)->belongsTo($pageClass));
             }

@@ -41,37 +41,37 @@ class HydePageTest extends TestCase
     public function test_get_source_directory_returns_static_property()
     {
         MarkdownPage::$sourceDirectory = 'foo';
-        $this->assertEquals('foo', MarkdownPage::getSourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
     }
 
     public function test_get_source_directory_trims_trailing_slashes()
     {
         MarkdownPage::$sourceDirectory = '/foo/\\';
-        $this->assertEquals('foo', MarkdownPage::getSourceDirectory());
+        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
     }
 
     public function test_get_output_directory_returns_static_property()
     {
         MarkdownPage::$outputDirectory = 'foo';
-        $this->assertEquals('foo', MarkdownPage::getOutputDirectory());
+        $this->assertEquals('foo', MarkdownPage::outputDirectory());
     }
 
     public function test_get_output_directory_trims_trailing_slashes()
     {
         MarkdownPage::$outputDirectory = '/foo/\\';
-        $this->assertEquals('foo', MarkdownPage::getOutputDirectory());
+        $this->assertEquals('foo', MarkdownPage::outputDirectory());
     }
 
     public function test_get_file_extension_returns_static_property()
     {
         MarkdownPage::$fileExtension = '.foo';
-        $this->assertEquals('.foo', MarkdownPage::getFileExtension());
+        $this->assertEquals('.foo', MarkdownPage::fileExtension());
     }
 
     public function test_get_file_extension_forces_leading_period()
     {
         MarkdownPage::$fileExtension = 'foo';
-        $this->assertEquals('.foo', MarkdownPage::getFileExtension());
+        $this->assertEquals('.foo', MarkdownPage::fileExtension());
     }
 
     public function test_get_identifier_returns_identifier_property()
@@ -115,41 +115,41 @@ class HydePageTest extends TestCase
 
     public function test_qualify_basename_properly_expands_basename_for_the_model()
     {
-        $this->assertEquals('_pages/foo.md', MarkdownPage::qualifyBasename('foo'));
+        $this->assertEquals('_pages/foo.md', MarkdownPage::sourcePath('foo'));
     }
 
     public function test_qualify_basename_trims_slashes_from_input()
     {
-        $this->assertEquals('_pages/foo.md', MarkdownPage::qualifyBasename('/foo/\\'));
+        $this->assertEquals('_pages/foo.md', MarkdownPage::sourcePath('/foo/\\'));
     }
 
     public function test_qualify_basename_uses_the_static_properties()
     {
         MarkdownPage::$sourceDirectory = 'foo';
         MarkdownPage::$fileExtension = 'txt';
-        $this->assertEquals('foo/bar.txt', MarkdownPage::qualifyBasename('bar'));
+        $this->assertEquals('foo/bar.txt', MarkdownPage::sourcePath('bar'));
     }
 
     public function test_get_output_location_returns_the_file_output_path_for_the_supplied_basename()
     {
-        $this->assertEquals('foo.html', MarkdownPage::getOutputLocation('foo'));
+        $this->assertEquals('foo.html', MarkdownPage::outputPath('foo'));
     }
 
     public function test_get_output_location_returns_the_configured_location()
     {
         MarkdownPage::$outputDirectory = 'foo';
-        $this->assertEquals('foo/bar.html', MarkdownPage::getOutputLocation('bar'));
+        $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
     }
 
     public function test_get_output_location_trims_trailing_slashes_from_directory_setting()
     {
         MarkdownPage::$outputDirectory = '/foo/\\';
-        $this->assertEquals('foo/bar.html', MarkdownPage::getOutputLocation('bar'));
+        $this->assertEquals('foo/bar.html', MarkdownPage::outputPath('bar'));
     }
 
     public function test_get_output_location_trims_trailing_slashes_from_basename()
     {
-        $this->assertEquals('foo.html', MarkdownPage::getOutputLocation('/foo/\\'));
+        $this->assertEquals('foo.html', MarkdownPage::outputPath('/foo/\\'));
     }
 
     public function test_get_current_page_path_returns_output_directory_and_basename()
@@ -181,7 +181,7 @@ class HydePageTest extends TestCase
     public function test_get_source_path_returns_qualified_basename()
     {
         $this->assertEquals(
-            MarkdownPage::qualifyBasename('foo'),
+            MarkdownPage::sourcePath('foo'),
             (new MarkdownPage('foo'))->getSourcePath()
         );
     }
@@ -635,27 +635,10 @@ class HydePageTest extends TestCase
         $this->assertFalse($page->has('foo'));
     }
 
-    public function test_has_method_does_not_returns_false_for_blank_properties_when_strict_is_set_to_true()
-    {
-        $page = MarkdownPage::make();
-        $page->foo = null;
-        $this->assertTrue($page->has('foo', true));
-
-        $page = MarkdownPage::make();
-        $page->foo = '';
-        $this->assertTrue($page->has('foo', true));
-    }
-
     public function test_has_method_returns_true_if_page_has_blank_property_set_in_front_matter()
     {
         $this->assertFalse(MarkdownPage::make(matter: ['foo' => null])->has('foo'));
         $this->assertFalse(MarkdownPage::make(matter: ['foo' => ''])->has('foo'));
-    }
-
-    public function test_has_method_does_not_returns_false_for_blank_set_in_front_matter_when_strict_is_set_to_true()
-    {
-        $this->assertTrue(MarkdownPage::make(matter: ['foo' => null])->has('foo', true));
-        $this->assertTrue(MarkdownPage::make(matter: ['foo' => ''])->has('foo', true));
     }
 
     public function test_markdown_pages_can_be_saved_to_disk()

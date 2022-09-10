@@ -37,7 +37,7 @@ class DocumentationPage extends AbstractMarkdownPage implements DocumentationPag
     /** @inheritDoc */
     public function getRouteKey(): string
     {
-        return trim(static::getOutputDirectory().'/'.basename($this->identifier), '/');
+        return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
     }
 
     /** @internal */
@@ -66,5 +66,13 @@ class DocumentationPage extends AbstractMarkdownPage implements DocumentationPag
     public function getTableOfContents(): string
     {
         return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
+    }
+
+    /**
+     * Return the output path for the identifier basename so nested pages are flattened.
+     */
+    public function getOutputPath(): string
+    {
+        return static::outputPath(basename($this->identifier));
     }
 }

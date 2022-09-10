@@ -51,13 +51,13 @@ class DiscoveryService
     public static function getModelFileExtension(string $model): string
     {
         /** @var \Hyde\Framework\Concerns\HydePage $model */
-        return $model::getFileExtension();
+        return $model::fileExtension();
     }
 
     public static function getModelSourceDirectory(string $model): string
     {
         /** @var \Hyde\Framework\Concerns\HydePage $model */
-        return $model::getSourceDirectory();
+        return $model::sourceDirectory();
     }
 
     public static function getBladePageFiles(): array

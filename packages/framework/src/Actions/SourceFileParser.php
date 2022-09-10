@@ -39,7 +39,7 @@ class SourceFileParser
     {
         return new BladePage(
             $this->identifier,
-            (BladeMatterParser::parseFile(BladePage::qualifyBasename($this->identifier)))
+            (BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier)))
         );
     }
 
@@ -47,7 +47,7 @@ class SourceFileParser
     {
         /** @var \Hyde\Framework\Concerns\AbstractMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
-            $pageClass::qualifyBasename($this->identifier)
+            $pageClass::sourcePath($this->identifier)
         );
 
         return new $pageClass(

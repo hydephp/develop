@@ -20,8 +20,8 @@ trait ValidatesExistence
     public function validateExistence(string $model, string $slug): void
     {
         /** @var \Hyde\Framework\Concerns\HydePage $model */
-        $filepath = $model::getSourceDirectory().'/'.
-            $slug.$model::getFileExtension();
+        $filepath = $model::sourceDirectory().'/'.
+            $slug.$model::fileExtension();
 
         if (! file_exists(Hyde::path($filepath))) {
             throw new FileNotFoundException($filepath);

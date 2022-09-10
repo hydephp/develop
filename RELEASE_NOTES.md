@@ -2,7 +2,7 @@
 
 ### About
 
-This release performs some refactors in preparation for the 1.0 release. Many of these refactors are breaking as several classes are moved around to new namespaces, several are merged, methods renamed, interfaces updated, and more, so forth, etc.
+This release performs a large amount of refactors and naming changes in preparation for the 1.0 release. Many of these refactors are breaking as several classes are moved around to new namespaces, several are merged, methods renamed, interfaces updated, and more, so forth, etc.
 
 In general, these changes should only affect those who have written custom code that interacts with the framework, though you may need to update your configuration files, and any Blade components you may have published.
 
@@ -11,6 +11,8 @@ In general, these changes should only affect those who have written custom code 
 - Adds a helper class to get an object representation of the front matter schemas and their supported types [#484](https://github.com/hydephp/develop/pull/484)
 
 ### Changed
+
+#### General
 - Renamed base class AbstractPage to HydePage
 - Moved class StaticPageBuilder to Actions namespace
 - Moved class AbstractBuildTask to Concerns namespace
@@ -32,6 +34,16 @@ In general, these changes should only affect those who have written custom code 
 - Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
+
+#### Page-model specific
+- Renamed method outputLocation to outputPath in HydePage.php
+- Renamed method qualifyBasename to sourcePath in HydePage.php
+- Renamed method getOutputLocation to outputLocation in HydePage.php
+- Renamed method getFileExtension to fileExtension in HydePage.php
+- Renamed method getOutputDirectory to outputDirectory in HydePage.php
+- Renamed method getSourceDirectory to sourceDirectory in HydePage.php
+- Changed named variable $basename to $identifier in HydePage.php
+- Removed $strict option from the has() method HydePage.php
   
 ### Deprecated
 - for soon-to-be removed features.

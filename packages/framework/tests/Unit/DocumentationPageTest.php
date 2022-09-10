@@ -58,14 +58,14 @@ class DocumentationPageTest extends TestCase
 
     public function test_can_get_documentation_output_path()
     {
-        $this->assertEquals('docs', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('docs', DocumentationPage::outputDirectory());
     }
 
     public function test_can_get_documentation_output_path_with_custom_output_directory()
     {
         config(['docs.output_directory' => 'foo']);
         (new HydeServiceProvider($this->app))->register();
-        $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
+        $this->assertEquals('foo', DocumentationPage::outputDirectory());
     }
 
     public function test_can_get_documentation_output_path_with_trailing_slashes()
@@ -81,14 +81,14 @@ class DocumentationPageTest extends TestCase
         foreach ($tests as $test) {
             config(['docs.output_directory' => $test]);
             (new HydeServiceProvider($this->app))->register();
-            $this->assertEquals('foo', DocumentationPage::getOutputDirectory());
+            $this->assertEquals('foo', DocumentationPage::outputDirectory());
         }
     }
 
     public function test_get_source_path_returns_qualified_basename()
     {
         $this->assertEquals(
-            DocumentationPage::qualifyBasename('foo'),
+            DocumentationPage::sourcePath('foo'),
             (new DocumentationPage(identifier: 'foo'))->getSourcePath()
         );
     }
@@ -96,7 +96,7 @@ class DocumentationPageTest extends TestCase
     public function test_get_source_path_returns_qualified_basename_for_nested_page()
     {
         $this->assertEquals(
-            DocumentationPage::qualifyBasename('foo/bar'),
+            DocumentationPage::sourcePath('foo/bar'),
             (new DocumentationPage(identifier: 'foo/bar'))->getSourcePath()
         );
     }

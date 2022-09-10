@@ -34,8 +34,8 @@ class Hyperlinks
                 if ($destination === 'index.html') {
                     return '/';
                 }
-                if ($destination === DocumentationPage::getOutputDirectory().'/index.html') {
-                    return DocumentationPage::getOutputDirectory().'/';
+                if ($destination === DocumentationPage::outputDirectory().'/index.html') {
+                    return DocumentationPage::outputDirectory().'/';
                 }
 
                 return substr($destination, 0, -5);
