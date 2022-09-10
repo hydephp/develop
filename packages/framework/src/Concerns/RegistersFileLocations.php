@@ -19,15 +19,15 @@ trait RegistersFileLocations
      * Register the default source directories for the given page classes.
      * Location string should be relative to the root of the application.
      *
-     * @example registerSourceDirectories([AbstractPage::class => '_pages'])
+     * @example registerSourceDirectories([HydePage::class => '_pages'])
      *
-     * @param  array  $directoryMapping{class:  string<AbstractPage>, location: string}
+     * @param  array  $directoryMapping{class:  string<HydePage>, location: string}
      * @return void
      */
     protected function registerSourceDirectories(array $directoryMapping): void
     {
         foreach ($directoryMapping as $class => $location) {
-            /** @var AbstractPage $class */
+            /** @var HydePage $class */
             $class::$sourceDirectory = unslash($location);
         }
     }
@@ -38,15 +38,15 @@ trait RegistersFileLocations
      * However, some pages, like docs and posts are in subdirectories of the _site/ directory.
      * Location string should be relative to the root of the application.
      *
-     * @example registerOutputDirectories([AbstractPage::class => 'docs'])
+     * @example registerOutputDirectories([HydePage::class => 'docs'])
      *
-     * @param  array  $directoryMapping{class: string<AbstractPage>, location: string}
+     * @param  array  $directoryMapping{class: string<HydePage>, location: string}
      * @return void
      */
     protected function registerOutputDirectories(array $directoryMapping): void
     {
         foreach ($directoryMapping as $class => $location) {
-            /** @var AbstractPage $class */
+            /** @var HydePage $class */
             $class::$outputDirectory = unslash($location);
         }
     }

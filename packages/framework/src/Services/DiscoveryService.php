@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\File;
@@ -27,7 +27,7 @@ class DiscoveryService
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
-     * @param  string<\Hyde\Framework\Concerns\AbstractPage>  $model
+     * @param  string<\Hyde\Framework\Concerns\HydePage>  $model
      * @return array
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
@@ -36,7 +36,7 @@ class DiscoveryService
      */
     public static function getSourceFileListForModel(string $model): array
     {
-        if (! class_exists($model) || ! is_subclass_of($model, AbstractPage::class)) {
+        if (! class_exists($model) || ! is_subclass_of($model, HydePage::class)) {
             throw new UnsupportedPageTypeException($model);
         }
 
@@ -50,13 +50,13 @@ class DiscoveryService
 
     public static function getModelFileExtension(string $model): string
     {
-        /** @var \Hyde\Framework\Concerns\AbstractPage $model */
+        /** @var \Hyde\Framework\Concerns\HydePage $model */
         return $model::getFileExtension();
     }
 
     public static function getModelSourceDirectory(string $model): string
     {
-        /** @var \Hyde\Framework\Concerns\AbstractPage $model */
+        /** @var \Hyde\Framework\Concerns\HydePage $model */
         return $model::getSourceDirectory();
     }
 
@@ -92,7 +92,7 @@ class DiscoveryService
     /**
      * Create a filepath that can be opened in the browser from a terminal.
      *
-     * @param  string<\Hyde\Framework\Concerns\AbstractPage>  $filepath
+     * @param  string<\Hyde\Framework\Concerns\HydePage>  $filepath
      * @return string
      */
     public static function createClickableFilepath(string $filepath): string
@@ -110,7 +110,7 @@ class DiscoveryService
 
     public static function formatSlugForModel(string $model, string $filepath): string
     {
-        /** @var AbstractPage $model */
+        /** @var HydePage $model */
         $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
 
         if (str_ends_with($slug, $model::$fileExtension)) {

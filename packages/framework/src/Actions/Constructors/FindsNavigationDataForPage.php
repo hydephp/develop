@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use JetBrains\PhpStorm\ArrayShape;
@@ -10,17 +10,17 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * Finds the appropriate navigation data for a page.
  *
- * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 class FindsNavigationDataForPage
 {
     #[ArrayShape(['title' => 'string', 'hidden' => 'bool', 'priority' => 'int'])]
-    public static function run(AbstractPage $page): array
+    public static function run(HydePage $page): array
     {
         return (new static($page))->getData();
     }
 
-    final protected function __construct(protected AbstractPage $page)
+    final protected function __construct(protected HydePage $page)
     {
     }
 

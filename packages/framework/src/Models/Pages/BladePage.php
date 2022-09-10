@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Models\Pages;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Models\FrontMatter;
 
 /**
  * A basic wrapper for the custom Blade View compiler.
  */
-class BladePage extends AbstractPage
+class BladePage extends HydePage
 {
     /**
      * The name of the Blade View to compile. Commonly stored in _pages/{$identifier}.blade.php.

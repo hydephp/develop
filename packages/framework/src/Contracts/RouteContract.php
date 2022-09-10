@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Illuminate\Support\Collection;
 
 /**
@@ -13,23 +13,23 @@ interface RouteContract
     /**
      * Construct a new Route instance for the given page model.
      *
-     * @param  \Hyde\Framework\Concerns\AbstractPage  $sourceModel
+     * @param  \Hyde\Framework\Concerns\HydePage  $sourceModel
      */
-    public function __construct(AbstractPage $sourceModel);
+    public function __construct(HydePage $sourceModel);
 
     /**
      * Get the page type for the route.
      *
-     * @return class-string<\Hyde\Framework\Concerns\AbstractPage>
+     * @return class-string<\Hyde\Framework\Concerns\HydePage>
      */
     public function getPageType(): string;
 
     /**
      * Get the source model for the route.
      *
-     * @return \Hyde\Framework\Concerns\AbstractPage
+     * @return \Hyde\Framework\Concerns\HydePage
      */
-    public function getSourceModel(): AbstractPage;
+    public function getSourceModel(): HydePage;
 
     /**
      * Get the unique route key for the route.
@@ -107,12 +107,12 @@ interface RouteContract
     /**
      * Get a route from the Router index for the supplied page model.
      *
-     * @param  \Hyde\Framework\Concerns\AbstractPage  $page
+     * @param  \Hyde\Framework\Concerns\HydePage  $page
      * @return \Hyde\Framework\Contracts\RouteContract
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
-    public static function getFromModel(AbstractPage $page): RouteContract;
+    public static function getFromModel(HydePage $page): RouteContract;
 
     /**
      * Get all routes from the Router index.

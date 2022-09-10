@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Concerns\AbstractPage;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
@@ -20,9 +20,9 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
     /**
      * The source model for the route.
      *
-     * @var \Hyde\Framework\Concerns\AbstractPage
+     * @var \Hyde\Framework\Concerns\HydePage
      */
-    protected AbstractPage $sourceModel;
+    protected HydePage $sourceModel;
 
     /**
      * The unique route key for the route.
@@ -32,7 +32,7 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
     protected string $routeKey;
 
     /** @inheritDoc */
-    public function __construct(AbstractPage $sourceModel)
+    public function __construct(HydePage $sourceModel)
     {
         $this->sourceModel = $sourceModel;
         $this->routeKey = $sourceModel->getRouteKey();
@@ -67,7 +67,7 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
     }
 
     /** @inheritDoc */
-    public function getSourceModel(): AbstractPage
+    public function getSourceModel(): HydePage
     {
         return $this->sourceModel;
     }
@@ -117,7 +117,7 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
     }
 
     /** @inheritDoc */
-    public static function getFromModel(AbstractPage $page): RouteContract
+    public static function getFromModel(HydePage $page): RouteContract
     {
         return $page->getRoute();
     }

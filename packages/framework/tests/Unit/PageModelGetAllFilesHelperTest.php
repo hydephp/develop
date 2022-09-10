@@ -10,7 +10,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @see \Hyde\Framework\Concerns\AbstractPage::files()
+ * @see \Hyde\Framework\Concerns\HydePage::files()
  */
 class PageModelGetAllFilesHelperTest extends TestCase
 {

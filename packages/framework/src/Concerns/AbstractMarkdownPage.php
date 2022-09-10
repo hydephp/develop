@@ -13,16 +13,16 @@ use Hyde\Framework\Models\Markdown;
  *
  * Normally, you would use the SourceFileParser to construct a MarkdownPage object.
  *
- * Extends the AbstractPage class to provide relevant
+ * Extends the HydePage class to provide relevant
  * helpers for Markdown-based page model classes.
  *
  * @see \Hyde\Framework\Models\Pages\MarkdownPage
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  * @see \Hyde\Framework\Models\Pages\DocumentationPage
- * @see \Hyde\Framework\Concerns\AbstractPage
- * @see \Hyde\Framework\Testing\Feature\AbstractPageTest
+ * @see \Hyde\Framework\Concerns\HydePage
+ * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class AbstractMarkdownPage extends AbstractPage implements MarkdownDocumentContract, MarkdownPageContract
+abstract class AbstractMarkdownPage extends HydePage implements MarkdownDocumentContract, MarkdownPageContract
 {
     public string $identifier;
     public Markdown $markdown;
