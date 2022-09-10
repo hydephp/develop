@@ -17,7 +17,6 @@ use Hyde\Framework\Models\Markdown;
  *
  * Extends the HydePage class to provide relevant
  * helpers for Markdown-based page model classes.
- *
  * @see \Hyde\Framework\Models\Pages\MarkdownPage
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  * @see \Hyde\Framework\Models\Pages\DocumentationPage
