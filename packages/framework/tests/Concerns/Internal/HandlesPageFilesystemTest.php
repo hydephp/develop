@@ -48,7 +48,7 @@ class HandlesPageFilesystemTest extends TestCase
     {
         $this->assertSame(
             'output/hello-world.html',
-            HandlesPageFilesystemTestClass::outputLocation('hello-world')
+            HandlesPageFilesystemTestClass::outputPath('hello-world')
         );
     }
 
