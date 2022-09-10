@@ -2,7 +2,7 @@
 
 ### About
 
-This release performs some refactors in preparation for the 1.0 release. Many of these refactors are breaking as classes are moved around to new namespaces.
+This release performs some refactors in preparation for the 1.0 release. Many of these refactors are breaking as several classes are moved around to new namespaces, several are merged, methods renamed, interfaces updated, and more, so forth, etc.
 
 In general, these changes should only affect those who have written custom code that interacts with the framework, though you may need to update your configuration files, and any Blade components you may have published.
 
@@ -22,6 +22,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class NavigationMenu into Navigation namespace
 - Moved class NavItem into Navigation namespace
 - Moved class FindsContentLengthForImageObject into Constructors namespace
+- Merged interface PageContract into abstract class AbstractPage
 - Merged interface RouteFacadeContract into existing interface RouteContract
 - Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
 - Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
@@ -37,11 +38,12 @@ In general, these changes should only affect those who have written custom code 
 ### Removed
 - Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
+- Removed interface PageContract (merged into abstract class AbstractPage)
+- Removed interface RouteFacadeContract (merged into existing RouteContract)
 - Removed deprecated interface AssetServiceContract
 - Removed deprecated interface HydeKernelContract
 - Removed deprecated and unused abstract class ActionCommand
 - Removed unused function `array_map_unique`
-- Removed interface RouteFacadeContract (merged into existing RouteContract)
 - Removed method `PageContract::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
 - Removed method `AbstractPage::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
 - Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)

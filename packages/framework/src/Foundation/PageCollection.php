@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
@@ -18,14 +18,14 @@ use Illuminate\Support\Collection;
  */
 final class PageCollection extends BaseFoundationCollection
 {
-    public function getPage(string $sourcePath): PageContract
+    public function getPage(string $sourcePath): AbstractPage
     {
         return $this->items[$sourcePath] ?? throw new FileNotFoundException($sourcePath.' in page collection');
     }
 
     public function getPages(?string $pageClass = null): self
     {
-        return ! $pageClass ? $this : $this->filter(function (PageContract $page) use ($pageClass): bool {
+        return ! $pageClass ? $this : $this->filter(function (AbstractPage $page) use ($pageClass): bool {
             return $page instanceof $pageClass;
         });
     }
@@ -59,14 +59,14 @@ final class PageCollection extends BaseFoundationCollection
     }
 
     /**
-     * @param  string<\Hyde\Framework\Contracts\PageContract>  $pageClass
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Contracts\PageContract>
+     * @param  string<\Hyde\Framework\Concerns\AbstractPage>  $pageClass
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Concerns\AbstractPage>
      */
     protected function parsePagesFor(string $pageClass): Collection
     {
         $collection = new Collection();
 
-        /** @var PageContract $pageClass */
+        /** @var AbstractPage $pageClass */
         foreach ($pageClass::files() as $basename) {
             $collection->push($pageClass::parse($basename));
         }
@@ -74,7 +74,7 @@ final class PageCollection extends BaseFoundationCollection
         return $collection;
     }
 
-    protected function discover(PageContract $page): self
+    protected function discover(AbstractPage $page): self
     {
         // Create a new route for the given page, and add it to the index.
         $this->put($page->getSourcePath(), $page);

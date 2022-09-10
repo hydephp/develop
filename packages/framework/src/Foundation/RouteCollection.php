@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Models\Route;
@@ -50,7 +50,7 @@ final class RouteCollection extends BaseFoundationCollection
         return $this;
     }
 
-    protected function discover(PageContract $page): self
+    protected function discover(AbstractPage $page): self
     {
         // Create a new route for the given page, and add it to the index.
         $this->addRoute(new Route($page));
@@ -60,7 +60,7 @@ final class RouteCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        $this->kernel->pages()->each(function (PageContract $page) {
+        $this->kernel->pages()->each(function (AbstractPage $page) {
             $this->discover($page);
         });
 

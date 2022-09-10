@@ -3,7 +3,7 @@
 namespace Hyde\Testing;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Framework\Contracts\PageContract;
+use Hyde\Framework\Concerns\AbstractPage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Route;
@@ -58,7 +58,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /** @internal */
-    protected function mockPage(?PageContract $page = null, ?string $currentPage = null)
+    protected function mockPage(?AbstractPage $page = null, ?string $currentPage = null)
     {
         view()->share('page', $page ?? new MarkdownPage());
         view()->share('currentPage', $currentPage ?? 'PHPUnit');
