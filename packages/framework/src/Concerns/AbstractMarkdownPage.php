@@ -9,12 +9,7 @@ use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 
 /**
- * The base class for all Markdown-based Page Models.
- *
- * Normally, you would use the SourceFileParser to construct a MarkdownPage object.
- *
- * Extends the HydePage class to provide relevant
- * helpers for Markdown-based page model classes.
+ * The base class for all Markdown-based page models.
  *
  * @see \Hyde\Framework\Models\Pages\MarkdownPage
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
