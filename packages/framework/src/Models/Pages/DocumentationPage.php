@@ -67,4 +67,12 @@ class DocumentationPage extends AbstractMarkdownPage implements DocumentationPag
     {
         return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
     }
+
+    /**
+     * Return the output path for the identifier basename so nested pages are flattened.
+     */
+    public function getOutputPath(): string
+    {
+        return static::outputPath(basename($this->identifier));
+    }
 }
