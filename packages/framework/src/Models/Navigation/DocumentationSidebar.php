@@ -19,7 +19,7 @@ class DocumentationSidebar extends NavigationMenu
         Hyde::routes()->getRoutes(DocumentationPage::class)->each(function (Route $route) {
             if (! $route->getSourceModel()->get('hidden', false)) {
                 $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
-                    $item->title = $item->route->getSourceModel()->get('label');
+                    $item->label = $item->route->getSourceModel()->get('label');
                 }));
             }
         });

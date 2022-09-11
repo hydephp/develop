@@ -20,7 +20,7 @@ class NavItem implements \Stringable
     public RouteContract $route;
     public string $href;
 
-    public string $title;
+    public string $label;
     public int $priority;
     public bool $hidden;
 
@@ -28,17 +28,17 @@ class NavItem implements \Stringable
      * Create a new navigation menu item.
      *
      * @param  \Hyde\Framework\Contracts\RouteContract|null  $route
-     * @param  string  $title
+     * @param  string  $label
      * @param  int  $priority
      * @param  bool  $hidden
      */
-    public function __construct(?RouteContract $route, string $title, int $priority = 500, bool $hidden = false)
+    public function __construct(?RouteContract $route, string $label, int $priority = 500, bool $hidden = false)
     {
         if ($route !== null) {
             $this->route = $route;
         }
 
-        $this->title = $title;
+        $this->label = $label;
         $this->priority = $priority;
         $this->hidden = $hidden;
     }
@@ -59,17 +59,17 @@ class NavItem implements \Stringable
     /**
      * Create a new navigation menu item leading to an external URI.
      */
-    public static function toLink(string $href, string $title, int $priority = 500): static
+    public static function toLink(string $href, string $label, int $priority = 500): static
     {
-        return (new self(null, $title, $priority, false))->setDestination($href);
+        return (new self(null, $label, $priority, false))->setDestination($href);
     }
 
     /**
      * Create a new navigation menu item leading to a Route model.
      */
-    public static function toRoute(RouteContract $route, string $title, int $priority = 500): static
+    public static function toRoute(RouteContract $route, string $label, int $priority = 500): static
     {
-        return new self($route, $title, $priority, false);
+        return new self($route, $label, $priority, false);
     }
 
     /**
