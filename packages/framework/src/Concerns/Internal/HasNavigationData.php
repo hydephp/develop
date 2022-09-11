@@ -38,9 +38,9 @@ trait HasNavigationData
     protected function constructSidebarNavigationData(): void
     {
         $this->setNavigationData(
-            $this->matter('label', Hyde::makeTitle(basename($this->identifier))),
-            $this->matter('hidden', $this->identifier === 'index'),
-            $this->matter('priority', $this->findSidebarPriorityInConfig())
+            $this->matter('navigation.label', Hyde::makeTitle(basename($this->identifier))),
+            $this->matter('navigation.hidden', $this->identifier === 'index'),
+            $this->matter('navigation.priority', $this->findSidebarPriorityInConfig())
         );
     }
 
