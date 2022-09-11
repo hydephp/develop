@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Concerns;
+namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
