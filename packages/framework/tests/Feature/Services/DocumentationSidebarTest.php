@@ -142,7 +142,7 @@ class DocumentationSidebarTest extends TestCase
         );
     }
 
-    public function test_category_can_be_set_in_front_matter()
+    public function test_group_can_be_set_in_front_matter()
     {
         $this->makePage('foo', ['navigation.group' => 'bar']);
 
