@@ -5,6 +5,9 @@ namespace Hyde\Framework\Concerns\Internal;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
+/**
+ * @internal Trait for HydePages to manage data used for navigation menus and the documentation sidebar.
+ */
 trait HasNavigationData
 {
     public function showInNavigation(): bool
@@ -40,9 +43,6 @@ trait HasNavigationData
         ];
     }
 
-    /**
-     * Find the label to use in the navigation menu or document sidebar.
-     */
     private function findNavigationMenuLabel(): string
     {
         if ($this->matter('navigation.label') !== null) {
