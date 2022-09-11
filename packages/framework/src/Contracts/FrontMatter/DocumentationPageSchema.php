@@ -11,8 +11,6 @@ interface DocumentationPageSchema
 {
     public const DOCUMENTATION_PAGE_SCHEMA = [
         'category'  => 'string',
-        'label'     => 'string',
-        'hidden'    => 'bool',
-        'priority'  => 'int',
+        'navigation'    => 'array|navigation',
     ];
 }

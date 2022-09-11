@@ -60,9 +60,7 @@ class SchemaContractsTest extends TestCase
 
         $this->assertEquals([
             'category'  => 'string',
-            'label'     => 'string',
-            'hidden'    => 'bool',
-            'priority'  => 'int',
+            'navigation'    => 'array|navigation',
         ], DocumentationPageSchema::DOCUMENTATION_PAGE_SCHEMA);
     }
 }
