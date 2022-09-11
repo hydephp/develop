@@ -43,10 +43,11 @@ trait HasNavigationData
         );
     }
 
-    protected function setNavigationData(string $label, bool $hidden, int $priority): void
+    protected function setNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): void
     {
         $this->navigation = [
             'label' => $label,
+            'group' => $group,
             'hidden' => $hidden,
             'priority' => $priority,
         ];
