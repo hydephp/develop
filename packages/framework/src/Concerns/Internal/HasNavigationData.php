@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
@@ -31,6 +32,15 @@ trait HasNavigationData
             $this->findNavigationMenuLabel(),
             $this->findNavigationMenuHidden(),
             $this->findNavigationMenuPriority(),
+        );
+    }
+
+    protected function constructSidebarNavigationData(): void
+    {
+        $this->setNavigationData(
+            $this->matter('label', Hyde::makeTitle(basename($this->identifier))),
+            $this->matter('hidden', $this->identifier === 'index'),
+            $this->matter('priority', $this->findSidebarPriorityInConfig())
         );
     }
 
@@ -96,5 +106,20 @@ trait HasNavigationData
             'index' => 'Home',
             'docs/index' => 'Docs',
         ], config('hyde.navigation.labels', []));
+    }
+
+    protected function findSidebarPriorityInConfig(): int
+    {
+        $orderIndexArray = config('docs.sidebar_order', []);
+
+        if (! in_array($this->identifier, $orderIndexArray)) {
+            return 500;
+        }
+
+        return array_search($this->identifier, $orderIndexArray) + 250;
+
+        // Adding 250 makes so that pages with a front matter priority that is lower
+        // can be shown first. It's lower than the fallback of 500 so that they
+        // still come first. This is all to make it easier to mix priorities.
     }
 }
