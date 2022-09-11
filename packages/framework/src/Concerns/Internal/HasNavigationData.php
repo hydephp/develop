@@ -50,6 +50,7 @@ trait HasNavigationData
         }
 
         if (isset(config('hyde.navigation.labels', [])[$this->routeKey])) {
+            return config('hyde.navigation.labels', [])[$this->routeKey];
         }
 
         if ($this->identifier === 'index') {
