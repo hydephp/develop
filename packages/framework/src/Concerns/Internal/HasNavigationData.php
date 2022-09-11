@@ -4,6 +4,15 @@ namespace Hyde\Framework\Concerns\Internal;
 
 trait HasNavigationData
 {
+    protected function setNavigationData(string $label, bool $hidden, int $priority): void
+    {
+        $this->navigation = [
+            'title' => $label,
+            'hidden' => $hidden,
+            'priority' => $priority,
+        ];
+    }
+
     public function showInNavigation(): bool
     {
         return ! $this->navigation['hidden'];
