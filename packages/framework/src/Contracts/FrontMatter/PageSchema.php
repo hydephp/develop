@@ -16,7 +16,7 @@ interface PageSchema
     ];
 
     public const NAVIGATION_SCHEMA = [
-        'title'     => 'string',
+        'label'     => 'string',
         'hidden'    => 'bool',
         'priority'  => 'int',
     ];
