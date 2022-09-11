@@ -92,24 +92,26 @@ trait HasNavigationData
             return $this->matter('navigation.priority');
         }
 
-        $config = config('hyde.navigation.order', []);
-
-        if (array_key_exists($this->routeKey, $config)) {
-            return (int) $config[$this->routeKey];
+        // Different default return values are to preserve backwards compatibility
+        if (! $this instanceof DocumentationPage) {
+            return $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? 999;
+        } else {
+            // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
+            return $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? 500;
         }
+    }
 
-        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
-        $config = array_flip(config('docs.sidebar_order', []));
+    private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
+    {
+        return array_key_exists($this->routeKey, $config) ? (int)$config[$this->routeKey] : null;
+    }
 
-        if (isset($config[$this->identifier])) {
-            return $config[$this->identifier] + 250;
-            // Adding 250 makes so that pages with a front matter priority that is lower
-            // can be shown first. It's lower than the fallback of 500 so that they
-            // still come first. This is all to make it easier to mix priorities.
-        }
-
-        // Preserve backwards compatibility
-        return $this instanceof DocumentationPage ? 500 : 999;
+    private function findNavigationMenuPriorityInSidebarConfig(array $config): ?int
+    {
+        return isset($config[$this->identifier]) ? $config[$this->identifier] + 250 : null;
+        // Adding 250 makes so that pages with a front matter priority that is lower
+        // can be shown first. It's lower than the fallback of 500 so that they
+        // still come first. This is all to make it easier to mix priorities.
     }
 
     private function getNavigationLabelConfig(): array
