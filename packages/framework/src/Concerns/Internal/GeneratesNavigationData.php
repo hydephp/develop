@@ -26,7 +26,8 @@ trait GeneratesNavigationData
         $this->setNavigationData(
             $this->findNavigationMenuLabel(),
             $this->findNavigationMenuHidden(),
-            $this->matter('navigation.priority', $this->findNavigationMenuPriority())
+            $this->matter('navigation.priority', $this->findNavigationMenuPriority()),
+            $this->getDocumentationPageCategory()
         );
     }
 
