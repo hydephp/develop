@@ -4,6 +4,7 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
+use function Hyde\Framework\Concerns\str_contains;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Hyde;
@@ -11,7 +12,6 @@ use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
 use Illuminate\Support\Str;
-use function Hyde\Framework\Concerns\str_contains;
 
 trait ConstructsPageSchemas
 {
