@@ -50,4 +50,9 @@ class DocumentationSidebar extends NavigationMenu
     {
         return $route->getSourceModel()->get('navigation.priority');
     }
+
+    protected function filterDocumentationPage(NavItem $item): bool
+    {
+        return ! parent::filterDocumentationPage($item);
+    }
 }
