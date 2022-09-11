@@ -27,15 +27,6 @@ use Hyde\Testing\TestCase;
  */
 class HydePageTest extends TestCase
 {
-    protected function resetDirectoryConfiguration(): void
-    {
-        BladePage::$sourceDirectory = '_pages';
-        MarkdownPage::$sourceDirectory = '_pages';
-        MarkdownPost::$sourceDirectory = '_posts';
-        DocumentationPage::$sourceDirectory = '_docs';
-        MarkdownPage::$fileExtension = '.md';
-    }
-
     public function test_get_source_directory_returns_static_property()
     {
         MarkdownPage::$sourceDirectory = 'foo';
@@ -683,5 +674,14 @@ class HydePageTest extends TestCase
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
         unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    protected function resetDirectoryConfiguration(): void
+    {
+        BladePage::$sourceDirectory = '_pages';
+        MarkdownPage::$sourceDirectory = '_pages';
+        MarkdownPost::$sourceDirectory = '_posts';
+        DocumentationPage::$sourceDirectory = '_docs';
+        MarkdownPage::$fileExtension = '.md';
     }
 }
