@@ -53,6 +53,8 @@ In general, these changes should only affect those who have written custom code 
 
 #### Documentation page front matter changes
 
+- Deprecated property `$label` in `DocumentationPage.php`. Use `$navigation['title']` instead.
+
 ### Deprecated
 - for soon-to-be removed features.
 

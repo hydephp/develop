@@ -19,7 +19,10 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     /** The sidebar category group, if any. Can be overridden in front matter, or by putting the source file in a subdirectory of the same category name. */
     public ?string $category = null;
 
-    /** The label for the page shown in the sidebar. */
+    /**
+     * @deprecated Use `navigation.title` instead.
+     * The label for the page shown in the sidebar.
+     */
     public ?string $label = null;
 
     /** Hides the page from the sidebar. */
