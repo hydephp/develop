@@ -43,33 +43,6 @@ class NavigationDataTest extends TestCase
         $this->assertEquals($navigationData, new NavigationData('label', 'group', true, 1));
     }
 
-    public function testLabel()
-    {
-        $this->assertSame('label', (new NavigationData(label: 'label'))->label());
-    }
-
-    public function testGroup()
-    {
-        $this->assertSame('group', (new NavigationData(group: 'group'))->group());
-    }
-
-    public function testHidden()
-    {
-        $this->assertSame(true, (new NavigationData(hidden: true))->hidden());
-        $this->assertSame(false, (new NavigationData(hidden: false))->hidden());
-    }
-
-    public function testVisible()
-    {
-        $this->assertSame(true, (new NavigationData(hidden: false))->visible());
-        $this->assertSame(false, (new NavigationData(hidden: true))->visible());
-    }
-
-    public function testPriority()
-    {
-        $this->assertSame(1, (new NavigationData(priority: 1))->priority());
-    }
-
     public function testToArray()
     {
         $this->assertSame($this->array, NavigationData::make($this->array)->toArray());

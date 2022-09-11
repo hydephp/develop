@@ -35,31 +35,6 @@ final class NavigationData extends \ArrayObject implements NavigationSchema, Arr
         );
     }
 
-    public function label(): ?string
-    {
-        return $this->label;
-    }
-
-    public function group(): ?string
-    {
-        return $this->group;
-    }
-
-    public function hidden(): ?bool
-    {
-        return $this->hidden;
-    }
-
-    public function visible(): ?bool
-    {
-        return $this->hidden === null ? null : ! $this->hidden;
-    }
-
-    public function priority(): ?int
-    {
-        return $this->priority;
-    }
-
     public function toArray(): array
     {
         return [
