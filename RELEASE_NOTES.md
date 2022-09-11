@@ -1,5 +1,10 @@
 ## [Unreleased] - YYYY-MM-DD
 
+### Note from the maintainer
+First of all, I'm really sorry for the just insane amount of breaking changes in this update. I believe they are
+necessary in order to make v1.0 a great and stable release. I hope you'll understand. Most of the changes
+are likely to not affect normal usage, with the exception of the front matter navigation key changes.
+
 ### About
 
 This release performs a large amount of refactors and naming changes in preparation for the 1.0 release. Many of these refactors are breaking as several classes are moved around to new namespaces, several are merged, methods renamed, interfaces updated, and more, so forth, etc.
