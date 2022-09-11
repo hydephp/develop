@@ -225,9 +225,9 @@ date: 2022-01-01 12:00
                 ->assertSee('Typography Should Be Easy. With Images.')
                 ->assertSee('Posted Nov 7th, 2021 by author TailwindLabs in the category "testing"')
                 ->assertPresent('article > figure > img')
-                ->assertSee('Image by Blake Wisz. License the Unsplash License')
+                ->assertSee('Image by Blake. License the Unsplash License')
                 ->assertSeeLink('TailwindLabs')
-                ->assertSeeLink('Blake Wisz')
+                ->assertSeeLink('Blake')
                 ->assertSeeLink('the Unsplash License')
                 ->screenshot('typography_blog_post_page_with_front_matter')
                 ->storeSourceAsHtml('posts/typography-front-matter');
