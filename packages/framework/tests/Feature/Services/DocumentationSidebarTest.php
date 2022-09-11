@@ -59,7 +59,7 @@ class DocumentationSidebarTest extends TestCase
     public function test_files_with_front_matter_hidden_set_to_true_are_removed_from_sidebar()
     {
         $this->createTestFiles();
-        File::put(Hyde::path('_docs/test.md'), "---\nhidden: true\n---\n\n# Foo");
+        File::put(Hyde::path('_docs/test.md'), "---\nnavigation:\n    hidden: true\n---\n\n# Foo");
 
         $sidebar = DocumentationSidebar::create();
         $this->assertCount(5, $sidebar->items);
