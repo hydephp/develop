@@ -58,4 +58,14 @@ class NavigationDataTest extends TestCase
     {
         $this->assertSame(1, (new NavigationData(priority: 1))->priority());
     }
+
+    public function testToArray()
+    {
+        $this->assertSame($array = [
+            'label' => 'label',
+            'group' => 'group',
+            'hidden' => true,
+            'priority' => 1,
+        ], NavigationData::make($array)->toArray());
+    }
 }

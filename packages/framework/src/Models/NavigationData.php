@@ -3,8 +3,9 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
+use Illuminate\Contracts\Support\Arrayable;
 
-final class NavigationData implements NavigationSchema
+final class NavigationData implements NavigationSchema, Arrayable
 {
     public ?string $label = null;
     public ?string $group = null;
@@ -52,5 +53,15 @@ final class NavigationData implements NavigationSchema
     public function priority(): ?int
     {
         return $this->priority;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'label' => $this->label,
+            'group' => $this->group,
+            'hidden' => $this->hidden,
+            'priority' => $this->priority,
+        ];
     }
 }
