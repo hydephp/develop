@@ -27,6 +27,7 @@ class SchemaContractsTest extends TestCase
 
         $this->assertEquals([
             'label'     => 'string',
+            'group'     => 'string',
             'hidden'    => 'bool',
             'priority'  => 'int',
         ], PageSchema::NAVIGATION_SCHEMA);
