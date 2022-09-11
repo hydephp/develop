@@ -31,7 +31,10 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
      */
     public ?bool $hidden = null;
 
-    /** The priority of the page used for ordering the sidebar. */
+    /**
+     * @deprecated Use `navigation.priority` instead.
+     * The priority of the page used for ordering the sidebar.
+     */
     public ?int $priority = null;
 
     /** @inheritDoc */
