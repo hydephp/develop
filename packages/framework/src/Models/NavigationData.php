@@ -18,4 +18,14 @@ class NavigationData implements NavigationSchema
         $this->hidden = $hidden;
         $this->priority = $priority;
     }
+
+    public static function make(array $data): self
+    {
+        return new self(
+            $data['label'] ?? null,
+            $data['group'] ?? null,
+            $data['hidden'] ?? null,
+            $data['priority'] ?? null,
+        );
+    }
 }
