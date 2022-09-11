@@ -88,6 +88,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed front matter option`priority` (use `navigation.priority` instead)
 - To access the sidebar label setting via class property, use `$navigation['label']` instead of `$label`, etc.
 - To access the sidebar label setting via front matter getters, use `navigation.label` instead of `label`, etc.
+- The navigation link to documentation index page now has default priority 500 instead of 100
 
 ### Deprecated
 - for soon-to-be removed features.

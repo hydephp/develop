@@ -501,10 +501,10 @@ class HydePageTest extends TestCase
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_returns_100_for_documentation_page()
+    public function test_navigation_menu_priority_returns_500_for_documentation_page()
     {
         $page = DocumentationPage::make('index');
-        $this->assertEquals(100, $page->navigationMenuPriority());
+        $this->assertEquals(500, $page->navigationMenuPriority());
     }
 
     public function test_navigation_menu_priority_returns_0_if_slug_is_index()
