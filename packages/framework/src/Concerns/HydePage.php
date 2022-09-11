@@ -12,6 +12,7 @@ use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
+use Illuminate\Support\Arr;
 
 /**
  * To ensure compatibility with the Hyde Framework, all page models should extend this class.
@@ -222,11 +223,10 @@ abstract class HydePage implements CompilableContract, PageSchema
      */
     public function get(string $key = null, mixed $default = null): mixed
     {
-        if ($key !== null && property_exists($this, $key) && isset($this->$key)) {
-            return $this->$key;
-        }
-
-        return $this->matter($key, $default);
+        return Arr::get(array_filter(array_merge(
+            $this->matter->toArray(),
+            (array) $this,
+        )), $key, $default);
     }
 
     /**

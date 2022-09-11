@@ -736,6 +736,24 @@ class HydePageTest extends TestCase
         unlink(Hyde::path('_pages/foo.md'));
     }
 
+    public function test_get_method_can_access_data_from_page()
+    {
+        $page = MarkdownPage::make('foo', ['foo' => 'bar']);
+        $this->assertEquals('bar', $page->get('foo'));
+    }
+
+    public function test_get_method_can_access_nested_data_from_page()
+    {
+        $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
+        $this->assertEquals('baz', $page->get('foo')['bar']);
+    }
+
+    public function test_get_method_can_access_nested_data_from_page_with_dot_notation()
+    {
+        $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
+        $this->assertEquals('baz', $page->get('foo.bar'));
+    }
+
     protected function resetDirectoryConfiguration(): void
     {
         BladePage::$sourceDirectory = '_pages';
