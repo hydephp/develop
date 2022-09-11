@@ -52,6 +52,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Refactored how navigation and sidebar data are handled, unifying the API, see below for more details
 - The algorithm for finding the navigation and sidebar orders has been updated, this may affect the order of your pages, and may require you to re-tweak any custom priorities.
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
+- internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
 #### Class and method renames
 - Renamed base class AbstractPage to HydePage
