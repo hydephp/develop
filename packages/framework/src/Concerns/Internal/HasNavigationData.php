@@ -39,7 +39,7 @@ trait HasNavigationData
     {
         $this->setNavigationData(
             $this->matter('navigation.label', Hyde::makeTitle(basename($this->identifier))),
-            ! $this->matter('navigation.hidden', $this->identifier === 'index'),
+            ! $this->matter('navigation.hidden', $this->identifier === 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', []))),
             $this->matter('navigation.priority', $this->findSidebarPriorityInConfig())
         );
     }
