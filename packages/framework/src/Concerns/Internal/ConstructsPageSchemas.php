@@ -19,10 +19,6 @@ trait ConstructsPageSchemas
         if ($this instanceof BlogPostSchema) {
             $this->constructBlogPostSchema();
         }
-
-        if ($this instanceof DocumentationPageSchema) {
-            $this->constructDocumentationPageSchema();
-        }
     }
 
     protected function constructPageSchema(): void
@@ -84,11 +80,5 @@ trait ConstructsPageSchemas
         }
 
         return null;
-    }
-
-    /** @deprecated  */
-    protected function constructDocumentationPageSchema(): void
-    {
-        $this->category = $this->getDocumentationPageCategory();
     }
 }
