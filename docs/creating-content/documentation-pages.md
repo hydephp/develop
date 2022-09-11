@@ -69,9 +69,10 @@ Here is a quick reference, however, you should take a look at the [dynamic conte
 ```yaml
 ---
 title: "Page Title"
-label: "Sidebar Label"
-hidden: true
-priority: 5
+navigation:
+  label: "Sidebar Label"
+  hidden: true
+  priority: 5
 ---
 ```
 
@@ -85,18 +86,18 @@ Before we look at how to override things, here is an overview of the relevant co
 and where the data is from as well as where it can be overridden.
 
 
-| Property             | Description                                            | Source                         | Override in          |
-|----------------------|--------------------------------------------------------|--------------------------------|----------------------|
-| `title` (string)     | The title of the page used in the HTML `<title>` tag   | The first H1 heading (`# Foo`) | Front matter         |
-| `label` (string)     | The label for the page shown in the sidebar            | The page filename (slug)       | Front matter         |
-| `hidden` (boolean)   | Hides the page from the sidebar                        | _null_                         | Front matter         |
-| `priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 500                | Front matter, config |
+| Property                        | Description                                            | Source                              | Override in          |
+|---------------------------------|--------------------------------------------------------|-------------------------------------|----------------------|
+| `title` (string)                | The title of the page used in the HTML `<title>` tag   | The first H1 heading (`# Foo`)      | Front matter         |
+| `navigation.label` (string)     | The label for the page shown in the sidebar            | The page identifier/basename (slug) | Front matter, config |
+| `navigation.hidden` (boolean)   | Hides the page from the sidebar                        | _null_                              | Front matter, config |
+| `navigation.priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 500                     | Front matter, config |
 
 
 ## Sidebar
 
 The sidebar is automatically generated from the files in the `_docs` directory. You will probably want to change the order
-of these items. You can do this in two ways, either in the config or with front matter.
+of these items. You can do this in two ways, either in the config or with front matter using the navigation array.
 
 ### Table of contents
 
@@ -112,7 +113,8 @@ The sidebar is sorted/ordered by the `priority` property. The higher the priorit
 The default priority is 500. You can override the priority using the following front matter:
 
 ```yaml
-priority: 5
+navigation:
+  priority: 5
 ```
 
 You can also change the order in the Docs configuration file.
@@ -125,7 +127,8 @@ The sidebar items are labeled with the `label` property. The default label is th
 You can change it with the following front matter:
 
 ```yaml
-label: "My Custom Sidebar Label"
+navigation:
+  label: "My Custom Sidebar Label"
 ```
 
 ### Sidebar grouping
@@ -159,7 +162,8 @@ For example, putting a Markdown file in `_docs/getting-started/`, is equivalent 
 You can hide items from the sidebar by adding the `hidden` property to the front matter:
 
 ```yaml
-hidden: true
+navigation:
+  hidden: true
 ```
 
 This can be useful to create redirects or other items that should not be shown in the sidebar.
