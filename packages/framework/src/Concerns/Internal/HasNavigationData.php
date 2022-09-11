@@ -92,25 +92,24 @@ trait HasNavigationData
             return $this->matter('navigation.priority');
         }
 
-        $config = $this instanceof DocumentationPage
-            ? config('docs.sidebar_order', [])
-            : config('hyde.navigation.order', []);
+        $config = config('hyde.navigation.order', []);
 
         if (array_key_exists($this->routeKey, $config)) {
             return (int) $config[$this->routeKey];
         }
 
-        if (! in_array($this->routeKey, $config)) {
-            // Preserve backwards compatibility
-            return $this instanceof DocumentationPage ? 500 : 999;
+        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
+        $config = array_flip(config('docs.sidebar_order', []));
+
+        if (isset($config[$this->identifier])) {
+            return $config[$this->identifier] + 250;
+            // Adding 250 makes so that pages with a front matter priority that is lower
+            // can be shown first. It's lower than the fallback of 500 so that they
+            // still come first. This is all to make it easier to mix priorities.
         }
 
-        // Handle the case where the route key is in the config, but the value is not set
-        return array_search($this->routeKey, $config) + 250;
-
-        // Adding 250 makes so that pages with a front matter priority that is lower
-        // can be shown first. It's lower than the fallback of 500 so that they
-        // still come first. This is all to make it easier to mix priorities.
+        // Preserve backwards compatibility
+        return $this instanceof DocumentationPage ? 500 : 999;
     }
 
     private function getNavigationLabelConfig(): array
