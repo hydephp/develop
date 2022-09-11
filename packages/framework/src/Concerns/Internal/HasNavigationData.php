@@ -100,6 +100,9 @@ trait HasNavigationData
 
     private static function getDefaultNavigationLabelsConfig(): array
     {
-        return config('hyde.navigation.labels', []);
+        return array_merge([
+            'index' => 'Home',
+            'docs/index' => 'Docs',
+        ], config('hyde.navigation.labels', []));
     }
 }
