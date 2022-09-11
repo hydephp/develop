@@ -45,8 +45,8 @@ trait HasNavigationData
      */
     private function findNavigationMenuLabel(): string
     {
-        if ($this->matter('navigation.title') !== null) {
-            return $this->matter('navigation.title');
+        if ($this->matter('navigation.label') !== null) {
+            return $this->matter('navigation.label');
         }
 
         if ($this->identifier === 'index') {

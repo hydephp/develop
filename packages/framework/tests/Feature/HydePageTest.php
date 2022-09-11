@@ -527,7 +527,7 @@ class HydePageTest extends TestCase
 
     public function test_navigation_menu_title_returns_navigation_title_matter_if_set()
     {
-        $page = MarkdownPage::make('foo', ['navigation.title' => 'foo']);
+        $page = MarkdownPage::make('foo', ['navigation.label' => 'foo']);
         $this->assertEquals('foo', $page->navigationMenuLabel());
     }
 
@@ -539,7 +539,7 @@ class HydePageTest extends TestCase
 
     public function test_navigation_menu_title_navigation_title_has_precedence_over_title()
     {
-        $page = MarkdownPage::make('foo', ['title' => 'foo', 'navigation.title' => 'bar']);
+        $page = MarkdownPage::make('foo', ['title' => 'foo', 'navigation.label' => 'bar']);
         $this->assertEquals('bar', $page->navigationMenuLabel());
     }
 
