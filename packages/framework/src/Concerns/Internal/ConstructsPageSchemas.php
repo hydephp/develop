@@ -11,7 +11,6 @@ use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
 use Illuminate\Support\Str;
-use function Hyde\Framework\Concerns\str_contains;
 
 trait ConstructsPageSchemas
 {
