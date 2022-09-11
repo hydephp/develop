@@ -10,4 +10,12 @@ class NavigationData implements NavigationSchema
     public ?string $group = null;
     public ?bool $hidden = null;
     public ?int $priority = null;
+
+    public function __construct(?string $label, ?string $group, ?bool $hidden, ?int $priority)
+    {
+        $this->label = $label;
+        $this->group = $group;
+        $this->hidden = $hidden;
+        $this->priority = $priority;
+    }
 }
