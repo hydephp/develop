@@ -105,14 +105,14 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_sidebar_item_priority_can_be_set_in_front_matter()
     {
-        $this->makePage('foo', ['priority' => 25]);
+        $this->makePage('foo', ['navigation.priority' => 25]);
 
         $this->assertEquals(25, DocumentationSidebar::create()->items->first()->priority);
     }
 
     public function test_sidebar_item_priority_set_in_config_overrides_front_matter()
     {
-        $this->makePage('foo', ['priority' => 25]);
+        $this->makePage('foo', ['navigation.priority' => 25]);
 
         Config::set('docs.sidebar_order', ['foo']);
 
@@ -129,7 +129,7 @@ class DocumentationSidebarTest extends TestCase
         Hyde::touch(('_docs/first.md'));
         Hyde::touch(('_docs/second.md'));
         file_put_contents(Hyde::path('_docs/third.md'),
-            (new ConvertsArrayToFrontMatter)->execute(['priority' => 300])
+            (new ConvertsArrayToFrontMatter)->execute(['navigation.priority' => 300])
         );
 
         $this->assertEquals(
@@ -201,9 +201,9 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_groups_are_sorted_by_lowest_found_priority_in_each_group()
     {
-        $this->makePage('foo', ['category' => 'bar', 'priority' => 100]);
-        $this->makePage('bar', ['category' => 'bar', 'priority' => 200]);
-        $this->makePage('baz', ['category' => 'baz', 'priority' => 10]);
+        $this->makePage('foo', ['category' => 'bar', 'navigation.priority' => 100]);
+        $this->makePage('bar', ['category' => 'bar', 'navigation.priority' => 200]);
+        $this->makePage('baz', ['category' => 'baz', 'navigation.priority' => 10]);
 
         $this->assertEquals(['baz', 'bar'], DocumentationSidebar::create()->getGroups());
     }
@@ -253,7 +253,7 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_does_not_include_items_with_hidden_front_matter()
     {
-        $this->makePage('a', ['hidden' => true, 'category' => 'foo']);
+        $this->makePage('a', ['navigation.hidden' => true, 'category' => 'foo']);
         $this->makePage('b', ['category' => 'foo']);
 
         $this->assertEquals(
