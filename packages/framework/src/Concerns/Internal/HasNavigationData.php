@@ -53,14 +53,6 @@ trait HasNavigationData
             return static::getDefaultNavigationLabelsConfig()[$this->routeKey];
         }
 
-        if ($this->identifier === 'index') {
-            if ($this instanceof DocumentationPage) {
-                return config('hyde.navigation.labels.docs', 'Docs');
-            }
-
-            return config('hyde.navigation.labels.home', 'Home');
-        }
-
         return $this->matter('title') ?? $this->title;
     }
 
