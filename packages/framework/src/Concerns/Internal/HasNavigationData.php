@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Framework\Models\NavigationData;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
@@ -45,12 +46,12 @@ trait HasNavigationData
 
     protected function setNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): void
     {
-        $this->navigation = [
+        $this->navigation = NavigationData::make([
             'label' => $label,
             'group' => $group,
             'hidden' => $hidden,
             'priority' => $priority,
-        ];
+        ]);
     }
 
     private function findNavigationMenuLabel(): string
