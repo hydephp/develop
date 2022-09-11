@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 /**
  * @internal Trait for HydePages to manage data used for navigation menus and the documentation sidebar.
+ * @see \Hyde\Framework\Concerns\HydePage
  */
 trait GeneratesNavigationData
 {
