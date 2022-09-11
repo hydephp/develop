@@ -20,6 +20,7 @@ In general, these changes should only affect those who have written custom code 
 - Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
+- Refactored how navigation and sidebar data are handled, unifying the API, see below for more details
 
 #### Class and method renames
 - Renamed base class AbstractPage to HydePage
