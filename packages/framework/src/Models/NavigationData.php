@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Models;
 
-use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
+use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Illuminate\Contracts\Support\Arrayable;
 
 final class NavigationData implements NavigationSchema, Arrayable, \JsonSerializable
