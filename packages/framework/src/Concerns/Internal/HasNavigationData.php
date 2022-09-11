@@ -100,7 +100,7 @@ trait HasNavigationData
 
     private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
     {
-        return array_key_exists($this->routeKey, $config) ? (int)$config[$this->routeKey] : null;
+        return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
     }
 
     private function findNavigationMenuPriorityInSidebarConfig(array $config): ?int
