@@ -164,7 +164,7 @@ class DocumentationPageTest extends TestCase
                 'baz' => 'qux',
             ],
         ]);
-        $page = DocumentationPage::make('foo');
+        $page = DocumentationPage::parse('foo');
         $this->assertNotNull($page->matter());
         $this->assertNotEmpty($page->matter());
         $this->assertEquals($expected, $page->matter());
