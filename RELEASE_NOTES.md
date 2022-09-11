@@ -51,6 +51,8 @@ In general, these changes should only affect those who have written custom code 
 - Changed named variable $basename to $identifier in HydePage.php
 - Removed $strict option from the has() method HydePage.php
 
+#### Documentation page front matter changes
+
 ### Deprecated
 - for soon-to-be removed features.
 
