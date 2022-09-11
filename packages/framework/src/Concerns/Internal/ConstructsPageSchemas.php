@@ -9,7 +9,6 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
-use Illuminate\Support\Str;
 
 trait ConstructsPageSchemas
 {
