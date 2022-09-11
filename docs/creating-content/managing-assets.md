@@ -86,6 +86,7 @@ Then edit the files found in `resources/views/vendor/hyde/layouts` directory of 
 
 For the absolute majority of the cases, you don't need to mess with these files. Hyde will automatically load the app.css file when it exists in the `_media` directory.
 
+#### Loading from CDN
 If you want to load the same pre-compiled file included with Hyde but from a CDN, you can set `load_app_styles_from_cdn` to `true` in the `config/hyde.php` file. While you lose the ability to customize it, your styles will be automatically updated when needed.
 
 
