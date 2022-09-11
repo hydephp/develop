@@ -79,10 +79,6 @@ trait HasNavigationData
             return true;
         }
 
-        if (in_array($this->identifier, config('hyde.navigation.exclude', ['404']))) {
-            return true;
-        }
-
         return false;
     }
 
