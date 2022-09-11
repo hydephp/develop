@@ -28,4 +28,24 @@ final class NavigationData implements NavigationSchema
             $data['priority'] ?? null,
         );
     }
+
+    public function label(): ?string
+    {
+        return $this->label;
+    }
+
+    public function group(): ?string
+    {
+        return $this->group;
+    }
+
+    public function hidden(): ?bool
+    {
+        return $this->hidden;
+    }
+
+    public function priority(): ?int
+    {
+        return $this->priority;
+    }
 }
