@@ -25,7 +25,10 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
      */
     public ?string $label = null;
 
-    /** Hides the page from the sidebar. */
+    /**
+     * @deprecated Use `navigation.hidden` instead.
+     * Hides the page from the sidebar.
+     */
     public ?bool $hidden = null;
 
     /** The priority of the page used for ordering the sidebar. */
