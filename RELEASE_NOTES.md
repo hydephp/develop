@@ -69,6 +69,7 @@ In general, these changes should only affect those who have written custom code 
 
 ### Fixed
 - Fixed validation bug in the rebuild command
+- Hide x-cloak elements using inline style in styles.blade.php to prevent flashes until stylesheets are loaded
 
 ### Security
 - in case of vulnerabilities.
