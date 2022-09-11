@@ -49,8 +49,7 @@ trait HasNavigationData
             return $this->matter('navigation.label');
         }
 
-        if (array_key_exists($this->routeKey, config('hyde.navigation.labels', []))) {
-            return config('hyde.navigation.labels.'.$this->routeKey);
+        if (isset(config('hyde.navigation.labels', [])[$this->routeKey])) {
         }
 
         if ($this->identifier === 'index') {
