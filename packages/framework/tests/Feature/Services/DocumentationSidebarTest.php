@@ -144,7 +144,7 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_category_can_be_set_in_front_matter()
     {
-        $this->makePage('foo', ['category' => 'bar']);
+        $this->makePage('foo', ['navigation.group' => 'bar']);
 
         $this->assertEquals('bar', DocumentationSidebar::create()->items->first()->getGroup());
     }
@@ -156,23 +156,23 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_has_groups_returns_true_when_there_are_groups()
     {
-        $this->makePage('foo', ['category' => 'bar']);
+        $this->makePage('foo', ['navigation.group' => 'bar']);
 
         $this->assertTrue(DocumentationSidebar::create()->hasGroups());
     }
 
     public function test_has_groups_returns_true_when_there_are_multiple_groups()
     {
-        $this->makePage('foo', ['category' => 'bar']);
-        $this->makePage('bar', ['category' => 'baz']);
+        $this->makePage('foo', ['navigation.group' => 'bar']);
+        $this->makePage('bar', ['navigation.group' => 'baz']);
 
         $this->assertTrue(DocumentationSidebar::create()->hasGroups());
     }
 
     public function test_has_groups_returns_true_when_there_are_multiple_groups_mixed_with_defaults()
     {
-        $this->makePage('foo', ['category' => 'bar']);
-        $this->makePage('bar', ['category' => 'baz']);
+        $this->makePage('foo', ['navigation.group' => 'bar']);
+        $this->makePage('bar', ['navigation.group' => 'baz']);
         $this->makePage('baz');
 
         $this->assertTrue(DocumentationSidebar::create()->hasGroups());
@@ -185,25 +185,25 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_groups_returns_array_of_groups_when_there_are_groups()
     {
-        $this->makePage('foo', ['category' => 'bar']);
+        $this->makePage('foo', ['navigation.group' => 'bar']);
 
         $this->assertEquals(['bar'], DocumentationSidebar::create()->getGroups());
     }
 
     public function test_get_groups_returns_array_with_no_duplicates()
     {
-        $this->makePage('foo', ['category' => 'bar']);
-        $this->makePage('bar', ['category' => 'bar']);
-        $this->makePage('baz', ['category' => 'baz']);
+        $this->makePage('foo', ['navigation.group' => 'bar']);
+        $this->makePage('bar', ['navigation.group' => 'bar']);
+        $this->makePage('baz', ['navigation.group' => 'baz']);
 
         $this->assertEquals(['bar', 'baz'], DocumentationSidebar::create()->getGroups());
     }
 
     public function test_groups_are_sorted_by_lowest_found_priority_in_each_group()
     {
-        $this->makePage('foo', ['category' => 'bar', 'navigation.priority' => 100]);
-        $this->makePage('bar', ['category' => 'bar', 'navigation.priority' => 200]);
-        $this->makePage('baz', ['category' => 'baz', 'navigation.priority' => 10]);
+        $this->makePage('foo', ['navigation.group' => 'bar', 'navigation.priority' => 100]);
+        $this->makePage('bar', ['navigation.group' => 'bar', 'navigation.priority' => 200]);
+        $this->makePage('baz', ['navigation.group' => 'baz', 'navigation.priority' => 10]);
 
         $this->assertEquals(['baz', 'bar'], DocumentationSidebar::create()->getGroups());
     }
@@ -215,9 +215,9 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_returns_collection_of_items_in_group()
     {
-        $this->makePage('foo', ['category' => 'bar']);
-        $this->makePage('bar', ['category' => 'bar']);
-        $this->makePage('baz', ['category' => 'baz']);
+        $this->makePage('foo', ['navigation.group' => 'bar']);
+        $this->makePage('bar', ['navigation.group' => 'bar']);
+        $this->makePage('baz', ['navigation.group' => 'baz']);
 
         $this->assertEquals(
             collect([
@@ -237,9 +237,9 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_normalizes_group_name_to_slug_format()
     {
-        $this->makePage('a', ['category' => 'foo bar']);
-        $this->makePage('b', ['category' => 'Foo Bar']);
-        $this->makePage('c', ['category' => 'foo-bar']);
+        $this->makePage('a', ['navigation.group' => 'foo bar']);
+        $this->makePage('b', ['navigation.group' => 'Foo Bar']);
+        $this->makePage('c', ['navigation.group' => 'foo-bar']);
 
         $this->assertEquals(
             collect([
@@ -253,8 +253,8 @@ class DocumentationSidebarTest extends TestCase
 
     public function test_get_items_in_group_does_not_include_items_with_hidden_front_matter()
     {
-        $this->makePage('a', ['navigation.hidden' => true, 'category' => 'foo']);
-        $this->makePage('b', ['category' => 'foo']);
+        $this->makePage('a', ['navigation.hidden' => true, 'navigation.group' => 'foo']);
+        $this->makePage('b', ['navigation.group' => 'foo']);
 
         $this->assertEquals(
             collect([NavItem::fromRoute(Route::get('docs/b'))->setPriority(500)]),
