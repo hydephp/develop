@@ -86,6 +86,8 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed front matter option`label` (use `navigation.label` instead)
 - Removed front matter option`hidden` (use `navigation.hidden` instead)
 - Removed front matter option`priority` (use `navigation.priority` instead)
+- To access the sidebar label setting via class property, use `$navigation['label']` instead of `$label`, etc.
+- To access the sidebar label setting via front matter getters, use `navigation.label` instead of `label`, etc.
 
 ### Deprecated
 - for soon-to-be removed features.
