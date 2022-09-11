@@ -79,7 +79,7 @@ If you are using any of the following front matter properties, you will likely n
 
 - Removed property `$label` in `DocumentationPage.php`. Use `$navigation['title']` instead.
 - Removed property `$hidden` in `DocumentationPage.php`. Use `$navigation['hidden']` instead.
-- Deprecated property `$priority` in `DocumentationPage.php`. Use `$navigation['priority']` instead.
+- Removed property `$priority` in `DocumentationPage.php`. Use `$navigation['priority']` instead.
 
 ### Deprecated
 - for soon-to-be removed features.

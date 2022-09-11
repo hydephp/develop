@@ -19,12 +19,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     /** The sidebar category group, if any. Can be overridden in front matter, or by putting the source file in a subdirectory of the same category name. */
     public ?string $category = null;
 
-    /**
-     * @deprecated Use `navigation.priority` instead.
-     * The priority of the page used for ordering the sidebar.
-     */
-    public ?int $priority = null;
-
     /** @inheritDoc */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
