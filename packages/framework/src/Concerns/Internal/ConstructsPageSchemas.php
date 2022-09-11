@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Concerns;
+namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
@@ -11,6 +11,7 @@ use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\Image;
 use Illuminate\Support\Str;
+use function Hyde\Framework\Concerns\str_contains;
 
 trait ConstructsPageSchemas
 {
