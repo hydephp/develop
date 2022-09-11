@@ -50,7 +50,7 @@ class NavItem implements \Stringable
     {
         return new self(
             $route,
-            $route->getSourceModel()->navigationMenuTitle(),
+            $route->getSourceModel()->navigationMenuLabel(),
             $route->getSourceModel()->navigationMenuPriority(),
             ! $route->getSourceModel()->showInNavigation()
         );

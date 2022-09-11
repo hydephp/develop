@@ -528,43 +528,43 @@ class HydePageTest extends TestCase
     public function test_navigation_menu_title_returns_navigation_title_matter_if_set()
     {
         $page = MarkdownPage::make('foo', ['navigation.title' => 'foo']);
-        $this->assertEquals('foo', $page->navigationMenuTitle());
+        $this->assertEquals('foo', $page->navigationMenuLabel());
     }
 
     public function test_navigation_menu_title_returns_title_matter_if_set()
     {
         $page = MarkdownPage::make('foo', ['title' => 'foo']);
-        $this->assertEquals('foo', $page->navigationMenuTitle());
+        $this->assertEquals('foo', $page->navigationMenuLabel());
     }
 
     public function test_navigation_menu_title_navigation_title_has_precedence_over_title()
     {
         $page = MarkdownPage::make('foo', ['title' => 'foo', 'navigation.title' => 'bar']);
-        $this->assertEquals('bar', $page->navigationMenuTitle());
+        $this->assertEquals('bar', $page->navigationMenuLabel());
     }
 
     public function test_navigation_menu_title_returns_docs_if_slug_is_index_and_model_is_documentation_page()
     {
         $page = DocumentationPage::make('index');
-        $this->assertEquals('Docs', $page->navigationMenuTitle());
+        $this->assertEquals('Docs', $page->navigationMenuLabel());
     }
 
     public function test_navigation_menu_title_returns_home_if_slug_is_index_and_model_is_not_documentation_page()
     {
         $page = MarkdownPage::make('index');
-        $this->assertEquals('Home', $page->navigationMenuTitle());
+        $this->assertEquals('Home', $page->navigationMenuLabel());
     }
 
     public function test_navigation_menu_title_returns_title_if_title_is_set_and_not_empty()
     {
         $page = MarkdownPage::make('bar', ['title' => 'foo']);
-        $this->assertEquals('foo', $page->navigationMenuTitle());
+        $this->assertEquals('foo', $page->navigationMenuLabel());
     }
 
     public function test_navigation_menu_title_falls_back_to_hyde_make_title_from_slug()
     {
         $page = MarkdownPage::make('foo');
-        $this->assertEquals('Foo', $page->navigationMenuTitle());
+        $this->assertEquals('Foo', $page->navigationMenuLabel());
     }
 
     public function test_documentation_page_can_be_hidden_from_navigation_using_config()

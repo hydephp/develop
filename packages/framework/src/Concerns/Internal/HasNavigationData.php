@@ -17,7 +17,7 @@ trait HasNavigationData
         return $this->navigation['priority'];
     }
 
-    public function navigationMenuTitle(): string
+    public function navigationMenuLabel(): string
     {
         return $this->navigation['title'];
     }
@@ -25,7 +25,7 @@ trait HasNavigationData
     protected function constructNavigationData(): void
     {
         $this->setNavigationData(
-            $this->findNavigationMenuTitle(),
+            $this->findNavigationMenuLabel(),
             $this->findNavigationMenuHidden(),
             $this->findNavigationMenuPriority(),
         );
@@ -43,7 +43,7 @@ trait HasNavigationData
     /**
      * Note that this also affects the documentation sidebar titles.
      */
-    private function findNavigationMenuTitle(): string
+    private function findNavigationMenuLabel(): string
     {
         if ($this->matter('navigation.title') !== null) {
             return $this->matter('navigation.title');
