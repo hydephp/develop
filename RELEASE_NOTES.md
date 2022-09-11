@@ -56,6 +56,7 @@ In general, these changes should only affect those who have written custom code 
 - Deprecated property `$label` in `DocumentationPage.php`. Use `$navigation['title']` instead.
 - Deprecated property `$hidden` in `DocumentationPage.php`. Use `$navigation['hidden']` instead.
 - Deprecated property `$priority` in `DocumentationPage.php`. Use `$navigation['priority']` instead.
+- Deprecated FindsNavigationDataForPage pending merge into HydePage via the HasNavigationData trait
 
 ### Deprecated
 - for soon-to-be removed features.
