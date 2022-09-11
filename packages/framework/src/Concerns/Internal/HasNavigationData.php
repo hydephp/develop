@@ -26,7 +26,7 @@ trait HasNavigationData
     {
         $this->setNavigationData(
             $this->findNavigationMenuTitle(),
-            ! $this->findNavigationMenuVisible(),
+            $this->findNavigationMenuHidden(),
             $this->findNavigationMenuPriority(),
         );
     }
@@ -60,25 +60,25 @@ trait HasNavigationData
         return $this->matter('title') ?? $this->title;
     }
 
-    private function findNavigationMenuVisible(): bool
+    private function findNavigationMenuHidden(): bool
     {
         if ($this instanceof MarkdownPost) {
-            return false;
+            return true;
         }
 
         if ($this instanceof DocumentationPage) {
-            return $this->identifier === 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', []));
+            return ! ($this->identifier === 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', [])));
         }
 
         if ($this->matter('navigation.hidden', false)) {
-            return false;
+            return true;
         }
 
         if (in_array($this->identifier, config('hyde.navigation.exclude', ['404']))) {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     private function findNavigationMenuPriority(): int
