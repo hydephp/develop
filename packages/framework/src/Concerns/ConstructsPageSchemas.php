@@ -30,7 +30,7 @@ trait ConstructsPageSchemas
     protected function constructPageSchema(): void
     {
         $this->title = FindsTitleForPage::run($this);
-        $this->navigation = FindsNavigationDataForPage::run($this);
+        $this->constructNavigationData();
         $this->canonicalUrl = $this->makeCanonicalUrl();
     }
 
