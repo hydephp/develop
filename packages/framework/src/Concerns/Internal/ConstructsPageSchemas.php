@@ -87,11 +87,13 @@ trait ConstructsPageSchemas
         return null;
     }
 
+    /** @deprecated  */
     protected function constructDocumentationPageSchema(): void
     {
         $this->category = $this->getDocumentationPageCategory();
     }
 
+    /** @deprecated  */
     protected function getDocumentationPageCategory(): ?string
     {
         // If the documentation page is in a subdirectory,
