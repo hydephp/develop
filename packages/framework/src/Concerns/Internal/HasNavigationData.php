@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
