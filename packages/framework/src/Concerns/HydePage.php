@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Contracts\RouteContract;
@@ -45,8 +46,8 @@ abstract class HydePage implements CompilableContract, PageSchema
     public Metadata $metadata;
 
     public string $title;
-    public ?array $navigation = null;
     public ?string $canonicalUrl = null;
+    public ?array $navigation = null;
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
