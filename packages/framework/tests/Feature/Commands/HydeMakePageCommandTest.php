@@ -47,7 +47,8 @@ class HydeMakePageCommandTest extends TestCase
     {
         $this->artisan('make:page "foo test page"')
             ->expectsOutputToContain('Creating a new page!')
-            ->expectsOutputToContain('Created file '.$this->markdownPath);
+            ->expectsOutputToContain('Created file '.$this->markdownPath)
+            ->assertExitCode(0);
     }
 
     // Assert the command allows the user to specify a page type
