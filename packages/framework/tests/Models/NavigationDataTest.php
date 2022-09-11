@@ -48,6 +48,12 @@ class NavigationDataTest extends TestCase
         $this->assertSame(false, (new NavigationData(hidden: false))->hidden());
     }
 
+    public function testVisible()
+    {
+        $this->assertSame(true, (new NavigationData(hidden: false))->visible());
+        $this->assertSame(false, (new NavigationData(hidden: true))->visible());
+    }
+
     public function testPriority()
     {
         $this->assertSame(1, (new NavigationData(priority: 1))->priority());

@@ -44,6 +44,11 @@ final class NavigationData implements NavigationSchema
         return $this->hidden;
     }
 
+    public function visible(): ?bool
+    {
+        return $this->hidden === null ? null : ! $this->hidden;
+    }
+
     public function priority(): ?int
     {
         return $this->priority;
