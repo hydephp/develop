@@ -19,7 +19,7 @@ trait HasNavigationData
 
     public function navigationMenuLabel(): string
     {
-        return $this->navigation['title'];
+        return $this->navigation['label'];
     }
 
     protected function constructNavigationData(): void
@@ -34,7 +34,7 @@ trait HasNavigationData
     protected function setNavigationData(string $label, bool $hidden, int $priority): void
     {
         $this->navigation = [
-            'title' => $label,
+            'label' => $label,
             'hidden' => $hidden,
             'priority' => $priority,
         ];
