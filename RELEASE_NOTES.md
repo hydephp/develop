@@ -42,6 +42,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class FindsContentLengthForImageObject into Constructors namespace
 
 #### Page-model specific
+- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the HasNavigationData trait)
 - Renamed method outputLocation to outputPath in HydePage.php
 - Renamed method qualifyBasename to sourcePath in HydePage.php
 - Renamed method getOutputLocation to outputLocation in HydePage.php
@@ -56,7 +57,6 @@ In general, these changes should only affect those who have written custom code 
 - Deprecated property `$label` in `DocumentationPage.php`. Use `$navigation['title']` instead.
 - Deprecated property `$hidden` in `DocumentationPage.php`. Use `$navigation['hidden']` instead.
 - Deprecated property `$priority` in `DocumentationPage.php`. Use `$navigation['priority']` instead.
-- Deprecated FindsNavigationDataForPage pending merge into HydePage via the HasNavigationData trait
 
 ### Deprecated
 - for soon-to-be removed features.
