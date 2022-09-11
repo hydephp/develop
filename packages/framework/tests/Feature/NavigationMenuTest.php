@@ -185,4 +185,22 @@ class NavigationMenuTest extends TestCase
 
         $this->assertEquals($expected, $menu->items);
     }
+
+    public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
+    {
+        Hyde::touch('_docs/foo.md');
+        Hyde::touch('_docs/index.md');
+
+        $menu = NavigationMenu::create();
+
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('docs/index')),
+        ]);
+
+        $this->assertEquals($expected, $menu->items);
+
+        Hyde::unlink('_docs/foo.md');
+        Hyde::unlink('_docs/index.md');
+    }
 }

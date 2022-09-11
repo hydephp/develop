@@ -4,6 +4,7 @@ namespace Hyde\Framework\Models\Navigation;
 
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
@@ -61,7 +62,7 @@ class NavigationMenu
     protected function filterHiddenItems(): Collection
     {
         return $this->items->reject(function (NavItem $item) {
-            return $item->hidden;
+            return $item->hidden || $this->isItemANonIndexDocumentationPage($item);
         })->values();
     }
 
@@ -70,5 +71,12 @@ class NavigationMenu
         return $this->items->unique(function (NavItem $item) {
             return $item->resolveLink();
         });
+    }
+
+    protected function isItemANonIndexDocumentationPage(NavItem $item): bool
+    {
+        return isset($item->route)
+            && $item->route->getSourceModel() instanceof DocumentationPage
+            && $item->route->getRouteKey() !== 'docs/index';
     }
 }

@@ -17,7 +17,7 @@ class DocumentationSidebar extends NavigationMenu
     public function generate(): static
     {
         Hyde::routes()->getRoutes(DocumentationPage::class)->each(function (Route $route) {
-            if (! $route->getSourceModel()->get('navigation.hidden', false)) {
+            if ($route->getSourceModel()->showInNavigation() && $route->getSourceModel()->identifier !== 'index') {
                 $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
                     $item->label = $item->route->getSourceModel()->get('navigation.label');
                 }));

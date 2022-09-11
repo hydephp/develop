@@ -425,11 +425,11 @@ class HydePageTest extends TestCase
         $this->assertTrue($page->showInNavigation());
     }
 
-    public function test_show_in_navigation_returns_false_for_documentation_page_if_slug_is_not_index()
+    public function test_show_in_navigation_returns_true_for_documentation_page_if_slug_is_not_index()
     {
         $page = DocumentationPage::make('not-index');
 
-        $this->assertFalse($page->showInNavigation());
+        $this->assertTrue($page->showInNavigation());
     }
 
     public function test_show_in_navigation_returns_false_for_abstract_markdown_page_if_matter_navigation_hidden_is_true()
