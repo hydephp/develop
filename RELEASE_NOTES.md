@@ -13,7 +13,22 @@ In general, these changes should only affect those who have written custom code 
 ### Changed
 
 #### General
+
+- Merged interface PageContract into abstract class AbstractPage
+- Merged interface RouteFacadeContract into existing interface RouteContract
+- Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
+- Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
+- Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
+- The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
+
+#### Class and method renames
 - Renamed base class AbstractPage to HydePage
+- Renamed base class AbstractMarkdownPage to BaseMarkdownPage
+- Renamed command class HydeBuildStaticSiteCommand to HydeBuildSiteCommand
+- Renamed legacy class FileCacheService to ViewDiffService
+- Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
+
+#### Namespace changes
 - Moved class StaticPageBuilder to Actions namespace
 - Moved class AbstractBuildTask to Concerns namespace
 - Moved class AbstractMarkdownPage to Concerns namespace
@@ -25,15 +40,6 @@ In general, these changes should only affect those who have written custom code 
 - Moved class NavigationMenu into Navigation namespace
 - Moved class NavItem into Navigation namespace
 - Moved class FindsContentLengthForImageObject into Constructors namespace
-- Merged interface PageContract into abstract class AbstractPage
-- Merged interface RouteFacadeContract into existing interface RouteContract
-- Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
-- Renamed HydeBuildStaticSiteCommand to HydeBuildSiteCommand
-- Renamed legacy FileCacheService to ViewDiffService
-- Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
-- Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
-- Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
-- The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
 
 #### Page-model specific
 - Renamed method outputLocation to outputPath in HydePage.php
@@ -44,7 +50,7 @@ In general, these changes should only affect those who have written custom code 
 - Renamed method getSourceDirectory to sourceDirectory in HydePage.php
 - Changed named variable $basename to $identifier in HydePage.php
 - Removed $strict option from the has() method HydePage.php
-  
+
 ### Deprecated
 - for soon-to-be removed features.
 

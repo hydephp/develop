@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Concerns\AbstractMarkdownPage;
+use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown;
@@ -21,7 +21,7 @@ use Hyde\Testing\TestCase;
  * since it's the simplest implementation.
  *
  * @covers \Hyde\Framework\Concerns\HydePage
- * @covers \Hyde\Framework\Concerns\AbstractMarkdownPage
+ * @covers \Hyde\Framework\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  * @covers \Hyde\Framework\Concerns\ConstructsPageSchemas
  */
@@ -310,33 +310,33 @@ class HydePageTest extends TestCase
 
     public function test_abstract_markdown_page_extends_abstract_page()
     {
-        $this->assertInstanceOf(HydePage::class, $this->mock(AbstractMarkdownPage::class));
+        $this->assertInstanceOf(HydePage::class, $this->mock(BaseMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_implements_page_contract()
     {
-        $this->assertInstanceOf(HydePage::class, $this->mock(AbstractMarkdownPage::class));
+        $this->assertInstanceOf(HydePage::class, $this->mock(BaseMarkdownPage::class));
     }
 
     public function test_abstract_markdown_page_has_markdown_document_property()
     {
-        $this->assertClassHasAttribute('markdown', AbstractMarkdownPage::class);
+        $this->assertClassHasAttribute('markdown', BaseMarkdownPage::class);
     }
 
     public function test_abstract_markdown_page_has_file_extension_property()
     {
-        $this->assertClassHasAttribute('fileExtension', AbstractMarkdownPage::class);
+        $this->assertClassHasAttribute('fileExtension', BaseMarkdownPage::class);
     }
 
     public function test_abstract_markdown_page_file_extension_property_is_set_to_md()
     {
-        $this->assertEquals('.md', AbstractMarkdownPage::$fileExtension);
+        $this->assertEquals('.md', BaseMarkdownPage::$fileExtension);
     }
 
     public function test_abstract_markdown_page_constructor_arguments_are_optional()
     {
-        $page = $this->mock(AbstractMarkdownPage::class);
-        $this->assertInstanceOf(AbstractMarkdownPage::class, $page);
+        $page = $this->mock(BaseMarkdownPage::class);
+        $this->assertInstanceOf(BaseMarkdownPage::class, $page);
     }
 
     public function test_abstract_markdown_page_constructor_assigns_markdown_document_property_if_set()
@@ -380,13 +380,13 @@ class HydePageTest extends TestCase
         ];
 
         foreach ($pages as $page) {
-            $this->assertInstanceOf(AbstractMarkdownPage::class, new $page());
+            $this->assertInstanceOf(BaseMarkdownPage::class, new $page());
         }
     }
 
     public function test_blade_pages_do_not_extend_abstract_markdown_page()
     {
-        $this->assertNotInstanceOf(AbstractMarkdownPage::class, new BladePage('foo'));
+        $this->assertNotInstanceOf(BaseMarkdownPage::class, new BladePage('foo'));
     }
 
     public function test_get_route_returns_page_route()
