@@ -62,7 +62,7 @@ class NavigationMenu
     protected function filterHiddenItems(): Collection
     {
         return $this->items->reject(function (NavItem $item) {
-            return $item->hidden || $this->isItemANonIndexDocumentationPage($item);
+            return $item->hidden || $this->filterDocumentationPage($item);
         })->values();
     }
 
@@ -73,7 +73,7 @@ class NavigationMenu
         });
     }
 
-    protected function isItemANonIndexDocumentationPage(NavItem $item): bool
+    protected function filterDocumentationPage(NavItem $item): bool
     {
         return isset($item->route)
             && $item->route->getSourceModel() instanceof DocumentationPage
