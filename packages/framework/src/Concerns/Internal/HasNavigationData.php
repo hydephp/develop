@@ -38,7 +38,7 @@ trait HasNavigationData
     {
         $this->setNavigationData(
             $this->findNavigationMenuLabel(),
-            ! $this->matter('navigation.hidden', $this->shouldDocumentationPageBeVisible()),
+            $this->findNavigationMenuHidden(),
             $this->matter('navigation.priority', $this->findNavigationMenuPriority())
         );
     }
@@ -71,11 +71,11 @@ trait HasNavigationData
             return true;
         }
 
-        if ($this instanceof DocumentationPage) {
-            return ! ($this->shouldDocumentationPageBeVisible());
+        if ($this->matter('navigation.hidden', false)) {
+            return true;
         }
 
-        if ($this->matter('navigation.hidden', false)) {
+        if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
             return true;
         }
 
@@ -119,10 +119,5 @@ trait HasNavigationData
             'index' => 'Home',
             'docs/index' => 'Docs',
         ], config('hyde.navigation.labels', []));
-    }
-
-    private function shouldDocumentationPageBeVisible(): bool
-    {
-        return $this->identifier !== 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', []));
     }
 }
