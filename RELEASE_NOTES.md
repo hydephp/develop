@@ -27,6 +27,10 @@ In general, these changes should only affect those who have written custom code 
 - Changed front matter key `navigation.title` to `navigation.label`
 - Renamed property $title to $label in NavItem.php
 
+If you are using any of the following front matter properties, you will likely need to update them:
+
+- `navigation.title` is now `navigation.label`
+
 #### General
 
 - Merged interface PageContract into abstract class AbstractPage
