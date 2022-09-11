@@ -30,6 +30,9 @@ In general, these changes should only affect those who have written custom code 
 If you are using any of the following front matter properties, you will likely need to update them:
 
 - `navigation.title` is now `navigation.label`
+- The `label` properties has been removed, use `navigation.label` instead 
+- The `hidden` properties has been removed, use `navigation.hidden` instead 
+- The `priority` properties has been removed, use `navigation.priority` instead 
 
 #### General
 
