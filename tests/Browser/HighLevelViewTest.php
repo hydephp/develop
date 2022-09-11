@@ -242,7 +242,7 @@ date: 2022-01-01 12:00
         unlink(Hyde::path('_site/index.html'));
     }
 
-    protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false)
+    protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false): string
     {
         $path = Hyde::path('_docs/'.Str::slug($name).'.md');
 
