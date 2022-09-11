@@ -27,12 +27,15 @@ In general, these changes should only affect those who have written custom code 
 - Changed front matter key `navigation.title` to `navigation.label`
 - Renamed property $title to $label in NavItem.php
 
+##### Navigation schema changes
 If you are using any of the following front matter properties, you will likely need to update them:
 
 - `navigation.title` is now `navigation.label`
 - The `label` setting has been removed from documentation pages, use `navigation.label` instead 
 - The `hidden` setting has been removed from documentation pages, use `navigation.hidden` instead 
 - The `priority` setting has been removed from documentation pages, use `navigation.priority` instead 
+
+This change also bubbles to the HydePage accessors, though that will only affect you if you have written or published custom code that interacts with the framework.
 
 #### General
 
