@@ -11,7 +11,7 @@ class NavigationData implements NavigationSchema
     public ?bool $hidden = null;
     public ?int $priority = null;
 
-    public function __construct(?string $label, ?string $group, ?bool $hidden, ?int $priority)
+    public function __construct(?string $label = null, ?string $group = null, ?bool $hidden = null, ?int $priority = null)
     {
         $this->label = $label;
         $this->group = $group;
