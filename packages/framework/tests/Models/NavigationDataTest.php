@@ -10,6 +10,13 @@ use Hyde\Testing\TestCase;
  */
 class NavigationDataTest extends TestCase
 {
+    protected array $array = [
+        'label' => 'label',
+        'group' => 'group',
+        'hidden' => true,
+        'priority' => 1,
+    ];
+
     public function test__construct()
     {
         $navigationData = new NavigationData('label', 'group', true, 1);
@@ -22,12 +29,7 @@ class NavigationDataTest extends TestCase
 
     public function testMake()
     {
-        $navigationData = NavigationData::make([
-            'label' => 'label',
-            'group' => 'group',
-            'hidden' => true,
-            'priority' => 1,
-        ]);
+        $navigationData = NavigationData::make($this->array);
 
         $this->assertEquals($navigationData, new NavigationData('label', 'group', true, 1));
     }
@@ -61,21 +63,11 @@ class NavigationDataTest extends TestCase
 
     public function testToArray()
     {
-        $this->assertSame($array = [
-            'label' => 'label',
-            'group' => 'group',
-            'hidden' => true,
-            'priority' => 1,
-        ], NavigationData::make($array)->toArray());
+        $this->assertSame($this->array, NavigationData::make($this->array)->toArray());
     }
 
     public function testJsonSerialize()
     {
-        $this->assertSame($array = [
-            'label' => 'label',
-            'group' => 'group',
-            'hidden' => true,
-            'priority' => 1,
-        ], NavigationData::make($array)->jsonSerialize());
+        $this->assertSame($this->array, NavigationData::make($this->array)->jsonSerialize());
     }
 }
