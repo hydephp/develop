@@ -99,35 +99,35 @@ class HydePageTest extends TestCase
         MarkdownPage::$sourceDirectory = '/foo/\\';
         $this->assertEquals('foo', MarkdownPage::sourceDirectory());
         $this->resetDirectoryConfiguration();
-  }
+    }
 
     public function test_get_output_directory_returns_static_property()
     {
         MarkdownPage::$outputDirectory = 'foo';
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
-  }
+    }
 
     public function test_get_output_directory_trims_trailing_slashes()
     {
         MarkdownPage::$outputDirectory = '/foo/\\';
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->resetDirectoryConfiguration();
-  }
+    }
 
     public function test_get_file_extension_returns_static_property()
     {
         MarkdownPage::$fileExtension = '.foo';
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
-  }
+    }
 
     public function test_get_file_extension_forces_leading_period()
     {
         MarkdownPage::$fileExtension = 'foo';
         $this->assertEquals('.foo', MarkdownPage::fileExtension());
         $this->resetDirectoryConfiguration();
-  }
+    }
 
     public function test_get_identifier_returns_identifier_property()
     {
