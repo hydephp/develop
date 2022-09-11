@@ -86,10 +86,10 @@ This change also bubbles to the HydePage accessors, though that will only affect
 
 #### Documentation page front matter changes
 
-- Deprecated property `$category` in `DocumentationPage.php`
 - Removed property `$label` in `DocumentationPage.php` (use `$navigation['title']` instead)
 - Removed property `$hidden` in `DocumentationPage.php` (use `$navigation['hidden']` instead)
 - Removed property `$priority` in `DocumentationPage.php` (use `$navigation['priority']` instead)
+- Removed property `$category` in `DocumentationPage.php` (use `$navigation['group']` instead)
 - Removed front matter option`label` (use `navigation.label` instead)
 - Removed front matter option`hidden` (use `navigation.hidden` instead)
 - Removed front matter option`priority` (use `navigation.priority` instead)
