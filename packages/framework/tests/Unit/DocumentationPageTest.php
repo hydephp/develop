@@ -155,4 +155,18 @@ class DocumentationPageTest extends TestCase
         $page = DocumentationPage::make('foo/bar');
         $this->assertEquals('docs/bar.html', $page->getOutputPath());
     }
+
+    public function test_page_has_front_matter()
+    {
+        $this->markdown('_docs/foo.md', matter: $expected = [
+            'foo' => 'bar',
+            'bar' => [
+                'baz' => 'qux',
+            ],
+        ]);
+        $page = DocumentationPage::make('foo');
+        $this->assertNotNull($page->matter());
+        $this->assertNotEmpty($page->matter());
+        $this->assertEquals($expected, $page->matter());
+    }
 }
