@@ -49,8 +49,8 @@ trait HasNavigationData
             return $this->matter('navigation.label');
         }
 
-        if (isset(static::getDefaultNavigationLabelsConfig()[$this->routeKey])) {
-            return static::getDefaultNavigationLabelsConfig()[$this->routeKey];
+        if (isset(static::getNavigationLabelConfig()[$this->routeKey])) {
+            return static::getNavigationLabelConfig()[$this->routeKey];
         }
 
         return $this->matter('title') ?? $this->title;
@@ -90,7 +90,7 @@ trait HasNavigationData
         return 999;
     }
 
-    private static function getDefaultNavigationLabelsConfig(): array
+    private static function getNavigationLabelConfig(): array
     {
         return array_merge([
             'index' => 'Home',
