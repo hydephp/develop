@@ -264,4 +264,19 @@ abstract class HydePage implements CompilableContract, PageSchema
     {
         return $this->metadata->render();
     }
+
+    public function showInNavigation(): bool
+    {
+        return ! $this->navigation['hidden'];
+    }
+
+    public function navigationMenuPriority(): int
+    {
+        return $this->navigation['priority'];
+    }
+
+    public function navigationMenuLabel(): string
+    {
+        return $this->navigation['label'];
+    }
 }
