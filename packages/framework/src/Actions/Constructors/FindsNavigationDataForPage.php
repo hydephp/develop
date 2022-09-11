@@ -11,7 +11,6 @@ use JetBrains\PhpStorm\ArrayShape;
  * Finds the appropriate navigation data for a page.
  *
  * @deprecated Will be merged into HydePage via HasNavigationData trait
- *
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 class FindsNavigationDataForPage
