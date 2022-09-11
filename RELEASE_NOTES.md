@@ -14,6 +14,7 @@ In general, these changes should only affect those who have written custom code 
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 - Adds a helper class to get an object representation of the front matter schemas and their supported types [#484](https://github.com/hydephp/develop/pull/484)
+- Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
 
 ### Changed
 
