@@ -19,6 +19,7 @@ In general, these changes should only affect those who have written custom code 
 - Renamed base class AbstractPage to HydePage
 - Renamed base class AbstractMarkdownPage to BaseMarkdownPage
 - Renamed several HydePage methods to be more consistent
+- Changed front matter key `navigation.title` to `navigation.label`
 
 #### General
 
