@@ -280,7 +280,7 @@ abstract class HydePage implements CompilableContract, PageSchema
         return $this->navigation['label'];
     }
 
-    public function navigationMenuGroup(): string
+    public function navigationMenuGroup(): ?string
     {
         return $this->navigation['group'];
     }
