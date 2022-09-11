@@ -3,10 +3,13 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 
-final class NavigationData implements NavigationSchema, Arrayable
+final class NavigationData implements NavigationSchema, Arrayable, \JsonSerializable
 {
+    use JsonSerializesArrayable;
+
     public ?string $label = null;
     public ?string $group = null;
     public ?bool $hidden = null;

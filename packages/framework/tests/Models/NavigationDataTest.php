@@ -68,4 +68,14 @@ class NavigationDataTest extends TestCase
             'priority' => 1,
         ], NavigationData::make($array)->toArray());
     }
+
+    public function testJsonSerialize()
+    {
+        $this->assertSame($array = [
+            'label' => 'label',
+            'group' => 'group',
+            'hidden' => true,
+            'priority' => 1,
+        ], NavigationData::make($array)->jsonSerialize());
+    }
 }
