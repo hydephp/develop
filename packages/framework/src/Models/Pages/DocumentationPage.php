@@ -20,12 +20,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public ?string $category = null;
 
     /**
-     * @deprecated Use `navigation.label` instead.
-     * The label for the page shown in the sidebar.
-     */
-    public ?string $label = null;
-
-    /**
      * @deprecated Use `navigation.hidden` instead.
      * Hides the page from the sidebar.
      */
