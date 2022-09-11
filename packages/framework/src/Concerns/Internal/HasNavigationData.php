@@ -67,23 +67,10 @@ trait HasNavigationData
 
     private function findNavigationMenuHidden(): bool
     {
-        if ($this instanceof MarkdownPost) {
-            return true;
-        }
-
-        if ($this->matter('navigation.hidden', false)) {
-            return true;
-        }
-
-        if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
-            return true;
-        }
-
-        if (in_array($this->identifier, config('hyde.navigation.exclude', ['404']))) {
-            return true;
-        }
-
-        return false;
+        return $this instanceof MarkdownPost
+        || $this->matter('navigation.hidden', false)
+        || in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))
+        || in_array($this->identifier, config('hyde.navigation.exclude', ['404']));
     }
 
     private function findNavigationMenuPriority(): int
