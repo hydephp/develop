@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Models;
 
+use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Hyde\Framework\Models\NavigationData;
 use Hyde\Testing\TestCase;
 
@@ -16,6 +17,14 @@ class NavigationDataTest extends TestCase
         'hidden' => true,
         'priority' => 1,
     ];
+
+    public function testClassMatchesSchema()
+    {
+        $this->assertSame(
+            NavigationSchema::NAVIGATION_SCHEMA,
+            $this->getImplementedSchema(NavigationData::class)
+        );
+    }
 
     public function test__construct()
     {
@@ -69,5 +78,16 @@ class NavigationDataTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertSame($this->array, NavigationData::make($this->array)->jsonSerialize());
+    }
+
+    protected function getImplementedSchema(string $class): array
+    {
+        $reflection = new \ReflectionClass($class);
+
+        $schema = [];
+        foreach (get_class_vars($class) as $name => $void) {
+            $schema[$name] = $reflection->getProperty($name)->getType()->getName();
+        }
+        return $schema;
     }
 }
