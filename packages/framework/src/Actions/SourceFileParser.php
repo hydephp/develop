@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Concerns\AbstractMarkdownPage;
+use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -43,9 +43,9 @@ class SourceFileParser
         );
     }
 
-    protected function parseMarkdownPage(string $pageClass): AbstractMarkdownPage
+    protected function parseMarkdownPage(string $pageClass): BaseMarkdownPage
     {
-        /** @var \Hyde\Framework\Concerns\AbstractMarkdownPage $pageClass */
+        /** @var \Hyde\Framework\Concerns\BaseMarkdownPage $pageClass */
         $document = MarkdownFileParser::parse(
             $pageClass::sourcePath($this->identifier)
         );
