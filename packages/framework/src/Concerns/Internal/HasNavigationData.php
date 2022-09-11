@@ -39,7 +39,7 @@ trait HasNavigationData
     {
         $this->setNavigationData(
             $this->matter('navigation.label', Hyde::makeTitle(basename($this->identifier))),
-            ! $this->matter('navigation.hidden', $this->identifier === 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', []))),
+            ! $this->matter('navigation.hidden', $this->shouldDocumentationPageBeVisible()),
             $this->matter('navigation.priority', $this->findSidebarPriorityInConfig())
         );
     }
@@ -73,7 +73,7 @@ trait HasNavigationData
         }
 
         if ($this instanceof DocumentationPage) {
-            return ! ($this->identifier === 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', [])));
+            return ! ($this->shouldDocumentationPageBeVisible());
         }
 
         if ($this->matter('navigation.hidden', false)) {
@@ -106,6 +106,11 @@ trait HasNavigationData
             'index' => 'Home',
             'docs/index' => 'Docs',
         ], config('hyde.navigation.labels', []));
+    }
+
+    private function shouldDocumentationPageBeVisible(): bool
+    {
+        return $this->identifier === 'index' && !in_array($this->routeKey, config('hyde.navigation.exclude', []));
     }
 
     protected function findSidebarPriorityInConfig(): int
