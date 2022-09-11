@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 
 /**
- * Test the built in full-page views.
+ * Test the built-in full-page views.
  *
  * Each view generates a screenshot for visual analysis and regression testing.
  * Each view also saves the generated HTML for further testing, for example, Cypress.
