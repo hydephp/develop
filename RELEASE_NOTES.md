@@ -100,6 +100,7 @@ If you are using any of the following front matter properties, you will likely n
 ### Fixed
 - Fixed validation bug in the rebuild command
 - Hide x-cloak elements using inline style in styles.blade.php to prevent flashes until stylesheets are loaded
+- Configuration defined navigation labels were documented but not implemented
 
 ### Security
 - in case of vulnerabilities.

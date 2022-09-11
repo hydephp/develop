@@ -567,6 +567,13 @@ class HydePageTest extends TestCase
         $this->assertEquals('Foo', $page->navigationMenuLabel());
     }
 
+    public function test_navigation_menu_title_can_be_set_in_configuration()
+    {
+        config(['hyde.navigation.labels' => ['foo' => 'bar']]);
+        $page = MarkdownPage::make('foo');
+        $this->assertEquals('bar', $page->navigationMenuLabel());
+    }
+
     public function test_documentation_page_can_be_hidden_from_navigation_using_config()
     {
         config(['hyde.navigation.exclude' => ['docs/index']]);
