@@ -92,16 +92,4 @@ trait ConstructsPageSchemas
     {
         $this->category = $this->getDocumentationPageCategory();
     }
-
-    /** @deprecated  */
-    protected function getDocumentationPageCategory(): ?string
-    {
-        // If the documentation page is in a subdirectory,
-        // then we can use that as the category name.
-        // Otherwise, we look in the front matter.
-
-        return str_contains($this->identifier, '/')
-            ? Str::before($this->identifier, '/')
-            : $this->matter('category', 'other');
-    }
 }
