@@ -49,8 +49,8 @@ trait HasNavigationData
             return $this->matter('navigation.label');
         }
 
-        if (isset(config('hyde.navigation.labels', [])[$this->routeKey])) {
-            return config('hyde.navigation.labels', [])[$this->routeKey];
+        if (isset(static::getDefaultNavigationLabelsConfig()[$this->routeKey])) {
+            return static::getDefaultNavigationLabelsConfig()[$this->routeKey];
         }
 
         if ($this->identifier === 'index') {
@@ -96,5 +96,10 @@ trait HasNavigationData
         }
 
         return 999;
+    }
+
+    private static function getDefaultNavigationLabelsConfig(): array
+    {
+        return config('hyde.navigation.labels', []);
     }
 }
