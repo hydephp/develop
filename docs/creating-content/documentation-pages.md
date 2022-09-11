@@ -149,7 +149,7 @@ navigation:
   group: "Getting Started"
 ```
 
-#### Using sub-directories
+#### Using subdirectories
 
 Since [v0.52.0-beta](https://github.com/hydephp/develop/releases/tag/v0.52.0-beta), you can also automatically group your documentation pages by placing source files in sub-directories.
 
