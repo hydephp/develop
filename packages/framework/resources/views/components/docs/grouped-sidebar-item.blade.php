@@ -3,7 +3,7 @@
 'active' => false,
 ])
 
-<li @class([ 'sidebar-navigation-item -ml-4 pl-4' , 'active -ml-8 pl-8 bg-black/5 dark:bg-black/10'=> $active]) {!! $active ? '' : '' !!} role="listitem">
+<li @class([ 'sidebar-navigation-item -ml-4 pl-4' , 'active -ml-8 pl-8 bg-black/5 dark:bg-black/10'=> $active]) role="listitem">
 	@if(! $active)
 	<a class="-ml-8 pl-4 py-1 px-2  block  border-l-[0.325rem] border-transparent transition-colors duration-300	ease-in-out hover:bg-black/10	"
 	href="{{ $item->route }}">{{ $item->label }}</a>
