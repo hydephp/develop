@@ -123,6 +123,6 @@ trait HasNavigationData
 
     private function shouldDocumentationPageBeVisible(): bool
     {
-        return $this->identifier === 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', []));
+        return $this->identifier !== 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', []));
     }
 }
