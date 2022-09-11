@@ -40,7 +40,7 @@ trait HasNavigationData
         $this->setNavigationData(
             $this->findNavigationMenuLabel(),
             ! $this->matter('navigation.hidden', $this->shouldDocumentationPageBeVisible()),
-            $this->matter('navigation.priority', $this->findSidebarPriorityInConfig())
+            $this->matter('navigation.priority', $this->findNavigationMenuPriority())
         );
     }
 
@@ -93,11 +93,25 @@ trait HasNavigationData
             return $this->matter('navigation.priority');
         }
 
-        if (array_key_exists($this->routeKey, config('hyde.navigation.order', []))) {
-            return (int) config('hyde.navigation.order.'.$this->routeKey);
+        $config = $this instanceof DocumentationPage
+            ? config('docs.sidebar_order', [])
+            : config('hyde.navigation.order', []);
+
+        if (array_key_exists($this->routeKey, $config)) {
+            return (int) $config[$this->routeKey];
         }
 
-        return 999;
+        if (! in_array($this->routeKey, $config)) {
+            // Preserve backwards compatibility
+            return $this instanceof DocumentationPage ? 500 : 999;
+        }
+
+        // Handle the case where the route key is in the config, but the value is not set
+        return array_search($this->routeKey, $config) + 250;
+
+        // Adding 250 makes so that pages with a front matter priority that is lower
+        // can be shown first. It's lower than the fallback of 500 so that they
+        // still come first. This is all to make it easier to mix priorities.
     }
 
     private function getNavigationLabelConfig(): array
@@ -111,20 +125,5 @@ trait HasNavigationData
     private function shouldDocumentationPageBeVisible(): bool
     {
         return $this->identifier === 'index' && ! in_array($this->routeKey, config('hyde.navigation.exclude', []));
-    }
-
-    private function findSidebarPriorityInConfig(): int
-    {
-        $orderIndexArray = config('docs.sidebar_order', []);
-
-        if (! in_array($this->identifier, $orderIndexArray)) {
-            return 500;
-        }
-
-        return array_search($this->identifier, $orderIndexArray) + 250;
-
-        // Adding 250 makes so that pages with a front matter priority that is lower
-        // can be shown first. It's lower than the fallback of 500 so that they
-        // still come first. This is all to make it easier to mix priorities.
     }
 }
