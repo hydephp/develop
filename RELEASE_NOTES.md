@@ -1,17 +1,45 @@
 ## [Unreleased] - YYYY-MM-DD
 
+### Note from the maintainer
+First of all, I'm really sorry for the just insane amount of breaking changes in this update. I believe they are
+necessary in order to make v1.0 a great and stable release. I hope you'll understand. Most of the changes
+are likely to not affect normal usage, with the exception of the front matter navigation key changes.
+
 ### About
 
 This release performs a large amount of refactors and naming changes in preparation for the 1.0 release. Many of these refactors are breaking as several classes are moved around to new namespaces, several are merged, methods renamed, interfaces updated, and more, so forth, etc.
 
 In general, these changes should only affect those who have written custom code that interacts with the framework, though you may need to update your configuration files, and any Blade components you may have published.
 
+#### What you can expect to break
+
+The most high impact change is change of sidebar front matter options, and related areas. Please try updating your site in a test environment first, to see if you need to update any of your front matter.
+
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
-- Adds a helper class to get an object representation of the front matter schemas and their supported types [#484](https://github.com/hydephp/develop/pull/484)
 - Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
 
 ### Changed
+
+#### Major breaking changes
+
+**A very large number the changes in this update are breaking**, as such, not all are marked as breaking. The really major changes that require especially close attention are here listed, please scroll down to see the rest as well as the concrete changes of this high level overview.
+
+- Renamed base class AbstractPage to HydePage
+- Renamed base class AbstractMarkdownPage to BaseMarkdownPage
+- Renamed several HydePage methods to be more consistent
+- Changed front matter key `navigation.title` to `navigation.label`
+- Renamed property $title to $label in NavItem.php
+
+##### Navigation schema changes
+If you are using any of the following front matter properties, you will likely need to update them:
+
+- `navigation.title` is now `navigation.label`
+- The `label` setting has been removed from documentation pages, use `navigation.label` instead 
+- The `hidden` setting has been removed from documentation pages, use `navigation.hidden` instead 
+- The `priority` setting has been removed from documentation pages, use `navigation.priority` instead 
+
+This change also bubbles to the HydePage accessors, though that will only affect you if you have written or published custom code that interacts with the framework.
 
 #### General
 
@@ -21,6 +49,9 @@ In general, these changes should only affect those who have written custom code 
 - Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
+- Refactored how navigation and sidebar data are handled, unifying the API, see below for more details
+- The algorithm for finding the navigation and sidebar orders has been updated, this may affect the order of your pages, and may require you to re-tweak any custom priorities.
+- internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
 
 #### Class and method renames
 - Renamed base class AbstractPage to HydePage
@@ -43,6 +74,7 @@ In general, these changes should only affect those who have written custom code 
 - Moved class FindsContentLengthForImageObject into Constructors namespace
 
 #### Page-model specific
+- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the HasNavigationData trait)
 - Renamed method outputLocation to outputPath in HydePage.php
 - Renamed method qualifyBasename to sourcePath in HydePage.php
 - Renamed method getOutputLocation to outputLocation in HydePage.php
@@ -51,6 +83,19 @@ In general, these changes should only affect those who have written custom code 
 - Renamed method getSourceDirectory to sourceDirectory in HydePage.php
 - Changed named variable $basename to $identifier in HydePage.php
 - Removed $strict option from the has() method HydePage.php
+
+#### Documentation page front matter changes
+
+- Deprecated property `$group` in `DocumentationPage.php`
+- Removed property `$label` in `DocumentationPage.php` (use `$navigation['title']` instead)
+- Removed property `$hidden` in `DocumentationPage.php` (use `$navigation['hidden']` instead)
+- Removed property `$priority` in `DocumentationPage.php` (use `$navigation['priority']` instead)
+- Removed front matter option`label` (use `navigation.label` instead)
+- Removed front matter option`hidden` (use `navigation.hidden` instead)
+- Removed front matter option`priority` (use `navigation.priority` instead)
+- To access the sidebar label setting via class property, use `$navigation['label']` instead of `$label`, etc.
+- To access the sidebar label setting via front matter getters, use `navigation.label` instead of `label`, etc.
+- The navigation link to documentation index page now has default priority 500 instead of 100
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -71,6 +116,7 @@ In general, these changes should only affect those who have written custom code 
 ### Fixed
 - Fixed validation bug in the rebuild command
 - Hide x-cloak elements using inline style in styles.blade.php to prevent flashes until stylesheets are loaded
+- Configuration defined navigation labels were documented but not implemented
 
 ### Security
 - in case of vulnerabilities.

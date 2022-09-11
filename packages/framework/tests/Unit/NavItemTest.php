@@ -25,7 +25,7 @@ class NavItemTest extends TestCase
         $item = new NavItem($route, 'Test', 500, true);
 
         $this->assertSame($route, $item->route);
-        $this->assertSame('Test', $item->title);
+        $this->assertSame('Test', $item->label);
         $this->assertSame(500, $item->priority);
         $this->assertTrue($item->hidden);
     }
@@ -36,7 +36,7 @@ class NavItemTest extends TestCase
         $item = NavItem::fromRoute($route);
 
         $this->assertSame($route, $item->route);
-        $this->assertSame('Home', $item->title);
+        $this->assertSame('Home', $item->label);
         $this->assertSame(0, $item->priority);
         $this->assertFalse($item->hidden);
     }
@@ -62,7 +62,7 @@ class NavItemTest extends TestCase
         $item = NavItem::toLink('foo', 'bar', 10);
 
         $this->assertSame('foo', $item->href);
-        $this->assertSame('bar', $item->title);
+        $this->assertSame('bar', $item->label);
         $this->assertSame(10, $item->priority);
         $this->assertFalse($item->hidden);
     }
@@ -73,7 +73,7 @@ class NavItemTest extends TestCase
         $item = NavItem::toRoute($route, 'foo', 10);
 
         $this->assertSame($route, $item->route);
-        $this->assertSame('foo', $item->title);
+        $this->assertSame('foo', $item->label);
         $this->assertSame(10, $item->priority);
         $this->assertFalse($item->hidden);
     }

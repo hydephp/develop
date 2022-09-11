@@ -26,7 +26,7 @@ class SchemaContractsTest extends TestCase
         ], PageSchema::PAGE_SCHEMA);
 
         $this->assertEquals([
-            'title'     => 'string',
+            'label'     => 'string',
             'hidden'    => 'bool',
             'priority'  => 'int',
         ], PageSchema::NAVIGATION_SCHEMA);
@@ -60,9 +60,7 @@ class SchemaContractsTest extends TestCase
 
         $this->assertEquals([
             'category'  => 'string',
-            'label'     => 'string',
-            'hidden'    => 'bool',
-            'priority'  => 'int',
+            'navigation'    => 'array|navigation',
         ], DocumentationPageSchema::DOCUMENTATION_PAGE_SCHEMA);
     }
 }

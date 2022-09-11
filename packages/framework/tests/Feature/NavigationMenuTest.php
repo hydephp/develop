@@ -44,6 +44,7 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('index')),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
     }
 
@@ -57,6 +58,7 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('404')),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
     }
 
@@ -69,6 +71,7 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('index')),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
     }
 
@@ -97,6 +100,7 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('foo')),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
         Hyde::unlink('_pages/foo.md');
@@ -114,6 +118,7 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('foo')),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
 
         Hyde::unlink('_pages/foo.md');
@@ -135,6 +140,7 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('https://example.com', 'foo'),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
     }
 
@@ -149,6 +155,7 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'foo'),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
     }
 
@@ -166,6 +173,7 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'foo'),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
     }
 
@@ -183,6 +191,26 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'foo'),
         ]);
 
+        $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
+    {
+        Hyde::touch('_docs/foo.md');
+        Hyde::touch('_docs/index.md');
+
+        $menu = NavigationMenu::create();
+
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('docs/index')),
+        ]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+
+        Hyde::unlink('_docs/foo.md');
+        Hyde::unlink('_docs/index.md');
     }
 }
