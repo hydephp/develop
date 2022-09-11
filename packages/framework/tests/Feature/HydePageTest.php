@@ -84,6 +84,35 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testShowInNavigation() {
+        $this->assertTrue((new BladePage('foo'))->showInNavigation());
+        $this->assertTrue((new MarkdownPage())->showInNavigation());
+        $this->assertTrue((new DocumentationPage())->showInNavigation());
+        $this->assertFalse((new MarkdownPost())->showInNavigation());
+    }
+
+    public function testNavigationMenuPriority() {
+        $this->assertSame(999, (new BladePage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());
+        $this->assertSame(500, (new DocumentationPage())->navigationMenuPriority());
+        $this->assertSame(10, (new MarkdownPost())->navigationMenuPriority());
+    }
+
+    public function testNavigationMenuLabel() {
+        $this->assertSame('Foo', (new BladePage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new MarkdownPage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new MarkdownPost('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new DocumentationPage('foo'))->navigationMenuLabel());
+    }
+
+    public function testNavigationMenuGroup() {
+        $this->assertNull((new BladePage('foo'))->navigationMenuGroup());
+        $this->assertNull((new MarkdownPage())->navigationMenuGroup());
+        $this->assertNull((new MarkdownPost())->navigationMenuGroup());
+        $this->assertSame('other', (new DocumentationPage())->navigationMenuGroup());
+        $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
+    }
+
     // Section: In-depth tests
 
     public function test_get_source_directory_returns_static_property()
