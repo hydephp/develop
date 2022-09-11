@@ -46,11 +46,6 @@ class DocumentationSidebar extends NavigationMenu
         })->sortBy('navigation.priority')->values();
     }
 
-    protected function filterHiddenItems(): Collection
-    {
-        return $this->items;
-    }
-
     protected function getPriorityForRoute(Route $route): int
     {
         return $route->getSourceModel()->get('navigation.priority');
