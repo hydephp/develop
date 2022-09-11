@@ -11,6 +11,7 @@ use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\NavigationData;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Arr;
@@ -48,7 +49,7 @@ abstract class HydePage implements CompilableContract, PageSchema
 
     public string $title;
     public ?string $canonicalUrl = null;
-    public ?array $navigation = null;
+    public ?NavigationData $navigation = null;
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
