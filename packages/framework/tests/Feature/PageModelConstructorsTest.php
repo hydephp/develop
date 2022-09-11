@@ -43,7 +43,7 @@ class PageModelConstructorsTest extends TestCase
         $this->markdown('_docs/foo.md', '# Foo Bar', ['category' => 'foo']);
 
         $page = DocumentationPage::parse('foo');
-        $this->assertEquals('foo', $page->category);
+        $this->assertEquals('foo', $page->navigationMenuGroup());
     }
 
     public function test_documentation_page_parser_can_get_category_automatically_from_nested_page()
@@ -53,7 +53,7 @@ class PageModelConstructorsTest extends TestCase
 
         /** @var DocumentationPage $page */
         $page = DocumentationPage::parse('foo/bar');
-        $this->assertEquals('foo', $page->category);
+        $this->assertEquals('foo', $page->navigationMenuGroup());
 
         unlink(Hyde::path('_docs/foo/bar.md'));
         rmdir(Hyde::path('_docs/foo'));
