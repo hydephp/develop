@@ -15,7 +15,7 @@ use Hyde\Framework\Services\DiscoveryService;
 
 /**
  * To ensure compatibility with the Hyde Framework, all page models should extend this class.
- * Markdown-based pages can extend the AbstractMarkdownPage class to get relevant helpers.
+ * Markdown-based pages can extend the BaseMarkdownPage class to get relevant helpers.
  *
  * Unlike other frameworks, in general you don't instantiate pages yourself in Hyde,
  * instead, the page models acts as blueprints defining information for Hyde to
@@ -25,7 +25,7 @@ use Hyde\Framework\Services\DiscoveryService;
  * and you can then access the parsed file from the HydeKernel's page index.
  * The source files are usually parsed by the SourceFileParser action.
  *
- * @see \Hyde\Framework\Concerns\AbstractMarkdownPage
+ * @see \Hyde\Framework\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 abstract class HydePage implements CompilableContract, PageSchema

@@ -14,6 +14,7 @@ In general, these changes should only affect those who have written custom code 
 
 #### General
 - Renamed base class AbstractPage to HydePage
+- Renamed base class AbstractMarkdownPage to BaseMarkdownPage
 - Moved class StaticPageBuilder to Actions namespace
 - Moved class AbstractBuildTask to Concerns namespace
 - Moved class AbstractMarkdownPage to Concerns namespace

@@ -17,7 +17,7 @@ use Hyde\Framework\Models\Markdown;
  * @see \Hyde\Framework\Concerns\HydePage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class AbstractMarkdownPage extends HydePage implements MarkdownDocumentContract, MarkdownPageContract
+abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract, MarkdownPageContract
 {
     public string $identifier;
     public Markdown $markdown;

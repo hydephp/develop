@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Framework\Concerns\AbstractMarkdownPage;
+use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 
@@ -31,7 +31,7 @@ final class FindsTitleForPage
 
     protected function findTitleFromMarkdownHeadings(): ?string
     {
-        if ($this->page instanceof AbstractMarkdownPage) {
+        if ($this->page instanceof BaseMarkdownPage) {
             foreach ($this->page->markdown()->toArray() as $line) {
                 if (str_starts_with($line, '# ')) {
                     return trim(substr($line, 2), ' ');
