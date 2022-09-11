@@ -34,7 +34,7 @@ use Illuminate\Support\Arr;
 abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
-    use Internal\HasNavigationData;
+    use Internal\GeneratesNavigationData;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;

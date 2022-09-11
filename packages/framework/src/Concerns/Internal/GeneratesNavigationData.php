@@ -9,7 +9,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 /**
  * @internal Trait for HydePages to manage data used for navigation menus and the documentation sidebar.
  */
-trait HasNavigationData
+trait GeneratesNavigationData
 {
     protected function constructNavigationData(): void
     {

@@ -76,7 +76,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Moved class FindsContentLengthForImageObject into Constructors namespace
 
 #### Page-model specific
-- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the HasNavigationData trait)
+- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the GeneratesNavigationData trait)
 - Renamed method outputLocation to outputPath in HydePage.php
 - Renamed method qualifyBasename to sourcePath in HydePage.php
 - Renamed method getOutputLocation to outputLocation in HydePage.php
