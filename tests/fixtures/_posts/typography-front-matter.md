@@ -6,14 +6,14 @@ author:
   name: TailwindLabs
   website: https://tailwindcss.com
 date: Nov 7, 2021
-updated: Jule 30, 2022
+updated: July 30, 2022
 image:
   uri: https://hydephp.com/media/fixture-1.jpg
   description: Alt text
   title: Tooltip
   license: "the Unsplash License"
   licenseUrl: "https://unsplash.com/license"
-  author: "Blake Wisz"
+  author: "Blake"
   credit: "https://unsplash.com/photos/GFrBMipOd_E"
 ---
 

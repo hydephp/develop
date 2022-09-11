@@ -17,11 +17,9 @@ class DocumentationSidebar extends NavigationMenu
     public function generate(): static
     {
         Hyde::routes()->getRoutes(DocumentationPage::class)->each(function (Route $route) {
-            if (! $route->getSourceModel()->get('hidden', false)) {
-                $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
-                    $item->title = $item->route->getSourceModel()->get('label');
-                }));
-            }
+            $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
+                $item->label = $item->route->getSourceModel()->get('navigation.label');
+            }));
         });
 
         return $this;
@@ -43,16 +41,16 @@ class DocumentationSidebar extends NavigationMenu
     {
         return $this->items->filter(function ($item) use ($group) {
             return $item->getGroup() === $group || $item->getGroup() === Str::slug($group);
-        })->sortBy('priority')->values();
-    }
-
-    protected function filterHiddenItems(): Collection
-    {
-        return $this->items;
+        })->sortBy('navigation.priority')->values();
     }
 
     protected function getPriorityForRoute(Route $route): int
     {
-        return $route->getSourceModel()->get('priority');
+        return $route->getSourceModel()->get('navigation.priority');
+    }
+
+    protected function filterDocumentationPage(NavItem $item): bool
+    {
+        return ! parent::filterDocumentationPage($item);
     }
 }

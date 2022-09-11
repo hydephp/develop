@@ -155,4 +155,58 @@ class DocumentationPageTest extends TestCase
         $page = DocumentationPage::make('foo/bar');
         $this->assertEquals('docs/bar.html', $page->getOutputPath());
     }
+
+    public function test_page_has_front_matter()
+    {
+        $this->markdown('_docs/foo.md', matter: $expected = [
+            'foo' => 'bar',
+            'bar' => [
+                'baz' => 'qux',
+            ],
+        ]);
+        $page = DocumentationPage::parse('foo');
+        $this->assertNotNull($page->matter());
+        $this->assertNotEmpty($page->matter());
+        $this->assertEquals($expected, $page->matter());
+    }
+
+    public function test_page_can_be_hidden_from_sidebar_using_front_matter()
+    {
+        $this->markdown('_docs/foo.md', matter: [
+            'navigation' => [
+                'hidden' => true,
+            ],
+        ]);
+        $page = DocumentationPage::parse('foo');
+        $this->assertFalse($page->showInNavigation());
+    }
+
+    public function test_page_is_visible_in_sidebar_without_using_front_matter()
+    {
+        $this->markdown('_docs/foo.md');
+        $page = DocumentationPage::parse('foo');
+        $this->assertTrue($page->showInNavigation());
+    }
+
+    public function test_page_can_set_sidebar_priority_using_front_matter()
+    {
+        $this->file('_docs/foo.md', '---
+navigation:
+    priority: 10
+---
+');
+        $page = DocumentationPage::parse('foo');
+        $this->assertEquals(10, $page->navigationMenuPriority());
+    }
+
+    public function test_page_can_set_sidebar_label_using_front_matter()
+    {
+        $this->file('_docs/foo.md', '---
+navigation:
+    label: Bar
+---
+');
+        $page = DocumentationPage::parse('foo');
+        $this->assertEquals('Bar', $page->navigationMenuLabel());
+    }
 }

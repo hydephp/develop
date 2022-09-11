@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 
 /**
- * Test the built in full-page views.
+ * Test the built-in full-page views.
  *
  * Each view generates a screenshot for visual analysis and regression testing.
  * Each view also saves the generated HTML for further testing, for example, Cypress.
@@ -225,9 +225,9 @@ date: 2022-01-01 12:00
                 ->assertSee('Typography Should Be Easy. With Images.')
                 ->assertSee('Posted Nov 7th, 2021 by author TailwindLabs in the category "testing"')
                 ->assertPresent('article > figure > img')
-                ->assertSee('Image by Blake Wisz. License the Unsplash License')
+                ->assertSee('Image by Blake. License the Unsplash License')
                 ->assertSeeLink('TailwindLabs')
-                ->assertSeeLink('Blake Wisz')
+                ->assertSeeLink('Blake')
                 ->assertSeeLink('the Unsplash License')
                 ->screenshot('typography_blog_post_page_with_front_matter')
                 ->storeSourceAsHtml('posts/typography-front-matter');
@@ -242,7 +242,7 @@ date: 2022-01-01 12:00
         unlink(Hyde::path('_site/index.html'));
     }
 
-    protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false)
+    protected function makeDocumentationTestPage(string $name, ?array $matter = null, bool $withText = false): string
     {
         $path = Hyde::path('_docs/'.Str::slug($name).'.md');
 

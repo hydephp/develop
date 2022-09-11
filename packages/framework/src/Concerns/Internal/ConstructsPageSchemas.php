@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
@@ -30,8 +29,13 @@ trait ConstructsPageSchemas
     protected function constructPageSchema(): void
     {
         $this->title = FindsTitleForPage::run($this);
-        $this->navigation = FindsNavigationDataForPage::run($this);
         $this->canonicalUrl = $this->makeCanonicalUrl();
+
+        if ($this instanceof DocumentationPageSchema) {
+            $this->constructSidebarNavigationData();
+        } else {
+            $this->constructNavigationData();
+        }
     }
 
     protected function makeCanonicalUrl(): ?string
@@ -86,10 +90,6 @@ trait ConstructsPageSchemas
     protected function constructDocumentationPageSchema(): void
     {
         $this->category = $this->getDocumentationPageCategory();
-
-        $this->label = $this->matter('label', Hyde::makeTitle(basename($this->identifier)));
-        $this->hidden = $this->matter('hidden', $this->identifier === 'index');
-        $this->priority = $this->matter('priority', $this->findPriorityInConfig());
     }
 
     protected function getDocumentationPageCategory(): ?string
@@ -101,20 +101,5 @@ trait ConstructsPageSchemas
         return str_contains($this->identifier, '/')
             ? Str::before($this->identifier, '/')
             : $this->matter('category', 'other');
-    }
-
-    protected function findPriorityInConfig(): int
-    {
-        $orderIndexArray = config('docs.sidebar_order', []);
-
-        if (! in_array($this->identifier, $orderIndexArray)) {
-            return 500;
-        }
-
-        return array_search($this->identifier, $orderIndexArray) + 250;
-
-        // Adding 250 makes so that pages with a front matter priority that is lower
-        // can be shown first. It's lower than the fallback of 500 so that they
-        // still come first. This is all to make it easier to mix priorities.
     }
 }

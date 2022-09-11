@@ -33,6 +33,7 @@ use Illuminate\Support\Arr;
 abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
+    use Internal\HasNavigationData;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -261,20 +262,5 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function renderPageMetadata(): string
     {
         return $this->metadata->render();
-    }
-
-    public function showInNavigation(): bool
-    {
-        return ! $this->navigation['hidden'];
-    }
-
-    public function navigationMenuPriority(): int
-    {
-        return $this->navigation['priority'];
-    }
-
-    public function navigationMenuTitle(): string
-    {
-        return $this->navigation['title'];
     }
 }
