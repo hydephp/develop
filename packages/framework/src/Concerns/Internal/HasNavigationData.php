@@ -113,7 +113,7 @@ trait HasNavigationData
         return $this->identifier === 'index' && !in_array($this->routeKey, config('hyde.navigation.exclude', []));
     }
 
-    protected function findSidebarPriorityInConfig(): int
+    private function findSidebarPriorityInConfig(): int
     {
         $orderIndexArray = config('docs.sidebar_order', []);
 
