@@ -29,7 +29,7 @@ trait GeneratesNavigationData
             $this->findNavigationMenuLabel(),
             $this->findNavigationMenuHidden(),
             $this->matter('navigation.priority', $this->findNavigationMenuPriority()),
-            $this->getDocumentationPageCategory()
+            $this->getDocumentationPageGroup()
         );
     }
 
@@ -107,7 +107,7 @@ trait GeneratesNavigationData
         ], config('hyde.navigation.labels', []));
     }
 
-    private function getDocumentationPageCategory(): ?string
+    private function getDocumentationPageGroup(): ?string
     {
         // If the documentation page is in a subdirectory,
         // then we can use that as the category name.
