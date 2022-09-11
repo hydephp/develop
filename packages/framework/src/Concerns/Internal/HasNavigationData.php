@@ -93,12 +93,9 @@ trait HasNavigationData
         }
 
         // Different default return values are to preserve backwards compatibility
-        if (! $this instanceof DocumentationPage) {
-            return $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? 999;
-        } else {
-            // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
-            return $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? 500;
-        }
+        return $this instanceof DocumentationPage
+            ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? 500
+            : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? 999;
     }
 
     private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
@@ -108,6 +105,7 @@ trait HasNavigationData
 
     private function findNavigationMenuPriorityInSidebarConfig(array $config): ?int
     {
+        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
         return isset($config[$this->identifier]) ? $config[$this->identifier] + 250 : null;
         // Adding 250 makes so that pages with a front matter priority that is lower
         // can be shown first. It's lower than the fallback of 500 so that they
