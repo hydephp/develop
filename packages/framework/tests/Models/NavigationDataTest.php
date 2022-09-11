@@ -88,6 +88,7 @@ class NavigationDataTest extends TestCase
         foreach (get_class_vars($class) as $name => $void) {
             $schema[$name] = $reflection->getProperty($name)->getType()->getName();
         }
+
         return $schema;
     }
 }
