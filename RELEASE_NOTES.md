@@ -12,6 +12,14 @@ In general, these changes should only affect those who have written custom code 
 
 ### Changed
 
+#### Major breaking changes
+
+**A very large number the changes in this update are breaking**, as such, not all are marked as breaking. The really major changes that require especially close attention are here listed, please scroll down to see the rest as well as the concrete changes of this high level overview.
+
+- Renamed base class AbstractPage to HydePage
+- Renamed base class AbstractMarkdownPage to BaseMarkdownPage
+- Renamed several HydePage methods to be more consistent
+
 #### General
 
 - Merged interface PageContract into abstract class AbstractPage
