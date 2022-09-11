@@ -41,7 +41,7 @@ trait HasNavigationData
     }
 
     /**
-     * Note that this also affects the documentation sidebar titles.
+     * Find the label to use in the navigation menu or document sidebar.
      */
     private function findNavigationMenuLabel(): string
     {
