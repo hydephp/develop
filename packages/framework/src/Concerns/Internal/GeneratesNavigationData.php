@@ -115,6 +115,6 @@ trait GeneratesNavigationData
 
         return str_contains($this->identifier, '/')
             ? Str::before($this->identifier, '/')
-            : $this->matter('category', 'other');
+            : $this->matter('navigation.group', 'other');
     }
 }
