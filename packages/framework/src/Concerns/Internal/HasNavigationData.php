@@ -57,8 +57,8 @@ trait HasNavigationData
             return config('hyde.navigation.labels.home', 'Home');
         }
 
-        if (array_key_exists($this->identifier, config('hyde.navigation.labels', []))) {
-            return config('hyde.navigation.labels.'.$this->identifier);
+        if (array_key_exists($this->routeKey, config('hyde.navigation.labels', []))) {
+            return config('hyde.navigation.labels.'.$this->routeKey);
         }
 
         return $this->matter('title') ?? $this->title;
