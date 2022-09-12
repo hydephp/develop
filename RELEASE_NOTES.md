@@ -57,6 +57,9 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - The algorithm for finding the navigation and sidebar orders has been updated, this may affect the order of your pages, and may require you to re-tweak any custom priorities.
 - The navigation link to documentation index page now has default priority 500 instead of 100
 - All usages where the RouteContract was type hinted with have been updated to type hint against the Route model implementation instead
+- Changed Blade component identifier class 'sidebar-category' to 'sidebar-group'
+- Changed Blade component identifier class 'sidebar-category-heading' to 'sidebar-group-heading'
+- Changed Blade component identifier class 'sidebar-category-list' to 'sidebar-group-list'
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
 - internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
