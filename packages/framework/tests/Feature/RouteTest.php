@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;

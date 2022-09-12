@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HydePage;
-
 use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Route;
 use Hyde\Testing\TestCase;

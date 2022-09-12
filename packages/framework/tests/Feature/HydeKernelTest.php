@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;

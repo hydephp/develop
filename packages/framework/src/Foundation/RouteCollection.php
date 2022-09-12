@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Concerns\HydePage;
-
 use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Models\Route;
 

@@ -4,7 +4,6 @@ namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;

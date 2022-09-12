@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Models\Navigation;
 
 use Hyde\Framework\Concerns\HydePage;
-
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Route;
 use Illuminate\Support\Str;

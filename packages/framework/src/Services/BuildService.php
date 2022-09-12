@@ -6,10 +6,10 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
-use Hyde\Framework\Models\Route;
 
 /**
  * Moves logic from the build command to a service.

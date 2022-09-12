@@ -4,7 +4,6 @@ namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
