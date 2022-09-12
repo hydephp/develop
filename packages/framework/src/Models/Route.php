@@ -13,7 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements \Hyde\Framework\Contracts\RouteContract, \Stringable, \JsonSerializable, Arrayable
+class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
@@ -138,9 +138,9 @@ class Route implements \Hyde\Framework\Contracts\RouteContract, \Stringable, \Js
     /**
      * @param  \Hyde\Framework\Models\Route|string  $route  A route instance or route key string
      */
-    public function is(\Hyde\Framework\Models\Route|string $route): bool
+    public function is(Route|string $route): bool
     {
-        if ($route instanceof \Hyde\Framework\Models\Route) {
+        if ($route instanceof Route) {
             return $this->getRouteKey() === $route->getRouteKey();
         }
 
@@ -185,7 +185,7 @@ class Route implements \Hyde\Framework\Contracts\RouteContract, \Stringable, \Js
      */
     public static function getFromSource(string $sourceFilePath): static
     {
-        return Hyde::routes()->first(function (\Hyde\Framework\Models\Route $route) use ($sourceFilePath) {
+        return Hyde::routes()->first(function (Route $route) use ($sourceFilePath) {
             return $route->getSourceFilePath() === $sourceFilePath;
         }) ?? throw new RouteNotFoundException($sourceFilePath);
     }
@@ -196,7 +196,7 @@ class Route implements \Hyde\Framework\Contracts\RouteContract, \Stringable, \Js
      * @param  \Hyde\Framework\Concerns\HydePage  $page
      * @return \Hyde\Framework\Models\Route
      */
-    public static function getFromModel(HydePage $page): \Hyde\Framework\Models\Route
+    public static function getFromModel(HydePage $page): Route
     {
         return $page->getRoute();
     }
@@ -214,7 +214,7 @@ class Route implements \Hyde\Framework\Contracts\RouteContract, \Stringable, \Js
     /**
      * Get the current route for the page being rendered.
      */
-    public static function current(): \Hyde\Framework\Models\Route
+    public static function current(): Route
     {
         return Hyde::currentRoute() ?? throw new RouteNotFoundException('current');
     }
@@ -222,7 +222,7 @@ class Route implements \Hyde\Framework\Contracts\RouteContract, \Stringable, \Js
     /**
      * Get the home route, usually the index page route.
      */
-    public static function home(): \Hyde\Framework\Models\Route
+    public static function home(): Route
     {
         return static::getFromKey('index');
     }

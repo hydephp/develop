@@ -5,6 +5,7 @@ namespace Hyde\Framework\Models\Navigation;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Route;
 use Illuminate\Support\Str;
 
 /**
@@ -17,7 +18,7 @@ use Illuminate\Support\Str;
  */
 class NavItem implements \Stringable
 {
-    public \Hyde\Framework\Models\Route $route;
+    public Route $route;
     public string $href;
 
     public string $label;
@@ -32,7 +33,7 @@ class NavItem implements \Stringable
      * @param  int  $priority
      * @param  bool  $hidden
      */
-    public function __construct(?\Hyde\Framework\Models\Route $route, string $label, int $priority = 500, bool $hidden = false)
+    public function __construct(?Route $route, string $label, int $priority = 500, bool $hidden = false)
     {
         if ($route !== null) {
             $this->route = $route;
@@ -46,7 +47,7 @@ class NavItem implements \Stringable
     /**
      * Create a new navigation menu item from a route.
      */
-    public static function fromRoute(\Hyde\Framework\Models\Route $route): static
+    public static function fromRoute(Route $route): static
     {
         return new self(
             $route,
@@ -67,7 +68,7 @@ class NavItem implements \Stringable
     /**
      * Create a new navigation menu item leading to a Route model.
      */
-    public static function toRoute(\Hyde\Framework\Models\Route $route, string $label, int $priority = 500): static
+    public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
         return new self($route, $label, $priority, false);
     }

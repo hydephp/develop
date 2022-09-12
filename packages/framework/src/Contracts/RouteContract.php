@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Contracts;
 
 use Hyde\Framework\Concerns\HydePage;
+use Hyde\Framework\Models\Route;
 use Illuminate\Support\Collection;
 
 /**
@@ -29,19 +30,19 @@ interface RouteContract
 
     public function __toString(): string;
 
-    public static function get(string $routeKey): \Hyde\Framework\Models\Route;
+    public static function get(string $routeKey): Route;
 
-    public static function getFromKey(string $routeKey): \Hyde\Framework\Models\Route;
+    public static function getFromKey(string $routeKey): Route;
 
-    public static function getFromSource(string $sourceFilePath): \Hyde\Framework\Models\Route;
+    public static function getFromSource(string $sourceFilePath): Route;
 
-    public static function getFromModel(HydePage $page): \Hyde\Framework\Models\Route;
+    public static function getFromModel(HydePage $page): Route;
 
     public static function all(): Collection;
 
-    public static function current(): \Hyde\Framework\Models\Route;
+    public static function current(): Route;
 
-    public static function home(): \Hyde\Framework\Models\Route;
+    public static function home(): Route;
 
     public static function exists(string $routeKey): bool;
 }

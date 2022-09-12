@@ -7,6 +7,7 @@ use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Models\Route;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -38,7 +39,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static FileCollection files()
  * @method static PageCollection pages()
  * @method static RouteCollection routes()
- * @method static \Hyde\Framework\Models\Route|null currentRoute()
+ * @method static Route|null currentRoute()
  * @method static HydeKernel getInstance()
  * @method static bool hasFeature(string $feature)
  * @method static bool hasSiteUrl()

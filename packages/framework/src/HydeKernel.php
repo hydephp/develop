@@ -11,6 +11,7 @@ use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Models\Route;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Traits\Macroable;
@@ -87,7 +88,7 @@ class HydeKernel implements Arrayable, \JsonSerializable
         return View::shared('currentPage', '');
     }
 
-    public function currentRoute(): ?\Hyde\Framework\Models\Route
+    public function currentRoute(): ?Route
     {
         return View::shared('currentRoute');
     }

@@ -38,7 +38,7 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
-    public static function home(): ?\Hyde\Framework\Models\Route
+    public static function home(): ?Route
     {
         return Route::exists(static::$outputDirectory.'/index') ? Route::get(static::$outputDirectory.'/index') : null;
     }
