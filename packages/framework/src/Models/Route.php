@@ -195,8 +195,6 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
      *
      * @param  \Hyde\Framework\Concerns\HydePage  $page
      * @return \Hyde\Framework\Contracts\RouteContract
-     *
-     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function getFromModel(HydePage $page): RouteContract
     {
