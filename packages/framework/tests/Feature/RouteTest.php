@@ -225,12 +225,19 @@ class RouteTest extends TestCase
         ], (new MarkdownPage('foo'))->getRoute()->toArray());
     }
 
-    public function testIs()
+    public function testIsWithRoute()
     {
         $route = new Route(new MarkdownPage('foo'));
         $this->assertTrue($route->is($route));
 
         $route2 = new Route(new MarkdownPage('bar'));
         $this->assertFalse($route->is($route2));
+    }
+
+    public function testIsWithRouteKey()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+        $this->assertTrue($route->is('foo'));
+        $this->assertFalse($route->is('bar'));
     }
 }
