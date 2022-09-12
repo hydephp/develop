@@ -136,9 +136,9 @@ navigation:
 Sidebar grouping allows you to group items in the sidebar into categories. This is useful for creating a sidebar with a lot of items.
 The Hyde docs for instance use this.
 
-The feature is enabled automatically when one or more of your documentation pages have the category property set
+The feature is enabled automatically when one or more of your documentation pages have the navigation.group property set
 in the front matter. This will then switch to a slightly more compact sidebar layout with pages sorted into categories.
-Any pages without the category front matter will get put in the "Other" category.
+Any pages without the group front matter will get put in the "Other" group.
 
 #### Using Front Matter
 
