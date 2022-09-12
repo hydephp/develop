@@ -32,6 +32,7 @@ The most high impact change is change of sidebar front matter options, and relat
 - Renamed several HydePage methods to be more consistent
 - Changed front matter key `navigation.title` to `navigation.label`
 - Renamed property $title to $label in NavItem.php
+- Removed the RouteContract interfaces (inlined into Route.php, which you now type hint against instead)
 
 ##### Navigation schema changes
 If you are using any of the following front matter properties, you will likely need to update them:
@@ -46,7 +47,8 @@ This change also bubbles to the HydePage accessors, though that will only affect
 #### General
 
 - Merged interface PageContract into abstract class AbstractPage
-- Merged interface RouteFacadeContract into existing interface RouteContract
+- Merged interface RouteFacadeContract into the Route model implementation
+- Merged interface RouteContract into the Route model implementation
 - Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
 - Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
@@ -54,6 +56,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Refactored how navigation and sidebar data are handled, unifying the API, see below for more details
 - The algorithm for finding the navigation and sidebar orders has been updated, this may affect the order of your pages, and may require you to re-tweak any custom priorities.
 - The navigation link to documentation index page now has default priority 500 instead of 100
+- All usages where the RouteContract was type hinted with have been updated to type hint against the Route model implementation instead
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
 - internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
@@ -108,7 +111,8 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
 - Removed interface PageContract (merged into abstract class AbstractPage)
-- Removed interface RouteFacadeContract (merged into existing RouteContract)
+- Removed interface RouteFacadeContract (merged into the Route.php implementation)
+- Removed interface RouteContract (merged into the Route.php implementation)
 - Removed deprecated interface AssetServiceContract
 - Removed deprecated interface HydeKernelContract
 - Removed deprecated and unused abstract class ActionCommand
