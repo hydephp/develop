@@ -34,7 +34,7 @@ final class RouteCollection extends BaseFoundationCollection
 {
     public function getRoutes(?string $pageClass = null): self
     {
-        return ! $pageClass ? $this : $this->filter(function (\Hyde\Framework\Contracts\RouteContract $route) use ($pageClass) {
+        return ! $pageClass ? $this : $this->filter(function (\Hyde\Framework\Models\Route $route) use ($pageClass) {
             return $route->getSourceModel() instanceof $pageClass;
         });
     }
@@ -43,7 +43,7 @@ final class RouteCollection extends BaseFoundationCollection
      * This internal method adds the specified route to the route index.
      * It's made public so package developers can hook into the routing system.
      */
-    public function addRoute(\Hyde\Framework\Contracts\RouteContract $route): self
+    public function addRoute(\Hyde\Framework\Models\Route $route): self
     {
         $this->put($route->getRouteKey(), $route);
 

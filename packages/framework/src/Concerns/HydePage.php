@@ -184,9 +184,9 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return \Hyde\Framework\Contracts\RouteContract The page's route.
+     * @return \Hyde\Framework\Models\Route The page's route.
      */
-    public function getRoute(): \Hyde\Framework\Contracts\RouteContract
+    public function getRoute(): \Hyde\Framework\Models\Route
     {
         return new Route($this);
     }

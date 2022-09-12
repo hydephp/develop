@@ -78,7 +78,7 @@ class HydeKernelTest extends TestCase
     {
         $expected = new Route(new MarkdownPage());
         View::share('currentRoute', $expected);
-        $this->assertInstanceOf(\Hyde\Framework\Contracts\RouteContract::class, Hyde::currentRoute());
+        $this->assertInstanceOf(\Hyde\Framework\Models\Route::class, Hyde::currentRoute());
         $this->assertEquals($expected, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
     }

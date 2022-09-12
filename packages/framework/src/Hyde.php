@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static FileCollection files()
  * @method static PageCollection pages()
  * @method static RouteCollection routes()
- * @method static \Hyde\Framework\Contracts\RouteContract|null currentRoute()
+ * @method static \Hyde\Framework\Models\Route|null currentRoute()
  * @method static HydeKernel getInstance()
  * @method static bool hasFeature(string $feature)
  * @method static bool hasSiteUrl()

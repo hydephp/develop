@@ -18,7 +18,7 @@ class NavItemTest extends TestCase
 {
     public function test__construct()
     {
-        $route = $this->createMock(\Hyde\Framework\Contracts\RouteContract::class);
+        $route = $this->createMock(\Hyde\Framework\Models\Route::class);
         $route->method('getSourceModel')->willReturn($this->createMock(HydePage::class));
         $route->method('getLink')->willReturn('/');
 

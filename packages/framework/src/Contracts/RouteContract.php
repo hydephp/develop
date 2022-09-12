@@ -29,19 +29,19 @@ interface RouteContract
 
     public function __toString(): string;
 
-    public static function get(string $routeKey): \Hyde\Framework\Contracts\RouteContract;
+    public static function get(string $routeKey): \Hyde\Framework\Models\Route;
 
-    public static function getFromKey(string $routeKey): \Hyde\Framework\Contracts\RouteContract;
+    public static function getFromKey(string $routeKey): \Hyde\Framework\Models\Route;
 
-    public static function getFromSource(string $sourceFilePath): \Hyde\Framework\Contracts\RouteContract;
+    public static function getFromSource(string $sourceFilePath): \Hyde\Framework\Models\Route;
 
-    public static function getFromModel(HydePage $page): \Hyde\Framework\Contracts\RouteContract;
+    public static function getFromModel(HydePage $page): \Hyde\Framework\Models\Route;
 
     public static function all(): Collection;
 
-    public static function current(): \Hyde\Framework\Contracts\RouteContract;
+    public static function current(): \Hyde\Framework\Models\Route;
 
-    public static function home(): \Hyde\Framework\Contracts\RouteContract;
+    public static function home(): \Hyde\Framework\Models\Route;
 
     public static function exists(string $routeKey): bool;
 }
