@@ -13,7 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
+class Route implements \Stringable, \JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
