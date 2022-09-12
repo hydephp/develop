@@ -96,6 +96,11 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
         return Hyde::url($this->getOutputFilePath());
     }
 
+    public function is(RouteContract $route): bool
+    {
+        return $this->getRouteKey() === $route->getRouteKey();
+    }
+
     /** @inheritDoc */
     public static function get(string $routeKey): static
     {

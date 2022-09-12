@@ -6,6 +6,7 @@ use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -223,5 +224,14 @@ class RouteTest extends TestCase
             'sourceModelPath' => '_pages/foo.md',
             'sourceModelType' => MarkdownPage::class,
         ], (new MarkdownPage('foo'))->getRoute()->toArray());
+    }
+
+    public function testIs()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+        $this->assertTrue($route->is($route));
+
+        $route2 = new Route(new MarkdownPage('bar'));
+        $this->assertFalse($route->is($route2));
     }
 }
