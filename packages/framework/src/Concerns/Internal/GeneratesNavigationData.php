@@ -2,29 +2,18 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Framework\Models\NavigationData;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Illuminate\Support\Str;
 
 /**
  * @internal Trait for HydePages to manage data used for navigation menus and the documentation sidebar.
+ *
+ * @see \Hyde\Framework\Concerns\HydePage
  */
-trait HasNavigationData
+trait GeneratesNavigationData
 {
-    public function showInNavigation(): bool
-    {
-        return ! $this->navigation['hidden'];
-    }
-
-    public function navigationMenuPriority(): int
-    {
-        return $this->navigation['priority'];
-    }
-
-    public function navigationMenuLabel(): string
-    {
-        return $this->navigation['label'];
-    }
-
     protected function constructNavigationData(): void
     {
         $this->setNavigationData(
@@ -39,17 +28,19 @@ trait HasNavigationData
         $this->setNavigationData(
             $this->findNavigationMenuLabel(),
             $this->findNavigationMenuHidden(),
-            $this->matter('navigation.priority', $this->findNavigationMenuPriority())
+            $this->matter('navigation.priority', $this->findNavigationMenuPriority()),
+            $this->getDocumentationPageGroup()
         );
     }
 
-    protected function setNavigationData(string $label, bool $hidden, int $priority): void
+    protected function setNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): void
     {
-        $this->navigation = [
+        $this->navigation = NavigationData::make([
             'label' => $label,
+            'group' => $group,
             'hidden' => $hidden,
             'priority' => $priority,
-        ];
+        ]);
     }
 
     private function findNavigationMenuLabel(): string
@@ -114,5 +105,16 @@ trait HasNavigationData
             'index' => 'Home',
             'docs/index' => 'Docs',
         ], config('hyde.navigation.labels', []));
+    }
+
+    private function getDocumentationPageGroup(): ?string
+    {
+        // If the documentation page is in a subdirectory,
+        // then we can use that as the category name.
+        // Otherwise, we look in the front matter.
+
+        return str_contains($this->identifier, '/')
+            ? Str::before($this->identifier, '/')
+            : $this->matter('navigation.group', 'other');
     }
 }

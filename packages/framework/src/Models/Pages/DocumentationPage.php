@@ -16,12 +16,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
-    /**
-     * @deprecated Will be replaced by navigation.group
-     * The sidebar category group, if any. Can be overridden in front matter, or by putting the source file in a subdirectory of the same category name.
-     */
-    public ?string $category = null;
-
     /** @inheritDoc */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {

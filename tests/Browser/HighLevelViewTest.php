@@ -162,8 +162,8 @@ date: 2022-01-01 12:00
 
     public function test_documentation_site_with_grouped_pages()
     {
-        $this->makeDocumentationTestPage('Page1', ['category' => 'Group 1'], true);
-        $this->makeDocumentationTestPage('Page2', ['category' => 'Group 1']);
+        $this->makeDocumentationTestPage('Page1', ['navigation.group' => 'Group 1'], true);
+        $this->makeDocumentationTestPage('Page2', ['navigation.group' => 'Group 1']);
         $this->makeDocumentationTestPage('Page3');
 
         if (! is_dir(Browser::$storeSourceAt.'/docs')) {

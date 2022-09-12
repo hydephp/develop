@@ -11,6 +11,7 @@ use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\NavigationData;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Arr;
@@ -33,7 +34,7 @@ use Illuminate\Support\Arr;
 abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
-    use Internal\HasNavigationData;
+    use Internal\GeneratesNavigationData;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -48,7 +49,7 @@ abstract class HydePage implements CompilableContract, PageSchema
 
     public string $title;
     public ?string $canonicalUrl = null;
-    public ?array $navigation = null;
+    public ?NavigationData $navigation = null;
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
@@ -262,5 +263,25 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function renderPageMetadata(): string
     {
         return $this->metadata->render();
+    }
+
+    public function showInNavigation(): bool
+    {
+        return ! $this->navigation['hidden'];
+    }
+
+    public function navigationMenuPriority(): int
+    {
+        return $this->navigation['priority'];
+    }
+
+    public function navigationMenuLabel(): string
+    {
+        return $this->navigation['label'];
+    }
+
+    public function navigationMenuGroup(): ?string
+    {
+        return $this->navigation['group'];
     }
 }

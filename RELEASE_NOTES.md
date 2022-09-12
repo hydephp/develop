@@ -18,6 +18,7 @@ The most high impact change is change of sidebar front matter options, and relat
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 - Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
+- Added a NavigationData object to HydePage.php
 
 ### Changed
 
@@ -51,7 +52,9 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
 - Refactored how navigation and sidebar data are handled, unifying the API, see below for more details
 - The algorithm for finding the navigation and sidebar orders has been updated, this may affect the order of your pages, and may require you to re-tweak any custom priorities.
+- The navigation link to documentation index page now has default priority 500 instead of 100
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
+- internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
 #### Class and method renames
 - Renamed base class AbstractPage to HydePage
@@ -74,7 +77,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Moved class FindsContentLengthForImageObject into Constructors namespace
 
 #### Page-model specific
-- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the HasNavigationData trait)
+- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the GeneratesNavigationData trait)
 - Renamed method outputLocation to outputPath in HydePage.php
 - Renamed method qualifyBasename to sourcePath in HydePage.php
 - Renamed method getOutputLocation to outputLocation in HydePage.php
@@ -86,16 +89,16 @@ This change also bubbles to the HydePage accessors, though that will only affect
 
 #### Documentation page front matter changes
 
-- Deprecated property `$category` in `DocumentationPage.php`
 - Removed property `$label` in `DocumentationPage.php` (use `$navigation['title']` instead)
 - Removed property `$hidden` in `DocumentationPage.php` (use `$navigation['hidden']` instead)
 - Removed property `$priority` in `DocumentationPage.php` (use `$navigation['priority']` instead)
+- Removed property `$category` in `DocumentationPage.php` (use `$navigation['group']` instead)
 - Removed front matter option`label` (use `navigation.label` instead)
 - Removed front matter option`hidden` (use `navigation.hidden` instead)
 - Removed front matter option`priority` (use `navigation.priority` instead)
+- Removed front matter option`category` (use `navigation.group` instead)
 - To access the sidebar label setting via class property, use `$navigation['label']` instead of `$label`, etc.
 - To access the sidebar label setting via front matter getters, use `navigation.label` instead of `label`, etc.
-- The navigation link to documentation index page now has default priority 500 instead of 100
 
 ### Deprecated
 - for soon-to-be removed features.
