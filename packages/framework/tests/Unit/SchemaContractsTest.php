@@ -5,6 +5,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
+use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Hyde\Testing\TestCase;
 
 /**
@@ -27,9 +28,10 @@ class SchemaContractsTest extends TestCase
 
         $this->assertEquals([
             'label'     => 'string',
+            'group'     => 'string',
             'hidden'    => 'bool',
             'priority'  => 'int',
-        ], PageSchema::NAVIGATION_SCHEMA);
+        ], NavigationSchema::NAVIGATION_SCHEMA);
 
         $this->assertEquals([
             'title'        => 'string',

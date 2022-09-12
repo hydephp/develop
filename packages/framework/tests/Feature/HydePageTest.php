@@ -23,6 +23,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Concerns\HydePage
  * @covers \Hyde\Framework\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Concerns\Internal\GeneratesNavigationData
  */
 class HydePageTest extends TestCase
 {
@@ -82,6 +83,39 @@ class HydePageTest extends TestCase
             'output/hello-world.html',
             (new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()
         );
+    }
+
+    public function testShowInNavigation()
+    {
+        $this->assertTrue((new BladePage('foo'))->showInNavigation());
+        $this->assertTrue((new MarkdownPage())->showInNavigation());
+        $this->assertTrue((new DocumentationPage())->showInNavigation());
+        $this->assertFalse((new MarkdownPost())->showInNavigation());
+    }
+
+    public function testNavigationMenuPriority()
+    {
+        $this->assertSame(999, (new BladePage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());
+        $this->assertSame(500, (new DocumentationPage())->navigationMenuPriority());
+        $this->assertSame(10, (new MarkdownPost())->navigationMenuPriority());
+    }
+
+    public function testNavigationMenuLabel()
+    {
+        $this->assertSame('Foo', (new BladePage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new MarkdownPage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new MarkdownPost('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new DocumentationPage('foo'))->navigationMenuLabel());
+    }
+
+    public function testNavigationMenuGroup()
+    {
+        $this->assertNull((new BladePage('foo'))->navigationMenuGroup());
+        $this->assertNull((new MarkdownPage())->navigationMenuGroup());
+        $this->assertNull((new MarkdownPost())->navigationMenuGroup());
+        $this->assertSame('other', (new DocumentationPage())->navigationMenuGroup());
+        $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
     }
 
     // Section: In-depth tests
