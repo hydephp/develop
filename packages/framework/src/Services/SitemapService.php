@@ -4,7 +4,7 @@
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Contracts\RouteContract;
+
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
