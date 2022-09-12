@@ -44,7 +44,11 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
         return $this->getLink();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the instance as an array.
+     *
+     * @return array<string, string>
+     */
     public function toArray(): array
     {
         return [
