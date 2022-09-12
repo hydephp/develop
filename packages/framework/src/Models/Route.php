@@ -136,7 +136,7 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * @param \Hyde\Framework\Contracts\RouteContract|string $route A route instance or route key string
+     * @param  \Hyde\Framework\Contracts\RouteContract|string  $route  A route instance or route key string
      */
     public function is(RouteContract|string $route): bool
     {
