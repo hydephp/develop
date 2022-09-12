@@ -4,12 +4,12 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Contracts\RouteContract as Route;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
+use Hyde\Framework\Models\Route;
 
 /**
  * Moves logic from the build command to a service.
