@@ -31,14 +31,21 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
      */
     protected string $routeKey;
 
-    /** @inheritDoc */
+    /**
+     * Construct a new Route instance for the given page model.
+     *
+     * @param  \Hyde\Framework\Concerns\HydePage  $sourceModel
+     */
     public function __construct(HydePage $sourceModel)
     {
         $this->sourceModel = $sourceModel;
         $this->routeKey = $sourceModel->getRouteKey();
     }
 
-    /** @inheritDoc */
+    /**
+     * Cast a route object into a string that can be used in a href attribute.
+     * Should be the same as getLink().
+     */
     public function __toString(): string
     {
         return $this->getLink();
@@ -58,43 +65,71 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
         ];
     }
 
-    /** @inheritDoc */
+    /**
+     * Resolve a site web link to the file, using pretty URLs if enabled.
+     *
+     * @return string Relative URL path to the route site file.
+     */
     public function getLink(): string
     {
         return Hyde::relativeLink($this->getOutputFilePath());
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the page type for the route.
+     *
+     * @return class-string<\Hyde\Framework\Concerns\HydePage>
+     */
     public function getPageType(): string
     {
         return $this->sourceModel::class;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the source model for the route.
+     *
+     * @return \Hyde\Framework\Concerns\HydePage
+     */
     public function getSourceModel(): HydePage
     {
         return $this->sourceModel;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the unique route key for the route.
+     *
+     * @return string The route key. Generally <output-directory/slug>.
+     */
     public function getRouteKey(): string
     {
         return $this->routeKey;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the path to the source file.
+     *
+     * @return string Path relative to the root of the project.
+     */
     public function getSourceFilePath(): string
     {
         return $this->sourceModel->getSourcePath();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the path to the output file.
+     *
+     * @return string Path relative to the site output directory.
+     */
     public function getOutputFilePath(): string
     {
         return $this->sourceModel->getOutputPath();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the qualified URL for the route, using pretty URLs if enabled.
+     *
+     * @return string Fully qualified URL using the configured base URL.
+     */
     public function getQualifiedUrl(): string
     {
         return Hyde::url($this->getOutputFilePath());
@@ -112,19 +147,42 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
         return $this->getRouteKey() === $route;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get a route from the Router index for the specified route key.
+     *
+     * Alias for static::getFromKey().
+     *
+     * @param  string  $routeKey  Example: posts/foo.md
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
     public static function get(string $routeKey): static
     {
         return static::getFromKey($routeKey);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get a route from the Router index for the specified route key.
+     *
+     * @param  string  $routeKey  Example: posts/foo.md
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
     public static function getFromKey(string $routeKey): static
     {
         return Hyde::routes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get a route from the Router index for the specified source file path.
+     *
+     * @param  string  $sourceFilePath  Example: _posts/foo.md
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
     public static function getFromSource(string $sourceFilePath): static
     {
         return Hyde::routes()->first(function (RouteContract $route) use ($sourceFilePath) {
@@ -132,31 +190,51 @@ class Route implements RouteContract, \Stringable, \JsonSerializable, Arrayable
         }) ?? throw new RouteNotFoundException($sourceFilePath);
     }
 
-    /** @inheritDoc */
+    /**
+     * Get a route from the Router index for the supplied page model.
+     *
+     * @param  \Hyde\Framework\Concerns\HydePage  $page
+     * @return \Hyde\Framework\Contracts\RouteContract
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
     public static function getFromModel(HydePage $page): RouteContract
     {
         return $page->getRoute();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get all routes from the Router index.
+     *
+     * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Contracts\RouteContract>
+     */
     public static function all(): RouteCollection
     {
         return Hyde::routes();
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the current route for the page being rendered.
+     */
     public static function current(): RouteContract
     {
         return Hyde::currentRoute() ?? throw new RouteNotFoundException('current');
     }
 
-    /** @inheritDoc */
+    /**
+     * Get the home route, usually the index page route.
+     */
     public static function home(): RouteContract
     {
         return static::getFromKey('index');
     }
 
-    /** @inheritDoc */
+    /**
+     * Determine if the supplied route key exists in the route index.
+     *
+     * @param  string  $routeKey
+     * @return bool
+     */
     public static function exists(string $routeKey): bool
     {
         return Hyde::routes()->has($routeKey);
