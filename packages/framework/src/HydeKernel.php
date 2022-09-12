@@ -87,7 +87,7 @@ class HydeKernel implements Arrayable, \JsonSerializable
         return View::shared('currentPage', '');
     }
 
-    public function currentRoute(): ?RouteContract
+    public function currentRoute(): ?\Hyde\Framework\Contracts\RouteContract
     {
         return View::shared('currentRoute');
     }

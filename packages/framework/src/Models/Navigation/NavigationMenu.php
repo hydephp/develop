@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
  */
 class NavigationMenu
 {
-    public RouteContract $currentRoute;
+    public \Hyde\Framework\Contracts\RouteContract $currentRoute;
 
     public Collection $items;
 

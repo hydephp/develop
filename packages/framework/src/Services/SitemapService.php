@@ -51,7 +51,7 @@ class SitemapService
         return (string) $this->xmlElement->asXML();
     }
 
-    public function addRoute(RouteContract $route): void
+    public function addRoute(\Hyde\Framework\Contracts\RouteContract $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
         $urlItem->addChild('loc', htmlentities($route->getQualifiedUrl()));

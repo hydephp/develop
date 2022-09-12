@@ -23,7 +23,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertInstanceOf(RouteContract::class, $route);
+        $this->assertInstanceOf(\Hyde\Framework\Contracts\RouteContract::class, $route);
     }
 
     public function test_get_page_type_returns_fully_qualified_class_name()
@@ -75,7 +75,7 @@ class RouteTest extends TestCase
     public function test_get_from_key_returns_route_from_router_index()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Route::get('index'));
-        $this->assertInstanceOf(RouteContract::class, Route::get('index'));
+        $this->assertInstanceOf(\Hyde\Framework\Contracts\RouteContract::class, Route::get('index'));
     }
 
     public function test_get_from_key_throws_exception_if_route_is_not_found()
@@ -87,7 +87,7 @@ class RouteTest extends TestCase
     public function test_get_from_source_returns_route_from_router_index()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Route::getFromSource('_pages/index.blade.php'));
-        $this->assertInstanceOf(RouteContract::class, Route::getFromSource('_pages/index.blade.php'));
+        $this->assertInstanceOf(\Hyde\Framework\Contracts\RouteContract::class, Route::getFromSource('_pages/index.blade.php'));
     }
 
     public function test_get_from_source_returns_null_if_route_is_not_found()
