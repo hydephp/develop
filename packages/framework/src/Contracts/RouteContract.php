@@ -6,6 +6,7 @@ use Hyde\Framework\Concerns\HydePage;
 use Illuminate\Support\Collection;
 
 /**
+ * @deprecated Will be merged into Route.php
  * This contract defines the methods that a Route object must implement.
  */
 interface RouteContract
