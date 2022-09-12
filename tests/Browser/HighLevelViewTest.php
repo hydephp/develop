@@ -176,10 +176,10 @@ date: 2022-01-01 12:00
                 ->assertSee('Page1')
                 ->assertSee('Page2')
                 ->assertSee('Page3')
-                ->assertAttributeContains('#sidebar-navigation > li', 'class', 'sidebar-category')
-                ->assertSeeIn('#sidebar-navigation > li:nth-child(1) > h4.sidebar-category-heading', 'Group 1')
+                ->assertAttributeContains('#sidebar-navigation > li', 'class', 'sidebar-group')
+                ->assertSeeIn('#sidebar-navigation > li:nth-child(1) > h4.sidebar-group-heading', 'Group 1')
                 ->assertAriaAttribute('#sidebar-navigation > li:nth-child(1) > ul > li.sidebar-navigation-item.active > a', 'current', 'true')
-                ->assertSeeIn('#sidebar-navigation > li:nth-child(2) > h4.sidebar-category-heading', 'Other')
+                ->assertSeeIn('#sidebar-navigation > li:nth-child(2) > h4.sidebar-group-heading', 'Other')
                 ->screenshot('docs/with_grouped_sidebar_pages')
                 ->storeSourceAsHtml('docs/with_grouped_sidebar_pages');
         });
