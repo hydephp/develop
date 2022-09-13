@@ -10,7 +10,7 @@ use Hyde\Framework\Hyde;
  *
  * $schema = [
  *    'path'         => '?string',
- *    'uri'          => '?string',
+ *    'url'          => '?string',
  *    'description'  => '?string',
  *    'title'        => '?string',
  *    'copyright'    => '?string',
@@ -34,14 +34,14 @@ class Image implements \Stringable
     public ?string $path;
 
     /**
-     * The image's URI (if stored externally).
+     * The image's URL (if stored externally).
      * Example: https://example.com/media/image.jpg.
      *
      * Will override the path property if both are set.
      *
      * @var string|null
      */
-    public ?string $uri;
+    public ?string $url;
 
     /**
      * The image's description. (Used for alt text for screen readers.)
@@ -130,13 +130,13 @@ class Image implements \Stringable
     public static function fromSource(string $image): static
     {
         return str_starts_with($image, 'http')
-            ? new static(['uri' => $image])
+            ? new static(['url' => $image])
             : new static(['path' => $image]);
     }
 
     public function getSource(): string
     {
-        return $this->uri ?? $this->getPath() ?? throw new \Exception('Attempting to get source from Image that has no source.');
+        return $this->url ?? $this->getPath() ?? throw new \Exception('Attempting to get source from Image that has no source.');
     }
 
     public function getLink(): string

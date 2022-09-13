@@ -45,7 +45,7 @@ class FindsContentLengthForImageObjectTest extends TestCase
         });
 
         $image = new Image();
-        $image->uri = 'https://hyde.test/static/image.png';
+        $image->url = 'https://hyde.test/static/image.png';
 
         $this->assertEquals(
             16, $image->getContentLength()
@@ -69,7 +69,7 @@ class FindsContentLengthForImageObjectTest extends TestCase
         });
 
         $image = new Image();
-        $image->uri = 'https://hyde.test/static/image.png';
+        $image->url = 'https://hyde.test/static/image.png';
 
         $this->assertEquals(
             0, $image->getContentLength()

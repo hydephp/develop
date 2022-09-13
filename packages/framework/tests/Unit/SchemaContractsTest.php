@@ -50,7 +50,7 @@ class SchemaContractsTest extends TestCase
 
         $this->assertEquals([
             'path'         => 'string',
-            'uri'          => 'string',
+            'url'          => 'string',
             'description'  => 'string',
             'title'        => 'string',
             'copyright'    => 'string',

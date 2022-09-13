@@ -75,7 +75,7 @@ class Hyperlinks
      * If the image is remote (starts with http) it will be returned as is.
      *
      * If true is passed as the second argument, and a base URL is set,
-     * the image will be returned with a qualified Absolute URI.
+     * the image will be returned with a qualified absolute URL.
      */
     public function image(string $name, bool $preferQualifiedUrl = false): string
     {
@@ -99,7 +99,7 @@ class Hyperlinks
     }
 
     /**
-     * Return a qualified URI path to the supplied path if a base URL is set.
+     * Return a qualified URL to the supplied path if a base URL is set.
      *
      * @param  string  $path  optional relative path suffix. Omit to return base url.
      * @param  string|null  $default  optional default value to return if no site url is set.

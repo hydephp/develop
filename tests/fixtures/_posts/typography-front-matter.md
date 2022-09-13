@@ -8,7 +8,7 @@ author:
 date: Nov 7, 2021
 updated: July 30, 2022
 image:
-  uri: https://hydephp.com/media/fixture-1.jpg
+  url: https://hydephp.com/media/fixture-1.jpg
   description: Alt text
   title: Tooltip
   license: "the Unsplash License"
