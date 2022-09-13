@@ -102,16 +102,21 @@ class Hyperlinks
      * Return a qualified URL to the supplied path if a base URL is set.
      *
      * @param  string  $path  optional relative path suffix. Omit to return base url.
+     * @param  string|null  $default  optional default value to return if no site url is set.
      * @return string
      *
      * @throws BaseUrlNotSetException If no site URL is set and no default is provided
      */
-    public function url(string $path = ''): string
+    public function url(string $path = '', ?string $default = null): string
     {
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
             return rtrim(rtrim(config('site.url'), '/')."/$path", '/');
+        }
+
+        if ($default !== null) {
+            return "$default/$path";
         }
 
         throw new BaseUrlNotSetException();
