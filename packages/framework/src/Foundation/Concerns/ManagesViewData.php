@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Foundation\Concerns;
 
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Models\Route;
 use Illuminate\Support\Facades\View;
 
@@ -12,6 +13,13 @@ use Illuminate\Support\Facades\View;
  */
 trait ManagesViewData
 {
+    public function shareViewData(HydePage $page): void
+    {
+        view()->share('page', $page);
+        view()->share('currentPage', $page->getRouteKey());
+        view()->share('currentRoute', $page->getRoute());
+    }
+
     public function currentPage(): ?string
     {
         return View::shared('currentPage');
