@@ -27,7 +27,7 @@ class Hyperlinks
      *
      * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkFormatHtmlPathTest
      */
-    public function formatHtmlPath(string $destination): string
+    public function formatLink(string $destination): string
     {
         if (config('site.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
@@ -64,7 +64,7 @@ class Hyperlinks
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
-        $route .= $this->formatHtmlPath($destination);
+        $route .= $this->formatLink($destination);
 
         return str_replace('//', '/', $route);
     }
@@ -108,7 +108,7 @@ class Hyperlinks
      */
     public function url(string $path = '', ?string $default = null): string
     {
-        $path = $this->formatHtmlPath(trim($path, '/'));
+        $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
             return rtrim(rtrim(config('site.url'), '/')."/$path", '/');

@@ -11,7 +11,7 @@ trait ForwardsHyperlinks
 {
     public function formatHtmlPath(string $destination): string
     {
-        return $this->hyperlinks->formatHtmlPath($destination);
+        return $this->hyperlinks->formatLink($destination);
     }
 
     public function relativeLink(string $destination): string

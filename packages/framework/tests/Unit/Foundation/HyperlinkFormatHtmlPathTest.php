@@ -6,7 +6,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Foundation\Hyperlinks::formatHtmlPath
+ * @covers \Hyde\Framework\Foundation\Hyperlinks::formatLink
  */
 class HyperlinkFormatHtmlPathTest extends TestCase
 {
