@@ -138,8 +138,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the path to the source file, relative to the project root.
-     * In other words, qualify the identifier of the page instance.
+     * Get the path to the instance source file, relative to the project root.
      */
     public function getSourcePath(): string
     {
