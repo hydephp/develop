@@ -50,7 +50,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(Image::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->uri);
+        $this->assertEquals('https://example.com/image.jpg', $post->image->url);
     }
 
     public function test_constructor_can_create_a_new_image_instance_from_an_array()
@@ -62,7 +62,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(Image::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->uri);
+        $this->assertEquals('https://example.com/image.jpg', $post->image->url);
     }
 
     public function test_constructor_can_create_a_new_date_string_instance_from_matter()
@@ -94,7 +94,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
         $this->assertInstanceOf(Image::class, $image);
-        $this->assertEquals('https://example.com/foo.png', $image->uri);
+        $this->assertEquals('https://example.com/foo.png', $image->url);
     }
 
     public function test_featured_image_can_be_constructed_returns_image_object_with_supplied_data_when_matter_is_array()

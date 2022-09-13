@@ -38,7 +38,7 @@ class ImageModelTest extends TestCase
     {
         $image = Image::fromSource('https://example.com/image.jpg');
         $this->assertInstanceOf(Image::class, $image);
-        $this->assertEquals('https://example.com/image.jpg', $image->uri);
+        $this->assertEquals('https://example.com/image.jpg', $image->url);
 
         $image = Image::fromSource('image.jpg');
         $this->assertInstanceOf(Image::class, $image);
@@ -57,7 +57,7 @@ class ImageModelTest extends TestCase
         $image = new Image($data);
 
         $this->assertEquals($data['path'], $image->path);
-        $this->assertEquals($data['uri'], $image->uri);
+        $this->assertEquals($data['uri'], $image->url);
         $this->assertEquals($data['description'], $image->description);
         $this->assertEquals($data['title'], $image->title);
     }
@@ -65,7 +65,7 @@ class ImageModelTest extends TestCase
     public function test_get_source_method_returns_uri_when_both_uri_and_path_is_set()
     {
         $image = new Image();
-        $image->uri = 'https://example.com/image.jpg';
+        $image->url = 'https://example.com/image.jpg';
         $image->path = 'image.jpg';
 
         $this->assertEquals('https://example.com/image.jpg', $image->getSource());
@@ -97,7 +97,7 @@ class ImageModelTest extends TestCase
     public function test_get_source_method_does_not_throw_exception_when_uri_is_set()
     {
         $image = new Image();
-        $image->uri = 'https://example.com/image.jpg';
+        $image->url = 'https://example.com/image.jpg';
         $this->assertEquals('https://example.com/image.jpg', $image->getSource());
     }
 

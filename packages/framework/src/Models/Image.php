@@ -10,7 +10,7 @@ use Hyde\Framework\Hyde;
  *
  * $schema = [
  *    'path'         => '?string',
- *    'uri'          => '?string',
+ *    'url'          => '?string',
  *    'description'  => '?string',
  *    'title'        => '?string',
  *    'copyright'    => '?string',
@@ -41,7 +41,7 @@ class Image implements \Stringable
      *
      * @var string|null
      */
-    public ?string $uri;
+    public ?string $url;
 
     /**
      * The image's description. (Used for alt text for screen readers.)
@@ -136,7 +136,7 @@ class Image implements \Stringable
 
     public function getSource(): string
     {
-        return $this->uri ?? $this->getPath() ?? throw new \Exception('Attempting to get source from Image that has no source.');
+        return $this->url ?? $this->getPath() ?? throw new \Exception('Attempting to get source from Image that has no source.');
     }
 
     public function getLink(): string
