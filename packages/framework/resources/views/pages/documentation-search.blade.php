@@ -1,8 +1,6 @@
 @php
 // Emulate a page object
-$page = Hyde\Framework\Models\Pages\DocumentationPage::make('search', ['title' => 'Search']);
-$currentPage = $page->getRouteKey();
-$currentRoute = $page->getRoute();
+Hyde::shareViewData(Hyde\Framework\Models\Pages\DocumentationPage::make('search', ['title' => 'Search']));
 $markdown = '';
 @endphp
 
