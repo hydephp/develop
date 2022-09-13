@@ -143,12 +143,14 @@ Route::get('index')
 
 // Source file: _posts/my-post.md
 // Compiled file: _site/posts/my-post.html
-Route::get('posts.my-post')
+Route::get('posts/my-post')
 
 // Source file: _docs/readme.md
 // Compiled file: _site/docs/readme.html
-Route::get('docs.readme')
+Route::get('docs/readme')
 ```
+
+>info Tip: You can also use "dot notation" instead of a slash, for example `Route::get('posts.my-post')`.
 
 ### Using the `x-link` component
 
