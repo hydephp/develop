@@ -5,7 +5,7 @@ namespace Hyde\Framework\Contracts\FrontMatter;
 /**
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  */
-interface BlogPostSchema
+interface BlogPostSchema extends Support\FeaturedImageSchema
 {
     public const MARKDOWN_POST_SCHEMA = [
         'title'        => 'string',
@@ -20,17 +20,5 @@ interface BlogPostSchema
         'name'      => 'string',
         'username'  => 'string',
         'website'   => 'string|url',
-    ];
-
-    public const FEATURED_IMAGE_SCHEMA = [
-        'path'         => 'string',
-        'uri'          => 'string',
-        'description'  => 'string',
-        'title'        => 'string',
-        'copyright'    => 'string',
-        'license'      => 'string',
-        'licenseUrl'   => 'string',
-        'author'       => 'string',
-        'credit'       => 'string',
     ];
 }
