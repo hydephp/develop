@@ -26,9 +26,8 @@ class MetadataBag
     {
         if ($page) {
             $this->page = $page;
+            $this->generate();
         }
-
-        $this->generate();
     }
 
     public function render(): string
