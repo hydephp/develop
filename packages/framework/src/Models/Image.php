@@ -142,10 +142,6 @@ class Image implements FeaturedImageSchema, \Stringable
 
     public function getLink(): string
     {
-        if (! $this->getSource()) {
-            return '';
-        }
-
         return Hyde::image($this->getSource());
     }
 
