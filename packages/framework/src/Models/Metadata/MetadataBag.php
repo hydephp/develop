@@ -27,7 +27,7 @@ class MetadataBag
         if ($page) {
             $this->page = $page;
         }
-        
+
         $this->generate();
     }
 
@@ -63,22 +63,6 @@ class MetadataBag
 
     protected function generate(): void
     {
-        foreach (config('hyde.meta', []) as $item) {
-            $this->add($item);
-        }
-
-        if (Features::sitemap()) {
-            $this->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
-                'type' => 'application/xml', 'title' => 'Sitemap',
-            ]));
-        }
-
-        if (Features::rss()) {
-            $this->add(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
-                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
-            ]));
-        }
-
         $this->addDynamicPageMetadata($this->page);
     }
 
