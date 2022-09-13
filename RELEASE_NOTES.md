@@ -74,6 +74,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Renamed legacy class FileCacheService to ViewDiffService
 - Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
 - Renamed method `Hyde::formatHtmlPath()` to `Hyde::formatLink()`
+- Renamed class Metadata to MetadataBag
 
 #### Namespace changes
 - Moved class StaticPageBuilder to Actions namespace

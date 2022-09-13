@@ -9,7 +9,7 @@ use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\Metadata\MetadataBag;
 use Hyde\Framework\Models\NavigationData;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
@@ -44,7 +44,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     public string $routeKey;
 
     public FrontMatter $matter;
-    public Metadata $metadata;
+    public MetadataBag $metadata;
 
     public string $title;
     public ?string $canonicalUrl = null;
@@ -57,7 +57,7 @@ abstract class HydePage implements CompilableContract, PageSchema
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
-        $this->metadata = new Metadata($this);
+        $this->metadata = new MetadataBag($this);
     }
 
     // Section: Query

@@ -5,7 +5,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Metadata\LinkItem;
-use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\Metadata\MetadataBag;
 use Hyde\Framework\Models\Metadata\MetadataItem;
 use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -13,7 +13,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Metadata\Metadata
+ * @covers \Hyde\Framework\Models\Metadata\MetadataBag
  * @covers \Hyde\Framework\Models\Metadata\LinkItem
  * @covers \Hyde\Framework\Models\Metadata\MetadataItem
  * @covers \Hyde\Framework\Models\Metadata\OpenGraphItem
@@ -51,7 +51,7 @@ class MetadataTest extends TestCase
         $page = new MarkdownPage();
 
         $this->assertNotNull($page->metadata);
-        $this->assertInstanceOf(Metadata::class, $page->metadata);
+        $this->assertInstanceOf(MetadataBag::class, $page->metadata);
         $this->assertEquals([], $page->metadata->get());
     }
 

@@ -13,7 +13,7 @@ use Hyde\Framework\Services\RssFeedService;
 /**
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
  */
-class Metadata
+class MetadataBag
 {
     protected HydePage $page;
 
