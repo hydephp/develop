@@ -141,10 +141,6 @@ class Image implements \Stringable
 
     public function getLink(): string
     {
-        if (! $this->getSource()) {
-            return '';
-        }
-
         return Hyde::image($this->getSource());
     }
 
