@@ -7,6 +7,17 @@ namespace Hyde\Framework\Models;
  */
 class Site
 {
+    public ?string $name;
+    public ?string $url;
+    public ?string $language;
+
+    public function __construct()
+    {
+        $this->name = static::name();
+        $this->url = static::url();
+        $this->language = static::language();
+    }
+
     public static function name(): ?string
     {
         return config('site.name');
