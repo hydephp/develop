@@ -189,7 +189,7 @@ image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automa
 image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`)
 image:
   path: image.jpg
-  uri: https://cdn.example.com/image.jpg # Takes precedence over `path`
+  url: https://cdn.example.com/image.jpg # Takes precedence over `path`
   description: "Alt text for image"
   title: "Tooltip title"
   copyright: "Copyright (c) 2022"
