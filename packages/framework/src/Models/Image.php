@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
+use Hyde\Framework\Contracts\FrontMatter\Support\FeaturedImageSchema;
 use Hyde\Framework\Hyde;
 
 /**
@@ -23,7 +24,7 @@ use Hyde\Framework\Hyde;
  * @see \Hyde\Framework\Testing\Feature\ImageModelTest
  * @phpstan-consistent-constructor
  */
-class Image implements \Stringable
+class Image implements FeaturedImageSchema, \Stringable
 {
     /**
      * The image's path (if it is stored locally (in the _media directory)).
