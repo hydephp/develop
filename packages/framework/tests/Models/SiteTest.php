@@ -10,6 +10,14 @@ use Hyde\Testing\TestCase;
  */
 class SiteTest extends TestCase
 {
+    public function testName()
+    {
+        $this->assertSame('HydePHP', Site::name());
+
+        config(['site.name' => 'foo']);
+        $this->assertSame('foo', Site::name());
+    }
+
     public function testUrl()
     {
         config(['site.url' => null]);
