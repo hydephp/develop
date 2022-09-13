@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Models;
 
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Site;
 use Hyde\Testing\TestCase;
 
