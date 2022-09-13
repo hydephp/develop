@@ -31,7 +31,7 @@ trait ManagesViewData
      */
     public function currentPage(): ?string
     {
-        return View::shared('currentPage');
+        return View::shared('page')?->getRouteKey();
     }
 
     /**
