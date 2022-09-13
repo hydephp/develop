@@ -38,4 +38,4 @@ composer create-project hyde/hyde --stability=dev
 
 For the best experience you should have PHP >= 8.0, Composer, and NPM installed.
 
-### To learn more, head over to the [quickstart page](quickstart.html).
+### To learn more, head over to the [quickstart page](quickstart).
