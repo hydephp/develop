@@ -8,7 +8,7 @@ use Hyde\Framework\Models\Route;
 use Illuminate\Support\Str;
 
 /**
- * Abstraction for a navigation menu item.
+ * Abstraction for a navigation menu item. Used by the NavigationMenu and DocumentationSidebar classes.
  *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
