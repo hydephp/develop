@@ -21,7 +21,6 @@ trait ManagesViewData
     public function shareViewData(HydePage $page): void
     {
         View::share('page', $page);
-        View::share('currentPage', $page->getRouteKey());
         View::share('currentRoute', $page->getRoute());
     }
 
