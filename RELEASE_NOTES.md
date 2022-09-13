@@ -32,7 +32,7 @@ The most high impact change is change of sidebar front matter options, and relat
 - Renamed several HydePage methods to be more consistent
 - Changed front matter key `navigation.title` to `navigation.label`
 - Renamed property $title to $label in NavItem.php
-- Removed the RouteContract interfaces (inlined into Route.php, which you now type hint against instead)
+- Removed both RouteContract interfaces (inlined into Route.php, which you now type hint against instead)
 
 ##### Navigation schema changes
 If you are using any of the following front matter properties, you will likely need to update them:
