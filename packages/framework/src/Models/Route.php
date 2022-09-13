@@ -155,7 +155,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * Get a route from the Router index for the specified route key.
+     * Get a route from the route index for the specified route key.
      *
      * Alias for static::getFromKey().
      *
@@ -170,7 +170,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * Get a route from the Router index for the specified route key.
+     * Get a route from the route index for the specified route key.
      *
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Framework\Models\Route
@@ -183,7 +183,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * Get a route from the Router index for the specified source file path.
+     * Get a route from the route index for the specified source file path.
      *
      * @param  string  $sourceFilePath  Example: _posts/foo.md
      * @return \Hyde\Framework\Models\Route
@@ -198,7 +198,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * Get a route from the Router index for the supplied page model.
+     * Get a route from the route index for the supplied page model.
      *
      * @param  \Hyde\Framework\Concerns\HydePage  $page
      * @return \Hyde\Framework\Models\Route
@@ -209,7 +209,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * Get all routes from the Router index.
+     * Get all routes from the route index.
      *
      * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Models\Route>
      */
