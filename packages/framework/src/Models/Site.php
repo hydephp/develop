@@ -5,7 +5,7 @@ namespace Hyde\Framework\Models;
 /**
  * @see \Hyde\Framework\Testing\Models\SiteTest
  */
-class Site
+final class Site
 {
     public ?string $name;
     public ?string $url;
@@ -13,9 +13,9 @@ class Site
 
     public function __construct()
     {
-        $this->name = static::name();
-        $this->url = static::url();
-        $this->language = static::language();
+        $this->name = self::name();
+        $this->url = self::url();
+        $this->language = self::language();
     }
 
     public static function name(): ?string
