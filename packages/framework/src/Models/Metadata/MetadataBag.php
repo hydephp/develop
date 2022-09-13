@@ -8,6 +8,8 @@ use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
+ * Holds the metadata tags for a page or the site model.
+ *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
  */
 class MetadataBag
