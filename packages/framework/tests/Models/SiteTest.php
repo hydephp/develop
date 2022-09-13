@@ -15,23 +15,12 @@ class SiteTest extends TestCase
         $site = new Site();
 
         $this->assertNotNull($site->name);
-        $this->assertNotNull($site->url);
         $this->assertNotNull($site->language);
+        $this->assertNotNull($site->url);
 
         $this->assertEquals(config('site.name'), $site->name);
-        $this->assertEquals(config('site.url'), $site->url);
         $this->assertEquals(config('site.language'), $site->language);
-    }
-
-    public function testName()
-    {
-        $this->assertSame('HydePHP', Site::name());
-
-        config(['site.name' => null]);
-        $this->assertNull(Site::name());
-
-        config(['site.name' => 'foo']);
-        $this->assertSame('foo', Site::name());
+        $this->assertEquals(config('site.url'), $site->url);
     }
 
     public function testUrl()
@@ -43,6 +32,17 @@ class SiteTest extends TestCase
 
         config(['site.url' => 'https://example.com']);
         $this->assertSame('https://example.com', Site::url());
+    }
+
+    public function testName()
+    {
+        $this->assertSame('HydePHP', Site::name());
+
+        config(['site.name' => null]);
+        $this->assertNull(Site::name());
+
+        config(['site.name' => 'foo']);
+        $this->assertSame('foo', Site::name());
     }
 
     public function testLanguage()
