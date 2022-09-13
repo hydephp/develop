@@ -271,14 +271,6 @@ abstract class HydePage implements CompilableContract, PageSchema
         return $this->metadata;
     }
 
-    /**
-     * @deprecated Use $page->metadata() instead
-     */
-    public function renderPageMetadata(): string
-    {
-        return $this->metadata->render();
-    }
-
     public function showInNavigation(): bool
     {
         return ! $this->navigation['hidden'];

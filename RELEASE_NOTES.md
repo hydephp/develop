@@ -101,6 +101,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Renamed method getSourceDirectory to sourceDirectory in HydePage.php
 - Changed named variable $basename to $identifier in HydePage.php
 - Removed $strict option from the has() method HydePage.php
+- Removed method renderPageMetadata from HydePage.php (use metadata() and/or metadata()->render() instead)
 
 #### Documentation page front matter changes
 
