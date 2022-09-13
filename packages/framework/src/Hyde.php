@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework;
 
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
@@ -47,6 +48,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool unlink(array|string $path)
  * @method static void setInstance(HydeKernel $instance)
  * @method static void setBasePath(string $basePath)
+ * @method static void shareViewData(HydePage $page)
  * @method static array toArray()
  * @method static void boot()
  */
