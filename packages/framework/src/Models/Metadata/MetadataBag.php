@@ -22,7 +22,7 @@ class MetadataBag
     public array $properties = [];
     public array $generics = [];
 
-    public function __construct(HydePage $page)
+    public function __construct(?HydePage $page = null)
     {
         $this->page = $page;
         $this->generate();
