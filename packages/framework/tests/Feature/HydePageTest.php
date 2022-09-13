@@ -89,7 +89,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'output/hello-world.html',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
         );
     }
 
@@ -806,7 +806,7 @@ class HydePageTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
         $this->assertEquals('output/hello-world',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
         );
     }
 
@@ -814,7 +814,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             Hyde::formatLink((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
-            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
         );
     }
 
