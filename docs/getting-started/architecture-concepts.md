@@ -150,7 +150,7 @@ Route::get('posts/my-post')
 Route::get('docs/readme')
 ```
 
->info Tip: You can also use "dot notation" instead of a slash, for example `Route::get('posts.my-post')`.
+>info Tip: You can also use "dot notation" instead of slashes, for example `Route::get('posts.my-post')`.
 
 ### Using the `x-link` component
 
