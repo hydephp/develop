@@ -136,6 +136,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed method `Route::getOutputFilePath()` (use new `Route::getOutputPath()` instead)
 - Removed unused $default parameter from Hyde::url method
 - Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
+- RealtimeCompiler: Removed support for the legacy bootstrapping file removed in Hyde v0.40
 
 ### Fixed
 - Fixed validation bug in the rebuild command
