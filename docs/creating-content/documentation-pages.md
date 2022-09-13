@@ -21,7 +21,7 @@ What is "the rest", you may ask? Well, for starters:
 - If you have an `index.md` in the `_docs/` directory,
   a link to it will be added to the site navigation menu named "Docs".
 - If you have a Torchlight API token in your .env file, Hyde will even automatically enable Syntax Highlighting for you.
-  See more about this in the [extensions page](extensions.html#torchlight).
+  See more about this in the [extensions page](extensions#torchlight).
 
 ### Best Practices and Hyde Expectations
 
@@ -46,7 +46,7 @@ Since there are so many components, it's hard to list them all here in the docum
 ## Creating Documentation Pages
 You can create a Documentation page by adding a file to the `_docs` directory where the filename ends in `.md`.
 
-You can also scaffold one quickly by using the [HydeCLI](console-commands.html).
+You can also scaffold one quickly by using the [HydeCLI](console-commands).
 
 ```bash
 php hyde make:page "Page Title" --type="docs"
@@ -60,7 +60,7 @@ This will create the following file saved as `_docs/page-title.md`
 
 ### Front Matter is optional
 
-You don't need to use [front matter](blog-posts.html#supported-front-matter-properties) to create a documentation page.
+You don't need to use [front matter](blog-posts#supported-front-matter-properties) to create a documentation page.
 
 However, Hyde still supports front matter here as it allows you to quickly override the default values.
 
@@ -104,7 +104,7 @@ of these items. You can do this in two ways, either in the config or with front 
 Hyde automatically generates a table of contents for the page and adds it to the sidebar.
 
 The behaviour of this can be changed in the configuration file.
-See [the customization page](customization.html#navigation-menu--sidebar) for more details.
+See [the customization page](customization#navigation-menu--sidebar) for more details.
 
 
 ### Sidebar ordering
@@ -118,7 +118,7 @@ navigation:
 ```
 
 You can also change the order in the Docs configuration file.
-See [the chapter in the customization page](customization.html#navigation-menu--sidebar) for more details. <br>
+See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
  _I personally think the config route is easier as it gives an instant overview, however the first way is nice as well._
 
 ### Sidebar labels
@@ -173,7 +173,7 @@ This can be useful to create redirects or other items that should not be shown i
 
 ## Customization
 
-Please see the [customization page](customization.html) for in-depth information on how to customize Hyde,
+Please see the [customization page](customization) for in-depth information on how to customize Hyde,
 including the documentation pages. Here is a high level overview for quick reference though.
 
 ### Output directory
@@ -188,7 +188,7 @@ for example to specify a version like the Hyde docs does, you can specify the ou
 
 ### Automatic navigation menu
 
-By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory. Please see the [the customization page](customization.html#navigation-menu--sidebar) for more information.
+By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory. Please see the [the customization page](customization#navigation-menu--sidebar) for more information.
 
 ### Sidebar header name
 
@@ -214,7 +214,7 @@ Link items without an entry here will have fall back to the default priority of 
 ]
 ```
 
-See [the chapter in the customization page](customization.html#navigation-menu--sidebar) for more details. <br>
+See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
 
 
 ### Table of contents settings
