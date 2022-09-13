@@ -14,12 +14,17 @@ class SiteTest extends TestCase
     {
         $this->assertSame('HydePHP', Site::name());
 
+        config(['site.name' => null]);
+        $this->assertNull(Site::name());
+
         config(['site.name' => 'foo']);
         $this->assertSame('foo', Site::name());
     }
 
     public function testUrl()
     {
+        $this->assertSame('http://localhost', Site::url());
+
         config(['site.url' => null]);
         $this->assertNull(Site::url());
 
@@ -29,10 +34,12 @@ class SiteTest extends TestCase
 
     public function testLanguage()
     {
+        $this->assertSame('en', Site::language());
+
         config(['site.language' => null]);
         $this->assertNull(Site::language());
 
-        config(['site.language' => 'en']);
-        $this->assertSame('en', Site::language());
+        config(['site.language' => 'foo']);
+        $this->assertSame('foo', Site::language());
     }
 }
