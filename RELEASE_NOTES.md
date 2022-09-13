@@ -30,9 +30,11 @@ The most high impact change is change of sidebar front matter options, and relat
 - Renamed base class AbstractPage to HydePage
 - Renamed base class AbstractMarkdownPage to BaseMarkdownPage
 - Renamed several HydePage methods to be more consistent
-- Changed front matter key `navigation.title` to `navigation.label`
 - Renamed property $title to $label in NavItem.php
+- Renamed property $uri to $url in Image.php
 - Removed both RouteContract interfaces (inlined into Route.php, which you now type hint against instead)
+- Changed front matter key `navigation.title` to `navigation.label`
+- Changed front matter key `image.uri` to `image.url` 
 
 ##### Navigation schema changes
 If you are using any of the following front matter properties, you will likely need to update them:
