@@ -15,9 +15,9 @@ trait ManagesViewData
 {
     public function shareViewData(HydePage $page): void
     {
-        view()->share('page', $page);
-        view()->share('currentPage', $page->getRouteKey());
-        view()->share('currentRoute', $page->getRoute());
+        View::share('page', $page);
+        View::share('currentPage', $page->getRouteKey());
+        View::share('currentRoute', $page->getRoute());
     }
 
     public function currentPage(): ?string
