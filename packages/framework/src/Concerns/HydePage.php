@@ -122,7 +122,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Qualify a page identifier into a referenceable local file path.
+     * Qualify a page identifier into a local file path for the page source file relative to the project root.
      */
     public static function sourcePath(string $identifier): string
     {
@@ -130,7 +130,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the proper site output path for a page model.
+     * Qualify a page identifier into a target output file path relative to the _site output directory.
      */
     public static function outputPath(string $identifier): string
     {
