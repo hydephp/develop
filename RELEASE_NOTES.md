@@ -123,6 +123,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed unused function `array_map_unique`
 - Removed method `PageContract::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
 - Removed method `AbstractPage::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
+- Removed method `Route::getSourceFilePath()` (use new `Route::getSourcePath()` instead)
 - Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
 
 ### Fixed

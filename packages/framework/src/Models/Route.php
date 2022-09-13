@@ -113,14 +113,6 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * @deprecated Use getSourcePath() instead.
-     */
-    public function getSourceFilePath(): string
-    {
-        return $this->getSourcePath();
-    }
-
-    /**
      * Get the path to the source file.
      *
      * @return string Path relative to the root of the project.
