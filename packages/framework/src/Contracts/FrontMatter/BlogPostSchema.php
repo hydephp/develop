@@ -24,7 +24,7 @@ interface BlogPostSchema
 
     public const FEATURED_IMAGE_SCHEMA = [
         'path'         => 'string',
-        'uri'          => 'string',
+        'url'          => 'string',
         'description'  => 'string',
         'title'        => 'string',
         'copyright'    => 'string',
