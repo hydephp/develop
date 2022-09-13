@@ -266,9 +266,9 @@ abstract class HydePage implements CompilableContract, PageSchema
         return config('site.name', 'HydePHP').' - '.$this->title;
     }
 
-    public function renderPageMetadata(): string
+    public function metadata(): MetadataBag
     {
-        return $this->metadata->render();
+        return $this->metadata;
     }
 
     public function showInNavigation(): bool

@@ -5,13 +5,15 @@ namespace Hyde\Framework\Models\Metadata;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Illuminate\Contracts\Support\Htmlable;
 
 /**
+ * Holds the metadata tags for a page or the site model.
+ *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
  */
-class MetadataBag
+class MetadataBag implements Htmlable
 {
     protected HydePage $page;
 
@@ -26,6 +28,11 @@ class MetadataBag
             $this->page = $page;
             $this->generate();
         }
+    }
+
+    public function toHtml(): string
+    {
+        return $this->render();
     }
 
     public function render(): string
