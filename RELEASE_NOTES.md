@@ -65,6 +65,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Changed Blade component identifier class 'sidebar-category-list' to 'sidebar-group-list'
 - Changed the Route::toArray schema 
 - Split the page metadata handling so that global metadata is now handled by the Site model (meta.blade.php must be updated if you have published it)
+- The MetadataBag class now implements Htmlable, so you can use it directly in Blade templates without calling `render()`
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
 - internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
