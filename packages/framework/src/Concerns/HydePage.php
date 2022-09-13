@@ -189,6 +189,14 @@ abstract class HydePage implements CompilableContract, PageSchema
         return new Route($this);
     }
 
+    /**
+     * Format the page instance to a URL path (relative to site root) with support for pretty URLs if enabled.
+     */
+    public function getUriPath(): string
+    {
+        return Hyde::formatHtmlPath($this->getOutputPath());
+    }
+
     // Section: Getters
 
     /**

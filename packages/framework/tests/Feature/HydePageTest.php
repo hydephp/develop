@@ -85,6 +85,14 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testGetUriPath()
+    {
+        $this->assertSame(
+            'output/hello-world.html',
+            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+        );
+    }
+
     public function testShowInNavigation()
     {
         $this->assertTrue((new BladePage('foo'))->showInNavigation());
