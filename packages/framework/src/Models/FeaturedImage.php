@@ -23,7 +23,7 @@ use Hyde\Framework\Hyde;
  * @see \Hyde\Framework\Testing\Feature\ImageModelTest
  * @phpstan-consistent-constructor
  */
-class Image implements \Stringable
+class FeaturedImage implements \Stringable
 {
     /**
      * The image's path (if it is stored locally (in the _media directory)).
