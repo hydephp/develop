@@ -219,8 +219,10 @@ class RouteTest extends TestCase
     {
         $this->assertEquals([
             'routeKey' => 'foo',
-            'sourceModelPath' => '_pages/foo.md',
-            'sourceModelType' => MarkdownPage::class,
+            'sourcePath' => '_pages/foo.md',
+            'outputPath' => 'foo.html',
+            'uriPath' => 'foo.html',
+            'sourceModel' => MarkdownPage::class,
         ], (new MarkdownPage('foo'))->getRoute()->toArray());
     }
 
