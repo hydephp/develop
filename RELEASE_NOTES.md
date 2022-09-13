@@ -20,6 +20,7 @@ The most high impact change is change of sidebar front matter options, and relat
 - Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
 - Added a NavigationData object to HydePage.php
 - Added a Route::is() method to determine if a given route or route key matches the instance it's called on
+- Added a Site model [#506](https://github.com/hydephp/develop/pull/506)
 
 ### Changed
 
