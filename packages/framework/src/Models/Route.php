@@ -13,7 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
  * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
  * by providing helper methods and information allowing you to easily access and interact with the
  * various paths associated with a page, both source and compiled file paths as well as the URL.
- * 
+ *
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
 class Route implements \Stringable, \JsonSerializable, Arrayable
