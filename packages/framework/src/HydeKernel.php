@@ -82,9 +82,9 @@ class HydeKernel implements Arrayable, \JsonSerializable
         return Features::enabled($feature);
     }
 
-    public function currentPage(): string
+    public function currentPage(): ?string
     {
-        return View::shared('currentPage', '');
+        return View::shared('currentPage');
     }
 
     public function currentRoute(): ?Route
