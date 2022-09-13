@@ -16,7 +16,7 @@ trait ManagesViewData
     /**
      * Share data for the page being rendered.
      *
-     * @param \Hyde\Framework\Concerns\HydePage $page
+     * @param  \Hyde\Framework\Concerns\HydePage  $page
      */
     public function shareViewData(HydePage $page): void
     {
