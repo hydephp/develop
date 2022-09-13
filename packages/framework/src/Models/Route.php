@@ -183,7 +183,8 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
      */
     public static function getFromKey(string $routeKey): static
     {
-        return Hyde::routes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return Hyde::routes()->get(str_replace('.', '/', $routeKey))
+            ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**
