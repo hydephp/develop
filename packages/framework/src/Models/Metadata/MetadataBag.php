@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models\Metadata;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 
 /**
