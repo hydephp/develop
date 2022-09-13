@@ -209,7 +209,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     public static function getFromSource(string $sourceFilePath): static
     {
         return Hyde::routes()->first(function (Route $route) use ($sourceFilePath) {
-            return $route->getSourceFilePath() === $sourceFilePath;
+            return $route->getSourcePath() === $sourceFilePath;
         }) ?? throw new RouteNotFoundException($sourceFilePath);
     }
 
