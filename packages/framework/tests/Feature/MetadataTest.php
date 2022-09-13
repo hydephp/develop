@@ -5,7 +5,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Metadata\LinkItem;
-use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\Metadata\MetadataBag;
 use Hyde\Framework\Models\Metadata\MetadataItem;
 use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -13,7 +13,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Metadata\Metadata
+ * @covers \Hyde\Framework\Models\Metadata\MetadataBag
  * @covers \Hyde\Framework\Models\Metadata\LinkItem
  * @covers \Hyde\Framework\Models\Metadata\MetadataItem
  * @covers \Hyde\Framework\Models\Metadata\OpenGraphItem
@@ -51,7 +51,7 @@ class MetadataTest extends TestCase
         $page = new MarkdownPage();
 
         $this->assertNotNull($page->metadata);
-        $this->assertInstanceOf(Metadata::class, $page->metadata);
+        $this->assertInstanceOf(MetadataBag::class, $page->metadata);
         $this->assertEquals([], $page->metadata->get());
     }
 
@@ -166,26 +166,6 @@ class MetadataTest extends TestCase
         $page->metadata->render());
     }
 
-    public function test_adds_config_defined_metadata()
-    {
-        config(['hyde.meta' => [
-            Meta::link('foo', 'bar'),
-            Meta::name('foo', 'bar'),
-            Meta::property('foo', 'bar'),
-            'foo' => 'bar',
-            'baz',
-        ]]);
-
-        $page = new MarkdownPage();
-        $this->assertEquals([
-            'links:foo' => Meta::link('foo', 'bar'),
-            'metadata:foo' => Meta::name('foo', 'bar'),
-            'properties:foo' => Meta::property('foo', 'bar'),
-            'generics:0' => 'bar',
-            'generics:1' => 'baz',
-        ], $page->metadata->get());
-    }
-
     public function test_custom_metadata_overrides_config_defined_metadata()
     {
         config(['hyde.meta' => [
@@ -209,75 +189,6 @@ class MetadataTest extends TestCase
             'metadata:twitter:title' => Meta::name('twitter:title', 'HydePHP - baz'),
             'properties:title' => Meta::property('title', 'HydePHP - baz'),
         ], $page->metadata->get());
-    }
-
-    public function test_automatically_adds_sitemap_when_enabled()
-    {
-        config(['site.url' => 'foo']);
-        config(['site.generate_sitemap' => true]);
-
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', $page->metadata->render());
-    }
-
-    public function test_sitemap_uses_configured_site_url()
-    {
-        config(['site.url' => 'bar']);
-        config(['site.generate_sitemap' => true]);
-
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', $page->metadata->render());
-    }
-
-    public function test_automatically_adds_rss_feed_when_enabled()
-    {
-        config(['site.url' => 'foo']);
-        config(['hyde.generate_rss_feed' => true]);
-        $this->file('_posts/foo.md');
-
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', $page->metadata->render());
-    }
-
-    public function test_rss_feed_uses_configured_site_url()
-    {
-        config(['site.url' => 'bar']);
-        config(['hyde.generate_rss_feed' => true]);
-        $this->file('_posts/foo.md');
-
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', $page->metadata->render());
-    }
-
-    public function test_rss_feed_uses_configured_site_name()
-    {
-        config(['site.url' => 'foo']);
-        config(['site.name' => 'Site']);
-        config(['hyde.generate_rss_feed' => true]);
-        $this->file('_posts/foo.md');
-
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', $page->metadata->render());
-    }
-
-    public function test_rss_feed_uses_configured_rss_file_name()
-    {
-        config(['site.url' => 'foo']);
-        config(['hyde.rss_filename' => 'posts.rss']);
-        config(['hyde.generate_rss_feed' => true]);
-        $this->file('_posts/foo.md');
-
-        $page = new MarkdownPage();
-
-        $this->assertStringContainsString(
-            '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
-            $page->metadata->render()
-        );
     }
 
     public function test_does_not_add_canonical_link_when_base_url_is_not_set()
