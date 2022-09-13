@@ -60,6 +60,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Changed Blade component identifier class 'sidebar-category' to 'sidebar-group'
 - Changed Blade component identifier class 'sidebar-category-heading' to 'sidebar-group-heading'
 - Changed Blade component identifier class 'sidebar-category-list' to 'sidebar-group-list'
+- Changed the Route::toArray schema 
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
 - internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
