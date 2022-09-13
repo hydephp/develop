@@ -123,14 +123,6 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     }
 
     /**
-     * @deprecated Use getOutputPath() instead.
-     */
-    public function getOutputFilePath(): string
-    {
-        return $this->getOutputPath();
-    }
-
-    /**
      * Get the path to the output file.
      *
      * @return string Path relative to the site output directory.
