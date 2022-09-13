@@ -16,4 +16,9 @@ class Site
     {
         return config('site.url');
     }
+
+    public static function language(): ?string
+    {
+        return config('site.language');
+    }
 }

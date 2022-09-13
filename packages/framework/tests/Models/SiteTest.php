@@ -26,4 +26,13 @@ class SiteTest extends TestCase
         config(['site.url' => 'https://example.com']);
         $this->assertSame('https://example.com', Site::url());
     }
+
+    public function testLanguage()
+    {
+        config(['site.language' => null]);
+        $this->assertNull(Site::language());
+
+        config(['site.language' => 'en']);
+        $this->assertSame('en', Site::language());
+    }
 }
