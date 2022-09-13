@@ -96,9 +96,9 @@ return [
         'Hyde' => \Hyde\Framework\Hyde::class,
         'Asset' => \Hyde\Framework\Helpers\Asset::class,
         'Site' => \Hyde\Framework\Models\Site::class,
-        'Route' => Hyde\Framework\Models\Route::class,
-        'MarkdownPost' => Hyde\Framework\Models\Pages\MarkdownPost::class,
-        'DocumentationPage' => Hyde\Framework\Models\Pages\DocumentationPage::class,
+        'Route' => \Hyde\Framework\Models\Route::class,
+        'MarkdownPost' => \Hyde\Framework\Models\Pages\MarkdownPost::class,
+        'DocumentationPage' => \Hyde\Framework\Models\Pages\DocumentationPage::class,
     ],
 
 ];
