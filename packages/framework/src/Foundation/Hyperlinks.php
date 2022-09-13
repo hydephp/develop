@@ -23,17 +23,18 @@ class Hyperlinks
     }
 
     /**
-     * Format a link to an HTML file, allowing for pretty URLs, if enabled.
+     * Format a web link to an HTML file, allowing for pretty URLs, if enabled.
      *
-     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkFormatHtmlPathTest
+     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkformatLinkTest
      */
-    public function formatHtmlPath(string $destination): string
+    public function formatLink(string $destination): string
     {
         if (config('site.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
                 if ($destination === 'index.html') {
                     return '/';
                 }
+
                 if ($destination === DocumentationPage::outputDirectory().'/index.html') {
                     return DocumentationPage::outputDirectory().'/';
                 }
@@ -64,7 +65,7 @@ class Hyperlinks
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
-        $route .= $this->formatHtmlPath($destination);
+        $route .= $this->formatLink($destination);
 
         return str_replace('//', '/', $route);
     }
@@ -108,7 +109,7 @@ class Hyperlinks
      */
     public function url(string $path = '', ?string $default = null): string
     {
-        $path = $this->formatHtmlPath(trim($path, '/'));
+        $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
             return rtrim(rtrim(config('site.url'), '/')."/$path", '/');

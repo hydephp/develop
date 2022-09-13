@@ -18,7 +18,7 @@
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel __construct" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel currentRoute" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel features" />
-      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel formatHtmlPath" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel formatLink" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getBladePagePath" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getDocumentationPagePath" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel getMarkdownPagePath" />
@@ -51,7 +51,7 @@
     <pattern value="\Hyde\Framework\HydeKernel" member="__construct" />
     <pattern value="\Hyde\Framework\HydeKernel" member="currentRoute" />
     <pattern value="\Hyde\Framework\HydeKernel" member="features" />
-    <pattern value="\Hyde\Framework\HydeKernel" member="formatHtmlPath" />
+    <pattern value="\Hyde\Framework\HydeKernel" member="formatLink" />
     <pattern value="\Hyde\Framework\HydeKernel" member="getBladePagePath" />
     <pattern value="\Hyde\Framework\HydeKernel" member="getDocumentationPagePath" />
     <pattern value="\Hyde\Framework\HydeKernel" member="getMarkdownPagePath" />

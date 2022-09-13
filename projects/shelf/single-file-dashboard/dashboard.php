@@ -295,7 +295,7 @@ try {
                                              Blade
                                           </th>
                                           <td>
-                                             <a title="View with realtime compiler" href="<?= Hyde::formatHtmlPath($page->slug.'.html') ?>"><?= $page->view ?></a>
+                                             <a title="View with realtime compiler" href="<?= Hyde::formatLink($page->slug.'.html') ?>"><?= $page->view ?></a>
                                           </td>
                                           <td>
                                              <a title="Open in CMS file manager" href="?page=file-viewer&type=bladepage&file=<?= urlencode($page->view) ?>"><?= BladePage::$sourceDirectory.'/'.$page->view.BladePage::$fileExtension ?></a>
@@ -311,7 +311,7 @@ try {
                                              Markdown
                                           </th>
                                           <td>
-                                             <a title="View with realtime compiler" href="<?= Hyde::formatHtmlPath($page->slug.'.html') ?>"><?= $page->title ?></a>
+                                             <a title="View with realtime compiler" href="<?= Hyde::formatLink($page->slug.'.html') ?>"><?= $page->title ?></a>
                                           </td>
                                           <td>
                                              <a title="Open in CMS file manager" href="?page=file-viewer&type=markdownpage&file=<?= urlencode($page->slug) ?>"><?= MarkdownPage::$sourceDirectory.'/'.$page->slug.MarkdownPage::$fileExtension ?></a>
@@ -403,7 +403,7 @@ try {
                                  <pre ><code id="filecontents" class="language-<?= $editor->type === BladePage::class ? 'html' : 'markdown' ?>"><?= e($editor->getContents()) ?></code></pre>
                               </div>
                               <div class="tab-pane fade" id="pills-compiled" role="tabpanel" aria-labelledby="pills-compiled-tab">
-                                 <iframe loading="lazy" width="100%" height="100%" style="min-height: 600px;" src="<?= Hyde::formatHtmlPath($editor->filename.'.html') ?>" frameborder="0">
+                                 <iframe loading="lazy" width="100%" height="100%" style="min-height: 600px;" src="<?= Hyde::formatLink($editor->filename.'.html') ?>" frameborder="0">
                                  Loading...
                               </iframe>
                            </div>

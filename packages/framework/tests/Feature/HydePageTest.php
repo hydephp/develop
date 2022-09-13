@@ -85,11 +85,11 @@ class HydePageTest extends TestCase
         );
     }
 
-    public function testGetUriPath()
+    public function testGetLink()
     {
         $this->assertSame(
             'output/hello-world.html',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
         );
     }
 
@@ -802,19 +802,19 @@ class HydePageTest extends TestCase
         $this->assertEquals('baz', $page->get('foo.bar'));
     }
 
-    public function testGetUriPathWithPrettyUrls()
+    public function testGetLinkWithPrettyUrls()
     {
         config(['site.pretty_urls' => true]);
         $this->assertEquals('output/hello-world',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
         );
     }
 
-    public function testGetUriPathUsesHyperlinksHelper()
+    public function testGetLinkUsesHyperlinksHelper()
     {
         $this->assertSame(
-            Hyde::formatHtmlPath((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
-            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+            Hyde::formatLink((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
         );
     }
 

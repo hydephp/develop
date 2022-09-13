@@ -49,7 +49,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
         $this->routeKey = $page->getRouteKey();
         $this->sourcePath = $page->getSourcePath();
         $this->outputPath = $page->getOutputPath();
-        $this->uriPath = $page->getUriPath();
+        $this->uriPath = $page->getLink();
     }
 
     /**
