@@ -49,7 +49,7 @@ class ImageModelTest extends TestCase
     {
         $data = [
             'path' => 'image.jpg',
-            'uri' => 'https://example.com/image.jpg',
+            'url' => 'https://example.com/image.jpg',
             'description' => 'This is an image',
             'title' => 'Image Title',
         ];
@@ -57,12 +57,12 @@ class ImageModelTest extends TestCase
         $image = new Image($data);
 
         $this->assertEquals($data['path'], $image->path);
-        $this->assertEquals($data['uri'], $image->url);
+        $this->assertEquals($data['url'], $image->url);
         $this->assertEquals($data['description'], $image->description);
         $this->assertEquals($data['title'], $image->title);
     }
 
-    public function test_get_source_method_returns_uri_when_both_uri_and_path_is_set()
+    public function test_get_source_method_returns_url_when_both_url_and_path_is_set()
     {
         $image = new Image();
         $image->url = 'https://example.com/image.jpg';
@@ -94,7 +94,7 @@ class ImageModelTest extends TestCase
         $this->assertEquals('image.jpg', $image->getSource());
     }
 
-    public function test_get_source_method_does_not_throw_exception_when_uri_is_set()
+    public function test_get_source_method_does_not_throw_exception_when_url_is_set()
     {
         $image = new Image();
         $image->url = 'https://example.com/image.jpg';
@@ -192,7 +192,7 @@ class ImageModelTest extends TestCase
     public function test_get_metadata_array_with_remote_url()
     {
         $image = new Image([
-            'uri' => 'https://foo/bar',
+            'url' => 'https://foo/bar',
         ]);
 
         $this->assertEquals([
@@ -229,7 +229,7 @@ class ImageModelTest extends TestCase
     public function test_get_link_resolves_remote_paths()
     {
         $image = new Image([
-            'uri' => 'https://example.com/image.jpg',
+            'url' => 'https://example.com/image.jpg',
         ]);
 
         $this->assertEquals('https://example.com/image.jpg', $image->getLink());
@@ -272,7 +272,7 @@ class ImageModelTest extends TestCase
     public function test_to_string_returns_the_image_source()
     {
         $this->assertEquals('https://example.com/image.jpg', (string) (new Image([
-            'uri' => 'https://example.com/image.jpg',
+            'url' => 'https://example.com/image.jpg',
         ])));
 
         $this->assertEquals('media/image.jpg', (string) (new Image([
