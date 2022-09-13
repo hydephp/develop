@@ -109,6 +109,9 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
         return $this->routeKey;
     }
 
+    /**
+     * @deprecated Use getSourcePath() instead.
+     */
     public function getSourceFilePath(): string
     {
         return $this->getSourcePath();
@@ -124,6 +127,9 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
         return $this->sourcePath;
     }
 
+    /**
+     * @deprecated Use getOutputPath() instead.
+     */
     public function getOutputFilePath(): string
     {
         return $this->getOutputPath();
