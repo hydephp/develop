@@ -166,7 +166,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route key for the page.
      *
-     * The route key is the URI path relative to the site root.
+     * The route key is the URL path relative to the site root.
      *
      * For example, if the compiled page will be saved to _site/docs/index.html,
      * then this method will return 'docs/index'. Route keys are used to

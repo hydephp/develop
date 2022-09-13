@@ -27,7 +27,7 @@ class Author implements \Stringable
     public ?string $name = null;
 
     /**
-     * The author's website URI.
+     * The author's website URL.
      *
      * Could for example, be a Twitter page, website,
      * or a hyperlink to more posts by the author.

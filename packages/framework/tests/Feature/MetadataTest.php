@@ -473,11 +473,11 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/foo.jpg">');
     }
 
-    public function test_dynamic_post_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_uri()
+    public function test_dynamic_post_meta_properties_contains_image_metadata_when_featured_image_set_to_array_with_url()
     {
         $page = MarkdownPost::make(matter: [
             'image' => [
-                'uri' => 'https://example.com/foo.jpg',
+                'url' => 'https://example.com/foo.jpg',
             ],
         ]);
 

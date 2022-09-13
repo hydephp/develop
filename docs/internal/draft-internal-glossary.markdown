@@ -92,7 +92,7 @@ An identifier never contains the file extension, and is always relative to the s
 
 ### Route keys
 
-The route key is the URI path relative to the site root. Route keys are very important in Hyde as they map the correlation between a source file and the eventual HTTP endpoint that will resolve to the static HTML file.
+The route key is the URL path relative to the site root. Route keys are very important in Hyde as they map the correlation between a source file and the eventual HTTP endpoint that will resolve to the static HTML file.
 
 For example, if the compiled page will be saved to _site/docs/index.html,
 then the route key will be 'docs/index'. Route keys are used to
