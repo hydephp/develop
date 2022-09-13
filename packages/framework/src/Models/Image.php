@@ -130,7 +130,7 @@ class Image implements \Stringable
     public static function fromSource(string $image): static
     {
         return str_starts_with($image, 'http')
-            ? new static(['uri' => $image])
+            ? new static(['url' => $image])
             : new static(['path' => $image]);
     }
 
