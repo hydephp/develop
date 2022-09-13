@@ -194,7 +194,7 @@ abstract class HydePage implements CompilableContract, PageSchema
      */
     public function getUriPath(): string
     {
-        return Hyde::formatHtmlPath($this->getOutputPath());
+        return Hyde::formatLink($this->getOutputPath());
     }
 
     // Section: Getters

@@ -813,7 +813,7 @@ class HydePageTest extends TestCase
     public function testGetUriPathUsesHyperlinksHelper()
     {
         $this->assertSame(
-            Hyde::formatHtmlPath((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
+            Hyde::formatLink((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
             (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
         );
     }
