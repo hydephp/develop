@@ -8,7 +8,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Foundation\Hyperlinks::formatLink
  */
-class HyperlinkFormatHtmlPathTest extends TestCase
+class HyperlinkformatLinkTest extends TestCase
 {
     public function test_helper_returns_string_as_is_if_pretty_urls_is_not_true()
     {
