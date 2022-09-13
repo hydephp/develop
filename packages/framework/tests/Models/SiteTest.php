@@ -10,5 +10,12 @@ use Hyde\Testing\TestCase;
  */
 class SiteTest extends TestCase
 {
-    //
+    public function testGetBaseUrl()
+    {
+        config(['site.url' => null]);
+        $this->assertNull(Site::getBaseUrl());
+
+        config(['site.url' => 'https://example.com']);
+        $this->assertSame('https://example.com', Site::getBaseUrl());
+    }
 }

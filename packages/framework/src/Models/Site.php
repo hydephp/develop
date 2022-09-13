@@ -7,5 +7,8 @@ namespace Hyde\Framework\Models;
  */
 class Site
 {
-    //
+    public static function getBaseUrl(): ?string
+    {
+        return config('site.url');
+    }
 }
