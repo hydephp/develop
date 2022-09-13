@@ -57,7 +57,7 @@ class MarkdownPostTest extends TestCase
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([
             'image' => [
-                'uri' => 'https://example.com/image.jpg',
+                'url' => 'https://example.com/image.jpg',
             ],
         ]));
 
