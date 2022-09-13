@@ -68,7 +68,6 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
             'routeKey' => $this->routeKey,
             'sourcePath' => $this->sourcePath,
             'outputPath' => $this->outputPath,
-            'uriPath' => $this->uriPath,
             'sourceModel' => $this->sourceModel::class,
         ];
     }
