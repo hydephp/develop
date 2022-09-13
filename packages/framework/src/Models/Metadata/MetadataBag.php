@@ -24,7 +24,10 @@ class MetadataBag
 
     public function __construct(?HydePage $page = null)
     {
-        $this->page = $page;
+        if ($page) {
+            $this->page = $page;
+        }
+        
         $this->generate();
     }
 
