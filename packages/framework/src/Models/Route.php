@@ -109,14 +109,24 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
         return $this->routeKey;
     }
 
+    public function getSourceFilePath(): string
+    {
+        return $this->getSourcePath();
+    }
+
     /**
      * Get the path to the source file.
      *
      * @return string Path relative to the root of the project.
      */
-    public function getSourceFilePath(): string
+    public function getSourcePath(): string
     {
         return $this->sourcePath;
+    }
+
+    public function getOutputFilePath(): string
+    {
+        return $this->getOutputPath();
     }
 
     /**
@@ -124,7 +134,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
      *
      * @return string Path relative to the site output directory.
      */
-    public function getOutputFilePath(): string
+    public function getOutputPath(): string
     {
         return $this->outputPath;
     }
