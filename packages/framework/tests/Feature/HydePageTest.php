@@ -85,6 +85,14 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testGetUriPath()
+    {
+        $this->assertSame(
+            'output/hello-world.html',
+            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+        );
+    }
+
     public function testShowInNavigation()
     {
         $this->assertTrue((new BladePage('foo'))->showInNavigation());
@@ -792,6 +800,22 @@ class HydePageTest extends TestCase
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
         $this->assertEquals('baz', $page->get('foo.bar'));
+    }
+
+    public function testGetUriPathWithPrettyUrls()
+    {
+        config(['site.pretty_urls' => true]);
+        $this->assertEquals('output/hello-world',
+            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+        );
+    }
+
+    public function testGetUriPathUsesHyperlinksHelper()
+    {
+        $this->assertSame(
+            Hyde::formatHtmlPath((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
+            (new HandlesPageFilesystemTestClass('hello-world'))->getUriPath()
+        );
     }
 
     protected function resetDirectoryConfiguration(): void

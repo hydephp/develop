@@ -6,7 +6,6 @@ use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
@@ -123,7 +122,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Qualify a page identifier into a referenceable local file path.
+     * Qualify a page identifier into a local file path for the page source file relative to the project root.
      */
     public static function sourcePath(string $identifier): string
     {
@@ -131,7 +130,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the proper site output path for a page model.
+     * Qualify a page identifier into a target output file path relative to the _site output directory.
      */
     public static function outputPath(string $identifier): string
     {
@@ -139,8 +138,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the path to the source file, relative to the project root.
-     * In other words, qualify the identifier of the page instance.
+     * Get the path to the instance source file, relative to the project root.
      */
     public function getSourcePath(): string
     {
@@ -184,11 +182,19 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return RouteContract The page's route.
+     * @return \Hyde\Framework\Models\Route The page's route.
      */
-    public function getRoute(): RouteContract
+    public function getRoute(): Route
     {
         return new Route($this);
+    }
+
+    /**
+     * Format the page instance to a URL path (relative to site root) with support for pretty URLs if enabled.
+     */
+    public function getUriPath(): string
+    {
+        return Hyde::formatHtmlPath($this->getOutputPath());
     }
 
     // Section: Getters

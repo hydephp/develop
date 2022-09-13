@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Models\Navigation;
 
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Route;
@@ -14,7 +13,7 @@ use Illuminate\Support\Collection;
  */
 class NavigationMenu
 {
-    public RouteContract $currentRoute;
+    public Route $currentRoute;
 
     public Collection $items;
 

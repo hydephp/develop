@@ -4,13 +4,13 @@ namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Models\Route;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Traits\Macroable;
@@ -87,7 +87,7 @@ class HydeKernel implements Arrayable, \JsonSerializable
         return View::shared('currentPage', '');
     }
 
-    public function currentRoute(): ?RouteContract
+    public function currentRoute(): ?Route
     {
         return View::shared('currentRoute');
     }

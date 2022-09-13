@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
@@ -78,7 +77,7 @@ class HydeKernelTest extends TestCase
     {
         $expected = new Route(new MarkdownPage());
         View::share('currentRoute', $expected);
-        $this->assertInstanceOf(RouteContract::class, Hyde::currentRoute());
+        $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertEquals($expected, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
     }

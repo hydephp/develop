@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Route;
@@ -38,7 +37,7 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
-    public static function home(): ?RouteContract
+    public static function home(): ?Route
     {
         return Route::exists(static::$outputDirectory.'/index') ? Route::get(static::$outputDirectory.'/index') : null;
     }

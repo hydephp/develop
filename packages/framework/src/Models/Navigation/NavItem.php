@@ -3,21 +3,21 @@
 namespace Hyde\Framework\Models\Navigation;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Route;
 use Illuminate\Support\Str;
 
 /**
- * Abstraction for a navigation menu item.
+ * Abstraction for a navigation menu item. Used by the NavigationMenu and DocumentationSidebar classes.
  *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavItem::fromRoute() to use data from the route
- *   3. You can use NavItem::leadsTo(URI, Title, ?priority) for an external or un-routed link
+ *   3. You can use NavItem::toLink() for an external or un-routed link
  */
 class NavItem implements \Stringable
 {
-    public RouteContract $route;
+    public Route $route;
     public string $href;
 
     public string $label;
@@ -27,12 +27,12 @@ class NavItem implements \Stringable
     /**
      * Create a new navigation menu item.
      *
-     * @param  \Hyde\Framework\Contracts\RouteContract|null  $route
+     * @param  \Hyde\Framework\Models\Route|null  $route
      * @param  string  $label
      * @param  int  $priority
      * @param  bool  $hidden
      */
-    public function __construct(?RouteContract $route, string $label, int $priority = 500, bool $hidden = false)
+    public function __construct(?Route $route, string $label, int $priority = 500, bool $hidden = false)
     {
         if ($route !== null) {
             $this->route = $route;
@@ -46,7 +46,7 @@ class NavItem implements \Stringable
     /**
      * Create a new navigation menu item from a route.
      */
-    public static function fromRoute(RouteContract $route): static
+    public static function fromRoute(Route $route): static
     {
         return new self(
             $route,
@@ -67,7 +67,7 @@ class NavItem implements \Stringable
     /**
      * Create a new navigation menu item leading to a Route model.
      */
-    public static function toRoute(RouteContract $route, string $label, int $priority = 500): static
+    public static function toRoute(Route $route, string $label, int $priority = 500): static
     {
         return new self($route, $label, $priority, false);
     }

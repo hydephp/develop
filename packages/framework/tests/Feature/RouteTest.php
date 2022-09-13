@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Hyde;
@@ -23,7 +22,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertInstanceOf(RouteContract::class, $route);
+        $this->assertInstanceOf(Route::class, $route);
     }
 
     public function test_get_page_type_returns_fully_qualified_class_name()
@@ -56,7 +55,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertEquals($page->getSourcePath(), $route->getSourceFilePath());
+        $this->assertEquals($page->getSourcePath(), $route->getSourcePath());
     }
 
     public function test_get_output_file_path_returns_page_output_path()
@@ -64,7 +63,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertEquals($page->getOutputPath(), $route->getOutputFilePath());
+        $this->assertEquals($page->getOutputPath(), $route->getOutputPath());
     }
 
     public function test_get_is_alias_for_get_from_key()
@@ -75,7 +74,7 @@ class RouteTest extends TestCase
     public function test_get_from_key_returns_route_from_router_index()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Route::get('index'));
-        $this->assertInstanceOf(RouteContract::class, Route::get('index'));
+        $this->assertInstanceOf(Route::class, Route::get('index'));
     }
 
     public function test_get_from_key_throws_exception_if_route_is_not_found()
@@ -87,7 +86,7 @@ class RouteTest extends TestCase
     public function test_get_from_source_returns_route_from_router_index()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Route::getFromSource('_pages/index.blade.php'));
-        $this->assertInstanceOf(RouteContract::class, Route::getFromSource('_pages/index.blade.php'));
+        $this->assertInstanceOf(Route::class, Route::getFromSource('_pages/index.blade.php'));
     }
 
     public function test_get_from_source_returns_null_if_route_is_not_found()
@@ -138,14 +137,14 @@ class RouteTest extends TestCase
     public function test_get_link_returns_correct_path_for_root_pages()
     {
         $route = new Route(new MarkdownPage(identifier: 'foo'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo.html', $route->getLink());
     }
 
     public function test_get_link_returns_correct_path_for_nested_pages()
     {
         $route = new Route(new MarkdownPage(identifier: 'foo/bar'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo/bar.html', $route->getLink());
     }
 
@@ -153,7 +152,7 @@ class RouteTest extends TestCase
     {
         $route = new Route(new MarkdownPage(identifier: 'foo'));
         view()->share('currentPage', 'foo/bar');
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('../foo.html', $route->getLink());
     }
 
@@ -161,7 +160,7 @@ class RouteTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
         $route = new Route(new MarkdownPage(identifier: 'foo'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());
     }
 
@@ -220,8 +219,25 @@ class RouteTest extends TestCase
     {
         $this->assertEquals([
             'routeKey' => 'foo',
-            'sourceModelPath' => '_pages/foo.md',
-            'sourceModelType' => MarkdownPage::class,
+            'sourcePath' => '_pages/foo.md',
+            'outputPath' => 'foo.html',
+            'sourceModel' => MarkdownPage::class,
         ], (new MarkdownPage('foo'))->getRoute()->toArray());
+    }
+
+    public function testIsWithRoute()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+        $this->assertTrue($route->is($route));
+
+        $route2 = new Route(new MarkdownPage('bar'));
+        $this->assertFalse($route->is($route2));
+    }
+
+    public function testIsWithRouteKey()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+        $this->assertTrue($route->is('foo'));
+        $this->assertFalse($route->is('bar'));
     }
 }
