@@ -18,6 +18,7 @@ The most high impact change is change of sidebar front matter options, and relat
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 - Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
+- Added support for "dot notation" to route key retrievals in the `Route` facade [#513](https://github.com/hydephp/develop/pull/513)
 - Added a NavigationData object to HydePage.php
 - Added a Route::is() method to determine if a given route or route key matches the instance it's called on
 - Added a Site model [#506](https://github.com/hydephp/develop/pull/506)

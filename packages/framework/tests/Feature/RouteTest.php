@@ -129,6 +129,12 @@ class RouteTest extends TestCase
         $this->assertEquals(new Route($page), Route::getFromModel($page));
     }
 
+    public function test_get_supports_dot_notation()
+    {
+        $this->file('_posts/foo.md');
+        $this->assertSame(Route::get('posts/foo'), Route::get('posts.foo'));
+    }
+
     public function test_route_facade_all_method_returns_all_routes()
     {
         $this->assertEquals(Hyde::routes(), Route::all());
