@@ -94,8 +94,7 @@ class HydeKernel implements Arrayable, \JsonSerializable
 
     /**
      * @inheritDoc
-     *
-     * @return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\Foundation\PageCollection, routes: \Hyde\Framework\Foundation\RouteCollection}
+     * @psalm-return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\Foundation\PageCollection, routes: \Hyde\Framework\Foundation\RouteCollection}
      */
     public function toArray(): array
     {
