@@ -43,6 +43,7 @@ class HydeKernel implements Arrayable, \JsonSerializable
     use Foundation\Concerns\ForwardsHyperlinks;
     use Foundation\Concerns\ForwardsFilesystem;
     use Foundation\Concerns\ManagesHydeKernel;
+    use Foundation\Concerns\ManagesViewData;
 
     use JsonSerializesArrayable;
     use Macroable;
