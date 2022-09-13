@@ -65,7 +65,6 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
 #### Class and method renames
-- Renamed class Image to FeaturedImage
 - Renamed base class AbstractPage to HydePage
 - Renamed base class AbstractMarkdownPage to BaseMarkdownPage
 - Renamed command class HydeBuildStaticSiteCommand to HydeBuildSiteCommand

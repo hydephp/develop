@@ -5,7 +5,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\FeaturedImage;
+use Hyde\Framework\Models\Image;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
@@ -49,7 +49,7 @@ class MarkdownPostTest extends TestCase
             'image' => 'https://example.com/image.jpg',
         ]));
 
-        $this->assertInstanceOf(FeaturedImage::class, $post->image);
+        $this->assertInstanceOf(Image::class, $post->image);
         $this->assertEquals('https://example.com/image.jpg', $post->image->uri);
     }
 
@@ -61,7 +61,7 @@ class MarkdownPostTest extends TestCase
             ],
         ]));
 
-        $this->assertInstanceOf(FeaturedImage::class, $post->image);
+        $this->assertInstanceOf(Image::class, $post->image);
         $this->assertEquals('https://example.com/image.jpg', $post->image->uri);
     }
 
@@ -85,7 +85,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertInstanceOf(Image::class, $image);
         $this->assertEquals('foo.png', $image->path);
     }
 
@@ -93,7 +93,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertInstanceOf(Image::class, $image);
         $this->assertEquals('https://example.com/foo.png', $image->uri);
     }
 
@@ -101,7 +101,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => ['path' => 'foo.png', 'title' => 'bar']]);
         $image = $page->image;
-        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertInstanceOf(Image::class, $image);
         $this->assertEquals('foo.png', $image->path);
         $this->assertEquals('bar', $image->title);
     }

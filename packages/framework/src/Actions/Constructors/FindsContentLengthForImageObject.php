@@ -4,7 +4,7 @@ namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\FeaturedImage;
+use Hyde\Framework\Models\Image;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,14 +14,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class FindsContentLengthForImageObject implements ActionContract
 {
-    protected FeaturedImage $image;
+    protected Image $image;
 
     /**
      * Testing adding console debug output.
      */
     protected OutputInterface $output;
 
-    public function __construct(FeaturedImage $image)
+    public function __construct(Image $image)
     {
         $this->image = $image;
 

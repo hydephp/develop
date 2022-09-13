@@ -8,7 +8,7 @@ use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
-use Hyde\Framework\Models\FeaturedImage;
+use Hyde\Framework\Models\Image;
 
 trait ConstructsPageSchemas
 {
@@ -73,10 +73,10 @@ trait ConstructsPageSchemas
         return null;
     }
 
-    protected function getImage(): ?FeaturedImage
+    protected function getImage(): ?Image
     {
         if ($this->matter('image')) {
-            return FeaturedImage::make($this->matter('image'));
+            return Image::make($this->matter('image'));
         }
 
         return null;
