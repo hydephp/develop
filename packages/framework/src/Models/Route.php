@@ -32,6 +32,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
 
     protected string $sourcePath;
     protected string $outputPath;
+    protected string $uriPath;
 
     /**
      * Construct a new Route instance for the given page model.
@@ -44,6 +45,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
         $this->routeKey = $sourceModel->getRouteKey();
         $this->sourcePath = $sourceModel->getSourcePath();
         $this->outputPath = $sourceModel->getOutputPath();
+        $this->uriPath = $sourceModel->getUriPath();
     }
 
     /**
