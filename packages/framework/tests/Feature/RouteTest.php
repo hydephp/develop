@@ -63,7 +63,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertEquals($page->getOutputPath(), $route->getOutputFilePath());
+        $this->assertEquals($page->getOutputPath(), $route->getOutputPath());
     }
 
     public function test_get_is_alias_for_get_from_key()
@@ -137,14 +137,14 @@ class RouteTest extends TestCase
     public function test_get_link_returns_correct_path_for_root_pages()
     {
         $route = new Route(new MarkdownPage(identifier: 'foo'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo.html', $route->getLink());
     }
 
     public function test_get_link_returns_correct_path_for_nested_pages()
     {
         $route = new Route(new MarkdownPage(identifier: 'foo/bar'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo/bar.html', $route->getLink());
     }
 
@@ -152,7 +152,7 @@ class RouteTest extends TestCase
     {
         $route = new Route(new MarkdownPage(identifier: 'foo'));
         view()->share('currentPage', 'foo/bar');
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('../foo.html', $route->getLink());
     }
 
@@ -160,7 +160,7 @@ class RouteTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
         $route = new Route(new MarkdownPage(identifier: 'foo'));
-        $this->assertEquals(Hyde::relativeLink($route->getOutputFilePath()), $route->getLink());
+        $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());
     }
 
