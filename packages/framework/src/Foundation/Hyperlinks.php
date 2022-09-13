@@ -23,7 +23,7 @@ class Hyperlinks
     }
 
     /**
-     * Format a link to an HTML file, allowing for pretty URLs, if enabled.
+     * Format a web link to an HTML file, allowing for pretty URLs, if enabled.
      *
      * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkformatLinkTest
      */
