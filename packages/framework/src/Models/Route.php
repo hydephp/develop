@@ -116,7 +116,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
      */
     public function getSourceFilePath(): string
     {
-        return $this->sourceModel->getSourcePath();
+        return $this->sourcePath;
     }
 
     /**
@@ -126,7 +126,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
      */
     public function getOutputFilePath(): string
     {
-        return $this->sourceModel->getOutputPath();
+        return $this->outputPath;
     }
 
     /**
@@ -136,7 +136,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
      */
     public function getQualifiedUrl(): string
     {
-        return Hyde::url($this->getOutputFilePath());
+        return Hyde::url($this->outputPath);
     }
 
     /**
