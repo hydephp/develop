@@ -9,7 +9,7 @@ namespace Hyde\Framework\Foundation\Concerns;
  */
 trait ForwardsHyperlinks
 {
-    public function formatHtmlPath(string $destination): string
+    public function formatLink(string $destination): string
     {
         return $this->hyperlinks->formatLink($destination);
     }
