@@ -39,6 +39,9 @@ final class Site
         return config('site.language');
     }
 
+    /**
+     * @todo Remove duplicate metadata from page
+     */
     public static function metadata(): MetadataBag
     {
         $metadataBag = new MetadataBag();
