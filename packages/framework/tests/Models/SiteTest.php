@@ -67,15 +67,13 @@ class SiteTest extends TestCase
             'foo' => 'bar',
             'baz',
         ]]);
-
-        $page = new MarkdownPage();
         $this->assertEquals([
             'links:foo' => Meta::link('foo', 'bar'),
             'metadata:foo' => Meta::name('foo', 'bar'),
             'properties:foo' => Meta::property('foo', 'bar'),
             'generics:0' => 'bar',
             'generics:1' => 'baz',
-        ], $page->metadata->get());
+        ], Site::metadata()->get());
     }
 
     public function test_site_metadata_automatically_adds_sitemap_when_enabled()
@@ -83,9 +81,7 @@ class SiteTest extends TestCase
         config(['site.url' => 'foo']);
         config(['site.generate_sitemap' => true]);
 
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', $page->metadata->render());
+        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', Site::metadata()->render());
     }
 
     public function test_site_metadata_sitemap_uses_configured_site_url()
@@ -93,9 +89,7 @@ class SiteTest extends TestCase
         config(['site.url' => 'bar']);
         config(['site.generate_sitemap' => true]);
 
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', $page->metadata->render());
+        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', Site::metadata()->render());
     }
 
     public function test_site_metadata_automatically_adds_rss_feed_when_enabled()
@@ -104,9 +98,7 @@ class SiteTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', $page->metadata->render());
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', Site::metadata()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_site_url()
@@ -115,9 +107,7 @@ class SiteTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', $page->metadata->render());
+        $this->assertEquals('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', Site::metadata()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_site_name()
@@ -127,9 +117,7 @@ class SiteTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $page = new MarkdownPage();
-
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', $page->metadata->render());
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', Site::metadata()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_rss_file_name()
@@ -139,11 +127,9 @@ class SiteTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $page = new MarkdownPage();
-
         $this->assertStringContainsString(
             '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
-            $page->metadata->render()
+            Site::metadata()->render()
         );
     }
 }
