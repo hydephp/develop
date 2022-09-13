@@ -78,7 +78,7 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
      */
     public function getLink(): string
     {
-        return Hyde::relativeLink($this->getOutputFilePath());
+        return Hyde::relativeLink($this->uriPath);
     }
 
     /**
