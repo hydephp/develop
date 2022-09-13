@@ -42,7 +42,7 @@ class PageRouter
 
     protected function normalizePath(string $path): string
     {
-        // If uri ends in .html, strip it
+        // If URL ends in .html, strip it
         if (str_ends_with($path, '.html')) {
             $path = substr($path, 0, -5);
         }

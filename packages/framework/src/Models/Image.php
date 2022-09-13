@@ -34,7 +34,7 @@ class Image implements \Stringable
     public ?string $path;
 
     /**
-     * The image's URI (if stored externally).
+     * The image's URL (if stored externally).
      * Example: https://example.com/media/image.jpg.
      *
      * Will override the path property if both are set.
