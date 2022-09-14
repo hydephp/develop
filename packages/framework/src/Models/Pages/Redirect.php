@@ -4,6 +4,10 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Hyde;
 
+/**
+ * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.
+ * Typically, you'll do this in a build task. Pass data a new object, then call the store method.
+ */
 class Redirect
 {
     public string $path;
