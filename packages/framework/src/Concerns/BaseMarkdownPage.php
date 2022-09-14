@@ -24,13 +24,32 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
 
     public static string $fileExtension = '.md';
 
-    /** @interitDoc */
+    /**
+     * Alternative to constructor, using primitive data types.
+     * This method will construct then return a new instance of the class.
+     *
+     * @param  string  $identifier
+     * @param  array  $matter
+     * @param  string  $body
+     * @return \Hyde\Framework\Concerns\BaseMarkdownPage
+     */
     public static function make(string $identifier = '', array $matter = [], string $body = ''): static
     {
         return new static($identifier, new FrontMatter($matter), new Markdown($body));
     }
 
-    /** @interitDoc */
+    /**
+     * Construct a new MarkdownPage object from constructed data types.
+     * Normally, this is done by the SourceFileParser.
+     *
+     * @see \Hyde\Framework\Actions\SourceFileParser
+     *
+     * The types are strictly enforced to ensure a predictable behavior and constant access interface.
+     *
+     * @param  string  $identifier
+     * @param  \Hyde\Framework\Models\FrontMatter|null  $matter
+     * @param  \Hyde\Framework\Models\Markdown|null  $markdown
+     */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
         $this->identifier = $identifier;
@@ -55,7 +74,12 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
         ])->render();
     }
 
-    /** @inheritDoc */
+    /**
+     * Save the Markdown page object to disk by compiling the
+     * front matter array to YAML and writing the body to the file.
+     *
+     * @return $this
+     */
     public function save(): static
     {
         file_put_contents(Hyde::path($this->getSourcePath()), ltrim("$this->matter\n$this->markdown"));
