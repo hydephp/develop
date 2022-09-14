@@ -62,8 +62,10 @@ class SourceFileParser
 
     protected function constructPage(string $pageClass): BladePage|BaseMarkdownPage
     {
-        return $pageClass === BladePage::class
-            ? $this->parseBladePage()
-            : $this->parseMarkdownPage($pageClass);
+        if ($pageClass === BladePage::class) {
+            return $this->parseBladePage();
+        } else {
+            return $this->parseMarkdownPage($pageClass);
+        }
     }
 }
