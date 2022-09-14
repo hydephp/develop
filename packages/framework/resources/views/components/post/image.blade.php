@@ -1,5 +1,5 @@
 <figure aria-label="Cover image" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" role="doc-cover">
-    <img src="{{ $page->image->getLink() }}" alt="{{ $page->image->description ?? '' }}" title="{{ $page->image->title ?? '' }}" itemprop="image" class="mb-0"> 
+    <img src="{{ $page->image->getLink() }}" alt="{{ $page->image->description ?? '' }}" title="{{ $page->image->title ?? '' }}" itemprop="image" class="mb-0" {{ $image->hasStyles() ? $image->getStyles() : '' }}>
     <figcaption aria-label="Image caption" itemprop="caption"> 
         {!! $page->image->getFluentAttribution() !!} 
     </figcaption> 
