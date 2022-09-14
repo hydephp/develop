@@ -50,7 +50,7 @@ class AssetService
 
     protected function getCacheBustKey(string $file): string
     {
-        if (! config('hyde.cache_busting')) {
+        if (! config('hyde.cache_busting', true)) {
             return '';
         }
 
