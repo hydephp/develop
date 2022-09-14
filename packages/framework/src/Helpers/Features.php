@@ -50,7 +50,7 @@ class Features implements Arrayable, \JsonSerializable
     // Determine if a given feature is enabled.
     // ================================================
 
-    public static function hasBlogPosts(): bool
+    public static function hasMarkdownPosts(): bool
     {
         return static::enabled(static::markdownPosts());
     }
@@ -168,7 +168,7 @@ class Features implements Arrayable, \JsonSerializable
     public static function rss(): bool
     {
         return Hyde::hasSiteUrl()
-            && static::hasBlogPosts()
+            && static::hasMarkdownPosts()
             && config('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml')
             && count(DiscoveryService::getMarkdownPostFiles()) > 0;

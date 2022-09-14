@@ -58,7 +58,7 @@ final class FileCollection extends BaseFoundationCollection
             $this->discoverFilesFor(MarkdownPage::class);
         }
 
-        if (Features::hasBlogPosts()) {
+        if (Features::hasMarkdownPosts()) {
             $this->discoverFilesFor(MarkdownPost::class);
         }
 

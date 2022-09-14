@@ -45,7 +45,7 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPagesFor(MarkdownPage::class);
         }
 
-        if (Features::hasBlogPosts()) {
+        if (Features::hasMarkdownPosts()) {
             $this->discoverPagesFor(MarkdownPost::class);
         }
 
