@@ -98,6 +98,7 @@ return [
         'Site' => Hyde\Framework\Models\Site::class,
         'Route' => Hyde\Framework\Models\Route::class,
         'BladePage' => Hyde\Framework\Models\Pages\BladePage::class,
+        'MarkdownPage' => Hyde\Framework\Models\Pages\MarkdownPage::class,
         'MarkdownPost' => Hyde\Framework\Models\Pages\MarkdownPost::class,
         'DocumentationPage' => Hyde\Framework\Models\Pages\DocumentationPage::class,
     ],
