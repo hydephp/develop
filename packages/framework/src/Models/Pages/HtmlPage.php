@@ -4,6 +4,9 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\HydePage;
 
+/**
+ * Page class for HTML pages.
+ */
 class HtmlPage extends HydePage
 {
     public static string $sourceDirectory = '_pages';

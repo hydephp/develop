@@ -9,6 +9,9 @@ use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
 use Hyde\Framework\Models\Route;
 
+/**
+ * Page class for documentation pages.
+ */
 class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSchema
 {
     public static string $sourceDirectory = '_docs';

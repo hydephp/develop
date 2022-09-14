@@ -4,6 +4,9 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 
+/**
+ * Page class for Markdown pages.
+ */
 class MarkdownPage extends BaseMarkdownPage
 {
     public static string $sourceDirectory = '_pages';

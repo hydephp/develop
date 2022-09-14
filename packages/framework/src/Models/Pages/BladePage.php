@@ -6,7 +6,7 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Models\FrontMatter;
 
 /**
- * A basic wrapper for the custom Blade View compiler.
+ * Page class for Blade pages.
  */
 class BladePage extends HydePage
 {
