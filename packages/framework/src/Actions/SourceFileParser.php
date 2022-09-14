@@ -5,6 +5,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\ValidatesExistence;
+use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
@@ -69,5 +70,7 @@ class SourceFileParser
         if (is_subclass_of($pageClass, BaseMarkdownPage::class)) {
             return $this->parseMarkdownPage($pageClass);
         }
+
+        throw new UnsupportedPageTypeException($pageClass);
     }
 }
