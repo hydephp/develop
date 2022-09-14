@@ -18,4 +18,13 @@ class HtmlPageTest extends TestCase
 
         $this->assertEquals('bar', $page->compile());
     }
+
+    public function testCompileMethodUsesContents()
+    {
+        $this->file(HtmlPage::$sourceDirectory.'/foo.html', 'bar');
+
+        $page = new HtmlPage('foo');
+
+        $this->assertSame($page->contents(), $page->compile());
+    }
 }

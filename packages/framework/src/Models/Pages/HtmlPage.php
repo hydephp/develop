@@ -10,8 +10,13 @@ class HtmlPage extends HydePage
     public static string $outputDirectory = '';
     public static string $fileExtension = '.html';
 
-    public function compile(): string
+    public function contents(): string
     {
         return file_get_contents($this->getSourcePath());
+    }
+
+    public function compile(): string
+    {
+        return $this->contents();
     }
 }
