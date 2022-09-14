@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Models\Author;
+use Hyde\Framework\Models\Support\Author;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Models\Author
+ * @covers \Hyde\Framework\Models\Support\Author
  */
 class AuthorTest extends TestCase
 {
