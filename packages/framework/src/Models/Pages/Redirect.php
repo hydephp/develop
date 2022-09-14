@@ -31,7 +31,7 @@ class Redirect
 
     public function store(): static
     {
-        file_put_contents(Hyde::sitePath($this->path), $this->render());
+        file_put_contents(Hyde::sitePath("$this->path.html"), $this->render());
 
         return $this;
     }
