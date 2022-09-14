@@ -30,16 +30,14 @@ class SourceFileParser
         $this->validateExistence($pageClass, $identifier);
         $this->identifier = $identifier;
 
-        $this->page = $pageClass === BladePage::class
-            ? $this->parseBladePage()
-            : $this->parseMarkdownPage($pageClass);
+        $this->page = $this->constructPage($pageClass);
     }
 
     protected function parseBladePage(): BladePage
     {
         return new BladePage(
             $this->identifier,
-            (BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier)))
+            BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier))
         );
     }
 
@@ -60,5 +58,14 @@ class SourceFileParser
     public function get(): HydePage
     {
         return $this->page;
+    }
+
+    protected function constructPage(string $pageClass): BladePage|BaseMarkdownPage
+    {
+        if ($pageClass === BladePage::class) {
+            return $this->parseBladePage();
+        }
+
+        return $this->parseMarkdownPage($pageClass);
     }
 }

@@ -21,7 +21,7 @@ class BladePage extends HydePage
      * @param  string  $view
      * @param  \Hyde\Framework\Models\FrontMatter|array  $matter
      */
-    public function __construct(string $view, FrontMatter|array $matter = [])
+    public function __construct(string $view = '', FrontMatter|array $matter = [])
     {
         parent::__construct($view, $matter);
         $this->view = $view;
