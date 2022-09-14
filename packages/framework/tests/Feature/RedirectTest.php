@@ -2,12 +2,12 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Helpers\Redirect;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\Redirect;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Pages\Redirect
+ * @covers \Hyde\Framework\Helpers\Redirect
  */
 class RedirectTest extends TestCase
 {

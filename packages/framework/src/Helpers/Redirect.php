@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models\Pages;
+namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
 
