@@ -7,6 +7,8 @@ use Hyde\Framework\Concerns\HydePage;
 class Redirect extends HydePage
 {
     public static string $outputDirectory = '';
+    public static string $sourceDirectory = '';
+    public static string $fileExtension = '';
 
     public string $path;
     public string $destination;
