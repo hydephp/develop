@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown\FrontMatter;
 
 /**
  * Page class for Blade pages.
@@ -25,7 +25,7 @@ class BladePage extends HydePage
 
     /**
      * @param  string  $view
-     * @param  \Hyde\Framework\Models\FrontMatter|array  $matter
+     * @param  \Hyde\Framework\Models\Markdown\FrontMatter|array  $matter
      */
     public function __construct(string $view = '', FrontMatter|array $matter = [])
     {

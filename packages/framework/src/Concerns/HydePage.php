@@ -8,7 +8,7 @@ use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Metadata\MetadataBag;
 use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Route;
@@ -230,7 +230,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
      *
-     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     * @return \Hyde\Framework\Models\Markdown\FrontMatter|mixed
      */
     public function get(string $key = null, mixed $default = null): mixed
     {
@@ -243,7 +243,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the front matter object, or a value from within.
      *
-     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     * @return \Hyde\Framework\Models\Markdown\FrontMatter|mixed
      */
     public function matter(string $key = null, mixed $default = null): mixed
     {

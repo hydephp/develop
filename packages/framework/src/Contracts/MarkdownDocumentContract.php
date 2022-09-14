@@ -9,7 +9,7 @@ interface MarkdownDocumentContract
     /**
      * Get the front matter object, or a value from within.
      *
-     * @return \Hyde\Framework\Models\FrontMatter|mixed
+     * @return \Hyde\Framework\Models\Markdown\FrontMatter|mixed
      */
     public function matter(string $key = null, mixed $default = null): mixed;
 

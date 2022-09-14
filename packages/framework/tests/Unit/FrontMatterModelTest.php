@@ -2,11 +2,11 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\FrontMatter;
+use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\FrontMatter
+ * @covers \Hyde\Framework\Models\Markdown\FrontMatter
  */
 class FrontMatterModelTest extends TestCase
 {
