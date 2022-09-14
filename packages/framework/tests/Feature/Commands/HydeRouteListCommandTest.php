@@ -27,4 +27,11 @@ class HydeRouteListCommandTest extends TestCase
                 ],
             ])->assertExitCode(0);
     }
+
+    public function testClickableLinks()
+    {
+        $this->file('_site/index.html');
+        $this->artisan('route:list')
+            ->assertExitCode(0);
+    }
 }
