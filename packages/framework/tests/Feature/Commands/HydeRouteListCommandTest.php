@@ -24,7 +24,7 @@ class HydeRouteListCommandTest extends TestCase
                     '_pages/index.blade.php',
                     'index.html',
                     'index',
-                ]
+                ],
             ])->assertExitCode(0);
     }
 }
