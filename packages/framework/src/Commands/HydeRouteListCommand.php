@@ -46,7 +46,7 @@ class HydeRouteListCommand extends Command
         return str_replace('Hyde\\Framework\\Models\\Pages\\', '', $class);
     }
 
-    protected function formatSourcePath(string $path)
+    protected function formatSourcePath(string $path): string
     {
         return $path;
     }
