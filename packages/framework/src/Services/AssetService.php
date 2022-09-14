@@ -48,7 +48,7 @@ class AssetService
         return file_exists(Hyde::path('_media').'/'.$file);
     }
 
-    protected function getCacheBustKey(string $file): string|false
+    protected function getCacheBustKey(string $file): string
     {
         return '?v='.md5_file(Hyde::path("_media/$file"));
     }
