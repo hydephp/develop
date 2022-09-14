@@ -44,10 +44,10 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
      * @param  string  $identifier
      * @param  \Hyde\Framework\Models\FrontMatter|null  $matter
      * @param  \Hyde\Framework\Models\Markdown\Markdown|null  $markdown
+     *
      *@see \Hyde\Framework\Actions\SourceFileParser
      *
      * The types are strictly enforced to ensure a predictable behavior and constant access interface.
-     *
      */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
