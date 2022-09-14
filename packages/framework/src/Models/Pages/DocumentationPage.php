@@ -12,6 +12,9 @@ use Hyde\Framework\Models\Route;
 /**
  * Page class for documentation pages.
  *
+ * Documentation pages are stored in the _docs directory and using the .md extension.
+ * The Markdown will be compiled to HTML using the documentation page layout to the _site/docs/ directory.
+ *
  * @see https://hydephp.com/docs/master/documentation-pages
  */
 class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSchema
