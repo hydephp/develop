@@ -127,6 +127,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
 - Removed interface PageContract (merged into abstract class AbstractPage)
+- Removed interface MarkdownPageContract (merged into abstract class BaseMarkdownPage)
 - Removed interface RouteFacadeContract (merged into the Route.php implementation)
 - Removed interface RouteContract (merged into the Route.php implementation)
 - Removed deprecated interface AssetServiceContract
