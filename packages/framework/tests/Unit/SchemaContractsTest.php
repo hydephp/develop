@@ -58,6 +58,7 @@ class SchemaContractsTest extends TestCase
             'licenseUrl'   => 'string',
             'author'       => 'string',
             'credit'       => 'string',
+            'styles'       => 'string',
         ], BlogPostSchema::FEATURED_IMAGE_SCHEMA);
 
         $this->assertEquals([

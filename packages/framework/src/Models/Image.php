@@ -18,7 +18,8 @@ use Hyde\Framework\Hyde;
  *    'license'      => '?string',
  *    'licenseUrl'   => '?string',
  *    'author'       => '?string',
- *    'credit'       => '?string'
+ *    'credit'       => '?string',
+ *    'styles'       => '?string',
  * ];
  *
  * @see \Hyde\Framework\Testing\Feature\ImageModelTest
@@ -100,6 +101,14 @@ class Image implements FeaturedImageSchema, \Stringable
      * @var string|null
      */
     public ?string $credit = null;
+
+    /**
+     * The image's styles.
+     * Example: "width: 100%; height: auto;".
+     *
+     * @var string|null
+     */
+    public ?string $styles = null;
 
     public function __construct(array $data = [])
     {
