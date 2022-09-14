@@ -30,14 +30,14 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 ## Creating Markdown Pages
 
-Markdown pages are the easiest way to create static pages, and are similar to [blog posts](blog-posts.html).
-You may want to read that page first as it explains [how front matter works](blog-posts.html#supported-front-matter-properties)
+Markdown pages are the easiest way to create static pages, and are similar to [blog posts](blog-posts).
+You may want to read that page first as it explains [how front matter works](blog-posts#supported-front-matter-properties)
 and how to use it.
 
 You can create a Markdown page by adding a file to the `_pages` directory where the filename ends in `.md`.
 
 ### Scaffolding Markdown Pages
-Scaffolding a Markdown page is as easy as using the [HydeCLI](console-commands.html).
+Scaffolding a Markdown page is as easy as using the [HydeCLI](console-commands).
 
 ```bash
 php hyde make:page "Page Title"
@@ -124,7 +124,7 @@ If you are comfortable with it, and have the need for it, use Blade to create mo
 | ➖ Not as flexible as Blade pages                    | ➕ Use arbitrary PHP right in the page to create dynamic content                          |
 |                                                     | ➕ Access to all Blade helper directives like @foreach, @if, etc.                         |
 |                                                     | ➖ Takes longer to create as as you need to write the markup                              |
-|                                                     | ➖ You may need to [recompile your CSS](managing-assets.html) if you add Tailwind classes |
+|                                                     | ➖ You may need to [recompile your CSS](managing-assets) if you add Tailwind classes |
 
 
 ### Live Demos

@@ -280,7 +280,7 @@ To edit the default component you need to publish them first using the `hyde pub
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
 ## Frontend Styles
-Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly. If you want to customize these, you are free to do so. Please see the [Managing Assets](managing-assets.html) page to learn more.
+Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template for you to get up and running quickly. If you want to customize these, you are free to do so. Please see the [Managing Assets](managing-assets) page to learn more.
 
 
 ## CommonMark environment

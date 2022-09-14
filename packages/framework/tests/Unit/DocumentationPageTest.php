@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Framework\Models\Pages\DocumentationPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Concerns\Internal\GeneratesNavigationData
  */
 class DocumentationPageTest extends TestCase
 {

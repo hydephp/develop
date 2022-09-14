@@ -6,11 +6,11 @@ use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Metadata\Metadata;
+use Hyde\Framework\Models\Metadata\MetadataBag;
+use Hyde\Framework\Models\NavigationData;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Arr;
@@ -33,7 +33,7 @@ use Illuminate\Support\Arr;
 abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
-    use Internal\HasNavigationData;
+    use Internal\GeneratesNavigationData;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -44,11 +44,11 @@ abstract class HydePage implements CompilableContract, PageSchema
     public string $routeKey;
 
     public FrontMatter $matter;
-    public Metadata $metadata;
+    public MetadataBag $metadata;
 
     public string $title;
     public ?string $canonicalUrl = null;
-    public ?array $navigation = null;
+    public ?NavigationData $navigation = null;
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
@@ -57,7 +57,7 @@ abstract class HydePage implements CompilableContract, PageSchema
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
-        $this->metadata = new Metadata($this);
+        $this->metadata = new MetadataBag($this);
     }
 
     // Section: Query
@@ -122,7 +122,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Qualify a page identifier into a referenceable local file path.
+     * Qualify a page identifier into a local file path for the page source file relative to the project root.
      */
     public static function sourcePath(string $identifier): string
     {
@@ -130,7 +130,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the proper site output path for a page model.
+     * Qualify a page identifier into a target output file path relative to the _site output directory.
      */
     public static function outputPath(string $identifier): string
     {
@@ -138,8 +138,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the path to the source file, relative to the project root.
-     * In other words, qualify the identifier of the page instance.
+     * Get the path to the instance source file, relative to the project root.
      */
     public function getSourcePath(): string
     {
@@ -167,7 +166,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route key for the page.
      *
-     * The route key is the URI path relative to the site root.
+     * The route key is the URL path relative to the site root.
      *
      * For example, if the compiled page will be saved to _site/docs/index.html,
      * then this method will return 'docs/index'. Route keys are used to
@@ -183,11 +182,19 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return RouteContract The page's route.
+     * @return \Hyde\Framework\Models\Route The page's route.
      */
-    public function getRoute(): RouteContract
+    public function getRoute(): Route
     {
         return new Route($this);
+    }
+
+    /**
+     * Format the page instance to a URL path (relative to site root) with support for pretty URLs if enabled.
+     */
+    public function getLink(): string
+    {
+        return Hyde::formatLink($this->getOutputPath());
     }
 
     // Section: Getters
@@ -259,8 +266,28 @@ abstract class HydePage implements CompilableContract, PageSchema
         return config('site.name', 'HydePHP').' - '.$this->title;
     }
 
-    public function renderPageMetadata(): string
+    public function metadata(): MetadataBag
     {
-        return $this->metadata->render();
+        return $this->metadata;
+    }
+
+    public function showInNavigation(): bool
+    {
+        return ! $this->navigation['hidden'];
+    }
+
+    public function navigationMenuPriority(): int
+    {
+        return $this->navigation['priority'];
+    }
+
+    public function navigationMenuLabel(): string
+    {
+        return $this->navigation['label'];
+    }
+
+    public function navigationMenuGroup(): ?string
+    {
+        return $this->navigation['group'];
     }
 }

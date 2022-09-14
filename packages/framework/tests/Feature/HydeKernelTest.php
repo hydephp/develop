@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
@@ -78,7 +77,7 @@ class HydeKernelTest extends TestCase
     {
         $expected = new Route(new MarkdownPage());
         View::share('currentRoute', $expected);
-        $this->assertInstanceOf(RouteContract::class, Hyde::currentRoute());
+        $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertEquals($expected, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
     }
@@ -91,12 +90,12 @@ class HydeKernelTest extends TestCase
     public function test_format_html_path_helper_formats_path_according_to_config_rules()
     {
         Config::set('site.pretty_urls', false);
-        $this->assertEquals('foo.html', Hyde::formatHtmlPath('foo.html'));
-        $this->assertEquals('index.html', Hyde::formatHtmlPath('index.html'));
+        $this->assertEquals('foo.html', Hyde::formatLink('foo.html'));
+        $this->assertEquals('index.html', Hyde::formatLink('index.html'));
 
         Config::set('site.pretty_urls', true);
-        $this->assertEquals('foo', Hyde::formatHtmlPath('foo.html'));
-        $this->assertEquals('/', Hyde::formatHtmlPath('index.html'));
+        $this->assertEquals('foo', Hyde::formatLink('foo.html'));
+        $this->assertEquals('/', Hyde::formatLink('index.html'));
     }
 
     public function test_relative_link_helper_returns_relative_link_to_destination()

@@ -4,7 +4,6 @@ namespace Hyde\Framework;
 
 use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\Filesystem;
 use Hyde\Framework\Foundation\Hyperlinks;
@@ -12,7 +11,6 @@ use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Traits\Macroable;
 
 /**
@@ -43,6 +41,7 @@ class HydeKernel implements Arrayable, \JsonSerializable
     use Foundation\Concerns\ForwardsHyperlinks;
     use Foundation\Concerns\ForwardsFilesystem;
     use Foundation\Concerns\ManagesHydeKernel;
+    use Foundation\Concerns\ManagesViewData;
 
     use JsonSerializesArrayable;
     use Macroable;
@@ -82,20 +81,9 @@ class HydeKernel implements Arrayable, \JsonSerializable
         return Features::enabled($feature);
     }
 
-    public function currentPage(): string
-    {
-        return View::shared('currentPage', '');
-    }
-
-    public function currentRoute(): ?RouteContract
-    {
-        return View::shared('currentRoute');
-    }
-
     /**
      * @inheritDoc
-     *
-     * @return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\Foundation\PageCollection, routes: \Hyde\Framework\Foundation\RouteCollection}
+     * @psalm-return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\Foundation\PageCollection, routes: \Hyde\Framework\Foundation\RouteCollection}
      */
     public function toArray(): array
     {

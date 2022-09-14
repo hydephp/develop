@@ -23,17 +23,18 @@ class Hyperlinks
     }
 
     /**
-     * Format a link to an HTML file, allowing for pretty URLs, if enabled.
+     * Format a web link to an HTML file, allowing for pretty URLs, if enabled.
      *
-     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkFormatHtmlPathTest
+     * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkformatLinkTest
      */
-    public function formatHtmlPath(string $destination): string
+    public function formatLink(string $destination): string
     {
         if (config('site.pretty_urls', false) === true) {
             if (str_ends_with($destination, '.html')) {
                 if ($destination === 'index.html') {
                     return '/';
                 }
+
                 if ($destination === DocumentationPage::outputDirectory().'/index.html') {
                     return DocumentationPage::outputDirectory().'/';
                 }
@@ -64,7 +65,7 @@ class Hyperlinks
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
         }
-        $route .= $this->formatHtmlPath($destination);
+        $route .= $this->formatLink($destination);
 
         return str_replace('//', '/', $route);
     }
@@ -74,7 +75,7 @@ class Hyperlinks
      * If the image is remote (starts with http) it will be returned as is.
      *
      * If true is passed as the second argument, and a base URL is set,
-     * the image will be returned with a qualified Absolute URI.
+     * the image will be returned with a qualified absolute URL.
      */
     public function image(string $name, bool $preferQualifiedUrl = false): string
     {
@@ -98,24 +99,19 @@ class Hyperlinks
     }
 
     /**
-     * Return a qualified URI path to the supplied path if a base URL is set.
+     * Return a qualified URL to the supplied path if a base URL is set.
      *
      * @param  string  $path  optional relative path suffix. Omit to return base url.
-     * @param  string|null  $default  optional default value to return if no site url is set.
      * @return string
      *
      * @throws BaseUrlNotSetException If no site URL is set and no default is provided
      */
-    public function url(string $path = '', ?string $default = null): string
+    public function url(string $path = ''): string
     {
-        $path = $this->formatHtmlPath(trim($path, '/'));
+        $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
             return rtrim(rtrim(config('site.url'), '/')."/$path", '/');
-        }
-
-        if ($default !== null) {
-            return "$default/$path";
         }
 
         throw new BaseUrlNotSetException();

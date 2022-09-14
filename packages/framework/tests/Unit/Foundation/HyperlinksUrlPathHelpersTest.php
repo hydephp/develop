@@ -81,18 +81,6 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->class->url();
     }
 
-    public function test_qualified_url_uses_default_parameter_when_no_site_url_is_set()
-    {
-        config(['site.url' => null]);
-        $this->assertEquals('bar/foo', $this->class->url('foo', 'bar'));
-    }
-
-    public function test_qualified_url_does_not_use_default_parameter_when_site_url_is_set()
-    {
-        config(['site.url' => 'https://example.com']);
-        $this->assertEquals('https://example.com/foo', $this->class->url('foo', 'bar'));
-    }
-
     public function test_helper_returns_expected_string_when_site_url_is_set()
     {
         config(['site.url' => 'https://example.com']);

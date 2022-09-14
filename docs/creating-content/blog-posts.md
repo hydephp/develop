@@ -17,7 +17,7 @@ You can scaffold posts with automatic front matter using the HydeCLI:
 ```bash
 php hyde make:post
 ```
-Learn more about scaffolding posts, and other files, in the [console commands](console-commands.html) documentation.
+Learn more about scaffolding posts, and other files, in the [console commands](console-commands) documentation.
 
 
 ## Short Video Tutorial
@@ -46,7 +46,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 Front matter is optional, but highly recommended for blog posts.
 
-You can read more about the Front Matter format in the [Front Matter documentation](architecture-concepts.html#front-matter).
+You can read more about the Front Matter format in the [Front Matter documentation](architecture-concepts#front-matter).
 Here is a quick primer:
 
 - Front matter is stored in a block of YAML that starts and ends with a `---` line.
@@ -189,7 +189,7 @@ image: image.jpg # Expanded by Hyde to `_media/image.jpg` and is resolved automa
 image: https://cdn.example.com/image.jpg # Full URL starting with `http(s)://`)
 image:
   path: image.jpg
-  uri: https://cdn.example.com/image.jpg # Takes precedence over `path`
+  url: https://cdn.example.com/image.jpg # Takes precedence over `path`
   description: "Alt text for image"
   title: "Tooltip title"
   copyright: "Copyright (c) 2022"
@@ -204,7 +204,7 @@ When supplying an image with a local image path, the image is expected to be sto
 The image will be used as the cover image, and any array data is constructed into a dynamic fluent caption,
 and injected into post and page metadata.
 
-> See [posts/introducing-images](https://hydephp.com/posts/introducing-images.html)
+> See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
 > for a detailed blog post with examples and schema information!
 { .info }
 
@@ -217,4 +217,4 @@ To use images stored in the `_media/` directory, you can use the following synta
 ![Image Alt](../media/image.png "Image Title") # Note the relative path
 ```
 
-To learn more, check out the [chapter in managing assets](managing-assets.html#managing-images)
+To learn more, check out the [chapter in managing assets](managing-assets#managing-images)

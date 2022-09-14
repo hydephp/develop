@@ -38,9 +38,7 @@ class StaticPageBuilder
      */
     public function __invoke(): string
     {
-        view()->share('page', $this->page);
-        view()->share('currentPage', $this->page->getRouteKey());
-        view()->share('currentRoute', $this->page->getRoute());
+        Hyde::shareViewData($this->page);
 
         $this->needsDirectory(Hyde::sitePath());
         $this->needsDirectory(dirname(Hyde::sitePath($this->page->getOutputPath())));

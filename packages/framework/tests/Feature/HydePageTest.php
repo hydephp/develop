@@ -23,6 +23,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Concerns\HydePage
  * @covers \Hyde\Framework\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Concerns\Internal\GeneratesNavigationData
  */
 class HydePageTest extends TestCase
 {
@@ -82,6 +83,47 @@ class HydePageTest extends TestCase
             'output/hello-world.html',
             (new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()
         );
+    }
+
+    public function testGetLink()
+    {
+        $this->assertSame(
+            'output/hello-world.html',
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
+        );
+    }
+
+    public function testShowInNavigation()
+    {
+        $this->assertTrue((new BladePage('foo'))->showInNavigation());
+        $this->assertTrue((new MarkdownPage())->showInNavigation());
+        $this->assertTrue((new DocumentationPage())->showInNavigation());
+        $this->assertFalse((new MarkdownPost())->showInNavigation());
+    }
+
+    public function testNavigationMenuPriority()
+    {
+        $this->assertSame(999, (new BladePage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());
+        $this->assertSame(500, (new DocumentationPage())->navigationMenuPriority());
+        $this->assertSame(10, (new MarkdownPost())->navigationMenuPriority());
+    }
+
+    public function testNavigationMenuLabel()
+    {
+        $this->assertSame('Foo', (new BladePage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new MarkdownPage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new MarkdownPost('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new DocumentationPage('foo'))->navigationMenuLabel());
+    }
+
+    public function testNavigationMenuGroup()
+    {
+        $this->assertNull((new BladePage('foo'))->navigationMenuGroup());
+        $this->assertNull((new MarkdownPage())->navigationMenuGroup());
+        $this->assertNull((new MarkdownPost())->navigationMenuGroup());
+        $this->assertSame('other', (new DocumentationPage())->navigationMenuGroup());
+        $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
     }
 
     // Section: In-depth tests
@@ -621,7 +663,7 @@ class HydePageTest extends TestCase
         $this->assertNull($page->canonicalUrl);
         $this->assertStringNotContainsString(
             '<link rel="canonical"',
-            $page->renderPageMetadata()
+            $page->metadata()->render()
         );
     }
 
@@ -632,7 +674,7 @@ class HydePageTest extends TestCase
         $this->assertNull($page->canonicalUrl);
         $this->assertStringNotContainsString(
             '<link rel="canonical"',
-            $page->renderPageMetadata()
+            $page->metadata()->render()
         );
     }
 
@@ -643,14 +685,14 @@ class HydePageTest extends TestCase
         $this->assertEquals('foo/bar', $page->canonicalUrl);
         $this->assertStringContainsString(
             '<link rel="canonical" href="foo/bar">',
-            $page->renderPageMetadata()
+            $page->metadata()->render()
         );
     }
 
     public function test_render_page_metadata_returns_string()
     {
         $page = new MarkdownPage('foo');
-        $this->assertIsString($page->renderPageMetadata());
+        $this->assertIsString($page->metadata()->render());
     }
 
     public function test_has_method_returns_true_if_page_has_standard_property()
@@ -758,6 +800,22 @@ class HydePageTest extends TestCase
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
         $this->assertEquals('baz', $page->get('foo.bar'));
+    }
+
+    public function testGetLinkWithPrettyUrls()
+    {
+        config(['site.pretty_urls' => true]);
+        $this->assertEquals('output/hello-world',
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
+        );
+    }
+
+    public function testGetLinkUsesHyperlinksHelper()
+    {
+        $this->assertSame(
+            Hyde::formatLink((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
+            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
+        );
     }
 
     protected function resetDirectoryConfiguration(): void

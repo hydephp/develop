@@ -18,6 +18,11 @@ The most high impact change is change of sidebar front matter options, and relat
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 - Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
+- Added support for "dot notation" to route key retrievals in the `Route` facade [#513](https://github.com/hydephp/develop/pull/513)
+- Added a NavigationData object to HydePage.php
+- Added a Route::is() method to determine if a given route or route key matches the instance it's called on
+- Added a Site model [#506](https://github.com/hydephp/develop/pull/506)
+- Added a route:list command [#516](https://github.com/hydephp/develop/pull/516)
 
 ### Changed
 
@@ -28,8 +33,11 @@ The most high impact change is change of sidebar front matter options, and relat
 - Renamed base class AbstractPage to HydePage
 - Renamed base class AbstractMarkdownPage to BaseMarkdownPage
 - Renamed several HydePage methods to be more consistent
-- Changed front matter key `navigation.title` to `navigation.label`
 - Renamed property $title to $label in NavItem.php
+- Renamed property $uri to $url in Image.php
+- Removed both RouteContract interfaces (inlined into Route.php, which you now type hint against instead)
+- Changed front matter key `navigation.title` to `navigation.label`
+- Changed front matter key `image.uri` to `image.url` for blog posts
 
 ##### Navigation schema changes
 If you are using any of the following front matter properties, you will likely need to update them:
@@ -44,14 +52,24 @@ This change also bubbles to the HydePage accessors, though that will only affect
 #### General
 
 - Merged interface PageContract into abstract class AbstractPage
-- Merged interface RouteFacadeContract into existing interface RouteContract
+- Merged interface RouteFacadeContract into the Route model implementation
+- Merged interface RouteContract into the Route model implementation
 - Merged `getCurrentPagePath()` method into existing `getRouteKey()` method in PageContract and AbstractPage
 - Replaced schema traits with interfaces, see https://github.com/hydephp/develop/pull/485
 - Extracted all constructor methods in page schema traits to a new single trait ConstructPageSchemas
 - The `StaticPageBuilder::$outputPath` property is now a relative path instead of absolute
 - Refactored how navigation and sidebar data are handled, unifying the API, see below for more details
 - The algorithm for finding the navigation and sidebar orders has been updated, this may affect the order of your pages, and may require you to re-tweak any custom priorities.
+- The navigation link to documentation index page now has default priority 500 instead of 100
+- All usages where the RouteContract was type hinted with have been updated to type hint against the Route model implementation instead
+- Changed Blade component identifier class 'sidebar-category' to 'sidebar-group'
+- Changed Blade component identifier class 'sidebar-category-heading' to 'sidebar-group-heading'
+- Changed Blade component identifier class 'sidebar-category-list' to 'sidebar-group-list'
+- Changed the Route::toArray schema 
+- Split the page metadata handling so that global metadata is now handled by the Site model (meta.blade.php must be updated if you have published it)
+- The MetadataBag class now implements Htmlable, so you can use it directly in Blade templates without calling `render()`
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
+- internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
 #### Class and method renames
 - Renamed base class AbstractPage to HydePage
@@ -59,6 +77,8 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Renamed command class HydeBuildStaticSiteCommand to HydeBuildSiteCommand
 - Renamed legacy class FileCacheService to ViewDiffService
 - Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
+- Renamed method `Hyde::formatHtmlPath()` to `Hyde::formatLink()`
+- Renamed class Metadata to MetadataBag
 
 #### Namespace changes
 - Moved class StaticPageBuilder to Actions namespace
@@ -74,7 +94,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Moved class FindsContentLengthForImageObject into Constructors namespace
 
 #### Page-model specific
-- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the HasNavigationData trait)
+- Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the GeneratesNavigationData trait)
 - Renamed method outputLocation to outputPath in HydePage.php
 - Renamed method qualifyBasename to sourcePath in HydePage.php
 - Renamed method getOutputLocation to outputLocation in HydePage.php
@@ -83,19 +103,20 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Renamed method getSourceDirectory to sourceDirectory in HydePage.php
 - Changed named variable $basename to $identifier in HydePage.php
 - Removed $strict option from the has() method HydePage.php
+- Removed method renderPageMetadata from HydePage.php (use metadata() and/or metadata()->render() instead)
 
 #### Documentation page front matter changes
 
-- Deprecated property `$group` in `DocumentationPage.php`
 - Removed property `$label` in `DocumentationPage.php` (use `$navigation['title']` instead)
 - Removed property `$hidden` in `DocumentationPage.php` (use `$navigation['hidden']` instead)
 - Removed property `$priority` in `DocumentationPage.php` (use `$navigation['priority']` instead)
+- Removed property `$category` in `DocumentationPage.php` (use `$navigation['group']` instead)
 - Removed front matter option`label` (use `navigation.label` instead)
 - Removed front matter option`hidden` (use `navigation.hidden` instead)
 - Removed front matter option`priority` (use `navigation.priority` instead)
+- Removed front matter option`category` (use `navigation.group` instead)
 - To access the sidebar label setting via class property, use `$navigation['label']` instead of `$label`, etc.
 - To access the sidebar label setting via front matter getters, use `navigation.label` instead of `label`, etc.
-- The navigation link to documentation index page now has default priority 500 instead of 100
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -104,14 +125,19 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
 - Removed interface PageContract (merged into abstract class AbstractPage)
-- Removed interface RouteFacadeContract (merged into existing RouteContract)
+- Removed interface RouteFacadeContract (merged into the Route.php implementation)
+- Removed interface RouteContract (merged into the Route.php implementation)
 - Removed deprecated interface AssetServiceContract
 - Removed deprecated interface HydeKernelContract
 - Removed deprecated and unused abstract class ActionCommand
 - Removed unused function `array_map_unique`
 - Removed method `PageContract::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
 - Removed method `AbstractPage::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
+- Removed method `Route::getSourceFilePath()` (use new `Route::getSourcePath()` instead)
+- Removed method `Route::getOutputFilePath()` (use new `Route::getOutputPath()` instead)
+- Removed unused $default parameter from Hyde::url method
 - Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
+- RealtimeCompiler: Removed support for the legacy bootstrapping file removed in Hyde v0.40
 
 ### Fixed
 - Fixed validation bug in the rebuild command

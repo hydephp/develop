@@ -2,11 +2,12 @@
 
 namespace Hyde\Framework;
 
-use Hyde\Framework\Contracts\RouteContract;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\Models\Route;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -27,10 +28,10 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getMarkdownPostPath(string $path = '')
  * @method static string getDocumentationPagePath(string $path = '')
  * @method static string sitePath(string $path = '')
- * @method static string formatHtmlPath(string $destination)
+ * @method static string formatLink(string $destination)
  * @method static string relativeLink(string $destination)
  * @method static string image(string $name, bool $preferQualifiedUrl = false)
- * @method static string url(string $path = '', null|string $default = null)
+ * @method static string url(string $path = '')
  * @method static string makeTitle(string $slug)
  * @method static string currentPage()
  * @method static string getBasePath()
@@ -38,7 +39,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static FileCollection files()
  * @method static PageCollection pages()
  * @method static RouteCollection routes()
- * @method static RouteContract|null currentRoute()
+ * @method static Route|null currentRoute()
  * @method static HydeKernel getInstance()
  * @method static bool hasFeature(string $feature)
  * @method static bool hasSiteUrl()
@@ -47,6 +48,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool unlink(array|string $path)
  * @method static void setInstance(HydeKernel $instance)
  * @method static void setBasePath(string $basePath)
+ * @method static void shareViewData(HydePage $page)
  * @method static array toArray()
  * @method static void boot()
  */

@@ -244,7 +244,7 @@
                     @foreach (BladePage::all() as $page)
                         <tr>
                             <td>
-                                <a href="{{ Hyde::formatHtmlPath($page->slug . '.html') }}">
+                                <a href="{{ Hyde::formatLink($page->slug . '.html') }}">
                                     {{ Hyde::makeTitle($page->view) }}
                                 </a>
                             </td>
@@ -273,7 +273,7 @@
                     @foreach (MarkdownPage::all() as $page)
                         <tr>
                             <td>
-                                <a href="{{ Hyde::formatHtmlPath($page->slug . '.html') }}">
+                                <a href="{{ Hyde::formatLink($page->slug . '.html') }}">
                                     {{ $page->title }}
                                 </a>
                             </td>
@@ -302,7 +302,7 @@
                     @foreach (DocumentationPage::all() as $page)
                         <tr>
                             <td>
-                                <a href="{{ DocumentationPage::$outputDirectory .'/'. Hyde::formatHtmlPath($page->slug . '.html') }}">
+                                <a href="{{ DocumentationPage::$outputDirectory .'/'. Hyde::formatLink($page->slug . '.html') }}">
                                     {{ $page->title }}
                                 </a>
                             </td>
@@ -331,7 +331,7 @@
                     @foreach (MarkdownPost::all() as $post)
                         <tr>
                             <td>
-                                <a href="posts/{{ Hyde::formatHtmlPath($post->slug . '.html') }}">
+                                <a href="posts/{{ Hyde::formatLink($post->slug . '.html') }}">
                                     {{ $post->title }}
                                 </a>
                             </td>

@@ -15,7 +15,7 @@ When you are not writing Markdown and Blade, most of your interactions with Hyde
 Hyde Command Line Interface (CLI). 
 Since the CLI is based on the Laravel Artisan Console, so you may actually already be familiar with it.
 
-You should take a look at [the Console Commands page](console-commands.html)
+You should take a look at [the Console Commands page](console-commands)
 to learn more and see the available commands and their usage.
 
 ```bash
@@ -70,7 +70,7 @@ Default media file types supported: `.png`, `.svg`, `.jpg`, `.jpeg`, `.gif`, `.i
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
 However, Hyde also strives to be modular and endlessly customizable hackable if you need it. 
-Take a look at the [customization and configuration guide](customization.html) to see the endless options available!
+Take a look at the [customization and configuration guide](customization) to see the endless options available!
 
 ## Front Matter
 
@@ -143,12 +143,14 @@ Route::get('index')
 
 // Source file: _posts/my-post.md
 // Compiled file: _site/posts/my-post.html
-Route::get('posts.my-post')
+Route::get('posts/my-post')
 
 // Source file: _docs/readme.md
 // Compiled file: _site/docs/readme.html
-Route::get('docs.readme')
+Route::get('docs/readme')
 ```
+
+>info Tip: You can also use "dot notation" instead of slashes, for example `Route::get('posts.my-post')`.
 
 ### Using the `x-link` component
 
@@ -197,6 +199,6 @@ For example, a source file stored as `_pages/about/contact.md` will be compiled 
 
 Documentation pages behave a bit differently. Here, all documentation source files will still be compiled to the `_site/docs/` directory, but the subdirectory name will be used to assign a sidebar group/category to the page.
 
-So for example, a source file stored as `_docs/getting-started/installation.md` will be compiled into `_site/docs/installation.html`, and placed in the sidebar group `Getting Started`.
+So for example, a source file stored as `_docs/getting-started/installation.md` will be compiled into `_site/docs/installation`, and placed in the sidebar group `Getting Started`.
 
-You can learn more about this in the [documentation pages documentation](documentation-pages.html#using-sub-directories).
+You can learn more about this in the [documentation pages documentation](documentation-pages#using-sub-directories).

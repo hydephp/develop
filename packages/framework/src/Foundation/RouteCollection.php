@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Contracts\RouteContract;
 use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Models\Route;
 
@@ -34,7 +33,7 @@ final class RouteCollection extends BaseFoundationCollection
 {
     public function getRoutes(?string $pageClass = null): self
     {
-        return ! $pageClass ? $this : $this->filter(function (RouteContract $route) use ($pageClass) {
+        return ! $pageClass ? $this : $this->filter(function (Route $route) use ($pageClass) {
             return $route->getSourceModel() instanceof $pageClass;
         });
     }
@@ -43,7 +42,7 @@ final class RouteCollection extends BaseFoundationCollection
      * This internal method adds the specified route to the route index.
      * It's made public so package developers can hook into the routing system.
      */
-    public function addRoute(RouteContract $route): self
+    public function addRoute(Route $route): self
     {
         $this->put($route->getRouteKey(), $route);
 

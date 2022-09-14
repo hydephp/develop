@@ -4,16 +4,16 @@ namespace Hyde\Framework\Models\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\MetadataItemContract;
-use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Services\RssFeedService;
+use Illuminate\Contracts\Support\Htmlable;
 
 /**
+ * Holds the metadata tags for a page or the site model.
+ *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
  */
-class Metadata
+class MetadataBag implements Htmlable
 {
     protected HydePage $page;
 
@@ -22,10 +22,17 @@ class Metadata
     public array $properties = [];
     public array $generics = [];
 
-    public function __construct(HydePage $page)
+    public function __construct(?HydePage $page = null)
     {
-        $this->page = $page;
-        $this->generate();
+        if ($page) {
+            $this->page = $page;
+            $this->generate();
+        }
+    }
+
+    public function toHtml(): string
+    {
+        return $this->render();
     }
 
     public function render(): string
@@ -60,22 +67,6 @@ class Metadata
 
     protected function generate(): void
     {
-        foreach (config('hyde.meta', []) as $item) {
-            $this->add($item);
-        }
-
-        if (Features::sitemap()) {
-            $this->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
-                'type' => 'application/xml', 'title' => 'Sitemap',
-            ]));
-        }
-
-        if (Features::rss()) {
-            $this->add(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
-                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
-            ]));
-        }
-
         $this->addDynamicPageMetadata($this->page);
     }
 
