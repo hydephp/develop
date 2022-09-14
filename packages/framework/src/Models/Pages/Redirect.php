@@ -15,7 +15,7 @@ class Redirect extends HydePage
 
     public function __construct(string $path, string $destination)
     {
-        parent::__construct();
+        parent::__construct($path);
 
         $this->path = $path;
         $this->destination = $destination;
