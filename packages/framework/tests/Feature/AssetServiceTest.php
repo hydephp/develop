@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
 
@@ -39,7 +40,7 @@ class AssetServiceTest extends TestCase
     public function test_media_link_returns_media_path()
     {
         $service = new AssetService();
-        $this->assertIsString($path = $service->mediaLink('styles.css'));
-        $this->assertEquals('media/styles.css', $path);
+        $this->assertIsString($path = $service->mediaLink('app.css'));
+        $this->assertEquals('media/app.css?v='.md5_file(Hyde::path('_media/app.css')), $path);
     }
 }
