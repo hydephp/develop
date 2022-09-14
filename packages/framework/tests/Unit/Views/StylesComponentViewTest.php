@@ -16,6 +16,7 @@ class StylesComponentViewTest extends TestCase
 
     protected function renderTestView(): string
     {
+        config(['hyde.cache_busting' => false]);
         view()->share('currentPage', $this->mockCurrentPage ?? '');
 
         return Blade::render(file_get_contents(
