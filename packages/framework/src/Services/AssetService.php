@@ -38,6 +38,11 @@ class AssetService
         return $this->constructCdnPath($file);
     }
 
+    public function mediaLink(string $file): string
+    {
+        return Hyde::relativeLink('media/'.$file);
+    }
+
     public function hasMediaFile(string $file): bool
     {
         return file_exists(Hyde::path('_media').'/'.$file);
