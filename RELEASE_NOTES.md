@@ -13,6 +13,8 @@ In general, these changes should only affect those who have written custom code 
 
 #### What you can expect to break
 
+This update **requires the configuration file to be updated**.
+
 The most high impact change is change of sidebar front matter options, and related areas. Please try updating your site in a test environment first, to see if you need to update any of your front matter.
 
 ### Added
@@ -33,6 +35,8 @@ The most high impact change is change of sidebar front matter options, and relat
 
 **A very large number the changes in this update are breaking**, as such, not all are marked as breaking. The really major changes that require especially close attention are here listed, please scroll down to see the rest as well as the concrete changes of this high level overview.
 
+- Rename `Features::blogPosts` to `Features::markdownPosts` - This means you must update your hyde.php config, otherwise blog posts might not be generated
+- Rename `Features::hasBlogPosts` to `Features::hasMarkdownPosts`
 - Renamed base class AbstractPage to HydePage
 - Renamed base class AbstractMarkdownPage to BaseMarkdownPage
 - Renamed several HydePage methods to be more consistent
