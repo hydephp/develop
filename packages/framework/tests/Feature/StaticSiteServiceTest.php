@@ -56,6 +56,30 @@ class StaticSiteServiceTest extends TestCase
         unlink(Hyde::path('_site/media/test-image.png'));
     }
 
+    public function test_all_page_types_can_be_compiled()
+    {
+        $this->file('_pages/html.html');
+        $this->file('_pages/blade.blade.php');
+        $this->file('_pages/markdown.md');
+        $this->file('_posts/post.md');
+        $this->file('_docs/docs.md');
+
+        $this->artisan('build')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/html.html'));
+        $this->assertFileExists(Hyde::path('_site/blade.html'));
+        $this->assertFileExists(Hyde::path('_site/markdown.html'));
+        $this->assertFileExists(Hyde::path('_site/posts/post.html'));
+        $this->assertFileExists(Hyde::path('_site/docs/docs.html'));
+
+        unlink(Hyde::path('_site/html.html'));
+        unlink(Hyde::path('_site/blade.html'));
+        unlink(Hyde::path('_site/markdown.html'));
+        unlink(Hyde::path('_site/posts/post.html'));
+        unlink(Hyde::path('_site/docs/docs.html'));
+    }
+    
     public function test_print_initial_information_allows_api_to_be_disabled()
     {
         $this->artisan('build --no-api')
