@@ -26,7 +26,20 @@ class Redirect
 
     public function render(): string
     {
-        return '';
+        return <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="refresh" content="0;url='$this->destination'" />
+
+        <title>Redirecting to $this->destination</title>
+    </head>
+    <body>
+        Redirecting to <a href="$this->destination">$this->destination</a>.
+    </body>
+</html>
+HTML;
     }
 
     public function store(): static
