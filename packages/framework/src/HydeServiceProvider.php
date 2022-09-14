@@ -108,6 +108,7 @@ class HydeServiceProvider extends ServiceProvider
             Commands\HydeBuildSitemapCommand::class,
             Commands\HydeBuildRssFeedCommand::class,
             Commands\HydeBuildSearchCommand::class,
+            Commands\HydeRouteListCommand::class,
             Commands\HydeMakePostCommand::class,
             Commands\HydeMakePageCommand::class,
             Commands\HydeValidateCommand::class,
