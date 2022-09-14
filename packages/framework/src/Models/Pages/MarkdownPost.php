@@ -12,7 +12,12 @@ use Hyde\Framework\Models\Image;
 use Hyde\Framework\Models\Markdown;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest
+ * Page class for Markdown posts.
+ *
+ * Markdown posts are stored in the _posts directory and using the .md extension.
+ * The Markdown will be compiled to HTML using the blog post layout to the _site/posts/ directory.
+ *
+ * @see https://hydephp.com/docs/master/blog-posts
  */
 class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
 {

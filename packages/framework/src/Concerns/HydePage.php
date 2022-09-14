@@ -16,6 +16,8 @@ use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Arr;
 
 /**
+ * The base class for all Hyde pages.
+ *
  * To ensure compatibility with the Hyde Framework, all page models should extend this class.
  * Markdown-based pages can extend the BaseMarkdownPage class to get relevant helpers.
  *

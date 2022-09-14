@@ -4,6 +4,12 @@ namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\HydePage;
 
+/**
+ * Page class for HTML pages.
+ *
+ * Html pages are stored in the _pages directory and using the .html extension.
+ * These pages will be copied exactly as they are to the _site/ directory.
+ */
 class HtmlPage extends HydePage
 {
     public static string $sourceDirectory = '_pages';
