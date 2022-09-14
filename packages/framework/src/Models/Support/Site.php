@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Support;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
