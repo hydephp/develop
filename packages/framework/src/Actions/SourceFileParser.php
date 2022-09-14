@@ -6,6 +6,7 @@ use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
 /**
@@ -31,6 +32,11 @@ class SourceFileParser
         $this->identifier = $identifier;
 
         $this->page = $this->constructPage($pageClass);
+    }
+
+    protected function parseHtmlPage(): HtmlPage
+    {
+        return new HtmlPage($this->identifier);
     }
 
     protected function parseBladePage(): BladePage
@@ -60,8 +66,12 @@ class SourceFileParser
         return $this->page;
     }
 
-    protected function constructPage(string $pageClass): BladePage|BaseMarkdownPage
+    protected function constructPage(string $pageClass): HtmlPage|BladePage|BaseMarkdownPage
     {
+        if ($pageClass === HtmlPage::class) {
+            return $this->parseHtmlPage();
+        }
+
         if ($pageClass === BladePage::class) {
             return $this->parseBladePage();
         }
