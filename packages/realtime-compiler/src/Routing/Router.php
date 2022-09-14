@@ -64,7 +64,7 @@ class Router
         $extension = pathinfo($request->path)['extension'] ?? null;
 
         // If the extension is not set (pretty url), or is .html,
-        //we assume it's a web page which we need to compile.
+        // we assume it's a web page which we need to compile.
         if ($extension === null || $extension === 'html') {
             return false;
         }

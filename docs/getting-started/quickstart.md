@@ -19,7 +19,7 @@ Hyde is based on [Laravel 9](https://laravel.com/docs/9.x/releases)
 which requires a minimum PHP version of 8.0. 
 You should also have [Composer](https://getcomposer.org/) installed. 
 
-To use some features like [compiling your own assets](managing-assets.html)
+To use some features like [compiling your own assets](managing-assets)
 you also need NodeJS and NPM.
 
 
@@ -28,7 +28,7 @@ The main way to interact with Hyde is through HydeCLI.
 
 If you are familiar with Laravel Artisan you will feel right at home.
 
-Learn more about the HydeCLI in the [console commands](console-commands.html) documentation.
+Learn more about the HydeCLI in the [console commands](console-commands) documentation.
 
 ## Starting a development server
 
@@ -51,7 +51,7 @@ Creating content with Hyde is easy. Simply place Markdown files in one of the so
 ```
 
 > There are a few more directories that you should know about. Please see the
-> [directory structure](architecture-concepts.html#directory-structure) section.
+> [directory structure](architecture-concepts#directory-structure) section.
 
 ### Scaffolding files
 
@@ -85,7 +85,7 @@ php hyde build
 
 ### Managing assets
 
-Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views meaning that you don't even need to use NPM. However, Hyde is already configured to use Laravel Mix to compile your assets if you feel like there's a need to. See more on the [Managing Assets](managing-assets.html) page.
+Hyde comes bundled with a precompiled and minified `app.css` containing all the Tailwind you need for the default views meaning that you don't even need to use NPM. However, Hyde is already configured to use Laravel Mix to compile your assets if you feel like there's a need to. See more on the [Managing Assets](managing-assets) page.
 
 ### Deploying your site
 
@@ -101,6 +101,6 @@ using a CI that automatically builds and deploys this site.
 
 Here's some ideas of what to read next:
 
-- [Architecture Concepts & Directory Structure](architecture-concepts.html)
-- [Console Commands with the HydeCLI](console-commands.html)
-- [Creating Blog Posts](blog-posts.html)
+- [Architecture Concepts & Directory Structure](architecture-concepts)
+- [Console Commands with the HydeCLI](console-commands)
+- [Creating Blog Posts](blog-posts)

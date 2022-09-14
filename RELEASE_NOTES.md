@@ -18,10 +18,12 @@ The most high impact change is change of sidebar front matter options, and relat
 ### Added
 - Added a JSON build information manifest automatically generated after a site build [#465](https://github.com/hydephp/develop/pull/465)
 - Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
+- Added support for "dot notation" to route key retrievals in the `Route` facade [#513](https://github.com/hydephp/develop/pull/513)
 - Added a NavigationData object to HydePage.php
 - Added a Route::is() method to determine if a given route or route key matches the instance it's called on
 - Added a Site model [#506](https://github.com/hydephp/develop/pull/506)
 - Adds class aliases for all page types so they can be used in Blade components without the full namespace [#5018](https://github.com/hydephp/develop/pull/518)
+- Added a route:list command [#516](https://github.com/hydephp/develop/pull/516)
 
 ### Changed
 
@@ -65,6 +67,8 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Changed Blade component identifier class 'sidebar-category-heading' to 'sidebar-group-heading'
 - Changed Blade component identifier class 'sidebar-category-list' to 'sidebar-group-list'
 - Changed the Route::toArray schema 
+- Split the page metadata handling so that global metadata is now handled by the Site model (meta.blade.php must be updated if you have published it)
+- The MetadataBag class now implements Htmlable, so you can use it directly in Blade templates without calling `render()`
 - internal: Move responsibility for filtering documentation pages to the navigation menus (this means that documentation pages that are not 'index' are no longer regarded as hidden)
 - internal: The HydePage::$navigation property is now a NavigationData object instead of an array, however the object extends ArrayObject, so it should be mostly compatible with existing code
 
@@ -100,6 +104,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Renamed method getSourceDirectory to sourceDirectory in HydePage.php
 - Changed named variable $basename to $identifier in HydePage.php
 - Removed $strict option from the has() method HydePage.php
+- Removed method renderPageMetadata from HydePage.php (use metadata() and/or metadata()->render() instead)
 
 #### Documentation page front matter changes
 
@@ -131,7 +136,9 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed method `AbstractPage::getCurrentPagePath()` (merged into `getRouteKey()` in the same class)
 - Removed method `Route::getSourceFilePath()` (use new `Route::getSourcePath()` instead)
 - Removed method `Route::getOutputFilePath()` (use new `Route::getOutputPath()` instead)
+- Removed unused $default parameter from Hyde::url method
 - Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
+- RealtimeCompiler: Removed support for the legacy bootstrapping file removed in Hyde v0.40
 
 ### Fixed
 - Fixed validation bug in the rebuild command

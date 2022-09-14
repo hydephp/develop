@@ -176,14 +176,15 @@ class Route implements \Stringable, \JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the specified route key.
      *
-     * @param  string  $routeKey  Example: posts/foo.md
+     * @param  string  $routeKey  Example: posts/foo, posts.foo
      * @return \Hyde\Framework\Models\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
     public static function getFromKey(string $routeKey): static
     {
-        return Hyde::routes()->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return Hyde::routes()->get(str_replace('.', '/', $routeKey))
+            ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**

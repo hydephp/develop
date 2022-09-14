@@ -663,7 +663,7 @@ class HydePageTest extends TestCase
         $this->assertNull($page->canonicalUrl);
         $this->assertStringNotContainsString(
             '<link rel="canonical"',
-            $page->renderPageMetadata()
+            $page->metadata()->render()
         );
     }
 
@@ -674,7 +674,7 @@ class HydePageTest extends TestCase
         $this->assertNull($page->canonicalUrl);
         $this->assertStringNotContainsString(
             '<link rel="canonical"',
-            $page->renderPageMetadata()
+            $page->metadata()->render()
         );
     }
 
@@ -685,14 +685,14 @@ class HydePageTest extends TestCase
         $this->assertEquals('foo/bar', $page->canonicalUrl);
         $this->assertStringContainsString(
             '<link rel="canonical" href="foo/bar">',
-            $page->renderPageMetadata()
+            $page->metadata()->render()
         );
     }
 
     public function test_render_page_metadata_returns_string()
     {
         $page = new MarkdownPage('foo');
-        $this->assertIsString($page->renderPageMetadata());
+        $this->assertIsString($page->metadata()->render());
     }
 
     public function test_has_method_returns_true_if_page_has_standard_property()
