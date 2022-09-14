@@ -37,7 +37,7 @@ class SourceFileParser
     {
         return new BladePage(
             $this->identifier,
-            (BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier)))
+            BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier))
         );
     }
 
