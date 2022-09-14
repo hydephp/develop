@@ -21,6 +21,7 @@ The most high impact change is change of sidebar front matter options, and relat
 - Added a NavigationData object to HydePage.php
 - Added a Route::is() method to determine if a given route or route key matches the instance it's called on
 - Added a Site model [#506](https://github.com/hydephp/develop/pull/506)
+- Adds class aliases for all page types so they can be used in Blade components without the full namespace [#5018](https://github.com/hydephp/develop/pull/518)
 
 ### Changed
 
