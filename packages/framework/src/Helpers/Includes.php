@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown\Markdown;
 use Illuminate\Support\Facades\Blade;
 
 class Includes

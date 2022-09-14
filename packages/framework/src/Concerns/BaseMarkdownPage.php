@@ -5,7 +5,7 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown\Markdown;
 
 /**
  * The base class for all Markdown-based page models.
@@ -41,13 +41,13 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
      * Construct a new MarkdownPage object from constructed data types.
      * Normally, this is done by the SourceFileParser.
      *
-     * @see \Hyde\Framework\Actions\SourceFileParser
+     * @param  string  $identifier
+     * @param  \Hyde\Framework\Models\FrontMatter|null  $matter
+     * @param  \Hyde\Framework\Models\Markdown\Markdown|null  $markdown
+     *@see \Hyde\Framework\Actions\SourceFileParser
      *
      * The types are strictly enforced to ensure a predictable behavior and constant access interface.
      *
-     * @param  string  $identifier
-     * @param  \Hyde\Framework\Models\FrontMatter|null  $matter
-     * @param  \Hyde\Framework\Models\Markdown|null  $markdown
      */
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {

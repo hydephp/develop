@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Testing\TestCase;
 
 /**
  * Class MarkdownConverterTest.
  *
- * @covers \Hyde\Framework\Models\Markdown
+ * @covers \Hyde\Framework\Models\Markdown\Markdown
  */
 class MarkdownFacadeTest extends TestCase
 {

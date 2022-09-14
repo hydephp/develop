@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Models;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
 /**

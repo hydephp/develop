@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
-use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown\Markdown;
 
 interface MarkdownDocumentContract
 {
@@ -16,7 +16,7 @@ interface MarkdownDocumentContract
     /**
      * Return the document's Markdown object.
      *
-     * @return \Hyde\Framework\Models\Markdown
+     * @return \Hyde\Framework\Models\Markdown\Markdown
      */
     public function markdown(): Markdown;
 }

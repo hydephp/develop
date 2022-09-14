@@ -9,7 +9,7 @@ use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Image;
-use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown\Markdown;
 
 /**
  * Page class for Markdown posts.

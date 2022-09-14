@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\SemanticDocumentationArticle;
 use Hyde\Testing\TestCase;

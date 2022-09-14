@@ -4,13 +4,13 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
-use Hyde\Framework\Models\Markdown;
+use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Framework\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Models\MarkdownDocument
- * @covers \Hyde\Framework\Models\Markdown
+ * @covers \Hyde\Framework\Models\Markdown\Markdown
  */
 class MarkdownDocumentTest extends TestCase
 {
