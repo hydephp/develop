@@ -35,4 +35,11 @@ class AssetServiceTest extends TestCase
         $this->assertIsString($path = $service->constructCdnPath('styles.css'));
         $this->assertStringContainsString('styles.css', $path);
     }
+
+    public function test_media_link_returns_media_path()
+    {
+        $service = new AssetService();
+        $this->assertIsString($path = $service->mediaLink('styles.css'));
+        $this->assertEquals('media/styles.css', $path);
+    }
 }
