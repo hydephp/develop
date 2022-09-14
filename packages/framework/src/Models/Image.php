@@ -154,6 +154,16 @@ class Image implements FeaturedImageSchema, \Stringable
         return Hyde::image($this->getSource());
     }
 
+    public function hasStyles(): bool
+    {
+        return isset($this->styles) && ! empty($this->styles) && config('markdown.allow_html', false);
+    }
+
+    public function getStyles(): ?string
+    {
+        return $this->hasStyles() ? $this->styles : null;
+    }
+
     public function getContentLength(): int
     {
         return (new FindsContentLengthForImageObject($this))->execute();
