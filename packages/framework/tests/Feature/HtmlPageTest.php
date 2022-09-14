@@ -10,5 +10,12 @@ use Hyde\Testing\TestCase;
  */
 class HtmlPageTest extends TestCase
 {
-    //
+    public function testHtmlPageCanBeCompiled()
+    {
+        $this->file(HtmlPage::$sourceDirectory.'/foo.html', 'bar');
+
+        $page = new HtmlPage('foo');
+
+        $this->assertEquals('bar', $page->compile());
+    }
 }
