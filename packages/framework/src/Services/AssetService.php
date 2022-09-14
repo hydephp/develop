@@ -50,6 +50,10 @@ class AssetService
 
     protected function getCacheBustKey(string $file): string
     {
+        if (! config('hyde.cache_busting')) {
+            return '';
+        }
+
         return '?v='.md5_file(Hyde::path("_media/$file"));
     }
 }
