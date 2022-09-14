@@ -65,6 +65,9 @@ class SourceFileParser
         if ($pageClass === BladePage::class) {
             return $this->parseBladePage();
         }
-        return $this->parseMarkdownPage($pageClass);
+
+        if (is_subclass_of($pageClass, BaseMarkdownPage::class)) {
+            return $this->parseMarkdownPage($pageClass);
+        }
     }
 }
