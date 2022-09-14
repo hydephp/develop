@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\ValidationResult;
+use Hyde\Framework\Models\Support\ValidationResult;
 use Hyde\Framework\Services\ValidationService;
 use Hyde\Testing\TestCase;
 
@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
  * Class ValidationServiceTest.
  *
  * @covers \Hyde\Framework\Services\ValidationService
- * @covers \Hyde\Framework\Models\ValidationResult
+ * @covers \Hyde\Framework\Models\Support\ValidationResult
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
  */
