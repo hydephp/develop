@@ -236,6 +236,12 @@ you can use this command to republish the configuration files.
 You should be sure to have backups, or version control such as Git, before running this command.</p>
 </blockquote>
 
+### List the available pages/routes
+```bash
+php hyde route:list
+```
+
+Display a list of all the discovered pages, their route keys, and their source and output paths.
 
 ### Run validation tests to optimize your site
 ```bash
