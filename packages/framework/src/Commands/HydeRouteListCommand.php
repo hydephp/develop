@@ -4,6 +4,7 @@ namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Hyde;
 use LaravelZero\Framework\Commands\Command;
+
 /**
  * Hyde command to display the list of site routes.
  *
@@ -38,6 +39,7 @@ class HydeRouteListCommand extends Command
                 $route->getRouteKey(),
             ];
         }
+
         return $routes;
     }
 
