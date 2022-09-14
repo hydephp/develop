@@ -23,6 +23,7 @@ The most high impact change is change of sidebar front matter options, and relat
 - Added a route:list command [#516](https://github.com/hydephp/develop/pull/516)
 - Added support for "dot notation" to the `HydePage::get()` method [#497](https://github.com/hydephp/develop/pull/497)
 - Added support for "dot notation" to route key retrievals in the `Route` facade [#513](https://github.com/hydephp/develop/pull/513)
+- Added support for plain HTML pages that are copied from the _pages to the _site directory [#519](https://github.com/hydephp/develop/pull/519)
 - Added class aliases for all page types so they can be used in Blade components without the full namespace [#5018](https://github.com/hydephp/develop/pull/518)
 
 ### Changed
