@@ -40,7 +40,7 @@ class AssetService
 
     public function mediaLink(string $file): string
     {
-        return Hyde::relativeLink('media/'.$file);
+        return Hyde::relativeLink("media/$file");
     }
 
     public function hasMediaFile(string $file): bool
