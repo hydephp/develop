@@ -5,12 +5,12 @@ namespace Hyde\Framework\Foundation;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\File;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Support\File;
 use Hyde\Framework\Services\DiscoveryService;
 
 /**
