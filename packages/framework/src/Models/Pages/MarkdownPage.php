@@ -6,6 +6,8 @@ use Hyde\Framework\Concerns\BaseMarkdownPage;
 
 /**
  * Page class for Markdown pages.
+ *
+ * @see https://hydephp.com/docs/master/static-pages#creating-markdown-pages
  */
 class MarkdownPage extends BaseMarkdownPage
 {

@@ -14,6 +14,7 @@ use Hyde\Framework\Models\Markdown;
 /**
  * Page class for Markdown posts.
  *
+ * @see https://hydephp.com/docs/master/blog-posts
  * @see \Hyde\Framework\Testing\Feature\MarkdownPostTest
  */
 class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema

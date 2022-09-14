@@ -7,6 +7,8 @@ use Hyde\Framework\Models\FrontMatter;
 
 /**
  * Page class for Blade pages.
+ *
+ * @see https://hydephp.com/docs/master/static-pages#creating-blade-pages
  */
 class BladePage extends HydePage
 {

@@ -11,6 +11,8 @@ use Hyde\Framework\Models\Route;
 
 /**
  * Page class for documentation pages.
+ *
+ * @see https://hydephp.com/docs/master/documentation-pages
  */
 class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSchema
 {
