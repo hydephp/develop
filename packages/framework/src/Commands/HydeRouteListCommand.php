@@ -36,7 +36,7 @@ class HydeRouteListCommand extends Command
             $routes[] = [
                 $this->formatPageType($route->getPageType()),
                 $this->formatSourcePath($route->getSourcePath()),
-                $route->getOutputPath(),
+                $this->formatOutputPath($route->getOutputPath()),
                 $route->getRouteKey(),
             ];
         }
@@ -52,6 +52,12 @@ class HydeRouteListCommand extends Command
     protected function formatSourcePath(string $path): string
     {
         $link = DiscoveryService::createClickableFilepath(Hyde::path($path));
+        return "<href=$link>$path</>";
+    }
+
+    protected function formatOutputPath(string $path): string
+    {
+        $link = DiscoveryService::createClickableFilepath(Hyde::sitePath($path));
         return "<href=$link>$path</>";
     }
 }
