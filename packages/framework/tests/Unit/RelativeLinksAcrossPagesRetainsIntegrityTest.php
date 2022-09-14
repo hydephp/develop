@@ -15,6 +15,8 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
     {
         parent::setUp();
 
+        config(['hyde.cache_busting' => false]);
+
         $this->needsDirectory('_pages/nested');
         $this->file('_pages/root.md');
         $this->file('_pages/root1.md');

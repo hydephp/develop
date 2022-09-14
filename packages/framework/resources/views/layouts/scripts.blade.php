@@ -1,6 +1,6 @@
 {{-- The compiled Laravel Mix scripts --}}
 @if(Asset::hasMediaFile('app.js'))
-<script defer src="{{ Hyde::relativeLink('media/app.js') }}"></script>
+<script defer src="{{ Asset::mediaLink('app.js') }}"></script>
 @endif
 
 {{-- Alpine.js --}}
