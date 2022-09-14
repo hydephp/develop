@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Contracts\FrontMatter\Support;
 
 /**
- * @see \Hyde\Framework\Models\NavigationData
+ * @see \Hyde\Framework\Models\Navigation\NavigationData
  * @see \Hyde\Framework\Concerns\HydePage
  */
 interface NavigationSchema
