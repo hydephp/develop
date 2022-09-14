@@ -132,3 +132,7 @@ If you are comfortable with it, and have the need for it, use Blade to create mo
 The Hyde website ([hydephp.com](https://hydephp.com/)) uses both Markdown and Blade pages. The homepage for example, is a Blade page and uses a bunch of custom HTML.
 
 A great example of a Markdown page can be found at [hydephp.github.io/portfolio-demo](https://hydephp.github.io/portfolio-demo), you can see the [page source here on GitHub](https://github.com/hydephp/portfolio-demo/blob/master/_pages/index.md).
+
+## Bonus: Creating HTML Pages
+
+If you have an already created HTML page, simply drop it into the `_pages` directory and Hyde will copy it over as it is into the `_site` directory. Like all other Hyde pages, the page will show up in the navigation menu using a title parsed from the filename.
