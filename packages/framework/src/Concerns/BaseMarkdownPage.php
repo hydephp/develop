@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
-use Hyde\Framework\Contracts\MarkdownPageContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Markdown;
@@ -17,7 +16,7 @@ use Hyde\Framework\Models\Markdown;
  * @see \Hyde\Framework\Concerns\HydePage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract, MarkdownPageContract
+abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract
 {
     public string $identifier;
     public Markdown $markdown;
