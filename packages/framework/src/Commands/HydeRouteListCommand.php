@@ -33,7 +33,7 @@ class HydeRouteListCommand extends Command
         foreach (Hyde::routes() as $route) {
             $routes[] = [
                 $this->formatPageType($route->getPageType()),
-                $route->getSourcePath(),
+                $this->formatSourcePath($route->getSourcePath()),
                 $route->getOutputPath(),
                 $route->getRouteKey(),
             ];
@@ -44,5 +44,10 @@ class HydeRouteListCommand extends Command
     protected function formatPageType(string $class): string
     {
         return str_replace('Hyde\\Framework\\Models\\Pages\\', '', $class);
+    }
+
+    protected function formatSourcePath(string $path)
+    {
+        return $path;
     }
 }
