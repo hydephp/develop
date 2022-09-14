@@ -17,6 +17,11 @@ class Redirect extends HydePage
         $this->destination = $destination;
     }
 
+    public static function make(string $destination): static
+    {
+        return new static($destination);
+    }
+
     public function compile(): string
     {
         return '';
