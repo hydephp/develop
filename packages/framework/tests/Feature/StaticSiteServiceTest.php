@@ -79,7 +79,7 @@ class StaticSiteServiceTest extends TestCase
         unlink(Hyde::path('_site/posts/post.html'));
         unlink(Hyde::path('_site/docs/docs.html'));
     }
-    
+
     public function test_print_initial_information_allows_api_to_be_disabled()
     {
         $this->artisan('build --no-api')
