@@ -37,10 +37,18 @@ class AssetServiceTest extends TestCase
         $this->assertStringContainsString('styles.css', $path);
     }
 
-    public function test_media_link_returns_media_path()
+    public function test_media_link_returns_media_path_with_cache_key()
     {
         $service = new AssetService();
         $this->assertIsString($path = $service->mediaLink('app.css'));
         $this->assertEquals('media/app.css?v='.md5_file(Hyde::path('_media/app.css')), $path);
+    }
+
+    public function test_media_link_returns_media_path_without_cache_key_if_cache_busting_is_disabled()
+    {
+        config(['hyde.cache_busting' => false]);
+        $service = new AssetService();
+        $this->assertIsString($path = $service->mediaLink('app.css'));
+        $this->assertEquals('media/app.css', $path);
     }
 }
