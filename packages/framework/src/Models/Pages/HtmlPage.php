@@ -9,6 +9,8 @@ use Hyde\Framework\Concerns\HydePage;
  *
  * Html pages are stored in the _pages directory and using the .html extension.
  * These pages will be copied exactly as they are to the _site/ directory.
+ *
+ * @see https://hydephp.com/docs/master/static-pages#bonus-creating-html-pages
  */
 class HtmlPage extends HydePage
 {
