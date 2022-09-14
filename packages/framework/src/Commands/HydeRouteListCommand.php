@@ -30,9 +30,14 @@ class HydeRouteListCommand extends Command
                 $route->getRouteKey(),
                 $route->getSourcePath(),
                 $route->getOutputPath(),
-                $route->getPageType(),
+                $this->formatPageType($route->getPageType()),
             ];
         }
         return $routes;
+    }
+
+    protected function formatPageType(string $class): string
+    {
+        return str_replace('Hyde\\Framework\\Models\\Pages\\', '', $class);
     }
 }
