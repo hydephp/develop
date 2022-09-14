@@ -30,6 +30,7 @@ class Features implements Arrayable, \JsonSerializable
     {
         return in_array($feature, config('hyde.features', [
             // Page Modules
+            static::htmlPages(),
             static::blogPosts(),
             static::bladePages(),
             static::markdownPages(),
@@ -52,6 +53,11 @@ class Features implements Arrayable, \JsonSerializable
     public static function hasBlogPosts(): bool
     {
         return static::enabled(static::blogPosts());
+    }
+
+    public static function hasHtmlPages(): bool
+    {
+        return static::enabled(static::htmlPages());
     }
 
     public static function hasBladePages(): bool
@@ -104,6 +110,11 @@ class Features implements Arrayable, \JsonSerializable
     public static function blogPosts(): string
     {
         return 'blog-posts';
+    }
+
+    public static function htmlPages(): string
+    {
+        return 'html-pages';
     }
 
     public static function bladePages(): string

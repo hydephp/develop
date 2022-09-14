@@ -33,6 +33,19 @@ class SourceFileParser
         $this->page = $this->constructPage($pageClass);
     }
 
+    protected function constructPage(string $pageClass): HydePage|BladePage|BaseMarkdownPage
+    {
+        if ($pageClass === BladePage::class) {
+            return $this->parseBladePage();
+        }
+
+        if (is_subclass_of($pageClass, BaseMarkdownPage::class)) {
+            return $this->parseMarkdownPage($pageClass);
+        }
+
+        return new $pageClass($this->identifier);
+    }
+
     protected function parseBladePage(): BladePage
     {
         return new BladePage(
@@ -58,14 +71,5 @@ class SourceFileParser
     public function get(): HydePage
     {
         return $this->page;
-    }
-
-    protected function constructPage(string $pageClass): BladePage|BaseMarkdownPage
-    {
-        if ($pageClass === BladePage::class) {
-            return $this->parseBladePage();
-        }
-
-        return $this->parseMarkdownPage($pageClass);
     }
 }

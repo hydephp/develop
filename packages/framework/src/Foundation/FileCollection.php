@@ -8,6 +8,7 @@ use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\File;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
@@ -45,6 +46,10 @@ final class FileCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
+        if (Features::hasHtmlPages()) {
+            $this->discoverFilesFor(HtmlPage::class);
+        }
+
         if (Features::hasBladePages()) {
             $this->discoverFilesFor(BladePage::class);
         }

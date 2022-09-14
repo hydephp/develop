@@ -7,6 +7,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -93,6 +94,34 @@ class StaticPageBuilderTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/'.'docs/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/'.'docs/foo.html')));
+    }
+
+    public function test_can_build_html_page()
+    {
+        $this->file('_pages/foo.html', 'bar');
+        $page = new HtmlPage('foo');
+
+        new StaticPageBuilder($page, true);
+
+        $this->assertFileExists(Hyde::path('_site/foo.html'));
+        $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
+        unlink(Hyde::path('_site/foo.html'));
+    }
+
+    public function test_can_build_nested_html_page()
+    {
+        mkdir(Hyde::path('_pages/foo'));
+        file_put_contents(Hyde::path('_pages/foo/bar.html'), 'baz');
+        $page = new HtmlPage('foo/bar');
+
+        new StaticPageBuilder($page, true);
+
+        $this->assertFileExists(Hyde::path('_site/foo/bar.html'));
+        $this->assertStringEqualsFile(Hyde::path('_site/foo/bar.html'), 'baz');
+
+        unlink(Hyde::path('_site/foo/bar.html'));
+        unlink(Hyde::path('_pages/foo/bar.html'));
+        rmdir(Hyde::path('_pages/foo'));
     }
 
     public function test_creates_custom_documentation_directory()

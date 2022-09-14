@@ -8,6 +8,7 @@ use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
@@ -32,6 +33,10 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
+        if (Features::hasHtmlPages()) {
+            $this->discoverPagesFor(HtmlPage::class);
+        }
+
         if (Features::hasBladePages()) {
             $this->discoverPagesFor(BladePage::class);
         }
