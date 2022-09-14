@@ -2,7 +2,12 @@
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-class HydeRouteListCommandTest
+use Hyde\Testing\TestCase;
+
+/**
+ * @covers \Hyde\Framework\Commands\HydeRouteListCommand
+ */
+class HydeRouteListCommandTest extends TestCase
 {
     //
 }
