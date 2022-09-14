@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\DiscoveryService;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -50,6 +51,7 @@ class HydeRouteListCommand extends Command
 
     protected function formatSourcePath(string $path): string
     {
-        return $path;
+        $link = DiscoveryService::createClickableFilepath(Hyde::path($path));
+        return "<href=$link>$path</>";
     }
 }
