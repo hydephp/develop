@@ -6,9 +6,9 @@ use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Image;
 use Hyde\Framework\Models\Support\Author;
 use Hyde\Framework\Models\Support\DateString;
+use Hyde\Framework\Models\Support\Image;
 
 trait ConstructsPageSchemas
 {
