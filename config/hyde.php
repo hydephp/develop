@@ -113,9 +113,9 @@ return [
 
     'features' => [
         // Page Modules
-        Features::blogPosts(),
         Features::bladePages(),
         Features::markdownPages(),
+        Features::markdownPosts(),
         Features::documentationPages(),
 
         // Frontend Features
