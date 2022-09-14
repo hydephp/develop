@@ -51,9 +51,7 @@ class HydeRouteListCommand extends Command
 
     protected function formatSourcePath(string $path): string
     {
-        $link = DiscoveryService::createClickableFilepath(Hyde::path($path));
-
-        return $this->clickablePathLink($link, $path);
+        return $this->clickablePathLink(DiscoveryService::createClickableFilepath(Hyde::path($path)), $path);
     }
 
     protected function formatOutputPath(string $path): string
@@ -62,9 +60,7 @@ class HydeRouteListCommand extends Command
             return $path;
         }
 
-        $link = DiscoveryService::createClickableFilepath(Hyde::sitePath($path));
-
-        return $this->clickablePathLink($link, $path);
+        return $this->clickablePathLink(DiscoveryService::createClickableFilepath(Hyde::sitePath($path)), $path);
     }
 
     protected function clickablePathLink(string $link, string $path): string
