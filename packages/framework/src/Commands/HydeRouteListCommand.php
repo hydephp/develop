@@ -57,10 +57,10 @@ class HydeRouteListCommand extends Command
     protected function formatOutputPath(string $path): string
     {
         if (! file_exists(Hyde::sitePath($path))) {
-            return $path;
+            return "_site/$path";
         }
 
-        return $this->clickablePathLink(DiscoveryService::createClickableFilepath(Hyde::sitePath($path)), $path);
+        return $this->clickablePathLink(DiscoveryService::createClickableFilepath(Hyde::sitePath($path)), "_site/$path");
     }
 
     protected function clickablePathLink(string $link, string $path): string
