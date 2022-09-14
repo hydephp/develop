@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Framework\Modules\Markdown\MarkdownFileParser;

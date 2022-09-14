@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Markdown;
 
 use Hyde\Framework\Modules\Markdown\MarkdownConverter;
 use Hyde\Framework\Services\MarkdownService;

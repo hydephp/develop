@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Modules\Markdown;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\MarkdownDocument;
+use Hyde\Framework\Models\Markdown\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**

@@ -4,8 +4,8 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Models\Author;
 use Hyde\Framework\Models\DateString;
-use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Image;
+use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 

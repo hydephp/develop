@@ -101,6 +101,9 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Moved class NavigationMenu into Navigation namespace
 - Moved class NavItem into Navigation namespace
 - Moved class FindsContentLengthForImageObject into Constructors namespace
+- Moved class Markdown into Models\Markdown namespace
+- Moved class Markdown into Models\Markdown namespace
+- Moved class FrontMatter into Models\Markdown namespace
 
 #### Page-model specific
 - Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the GeneratesNavigationData trait)
