@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Framework\Models\NavigationData;
+use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Str;

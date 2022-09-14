@@ -10,7 +10,7 @@ use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\FrontMatter;
 use Hyde\Framework\Models\Metadata\MetadataBag;
-use Hyde\Framework\Models\NavigationData;
+use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Arr;

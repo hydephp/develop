@@ -3,11 +3,11 @@
 namespace Hyde\Framework\Testing\Models;
 
 use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
-use Hyde\Framework\Models\NavigationData;
+use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\NavigationData
+ * @covers \Hyde\Framework\Models\Navigation\NavigationData
  */
 class NavigationDataTest extends TestCase
 {
