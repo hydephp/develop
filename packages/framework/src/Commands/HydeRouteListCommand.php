@@ -17,10 +17,10 @@ class HydeRouteListCommand extends Command
     public function handle(): int
     {
         $this->table([
-            'Route Key',
+            'Page Type',
             'Source File',
             'Output File',
-            'Page Type',
+            'Route Key',
         ], $this->getRoutes());
 
         return 0;
@@ -32,10 +32,10 @@ class HydeRouteListCommand extends Command
         /** @var \Hyde\Framework\Models\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                $route->getRouteKey(),
+                $this->formatPageType($route->getPageType()),
                 $route->getSourcePath(),
                 $route->getOutputPath(),
-                $this->formatPageType($route->getPageType()),
+                $route->getRouteKey(),
             ];
         }
         return $routes;

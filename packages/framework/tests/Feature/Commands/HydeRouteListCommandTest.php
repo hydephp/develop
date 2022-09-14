@@ -12,18 +12,18 @@ class HydeRouteListCommandTest extends TestCase
     public function testRouteListCommand()
     {
         $this->artisan('route:list')
-            ->expectsTable(['Route Key', 'Source File', 'Output File', 'Page Type'], [
+            ->expectsTable(['Page Type', 'Source File', 'Output File', 'Route Key'], [
                 [
-                    '404',
+                    'BladePage',
                     '_pages/404.blade.php',
                     '404.html',
-                    'BladePage',
+                    '404',
                 ],
                 [
-                    'index',
+                    'BladePage',
                     '_pages/index.blade.php',
                     'index.html',
-                    'BladePage',
+                    'index',
                 ]
             ])->assertExitCode(0);
     }
