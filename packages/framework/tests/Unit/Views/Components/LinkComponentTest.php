@@ -18,7 +18,7 @@ class LinkComponentTest extends TestCase
 
     public function test_link_component_can_be_rendered_with_route()
     {
-        $route = \Hyde\Framework\Models\Route::get('index');
+        $route = \Hyde\Framework\Models\Support\Route::get('index');
         $this->assertEquals('<a href="index.html">bar</a>', rtrim(
             Blade::render('<x-link href="'.$route.'">bar</x-link>')));
     }
@@ -26,7 +26,7 @@ class LinkComponentTest extends TestCase
     public function test_link_component_can_be_rendered_with_route_for_nested_pages()
     {
         View::share('currentPage', 'foo/bar');
-        $route = \Hyde\Framework\Models\Route::get('index');
+        $route = \Hyde\Framework\Models\Support\Route::get('index');
         $this->assertEquals('<a href="../index.html">bar</a>', rtrim(
             Blade::render('<x-link href="'.$route.'">bar</x-link>')));
     }

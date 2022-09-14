@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Route;
+use Hyde\Framework\Models\Support\Route;
 use Hyde\Testing\TestCase;
 
 /**

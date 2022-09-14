@@ -9,7 +9,7 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Route;
+use Hyde\Framework\Models\Support\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;

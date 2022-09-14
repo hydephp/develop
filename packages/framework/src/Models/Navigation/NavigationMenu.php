@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models\Navigation;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Route;
+use Hyde\Framework\Models\Support\Route;
 use Illuminate\Support\Collection;
 
 /**
