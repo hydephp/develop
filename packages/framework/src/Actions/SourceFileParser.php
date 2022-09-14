@@ -64,8 +64,7 @@ class SourceFileParser
     {
         if ($pageClass === BladePage::class) {
             return $this->parseBladePage();
-        } else {
-            return $this->parseMarkdownPage($pageClass);
         }
+        return $this->parseMarkdownPage($pageClass);
     }
 }
