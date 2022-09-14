@@ -22,14 +22,14 @@ class HydeHelperFacadeTest extends TestCase
     public function test_features_facade_can_be_used_to_call_static_methods_on_features_class()
     {
         $this->assertTrue(
-            Hyde::features()->hasBlogPosts()
+            Hyde::features()->hasMarkdownPosts()
         );
     }
 
     public function test_hyde_has_feature_shorthand_calls_static_method_on_features_class()
     {
         $this->assertTrue(
-            Hyde::hasFeature('blog-posts')
+            Hyde::hasFeature('markdown-posts')
         );
     }
 }

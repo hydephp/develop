@@ -31,7 +31,7 @@ class Features implements Arrayable, \JsonSerializable
         return in_array($feature, config('hyde.features', [
             // Page Modules
             static::htmlPages(),
-            static::blogPosts(),
+            static::markdownPosts(),
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
@@ -50,11 +50,6 @@ class Features implements Arrayable, \JsonSerializable
     // Determine if a given feature is enabled.
     // ================================================
 
-    public static function hasBlogPosts(): bool
-    {
-        return static::enabled(static::blogPosts());
-    }
-
     public static function hasHtmlPages(): bool
     {
         return static::enabled(static::htmlPages());
@@ -68,6 +63,11 @@ class Features implements Arrayable, \JsonSerializable
     public static function hasMarkdownPages(): bool
     {
         return static::enabled(static::markdownPages());
+    }
+
+    public static function hasMarkdownPosts(): bool
+    {
+        return static::enabled(static::markdownPosts());
     }
 
     public static function hasDocumentationPages(): bool
@@ -107,11 +107,6 @@ class Features implements Arrayable, \JsonSerializable
     // Enable a given feature to be used in the config.
     // ================================================
 
-    public static function blogPosts(): string
-    {
-        return 'blog-posts';
-    }
-
     public static function htmlPages(): string
     {
         return 'html-pages';
@@ -125,6 +120,11 @@ class Features implements Arrayable, \JsonSerializable
     public static function markdownPages(): string
     {
         return 'markdown-pages';
+    }
+
+    public static function markdownPosts(): string
+    {
+        return 'markdown-posts';
     }
 
     public static function documentationPages(): string
@@ -168,7 +168,7 @@ class Features implements Arrayable, \JsonSerializable
     public static function rss(): bool
     {
         return Hyde::hasSiteUrl()
-            && static::hasBlogPosts()
+            && static::hasMarkdownPosts()
             && config('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml')
             && count(DiscoveryService::getMarkdownPostFiles()) > 0;
