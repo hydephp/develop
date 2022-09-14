@@ -5,6 +5,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -58,6 +59,17 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('foo', $page->identifier);
         $this->assertEquals('# Foo Bar', $page->markdown);
         $this->assertEquals('Foo Bar Baz', $page->title);
+    }
+
+    public function test_html_page_parser()
+    {
+        $this->file('_pages/foo.html', '<h1>Foo Bar</h1>');
+
+        $parser = new SourceFileParser(HtmlPage::class, 'foo');
+        $page = $parser->get();
+        $this->assertInstanceOf(HtmlPage::class, $page);
+        $this->assertEquals('foo', $page->identifier);
+        $this->assertEquals('<h1>Foo Bar</h1>', $page->contents());
     }
 
     public function test_parsed_page_is_run_through_dynamic_constructor()
