@@ -40,7 +40,7 @@ class AssetService
 
     public function mediaLink(string $file): string
     {
-        return Hyde::relativeLink("media/$file") . $this->getCacheBustKey($file);
+        return Hyde::relativeLink("media/$file").$this->getCacheBustKey($file);
     }
 
     public function hasMediaFile(string $file): bool
@@ -50,6 +50,6 @@ class AssetService
 
     protected function getCacheBustKey(string $file): string|false
     {
-        return '?v=' . md5_file(Hyde::path("_media/$file"));
+        return '?v='.md5_file(Hyde::path("_media/$file"));
     }
 }
