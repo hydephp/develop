@@ -40,11 +40,16 @@ class AssetService
 
     public function mediaLink(string $file): string
     {
-        return Hyde::relativeLink("media/$file") . '?v=' . md5_file(Hyde::path("_media/$file"));
+        return Hyde::relativeLink("media/$file") . $this->getCacheBustKey($file);
     }
 
     public function hasMediaFile(string $file): bool
     {
         return file_exists(Hyde::path('_media').'/'.$file);
+    }
+
+    protected function getCacheBustKey(string $file): string|false
+    {
+        return '?v=' . md5_file(Hyde::path("_media/$file"));
     }
 }
