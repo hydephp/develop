@@ -16,7 +16,12 @@ class HydeRouteListCommand extends Command
 
     public function handle(): int
     {
-        $this->table(['Route Key', 'Source File', 'Output File', 'Page Type'], $this->getRoutes());
+        $this->table([
+            'Route Key',
+            'Source File',
+            'Output File',
+            'Page Type',
+        ], $this->getRoutes());
 
         return 0;
     }
