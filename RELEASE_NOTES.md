@@ -146,6 +146,7 @@ If you have not written any custom Markdown processors or any custom codes that 
 - Removed interface MarkdownProcessorContract (use MarkdownPreProcessorContract or MarkdownPostProcessorContract instead)
 - ShortcodeProcessor now implements MarkdownPreProcessorContract instead of MarkdownProcessorContract
 - Renamed method `ShortcodeProcessor::process()` to `ShortcodeProcessor::preprocess()`
+- Renamed class AbstractColoredBlockquote to ColoredBlockquotes
 
 ### Deprecated
 - for soon-to-be removed features.

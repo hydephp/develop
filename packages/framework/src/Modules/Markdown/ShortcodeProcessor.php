@@ -4,10 +4,10 @@ namespace Hyde\Framework\Modules\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
-use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
+use Hyde\Framework\Modules\Markdown\Shortcodes\ColoredBlockquotes;
 
 /**
- * Handle shortcode processing for Markdown conversions.
+ * Handle all shortcode processing for a Markdown conversion.
  *
  * The shortcode system has a few limitations, as it is meant to be simple
  * by design so that it is easy to understand how the code works, and
@@ -70,9 +70,9 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
 
     protected function discoverShortcodes(): void
     {
-        $this->addShortcodesFromArray(array_merge(
-            AbstractColoredBlockquote::get(),
-        ));
+        $this->addShortcodesFromArray(
+            ColoredBlockquotes::get()
+        );
     }
 
     public function addShortcodesFromArray(array $shortcodes): static
