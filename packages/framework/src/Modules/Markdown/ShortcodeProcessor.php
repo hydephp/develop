@@ -70,9 +70,9 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
 
     protected function discoverShortcodes(): void
     {
-        $this->addShortcodesFromArray(array_merge(
-            AbstractColoredBlockquote::get(),
-        ));
+        $this->addShortcodesFromArray(
+            AbstractColoredBlockquote::get()
+        );
     }
 
     public function addShortcodesFromArray(array $shortcodes): static
