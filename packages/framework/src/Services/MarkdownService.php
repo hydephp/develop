@@ -31,6 +31,7 @@ class MarkdownService
     protected array $features = [];
 
     protected array $preprocessors;
+    protected array $postprocessors;
 
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
@@ -78,6 +79,7 @@ class MarkdownService
         }
 
         $this->registerPreProcessors();
+        $this->registerPostProcessors();
     }
 
     protected function enableDynamicExtensions(): void
@@ -115,6 +117,17 @@ class MarkdownService
 
         $this->preprocessors[] = ShortcodeProcessor::class;
         $this->preprocessors[] = CodeblockFilepathProcessor::class;
+    }
+
+    protected function registerPostProcessors(): void
+    {
+        if (config('markdown.enable_blade', false)) {
+            $this->postprocessors[] = BladeDownProcessor::class;
+        }
+
+        if (config('markdown.features.codeblock_filepaths', true)) {
+            $this->postprocessors[] = CodeblockFilepathProcessor::class;
+        }
     }
 
     protected function runPreprocessing(): void
