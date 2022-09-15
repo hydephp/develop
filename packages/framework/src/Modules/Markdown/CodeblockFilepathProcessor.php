@@ -2,10 +2,12 @@
 
 namespace Hyde\Framework\Modules\Markdown;
 
+use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
+
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\CodeblockFilepathProcessorTest
  */
-class CodeblockFilepathProcessor
+class CodeblockFilepathProcessor implements MarkdownPreProcessorContract
 {
     public static function preprocess(string $markdown): string
     {
