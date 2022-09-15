@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Models;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Support\Site;
