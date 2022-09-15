@@ -193,6 +193,9 @@ jobs:
         name: "coverage"
         path: "build/coverage"
 
+    - name: Copy Junit report
+      run: cp build/junit.xml build/coverage/html/junit.xml
+
     - name: Upload HTML coverage artifact
       uses: actions/upload-artifact@v1
       with:
