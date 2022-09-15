@@ -51,20 +51,20 @@ trait ConstructsPageSchemas
     {
         if ($this instanceof MarkdownPost) {
             $this->category = $this->matter('category');
-            $this->description = $this->matter('description', $this->makeDescription());
+            $this->description = $this->matter('description', $this->makeDescription($this->markdown));
             $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
             $this->author = $this->getAuthor();
             $this->image = $this->getImage();
         }
     }
 
-    protected function makeDescription(): string
+    protected function makeDescription(string $markdown): string
     {
-        if (strlen($this->markdown) >= 128) {
-            return substr($this->markdown, 0, 125).'...';
+        if (strlen($markdown) >= 128) {
+            return substr($markdown, 0, 125) . '...';
         }
 
-        return (string) $this->markdown;
+        return (string) $markdown;
     }
 
     protected function getAuthor(): ?Author
