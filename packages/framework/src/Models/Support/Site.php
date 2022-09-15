@@ -40,7 +40,7 @@ final class Site
     }
 
     /**
-     * @todo Remove duplicate metadata from page
+     * @todo #536 Remove duplicate metadata from page;
      */
     public static function metadata(): MetadataBag
     {
