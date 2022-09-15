@@ -12,6 +12,9 @@ use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
+    /**
+     * Extract lines matching the shortcode pattern and replace them with meta-blocks that will be processed later.
+     */
     public static function preprocess(string $markdown): string
     {
         $lines = explode("\n", $markdown);
@@ -37,6 +40,9 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         return implode("\n", $lines);
     }
 
+    /**
+     * Process the meta-blocks added by the preprocessor, injecting the filepath badge template into the code block.
+     */
     public static function postprocess(string $html): string
     {
         $lines = explode("\n", $html);
