@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Modules\Markdown;
 
-use Hyde\Framework\Contracts\MarkdownProcessorContract;
+use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
 use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
 
@@ -20,7 +20,7 @@ use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\ShortcodeProcessorTest
  * @phpstan-consistent-constructor
  */
-class ShortcodeProcessor implements MarkdownProcessorContract
+class ShortcodeProcessor implements MarkdownPreProcessorContract
 {
     /**
      * The input Markdown document body.
