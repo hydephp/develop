@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Modules\Markdown;
 
+use Hyde\Framework\Contracts\MarkdownPostProcessorContract;
 use Illuminate\Support\Facades\Blade;
 
 /**
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Blade;
  * @see \Hyde\Framework\Testing\Feature\Services\BladeDownProcessorTest
  * @phpstan-consistent-constructor
  */
-class BladeDownProcessor
+class BladeDownProcessor implements MarkdownPostProcessorContract
 {
     protected string $html;
     protected string $output;
