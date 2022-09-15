@@ -144,7 +144,6 @@ This change also bubbles to the HydePage accessors, though that will only affect
 
 ### Removed
 - Removed MarkdownServiceProvider (inlined into HydeServiceProvider)
-- Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
 - Removed interface PageContract (merged into abstract class AbstractPage)
 - Removed interface MarkdownPageContract (merged into abstract class BaseMarkdownPage)
@@ -161,6 +160,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Removed unused $default parameter from Hyde::url method
 - Using absolute paths for site output directories is no longer supported (use build tasks to move files around after build if needed)
 - RealtimeCompiler: Removed support for the legacy bootstrapping file removed in Hyde v0.40
+- Removed all experimental schema traits
 
 ### Fixed
 - Fixed validation bug in the rebuild command
