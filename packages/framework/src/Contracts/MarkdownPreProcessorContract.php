@@ -4,6 +4,8 @@ namespace Hyde\Framework\Contracts;
 
 /**
  * Process Markdown before it is converted to HTML.
+ *
+ * @see \Hyde\Framework\Contracts\MarkdownPostProcessorContract for post-processing
  */
 interface MarkdownPreProcessorContract
 {
