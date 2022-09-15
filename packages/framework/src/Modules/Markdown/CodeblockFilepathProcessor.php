@@ -35,7 +35,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         return implode("\n", $lines);
     }
 
-    public static function process(string $html): string
+    public static function postprocess(string $html): string
     {
         $lines = explode("\n", $html);
 
