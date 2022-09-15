@@ -114,22 +114,32 @@ class MarkdownService
     protected function registerPreProcessors(): void
     {
         if (config('markdown.enable_blade', false)) {
-            $this->preprocessors[] = BladeDownProcessor::class;
+            $this->registerPreProcessor(BladeDownProcessor::class);
         }
 
-        $this->preprocessors[] = ShortcodeProcessor::class;
-        $this->preprocessors[] = CodeblockFilepathProcessor::class;
+        $this->registerPreProcessor(ShortcodeProcessor::class);
+        $this->registerPreProcessor(CodeblockFilepathProcessor::class);
     }
 
     protected function registerPostProcessors(): void
     {
         if (config('markdown.enable_blade', false)) {
-            $this->postprocessors[] = BladeDownProcessor::class;
+            $this->registerPostProcessor(BladeDownProcessor::class);
         }
 
         if (config('markdown.features.codeblock_filepaths', true)) {
-            $this->postprocessors[] = CodeblockFilepathProcessor::class;
+            $this->registerPostProcessor(CodeblockFilepathProcessor::class);
         }
+    }
+
+    protected function registerPreProcessor(string $class): void
+    {
+        $this->preprocessors[] = $class;
+    }
+
+    protected function registerPostProcessor(string $class): void
+    {
+        $this->postprocessors[] = $class;
     }
 
     protected function runPreProcessing(): void
