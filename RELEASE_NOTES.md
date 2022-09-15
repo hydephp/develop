@@ -111,6 +111,8 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Moved class Route into Models\Support namespace
 - Moved class Site into Models\Support namespace
 - Moved class ValidationResult into Models\Support namespace
+- Moved class MarkdownConverter into Actions namespace
+- Moved class MarkdownFileParser into Actions namespace
 
 #### Page-model specific
 - Removed action class FindsNavigationDataForPage.php (merged into HydePage.php via the GeneratesNavigationData trait)
