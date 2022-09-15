@@ -45,7 +45,7 @@ class MarkdownService
     {
         $this->setupConverter();
 
-        $this->runPreprocessing();
+        $this->runPreProcessing();
 
         $this->html = $this->converter->convert($this->markdown);
 
@@ -132,7 +132,7 @@ class MarkdownService
         }
     }
 
-    protected function runPreprocessing(): void
+    protected function runPreProcessing(): void
     {
         /** @var PreProcessor $processor */
         foreach ($this->preprocessors as $processor) {
