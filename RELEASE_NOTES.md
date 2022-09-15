@@ -143,6 +143,9 @@ This change also bubbles to the HydePage accessors, though that will only affect
 
 If you have not written any custom Markdown processors or any custom codes that interacts with default ones, you can ignore this section.
 
+- ShortcodeProcessor now implements MarkdownPreProcessorContract instead of MarkdownProcessorContract
+- Renamed method `ShortcodeProcessor::process()` to `ShortcodeProcessor::preprocess()`
+
 ### Deprecated
 - for soon-to-be removed features.
 
