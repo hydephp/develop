@@ -14,23 +14,6 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
  */
 trait SetsUpMarkdownConverter
 {
-    protected function setupConverter(): void
-    {
-        $this->enableDynamicExtensions();
-
-        $this->enableConfigDefinedExtensions();
-
-        $this->mergeMarkdownConfiguration();
-
-        $this->converter = new MarkdownConverter($this->config);
-
-        foreach ($this->extensions as $extension) {
-            $this->initializeExtension($extension);
-        }
-
-        $this->registerPreProcessors();
-        $this->registerPostProcessors();
-    }
 
     protected function enableDynamicExtensions(): void
     {

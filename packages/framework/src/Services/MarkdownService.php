@@ -57,6 +57,24 @@ class MarkdownService
         return $this->html;
     }
 
+    protected function setupConverter(): void
+    {
+        $this->enableDynamicExtensions();
+
+        $this->enableConfigDefinedExtensions();
+
+        $this->mergeMarkdownConfiguration();
+
+        $this->converter = new MarkdownConverter($this->config);
+
+        foreach ($this->extensions as $extension) {
+            $this->initializeExtension($extension);
+        }
+
+        $this->registerPreProcessors();
+        $this->registerPostProcessors();
+    }
+
     public function addExtension(string $extensionClassName): void
     {
         if (! in_array($extensionClassName, $this->extensions)) {
