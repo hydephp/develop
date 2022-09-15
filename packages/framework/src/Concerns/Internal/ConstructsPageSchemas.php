@@ -61,7 +61,7 @@ trait ConstructsPageSchemas
     protected function makeDescription(string $markdown): string
     {
         if (strlen($markdown) >= 128) {
-            return substr($markdown, 0, 125) . '...';
+            return substr($markdown, 0, 125).'...';
         }
 
         return $markdown;
