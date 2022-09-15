@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Models;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Support\Site;
@@ -22,28 +22,32 @@ class SiteTest extends TestCase
         $this->assertEquals(config('site.name'), $site->name);
         $this->assertEquals(config('site.language'), $site->language);
         $this->assertEquals(config('site.url'), $site->url);
+
+        $this->assertSame(Site::name(), $site->name);
+        $this->assertSame(Site::language(), $site->language);
+        $this->assertSame(Site::url(), $site->url);
     }
 
     public function testUrl()
     {
-        $this->assertSame('http://localhost', \Hyde\Framework\Models\Support\Site::url());
+        $this->assertSame('http://localhost', Site::url());
 
         config(['site.url' => null]);
-        $this->assertNull(\Hyde\Framework\Models\Support\Site::url());
+        $this->assertNull(Site::url());
 
         config(['site.url' => 'https://example.com']);
-        $this->assertSame('https://example.com', \Hyde\Framework\Models\Support\Site::url());
+        $this->assertSame('https://example.com', Site::url());
     }
 
     public function testName()
     {
-        $this->assertSame('HydePHP', \Hyde\Framework\Models\Support\Site::name());
+        $this->assertSame('HydePHP', Site::name());
 
         config(['site.name' => null]);
-        $this->assertNull(\Hyde\Framework\Models\Support\Site::name());
+        $this->assertNull(Site::name());
 
         config(['site.name' => 'foo']);
-        $this->assertSame('foo', \Hyde\Framework\Models\Support\Site::name());
+        $this->assertSame('foo', Site::name());
     }
 
     public function testLanguage()
@@ -51,7 +55,7 @@ class SiteTest extends TestCase
         $this->assertSame('en', Site::language());
 
         config(['site.language' => null]);
-        $this->assertNull(\Hyde\Framework\Models\Support\Site::language());
+        $this->assertNull(Site::language());
 
         config(['site.language' => 'foo']);
         $this->assertSame('foo', Site::language());
@@ -74,7 +78,7 @@ class SiteTest extends TestCase
             'properties:foo' => Meta::property('foo', 'bar'),
             'generics:0' => 'bar',
             'generics:1' => 'baz',
-        ], \Hyde\Framework\Models\Support\Site::metadata()->get());
+        ], Site::metadata()->get());
     }
 
     public function test_site_metadata_automatically_adds_sitemap_when_enabled()
@@ -84,7 +88,7 @@ class SiteTest extends TestCase
         config(['site.url' => 'foo']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', \Hyde\Framework\Models\Support\Site::metadata()->render());
+        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', Site::metadata()->render());
     }
 
     public function test_site_metadata_sitemap_uses_configured_site_url()
@@ -94,7 +98,7 @@ class SiteTest extends TestCase
         config(['site.url' => 'bar']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', \Hyde\Framework\Models\Support\Site::metadata()->render());
+        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', Site::metadata()->render());
     }
 
     public function test_site_metadata_automatically_adds_rss_feed_when_enabled()
@@ -105,7 +109,7 @@ class SiteTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', \Hyde\Framework\Models\Support\Site::metadata()->render());
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', Site::metadata()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_site_url()
@@ -128,7 +132,7 @@ class SiteTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', \Hyde\Framework\Models\Support\Site::metadata()->render());
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', Site::metadata()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_rss_file_name()

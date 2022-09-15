@@ -9,7 +9,7 @@ use Hyde\Framework\Models\Metadata\MetadataBag;
 use Hyde\Framework\Services\RssFeedService;
 
 /**
- * @see \Hyde\Framework\Testing\Models\SiteTest
+ * @see \Hyde\Framework\Testing\Feature\SiteTest
  */
 final class Site
 {
