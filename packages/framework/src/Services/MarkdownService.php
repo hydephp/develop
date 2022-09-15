@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\MarkdownConverter;
+use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
 use Hyde\Framework\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use Hyde\Framework\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Framework\Helpers\Features;
@@ -22,6 +23,8 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
  */
 class MarkdownService
 {
+    use SetsUpMarkdownConverter;
+
     public string $markdown;
     public ?string $sourceModel = null;
 
