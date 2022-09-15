@@ -99,7 +99,9 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
 
     protected static function resolveTemplate(string $path): string
     {
-        return sprintf('<small class="filepath"><span class="sr-only">Filepath: </span>%s</small>', $path);
+        return view('hyde::components.filepath-label', [
+            'path' => $path,
+        ])->render();
     }
 
     protected static function resolveTorchlightCodeLine(string $label, string $lines): string
