@@ -6,6 +6,7 @@ use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\Author;
 use Hyde\Framework\Models\Support\DateString;
 use Hyde\Framework\Models\Support\Image;
@@ -48,11 +49,13 @@ trait ConstructsPageSchemas
 
     protected function constructBlogPostSchema(): void
     {
-        $this->category = $this->matter('category');
-        $this->description = $this->matter('description', $this->makeDescription());
-        $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
-        $this->author = $this->getAuthor();
-        $this->image = $this->getImage();
+        if ($this instanceof MarkdownPost) {
+            $this->category = $this->matter('category');
+            $this->description = $this->matter('description', $this->makeDescription());
+            $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
+            $this->author = $this->getAuthor();
+            $this->image = $this->getImage();
+        }
     }
 
     protected function makeDescription(): string
