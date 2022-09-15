@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Contracts;
 
+/**
+ * Process Markdown before it is converted to HTML.
+ */
 interface MarkdownPreProcessorContract
 {
     /**
