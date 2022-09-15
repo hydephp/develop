@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Contracts;
 
+/**
+ * @deprecated Use either the MarkdownPreProcessorContract or the MarkdownPostProcessorContract
+ */
 interface MarkdownProcessorContract
 {
     /**
