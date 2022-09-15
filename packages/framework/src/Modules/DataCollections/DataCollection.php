@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Modules\DataCollections;
 
+use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Illuminate\Support\Collection;
 
 /**

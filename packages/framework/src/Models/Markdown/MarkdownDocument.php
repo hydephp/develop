@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Models\Markdown;
 
+use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
-use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
 /**
  * A MarkdownDocument is a simpler alternative to a MarkdownPage.

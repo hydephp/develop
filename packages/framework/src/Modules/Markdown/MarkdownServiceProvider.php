@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Modules\Markdown;
 
+use Hyde\Framework\Actions\MarkdownConverter;
 use Illuminate\Support\ServiceProvider;
 
 class MarkdownServiceProvider extends ServiceProvider

@@ -2,11 +2,11 @@
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Modules\Markdown\BladeDownProcessor;
 use Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor;
-use Hyde\Framework\Modules\Markdown\MarkdownConverter;
 use Hyde\Framework\Modules\Markdown\ShortcodeProcessor;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
