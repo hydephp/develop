@@ -63,8 +63,22 @@ class MarkdownService
 
     protected function setupConverter(): void
     {
-        // Determine what dynamic extensions to enable
+        $this->enableDynamicExtensions();
 
+        $this->enableConfigDefinedExtensions();
+
+        // Merge any custom configuration options
+        $this->config = array_merge(config('markdown.config', []), $this->config);
+
+        $this->converter = new MarkdownConverter($this->config);
+
+        foreach ($this->extensions as $extension) {
+            $this->initializeExtension($extension);
+        }
+    }
+
+    protected function enableDynamicExtensions(): void
+    {
         if ($this->canEnablePermalinks()) {
             $this->configurePermalinksExtension();
         }
@@ -76,19 +90,12 @@ class MarkdownService
         if (config('markdown.allow_html', false)) {
             $this->enableAllHtmlElements();
         }
+    }
 
-        // Add any custom extensions defined in config
+    protected function enableConfigDefinedExtensions(): void
+    {
         foreach (config('markdown.extensions', []) as $extensionClassName) {
             $this->addExtension($extensionClassName);
-        }
-
-        // Merge any custom configuration options
-        $this->config = array_merge(config('markdown.config', []), $this->config);
-
-        $this->converter = new MarkdownConverter($this->config);
-
-        foreach ($this->extensions as $extension) {
-            $this->initializeExtension($extension);
         }
     }
 
