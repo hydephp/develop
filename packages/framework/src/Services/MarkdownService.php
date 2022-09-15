@@ -134,12 +134,16 @@ class MarkdownService
 
     protected function registerPreProcessor(string $class): void
     {
-        $this->preprocessors[] = $class;
+        if (! in_array($class, $this->preprocessors)) {
+            $this->preprocessors[] = $class;
+        }
     }
 
     protected function registerPostProcessor(string $class): void
     {
-        $this->postprocessors[] = $class;
+        if (! in_array($class, $this->postprocessors)) {
+            $this->postprocessors[] = $class;
+        }
     }
 
     protected function runPreProcessing(): void
