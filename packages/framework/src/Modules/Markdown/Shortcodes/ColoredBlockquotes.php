@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\MarkdownShortcodeContract;
 /**
  * @see \Hyde\Framework\Testing\Feature\ColoredBlockquoteShortcodesTest
  */
-abstract class AbstractColoredBlockquote implements MarkdownShortcodeContract
+abstract class ColoredBlockquotes implements MarkdownShortcodeContract
 {
     protected static string $signature = '>color';
 
@@ -38,24 +38,24 @@ abstract class AbstractColoredBlockquote implements MarkdownShortcodeContract
     }
 
     /**
-     * @return array (AbstractColoredBlockquote)[]
+     * @return array (ColoredBlockquotes)[]
      */
     public static function get(): array
     {
         return [
-            new class extends AbstractColoredBlockquote
+            new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>danger';
             },
-            new class extends AbstractColoredBlockquote
+            new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>info';
             },
-            new class extends AbstractColoredBlockquote
+            new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>success';
             },
-            new class extends AbstractColoredBlockquote
+            new class extends ColoredBlockquotes
             {
                 protected static string $signature = '>warning';
             },

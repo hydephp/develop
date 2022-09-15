@@ -2,26 +2,26 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
+use Hyde\Framework\Modules\Markdown\Shortcodes\ColoredBlockquotes;
 use Hyde\Testing\TestCase;
 
 /**
  * Class ColoredBlockquoteShortcodesTest.
  *
- * @covers \Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote
+ * @covers \Hyde\Framework\Modules\Markdown\Shortcodes\ColoredBlockquotes
  */
 class ColoredBlockquoteShortcodesTest extends TestCase
 {
     public function test_resolve_method()
     {
         $this->assertEquals('<blockquote class="color">foo</blockquote>',
-            AbstractColoredBlockquote::resolve('>color foo'));
+            ColoredBlockquotes::resolve('>color foo'));
     }
 
     public function test_get_method()
     {
-        $this->assertCount(4, AbstractColoredBlockquote::get());
-        $this->assertContainsOnlyInstancesOf(AbstractColoredBlockquote::class,
-            AbstractColoredBlockquote::get());
+        $this->assertCount(4, ColoredBlockquotes::get());
+        $this->assertContainsOnlyInstancesOf(ColoredBlockquotes::class,
+            ColoredBlockquotes::get());
     }
 }
