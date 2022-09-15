@@ -63,7 +63,7 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
         return $this->processInput()->getOutput();
     }
 
-    public static function process(string $input): string
+    public static function preprocess(string $input): string
     {
         return (new static($input))->run();
     }
