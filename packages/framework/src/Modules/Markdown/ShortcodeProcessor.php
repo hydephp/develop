@@ -37,6 +37,11 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
      */
     public array $shortcodes;
 
+    public static function preprocess(string $markdown): string
+    {
+        return (new static($markdown))->run();
+    }
+
     public function __construct(string $input)
     {
         $this->input = $input;
@@ -61,11 +66,6 @@ class ShortcodeProcessor implements MarkdownPreProcessorContract
     public function run(): string
     {
         return $this->processInput()->getOutput();
-    }
-
-    public static function preprocess(string $input): string
-    {
-        return (new static($input))->run();
     }
 
     protected function discoverShortcodes(): void
