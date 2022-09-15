@@ -56,8 +56,8 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
                 $label = static::resolveTemplate($path);
 
                 $lines[$codeBlockLine] = str_contains($html, static::$torchlightKey)
-                ? static::resolveTorchlightCodeLine($label, $lines[$codeBlockLine])
-                : static::resolveCodeLine($label, $lines[$codeBlockLine]);
+                ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
+                : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
             }
         }
 
@@ -104,7 +104,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         ])->render();
     }
 
-    protected static function resolveTorchlightCodeLine(string $label, string $lines): string
+    protected static function injectLabelToTorchlightCodeLine(string $label, string $lines): string
     {
         return str_replace(
             static::$torchlightKey,
@@ -113,7 +113,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         );
     }
 
-    protected static function resolveCodeLine(string $label, string $lines): string
+    protected static function injectLabelToCodeLine(string $label, string $lines): string
     {
         return preg_replace(
             '/<pre><code class="language-(.*?)">/',
