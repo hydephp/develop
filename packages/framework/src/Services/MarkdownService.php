@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\MarkdownConverter;
+use Hyde\Framework\Contracts\MarkdownPostProcessorContract as PostProcessor;
+use Hyde\Framework\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Modules\Markdown\BladeDownProcessor;
@@ -132,7 +134,7 @@ class MarkdownService
 
     protected function runPreprocessing(): void
     {
-        /** @var \Hyde\Framework\Contracts\MarkdownPreProcessorContract $processor */
+        /** @var PreProcessor $processor */
         foreach ($this->preprocessors as $processor) {
             $this->markdown = $processor::preprocess($this->markdown);
         }
@@ -144,7 +146,7 @@ class MarkdownService
             $this->html .= $this->injectTorchlightAttribution();
         }
 
-        /** @var \Hyde\Framework\Contracts\MarkdownPostProcessorContract $processor */
+        /** @var PostProcessor $processor */
         foreach ($this->postprocessors as $processor) {
             $this->html = $processor::postprocess($this->html);
         }
