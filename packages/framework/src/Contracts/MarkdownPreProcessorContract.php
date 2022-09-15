@@ -8,8 +8,8 @@ namespace Hyde\Framework\Contracts;
 interface MarkdownPreProcessorContract
 {
     /**
-     * @param  string  $input  Markdown to be processed
-     * @return string $output Processed Markdown output
+     * @param  string  $markdownInput  Markdown to be processed
+     * @return string $markdownOutput Processed Markdown output
      */
-    public static function preprocess(string $input): string;
+    public static function preprocess(string $markdownInput): string;
 }
