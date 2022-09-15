@@ -113,9 +113,7 @@ class MarkdownService
 
     protected function registerPreProcessors(): void
     {
-        if (config('markdown.enable_blade', false)) {
-            $this->registerPreProcessor(BladeDownProcessor::class);
-        }
+        $this->registerPreProcessor(BladeDownProcessor::class, config('markdown.enable_blade', false));
 
         $this->registerPreProcessor(ShortcodeProcessor::class);
         $this->registerPreProcessor(CodeblockFilepathProcessor::class);
@@ -123,25 +121,23 @@ class MarkdownService
 
     protected function registerPostProcessors(): void
     {
-        if (config('markdown.enable_blade', false)) {
-            $this->registerPostProcessor(BladeDownProcessor::class);
-        }
+        $this->registerPostProcessor(BladeDownProcessor::class,
+            config('markdown.enable_blade', false));
 
-        if (config('markdown.features.codeblock_filepaths', true)) {
-            $this->registerPostProcessor(CodeblockFilepathProcessor::class);
-        }
+        $this->registerPostProcessor(CodeblockFilepathProcessor::class,
+            config('markdown.features.codeblock_filepaths', true));
     }
 
-    protected function registerPreProcessor(string $class): void
+    protected function registerPreProcessor(string $class, bool $when = true): void
     {
-        if (! in_array($class, $this->preprocessors)) {
+        if (! in_array($class, $this->preprocessors) && $when) {
             $this->preprocessors[] = $class;
         }
     }
 
-    protected function registerPostProcessor(string $class): void
+    protected function registerPostProcessor(string $class, bool $when = true): void
     {
-        if (! in_array($class, $this->postprocessors)) {
+        if (! in_array($class, $this->postprocessors) && $when) {
             $this->postprocessors[] = $class;
         }
     }
