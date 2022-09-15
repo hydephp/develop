@@ -28,6 +28,9 @@
 
 ## Projects in this monorepo
 
+[![API Documentation](https://img.shields.io/badge/-API%20Documentation-blue)](https://hydephp.github.io/develop/master/api-docs/)
+[![HTML Code Coverage](https://img.shields.io/badge/-HTML%20Code%20Coverage-blue)](https://hydephp.github.io/develop/master/coverage/)
+
 **HydePHP consists of a few core components, the development of which is done in this monorepo.**
 
 The code pushed here is automatically split into separate read-only repositories for each component.
