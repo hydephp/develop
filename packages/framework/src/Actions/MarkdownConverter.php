@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Modules\Markdown;
+namespace Hyde\Framework\Actions;
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;

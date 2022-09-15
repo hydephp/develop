@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Models\Markdown;
 
-use Hyde\Framework\Modules\Markdown\MarkdownConverter;
 use Hyde\Framework\Services\MarkdownService;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -62,6 +61,6 @@ class Markdown implements Arrayable, \Stringable
     {
         return $sourceModel !== null
             ? (new MarkdownService($markdown, $sourceModel))->parse()
-            : app(MarkdownConverter::class)->convert($markdown);
+            : app(\Hyde\Framework\Actions\MarkdownConverter::class)->convert($markdown);
     }
 }
