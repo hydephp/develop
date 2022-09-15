@@ -139,6 +139,10 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - To access the sidebar label setting via class property, use `$navigation['label']` instead of `$label`, etc.
 - To access the sidebar label setting via front matter getters, use `navigation.label` instead of `label`, etc.
 
+#### Markdown post/pre-processor changes
+
+If you have not written any custom Markdown processors or any custom codes that interacts with default ones, you can ignore this section.
+
 ### Deprecated
 - for soon-to-be removed features.
 
