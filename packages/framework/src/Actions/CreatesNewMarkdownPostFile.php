@@ -77,7 +77,7 @@ class CreatesNewMarkdownPostFile
         ?string $date = null,
         ?string $slug = null
     ) {
-        $this->title = $title ?? 'My Awesome Blog Post';
+        $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
         $this->category = $category ?? 'blog';
         $this->author = $author ?? 'Mr. Hyde';
