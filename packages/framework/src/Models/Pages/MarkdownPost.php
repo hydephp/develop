@@ -32,11 +32,6 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public ?Author $author = null;
     public ?Image $image = null;
 
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
-    {
-        parent::__construct($identifier, $matter, $markdown);
-    }
-
     /** @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
