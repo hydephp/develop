@@ -143,6 +143,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - for soon-to-be removed features.
 
 ### Removed
+- Removed MarkdownServiceProvider (inlined into HydeServiceProvider)
 - Removed all experimental schema traits
 - Removed interface IncludeFacadeContract
 - Removed interface PageContract (merged into abstract class AbstractPage)
