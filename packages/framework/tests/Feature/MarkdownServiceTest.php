@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Services\MarkdownService
+ * @covers \Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter
  */
 class MarkdownServiceTest extends TestCase
 {
