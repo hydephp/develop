@@ -114,7 +114,7 @@ class MarkdownService
         }
 
         if (config('markdown.features.codeblock_filepaths', true)) {
-            $this->html = CodeblockFilepathProcessor::process($this->html);
+            $this->html = CodeblockFilepathProcessor::postprocess($this->html);
         }
 
         // Remove any Hyde annotations (everything between `// HYDE!` and `HYDE! //`) (must be done last)

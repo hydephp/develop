@@ -2,11 +2,19 @@
 
 namespace Hyde\Framework\Modules\Markdown;
 
+use Hyde\Framework\Contracts\MarkdownPostProcessorContract;
+use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
+
 /**
+ * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
+ *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\CodeblockFilepathProcessorTest
  */
-class CodeblockFilepathProcessor
+class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
+    /**
+     * Extract lines matching the shortcode pattern and replace them with meta-blocks that will be processed later.
+     */
     public static function preprocess(string $markdown): string
     {
         $lines = explode("\n", $markdown);
@@ -32,7 +40,10 @@ class CodeblockFilepathProcessor
         return implode("\n", $lines);
     }
 
-    public static function process(string $html): string
+    /**
+     * Process the meta-blocks added by the preprocessor, injecting the filepath badge template into the code block.
+     */
+    public static function postprocess(string $html): string
     {
         $lines = explode("\n", $html);
 
@@ -45,8 +56,8 @@ class CodeblockFilepathProcessor
                 $label = static::resolveTemplate($path);
 
                 $lines[$codeBlockLine] = str_contains($html, static::$torchlightKey)
-                ? static::resolveTorchlightCodeLine($label, $lines[$codeBlockLine])
-                : static::resolveCodeLine($label, $lines[$codeBlockLine]);
+                ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
+                : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
             }
         }
 
@@ -88,10 +99,12 @@ class CodeblockFilepathProcessor
 
     protected static function resolveTemplate(string $path): string
     {
-        return sprintf('<small class="filepath"><span class="sr-only">Filepath: </span>%s</small>', $path);
+        return view('hyde::components.filepath-label', [
+            'path' => $path,
+        ])->render();
     }
 
-    protected static function resolveTorchlightCodeLine(string $label, string $lines): string
+    protected static function injectLabelToTorchlightCodeLine(string $label, string $lines): string
     {
         return str_replace(
             static::$torchlightKey,
@@ -100,7 +113,7 @@ class CodeblockFilepathProcessor
         );
     }
 
-    protected static function resolveCodeLine(string $label, string $lines): string
+    protected static function injectLabelToCodeLine(string $label, string $lines): string
     {
         return preg_replace(
             '/<pre><code class="language-(.*?)">/',

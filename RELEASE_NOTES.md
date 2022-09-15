@@ -141,7 +141,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 
 #### Markdown post/pre-processor changes
 
-If you have not written any custom Markdown processors or any custom codes that interacts with default ones, you can ignore this section.
+If you have not written any custom Markdown processors or any custom codes that interacts with default ones, you can ignore this section. Note that list may not be exhaustive.
 
 - Removed interface MarkdownProcessorContract (use MarkdownPreProcessorContract or MarkdownPostProcessorContract instead)
 - ShortcodeProcessor now implements MarkdownPreProcessorContract instead of MarkdownProcessorContract

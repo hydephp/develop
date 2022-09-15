@@ -149,7 +149,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         <pre><code class="language-html"><small class="filepath"><span class="sr-only">Filepath: </span>foo.html</small></code></pre>
         HTML;
 
-        $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::process($html));
+        $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 
     public function test_processor_expands_filepath_directive_in_torchlight_codeblock()
@@ -163,7 +163,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         <pre><code class="torchlight"><!-- Syntax highlighted by torchlight.dev --><small class="filepath"><span class="sr-only">Filepath: </span>foo.html</small><div class="line"><span class="line-number">1</span>&nbsp;</div></code></pre>
         HTML;
 
-        $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::process($html));
+        $this->assertEqualsIgnoringLineReturnType($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 
     protected function assertEqualsIgnoringLineReturnType(string $expected, string $actual)

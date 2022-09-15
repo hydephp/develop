@@ -1,0 +1,1 @@
+<small class="filepath"><span class="sr-only">Filepath: </span>{{ $path }}</small>

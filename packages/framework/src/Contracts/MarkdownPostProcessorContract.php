@@ -4,12 +4,14 @@ namespace Hyde\Framework\Contracts;
 
 /**
  * Process Markdown after it is converted to HTML.
+ *
+ * @see \Hyde\Framework\Contracts\MarkdownPreProcessorContract for pre-processing
  */
 interface MarkdownPostProcessorContract
 {
     /**
-     * @param  string  $input  HTML to be processed
-     * @return string $output Processed HTML output
+     * @param  string  $html  HTML to be processed
+     * @return string $html Processed HTML output
      */
-    public static function postprocess(string $input): string;
+    public static function postprocess(string $html): string;
 }
