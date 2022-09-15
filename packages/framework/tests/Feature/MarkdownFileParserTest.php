@@ -2,10 +2,10 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Markdown\MarkdownDocument;
-use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 use Hyde\Testing\TestCase;
 
 class MarkdownFileParserTest extends TestCase

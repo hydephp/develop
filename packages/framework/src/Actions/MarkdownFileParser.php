@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Modules\Markdown;
+namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\MarkdownDocument;

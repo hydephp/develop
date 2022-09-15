@@ -6,7 +6,6 @@ use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Modules\Markdown\MarkdownFileParser;
 
 /**
  * Parses a source file and returns a new page model instance for it.
