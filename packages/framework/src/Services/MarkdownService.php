@@ -3,16 +3,13 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\MarkdownConverter;
+use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
 use Hyde\Framework\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use Hyde\Framework\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Modules\Markdown\BladeDownProcessor;
-use Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor;
-use Hyde\Framework\Modules\Markdown\ShortcodeProcessor;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
-use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
  * Dynamically creates a Markdown converter tailored for the target model and setup,
@@ -22,6 +19,8 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
  */
 class MarkdownService
 {
+    use SetsUpMarkdownConverter;
+
     public string $markdown;
     public ?string $sourceModel = null;
 
@@ -54,18 +53,6 @@ class MarkdownService
         return $this->html;
     }
 
-    public function addExtension(string $extensionClassName): void
-    {
-        if (! in_array($extensionClassName, $this->extensions)) {
-            $this->extensions[] = $extensionClassName;
-        }
-    }
-
-    public function initializeExtension(string $extensionClassName): void
-    {
-        $this->converter->getEnvironment()->addExtension(new $extensionClassName());
-    }
-
     protected function setupConverter(): void
     {
         $this->enableDynamicExtensions();
@@ -84,61 +71,10 @@ class MarkdownService
         $this->registerPostProcessors();
     }
 
-    protected function enableDynamicExtensions(): void
+    public function addExtension(string $extensionClassName): void
     {
-        if ($this->canEnablePermalinks()) {
-            $this->configurePermalinksExtension();
-        }
-
-        if ($this->canEnableTorchlight()) {
-            $this->addExtension(TorchlightExtension::class);
-        }
-
-        if (config('markdown.allow_html', false)) {
-            $this->enableAllHtmlElements();
-        }
-    }
-
-    protected function enableConfigDefinedExtensions(): void
-    {
-        foreach (config('markdown.extensions', []) as $extensionClassName) {
-            $this->addExtension($extensionClassName);
-        }
-    }
-
-    protected function mergeMarkdownConfiguration(): void
-    {
-        $this->config = array_merge(config('markdown.config', []), $this->config);
-    }
-
-    protected function registerPreProcessors(): void
-    {
-        $this->registerPreProcessor(BladeDownProcessor::class, config('markdown.enable_blade', false));
-
-        $this->registerPreProcessor(ShortcodeProcessor::class);
-        $this->registerPreProcessor(CodeblockFilepathProcessor::class);
-    }
-
-    protected function registerPostProcessors(): void
-    {
-        $this->registerPostProcessor(BladeDownProcessor::class,
-            config('markdown.enable_blade', false));
-
-        $this->registerPostProcessor(CodeblockFilepathProcessor::class,
-            config('markdown.features.codeblock_filepaths', true));
-    }
-
-    protected function registerPreProcessor(string $class, bool $when = true): void
-    {
-        if (! in_array($class, $this->preprocessors) && $when) {
-            $this->preprocessors[] = $class;
-        }
-    }
-
-    protected function registerPostProcessor(string $class, bool $when = true): void
-    {
-        if (! in_array($class, $this->postprocessors) && $when) {
-            $this->postprocessors[] = $class;
+        if (! in_array($extensionClassName, $this->extensions)) {
+            $this->extensions[] = $extensionClassName;
         }
     }
 
