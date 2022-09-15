@@ -2,6 +2,9 @@
 
 namespace Hyde\Framework\Contracts;
 
+/**
+ * @see \Hyde\Framework\Modules\Markdown\ShortcodeProcessor to see how this is used.
+ */
 interface MarkdownShortcodeContract
 {
     public static function signature(): string;

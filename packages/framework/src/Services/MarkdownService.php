@@ -3,6 +3,8 @@
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\MarkdownConverter;
+use Hyde\Framework\Contracts\MarkdownPostProcessorContract as PostProcessor;
+use Hyde\Framework\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Modules\Markdown\BladeDownProcessor;
@@ -30,6 +32,9 @@ class MarkdownService
     protected string $html;
     protected array $features = [];
 
+    protected array $preprocessors = [];
+    protected array $postprocessors = [];
+
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
         $this->sourceModel = $sourceModel;
@@ -40,7 +45,7 @@ class MarkdownService
     {
         $this->setupConverter();
 
-        $this->runPreprocessing();
+        $this->runPreProcessing();
 
         $this->html = $this->converter->convert($this->markdown);
 
@@ -63,8 +68,24 @@ class MarkdownService
 
     protected function setupConverter(): void
     {
-        // Determine what dynamic extensions to enable
+        $this->enableDynamicExtensions();
 
+        $this->enableConfigDefinedExtensions();
+
+        $this->mergeMarkdownConfiguration();
+
+        $this->converter = new MarkdownConverter($this->config);
+
+        foreach ($this->extensions as $extension) {
+            $this->initializeExtension($extension);
+        }
+
+        $this->registerPreProcessors();
+        $this->registerPostProcessors();
+    }
+
+    protected function enableDynamicExtensions(): void
+    {
         if ($this->canEnablePermalinks()) {
             $this->configurePermalinksExtension();
         }
@@ -76,31 +97,57 @@ class MarkdownService
         if (config('markdown.allow_html', false)) {
             $this->enableAllHtmlElements();
         }
+    }
 
-        // Add any custom extensions defined in config
+    protected function enableConfigDefinedExtensions(): void
+    {
         foreach (config('markdown.extensions', []) as $extensionClassName) {
             $this->addExtension($extensionClassName);
         }
+    }
 
-        // Merge any custom configuration options
+    protected function mergeMarkdownConfiguration(): void
+    {
         $this->config = array_merge(config('markdown.config', []), $this->config);
+    }
 
-        $this->converter = new MarkdownConverter($this->config);
+    protected function registerPreProcessors(): void
+    {
+        $this->registerPreProcessor(BladeDownProcessor::class, config('markdown.enable_blade', false));
 
-        foreach ($this->extensions as $extension) {
-            $this->initializeExtension($extension);
+        $this->registerPreProcessor(ShortcodeProcessor::class);
+        $this->registerPreProcessor(CodeblockFilepathProcessor::class);
+    }
+
+    protected function registerPostProcessors(): void
+    {
+        $this->registerPostProcessor(BladeDownProcessor::class,
+            config('markdown.enable_blade', false));
+
+        $this->registerPostProcessor(CodeblockFilepathProcessor::class,
+            config('markdown.features.codeblock_filepaths', true));
+    }
+
+    protected function registerPreProcessor(string $class, bool $when = true): void
+    {
+        if (! in_array($class, $this->preprocessors) && $when) {
+            $this->preprocessors[] = $class;
         }
     }
 
-    protected function runPreprocessing(): void
+    protected function registerPostProcessor(string $class, bool $when = true): void
     {
-        if (config('markdown.enable_blade', false)) {
-            $this->markdown = BladeDownProcessor::preprocess($this->markdown);
+        if (! in_array($class, $this->postprocessors) && $when) {
+            $this->postprocessors[] = $class;
         }
+    }
 
-        $this->markdown = ShortcodeProcessor::preprocess($this->markdown);
-
-        $this->markdown = CodeblockFilepathProcessor::preprocess($this->markdown);
+    protected function runPreProcessing(): void
+    {
+        /** @var PreProcessor $processor */
+        foreach ($this->preprocessors as $processor) {
+            $this->markdown = $processor::preprocess($this->markdown);
+        }
     }
 
     protected function runPostProcessing(): void
@@ -109,12 +156,9 @@ class MarkdownService
             $this->html .= $this->injectTorchlightAttribution();
         }
 
-        if (config('markdown.enable_blade', false)) {
-            $this->html = BladeDownProcessor::process($this->html);
-        }
-
-        if (config('markdown.features.codeblock_filepaths', true)) {
-            $this->html = CodeblockFilepathProcessor::postprocess($this->html);
+        /** @var PostProcessor $processor */
+        foreach ($this->postprocessors as $processor) {
+            $this->html = $processor::postprocess($this->html);
         }
 
         // Remove any Hyde annotations (everything between `// HYDE!` and `HYDE! //`) (must be done last)
