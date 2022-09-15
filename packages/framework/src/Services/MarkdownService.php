@@ -32,8 +32,8 @@ class MarkdownService
     protected string $html;
     protected array $features = [];
 
-    protected array $preprocessors;
-    protected array $postprocessors;
+    protected array $preprocessors = [];
+    protected array $postprocessors = [];
 
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
