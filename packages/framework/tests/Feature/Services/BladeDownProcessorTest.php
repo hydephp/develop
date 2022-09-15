@@ -75,6 +75,6 @@ class BladeDownProcessorTest extends TestCase
 
     public function test_process_method_renders_shortcode()
     {
-        $this->assertEquals('Hello World!', BladeDownProcessor::process('<!-- HYDE[Blade]: {{ $foo }} -->', ['foo' => 'Hello World!']));
+        $this->assertEquals('Hello World!', BladeDownProcessor::postprocess('<!-- HYDE[Blade]: {{ $foo }} -->', ['foo' => 'Hello World!']));
     }
 }

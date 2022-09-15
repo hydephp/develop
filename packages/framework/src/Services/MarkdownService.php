@@ -148,7 +148,7 @@ class MarkdownService
         }
 
         if (config('markdown.enable_blade', false)) {
-            $this->html = BladeDownProcessor::process($this->html);
+            $this->html = BladeDownProcessor::postprocess($this->html);
         }
 
         if (config('markdown.features.codeblock_filepaths', true)) {

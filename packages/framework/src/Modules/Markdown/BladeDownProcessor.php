@@ -39,7 +39,7 @@ class BladeDownProcessor implements MarkdownPreProcessorContract, MarkdownPostPr
         }, explode("\n", $markdown)));
     }
 
-    public static function process(string $html, ?array $pageData = []): string
+    public static function postprocess(string $html, ?array $pageData = []): string
     {
         return (new static($html, $pageData))->run()->get();
     }
