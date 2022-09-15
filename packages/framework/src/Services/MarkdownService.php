@@ -98,7 +98,7 @@ class MarkdownService
             $this->markdown = BladeDownProcessor::preprocess($this->markdown);
         }
 
-        $this->markdown = ShortcodeProcessor::process($this->markdown);
+        $this->markdown = ShortcodeProcessor::preprocess($this->markdown);
 
         $this->markdown = CodeblockFilepathProcessor::preprocess($this->markdown);
     }

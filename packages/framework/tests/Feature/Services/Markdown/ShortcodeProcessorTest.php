@@ -37,7 +37,7 @@ class ShortcodeProcessorTest extends TestCase
     public function test_process_static_shorthand()
     {
         $this->assertEquals('<blockquote class="info">foo</blockquote>',
-            ShortcodeProcessor::process('>info foo'));
+            ShortcodeProcessor::preprocess('>info foo'));
     }
 
     public function test_shortcodes_can_be_added_to_processor()
