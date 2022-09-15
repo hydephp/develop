@@ -4,7 +4,7 @@ namespace Hyde\Framework\Foundation;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Models\Route;
+use Hyde\Framework\Models\Support\Route;
 
 /**
  * Pseudo-Router for Hyde.

@@ -7,7 +7,7 @@ use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Markdown\Markdown;
-use Hyde\Framework\Models\Route;
+use Hyde\Framework\Models\Support\Route;
 
 /**
  * Page class for documentation pages.

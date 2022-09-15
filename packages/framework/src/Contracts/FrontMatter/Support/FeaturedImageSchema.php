@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Contracts\FrontMatter\Support;
 
 /**
- * @see \Hyde\Framework\Models\Image
+ * @see \Hyde\Framework\Models\Support\Image
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  */
 interface FeaturedImageSchema

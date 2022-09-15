@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Support;
 
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Framework\Contracts\FrontMatter\Support\FeaturedImageSchema;

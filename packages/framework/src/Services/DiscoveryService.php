@@ -5,11 +5,11 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\File;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Support\File;
 
 /**
  * The core service that powers all HydePHP file auto-discovery.

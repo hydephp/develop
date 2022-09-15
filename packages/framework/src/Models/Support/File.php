@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Support;
 
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
@@ -32,7 +32,7 @@ class File implements Arrayable, \JsonSerializable, \Stringable
     /**
      * @param  string  $path  The path relative to the project root.
      * @param  string<\Hyde\Framework\Concerns\HydePage>|null  $belongsToClass
-     * @return \Hyde\Framework\Models\File
+     * @return \Hyde\Framework\Models\Support\File
      */
     public static function make(string $path, ?string $belongsToClass = null): static
     {

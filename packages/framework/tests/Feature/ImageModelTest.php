@@ -2,11 +2,11 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Models\Image;
+use Hyde\Framework\Models\Support\Image;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Image
+ * @covers \Hyde\Framework\Models\Support\Image
  */
 class ImageModelTest extends TestCase
 {

@@ -3,12 +3,12 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\File;
 use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Framework\Models\Support\File;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\File
+ * @covers \Hyde\Framework\Models\Support\File
  */
 class FileTest extends TestCase
 {

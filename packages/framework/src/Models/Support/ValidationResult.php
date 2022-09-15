@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models;
+namespace Hyde\Framework\Models\Support;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
