@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Modules\Markdown\BladeDownProcessor;
 use Hyde\Framework\Modules\Markdown\CodeblockFilepathProcessor;
 use Hyde\Framework\Modules\Markdown\ShortcodeProcessor;
@@ -10,11 +9,11 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
  * @internal Sets up the Markdown converter for the Markdown service.
+ *
  * @see \Hyde\Framework\Services\MarkdownService
  */
 trait SetsUpMarkdownConverter
 {
-
     protected function enableDynamicExtensions(): void
     {
         if ($this->canEnablePermalinks()) {
