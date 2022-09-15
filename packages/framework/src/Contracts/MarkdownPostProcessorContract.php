@@ -8,8 +8,8 @@ namespace Hyde\Framework\Contracts;
 interface MarkdownPostProcessorContract
 {
     /**
-     * @param  string  $htmlInput  HTML to be processed
-     * @return string $htmlOutput Processed HTML output
+     * @param  string  $html  HTML to be processed
+     * @return string $html Processed HTML output
      */
-    public static function postprocess(string $htmlInput): string;
+    public static function postprocess(string $html): string;
 }
