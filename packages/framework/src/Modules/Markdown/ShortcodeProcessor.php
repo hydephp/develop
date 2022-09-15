@@ -7,7 +7,7 @@ use Hyde\Framework\Contracts\MarkdownShortcodeContract;
 use Hyde\Framework\Modules\Markdown\Shortcodes\AbstractColoredBlockquote;
 
 /**
- * Handle shortcode processing for Markdown conversions.
+ * Handle all shortcode processing for a Markdown conversion.
  *
  * The shortcode system has a few limitations, as it is meant to be simple
  * by design so that it is easy to understand how the code works, and
