@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Framework\Models\Support\Route;
 
@@ -22,12 +21,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
-
-    /** @inheritDoc */
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
-    {
-        parent::__construct($identifier, $matter, $markdown);
-    }
 
     /** @inheritDoc */
     public function getRouteKey(): string

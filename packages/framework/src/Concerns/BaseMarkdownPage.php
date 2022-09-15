@@ -45,7 +45,9 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
      * @param  \Hyde\Framework\Models\Markdown\FrontMatter|null  $matter
      * @param  \Hyde\Framework\Models\Markdown\Markdown|null  $markdown
      *
-     *@see \Hyde\Framework\Actions\SourceFileParser
+     * @see \Hyde\Framework\Actions\SourceFileParser
+     *
+     * @phpstan-consistent-constructor
      *
      * The types are strictly enforced to ensure a predictable behavior and constant access interface.
      */

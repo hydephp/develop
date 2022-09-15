@@ -5,7 +5,6 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Foundation\PageCollection;
-use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Framework\Models\Support\Author;
 use Hyde\Framework\Models\Support\DateString;
@@ -31,11 +30,6 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public ?DateString $date = null;
     public ?Author $author = null;
     public ?Image $image = null;
-
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
-    {
-        parent::__construct($identifier, $matter, $markdown);
-    }
 
     /** @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection

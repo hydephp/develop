@@ -56,11 +56,15 @@ trait SetsUpMarkdownConverter
 
     protected function registerPostProcessors(): void
     {
-        $this->registerPostProcessor(BladeDownProcessor::class,
-            config('markdown.enable_blade', false));
+        $this->registerPostProcessor(
+            BladeDownProcessor::class,
+            config('markdown.enable_blade', false)
+        );
 
-        $this->registerPostProcessor(CodeblockFilepathProcessor::class,
-            config('markdown.features.codeblock_filepaths', true));
+        $this->registerPostProcessor(
+            CodeblockFilepathProcessor::class,
+            config('markdown.features.codeblock_filepaths', true)
+        );
     }
 
     protected function registerPreProcessor(string $class, bool $when = true): void

@@ -33,9 +33,10 @@ class GenerateBuildManifest extends AbstractBuildTask
             ]);
         }
 
-        file_put_contents(Hyde::path(config('hyde.build_manifest_path',
-            'storage/framework/cache/build-manifest.json')
-        ), $manifest->toJson());
+        file_put_contents(Hyde::path(config(
+            'hyde.build_manifest_path',
+            'storage/framework/cache/build-manifest.json'
+        )), $manifest->toJson());
     }
 
     protected function hashOutputPath(string $path): ?string
