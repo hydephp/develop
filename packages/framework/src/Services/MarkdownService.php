@@ -67,8 +67,7 @@ class MarkdownService
 
         $this->enableConfigDefinedExtensions();
 
-        // Merge any custom configuration options
-        $this->config = array_merge(config('markdown.config', []), $this->config);
+        $this->mergeMarkdownConfiguration();
 
         $this->converter = new MarkdownConverter($this->config);
 
@@ -97,6 +96,11 @@ class MarkdownService
         foreach (config('markdown.extensions', []) as $extensionClassName) {
             $this->addExtension($extensionClassName);
         }
+    }
+
+    protected function mergeMarkdownConfiguration(): void
+    {
+        $this->config = array_merge(config('markdown.config', []), $this->config);
     }
 
     protected function runPreprocessing(): void
