@@ -30,6 +30,8 @@ class MarkdownService
     protected string $html;
     protected array $features = [];
 
+    protected array $preprocessors;
+
     public function __construct(string $markdown, ?string $sourceModel = null)
     {
         $this->sourceModel = $sourceModel;
@@ -74,6 +76,8 @@ class MarkdownService
         foreach ($this->extensions as $extension) {
             $this->initializeExtension($extension);
         }
+
+        $this->registerPreProcessors();
     }
 
     protected function enableDynamicExtensions(): void
@@ -101,6 +105,16 @@ class MarkdownService
     protected function mergeMarkdownConfiguration(): void
     {
         $this->config = array_merge(config('markdown.config', []), $this->config);
+    }
+
+    protected function registerPreProcessors(): void
+    {
+        if (config('markdown.enable_blade', false)) {
+            $this->preprocessors[] = BladeDownProcessor::class;
+        }
+
+        $this->preprocessors[] = ShortcodeProcessor::class;
+        $this->preprocessors[] = CodeblockFilepathProcessor::class;
     }
 
     protected function runPreprocessing(): void
