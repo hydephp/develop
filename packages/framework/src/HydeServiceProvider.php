@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework;
 
+use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -30,6 +31,10 @@ class HydeServiceProvider extends ServiceProvider
         $this->initializeConfiguration();
 
         $this->app->singleton(AssetService::class, AssetService::class);
+
+        $this->app->singleton(MarkdownConverter::class, function () {
+            return new MarkdownConverter();
+        });
 
         $this->registerSourceDirectories([
             BladePage::class => '_pages',
