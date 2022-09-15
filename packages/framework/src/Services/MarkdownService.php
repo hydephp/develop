@@ -132,13 +132,10 @@ class MarkdownService
 
     protected function runPreprocessing(): void
     {
-        if (config('markdown.enable_blade', false)) {
-            $this->markdown = BladeDownProcessor::preprocess($this->markdown);
+        /** @var \Hyde\Framework\Contracts\MarkdownPreProcessorContract $processor */
+        foreach ($this->preprocessors as $processor) {
+            $this->markdown = $processor::preprocess($this->markdown);
         }
-
-        $this->markdown = ShortcodeProcessor::preprocess($this->markdown);
-
-        $this->markdown = CodeblockFilepathProcessor::preprocess($this->markdown);
     }
 
     protected function runPostProcessing(): void
@@ -147,12 +144,9 @@ class MarkdownService
             $this->html .= $this->injectTorchlightAttribution();
         }
 
-        if (config('markdown.enable_blade', false)) {
-            $this->html = BladeDownProcessor::postprocess($this->html);
-        }
-
-        if (config('markdown.features.codeblock_filepaths', true)) {
-            $this->html = CodeblockFilepathProcessor::postprocess($this->html);
+        /** @var \Hyde\Framework\Contracts\MarkdownPostProcessorContract $processor */
+        foreach ($this->postprocessors as $processor) {
+            $this->html = $processor::postprocess($this->html);
         }
 
         // Remove any Hyde annotations (everything between `// HYDE!` and `HYDE! //`) (must be done last)
