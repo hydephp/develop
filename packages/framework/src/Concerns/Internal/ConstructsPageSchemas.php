@@ -64,7 +64,7 @@ trait ConstructsPageSchemas
             return substr($markdown, 0, 125) . '...';
         }
 
-        return (string) $markdown;
+        return $markdown;
     }
 
     protected function getAuthor(): ?Author
