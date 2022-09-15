@@ -22,6 +22,10 @@ class SiteTest extends TestCase
         $this->assertEquals(config('site.name'), $site->name);
         $this->assertEquals(config('site.language'), $site->language);
         $this->assertEquals(config('site.url'), $site->url);
+
+        $this->assertSame(Site::name(), $site->name);
+        $this->assertSame(Site::language(), $site->language);
+        $this->assertSame(Site::url(), $site->url);
     }
 
     public function testUrl()
