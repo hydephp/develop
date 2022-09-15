@@ -20,20 +20,18 @@ class RedirectTest extends TestCase
         $this->assertSame('foo', $redirect->path);
         $this->assertSame('bar', $redirect->destination);
 
-        $this->assertSame(<<<'HTML'
-<!DOCTYPE html>
-<html lang="en">
+        $this->assertSame("<!DOCTYPE html>
+<html lang=\"en\">
     <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="refresh" content="0;url='bar'" />
+        <meta charset=\"UTF-8\" />
+        <meta http-equiv=\"refresh\" content=\"0;url='bar'\" />
 
         <title>Redirecting to bar</title>
     </head>
     <body>
-        Redirecting to <a href="bar">bar</a>.
+        Redirecting to <a href=\"bar\">bar</a>.
     </body>
-</html>
-HTML
+</html>"
 , $redirect->render());
 
         $redirect->store();
