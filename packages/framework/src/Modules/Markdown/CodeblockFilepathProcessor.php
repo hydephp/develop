@@ -10,9 +10,9 @@ use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
-    public static function preprocess(string $markdownInput): string
+    public static function preprocess(string $markdown): string
     {
-        $lines = explode("\n", $markdownInput);
+        $lines = explode("\n", $markdown);
 
         foreach ($lines as $index => $line) {
             if (static::lineMatchesPattern($line) && ! str_contains($line, '{"shortcodes": false}')) {
@@ -35,9 +35,9 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         return implode("\n", $lines);
     }
 
-    public static function postprocess(string $htmlInput): string
+    public static function postprocess(string $html): string
     {
-        $lines = explode("\n", $htmlInput);
+        $lines = explode("\n", $html);
 
         /** @var int $index */
         foreach ($lines as $index => $line) {
@@ -47,7 +47,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
                 $codeBlockLine = $index + 1;
                 $label = static::resolveTemplate($path);
 
-                $lines[$codeBlockLine] = str_contains($htmlInput, static::$torchlightKey)
+                $lines[$codeBlockLine] = str_contains($html, static::$torchlightKey)
                 ? static::resolveTorchlightCodeLine($label, $lines[$codeBlockLine])
                 : static::resolveCodeLine($label, $lines[$codeBlockLine]);
             }
