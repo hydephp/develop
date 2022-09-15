@@ -24,12 +24,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public static string $template = 'hyde::layouts/docs';
 
     /** @inheritDoc */
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
-    {
-        parent::__construct($identifier, $matter, $markdown);
-    }
-
-    /** @inheritDoc */
     public function getRouteKey(): string
     {
         return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
