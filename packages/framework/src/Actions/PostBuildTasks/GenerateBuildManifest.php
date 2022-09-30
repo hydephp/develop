@@ -24,6 +24,10 @@ class GenerateBuildManifest extends AbstractBuildTask
     {
         $manifest = new Collection();
 
+        $manifest->push([
+            'date' => now(),
+        ]);
+
         /** @var \Hyde\Framework\Concerns\HydePage $page */
         foreach (Hyde::pages() as $page) {
             $manifest->push([
