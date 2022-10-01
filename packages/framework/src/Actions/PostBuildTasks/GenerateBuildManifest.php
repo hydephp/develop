@@ -41,6 +41,7 @@ class GenerateBuildManifest extends AbstractBuildTask
     protected function hashOutputPath(HydePage $page): ?string
     {
         $path = Hyde::sitePath($page->getOutputPath());
+
         return file_exists($path) ? md5_file($path) : null;
     }
 
@@ -61,7 +62,7 @@ class GenerateBuildManifest extends AbstractBuildTask
     {
         return json_encode([
             'generated' => now(),
-            'pages' => $pages
+            'pages' => $pages,
         ], JSON_PRETTY_PRINT);
     }
 }
