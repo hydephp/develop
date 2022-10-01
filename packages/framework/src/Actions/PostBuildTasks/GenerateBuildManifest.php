@@ -60,7 +60,7 @@ class GenerateBuildManifest extends AbstractBuildTask
     protected function jsonEncodeOutput(Collection $pages): string
     {
         return json_encode([
-            'date' => now(),
+            'generated' => now(),
             'pages' => $pages
         ], JSON_PRETTY_PRINT);
     }
