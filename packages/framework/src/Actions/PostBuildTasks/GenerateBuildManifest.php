@@ -22,15 +22,11 @@ class GenerateBuildManifest extends AbstractBuildTask
 
     public function run(): void
     {
-        $manifest = new Collection();
-
-        $manifest->push([
-            'date' => now(),
-        ]);
+        $pages = new Collection();
 
         /** @var \Hyde\Framework\Concerns\HydePage $page */
         foreach (Hyde::pages() as $page) {
-            $manifest->push([
+            $pages->push([
                 'source_path' => $page->getSourcePath(),
                 'output_path' => $page->getOutputPath(),
                 'source_hash' => md5_file(Hyde::path($page->getSourcePath())),
@@ -41,7 +37,10 @@ class GenerateBuildManifest extends AbstractBuildTask
         file_put_contents(Hyde::path(config(
             'hyde.build_manifest_path',
             'storage/framework/cache/build-manifest.json'
-        )), $manifest->toJson());
+        )), json_encode([
+            'date' => now(),
+            'pages' => $pages
+        ]));
     }
 
     protected function hashOutputPath(string $path): ?string
