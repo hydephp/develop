@@ -62,6 +62,6 @@ class GenerateBuildManifest extends AbstractBuildTask
         return json_encode([
             'date' => now(),
             'pages' => $pages
-        ]);
+        ], JSON_PRETTY_PRINT);
     }
 }
