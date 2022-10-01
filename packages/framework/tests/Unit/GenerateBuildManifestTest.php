@@ -20,13 +20,22 @@ class GenerateBuildManifestTest extends TestCase
         $manifest = json_decode(file_get_contents(Hyde::path('storage/framework/cache/build-manifest.json')), true);
 
         $this->assertIsArray($manifest);
+
         $this->assertCount(2, $manifest);
+        $this->assertCount(2, $manifest['pages']);
 
-        $this->assertArrayHasKey('page', $manifest[0]);
-        $this->assertArrayHasKey('source_hash', $manifest[0]);
-        $this->assertArrayHasKey('output_hash', $manifest[0]);
+        $this->assertArrayHasKey('source_path', $manifest['pages'][0]);
+        $this->assertArrayHasKey('output_path', $manifest['pages'][0]);
+        $this->assertArrayHasKey('source_hash', $manifest['pages'][0]);
+        $this->assertArrayHasKey('output_hash', $manifest['pages'][0]);
 
-        $this->assertStringContainsString('_pages/404.blade.php', $manifest[0]['page']);
-        $this->assertStringContainsString('_pages/index.blade.php', $manifest[1]['page']);
+        $this->assertEquals('_pages/404.blade.php', $manifest['pages'][0]['source_path']);
+        $this->assertEquals('_pages/index.blade.php', $manifest['pages'][1]['source_path']);
+
+        $this->assertEquals('404.html', $manifest['pages'][0]['output_path']);
+        $this->assertEquals('index.html', $manifest['pages'][1]['output_path']);
+
+        $this->assertEquals(md5_file(Hyde::path('_pages/404.blade.php')), $manifest['pages'][0]['source_hash']);
+        $this->assertNull($manifest['pages'][0]['output_hash']);
     }
 }

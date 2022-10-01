@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\AbstractBuildTask;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
@@ -22,25 +23,46 @@ class GenerateBuildManifest extends AbstractBuildTask
 
     public function run(): void
     {
-        $manifest = new Collection();
+        $pages = new Collection();
 
         /** @var \Hyde\Framework\Concerns\HydePage $page */
         foreach (Hyde::pages() as $page) {
-            $manifest->push([
-                'page' => $page->getSourcePath(),
-                'source_hash' => md5_file(Hyde::path($page->getSourcePath())),
-                'output_hash' => $this->hashOutputPath(Hyde::sitePath($page->getOutputPath())),
+            $pages->push([
+                'source_path' => $page->getSourcePath(),
+                'output_path' => $page->getOutputPath(),
+                'source_hash' => $this->hashSourcePath($page),
+                'output_hash' => $this->hashOutputPath($page),
             ]);
         }
 
-        file_put_contents(Hyde::path(config(
-            'hyde.build_manifest_path',
-            'storage/framework/cache/build-manifest.json'
-        )), $manifest->toJson());
+        file_put_contents($this->getManifestPath(), $this->jsonEncodeOutput($pages));
     }
 
-    protected function hashOutputPath(string $path): ?string
+    protected function hashOutputPath(HydePage $page): ?string
     {
+        $path = Hyde::sitePath($page->getOutputPath());
+
         return file_exists($path) ? md5_file($path) : null;
+    }
+
+    protected function hashSourcePath(HydePage $page): string
+    {
+        return md5_file(Hyde::path($page->getSourcePath()));
+    }
+
+    protected function getManifestPath(): string
+    {
+        return Hyde::path(config(
+            'hyde.build_manifest_path',
+            'storage/framework/cache/build-manifest.json'
+        ));
+    }
+
+    protected function jsonEncodeOutput(Collection $pages): string
+    {
+        return json_encode([
+            'generated' => now(),
+            'pages' => $pages,
+        ], JSON_PRETTY_PRINT);
     }
 }
