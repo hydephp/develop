@@ -11,6 +11,11 @@ use DateTime;
  */
 class DateString implements \Stringable
 {
+    /** Date format constants */
+    const DATETIME_FORMAT = 'c';
+    const SENTENCE_FORMAT = 'l M jS, Y, \a\t g:ia';
+    const SHORT_FORMAT = 'M jS, Y';
+
     /** The original date string. */
     public string $string;
 
@@ -31,9 +36,9 @@ class DateString implements \Stringable
         $this->string = $string;
         $this->dateTimeObject = new DateTime($this->string);
 
-        $this->datetime = $this->dateTimeObject->format('c');
-        $this->sentence = $this->dateTimeObject->format('l M jS, Y, \a\t g:ia');
-        $this->short = $this->dateTimeObject->format('M jS, Y');
+        $this->datetime = $this->dateTimeObject->format(self::DATETIME_FORMAT);
+        $this->sentence = $this->dateTimeObject->format(self::SENTENCE_FORMAT);
+        $this->short = $this->dateTimeObject->format(self::SHORT_FORMAT);
     }
 
     public function __toString(): string
