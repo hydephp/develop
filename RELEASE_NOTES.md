@@ -84,7 +84,7 @@ This change also bubbles to the HydePage accessors, though that will only affect
 - Renamed base class AbstractPage to HydePage
 - Renamed base class AbstractMarkdownPage to BaseMarkdownPage
 - Renamed command class HydeBuildStaticSiteCommand to HydeBuildSiteCommand
-- Renamed legacy class FileCacheService to ViewDiffService
+- Renamed legacy class FileCacheService to CheckSumService
 - Renamed method `Hyde::getSiteOutputPath()` to `Hyde::sitePath()`
 - Renamed method `Hyde::formatHtmlPath()` to `Hyde::formatLink()`
 - Renamed class Metadata to MetadataBag

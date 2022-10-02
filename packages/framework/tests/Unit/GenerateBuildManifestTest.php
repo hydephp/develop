@@ -4,7 +4,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\ViewDiffService;
+use Hyde\Framework\Services\CheckSumService;
 use Hyde\Testing\TestCase;
 
 /**
@@ -36,7 +36,7 @@ class GenerateBuildManifestTest extends TestCase
         $this->assertEquals('404.html', $manifest['pages'][0]['output_path']);
         $this->assertEquals('index.html', $manifest['pages'][1]['output_path']);
 
-        $this->assertEquals(ViewDiffService::unixsumFile(Hyde::path('_pages/404.blade.php')), $manifest['pages'][0]['source_hash']);
+        $this->assertEquals(CheckSumService::unixsumFile(Hyde::path('_pages/404.blade.php')), $manifest['pages'][0]['source_hash']);
         $this->assertNull($manifest['pages'][0]['output_hash']);
     }
 }

@@ -9,9 +9,9 @@ use Hyde\Framework\Hyde;
  * published Blade views with the original Blade views in the Hyde Framework
  * so the user can be warned before overwriting their customizations.
  *
- * @see \Hyde\Framework\Testing\Feature\Services\ViewDiffServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\CheckSumServiceTest
  */
-class ViewDiffService
+class CheckSumService
 {
     public static function getFilecache(): array
     {
