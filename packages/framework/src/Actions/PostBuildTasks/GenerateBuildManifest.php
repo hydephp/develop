@@ -5,7 +5,7 @@ namespace Hyde\Framework\Actions\PostBuildTasks;
 use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\CheckSumService;
+use Hyde\Framework\Services\ChecksumService;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
@@ -43,12 +43,12 @@ class GenerateBuildManifest extends AbstractBuildTask
     {
         $path = Hyde::sitePath($page->getOutputPath());
 
-        return file_exists($path) ? CheckSumService::unixsumFile($path) : null;
+        return file_exists($path) ? ChecksumService::unixsumFile($path) : null;
     }
 
     protected function hashSourcePath(HydePage $page): string
     {
-        return CheckSumService::unixsumFile(Hyde::path($page->getSourcePath()));
+        return ChecksumService::unixsumFile(Hyde::path($page->getSourcePath()));
     }
 
     protected function getManifestPath(): string

@@ -5,7 +5,7 @@ namespace Hyde\Framework\Commands;
 use Hyde\Framework\Actions\PublishesHomepageView;
 use Hyde\Framework\Concerns\Commands\AsksToRebuildSite;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Services\CheckSumService;
+use Hyde\Framework\Services\ChecksumService;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -88,7 +88,7 @@ class HydePublishHomepageCommand extends Command
             return true;
         }
 
-        return CheckSumService::checksumMatchesAny(CheckSumService::unixsumFile(
+        return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
             Hyde::getBladePagePath('index.blade.php')
         )) || $this->option('force');
     }
