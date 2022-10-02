@@ -5,6 +5,7 @@ namespace Hyde\Framework\Actions\PostBuildTasks;
 use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Services\ViewDiffService;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
@@ -42,12 +43,12 @@ class GenerateBuildManifest extends AbstractBuildTask
     {
         $path = Hyde::sitePath($page->getOutputPath());
 
-        return file_exists($path) ? md5_file($path) : null;
+        return file_exists($path) ? ViewDiffService::unixsumFile($path) : null;
     }
 
     protected function hashSourcePath(HydePage $page): string
     {
-        return md5_file(Hyde::path($page->getSourcePath()));
+        return ViewDiffService::unixsumFile(Hyde::path($page->getSourcePath()));
     }
 
     protected function getManifestPath(): string
