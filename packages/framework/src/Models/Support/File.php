@@ -131,6 +131,11 @@ class File implements Arrayable, \JsonSerializable, \Stringable
         return 'text/plain';
     }
 
+    public function getExtension(): string
+    {
+        return pathinfo($this->path, PATHINFO_EXTENSION);
+    }
+
     /** @inheritDoc */
     public function toArray(): array
     {

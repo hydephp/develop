@@ -87,6 +87,15 @@ class FileTest extends TestCase
         $this->assertSame(7, File::make('foo.txt')->getContentLength());
     }
 
+    public function test_get_extension_returns_extension_of_file()
+    {
+        $this->file('foo.txt', 'foo');
+        $this->assertSame('txt', File::make('foo.txt')->getExtension());
+
+        $this->file('foo.png', 'foo');
+        $this->assertSame('png', File::make('foo.png')->getExtension());
+    }
+
     public function test_get_mime_type_returns_mime_type_of_file_using_lookup_table()
     {
         $lookup = [
