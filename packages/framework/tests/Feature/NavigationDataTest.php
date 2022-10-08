@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Testing\Models;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Hyde\Framework\Models\Navigation\NavigationData;
