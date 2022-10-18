@@ -17,9 +17,6 @@
     "bin": ["bin/server.php"],
     "require": {
         "desilva/microserve": "^1.0",
-        "hyde/framework": "*"
-    },
-    "suggest": {
-        "hyde/framework": "This package requires Hyde Framework version v0.48.0-beta or higher."
+        "hyde/framework": "^v0.64"
     }
 }
