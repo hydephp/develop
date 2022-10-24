@@ -118,6 +118,7 @@ class File implements Arrayable, \JsonSerializable, \Stringable
             'gif'  => 'image/gif',
             'json' => 'application/json',
             'js'   => 'application/javascript',
+            'xml'  => 'application/xml',
         ];
 
         if (isset($lookup[$extension])) {
