@@ -49,10 +49,13 @@ abstract class TestCase extends BaseTestCase
             $this->fileMemory = [];
         }
 
-        /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
-        Component::flushCache();
-        Component::forgetComponentsResolver();
-        Component::forgetFactory();
+        if (method_exists(\Illuminate\View\Component::class, 'flushCache'))
+        {
+            /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
+            Component::flushCache();
+            Component::forgetComponentsResolver();
+            Component::forgetFactory();
+        }
 
         parent::tearDown();
     }
