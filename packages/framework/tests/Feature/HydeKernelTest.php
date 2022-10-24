@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Composer\InstalledVersions;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
@@ -222,5 +223,21 @@ class HydeKernelTest extends TestCase
             'pages' => Hyde::pages(),
             'routes' => Hyde::routes(),
         ], Hyde::toArray());
+    }
+
+    public function test_version_constant_is_a_valid_semver_string()
+    {
+        // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-stringd
+        $this->assertMatchesRegularExpression(
+            '/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/',
+            HydeKernel::VERSION
+        );
+    }
+
+    public function test_version_constant_is_up_to_date()
+    {
+        $this->assertTrue(version_compare(
+            HydeKernel::VERSION, InstalledVersions::getPrettyVersion('hyde/framework')
+            ) >= 0);
     }
 }
