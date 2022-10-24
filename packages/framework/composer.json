@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "illuminate/support": "^9.5",
         "illuminate/view": "^9.0",
         "symfony/yaml": "^6.0",

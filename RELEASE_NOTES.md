@@ -13,7 +13,7 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- for changes in existing functionality.
+- Breaking: HydePHP now requires PHP 8.1 or higher.
 
 ### Deprecated
 - for soon-to-be removed features.
