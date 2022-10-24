@@ -53,6 +53,32 @@ jobs:
         curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
         php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
 
+  test-matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        php: [8.0, 8.1]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: fileinfo
+      - uses: actions/checkout@v3
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/pest --testdox-text testdox.txt
+
+      - name: Ping statistics server with test results
+        run: |
+          curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
+          php ping.php "Monorepo PR Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
+
 
   # check-coding-standards:
   #   runs-on: ubuntu-latest
