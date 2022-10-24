@@ -13,7 +13,6 @@ use Hyde\Framework\Models\Support\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
-use LaravelZero\Framework\Application;
 
 /**
  * This test class runs high-level tests on the HydeKernel class,
