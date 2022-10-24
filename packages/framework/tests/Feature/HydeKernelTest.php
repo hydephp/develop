@@ -240,4 +240,9 @@ class HydeKernelTest extends TestCase
             HydeKernel::VERSION, InstalledVersions::getPrettyVersion('hyde/framework')
             ) >= 0);
     }
+
+    public function test_version_method_returns_version_constant()
+    {
+        $this->assertSame(HydeKernel::VERSION, Hyde::version());
+    }
 }

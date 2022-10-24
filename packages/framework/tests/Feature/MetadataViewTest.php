@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Hyde;
+use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**
@@ -75,7 +76,7 @@ class MetadataViewTest extends TestCase
             '<meta name="viewport" content="width=device-width, initial-scale=1">',
             '<meta id="meta-color-scheme" name="color-scheme" content="light">',
             '<link rel="sitemap" href="http://localhost/sitemap.xml" type="application/xml" title="Sitemap">',
-            '<meta name="generator" content="HydePHP dev-master">',
+            '<meta name="generator" content="HydePHP '.HydeKernel::VERSION.'">',
             '<meta property="og:site_name" content="HydePHP">',
         ];
     }

@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework;
 
-use Composer\InstalledVersions;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\Filesystem;
@@ -70,7 +69,7 @@ class HydeKernel implements Arrayable, \JsonSerializable
 
     public static function version(): string
     {
-        return InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased';
+        return self::VERSION;
     }
 
     public function features(): Features
