@@ -12,7 +12,6 @@ if (! function_exists('unlinkIfExists')) {
 }
 
 if (! function_exists('backupDirectory')) {
-    /** @deprecated v0.60.x - You should not run tests in a production environment. */
     function backupDirectory(string $directory): void
     {
         if (file_exists($directory)) {
@@ -22,7 +21,6 @@ if (! function_exists('backupDirectory')) {
 }
 
 if (! function_exists('restoreDirectory')) {
-    /** @deprecated v0.60.x - You should not run tests in a production environment. */
     function restoreDirectory(string $directory): void
     {
         if (file_exists($directory.'-bak')) {
