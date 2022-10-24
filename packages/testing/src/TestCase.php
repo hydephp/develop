@@ -7,6 +7,7 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Support\Route;
+use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
 require_once __DIR__.'/helpers.php';
@@ -47,6 +48,11 @@ abstract class TestCase extends BaseTestCase
             Hyde::unlink($this->fileMemory);
             $this->fileMemory = [];
         }
+
+        /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
+        Component::flushCache();
+        Component::forgetComponentsResolver();
+        Component::forgetFactory();
 
         parent::tearDown();
     }
