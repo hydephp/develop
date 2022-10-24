@@ -7,6 +7,7 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Support\Route;
+use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
 require_once __DIR__.'/helpers.php';
@@ -46,6 +47,13 @@ abstract class TestCase extends BaseTestCase
         if (sizeof($this->fileMemory) > 0) {
             Hyde::unlink($this->fileMemory);
             $this->fileMemory = [];
+        }
+
+        if (method_exists(\Illuminate\View\Component::class, 'flushCache')) {
+            /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
+            Component::flushCache();
+            Component::forgetComponentsResolver();
+            Component::forgetFactory();
         }
 
         parent::tearDown();
