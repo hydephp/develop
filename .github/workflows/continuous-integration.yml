@@ -51,12 +51,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        php: [8.0, 8.1]
     runs-on: ${{ matrix.os }}
 
     steps:
     - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
       with:
-        php-version: "8.0"
+        php-version: ${{ matrix.php }}
         extensions: fileinfo
     - uses: actions/checkout@v3
 
