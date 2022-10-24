@@ -18,8 +18,7 @@
     "require": {
         "php": "^8.0",
         "hyde/framework": "dev-master",
-        "laravel-zero/framework": "^9.1",
-        "symfony/http-foundation": "6.0.*"
+        "laravel-zero/framework": "^9.1"
     },
     "require-dev": {
         "hyde/realtime-compiler": "dev-master",
