@@ -1,12 +1,11 @@
 <?php
 
-namespace Hyde\Framework\Modules\Metadata\Models;
+namespace Hyde\Framework\Modules\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Services\RssFeedService;
 use Illuminate\Support\Facades\View;
 

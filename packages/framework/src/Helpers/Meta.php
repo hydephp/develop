@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Helpers;
 
-use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
+use Hyde\Framework\Modules\Metadata\GlobalMetadataBag;
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;

@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Models\Support;
 
-use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
+use Hyde\Framework\Modules\Metadata\GlobalMetadataBag;
 
 /**
  * Object representation for the HydePHP site.
