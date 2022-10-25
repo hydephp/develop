@@ -30,10 +30,10 @@ If you however have written custom code that explicitly references the old names
 - Changes and refactors regarding the internal metadata handling, see below.
 
 ### Deprecated
-- Deprecated MetadataItemContract.php
+- for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed MetadataItemContract.php (use new abstract class BaseMetadataElement)
 
 ### Fixed
 - for any bug fixes.
