@@ -2,12 +2,7 @@
 
 namespace Hyde\Framework\Models\Support;
 
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
-use Hyde\Framework\Services\RssFeedService;
 
 /**
  * Object representation for the HydePHP site.
