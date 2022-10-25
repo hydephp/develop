@@ -4,7 +4,7 @@ namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
-use Hyde\Framework\Modules\Metadata\Models\OpenGraphItem;
+use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
 
 /**
  * Helpers to fluently declare HTML meta tags.
@@ -18,9 +18,9 @@ class Meta
         return new MetadataElement($name, $content);
     }
 
-    public static function property(string $property, string $content): OpenGraphItem
+    public static function property(string $property, string $content): OpenGraphElement
     {
-        return new OpenGraphItem($property, $content);
+        return new OpenGraphElement($property, $content);
     }
 
     public static function link(string $rel, string $href, array $attr = []): LinkElement

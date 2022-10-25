@@ -56,7 +56,7 @@ class MetadataBag implements Htmlable
             $this->links[$item->uniqueKey()] = $item;
         } elseif ($item instanceof Models\MetadataElement) {
             $this->metadata[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof Models\OpenGraphItem) {
+        } elseif ($item instanceof Models\OpenGraphElement) {
             $this->properties[$item->uniqueKey()] = $item;
         } else {
             $this->generics[] = $item;

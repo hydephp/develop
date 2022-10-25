@@ -8,7 +8,7 @@ use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
-use Hyde\Framework\Modules\Metadata\Models\OpenGraphItem;
+use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
 use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Testing\TestCase;
 
@@ -16,7 +16,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
  * @covers \Hyde\Framework\Modules\Metadata\Models\LinkElement
  * @covers \Hyde\Framework\Modules\Metadata\Models\MetadataElement
- * @covers \Hyde\Framework\Modules\Metadata\Models\OpenGraphItem
+ * @covers \Hyde\Framework\Modules\Metadata\Models\OpenGraphElement
  */
 class MetadataTest extends TestCase
 {
@@ -74,11 +74,11 @@ class MetadataTest extends TestCase
 
     public function test_open_graph_item_model()
     {
-        $item = new OpenGraphItem('property', 'content');
+        $item = new OpenGraphElement('property', 'content');
         $this->assertEquals('property', $item->uniqueKey());
         $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
 
-        $item = new OpenGraphItem('og:property', 'content');
+        $item = new OpenGraphElement('og:property', 'content');
         $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
     }
 
