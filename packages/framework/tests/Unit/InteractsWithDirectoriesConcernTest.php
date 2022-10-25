@@ -72,4 +72,10 @@ class InteractsWithDirectoriesConcernTest extends TestCase
 
         File::deleteDirectory(Hyde::path('bar'));
     }
+
+    public function test_needs_parent_directory_creates_directory_for_the_parent_file()
+    {
+        $this->needsParentDirectory(Hyde::path('foo/bar/baz.txt'));
+        $this->assertDirectoryExists(Hyde::path('foo/bar'));
+    }
 }
