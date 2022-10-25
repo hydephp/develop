@@ -37,7 +37,7 @@ class StaticPageBuilder
     {
         Hyde::shareViewData($this->page);
 
-        $this->needsDirectory(dirname(Hyde::sitePath($this->page->getOutputPath())));
+        $this->needsParentDirectory(Hyde::sitePath($this->page->getOutputPath()));
 
         return $this->save($this->page->compile());
     }
