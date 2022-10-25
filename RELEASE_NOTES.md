@@ -27,7 +27,7 @@ These types of changes are handled within the framework ecosystem to ensure they
 For example, if a namespace is changed, all internal references to that namespace are updated, so most users won't even notice it.
 If you however have written custom code that explicitly references the old namespace, you will need to update your code to use the new namespace.
 
-- for breaking internal changes.
+- Changes and refactors regarding the internal metadata handling, see below.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -40,3 +40,11 @@ If you however have written custom code that explicitly references the old names
 
 ### Security
 - in case of vulnerabilities.
+
+
+---
+
+## Additional details about the internal changes
+
+These are additional details about the changes that are not relevant to the end user, but could be relevant to
+developers who write custom code and integrations using the HydePHP framework.
