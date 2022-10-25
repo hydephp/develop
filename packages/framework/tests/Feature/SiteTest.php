@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
 use Hyde\Testing\TestCase;

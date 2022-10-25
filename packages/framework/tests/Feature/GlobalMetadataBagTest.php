@@ -11,7 +11,6 @@ use Hyde\Testing\TestCase;
  */
 class GlobalMetadataBagTest extends TestCase
 {
-
     public function test_site_metadata_adds_config_defined_metadata()
     {
         $this->emptyConfig();
