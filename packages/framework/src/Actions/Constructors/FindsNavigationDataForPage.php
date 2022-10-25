@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
  */
 final class FindsNavigationDataForPage
 {
-    const FALLBACK_PRIORITY = 999;
+    protected const FALLBACK_PRIORITY = 999;
 
     public static function run(HydePage $page): NavigationData
     {
