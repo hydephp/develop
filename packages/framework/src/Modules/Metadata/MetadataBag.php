@@ -38,15 +38,35 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataElementContract|string $element): static
     {
-        if ($element instanceof Models\LinkElement) {
-            $this->links[$element->uniqueKey()] = $element;
-        } elseif ($element instanceof Models\MetadataElement) {
-            $this->metadata[$element->uniqueKey()] = $element;
-        } elseif ($element instanceof Models\OpenGraphElement) {
-            $this->properties[$element->uniqueKey()] = $element;
-        } else {
-            $this->generics[] = $element;
+        if (is_string($element)) {
+            return $this->addGenericElement($element);
         }
+
+        if ($element instanceof Models\LinkElement) {
+            return $this->addElement('links', $element);
+        }
+
+        if ($element instanceof Models\MetadataElement) {
+            return $this->addElement('metadata', $element);
+        }
+
+        if ($element instanceof Models\OpenGraphElement) {
+            return $this->addElement('properties', $element);
+        }
+
+        return $this;
+    }
+
+    protected function addGenericElement(string $element): MetadataBag
+    {
+        $this->generics[] = $element;
+
+        return $this;
+    }
+
+    protected function addElement(string $type, MetadataElementContract $element): MetadataBag
+    {
+        ($this->$type)[$element->uniqueKey()] = $element;
 
         return $this;
     }
