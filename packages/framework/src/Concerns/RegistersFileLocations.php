@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Models\Support\Site;
 
 /**

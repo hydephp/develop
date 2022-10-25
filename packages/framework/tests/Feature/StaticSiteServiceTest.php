@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Support\Site;
 use Hyde\Testing\TestCase;
