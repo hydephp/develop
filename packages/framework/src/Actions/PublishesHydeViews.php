@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Illuminate\Support\Facades\File;
 
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\File;
 *
 * @see \Hyde\Framework\Testing\Feature\Actions\PublishesHomepageViewTest
 */
-class PublishesHydeViews implements ActionContract
+class PublishesHydeViews
 {
     public static array $options = [
         'layouts' => [
