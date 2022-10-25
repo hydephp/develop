@@ -4,7 +4,6 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\Author;
