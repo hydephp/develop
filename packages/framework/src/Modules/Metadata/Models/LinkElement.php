@@ -21,9 +21,7 @@ class LinkElement extends BaseMetadataElement
             return '<link rel="'.e($this->rel).'" href="'.e($this->href).'">';
         }
 
-        $attributes = $this->formatAttributesToHtmlString();
-
-        return '<link rel="'.e($this->rel).'" href="'.e($this->href).'" '.$attributes.'>';
+        return '<link rel="'.e($this->rel).'" href="'.e($this->href).'" '. $this->formatAttributesToHtmlString() .'>';
     }
 
     public function uniqueKey(): string
