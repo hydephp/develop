@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
@@ -16,21 +17,20 @@ trait GeneratesNavigationData
 {
     protected function constructNavigationData(): void
     {
-        $this->setNavigationData(
-            $this->findNavigationMenuLabel(),
-            $this->findNavigationMenuHidden(),
-            $this->findNavigationMenuPriority(),
-        );
-    }
-
-    protected function constructSidebarNavigationData(): void
-    {
-        $this->setNavigationData(
-            $this->findNavigationMenuLabel(),
-            $this->findNavigationMenuHidden(),
-            $this->matter('navigation.priority', $this->findNavigationMenuPriority()),
-            $this->getDocumentationPageGroup()
-        );
+        if ($this instanceof DocumentationPageSchema) {
+            $this->setNavigationData(
+                $this->findNavigationMenuLabel(),
+                $this->findNavigationMenuHidden(),
+                $this->matter('navigation.priority', $this->findNavigationMenuPriority()),
+                $this->getDocumentationPageGroup()
+            );
+        } else {
+            $this->setNavigationData(
+                $this->findNavigationMenuLabel(),
+                $this->findNavigationMenuHidden(),
+                $this->findNavigationMenuPriority(),
+            );
+        }
     }
 
     protected function setNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): void

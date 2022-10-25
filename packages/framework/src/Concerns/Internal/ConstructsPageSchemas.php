@@ -27,11 +27,7 @@ trait ConstructsPageSchemas
         $this->title = FindsTitleForPage::run($this);
         $this->canonicalUrl = $this->makeCanonicalUrl();
 
-        if ($this instanceof DocumentationPageSchema) {
-            $this->constructSidebarNavigationData();
-        } else {
-            $this->constructNavigationData();
-        }
+        $this->constructNavigationData();
     }
 
     protected function makeCanonicalUrl(): ?string
