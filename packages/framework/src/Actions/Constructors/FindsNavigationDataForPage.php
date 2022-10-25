@@ -108,10 +108,12 @@ final class FindsNavigationDataForPage
     private function findNavigationMenuPriorityInSidebarConfig(array $config): ?int
     {
         // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
+
+        // Adding 250 makes so that pages with a front matter priority that is lower can be shown first.
+        // It's lower than the fallback of 500 so that the config ones still come first.
+        // This is all to make it easier to mix ways of adding priorities.
+
         return isset($config[$this->page->identifier]) ? $config[$this->page->identifier] + 250 : null;
-        // Adding 250 makes so that pages with a front matter priority that is lower
-        // can be shown first. It's lower than the fallback of 500 so that they
-        // still come first. This is all to make it easier to mix priorities.
     }
 
     private function getNavigationLabelConfig(): array
