@@ -10,7 +10,7 @@ use Hyde\Framework\Hyde;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\PublishesHomepageViewTest
  */
-class PublishesHomepageView implements ActionContract
+class PublishesHomepageView
 {
     public static array $homePages = [
         'welcome' => [

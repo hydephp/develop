@@ -14,7 +14,7 @@ use League\CommonMark\MarkdownConverter;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
-class GeneratesSidebarTableOfContents implements ActionContract
+class GeneratesSidebarTableOfContents
 {
     protected string $markdown;
 

@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @see \Hyde\Framework\Testing\Feature\FindsContentLengthForImageObjectTest
  */
-class FindsContentLengthForImageObject implements ActionContract
+class FindsContentLengthForImageObject
 {
     protected Image $image;
 

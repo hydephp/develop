@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 *
 * @see \Hyde\Framework\Testing\Feature\Actions\PublishesHomepageViewTest
 */
-class PublishesHydeViews implements ActionContract
+class PublishesHydeViews
 {
     public static array $options = [
         'layouts' => [
