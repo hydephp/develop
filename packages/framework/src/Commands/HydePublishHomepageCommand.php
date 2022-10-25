@@ -6,6 +6,7 @@ use Hyde\Framework\Actions\PublishesHomepageView;
 use Hyde\Framework\Concerns\Commands\AsksToRebuildSite;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\ChecksumService;
+use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -91,5 +92,20 @@ class HydePublishHomepageCommand extends Command
         return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
             Hyde::getBladePagePath('index.blade.php')
         )) || $this->option('force');
+    }
+
+    protected function askToRebuildSite(): void
+    {
+        if ($this->option('no-interaction')) {
+            return;
+        }
+
+        if ($this->confirm('Would you like to rebuild the site?', 'Yes')) {
+            $this->line('Okay, building site!');
+            Artisan::call('build');
+            $this->info('Site is built!');
+        } else {
+            $this->line('Okay, you can always run the build later!');
+        }
     }
 }
