@@ -15,7 +15,7 @@ class OpenGraphElement extends BaseMetadataElement
 
     public function __toString(): string
     {
-        return '<meta property="og:'.e($this->property).'" content="'.e($this->content).'">';
+        return sprintf('<meta property="og:%s" content="%s">', e($this->property), e($this->content));
     }
 
     public function uniqueKey(): string

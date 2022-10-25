@@ -18,10 +18,10 @@ class LinkElement extends BaseMetadataElement
     public function __toString(): string
     {
         if (empty($this->attr)) {
-            return '<link rel="'.e($this->rel).'" href="'.e($this->href).'">';
+            return sprintf('<link rel="%s" href="%s">', e($this->rel), e($this->href));
         }
 
-        return '<link rel="'.e($this->rel).'" href="'.e($this->href).'" '. $this->formatAttributesToHtmlString() .'>';
+        return sprintf('<link rel="%s" href="%s" %s>', e($this->rel), e($this->href), $this->formatAttributesToHtmlString());
     }
 
     public function uniqueKey(): string

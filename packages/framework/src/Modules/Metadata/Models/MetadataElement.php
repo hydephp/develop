@@ -15,7 +15,7 @@ class MetadataElement extends BaseMetadataElement
 
     public function __toString(): string
     {
-        return '<meta name="'.e($this->name).'" content="'.e($this->content).'">';
+        return sprintf('<meta name="%s" content="%s">', e($this->name), e($this->content));
     }
 
     public function uniqueKey(): string
