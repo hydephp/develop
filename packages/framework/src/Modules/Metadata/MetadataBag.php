@@ -70,7 +70,7 @@ class MetadataBag implements Htmlable
     protected function getPrefixedArray(string $type): array
     {
         $array = [];
-        foreach ($this->{$group} as $key => $value) {
+        foreach ($this->{$type} as $key => $value) {
             $array[$type.':'.$key] = $value;
         }
 
