@@ -42,7 +42,7 @@ class GlobalMetadataBag extends MetadataBag
         return $metadataBag;
     }
 
-    protected static function filterDuplicateMetadata(GlobalMetadataBag &$global, HydePage $page): void
+    protected static function filterDuplicateMetadata(GlobalMetadataBag $global, HydePage $page): void
     {
         // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
 
