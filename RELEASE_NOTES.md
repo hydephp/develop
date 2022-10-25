@@ -42,6 +42,7 @@ If you however have written custom code that explicitly references the old names
 ### Removed
 - Removed MetadataItemContract.php (use new abstract class BaseMetadataElement)
 - Removed single usage trait AsksToRebuildSite.php (inlined into HydePublishHomepageCommand.php)
+- Removed interface ActionContract.php
 
 ### Fixed
 - for any bug fixes.
