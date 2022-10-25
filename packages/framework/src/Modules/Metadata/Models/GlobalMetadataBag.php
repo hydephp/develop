@@ -48,10 +48,9 @@ class GlobalMetadataBag extends MetadataBag
 
         $page = $shared->metadata;
 
-        $global->links = self::runFilter($global, $page, 'links');
-        $global->metadata = self::runFilter($global, $page, 'metadata');
-        $global->properties = self::runFilter($global, $page, 'properties');
-        $global->generics = self::runFilter($global, $page, 'generics');
+        foreach (['links', 'metadata', 'properties', 'generics'] as $type) {
+            $global->$type = self::runFilter($global, $page, $type);
+        }
 
         return $global;
     }
