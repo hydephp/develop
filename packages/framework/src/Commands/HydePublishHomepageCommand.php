@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\PublishesHomepageView;
-use Hyde\Framework\Concerns\Commands\AsksToRebuildSite;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\ChecksumService;
 use Illuminate\Support\Facades\Artisan;
@@ -16,8 +15,6 @@ use LaravelZero\Framework\Commands\Command;
  */
 class HydePublishHomepageCommand extends Command
 {
-    use AsksToRebuildSite;
-
     /** @var string */
     protected $signature = 'publish:homepage {homepage? : The name of the page to publish}
                                 {--force : Overwrite any existing files}';
