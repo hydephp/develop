@@ -10,6 +10,9 @@ use Hyde\Framework\Services\RssFeedService;
 
 class GlobalMetadataBag extends MetadataBag
 {
+    /**
+     * @todo #536 Remove duplicate metadata from page;
+     */
     public static function make(): static
     {
         $metadataBag = new self();

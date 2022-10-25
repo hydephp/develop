@@ -45,9 +45,6 @@ final class Site
         return config('site.language');
     }
 
-    /**
-     * @todo #536 Remove duplicate metadata from page;
-     */
     public static function metadata(): GlobalMetadataBag
     {
         return GlobalMetadataBag::make();
