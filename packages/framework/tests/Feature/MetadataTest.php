@@ -14,6 +14,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
+ * @covers \Hyde\Framework\Modules\Metadata\PageMetadataBag
+ * @covers \Hyde\Framework\Modules\Metadata\GlobalMetadataBag
  * @covers \Hyde\Framework\Modules\Metadata\Models\LinkElement
  * @covers \Hyde\Framework\Modules\Metadata\Models\MetadataElement
  * @covers \Hyde\Framework\Modules\Metadata\Models\OpenGraphElement
