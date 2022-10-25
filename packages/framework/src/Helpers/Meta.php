@@ -66,16 +66,8 @@ class Meta
     public static function getGlobalMeta(): array
     {
         return array_merge(
-            static::getDynamicMeta(),
             static::getConfiguredMeta()
         );
-    }
-
-    protected static function getDynamicMeta(): array
-    {
-        $array = [];
-
-        return $array;
     }
 
     protected static function getConfiguredMeta(): array
