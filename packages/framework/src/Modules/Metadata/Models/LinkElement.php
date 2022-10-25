@@ -17,7 +17,7 @@ class LinkElement extends BaseMetadataElement
 
     public function __toString(): string
     {
-        return sprintf('<link rel="%s" href="%s"%s>', e($this->rel), e($this->href), $this->formatAttributesToHtmlString());
+        return sprintf('<link rel="%s" href="%s"%s>', e($this->rel), e($this->href), $this->formatOptionalAttributes());
     }
 
     public function uniqueKey(): string
@@ -25,7 +25,7 @@ class LinkElement extends BaseMetadataElement
         return $this->rel;
     }
 
-    protected function formatAttributesToHtmlString(): string
+    protected function formatOptionalAttributes(): string
     {
         if (empty($this->attr)) {
             return '';
