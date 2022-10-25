@@ -10,8 +10,10 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Support\Site;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
 /**
  * Feature tests for the StaticPageBuilder class.
@@ -136,5 +138,29 @@ class StaticPageBuilderTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/docs/foo/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('_site/docs/foo/foo.html')));
         unlink(Hyde::path('_site/docs/foo/foo.html'));
+    }
+
+    public function test_site_directory_can_be_customized()
+    {
+        Site::$outputPath = 'foo';
+
+        new StaticPageBuilder(MarkdownPage::make('foo'), true);
+
+        $this->assertFileExists(Hyde::path('foo/foo.html'));
+        $this->validateBasicHtml(file_get_contents(Hyde::path('foo/foo.html')));
+
+        File::deleteDirectory(Hyde::path('foo'));
+    }
+
+    public function test_site_directory_can_be_customized_with_nested_pages()
+    {
+        Site::$outputPath = 'foo';
+
+        new StaticPageBuilder(MarkdownPost::make('foo'), true);
+
+        $this->assertFileExists(Hyde::path('foo/posts/foo.html'));
+        $this->validateBasicHtml(file_get_contents(Hyde::path('foo/posts/foo.html')));
+
+        File::deleteDirectory(Hyde::path('foo'));
     }
 }
