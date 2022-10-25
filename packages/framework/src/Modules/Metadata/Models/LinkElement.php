@@ -31,8 +31,8 @@ class LinkElement extends BaseMetadataElement
             return '';
         }
 
-        return sprintf(" %s", collect($this->attr)->map(function ($value, $key) {
-            return e($key) . '="' . e($value) . '"';
+        return sprintf(' %s', collect($this->attr)->map(function ($value, $key) {
+            return e($key).'="'.e($value).'"';
         })->implode(' '));
     }
 }
