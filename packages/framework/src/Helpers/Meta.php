@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
@@ -28,50 +29,21 @@ class Meta
         return new LinkElement($rel, $href, $attr);
     }
 
-    public static function get(array $withMergedData = []): array
+    /**
+     * Get the global metadata bag.
+     */
+    public static function get(): GlobalMetadataBag
     {
-        return static::filterUnique(
-            array_merge(
-                static::getGlobalMeta(),
-                $withMergedData
-            )
-        );
+        return GlobalMetadataBag::make();
     }
 
-    public static function render(array $withMergedData = []): string
+    /**
+     * Render the global metadata bag.
+     *
+     * @return string
+     */
+    public static function render(): string
     {
-        return implode(
-            "\n",
-            static::get($withMergedData)
-        );
-    }
-
-    protected static function filterUnique(array $meta): array
-    {
-        $array = [];
-        $existing = [];
-
-        foreach (array_reverse($meta) as $metaItem) {
-            $substring = substr($metaItem, 6, strpos($metaItem, ' content="') - 6);
-
-            if (! in_array($substring, $existing)) {
-                $array[] = $metaItem;
-                $existing[] = $substring;
-            }
-        }
-
-        return array_reverse($array);
-    }
-
-    public static function getGlobalMeta(): array
-    {
-        return array_merge(
-            static::getConfiguredMeta()
-        );
-    }
-
-    protected static function getConfiguredMeta(): array
-    {
-        return config('hyde.meta', []);
+        return static::get()->render();
     }
 }
