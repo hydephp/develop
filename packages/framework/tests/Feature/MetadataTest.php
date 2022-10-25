@@ -6,10 +6,10 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
-use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Testing\TestCase;
 
 /**
