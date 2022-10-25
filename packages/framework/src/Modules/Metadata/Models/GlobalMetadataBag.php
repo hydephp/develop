@@ -58,6 +58,6 @@ class GlobalMetadataBag extends MetadataBag
 
     protected static function runFilter(GlobalMetadataBag $global, MetadataBag $page, string $property): array
     {
-        return array_filter($global->$property,fn($meta) => !in_array($meta->uniqueKey(), array_map(fn($meta) => $meta->uniqueKey(), $page->$property)));
+        return array_filter($global->$property, fn ($meta) => ! in_array($meta->uniqueKey(), array_map(fn ($meta) => $meta->uniqueKey(), $page->$property)));
     }
 }
