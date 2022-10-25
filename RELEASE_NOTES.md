@@ -29,6 +29,10 @@ If you however have written custom code that explicitly references the old names
 
 - Changes and refactors regarding the internal metadata handling, see below.
 
+### Other changes
+
+- The default navigation priority for sidebar items is now 500 instead of 999, matching the default priority for the main navigation.
+
 ### Deprecated
 - for soon-to-be removed features.
 
