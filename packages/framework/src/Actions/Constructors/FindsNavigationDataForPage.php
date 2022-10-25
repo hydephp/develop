@@ -19,6 +19,8 @@ use Illuminate\Support\Str;
  */
 final class FindsNavigationDataForPage
 {
+    const DEFAULT_PRIORITY = 500;
+
     public static function run(HydePage $page): NavigationData
     {
         return (new self($page))->constructNavigationData();
@@ -94,8 +96,8 @@ final class FindsNavigationDataForPage
 
         // Different default return values are to preserve backwards compatibility
         return $this->page instanceof DocumentationPage
-            ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? 500
-            : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? 500;
+            ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::DEFAULT_PRIORITY
+            : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::DEFAULT_PRIORITY;
     }
 
     private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
