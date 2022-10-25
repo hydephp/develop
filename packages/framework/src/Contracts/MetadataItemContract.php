@@ -2,9 +2,7 @@
 
 namespace Hyde\Framework\Contracts;
 
-interface MetadataItemContract
+interface MetadataItemContract extends \Stringable
 {
-    public function __toString(): string;
-
     public function uniqueKey(): string;
 }
