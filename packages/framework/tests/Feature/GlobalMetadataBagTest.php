@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Support\Site;
+use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
 
 /**
@@ -28,7 +29,7 @@ class GlobalMetadataBagTest extends TestCase
             'properties:foo' => Meta::property('foo', 'bar'),
             'generics:0' => 'bar',
             'generics:1' => 'baz',
-        ], Site::metadata()->get());
+        ], GlobalMetadataBag::make()->get());
     }
 
     public function test_site_metadata_automatically_adds_sitemap_when_enabled()
@@ -38,7 +39,7 @@ class GlobalMetadataBagTest extends TestCase
         config(['site.url' => 'foo']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', Site::metadata()->render());
+        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
 
     public function test_site_metadata_sitemap_uses_configured_site_url()
@@ -48,7 +49,7 @@ class GlobalMetadataBagTest extends TestCase
         config(['site.url' => 'bar']);
         config(['site.generate_sitemap' => true]);
 
-        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', Site::metadata()->render());
+        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
 
     public function test_site_metadata_automatically_adds_rss_feed_when_enabled()
@@ -59,7 +60,7 @@ class GlobalMetadataBagTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', Site::metadata()->render());
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_site_url()
@@ -70,7 +71,7 @@ class GlobalMetadataBagTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', Site::metadata()->render());
+        $this->assertEquals('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_site_name()
@@ -82,7 +83,7 @@ class GlobalMetadataBagTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', Site::metadata()->render());
+        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', GlobalMetadataBag::make()->render());
     }
 
     public function test_site_metadata_rss_feed_uses_configured_rss_file_name()
@@ -96,7 +97,7 @@ class GlobalMetadataBagTest extends TestCase
 
         $this->assertStringContainsString(
             '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
-            Site::metadata()->render()
+            GlobalMetadataBag::make()->render()
         );
     }
 
