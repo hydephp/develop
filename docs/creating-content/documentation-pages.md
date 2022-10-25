@@ -91,7 +91,7 @@ and where the data is from as well as where it can be overridden.
 | `title` (string)                | The title of the page used in the HTML `<title>` tag   | The first H1 heading (`# Foo`)      | Front matter         |
 | `navigation.label` (string)     | The label for the page shown in the sidebar            | The page identifier/basename (slug) | Front matter, config |
 | `navigation.hidden` (boolean)   | Hides the page from the sidebar                        | _null_                              | Front matter, config |
-| `navigation.priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 500                     | Front matter, config |
+| `navigation.priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 999                     | Front matter, config |
 
 
 ## Sidebar
@@ -110,7 +110,7 @@ See [the customization page](customization#navigation-menu--sidebar) for more de
 ### Sidebar ordering
 
 The sidebar is sorted/ordered by the `priority` property. The higher the priority the further down in the sidebar it will be.
-The default priority is 500. You can override the priority using the following front matter:
+The default priority is 999. You can override the priority using the following front matter:
 
 ```yaml
 navigation:

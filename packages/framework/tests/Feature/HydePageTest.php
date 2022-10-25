@@ -23,7 +23,8 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Concerns\HydePage
  * @covers \Hyde\Framework\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
- * @covers \Hyde\Framework\Concerns\Internal\GeneratesNavigationData
+ * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
+ * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  */
 class HydePageTest extends TestCase
 {
@@ -105,7 +106,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(999, (new BladePage('foo'))->navigationMenuPriority());
         $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());
-        $this->assertSame(500, (new DocumentationPage())->navigationMenuPriority());
+        $this->assertSame(999, (new DocumentationPage())->navigationMenuPriority());
         $this->assertSame(10, (new MarkdownPost())->navigationMenuPriority());
     }
 
@@ -543,10 +544,10 @@ class HydePageTest extends TestCase
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_returns_500_for_documentation_page()
+    public function test_navigation_menu_priority_returns_999_for_documentation_page()
     {
         $page = DocumentationPage::make('index');
-        $this->assertEquals(500, $page->navigationMenuPriority());
+        $this->assertEquals(999, $page->navigationMenuPriority());
     }
 
     public function test_navigation_menu_priority_returns_0_if_slug_is_index()
