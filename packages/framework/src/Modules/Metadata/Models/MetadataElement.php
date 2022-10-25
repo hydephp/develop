@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-class MetadataElement extends BaseElement
+class MetadataElement extends BaseMetadataElement
 {
     protected string $name;
     protected string $content;
