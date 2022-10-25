@@ -23,6 +23,8 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Concerns\HydePage
  * @covers \Hyde\Framework\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
+ * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
  */
 class HydePageTest extends TestCase
 {
