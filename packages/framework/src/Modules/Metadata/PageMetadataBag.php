@@ -10,12 +10,11 @@ class PageMetadataBag extends MetadataBag
 {
     protected HydePage $page;
 
-    public function __construct(?HydePage $page = null)
+    public function __construct(HydePage $page)
     {
-        if ($page !== null) {
-            $this->page = $page;
-            $this->generate();
-        }
+        $this->page = $page;
+
+        $this->generate();
     }
 
     protected function generate(): void
