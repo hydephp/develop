@@ -104,8 +104,8 @@ class HydePageTest extends TestCase
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new BladePage('foo'))->navigationMenuPriority());
-        $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());
+        $this->assertSame(500, (new BladePage('foo'))->navigationMenuPriority());
+        $this->assertSame(500, (new MarkdownPage())->navigationMenuPriority());
         $this->assertSame(500, (new DocumentationPage())->navigationMenuPriority());
         $this->assertSame(10, (new MarkdownPost())->navigationMenuPriority());
     }
@@ -527,7 +527,7 @@ class HydePageTest extends TestCase
     public function test_navigation_menu_priority_returns_specified_config_value_if_slug_exists_in_config_hyde_navigation_order()
     {
         $page = MarkdownPage::make('foo');
-        $this->assertEquals(999, $page->navigationMenuPriority());
+        $this->assertEquals(500, $page->navigationMenuPriority());
 
         config(['hyde.navigation.order' => ['foo' => 1]]);
         $page = MarkdownPage::make('foo');
@@ -562,10 +562,10 @@ class HydePageTest extends TestCase
         $this->assertEquals(10, $page->navigationMenuPriority());
     }
 
-    public function test_navigation_menu_priority_defaults_to_999_if_no_other_conditions_are_met()
+    public function test_navigation_menu_priority_defaults_to_500_if_no_other_conditions_are_met()
     {
         $page = MarkdownPage::make('foo');
-        $this->assertEquals(999, $page->navigationMenuPriority());
+        $this->assertEquals(500, $page->navigationMenuPriority());
     }
 
     public function test_navigation_menu_title_returns_navigation_title_matter_if_set()
