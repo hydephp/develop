@@ -54,5 +54,4 @@ class GlobalMetadataBag extends MetadataBag
 
         return $global;
     }
-
 }
