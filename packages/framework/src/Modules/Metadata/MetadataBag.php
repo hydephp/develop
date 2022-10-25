@@ -36,16 +36,16 @@ class MetadataBag implements Htmlable
         );
     }
 
-    public function add(MetadataElementContract|string $item): static
+    public function add(MetadataElementContract|string $element): static
     {
-        if ($item instanceof Models\LinkElement) {
-            $this->links[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof Models\MetadataElement) {
-            $this->metadata[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof Models\OpenGraphElement) {
-            $this->properties[$item->uniqueKey()] = $item;
+        if ($element instanceof Models\LinkElement) {
+            $this->links[$element->uniqueKey()] = $element;
+        } elseif ($element instanceof Models\MetadataElement) {
+            $this->metadata[$element->uniqueKey()] = $element;
+        } elseif ($element instanceof Models\OpenGraphElement) {
+            $this->properties[$element->uniqueKey()] = $element;
         } else {
-            $this->generics[] = $item;
+            $this->generics[] = $element;
         }
 
         return $this;
