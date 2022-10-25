@@ -107,17 +107,21 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->emptyConfig();
 
-        $metadata = Meta::name('foo', 'bar');
+        $duplicate = Meta::name('remove', 'me');
+        $keep = Meta::name('keep', 'this');
 
-        config(['hyde.meta' => [$metadata]]);
+        config(['hyde.meta' => [
+            $duplicate,
+            $keep,
+        ]]);
 
         $page = new MarkdownPage('foo');
-        $page->metadata->add($metadata);
+        $page->metadata->add($duplicate);
 
         View::share('currentPage', 'foo');
         View::share('page', $page);
 
-        $this->assertEquals([], GlobalMetadataBag::make()->get());
+        $this->assertEquals(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
     }
 
     protected function emptyConfig(): void
