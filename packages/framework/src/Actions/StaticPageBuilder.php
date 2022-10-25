@@ -15,9 +15,6 @@ class StaticPageBuilder
 {
     use InteractsWithDirectories;
 
-    /** @var string The relative path to the output directory */
-    public static string $outputPath;
-
     /**
      * Construct the class.
      *

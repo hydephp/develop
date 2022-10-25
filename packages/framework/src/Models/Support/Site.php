@@ -15,6 +15,9 @@ use Hyde\Framework\Services\RssFeedService;
  */
 final class Site
 {
+    /** @var string The relative path to the output directory */
+    public static string $outputPath;
+
     public ?string $url;
     public ?string $name;
     public ?string $language;

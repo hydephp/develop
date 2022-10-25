@@ -9,6 +9,7 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Services\DiscoveryService;
 
 /**
@@ -151,12 +152,12 @@ class Filesystem
     public function sitePath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::path(StaticPageBuilder::$outputPath);
+            return Hyde::path(Site::$outputPath);
         }
 
         $path = unslash($path);
 
-        return Hyde::path(StaticPageBuilder::$outputPath.DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Site::$outputPath .DIRECTORY_SEPARATOR.$path);
     }
 
     /**

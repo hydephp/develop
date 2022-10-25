@@ -7,6 +7,7 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Support\Route;
+use Hyde\Framework\Models\Support\Site;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
@@ -129,7 +130,7 @@ class BuildService
         return $this->confirm(sprintf(
             'The configured output directory (%s) is potentially unsafe to empty. '.
             'Are you sure you want to continue?',
-            StaticPageBuilder::$outputPath
+            Site::$outputPath
         ));
     }
 }

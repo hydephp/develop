@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Models\Support\Site;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
@@ -193,7 +194,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function test_aborts_when_non_standard_directory_is_emptied()
     {
-        StaticPageBuilder::$outputPath = 'foo';
+        Site::$outputPath = 'foo';
 
         mkdir(Hyde::path('foo'));
         Hyde::touch(('foo/keep.html'));

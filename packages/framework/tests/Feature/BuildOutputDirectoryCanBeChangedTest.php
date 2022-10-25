@@ -5,6 +5,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
+use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
@@ -20,7 +21,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
 
-        StaticPageBuilder::$outputPath = ('_site/build');
+        Site::$outputPath = ('_site/build');
 
         (new RebuildService('_posts/test-post.md'))->execute();
 
@@ -33,7 +34,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     {
         $this->file('_posts/test-post.md');
         File::deleteDirectory(Hyde::path('_site/build/foo'));
-        StaticPageBuilder::$outputPath = '_site/build/foo';
+        Site::$outputPath = '_site/build/foo';
         (new RebuildService('_posts/test-post.md'))->execute();
 
         $this->assertFileExists(Hyde::path('_site/build/foo/posts/test-post.html'));
@@ -42,12 +43,12 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
 
     public function test_site_output_directory_can_be_changed_in_configuration()
     {
-        $this->assertEquals('_site', StaticPageBuilder::$outputPath);
+        $this->assertEquals('_site', Site::$outputPath);
 
         config(['site.output_directory' => '_site/build']);
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('_site/build', StaticPageBuilder::$outputPath);
+        $this->assertEquals('_site/build', Site::$outputPath);
 
         $this->file('_posts/test-post.md');
         (new RebuildService('_posts/test-post.md'))->execute();
