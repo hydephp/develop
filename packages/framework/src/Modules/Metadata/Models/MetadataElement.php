@@ -2,9 +2,7 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-use Hyde\Framework\Contracts\MetadataItemContract;
-
-class MetadataElement implements MetadataItemContract
+class MetadataElement implements \Stringable
 {
     public function __construct(protected string $name, protected string $content)
     {
