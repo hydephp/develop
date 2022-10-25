@@ -31,7 +31,7 @@ If you however have written custom code that explicitly references the old names
 
 ### Other changes
 
-- The default navigation priority for sidebar items is now 500 instead of 999, matching the default priority for the main navigation.
+- The fallback navigation priority for all navigation items is now 999.
 
 ### Deprecated
 - for soon-to-be removed features.
