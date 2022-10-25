@@ -33,7 +33,7 @@ trait GeneratesNavigationData
         );
     }
 
-    protected function makeNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): NavigationData
+    private function makeNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): NavigationData
     {
         return NavigationData::make([
             'label' => $label,
