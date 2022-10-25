@@ -21,9 +21,7 @@ class LinkElement extends BaseMetadataElement
             return '<link rel="'.e($this->rel).'" href="'.e($this->href).'">';
         }
 
-        $attributes = collect($this->attr)->map(function ($value, $key) {
-            return e($key).'="'.e($value).'"';
-        })->implode(' ');
+        $attributes = $this->formatAttributesToHtmlString();
 
         return '<link rel="'.e($this->rel).'" href="'.e($this->href).'" '.$attributes.'>';
     }
@@ -31,5 +29,12 @@ class LinkElement extends BaseMetadataElement
     public function uniqueKey(): string
     {
         return $this->rel;
+    }
+
+    protected function formatAttributesToHtmlString(): string
+    {
+        return collect($this->attr)->map(function ($value, $key) {
+            return e($key) . '="' . e($value) . '"';
+        })->implode(' ');
     }
 }
