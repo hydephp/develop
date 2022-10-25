@@ -15,16 +15,16 @@ class OpenGraphElement extends BaseMetadataElement
 
     public function __toString(): string
     {
-        return '<meta property="'.e($this->property).'" content="'.e($this->content).'">';
+        return '<meta property="og:'.e($this->property).'" content="'.e($this->content).'">';
     }
 
     public function uniqueKey(): string
     {
-        return substr($this->property, 3);
+        return $this->property;
     }
 
     protected function normalizeProperty(string $property): string
     {
-        return str_starts_with($property, 'og:') ? $property : 'og:'.$property;
+        return str_starts_with($property, 'og:') ? substr($property, 3) : $property;
     }
 }
