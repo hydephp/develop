@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
  */
 final class FindsNavigationDataForPage
 {
-    const DEFAULT_PRIORITY = 999;
+    const FALLBACK_PRIORITY = 999;
 
     public static function run(HydePage $page): NavigationData
     {
@@ -96,8 +96,8 @@ final class FindsNavigationDataForPage
 
         // Different default return values are to preserve backwards compatibility
         return $this->page instanceof DocumentationPage
-            ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::DEFAULT_PRIORITY
-            : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::DEFAULT_PRIORITY;
+            ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
+            : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
     }
 
     private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
@@ -114,7 +114,7 @@ final class FindsNavigationDataForPage
         // This is all to make it easier to mix ways of adding priorities.
 
         return isset($config[$this->page->identifier])
-            ? $config[$this->page->identifier] + (self::DEFAULT_PRIORITY / 2)
+            ? $config[$this->page->identifier] + (self::FALLBACK_PRIORITY / 2)
             : null;
     }
 
