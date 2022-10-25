@@ -14,8 +14,7 @@ interface MetadataElementContract extends \Stringable
     public function __toString(): string;
 
     /**
-     * @return string The unique key for the element.
-     *                  If multiple elements have the same key, only the first one will be used.
+     * @return string The unique key for the element. If multiple elements have the same key, only the first one will be used.
      * @example description
      */
     public function uniqueKey(): string;
