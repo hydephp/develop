@@ -9,10 +9,8 @@ class OpenGraphElement implements \Stringable
 
     public function __construct(string $property, string $content)
     {
-        $this->property = $property;
+        $this->property = $this->normalizeProperty($property);
         $this->content = $content;
-
-        $this->normalizeProperty();
     }
 
     public function __toString(): string
@@ -25,8 +23,8 @@ class OpenGraphElement implements \Stringable
         return substr($this->property, 3);
     }
 
-    protected function normalizeProperty(): void
+    protected function normalizeProperty(string $property): string
     {
-        $this->property = str_starts_with($this->property, 'og:') ? $this->property : 'og:'.$this->property;
+        return str_starts_with($property, 'og:') ? $property : 'og:'.$property;
     }
 }
