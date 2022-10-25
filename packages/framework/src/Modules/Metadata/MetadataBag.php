@@ -5,9 +5,6 @@ namespace Hyde\Framework\Modules\Metadata;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Models\Metadata\LinkItem;
-use Hyde\Framework\Models\Metadata\MetadataItem;
-use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -55,11 +52,11 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataItemContract|string $item): static
     {
-        if ($item instanceof LinkItem) {
+        if ($item instanceof Metadata\LinkItem) {
             $this->links[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof MetadataItem) {
+        } elseif ($item instanceof Metadata\MetadataItem) {
             $this->metadata[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof OpenGraphItem) {
+        } elseif ($item instanceof Metadata\OpenGraphItem) {
             $this->properties[$item->uniqueKey()] = $item;
         } else {
             $this->generics[] = $item;

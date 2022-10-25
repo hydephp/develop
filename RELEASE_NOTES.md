@@ -56,3 +56,4 @@ The internal metadata handling has been refactored to make it more flexible and 
 #### Class and namespace changes
  
 - The MetadataBag class's namespace has been changed from `Hyde\Framework\Models\Metadata\MetadataBag` to `Hyde\Framework\Modules\Metadata\MetadataBag;`
+- All metadata models have been moved to the new namespace

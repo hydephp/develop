@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyde\Framework\Models\Metadata;
+namespace Hyde\Framework\Modules\Metadata\Metadata;
 
 use Hyde\Framework\Contracts\MetadataItemContract;
 

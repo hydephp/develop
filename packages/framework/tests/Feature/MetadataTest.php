@@ -4,19 +4,19 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Models\Metadata\LinkItem;
-use Hyde\Framework\Models\Metadata\MetadataItem;
-use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Modules\Metadata\Metadata\LinkItem;
+use Hyde\Framework\Modules\Metadata\Metadata\MetadataItem;
+use Hyde\Framework\Modules\Metadata\Metadata\OpenGraphItem;
 use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
- * @covers \Hyde\Framework\Models\Metadata\LinkItem
- * @covers \Hyde\Framework\Models\Metadata\MetadataItem
- * @covers \Hyde\Framework\Models\Metadata\OpenGraphItem
+ * @covers \Hyde\Framework\Modules\Metadata\Metadata\LinkItem
+ * @covers \Hyde\Framework\Modules\Metadata\Metadata\MetadataItem
+ * @covers \Hyde\Framework\Modules\Metadata\Metadata\OpenGraphItem
  */
 class MetadataTest extends TestCase
 {
