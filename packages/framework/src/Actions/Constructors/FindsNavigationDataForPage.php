@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 final class FindsNavigationDataForPage
 {
     protected const FALLBACK_PRIORITY = 999;
+    protected const CONFIG_OFFSET = 500;
 
     public static function run(HydePage $page): NavigationData
     {
@@ -114,7 +115,7 @@ final class FindsNavigationDataForPage
         // This is all to make it easier to mix ways of adding priorities.
 
         return isset($config[$this->page->identifier])
-            ? $config[$this->page->identifier] + (self::FALLBACK_PRIORITY / 2)
+            ? $config[$this->page->identifier] + (self::CONFIG_OFFSET)
             : null;
     }
 
