@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\PublishesHomepageView;
-use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -12,11 +11,6 @@ use Hyde\Testing\TestCase;
  */
 class PublishesHomepageViewTest extends TestCase
 {
-    public function test_implements_action_contract()
-    {
-        $this->assertInstanceOf(ActionContract::class, new PublishesHomepageView('foo'));
-    }
-
     public function test_home_pages_array_contains_all_available_home_pages()
     {
         $array = PublishesHomepageView::$homePages;

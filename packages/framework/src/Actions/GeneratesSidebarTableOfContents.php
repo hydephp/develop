@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Contracts\ActionContract;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
@@ -14,7 +13,7 @@ use League\CommonMark\MarkdownConverter;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
-class GeneratesSidebarTableOfContents implements ActionContract
+class GeneratesSidebarTableOfContents
 {
     protected string $markdown;
 
