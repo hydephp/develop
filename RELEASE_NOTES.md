@@ -31,7 +31,7 @@ If you however have written custom code that explicitly references the old names
 
 ### Other changes
 
-- The fallback navigation priority for all navigation items is now 999.
+- The fallback navigation priority for all navigation items is now 999. This change may influence the order of navigation items in your site. Before deploying your site to production, you may want to review the order of your navigation items and adjust the priority of any items that are not in the order you want.
 
 ### Deprecated
 - for soon-to-be removed features.
