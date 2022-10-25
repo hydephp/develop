@@ -14,7 +14,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function test_site_metadata_adds_config_defined_metadata()
     {
-        $this->resetConfig();
+        $this->emptyConfig();
 
         config(['hyde.meta' => [
             Meta::link('foo', 'bar'),
@@ -34,7 +34,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function test_site_metadata_automatically_adds_sitemap_when_enabled()
     {
-        $this->resetConfig();
+        $this->emptyConfig();
 
         config(['site.url' => 'foo']);
         config(['site.generate_sitemap' => true]);
@@ -44,7 +44,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function test_site_metadata_sitemap_uses_configured_site_url()
     {
-        $this->resetConfig();
+        $this->emptyConfig();
 
         config(['site.url' => 'bar']);
         config(['site.generate_sitemap' => true]);
@@ -54,7 +54,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function test_site_metadata_automatically_adds_rss_feed_when_enabled()
     {
-        $this->resetConfig();
+        $this->emptyConfig();
 
         config(['site.url' => 'foo']);
         config(['hyde.generate_rss_feed' => true]);
@@ -65,7 +65,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function test_site_metadata_rss_feed_uses_configured_site_url()
     {
-        $this->resetConfig();
+        $this->emptyConfig();
 
         config(['site.url' => 'bar']);
         config(['hyde.generate_rss_feed' => true]);
@@ -76,7 +76,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function test_site_metadata_rss_feed_uses_configured_site_name()
     {
-        $this->resetConfig();
+        $this->emptyConfig();
 
         config(['site.url' => 'foo']);
         config(['site.name' => 'Site']);
@@ -88,7 +88,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function test_site_metadata_rss_feed_uses_configured_rss_file_name()
     {
-        $this->resetConfig();
+        $this->emptyConfig();
 
         config(['site.url' => 'foo']);
         config(['hyde.rss_filename' => 'posts.rss']);
@@ -101,7 +101,7 @@ class GlobalMetadataBagTest extends TestCase
         );
     }
 
-    protected function resetConfig(): void
+    protected function emptyConfig(): void
     {
         config(['site.url' => null]);
         config(['hyde.meta' => []]);
