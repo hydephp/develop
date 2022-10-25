@@ -4,7 +4,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\View;
@@ -122,6 +121,21 @@ class GlobalMetadataBagTest extends TestCase
         View::share('page', $page);
 
         $this->assertEquals(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
+    }
+
+    public function test_metadata_existing_in_the_current_page_is_not_added_regardless_of_its_value()
+    {
+        $this->emptyConfig();
+
+        config(['hyde.meta' => [Meta::name('foo', 'bar')]]);
+
+        $page = new MarkdownPage('foo');
+        $page->metadata->add(Meta::name('foo', 'baz'));
+
+        View::share('currentPage', 'foo');
+        View::share('page', $page);
+
+        $this->assertEquals([], GlobalMetadataBag::make()->get());
     }
 
     protected function emptyConfig(): void
