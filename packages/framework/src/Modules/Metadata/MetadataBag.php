@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Modules\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Metadata\Models\BaseElement;
