@@ -42,13 +42,13 @@ class GlobalMetadataBag extends MetadataBag
         return $metadataBag;
     }
 
-    protected static function filterDuplicateMetadata(GlobalMetadataBag $global, HydePage $shared): static
+    protected static function filterDuplicateMetadata(GlobalMetadataBag $global, HydePage $page): static
     {
         // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
 
         foreach (['links', 'metadata', 'properties', 'generics'] as $type) {
             $global->$type = array_filter($global->$type, fn($meta) => !in_array($meta->uniqueKey(),
-                array_map(fn($meta) => $meta->uniqueKey(), $shared->metadata->$type)
+                array_map(fn($meta) => $meta->uniqueKey(), $page->metadata->$type)
             ));
         }
 
