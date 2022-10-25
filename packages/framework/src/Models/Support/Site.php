@@ -9,6 +9,8 @@ use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Services\RssFeedService;
 
 /**
+ * Object representation for the HydePHP site.
+ * 
  * @see \Hyde\Framework\Testing\Feature\SiteTest
  */
 final class Site
