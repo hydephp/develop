@@ -8,6 +8,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Models\Support\Site
+ * @covers \Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag
  */
 class SiteTest extends TestCase
 {
