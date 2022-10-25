@@ -49,16 +49,12 @@ class GlobalMetadataBag extends MetadataBag
         $page = $shared->metadata;
 
         foreach (['links', 'metadata', 'properties', 'generics'] as $type) {
-            $global->$type = self::runFilter($global, $page, $type);
+            $global->$type = array_filter($global->$type, fn($meta) => !in_array($meta->uniqueKey(),
+                array_map(fn($meta) => $meta->uniqueKey(), $page->$type)
+            ));
         }
 
         return $global;
     }
 
-    protected static function runFilter(GlobalMetadataBag $global, MetadataBag $page, string $property): array
-    {
-        return array_filter($global->$property, fn ($meta) => ! in_array($meta->uniqueKey(),
-            array_map(fn($meta) => $meta->uniqueKey(), $page->$property)
-        ));
-    }
 }
