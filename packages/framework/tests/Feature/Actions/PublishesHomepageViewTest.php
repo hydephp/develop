@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\PublishesHomepageView;
-use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Testing\TestCase;
 

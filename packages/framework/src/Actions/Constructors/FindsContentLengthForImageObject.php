@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Framework\Contracts\ActionContract;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Support\Image;
 use Illuminate\Support\Facades\Http;
