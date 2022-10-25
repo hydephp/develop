@@ -52,11 +52,11 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataItemContract|string $item): static
     {
-        if ($item instanceof Metadata\LinkItem) {
+        if ($item instanceof Models\LinkItem) {
             $this->links[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof Metadata\MetadataItem) {
+        } elseif ($item instanceof Models\MetadataItem) {
             $this->metadata[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof Metadata\OpenGraphItem) {
+        } elseif ($item instanceof Models\OpenGraphItem) {
             $this->properties[$item->uniqueKey()] = $item;
         } else {
             $this->generics[] = $item;
