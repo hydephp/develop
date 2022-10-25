@@ -2,7 +2,9 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-class MetadataElement extends GenericMetadataElement
+use Hyde\Framework\Modules\Metadata\MetadataElementContract;
+
+class MetadataElement implements MetadataElementContract
 {
     protected string $name;
     protected string $content;

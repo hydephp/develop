@@ -2,7 +2,9 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-class OpenGraphElement extends GenericMetadataElement
+use Hyde\Framework\Modules\Metadata\MetadataElementContract;
+
+class OpenGraphElement implements MetadataElementContract
 {
     protected string $property;
     protected string $content;
