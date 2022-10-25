@@ -110,11 +110,10 @@ trait GeneratesNavigationData
     private function getDocumentationPageGroup(): ?string
     {
         // If the documentation page is in a subdirectory,
-        // then we can use that as the category name.
-        // Otherwise, we look in the front matter.
-
         return str_contains($this->identifier, '/')
+            // then we can use that as the category name.
             ? Str::before($this->identifier, '/')
+            // Otherwise, we look in the front matter.
             : $this->matter('navigation.group', 'other');
     }
 }
