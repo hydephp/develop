@@ -8,7 +8,6 @@ use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Metadata\LinkItem;
 use Hyde\Framework\Models\Metadata\MetadataItem;
 use Hyde\Framework\Models\Metadata\OpenGraphItem;
-use function Hyde\Framework\Models\Metadata\str_starts_with;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Contracts\Support\Htmlable;
 
