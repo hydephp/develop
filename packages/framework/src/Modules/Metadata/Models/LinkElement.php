@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-class LinkElement implements \Stringable
+class LinkElement extends Element
 {
     protected string $rel;
     protected string $href;

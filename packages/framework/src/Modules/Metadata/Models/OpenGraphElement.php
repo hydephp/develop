@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-class OpenGraphElement implements \Stringable
+class OpenGraphElement extends Element
 {
     protected string $property;
     protected string $content;
