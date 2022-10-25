@@ -4,6 +4,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Support\Site;
+use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
 
 /**
@@ -60,6 +61,11 @@ class SiteTest extends TestCase
 
         config(['site.language' => 'foo']);
         $this->assertSame('foo', Site::language());
+    }
+
+    public function testMetadata()
+    {
+        $this->assertEquals(GlobalMetadataBag::make(), Site::metadata());
     }
 
     public function test_site_metadata_adds_config_defined_metadata()
