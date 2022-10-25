@@ -40,3 +40,11 @@ If you however have written custom code that explicitly references the old names
 
 ### Security
 - in case of vulnerabilities.
+
+
+---
+
+## Additional details about the internal changes
+
+These are additional details about the changes that are not relevant to the end user, but could be relevant to
+developers who write custom code and integrations using the HydePHP framework.
