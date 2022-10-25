@@ -67,11 +67,11 @@ class MetadataBag implements Htmlable
         // Run any code when the object is instantiated.
     }
 
-    protected function getPrefixedArray(string $group): array
+    protected function getPrefixedArray(string $type): array
     {
         $array = [];
         foreach ($this->{$group} as $key => $value) {
-            $array[$group.':'.$key] = $value;
+            $array[$type.':'.$key] = $value;
         }
 
         return $array;
