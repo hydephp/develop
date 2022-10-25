@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Foundation;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\BladePage;
@@ -157,7 +156,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Site::$outputPath .DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(Site::$outputPath.DIRECTORY_SEPARATOR.$path);
     }
 
     /**

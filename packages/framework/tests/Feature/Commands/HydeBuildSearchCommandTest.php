@@ -3,7 +3,6 @@
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Support\Site;
