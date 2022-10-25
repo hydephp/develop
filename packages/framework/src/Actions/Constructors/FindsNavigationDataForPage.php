@@ -113,7 +113,9 @@ final class FindsNavigationDataForPage
         // It's lower than the fallback of 500 so that the config ones still come first.
         // This is all to make it easier to mix ways of adding priorities.
 
-        return isset($config[$this->page->identifier]) ? $config[$this->page->identifier] + (self::DEFAULT_PRIORITY / 2) : null;
+        return isset($config[$this->page->identifier])
+            ? $config[$this->page->identifier] + (self::DEFAULT_PRIORITY / 2)
+            : null;
     }
 
     private function getNavigationLabelConfig(): array
