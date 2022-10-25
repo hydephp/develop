@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Helpers;
 
-use Hyde\Framework\Modules\Metadata\Models\LinkItem;
+use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataItem;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphItem;
 
@@ -23,9 +23,9 @@ class Meta
         return new OpenGraphItem($property, $content);
     }
 
-    public static function link(string $rel, string $href, array $attr = []): LinkItem
+    public static function link(string $rel, string $href, array $attr = []): LinkElement
     {
-        return new LinkItem($rel, $href, $attr);
+        return new LinkElement($rel, $href, $attr);
     }
 
     public static function get(array $withMergedData = []): array

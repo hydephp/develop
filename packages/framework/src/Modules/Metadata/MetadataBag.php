@@ -52,7 +52,7 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataItemContract|string $item): static
     {
-        if ($item instanceof Models\LinkItem) {
+        if ($item instanceof Models\LinkElement) {
             $this->links[$item->uniqueKey()] = $item;
         } elseif ($item instanceof Models\MetadataItem) {
             $this->metadata[$item->uniqueKey()] = $item;

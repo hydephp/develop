@@ -6,7 +6,7 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Modules\Metadata\Models\LinkItem;
+use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataItem;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphItem;
 use Hyde\Framework\Modules\Metadata\MetadataBag;
@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
- * @covers \Hyde\Framework\Modules\Metadata\Models\LinkItem
+ * @covers \Hyde\Framework\Modules\Metadata\Models\LinkElement
  * @covers \Hyde\Framework\Modules\Metadata\Models\MetadataItem
  * @covers \Hyde\Framework\Modules\Metadata\Models\OpenGraphItem
  */
@@ -57,11 +57,11 @@ class MetadataTest extends TestCase
 
     public function test_link_item_model()
     {
-        $item = new LinkItem('rel', 'href');
+        $item = new LinkElement('rel', 'href');
         $this->assertEquals('rel', $item->uniqueKey());
         $this->assertEquals('<link rel="rel" href="href">', (string) $item);
 
-        $item = new LinkItem('rel', 'href', ['attr' => 'value']);
+        $item = new LinkElement('rel', 'href', ['attr' => 'value']);
         $this->assertEquals('<link rel="rel" href="href" attr="value">', (string) $item);
     }
 
