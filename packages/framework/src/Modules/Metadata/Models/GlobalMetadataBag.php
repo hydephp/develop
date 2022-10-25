@@ -46,10 +46,12 @@ class GlobalMetadataBag extends MetadataBag
     {
         // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
 
-        $global->links = array_filter($global->links, fn ($link) => !in_array($link, $shared->metadata->links));
-        $global->metadata = array_filter($global->metadata, fn ($meta) => !in_array($meta, $shared->metadata->metadata));
-        $global->properties = array_filter($global->properties, fn ($property) => !in_array($property, $shared->metadata->properties));
-        $global->generics = array_filter($global->generics, fn ($generic) => !in_array($generic, $shared->metadata->generics));
+        $page = $shared->metadata;
+
+        $global->links = array_filter($global->links, fn ($link) => !in_array($link, $page->links));
+        $global->metadata = array_filter($global->metadata, fn ($meta) => !in_array($meta, $page->metadata));
+        $global->properties = array_filter($global->properties, fn ($property) => !in_array($property, $page->properties));
+        $global->generics = array_filter($global->generics, fn ($generic) => !in_array($generic, $page->generics));
 
         return $global;
     }
