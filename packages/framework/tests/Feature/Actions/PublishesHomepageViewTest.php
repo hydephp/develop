@@ -26,7 +26,6 @@ class PublishesHomepageViewTest extends TestCase
         $this->assertEquals(sizeof($files), sizeof($array));
     }
 
-    // Text execute method returns 404 if the supplied home page doesn't exist
     public function test_execute_method_returns404_if_home_page_does_not_exist()
     {
         $action = new PublishesHomepageView('foo');
