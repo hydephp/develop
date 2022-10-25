@@ -36,13 +36,13 @@ class GlobalMetadataBag extends MetadataBag
         }
 
         if (Hyde::currentPage() !== null) {
-            return static::filterDuplicateMetadata($metadataBag, View::shared('page'));
+            static::filterDuplicateMetadata($metadataBag, View::shared('page'));
         }
 
         return $metadataBag;
     }
 
-    protected static function filterDuplicateMetadata(GlobalMetadataBag $global, HydePage $page): static
+    protected static function filterDuplicateMetadata(GlobalMetadataBag &$global, HydePage $page): void
     {
         // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
 
@@ -51,7 +51,5 @@ class GlobalMetadataBag extends MetadataBag
                 array_map(fn($meta) => $meta->uniqueKey(), $page->metadata->$type)
             ));
         }
-
-        return $global;
     }
 }
