@@ -15,17 +15,17 @@ use Illuminate\Support\Str;
  */
 trait GeneratesNavigationData
 {
-    protected function constructNavigationData(): void
+    protected function constructNavigationData(): NavigationData
     {
         if ($this instanceof DocumentationPageSchema) {
-            $this->setNavigationData(
+            return $this->makeNavigationData(
                 $this->findNavigationMenuLabel(),
                 $this->findNavigationMenuHidden(),
                 $this->matter('navigation.priority', $this->findNavigationMenuPriority()),
                 $this->getDocumentationPageGroup()
             );
         } else {
-            $this->setNavigationData(
+            return $this->makeNavigationData(
                 $this->findNavigationMenuLabel(),
                 $this->findNavigationMenuHidden(),
                 $this->findNavigationMenuPriority(),
@@ -33,9 +33,9 @@ trait GeneratesNavigationData
         }
     }
 
-    protected function setNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): void
+    protected function makeNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): NavigationData
     {
-        $this->navigation = NavigationData::make([
+        return NavigationData::make([
             'label' => $label,
             'group' => $group,
             'hidden' => $hidden,
