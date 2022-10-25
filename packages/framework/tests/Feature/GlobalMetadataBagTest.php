@@ -3,9 +3,11 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\View;
 
 /**
  * @covers \Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag
@@ -99,6 +101,23 @@ class GlobalMetadataBagTest extends TestCase
             '<link rel="alternate" href="foo/posts.rss" type="application/rss+xml" title="HydePHP RSS Feed">',
             GlobalMetadataBag::make()->render()
         );
+    }
+
+    public function test_metadata_existing_in_the_current_page_is_not_added()
+    {
+        $this->emptyConfig();
+
+        $metadata = Meta::name('foo', 'bar');
+
+        config(['hyde.meta' => [$metadata]]);
+
+        $page = new MarkdownPage('foo');
+        $page->metadata->add($metadata);
+
+        View::share('currentPage', 'foo');
+        View::share('page', $page);
+
+        $this->assertEquals([], GlobalMetadataBag::make()->get());
     }
 
     protected function emptyConfig(): void

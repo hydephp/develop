@@ -2,11 +2,13 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Services\RssFeedService;
+use Illuminate\Support\Facades\View;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
@@ -35,6 +37,22 @@ class GlobalMetadataBag extends MetadataBag
                 'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
             ]));
         }
+
+        if (Hyde::currentPage() !== null) {
+            return static::filterDuplicateMetadata($metadataBag, View::shared('page'));
+        }
+
+        return $metadataBag;
+    }
+
+    protected static function filterDuplicateMetadata(GlobalMetadataBag $metadataBag, HydePage $shared): static
+    {
+        // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
+
+        $metadataBag->links = array_filter($metadataBag->links, fn ($link) => !in_array($link, $shared->metadata->links));
+        $metadataBag->metadata = array_filter($metadataBag->metadata, fn ($meta) => !in_array($meta, $shared->metadata->metadata));
+        $metadataBag->properties = array_filter($metadataBag->properties, fn ($property) => !in_array($property, $shared->metadata->properties));
+        $metadataBag->generics = array_filter($metadataBag->generics, fn ($generic) => !in_array($generic, $shared->metadata->generics));
 
         return $metadataBag;
     }
