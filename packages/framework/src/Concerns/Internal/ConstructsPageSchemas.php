@@ -2,8 +2,8 @@
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
+use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
