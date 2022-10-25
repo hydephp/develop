@@ -4,8 +4,14 @@ namespace Hyde\Framework\Modules\Metadata\Models;
 
 class OpenGraphElement implements \Stringable
 {
-    public function __construct(protected string $property, protected string $content)
+    protected string $property;
+    protected string $content;
+
+    public function __construct(string $property, string $content)
     {
+        $this->property = $property;
+        $this->content = $content;
+
         $this->normalizeProperty();
     }
 

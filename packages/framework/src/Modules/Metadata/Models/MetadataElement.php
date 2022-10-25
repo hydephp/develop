@@ -4,8 +4,13 @@ namespace Hyde\Framework\Modules\Metadata\Models;
 
 class MetadataElement implements \Stringable
 {
-    public function __construct(protected string $name, protected string $content)
+    protected string $name;
+    protected string $content;
+
+    public function __construct(string $name, string $content)
     {
+        $this->name = $name;
+        $this->content = $content;
     }
 
     public function __toString(): string

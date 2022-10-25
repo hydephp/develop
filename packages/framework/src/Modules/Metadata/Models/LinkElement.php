@@ -4,8 +4,15 @@ namespace Hyde\Framework\Modules\Metadata\Models;
 
 class LinkElement implements \Stringable
 {
-    public function __construct(protected string $rel, protected string $href, protected array $attr = [])
+    protected string $rel;
+    protected string $href;
+    protected array $attr = [];
+
+    public function __construct(string $rel, string $href, array $attr = [])
     {
+        $this->rel = $rel;
+        $this->href = $href;
+        $this->attr = $attr;
     }
 
     public function __toString(): string
