@@ -73,7 +73,7 @@ return [
     | In the generated Documentation pages the navigation links in the sidebar
     | default to sort alphabetically. You can reorder the page identifiers
     | in the list below, and the links will get sorted in that order.
-    | 
+    |
     | Internally, the items listed will get a position priority of 250 + the order its found in the list.
     | Link items without an entry here will have fall back to the default priority of 999, putting them last.
     |
