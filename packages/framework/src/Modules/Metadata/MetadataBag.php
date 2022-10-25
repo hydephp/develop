@@ -76,7 +76,7 @@ class MetadataBag implements Htmlable
         $array = [];
 
         foreach ($this->{$type} as $key => $value) {
-            $array[$type.':'.$key] = $value;
+            $array["$type:$key"] = $value;
         }
 
         return $array;
