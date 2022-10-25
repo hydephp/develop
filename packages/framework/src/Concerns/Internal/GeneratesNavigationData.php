@@ -24,13 +24,13 @@ trait GeneratesNavigationData
                 $this->matter('navigation.priority', $this->findNavigationMenuPriority()),
                 $this->getDocumentationPageGroup()
             );
-        } else {
-            return $this->makeNavigationData(
-                $this->findNavigationMenuLabel(),
-                $this->findNavigationMenuHidden(),
-                $this->findNavigationMenuPriority(),
-            );
         }
+
+        return $this->makeNavigationData(
+            $this->findNavigationMenuLabel(),
+            $this->findNavigationMenuHidden(),
+            $this->findNavigationMenuPriority(),
+        );
     }
 
     protected function makeNavigationData(string $label, bool $hidden, int $priority, ?string $group = null): NavigationData
