@@ -3,8 +3,8 @@
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
+use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\Author;
@@ -27,7 +27,7 @@ trait ConstructsPageSchemas
         $this->title = FindsTitleForPage::run($this);
         $this->canonicalUrl = $this->makeCanonicalUrl();
 
-        $this->navigation = $this->constructNavigationData();
+        $this->navigation = FindsNavigationDataForPage::run($this);
     }
 
     protected function makeCanonicalUrl(): ?string
