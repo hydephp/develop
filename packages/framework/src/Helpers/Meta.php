@@ -7,7 +7,7 @@ use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
 
 /**
- * Helpers to fluently declare HTML meta tags.
+ * Helpers to fluently declare HTML meta elements using their object representations.
  *
  * @see \Hyde\Framework\Testing\Feature\MetadataHelperTest
  */
