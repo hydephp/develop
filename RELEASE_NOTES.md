@@ -48,3 +48,9 @@ If you however have written custom code that explicitly references the old names
 
 These are additional details about the changes that are not relevant to the end user, but could be relevant to
 developers who write custom code and integrations using the HydePHP framework.
+
+### Changes and refactors regarding the internal metadata handling
+
+#### Class and namespace changes
+ 
+- The MetadataBag class's namespace has been changed from `Hyde\Framework\Models\Metadata\MetadataBag` to `Hyde\Framework\Modules\Metadata\MetadataBag;`

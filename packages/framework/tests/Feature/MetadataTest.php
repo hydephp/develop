@@ -5,15 +5,15 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Metadata\LinkItem;
-use Hyde\Framework\Models\Metadata\MetadataBag;
 use Hyde\Framework\Models\Metadata\MetadataItem;
 use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Metadata\MetadataBag
+ * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
  * @covers \Hyde\Framework\Models\Metadata\LinkItem
  * @covers \Hyde\Framework\Models\Metadata\MetadataItem
  * @covers \Hyde\Framework\Models\Metadata\OpenGraphItem

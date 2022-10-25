@@ -1,12 +1,16 @@
 <?php
 
-namespace Hyde\Framework\Models\Metadata;
+namespace Hyde\Framework\Modules\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Models\Metadata\LinkItem;
+use Hyde\Framework\Models\Metadata\MetadataItem;
+use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Contracts\Support\Htmlable;
+use function Hyde\Framework\Models\Metadata\str_starts_with;
 
 /**
  * Holds the metadata tags for a page or the site model.
