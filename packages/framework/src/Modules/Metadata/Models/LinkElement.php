@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-class LinkElement extends BaseMetadataElement
+class LinkElement extends GenericMetadataElement
 {
     protected string $rel;
     protected string $href;
