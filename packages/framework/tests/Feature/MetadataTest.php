@@ -4,19 +4,19 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Models\Metadata\LinkItem;
-use Hyde\Framework\Models\Metadata\MetadataBag;
-use Hyde\Framework\Models\Metadata\MetadataItem;
-use Hyde\Framework\Models\Metadata\OpenGraphItem;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Modules\Metadata\MetadataBag;
+use Hyde\Framework\Modules\Metadata\Models\LinkElement;
+use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
+use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Metadata\MetadataBag
- * @covers \Hyde\Framework\Models\Metadata\LinkItem
- * @covers \Hyde\Framework\Models\Metadata\MetadataItem
- * @covers \Hyde\Framework\Models\Metadata\OpenGraphItem
+ * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
+ * @covers \Hyde\Framework\Modules\Metadata\Models\LinkElement
+ * @covers \Hyde\Framework\Modules\Metadata\Models\MetadataElement
+ * @covers \Hyde\Framework\Modules\Metadata\Models\OpenGraphElement
  */
 class MetadataTest extends TestCase
 {
@@ -57,28 +57,28 @@ class MetadataTest extends TestCase
 
     public function test_link_item_model()
     {
-        $item = new LinkItem('rel', 'href');
+        $item = new LinkElement('rel', 'href');
         $this->assertEquals('rel', $item->uniqueKey());
         $this->assertEquals('<link rel="rel" href="href">', (string) $item);
 
-        $item = new LinkItem('rel', 'href', ['attr' => 'value']);
+        $item = new LinkElement('rel', 'href', ['attr' => 'value']);
         $this->assertEquals('<link rel="rel" href="href" attr="value">', (string) $item);
     }
 
     public function test_metadata_item_model()
     {
-        $item = new MetadataItem('name', 'content');
+        $item = new MetadataElement('name', 'content');
         $this->assertEquals('name', $item->uniqueKey());
         $this->assertEquals('<meta name="name" content="content">', (string) $item);
     }
 
     public function test_open_graph_item_model()
     {
-        $item = new OpenGraphItem('property', 'content');
+        $item = new OpenGraphElement('property', 'content');
         $this->assertEquals('property', $item->uniqueKey());
         $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
 
-        $item = new OpenGraphItem('og:property', 'content');
+        $item = new OpenGraphElement('og:property', 'content');
         $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
     }
 

@@ -13,16 +13,48 @@ This serves two purposes:
 - for new features.
 
 ### Changed
-- Breaking: HydePHP now requires PHP 8.1 or higher.
+
+#### Breaking changes
+These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
+
+- HydePHP now requires PHP 8.1 or higher.
+
+#### Breaking internal changes
+These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.
+Instead, these changes will likely only concern those who write custom code and integrations using the HydePHP framework.
+
+These types of changes are handled within the framework ecosystem to ensure they do not affect those using HydePHP to create sites.
+For example, if a namespace is changed, all internal references to that namespace are updated, so most users won't even notice it.
+If you however have written custom code that explicitly references the old namespace, you will need to update your code to use the new namespace.
+
+- Changes and refactors regarding the internal metadata handling, see below.
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- for now removed features.
+- Removed MetadataItemContract.php (use new abstract class BaseMetadataElement)
 
 ### Fixed
 - for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
+
+
+---
+
+## Additional details about the internal changes
+
+These are additional details about the changes that are not relevant to the end user, but could be relevant to
+developers who write custom code and integrations using the HydePHP framework.
+
+### Changes and refactors regarding the internal metadata handling
+
+The internal metadata handling has been refactored to make it more flexible and easier to extend. If you have not written any custom code that interacts with the metadata system, you can skip this section.
+
+#### Class and namespace changes
+ 
+- The MetadataBag class's namespace has been changed from `Hyde\Framework\Models\Metadata\MetadataBag` to `Hyde\Framework\Modules\Metadata\MetadataBag;`
+- All metadata models have been moved to the new namespace `Hyde\Framework\Modules\Metadata\Models`
+- All metadata models have been renamed, changing the suffix `Item` to `Model`

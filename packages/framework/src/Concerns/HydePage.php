@@ -9,9 +9,9 @@ use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Metadata\MetadataBag;
 use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Support\Route;
+use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Arr;
 

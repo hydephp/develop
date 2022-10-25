@@ -1,11 +1,11 @@
 <?php
 
-namespace Hyde\Framework\Models\Metadata;
+namespace Hyde\Framework\Modules\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Contracts\MetadataItemContract;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Modules\Metadata\Models\BaseMetadataElement;
 use Illuminate\Contracts\Support\Htmlable;
 
 /**
@@ -50,13 +50,13 @@ class MetadataBag implements Htmlable
         );
     }
 
-    public function add(MetadataItemContract|string $item): static
+    public function add(BaseMetadataElement|string $item): static
     {
-        if ($item instanceof LinkItem) {
+        if ($item instanceof Models\LinkElement) {
             $this->links[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof MetadataItem) {
+        } elseif ($item instanceof Models\MetadataElement) {
             $this->metadata[$item->uniqueKey()] = $item;
-        } elseif ($item instanceof OpenGraphItem) {
+        } elseif ($item instanceof Models\OpenGraphElement) {
             $this->properties[$item->uniqueKey()] = $item;
         } else {
             $this->generics[] = $item;

@@ -2,9 +2,9 @@
 
 namespace Hyde\Framework\Helpers;
 
-use Hyde\Framework\Models\Metadata\LinkItem;
-use Hyde\Framework\Models\Metadata\MetadataItem;
-use Hyde\Framework\Models\Metadata\OpenGraphItem;
+use Hyde\Framework\Modules\Metadata\Models\LinkElement;
+use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
+use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
 
 /**
  * Helpers to fluently declare HTML meta tags.
@@ -13,19 +13,19 @@ use Hyde\Framework\Models\Metadata\OpenGraphItem;
  */
 class Meta
 {
-    public static function name(string $name, string $content): MetadataItem
+    public static function name(string $name, string $content): MetadataElement
     {
-        return new MetadataItem($name, $content);
+        return new MetadataElement($name, $content);
     }
 
-    public static function property(string $property, string $content): OpenGraphItem
+    public static function property(string $property, string $content): OpenGraphElement
     {
-        return new OpenGraphItem($property, $content);
+        return new OpenGraphElement($property, $content);
     }
 
-    public static function link(string $rel, string $href, array $attr = []): LinkItem
+    public static function link(string $rel, string $href, array $attr = []): LinkElement
     {
-        return new LinkItem($rel, $href, $attr);
+        return new LinkElement($rel, $href, $attr);
     }
 
     public static function get(array $withMergedData = []): array

@@ -5,7 +5,7 @@ namespace Hyde\Framework\Models\Support;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Metadata\MetadataBag;
+use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Services\RssFeedService;
 
 /**
