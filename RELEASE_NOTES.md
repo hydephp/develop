@@ -28,6 +28,8 @@ For example, if a namespace is changed, all internal references to that namespac
 If you however have written custom code that explicitly references the old namespace, you will need to update your code to use the new namespace.
 
 - Changes and refactors regarding the internal metadata handling, see below.
+- The static class property used to determine the site output path has been moved.
+  * Instead of using `StaticPageBuilder::$outputPath` you must now use `Site::$outputPath`.
 
 ### Other changes
 

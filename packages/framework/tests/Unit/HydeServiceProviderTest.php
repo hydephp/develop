@@ -2,13 +2,13 @@
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Testing\TestCase;
@@ -112,13 +112,13 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_site_output_directory()
     {
-        $this->assertEquals('_site', StaticPageBuilder::$outputPath);
+        $this->assertEquals('_site', Site::$outputPath);
 
         config(['site.output_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals('foo', StaticPageBuilder::$outputPath);
+        $this->assertEquals('foo', Site::$outputPath);
     }
 
     public function test_provider_registers_blade_view_discovery_location_for_configured_blade_view_path()

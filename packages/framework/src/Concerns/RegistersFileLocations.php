@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Models\Support\Site;
 
 /**
  * This trait registers the file paths for important Hyde locations.
@@ -71,6 +71,6 @@ trait RegistersFileLocations
      */
     protected function storeCompiledSiteIn(string $directory): void
     {
-        StaticPageBuilder::$outputPath = $directory;
+        Site::$outputPath = $directory;
     }
 }
