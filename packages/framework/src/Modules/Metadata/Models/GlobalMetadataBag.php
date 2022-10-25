@@ -46,11 +46,9 @@ class GlobalMetadataBag extends MetadataBag
     {
         // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
 
-        $page = $shared->metadata;
-
         foreach (['links', 'metadata', 'properties', 'generics'] as $type) {
             $global->$type = array_filter($global->$type, fn($meta) => !in_array($meta->uniqueKey(),
-                array_map(fn($meta) => $meta->uniqueKey(), $page->$type)
+                array_map(fn($meta) => $meta->uniqueKey(), $shared->metadata->$type)
             ));
         }
 
