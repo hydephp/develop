@@ -42,7 +42,6 @@ If you however have written custom code that explicitly references the old names
 - for soon-to-be removed features.
 
 ### Removed
-- Removed MetadataItemContract.php (use new abstract class BaseMetadataElement)
 - Removed single usage trait AsksToRebuildSite.php (inlined into HydePublishHomepageCommand.php)
 - Removed interface ActionContract.php
 
@@ -68,4 +67,5 @@ The internal metadata handling has been refactored to make it more flexible and 
  
 - The MetadataBag class's namespace has been changed from `Hyde\Framework\Models\Metadata\MetadataBag` to `Hyde\Framework\Modules\Metadata\MetadataBag;`
 - All metadata models have been moved to the new namespace `Hyde\Framework\Modules\Metadata\Models`
-- All metadata models have been renamed, changing the suffix `Item` to `Model`
+- All metadata models have been renamed, changing the suffix `Item` to `Element`
+- Renamed MetadataItemContract.php to MetadataElementContract.php in the new namespace `Hyde\Framework\Modules\Metadata`

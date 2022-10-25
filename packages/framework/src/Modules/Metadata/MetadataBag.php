@@ -5,7 +5,6 @@ namespace Hyde\Framework\Modules\Metadata;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Modules\Metadata\Models\BaseMetadataElement;
 use Illuminate\Contracts\Support\Htmlable;
 
 /**
@@ -50,7 +49,7 @@ class MetadataBag implements Htmlable
         );
     }
 
-    public function add(BaseMetadataElement|string $item): static
+    public function add(MetadataElementContract|string $item): static
     {
         if ($item instanceof Models\LinkElement) {
             $this->links[$item->uniqueKey()] = $item;
