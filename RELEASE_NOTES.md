@@ -30,7 +30,7 @@ If you however have written custom code that explicitly references the old names
 - Changes and refactors regarding the internal metadata handling, see below.
 
 ### Deprecated
-- for soon-to-be removed features.
+- Deprecated MetadataItemContract.php
 
 ### Removed
 - for now removed features.
