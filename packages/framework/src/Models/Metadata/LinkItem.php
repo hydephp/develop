@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models\Metadata;
 
 use Hyde\Framework\Contracts\MetadataItemContract;
 
-class LinkItem implements MetadataItemContract, \Stringable
+class LinkItem implements MetadataItemContract
 {
     public function __construct(protected string $rel, protected string $href, protected array $attr = [])
     {

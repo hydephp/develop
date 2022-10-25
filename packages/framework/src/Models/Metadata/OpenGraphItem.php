@@ -4,7 +4,7 @@ namespace Hyde\Framework\Models\Metadata;
 
 use Hyde\Framework\Contracts\MetadataItemContract;
 
-class OpenGraphItem implements MetadataItemContract, \Stringable
+class OpenGraphItem implements MetadataItemContract
 {
     public function __construct(protected string $property, protected string $content)
     {
