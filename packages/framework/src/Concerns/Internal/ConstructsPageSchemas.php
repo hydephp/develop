@@ -27,7 +27,7 @@ trait ConstructsPageSchemas
         $this->title = FindsTitleForPage::run($this);
         $this->canonicalUrl = $this->makeCanonicalUrl();
 
-        $this->constructNavigationData();
+        $this->navigation = $this->constructNavigationData();
     }
 
     protected function makeCanonicalUrl(): ?string
