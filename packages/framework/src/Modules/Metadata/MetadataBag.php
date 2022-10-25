@@ -21,7 +21,7 @@ class MetadataBag implements Htmlable
 
     public function __construct(?HydePage $page = null)
     {
-        if ($page) {
+        if ($page !== null) {
             $this->page = $page;
             $this->generate();
         }
