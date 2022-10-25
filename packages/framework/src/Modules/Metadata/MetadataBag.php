@@ -2,7 +2,6 @@
 
 namespace Hyde\Framework\Modules\Metadata;
 
-use Hyde\Framework\Concerns\HydePage;
 use Illuminate\Contracts\Support\Htmlable;
 
 /**
@@ -12,20 +11,10 @@ use Illuminate\Contracts\Support\Htmlable;
  */
 class MetadataBag implements Htmlable
 {
-    protected HydePage $page;
-
     public array $links = [];
     public array $metadata = [];
     public array $properties = [];
     public array $generics = [];
-
-    public function __construct(?HydePage $page = null)
-    {
-        if ($page !== null) {
-            $this->page = $page;
-            $this->generate();
-        }
-    }
 
     public function toHtml(): string
     {
@@ -60,11 +49,6 @@ class MetadataBag implements Htmlable
         }
 
         return $this;
-    }
-
-    protected function generate(): void
-    {
-        // Run any code when the object is instantiated.
     }
 
     protected function getPrefixedArray(string $type): array

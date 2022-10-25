@@ -8,6 +8,16 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 
 class PageMetadataBag extends MetadataBag
 {
+    protected HydePage $page;
+
+    public function __construct(?HydePage $page = null)
+    {
+        if ($page !== null) {
+            $this->page = $page;
+            $this->generate();
+        }
+    }
+
     protected function generate(): void
     {
         $this->addDynamicPageMetadata($this->page);
