@@ -6,6 +6,7 @@ use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Metadata\MetadataBag;
+use Hyde\Framework\Modules\Metadata\Models\GlobalMetadataBag;
 use Hyde\Framework\Services\RssFeedService;
 
 /**
@@ -47,26 +48,8 @@ final class Site
     /**
      * @todo #536 Remove duplicate metadata from page;
      */
-    public static function metadata(): MetadataBag
+    public static function metadata(): GlobalMetadataBag
     {
-        $metadataBag = new MetadataBag();
-
-        foreach (config('hyde.meta', []) as $item) {
-            $metadataBag->add($item);
-        }
-
-        if (Features::sitemap()) {
-            $metadataBag->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
-                'type' => 'application/xml', 'title' => 'Sitemap',
-            ]));
-        }
-
-        if (Features::rss()) {
-            $metadataBag->add(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
-                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
-            ]));
-        }
-
-        return $metadataBag;
+        return GlobalMetadataBag::make();
     }
 }
