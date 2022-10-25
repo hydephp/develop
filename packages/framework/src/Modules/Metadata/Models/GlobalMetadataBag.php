@@ -8,6 +8,9 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Framework\Services\RssFeedService;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
+ */
 class GlobalMetadataBag extends MetadataBag
 {
     /**
