@@ -48,11 +48,16 @@ class GlobalMetadataBag extends MetadataBag
 
         $page = $shared->metadata;
 
-        $global->links = array_filter($global->links, fn ($link) => !in_array($link, $page->links));
-        $global->metadata = array_filter($global->metadata, fn ($meta) => !in_array($meta, $page->metadata));
-        $global->properties = array_filter($global->properties, fn ($property) => !in_array($property, $page->properties));
-        $global->generics = array_filter($global->generics, fn ($generic) => !in_array($generic, $page->generics));
+        $global->links = self::runFilter($global, $page, 'links');
+        $global->metadata = self::runFilter($global, $page, 'metadata');
+        $global->properties = self::runFilter($global, $page, 'properties');
+        $global->generics = self::runFilter($global, $page, 'generics');
 
         return $global;
+    }
+
+    protected static function runFilter(GlobalMetadataBag $global, MetadataBag $page, string $property): array
+    {
+        return array_filter($global->$property, fn($item) => !in_array($item, $page->$property));
     }
 }
