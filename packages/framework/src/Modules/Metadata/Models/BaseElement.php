@@ -2,7 +2,7 @@
 
 namespace Hyde\Framework\Modules\Metadata\Models;
 
-abstract class Element implements \Stringable
+abstract class BaseElement implements \Stringable
 {
     abstract public function __toString(): string;
 
