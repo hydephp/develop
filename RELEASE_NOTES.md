@@ -51,6 +51,8 @@ developers who write custom code and integrations using the HydePHP framework.
 
 ### Changes and refactors regarding the internal metadata handling
 
+The internal metadata handling has been refactored to make it more flexible and easier to extend. If you have not written any custom code that interacts with the metadata system, you can skip this section.
+
 #### Class and namespace changes
  
 - The MetadataBag class's namespace has been changed from `Hyde\Framework\Models\Metadata\MetadataBag` to `Hyde\Framework\Modules\Metadata\MetadataBag;`
