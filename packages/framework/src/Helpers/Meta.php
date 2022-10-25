@@ -3,7 +3,7 @@
 namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
-use Hyde\Framework\Modules\Metadata\Models\MetadataItem;
+use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphItem;
 
 /**
@@ -13,9 +13,9 @@ use Hyde\Framework\Modules\Metadata\Models\OpenGraphItem;
  */
 class Meta
 {
-    public static function name(string $name, string $content): MetadataItem
+    public static function name(string $name, string $content): MetadataElement
     {
-        return new MetadataItem($name, $content);
+        return new MetadataElement($name, $content);
     }
 
     public static function property(string $property, string $content): OpenGraphItem

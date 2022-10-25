@@ -4,7 +4,7 @@ namespace Hyde\Framework\Modules\Metadata\Models;
 
 use Hyde\Framework\Contracts\MetadataItemContract;
 
-class MetadataItem implements MetadataItemContract
+class MetadataElement implements MetadataItemContract
 {
     public function __construct(protected string $name, protected string $content)
     {

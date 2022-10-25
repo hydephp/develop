@@ -7,7 +7,7 @@ use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
-use Hyde\Framework\Modules\Metadata\Models\MetadataItem;
+use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphItem;
 use Hyde\Framework\Modules\Metadata\MetadataBag;
 use Hyde\Testing\TestCase;
@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
  * @covers \Hyde\Framework\Modules\Metadata\Models\LinkElement
- * @covers \Hyde\Framework\Modules\Metadata\Models\MetadataItem
+ * @covers \Hyde\Framework\Modules\Metadata\Models\MetadataElement
  * @covers \Hyde\Framework\Modules\Metadata\Models\OpenGraphItem
  */
 class MetadataTest extends TestCase
@@ -67,7 +67,7 @@ class MetadataTest extends TestCase
 
     public function test_metadata_item_model()
     {
-        $item = new MetadataItem('name', 'content');
+        $item = new MetadataElement('name', 'content');
         $this->assertEquals('name', $item->uniqueKey());
         $this->assertEquals('<meta name="name" content="content">', (string) $item);
     }
