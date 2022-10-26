@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
-use Hyde\Framework\Models\Navigation\NavigationData;
+use Hyde\Navigation\NavigationData;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Navigation\NavigationData
+ * @covers \Hyde\Navigation\NavigationData
  */
 class NavigationDataTest extends TestCase
 {

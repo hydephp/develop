@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Models\Navigation\NavItem;
 use Hyde\Framework\Models\Support\Route;
+use Hyde\Navigation\NavItem;
 use Hyde\Testing\TestCase;
 
 /**
  * This unit test covers the basics of the NavItem class.
  * For the full feature test, see the NavigationMenuTest class.
  *
- * @covers \Hyde\Framework\Models\Navigation\NavItem
+ * @covers \Hyde\Navigation\NavItem
  */
 class NavItemTest extends TestCase
 {

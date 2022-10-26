@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Models\Navigation;
+namespace Hyde\Navigation;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Models\Support\Route;

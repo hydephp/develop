@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Models\Navigation;
+namespace Hyde\Navigation;
 
 use ArrayObject;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;

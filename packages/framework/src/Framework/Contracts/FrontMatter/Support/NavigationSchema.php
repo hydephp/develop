@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Contracts\FrontMatter\Support;
 
 /**
- * @see \Hyde\Framework\Models\Navigation\NavigationData
+ * @see \Hyde\Navigation\NavigationData
  * @see \Hyde\Framework\Concerns\HydePage
  */
 interface NavigationSchema
