@@ -27,6 +27,7 @@ These types of changes are handled within the framework ecosystem to ensure they
 For example, if a namespace is changed, all internal references to that namespace are updated, so most users won't even notice it.
 If you however have written custom code that explicitly references the old namespace, you will need to update your code to use the new namespace.
 
+- The Framework package now uses strict types for its source files.
 - Changes and refactors regarding the internal metadata handling, see below.
 - The static class property used to determine the site output path has been moved.
   * Instead of using `StaticPageBuilder::$outputPath` you must now use `Site::$outputPath`.
