@@ -15,7 +15,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class RouteListCommand extends Command
 {
+    /** @var string */
     protected $signature = 'route:list';
+
+    /** @var string */
     protected $description = 'Display all registered routes.';
 
     public function handle(): int
