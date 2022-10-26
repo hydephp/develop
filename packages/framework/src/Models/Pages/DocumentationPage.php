@@ -41,7 +41,9 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
 
     public static function home(): ?Route
     {
-        return Route::exists(static::$outputDirectory.'/index') ? Route::get(static::$outputDirectory.'/index') : null;
+        return Route::exists(static::$outputDirectory.'/index')
+            ? Route::get(static::$outputDirectory.'/index')
+            : null;
     }
 
     public static function hasTableOfContents(): bool
