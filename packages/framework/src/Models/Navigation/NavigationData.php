@@ -10,7 +10,7 @@ use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
-final class NavigationData extends ArrayObject implements NavigationSchema, Arrayable, JsonSerializable
+final class NavigationData implements NavigationSchema, Arrayable, JsonSerializable
 {
     use JsonSerializesArrayable;
 
