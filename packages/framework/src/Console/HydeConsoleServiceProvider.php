@@ -10,8 +10,6 @@ class HydeConsoleServiceProvider extends ServiceProvider
 {
     /**
      * Register any console services.
-     *
-     * @return void
      */
     public function register(): void
     {
