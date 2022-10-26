@@ -15,9 +15,9 @@ use Stringable;
 class DateString implements Stringable
 {
     /** Date format constants */
-    const DATETIME_FORMAT = 'c';
-    const SENTENCE_FORMAT = 'l M jS, Y, \a\t g:ia';
-    const SHORT_FORMAT = 'M jS, Y';
+    public const DATETIME_FORMAT = 'c';
+    public const SENTENCE_FORMAT = 'l M jS, Y, \a\t g:ia';
+    public const SHORT_FORMAT = 'M jS, Y';
 
     /** The original date string. */
     public string $string;
