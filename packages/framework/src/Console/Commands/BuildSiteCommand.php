@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Exception;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
