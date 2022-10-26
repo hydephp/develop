@@ -830,7 +830,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "322dce9cf80a72175eb027dbc9d151accabcb42c"
+                "reference": "6d64cb61b879f53097eda4cf1ae4ad9845ba7390"
             },
             "require": {
                 "illuminate/support": "^9.5",
@@ -852,7 +852,7 @@
                     "Hyde\\": "src/"
                 },
                 "files": [
-                    "src/Framework/helpers.php"
+                    "src/helpers.php"
                 ]
             },
             "autoload-dev": {
