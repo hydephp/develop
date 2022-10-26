@@ -65,7 +65,7 @@ class PageMetadataBag extends MetadataBag
     protected function addPostMetadataIfExists(MarkdownPost $page, string $property, ?string $name = null): void
     {
         if ($page->has($property)) {
-            $this->add(Meta::name($name ?? $property, $page->get($property)));
+            $this->add(Meta::name($name ?? $property, (string) $page->get($property)));
         }
     }
 
