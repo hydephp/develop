@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
+use Hyde\Console\HydeConsoleServiceProvider;
 use Hyde\DataCollections\DataCollectionServiceProvider;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Actions\MarkdownConverter;
@@ -134,6 +135,7 @@ class HydeServiceProvider extends ServiceProvider
      */
     protected function registerModuleServiceProviders(): void
     {
+        $this->app->register(HydeConsoleServiceProvider::class);
         $this->app->register(DataCollectionServiceProvider::class);
     }
 }
