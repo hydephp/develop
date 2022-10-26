@@ -21,11 +21,6 @@ class MakePostCommand extends Command
     /** @var string */
     protected $description = 'Scaffold a new Markdown blog post file';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $this->title('Creating a new post!');

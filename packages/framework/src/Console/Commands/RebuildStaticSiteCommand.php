@@ -32,11 +32,6 @@ class RebuildStaticSiteCommand extends Command
      */
     public string $path;
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $time_start = microtime(true);

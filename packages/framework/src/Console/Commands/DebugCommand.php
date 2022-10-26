@@ -28,11 +28,6 @@ class DebugCommand extends Command
         }
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $this->info('HydePHP Debug Screen');

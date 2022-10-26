@@ -18,11 +18,6 @@ class ServeCommand extends Command
     /** @var string */
     protected $description = 'Start the experimental realtime compiler.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
