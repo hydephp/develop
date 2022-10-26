@@ -27,12 +27,7 @@ class GeneratesSidebarTableOfContents
 
     public function execute(): string
     {
-        return $this->withoutMarker($this->convert($this->getMarkdownConverter()));
-    }
-
-    protected function getConfig(): array
-    {
-        return [
+        $config = [
             'table_of_contents' => [
                 'html_class' => 'table-of-contents',
                 'position' => 'top',
@@ -45,32 +40,16 @@ class GeneratesSidebarTableOfContents
                 'fragment_prefix' => '',
             ],
         ];
-    }
 
-    protected function getMarkdownConverter(): MarkdownConverter
-    {
-        $environment = new Environment($this->getConfig());
+        $environment = new Environment($config);
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new HeadingPermalinkExtension());
         $environment->addExtension(new TableOfContentsExtension());
 
-        return new MarkdownConverter($environment);
-    }
+        $converter = new MarkdownConverter($environment);
+        $html = $converter->convert("[[END_TOC]]\n".$this->markdown)->getContent();
 
-    protected function convert(MarkdownConverter $converter): string
-    {
-        return $converter->convert($this->withEndMarker())->getContent();
-    }
-
-    protected function withEndMarker(): string
-    {
-        // We add a marker that will be injected right after the compiled table of contents.
-        return "[[END_TOC]]\n" . $this->markdown;
-    }
-
-    protected function withoutMarker(string $html): string
-    {
-        // We can then use the position of this marker to only return the table of contents.
+        // Return everything before the [[END_TOC]] marker.
         return substr($html, 0, strpos($html, '<p>[[END_TOC]]'));
     }
 }
