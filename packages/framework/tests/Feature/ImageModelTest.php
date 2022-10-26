@@ -4,46 +4,46 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Blogging\Models\Image;
+use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Blogging\Models\Image
+ * @covers \Hyde\Blogging\Models\FeaturedImage
  */
 class ImageModelTest extends TestCase
 {
     public function test_can_construct_new_image()
     {
-        $image = new Image();
-        $this->assertInstanceOf(Image::class, $image);
+        $image = new FeaturedImage();
+        $this->assertInstanceOf(FeaturedImage::class, $image);
     }
 
     public function test_make_can_create_an_image_based_on_string()
     {
-        $image = Image::make('foo');
-        $this->assertInstanceOf(Image::class, $image);
+        $image = FeaturedImage::make('foo');
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('foo', $image->path);
     }
 
     public function test_make_can_create_an_image_based_on_array()
     {
-        $image = Image::make([
+        $image = FeaturedImage::make([
             'path' => 'foo',
             'title' => 'bar',
         ]);
-        $this->assertInstanceOf(Image::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('foo', $image->path);
         $this->assertEquals('bar', $image->title);
     }
 
     public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()
     {
-        $image = Image::fromSource('https://example.com/image.jpg');
-        $this->assertInstanceOf(Image::class, $image);
+        $image = FeaturedImage::fromSource('https://example.com/image.jpg');
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('https://example.com/image.jpg', $image->url);
 
-        $image = Image::fromSource('image.jpg');
-        $this->assertInstanceOf(Image::class, $image);
+        $image = FeaturedImage::fromSource('image.jpg');
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('image.jpg', $image->path);
     }
 
@@ -53,10 +53,10 @@ class ImageModelTest extends TestCase
             'path' => 'image.jpg',
             'url' => 'https://example.com/image.jpg',
             'description' => 'This is an image',
-            'title' => 'Image Title',
+            'title' => 'FeaturedImage Title',
         ];
 
-        $image = new Image($data);
+        $image = new FeaturedImage($data);
 
         $this->assertEquals($data['path'], $image->path);
         $this->assertEquals($data['url'], $image->url);
@@ -66,7 +66,7 @@ class ImageModelTest extends TestCase
 
     public function test_get_source_method_returns_url_when_both_url_and_path_is_set()
     {
-        $image = new Image();
+        $image = new FeaturedImage();
         $image->url = 'https://example.com/image.jpg';
         $image->path = 'image.jpg';
 
@@ -75,7 +75,7 @@ class ImageModelTest extends TestCase
 
     public function test_get_source_method_returns_path_when_only_path_is_set()
     {
-        $image = new Image();
+        $image = new FeaturedImage();
         $image->path = 'image.jpg';
 
         $this->assertEquals('image.jpg', $image->getSource());
@@ -83,29 +83,29 @@ class ImageModelTest extends TestCase
 
     public function test_get_source_method_throws_exception_when_no_source_is_set()
     {
-        $image = new Image();
+        $image = new FeaturedImage();
 
-        $this->expectExceptionMessage('Attempting to get source from Image that has no source.');
+        $this->expectExceptionMessage('Attempting to get source from FeaturedImage that has no source.');
         $image->getSource();
     }
 
     public function test_get_source_method_does_not_throw_exception_when_path_is_set()
     {
-        $image = new Image();
+        $image = new FeaturedImage();
         $image->path = 'image.jpg';
         $this->assertEquals('image.jpg', $image->getSource());
     }
 
     public function test_get_source_method_does_not_throw_exception_when_url_is_set()
     {
-        $image = new Image();
+        $image = new FeaturedImage();
         $image->url = 'https://example.com/image.jpg';
         $this->assertEquals('https://example.com/image.jpg', $image->getSource());
     }
 
     public function test_get_image_author_attribution_string_method()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'author' => 'John Doe',
             'credit' => 'https://example.com/',
         ]);
@@ -116,68 +116,68 @@ class ImageModelTest extends TestCase
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
         $this->assertStringContainsString('<a href="https://example.com/"', $string);
 
-        $image = new Image(['author' => 'John Doe']);
+        $image = new FeaturedImage(['author' => 'John Doe']);
         $string = $image->getImageAuthorAttributionString();
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
 
-        $image = new Image();
+        $image = new FeaturedImage();
         $this->assertNull($image->getImageAuthorAttributionString());
     }
 
     public function test_get_copyright_string()
     {
-        $image = new Image(['copyright' => 'foo']);
+        $image = new FeaturedImage(['copyright' => 'foo']);
         $this->assertEquals('<span itemprop="copyrightNotice">foo</span>', $image->getCopyrightString());
 
-        $image = new Image();
+        $image = new FeaturedImage();
         $this->assertNull($image->getCopyrightString());
     }
 
     public function test_get_license_string()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'license' => 'foo',
             'licenseUrl' => 'https://example.com/bar.html',
         ]);
         $this->assertEquals('<a href="https://example.com/bar.html" rel="license nofollow noopener" '.
                 'itemprop="license">foo</a>', $image->getLicenseString());
 
-        $image = new Image(['license' => 'foo']);
+        $image = new FeaturedImage(['license' => 'foo']);
         $this->assertEquals('<span itemprop="license">foo</span>', $image->getLicenseString());
 
-        $image = new Image(['licenseUrl' => 'https://example.com/bar.html']);
+        $image = new FeaturedImage(['licenseUrl' => 'https://example.com/bar.html']);
         $this->assertNull($image->getLicenseString());
 
-        $image = new Image();
+        $image = new FeaturedImage();
         $this->assertNull($image->getLicenseString());
     }
 
     public function test_get_fluent_attribution_method()
     {
-        $image = new Image(['author' => 'John Doe']);
+        $image = new FeaturedImage(['author' => 'John Doe']);
         $string = $image->getFluentAttribution();
 
-        $this->assertStringContainsString('Image by ', $string);
+        $this->assertStringContainsString('FeaturedImage by ', $string);
 
-        $image = new Image(['copyright' => 'foo']);
+        $image = new FeaturedImage(['copyright' => 'foo']);
         $string = $image->getFluentAttribution();
 
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
 
-        $image = new Image(['license' => 'foo']);
+        $image = new FeaturedImage(['license' => 'foo']);
 
         $string = $image->getFluentAttribution();
         $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
 
-        $image = new Image();
+        $image = new FeaturedImage();
         $this->assertEquals('', $image->getFluentAttribution());
     }
 
     public function test_get_metadata_array()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'description' => 'foo',
             'title' => 'bar',
             'path' => 'image.jpg',
@@ -193,7 +193,7 @@ class ImageModelTest extends TestCase
 
     public function test_get_metadata_array_with_remote_url()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'url' => 'https://foo/bar',
         ]);
 
@@ -205,7 +205,7 @@ class ImageModelTest extends TestCase
 
     public function test_get_metadata_array_with_local_path()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'path' => 'foo.png',
         ]);
 
@@ -218,7 +218,7 @@ class ImageModelTest extends TestCase
     public function test_get_metadata_array_with_local_path_when_on_nested_page()
     {
         $this->mockCurrentPage('foo/bar');
-        $image = new Image([
+        $image = new FeaturedImage([
             'path' => 'foo.png',
         ]);
 
@@ -230,7 +230,7 @@ class ImageModelTest extends TestCase
 
     public function test_get_link_resolves_remote_paths()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'url' => 'https://example.com/image.jpg',
         ]);
 
@@ -239,7 +239,7 @@ class ImageModelTest extends TestCase
 
     public function test_get_link_resolves_local_paths()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'path' => 'image.jpg',
         ]);
 
@@ -248,7 +248,7 @@ class ImageModelTest extends TestCase
 
     public function test_get_link_resolves_local_paths_when_on_nested_page()
     {
-        $image = new Image([
+        $image = new FeaturedImage([
             'path' => 'image.jpg',
         ]);
 
@@ -258,26 +258,26 @@ class ImageModelTest extends TestCase
 
     public function test_local_path_is_normalized_to_the_media_directory()
     {
-        $this->assertEquals('image.jpg', (new Image([
+        $this->assertEquals('image.jpg', (new FeaturedImage([
             'path' => 'image.jpg',
         ]))->path);
 
-        $this->assertEquals('image.jpg', (new Image([
+        $this->assertEquals('image.jpg', (new FeaturedImage([
             'path' => '_media/image.jpg',
         ]))->path);
 
-        $this->assertEquals('image.jpg', (new Image([
+        $this->assertEquals('image.jpg', (new FeaturedImage([
             'path' => 'media/image.jpg',
         ]))->path);
     }
 
     public function test_to_string_returns_the_image_source()
     {
-        $this->assertEquals('https://example.com/image.jpg', (string) (new Image([
+        $this->assertEquals('https://example.com/image.jpg', (string) (new FeaturedImage([
             'url' => 'https://example.com/image.jpg',
         ])));
 
-        $this->assertEquals('media/image.jpg', (string) (new Image([
+        $this->assertEquals('media/image.jpg', (string) (new FeaturedImage([
             'path' => 'image.jpg',
         ])));
     }
@@ -285,7 +285,7 @@ class ImageModelTest extends TestCase
     public function test_to_string_returns_the_image_source_for_nested_pages()
     {
         $this->mockCurrentPage('foo/bar');
-        $this->assertEquals('../media/image.jpg', (string) (new Image([
+        $this->assertEquals('../media/image.jpg', (string) (new FeaturedImage([
             'path' => 'image.jpg',
         ])));
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Blogging\Models\Author;
-use Hyde\Blogging\Models\Image;
+use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
@@ -73,10 +73,10 @@ trait ConstructsPageSchemas
         return null;
     }
 
-    protected function getImage(): ?Image
+    protected function getImage(): ?FeaturedImage
     {
         if ($this->matter('image')) {
-            return Image::make($this->matter('image'));
+            return FeaturedImage::make($this->matter('image'));
         }
 
         return null;

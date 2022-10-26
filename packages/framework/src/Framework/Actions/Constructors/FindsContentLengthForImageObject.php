@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Blogging\Models\Image;
+use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -15,14 +15,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class FindsContentLengthForImageObject
 {
-    protected Image $image;
+    protected FeaturedImage $image;
 
     /**
      * Testing adding console debug output.
      */
     protected OutputInterface $output;
 
-    public function __construct(Image $image)
+    public function __construct(FeaturedImage $image)
     {
         $this->image = $image;
 

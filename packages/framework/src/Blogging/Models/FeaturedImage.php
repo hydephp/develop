@@ -28,7 +28,7 @@ use Stringable;
  * @see \Hyde\Framework\Testing\Feature\ImageModelTest
  * @phpstan-consistent-constructor
  */
-class Image implements FeaturedImageSchema, Stringable
+class FeaturedImage implements FeaturedImageSchema, Stringable
 {
     /**
      * The image's path (if it is stored locally (in the _media directory)).

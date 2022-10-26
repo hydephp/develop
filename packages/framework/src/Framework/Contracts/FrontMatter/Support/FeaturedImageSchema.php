@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Contracts\FrontMatter\Support;
 
 /**
- * @see \Hyde\Blogging\Models\Image
+ * @see \Hyde\Blogging\Models\FeaturedImage
  * @see \Hyde\Framework\Models\Pages\MarkdownPost
  */
 interface FeaturedImageSchema
