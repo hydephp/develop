@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Modules\Markdown\Shortcodes;
+namespace Hyde\Markdown\Shortcodes;
 
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
 

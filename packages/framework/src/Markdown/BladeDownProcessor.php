@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Modules\Markdown;
+namespace Hyde\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownPostProcessorContract;
 use Hyde\Framework\Contracts\MarkdownPreProcessorContract;

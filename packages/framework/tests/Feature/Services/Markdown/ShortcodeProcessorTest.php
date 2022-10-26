@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownShortcodeContract;
-use Hyde\Framework\Modules\Markdown\ShortcodeProcessor;
+use Hyde\Markdown\ShortcodeProcessor;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Modules\Markdown\ShortcodeProcessor
+ * @covers \Hyde\Markdown\ShortcodeProcessor
  */
 class ShortcodeProcessorTest extends TestCase
 {
@@ -23,7 +23,7 @@ class ShortcodeProcessorTest extends TestCase
 
     public function test_discovered_shortcodes_are_used_to_process_input()
     {
-        $processor = new \Hyde\Framework\Modules\Markdown\ShortcodeProcessor('>info foo');
+        $processor = new \Hyde\Markdown\ShortcodeProcessor('>info foo');
 
         $this->assertEquals('<blockquote class="info">foo</blockquote>',
             $processor->run());
@@ -31,7 +31,7 @@ class ShortcodeProcessorTest extends TestCase
 
     public function test_string_without_shortcode_is_not_modified()
     {
-        $processor = new \Hyde\Framework\Modules\Markdown\ShortcodeProcessor('foo');
+        $processor = new \Hyde\Markdown\ShortcodeProcessor('foo');
 
         $this->assertEquals('foo', $processor->run());
     }
@@ -39,12 +39,12 @@ class ShortcodeProcessorTest extends TestCase
     public function test_process_static_shorthand()
     {
         $this->assertEquals('<blockquote class="info">foo</blockquote>',
-            ShortcodeProcessor::preprocess('>info foo'));
+            \Hyde\Markdown\ShortcodeProcessor::preprocess('>info foo'));
     }
 
     public function test_shortcodes_can_be_added_to_processor()
     {
-        $processor = new \Hyde\Framework\Modules\Markdown\ShortcodeProcessor('foo');
+        $processor = new \Hyde\Markdown\ShortcodeProcessor('foo');
 
         $processor->addShortcode(new class implements MarkdownShortcodeContract
         {
