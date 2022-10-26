@@ -62,7 +62,7 @@ class Hyperlinks
             return $destination;
         }
 
-        $nestCount = substr_count($this->kernel->currentPage(), '/');
+        $nestCount = substr_count($this->kernel->currentPage() ?? '', '/');
         $route = '';
         if ($nestCount > 0) {
             $route .= str_repeat('../', $nestCount);
