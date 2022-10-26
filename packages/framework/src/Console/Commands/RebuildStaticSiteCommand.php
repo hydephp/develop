@@ -18,19 +18,11 @@ use LaravelZero\Framework\Commands\Command;
  */
 class RebuildStaticSiteCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'rebuild
         {path : The relative file path (example: _posts/hello-world.md)}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Run the static site builder for a single file';
 
     /**

@@ -12,18 +12,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class ServeCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'serve {--port=8080} {--host=localhost}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Start the experimental realtime compiler.';
 
     /**

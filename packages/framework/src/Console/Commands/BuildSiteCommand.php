@@ -23,11 +23,7 @@ use LaravelZero\Framework\Commands\Command;
  */
 class BuildSiteCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'build 
         {--run-dev : Run the NPM dev script after build}
         {--run-prod : Run the NPM prod script after build}
@@ -35,11 +31,7 @@ class BuildSiteCommand extends Command
         {--pretty-urls : Should links in output use pretty URLs?}
         {--no-api : Disable API calls, for example, Torchlight}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Build the static site';
 
     protected BuildService $service;

@@ -13,18 +13,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class DebugCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'debug';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Print debug info';
 
     public function __construct()
