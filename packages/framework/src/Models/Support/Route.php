@@ -228,12 +228,10 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     /**
      * Get the current route for the page being rendered.
-     *
-     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
-    public static function current(): Route
+    public static function current(): ?Route
     {
-        return Hyde::currentRoute() ?? throw new RouteNotFoundException('current');
+        return Hyde::currentRoute();
     }
 
     /**
