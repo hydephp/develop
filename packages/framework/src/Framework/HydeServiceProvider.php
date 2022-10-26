@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
+use Hyde\Console\HydeConsoleServiceProvider;
+use Hyde\DataCollections\DataCollectionServiceProvider;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Concerns\RegistersFileLocations;
@@ -58,7 +60,6 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
 
-        $this->registerHydeConsoleCommands();
         $this->registerModuleServiceProviders();
     }
 
@@ -104,36 +105,11 @@ class HydeServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the HydeCLI console commands.
-     */
-    protected function registerHydeConsoleCommands(): void
-    {
-        $this->commands([
-            \Hyde\Console\Commands\PublishHomepageCommand::class,
-            \Hyde\Console\Commands\UpdateConfigsCommand::class,
-            \Hyde\Console\Commands\PublishViewsCommand::class,
-            \Hyde\Console\Commands\RebuildStaticSiteCommand::class,
-            \Hyde\Console\Commands\BuildSiteCommand::class,
-            \Hyde\Console\Commands\BuildSitemapCommand::class,
-            \Hyde\Console\Commands\BuildRssFeedCommand::class,
-            \Hyde\Console\Commands\BuildSearchCommand::class,
-            \Hyde\Console\Commands\RouteListCommand::class,
-            \Hyde\Console\Commands\MakePostCommand::class,
-            \Hyde\Console\Commands\MakePageCommand::class,
-            \Hyde\Console\Commands\ValidateCommand::class,
-            // Commands\HydeInstallCommand::class,
-            \Hyde\Console\Commands\DebugCommand::class,
-            \Hyde\Console\Commands\ServeCommand::class,
-
-            \Hyde\Console\Commands\PackageDiscoverCommand::class,
-        ]);
-    }
-
-    /**
      * Register module service providers.
      */
     protected function registerModuleServiceProviders(): void
     {
-        $this->app->register(\Hyde\DataCollections\DataCollectionServiceProvider::class);
+        $this->app->register(HydeConsoleServiceProvider::class);
+        $this->app->register(DataCollectionServiceProvider::class);
     }
 }
