@@ -11,7 +11,7 @@ use Stringable;
  *
  * IN SHORT:
  *   The route key is a string that's generally <output-directory/slug>.
- *   You can cast this object to a string, or call the get() method to get the underlying value.
+ *   You can cast this object to a string to get the underlying value.
  *
  * IN DETAIL:
  *
