@@ -85,7 +85,7 @@ class ImageModelTest extends TestCase
     {
         $image = new FeaturedImage();
 
-        $this->expectExceptionMessage('Attempting to get source from FeaturedImage that has no source.');
+        $this->expectExceptionMessage('Attempting to get source from Image that has no source.');
         $image->getSource();
     }
 
@@ -159,7 +159,7 @@ class ImageModelTest extends TestCase
         $image = new FeaturedImage(['author' => 'John Doe']);
         $string = $image->getFluentAttribution();
 
-        $this->assertStringContainsString('FeaturedImage by ', $string);
+        $this->assertStringContainsString('Image by ', $string);
 
         $image = new FeaturedImage(['copyright' => 'foo']);
         $string = $image->getFluentAttribution();
