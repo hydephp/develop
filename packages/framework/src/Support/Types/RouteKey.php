@@ -23,17 +23,17 @@ use Stringable;
  *
  *
  * @example ```php
-    // Source file: _pages/index.md/index.blade.php
-    // Compiled file: _site/index.html
-    Route::get('index')
-
-    // Source file: _posts/my-post.md
-    // Compiled file: _site/posts/my-post.html
-    Route::get('posts/my-post')
-
-    // Source file: _docs/readme.md
-    // Compiled file: _site/docs/readme.html
-    Route::get('docs/readme')
+ * // Source file: _pages/index.md/index.blade.php
+ * // Compiled file: _site/index.html
+ * Route::get('index')
+ *
+ * // Source file: _posts/my-post.md
+ * // Compiled file: _site/posts/my-post.html
+ * Route::get('posts/my-post')
+ *
+ * // Source file: _docs/readme.md
+ * // Compiled file: _site/docs/readme.html
+ * Route::get('docs/readme')
  * ```
  */
 final class RouteKey implements Stringable
@@ -45,7 +45,8 @@ final class RouteKey implements Stringable
         return new self($key);
     }
 
-    public function __construct(string $key) {
+    public function __construct(string $key)
+    {
         $this->key = $key;
     }
 
