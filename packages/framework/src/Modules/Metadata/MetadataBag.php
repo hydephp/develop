@@ -8,6 +8,8 @@ use Illuminate\Contracts\Support\Htmlable;
  * Holds the metadata tags for a page or the site model.
  *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
+ * @see \Hyde\Framework\Modules\Metadata\PageMetadataBag
+ * @see \Hyde\Framework\Modules\Metadata\GlobalMetadataBag
  */
 class MetadataBag implements Htmlable
 {
