@@ -8,12 +8,14 @@ use Hyde\Testing\TestCase;
 
 /**
  * This tests ensures all metadata is rendered correctly in the compiled pages.
- * Please see the MetadataTest class which tests the construction of the metadata;
+ * Please see the MetadataBagTest class which tests the construction of the data,
  * as this test does not cover all configuration cases and possible formatting options.
  *
  * This test is useful both as a regression test, and also to ensure all tags are covered.
  *
  * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
+ * @covers \Hyde\Framework\Modules\Metadata\PageMetadataBag
+ * @covers \Hyde\Framework\Modules\Metadata\GlobalMetadataBag
  */
 class MetadataViewTest extends TestCase
 {

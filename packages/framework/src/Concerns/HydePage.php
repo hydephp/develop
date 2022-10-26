@@ -11,7 +11,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Support\Route;
-use Hyde\Framework\Modules\Metadata\MetadataBag;
+use Hyde\Framework\Modules\Metadata\PageMetadataBag;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Support\Arr;
 
@@ -45,7 +45,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     public string $routeKey;
 
     public FrontMatter $matter;
-    public MetadataBag $metadata;
+    public PageMetadataBag $metadata;
 
     public string $title;
     public ?string $canonicalUrl = null;
@@ -58,7 +58,7 @@ abstract class HydePage implements CompilableContract, PageSchema
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
-        $this->metadata = new MetadataBag($this);
+        $this->metadata = new PageMetadataBag($this);
     }
 
     // Section: Query
@@ -267,7 +267,7 @@ abstract class HydePage implements CompilableContract, PageSchema
         return config('site.name', 'HydePHP').' - '.$this->title;
     }
 
-    public function metadata(): MetadataBag
+    public function metadata(): PageMetadataBag
     {
         return $this->metadata;
     }

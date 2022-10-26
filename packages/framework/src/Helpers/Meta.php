@@ -2,84 +2,76 @@
 
 namespace Hyde\Framework\Helpers;
 
+use Hyde\Framework\Modules\Metadata\GlobalMetadataBag;
 use Hyde\Framework\Modules\Metadata\Models\LinkElement;
 use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
 use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
 
 /**
- * Helpers to fluently declare HTML meta tags.
+ * Helpers to fluently declare HTML meta elements using their object representations.
  *
  * @see \Hyde\Framework\Testing\Feature\MetadataHelperTest
  */
 class Meta
 {
+    /**
+     * Create a new <meta> element class with the given name and content.
+     *
+     * @param  string  $name  The meta tag's name attribute.
+     * @param  string  $content  The content of the meta tag.
+     * @return \Hyde\Framework\Modules\Metadata\Models\MetadataElement
+     *
+     * @link https://www.w3schools.com/tags/tag_meta.asp
+     */
     public static function name(string $name, string $content): MetadataElement
     {
         return new MetadataElement($name, $content);
     }
 
+    /**
+     * Create a new <meta> element class with the given OpenGraph property and content.
+     *
+     * @param  string  $property  The meta tag's property attribute. The "og:" prefix is optional.
+     * @param  string  $content  The content of the meta tag.
+     * @return \Hyde\Framework\Modules\Metadata\Models\OpenGraphElement
+     *
+     * @link https://ogp.me/
+     */
     public static function property(string $property, string $content): OpenGraphElement
     {
         return new OpenGraphElement($property, $content);
     }
 
+    /**
+     * Create a new <link> element class with the given rel and href.
+     *
+     * @param  string  $rel  The link tag's rel attribute.
+     * @param  string  $href  The link tag's href attribute.
+     * @param  array  $attr  An optional key-value array of additional attributes.
+     * @return \Hyde\Framework\Modules\Metadata\Models\LinkElement
+     *
+     * @link https://www.w3schools.com/tags/tag_link.asp
+     */
     public static function link(string $rel, string $href, array $attr = []): LinkElement
     {
         return new LinkElement($rel, $href, $attr);
     }
 
-    public static function get(array $withMergedData = []): array
+    /**
+     * Get the global metadata bag.
+     */
+    public static function get(): GlobalMetadataBag
     {
-        return static::filterUnique(
-            array_merge(
-                static::getGlobalMeta(),
-                $withMergedData
-            )
-        );
+        return GlobalMetadataBag::make();
     }
 
-    public static function render(array $withMergedData = []): string
+    /**
+     * Render the global metadata bag.
+     *
+     * @return string
+     */
+    public static function render(): string
     {
-        return implode(
-            "\n",
-            static::get($withMergedData)
-        );
-    }
-
-    protected static function filterUnique(array $meta): array
-    {
-        $array = [];
-        $existing = [];
-
-        foreach (array_reverse($meta) as $metaItem) {
-            $substring = substr($metaItem, 6, strpos($metaItem, ' content="') - 6);
-
-            if (! in_array($substring, $existing)) {
-                $array[] = $metaItem;
-                $existing[] = $substring;
-            }
-        }
-
-        return array_reverse($array);
-    }
-
-    public static function getGlobalMeta(): array
-    {
-        return array_merge(
-            static::getDynamicMeta(),
-            static::getConfiguredMeta()
-        );
-    }
-
-    protected static function getDynamicMeta(): array
-    {
-        $array = [];
-
-        return $array;
-    }
-
-    protected static function getConfiguredMeta(): array
-    {
-        return config('hyde.meta', []);
+        return static::get()->render();
     }
 }

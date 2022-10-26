@@ -3,6 +3,7 @@
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
+use Hyde\Framework\Modules\Metadata\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
 
 /**
@@ -74,99 +75,13 @@ class MetadataHelperTest extends TestCase
         );
     }
 
-    public function test_get_method_returns_global_metadata_merged_with_argument()
+    public function test_get_method_returns_global_metadata_bag()
     {
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
-
-        $this->assertEquals(
-            [
-                '<meta name="foo" content="bar">',
-                '<meta name="bar" content="baz">',
-            ],
-            Meta::get([Meta::name('bar', 'baz')])
-        );
+        $this->assertEquals(Meta::get(), GlobalMetadataBag::make());
     }
 
-    public function test_render_method_implodes_an_array_of_meta_tags_into_a_formatted_string()
+    public function test_render_method_renders_global_metadata_bag()
     {
-        $this->assertEquals(
-            '<meta name="foo" content="bar">'
-            ."\n".'<meta property="og:foo" content="bar">',
-
-            Meta::render([
-                Meta::name('foo', 'bar'),
-                Meta::property('og:foo', 'bar'),
-            ])
-        );
-    }
-
-    public function test_render_method_returns_an_empty_string_if_no_meta_tags_are_supplied()
-    {
-        $this->assertEquals(
-            '',
-            Meta::render([])
-        );
-    }
-
-    public function test_render_method_returns_config_defined_tags_if_no_meta_tags_are_supplied()
-    {
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-            Meta::property('og:foo', 'bar'),
-        ]]);
-
-        $this->assertEquals(
-            '<meta name="foo" content="bar">'
-            ."\n".'<meta property="og:foo" content="bar">',
-
-            Meta::render([])
-        );
-    }
-
-    public function test_render_method_merges_config_defined_tags_with_supplied_meta_tags()
-    {
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
-
-        $this->assertEquals(
-            '<meta name="foo" content="bar">'
-            ."\n".'<meta property="og:foo" content="bar">',
-
-            Meta::render([
-                Meta::property('foo', 'bar'),
-            ])
-        );
-    }
-
-    public function test_render_method_returns_unique_meta_tags()
-    {
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
-
-        $this->assertEquals(
-            '<meta name="foo" content="bar">',
-            Meta::render([
-                Meta::name('foo', 'bar'),
-            ])
-        );
-    }
-
-    public function test_render_method_gives_precedence_to_supplied_meta_tags()
-    {
-        config(['hyde.meta' => [
-            Meta::name('foo', 'bar'),
-        ]]);
-
-        $this->assertEquals(
-            '<meta name="foo" content="baz">',
-
-            Meta::render([
-                Meta::name('foo', 'baz'),
-            ])
-        );
+        $this->assertSame(Meta::render(), GlobalMetadataBag::make()->render());
     }
 }

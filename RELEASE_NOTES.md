@@ -30,6 +30,10 @@ If you however have written custom code that explicitly references the old names
 - Changes and refactors regarding the internal metadata handling, see below.
 - The static class property used to determine the site output path has been moved.
   * Instead of using `StaticPageBuilder::$outputPath` you must now use `Site::$outputPath`.
+- Major refactors to the Metadata services.
+  * Large changes to the Meta.php helper/facade; most of its business logic has been moved to the GlobalMetadataBag class.
+  * This might affect you if you relied on any of the helper methods that were removed from Meta.php.
+  * See https://github.com/hydephp/develop/pull/584 for more details.
 
 ### Other changes
 
