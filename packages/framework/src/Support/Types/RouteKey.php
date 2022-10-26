@@ -8,7 +8,7 @@ use Stringable;
 
 final class RouteKey implements Stringable
 {
-    private string $key;
+    private readonly string $key;
 
     public static function make(string $key): self
     {
