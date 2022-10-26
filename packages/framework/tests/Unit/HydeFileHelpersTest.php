@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Foundation\HydeKernel
  */
 class HydeFileHelpersTest extends TestCase
 {

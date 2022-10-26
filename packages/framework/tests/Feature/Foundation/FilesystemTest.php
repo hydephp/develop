@@ -13,7 +13,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Filesystem
  */
 class FilesystemTest extends TestCase

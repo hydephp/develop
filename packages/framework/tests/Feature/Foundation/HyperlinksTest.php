@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
-use Hyde\Framework\HydeKernel;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**

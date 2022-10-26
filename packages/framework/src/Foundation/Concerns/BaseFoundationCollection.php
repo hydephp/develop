@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
-use Hyde\Framework\HydeKernel;
+use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Collection;
 
 /**

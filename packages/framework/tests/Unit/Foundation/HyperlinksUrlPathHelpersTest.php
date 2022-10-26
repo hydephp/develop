@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Hyperlinks;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
-use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**

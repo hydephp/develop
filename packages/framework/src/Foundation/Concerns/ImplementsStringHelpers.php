@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 /**
  * @internal Single-use trait for the HydeKernel class.
  *
- * @see \Hyde\Framework\HydeKernel
+ * @see \Hyde\Foundation\HydeKernel
  */
 trait ImplementsStringHelpers
 {

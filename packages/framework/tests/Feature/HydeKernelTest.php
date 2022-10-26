@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Composer\InstalledVersions;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\View;
  * This test class runs high-level tests on the HydeKernel class,
  * as most of the logic actually resides in linked service classes.
  *
- * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest

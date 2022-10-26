@@ -2,13 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework;
+namespace Hyde\Foundation;
 
-use Hyde\Foundation\FileCollection;
-use Hyde\Foundation\Filesystem;
-use Hyde\Foundation\Hyperlinks;
-use Hyde\Foundation\PageCollection;
-use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\FileCollection;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
-use Hyde\Framework\HydeKernel;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
  *
- * @see \Hyde\Framework\HydeKernel
+ * @see \Hyde\Foundation\HydeKernel
  */
 trait ManagesHydeKernel
 {

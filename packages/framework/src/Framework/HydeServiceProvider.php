@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Models\Pages\BladePage;
