@@ -55,7 +55,7 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
      */
     public function getTableOfContents(): string
     {
-        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
+        return (new GeneratesSidebarTableOfContents((string)$this->markdown))->execute();
     }
 
     /**
