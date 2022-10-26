@@ -7,7 +7,7 @@
             "Hyde\\": "src/"
         },
         "files": [
-            "src/Framework/helpers.php"
+            "src/helpers.php"
         ]
     },
     "autoload-dev": {
