@@ -9,9 +9,8 @@ use Stringable;
 /**
  * Route keys are the core of Hyde's routing system.
  *
- * IN SHORT:
- *   The route key is a string that's generally <output-directory/slug>.
- *   You can cast this object to a string to get the underlying value.
+ * The route key is a string that's generally <output-directory/slug>.
+ * You can cast this object to a string to get the underlying value.
  *
  * IN DETAIL:
  *
