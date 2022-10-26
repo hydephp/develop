@@ -27,7 +27,7 @@ class HydePublishViewsCommand extends Command
 
         if ($this->selected === 'all' || $this->selected === '') {
             foreach (PublishesHydeViews::$options as $key => $value) {
-                $this->publishOption($key);
+                $this->publishOption((string) $key);
             }
         } else {
             $this->publishOption($this->selected);
