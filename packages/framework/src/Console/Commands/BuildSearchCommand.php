@@ -14,7 +14,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class BuildSearchCommand extends Command
 {
+    /** @var string */
     protected $signature = 'build:search';
+
+    /** @var string */
     protected $description = 'Generate the docs/search.json';
 
     public function handle(): int
