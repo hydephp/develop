@@ -209,11 +209,14 @@ class RouteTest extends TestCase
         $route = new Route(new MarkdownPage(identifier: 'foo'));
         view()->share('currentRoute', $route);
         $this->assertEquals($route, Route::current());
+
+        $this->assertSame(Hyde::currentRoute(), Route::current());
     }
 
     public function test_current_returns_null_if_route_is_not_found()
     {
         $this->assertNull(Route::current());
+        $this->assertSame(Hyde::currentRoute(), Route::current());
     }
 
     public function test_home_helper_returns_index_route()
