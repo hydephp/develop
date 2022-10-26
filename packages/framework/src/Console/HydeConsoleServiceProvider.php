@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console;
 
 use Illuminate\Support\ServiceProvider;
+use Hyde\Console\Commands;
 
 class HydeConsoleServiceProvider extends ServiceProvider
 {
@@ -24,22 +25,22 @@ class HydeConsoleServiceProvider extends ServiceProvider
     protected function registerHydeConsoleCommands(): void
     {
         $this->commands([
-            \Hyde\Console\Commands\PublishHomepageCommand::class,
-            \Hyde\Console\Commands\UpdateConfigsCommand::class,
-            \Hyde\Console\Commands\PublishViewsCommand::class,
-            \Hyde\Console\Commands\RebuildStaticSiteCommand::class,
-            \Hyde\Console\Commands\BuildSiteCommand::class,
-            \Hyde\Console\Commands\BuildSitemapCommand::class,
-            \Hyde\Console\Commands\BuildRssFeedCommand::class,
-            \Hyde\Console\Commands\BuildSearchCommand::class,
-            \Hyde\Console\Commands\RouteListCommand::class,
-            \Hyde\Console\Commands\MakePostCommand::class,
-            \Hyde\Console\Commands\MakePageCommand::class,
-            \Hyde\Console\Commands\ValidateCommand::class,
-            \Hyde\Console\Commands\DebugCommand::class,
-            \Hyde\Console\Commands\ServeCommand::class,
+            Commands\PublishHomepageCommand::class,
+            Commands\UpdateConfigsCommand::class,
+            Commands\PublishViewsCommand::class,
+            Commands\RebuildStaticSiteCommand::class,
+            Commands\BuildSiteCommand::class,
+            Commands\BuildSitemapCommand::class,
+            Commands\BuildRssFeedCommand::class,
+            Commands\BuildSearchCommand::class,
+            Commands\RouteListCommand::class,
+            Commands\MakePostCommand::class,
+            Commands\MakePageCommand::class,
+            Commands\ValidateCommand::class,
+            Commands\DebugCommand::class,
+            Commands\ServeCommand::class,
 
-            \Hyde\Console\Commands\PackageDiscoverCommand::class,
+            Commands\PackageDiscoverCommand::class,
         ]);
     }
 
