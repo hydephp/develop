@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Modules\DataCollections;
 
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 

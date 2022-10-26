@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Models\Navigation;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Support\Route;
+use Hyde\Hyde;
 use Illuminate\Support\Str;
 use Stringable;
 

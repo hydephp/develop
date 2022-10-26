@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Exception;
 use Hyde\Framework\Exceptions\FileConflictException;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**

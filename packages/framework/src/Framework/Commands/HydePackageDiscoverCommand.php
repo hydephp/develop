@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Commands;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Illuminate\Foundation\Console\PackageDiscoverCommand as BaseCommand;
 use Illuminate\Foundation\PackageManifest;
 

@@ -7,11 +7,11 @@ namespace Hyde\Framework\Concerns\Internal;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\Author;
 use Hyde\Framework\Models\Support\DateString;
 use Hyde\Framework\Models\Support\Image;
+use Hyde\Hyde;
 
 trait ConstructsPageSchemas
 {

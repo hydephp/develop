@@ -6,7 +6,7 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Contracts\BuildTaskContract;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 
 /**

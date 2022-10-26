@@ -12,12 +12,12 @@ require_once sprintf('%s/vendor/autoload.php', BASE_PATH);
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\BladePage;
 use Hyde\Framework\Models\DocumentationPage;
 use Hyde\Framework\Models\MarkdownPage;
 use Hyde\Framework\Models\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Hyde;
 
 const VERSION = 'dev-master';
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Markdown\Markdown;
+use Hyde\Hyde;
 
 /**
  * The base class for all Markdown-based page models.

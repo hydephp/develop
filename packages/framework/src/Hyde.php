@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework;
+namespace Hyde;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Foundation\FileCollection;
 use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
+use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Support\Route;
 use Illuminate\Support\Facades\Facade;
 

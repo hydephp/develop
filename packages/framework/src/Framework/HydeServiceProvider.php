@@ -13,6 +13,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Framework\Views\Components\LinkComponent;
+use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 

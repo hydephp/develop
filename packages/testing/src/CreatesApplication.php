@@ -2,8 +2,8 @@
 
 namespace Hyde\Testing;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
+use Hyde\Hyde;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Views\Components;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;

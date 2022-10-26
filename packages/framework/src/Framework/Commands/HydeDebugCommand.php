@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Commands;
 
 use Composer\InstalledVersions;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
 
 /**

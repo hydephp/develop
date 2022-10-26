@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Models\Navigation;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Support\Route;
+use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 

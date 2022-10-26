@@ -9,12 +9,12 @@ use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Foundation\PageCollection;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Support\Route;
 use Hyde\Framework\Modules\Metadata\PageMetadataBag;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Hyde;
 use Illuminate\Support\Arr;
 
 /**

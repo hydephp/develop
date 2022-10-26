@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;

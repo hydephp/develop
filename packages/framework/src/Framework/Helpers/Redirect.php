@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Helpers;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.

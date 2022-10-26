@@ -7,8 +7,8 @@ namespace Hyde\Framework\Modules\Metadata;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\RssFeedService;
+use Hyde\Hyde;
 use Illuminate\Support\Facades\View;
 
 /**

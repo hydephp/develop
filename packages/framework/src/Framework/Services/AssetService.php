@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * Handles the retrieval of core asset files. Commonly used through the Asset facade.

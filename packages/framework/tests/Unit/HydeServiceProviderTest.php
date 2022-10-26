@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -13,6 +12,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 

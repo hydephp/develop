@@ -7,7 +7,7 @@ namespace Hyde\Framework\Models\Support;
 use Exception;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Framework\Contracts\FrontMatter\Support\FeaturedImageSchema;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Stringable;
 
 /**

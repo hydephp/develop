@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * Build static pages, but intelligently.

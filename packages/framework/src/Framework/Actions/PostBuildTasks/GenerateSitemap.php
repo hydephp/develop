@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\AbstractBuildTask;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\SitemapService;
+use Hyde\Hyde;
 
 class GenerateSitemap extends AbstractBuildTask
 {

@@ -6,7 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * Converts a Page Model into a static HTML page.

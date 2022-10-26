@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Benchmarks;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Tests\Benchmarks\CBench\Benchmark;
 
 class StaticSiteBuilderBenchmark extends BenchCase

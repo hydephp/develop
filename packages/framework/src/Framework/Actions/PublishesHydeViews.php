@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Illuminate\Support\Facades\File;
 
 /*

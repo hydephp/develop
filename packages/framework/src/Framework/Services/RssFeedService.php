@@ -8,8 +8,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Exception;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Hyde;
 use SimpleXMLElement;
 
 /**

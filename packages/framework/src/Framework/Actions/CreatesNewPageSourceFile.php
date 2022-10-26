@@ -7,10 +7,10 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Hyde;
 use Illuminate\Support\Str;
 
 /**

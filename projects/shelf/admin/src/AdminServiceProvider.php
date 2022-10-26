@@ -2,7 +2,7 @@
 
 namespace Hyde\Admin;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider

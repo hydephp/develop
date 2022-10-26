@@ -9,10 +9,10 @@ use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
 

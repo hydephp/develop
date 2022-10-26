@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use JsonSerializable;

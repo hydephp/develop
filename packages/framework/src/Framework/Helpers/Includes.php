@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Helpers;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\Markdown;
+use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
 
 class Includes

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Commands;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
 
 /**

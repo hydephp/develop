@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Concerns\AbstractBuildTask;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\BuildTaskService;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 

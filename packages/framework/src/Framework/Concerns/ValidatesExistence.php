@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * Validate the existence of a Page model's source file.

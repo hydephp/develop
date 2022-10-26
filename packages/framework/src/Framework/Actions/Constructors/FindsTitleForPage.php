@@ -6,7 +6,7 @@ namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PageModelConstructorsTest

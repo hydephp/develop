@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\BuildTaskContract;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Throwable;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * Helper methods to interact with the filecache. The filecache is used to compare

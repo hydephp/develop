@@ -6,13 +6,13 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Composer\InstalledVersions;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeKernel;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\Route;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\View;
  * as most of the logic actually resides in linked service classes.
  *
  * @covers \Hyde\Framework\HydeKernel
- * @covers \Hyde\Framework\Hyde
+ * @covers \Hyde\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
  */

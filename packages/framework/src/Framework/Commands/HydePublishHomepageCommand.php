@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\PublishesHomepageView;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\ChecksumService;
+use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
 
