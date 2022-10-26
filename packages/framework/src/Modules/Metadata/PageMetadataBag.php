@@ -56,7 +56,7 @@ class PageMetadataBag extends MetadataBag
         }
 
         if ($page->has('image')) {
-            $this->add(Meta::property('image', $this->resolveImageLink($page->get('image'))));
+            $this->add(Meta::property('image', $this->resolveImageLink((string) $page->get('image'))));
         }
 
         $this->add(Meta::property('type', 'article'));
