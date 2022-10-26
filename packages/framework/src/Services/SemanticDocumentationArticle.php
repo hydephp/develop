@@ -105,7 +105,7 @@ class SemanticDocumentationArticle
 
     protected function renderSourceLink(): string
     {
-        return View::make('hyde::components.docs.edit-source-button', [
+        return view('hyde::components.docs.edit-source-button', [
             'href' => $this->page->getOnlineSourcePath(),
         ])->render();
     }
