@@ -31,8 +31,8 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->hasSiteUrl();
     }
 
-    public function url(string $path = '', ?string $default = null): string
+    public function url(string $path = ''): string
     {
-        return $this->hyperlinks->url($path, $default);
+        return $this->hyperlinks->url($path);
     }
 }
