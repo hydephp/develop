@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Foundation\Concerns;
+namespace Hyde\Foundation\Concerns;
 
-use Hyde\Framework\Foundation\FileCollection;
-use Hyde\Framework\Foundation\PageCollection;
-use Hyde\Framework\Foundation\RouteCollection;
+use Hyde\Foundation\FileCollection;
+use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\RouteCollection;
 
 /**
  * @internal Single-use trait for the HydeKernel class.

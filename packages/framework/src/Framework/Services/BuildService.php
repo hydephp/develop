@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Closure;
+use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Models\Support\Route;
 use Hyde\Framework\Models\Support\Site;
 use Hyde\Hyde;
@@ -73,7 +73,7 @@ class BuildService
     }
 
     /**
-     * @return \Hyde\Framework\Foundation\RouteCollection<array-key, class-string<\Hyde\Framework\Concerns\HydePage>>
+     * @return \Hyde\Foundation\RouteCollection<array-key, class-string<\Hyde\Framework\Concerns\HydePage>>
      */
     protected function getDiscoveredModels(): RouteCollection
     {

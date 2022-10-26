@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Foundation\RouteCollection;
+use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
@@ -15,8 +15,8 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\Foundation\RouteCollection
- * @covers \Hyde\Framework\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\RouteCollection
+ * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
  */
 class RouteCollectionTest extends TestCase
 {

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
+use Hyde\Foundation\Hyperlinks;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
-use Hyde\Framework\Foundation\Hyperlinks;
 use Hyde\Framework\HydeKernel;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Foundation\Hyperlinks::hasSiteUrl
- * @covers \Hyde\Framework\Foundation\Hyperlinks::url
+ * @covers \Hyde\Foundation\Hyperlinks::hasSiteUrl
+ * @covers \Hyde\Foundation\Hyperlinks::url
  * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  */
 class HyperlinksUrlPathHelpersTest extends TestCase

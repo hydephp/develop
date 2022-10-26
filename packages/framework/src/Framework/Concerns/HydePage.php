@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns;
 
+use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Framework\Models\Support\Route;
@@ -91,7 +91,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Framework\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
+     * @return \Hyde\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
      */
     public static function all(): PageCollection
     {

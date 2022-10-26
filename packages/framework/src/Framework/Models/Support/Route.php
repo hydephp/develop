@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Models\Support;
 
+use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
-use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
@@ -226,7 +226,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get all routes from the route index.
      *
-     * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Models\Support\Route>
+     * @return \Hyde\Foundation\RouteCollection<\Hyde\Framework\Models\Support\Route>
      */
     public static function all(): RouteCollection
     {

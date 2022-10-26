@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Foundation\Hyperlinks::relativeLink
+ * @covers \Hyde\Foundation\Hyperlinks::relativeLink
  */
 class HyperlinkFileHelperRelativeLinkTest extends TestCase
 {

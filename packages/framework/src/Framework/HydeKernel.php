@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
+use Hyde\Foundation\FileCollection;
+use Hyde\Foundation\Filesystem;
+use Hyde\Foundation\Hyperlinks;
+use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-use Hyde\Framework\Foundation\FileCollection;
-use Hyde\Framework\Foundation\Filesystem;
-use Hyde\Framework\Foundation\Hyperlinks;
-use Hyde\Framework\Foundation\PageCollection;
-use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
@@ -38,12 +38,12 @@ use JsonSerializable;
  */
 class HydeKernel implements Arrayable, JsonSerializable
 {
-    use Foundation\Concerns\HandlesFoundationCollections;
-    use Foundation\Concerns\ImplementsStringHelpers;
-    use Foundation\Concerns\ForwardsHyperlinks;
-    use Foundation\Concerns\ForwardsFilesystem;
-    use Foundation\Concerns\ManagesHydeKernel;
-    use Foundation\Concerns\ManagesViewData;
+    use \Hyde\Foundation\Concerns\HandlesFoundationCollections;
+    use \Hyde\Foundation\Concerns\ImplementsStringHelpers;
+    use \Hyde\Foundation\Concerns\ForwardsHyperlinks;
+    use \Hyde\Foundation\Concerns\ForwardsFilesystem;
+    use \Hyde\Foundation\Concerns\ManagesHydeKernel;
+    use \Hyde\Foundation\Concerns\ManagesViewData;
 
     use JsonSerializesArrayable;
     use Macroable;
@@ -87,7 +87,7 @@ class HydeKernel implements Arrayable, JsonSerializable
 
     /**
      * @inheritDoc
-     * @psalm-return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Framework\Foundation\PageCollection, routes: \Hyde\Framework\Foundation\RouteCollection}
+     * @psalm-return array{basePath: string, features: \Hyde\Framework\Helpers\Features, pages: \Hyde\Foundation\PageCollection, routes: \Hyde\Foundation\RouteCollection}
      */
     public function toArray(): array
     {
