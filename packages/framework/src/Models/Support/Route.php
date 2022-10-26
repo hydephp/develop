@@ -187,7 +187,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the specified route key.
      *
-     * @param string $routeKey Example: posts/foo, posts.foo
+     * @param  string  $routeKey  Example: posts/foo, posts.foo
      * @return \Hyde\Framework\Models\Support\Route|null
      */
     public static function getFromKey(string $routeKey): ?static
@@ -198,7 +198,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the specified source file path.
      *
-     * @param string $sourceFilePath Example: _posts/foo.md
+     * @param  string  $sourceFilePath  Example: _posts/foo.md
      * @return \Hyde\Framework\Models\Support\Route|null
      */
     public static function getFromSource(string $sourceFilePath): ?static
