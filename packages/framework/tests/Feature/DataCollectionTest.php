@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\DataCollections\DataCollection;
+use Hyde\DataCollections\DataCollectionServiceProvider;
+use Hyde\DataCollections\Facades\MarkdownCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Markdown\MarkdownDocument;
-use Hyde\Framework\Modules\DataCollections\DataCollection;
-use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
-use Hyde\Framework\Modules\DataCollections\Facades\MarkdownCollection;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Foundation\AliasLoader;
@@ -16,9 +16,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Modules\DataCollections\DataCollection
- * @covers \Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider
- * @covers \Hyde\Framework\Modules\DataCollections\Facades\MarkdownCollection
+ * @covers \Hyde\DataCollections\DataCollection
+ * @covers \Hyde\DataCollections\DataCollectionServiceProvider
+ * @covers \Hyde\DataCollections\Facades\MarkdownCollection
  */
 class DataCollectionTest extends TestCase
 {

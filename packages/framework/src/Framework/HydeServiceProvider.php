@@ -134,6 +134,6 @@ class HydeServiceProvider extends ServiceProvider
      */
     protected function registerModuleServiceProviders(): void
     {
-        $this->app->register(Modules\DataCollections\DataCollectionServiceProvider::class);
+        $this->app->register(\Hyde\DataCollections\DataCollectionServiceProvider::class);
     }
 }

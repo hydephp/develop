@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Modules\DataCollections;
+namespace Hyde\DataCollections;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Hyde;
@@ -19,7 +19,7 @@ class DataCollectionServiceProvider extends ServiceProvider
         // Register the class alias
         AliasLoader::getInstance()->alias(
             'MarkdownCollection',
-            Facades\MarkdownCollection::class
+            \Hyde\DataCollections\Facades\MarkdownCollection::class
         );
     }
 

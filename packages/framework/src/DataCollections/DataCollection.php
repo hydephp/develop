@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Modules\DataCollections;
+namespace Hyde\DataCollections;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Hyde;
