@@ -6,7 +6,6 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 /**
