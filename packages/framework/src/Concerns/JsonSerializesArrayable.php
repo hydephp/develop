@@ -14,7 +14,7 @@ namespace Hyde\Framework\Concerns;
 trait JsonSerializesArrayable
 {
     /** @inheritDoc */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
