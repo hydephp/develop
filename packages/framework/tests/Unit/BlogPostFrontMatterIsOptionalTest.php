@@ -28,9 +28,7 @@ class BlogPostFrontMatterIsOptionalTest extends TestCase
 
         // Create a temporary page to test the feed
         file_put_contents(Hyde::path('_pages/feed-test.blade.php'),
-            '@foreach(\Hyde\Pages\MarkdownPost::getLatestPosts() as $post)
-				@include(\'hyde::components.article-excerpt\')
-			@endforeach'
+            file_get_contents(Hyde::vendorPath('resources/views/components/blog-post-feed.blade.php'))
         );
 
         Artisan::call('rebuild _pages/feed-test.blade.php');
