@@ -16,7 +16,7 @@ class PackageDiscoverCommand extends BaseCommand
     /** @var true */
     protected $hidden = true;
 
-    public function handle(PackageManifest $manifest)
+    public function handle(PackageManifest $manifest): void
     {
         $manifest->manifestPath = Hyde::path('storage/framework/cache/packages.php');
         parent::handle($manifest);
