@@ -1,9 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 /** @noinspection PhpComposerExtensionStubsInspection */
 /** @noinspection XmlUnusedNamespaceDeclaration */
+
+declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
