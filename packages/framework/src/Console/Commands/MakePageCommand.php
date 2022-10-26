@@ -18,11 +18,7 @@ use LaravelZero\Framework\Commands\Command;
  */
 class MakePageCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'make:page 
 		{title? : The name of the page file to create. Will be used to generate the slug}
 		{--type=markdown : The type of page to create (markdown, blade, or docs)}
@@ -30,11 +26,7 @@ class MakePageCommand extends Command
         {--docs : Create a Documentation page}
 		{--force : Overwrite any existing files}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Scaffold a new Markdown, Blade, or documentation page file';
 
     /**
@@ -57,9 +49,6 @@ class MakePageCommand extends Command
      */
     public bool $force;
 
-    /**
-     * Execute the console command.
-     */
     public function handle(): int
     {
         $this->title('Creating a new page!');
@@ -81,13 +70,6 @@ class MakePageCommand extends Command
         return 0;
     }
 
-    /**
-     * Validate the options passed to the command.
-     *
-     * @return void
-     *
-     * @throws UnsupportedPageTypeException if the page type is invalid.
-     */
     protected function validateOptions(): void
     {
         $type = $this->getSelectedType();
@@ -112,11 +94,6 @@ class MakePageCommand extends Command
         throw new UnsupportedPageTypeException("Invalid page type: $type");
     }
 
-    /**
-     * Get the selected page type.
-     *
-     * @return string
-     */
     protected function getSelectedType(): string
     {
         $type = 'markdown';
