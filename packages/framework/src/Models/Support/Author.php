@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Models\Support;
 
 use Illuminate\Support\Collection;
+use Stringable;
 
 /**
  * The Post Author model object.
  *
  * @see \Hyde\Framework\Testing\Feature\AuthorTest
  */
-class Author implements \Stringable
+class Author implements Stringable
 {
     /**
      * The username of the author.

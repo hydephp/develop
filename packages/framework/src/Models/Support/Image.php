@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Models\Support;
 
+use Exception;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Framework\Contracts\FrontMatter\Support\FeaturedImageSchema;
 use Hyde\Framework\Hyde;
+use Stringable;
 
 /**
  * Holds the information for an image.
@@ -26,7 +28,7 @@ use Hyde\Framework\Hyde;
  * @see \Hyde\Framework\Testing\Feature\ImageModelTest
  * @phpstan-consistent-constructor
  */
-class Image implements FeaturedImageSchema, \Stringable
+class Image implements FeaturedImageSchema, Stringable
 {
     /**
      * The image's path (if it is stored locally (in the _media directory)).
@@ -139,7 +141,7 @@ class Image implements FeaturedImageSchema, \Stringable
 
     public function getSource(): string
     {
-        return $this->url ?? $this->getPath() ?? throw new \Exception('Attempting to get source from Image that has no source.');
+        return $this->url ?? $this->getPath() ?? throw new Exception('Attempting to get source from Image that has no source.');
     }
 
     public function getLink(): string

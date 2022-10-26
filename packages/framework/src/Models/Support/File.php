@@ -7,13 +7,15 @@ namespace Hyde\Framework\Models\Support;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
+use JsonSerializable;
+use Stringable;
 
 /**
  * Filesystem abstraction for a file stored in the project.
  *
  * @see \Hyde\Framework\Testing\Feature\FileTest
  */
-class File implements Arrayable, \JsonSerializable, \Stringable
+class File implements Arrayable, JsonSerializable, Stringable
 {
     use JsonSerializesArrayable;
 

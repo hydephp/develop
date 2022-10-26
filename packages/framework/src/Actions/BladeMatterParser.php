@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Hyde;
+use RuntimeException;
 
 /**
  * Parse the front matter in a Blade file.
@@ -141,12 +142,12 @@ class BladeMatterParser
 
         // Check if string is an array
         if (! static::isValueArrayString($string)) {
-            throw new \RuntimeException('Failed parsing BladeMatter array. Input string must follow array syntax.');
+            throw new RuntimeException('Failed parsing BladeMatter array. Input string must follow array syntax.');
         }
 
         // Check if string is multidimensional (not yet supported)
         if (substr_count($string, '[') > 1 || substr_count($string, ']') > 1) {
-            throw new \RuntimeException('Failed parsing BladeMatter array. Multidimensional arrays are not supported yet.');
+            throw new RuntimeException('Failed parsing BladeMatter array. Multidimensional arrays are not supported yet.');
         }
 
         // Remove opening and closing brackets

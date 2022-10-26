@@ -9,6 +9,7 @@ use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
+use JsonSerializable;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
@@ -18,7 +19,7 @@ use Illuminate\Support\Str;
  * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/
  */
-class Features implements Arrayable, \JsonSerializable
+class Features implements Arrayable, JsonSerializable
 {
     use JsonSerializesArrayable;
 

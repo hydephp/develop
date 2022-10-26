@@ -13,6 +13,7 @@ use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
+use JsonSerializable;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
@@ -35,7 +36,7 @@ use Illuminate\Support\Traits\Macroable;
  *
  * The Kernel instance is constructed in bootstrap.php, and is available globally as $hyde.
  */
-class HydeKernel implements Arrayable, \JsonSerializable
+class HydeKernel implements Arrayable, JsonSerializable
 {
     use Foundation\Concerns\HandlesFoundationCollections;
     use Foundation\Concerns\ImplementsStringHelpers;

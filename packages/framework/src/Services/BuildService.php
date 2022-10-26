@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Closure;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Foundation\RouteCollection;
@@ -96,7 +97,7 @@ class BuildService
     }
 
     /** @psalm-return \Closure(\Hyde\Framework\Models\Support\Route):string */
-    protected function compileRoute(): \Closure
+    protected function compileRoute(): Closure
     {
         return function (Route $route) {
             return (new StaticPageBuilder($route->getSourceModel()))->__invoke();

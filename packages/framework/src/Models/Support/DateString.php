@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Models\Support;
 
 use DateTime;
+use Stringable;
 
 /**
  * Parse a date string and create normalized formats.
  *
  * @see \Hyde\Framework\Testing\Unit\DateStringTest
  */
-class DateString implements \Stringable
+class DateString implements Stringable
 {
     /** Date format constants */
     const DATETIME_FORMAT = 'c';

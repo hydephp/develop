@@ -8,6 +8,7 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Support\Route;
 use Illuminate\Support\Str;
+use Stringable;
 
 /**
  * Abstraction for a navigation menu item. Used by the NavigationMenu and DocumentationSidebar classes.
@@ -17,7 +18,7 @@ use Illuminate\Support\Str;
  *   2. You can use NavItem::fromRoute() to use data from the route
  *   3. You can use NavItem::toLink() for an external or un-routed link
  */
-class NavItem implements \Stringable
+class NavItem implements Stringable
 {
     public Route $route;
     public string $href;

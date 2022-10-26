@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Exceptions;
 
-class RouteNotFoundException extends \Exception
+use Exception;
+
+class RouteNotFoundException extends Exception
 {
     /** @var string */
     protected $message = 'Route not found.';

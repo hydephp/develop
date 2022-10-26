@@ -8,6 +8,7 @@ use Hyde\Framework\Contracts\BuildTaskContract;
 use Hyde\Framework\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+use Throwable;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
@@ -34,7 +35,7 @@ abstract class AbstractBuildTask implements BuildTaskContract
         try {
             $this->run();
             $this->then();
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             $this->writeln('<error>Failed</error>');
             $this->writeln("<error>{$exception->getMessage()}</error>");
             $this->exitCode = $exception->getCode();

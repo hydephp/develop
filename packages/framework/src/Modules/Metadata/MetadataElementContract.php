@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Modules\Metadata;
 
+use Stringable;
+
 /**
  * The methods the object representations for Metadata element classes must implement.
  */
-interface MetadataElementContract extends \Stringable
+interface MetadataElementContract extends Stringable
 {
     /**
      * @return string The HTML representation of the element.
