@@ -20,6 +20,10 @@ abstract class AbstractBuildTask implements BuildTaskContract
     protected static string $description = 'Generic build task';
 
     protected float $timeStart;
+
+    /**
+     * @todo Consider setting default value to 0
+     */
     protected ?int $exitCode = null;
 
     public function __construct(?OutputStyle $output = null)
