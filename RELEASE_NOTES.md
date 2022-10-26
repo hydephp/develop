@@ -17,7 +17,12 @@ This serves two purposes:
 #### Breaking changes
 These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
 
-- HydePHP now requires PHP 8.1 or higher.
+##### HydePHP now requires PHP 8.1 or higher.
+Since this is a minor version bump, upgrading from PHP 8.0 to 8.1 is rather simple, with many resources available online to help you do so.
+
+##### Namespace  changes
+Some namespaces have changed, while these are internal changes, they will likely require you to republish your configuration files.
+You may also need to republish any Blade views that you have overridden.
 
 #### Breaking internal changes
 These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.
