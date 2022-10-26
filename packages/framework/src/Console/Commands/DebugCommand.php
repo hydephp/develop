@@ -13,18 +13,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class DebugCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'debug';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Print debug info';
 
     public function __construct()
@@ -36,11 +28,6 @@ class DebugCommand extends Command
         }
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $this->info('HydePHP Debug Screen');

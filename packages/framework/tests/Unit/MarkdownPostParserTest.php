@@ -11,7 +11,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Commands\StaticSiteBuilderPostModuleTest for the compiler test.
+ * @see \Hyde\Framework\Testing\Feature\StaticSiteBuilderPostModuleTest for the compiler test.
  */
 class MarkdownPostParserTest extends TestCase
 {

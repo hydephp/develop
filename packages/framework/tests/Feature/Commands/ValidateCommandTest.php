@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
  */
-class HydeValidateCommandTest extends TestCase
+class ValidateCommandTest extends TestCase
 {
     public function test_validate_command_can_run()
     {

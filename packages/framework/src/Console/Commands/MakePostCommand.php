@@ -13,27 +13,14 @@ use LaravelZero\Framework\Commands\Command;
  */
 class MakePostCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'make:post
                             {title? : The title for the Post. Will be used to generate the slug}
                             {--force : Should the generated file overwrite existing posts with the same slug?}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Scaffold a new Markdown blog post file';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $this->title('Creating a new post!');

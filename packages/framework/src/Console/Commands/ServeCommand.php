@@ -12,25 +12,12 @@ use LaravelZero\Framework\Commands\Command;
  */
 class ServeCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'serve {--port=8080} {--host=localhost}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Start the experimental realtime compiler.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');

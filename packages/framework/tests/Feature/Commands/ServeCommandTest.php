@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\ServeCommand
  */
-class HydeServeCommandTest extends TestCase
+class ServeCommandTest extends TestCase
 {
     public function test_hyde_serve_command()
     {

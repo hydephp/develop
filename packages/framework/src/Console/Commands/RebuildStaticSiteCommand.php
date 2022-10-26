@@ -14,23 +14,15 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde Command to build a single static site file.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\HydeRebuildStaticSiteCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\RebuildStaticSiteCommandTest
  */
 class RebuildStaticSiteCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'rebuild
         {path : The relative file path (example: _posts/hello-world.md)}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Run the static site builder for a single file';
 
     /**
@@ -40,11 +32,6 @@ class RebuildStaticSiteCommand extends Command
      */
     public string $path;
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $time_start = microtime(true);

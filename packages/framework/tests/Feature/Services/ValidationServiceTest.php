@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Services\ValidationService
  * @covers \Hyde\Framework\Models\Support\ValidationResult
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
 class ValidationServiceTest extends TestCase
 {

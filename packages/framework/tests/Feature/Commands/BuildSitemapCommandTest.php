@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Console\Commands\BuildSitemapCommand
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
  */
-class HydeBuildSitemapCommandTest extends TestCase
+class BuildSitemapCommandTest extends TestCase
 {
     public function test_sitemap_is_generated_when_conditions_are_met()
     {

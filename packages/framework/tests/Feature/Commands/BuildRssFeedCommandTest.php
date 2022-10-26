@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Console\Commands\BuildRssFeedCommand
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
  */
-class HydeBuildRssFeedCommandTest extends TestCase
+class BuildRssFeedCommandTest extends TestCase
 {
     public function test_rss_feed_is_generated_when_conditions_are_met()
     {

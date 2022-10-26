@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Exception;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
@@ -23,11 +22,7 @@ use LaravelZero\Framework\Commands\Command;
  */
 class BuildSiteCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $signature = 'build 
         {--run-dev : Run the NPM dev script after build}
         {--run-prod : Run the NPM prod script after build}
@@ -35,22 +30,11 @@ class BuildSiteCommand extends Command
         {--pretty-urls : Should links in output use pretty URLs?}
         {--no-api : Disable API calls, for example, Torchlight}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Build the static site';
 
     protected BuildService $service;
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     *
-     * @throws Exception
-     */
     public function handle(): int
     {
         $time_start = microtime(true);
@@ -74,7 +58,6 @@ class BuildSiteCommand extends Command
         return 0;
     }
 
-    /** @internal */
     protected function runPreBuildActions(): void
     {
         if ($this->option('no-api')) {
@@ -92,11 +75,6 @@ class BuildSiteCommand extends Command
         }
     }
 
-    /**
-     * Run any post-build actions.
-     *
-     * @return void
-     */
     public function runPostBuildActions(): void
     {
         $service = new BuildTaskService($this->output);
@@ -124,7 +102,6 @@ class BuildSiteCommand extends Command
         $service->runPostBuildTasks();
     }
 
-    /** @internal */
     protected function printFinishMessage(float $time_start): void
     {
         $execution_time = (microtime(true) - $time_start);
@@ -141,7 +118,6 @@ class BuildSiteCommand extends Command
         );
     }
 
-    /* @internal */
     protected function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
     {
         $this->info($message.' This may take a second.');

@@ -11,7 +11,7 @@ use Illuminate\Foundation\PackageManifest;
 /**
  * @covers \Hyde\Console\Commands\PackageDiscoverCommand
  */
-class HydePackageDiscoverCommandTest extends TestCase
+class PackageDiscoverCommandTest extends TestCase
 {
     public function test_package_discover_command_can_run()
     {

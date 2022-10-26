@@ -11,11 +11,14 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde command to display the list of site routes.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\HydeRouteListCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\RouteListCommandTest
  */
 class RouteListCommand extends Command
 {
+    /** @var string */
     protected $signature = 'route:list';
+
+    /** @var string */
     protected $description = 'Display all registered routes.';
 
     public function handle(): int

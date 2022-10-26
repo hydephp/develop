@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\PublishHomepageCommand
  */
-class HydePublishHomepageCommandTest extends TestCase
+class PublishHomepageCommandTest extends TestCase
 {
     protected string $file;
 

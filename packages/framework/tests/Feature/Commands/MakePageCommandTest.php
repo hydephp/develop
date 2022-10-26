@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\MakePageCommand
  */
-class HydeMakePageCommandTest extends TestCase
+class MakePageCommandTest extends TestCase
 {
     protected string $markdownPath;
     protected string $bladePath;

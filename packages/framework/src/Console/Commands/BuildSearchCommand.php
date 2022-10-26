@@ -10,11 +10,14 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde command to run the build process for the documentation search index.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSearchCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
  */
 class BuildSearchCommand extends Command
 {
+    /** @var string */
     protected $signature = 'build:search';
+
+    /** @var string */
     protected $description = 'Generate the docs/search.json';
 
     public function handle(): int

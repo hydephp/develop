@@ -14,7 +14,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Console\Commands\BuildSearchCommand
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
  */
-class HydeBuildSearchCommandTest extends TestCase
+class BuildSearchCommandTest extends TestCase
 {
     protected function setUp(): void
     {

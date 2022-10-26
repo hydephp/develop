@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\PublishViewsCommand
  */
-class HydePublishViewsCommandTest extends TestCase
+class PublishViewsCommandTest extends TestCase
 {
     protected function setUp(): void
     {
