@@ -15,6 +15,7 @@ use Hyde\Framework\Models\Support\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Metadata\PageMetadataBag;
+use Hyde\Support\Types\RouteKey;
 use Illuminate\Support\Arr;
 
 /**
@@ -44,7 +45,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     public static string $template;
 
     public string $identifier;
-    public string $routeKey;
+    public RouteKey|string $routeKey;
 
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
