@@ -7,9 +7,9 @@ namespace Hyde\Support\Types;
 use Stringable;
 
 /**
- * Route Keys are the core of Hyde's routing system.
+ * Route keys are the core of Hyde's routing system.
  *
- * The route key is generally <output-directory/slug>.
+ * The route key is a string that's generally <output-directory/slug>.
  *
  * @example ```php
     // Source file: _pages/index.md/index.blade.php
