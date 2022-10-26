@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Models\Pages;
+namespace Hyde\Pages;
 
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 

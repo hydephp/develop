@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Contracts\FrontMatter;
 
 /**
- * @see \Hyde\Framework\Models\Pages\MarkdownPost
+ * @see \Hyde\Pages\MarkdownPost
  */
 interface BlogPostSchema extends Support\FeaturedImageSchema
 {

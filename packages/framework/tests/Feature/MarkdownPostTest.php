@@ -7,12 +7,12 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Blogging\Models\Author;
 use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\DateString;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Pages\MarkdownPost
+ * @covers \Hyde\Pages\MarkdownPost
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  */
 class MarkdownPostTest extends TestCase

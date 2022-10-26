@@ -12,9 +12,9 @@ use Hyde\Hyde;
 /**
  * The base class for all Markdown-based page models.
  *
- * @see \Hyde\Framework\Models\Pages\MarkdownPage
- * @see \Hyde\Framework\Models\Pages\MarkdownPost
- * @see \Hyde\Framework\Models\Pages\DocumentationPage
+ * @see \Hyde\Pages\MarkdownPage
+ * @see \Hyde\Pages\MarkdownPost
+ * @see \Hyde\Pages\DocumentationPage
  * @see \Hyde\Framework\Concerns\HydePage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Models\Markdown\Markdown;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\SemanticDocumentationArticle;
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**

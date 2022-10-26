@@ -7,7 +7,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\ValidatesExistence;
-use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Pages\BladePage;
 
 /**
  * Parses a source file and returns a new page model instance for it.

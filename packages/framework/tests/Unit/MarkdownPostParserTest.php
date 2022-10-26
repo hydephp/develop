@@ -6,8 +6,8 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Markdown\Markdown;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**

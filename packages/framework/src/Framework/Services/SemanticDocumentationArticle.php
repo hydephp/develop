@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Str;
 
 /**
@@ -112,7 +112,7 @@ class SemanticDocumentationArticle
     /**
      * Create a new SemanticDocumentationArticle instance, process, and return it.
      *
-     * @param  \Hyde\Framework\Models\Pages\DocumentationPage  $page  The source page object
+     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
      * @param  string  $html  compiled HTML content
      * @return static new processed instance
      */

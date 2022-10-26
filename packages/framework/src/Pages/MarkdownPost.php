@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Models\Pages;
+namespace Hyde\Pages;
 
 use Hyde\Blogging\Models\Author;
 use Hyde\Blogging\Models\FeaturedImage;

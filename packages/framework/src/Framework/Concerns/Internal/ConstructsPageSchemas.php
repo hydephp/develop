@@ -9,9 +9,9 @@ use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\DateString;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
 
 trait ConstructsPageSchemas
 {

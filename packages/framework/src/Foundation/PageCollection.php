@@ -8,11 +8,11 @@ use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\HtmlPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**

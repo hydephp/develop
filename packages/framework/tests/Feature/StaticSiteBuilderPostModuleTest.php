@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**

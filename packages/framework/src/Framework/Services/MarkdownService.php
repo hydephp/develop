@@ -9,7 +9,7 @@ use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
 use Hyde\Framework\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use Hyde\Framework\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Pages\DocumentationPage;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 

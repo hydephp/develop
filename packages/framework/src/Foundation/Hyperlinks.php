@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
-use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Pages\DocumentationPage;
 
 /**
  * Contains helpers and logic for resolving web paths for compiled files.

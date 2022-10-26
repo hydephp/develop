@@ -6,7 +6,7 @@ namespace Hyde\Framework\Contracts\FrontMatter\Support;
 
 /**
  * @see \Hyde\Blogging\Models\FeaturedImage
- * @see \Hyde\Framework\Models\Pages\MarkdownPost
+ * @see \Hyde\Pages\MarkdownPost
  */
 interface FeaturedImageSchema
 {
