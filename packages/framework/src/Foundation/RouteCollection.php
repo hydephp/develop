@@ -46,7 +46,7 @@ final class RouteCollection extends BaseFoundationCollection
      */
     public function addRoute(Route $route): self
     {
-        $this->put($route->getRouteKey(), $route);
+        $this->put((string) $route->getRouteKey(), $route);
 
         return $this;
     }

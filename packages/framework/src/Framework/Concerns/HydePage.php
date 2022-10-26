@@ -15,6 +15,7 @@ use Hyde\Framework\Models\Support\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Metadata\PageMetadataBag;
+use Hyde\Support\Types\RouteKey;
 use Illuminate\Support\Arr;
 
 /**
@@ -44,7 +45,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     public static string $template;
 
     public string $identifier;
-    public string $routeKey;
+    public RouteKey $routeKey;
 
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
@@ -161,9 +162,9 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Format a page identifier to a route key.
      */
-    public static function routeKey(string $identifier): string
+    public static function routeKey(string $identifier): RouteKey
     {
-        return unslash(static::outputDirectory().'/'.$identifier);
+        return RouteKey::make(unslash(static::outputDirectory().'/'.$identifier));
     }
 
     /**
@@ -175,9 +176,9 @@ abstract class HydePage implements CompilableContract, PageSchema
      * then this method will return 'docs/index'. Route keys are used to
      * identify pages, similar to how named routes work in Laravel.
      *
-     * @return string The page's route key.
+     * @return \Hyde\Support\Types\RouteKey The page's route key.
      */
-    public function getRouteKey(): string
+    public function getRouteKey(): RouteKey
     {
         return $this->routeKey;
     }

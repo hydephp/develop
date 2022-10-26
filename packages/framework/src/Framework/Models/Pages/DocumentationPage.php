@@ -8,6 +8,7 @@ use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Framework\Models\Support\Route;
+use Hyde\Support\Types\RouteKey;
 
 /**
  * Page class for documentation pages.
@@ -24,9 +25,9 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public static string $template = 'hyde::layouts/docs';
 
     /** @inheritDoc */
-    public function getRouteKey(): string
+    public function getRouteKey(): RouteKey
     {
-        return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
+        return RouteKey::make(trim(static::outputDirectory().'/'.basename($this->identifier), '/'));
     }
 
     /** @internal */
