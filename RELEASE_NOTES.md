@@ -30,6 +30,10 @@ If you however have written custom code that explicitly references the old names
 - Changes and refactors regarding the internal metadata handling, see below.
 - The static class property used to determine the site output path has been moved.
   * Instead of using `StaticPageBuilder::$outputPath` you must now use `Site::$outputPath`.
+- Major refactors to the Metadata services.
+  * Large changes to the Meta.php helper/facade; most of its business logic has been moved to the GlobalMetadataBag class.
+  * This might affect you if you relied on any of the helper methods that were removed from Meta.php.
+  * See https://github.com/hydephp/develop/pull/584 for more details.
 
 ### Other changes
 
@@ -37,7 +41,6 @@ If you however have written custom code that explicitly references the old names
   - The fallback navigation priority for all navigation items is now 999.
   - The offset for config priorities is now +500 instead of +250 for sidebar navigation.
   * This change may influence the order of navigation items in your site. Before deploying your site to production, you may want to review the order of your navigation items and adjust the priority of any items that are not in the order you want.
-- Large changes to the Meta.php helper/facade; most of its business logic has been moved to the GlobalMetadataBag class. This might affect you if you relied on any of the helper methods that were removed from Meta.php. See https://github.com/hydephp/develop/pull/584 for more details.
 
 ### Deprecated
 - for soon-to-be removed features.
