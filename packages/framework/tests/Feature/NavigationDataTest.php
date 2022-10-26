@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Hyde\Framework\Models\Navigation\NavigationData;
 use Hyde\Testing\TestCase;
+use ReflectionClass;
 
 /**
  * @covers \Hyde\Framework\Models\Navigation\NavigationData
@@ -57,7 +58,7 @@ class NavigationDataTest extends TestCase
 
     protected function getImplementedSchema(string $class): array
     {
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
 
         $schema = [];
         foreach (get_class_vars($class) as $name => $void) {
