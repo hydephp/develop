@@ -59,7 +59,6 @@ class BuildSiteCommand extends Command
         return 0;
     }
 
-    /** @internal */
     protected function runPreBuildActions(): void
     {
         if ($this->option('no-api')) {
@@ -104,7 +103,6 @@ class BuildSiteCommand extends Command
         $service->runPostBuildTasks();
     }
 
-    /** @internal */
     protected function printFinishMessage(float $time_start): void
     {
         $execution_time = (microtime(true) - $time_start);
@@ -121,7 +119,6 @@ class BuildSiteCommand extends Command
         );
     }
 
-    /* @internal */
     protected function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
     {
         $this->info($message.' This may take a second.');
