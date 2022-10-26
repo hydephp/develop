@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Console\Commands\UpdateConfigsCommand
  */
-class HydeUpdateConfigsCommandTest extends TestCase
+class UpdateConfigsCommandTest extends TestCase
 {
     /** Setup */
     public function setUp(): void

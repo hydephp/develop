@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\RouteListCommand
  */
-class HydeRouteListCommandTest extends TestCase
+class RouteListCommandTest extends TestCase
 {
     public function testRouteListCommand()
     {
