@@ -152,9 +152,9 @@ class File implements Arrayable, \JsonSerializable, \Stringable
     {
         if ($this->belongsTo) {
             // If a model is set, use that to remove the directory, so any subdirectories within is retained
-            return substr($this, strlen($this->belongsTo::$sourceDirectory) + 1);
+            return substr($this->__toString(), strlen($this->belongsTo::$sourceDirectory) + 1);
         }
 
-        return basename($this);
+        return basename($this->__toString());
     }
 }
