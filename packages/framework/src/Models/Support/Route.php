@@ -237,7 +237,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get the home route, usually the index page route.
      */
-    public static function home(): Route
+    public static function home(): ?Route
     {
         return static::getFromKey('index');
     }
