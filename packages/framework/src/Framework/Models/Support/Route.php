@@ -38,7 +38,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * The unique route key for the route.
      *
-     * @var \Hyde\Support\Types\RouteKey|string The route key. Generally <output-directory/slug>.
+     * @var \Hyde\Support\Types\RouteKey|string
      */
     protected RouteKey|string $routeKey;
 
