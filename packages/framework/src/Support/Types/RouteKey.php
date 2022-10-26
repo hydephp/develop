@@ -37,11 +37,8 @@ use Stringable;
  */
 final class RouteKey implements Stringable
 {
-    private readonly string $key;
-
-    public function __construct(string $key)
+    public function __construct(private readonly string $key)
     {
-        $this->key = $key;
     }
 
     public function __toString()
