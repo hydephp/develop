@@ -14,7 +14,10 @@ use LaravelZero\Framework\Commands\Command;
  */
 class BuildRssFeedCommand extends Command
 {
+    /** @var string */
     protected $signature = 'build:rss';
+
+    /** @var string */
     protected $description = 'Generate the RSS feed';
 
     public function handle(): int
