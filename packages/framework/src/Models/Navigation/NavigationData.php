@@ -25,8 +25,6 @@ final class NavigationData implements NavigationSchema, Arrayable, JsonSerializa
         $this->group = $group;
         $this->hidden = $hidden;
         $this->priority = $priority;
-
-        parent::__construct($this->toArray());
     }
 
     public static function make(array $data): self
