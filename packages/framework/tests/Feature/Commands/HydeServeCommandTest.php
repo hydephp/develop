@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\HydeServeCommand
+ * @covers \Hyde\Console\Commands\ServeCommand
  */
 class HydeServeCommandTest extends TestCase
 {

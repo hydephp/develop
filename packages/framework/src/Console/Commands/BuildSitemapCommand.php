@@ -12,7 +12,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSitemapCommandTest
  */
-class HydeBuildSitemapCommand extends Command
+class BuildSitemapCommand extends Command
 {
     protected $signature = 'build:sitemap';
     protected $description = 'Generate the sitemap.xml';

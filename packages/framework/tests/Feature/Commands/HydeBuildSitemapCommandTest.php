@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\HydeBuildSitemapCommand
+ * @covers \Hyde\Console\Commands\BuildSitemapCommand
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
  */
 class HydeBuildSitemapCommandTest extends TestCase

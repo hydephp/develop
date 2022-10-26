@@ -15,7 +15,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydePublishHomepageCommandTest
  */
-class HydePublishHomepageCommand extends Command
+class PublishHomepageCommand extends Command
 {
     /** @var string */
     protected $signature = 'publish:homepage {homepage? : The name of the page to publish}

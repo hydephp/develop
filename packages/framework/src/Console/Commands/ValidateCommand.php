@@ -10,7 +10,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
  */
-class HydeValidateCommand extends Command
+class ValidateCommand extends Command
 {
     /** @var string */
     protected $signature = 'validate';

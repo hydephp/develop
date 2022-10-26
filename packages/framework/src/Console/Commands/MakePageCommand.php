@@ -16,7 +16,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeMakePageCommandTest
  */
-class HydeMakePageCommand extends Command
+class MakePageCommand extends Command
 {
     /**
      * The name and signature of the console command.

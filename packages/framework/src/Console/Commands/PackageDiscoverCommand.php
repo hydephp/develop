@@ -11,7 +11,7 @@ use Illuminate\Foundation\PackageManifest;
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\HydePackageDiscoverCommandTest
  */
-class HydePackageDiscoverCommand extends BaseCommand
+class PackageDiscoverCommand extends BaseCommand
 {
     /** @var true */
     protected $hidden = true;
