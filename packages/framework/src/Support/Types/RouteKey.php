@@ -21,7 +21,6 @@ use Stringable;
  * then this method will return 'docs/index'. Route keys are used to
  * identify pages, similar to how named routes work in Laravel.
  *
- *
  * @example ```php
  * // Source file: _pages/index.md/index.blade.php
  * // Compiled file: _site/index.html
