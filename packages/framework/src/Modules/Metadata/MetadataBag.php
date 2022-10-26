@@ -53,8 +53,6 @@ class MetadataBag implements Htmlable
         if ($element instanceof Models\OpenGraphElement) {
             return $this->addElement('properties', $element);
         }
-
-        return $this;
     }
 
     protected function addGenericElement(string $element): MetadataBag
