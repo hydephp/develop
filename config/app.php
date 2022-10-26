@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'version' => Hyde\Framework\Hyde::version(),
+    'version' => Hyde\Hyde::version(),
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     */
 
     'aliases' => [
-        'Hyde' => Hyde\Framework\Hyde::class,
+        'Hyde' => Hyde\Hyde::class,
         'Asset' => Hyde\Framework\Helpers\Asset::class,
         'Site' => \Hyde\Framework\Models\Support\Site::class,
         'Route' => \Hyde\Framework\Models\Support\Route::class,

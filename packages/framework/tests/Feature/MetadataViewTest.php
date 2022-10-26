@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\HydeKernel;
+use Hyde\Foundation\HydeKernel;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
@@ -15,9 +15,9 @@ use Hyde\Testing\TestCase;
  *
  * This test is useful both as a regression test, and also to ensure all tags are covered.
  *
- * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
- * @covers \Hyde\Framework\Modules\Metadata\PageMetadataBag
- * @covers \Hyde\Framework\Modules\Metadata\GlobalMetadataBag
+ * @covers \Hyde\Metadata\MetadataBag
+ * @covers \Hyde\Metadata\PageMetadataBag
+ * @covers \Hyde\Metadata\GlobalMetadataBag
  */
 class MetadataViewTest extends TestCase
 {

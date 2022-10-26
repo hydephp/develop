@@ -6,12 +6,12 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Modules\Metadata\GlobalMetadataBag;
+use Hyde\Metadata\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\View;
 
 /**
- * @covers \Hyde\Framework\Modules\Metadata\GlobalMetadataBag
+ * @covers \Hyde\Metadata\GlobalMetadataBag
  */
 class GlobalMetadataBagTest extends TestCase
 {

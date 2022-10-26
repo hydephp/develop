@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Foundation\PageCollection;
-use Hyde\Framework\Hyde;
+use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Foundation\PageCollection
- * @covers \Hyde\Framework\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\PageCollection
+ * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
  */
 class PageCollectionTest extends TestCase
 {

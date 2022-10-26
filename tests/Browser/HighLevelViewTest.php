@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing\Browser;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Hyde\Testing\DuskTestCase;
 use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;

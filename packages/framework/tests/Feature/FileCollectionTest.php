@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Foundation\FileCollection;
-use Hyde\Framework\Hyde;
+use Hyde\Foundation\FileCollection;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\File;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\Foundation\FileCollection
- * @covers \Hyde\Framework\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\FileCollection
+ * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
  */
 class FileCollectionTest extends TestCase
 {

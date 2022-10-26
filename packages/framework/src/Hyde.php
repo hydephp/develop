@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework;
+namespace Hyde;
 
+use Hyde\Foundation\FileCollection;
+use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\PageCollection;
+use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Foundation\FileCollection;
-use Hyde\Framework\Foundation\PageCollection;
-use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Support\Route;
 use Illuminate\Support\Facades\Facade;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * General facade for Hyde services.
  *
- * @see \Hyde\Framework\HydeKernel
+ * @see \Hyde\Foundation\HydeKernel
  *
  * @author  Caen De Silva <caen@desilva.se>
  * @copyright 2022 Caen De Silva

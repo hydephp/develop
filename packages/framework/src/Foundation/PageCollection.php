@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Foundation;
+namespace Hyde\Foundation;
 
+use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
@@ -16,7 +16,7 @@ use Hyde\Framework\Models\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\Foundation\RouteCollection
+ * @see \Hyde\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
 final class PageCollection extends BaseFoundationCollection

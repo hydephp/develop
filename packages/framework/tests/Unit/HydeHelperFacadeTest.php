@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\HydeKernel
+ * @covers \Hyde\Foundation\HydeKernel
  */
 class HydeHelperFacadeTest extends TestCase
 {

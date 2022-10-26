@@ -7,9 +7,9 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**

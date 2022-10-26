@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Services\RebuildService;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 

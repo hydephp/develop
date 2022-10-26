@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**

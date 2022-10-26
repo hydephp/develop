@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Foundation\Concerns;
+namespace Hyde\Foundation\Concerns;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Models\Support\Route;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\View;
 /**
  * @internal Single-use trait for the HydeKernel class.
  *
- * @see \Hyde\Framework\HydeKernel
+ * @see \Hyde\Foundation\HydeKernel
  */
 trait ManagesViewData
 {

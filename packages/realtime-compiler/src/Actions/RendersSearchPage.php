@@ -2,7 +2,7 @@
 
 namespace Hyde\RealtimeCompiler\Actions;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Illuminate\Support\Facades\Blade;
 

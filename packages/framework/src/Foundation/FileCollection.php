@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Foundation;
+namespace Hyde\Foundation;
 
+use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;

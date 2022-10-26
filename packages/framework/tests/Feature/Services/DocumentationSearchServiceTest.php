@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Services\DocumentationSearchService as Service;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**

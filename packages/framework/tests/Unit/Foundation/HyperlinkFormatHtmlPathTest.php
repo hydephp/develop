@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Foundation\Hyperlinks::formatLink
+ * @covers \Hyde\Foundation\Hyperlinks::formatLink
  */
 class HyperlinkformatLinkTest extends TestCase
 {

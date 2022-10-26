@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Framework\Hyde;
 use Hyde\Framework\Services\ChecksumService;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
