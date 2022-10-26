@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Commands;
+namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Models\Pages\MarkdownPost;
