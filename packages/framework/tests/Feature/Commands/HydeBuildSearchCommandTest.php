@@ -11,7 +11,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Commands\HydeBuildSearchCommand
+ * @covers \Hyde\Console\Commands\HydeBuildSearchCommand
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
  */
 class HydeBuildSearchCommandTest extends TestCase

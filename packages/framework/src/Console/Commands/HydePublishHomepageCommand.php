@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Commands;
+namespace Hyde\Console\Commands;
 
 use Hyde\Framework\Actions\PublishesHomepageView;
 use Hyde\Framework\Services\ChecksumService;

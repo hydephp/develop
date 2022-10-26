@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Commands\HydeBuildSiteCommand
+ * @covers \Hyde\Console\Commands\HydeBuildSiteCommand
  * @covers \Hyde\Framework\Services\BuildService
  */
 class StaticSiteServiceTest extends TestCase

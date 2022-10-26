@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Commands\HydeUpdateConfigsCommand
+ * @covers \Hyde\Console\Commands\HydeUpdateConfigsCommand
  */
 class HydeUpdateConfigsCommandTest extends TestCase
 {

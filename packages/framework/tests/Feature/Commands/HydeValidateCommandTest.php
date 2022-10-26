@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Commands\HydeValidateCommand
+ * @covers \Hyde\Console\Commands\HydeValidateCommand
  * @covers \Hyde\Framework\Services\ValidationService
  * @covers \Hyde\Framework\Models\Support\ValidationResult
  *
