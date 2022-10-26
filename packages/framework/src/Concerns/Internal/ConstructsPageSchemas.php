@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
@@ -46,7 +48,7 @@ trait ConstructsPageSchemas
     {
         if ($this instanceof MarkdownPost) {
             $this->category = $this->matter('category');
-            $this->description = $this->matter('description', $this->makeDescription($this->markdown));
+            $this->description = $this->matter('description', $this->makeDescription((string) $this->markdown));
             $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
             $this->author = $this->getAuthor();
             $this->image = $this->getImage();

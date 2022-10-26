@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Modules\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
@@ -54,7 +56,7 @@ class PageMetadataBag extends MetadataBag
         }
 
         if ($page->has('image')) {
-            $this->add(Meta::property('image', $this->resolveImageLink($page->get('image'))));
+            $this->add(Meta::property('image', $this->resolveImageLink((string) $page->get('image'))));
         }
 
         $this->add(Meta::property('type', 'article'));
@@ -63,7 +65,7 @@ class PageMetadataBag extends MetadataBag
     protected function addPostMetadataIfExists(MarkdownPost $page, string $property, ?string $name = null): void
     {
         if ($page->has($property)) {
-            $this->add(Meta::name($name ?? $property, $page->get($property)));
+            $this->add(Meta::name($name ?? $property, (string) $page->get($property)));
         }
     }
 

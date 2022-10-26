@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Hyde;
@@ -30,7 +32,7 @@ class Redirect
     {
         return view('hyde::pages.redirect', [
             'destination' => $this->destination,
-        ]);
+        ])->render();
     }
 
     public function store(): static

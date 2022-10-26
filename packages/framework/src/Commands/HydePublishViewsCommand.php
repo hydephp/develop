@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Commands;
 
 use Hyde\Framework\Actions\PublishesHydeViews;
@@ -25,7 +27,7 @@ class HydePublishViewsCommand extends Command
 
         if ($this->selected === 'all' || $this->selected === '') {
             foreach (PublishesHydeViews::$options as $key => $value) {
-                $this->publishOption($key);
+                $this->publishOption((string) $key);
             }
         } else {
             $this->publishOption($this->selected);
@@ -78,6 +80,6 @@ class HydePublishViewsCommand extends Command
 
     protected function parseChoiceIntoKey(string $choice): string
     {
-        return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true);
+        return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
     }
 }

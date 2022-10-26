@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
@@ -56,7 +58,7 @@ This is a post stub used in the automated tests
 
         $this->assertEquals(
             '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', $document->markdown)
+            str_replace(["\n", "\r"], '', (string) $document->markdown)
         );
     }
 
@@ -90,7 +92,7 @@ This is a post stub used in the automated tests
 
         $this->assertEquals(
             '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', $post->markdown)
+            str_replace(["\n", "\r"], '', (string) $post->markdown)
         );
     }
 }

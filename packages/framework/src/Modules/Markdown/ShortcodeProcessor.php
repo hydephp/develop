@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Modules\Markdown;
 
 use Hyde\Framework\Contracts\MarkdownPreProcessorContract;

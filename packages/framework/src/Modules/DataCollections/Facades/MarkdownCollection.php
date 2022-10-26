@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Modules\DataCollections\Facades;
 
 use Hyde\Framework\Modules\DataCollections\DataCollection;

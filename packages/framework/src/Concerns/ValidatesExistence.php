@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;

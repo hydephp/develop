@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Models\Markdown;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
@@ -25,7 +27,7 @@ class MarkdownDocument implements MarkdownDocumentContract, \Stringable
 
     public function __toString(): string
     {
-        return $this->markdown;
+        return $this->markdown->__toString();
     }
 
     public function matter(string $key = null, mixed $default = null): mixed

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Models\Markdown;
 
 use Hyde\Framework\Services\MarkdownService;
@@ -61,6 +63,6 @@ class Markdown implements Arrayable, \Stringable
     {
         return $sourceModel !== null
             ? (new MarkdownService($markdown, $sourceModel))->parse()
-            : app(\Hyde\Framework\Actions\MarkdownConverter::class)->convert($markdown);
+            : (string) app(\Hyde\Framework\Actions\MarkdownConverter::class)->convert($markdown);
     }
 }

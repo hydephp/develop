@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Concerns\BaseMarkdownPage;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
@@ -53,7 +55,7 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
      */
     public function getTableOfContents(): string
     {
-        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
+        return (new GeneratesSidebarTableOfContents((string) $this->markdown))->execute();
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\MarkdownConverter;
@@ -46,7 +48,7 @@ class MarkdownService
 
         $this->runPreProcessing();
 
-        $this->html = $this->converter->convert($this->markdown);
+        $this->html = (string) $this->converter->convert($this->markdown);
 
         $this->runPostProcessing();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Models\Pages;
 
 use Hyde\Framework\Concerns\HydePage;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;

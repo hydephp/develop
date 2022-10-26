@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 /**
@@ -103,9 +104,9 @@ class SemanticDocumentationArticle
 
     protected function renderSourceLink(): string
     {
-        return View::make('hyde::components.docs.edit-source-button', [
+        return view('hyde::components.docs.edit-source-button', [
             'href' => $this->page->getOnlineSourcePath(),
-        ]);
+        ])->render();
     }
 
     /**
