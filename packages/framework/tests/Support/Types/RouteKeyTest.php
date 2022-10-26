@@ -12,11 +12,6 @@ use Hyde\Testing\TestCase;
  */
 class RouteKeyTest extends TestCase
 {
-    public function testMake()
-    {
-        $this->assertEquals(new RouteKey('foo'), RouteKey::make('foo'));
-    }
-
     public function test__construct()
     {
         $this->assertInstanceOf(RouteKey::class, new RouteKey('foo'));
@@ -25,10 +20,5 @@ class RouteKeyTest extends TestCase
     public function test__toString()
     {
         $this->assertSame('foo', (string) new RouteKey('foo'));
-    }
-
-    public function testGet()
-    {
-        $this->assertSame('foo', (new RouteKey('foo'))->get());
     }
 }
