@@ -151,7 +151,8 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * @param  \Hyde\Framework\Models\Route|string  $route  A route instance or route key string
+     * @param \Hyde\Framework\Models\Support\Route|string $route A route instance or route key string
+     * @return bool
      */
     public function is(Route|string $route): bool
     {
