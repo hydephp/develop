@@ -42,7 +42,7 @@ final class FileCollection extends BaseFoundationCollection
     public function getMediaFiles(): self
     {
         return $this->filter(function (File $file): bool {
-            return str_starts_with($file, '_media');
+            return str_starts_with((string) $file, '_media');
         });
     }
 

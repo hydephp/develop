@@ -63,6 +63,6 @@ class Markdown implements Arrayable, \Stringable
     {
         return $sourceModel !== null
             ? (new MarkdownService($markdown, $sourceModel))->parse()
-            : app(\Hyde\Framework\Actions\MarkdownConverter::class)->convert($markdown);
+            : (string) app(\Hyde\Framework\Actions\MarkdownConverter::class)->convert($markdown);
     }
 }
