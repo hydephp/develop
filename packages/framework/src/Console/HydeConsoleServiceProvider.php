@@ -16,14 +16,6 @@ class HydeConsoleServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->registerHydeConsoleCommands();
-    }
-
-    /**
-     * Register the HydeCLI console commands.
-     */
-    protected function registerHydeConsoleCommands(): void
-    {
         $this->commands([
             Commands\PublishHomepageCommand::class,
             Commands\UpdateConfigsCommand::class,
