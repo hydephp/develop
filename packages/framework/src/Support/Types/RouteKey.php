@@ -10,6 +10,11 @@ final class RouteKey implements Stringable
 {
     private string $key;
 
+    public static function make(string $key): self
+    {
+        return new self($key);
+    }
+
     public function __construct(string $key) {
         $this->key = $key;
     }
