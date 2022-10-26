@@ -9,7 +9,6 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
-use Hyde\Support\Types\RouteKey;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Stringable;
@@ -40,7 +39,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      *
      * @var \Hyde\Support\Types\RouteKey|string
      */
-    protected RouteKey|string $routeKey;
+    protected string $routeKey;
 
     protected string $sourcePath;
     protected string $outputPath;
