@@ -10,6 +10,10 @@ use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
+/**
+ * Object implementation for the NavigationSchema. It extends the ArrayObject class so
+ * that its data can be accessed using dot notation in the page's front matter data.
+ */
 final class NavigationData extends ArrayObject implements NavigationSchema, Arrayable, JsonSerializable
 {
     use JsonSerializesArrayable;
