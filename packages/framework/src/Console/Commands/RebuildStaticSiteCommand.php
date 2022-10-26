@@ -16,7 +16,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeRebuildStaticSiteCommandTest
  */
-class HydeRebuildStaticSiteCommand extends Command
+class RebuildStaticSiteCommand extends Command
 {
     /**
      * The signature of the command.

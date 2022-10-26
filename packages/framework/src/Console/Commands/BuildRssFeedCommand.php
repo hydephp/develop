@@ -12,7 +12,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildRssFeedCommandTest
  */
-class HydeBuildRssFeedCommand extends Command
+class BuildRssFeedCommand extends Command
 {
     protected $signature = 'build:rss';
     protected $description = 'Generate the RSS feed';

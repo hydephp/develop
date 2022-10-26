@@ -13,7 +13,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeUpdateConfigsCommandTest
  */
-class HydeUpdateConfigsCommand extends Command
+class UpdateConfigsCommand extends Command
 {
     /** @var string */
     protected $signature = 'update:configs';

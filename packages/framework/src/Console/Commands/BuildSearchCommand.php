@@ -12,7 +12,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeBuildSearchCommandTest
  */
-class HydeBuildSearchCommand extends Command
+class BuildSearchCommand extends Command
 {
     protected $signature = 'build:search';
     protected $description = 'Generate the docs/search.json';

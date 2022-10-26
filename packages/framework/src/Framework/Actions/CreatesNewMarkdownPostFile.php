@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
  * using the Hyde command, and converts and formats the
  * data input by the user, and then saves the file.
  *
- * @see \Hyde\Console\Commands\HydeMakePostCommand
+ * @see \Hyde\Console\Commands\MakePostCommand
  */
 class CreatesNewMarkdownPostFile
 {

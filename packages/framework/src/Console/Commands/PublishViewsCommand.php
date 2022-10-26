@@ -11,7 +11,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Publish the Hyde Blade views.
  */
-class HydePublishViewsCommand extends Command
+class PublishViewsCommand extends Command
 {
     /** @var string */
     protected $signature = 'publish:views {category? : The category to publish}';

@@ -109,23 +109,23 @@ class HydeServiceProvider extends ServiceProvider
     protected function registerHydeConsoleCommands(): void
     {
         $this->commands([
-            \Hyde\Console\Commands\HydePublishHomepageCommand::class,
-            \Hyde\Console\Commands\HydeUpdateConfigsCommand::class,
-            \Hyde\Console\Commands\HydePublishViewsCommand::class,
-            \Hyde\Console\Commands\HydeRebuildStaticSiteCommand::class,
-            \Hyde\Console\Commands\HydeBuildSiteCommand::class,
-            \Hyde\Console\Commands\HydeBuildSitemapCommand::class,
-            \Hyde\Console\Commands\HydeBuildRssFeedCommand::class,
-            \Hyde\Console\Commands\HydeBuildSearchCommand::class,
-            \Hyde\Console\Commands\HydeRouteListCommand::class,
-            \Hyde\Console\Commands\HydeMakePostCommand::class,
-            \Hyde\Console\Commands\HydeMakePageCommand::class,
-            \Hyde\Console\Commands\HydeValidateCommand::class,
+            \Hyde\Console\Commands\PublishHomepageCommand::class,
+            \Hyde\Console\Commands\UpdateConfigsCommand::class,
+            \Hyde\Console\Commands\PublishViewsCommand::class,
+            \Hyde\Console\Commands\RebuildStaticSiteCommand::class,
+            \Hyde\Console\Commands\BuildSiteCommand::class,
+            \Hyde\Console\Commands\BuildSitemapCommand::class,
+            \Hyde\Console\Commands\BuildRssFeedCommand::class,
+            \Hyde\Console\Commands\BuildSearchCommand::class,
+            \Hyde\Console\Commands\RouteListCommand::class,
+            \Hyde\Console\Commands\MakePostCommand::class,
+            \Hyde\Console\Commands\MakePageCommand::class,
+            \Hyde\Console\Commands\ValidateCommand::class,
             // Commands\HydeInstallCommand::class,
-            \Hyde\Console\Commands\HydeDebugCommand::class,
-            \Hyde\Console\Commands\HydeServeCommand::class,
+            \Hyde\Console\Commands\DebugCommand::class,
+            \Hyde\Console\Commands\ServeCommand::class,
 
-            \Hyde\Console\Commands\HydePackageDiscoverCommand::class,
+            \Hyde\Console\Commands\PackageDiscoverCommand::class,
         ]);
     }
 

@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\HydeRouteListCommand
+ * @covers \Hyde\Console\Commands\RouteListCommand
  */
 class HydeRouteListCommandTest extends TestCase
 {

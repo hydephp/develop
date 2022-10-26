@@ -11,7 +11,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde Command to print debug information.
  */
-class HydeDebugCommand extends Command
+class DebugCommand extends Command
 {
     /**
      * The signature of the command.

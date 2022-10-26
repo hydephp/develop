@@ -10,7 +10,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Start the realtime compiler server.
  */
-class HydeServeCommand extends Command
+class ServeCommand extends Command
 {
     /**
      * The signature of the command.

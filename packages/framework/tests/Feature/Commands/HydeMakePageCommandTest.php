@@ -10,7 +10,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\HydeMakePageCommand
+ * @covers \Hyde\Console\Commands\MakePageCommand
  */
 class HydeMakePageCommandTest extends TestCase
 {

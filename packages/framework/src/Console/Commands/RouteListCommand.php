@@ -13,7 +13,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeRouteListCommandTest
  */
-class HydeRouteListCommand extends Command
+class RouteListCommand extends Command
 {
     protected $signature = 'route:list';
     protected $description = 'Display all registered routes.';

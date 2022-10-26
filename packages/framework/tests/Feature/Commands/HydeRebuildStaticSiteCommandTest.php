@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\HydeRebuildStaticSiteCommand
+ * @covers \Hyde\Console\Commands\RebuildStaticSiteCommand
  */
 class HydeRebuildStaticSiteCommandTest extends TestCase
 {
