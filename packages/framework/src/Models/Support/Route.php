@@ -18,6 +18,9 @@ use Stringable;
  * by providing helper methods and information allowing you to easily access and interact with the
  * various paths associated with a page, both source and compiled file paths as well as the URL.
  *
+ * If you visualize a web of this class's properties, you should be able to see how this
+ * class links them all together, and what powerful information you can gain from it.
+ *
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
 class Route implements Stringable, JsonSerializable, Arrayable
