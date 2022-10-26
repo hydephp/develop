@@ -28,13 +28,13 @@ $shortVersion = substr($version, 3);
 $shortVersion = substr($shortVersion, 0, strpos($shortVersion, '.'));
 
 echo "Short version: $shortVersion\n";
-$composerJson = json_decode(file_get_contents(__DIR__ . './../../packages/hyde/composer.json'), true);
+$composerJson = json_decode(file_get_contents(__DIR__.'./../../packages/hyde/composer.json'), true);
 $composerJson['require']['hyde/framework'] = "^0.$shortVersion";
-file_put_contents(__DIR__ . './../../packages/hyde/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+file_put_contents(__DIR__.'./../../packages/hyde/composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
 echo "Transforming upcoming release notes... \n";
 
-$notes = file_get_contents(__DIR__ . '/../../RELEASE_NOTES.md');
+$notes = file_get_contents(__DIR__.'/../../RELEASE_NOTES.md');
 
 $notes = str_replace("\r", '', $notes);
 
@@ -68,7 +68,7 @@ $notes = $notes."\n";
 echo "Done. \n";
 
 echo 'Resetting upcoming release notes stub';
-file_put_contents(__DIR__ . '/../../RELEASE_NOTES.md', '## [Unreleased] - YYYY-MM-DD
+file_put_contents(__DIR__.'/../../RELEASE_NOTES.md', '## [Unreleased] - YYYY-MM-DD
 
 ### About
 
@@ -100,12 +100,12 @@ This serves two purposes:
 
 echo 'Updating changelog with the upcoming release notes... ';
 
-$changelog = file_get_contents(__DIR__ . '/../../CHANGELOG.md');
+$changelog = file_get_contents(__DIR__.'/../../CHANGELOG.md');
 
 $needle = '<!-- CHANGELOG_START -->';
 
 $changelog = substr_replace($changelog, $needle."\n\n".$notes, strpos($changelog, $needle), strlen($needle));
-file_put_contents(__DIR__ . '/../../CHANGELOG.md', $changelog);
+file_put_contents(__DIR__.'/../../CHANGELOG.md', $changelog);
 
 echo "Done. \n";
 
