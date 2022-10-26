@@ -6,7 +6,6 @@ namespace Hyde\Foundation;
 
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Helpers\Features;
-use Hyde\Foundation\Concerns;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
