@@ -6,7 +6,7 @@ namespace Hyde\Framework\Models\Support;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
- * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
 class ValidationResult
 {

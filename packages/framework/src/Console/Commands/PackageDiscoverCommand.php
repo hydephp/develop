@@ -9,7 +9,7 @@ use Illuminate\Foundation\Console\PackageDiscoverCommand as BaseCommand;
 use Illuminate\Foundation\PackageManifest;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\Commands\HydePackageDiscoverCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\PackageDiscoverCommandTest
  */
 class PackageDiscoverCommand extends BaseCommand
 {
