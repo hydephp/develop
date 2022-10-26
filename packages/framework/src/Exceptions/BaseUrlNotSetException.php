@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Exceptions;
 
-class BaseUrlNotSetException extends \Exception
+use Exception;
+
+class BaseUrlNotSetException extends Exception
 {
     public function __construct()
     {

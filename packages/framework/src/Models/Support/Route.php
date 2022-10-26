@@ -10,6 +10,8 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
+use JsonSerializable;
+use Stringable;
 
 /**
  * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
@@ -18,7 +20,7 @@ use Illuminate\Contracts\Support\Arrayable;
  *
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements \Stringable, \JsonSerializable, Arrayable
+class Route implements Stringable, JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 

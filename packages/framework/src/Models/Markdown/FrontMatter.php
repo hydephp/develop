@@ -8,6 +8,8 @@ use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
+use JsonSerializable;
+use Stringable;
 
 /**
  * Object representing the YAML front matter of a Markdown file.
@@ -23,7 +25,7 @@ use Illuminate\Support\Arr;
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  * @phpstan-consistent-constructor
  */
-class FrontMatter implements Arrayable, \Stringable, \JsonSerializable
+class FrontMatter implements Arrayable, Stringable, JsonSerializable
 {
     use JsonSerializesArrayable;
 

@@ -6,6 +6,7 @@ namespace Hyde\Framework\Models\Markdown;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Stringable;
 
 /**
  * A MarkdownDocument is a simpler alternative to a MarkdownPage.
@@ -14,7 +15,7 @@ use Hyde\Framework\Contracts\MarkdownDocumentContract;
  *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class MarkdownDocument implements MarkdownDocumentContract, \Stringable
+class MarkdownDocument implements MarkdownDocumentContract, Stringable
 {
     public FrontMatter $matter;
     public Markdown $markdown;

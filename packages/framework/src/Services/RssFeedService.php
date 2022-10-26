@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Exception;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use SimpleXMLElement;
@@ -23,7 +24,7 @@ class RssFeedService
     public function __construct()
     {
         if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
-            throw new \Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
+            throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
         }
 
         $this->feed = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>

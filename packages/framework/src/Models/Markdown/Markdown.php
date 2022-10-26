@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Models\Markdown;
 
+use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Services\MarkdownService;
 use Illuminate\Contracts\Support\Arrayable;
+use Stringable;
 
 /**
  * A simple object representation of a Markdown file, with helpful methods to interact with it.
  *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class Markdown implements Arrayable, \Stringable
+class Markdown implements Arrayable, Stringable
 {
     public string $body;
 
@@ -63,6 +65,6 @@ class Markdown implements Arrayable, \Stringable
     {
         return $sourceModel !== null
             ? (new MarkdownService($markdown, $sourceModel))->parse()
-            : (string) app(\Hyde\Framework\Actions\MarkdownConverter::class)->convert($markdown);
+            : (string) app(MarkdownConverter::class)->convert($markdown);
     }
 }
