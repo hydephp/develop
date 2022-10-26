@@ -195,16 +195,14 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the specified source file path.
      *
-     * @param  string  $sourceFilePath  Example: _posts/foo.md
-     * @return \Hyde\Framework\Models\Support\Route
-     *
-     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     * @param string $sourceFilePath Example: _posts/foo.md
+     * @return \Hyde\Framework\Models\Support\Route|null
      */
-    public static function getFromSource(string $sourceFilePath): static
+    public static function getFromSource(string $sourceFilePath): ?static
     {
         return Hyde::routes()->first(function (Route $route) use ($sourceFilePath) {
             return $route->getSourcePath() === $sourceFilePath;
-        }) ?? throw new RouteNotFoundException($sourceFilePath);
+        });
     }
 
     /**

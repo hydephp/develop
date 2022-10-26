@@ -93,8 +93,7 @@ class RouteTest extends TestCase
 
     public function test_get_from_source_returns_null_if_route_is_not_found()
     {
-        $this->expectException(RouteNotFoundException::class);
-        Route::getFromSource('not-found');
+        $this->assertNull(Route::getFromSource('not-found'));
     }
 
     public function test_get_from_source_can_find_blade_pages()
