@@ -53,16 +53,16 @@ class MetadataBag implements Htmlable
         return $this->addGenericElement($element);
     }
 
-    protected function addGenericElement(string $element): MetadataBag
+    protected function addElement(string $type, MetadataElementContract $element): MetadataBag
     {
-        $this->generics[] = $element;
+        ($this->$type)[$element->uniqueKey()] = $element;
 
         return $this;
     }
 
-    protected function addElement(string $type, MetadataElementContract $element): MetadataBag
+    protected function addGenericElement(string $element): MetadataBag
     {
-        ($this->$type)[$element->uniqueKey()] = $element;
+        $this->generics[] = $element;
 
         return $this;
     }
