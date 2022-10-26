@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Framework\Contracts\MarkdownDocumentContract;
-use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
 
 /**
  * The base class for all Markdown-based page models.
@@ -44,8 +44,8 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
      * Normally, this is done by the SourceFileParser.
      *
      * @param  string  $identifier
-     * @param  \Hyde\Framework\Models\Markdown\FrontMatter|null  $matter
-     * @param  \Hyde\Framework\Models\Markdown\Markdown|null  $markdown
+     * @param  \Hyde\Markdown\Models\FrontMatter|null  $matter
+     * @param  \Hyde\Markdown\Models\Markdown|null  $markdown
      *
      * @see \Hyde\Framework\Actions\SourceFileParser
      *

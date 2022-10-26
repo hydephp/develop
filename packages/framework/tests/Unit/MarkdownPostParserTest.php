@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 

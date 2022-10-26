@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Models\Markdown;
+namespace Hyde\Markdown\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;

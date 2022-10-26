@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Benchmarks;
 
-use Hyde\Framework\Models\Markdown\Markdown;
+use Hyde\Markdown\Models\Markdown;
 
 class MarkdownBenchmark extends BenchCase
 {
