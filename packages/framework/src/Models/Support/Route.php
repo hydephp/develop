@@ -223,7 +223,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get all routes from the route index.
      *
-     * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Models\Route>
+     * @return \Hyde\Framework\Foundation\RouteCollection<\Hyde\Framework\Models\Support\Route>
      */
     public static function all(): RouteCollection
     {
