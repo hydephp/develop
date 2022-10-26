@@ -47,7 +47,7 @@ This is a post stub used in the automated tests
         $this->assertInstanceOf(Markdown::class, $post->markdown);
         $this->assertIsString($post->markdown->body);
         $this->assertIsString($post->identifier);
-        $this->assertTrue(strlen($post->markdown) > 32);
+        $this->assertTrue(strlen((string) $post->markdown) > 32);
         $this->assertTrue(strlen($post->identifier) > 8);
     }
 
