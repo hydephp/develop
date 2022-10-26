@@ -9,7 +9,18 @@ use Stringable;
 /**
  * Route keys are the core of Hyde's routing system.
  *
- * The route key is a string that's generally <output-directory/slug>.
+ * IN SHORT:
+ *   The route key is a string that's generally <output-directory/slug>.
+ *   You can cast this object to a string, or call the get() method to get the underlying value.
+ *
+ * IN DETAIL:
+ *
+ * The route key is the URL path relative to the site root.
+ *
+ * For example, if the compiled page will be saved to _site/docs/index.html,
+ * then this method will return 'docs/index'. Route keys are used to
+ * identify pages, similar to how named routes work in Laravel.
+ *
  *
  * @example ```php
     // Source file: _pages/index.md/index.blade.php
