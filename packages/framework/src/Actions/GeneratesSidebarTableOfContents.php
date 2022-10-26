@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Models\Markdown\Markdown;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
@@ -19,9 +20,9 @@ class GeneratesSidebarTableOfContents
 {
     protected string $markdown;
 
-    public function __construct(string $markdown)
+    public function __construct(Markdown|string $markdown)
     {
-        $this->markdown = $markdown;
+        $this->markdown = (string) $markdown;
     }
 
     public function execute(): string
