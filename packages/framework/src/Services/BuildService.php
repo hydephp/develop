@@ -6,7 +6,6 @@ namespace Hyde\Framework\Services;
 
 use Closure;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;

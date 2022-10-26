@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Models\Support;
 
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
