@@ -67,8 +67,8 @@ final class FindsNavigationDataForPage
             return $this->page->matter('navigation.label');
         }
 
-        if (isset($this->getNavigationLabelConfig()[(string) $this->page->routeKey])) {
-            return $this->getNavigationLabelConfig()[(string) $this->page->routeKey];
+        if (isset($this->getNavigationLabelConfig()[$this->page->routeKey])) {
+            return $this->getNavigationLabelConfig()[$this->page->routeKey];
         }
 
         return $this->page->matter('title') ?? $this->page->title;
@@ -105,7 +105,7 @@ final class FindsNavigationDataForPage
 
     private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
     {
-        return array_key_exists((string) $this->page->routeKey, $config) ? (int) $config[(string) $this->page->routeKey] : null;
+        return array_key_exists($this->page->routeKey, $config) ? (int) $config[$this->page->routeKey] : null;
     }
 
     private function findNavigationMenuPriorityInSidebarConfig(array $config): ?int

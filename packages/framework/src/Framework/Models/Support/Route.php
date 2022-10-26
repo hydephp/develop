@@ -38,9 +38,9 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * The unique route key for the route.
      *
-     * @var \Hyde\Support\Types\RouteKey
+     * @var \Hyde\Support\Types\RouteKey|string
      */
-    protected RouteKey $routeKey;
+    protected RouteKey|string $routeKey;
 
     protected string $sourcePath;
     protected string $outputPath;
@@ -117,9 +117,9 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get the unique route key for the route.
      *
-     * @return \Hyde\Support\Types\RouteKey The route key. Generally <output-directory/slug>.
+     * @return string The route key. Generally <output-directory/slug>.
      */
-    public function getRouteKey(): RouteKey
+    public function getRouteKey(): string
     {
         return $this->routeKey;
     }
@@ -157,16 +157,16 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Determine if the route instance matches another route or route key.
      *
-     * @param  \Hyde\Framework\Models\Support\Route|\Hyde\Support\Types\RouteKey|string  $route  A route instance or route key string
+     * @param  \Hyde\Framework\Models\Support\Route|string  $route  A route instance or route key string
      * @return bool
      */
-    public function is(Route|RouteKey|string $route): bool
+    public function is(Route|string $route): bool
     {
         if ($route instanceof Route) {
             return $this->getRouteKey() === $route->getRouteKey();
         }
 
-        return (string) $this->getRouteKey() === (string) $route;
+        return $this->getRouteKey() === $route;
     }
 
     /**
