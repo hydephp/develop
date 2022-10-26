@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\File;
 class BuildTaskServiceTest extends TestCase
 {
     /**
-     * @covers \Hyde\Framework\Commands\HydeBuildSiteCommand::runPostBuildActions
+     * @covers \Hyde\Console\Commands\HydeBuildSiteCommand::runPostBuildActions
      */
     public function test_build_command_can_run_post_build_tasks()
     {

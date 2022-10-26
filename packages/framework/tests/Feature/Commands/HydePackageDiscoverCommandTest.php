@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Foundation\PackageManifest;
 
 /**
- * @covers \Hyde\Framework\Commands\HydePackageDiscoverCommand
+ * @covers \Hyde\Console\Commands\HydePackageDiscoverCommand
  */
 class HydePackageDiscoverCommandTest extends TestCase
 {

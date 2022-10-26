@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Commands\HydeBuildRssFeedCommand
+ * @covers \Hyde\Console\Commands\HydeBuildRssFeedCommand
  * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
  */
 class HydeBuildRssFeedCommandTest extends TestCase

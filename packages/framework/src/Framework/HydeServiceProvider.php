@@ -109,23 +109,23 @@ class HydeServiceProvider extends ServiceProvider
     protected function registerHydeConsoleCommands(): void
     {
         $this->commands([
-            Commands\HydePublishHomepageCommand::class,
-            Commands\HydeUpdateConfigsCommand::class,
-            Commands\HydePublishViewsCommand::class,
-            Commands\HydeRebuildStaticSiteCommand::class,
-            Commands\HydeBuildSiteCommand::class,
-            Commands\HydeBuildSitemapCommand::class,
-            Commands\HydeBuildRssFeedCommand::class,
-            Commands\HydeBuildSearchCommand::class,
-            Commands\HydeRouteListCommand::class,
-            Commands\HydeMakePostCommand::class,
-            Commands\HydeMakePageCommand::class,
-            Commands\HydeValidateCommand::class,
+            \Hyde\Console\Commands\HydePublishHomepageCommand::class,
+            \Hyde\Console\Commands\HydeUpdateConfigsCommand::class,
+            \Hyde\Console\Commands\HydePublishViewsCommand::class,
+            \Hyde\Console\Commands\HydeRebuildStaticSiteCommand::class,
+            \Hyde\Console\Commands\HydeBuildSiteCommand::class,
+            \Hyde\Console\Commands\HydeBuildSitemapCommand::class,
+            \Hyde\Console\Commands\HydeBuildRssFeedCommand::class,
+            \Hyde\Console\Commands\HydeBuildSearchCommand::class,
+            \Hyde\Console\Commands\HydeRouteListCommand::class,
+            \Hyde\Console\Commands\HydeMakePostCommand::class,
+            \Hyde\Console\Commands\HydeMakePageCommand::class,
+            \Hyde\Console\Commands\HydeValidateCommand::class,
             // Commands\HydeInstallCommand::class,
-            Commands\HydeDebugCommand::class,
-            Commands\HydeServeCommand::class,
+            \Hyde\Console\Commands\HydeDebugCommand::class,
+            \Hyde\Console\Commands\HydeServeCommand::class,
 
-            Commands\HydePackageDiscoverCommand::class,
+            \Hyde\Console\Commands\HydePackageDiscoverCommand::class,
         ]);
     }
 

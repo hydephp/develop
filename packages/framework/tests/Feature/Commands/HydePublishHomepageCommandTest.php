@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Commands\HydePublishHomepageCommand
+ * @covers \Hyde\Console\Commands\HydePublishHomepageCommand
  */
 class HydePublishHomepageCommandTest extends TestCase
 {
