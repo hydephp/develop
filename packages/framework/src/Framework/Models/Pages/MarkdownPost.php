@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Models\Pages;
 
+use Hyde\Blogging\Models\Author;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Models\Support\Author;
 use Hyde\Framework\Models\Support\DateString;
 use Hyde\Framework\Models\Support\Image;
 
