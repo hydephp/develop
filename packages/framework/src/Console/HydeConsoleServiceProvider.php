@@ -6,6 +6,9 @@ namespace Hyde\Console;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Register the HydeCLI console commands.
+ */
 class HydeConsoleServiceProvider extends ServiceProvider
 {
     /**
