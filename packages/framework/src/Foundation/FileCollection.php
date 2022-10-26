@@ -12,8 +12,8 @@ use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\HtmlPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Support\File;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Framework\Support\File;
 
 /**
  * @see \Hyde\Framework\Foundation\FileCollection

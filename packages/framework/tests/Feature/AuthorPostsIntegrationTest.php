@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Support\Author;
+use Hyde\Framework\Support\Author;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 

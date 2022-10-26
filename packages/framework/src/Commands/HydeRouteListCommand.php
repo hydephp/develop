@@ -33,7 +33,7 @@ class HydeRouteListCommand extends Command
     protected function getRoutes(): array
     {
         $routes = [];
-        /** @var \Hyde\Framework\Models\Support\Route $route */
+        /** @var \Hyde\Framework\Support\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
                 $this->formatPageType($route->getPageType()),

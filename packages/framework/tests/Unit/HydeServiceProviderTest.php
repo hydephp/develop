@@ -10,9 +10,9 @@ use Hyde\Framework\Models\Pages\BladePage;
 use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Framework\Support\Site;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 

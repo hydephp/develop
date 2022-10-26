@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Support\Route;
+use Hyde\Framework\Support\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;

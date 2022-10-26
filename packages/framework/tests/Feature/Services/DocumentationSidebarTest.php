@@ -8,7 +8,7 @@ use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Navigation\DocumentationSidebar;
 use Hyde\Framework\Models\Navigation\NavItem;
-use Hyde\Framework\Models\Support\Route;
+use Hyde\Framework\Support\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;

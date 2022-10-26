@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Models\Support;
+namespace Hyde\Framework\Support;
 
 use Hyde\Framework\Modules\Metadata\GlobalMetadataBag;
 

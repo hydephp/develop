@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Support\Site;
+use Hyde\Framework\Support\Site;
 use Hyde\Testing\TestCase;
 
 /**

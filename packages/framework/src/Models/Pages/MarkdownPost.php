@@ -7,9 +7,9 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Foundation\PageCollection;
-use Hyde\Framework\Models\Support\Author;
-use Hyde\Framework\Models\Support\DateString;
-use Hyde\Framework\Models\Support\Image;
+use Hyde\Framework\Support\Author;
+use Hyde\Framework\Support\DateString;
+use Hyde\Framework\Support\Image;
 
 /**
  * Page class for Markdown posts.

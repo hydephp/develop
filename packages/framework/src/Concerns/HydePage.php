@@ -12,9 +12,9 @@ use Hyde\Framework\Foundation\PageCollection;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Navigation\NavigationData;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Framework\Modules\Metadata\PageMetadataBag;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Framework\Support\Route;
 use Illuminate\Support\Arr;
 
 /**
@@ -185,7 +185,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return \Hyde\Framework\Models\Support\Route The page's route.
+     * @return \Hyde\Framework\Support\Route The page's route.
      */
     public function getRoute(): Route
     {

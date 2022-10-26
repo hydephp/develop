@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Support\ValidationResult;
 use Hyde\Framework\Services\ValidationService;
+use Hyde\Framework\Support\ValidationResult;
 use Hyde\Testing\TestCase;
 
 /**
  * Class ValidationServiceTest.
  *
  * @covers \Hyde\Framework\Services\ValidationService
- * @covers \Hyde\Framework\Models\Support\ValidationResult
+ * @covers \Hyde\Framework\Support\ValidationResult
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\HydeValidateCommandTest
  */

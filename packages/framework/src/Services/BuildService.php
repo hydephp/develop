@@ -9,8 +9,8 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Foundation\RouteCollection;
 use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Support\Route;
-use Hyde\Framework\Models\Support\Site;
+use Hyde\Framework\Support\Route;
+use Hyde\Framework\Support\Site;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
@@ -96,7 +96,7 @@ class BuildService
         $this->newLine(2);
     }
 
-    /** @psalm-return \Closure(\Hyde\Framework\Models\Support\Route):string */
+    /** @psalm-return \Closure(\Hyde\Framework\Support\Route):string */
     protected function compileRoute(): Closure
     {
         return function (Route $route) {
