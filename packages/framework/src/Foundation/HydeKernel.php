@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use Hyde\Foundation\Concerns\ForwardsFilesystem;
+use Hyde\Foundation\Concerns\ForwardsHyperlinks;
+use Hyde\Foundation\Concerns\HandlesFoundationCollections;
+use Hyde\Foundation\Concerns\ImplementsStringHelpers;
+use Hyde\Foundation\Concerns\ManagesHydeKernel;
+use Hyde\Foundation\Concerns\ManagesViewData;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Helpers\Features;
 use Illuminate\Contracts\Support\Arrayable;
@@ -33,12 +39,12 @@ use JsonSerializable;
  */
 class HydeKernel implements Arrayable, JsonSerializable
 {
-    use \Hyde\Foundation\Concerns\HandlesFoundationCollections;
-    use \Hyde\Foundation\Concerns\ImplementsStringHelpers;
-    use \Hyde\Foundation\Concerns\ForwardsHyperlinks;
-    use \Hyde\Foundation\Concerns\ForwardsFilesystem;
-    use \Hyde\Foundation\Concerns\ManagesHydeKernel;
-    use \Hyde\Foundation\Concerns\ManagesViewData;
+    use HandlesFoundationCollections;
+    use ImplementsStringHelpers;
+    use ForwardsHyperlinks;
+    use ForwardsFilesystem;
+    use ManagesHydeKernel;
+    use ManagesViewData;
 
     use JsonSerializesArrayable;
     use Macroable;
