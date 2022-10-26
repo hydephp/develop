@@ -38,10 +38,6 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataElementContract|string $element): static
     {
-        if (is_string($element)) {
-            return $this->addGenericElement($element);
-        }
-
         if ($element instanceof Models\LinkElement) {
             return $this->addElement('links', $element);
         }
@@ -53,6 +49,8 @@ class MetadataBag implements Htmlable
         if ($element instanceof Models\OpenGraphElement) {
             return $this->addElement('properties', $element);
         }
+
+        return $this->addGenericElement($element);
     }
 
     protected function addGenericElement(string $element): MetadataBag
