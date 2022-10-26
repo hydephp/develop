@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console;
 
 use Illuminate\Support\ServiceProvider;
-use Hyde\Console\Commands;
 
 class HydeConsoleServiceProvider extends ServiceProvider
 {
