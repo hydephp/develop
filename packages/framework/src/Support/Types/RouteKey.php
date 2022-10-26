@@ -18,4 +18,9 @@ final class RouteKey implements Stringable
     {
         return $this->key;
     }
+
+    public function get(): string
+    {
+        return $this->key;
+    }
 }
