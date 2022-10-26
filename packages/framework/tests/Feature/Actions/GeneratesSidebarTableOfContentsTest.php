@@ -28,6 +28,8 @@ class GeneratesSidebarTableOfContentsTest extends TestCase
         $markdown = "# Level 1\n## Level 2\n### Level 3\n";
         $result = (new GeneratesSidebarTableOfContents($markdown))->execute();
 
-        $this->assertEquals('<ul class="table-of-contents"><li><a href="#level-2">Level 2</a><ul><li><a href="#level-3">Level 3</a></li></ul></li></ul>', str_replace("\n", '', $result));
+        $this->assertEquals('<ul class="table-of-contents"><li><a href="#level-2">Level 2</a><ul><li><a href="#level-3">Level 3</a></li></ul></li></ul>',
+            str_replace("\n", '', $result)
+        );
     }
 }

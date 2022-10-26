@@ -7,7 +7,6 @@ namespace Hyde\Framework\Models\Pages;
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Framework\Models\Markdown\Markdown;
 use Hyde\Framework\Models\Support\Route;
 
 /**
@@ -42,7 +41,9 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
 
     public static function home(): ?Route
     {
-        return Route::exists(static::$outputDirectory.'/index') ? Route::get(static::$outputDirectory.'/index') : null;
+        return Route::exists(static::$outputDirectory.'/index')
+            ? Route::get(static::$outputDirectory.'/index')
+            : null;
     }
 
     public static function hasTableOfContents(): bool
@@ -55,7 +56,7 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
      */
     public function getTableOfContents(): string
     {
-        return (new GeneratesSidebarTableOfContents((string) $this->markdown))->execute();
+        return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
     }
 
     /**
