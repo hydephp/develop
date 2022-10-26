@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Models\Support;
 
-use Hyde\Framework\Modules\Metadata\GlobalMetadataBag;
+use Hyde\Metadata\GlobalMetadataBag;
 
 /**
  * Object representation for the HydePHP site.

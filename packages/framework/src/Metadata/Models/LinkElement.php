@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Modules\Metadata\Models;
+namespace Hyde\Metadata\Models;
 
-use Hyde\Framework\Modules\Metadata\MetadataElementContract;
+use Hyde\Metadata\MetadataElementContract;
 
 class LinkElement implements MetadataElementContract
 {

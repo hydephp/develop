@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Modules\Metadata;
+namespace Hyde\Metadata;
 
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -10,8 +10,8 @@ use Illuminate\Contracts\Support\Htmlable;
  * Holds the metadata tags for a page or the site model.
  *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
- * @see \Hyde\Framework\Modules\Metadata\PageMetadataBag
- * @see \Hyde\Framework\Modules\Metadata\GlobalMetadataBag
+ * @see \Hyde\Metadata\PageMetadataBag
+ * @see \Hyde\Metadata\GlobalMetadataBag
  */
 class MetadataBag implements Htmlable
 {
@@ -42,15 +42,15 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataElementContract|string $element): static
     {
-        if ($element instanceof Models\LinkElement) {
+        if ($element instanceof \Hyde\Metadata\Models\LinkElement) {
             return $this->addElement('links', $element);
         }
 
-        if ($element instanceof Models\MetadataElement) {
+        if ($element instanceof \Hyde\Metadata\Models\MetadataElement) {
             return $this->addElement('metadata', $element);
         }
 
-        if ($element instanceof Models\OpenGraphElement) {
+        if ($element instanceof \Hyde\Metadata\Models\OpenGraphElement) {
             return $this->addElement('properties', $element);
         }
 

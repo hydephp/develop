@@ -8,19 +8,19 @@ use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Modules\Metadata\MetadataBag;
-use Hyde\Framework\Modules\Metadata\Models\LinkElement;
-use Hyde\Framework\Modules\Metadata\Models\MetadataElement;
-use Hyde\Framework\Modules\Metadata\Models\OpenGraphElement;
+use Hyde\Metadata\MetadataBag;
+use Hyde\Metadata\Models\LinkElement;
+use Hyde\Metadata\Models\MetadataElement;
+use Hyde\Metadata\Models\OpenGraphElement;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Modules\Metadata\MetadataBag
- * @covers \Hyde\Framework\Modules\Metadata\PageMetadataBag
- * @covers \Hyde\Framework\Modules\Metadata\GlobalMetadataBag
- * @covers \Hyde\Framework\Modules\Metadata\Models\LinkElement
- * @covers \Hyde\Framework\Modules\Metadata\Models\MetadataElement
- * @covers \Hyde\Framework\Modules\Metadata\Models\OpenGraphElement
+ * @covers \Hyde\Metadata\MetadataBag
+ * @covers \Hyde\Metadata\PageMetadataBag
+ * @covers \Hyde\Metadata\GlobalMetadataBag
+ * @covers \Hyde\Metadata\Models\LinkElement
+ * @covers \Hyde\Metadata\Models\MetadataElement
+ * @covers \Hyde\Metadata\Models\OpenGraphElement
  */
 class MetadataTest extends TestCase
 {

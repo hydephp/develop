@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Modules\Metadata;
+namespace Hyde\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Helpers\Features;
