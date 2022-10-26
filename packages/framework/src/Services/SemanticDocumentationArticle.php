@@ -107,7 +107,7 @@ class SemanticDocumentationArticle
     {
         return View::make('hyde::components.docs.edit-source-button', [
             'href' => $this->page->getOnlineSourcePath(),
-        ]);
+        ])->render();
     }
 
     /**

@@ -32,7 +32,7 @@ class Redirect
     {
         return view('hyde::pages.redirect', [
             'destination' => $this->destination,
-        ]);
+        ])->render();
     }
 
     public function store(): static
