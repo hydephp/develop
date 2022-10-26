@@ -6,6 +6,11 @@ namespace Hyde\Support\Types;
 
 use Stringable;
 
+/**
+ * Route Keys are the core of Hyde's routing system.
+ *
+ * The route key is generally <output-directory/slug>.
+ */
 final class RouteKey implements Stringable
 {
     private readonly string $key;
