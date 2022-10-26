@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Blogging\Models\Author;
+use Hyde\Blogging\Models\Image;
 use Hyde\Framework\Models\Markdown\FrontMatter;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\DateString;
-use Hyde\Framework\Models\Support\Image;
 use Hyde\Testing\TestCase;
 
 /**

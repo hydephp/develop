@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Framework\Models\Support\Image;
+use Hyde\Blogging\Models\Image;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput;

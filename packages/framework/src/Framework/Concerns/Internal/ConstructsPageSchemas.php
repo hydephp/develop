@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Blogging\Models\Author;
+use Hyde\Blogging\Models\Image;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Models\Support\DateString;
-use Hyde\Framework\Models\Support\Image;
 use Hyde\Hyde;
 
 trait ConstructsPageSchemas
