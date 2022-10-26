@@ -80,6 +80,6 @@ class HydePublishViewsCommand extends Command
 
     protected function parseChoiceIntoKey(string $choice): string
     {
-        return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true);
+        return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
     }
 }
