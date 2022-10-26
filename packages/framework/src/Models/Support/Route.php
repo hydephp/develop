@@ -170,8 +170,8 @@ class Route implements Stringable, JsonSerializable, Arrayable
      *
      * Alias for static::getFromKey().
      *
-     * @param  string  $routeKey  Example: posts/foo.md
-     * @return \Hyde\Framework\Models\Route
+     * @param string $routeKey Example: posts/foo.md
+     * @return \Hyde\Framework\Models\Support\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
@@ -183,8 +183,8 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the specified route key.
      *
-     * @param  string  $routeKey  Example: posts/foo, posts.foo
-     * @return \Hyde\Framework\Models\Route
+     * @param string $routeKey Example: posts/foo, posts.foo
+     * @return \Hyde\Framework\Models\Support\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
@@ -197,8 +197,8 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the specified source file path.
      *
-     * @param  string  $sourceFilePath  Example: _posts/foo.md
-     * @return \Hyde\Framework\Models\Route
+     * @param string $sourceFilePath Example: _posts/foo.md
+     * @return \Hyde\Framework\Models\Support\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
@@ -212,8 +212,8 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the supplied page model.
      *
-     * @param  \Hyde\Framework\Concerns\HydePage  $page
-     * @return \Hyde\Framework\Models\Route
+     * @param \Hyde\Framework\Concerns\HydePage $page
+     * @return \Hyde\Framework\Models\Support\Route
      */
     public static function getFromModel(HydePage $page): Route
     {
