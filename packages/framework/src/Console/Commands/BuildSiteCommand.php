@@ -36,13 +36,6 @@ class BuildSiteCommand extends Command
 
     protected BuildService $service;
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     *
-     * @throws Exception
-     */
     public function handle(): int
     {
         $time_start = microtime(true);
@@ -84,11 +77,6 @@ class BuildSiteCommand extends Command
         }
     }
 
-    /**
-     * Run any post-build actions.
-     *
-     * @return void
-     */
     public function runPostBuildActions(): void
     {
         $service = new BuildTaskService($this->output);
