@@ -9,6 +9,9 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use function app;
+use function config;
+use function str_replace;
 
 /**
  * @covers \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle
