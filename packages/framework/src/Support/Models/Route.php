@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support;
+namespace Hyde\Support\Models;
 
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;

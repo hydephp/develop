@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Support\Route;
+use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 

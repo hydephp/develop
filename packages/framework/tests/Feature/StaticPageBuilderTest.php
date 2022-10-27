@@ -12,7 +12,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Site;
+use Hyde\Support\Models\Site;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;

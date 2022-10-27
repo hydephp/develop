@@ -6,7 +6,7 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Helpers\Features;
 use Hyde\Hyde;
-use Hyde\Support\ValidationResult as Result;
+use Hyde\Support\Models\ValidationResult as Result;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest

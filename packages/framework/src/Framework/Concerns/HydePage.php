@@ -15,7 +15,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Contracts\CompilableContract;
-use Hyde\Support\Route;
+use Hyde\Support\Models\Route;
 
 /**
  * The base class for all Hyde pages.
@@ -192,7 +192,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return \Hyde\Support\Route The page's route.
+     * @return \Hyde\Support\Models\Route The page's route.
      */
     public function getRoute(): Route
     {

@@ -9,7 +9,7 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Support\DateString;
+use Hyde\Support\Models\DateString;
 use function strlen;
 use function substr;
 

@@ -10,7 +10,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Site;
+use Hyde\Support\Models\Site;
 
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.

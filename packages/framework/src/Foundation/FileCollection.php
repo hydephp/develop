@@ -13,7 +13,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\File;
+use Hyde\Support\Models\File;
 
 /**
  * @see \Hyde\Framework\Foundation\FileCollection
