@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Helpers\Includes;
+use Hyde\Facades\Includes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Helpers\Includes
+ * @covers \Hyde\Facades\Includes
  */
 class IncludesFacadeTest extends TestCase
 {

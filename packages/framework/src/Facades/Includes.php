@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Helpers;
+namespace Hyde\Facades;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
