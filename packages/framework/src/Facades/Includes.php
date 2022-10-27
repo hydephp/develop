@@ -8,6 +8,9 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
+/**
+ * @todo Split facade logic to service/manager class.
+ */
 class Includes
 {
     /**

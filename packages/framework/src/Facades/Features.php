@@ -15,6 +15,7 @@ use function str_starts_with;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
+ * @todo Split facade logic to service/manager class.
  *
  * @see \Hyde\Framework\Testing\Feature\ConfigurableFeaturesTest
  *
