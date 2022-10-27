@@ -27,11 +27,11 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';
 
-    public readonly ?string $description;
-    public readonly ?string $category;
-    public readonly ?DateString $date;
-    public readonly ?PostAuthor $author;
-    public readonly ?FeaturedImage $image;
+    public ?string $description;
+    public ?string $category;
+    public ?DateString $date;
+    public ?PostAuthor $author;
+    public ?FeaturedImage $image;
 
     public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
