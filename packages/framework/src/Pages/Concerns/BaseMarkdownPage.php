@@ -20,7 +20,6 @@ use Hyde\Markdown\Models\Markdown;
  */
 abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract
 {
-    public string $identifier;
     public Markdown $markdown;
 
     public static string $fileExtension = '.md';
