@@ -36,6 +36,10 @@ If you however have written custom code that explicitly references the old names
   * Large changes to the Meta.php helper/facade; most of its business logic has been moved to the GlobalMetadataBag class.
   * This might affect you if you relied on any of the helper methods that were removed from Meta.php.
   * See https://github.com/hydephp/develop/pull/584 for more details.
+- The Route helpers no longer throw exceptions when attempting to access a non-existent route.
+  * Instead, they return `null` if the route does not exist.
+  * This is to allow for more flexibility in the way routes are used.
+  * You can use Route::getOrFail() to get the same behavior as before, or null coalesce the result of Route::get().
 
 ### Other changes
 
