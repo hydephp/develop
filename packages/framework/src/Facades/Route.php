@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Foundation\RouteCollection;
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Routing\Route as RouteModel;
 
 /**
