@@ -43,4 +43,12 @@ class RouteKeyTest extends TestCase
         $this->assertSame('posts/foo', RouteKey::fromPage(MarkdownPost::class, 'foo'));
         $this->assertSame('docs/foo', RouteKey::fromPage(DocumentationPage::class, 'foo'));
     }
+
+    public function testFromPageWithNestedIdentifier()
+    {
+        $this->assertSame('foo/bar', RouteKey::fromPage(BladePage::class, 'foo/bar'));
+        $this->assertSame('foo/bar', RouteKey::fromPage(MarkdownPage::class, 'foo/bar'));
+        $this->assertSame('posts/foo/bar', RouteKey::fromPage(MarkdownPost::class, 'foo/bar'));
+        $this->assertSame('docs/foo/bar', RouteKey::fromPage(DocumentationPage::class, 'foo/bar'));
+    }
 }
