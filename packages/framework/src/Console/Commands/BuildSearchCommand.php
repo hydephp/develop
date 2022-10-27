@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use LaravelZero\Framework\Commands\Command;
 
 /**

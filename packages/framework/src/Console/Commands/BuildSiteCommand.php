@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Services\DiscoveryService;

@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Framework\Services\BuildTaskService
  * @covers \Hyde\Framework\Features\BuildTasks\BuildTask
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
+ * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap
+ * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed
+ * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch
  *
  * @backupStaticAttributes enabled
  */

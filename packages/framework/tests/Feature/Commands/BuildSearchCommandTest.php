@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Site;
@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\BuildSearchCommand
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSearch
+ * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch
  */
 class BuildSearchCommandTest extends TestCase
 {
