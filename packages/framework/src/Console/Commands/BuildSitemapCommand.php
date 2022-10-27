@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use LaravelZero\Framework\Commands\Command;
 
 /**

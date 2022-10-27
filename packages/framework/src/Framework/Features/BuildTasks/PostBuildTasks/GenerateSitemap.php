@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions\PostBuildTasks;
+namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
-use Hyde\Framework\Concerns\AbstractBuildTask;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\SitemapService;
 use Hyde\Hyde;
 
-class GenerateSitemap extends AbstractBuildTask
+class GenerateSitemap extends BuildTask
 {
     public static string $description = 'Generating sitemap';
 
