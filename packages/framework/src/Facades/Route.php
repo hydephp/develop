@@ -23,11 +23,6 @@ class Route
         return RouteModel::getOrFail($routeKey);
     }
 
-    public static function getFromKey(string $routeKey): ?RouteModel
-    {
-        return RouteModel::getFromKey($routeKey);
-    }
-
     public static function getFromSource(string $sourceFilePath): ?RouteModel
     {
         return RouteModel::getFromSource($sourceFilePath);

@@ -172,14 +172,13 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Get a route from the route index for the specified route key.
      *
-     * Alias for static::getFromKey().
-     *
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Routing\Route|null
      */
     public static function get(string $routeKey): ?Route
     {
-        return static::getFromKey($routeKey);
+        return Hyde::routes()->get(self::normalizeRouteKey($routeKey))
+            ?? null;
     }
 
     /**
@@ -192,19 +191,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public static function getOrFail(string $routeKey): Route
     {
-        return static::getFromKey($routeKey) ?? throw new RouteNotFoundException($routeKey);
-    }
-
-    /**
-     * Get a route from the route index for the specified route key.
-     *
-     * @param  string  $routeKey  Example: posts/foo, posts.foo
-     * @return \Hyde\Routing\Route|null
-     */
-    public static function getFromKey(string $routeKey): ?Route
-    {
-        return Hyde::routes()->get(self::normalizeRouteKey($routeKey))
-            ?? null;
+        return Route::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**
@@ -254,7 +241,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public static function home(): ?Route
     {
-        return static::getFromKey('index') ?? null;
+        return Route::get('index') ?? null;
     }
 
     /**
