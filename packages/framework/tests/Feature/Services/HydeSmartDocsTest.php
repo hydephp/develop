@@ -200,12 +200,12 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    protected function withoutNewLines(string $expected): string|array
+    protected function withoutNewLines(string $expected): string
     {
         return str_replace(["\n", "\r"], '', $expected);
     }
 
-    protected function withoutNewLinesAndIndentation(string $expected): string|array
+    protected function withoutNewLinesAndIndentation(string $expected): string
     {
         return str_replace(["\n", "\r", '    '], '', $expected);
     }
