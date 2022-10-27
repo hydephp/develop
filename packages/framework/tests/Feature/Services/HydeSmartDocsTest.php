@@ -116,7 +116,9 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'header']);
         $page = SemanticDocumentationArticle::create($this->page, $this->html);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
+        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+            <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
+        HTML, $page->renderHeader());
     }
 
     public function test_edit_source_link_is_added_to_footer_when_conditions_are_met()
@@ -125,17 +127,25 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'footer']);
         $page = SemanticDocumentationArticle::create($this->page, $this->html);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
+        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+            <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
+        HTML, $page->renderFooter());
     }
 
     public function test_edit_source_link_can_be_added_to_both_header_and_footer()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
+
         $page = SemanticDocumentationArticle::create($this->page, $this->html);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
-        $this->assertEqualsIgnoringNewlinesAndIndentation('<p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderFooter());
+        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+            <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
+        HTML, $page->renderHeader());
+
+        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+            <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
+        HTML, $page->renderFooter());
     }
 
     public function test_edit_source_link_text_can_be_customized()
@@ -143,10 +153,16 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
+
         $page = SemanticDocumentationArticle::create($this->page, $this->html);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderHeader());
-        $this->assertEqualsIgnoringNewlinesAndIndentation('<p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderFooter());
+        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+            <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
+        HTML, $page->renderHeader());
+
+        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+            <p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
+        HTML, $page->renderFooter());
     }
 
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
