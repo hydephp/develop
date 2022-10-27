@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Concerns;
+namespace Hyde\Support\Concerns;
 
 /**
  * Automatically serializes an Arrayable interface when JSON is requested.

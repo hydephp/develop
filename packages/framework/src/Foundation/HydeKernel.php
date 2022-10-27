@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Helpers\Features;
+use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;

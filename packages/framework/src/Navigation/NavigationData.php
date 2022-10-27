@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Navigation;
 
 use ArrayObject;
-use Hyde\Framework\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Hyde\Support\Contracts\FrontMatter\Support\NavigationSchema;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;

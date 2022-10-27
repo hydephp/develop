@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Helpers;
 
-use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
+use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use JsonSerializable;
