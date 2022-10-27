@@ -39,7 +39,7 @@ class SitemapService
 
     public function generate(): static
     {
-        Route::all()->each(function ($route) {
+        \Hyde\Facades\Route::all()->each(function ($route) {
             $this->addRoute($route);
         });
 
