@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Validation;
+namespace Hyde\Support\Models;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
