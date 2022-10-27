@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Foundation\RouteCollection;
-use Hyde\Routing\Route as RouteModel;
 
 /**
  * Provides an easy way to access the Hyde pseudo-router.
@@ -18,9 +17,9 @@ class Route
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Routing\Route|null
      */
-    public static function get(string $routeKey): ?RouteModel
+    public static function get(string $routeKey): ?\Hyde\Routing\Route
     {
-        return RouteModel::get($routeKey);
+        return \Hyde\Routing\Route::get($routeKey);
     }
 
     /**
@@ -31,9 +30,9 @@ class Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
-    public static function getOrFail(string $routeKey): RouteModel
+    public static function getOrFail(string $routeKey): \Hyde\Routing\Route
     {
-        return RouteModel::getOrFail($routeKey);
+        return \Hyde\Routing\Route::getOrFail($routeKey);
     }
 
     /**
@@ -43,23 +42,23 @@ class Route
      */
     public static function all(): RouteCollection
     {
-        return RouteModel::all();
+        return \Hyde\Routing\Route::all();
     }
 
     /**
      * Get the current route for the page being rendered.
      */
-    public static function current(): ?RouteModel
+    public static function current(): ?\Hyde\Routing\Route
     {
-        return RouteModel::current();
+        return \Hyde\Routing\Route::current();
     }
 
     /**
      * Get the home route, usually the index page route.
      */
-    public static function home(): ?RouteModel
+    public static function home(): ?\Hyde\Routing\Route
     {
-        return RouteModel::home();
+        return \Hyde\Routing\Route::home();
     }
 
     /**
@@ -70,6 +69,6 @@ class Route
      */
     public static function exists(string $routeKey): bool
     {
-        return RouteModel::exists($routeKey);
+        return \Hyde\Routing\Route::exists($routeKey);
     }
 }
