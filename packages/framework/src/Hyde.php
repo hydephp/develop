@@ -54,6 +54,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static void shareViewData(HydePage $page)
  * @method static array toArray()
  * @method static void boot()
+ *
+ * @see \Hyde\Foundation\Concerns\ForwardsFilesystem
+ * @see \Hyde\Foundation\Concerns\ForwardsHyperlinks
  */
 class Hyde extends Facade
 {
