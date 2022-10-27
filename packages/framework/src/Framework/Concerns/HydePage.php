@@ -55,6 +55,11 @@ abstract class HydePage implements CompilableContract, PageSchema
     public ?string $canonicalUrl = null;
     public ?NavigationData $navigation = null;
 
+    public static function make(string $identifier = '', FrontMatter|array $matter = []): static
+    {
+        return new static($identifier, $matter);
+    }
+
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;

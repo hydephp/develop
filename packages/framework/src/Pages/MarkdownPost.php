@@ -9,8 +9,6 @@ use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\DateString;
 
 /**
@@ -32,11 +30,6 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public ?DateString $date;
     public ?PostAuthor $author;
     public ?FeaturedImage $image;
-
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
-    {
-        parent::__construct($identifier, $matter, $markdown);
-    }
 
     /** @return \Hyde\Foundation\PageCollection<\Hyde\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection

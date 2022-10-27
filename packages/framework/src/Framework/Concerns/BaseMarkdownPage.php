@@ -25,41 +25,16 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
 
     public static string $fileExtension = '.md';
 
-    /**
-     * Alternative to constructor, using primitive data types.
-     * This method will construct then return a new instance of the class.
-     *
-     * @param  string  $identifier
-     * @param  array  $matter
-     * @param  string  $body
-     * @return \Hyde\Framework\Concerns\BaseMarkdownPage
-     */
-    public static function make(string $identifier = '', array $matter = [], string $body = ''): static
+    public static function make(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $body = ''): static
     {
-        return new static($identifier, new FrontMatter($matter), new Markdown($body));
+        return new static($identifier, $matter, $body);
     }
 
-    /**
-     * Construct a new MarkdownPage object from constructed data types.
-     * Normally, this is done by the SourceFileParser.
-     *
-     * @param  string  $identifier
-     * @param  \Hyde\Markdown\Models\FrontMatter|null  $matter
-     * @param  \Hyde\Markdown\Models\Markdown|null  $markdown
-     *
-     * @see \Hyde\Framework\Actions\SourceFileParser
-     *
-     * @phpstan-consistent-constructor
-     *
-     * The types are strictly enforced to ensure a predictable behavior and constant access interface.
-     */
-    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '')
     {
-        $this->identifier = $identifier;
-        $this->matter = $matter ?? new FrontMatter();
-        $this->markdown = $markdown ?? new Markdown();
+        $this->markdown = $markdown instanceof Markdown ? $markdown : new Markdown($markdown);
 
-        parent::__construct($this->identifier, $this->matter);
+        parent::__construct($identifier, $matter);
     }
 
     /** @inheritDoc */
