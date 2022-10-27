@@ -11,7 +11,7 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\DataObjects\BlogPostData;
+use Hyde\Pages\DataObjects\BlogPostFactory;
 use Hyde\Support\DateString;
 
 /**
@@ -39,7 +39,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
         parent::__construct($identifier, $matter, $markdown);
     }
 
-    public function constructBlogPostData(BlogPostData $data): void
+    public function constructBlogPostData(BlogPostFactory $data): void
     {
         foreach ($data->toArray() as $key => $value) {
             $this->{$key} = $value;

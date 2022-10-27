@@ -19,7 +19,7 @@ use function substr;
  *
  * Simply pass along the data the class needs to run, then access the data using the toArray() method.
  */
-class BlogPostData implements Arrayable
+class BlogPostFactory implements Arrayable
 {
     use HasFrontMatter;
 

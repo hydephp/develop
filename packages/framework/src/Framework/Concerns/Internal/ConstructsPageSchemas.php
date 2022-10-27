@@ -7,7 +7,7 @@ namespace Hyde\Framework\Concerns\Internal;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Hyde;
-use Hyde\Pages\DataObjects\BlogPostData;
+use Hyde\Pages\DataObjects\BlogPostFactory;
 use Hyde\Pages\MarkdownPost;
 
 trait ConstructsPageSchemas
@@ -17,7 +17,7 @@ trait ConstructsPageSchemas
         $this->constructPageSchema();
 
         if ($this instanceof MarkdownPost) {
-            $this->constructBlogPostData(new BlogPostData($this->matter, $this->markdown));
+            $this->constructBlogPostData(new BlogPostFactory($this->matter, $this->markdown));
         }
     }
 
