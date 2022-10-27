@@ -116,26 +116,26 @@ class ValidationResult
 
     protected function formatPassed(string $message): string
     {
-        return '<fg=white;bg=green> PASS <fg=green> '.$message.'</></>';
+        return "<fg=white;bg=green> PASS <fg=green> $message</></>";
     }
 
     protected function formatFailed(string $message): string
     {
-        return '<fg=gray;bg=yellow> FAIL <fg=yellow> '.$message.'</></>';
+        return "<fg=gray;bg=yellow> FAIL <fg=yellow> $message</></>";
     }
 
     protected function formatSkipped(string $message): string
     {
-        return '<fg=white;bg=gray> SKIP <fg=gray> '.$message.'</></>';
+        return "<fg=white;bg=gray> SKIP <fg=gray> $message</></>";
     }
 
     protected function formatTimeString(string $time): string
     {
-        return '<fg=gray> ('.$time.'ms)</>';
+        return "<fg=gray> ({$time}ms)</>";
     }
 
     protected function formatTip(string $tip): string
     {
-        return '<fg=gray>'.$tip.'</>';
+        return "<fg=gray>$tip</>";
     }
 }
