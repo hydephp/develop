@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Facades\Site;
+use Hyde\Pages\Concerns\HydePage;
 
 /**
  * This trait registers the file paths for important Hyde locations.

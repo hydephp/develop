@@ -6,9 +6,9 @@ namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
 use Stringable;

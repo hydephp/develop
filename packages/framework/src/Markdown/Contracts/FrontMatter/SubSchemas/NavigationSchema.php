@@ -6,7 +6,7 @@ namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 
 /**
  * @see \Hyde\Framework\Features\Navigation\NavigationData
- * @see \Hyde\Framework\Concerns\HydePage
+ * @see \Hyde\Pages\Concerns\HydePage
  */
 interface NavigationSchema
 {

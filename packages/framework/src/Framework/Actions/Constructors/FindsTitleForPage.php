@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Concerns\BaseMarkdownPage;
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PageModelConstructorsTest

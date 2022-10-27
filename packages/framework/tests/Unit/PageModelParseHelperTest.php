@@ -12,7 +12,7 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Concerns\HydePage::parse
+ * @covers \Hyde\Pages\Concerns\HydePage::parse
  */
 class PageModelParseHelperTest extends TestCase
 {

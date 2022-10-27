@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\BaseMarkdownPage;
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -22,7 +22,7 @@ use Hyde\Testing\TestCase;
  * so we will use the MarkdownPage class as a proxy,
  * since it's the simplest implementation.
  *
- * @covers \Hyde\Framework\Concerns\HydePage
+ * @covers \Hyde\Pages\Concerns\HydePage
  * @covers \Hyde\Framework\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage

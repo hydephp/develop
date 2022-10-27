@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Contracts\FrontMatter;
 
 /**
- * @see \Hyde\Framework\Concerns\HydePage
+ * @see \Hyde\Pages\Concerns\HydePage
  */
 interface PageSchema extends \Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema
 {

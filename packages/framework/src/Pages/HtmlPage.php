@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Hyde\Framework\Concerns\HydePage;
+use Hyde\Pages\Concerns\HydePage;
 
 /**
  * Page class for HTML pages.

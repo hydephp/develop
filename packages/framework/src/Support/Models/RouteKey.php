@@ -41,7 +41,7 @@ final class RouteKey implements Stringable
 
     public static function fromPage(string $pageClass, string $identifier): self
     {
-        /** @var \Hyde\Framework\Concerns\HydePage $pageClass */
+        /** @var \Hyde\Pages\Concerns\HydePage $pageClass */
         return new self(unslash($pageClass::outputDirectory().'/'.$identifier));
     }
 }

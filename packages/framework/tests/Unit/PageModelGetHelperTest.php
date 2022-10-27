@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\Concerns\HydePage::all()
+ * @see \Hyde\Pages\Concerns\HydePage::all()
  */
 class PageModelGetHelperTest extends TestCase
 {

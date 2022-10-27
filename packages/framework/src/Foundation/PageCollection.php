@@ -6,9 +6,9 @@ namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
@@ -66,8 +66,8 @@ final class PageCollection extends BaseFoundationCollection
     }
 
     /**
-     * @param  string<\Hyde\Framework\Concerns\HydePage>  $pageClass
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Concerns\HydePage>
+     * @param  string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * @return \Illuminate\Support\Collection<\Hyde\Pages\Concerns\HydePage>
      */
     protected function parsePagesFor(string $pageClass): Collection
     {
