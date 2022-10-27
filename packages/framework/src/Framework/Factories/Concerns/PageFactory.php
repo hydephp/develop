@@ -6,7 +6,7 @@ namespace Hyde\Framework\Factories\Concerns;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-abstract class Factory implements Arrayable
+abstract class PageFactory implements Arrayable
 {
     abstract public function toArray(): array;
 }

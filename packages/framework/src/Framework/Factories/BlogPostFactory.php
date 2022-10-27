@@ -18,7 +18,7 @@ use function substr;
  *
  * Simply pass along the data the class needs to run, then access the data using the toArray() method.
  */
-class BlogPostFactory extends Concerns\Factory
+class BlogPostFactory extends Concerns\PageFactory
 {
     use HasFrontMatter;
 
