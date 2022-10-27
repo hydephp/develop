@@ -44,22 +44,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * @return array<string, string>
-     */
-    public function toArray(): array
-    {
-        return [
-            'routeKey' => $this->getRouteKey(),
-            'sourcePath' => $this->getSourcePath(),
-            'outputPath' => $this->getOutputPath(),
-            'page' => [
-                'class' => $this->getPageClass(),
-                'identifier' => $this->getPageIdentifier(),
-            ],
-        ];
-    }
-
-    /**
      * Resolve a site web link to the compiled page.
      * The path is relative to the current page being rendered, and uses pretty URLs if enabled.
      */
@@ -108,6 +92,22 @@ class Route implements Stringable, JsonSerializable, Arrayable
         }
 
         return $this->getRouteKey() === (string) $route;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function toArray(): array
+    {
+        return [
+            'routeKey' => $this->getRouteKey(),
+            'sourcePath' => $this->getSourcePath(),
+            'outputPath' => $this->getOutputPath(),
+            'page' => [
+                'class' => $this->getPageClass(),
+                'identifier' => $this->getPageIdentifier(),
+            ],
+        ];
     }
 
     public static function get(string $routeKey): ?Route
