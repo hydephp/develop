@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Navigation;
+namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function Hyde\Navigation\count;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest

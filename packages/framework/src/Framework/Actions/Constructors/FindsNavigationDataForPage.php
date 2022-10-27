@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Navigation\NavigationData;
+use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Contracts\FrontMatter\DocumentationPageSchema;
