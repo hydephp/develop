@@ -51,6 +51,11 @@ class Route implements Stringable, JsonSerializable, Arrayable
         return Hyde::relativeLink($this->page->getLink());
     }
 
+    public function getPage(): HydePage
+    {
+        return $this->page;
+    }
+
     public function getPageClass(): string
     {
         return $this->page::class;
@@ -59,11 +64,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
     public function getPageIdentifier(): string
     {
         return $this->page->getIdentifier();
-    }
-
-    public function getPage(): HydePage
-    {
-        return $this->page;
     }
 
     public function getRouteKey(): string
