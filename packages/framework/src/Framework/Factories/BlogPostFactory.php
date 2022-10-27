@@ -10,7 +10,6 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\DateString;
-use Illuminate\Contracts\Support\Arrayable;
 use function strlen;
 use function substr;
 
@@ -19,7 +18,7 @@ use function substr;
  *
  * Simply pass along the data the class needs to run, then access the data using the toArray() method.
  */
-class BlogPostFactory implements Arrayable
+class BlogPostFactory extends Concerns\Factory
 {
     use HasFrontMatter;
 
