@@ -165,12 +165,4 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
         return $this->getRouteKey() === $route;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public static function __callStatic(string $name, array $arguments)
-    {
-        return Router::$name(...$arguments);
-    }
 }
