@@ -185,7 +185,10 @@ class RouteTest extends TestCase
             'routeKey' => 'foo',
             'sourcePath' => '_pages/foo.md',
             'outputPath' => 'foo.html',
-            'sourceModel' => MarkdownPage::class,
+            'page' => [
+                'class' => MarkdownPage::class,
+                'identifier' => 'foo',
+            ],
         ], (new MarkdownPage('foo'))->getRoute()->toArray());
     }
 

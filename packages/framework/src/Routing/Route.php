@@ -60,7 +60,10 @@ class Route implements Stringable, JsonSerializable, Arrayable
             'routeKey' => $this->getRouteKey(),
             'sourcePath' => $this->getSourcePath(),
             'outputPath' => $this->getOutputPath(),
-            'pageClass' => $this->getPageClass(),
+            'page' => [
+                'class' => $this->getPageClass(),
+                'identifier' => $this->getPageIdentifier(),
+            ],
         ];
     }
 
@@ -82,6 +85,16 @@ class Route implements Stringable, JsonSerializable, Arrayable
     public function getPageClass(): string
     {
         return $this->page::class;
+    }
+
+    /**
+     * Get the page identifier.
+     *
+     * @return string
+     */
+    public function getPageIdentifier(): string
+    {
+        return $this->page->getIdentifier();
     }
 
     /**
