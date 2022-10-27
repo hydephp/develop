@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Blogging\Models\Author;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
@@ -23,7 +23,7 @@ class MarkdownPostTest extends TestCase
             'author' => 'John Doe',
         ]));
 
-        $this->assertInstanceOf(Author::class, $post->author);
+        $this->assertInstanceOf(PostAuthor::class, $post->author);
         $this->assertEquals('John Doe', $post->author->username);
         $this->assertNull($post->author->name);
         $this->assertNull($post->author->website);
@@ -39,7 +39,7 @@ class MarkdownPostTest extends TestCase
             ],
         ]));
 
-        $this->assertInstanceOf(Author::class, $post->author);
+        $this->assertInstanceOf(PostAuthor::class, $post->author);
         $this->assertEquals('john_doe', $post->author->username);
         $this->assertEquals('John Doe', $post->author->name);
         $this->assertEquals('https://example.com', $post->author->website);

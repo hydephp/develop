@@ -6,7 +6,7 @@ namespace Hyde\Pages;
 
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
-use Hyde\Framework\Features\Blogging\Models\Author;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Support\DateString;
@@ -29,7 +29,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public ?string $description = null;
     public ?string $category = null;
     public ?DateString $date = null;
-    public ?Author $author = null;
+    public ?PostAuthor $author = null;
     public ?FeaturedImage $image = null;
 
     /** @return \Hyde\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */

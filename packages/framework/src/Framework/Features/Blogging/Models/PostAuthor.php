@@ -12,7 +12,7 @@ use Stringable;
  *
  * @see \Hyde\Framework\Testing\Feature\AuthorTest
  */
-class Author implements Stringable
+class PostAuthor implements Stringable
 {
     /**
      * The username of the author.
@@ -40,7 +40,7 @@ class Author implements Stringable
     public ?string $website = null;
 
     /**
-     * Construct a new Author object.
+     * Construct a new Post Author object.
      *
      * Parameters are supplied through an array to make it
      * easy to load data from Markdown post front matter.
