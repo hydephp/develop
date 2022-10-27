@@ -20,6 +20,6 @@ class RouteFacadeTest extends TestCase
 
     public function test_route_facade_can_call_methods_on_the_router()
     {
-        $this->assertEquals((new Router())->all(), Route::all());
+        $this->assertEquals(Router::all(), Route::all());
     }
 }

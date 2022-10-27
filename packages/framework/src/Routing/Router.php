@@ -20,14 +20,14 @@ class Router
     /**
      * Get a route from the route index for the specified route key.
      *
-     * Alias for $this->getFromKey().
+     * Alias for static::getFromKey().
      *
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Routing\Route|null
      */
-    public function get(string $routeKey): ?Route
+    public static function get(string $routeKey): ?Route
     {
-        return $this->getFromKey($routeKey);
+        return static::getFromKey($routeKey);
     }
 
     /**
@@ -38,9 +38,9 @@ class Router
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
-    public function getOrFail(string $routeKey): Route
+    public static function getOrFail(string $routeKey): Route
     {
-        return $this->getFromKey($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return static::getFromKey($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**
@@ -49,7 +49,7 @@ class Router
      * @param  string  $routeKey  Example: posts/foo, posts.foo
      * @return \Hyde\Routing\Route|null
      */
-    public function getFromKey(string $routeKey): ?Route
+    public static function getFromKey(string $routeKey): ?Route
     {
         return Hyde::routes()->get(str_replace('.', '/', $routeKey))
             ?? null;
@@ -61,7 +61,7 @@ class Router
      * @param  string  $sourceFilePath  Example: _posts/foo.md
      * @return \Hyde\Routing\Route|null
      */
-    public function getFromSource(string $sourceFilePath): ?Route
+    public static function getFromSource(string $sourceFilePath): ?Route
     {
         return Hyde::routes()->first(function (Route $route) use ($sourceFilePath) {
             return $route->getSourcePath() === $sourceFilePath;
@@ -74,7 +74,7 @@ class Router
      * @param  \Hyde\Framework\Concerns\HydePage  $page
      * @return \Hyde\Routing\Route|null
      */
-    public function getFromModel(HydePage $page): ?Route
+    public static function getFromModel(HydePage $page): ?Route
     {
         return $page->getRoute();
     }
@@ -84,7 +84,7 @@ class Router
      *
      * @return \Hyde\Foundation\RouteCollection<\Hyde\Routing\Route>
      */
-    public function all(): RouteCollection
+    public static function all(): RouteCollection
     {
         return Hyde::routes();
     }
@@ -92,7 +92,7 @@ class Router
     /**
      * Get the current route for the page being rendered.
      */
-    public function current(): ?Route
+    public static function current(): ?Route
     {
         return Hyde::currentRoute() ?? null;
     }
@@ -100,9 +100,9 @@ class Router
     /**
      * Get the home route, usually the index page route.
      */
-    public function home(): ?Route
+    public static function home(): ?Route
     {
-        return $this->getFromKey('index') ?? null;
+        return static::getFromKey('index') ?? null;
     }
 
     /**
@@ -111,7 +111,7 @@ class Router
      * @param  string  $routeKey
      * @return bool
      */
-    public function exists(string $routeKey): bool
+    public static function exists(string $routeKey): bool
     {
         return Hyde::routes()->has($routeKey);
     }
