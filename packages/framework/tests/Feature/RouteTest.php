@@ -11,11 +11,11 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\Models\Route
+ * @covers \Hyde\Routing\Route
  */
 class RouteTest extends TestCase
 {

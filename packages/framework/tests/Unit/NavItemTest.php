@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 use Hyde\Testing\TestCase;
 
 /**

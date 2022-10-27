@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 use Illuminate\Support\Str;
 use Stringable;
 
@@ -30,7 +30,7 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item.
      *
-     * @param  \Hyde\Support\Models\Route|null  $route
+     * @param  \Hyde\Routing\Route|null  $route
      * @param  string  $label
      * @param  int  $priority
      * @param  bool  $hidden

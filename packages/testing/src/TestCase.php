@@ -6,7 +6,7 @@ use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 

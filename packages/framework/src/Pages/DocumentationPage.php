@@ -7,7 +7,7 @@ namespace Hyde\Pages;
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 
 /**
  * Page class for documentation pages.
