@@ -96,7 +96,7 @@ return [
         'Hyde' => Hyde\Hyde::class,
         'Asset' => \Hyde\Facades\Asset::class,
         'Site' => \Hyde\Support\Models\Site::class,
-        'Route' => \Hyde\Routing\Route::class,
+        'Route' => \Hyde\Facades\Route::class,
         'BladePage' => \Hyde\Pages\BladePage::class,
         'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
