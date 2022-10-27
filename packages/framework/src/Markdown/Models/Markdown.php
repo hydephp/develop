@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Models;
 
-use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Services\MarkdownService;
+use Hyde\Markdown\MarkdownConverter;
 use Illuminate\Contracts\Support\Arrayable;
 use Stringable;
 
