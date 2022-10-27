@@ -13,7 +13,7 @@ use Throwable;
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  */
-abstract class AbstractBuildTask implements BuildTaskContract
+abstract class BuildTask implements BuildTaskContract
 {
     use InteractsWithIO;
 

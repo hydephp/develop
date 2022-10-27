@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Features\BuildTasks\AbstractBuildTask;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 /**
  * @see \Hyde\Framework\Testing\Unit\GenerateBuildManifestTest
  */
-class GenerateBuildManifest extends AbstractBuildTask
+class GenerateBuildManifest extends BuildTask
 {
     public static string $description = 'Generating build manifest';
 

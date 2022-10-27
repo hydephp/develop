@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Features\BuildTasks\AbstractBuildTask;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\RssFeedService;
 use Hyde\Hyde;
 
-class GenerateRssFeed extends AbstractBuildTask
+class GenerateRssFeed extends BuildTask
 {
     public static string $description = 'Generating RSS feed';
 
