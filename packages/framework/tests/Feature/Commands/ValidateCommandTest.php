@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Features\Validation\SiteValidator
  * @covers \Hyde\Framework\Features\Validation\ValidationResult
  *
- * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
+ * @see \Hyde\Framework\Testing\Feature\Services\SiteValidatorTest
  */
 class ValidateCommandTest extends TestCase
 {

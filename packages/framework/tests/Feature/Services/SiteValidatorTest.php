@@ -10,14 +10,14 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * Class ValidationServiceTest.
+ * Class SiteValidatorTest.
  *
  * @covers \Hyde\Framework\Features\Validation\SiteValidator
  * @covers \Hyde\Framework\Features\Validation\ValidationResult
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
-class ValidationServiceTest extends TestCase
+class SiteValidatorTest extends TestCase
 {
     protected \Hyde\Framework\Features\Validation\SiteValidator $service;
 
