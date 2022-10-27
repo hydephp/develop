@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Helpers;
 
-use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Framework\Features\Metadata\Elements\LinkElement;
 use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
 use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
+use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 
 /**
  * Helpers to fluently declare HTML meta elements using their object representations.
