@@ -32,7 +32,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public ?PostAuthor $author = null;
     public ?FeaturedImage $image = null;
 
-    /** @return \Hyde\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
+    /** @return \Hyde\Foundation\PageCollection<\Hyde\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc('matter.date');
