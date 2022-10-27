@@ -165,7 +165,9 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the path where the compiled page instance will be saved.
+     * Get the path where the compiled page will be saved.
+     *
+     * @return string Path relative to the site output directory.
      */
     public function getOutputPath(): string
     {
@@ -227,7 +229,9 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the Blade template key for the page.
+     * Get the Blade template for the page.
+     *
+     * @return string Blade template/view key.
      */
     public function getBladeView(): string
     {
