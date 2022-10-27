@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-final class RouteKey
+use Stringable;
+
+final class RouteKey implements Stringable
 {
     protected readonly string $key;
 
