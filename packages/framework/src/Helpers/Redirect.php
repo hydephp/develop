@@ -12,6 +12,8 @@ use Hyde\Hyde;
  * The store method will then render the redirect page to the project's site output directory.
  * Once viewed in a web browser a meta refresh will redirect the user to the new location.
  *
+ * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
+ *
  * @example `Redirect::make('foo', 'bar')->store();`
  */
 class Redirect
