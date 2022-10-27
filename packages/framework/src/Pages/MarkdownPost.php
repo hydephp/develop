@@ -40,13 +40,6 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
         parent::__construct($identifier, $matter, $markdown);
     }
 
-    public function constructFactoryData(PageFactory $data): void
-    {
-        foreach ($data->toArray() as $key => $value) {
-            $this->{$key} = $value;
-        }
-    }
-
     /** @return \Hyde\Foundation\PageCollection<\Hyde\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {

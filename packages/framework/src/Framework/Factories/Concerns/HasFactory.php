@@ -6,5 +6,10 @@ namespace Hyde\Framework\Factories\Concerns;
 
 trait HasFactory
 {
-    //
+    public function constructFactoryData(PageFactory $data): void
+    {
+        foreach ($data->toArray() as $key => $value) {
+            $this->{$key} = $value;
+        }
+    }
 }
