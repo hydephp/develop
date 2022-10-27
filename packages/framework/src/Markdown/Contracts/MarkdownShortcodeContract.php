@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Contracts;
 
 /**
- * @see \Hyde\Markdown\ShortcodeProcessor to see how this is used.
+ * @see \Hyde\Markdown\Processing\ShortcodeProcessor to see how this is used.
  */
 interface MarkdownShortcodeContract
 {

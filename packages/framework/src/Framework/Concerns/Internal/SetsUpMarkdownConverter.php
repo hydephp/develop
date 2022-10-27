@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Markdown\BladeDownProcessor;
-use Hyde\Markdown\CodeblockFilepathProcessor;
-use Hyde\Markdown\ShortcodeProcessor;
+use Hyde\Markdown\Processing\BladeDownProcessor;
+use Hyde\Markdown\Processing\CodeblockFilepathProcessor;
+use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
