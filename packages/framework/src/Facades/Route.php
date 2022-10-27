@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Foundation\RouteCollection;
+use Hyde\Framework\Concerns\HydePage;
 use Hyde\Routing\Router;
 use Illuminate\Support\Facades\Facade;
 
@@ -13,15 +14,15 @@ use Illuminate\Support\Facades\Facade;
  *
  * @see \Hyde\Routing\Router
  *
+ * @method static Route|null home()
+ * @method static Route|null current()
  * @method static Route|null get(string $routeKey)
  * @method static Route|null getFromKey(string $routeKey)
  * @method static Route|null getFromSource(string $sourceFilePath)
  * @method static Route|null getFromModel(HydePage $page)
  * @method static Route getOrFail(string $routeKey)
- * @method static RouteCollection all()
  * @method static bool exists(string $routeKey)
- * @method static Route|null current()
- * @method static Route|null home()
+ * @method static RouteCollection all()
  */
 class Route extends Facade
 {
