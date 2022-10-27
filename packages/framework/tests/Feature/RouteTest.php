@@ -147,11 +147,6 @@ class RouteTest extends TestCase
         $this->assertNull(Route::current());
     }
 
-    public function test_home_helper_returns_index_route()
-    {
-        $this->assertEquals(Route::get('index'), Route::home());
-    }
-
     public function test_to_array_method()
     {
         $this->assertEquals([

@@ -130,11 +130,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
         return Hyde::currentRoute();
     }
 
-    public static function home(): ?Route
-    {
-        return Route::get('index');
-    }
-
     public static function exists(string $routeKey): bool
     {
         return Hyde::routes()->has($routeKey);
