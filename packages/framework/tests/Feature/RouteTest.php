@@ -136,33 +136,6 @@ class RouteTest extends TestCase
         $this->assertEquals($route->getLink(), (string) $route);
     }
 
-    public function test_get_qualified_url_returns_hyde_url_for_output_file_path()
-    {
-        $route = new Route(new MarkdownPage('foo'));
-        $this->assertEquals(Hyde::url('foo.html'), $route->getQualifiedUrl());
-    }
-
-    public function test_get_qualified_url_returns_hyde_url_for_nested_pages()
-    {
-        $route = new Route(new MarkdownPage('foo/bar'));
-        $this->assertEquals(Hyde::url('foo/bar.html'), $route->getQualifiedUrl());
-    }
-
-    public function test_get_qualified_url_returns_pretty_url_if_enabled()
-    {
-        config(['site.pretty_urls' => true]);
-        $route = new Route(new MarkdownPage('foo'));
-        $this->assertEquals(Hyde::url('foo'), $route->getQualifiedUrl());
-    }
-
-    public function test_get_qualified_url_throws_exception_when_a_base_url_is_not_set()
-    {
-        config(['site.url' => null]);
-        $this->expectException(BaseUrlNotSetException::class);
-        $route = new Route(new MarkdownPage('foo'));
-        $route->getQualifiedUrl();
-    }
-
     public function test_current_returns_current_route()
     {
         $route = new Route(new MarkdownPage('foo'));

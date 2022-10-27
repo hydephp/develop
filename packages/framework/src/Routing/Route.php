@@ -99,16 +99,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * Get the qualified URL for the route, using pretty URLs if enabled.
-     *
-     * @return string Fully qualified URL using the configured base URL.
-     */
-    public function getQualifiedUrl(): string
-    {
-        return Hyde::url($this->getOutputPath());
-    }
-
-    /**
      * Determine if the route instance matches another route or route key.
      */
     public function is(Route|RouteKey|string $route): bool
