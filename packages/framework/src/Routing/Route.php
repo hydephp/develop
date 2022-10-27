@@ -11,8 +11,8 @@ use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
-use Stringable;
 use function str_replace;
+use Stringable;
 
 /**
  * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
@@ -258,7 +258,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Format a route key so both dot and slash notations are supported.
      *
-     * @param string $routeKey
+     * @param  string  $routeKey
      * @return string
      */
     protected static function normalizeRouteKey(string $routeKey): string
