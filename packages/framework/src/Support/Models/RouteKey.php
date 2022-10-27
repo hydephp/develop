@@ -8,6 +8,11 @@ class RouteKey
 {
     protected readonly string $key;
 
+    public static function make(string $key): self
+    {
+        return new static($key);
+    }
+
     public function __construct(string $key)
     {
         $this->key = $key;
