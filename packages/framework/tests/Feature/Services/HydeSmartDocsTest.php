@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use function app;
+use function config;
 use Hyde\Framework\Features\Documentation\SemanticDocumentationArticle;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
-use function app;
-use function config;
 use function str_replace;
 use function view;
 
@@ -177,7 +177,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_the_documentation_article_view()
     {
         $rendered = view('hyde::components.docs.documentation-article', [
-            'document' => SemanticDocumentationArticle::create($this->page, $this->html)
+            'document' => SemanticDocumentationArticle::create($this->page, $this->html),
         ])->render();
 
         $this->assertStringContainsString('<h1>Foo</h1>', $rendered);
