@@ -17,7 +17,7 @@ trait ConstructsPageSchemas
         $this->constructPageSchema();
 
         if ($this instanceof MarkdownPost) {
-            $this->constructBlogPostData(new BlogPostFactory($this->matter, $this->markdown));
+            $this->constructFactoryData(new BlogPostFactory($this->matter, $this->markdown));
         }
     }
 

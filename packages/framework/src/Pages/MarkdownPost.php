@@ -39,7 +39,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
         parent::__construct($identifier, $matter, $markdown);
     }
 
-    public function constructBlogPostData(BlogPostFactory $data): void
+    public function constructFactoryData(BlogPostFactory $data): void
     {
         foreach ($data->toArray() as $key => $value) {
             $this->{$key} = $value;
