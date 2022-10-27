@@ -37,6 +37,7 @@ use Illuminate\Support\Arr;
 abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
+    use HasFrontMatter;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -224,39 +225,6 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function getBladeView(): string
     {
         return static::$template;
-    }
-
-    // Section: Front Matter
-
-    /**
-     * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
-     *
-     * @return \Hyde\Markdown\Models\FrontMatter|mixed
-     */
-    public function get(string $key = null, mixed $default = null): mixed
-    {
-        return Arr::get(array_filter(array_merge(
-            $this->matter->toArray(),
-            (array) $this,
-        )), $key, $default);
-    }
-
-    /**
-     * Get the front matter object, or a value from within.
-     *
-     * @return \Hyde\Markdown\Models\FrontMatter|mixed
-     */
-    public function matter(string $key = null, mixed $default = null): mixed
-    {
-        return $this->matter->get($key, $default);
-    }
-
-    /**
-     * See if a value exists in the computed page data or the front matter.
-     */
-    public function has(string $key): bool
-    {
-        return ! blank($this->get($key));
     }
 
     // Section: Accessors
