@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Facades\Features;
+use Hyde\Framework\Features\Validation\ValidationResult as Result;
 use Hyde\Hyde;
-use Hyde\Support\Models\ValidationResult as Result;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
