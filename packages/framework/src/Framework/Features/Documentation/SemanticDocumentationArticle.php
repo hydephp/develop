@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Documentation;
 
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use function str_contains;
 
@@ -42,19 +43,19 @@ class SemanticDocumentationArticle
         $this->html = $html;
     }
 
-    public function renderHeader(): string
+    public function renderHeader(): HtmlString
     {
-        return $this->header;
+        return new HtmlString($this->header);
     }
 
-    public function renderBody(): string
+    public function renderBody(): HtmlString
     {
-        return $this->body;
+        return new HtmlString($this->body);
     }
 
-    public function renderFooter(): string
+    public function renderFooter(): HtmlString
     {
-        return $this->footer;
+        return new HtmlString($this->footer);
     }
 
     /** @internal */
