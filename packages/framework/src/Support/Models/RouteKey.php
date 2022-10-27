@@ -6,6 +6,14 @@ namespace Hyde\Support\Models;
 
 use Stringable;
 
+/**
+ * Route keys are the core of Hyde's routing system.
+ *
+ * In short, the route key is the URL path relative to the site root.
+ *
+ * For example, `_pages/index.blade.php` would be compiled to `_site/index.html` and thus has the route key of `index`.
+ * As another example, `_posts/welcome.md` would be compiled to `_site/posts/welcome.html` and thus has the route key of `posts/welcome`.
+ */
 final class RouteKey implements Stringable
 {
     protected readonly string $key;
