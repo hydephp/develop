@@ -95,8 +95,8 @@ return [
     'aliases' => [
         'Hyde' => Hyde\Hyde::class,
         'Asset' => \Hyde\Helpers\Asset::class,
-        'Site' => \Hyde\Support\Site::class,
-        'Route' => \Hyde\Support\Route::class,
+        'Site' => \Hyde\Support\Models\Site::class,
+        'Route' => \Hyde\Support\Models\Route::class,
         'BladePage' => \Hyde\Pages\BladePage::class,
         'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,

@@ -6,12 +6,9 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
-use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Factories\BlogPostFactory;
 use Hyde\Hyde;
-use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\DateString;
 
 trait ConstructsPageSchemas
 {
@@ -19,8 +16,8 @@ trait ConstructsPageSchemas
     {
         $this->constructPageSchema();
 
-        if ($this instanceof BlogPostSchema) {
-            $this->constructBlogPostSchema();
+        if ($this instanceof MarkdownPost) {
+            $this->constructFactoryData(new BlogPostFactory($this->matter, $this->markdown));
         }
     }
 
@@ -39,44 +36,6 @@ trait ConstructsPageSchemas
 
         if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
             return $this->getRoute()->getQualifiedUrl();
-        }
-
-        return null;
-    }
-
-    protected function constructBlogPostSchema(): void
-    {
-        if ($this instanceof MarkdownPost) {
-            $this->category = $this->matter('category');
-            $this->description = $this->matter('description', $this->makeDescription((string) $this->markdown));
-            $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
-            $this->author = $this->getAuthor();
-            $this->image = $this->getImage();
-        }
-    }
-
-    protected function makeDescription(string $markdown): string
-    {
-        if (strlen($markdown) >= 128) {
-            return substr($markdown, 0, 125).'...';
-        }
-
-        return $markdown;
-    }
-
-    protected function getAuthor(): ?PostAuthor
-    {
-        if ($this->matter('author')) {
-            return PostAuthor::make($this->matter('author'));
-        }
-
-        return null;
-    }
-
-    protected function getImage(): ?FeaturedImage
-    {
-        if ($this->matter('image')) {
-            return FeaturedImage::make($this->matter('image'));
         }
 
         return null;

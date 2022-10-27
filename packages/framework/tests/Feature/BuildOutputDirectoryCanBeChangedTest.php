@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
-use Hyde\Support\Site;
+use Hyde\Support\Models\Site;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 

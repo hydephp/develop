@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Support\Route;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**

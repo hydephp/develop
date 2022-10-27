@@ -11,7 +11,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\File;
+use Hyde\Support\Models\File;
 
 /**
  * The core service that powers all HydePHP file auto-discovery.

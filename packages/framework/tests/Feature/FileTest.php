@@ -6,11 +6,11 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Support\File;
+use Hyde\Support\Models\File;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\File
+ * @covers \Hyde\Support\Models\File
  */
 class FileTest extends TestCase
 {

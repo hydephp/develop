@@ -9,7 +9,7 @@ use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Support\DateString;
+use Hyde\Support\Models\DateString;
 
 /**
  * Page class for Markdown posts.
@@ -25,14 +25,13 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';
 
-    public string $title;
-    public ?string $description = null;
-    public ?string $category = null;
-    public ?DateString $date = null;
-    public ?PostAuthor $author = null;
-    public ?FeaturedImage $image = null;
+    public ?string $description;
+    public ?string $category;
+    public ?DateString $date;
+    public ?PostAuthor $author;
+    public ?FeaturedImage $image;
 
-    /** @return \Hyde\Foundation\PageCollection<\Hyde\Framework\Models\Pages\MarkdownPost> */
+    /** @return \Hyde\Foundation\PageCollection<\Hyde\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection
     {
         return static::all()->sortByDesc('matter.date');

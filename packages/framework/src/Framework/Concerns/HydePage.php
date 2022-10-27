@@ -7,6 +7,7 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
+use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Framework\Services\DiscoveryService;
@@ -14,8 +15,8 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Contracts\CompilableContract;
-use Hyde\Support\Route;
-use Illuminate\Support\Arr;
+use Hyde\Support\Models\Route;
+use Hyde\Support\Models\RouteKey;
 
 /**
  * The base class for all Hyde pages.
@@ -37,6 +38,8 @@ use Illuminate\Support\Arr;
 abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
+    use HasFrontMatter;
+    use HasFactory;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
@@ -53,10 +56,15 @@ abstract class HydePage implements CompilableContract, PageSchema
     public ?string $canonicalUrl = null;
     public ?NavigationData $navigation = null;
 
+    public static function make(string $identifier = '', FrontMatter|array $matter = []): static
+    {
+        return new static($identifier, $matter);
+    }
+
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
-        $this->routeKey = static::routeKey($identifier);
+        $this->routeKey = RouteKey::fromPage(static::class, $identifier)->get();
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
@@ -137,7 +145,7 @@ abstract class HydePage implements CompilableContract, PageSchema
      */
     public static function outputPath(string $identifier): string
     {
-        return static::routeKey($identifier).'.html';
+        return RouteKey::fromPage(static::class, $identifier).'.html';
     }
 
     /**
@@ -159,14 +167,6 @@ abstract class HydePage implements CompilableContract, PageSchema
     // Section: Routing
 
     /**
-     * Format a page identifier to a route key.
-     */
-    public static function routeKey(string $identifier): string
-    {
-        return unslash(static::outputDirectory().'/'.$identifier);
-    }
-
-    /**
      * Get the route key for the page.
      *
      * The route key is the URL path relative to the site root.
@@ -185,7 +185,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return \Hyde\Support\Route The page's route.
+     * @return \Hyde\Support\Models\Route The page's route.
      */
     public function getRoute(): Route
     {
@@ -224,39 +224,6 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function getBladeView(): string
     {
         return static::$template;
-    }
-
-    // Section: Front Matter
-
-    /**
-     * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
-     *
-     * @return \Hyde\Markdown\Models\FrontMatter|mixed
-     */
-    public function get(string $key = null, mixed $default = null): mixed
-    {
-        return Arr::get(array_filter(array_merge(
-            $this->matter->toArray(),
-            (array) $this,
-        )), $key, $default);
-    }
-
-    /**
-     * Get the front matter object, or a value from within.
-     *
-     * @return \Hyde\Markdown\Models\FrontMatter|mixed
-     */
-    public function matter(string $key = null, mixed $default = null): mixed
-    {
-        return $this->matter->get($key, $default);
-    }
-
-    /**
-     * See if a value exists in the computed page data or the front matter.
-     */
-    public function has(string $key): bool
-    {
-        return ! blank($this->get($key));
     }
 
     // Section: Accessors

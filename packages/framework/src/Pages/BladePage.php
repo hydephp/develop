@@ -18,6 +18,10 @@ use Hyde\Markdown\Models\FrontMatter;
  */
 class BladePage extends HydePage
 {
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '.blade.php';
+
     /**
      * The name of the Blade View to compile. Commonly stored in _pages/{$identifier}.blade.php.
      *
@@ -34,10 +38,6 @@ class BladePage extends HydePage
         parent::__construct($view, $matter);
         $this->view = $view;
     }
-
-    public static string $sourceDirectory = '_pages';
-    public static string $outputDirectory = '';
-    public static string $fileExtension = '.blade.php';
 
     /** @inheritDoc */
     public function getBladeView(): string

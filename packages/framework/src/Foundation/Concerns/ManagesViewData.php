@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Support\Route;
+use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -40,7 +40,7 @@ trait ManagesViewData
     /**
      * Get the route for the page being rendered.
      *
-     * @return \Hyde\Support\Route|null
+     * @return \Hyde\Support\Models\Route|null
      */
     public function currentRoute(): ?Route
     {

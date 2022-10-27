@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
-use Hyde\Support\Route;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 

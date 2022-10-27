@@ -10,7 +10,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\File;
+use Hyde\Support\Models\File;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
