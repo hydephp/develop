@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories\Concerns;
 
-abstract class Factory
+use Illuminate\Contracts\Support\Arrayable;
+
+abstract class Factory implements Arrayable
 {
     //
 }
