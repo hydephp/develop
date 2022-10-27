@@ -137,10 +137,12 @@ class ValidationResult
         return "<fg=gray>$tip</>";
     }
 
-    protected function withMessage(?string $withMessage): void
+    protected function withMessage(?string $withMessage): static
     {
         if ($withMessage) {
             $this->message = $withMessage;
         }
+
+        return $this;
     }
 }
