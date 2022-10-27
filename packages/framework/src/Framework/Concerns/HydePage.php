@@ -145,7 +145,7 @@ abstract class HydePage implements CompilableContract, PageSchema
      */
     public static function outputPath(string $identifier): string
     {
-        return RouteKey::fromPage(static::class, $identifier) .'.html';
+        return RouteKey::fromPage(static::class, $identifier).'.html';
     }
 
     /**
