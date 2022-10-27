@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Facade;
  *
  * @see \Hyde\Routing\Router
  *
- * @method static ?Route get(string $routeKey)
- * @method static ?Route getFromKey(string $routeKey)
- * @method static ?Route getFromSource(string $sourceFilePath)
- * @method static ?Route getFromModel(HydePage $page)
+ * @method static Route|null get(string $routeKey)
+ * @method static Route|null getFromKey(string $routeKey)
+ * @method static Route|null getFromSource(string $sourceFilePath)
+ * @method static Route|null getFromModel(HydePage $page)
  * @method static Route getOrFail(string $routeKey)
  * @method static RouteCollection all()
  * @method static bool exists(string $routeKey)
- * @method static ?Route current()
- * @method static ?Route home()
+ * @method static Route|null current()
+ * @method static Route|null home()
  */
 class Route extends Facade
 {
