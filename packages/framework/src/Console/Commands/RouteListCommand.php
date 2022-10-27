@@ -39,7 +39,7 @@ class RouteListCommand extends Command
         /** @var \Hyde\Routing\Route $route */
         foreach (Hyde::routes() as $route) {
             $routes[] = [
-                $this->formatPageType($route->getPageType()),
+                $this->formatPageType($route->getPageClass()),
                 $this->formatSourcePath($route->getSourcePath()),
                 $this->formatOutputPath($route->getOutputPath()),
                 $route->getRouteKey(),

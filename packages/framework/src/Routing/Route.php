@@ -60,7 +60,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
             'routeKey' => $this->getRouteKey(),
             'sourcePath' => $this->getSourcePath(),
             'outputPath' => $this->getOutputPath(),
-            'sourceModel' => $this->getPageType(),
+            'sourceModel' => $this->getPageClass(),
         ];
     }
 
@@ -79,7 +79,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      *
      * @return class-string<\Hyde\Framework\Concerns\HydePage>
      */
-    public function getPageType(): string
+    public function getPageClass(): string
     {
         return $this->page::class;
     }

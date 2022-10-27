@@ -30,7 +30,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertEquals(MarkdownPage::class, $route->getPageType());
+        $this->assertEquals(MarkdownPage::class, $route->getPageClass());
     }
 
     public function test_get_source_model_returns_page_model()

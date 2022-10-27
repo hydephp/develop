@@ -78,7 +78,7 @@ class BuildService
     protected function getDiscoveredModels(): RouteCollection
     {
         return $this->router->getRoutes()->map(function (Route $route) {
-            return $route->getPageType();
+            return $route->getPageClass();
         })->unique();
     }
 
