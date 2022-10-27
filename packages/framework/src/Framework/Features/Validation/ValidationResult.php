@@ -10,6 +10,10 @@ namespace Hyde\Framework\Features\Validation;
  */
 class ValidationResult
 {
+    const PASSED = 0;
+    const SKIPPED = 1;
+    const FAILED = 2;
+
     public string $message;
     public string $tip;
 
@@ -81,13 +85,13 @@ class ValidationResult
     public function statusCode(): int
     {
         if ($this->skipped()) {
-            return 1;
+            return self::SKIPPED;
         }
         if ($this->passed()) {
-            return 0;
+            return self::PASSED;
         }
 
-        return 2;
+        return self::FAILED;
     }
 
     public function message(): string
@@ -108,8 +112,8 @@ class ValidationResult
     protected function formatResult(string $message): string
     {
         return match ($this->statusCode()) {
-            0 => $this->formatPassed($message),
-            2 => $this->formatFailed($message),
+            self::PASSED => $this->formatPassed($message),
+            self::FAILED => $this->formatFailed($message),
             default => $this->formatSkipped($message),
         };
     }
