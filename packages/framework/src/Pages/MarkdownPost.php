@@ -25,11 +25,20 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';
 
-    public ?string $description = null;
-    public ?string $category = null;
-    public ?DateString $date = null;
-    public ?PostAuthor $author = null;
-    public ?FeaturedImage $image = null;
+    public ?string $description;
+    public ?string $category;
+    public ?DateString $date;
+    public ?PostAuthor $author;
+    public ?FeaturedImage $image;
+
+    public function constructBlogPostData(?string $description, ?string $category, ?DateString $date, ?PostAuthor $author, ?FeaturedImage $image)
+    {
+        $this->description = $description;
+        $this->category = $category;
+        $this->date = $date;
+        $this->author = $author;
+        $this->image = $image;
+    }
 
     /** @return \Hyde\Foundation\PageCollection<\Hyde\Pages\MarkdownPost> */
     public static function getLatestPosts(): PageCollection

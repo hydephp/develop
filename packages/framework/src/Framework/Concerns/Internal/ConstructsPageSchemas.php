@@ -47,11 +47,13 @@ trait ConstructsPageSchemas
     protected function constructBlogPostSchema(): void
     {
         if ($this instanceof MarkdownPost) {
-            $this->category = $this->matter('category');
-            $this->description = $this->matter('description', $this->makeDescription((string) $this->markdown));
-            $this->date = $this->matter('date') !== null ? new DateString($this->matter('date')) : null;
-            $this->author = $this->getAuthor();
-            $this->image = $this->getImage();
+            $this->constructBlogPostData(
+                description: $this->matter('description', $this->makeDescription((string) $this->markdown)),
+                category: $this->matter('category'),
+                date: $this->matter('date') !== null ? new DateString($this->matter('date')) : null,
+                author: $this->getAuthor(),
+                image: $this->getImage(),
+            );
         }
     }
 
