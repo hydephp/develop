@@ -36,7 +36,7 @@ final class RouteCollection extends BaseFoundationCollection
     public function getRoutes(?string $pageClass = null): self
     {
         return ! $pageClass ? $this : $this->filter(function (Route $route) use ($pageClass) {
-            return $route->getSourceModel() instanceof $pageClass;
+            return $route->getPage() instanceof $pageClass;
         });
     }
 

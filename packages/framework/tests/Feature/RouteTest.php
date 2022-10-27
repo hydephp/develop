@@ -38,8 +38,8 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertInstanceOf(MarkdownPage::class, $route->getSourceModel());
-        $this->assertSame($page, $route->getSourceModel());
+        $this->assertInstanceOf(MarkdownPage::class, $route->getPage());
+        $this->assertSame($page, $route->getPage());
     }
 
     public function test_get_route_key_returns_page_path()

@@ -100,7 +100,7 @@ class BuildService
     protected function compileRoute(): Closure
     {
         return function (Route $route) {
-            return (new StaticPageBuilder($route->getSourceModel()))->__invoke();
+            return (new StaticPageBuilder($route->getPage()))->__invoke();
         };
     }
 

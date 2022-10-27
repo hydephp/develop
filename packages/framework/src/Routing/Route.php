@@ -28,7 +28,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
-    protected HydePage $sourceModel;
+    protected HydePage $page;
 
     public string $routeKey;
     public string $sourcePath;
@@ -42,7 +42,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public function __construct(HydePage $page)
     {
-        $this->sourceModel = $page;
+        $this->page = $page;
         $this->routeKey = $page->getRouteKey();
         $this->sourcePath = $page->getSourcePath();
         $this->outputPath = $page->getOutputPath();
@@ -69,7 +69,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
             'routeKey' => $this->routeKey,
             'sourcePath' => $this->sourcePath,
             'outputPath' => $this->outputPath,
-            'sourceModel' => $this->sourceModel::class,
+            'sourceModel' => $this->page::class,
         ];
     }
 
@@ -90,7 +90,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public function getPageType(): string
     {
-        return $this->sourceModel::class;
+        return $this->page::class;
     }
 
     /**
@@ -98,9 +98,9 @@ class Route implements Stringable, JsonSerializable, Arrayable
      *
      * @return \Hyde\Framework\Concerns\HydePage
      */
-    public function getSourceModel(): HydePage
+    public function getPage(): HydePage
     {
-        return $this->sourceModel;
+        return $this->page;
     }
 
     /**

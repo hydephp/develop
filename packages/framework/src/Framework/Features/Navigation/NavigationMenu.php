@@ -77,7 +77,7 @@ class NavigationMenu
     protected function filterDocumentationPage(NavItem $item): bool
     {
         return isset($item->route)
-            && $item->route->getSourceModel() instanceof DocumentationPage
+            && $item->route->getPage() instanceof DocumentationPage
             && $item->route->getRouteKey() !== 'docs/index';
     }
 }

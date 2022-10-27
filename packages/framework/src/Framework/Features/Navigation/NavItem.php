@@ -53,9 +53,9 @@ class NavItem implements Stringable
     {
         return new self(
             $route,
-            $route->getSourceModel()->navigationMenuLabel(),
-            $route->getSourceModel()->navigationMenuPriority(),
-            ! $route->getSourceModel()->showInNavigation()
+            $route->getPage()->navigationMenuLabel(),
+            $route->getPage()->navigationMenuPriority(),
+            ! $route->getPage()->showInNavigation()
         );
     }
 
@@ -97,7 +97,7 @@ class NavItem implements Stringable
     public function isCurrent(?HydePage $current = null): bool
     {
         if ($current === null) {
-            $current = Hyde::currentRoute()->getSourceModel();
+            $current = Hyde::currentRoute()->getPage();
         }
 
         if (! isset($this->route)) {
@@ -124,7 +124,7 @@ class NavItem implements Stringable
 
     public function getGroup(): ?string
     {
-        return $this->normalizeGroupKey($this->route->getSourceModel()->get('navigation.group'));
+        return $this->normalizeGroupKey($this->route->getPage()->get('navigation.group'));
     }
 
     protected function normalizeGroupKey(?string $group): ?string

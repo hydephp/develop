@@ -28,7 +28,7 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
-        $html = $this->getHtml(Route::get($this->normalizePath($this->request->path))->getSourceModel());
+        $html = $this->getHtml(Route::get($this->normalizePath($this->request->path))->getPage());
 
         return (new Response(200, 'OK', [
             'body' => $html,
