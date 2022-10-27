@@ -6,6 +6,9 @@ namespace Hyde\Framework\Features\BuildTasks\Contracts;
 
 use Illuminate\Console\OutputStyle;
 
+/**
+ * @deprecated
+ */
 interface BuildTaskContract
 {
     public function __construct(?OutputStyle $output = null);
