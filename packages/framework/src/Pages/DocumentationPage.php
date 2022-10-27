@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use Hyde\Facades\Route;
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Facades\Route;
 
 /**
  * Page class for documentation pages.
