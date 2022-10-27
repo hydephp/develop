@@ -64,7 +64,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
-        $this->routeKey = static::routeKey($identifier);
+        $this->routeKey = RouteKey::fromPage(static::class, $identifier);
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
@@ -145,7 +145,7 @@ abstract class HydePage implements CompilableContract, PageSchema
      */
     public static function outputPath(string $identifier): string
     {
-        return static::routeKey($identifier).'.html';
+        return RouteKey::fromPage(static::class, $identifier) .'.html';
     }
 
     /**
@@ -165,14 +165,6 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     // Section: Routing
-
-    /**
-     * Format a page identifier to a route key.
-     */
-    public static function routeKey(string $identifier): string
-    {
-        return RouteKey::fromPage(static::class, $identifier);
-    }
 
     /**
      * Get the route key for the page.
