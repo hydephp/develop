@@ -13,7 +13,6 @@ use Hyde\Testing\TestCase;
  */
 class SiteTest extends TestCase
 {
-
     public function testUrl()
     {
         $this->assertSame('http://localhost', Site::url());
