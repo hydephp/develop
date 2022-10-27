@@ -6,28 +6,55 @@ namespace Hyde\Facades;
 
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Routing\Router;
-use Illuminate\Support\Facades\Facade;
+use Hyde\Routing\Route as RouteModel;
 
 /**
  * Provides an easy way to access the Hyde pseudo-router.
- *
- * @see \Hyde\Routing\Router
- *
- * @method static \Hyde\Routing\Route|null home()
- * @method static \Hyde\Routing\Route|null current()
- * @method static \Hyde\Routing\Route|null get(string $routeKey)
- * @method static \Hyde\Routing\Route|null getFromKey(string $routeKey)
- * @method static \Hyde\Routing\Route|null getFromSource(string $sourceFilePath)
- * @method static \Hyde\Routing\Route|null getFromModel(HydePage $page)
- * @method static \Hyde\Routing\Route getOrFail(string $routeKey)
- * @method static bool exists(string $routeKey)
- * @method static RouteCollection all()
  */
-class Route extends Facade
+class Route
 {
-    protected static function getFacadeAccessor(): string
+    public static function get(string $routeKey): ?RouteModel
     {
-        return Router::class;
+        return RouteModel::get($routeKey);
+    }
+
+    public static function getOrFail(string $routeKey): RouteModel
+    {
+        return RouteModel::getOrFail($routeKey);
+    }
+
+    public static function getFromKey(string $routeKey): ?RouteModel
+    {
+        return RouteModel::getFromKey($routeKey);
+    }
+
+    public static function getFromSource(string $sourceFilePath): ?RouteModel
+    {
+        return RouteModel::getFromSource($sourceFilePath);
+    }
+
+    public static function getFromModel(HydePage $page): ?RouteModel
+    {
+        return RouteModel::getFromModel($page);
+    }
+
+    public static function all(): RouteCollection
+    {
+        return RouteModel::all();
+    }
+
+    public static function current(): ?RouteModel
+    {
+        return RouteModel::current();
+    }
+
+    public static function home(): ?RouteModel
+    {
+        return RouteModel::home();
+    }
+
+    public static function exists(string $routeKey): bool
+    {
+        return RouteModel::exists($routeKey);
     }
 }

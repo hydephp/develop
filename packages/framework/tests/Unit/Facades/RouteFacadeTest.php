@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Facades\Route;
-use Hyde\Routing\Router;
 use Hyde\Testing\TestCase;
 
 /**
@@ -13,13 +12,8 @@ use Hyde\Testing\TestCase;
  */
 class RouteFacadeTest extends TestCase
 {
-    public function test_route_facade_returns_the_router()
+    public function test_route_facade_can_call_methods_on_the_route_model()
     {
-        $this->assertInstanceOf(Router::class, Route::getFacadeRoot());
-    }
-
-    public function test_route_facade_can_call_methods_on_the_router()
-    {
-        $this->assertEquals(Router::all(), Route::all());
+        $this->assertEquals(Route::all(), \Hyde\Routing\Route::all());
     }
 }
