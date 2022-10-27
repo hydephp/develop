@@ -28,20 +28,9 @@ class Route implements Stringable, JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
-    /**
-     * The source model for the route.
-     *
-     * @var \Hyde\Framework\Concerns\HydePage
-     */
     protected HydePage $sourceModel;
 
-    /**
-     * The unique route key for the route.
-     *
-     * @var string The route key. Generally <output-directory/slug>.
-     */
     protected string $routeKey;
-
     protected string $sourcePath;
     protected string $outputPath;
     protected string $uriPath;
