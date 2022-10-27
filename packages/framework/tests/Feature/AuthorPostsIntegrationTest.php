@@ -79,7 +79,7 @@ class AuthorPostsIntegrationTest extends TestCase
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
         Config::set('authors', [
-            PostAuthor::create('test_named_author', 'Test PostAuthor'),
+            PostAuthor::create('test_named_author', 'Test Author'),
         ]);
 
         // Check that the post was created
@@ -117,7 +117,7 @@ class AuthorPostsIntegrationTest extends TestCase
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
         Config::set('authors', [
-            PostAuthor::create('test_author_with_website', 'Test PostAuthor', 'https://example.org'),
+            PostAuthor::create('test_author_with_website', 'Test Author', 'https://example.org'),
         ]);
 
         // Check that the post was created
