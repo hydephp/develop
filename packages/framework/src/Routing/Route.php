@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Models;
+namespace Hyde\Routing;
 
-use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
@@ -156,7 +154,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     /**
      * Determine if the route instance matches another route or route key.
      *
-     * @param  \Hyde\Framework\Models\Support\Route|string  $route  A route instance or route key string
+     * @param  \Hyde\Routing\Route|string  $route  A route instance or route key string
      * @return bool
      */
     public function is(Route|string $route): bool
@@ -169,94 +167,10 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * Get a route from the route index for the specified route key.
-     *
-     * Alias for static::getFromKey().
-     *
-     * @param  string  $routeKey  Example: posts/foo.md
-     * @return \Hyde\Framework\Models\Support\Route
-     *
-     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     * @inheritDoc
      */
-    public static function get(string $routeKey): static
+    public static function __callStatic(string $name, array $arguments)
     {
-        return static::getFromKey($routeKey);
-    }
-
-    /**
-     * Get a route from the route index for the specified route key.
-     *
-     * @param  string  $routeKey  Example: posts/foo, posts.foo
-     * @return \Hyde\Framework\Models\Support\Route
-     *
-     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
-     */
-    public static function getFromKey(string $routeKey): static
-    {
-        return Hyde::routes()->get(str_replace('.', '/', $routeKey))
-            ?? throw new RouteNotFoundException($routeKey);
-    }
-
-    /**
-     * Get a route from the route index for the specified source file path.
-     *
-     * @param  string  $sourceFilePath  Example: _posts/foo.md
-     * @return \Hyde\Framework\Models\Support\Route
-     *
-     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
-     */
-    public static function getFromSource(string $sourceFilePath): static
-    {
-        return Hyde::routes()->first(function (Route $route) use ($sourceFilePath) {
-            return $route->getSourcePath() === $sourceFilePath;
-        }) ?? throw new RouteNotFoundException($sourceFilePath);
-    }
-
-    /**
-     * Get a route from the route index for the supplied page model.
-     *
-     * @param  \Hyde\Framework\Concerns\HydePage  $page
-     * @return \Hyde\Framework\Models\Support\Route
-     */
-    public static function getFromModel(HydePage $page): Route
-    {
-        return $page->getRoute();
-    }
-
-    /**
-     * Get all routes from the route index.
-     *
-     * @return \Hyde\Foundation\RouteCollection<\Hyde\Framework\Models\Support\Route>
-     */
-    public static function all(): RouteCollection
-    {
-        return Hyde::routes();
-    }
-
-    /**
-     * Get the current route for the page being rendered.
-     */
-    public static function current(): Route
-    {
-        return Hyde::currentRoute() ?? throw new RouteNotFoundException('current');
-    }
-
-    /**
-     * Get the home route, usually the index page route.
-     */
-    public static function home(): Route
-    {
-        return static::getFromKey('index');
-    }
-
-    /**
-     * Determine if the supplied route key exists in the route index.
-     *
-     * @param  string  $routeKey
-     * @return bool
-     */
-    public static function exists(string $routeKey): bool
-    {
-        return Hyde::routes()->has($routeKey);
+        return Router::$name(...$arguments);
     }
 }

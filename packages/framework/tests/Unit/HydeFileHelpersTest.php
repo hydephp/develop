@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 use Hyde\Testing\TestCase;
 
 /**

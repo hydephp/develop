@@ -8,11 +8,11 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\RouteKey;
+use Hyde\Routing\RouteKey;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\Models\RouteKey
+ * @covers \Hyde\Routing\RouteKey
  */
 class RouteKeyTest extends TestCase
 {

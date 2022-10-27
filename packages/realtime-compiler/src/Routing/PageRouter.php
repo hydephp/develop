@@ -8,7 +8,7 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 
 /**
  * Handle routing for a web page request.

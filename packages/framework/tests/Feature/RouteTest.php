@@ -11,11 +11,11 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\Route;
+use Hyde\Routing\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\Models\Route
+ * @covers \Hyde\Routing\Route
  */
 class RouteTest extends TestCase
 {
@@ -73,16 +73,21 @@ class RouteTest extends TestCase
         $this->assertEquals(Route::getFromKey('index'), Route::get('index'));
     }
 
+    public function test_get_or_fail_throws_exception_if_route_is_not_found()
+    {
+        $this->expectException(RouteNotFoundException::class);
+        Route::getOrFail('not-found');
+    }
+
     public function test_get_from_key_returns_route_from_router_index()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Route::get('index'));
         $this->assertInstanceOf(Route::class, Route::get('index'));
     }
 
-    public function test_get_from_key_throws_exception_if_route_is_not_found()
+    public function test_get_from_returns_null_if_route_is_not_found()
     {
-        $this->expectException(RouteNotFoundException::class);
-        Route::get('not-found');
+        $this->assertNull(Route::get('not-found'));
     }
 
     public function test_get_from_source_returns_route_from_router_index()
@@ -93,8 +98,7 @@ class RouteTest extends TestCase
 
     public function test_get_from_source_returns_null_if_route_is_not_found()
     {
-        $this->expectException(RouteNotFoundException::class);
-        Route::getFromSource('not-found');
+        $this->assertNull(Route::getFromSource('_pages/not-found.blade.php'));
     }
 
     public function test_get_from_source_can_find_blade_pages()
@@ -212,10 +216,9 @@ class RouteTest extends TestCase
         $this->assertEquals($route, Route::current());
     }
 
-    public function test_current_throws_exception_if_route_is_not_found()
+    public function test_current_returns_null_if_route_is_not_found()
     {
-        $this->expectException(RouteNotFoundException::class);
-        Route::current();
+        $this->assertNull(Route::current());
     }
 
     public function test_home_helper_returns_index_route()
