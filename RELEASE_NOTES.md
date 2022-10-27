@@ -18,6 +18,7 @@ This serves two purposes:
 These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
 
 - HydePHP now requires PHP 8.1 or higher.
+- Almost all namespaces in the framework have been changed and restructured.
 
 #### Breaking internal changes
 These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.
