@@ -6,9 +6,9 @@ namespace Hyde\Framework\Actions\Constructors;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Features\Navigation\NavigationData;
+use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Contracts\FrontMatter\DocumentationPageSchema;
 use Illuminate\Support\Str;
 
 /**

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Support\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Support\Contracts\FrontMatter\PageSchema;
-use Hyde\Support\Contracts\FrontMatter\SubSchemas\NavigationSchema;
+use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
+use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\TestCase;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
  * This requires contributors to consider the impact of their changes as schema changes are rarely backwards compatible.
  *
- * @see \Hyde\Support\Contracts\FrontMatter\PageSchema
- * @see \Hyde\Support\Contracts\FrontMatter\BlogPostSchema
- * @see \Hyde\Support\Contracts\FrontMatter\DocumentationPageSchema
+ * @see \Hyde\Markdown\Contracts\FrontMatter\PageSchema
+ * @see \Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema
+ * @see \Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema
  */
 class SchemaContractsTest extends TestCase
 {

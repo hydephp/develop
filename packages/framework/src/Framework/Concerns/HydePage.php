@@ -11,9 +11,9 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
+use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Contracts\CompilableContract;
-use Hyde\Support\Contracts\FrontMatter\PageSchema;
 use Hyde\Support\Route;
 use Illuminate\Support\Arr;
 

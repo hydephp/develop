@@ -9,8 +9,8 @@ use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Hyde;
+use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Support\DateString;
 
 trait ConstructsPageSchemas
