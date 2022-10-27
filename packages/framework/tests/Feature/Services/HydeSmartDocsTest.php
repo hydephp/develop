@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\HtmlString;
 use function app;
 use function config;
 use function str_replace;
@@ -170,7 +171,7 @@ class HydeSmartDocsTest extends TestCase
         $this->mockTorchlight();
         $page = SemanticDocumentationArticle::create($this->page, 'Syntax highlighted by torchlight.dev');
 
-        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $page->renderFooter());
+        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $page->renderFooter()->toHtml());
     }
 
     public function test_the_documentation_article_view()
@@ -183,19 +184,19 @@ class HydeSmartDocsTest extends TestCase
         $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
     }
 
-    protected function assertEqualsIgnoringNewlines(string $expected, string $actual): void
+    protected function assertEqualsIgnoringNewlines(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
             str_replace(["\n", "\r"], '', $expected),
-            str_replace(["\n", "\r"], '', $actual)
+            str_replace(["\n", "\r"], '', $actual->toHtml())
         );
     }
 
-    protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, string $actual): void
+    protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
             str_replace(["\n", "\r", '    '], '', $expected),
-            str_replace(["\n", "\r", '    '], '', $actual)
+            str_replace(["\n", "\r", '    '], '', $actual->toHtml())
         );
     }
 
