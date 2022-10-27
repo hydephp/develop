@@ -60,9 +60,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * Resolve a relative site web link to the file, using pretty URLs if enabled.
-     *
-     * @return string URL path to the route site file, relative to the current page being rendered.
+     * Resolve a site web link to the compiled page, relative to the current page being rendered, using pretty URLs if enabled.
      */
     public function getLink(): string
     {
@@ -111,9 +109,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     /**
      * Determine if the route instance matches another route or route key.
-     *
-     * @param  \Hyde\Routing\Route|\Hyde\Routing\RouteKey|string  $route  A route instance or route key string
-     * @return bool
      */
     public function is(Route|RouteKey|string $route): bool
     {
@@ -156,9 +151,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     /**
      * Format a route key so both dot and slash notations are supported.
-     *
-     * @param  string  $routeKey
-     * @return string
      */
     protected static function normalizeRouteKey(string $routeKey): string
     {
