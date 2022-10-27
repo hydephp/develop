@@ -15,7 +15,6 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Support\Contracts\CompilableContract;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 
@@ -36,7 +35,7 @@ use Hyde\Support\Models\RouteKey;
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class HydePage implements CompilableContract, PageSchema
+abstract class HydePage implements PageSchema
 {
     use ConstructsPageSchemas;
     use HasFrontMatter;
