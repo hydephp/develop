@@ -66,10 +66,10 @@ class Route implements Stringable, JsonSerializable, Arrayable
     public function toArray(): array
     {
         return [
-            'routeKey' => $this->routeKey,
-            'sourcePath' => $this->sourcePath,
-            'outputPath' => $this->outputPath,
-            'sourceModel' => $this->page::class,
+            'routeKey' => $this->getRouteKey(),
+            'sourcePath' => $this->getSourcePath(),
+            'outputPath' => $this->getOutputPath(),
+            'sourceModel' => $this->getPageType(),
         ];
     }
 
