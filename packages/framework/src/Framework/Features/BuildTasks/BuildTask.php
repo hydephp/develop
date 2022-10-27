@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\BuildTasks;
 
-use Hyde\Framework\Features\BuildTasks\Contracts\BuildTaskContract;
 use Hyde\Hyde;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
@@ -13,7 +12,7 @@ use Throwable;
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  */
-abstract class BuildTask implements BuildTaskContract
+abstract class BuildTask
 {
     use InteractsWithIO;
 
