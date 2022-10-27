@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Hyde\Framework\Models\Support\Site;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Site;
 
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.

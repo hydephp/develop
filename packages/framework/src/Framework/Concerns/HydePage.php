@@ -9,12 +9,12 @@ use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Contracts\CompilableContract;
 use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Metadata\PageMetadataBag;
 use Hyde\Navigation\NavigationData;
+use Hyde\Support\Route;
 use Illuminate\Support\Arr;
 
 /**
@@ -185,7 +185,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return \Hyde\Framework\Models\Support\Route The page's route.
+     * @return \Hyde\Support\Route The page's route.
      */
     public function getRoute(): Route
     {

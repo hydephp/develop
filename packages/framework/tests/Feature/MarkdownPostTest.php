@@ -6,9 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Blogging\Models\Author;
 use Hyde\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Models\Support\DateString;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\DateString;
 use Hyde\Testing\TestCase;
 
 /**

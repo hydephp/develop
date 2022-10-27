@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Hyde;
 use Hyde\Navigation\DocumentationSidebar;
 use Hyde\Navigation\NavItem;
+use Hyde\Support\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;

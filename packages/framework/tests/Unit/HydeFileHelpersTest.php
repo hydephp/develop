@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Hyde;
+use Hyde\Support\Route;
 use Hyde\Testing\TestCase;
 
 /**

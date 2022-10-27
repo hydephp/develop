@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Models\Support\Site;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Site;
 use Hyde\Testing\TestCase;
 
 /**

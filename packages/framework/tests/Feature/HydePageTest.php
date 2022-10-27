@@ -6,13 +6,13 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Route;
 use Hyde\Testing\TestCase;
 
 /**

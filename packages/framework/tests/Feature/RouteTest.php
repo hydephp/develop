@@ -6,16 +6,16 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Route;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Support\Route
+ * @covers \Hyde\Support\Route
  */
 class RouteTest extends TestCase
 {

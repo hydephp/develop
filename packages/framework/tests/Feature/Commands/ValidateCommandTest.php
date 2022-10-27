@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Console\Commands\ValidateCommand
  * @covers \Hyde\Framework\Services\ValidationService
- * @covers \Hyde\Framework\Models\Support\ValidationResult
+ * @covers \Hyde\Support\ValidationResult
  *
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
  */

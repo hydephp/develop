@@ -9,7 +9,7 @@ use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Models\Support\DateString;
+use Hyde\Support\DateString;
 
 /**
  * Page class for Markdown posts.
