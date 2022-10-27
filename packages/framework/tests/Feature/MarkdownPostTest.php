@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\DateString;
