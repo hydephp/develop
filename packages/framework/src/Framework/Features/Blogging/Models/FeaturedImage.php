@@ -9,7 +9,6 @@ use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Support\Contracts\FrontMatter\Support\FeaturedImageSchema;
 use Stringable;
-use function Hyde\Blogging\Models\str_starts_with;
 
 /**
  * Holds the information for an image.
