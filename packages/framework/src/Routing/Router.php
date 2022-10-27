@@ -12,6 +12,8 @@ use function str_replace;
 
 /**
  * Provides helper methods for accessing the Hyde pseudo-router.
+ *
+ * @see \Hyde\Facades\Route for the facade that provides access to this class.
  */
 class Router
 {
