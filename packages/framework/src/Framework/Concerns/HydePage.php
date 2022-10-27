@@ -7,6 +7,7 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
+use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Framework\Services\DiscoveryService;
@@ -37,6 +38,7 @@ abstract class HydePage implements CompilableContract, PageSchema
 {
     use ConstructsPageSchemas;
     use HasFrontMatter;
+    use HasFactory;
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
