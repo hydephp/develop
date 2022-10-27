@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Metadata;
+namespace Hyde\Framework\Features\Metadata;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Services\RssFeedService;

@@ -9,7 +9,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function Hyde\Navigation\count;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
