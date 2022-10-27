@@ -180,6 +180,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     {
         return static::getFromKey($routeKey);
     }
+
     /**
      * Get a route from the route index for the specified route key or throw an exception.
      *
@@ -192,6 +193,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     {
         return static::getFromKey($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
+
     /**
      * Get a route from the route index for the specified route key.
      *
@@ -203,6 +205,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
         return Hyde::routes()->get(str_replace('.', '/', $routeKey))
             ?? null;
     }
+
     /**
      * Get a route from the route index for the specified source file path.
      *
@@ -215,6 +218,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
             return $route->getSourcePath() === $sourceFilePath;
         }) ?? null;
     }
+
     /**
      * Get a route from the route index for the supplied page model.
      *
@@ -225,6 +229,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     {
         return $page->getRoute();
     }
+
     /**
      * Get all routes from the route index.
      *
@@ -234,6 +239,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     {
         return Hyde::routes();
     }
+
     /**
      * Get the current route for the page being rendered.
      */
@@ -241,6 +247,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     {
         return Hyde::currentRoute() ?? null;
     }
+
     /**
      * Get the home route, usually the index page route.
      */
@@ -248,6 +255,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     {
         return static::getFromKey('index') ?? null;
     }
+
     /**
      * Determine if the supplied route key exists in the route index.
      *
