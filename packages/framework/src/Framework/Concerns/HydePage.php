@@ -64,7 +64,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
-        $this->routeKey = RouteKey::fromPage(static::class, $identifier);
+        $this->routeKey = RouteKey::fromPage(static::class, $identifier)->get();
 
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
         $this->constructPageSchemas();
