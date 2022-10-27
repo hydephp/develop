@@ -10,6 +10,7 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Routing\Route;
+use Hyde\Routing\RouteKey;
 use Hyde\Testing\TestCase;
 
 /**
@@ -206,5 +207,12 @@ class RouteTest extends TestCase
         $route = new Route(new MarkdownPage('foo'));
         $this->assertTrue($route->is('foo'));
         $this->assertFalse($route->is('bar'));
+    }
+
+    public function testIsWithRouteKeyObject()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+        $this->assertTrue($route->is(new RouteKey('foo')));
+        $this->assertFalse($route->is(new RouteKey('bar')));
     }
 }
