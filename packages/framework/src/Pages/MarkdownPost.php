@@ -25,7 +25,6 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public static string $outputDirectory = 'posts';
     public static string $template = 'hyde::layouts/post';
 
-    public string $title;
     public ?string $description = null;
     public ?string $category = null;
     public ?DateString $date = null;
