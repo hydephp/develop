@@ -150,6 +150,13 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
+     * Compile the page into static HTML.
+     *
+     * @return string The compiled HTML for the page.
+     */
+    abstract public function compile(): string;
+
+    /**
      * Get the path to the instance source file, relative to the project root.
      */
     public function getSourcePath(): string
