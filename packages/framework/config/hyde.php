@@ -11,9 +11,9 @@
 |
 */
 
+use Hyde\Facades\Features;
+use Hyde\Facades\Meta;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
-use Hyde\Helpers\Features;
-use Hyde\Helpers\Meta;
 
 return [
     /*

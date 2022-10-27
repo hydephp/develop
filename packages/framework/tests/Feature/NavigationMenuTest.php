@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
@@ -21,11 +21,6 @@ class NavigationMenuTest extends TestCase
         $menu = new NavigationMenu();
 
         $this->assertInstanceOf(NavigationMenu::class, $menu);
-    }
-
-    public function test_home_route()
-    {
-        $this->assertEquals('index.html', Route::home());
     }
 
     public function test_generate_method_creates_collection_of_nav_items()

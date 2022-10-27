@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
-use Hyde\Routing\Redirect;
+use Hyde\Support\Models\Redirect;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Routing\Redirect
+ * @covers \Hyde\Support\Models\Redirect
  */
 class RedirectTest extends TestCase
 {

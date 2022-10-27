@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Helpers;
+namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Metadata\Elements\LinkElement;
 use Hyde\Framework\Features\Metadata\Elements\MetadataElement;

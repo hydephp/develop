@@ -2,13 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Routing;
+namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
 
 /**
  * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.
  * Typically, you'll do this in a build task. Pass data a new object, then call the store method.
+ * The store method will then render the redirect page to the project's site output directory.
+ * Once viewed in a web browser a meta refresh will redirect the user to the new location.
+ *
+ * Since redirects are not discoverable, they also never show up in navigation, sitemaps, etc.
  *
  * @example `Redirect::make('foo', 'bar')->store();`
  */

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Closure;
+use Hyde\Facades\Site;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
-use Hyde\Routing\Route;
-use Hyde\Support\Models\Site;
+use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
@@ -78,7 +78,7 @@ class BuildService
     protected function getDiscoveredModels(): RouteCollection
     {
         return $this->router->getRoutes()->map(function (Route $route) {
-            return $route->getPageType();
+            return $route->getPageClass();
         })->unique();
     }
 
@@ -96,11 +96,11 @@ class BuildService
         $this->newLine(2);
     }
 
-    /** @psalm-return \Closure(\Hyde\Routing\Route):string */
+    /** @psalm-return \Closure(\Hyde\Support\Models\Route):string */
     protected function compileRoute(): Closure
     {
         return function (Route $route) {
-            return (new StaticPageBuilder($route->getSourceModel()))->__invoke();
+            return (new StaticPageBuilder($route->getPage()))->__invoke();
         };
     }
 

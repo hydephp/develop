@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Helpers;
+namespace Hyde\Facades;
 
 use Hyde\Framework\Services\AssetService;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * Handles the retrieval of core asset files, either from the HydeFront CDN or from the local media folder.
+ *
  * @see \Hyde\Framework\Services\AssetService
  *
  * @method static string version()

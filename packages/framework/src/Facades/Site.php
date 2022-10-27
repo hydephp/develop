@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Models;
+namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 
@@ -15,17 +15,6 @@ final class Site
 {
     /** @var string The relative path to the output directory */
     public static string $outputPath;
-
-    public ?string $url;
-    public ?string $name;
-    public ?string $language;
-
-    public function __construct()
-    {
-        $this->url = self::url();
-        $this->name = self::name();
-        $this->language = self::language();
-    }
 
     public static function url(): ?string
     {

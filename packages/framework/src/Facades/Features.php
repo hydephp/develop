@@ -2,17 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Helpers;
+namespace Hyde\Facades;
 
+use function count;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use JsonSerializable;
+use function str_starts_with;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
+ *
+ * @todo Split facade logic to service/manager class.
  *
  * @see \Hyde\Framework\Testing\Feature\ConfigurableFeaturesTest
  *

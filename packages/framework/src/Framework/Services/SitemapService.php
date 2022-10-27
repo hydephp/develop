@@ -12,7 +12,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use SimpleXMLElement;
 
 /**
@@ -39,7 +39,7 @@ class SitemapService
 
     public function generate(): static
     {
-        Route::all()->each(function ($route) {
+        \Hyde\Facades\Route::all()->each(function ($route) {
             $this->addRoute($route);
         });
 
@@ -56,11 +56,11 @@ class SitemapService
     public function addRoute(Route $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
-        $urlItem->addChild('loc', htmlentities($route->getQualifiedUrl()));
+        $urlItem->addChild('loc', htmlentities(Hyde::url($route->getOutputPath())));
         $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($route->getSourcePath())));
         $urlItem->addChild('changefreq', 'daily');
         if (config('hyde.sitemap.dynamic_priority', true)) {
-            $urlItem->addChild('priority', $this->getPriority($route->getPageType(), $route->getSourceModel()->getIdentifier()));
+            $urlItem->addChild('priority', $this->getPriority($route->getPageClass(), $route->getPage()->getIdentifier()));
         }
     }
 

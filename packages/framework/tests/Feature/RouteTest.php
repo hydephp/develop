@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
+use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Routing\Route
+ * @covers \Hyde\Support\Models\Route
  */
 class RouteTest extends TestCase
 {
@@ -32,7 +30,7 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertEquals(MarkdownPage::class, $route->getPageType());
+        $this->assertEquals(MarkdownPage::class, $route->getPageClass());
     }
 
     public function test_get_source_model_returns_page_model()
@@ -40,8 +38,8 @@ class RouteTest extends TestCase
         $page = new MarkdownPage();
         $route = new Route($page);
 
-        $this->assertInstanceOf(MarkdownPage::class, $route->getSourceModel());
-        $this->assertSame($page, $route->getSourceModel());
+        $this->assertInstanceOf(MarkdownPage::class, $route->getPage());
+        $this->assertSame($page, $route->getPage());
     }
 
     public function test_get_route_key_returns_page_path()
@@ -70,7 +68,7 @@ class RouteTest extends TestCase
 
     public function test_get_is_alias_for_get_from_key()
     {
-        $this->assertEquals(Route::getFromKey('index'), Route::get('index'));
+        $this->assertEquals(Route::get('index'), Route::get('index'));
     }
 
     public function test_get_or_fail_throws_exception_if_route_is_not_found()
@@ -90,51 +88,6 @@ class RouteTest extends TestCase
         $this->assertNull(Route::get('not-found'));
     }
 
-    public function test_get_from_source_returns_route_from_router_index()
-    {
-        $this->assertEquals(new Route(BladePage::parse('index')), Route::getFromSource('_pages/index.blade.php'));
-        $this->assertInstanceOf(Route::class, Route::getFromSource('_pages/index.blade.php'));
-    }
-
-    public function test_get_from_source_returns_null_if_route_is_not_found()
-    {
-        $this->assertNull(Route::getFromSource('_pages/not-found.blade.php'));
-    }
-
-    public function test_get_from_source_can_find_blade_pages()
-    {
-        Hyde::touch(('_pages/foo.blade.php'));
-        $this->assertEquals(new Route(BladePage::parse('foo')), Route::getFromSource('_pages/foo.blade.php'));
-        unlink(Hyde::path('_pages/foo.blade.php'));
-    }
-
-    public function test_get_from_source_can_find_markdown_pages()
-    {
-        Hyde::touch(('_pages/foo.md'));
-        $this->assertEquals(new Route(MarkdownPage::parse('foo')), Route::getFromSource('_pages/foo.md'));
-        unlink(Hyde::path('_pages/foo.md'));
-    }
-
-    public function test_get_from_source_can_find_markdown_posts()
-    {
-        Hyde::touch(('_posts/foo.md'));
-        $this->assertEquals(new Route(MarkdownPost::parse('foo')), Route::getFromSource('_posts/foo.md'));
-        unlink(Hyde::path('_posts/foo.md'));
-    }
-
-    public function test_get_from_source_can_find_documentation_pages()
-    {
-        Hyde::touch(('_docs/foo.md'));
-        $this->assertEquals(new Route(DocumentationPage::parse('foo')), Route::getFromSource('_docs/foo.md'));
-        unlink(Hyde::path('_docs/foo.md'));
-    }
-
-    public function test_get_from_model_returns_the_models_route()
-    {
-        $page = new BladePage('index');
-        $this->assertEquals(new Route($page), Route::getFromModel($page));
-    }
-
     public function test_get_supports_dot_notation()
     {
         $this->file('_posts/foo.md');
@@ -148,21 +101,21 @@ class RouteTest extends TestCase
 
     public function test_get_link_returns_correct_path_for_root_pages()
     {
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
+        $route = new Route(new MarkdownPage('foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo.html', $route->getLink());
     }
 
     public function test_get_link_returns_correct_path_for_nested_pages()
     {
-        $route = new Route(new MarkdownPage(identifier: 'foo/bar'));
+        $route = new Route(new MarkdownPage('foo/bar'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo/bar.html', $route->getLink());
     }
 
     public function test_get_link_returns_correct_path_for_nested_current_page()
     {
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
+        $route = new Route(new MarkdownPage('foo'));
         view()->share('currentPage', 'foo/bar');
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('../foo.html', $route->getLink());
@@ -171,47 +124,20 @@ class RouteTest extends TestCase
     public function test_get_link_returns_pretty_url_if_enabled()
     {
         config(['site.pretty_urls' => true]);
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
+        $route = new Route(new MarkdownPage('foo'));
         $this->assertEquals(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertEquals('foo', $route->getLink());
     }
 
     public function test_to_string_is_alias_for_get_link()
     {
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
+        $route = new Route(new MarkdownPage('foo'));
         $this->assertEquals($route->getLink(), (string) $route);
-    }
-
-    public function test_get_qualified_url_returns_hyde_url_for_output_file_path()
-    {
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
-        $this->assertEquals(Hyde::url('foo.html'), $route->getQualifiedUrl());
-    }
-
-    public function test_get_qualified_url_returns_hyde_url_for_nested_pages()
-    {
-        $route = new Route(new MarkdownPage(identifier: 'foo/bar'));
-        $this->assertEquals(Hyde::url('foo/bar.html'), $route->getQualifiedUrl());
-    }
-
-    public function test_get_qualified_url_returns_pretty_url_if_enabled()
-    {
-        config(['site.pretty_urls' => true]);
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
-        $this->assertEquals(Hyde::url('foo'), $route->getQualifiedUrl());
-    }
-
-    public function test_get_qualified_url_throws_exception_when_a_base_url_is_not_set()
-    {
-        config(['site.url' => null]);
-        $this->expectException(BaseUrlNotSetException::class);
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
-        $route->getQualifiedUrl();
     }
 
     public function test_current_returns_current_route()
     {
-        $route = new Route(new MarkdownPage(identifier: 'foo'));
+        $route = new Route(new MarkdownPage('foo'));
         view()->share('currentRoute', $route);
         $this->assertEquals($route, Route::current());
     }
@@ -221,18 +147,16 @@ class RouteTest extends TestCase
         $this->assertNull(Route::current());
     }
 
-    public function test_home_helper_returns_index_route()
-    {
-        $this->assertEquals(Route::get('index'), Route::home());
-    }
-
     public function test_to_array_method()
     {
         $this->assertEquals([
             'routeKey' => 'foo',
             'sourcePath' => '_pages/foo.md',
             'outputPath' => 'foo.html',
-            'sourceModel' => MarkdownPage::class,
+            'page' => [
+                'class' => MarkdownPage::class,
+                'identifier' => 'foo',
+            ],
         ], (new MarkdownPage('foo'))->getRoute()->toArray());
     }
 
@@ -250,5 +174,12 @@ class RouteTest extends TestCase
         $route = new Route(new MarkdownPage('foo'));
         $this->assertTrue($route->is('foo'));
         $this->assertFalse($route->is('bar'));
+    }
+
+    public function testIsWithRouteKeyObject()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+        $this->assertTrue($route->is(new RouteKey('foo')));
+        $this->assertFalse($route->is(new RouteKey('bar')));
     }
 }

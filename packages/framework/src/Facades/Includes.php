@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Helpers;
+namespace Hyde\Facades;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
+/**
+ * @todo Split facade logic to service/manager class.
+ */
 class Includes
 {
     /**

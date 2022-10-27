@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde;
 
+use Hyde\Facades\Features;
 use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Helpers\Features;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -54,6 +54,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static void shareViewData(HydePage $page)
  * @method static array toArray()
  * @method static void boot()
+ *
+ * @see \Hyde\Foundation\Concerns\ForwardsFilesystem
+ * @see \Hyde\Foundation\Concerns\ForwardsHyperlinks
  */
 class Hyde extends Facade
 {

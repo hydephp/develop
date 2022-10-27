@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Site;
 use Hyde\Hyde;
-use Hyde\Support\Models\Site;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 

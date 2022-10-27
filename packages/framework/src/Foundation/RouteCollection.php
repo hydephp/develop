@@ -6,7 +6,7 @@ namespace Hyde\Foundation;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 
 /**
  * Pseudo-Router for Hyde.
@@ -36,7 +36,7 @@ final class RouteCollection extends BaseFoundationCollection
     public function getRoutes(?string $pageClass = null): self
     {
         return ! $pageClass ? $this : $this->filter(function (Route $route) use ($pageClass) {
-            return $route->getSourceModel() instanceof $pageClass;
+            return $route->getPage() instanceof $pageClass;
         });
     }
 

@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -20,7 +20,7 @@ class NavItemTest extends TestCase
     public function test__construct()
     {
         $route = $this->createMock(Route::class);
-        $route->method('getSourceModel')->willReturn($this->createMock(HydePage::class));
+        $route->method('getPage')->willReturn($this->createMock(HydePage::class));
         $route->method('getLink')->willReturn('/');
 
         $item = new NavItem($route, 'Test', 500, true);
@@ -84,13 +84,13 @@ class NavItemTest extends TestCase
         $route = Route::get('index');
         $item = NavItem::fromRoute($route);
 
-        $this->assertTrue($item->isCurrent($route->getSourceModel()));
+        $this->assertTrue($item->isCurrent($route->getPage()));
     }
 
     public function testIsCurrentLink()
     {
         $item = NavItem::toLink('index.html', 'Home');
 
-        $this->assertTrue($item->isCurrent(Route::get('index')->getSourceModel()));
+        $this->assertTrue($item->isCurrent(Route::get('index')->getPage()));
     }
 }

@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Hyde;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
 use Stringable;
 
@@ -30,7 +30,7 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item.
      *
-     * @param  \Hyde\Routing\Route|null  $route
+     * @param  \Hyde\Support\Models\Route|null  $route
      * @param  string  $label
      * @param  int  $priority
      * @param  bool  $hidden
@@ -53,9 +53,9 @@ class NavItem implements Stringable
     {
         return new self(
             $route,
-            $route->getSourceModel()->navigationMenuLabel(),
-            $route->getSourceModel()->navigationMenuPriority(),
-            ! $route->getSourceModel()->showInNavigation()
+            $route->getPage()->navigationMenuLabel(),
+            $route->getPage()->navigationMenuPriority(),
+            ! $route->getPage()->showInNavigation()
         );
     }
 
@@ -97,7 +97,7 @@ class NavItem implements Stringable
     public function isCurrent(?HydePage $current = null): bool
     {
         if ($current === null) {
-            $current = Hyde::currentRoute()->getSourceModel();
+            $current = Hyde::currentRoute()->getPage();
         }
 
         if (! isset($this->route)) {
@@ -124,7 +124,7 @@ class NavItem implements Stringable
 
     public function getGroup(): ?string
     {
-        return $this->normalizeGroupKey($this->route->getSourceModel()->get('navigation.group'));
+        return $this->normalizeGroupKey($this->route->getPage()->get('navigation.group'));
     }
 
     protected function normalizeGroupKey(?string $group): ?string
