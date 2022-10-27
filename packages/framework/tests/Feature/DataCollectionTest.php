@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\DataCollections\DataCollection;
-use Hyde\DataCollections\DataCollectionServiceProvider;
-use Hyde\DataCollections\Facades\MarkdownCollection;
+use Hyde\Framework\Features\DataCollections\DataCollection;
+use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
+use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Helpers\Features;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -16,9 +16,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\DataCollections\DataCollection
- * @covers \Hyde\DataCollections\DataCollectionServiceProvider
- * @covers \Hyde\DataCollections\Facades\MarkdownCollection
+ * @covers \Hyde\Framework\Features\DataCollections\DataCollection
+ * @covers \Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider
+ * @covers \Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection
  */
 class DataCollectionTest extends TestCase
 {

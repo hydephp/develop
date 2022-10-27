@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Navigation;
+namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Hyde;

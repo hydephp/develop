@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Helpers;
 
-use Hyde\Metadata\GlobalMetadataBag;
-use Hyde\Metadata\Models\LinkElement;
-use Hyde\Metadata\Models\MetadataElement;
-use Hyde\Metadata\Models\OpenGraphElement;
+use Hyde\Framework\Features\Metadata\Elements\LinkElement;
+use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
+use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
+use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 
 /**
  * Helpers to fluently declare HTML meta elements using their object representations.
@@ -21,7 +21,7 @@ class Meta
      *
      * @param  string  $name  The meta tag's name attribute.
      * @param  string  $content  The content of the meta tag.
-     * @return \Hyde\Metadata\Models\MetadataElement
+     * @return \Hyde\Framework\Features\Metadata\Elements\MetadataElement
      *
      * @link https://www.w3schools.com/tags/tag_meta.asp
      */
@@ -35,7 +35,7 @@ class Meta
      *
      * @param  string  $property  The meta tag's property attribute. The "og:" prefix is optional.
      * @param  string  $content  The content of the meta tag.
-     * @return \Hyde\Metadata\Models\OpenGraphElement
+     * @return \Hyde\Framework\Features\Metadata\Elements\OpenGraphElement
      *
      * @link https://ogp.me/
      */
@@ -50,7 +50,7 @@ class Meta
      * @param  string  $rel  The link tag's rel attribute.
      * @param  string  $href  The link tag's href attribute.
      * @param  array  $attr  An optional key-value array of additional attributes.
-     * @return \Hyde\Metadata\Models\LinkElement
+     * @return \Hyde\Framework\Features\Metadata\Elements\LinkElement
      *
      * @link https://www.w3schools.com/tags/tag_link.asp
      */

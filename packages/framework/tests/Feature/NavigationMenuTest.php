@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
-use Hyde\Navigation\NavigationMenu;
-use Hyde\Navigation\NavItem;
 use Hyde\Support\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  */
 class NavigationMenuTest extends TestCase
 {

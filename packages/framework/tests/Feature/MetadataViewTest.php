@@ -15,9 +15,9 @@ use Hyde\Testing\TestCase;
  *
  * This test is useful both as a regression test, and also to ensure all tags are covered.
  *
- * @covers \Hyde\Metadata\MetadataBag
- * @covers \Hyde\Metadata\PageMetadataBag
- * @covers \Hyde\Metadata\GlobalMetadataBag
+ * @covers \Hyde\Framework\Features\Metadata\MetadataBag
+ * @covers \Hyde\Framework\Features\Metadata\PageMetadataBag
+ * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
 class MetadataViewTest extends TestCase
 {

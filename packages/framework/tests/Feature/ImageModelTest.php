@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Blogging\Models\FeaturedImage
+ * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
  */
 class ImageModelTest extends TestCase
 {

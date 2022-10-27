@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Helpers\Meta;
-use Hyde\Metadata\GlobalMetadataBag;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\View;
 
 /**
- * @covers \Hyde\Metadata\GlobalMetadataBag
+ * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
 class GlobalMetadataBagTest extends TestCase
 {

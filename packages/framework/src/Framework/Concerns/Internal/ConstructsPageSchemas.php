@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Blogging\Models\Author;
-use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Hyde;
+use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Support\DateString;
 
 trait ConstructsPageSchemas
@@ -64,10 +64,10 @@ trait ConstructsPageSchemas
         return $markdown;
     }
 
-    protected function getAuthor(): ?Author
+    protected function getAuthor(): ?PostAuthor
     {
         if ($this->matter('author')) {
-            return Author::make($this->matter('author'));
+            return PostAuthor::make($this->matter('author'));
         }
 
         return null;

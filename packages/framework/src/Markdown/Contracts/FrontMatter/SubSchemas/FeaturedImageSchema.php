@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Contracts\FrontMatter\Support;
+namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 
 /**
- * @see \Hyde\Blogging\Models\FeaturedImage
+ * @see \Hyde\Framework\Features\Blogging\Models\FeaturedImage
  * @see \Hyde\Pages\MarkdownPost
  */
 interface FeaturedImageSchema

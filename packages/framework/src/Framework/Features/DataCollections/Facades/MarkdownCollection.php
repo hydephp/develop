@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\DataCollections\Facades;
+namespace Hyde\Framework\Features\DataCollections\Facades;
 
-use Hyde\DataCollections\DataCollection;
+use Hyde\Framework\Features\DataCollections\DataCollection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest

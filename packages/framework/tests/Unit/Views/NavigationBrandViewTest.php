@@ -21,7 +21,7 @@ class NavigationBrandViewTest extends TestCase
     protected function render(): string
     {
         return view('hyde::components.navigation.navigation-brand', [
-            'navigation' => \Hyde\Navigation\NavigationMenu::create(),
+            'navigation' => \Hyde\Framework\Features\Navigation\NavigationMenu::create(),
         ])->render();
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\DataCollections\DataCollectionServiceProvider;
+use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Hyde;
