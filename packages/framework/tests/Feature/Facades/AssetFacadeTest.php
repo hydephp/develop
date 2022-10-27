@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Feature\Facades;
 
 use Hyde\Facades\Asset;
 use Hyde\Framework\Services\AssetService;
