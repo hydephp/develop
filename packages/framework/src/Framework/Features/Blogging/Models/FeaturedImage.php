@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use Exception;
-use function Hyde\Blogging\Models\str_starts_with;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Support\Contracts\FrontMatter\Support\FeaturedImageSchema;
