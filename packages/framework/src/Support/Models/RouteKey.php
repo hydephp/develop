@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Routing;
+namespace Hyde\Support\Models;
 
 use Stringable;
 use function unslash;

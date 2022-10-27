@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Routing\Route;
-use Hyde\Routing\RouteKey;
+use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\TestCase;
 
 /**

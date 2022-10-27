@@ -15,8 +15,8 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Routing\Route;
-use Hyde\Routing\RouteKey;
 use Hyde\Support\Contracts\CompilableContract;
+use Hyde\Support\Models\RouteKey;
 
 /**
  * The base class for all Hyde pages.
