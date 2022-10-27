@@ -23,11 +23,6 @@ class Route
         return RouteModel::getOrFail($routeKey);
     }
 
-    public static function getFromSource(string $sourceFilePath): ?RouteModel
-    {
-        return RouteModel::getFromSource($sourceFilePath);
-    }
-
     public static function getFromModel(HydePage $page): ?RouteModel
     {
         return RouteModel::getFromModel($page);
