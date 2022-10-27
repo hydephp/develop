@@ -24,13 +24,13 @@
 ├── Helpers
 ├── Markdown
 │   ├── Contracts
+│   │   └── FrontMatter
+│   │       └── SubSchemas
 │   ├── Models
 │   └── Processing
 ├── Pages
 └── Support
     ├── Concerns
     └── Contracts
-        └── FrontMatter
-            └── Support
 
 33 directories
