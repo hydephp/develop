@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\DataCollections\DataCollection;
 use Hyde\DataCollections\DataCollectionServiceProvider;
 use Hyde\DataCollections\Facades\MarkdownCollection;
-use Hyde\Framework\Helpers\Features;
+use Hyde\Helpers\Features;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;

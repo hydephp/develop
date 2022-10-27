@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Helpers\Features;
+use Hyde\Helpers\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Helpers\Features::darkmode
- * @covers \Hyde\Framework\Helpers\Features::hasDarkmode
+ * @covers \Hyde\Helpers\Features::darkmode
+ * @covers \Hyde\Helpers\Features::hasDarkmode
  */
 class DarkmodeFeatureTest extends TestCase
 {

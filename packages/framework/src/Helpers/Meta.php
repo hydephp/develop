@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Helpers;
+namespace Hyde\Helpers;
 
 use Hyde\Metadata\GlobalMetadataBag;
 use Hyde\Metadata\Models\LinkElement;

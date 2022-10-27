@@ -11,7 +11,7 @@ use Hyde\Hyde;
  *
  * This class is loaded into the service container, making it easy to access and modify.
  *
- * @see \Hyde\Framework\Helpers\Asset
+ * @see \Hyde\Helpers\Asset
  */
 class AssetService
 {

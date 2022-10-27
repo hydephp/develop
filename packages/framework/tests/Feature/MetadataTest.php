@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Helpers\Meta;
+use Hyde\Helpers\Meta;
 use Hyde\Metadata\MetadataBag;
 use Hyde\Metadata\Models\LinkElement;
 use Hyde\Metadata\Models\MetadataElement;

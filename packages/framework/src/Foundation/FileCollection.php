@@ -6,8 +6,8 @@ namespace Hyde\Foundation;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Helpers\Features;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;

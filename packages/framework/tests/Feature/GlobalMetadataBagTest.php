@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Helpers\Meta;
+use Hyde\Helpers\Meta;
 use Hyde\Metadata\GlobalMetadataBag;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;

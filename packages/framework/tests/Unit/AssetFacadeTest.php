@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Helpers\Asset;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Helpers\Asset;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Helpers\Asset
+ * @covers \Hyde\Helpers\Asset
  */
 class AssetFacadeTest extends TestCase
 {

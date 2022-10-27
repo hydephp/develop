@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Helpers\Meta;
+use Hyde\Helpers\Meta;
 use Hyde\Metadata\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Helpers\Meta
+ * @covers \Hyde\Helpers\Meta
  */
 class MetadataHelperTest extends TestCase
 {
