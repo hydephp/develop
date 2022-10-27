@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Routing;
+namespace Hyde\Helpers;
 
 use Hyde\Hyde;
 
