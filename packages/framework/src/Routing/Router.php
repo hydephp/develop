@@ -17,7 +17,7 @@ class Router
      *
      * Alias for static::getFromKey().
      *
-     * @param string $routeKey Example: posts/foo.md
+     * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Routing\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
@@ -30,7 +30,7 @@ class Router
     /**
      * Get a route from the route index for the specified route key.
      *
-     * @param string $routeKey Example: posts/foo, posts.foo
+     * @param  string  $routeKey  Example: posts/foo, posts.foo
      * @return \Hyde\Routing\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
@@ -44,7 +44,7 @@ class Router
     /**
      * Get a route from the route index for the specified source file path.
      *
-     * @param string $sourceFilePath Example: _posts/foo.md
+     * @param  string  $sourceFilePath  Example: _posts/foo.md
      * @return \Hyde\Routing\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
@@ -59,7 +59,7 @@ class Router
     /**
      * Get a route from the route index for the supplied page model.
      *
-     * @param \Hyde\Framework\Concerns\HydePage $page
+     * @param  \Hyde\Framework\Concerns\HydePage  $page
      * @return \Hyde\Routing\Route
      */
     public static function getFromModel(HydePage $page): Route
