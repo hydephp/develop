@@ -28,25 +28,19 @@ class ValidationResult
     public function pass(?string $withMessage = null): static
     {
         $this->passed = true;
-        $this->withMessage($withMessage);
-
-        return $this;
+        return $this->withMessage($withMessage);
     }
 
     public function fail(?string $withMessage = null): static
     {
         $this->passed = false;
-        $this->withMessage($withMessage);
-
-        return $this;
+        return $this->withMessage($withMessage);
     }
 
     public function skip(?string $withMessage = null): static
     {
         $this->skipped = true;
-        $this->withMessage($withMessage);
-
-        return $this;
+        return $this->withMessage($withMessage);
     }
 
     public function withTip(string $withTip): static
