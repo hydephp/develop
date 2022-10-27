@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Concerns\HydePage;
+use Hyde\Framework\Features\BuildTasks\AbstractBuildTask;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;

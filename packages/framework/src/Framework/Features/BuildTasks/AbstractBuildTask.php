@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Concerns;
+namespace Hyde\Framework\Features\BuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\Contracts\BuildTaskContract;
 use Hyde\Hyde;

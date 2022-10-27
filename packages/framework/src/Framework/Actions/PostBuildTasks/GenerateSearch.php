@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PostBuildTasks;
 
-use Hyde\Framework\Concerns\AbstractBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\BuildTasks\AbstractBuildTask;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\DocumentationSearchService;
 

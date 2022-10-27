@@ -106,7 +106,7 @@ You can also set the description, and an optional `then()` method to run after t
 
 namespace App\Actions;
 
-use Hyde\Framework\Concerns\AbstractBuildTask;
+use Hyde\Framework\Features\BuildTasks\AbstractBuildTask;
 
 class ExampleTask extends AbstractBuildTask
 {
