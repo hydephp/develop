@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Features\Validation\ValidationResult;
-use Hyde\Framework\Services\ValidationService;
+use Hyde\Framework\Features\Validation\ValidationService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
  * Class ValidationServiceTest.
  *
- * @covers \Hyde\Framework\Services\ValidationService
+ * @covers \Hyde\Framework\Features\Validation\ValidationService
  * @covers \Hyde\Framework\Features\Validation\ValidationResult
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
 class ValidationServiceTest extends TestCase
 {
-    protected ValidationService $service;
+    protected \Hyde\Framework\Features\Validation\ValidationService $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->service = new ValidationService();
+        $this->service = new \Hyde\Framework\Features\Validation\ValidationService();
     }
 
     // Rather meta, but lets us know that the method assertions are correct, and gives us test coverage
@@ -44,7 +44,7 @@ class ValidationServiceTest extends TestCase
         // Assert each key starts with 'check_' and is a valid class method name
         foreach ($checks as $check) {
             $this->assertStringStartsWith('check_', $check);
-            $this->assertTrue(method_exists(ValidationService::class, $check));
+            $this->assertTrue(method_exists(\Hyde\Framework\Features\Validation\ValidationService::class, $check));
         }
     }
 
