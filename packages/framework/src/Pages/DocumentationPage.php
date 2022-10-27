@@ -29,6 +29,7 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
         return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
     }
 
+    /** @see https://hydephp.com/docs/master/documentation-pages#automatic-edit-page-button */
     public function getOnlineSourcePath(): string|false
     {
         if (config('docs.source_file_location_base') === null) {
