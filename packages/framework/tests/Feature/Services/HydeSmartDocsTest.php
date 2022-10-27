@@ -55,6 +55,7 @@ class HydeSmartDocsTest extends TestCase
         app()->bind('env', function () {
             return 'production';
         });
+
         config(['torchlight.token' => '12345']);
     }
 
