@@ -7,6 +7,7 @@ namespace Hyde\Pages;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Factories\BlogPostFactory;
+use Hyde\Framework\Factories\Concerns\Factory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
@@ -39,7 +40,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
         parent::__construct($identifier, $matter, $markdown);
     }
 
-    public function constructFactoryData(BlogPostFactory $data): void
+    public function constructFactoryData(Factory $data): void
     {
         foreach ($data->toArray() as $key => $value) {
             $this->{$key} = $value;
