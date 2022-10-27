@@ -10,6 +10,10 @@ namespace Hyde\Support\Models;
  */
 class ValidationResult
 {
+    public const PASSED = 0;
+    public const SKIPPED = 1;
+    public const FAILED = 2;
+
     public string $message;
     public string $tip;
 
@@ -24,31 +28,22 @@ class ValidationResult
     public function pass(?string $withMessage = null): static
     {
         $this->passed = true;
-        if ($withMessage) {
-            $this->message = $withMessage;
-        }
 
-        return $this;
+        return $this->withMessage($withMessage);
     }
 
     public function fail(?string $withMessage = null): static
     {
         $this->passed = false;
-        if ($withMessage) {
-            $this->message = $withMessage;
-        }
 
-        return $this;
+        return $this->withMessage($withMessage);
     }
 
     public function skip(?string $withMessage = null): static
     {
         $this->skipped = true;
-        if ($withMessage) {
-            $this->message = $withMessage;
-        }
 
-        return $this;
+        return $this->withMessage($withMessage);
     }
 
     public function withTip(string $withTip): static
@@ -81,13 +76,13 @@ class ValidationResult
     public function statusCode(): int
     {
         if ($this->skipped()) {
-            return 1;
+            return self::SKIPPED;
         }
         if ($this->passed()) {
-            return 0;
+            return self::PASSED;
         }
 
-        return 2;
+        return self::FAILED;
     }
 
     public function message(): string
@@ -108,34 +103,43 @@ class ValidationResult
     protected function formatResult(string $message): string
     {
         return match ($this->statusCode()) {
-            0 => $this->formatPassed($message),
-            2 => $this->formatFailed($message),
+            self::PASSED => $this->formatPassed($message),
+            self::FAILED => $this->formatFailed($message),
             default => $this->formatSkipped($message),
         };
     }
 
     protected function formatPassed(string $message): string
     {
-        return '<fg=white;bg=green> PASS <fg=green> '.$message.'</></>';
+        return "<fg=white;bg=green> PASS <fg=green> $message</></>";
     }
 
     protected function formatFailed(string $message): string
     {
-        return '<fg=gray;bg=yellow> FAIL <fg=yellow> '.$message.'</></>';
+        return "<fg=gray;bg=yellow> FAIL <fg=yellow> $message</></>";
     }
 
     protected function formatSkipped(string $message): string
     {
-        return '<fg=white;bg=gray> SKIP <fg=gray> '.$message.'</></>';
+        return "<fg=white;bg=gray> SKIP <fg=gray> $message</></>";
     }
 
     protected function formatTimeString(string $time): string
     {
-        return '<fg=gray> ('.$time.'ms)</>';
+        return "<fg=gray> ({$time}ms)</>";
     }
 
     protected function formatTip(string $tip): string
     {
-        return '<fg=gray>'.$tip.'</>';
+        return "<fg=gray>$tip</>";
+    }
+
+    protected function withMessage(?string $withMessage): static
+    {
+        if ($withMessage) {
+            $this->message = $withMessage;
+        }
+
+        return $this;
     }
 }
