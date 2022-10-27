@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\Validation\ValidationService;
+use Hyde\Framework\Services\ValidationService;
 use LaravelZero\Framework\Commands\Command;
 
 /**
