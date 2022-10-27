@@ -34,31 +34,6 @@ class HydeSmartDocsTest extends TestCase
         unlink(Hyde::path('_docs/foo.md'));
     }
 
-    protected function assertEqualsIgnoringNewlines(string $expected, string $actual): void
-    {
-        $this->assertEquals(
-            str_replace(["\n", "\r"], '', $expected),
-            str_replace(["\n", "\r"], '', $actual)
-        );
-    }
-
-    protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, string $actual): void
-    {
-        $this->assertEquals(
-            str_replace(["\n", "\r", '    '], '', $expected),
-            str_replace(["\n", "\r", '    '], '', $actual)
-        );
-    }
-
-    protected function mockTorchlight(): void
-    {
-        app()->bind('env', function () {
-            return 'production';
-        });
-
-        config(['torchlight.token' => '12345']);
-    }
-
     public function test_create_helper_creates_new_instance_and_processes_it()
     {
         $page = SemanticDocumentationArticle::create($this->page, $this->html);
@@ -176,5 +151,30 @@ class HydeSmartDocsTest extends TestCase
         $page = SemanticDocumentationArticle::create($this->page, 'Syntax highlighted by torchlight.dev');
 
         $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $page->renderFooter());
+    }
+
+    protected function assertEqualsIgnoringNewlines(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            str_replace(["\n", "\r"], '', $expected),
+            str_replace(["\n", "\r"], '', $actual)
+        );
+    }
+
+    protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            str_replace(["\n", "\r", '    '], '', $expected),
+            str_replace(["\n", "\r", '    '], '', $actual)
+        );
+    }
+
+    protected function mockTorchlight(): void
+    {
+        app()->bind('env', function () {
+            return 'production';
+        });
+
+        config(['torchlight.token' => '12345']);
     }
 }
