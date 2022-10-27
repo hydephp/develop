@@ -346,7 +346,7 @@ jobs:
         run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
 
       - name: Check coding syntax/standards (PHP CodeSniffer)
-        run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,SiteValidator.php" || true
+        run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true
 
       - name: Run static analysis (Psalm/Shepherd)
         run: vendor/bin/psalm --shepherd || true
