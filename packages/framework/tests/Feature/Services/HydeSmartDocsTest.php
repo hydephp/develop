@@ -187,17 +187,27 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlines(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            str_replace(["\n", "\r"], '', $expected),
-            str_replace(["\n", "\r"], '', $actual->toHtml())
+            $this->withoutNewLines($expected),
+            $this->withoutNewLines($actual->toHtml())
         );
     }
 
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            str_replace(["\n", "\r", '    '], '', $expected),
-            str_replace(["\n", "\r", '    '], '', $actual->toHtml())
+            $this->withoutNewLinesAndIndentation($expected),
+            $this->withoutNewLinesAndIndentation($actual->toHtml())
         );
+    }
+
+    protected function withoutNewLines(string $expected): string|array
+    {
+        return str_replace(["\n", "\r"], '', $expected);
+    }
+
+    protected function withoutNewLinesAndIndentation(string $expected): string|array
+    {
+        return str_replace(["\n", "\r", '    '], '', $expected);
     }
 
     protected function mockTorchlight(): void
