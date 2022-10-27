@@ -30,11 +30,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     protected HydePage $page;
 
-    private string $routeKey;
-    private string $sourcePath;
-    private string $outputPath;
-    private string $uriPath;
-
     /**
      * Construct a new Route instance for the given page model.
      *
@@ -43,10 +38,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
     public function __construct(HydePage $page)
     {
         $this->page = $page;
-        $this->routeKey = $page->getRouteKey();
-        $this->sourcePath = $page->getSourcePath();
-        $this->outputPath = $page->getOutputPath();
-        $this->uriPath = $page->getLink();
     }
 
     /**
