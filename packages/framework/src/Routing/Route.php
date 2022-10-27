@@ -80,7 +80,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public function getLink(): string
     {
-        return Hyde::relativeLink($this->uriPath);
+        return Hyde::relativeLink($this->page->getLink());
     }
 
     /**
@@ -110,7 +110,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public function getRouteKey(): string
     {
-        return $this->routeKey;
+        return $this->page->getRouteKey();
     }
 
     /**
@@ -120,7 +120,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public function getSourcePath(): string
     {
-        return $this->sourcePath;
+        return $this->page->getSourcePath();
     }
 
     /**
@@ -130,7 +130,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public function getOutputPath(): string
     {
-        return $this->outputPath;
+        return $this->page->getOutputPath();
     }
 
     /**
@@ -140,7 +140,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public function getQualifiedUrl(): string
     {
-        return Hyde::url($this->outputPath);
+        return Hyde::url($this->getOutputPath());
     }
 
     /**
