@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\DataCollections;
+namespace Hyde\Framework\Features\DataCollections;
 
-use Hyde\DataCollections\Facades\MarkdownCollection;
+use Hyde\Framework\Features\DataCollections\Facades\MarkdownCollection;
 use Hyde\Helpers\Features;
 use Hyde\Hyde;
 use Illuminate\Foundation\AliasLoader;

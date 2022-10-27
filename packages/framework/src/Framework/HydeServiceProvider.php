@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework;
 
 use Hyde\Console\HydeConsoleServiceProvider;
-use Hyde\DataCollections\DataCollectionServiceProvider;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\RegistersFileLocations;
+use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Framework\Views\Components\LinkComponent;
