@@ -15,7 +15,7 @@ use function strlen;
 use function substr;
 
 /**
- * Streamlines the data specific to a blog post.
+ * Streamlines the data construction specific to a blog post.
  *
  * Simply pass along the data the class needs to run, then access the data using the toArray() method.
  */
