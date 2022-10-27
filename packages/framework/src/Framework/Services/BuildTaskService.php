@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Framework\Features\BuildTasks\Contracts\BuildTaskContract;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 
@@ -80,7 +80,7 @@ class BuildTaskService
         return $this;
     }
 
-    protected function runTask(BuildTaskContract $task): static
+    protected function runTask(BuildTask $task): static
     {
         $task->handle();
 
