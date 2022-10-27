@@ -7,7 +7,7 @@ namespace Hyde\Support\Contracts\FrontMatter;
 /**
  * @see \Hyde\Framework\Concerns\HydePage
  */
-interface PageSchema extends \Hyde\Support\Contracts\FrontMatter\Support\NavigationSchema
+interface PageSchema extends \Hyde\Support\Contracts\FrontMatter\SubSchemas\NavigationSchema
 {
     public const PAGE_SCHEMA = [
         'title'         => 'string',

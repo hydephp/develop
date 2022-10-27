@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Support\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Support\Contracts\FrontMatter\PageSchema;
-use Hyde\Support\Contracts\FrontMatter\Support\NavigationSchema;
+use Hyde\Support\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\TestCase;
 
 /**
