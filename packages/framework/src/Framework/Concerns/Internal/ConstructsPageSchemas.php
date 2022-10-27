@@ -10,6 +10,9 @@ use Hyde\Framework\Factories\BlogPostFactory;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 
+/**
+ * @deprecated Refactor to use factories instead.
+ */
 trait ConstructsPageSchemas
 {
     protected function constructPageSchemas(): void
