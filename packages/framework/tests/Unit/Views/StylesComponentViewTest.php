@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Helpers\Asset;
+use Hyde\Facades\Asset;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;

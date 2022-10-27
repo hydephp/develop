@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Helpers;
+namespace Hyde\Facades;
 
 use Hyde\Framework\Services\AssetService;
 use Illuminate\Support\Facades\Facade;
