@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Helpers\Meta;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Helpers\Meta;
 use Hyde\Metadata\MetadataBag;
 use Hyde\Metadata\Models\LinkElement;
 use Hyde\Metadata\Models\MetadataElement;
 use Hyde\Metadata\Models\OpenGraphElement;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**

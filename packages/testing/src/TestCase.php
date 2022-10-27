@@ -4,9 +4,9 @@ namespace Hyde\Testing;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 

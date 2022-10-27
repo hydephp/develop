@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Helpers\Features;
+use Hyde\Helpers\Features;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Framework\Helpers\Features
+ * @covers \Hyde\Helpers\Features
  */
 class ConfigurableFeaturesTest extends TestCase
 {

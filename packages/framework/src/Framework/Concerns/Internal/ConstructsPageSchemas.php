@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Hyde\Blogging\Models\Author;
+use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
-use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Support\Author;
-use Hyde\Framework\Models\Support\DateString;
-use Hyde\Framework\Models\Support\Image;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Support\DateString;
 
 trait ConstructsPageSchemas
 {
@@ -73,10 +73,10 @@ trait ConstructsPageSchemas
         return null;
     }
 
-    protected function getImage(): ?Image
+    protected function getImage(): ?FeaturedImage
     {
         if ($this->matter('image')) {
-            return Image::make($this->matter('image'));
+            return FeaturedImage::make($this->matter('image'));
         }
 
         return null;

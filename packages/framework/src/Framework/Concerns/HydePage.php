@@ -7,14 +7,14 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
-use Hyde\Framework\Contracts\CompilableContract;
-use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Navigation\NavigationData;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Metadata\PageMetadataBag;
+use Hyde\Navigation\NavigationData;
+use Hyde\Support\Contracts\CompilableContract;
+use Hyde\Support\Contracts\FrontMatter\PageSchema;
+use Hyde\Support\Route;
 use Illuminate\Support\Arr;
 
 /**
@@ -185,7 +185,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the route for the page.
      *
-     * @return \Hyde\Framework\Models\Support\Route The page's route.
+     * @return \Hyde\Support\Route The page's route.
      */
     public function getRoute(): Route
     {
@@ -231,7 +231,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
      *
-     * @return \Hyde\Framework\Models\Markdown\FrontMatter|mixed
+     * @return \Hyde\Markdown\Models\FrontMatter|mixed
      */
     public function get(string $key = null, mixed $default = null): mixed
     {
@@ -244,7 +244,7 @@ abstract class HydePage implements CompilableContract, PageSchema
     /**
      * Get the front matter object, or a value from within.
      *
-     * @return \Hyde\Framework\Models\Markdown\FrontMatter|mixed
+     * @return \Hyde\Markdown\Models\FrontMatter|mixed
      */
     public function matter(string $key = null, mixed $default = null): mixed
     {

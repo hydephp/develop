@@ -1,5 +1,5 @@
 @php
-    /** @var \Hyde\Framework\Models\Pages\MarkdownPost $post */
+    /** @var \Hyde\Pages\MarkdownPost $post */
 @endphp
 
 <article class="mt-4 mb-8" itemscope itemtype="http://schema.org/Article">

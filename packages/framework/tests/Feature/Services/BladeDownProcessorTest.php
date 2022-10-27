@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Markdown\BladeDownProcessor;
+use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Testing\TestCase;
 
 /**
  * Class BladeDownProcessorTest.
  *
- * @covers \Hyde\Markdown\BladeDownProcessor
+ * @covers \Hyde\Markdown\Processing\BladeDownProcessor
  */
 class BladeDownProcessorTest extends TestCase
 {

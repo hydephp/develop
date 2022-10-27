@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Models\Pages\DocumentationPage;
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
@@ -56,7 +56,7 @@ final class DocumentationSearchService
 
     public function run(): self
     {
-        /** @var DocumentationPage $page */
+        /** @var \Hyde\Pages\DocumentationPage $page */
         foreach (DocumentationPage::all() as $page) {
             if (! in_array($page->identifier, config('docs.exclude_from_search', []))) {
                 $this->searchIndex->push(

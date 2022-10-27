@@ -6,14 +6,14 @@ namespace Hyde\Foundation;
 
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\HtmlPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Support\File;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Helpers\Features;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Support\File;
 
 /**
  * @see \Hyde\Framework\Foundation\FileCollection

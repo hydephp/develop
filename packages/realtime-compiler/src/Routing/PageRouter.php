@@ -6,9 +6,9 @@ use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\Support\Route;
 
 /**
  * Handle routing for a web page request.

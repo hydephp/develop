@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Models\Markdown\MarkdownDocument;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\MarkdownDocument;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**

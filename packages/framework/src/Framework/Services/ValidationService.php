@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Support\ValidationResult as Result;
+use Hyde\Helpers\Features;
 use Hyde\Hyde;
+use Hyde\Support\ValidationResult as Result;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest

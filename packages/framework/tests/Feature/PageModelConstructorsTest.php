@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 
 /**
@@ -54,7 +54,7 @@ class PageModelConstructorsTest extends TestCase
         mkdir(Hyde::path('_docs/foo'));
         touch(Hyde::path('_docs/foo/bar.md'));
 
-        /** @var DocumentationPage $page */
+        /** @var \Hyde\Pages\DocumentationPage $page */
         $page = DocumentationPage::parse('foo/bar');
         $this->assertEquals('foo', $page->navigationMenuGroup());
 

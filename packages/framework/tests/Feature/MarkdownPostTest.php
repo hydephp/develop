@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Support\Author;
-use Hyde\Framework\Models\Support\DateString;
-use Hyde\Framework\Models\Support\Image;
+use Hyde\Blogging\Models\Author;
+use Hyde\Blogging\Models\FeaturedImage;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Support\DateString;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Pages\MarkdownPost
+ * @covers \Hyde\Pages\MarkdownPost
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  */
 class MarkdownPostTest extends TestCase
@@ -51,7 +51,7 @@ class MarkdownPostTest extends TestCase
             'image' => 'https://example.com/image.jpg',
         ]));
 
-        $this->assertInstanceOf(Image::class, $post->image);
+        $this->assertInstanceOf(FeaturedImage::class, $post->image);
         $this->assertEquals('https://example.com/image.jpg', $post->image->url);
     }
 
@@ -63,7 +63,7 @@ class MarkdownPostTest extends TestCase
             ],
         ]));
 
-        $this->assertInstanceOf(Image::class, $post->image);
+        $this->assertInstanceOf(FeaturedImage::class, $post->image);
         $this->assertEquals('https://example.com/image.jpg', $post->image->url);
     }
 
@@ -87,7 +87,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(Image::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('foo.png', $image->path);
     }
 
@@ -95,7 +95,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(Image::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('https://example.com/foo.png', $image->url);
     }
 
@@ -103,7 +103,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => ['path' => 'foo.png', 'title' => 'bar']]);
         $image = $page->image;
-        $this->assertInstanceOf(Image::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('foo.png', $image->path);
         $this->assertEquals('bar', $image->title);
     }

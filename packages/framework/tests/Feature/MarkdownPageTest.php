@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 

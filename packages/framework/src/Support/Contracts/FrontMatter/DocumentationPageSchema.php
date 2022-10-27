@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Hyde\Support\Contracts\FrontMatter;
+
+/**
+ * @see \Hyde\Pages\DocumentationPage
+ */
+interface DocumentationPageSchema
+{
+    public const DOCUMENTATION_PAGE_SCHEMA = [
+        'category'  => 'string',
+        'navigation'    => 'array|navigation',
+    ];
+}

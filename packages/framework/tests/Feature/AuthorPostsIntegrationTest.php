@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Blogging\Models\Author;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-use Hyde\Framework\Models\Support\Author;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;

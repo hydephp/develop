@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Models\Pages\BladePage;
+use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 
 /**

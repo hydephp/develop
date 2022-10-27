@@ -8,8 +8,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Exception;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
 use SimpleXMLElement;
 
 /**
@@ -39,7 +39,7 @@ class RssFeedService
      */
     public function generate(): static
     {
-        /** @var MarkdownPost $post */
+        /** @var \Hyde\Pages\MarkdownPost $post */
         foreach (MarkdownPost::getLatestPosts() as $post) {
             $this->addItem($post);
         }

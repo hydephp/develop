@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\HydeServiceProvider;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Support\Route;
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Models\Pages\DocumentationPage
+ * @covers \Hyde\Pages\DocumentationPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  */
 class DocumentationPageTest extends TestCase
