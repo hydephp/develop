@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Models;
+namespace Hyde\Framework\Features\Documentation;
 
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;

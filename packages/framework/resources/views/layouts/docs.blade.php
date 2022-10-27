@@ -16,7 +16,7 @@
 <main id="content"
       class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
     <x-hyde::docs.documentation-article
-            :document="\Hyde\Support\Models\SemanticDocumentationArticle::create($page, $markdown)"/>
+            :document="\Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($page, $markdown)"/>
 </main>
 
 <div id="support">

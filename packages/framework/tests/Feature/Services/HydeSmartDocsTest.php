@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Hyde\Framework\Features\Documentation\SemanticDocumentationArticle;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Support\Models\SemanticDocumentationArticle;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\Models\SemanticDocumentationArticle
+ * @covers \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle
  */
 class HydeSmartDocsTest extends TestCase
 {
@@ -60,7 +60,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_create_helper_creates_new_instance_and_processes_it()
     {
-        $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, $this->html);
+        $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, $this->html);
 
         $this->assertInstanceOf(SemanticDocumentationArticle::class, $page);
 
@@ -70,7 +70,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
     {
         $class = new SemanticDocumentationArticle($this->mock, $this->html);
-        $facade = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, $this->html);
+        $facade = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, $this->html);
 
         // Baseline since we manually need to call the process method
         $this->assertNotEquals($class, $facade);
@@ -83,7 +83,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_render_header_returns_the_extracted_header()
     {
-        $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, $this->html);
+        $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, $this->html);
 
         $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
     }
@@ -97,14 +97,14 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, Markdown::render($test));
+            $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, Markdown::render($test));
             $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
         }
     }
 
     public function test_render_body_returns_the_extracted_body()
     {
-        $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, $this->html);
+        $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, $this->html);
 
         $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
     }
@@ -118,14 +118,14 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, Markdown::render($test));
+            $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, Markdown::render($test));
             $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
         }
     }
 
     public function test_render_footer_is_empty_by_default()
     {
-        $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, $this->html);
+        $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, $this->html);
 
         $this->assertEqualsIgnoringNewlines('', $page->renderFooter());
     }
@@ -134,7 +134,7 @@ class HydeSmartDocsTest extends TestCase
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'header']);
-        $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, $this->html);
+        $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, $this->html);
 
         $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>', $page->renderHeader());
     }
@@ -163,7 +163,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
-        $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, $this->html);
+        $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, $this->html);
 
         $this->assertEqualsIgnoringNewlinesAndIndentation('<h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderHeader());
         $this->assertEqualsIgnoringNewlinesAndIndentation('<p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>', $page->renderFooter());
@@ -172,7 +172,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
     {
         $this->mockTorchlight();
-        $page = \Hyde\Support\Models\SemanticDocumentationArticle::create($this->mock, 'Syntax highlighted by torchlight.dev');
+        $page = \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::create($this->mock, 'Syntax highlighted by torchlight.dev');
 
         $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $page->renderFooter());
     }

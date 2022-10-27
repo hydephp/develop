@@ -1,5 +1,5 @@
 @props([
-    /** @var \Hyde\Support\Models\SemanticDocumentationArticle */
+    /** @var \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle */
     'document'
 ])
 
