@@ -60,7 +60,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
             'routeKey' => $this->getRouteKey(),
             'sourcePath' => $this->getSourcePath(),
             'outputPath' => $this->getOutputPath(),
-            'sourceModel' => $this->getPageClass(),
+            'pageClass' => $this->getPageClass(),
         ];
     }
 
