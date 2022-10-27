@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Site;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
-use Hyde\Support\Models\Site;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\Models\Site
+ * @covers \Hyde\Facades\Site
  */
 class SiteTest extends TestCase
 {
