@@ -30,11 +30,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     protected HydePage $page;
 
-    /**
-     * Construct a new Route instance for the given page model.
-     *
-     * @param  \Hyde\Framework\Concerns\HydePage  $page
-     */
     public function __construct(HydePage $page)
     {
         $this->page = $page;
@@ -42,7 +37,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     /**
      * Cast a route object into a string that can be used in a href attribute.
-     * Should be the same as getLink().
      */
     public function __toString(): string
     {
@@ -50,8 +44,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * Get the instance as an array.
-     *
      * @return array<string, string>
      */
     public function toArray(): array
@@ -77,61 +69,31 @@ class Route implements Stringable, JsonSerializable, Arrayable
         return Hyde::relativeLink($this->page->getLink());
     }
 
-    /**
-     * Get the page type for the route.
-     *
-     * @return class-string<\Hyde\Framework\Concerns\HydePage>
-     */
     public function getPageClass(): string
     {
         return $this->page::class;
     }
 
-    /**
-     * Get the page identifier.
-     *
-     * @return string
-     */
     public function getPageIdentifier(): string
     {
         return $this->page->getIdentifier();
     }
 
-    /**
-     * Get the source model for the route.
-     *
-     * @return \Hyde\Framework\Concerns\HydePage
-     */
     public function getPage(): HydePage
     {
         return $this->page;
     }
 
-    /**
-     * Get the unique route key for the route.
-     *
-     * @return string The route key. Generally <output-directory/slug>.
-     */
     public function getRouteKey(): string
     {
         return $this->page->getRouteKey();
     }
 
-    /**
-     * Get the path to the source file.
-     *
-     * @return string Path relative to the root of the project.
-     */
     public function getSourcePath(): string
     {
         return $this->page->getSourcePath();
     }
 
-    /**
-     * Get the path to the output file.
-     *
-     * @return string Path relative to the site output directory.
-     */
     public function getOutputPath(): string
     {
         return $this->page->getOutputPath();
