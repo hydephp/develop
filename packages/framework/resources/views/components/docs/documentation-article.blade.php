@@ -2,9 +2,9 @@
     /** @var \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle $document */
 ])
 
-<article id="document" itemscope itemtype="http://schema.org/Article" @class(['mx-auto lg:ml-8 prose
-			dark:prose-invert max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)]', 'torchlight-enabled'=>
-			$document->hasTorchlight()])>
+<article id="document" itemscope itemtype="http://schema.org/Article" @class([
+        'mx-auto lg:ml-8 prose dark:prose-invert max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)]',
+        'torchlight-enabled' => $document->hasTorchlight()])>
     @yield('content')
 
     <header id="document-header" class="flex items-center flex-wrap prose-h1:mb-3">
