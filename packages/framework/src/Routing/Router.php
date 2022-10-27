@@ -20,7 +20,7 @@ class Router
     /**
      * Get a route from the route index for the specified route key.
      *
-     * Alias for $this->>getFromKey().
+     * Alias for $this->getFromKey().
      *
      * @param  string  $routeKey  Example: posts/foo.md
      * @return \Hyde\Routing\Route|null
