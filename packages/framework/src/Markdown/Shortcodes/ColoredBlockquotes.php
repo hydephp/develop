@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Shortcodes;
 
-use Hyde\Support\Contracts\MarkdownShortcodeContract;
+use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\ColoredBlockquoteShortcodesTest

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown;
 
-use Hyde\Support\Contracts\MarkdownPostProcessorContract;
-use Hyde\Support\Contracts\MarkdownPreProcessorContract;
+use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
+use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.

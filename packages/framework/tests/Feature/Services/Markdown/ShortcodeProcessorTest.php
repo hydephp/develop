@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
+use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\ShortcodeProcessor;
-use Hyde\Support\Contracts\MarkdownShortcodeContract;
 use Hyde\Testing\TestCase;
 
 /**

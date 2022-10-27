@@ -7,9 +7,9 @@ namespace Hyde\Framework\Services;
 use Hyde\Framework\Actions\MarkdownConverter;
 use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
 use Hyde\Helpers\Features;
+use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
+use Hyde\Markdown\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Support\Contracts\MarkdownPostProcessorContract as PostProcessor;
-use Hyde\Support\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 
