@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Support\Models;
 
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Str;
+use function str_contains;
 
 /**
  * Class to make Hyde documentation pages smarter,
