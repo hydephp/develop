@@ -23,11 +23,6 @@ class NavigationMenuTest extends TestCase
         $this->assertInstanceOf(NavigationMenu::class, $menu);
     }
 
-    public function test_home_route()
-    {
-        $this->assertEquals('index.html', Route::home());
-    }
-
     public function test_generate_method_creates_collection_of_nav_items()
     {
         $menu = new NavigationMenu();
