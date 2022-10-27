@@ -10,6 +10,9 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use function str_replace;
 
+/**
+ * Provides helper methods for accessing the Hyde pseudo-router.
+ */
 class Router
 {
     /**
