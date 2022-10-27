@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Contracts\FrontMatter;
+namespace Hyde\Support\Contracts\FrontMatter;
 
 /**
  * @see \Hyde\Pages\MarkdownPost
  */
-interface BlogPostSchema extends Support\FeaturedImageSchema
+interface BlogPostSchema extends \Hyde\Support\Contracts\FrontMatter\Support\FeaturedImageSchema
 {
     public const MARKDOWN_POST_SCHEMA = [
         'title'        => 'string',

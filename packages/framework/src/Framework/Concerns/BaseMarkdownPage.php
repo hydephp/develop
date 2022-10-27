@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Framework\Contracts\MarkdownDocumentContract;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
+use Hyde\Support\Contracts\MarkdownDocumentContract;
 
 /**
  * The base class for all Markdown-based page models.

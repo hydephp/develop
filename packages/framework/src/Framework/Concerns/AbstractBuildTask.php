@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns;
 
-use Hyde\Framework\Contracts\BuildTaskContract;
 use Hyde\Hyde;
+use Hyde\Support\Contracts\BuildTaskContract;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Throwable;

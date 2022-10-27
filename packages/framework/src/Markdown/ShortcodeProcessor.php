@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown;
 
-use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
-use Hyde\Framework\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Shortcodes\ColoredBlockquotes;
+use Hyde\Support\Contracts\MarkdownPreProcessorContract;
+use Hyde\Support\Contracts\MarkdownShortcodeContract;
 
 /**
  * Handle all shortcode processing for a Markdown conversion.

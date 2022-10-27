@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Contracts\FrontMatter;
+namespace Hyde\Support\Contracts\FrontMatter;
 
 /**
  * @see \Hyde\Pages\DocumentationPage

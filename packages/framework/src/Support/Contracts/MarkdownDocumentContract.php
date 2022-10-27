@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Contracts;
+namespace Hyde\Support\Contracts;
 
 use Hyde\Markdown\Models\Markdown;
 

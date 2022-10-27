@@ -8,7 +8,7 @@ use Hyde\Blogging\Models\Author;
 use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Concerns\BaseMarkdownPage;
-use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Support\DateString;
 
 /**

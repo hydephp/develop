@@ -7,13 +7,13 @@ namespace Hyde\Framework\Concerns;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
-use Hyde\Framework\Contracts\CompilableContract;
-use Hyde\Framework\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Metadata\PageMetadataBag;
 use Hyde\Navigation\NavigationData;
+use Hyde\Support\Contracts\CompilableContract;
+use Hyde\Support\Contracts\FrontMatter\PageSchema;
 use Hyde\Support\Route;
 use Illuminate\Support\Arr;
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Contracts;
+namespace Hyde\Support\Contracts;
 
 /**
  * Process Markdown after it is converted to HTML.
  *
- * @see \Hyde\Framework\Contracts\MarkdownPreProcessorContract for pre-processing
+ * @see \Hyde\Support\Contracts\MarkdownPreProcessorContract for pre-processing
  */
 interface MarkdownPostProcessorContract
 {

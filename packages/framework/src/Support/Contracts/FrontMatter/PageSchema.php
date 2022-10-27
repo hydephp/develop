@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Contracts\FrontMatter;
+namespace Hyde\Support\Contracts\FrontMatter;
 
 /**
  * @see \Hyde\Framework\Concerns\HydePage
  */
-interface PageSchema extends Support\NavigationSchema
+interface PageSchema extends \Hyde\Support\Contracts\FrontMatter\Support\NavigationSchema
 {
     public const PAGE_SCHEMA = [
         'title'         => 'string',

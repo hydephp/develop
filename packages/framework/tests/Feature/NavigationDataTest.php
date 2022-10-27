@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
 use Hyde\Navigation\NavigationData;
+use Hyde\Support\Contracts\FrontMatter\Support\NavigationSchema;
 use Hyde\Testing\TestCase;
 
 /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Models;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
-use Hyde\Framework\Contracts\MarkdownDocumentContract;
+use Hyde\Support\Contracts\MarkdownDocumentContract;
 use Stringable;
 
 /**

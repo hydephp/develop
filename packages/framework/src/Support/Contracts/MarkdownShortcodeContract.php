@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Contracts;
+namespace Hyde\Support\Contracts;
 
 /**
  * @see \Hyde\Markdown\ShortcodeProcessor to see how this is used.

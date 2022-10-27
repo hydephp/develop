@@ -6,7 +6,7 @@ namespace Hyde\Navigation;
 
 use ArrayObject;
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
-use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
+use Hyde\Support\Contracts\FrontMatter\Support\NavigationSchema;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 

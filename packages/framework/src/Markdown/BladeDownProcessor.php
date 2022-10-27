@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown;
 
-use Hyde\Framework\Contracts\MarkdownPostProcessorContract;
-use Hyde\Framework\Contracts\MarkdownPreProcessorContract;
+use Hyde\Support\Contracts\MarkdownPostProcessorContract;
+use Hyde\Support\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\Facades\Blade;
 
 /**
