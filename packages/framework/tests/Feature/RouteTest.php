@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Routing\Route;
 use Hyde\Testing\TestCase;
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Route;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Facades\Route;
 use Hyde\Routing\Route as RouteModel;
 use Hyde\Testing\TestCase;
 use function unlink;
@@ -18,6 +18,7 @@ use function view;
 
 /**
  * @covers \Hyde\Routing\Router
+ *
  * @see \Hyde\Framework\Testing\Unit\Facades\RouteFacadeTest
  */
 class RouterTest extends TestCase
