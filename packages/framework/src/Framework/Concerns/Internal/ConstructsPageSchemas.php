@@ -6,8 +6,8 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
+use Hyde\Framework\Factories\BlogPostFactory;
 use Hyde\Hyde;
-use Hyde\Pages\Factories\BlogPostFactory;
 use Hyde\Pages\MarkdownPost;
 
 trait ConstructsPageSchemas
