@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-class RouteKey
+final class RouteKey
 {
     protected readonly string $key;
 
     public static function make(string $key): self
     {
-        return new static($key);
+        return new RouteKey($key);
     }
 
     public function __construct(string $key)
