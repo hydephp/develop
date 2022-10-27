@@ -21,7 +21,9 @@ trait ConstructsPageSchemas
         $this->constructPageSchema();
 
         if ($this instanceof BlogPostSchema) {
-            $this->constructBlogPostSchema();
+            if ($this instanceof MarkdownPost) {
+                $this->constructBlogPostData(new BlogPostData($this->matter, $this->markdown));
+            }
         }
     }
 
@@ -43,12 +45,5 @@ trait ConstructsPageSchemas
         }
 
         return null;
-    }
-
-    protected function constructBlogPostSchema(): void
-    {
-        if ($this instanceof MarkdownPost) {
-            $this->constructBlogPostData(new BlogPostData($this->matter, $this->markdown));
-        }
     }
 }
