@@ -42,15 +42,15 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataElementContract|string $element): static
     {
-        if ($element instanceof \Hyde\Framework\Features\Metadata\Models\LinkElement) {
+        if ($element instanceof \Hyde\Framework\Features\Metadata\Elements\LinkElement) {
             return $this->addElement('links', $element);
         }
 
-        if ($element instanceof \Hyde\Framework\Features\Metadata\Models\MetadataElement) {
+        if ($element instanceof \Hyde\Framework\Features\Metadata\Elements\MetadataElement) {
             return $this->addElement('metadata', $element);
         }
 
-        if ($element instanceof \Hyde\Framework\Features\Metadata\Models\OpenGraphElement) {
+        if ($element instanceof \Hyde\Framework\Features\Metadata\Elements\OpenGraphElement) {
             return $this->addElement('properties', $element);
         }
 

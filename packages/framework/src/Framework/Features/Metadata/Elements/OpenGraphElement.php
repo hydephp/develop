@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Metadata\Models;
+namespace Hyde\Framework\Features\Metadata\Elements;
 
 use Hyde\Framework\Features\Metadata\MetadataElementContract;
 
