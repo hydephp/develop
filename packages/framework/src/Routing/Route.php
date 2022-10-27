@@ -122,7 +122,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     public static function get(string $routeKey): ?Route
     {
-        return Hyde::routes()->get(self::normalizeRouteKey($routeKey));
+        return Hyde::routes()->get(str_replace('.', '/', $routeKey));
     }
 
     public static function getOrFail(string $routeKey): Route
@@ -148,13 +148,5 @@ class Route implements Stringable, JsonSerializable, Arrayable
     public static function exists(string $routeKey): bool
     {
         return Hyde::routes()->has($routeKey);
-    }
-
-    /**
-     * Format a route key so both dot and slash notations are supported.
-     */
-    protected static function normalizeRouteKey(string $routeKey): string
-    {
-        return str_replace('.', '/', $routeKey);
     }
 }
