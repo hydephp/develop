@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Pages\DataObjects\BlogPostData;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\DateString;
 
@@ -47,40 +48,7 @@ trait ConstructsPageSchemas
     protected function constructBlogPostSchema(): void
     {
         if ($this instanceof MarkdownPost) {
-            $this->constructBlogPostData(
-                description: $this->matter('description', $this->makeDescription((string) $this->markdown)),
-                category: $this->matter('category'),
-                date: $this->matter('date') !== null ? new DateString($this->matter('date')) : null,
-                author: $this->getAuthor(),
-                image: $this->getImage(),
-            );
+            $this->constructBlogPostData(new BlogPostData($this->matter, $this->markdown));
         }
-    }
-
-    protected function makeDescription(string $markdown): string
-    {
-        if (strlen($markdown) >= 128) {
-            return substr($markdown, 0, 125).'...';
-        }
-
-        return $markdown;
-    }
-
-    protected function getAuthor(): ?PostAuthor
-    {
-        if ($this->matter('author')) {
-            return PostAuthor::make($this->matter('author'));
-        }
-
-        return null;
-    }
-
-    protected function getImage(): ?FeaturedImage
-    {
-        if ($this->matter('image')) {
-            return FeaturedImage::make($this->matter('image'));
-        }
-
-        return null;
     }
 }
