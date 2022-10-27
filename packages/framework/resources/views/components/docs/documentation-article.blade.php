@@ -1,6 +1,5 @@
 @props([
-    /** @var \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle */
-    'document'
+    /** @var \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle $document */
 ])
 
 <article id="document" itemscope itemtype="http://schema.org/Article" @class(['mx-auto lg:ml-8 prose
