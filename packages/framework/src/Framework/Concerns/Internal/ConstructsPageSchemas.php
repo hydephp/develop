@@ -35,7 +35,7 @@ trait ConstructsPageSchemas
         }
 
         if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
-            return $this->getRoute()->getQualifiedUrl();
+            return Hyde::url($this->getRoute()->getOutputPath());
         }
 
         return null;
