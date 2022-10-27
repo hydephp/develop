@@ -88,12 +88,6 @@ class RouteTest extends TestCase
         $this->assertNull(Route::get('not-found'));
     }
 
-    public function test_get_from_model_returns_the_models_route()
-    {
-        $page = new BladePage('index');
-        $this->assertEquals(new Route($page), Route::getFromModel($page));
-    }
-
     public function test_get_supports_dot_notation()
     {
         $this->file('_posts/foo.md');

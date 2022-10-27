@@ -194,17 +194,6 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * Get a route from the route index for the supplied page model.
-     *
-     * @param  \Hyde\Framework\Concerns\HydePage  $page
-     * @return \Hyde\Routing\Route|null
-     */
-    public static function getFromModel(HydePage $page): ?Route
-    {
-        return $page->getRoute();
-    }
-
-    /**
      * Get all routes from the route index.
      *
      * @return \Hyde\Foundation\RouteCollection<\Hyde\Routing\Route>

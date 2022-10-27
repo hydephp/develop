@@ -23,11 +23,6 @@ class Route
         return RouteModel::getOrFail($routeKey);
     }
 
-    public static function getFromModel(HydePage $page): ?RouteModel
-    {
-        return RouteModel::getFromModel($page);
-    }
-
     public static function all(): RouteCollection
     {
         return RouteModel::all();
