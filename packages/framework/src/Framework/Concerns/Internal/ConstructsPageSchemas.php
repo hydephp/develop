@@ -20,10 +20,8 @@ trait ConstructsPageSchemas
     {
         $this->constructPageSchema();
 
-        if ($this instanceof BlogPostSchema) {
-            if ($this instanceof MarkdownPost) {
-                $this->constructBlogPostData(new BlogPostData($this->matter, $this->markdown));
-            }
+        if ($this instanceof MarkdownPost) {
+            $this->constructBlogPostData(new BlogPostData($this->matter, $this->markdown));
         }
     }
 
