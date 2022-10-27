@@ -14,6 +14,11 @@ use Illuminate\Contracts\Support\Arrayable;
 use function strlen;
 use function substr;
 
+/**
+ * Streamlines the data specific to a blog post.
+ *
+ * Simply pass along the data the class needs to run, then access the data using the toArray() method.
+ */
 class BlogPostData implements Arrayable
 {
     use HasFrontMatter;
