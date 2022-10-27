@@ -16,6 +16,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Contracts\CompilableContract;
 use Hyde\Support\Models\Route;
+use Hyde\Support\Models\RouteKey;
 
 /**
  * The base class for all Hyde pages.
@@ -170,7 +171,7 @@ abstract class HydePage implements CompilableContract, PageSchema
      */
     public static function routeKey(string $identifier): string
     {
-        return unslash(static::outputDirectory().'/'.$identifier);
+        return RouteKey::fromPage(static::class, $identifier);
     }
 
     /**
