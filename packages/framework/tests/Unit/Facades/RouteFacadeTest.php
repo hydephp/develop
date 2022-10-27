@@ -14,6 +14,6 @@ class RouteFacadeTest extends TestCase
 {
     public function test_route_facade_can_call_methods_on_the_route_model()
     {
-        $this->assertEquals(Route::all(), \Hyde\Routing\Route::all());
+        $this->assertEquals(Route::all(), \Hyde\Support\Models\Route::all());
     }
 }

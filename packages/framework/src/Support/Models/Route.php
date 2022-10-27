@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Routing;
+namespace Hyde\Support\Models;
 
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Hyde\Support\Models\RouteKey;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Stringable;

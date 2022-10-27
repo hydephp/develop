@@ -12,7 +12,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**

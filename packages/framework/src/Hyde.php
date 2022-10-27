@@ -10,7 +10,7 @@ use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Helpers\Features;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 
 /**

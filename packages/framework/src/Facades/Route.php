@@ -15,50 +15,50 @@ class Route
      * Get a route from the route index for the specified route key.
      *
      * @param  string  $routeKey  Example: posts/foo.md
-     * @return \Hyde\Routing\Route|null
+     * @return \Hyde\Support\Models\Route|null
      */
-    public static function get(string $routeKey): ?\Hyde\Routing\Route
+    public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
-        return \Hyde\Routing\Route::get($routeKey);
+        return \Hyde\Support\Models\Route::get($routeKey);
     }
 
     /**
      * Get a route from the route index for the specified route key or throw an exception.
      *
      * @param  string  $routeKey
-     * @return \Hyde\Routing\Route
+     * @return \Hyde\Support\Models\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
-    public static function getOrFail(string $routeKey): \Hyde\Routing\Route
+    public static function getOrFail(string $routeKey): \Hyde\Support\Models\Route
     {
-        return \Hyde\Routing\Route::getOrFail($routeKey);
+        return \Hyde\Support\Models\Route::getOrFail($routeKey);
     }
 
     /**
      * Get all routes from the route index.
      *
-     * @return \Hyde\Foundation\RouteCollection<\Hyde\Routing\Route>
+     * @return \Hyde\Foundation\RouteCollection<\Hyde\Support\Models\Route>
      */
     public static function all(): RouteCollection
     {
-        return \Hyde\Routing\Route::all();
+        return \Hyde\Support\Models\Route::all();
     }
 
     /**
      * Get the current route for the page being rendered.
      */
-    public static function current(): ?\Hyde\Routing\Route
+    public static function current(): ?\Hyde\Support\Models\Route
     {
-        return \Hyde\Routing\Route::current();
+        return \Hyde\Support\Models\Route::current();
     }
 
     /**
      * Get the home route, usually the index page route.
      */
-    public static function home(): ?\Hyde\Routing\Route
+    public static function home(): ?\Hyde\Support\Models\Route
     {
-        return \Hyde\Routing\Route::home();
+        return \Hyde\Support\Models\Route::home();
     }
 
     /**
@@ -69,6 +69,6 @@ class Route
      */
     public static function exists(string $routeKey): bool
     {
-        return \Hyde\Routing\Route::exists($routeKey);
+        return \Hyde\Support\Models\Route::exists($routeKey);
     }
 }

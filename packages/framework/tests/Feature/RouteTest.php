@@ -8,12 +8,12 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Routing\Route;
+use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Routing\Route
+ * @covers \Hyde\Support\Models\Route
  */
 class RouteTest extends TestCase
 {
