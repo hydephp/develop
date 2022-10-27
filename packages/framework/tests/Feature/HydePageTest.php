@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
@@ -23,7 +23,7 @@ use Hyde\Testing\TestCase;
  * since it's the simplest implementation.
  *
  * @covers \Hyde\Pages\Concerns\HydePage
- * @covers \Hyde\Framework\Concerns\BaseMarkdownPage
+ * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
  * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage

@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Concerns;
+namespace Hyde\Pages\Concerns;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\MarkdownDocumentContract;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\Concerns\HydePage;
 
 /**
  * The base class for all Markdown-based page models.

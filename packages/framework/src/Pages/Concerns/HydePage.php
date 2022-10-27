@@ -33,7 +33,7 @@ use Hyde\Support\Models\RouteKey;
  * and you can then access the parsed file from the HydeKernel's page index.
  * The source files are usually parsed by the SourceFileParser action.
  *
- * @see \Hyde\Framework\Concerns\BaseMarkdownPage
+ * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 abstract class HydePage implements CompilableContract, PageSchema
