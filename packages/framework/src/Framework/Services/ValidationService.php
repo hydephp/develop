@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Helpers\Features;
+use Hyde\Facades\Features;
 use Hyde\Hyde;
 use Hyde\Support\Models\ValidationResult as Result;
 

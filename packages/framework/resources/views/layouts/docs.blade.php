@@ -22,7 +22,7 @@
 <div id="support">
     @include('hyde::components.docs.sidebar-backdrop')
 
-    @if(Hyde\Helpers\Features::hasDocumentationSearch())
+    @if(Hyde\Facades\Features::hasDocumentationSearch())
         @include('hyde::components.docs.search-widget')
         @include('hyde::components.docs.search-scripts')
     @endif

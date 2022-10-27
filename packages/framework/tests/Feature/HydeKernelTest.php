@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Composer\InstalledVersions;
+use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Helpers\Features;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;

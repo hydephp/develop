@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Facades\Features;
 use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
-use Hyde\Helpers\Features;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Markdown\MarkdownConverter;

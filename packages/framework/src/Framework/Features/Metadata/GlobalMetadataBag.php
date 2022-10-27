@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Metadata;
 
+use Hyde\Facades\Features;
 use Hyde\Facades\Meta;
 use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Services\RssFeedService;
-use Hyde\Helpers\Features;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\View;
 

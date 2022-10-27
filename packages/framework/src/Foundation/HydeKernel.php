@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Hyde\Helpers\Features;
+use Hyde\Facades\Features;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
@@ -82,7 +82,7 @@ class HydeKernel implements Arrayable, JsonSerializable
 
     /**
      * @inheritDoc
-     * @psalm-return array{basePath: string, features: \Hyde\Helpers\Features, pages: \Hyde\Foundation\PageCollection, routes: \Hyde\Foundation\RouteCollection}
+     * @psalm-return array{basePath: string, features: \Hyde\Facades\Features, pages: \Hyde\Foundation\PageCollection, routes: \Hyde\Foundation\RouteCollection}
      */
     public function toArray(): array
     {

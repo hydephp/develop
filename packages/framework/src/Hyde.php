@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde;
 
+use Hyde\Facades\Features;
 use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Concerns\HydePage;
-use Hyde\Helpers\Features;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 

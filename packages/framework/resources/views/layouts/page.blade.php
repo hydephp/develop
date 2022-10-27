@@ -3,7 +3,7 @@
 @section('content')
 
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-        <article @class(['mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Helpers\Features::hasTorchlight()])>
+        <article @class(['mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Facades\Features::hasTorchlight()])>
             {!! $markdown !!}
         </article>
     </main>
