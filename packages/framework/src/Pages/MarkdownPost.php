@@ -9,6 +9,9 @@ use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
+use Hyde\Pages\DataObjects\BlogPostData;
 use Hyde\Support\DateString;
 
 /**
@@ -31,13 +34,16 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public readonly ?PostAuthor $author;
     public readonly ?FeaturedImage $image;
 
-    public function constructBlogPostData(?string $description, ?string $category, ?DateString $date, ?PostAuthor $author, ?FeaturedImage $image)
+    public function __construct(string $identifier = '', ?FrontMatter $matter = null, ?Markdown $markdown = null)
     {
-        $this->description = $description;
-        $this->category = $category;
-        $this->date = $date;
-        $this->author = $author;
-        $this->image = $image;
+        parent::__construct($identifier, $matter, $markdown);
+    }
+
+    public function constructBlogPostData(BlogPostData $data): void
+    {
+        foreach ($data->toArray() as $key => $value) {
+            $this->{$key} = $value;
+        }
     }
 
     /** @return \Hyde\Foundation\PageCollection<\Hyde\Pages\MarkdownPost> */
