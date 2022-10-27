@@ -7,7 +7,7 @@ namespace Hyde\Framework\Concerns\Internal;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Hyde;
-use Hyde\Pages\DataObjects\BlogPostFactory;
+use Hyde\Pages\Factories\BlogPostFactory;
 use Hyde\Pages\MarkdownPost;
 
 trait ConstructsPageSchemas

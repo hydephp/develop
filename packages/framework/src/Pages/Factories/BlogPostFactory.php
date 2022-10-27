@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Pages\DataObjects;
+namespace Hyde\Pages\Factories;
 
 use Hyde\Framework\Concerns\HasFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;

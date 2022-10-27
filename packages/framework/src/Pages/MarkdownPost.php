@@ -11,7 +11,7 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\DataObjects\BlogPostFactory;
+use Hyde\Pages\Factories\BlogPostFactory;
 use Hyde\Support\DateString;
 
 /**
