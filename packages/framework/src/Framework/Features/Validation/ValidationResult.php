@@ -28,9 +28,7 @@ class ValidationResult
     public function pass(?string $withMessage = null): static
     {
         $this->passed = true;
-        if ($withMessage) {
-            $this->message = $withMessage;
-        }
+        $this->withMessage($withMessage);
 
         return $this;
     }
@@ -38,9 +36,7 @@ class ValidationResult
     public function fail(?string $withMessage = null): static
     {
         $this->passed = false;
-        if ($withMessage) {
-            $this->message = $withMessage;
-        }
+        $this->withMessage($withMessage);
 
         return $this;
     }
@@ -48,9 +44,7 @@ class ValidationResult
     public function skip(?string $withMessage = null): static
     {
         $this->skipped = true;
-        if ($withMessage) {
-            $this->message = $withMessage;
-        }
+        $this->withMessage($withMessage);
 
         return $this;
     }
@@ -141,5 +135,12 @@ class ValidationResult
     protected function formatTip(string $tip): string
     {
         return "<fg=gray>$tip</>";
+    }
+
+    protected function withMessage(?string $withMessage): void
+    {
+        if ($withMessage) {
+            $this->message = $withMessage;
+        }
     }
 }
