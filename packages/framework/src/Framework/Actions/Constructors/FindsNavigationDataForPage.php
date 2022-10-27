@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Constructors;
 
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
  * @internal
  *
  * @see \Hyde\Framework\Testing\Feature\PageModelConstructorsTest
- * @see \Hyde\Framework\Concerns\HydePage
+ * @see \Hyde\Pages\Concerns\HydePage
  */
 final class FindsNavigationDataForPage
 {

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Foundation\PageCollection;
-use Hyde\Framework\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\DateString;
 
 /**

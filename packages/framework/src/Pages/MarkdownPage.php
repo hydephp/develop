@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Hyde\Framework\Concerns\BaseMarkdownPage;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
 
 /**
  * Page class for Markdown pages.

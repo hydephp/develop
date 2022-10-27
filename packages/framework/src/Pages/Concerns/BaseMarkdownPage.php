@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Concerns;
+namespace Hyde\Pages\Concerns;
 
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\MarkdownDocumentContract;
@@ -15,12 +15,11 @@ use Hyde\Markdown\Models\Markdown;
  * @see \Hyde\Pages\MarkdownPage
  * @see \Hyde\Pages\MarkdownPost
  * @see \Hyde\Pages\DocumentationPage
- * @see \Hyde\Framework\Concerns\HydePage
+ * @see \Hyde\Pages\Concerns\HydePage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
 abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentContract
 {
-    public string $identifier;
     public Markdown $markdown;
 
     public static string $fileExtension = '.md';

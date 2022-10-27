@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Foundation\RouteCollection;
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;

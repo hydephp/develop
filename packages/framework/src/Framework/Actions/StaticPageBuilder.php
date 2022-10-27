@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 
 /**
  * Converts a Page Model into a static HTML page.
@@ -20,7 +20,7 @@ class StaticPageBuilder
     /**
      * Construct the class.
      *
-     * @param  \Hyde\Framework\Concerns\HydePage  $page  the Page to compile into HTML
+     * @param  \Hyde\Pages\Concerns\HydePage  $page  the Page to compile into HTML
      * @param  bool  $selfInvoke  if set to true the class will invoke when constructed
      */
     public function __construct(protected HydePage $page, bool $selfInvoke = false)

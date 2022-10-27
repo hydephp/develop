@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -29,7 +29,7 @@ class DiscoveryService
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
-     * @param  string<\Hyde\Framework\Concerns\HydePage>  $model
+     * @param  string<\Hyde\Pages\Concerns\HydePage>  $model
      * @return array
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
@@ -52,13 +52,13 @@ class DiscoveryService
 
     public static function getModelFileExtension(string $model): string
     {
-        /** @var \Hyde\Framework\Concerns\HydePage $model */
+        /** @var \Hyde\Pages\Concerns\HydePage $model */
         return $model::fileExtension();
     }
 
     public static function getModelSourceDirectory(string $model): string
     {
-        /** @var \Hyde\Framework\Concerns\HydePage $model */
+        /** @var \Hyde\Pages\Concerns\HydePage $model */
         return $model::sourceDirectory();
     }
 
@@ -94,7 +94,7 @@ class DiscoveryService
     /**
      * Create a filepath that can be opened in the browser from a terminal.
      *
-     * @param  string<\Hyde\Framework\Concerns\HydePage>  $filepath
+     * @param  string<\Hyde\Pages\Concerns\HydePage>  $filepath
      * @return string
      */
     public static function createClickableFilepath(string $filepath): string

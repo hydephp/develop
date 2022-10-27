@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Concerns;
+namespace Hyde\Pages\Concerns;
 
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Framework\Concerns\HasFrontMatter;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
@@ -14,7 +15,6 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Support\Contracts\CompilableContract;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 
@@ -32,10 +32,10 @@ use Hyde\Support\Models\RouteKey;
  * and you can then access the parsed file from the HydeKernel's page index.
  * The source files are usually parsed by the SourceFileParser action.
  *
- * @see \Hyde\Framework\Concerns\BaseMarkdownPage
+ * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */
-abstract class HydePage implements CompilableContract, PageSchema
+abstract class HydePage implements PageSchema
 {
     use ConstructsPageSchemas;
     use HasFrontMatter;
@@ -149,6 +149,13 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
+     * Compile the page into static HTML.
+     *
+     * @return string The compiled HTML for the page.
+     */
+    abstract public function compile(): string;
+
+    /**
      * Get the path to the instance source file, relative to the project root.
      */
     public function getSourcePath(): string
@@ -157,7 +164,9 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the path where the compiled page instance will be saved.
+     * Get the path where the compiled page will be saved.
+     *
+     * @return string Path relative to the site output directory.
      */
     public function getOutputPath(): string
     {
@@ -219,7 +228,9 @@ abstract class HydePage implements CompilableContract, PageSchema
     }
 
     /**
-     * Get the Blade template key for the page.
+     * Get the Blade template for the page.
+     *
+     * @return string Blade template/view key.
      */
     public function getBladeView(): string
     {

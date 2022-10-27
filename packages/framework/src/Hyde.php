@@ -9,7 +9,7 @@ use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
-use Hyde\Framework\Concerns\HydePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
 

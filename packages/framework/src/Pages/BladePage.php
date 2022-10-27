@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Pages\Concerns\HydePage;
 
 /**
  * Page class for Blade pages.

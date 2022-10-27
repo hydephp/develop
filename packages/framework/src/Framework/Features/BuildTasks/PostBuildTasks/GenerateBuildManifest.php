@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
-use Hyde\Framework\Concerns\HydePage;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
@@ -28,7 +28,7 @@ class GenerateBuildManifest extends BuildTask
     {
         $pages = new Collection();
 
-        /** @var \Hyde\Framework\Concerns\HydePage $page */
+        /** @var \Hyde\Pages\Concerns\HydePage $page */
         foreach (Hyde::pages() as $page) {
             $pages->push([
                 'source_path' => $page->getSourcePath(),

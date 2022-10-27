@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Metadata;
 
 use Hyde\Facades\Meta;
-use Hyde\Framework\Concerns\HydePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
 
 class PageMetadataBag extends MetadataBag
