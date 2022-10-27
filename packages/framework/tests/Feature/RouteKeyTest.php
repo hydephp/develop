@@ -38,17 +38,17 @@ class RouteKeyTest extends TestCase
 
     public function testFromPage()
     {
-        $this->assertSame(new RouteKey('foo'), RouteKey::fromPage(BladePage::class, 'foo'));
-        $this->assertSame(new RouteKey('foo'), RouteKey::fromPage(MarkdownPage::class, 'foo'));
-        $this->assertSame(new RouteKey('posts/foo'), RouteKey::fromPage(MarkdownPost::class, 'foo'));
-        $this->assertSame(new RouteKey('docs/foo'), RouteKey::fromPage(DocumentationPage::class, 'foo'));
+        $this->assertEquals(new RouteKey('foo'), RouteKey::fromPage(BladePage::class, 'foo'));
+        $this->assertEquals(new RouteKey('foo'), RouteKey::fromPage(MarkdownPage::class, 'foo'));
+        $this->assertEquals(new RouteKey('posts/foo'), RouteKey::fromPage(MarkdownPost::class, 'foo'));
+        $this->assertEquals(new RouteKey('docs/foo'), RouteKey::fromPage(DocumentationPage::class, 'foo'));
     }
 
     public function testFromPageWithNestedIdentifier()
     {
-        $this->assertSame(new RouteKey('foo/bar'), RouteKey::fromPage(BladePage::class, 'foo/bar'));
-        $this->assertSame(new RouteKey('foo/bar'), RouteKey::fromPage(MarkdownPage::class, 'foo/bar'));
-        $this->assertSame(new RouteKey('posts/foo/bar'), RouteKey::fromPage(MarkdownPost::class, 'foo/bar'));
-        $this->assertSame(new RouteKey('docs/foo/bar'), RouteKey::fromPage(DocumentationPage::class, 'foo/bar'));
+        $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(BladePage::class, 'foo/bar'));
+        $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(MarkdownPage::class, 'foo/bar'));
+        $this->assertEquals(new RouteKey('posts/foo/bar'), RouteKey::fromPage(MarkdownPost::class, 'foo/bar'));
+        $this->assertEquals(new RouteKey('docs/foo/bar'), RouteKey::fromPage(DocumentationPage::class, 'foo/bar'));
     }
 }
