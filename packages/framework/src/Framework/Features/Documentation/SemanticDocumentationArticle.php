@@ -24,6 +24,18 @@ class SemanticDocumentationArticle
     protected string $body;
     protected string $footer;
 
+    /**
+     * Create a new SemanticDocumentationArticle instance, process, and return it.
+     *
+     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
+     * @param  string  $html  compiled HTML content
+     * @return static new processed instance
+     */
+    public static function create(DocumentationPage $page, string $html): static
+    {
+        return (new self($page, $html))->process();
+    }
+
     public function __construct(DocumentationPage $page, string $html)
     {
         $this->page = $page;
@@ -108,18 +120,6 @@ class SemanticDocumentationArticle
         return view('hyde::components.docs.edit-source-button', [
             'href' => $this->page->getOnlineSourcePath(),
         ])->render();
-    }
-
-    /**
-     * Create a new SemanticDocumentationArticle instance, process, and return it.
-     *
-     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
-     * @param  string  $html  compiled HTML content
-     * @return static new processed instance
-     */
-    public static function create(DocumentationPage $page, string $html): static
-    {
-        return (new self($page, $html))->process();
     }
 
     /**
