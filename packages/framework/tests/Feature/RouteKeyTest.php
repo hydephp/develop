@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\TestCase;
 
@@ -30,5 +34,13 @@ class RouteKeyTest extends TestCase
     public function testGet()
     {
         $this->assertSame('foo', (new RouteKey('foo'))->get());
+    }
+
+    public function testFromPage()
+    {
+        $this->assertSame('foo', RouteKey::fromPage(BladePage::class, 'foo'));
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, 'foo'));
+        $this->assertSame('posts/foo', RouteKey::fromPage(MarkdownPost::class, 'foo'));
+        $this->assertSame('docs/foo', RouteKey::fromPage(DocumentationPage::class, 'foo'));
     }
 }

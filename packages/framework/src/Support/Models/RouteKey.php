@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
+use function unslash;
 
 /**
  * Route keys are the core of Hyde's routing system.
@@ -36,5 +37,11 @@ final class RouteKey implements Stringable
     public function get(): string
     {
         return $this->key;
+    }
+
+    public static function fromPage(string $pageClass, string $identifier): string
+    {
+        /** @var \Hyde\Framework\Concerns\HydePage $pageClass */
+        return unslash($pageClass::outputDirectory().'/'.$identifier);
     }
 }
