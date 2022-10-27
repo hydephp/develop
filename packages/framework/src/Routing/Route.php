@@ -177,8 +177,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public static function get(string $routeKey): ?Route
     {
-        return Hyde::routes()->get(self::normalizeRouteKey($routeKey))
-            ?? null;
+        return Hyde::routes()->get(self::normalizeRouteKey($routeKey));
     }
 
     /**
@@ -204,7 +203,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
     {
         return Hyde::routes()->first(function (Route $route) use ($sourceFilePath) {
             return $route->getSourcePath() === $sourceFilePath;
-        }) ?? null;
+        });
     }
 
     /**
@@ -233,7 +232,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public static function current(): ?Route
     {
-        return Hyde::currentRoute() ?? null;
+        return Hyde::currentRoute();
     }
 
     /**
@@ -241,7 +240,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
      */
     public static function home(): ?Route
     {
-        return Route::get('index') ?? null;
+        return Route::get('index');
     }
 
     /**
