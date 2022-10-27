@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Blogging\Models;
+namespace Hyde\Framework\Features\Blogging\Models;
 
 use Exception;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Support\Contracts\FrontMatter\Support\FeaturedImageSchema;
 use Stringable;
+use function Hyde\Blogging\Models\str_starts_with;
 
 /**
  * Holds the information for an image.

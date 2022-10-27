@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
-use Hyde\Blogging\Models\Author;
-use Hyde\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
+use Hyde\Framework\Features\Blogging\Models\Author;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Contracts\FrontMatter\BlogPostSchema;

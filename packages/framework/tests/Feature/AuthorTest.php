@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Blogging\Models\Author;
+use Hyde\Framework\Features\Blogging\Models\Author;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @covers \Hyde\Blogging\Models\Author
+ * @covers \Hyde\Framework\Features\Blogging\Models\Author
  */
 class AuthorTest extends TestCase
 {

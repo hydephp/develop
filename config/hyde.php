@@ -11,7 +11,7 @@
 |
 */
 
-use Hyde\Blogging\Models\Author;
+use Hyde\Framework\Features\Blogging\Models\Author;
 use Hyde\Helpers\Features;
 use Hyde\Helpers\Meta;
 

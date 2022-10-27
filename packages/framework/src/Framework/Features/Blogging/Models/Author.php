@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Blogging\Models;
+namespace Hyde\Framework\Features\Blogging\Models;
 
 use Illuminate\Support\Collection;
 use Stringable;
