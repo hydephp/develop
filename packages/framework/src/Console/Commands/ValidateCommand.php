@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\Validation\ValidationService;
+use Hyde\Framework\Features\Validation\SiteValidator;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -21,13 +21,13 @@ class ValidateCommand extends Command
     protected float $time_start;
     protected float $time_total = 0;
 
-    protected ValidationService $service;
+    protected SiteValidator $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->service = new ValidationService();
+        $this->service = new SiteValidator();
     }
 
     public function handle(): int
@@ -36,7 +36,7 @@ class ValidateCommand extends Command
 
         $this->newLine();
 
-        foreach (ValidationService::checks() as $check) {
+        foreach (SiteValidator::checks() as $check) {
             $this->check($check);
         }
 
@@ -66,6 +66,6 @@ class ValidateCommand extends Command
 
     protected function timeTotal(): string
     {
-        return'<fg=gray>Ran '.sizeof(ValidationService::checks()).' checks in '.number_format($this->time_total, 2).'ms</>';
+        return'<fg=gray>Ran '.sizeof(SiteValidator::checks()).' checks in '.number_format($this->time_total, 2).'ms</>';
     }
 }

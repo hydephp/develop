@@ -15,7 +15,7 @@ use function str_starts_with;
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
  * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
-class ValidationService
+class SiteValidator
 {
     /** @return string[] */
     public static function checks(): array
