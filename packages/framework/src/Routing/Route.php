@@ -60,7 +60,8 @@ class Route implements Stringable, JsonSerializable, Arrayable
     }
 
     /**
-     * Resolve a site web link to the compiled page, relative to the current page being rendered, using pretty URLs if enabled.
+     * Resolve a site web link to the compiled page.
+     * The path is relative to the current page being rendered, and uses pretty URLs if enabled.
      */
     public function getLink(): string
     {
