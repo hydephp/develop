@@ -28,18 +28,21 @@ class ValidationResult
     public function pass(?string $withMessage = null): static
     {
         $this->passed = true;
+
         return $this->withMessage($withMessage);
     }
 
     public function fail(?string $withMessage = null): static
     {
         $this->passed = false;
+
         return $this->withMessage($withMessage);
     }
 
     public function skip(?string $withMessage = null): static
     {
         $this->skipped = true;
+
         return $this->withMessage($withMessage);
     }
 
