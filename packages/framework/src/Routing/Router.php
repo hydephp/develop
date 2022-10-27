@@ -26,6 +26,18 @@ class Router
     }
 
     /**
+     * Get a route from the route index for the specified route key or throw an exception.
+     *
+     * @param string $routeKey
+     * @return \Hyde\Routing\Route
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
+    public static function getOrFail(string $routeKey): Route
+    {
+        return static::getFromKey($routeKey) ?? throw new RouteNotFoundException($routeKey);
+    }
+
+    /**
      * Get a route from the route index for the specified route key.
      *
      * @param string $routeKey Example: posts/foo, posts.foo
