@@ -15,7 +15,6 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Contracts\CompilableContract;
 use Hyde\Support\Route;
-use Illuminate\Support\Arr;
 
 /**
  * The base class for all Hyde pages.

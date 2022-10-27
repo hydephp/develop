@@ -6,13 +6,9 @@ namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
-use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Hyde;
-use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Pages\DataObjects\BlogPostData;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\DateString;
 
 trait ConstructsPageSchemas
 {
