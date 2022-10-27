@@ -11,8 +11,8 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
-use Stringable;
 use function str_replace;
+use Stringable;
 
 /**
  * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
