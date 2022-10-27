@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 use function app;
 use function config;
 use function str_replace;
+use function view;
 
 /**
  * @covers \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle
@@ -154,6 +155,16 @@ class HydeSmartDocsTest extends TestCase
         $page = SemanticDocumentationArticle::create($this->page, 'Syntax highlighted by torchlight.dev');
 
         $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $page->renderFooter());
+    }
+
+    public function test_the_documentation_article_view()
+    {
+        $rendered = view('hyde::components.docs.documentation-article', [
+            'document' => SemanticDocumentationArticle::create($this->page, $this->html)
+        ])->render();
+
+        $this->assertStringContainsString('<h1>Foo</h1>', $rendered);
+        $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
     }
 
     protected function assertEqualsIgnoringNewlines(string $expected, string $actual): void
