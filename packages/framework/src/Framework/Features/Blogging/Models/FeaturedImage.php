@@ -32,77 +32,76 @@ use Stringable;
 class FeaturedImage implements FeaturedImageSchema, Stringable
 {
     /**
-     * The image's path (if it is stored locally (in the _media directory)).
-     * Example: image.jpg.
+     * The image's path if it's stored locally.
      *
-     * @var string|null
+     * @var string|null Path to file in the _media directory
+     * @example image.jpg.
      */
     public ?string $path;
 
     /**
-     * The image's URL (if stored externally).
-     * Example: https://example.com/media/image.jpg.
-     *
+     * The image's URL if it's stored remotely.
      * Will override the path property if both are set.
      *
-     * @var string|null
+     * @var string|null Fully qualified URL to the image.
+     * @example https://example.com/media/image.jpg
      */
     public ?string $url;
 
     /**
      * The image's description. (Used for alt text for screen readers.)
      * You should always set this to provide accessibility.
-     * Example: "This is an image of a cat sitting in a basket.".
      *
      * @var string|null
+     * @example "This is an image of a cat sitting in a basket.".
      */
     public ?string $description;
 
     /**
      * The image's title. (Shows a tooltip on hover.)
-     * Example: "My Cat Archer".
      *
      * @var string|null
+     * @example "My Cat Archer".
      */
     public ?string $title;
 
     /**
      * The image's copyright.
-     * Example: "Copyright (c) 2020 John Doe".
      *
      * @var string|null
+     * @example "Copyright (c) 2020 John Doe".
      */
     public ?string $copyright;
 
     /**
      * The image's license name.
-     * Example: "CC BY-NC-SA 4.0".
      *
      * @var string|null
+     * @example "CC BY-NC-SA 4.0".
      */
     public ?string $license;
 
     /**
      * The image's license URL.
-     * Example: "https://creativecommons.org/licenses/by-nc-sa/4.0/".
      *
      * @var string|null
+     * @example "https://creativecommons.org/licenses/by-nc-sa/4.0/".
      */
     public ?string $licenseUrl;
 
     /**
      * The image's author.
-     * Example: "John Doe".
      *
      * @var string|null
+     * @example "John Doe".
      */
     public ?string $author;
 
     /**
-     * The image's source (for attribution).
-     * Example: "https://unsplash.com/photos/example".
+     * The image's source (for attribution/credit).
      *
      * @var string|null
+     * @example "https://unsplash.com/photos/example".
      */
     public ?string $credit = null;
 
