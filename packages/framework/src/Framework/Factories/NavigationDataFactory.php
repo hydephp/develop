@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-class NavigationDataFactory extends Concerns\PageDataFactory
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
+
+class NavigationDataFactory extends Concerns\PageDataFactory implements NavigationSchema
 {
     public function toArray(): array
     {
