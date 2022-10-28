@@ -22,6 +22,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     public function toArray(): array
     {
-        // TODO: Implement toArray() method.
+        return [
+            'label' => $this->label,
+            'group' => $this->group,
+            'hidden' => $this->hidden,
+            'priority' => $this->priority,
+        ];
     }
 }
