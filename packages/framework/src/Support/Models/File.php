@@ -156,7 +156,7 @@ class File implements Arrayable, JsonSerializable, Stringable
 
     public function withoutDirectoryPrefix(): string
     {
-        if ($this->belongsTo) {
+        if ($this->belongsTo !== null) {
             // If a model is set, use that to remove the directory, so any subdirectories within is retained
             return substr($this->__toString(), strlen($this->belongsTo::$sourceDirectory) + 1);
         }
