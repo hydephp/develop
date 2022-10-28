@@ -43,6 +43,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         $this->identifier = $identifier;
         $this->outputPath = $outputPath;
 
+        /** @deprecated */
         $this->page = $page;
 
         $this->title = $this->makeTitle();
