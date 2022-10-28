@@ -12,9 +12,7 @@ class EnsureCommandsFollowNamingConventionTest extends TestCase
     {
         $files = glob('vendor/hyde/framework/src/Commands/*.php');
 
-        if (empty($files)) {
-            $this->markTestSkipped('No commands found.');
-        }
+        $this->assertNotEmpty($files, 'No commands found.');
 
         foreach ($files as $filepath) {
             $filename = basename($filepath, '.php');
