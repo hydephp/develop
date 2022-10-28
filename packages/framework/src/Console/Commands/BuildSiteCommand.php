@@ -8,12 +8,14 @@ use Hyde\Facades\Features;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Features\Session\Session;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
+use function app;
 
 /**
  * Hyde Command to run the Build Process.
@@ -95,11 +97,15 @@ class BuildSiteCommand extends Command
             $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
         }
 
+        app(Session::class)->put('console-output', $this->output);
+
         $service->runIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $service->runIf(GenerateRssFeed::class, $this->canGenerateFeed());
         $service->runIf(GenerateSearch::class, $this->canGenerateSearch());
 
         $service->runPostBuildTasks();
+
+        app(Session::class)->forget('console-output');
     }
 
     protected function printFinishMessage(float $time_start): void
