@@ -68,14 +68,14 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         // TODO: Implement makeNavigation() method.
     }
 
-    protected function findTitleForPage(): string
+    private function findTitleForPage(): string
     {
         return $this->matter('title')
             ?? $this->findTitleFromMarkdownHeadings()
             ?? Hyde::makeTitle($this->identifier);
     }
 
-    protected function findTitleFromMarkdownHeadings(): ?string
+    private function findTitleFromMarkdownHeadings(): ?string
     {
         if ($this->markdown !== false) {
             foreach ($this->markdown->toArray() as $line) {
@@ -88,7 +88,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         return null;
     }
 
-    protected function getCanonicalUrl(): ?string
+    private function getCanonicalUrl(): ?string
     {
         if (! empty($this->matter('canonicalUrl'))) {
             return $this->matter('canonicalUrl');
