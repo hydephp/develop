@@ -159,8 +159,8 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     {
         if (isset($this->author)) {
             $author = isset($this->credit)
-                ? '<a href="' . e($this->credit) . '" rel="author noopener nofollow" itemprop="url"><span itemprop="name">' . e($this->author) . '</span></a>'
-                : '<span itemprop="name">' . e($this->author) . '</span>';
+                ? $this->getCreditedAuthorLink()
+                : $this->getAuthorSpan();
             return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">' . $author . '</span>';
         }
 
@@ -238,5 +238,15 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         }
 
         return null;
+    }
+
+    protected function getCreditedAuthorLink(): string
+    {
+        return '<a href="' . e($this->credit) . '" rel="author noopener nofollow" itemprop="url"><span itemprop="name">' . e($this->author) . '</span></a>';
+    }
+
+    protected function getAuthorSpan(): string
+    {
+        return '<span itemprop="name">' . e($this->author) . '</span>';
     }
 }
