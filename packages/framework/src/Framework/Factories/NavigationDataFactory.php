@@ -43,9 +43,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     public function __construct(
         private readonly FrontMatter $matter,
         private readonly string $identifier,
+        private readonly string $pageClass,
         private readonly string $routeKey,
         private readonly string $title,
-        private readonly string $pageClass
     ) {
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
