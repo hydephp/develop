@@ -37,8 +37,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     /**
      * The image's path if it's stored locally.
      *
-     * @var string|null Path to file in the _media directory
-     *
      * @example image.jpg.
      */
     public ?string $path;
@@ -46,8 +44,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     /**
      * The image's URL if it's stored remotely.
      * Will override the path property if both are set.
-     *
-     * @var string|null Fully qualified URL to the image.
      *
      * @example https://example.com/media/image.jpg
      */
@@ -57,16 +53,12 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image's description. (Used for alt text for screen readers.)
      * You should always set this to provide accessibility.
      *
-     * @var string|null
-     *
      * @example "This is an image of a cat sitting in a basket.".
      */
     public ?string $description;
 
     /**
      * The image's title. (Shows a tooltip on hover.).
-     *
-     * @var string|null
      *
      * @example "My Cat Archer".
      */
@@ -75,16 +67,12 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     /**
      * The image's copyright information.
      *
-     * @var string|null
-     *
      * @example "Copyright (c) 2020 John Doe".
      */
     public ?string $copyright;
 
     /**
      * The image's license name.
-     *
-     * @var string|null
      *
      * @example "CC BY-NC-SA 4.0".
      */
@@ -93,16 +81,12 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     /**
      * The image's license URL.
      *
-     * @var string|null
-     *
      * @example "https://creativecommons.org/licenses/by-nc-sa/4.0/".
      */
     public ?string $licenseUrl;
 
     /**
      * The image's author/photographer.
-     *
-     * @var string|null
      *
      * @example "John Doe".
      */
@@ -111,8 +95,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     /**
      * Link to the image author/source (for attribution/credit).
      * When added, the rendered $author's name will link to this URL.
-     *
-     * @var string|null
      *
      * @example "https://unsplash.com/photos/example".
      */
