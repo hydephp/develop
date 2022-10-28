@@ -146,7 +146,7 @@ class File implements Arrayable, JsonSerializable, Stringable
     {
         return [
             'name' => $this->getName(),
-            'path' => $this->path,
+            'path' => $this->getPath(),
             'contents' => $this->getContents(),
             'length' => $this->getContentLength(),
             'mimeType' => $this->getMimeType(),
