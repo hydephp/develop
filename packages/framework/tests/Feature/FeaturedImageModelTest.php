@@ -111,7 +111,7 @@ class FeaturedImageModelTest extends TestCase
     {
         $image = new FeaturedImage([
             'author' => 'John Doe',
-            'credit' => 'https://example.com/',
+            'attributionUrl' => 'https://example.com/',
         ]);
         $string = $image->getImageAuthorAttributionString();
         $this->assertStringContainsString('itemprop="creator"', $string);
