@@ -208,7 +208,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
             $attribution[] = 'License '.$getLicenseString;
         }
 
-        return implode('. ', $attribution). (count($attribution) > 0 ? '.' : '');
+        return implode('. ', $attribution). ((count($attribution) > 0) ? '.' : '');
     }
 
     /**
