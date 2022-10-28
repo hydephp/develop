@@ -61,9 +61,9 @@ class FindsContentLengthForImageObject
             return (int) key(array_flip($headers['Content-Length']));
         }
 
-        $this->write(' > <comment>Warning:</comment> Could not find content length in headers for '.basename($this->image->getSource().'!'));
-        $this->write('           <fg=gray> Using default content length of 0. '.'</>');
-        $this->write('           <fg=gray> Is the image path valid? '.($this->image->getSource()).'</>');
+        $this->write(' > <comment>Warning:</comment> Could not find content length in headers for '.basename($this->image->getSource().'!')
+        .PHP_EOL.'           <fg=gray> Using default content length of 0. '.'</>'
+        .PHP_EOL.'           <fg=gray> Is the image path valid? '.($this->image->getSource()).'</>');
 
         return 0;
     }
@@ -73,8 +73,8 @@ class FindsContentLengthForImageObject
         $path = Hyde::path('_media/'.$this->image->getSource());
 
         if (! file_exists($path)) {
-            $this->write(' > <comment>Warning:</comment> Could not find image file at '.$path.'!');
-            $this->write('         <fg=gray>   Using default content length of 0. '.'</>');
+            $this->write(' > <comment>Warning:</comment> Could not find image file at '.$path.'!'
+            .PHP_EOL.'         <fg=gray>   Using default content length of 0. '.'</>');
 
             return 0;
         }
