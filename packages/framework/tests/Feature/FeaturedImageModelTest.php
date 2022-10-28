@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use function file_put_contents;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
-use function file_put_contents;
 use function strip_tags;
 use function unlink;
 
@@ -393,7 +393,6 @@ class FeaturedImageModelTest extends TestCase
         $this->assertEquals('Image by John Doe. License Creative Commons.', $this->stripHtml($component));
     }
 
-
     public function test_it_can_find_the_content_length_for_a_local_image_stored_in_the_media_directory()
     {
         $image = new FeaturedImage();
@@ -446,7 +445,6 @@ class FeaturedImageModelTest extends TestCase
             0, $image->getContentLength()
         );
     }
-
 
     protected function stripHtml(string $string): string
     {

@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use BadMethodCallException;
-use Hyde\Hyde;
-use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\HtmlString;
-use Stringable;
 use function array_flip;
 use function array_key_exists;
+use BadMethodCallException;
 use function basename;
 use function config;
 use function e;
 use function file_exists;
+use Hyde\Hyde;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\HtmlString;
 use function implode;
 use function key;
+use Stringable;
 
 /**
  * Holds the information for an image, and contains helper methods for generating fluent HTML around it.
