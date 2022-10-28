@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
  */
-class ImageModelTest extends TestCase
+class FeaturedImageModelTest extends TestCase
 {
     public function test_can_construct_new_image()
     {
