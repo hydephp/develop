@@ -97,7 +97,6 @@ final class FindsNavigationDataForPage
             return $this->page->matter('navigation.priority');
         }
 
-        // Different default return values are to preserve backwards compatibility
         return $this->page instanceof DocumentationPage
             ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
             : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
