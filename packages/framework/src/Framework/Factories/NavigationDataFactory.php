@@ -17,6 +17,9 @@ use Illuminate\Support\Str;
 use function in_array;
 use function is_a;
 
+/**
+ * Discover data used for navigation menus and the documentation sidebar.
+ */
 class NavigationDataFactory extends Concerns\PageDataFactory implements NavigationSchema
 {
     use InteractsWithFrontMatter;
