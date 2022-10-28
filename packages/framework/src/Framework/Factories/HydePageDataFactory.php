@@ -68,15 +68,15 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     protected function findTitleForPage(): string
     {
-        return $this->page->matter('title')
+        return $this->matter('title')
             ?? $this->findTitleFromMarkdownHeadings()
-            ?? Hyde::makeTitle($this->page->identifier);
+            ?? Hyde::makeTitle($this->identifier);
     }
 
     protected function findTitleFromMarkdownHeadings(): ?string
     {
-        if ($this->page instanceof BaseMarkdownPage) {
-            foreach ($this->page->markdown()->toArray() as $line) {
+        if ($this->markdown) {
+            foreach ($this->markdown->toArray() as $line) {
                 if (str_starts_with($line, '# ')) {
                     return trim(substr($line, 2), ' ');
                 }
