@@ -79,8 +79,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->matter('navigation.label');
         }
 
-        if (isset($this->getNavigationLabelConfig()[$this->page->routeKey])) {
-            return $this->getNavigationLabelConfig()[$this->page->routeKey];
+        if (isset($this->getNavigationLabelConfig()[$this->routeKey])) {
+            return $this->getNavigationLabelConfig()[$this->routeKey];
         }
 
         return $this->matter('title') ?? 'not refactored yet' ?? $this->page->title;
@@ -105,7 +105,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
-        if (in_array($this->page->routeKey, config('hyde.navigation.exclude', ['404']))) {
+        if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
             return true;
         }
 
@@ -126,7 +126,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
     {
-        return array_key_exists($this->page->routeKey, $config) ? (int) $config[$this->page->routeKey] : null;
+        return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
     }
 
     private function findNavigationMenuPriorityInSidebarConfig(array $config): ?int
