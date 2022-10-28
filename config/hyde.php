@@ -11,9 +11,9 @@
 |
 */
 
+use Hyde\Facades\Author;
 use Hyde\Facades\Features;
 use Hyde\Facades\Meta;
-use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 return [
     /*
@@ -85,7 +85,7 @@ return [
     */
 
     'authors' => [
-        PostAuthor::create(
+        Author::create(
             username: 'mr_hyde', // Required username
             name: 'Mr. Hyde', // Optional display name
             website: 'https://hydephp.com' // Optional website URL
