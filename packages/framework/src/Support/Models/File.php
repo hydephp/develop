@@ -29,7 +29,7 @@ class File implements Arrayable, JsonSerializable, Stringable
     /**
      * If the file is associated with a page, the class can be specified here.
      *
-     * @var string<\Hyde\Pages\Concerns\HydePage>|null
+     * @var class-string<\Hyde\Pages\Concerns\HydePage>|null
      */
     public ?string $belongsTo = null;
 
