@@ -10,7 +10,7 @@ use Stringable;
 /**
  * The Post Author model object.
  *
- * @see \Hyde\Framework\Testing\Feature\AuthorTest
+ * @see \Hyde\Framework\Testing\Feature\PostAuthorTest
  */
 class PostAuthor implements Stringable
 {
@@ -32,8 +32,8 @@ class PostAuthor implements Stringable
     /**
      * The author's website URL.
      *
-     * Could for example, be a Twitter page, website,
-     * or a hyperlink to more posts by the author.
+     * Could for example, be a Twitter page, website, or a hyperlink to more posts by the author.
+     * Should be a fully qualified link, meaning it starts with http:// or https://.
      *
      * @var string|null
      */
@@ -42,27 +42,26 @@ class PostAuthor implements Stringable
     /**
      * Construct a new Post Author object.
      *
-     * Parameters are supplied through an array to make it
-     * easy to load data from Markdown post front matter.
+     * If your input is in the form of an array, you may rather want to use the `make` method.
      *
      * @param  string  $username
-     * @param  array|null  $data
+     * @param  string|null  $name
+     * @param  string|null  $website
      */
-    final public function __construct(string $username, ?array $data = [])
+    public function __construct(string $username, ?string $name = null, ?string $website = null)
     {
         $this->username = $username;
+        $this->name = $name;
+        $this->website = $website;
+    }
 
-        if (isset($data['name'])) {
-            $this->name = $data['name'];
-        }
-
-        if (isset($data['website'])) {
-            $this->website = $data['website'];
-        }
+    public static function create(string $username, ?string $name = null, ?string $website = null): static
+    {
+        return new static($username, $name, $website);
     }
 
     /** Dynamically get or create an author based on a username string or front matter array */
-    final public static function make(string|array $data): static
+    public static function make(string|array $data): static
     {
         if (is_string($data)) {
             return static::get($data);
@@ -71,6 +70,7 @@ class PostAuthor implements Stringable
         return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
     }
 
+    /** Get an Author from the config, or create it. */
     public static function get(string $username): static
     {
         return static::all()->firstWhere('username', $username) ?? static::create($username);
@@ -78,12 +78,7 @@ class PostAuthor implements Stringable
 
     public static function all(): Collection
     {
-        return new Collection(config('authors', []));
-    }
-
-    public static function create(string $username, ?string $name = null, ?string $website = null): static
-    {
-        return new static($username, ['name' => $name, 'website' => $website]);
+        return new Collection(config('hyde.authors', []));
     }
 
     public function __toString(): string
