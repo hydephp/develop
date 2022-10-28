@@ -137,13 +137,15 @@ class FileTest extends TestCase
     public function test_to_array_returns_array_of_file_properties()
     {
         $this->file('foo.txt', 'foo bar');
-        // $this->assertSame([
-        //     'name'     => 'foo.txt',
-        //     'path'     => 'foo.txt',
-        //     'contents' => 'foo bar',
-        //     'length'   => 7,
-        //     'mimeType' => 'text/plain',
-        // ], File::make('foo.txt')->toArray());
+
+        $this->assertSame([
+         'name'     => 'foo.txt',
+         'path'     => 'foo.txt',
+         'contents' => 'foo bar',
+         'length'   => 7,
+         'mimeType' => 'text/plain',
+         'model'    => null,
+        ], File::make('foo.txt')->toArray());
 
         $this->assertSame([
             'path' => 'foo',

@@ -145,7 +145,11 @@ class File implements Arrayable, JsonSerializable, Stringable
     public function toArray(): array
     {
         return [
+            'name' => $this->getName(),
             'path' => $this->path,
+            'contents' => $this->getContents(),
+            'length' => $this->getContentLength(),
+            'mimeType' => $this->getMimeType(),
             'model' => $this->belongsTo,
         ];
     }
