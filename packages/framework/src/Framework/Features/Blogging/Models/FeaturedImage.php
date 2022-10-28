@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use BadMethodCallException;
+use function basename;
 use function e;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
