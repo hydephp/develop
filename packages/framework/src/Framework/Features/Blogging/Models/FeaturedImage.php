@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use Exception;
+use BadMethodCallException;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
@@ -141,7 +141,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     public function getSource(): string
     {
-        return $this->url ?? $this->getPath() ?? throw new Exception('Attempting to get source from Image that has no source.');
+        return $this->url ?? $this->getPath() ?? throw new BadMethodCallException('Attempting to get source from Image that has no source.');
     }
 
     public function getLink(): string

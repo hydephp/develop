@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -87,6 +88,7 @@ class FeaturedImageModelTest extends TestCase
     {
         $image = new FeaturedImage();
 
+        $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Attempting to get source from Image that has no source.');
         $image->getSource();
     }
