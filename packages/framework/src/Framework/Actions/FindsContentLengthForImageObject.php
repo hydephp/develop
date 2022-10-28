@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Session\Session;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -24,13 +25,17 @@ class FindsContentLengthForImageObject
     /**
      * Testing adding console debug output.
      */
-    protected OutputInterface $output;
+    protected OutputInterface|false $output;
 
     public function __construct(FeaturedImage $image)
     {
         $this->image = $image;
 
-        $this->output = new ConsoleOutput();
+        if (app(Session::class)->has('output')) {
+            $this->output = app(Session::class)->get('output');
+        } else {
+            $this->output = false;
+        }
     }
 
     public function execute(): int
@@ -84,6 +89,8 @@ class FindsContentLengthForImageObject
 
     protected function write(string $string): void
     {
-        $this->output->writeln($string);
+        if ($this->output !== false) {
+            $this->output->writeln($string);
+        }
     }
 }
