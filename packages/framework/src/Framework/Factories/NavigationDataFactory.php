@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
@@ -17,6 +18,8 @@ use function in_array;
 
 class NavigationDataFactory extends Concerns\PageDataFactory implements NavigationSchema
 {
+    use InteractsWithFrontMatter;
+
     /**
      * The front matter properties supported by this factory.
      *
