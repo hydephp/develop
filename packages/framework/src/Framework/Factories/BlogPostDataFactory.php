@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-use Hyde\Framework\Concerns\HasFrontMatter;
+use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Models\DateString;
@@ -21,9 +22,16 @@ use function substr;
  * All data can be set using front matter in the page source file. If no front matter is set for the given key,
  * this class will attempt to generate and discover the values based on the page and the project's configuration.
  */
-class BlogPostDataFactory extends Concerns\PageDataFactory
+class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSchema
 {
-    use HasFrontMatter;
+    use InteractsWithFrontMatter;
+
+    /**
+     * The front matter properties supported by this factory.
+     *
+     * Note that this class does not add the title, as that is already added to all pages.
+     */
+    public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
 
     private FrontMatter $matter;
     private Markdown $markdown;
