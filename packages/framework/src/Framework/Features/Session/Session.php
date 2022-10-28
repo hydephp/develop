@@ -9,6 +9,7 @@ namespace Hyde\Framework\Features\Session;
  * to asynchronously add warnings to be used at a later point in the request lifecycle.
  *
  * It's bound into the service container as a singleton and is not persisted.
+ *
  * @example app(Session::class)->addWarning('warning');
  */
 class Session

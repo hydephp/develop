@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Framework\Feature;
 
+use function app;
 use Hyde\Framework\Features\Session\Session;
 use Hyde\Testing\TestCase;
-use function app;
 
 /**
  * @covers \Hyde\Framework\Features\Session\Session
