@@ -254,11 +254,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     protected function getPath(): ?string
     {
-        if (isset($this->path)) {
-            return ($this->path);
-        }
-
-        return null;
+        return $this->path ?? null;
     }
 
     protected function getContentLengthFromRemote(): ?int
