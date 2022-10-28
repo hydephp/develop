@@ -30,17 +30,13 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected const FALLBACK_PRIORITY = 999;
     protected const CONFIG_OFFSET = 500;
 
-    private FrontMatter $matter;
-
     protected readonly ?string $label;
     protected readonly ?string $group;
     protected readonly ?bool $hidden;
     protected readonly ?int $priority;
 
-    public function __construct(FrontMatter $matter)
+    public function __construct(private FrontMatter $matter)
     {
-        $this->matter = $matter;
-
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
         $this->hidden = $this->makeHidden();
