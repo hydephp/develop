@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use BadMethodCallException;
-use Illuminate\Support\HtmlString;
 use function basename;
 use function e;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
-use Stringable;
+use Illuminate\Support\HtmlString;
 use function implode;
+use Stringable;
 
 /**
  * Holds the information for an image, and contains helper methods for generating fluent HTML around it.
@@ -38,6 +38,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image's path if it's stored locally.
      *
      * @var string|null Path to file in the _media directory
+     *
      * @example image.jpg.
      */
     public ?string $path;
@@ -47,6 +48,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * Will override the path property if both are set.
      *
      * @var string|null Fully qualified URL to the image.
+     *
      * @example https://example.com/media/image.jpg
      */
     public ?string $url;
@@ -56,14 +58,16 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * You should always set this to provide accessibility.
      *
      * @var string|null
+     *
      * @example "This is an image of a cat sitting in a basket.".
      */
     public ?string $description;
 
     /**
-     * The image's title. (Shows a tooltip on hover.)
+     * The image's title. (Shows a tooltip on hover.).
      *
      * @var string|null
+     *
      * @example "My Cat Archer".
      */
     public ?string $title;
@@ -72,6 +76,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image's copyright.
      *
      * @var string|null
+     *
      * @example "Copyright (c) 2020 John Doe".
      */
     public ?string $copyright;
@@ -80,6 +85,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image's license name.
      *
      * @var string|null
+     *
      * @example "CC BY-NC-SA 4.0".
      */
     public ?string $license;
@@ -88,6 +94,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image's license URL.
      *
      * @var string|null
+     *
      * @example "https://creativecommons.org/licenses/by-nc-sa/4.0/".
      */
     public ?string $licenseUrl;
@@ -96,6 +103,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image's author.
      *
      * @var string|null
+     *
      * @example "John Doe".
      */
     public ?string $author;
@@ -104,6 +112,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image's source (for attribution/credit).
      *
      * @var string|null
+     *
      * @example "https://unsplash.com/photos/example".
      */
     public ?string $credit = null;
