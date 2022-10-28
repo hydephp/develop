@@ -17,7 +17,14 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     protected readonly string $title;
     protected readonly ?string $canonicalUrl;
     protected readonly ?NavigationData $navigation;
-    
+
+    public function __construct()
+    {
+        $this->title = $this->makeTitle();
+        $this->canonicalUrl = $this->makeCanonicalUrl();
+        $this->navigation = $this->makeNavigation();
+    }
+
     public function toArray(): array
     {
         // TODO: Implement toArray() method.
