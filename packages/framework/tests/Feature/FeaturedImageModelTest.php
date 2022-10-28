@@ -42,6 +42,15 @@ class FeaturedImageModelTest extends TestCase
         $this->assertEquals('bar', $image->title);
     }
 
+    public function test_image_path_is_normalized_to_always_begin_with_media_prefix()
+    {
+        $image = FeaturedImage::make('foo');
+        $this->assertEquals('_media/foo', $image->path);
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertEquals('_media/foo', $image->path);
+    }
+
     public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()
     {
         $image = FeaturedImage::fromSource('https://example.com/image.jpg');
