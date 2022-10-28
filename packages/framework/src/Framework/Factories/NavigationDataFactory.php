@@ -70,26 +70,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeLabel(): ?string
     {
-        return $this->findLabel();
-    }
-
-    protected function makeGroup(): ?string
-    {
-        return $this->findGroup();
-    }
-
-    protected function makeHidden(): ?bool
-    {
-        return $this->findHidden();
-    }
-
-    protected function makePriority(): ?int
-    {
-        return $this->findPriority();
-    }
-
-    private function findLabel(): string
-    {
         if ($this->matter('navigation.label') !== null) {
             return $this->matter('navigation.label');
         }
@@ -101,7 +81,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->matter('title') ?? $this->title;
     }
 
-    private function findGroup(): ?string
+    protected function makeGroup(): ?string
     {
         if ($this->isInstanceOf(DocumentationPage::class)) {
             return $this->getDocumentationPageGroup();
@@ -110,7 +90,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return null;
     }
 
-    private function findHidden(): bool
+    protected function makeHidden(): ?bool
     {
         if ($this->isInstanceOf(MarkdownPost::class)) {
             return true;
@@ -127,7 +107,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return false;
     }
 
-    private function findPriority(): int
+    protected function makePriority(): ?int
     {
         if ($this->matter('navigation.priority') !== null) {
             return $this->matter('navigation.priority');
