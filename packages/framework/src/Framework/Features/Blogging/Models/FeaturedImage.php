@@ -97,6 +97,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * When added, the rendered $author's name will link to this URL.
      *
      * @note This was previously called "credit" but was renamed to "attributionUrl" for clarity.
+     *
      * @example "https://unsplash.com/photos/example".
      */
     public ?string $attributionUrl = null;
