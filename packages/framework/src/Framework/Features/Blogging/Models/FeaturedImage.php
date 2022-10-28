@@ -41,8 +41,13 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 {
     /**
      * The image's path if it's stored locally.
+     * The image must be stored in the _media directory.
+     *
+     * It no longer matters if you add the _media/ prefix or not,
+     * as it will be normalized to always begin with _media/.
      *
      * @example image.jpg.
+     * @example _media/image.jpg.
      */
     public ?string $path;
 
@@ -114,7 +119,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         }
 
         if (isset($this->path)) {
-            $this->path = basename($this->path);
+            $this->path = static::normalizePath($this->path);
         }
     }
 
@@ -276,5 +281,16 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         }
 
         return null;
+    }
+
+    protected static function normalizePath(string $path): string
+    {
+        $path = Hyde::pathToRelative($path);
+
+        if (str_starts_with($path, '_media/')) {
+            return $path;
+        }
+
+        return '_media/'.$path;
     }
 }
