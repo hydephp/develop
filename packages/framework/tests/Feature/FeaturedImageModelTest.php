@@ -28,7 +28,7 @@ class FeaturedImageModelTest extends TestCase
     {
         $image = FeaturedImage::make('foo');
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('_media/foo', $image->path);
+        $this->assertEquals('foo', $image->path);
     }
 
     public function test_make_can_create_an_image_based_on_array()
@@ -38,7 +38,7 @@ class FeaturedImageModelTest extends TestCase
             'title' => 'bar',
         ]);
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('_media/foo', $image->path);
+        $this->assertEquals('foo', $image->path);
         $this->assertEquals('bar', $image->title);
     }
 
@@ -62,7 +62,7 @@ class FeaturedImageModelTest extends TestCase
 
         $image = FeaturedImage::fromSource('image.jpg');
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('_media/image.jpg', $image->path);
+        $this->assertEquals('image.jpg', $image->path);
     }
 
     public function test_array_data_can_be_used_to_initialize_properties_in_constructor()
@@ -76,7 +76,7 @@ class FeaturedImageModelTest extends TestCase
 
         $image = new FeaturedImage($data);
 
-        $this->assertEquals('_media/'.$data['path'], $image->path);
+        $this->assertEquals($data['path'], $image->path);
         $this->assertEquals($data['url'], $image->url);
         $this->assertEquals($data['description'], $image->description);
         $this->assertEquals($data['title'], $image->title);
@@ -342,15 +342,15 @@ class FeaturedImageModelTest extends TestCase
 
     public function test_local_path_is_normalized_to_the_media_directory()
     {
-        $this->assertEquals('_media/image.jpg', (new FeaturedImage([
+        $this->assertEquals('image.jpg', (new FeaturedImage([
             'path' => 'image.jpg',
         ]))->path);
 
-        $this->assertEquals('_media/image.jpg', (new FeaturedImage([
+        $this->assertEquals('image.jpg', (new FeaturedImage([
             'path' => '_media/image.jpg',
         ]))->path);
 
-        $this->assertEquals('_media/image.jpg', (new FeaturedImage([
+        $this->assertEquals('image.jpg', (new FeaturedImage([
             'path' => 'media/image.jpg',
         ]))->path);
     }
