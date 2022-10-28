@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Framework\Features\Documentation;
 
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use function str_contains;
 
 /**
  * Class to make Hyde documentation pages smarter,
@@ -23,25 +25,37 @@ class SemanticDocumentationArticle
     protected string $body;
     protected string $footer;
 
+    /**
+     * Create a new SemanticDocumentationArticle instance, process, and return it.
+     *
+     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
+     * @param  string  $html  compiled HTML content
+     * @return static new processed instance
+     */
+    public static function create(DocumentationPage $page, string $html): static
+    {
+        return (new self($page, $html))->process();
+    }
+
     public function __construct(DocumentationPage $page, string $html)
     {
         $this->page = $page;
         $this->html = $html;
     }
 
-    public function renderHeader(): string
+    public function renderHeader(): HtmlString
     {
-        return $this->header;
+        return new HtmlString($this->header);
     }
 
-    public function renderBody(): string
+    public function renderBody(): HtmlString
     {
-        return $this->body;
+        return new HtmlString($this->body);
     }
 
-    public function renderFooter(): string
+    public function renderFooter(): HtmlString
     {
-        return $this->footer;
+        return new HtmlString($this->footer);
     }
 
     /** @internal */
@@ -107,18 +121,6 @@ class SemanticDocumentationArticle
         return view('hyde::components.docs.edit-source-button', [
             'href' => $this->page->getOnlineSourcePath(),
         ])->render();
-    }
-
-    /**
-     * Create a new SemanticDocumentationArticle instance, process, and return it.
-     *
-     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
-     * @param  string  $html  compiled HTML content
-     * @return static new processed instance
-     */
-    public static function create(DocumentationPage $page, string $html): static
-    {
-        return (new self($page, $html))->process();
     }
 
     /**
