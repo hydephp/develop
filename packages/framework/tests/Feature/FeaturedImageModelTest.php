@@ -309,9 +309,7 @@ class FeaturedImageModelTest extends TestCase
 
         $this->mockPage($page);
 
-        $component = view('hyde::components.post.image', [
-            'image' => $image,
-        ])->render();
+        $component = view('hyde::components.post.image')->render();
 
         $this->assertStringContainsString('src="media/foo"', $component);
         $this->assertStringContainsString('alt="This is an image"', $component);
