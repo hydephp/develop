@@ -289,8 +289,8 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     protected function getLocalContentLength(): ?int
     {
-        if (file_exists($this->getPath())) {
-            return filesize($this->getPath());
+        if (file_exists(Hyde::path($this->getSourcePath()))) {
+            return filesize(Hyde::path($this->getSourcePath()));
         }
 
         return null;
