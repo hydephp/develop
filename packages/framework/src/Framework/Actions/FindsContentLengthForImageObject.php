@@ -49,7 +49,7 @@ class FindsContentLengthForImageObject
 
     protected function fetchRemoteImageInformation(): int
     {
-        $this->write('<fg=gray> ></> <fg=gray>Fetching remote image information for '.basename($this->image->getSource()).'...</>');
+        $this->write(PHP_EOL.'<fg=gray> ></> <fg=gray>Fetching remote image information for '.basename($this->image->getSource()).'...</>');
 
         $response = Http::withHeaders([
             'User-Agent' => config('hyde.http_user_agent', 'RSS Request Client'),
