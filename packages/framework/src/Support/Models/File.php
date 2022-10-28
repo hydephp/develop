@@ -34,9 +34,9 @@ class File implements Arrayable, JsonSerializable, Stringable
     public ?string $belongsTo = null;
 
     /**
-     * @param  string  $path  The path relative to the project root.
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $belongsToClass
-     * @return \Hyde\Framework\Models\Support\File
+     * @param string $path The path relative to the project root.
+     * @param class-string<\Hyde\Pages\Concerns\HydePage>|null $belongsToClass
+     * @return \Hyde\Support\Models\File
      */
     public static function make(string $path, ?string $belongsToClass = null): static
     {
