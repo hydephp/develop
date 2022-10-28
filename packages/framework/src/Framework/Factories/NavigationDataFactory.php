@@ -51,22 +51,26 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeLabel(): ?string
     {
-        //
+        return $this->findNavigationMenuLabel();
     }
 
     protected function makeGroup(): ?string
     {
-        //
+        if ($this->page instanceof DocumentationPage) {
+            return $this->getDocumentationPageGroup();
+        }
+
+        return null;
     }
 
     protected function makeHidden(): ?bool
     {
-        //
+        return $this->findNavigationMenuHidden();
     }
 
     protected function makePriority(): ?int
     {
-        //
+        return $this->findNavigationMenuPriority();
     }
 
     private function findNavigationMenuLabel(): string
