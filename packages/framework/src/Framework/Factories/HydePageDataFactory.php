@@ -6,9 +6,13 @@ namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Navigation\NavigationData;
+use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
+use Hyde\Pages\Concerns\BaseMarkdownPage;
+use function substr;
+use function trim;
 
 class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 {
@@ -60,5 +64,25 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     protected function makeNavigation(): ?NavigationData
     {
         // TODO: Implement makeNavigation() method.
+    }
+
+    protected function findTitleForPage(): string
+    {
+        return $this->page->matter('title')
+            ?? $this->findTitleFromMarkdownHeadings()
+            ?? Hyde::makeTitle($this->page->identifier);
+    }
+
+    protected function findTitleFromMarkdownHeadings(): ?string
+    {
+        if ($this->page instanceof BaseMarkdownPage) {
+            foreach ($this->page->markdown()->toArray() as $line) {
+                if (str_starts_with($line, '# ')) {
+                    return trim(substr($line, 2), ' ');
+                }
+            }
+        }
+
+        return null;
     }
 }
