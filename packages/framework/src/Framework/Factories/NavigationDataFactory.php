@@ -15,6 +15,7 @@ use function array_key_exists;
 use function array_merge;
 use function config;
 use function in_array;
+use function is_a;
 
 class NavigationDataFactory extends Concerns\PageDataFactory implements NavigationSchema
 {
@@ -88,7 +89,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuGroup(): ?string
     {
-        if ($this->pageClass === DocumentationPage::class) {
+        if (is_a($this->pageClass,  DocumentationPage::class, true)) {
             return $this->getDocumentationPageGroup();
         }
 
@@ -97,7 +98,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuHidden(): bool
     {
-        if ($this->pageClass === MarkdownPost::class) {
+        if (is_a($this->pageClass,  MarkdownPost::class, true)) {
             return true;
         }
 
@@ -119,7 +120,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         // Different default return values are to preserve backwards compatibility
-        return $this->pageClass === DocumentationPage::class
+        return is_a($this->pageClass, DocumentationPage::class, true)
             ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
             : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
     }
