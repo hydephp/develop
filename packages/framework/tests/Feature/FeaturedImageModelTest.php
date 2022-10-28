@@ -165,30 +165,30 @@ class FeaturedImageModelTest extends TestCase
             'copyright' => 'foo',
             'license' => 'foo',
         ]);
-        $string = $image->getFluentAttribution();
+        $string = $image->getFluentAttribution()->toHtml();
 
         $this->assertStringContainsString('Image by <span itemprop="creator" ', $string);
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
         $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
 
         $image = new FeaturedImage(['author' => 'John Doe']);
-        $string = $image->getFluentAttribution();
+        $string = $image->getFluentAttribution()->toHtml();
 
         $this->assertStringContainsString('Image by ', $string);
         $this->assertStringContainsString('John Doe', $string);
 
         $image = new FeaturedImage(['copyright' => 'foo']);
-        $string = $image->getFluentAttribution();
+        $string = $image->getFluentAttribution()->toHtml();
 
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
 
         $image = new FeaturedImage(['license' => 'foo']);
 
-        $string = $image->getFluentAttribution();
+        $string = $image->getFluentAttribution()->toHtml();
         $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
 
         $image = new FeaturedImage();
-        $this->assertEquals('', $image->getFluentAttribution());
+        $this->assertEquals('', $image->getFluentAttribution()->toHtml());
     }
 
     public function test_get_fluent_attribution_method_creates_fluent_messages()
@@ -199,7 +199,7 @@ class FeaturedImageModelTest extends TestCase
                 'author' => 'John Doe',
                 'copyright' => 'CC',
                 'license' => 'MIT',
-            ]))->getFluentAttribution())
+            ]))->getFluentAttribution()->toHtml())
         );
 
         $this->assertSame(
@@ -207,7 +207,7 @@ class FeaturedImageModelTest extends TestCase
             $this->stripHtml((new FeaturedImage([
                 'author' => 'John Doe',
                 'license' => 'MIT',
-            ]))->getFluentAttribution())
+            ]))->getFluentAttribution()->toHtml())
         );
 
         $this->assertSame(
@@ -215,32 +215,32 @@ class FeaturedImageModelTest extends TestCase
             $this->stripHtml((new FeaturedImage([
                 'author' => 'John Doe',
                 'copyright' => 'CC',
-            ]))->getFluentAttribution())
+            ]))->getFluentAttribution()->toHtml())
         );
 
         $this->assertSame(
             'All rights reserved.',
             $this->stripHtml((new FeaturedImage([
                 'copyright' => 'All rights reserved',
-            ]))->getFluentAttribution())
+            ]))->getFluentAttribution()->toHtml())
         );
 
         $this->assertSame(
             'Image by John Doe.',
             $this->stripHtml((new FeaturedImage([
                 'author' => 'John Doe',
-            ]))->getFluentAttribution())
+            ]))->getFluentAttribution()->toHtml())
         );
 
         $this->assertSame(
             'License MIT.',
             $this->stripHtml((new FeaturedImage([
                 'license' => 'MIT',
-            ]))->getFluentAttribution())
+            ]))->getFluentAttribution()->toHtml())
         );
 
         $this->assertSame('',
-            $this->stripHtml((new FeaturedImage())->getFluentAttribution())
+            $this->stripHtml((new FeaturedImage())->getFluentAttribution()->toHtml())
         );
     }
 

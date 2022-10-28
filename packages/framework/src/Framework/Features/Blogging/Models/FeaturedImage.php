@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use BadMethodCallException;
+use Illuminate\Support\HtmlString;
 use function basename;
 use function e;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Stringable;
+use function implode;
 
 /**
  * Holds the information for an image.
@@ -155,7 +157,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return (new FindsContentLengthForImageObject($this))->execute();
     }
 
-    public function getFluentAttribution(): string
+    public function getFluentAttribution(): HtmlString
     {
         $attribution = [];
 
@@ -171,7 +173,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
             $attribution[] = 'License '.$this->getLicenseString();
         }
 
-        return implode('. ', $attribution).((count($attribution) > 0) ? '.' : '');
+        return new HtmlString(implode('. ', $attribution).((count($attribution) > 0) ? '.' : ''));
     }
 
     /**
