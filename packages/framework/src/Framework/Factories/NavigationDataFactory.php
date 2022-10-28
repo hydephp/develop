@@ -15,6 +15,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
      */
     public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
 
+    protected const FALLBACK_PRIORITY = 999;
+    protected const CONFIG_OFFSET = 500;
+
     protected readonly ?string $label;
     protected readonly ?string $group;
     protected readonly ?bool $hidden;
