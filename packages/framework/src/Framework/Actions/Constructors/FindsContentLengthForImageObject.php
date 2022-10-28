@@ -12,6 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\FindsContentLengthForImageObjectTest
+ *
+ * @todo Refactor output to buffer into the service container, so output can be controlled better,
+ *       for example by grouping all warnings at the end of a build (with options to fail on warning, useful for CI setups).
  */
 class FindsContentLengthForImageObject
 {
