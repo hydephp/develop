@@ -24,4 +24,9 @@ class Session
     {
         return $this->warnings;
     }
+
+    public function hasWarnings(): bool
+    {
+        return ! empty($this->warnings);
+    }
 }

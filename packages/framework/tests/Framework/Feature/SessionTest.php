@@ -33,4 +33,15 @@ class SessionTest extends TestCase
     {
         $this->assertSame([], app(Session::class)->getWarnings());
     }
+
+    public function test_session_can_check_if_warnings_are_present()
+    {
+        $session = app(Session::class);
+
+        $this->assertFalse($session->hasWarnings());
+
+        $session->addWarning('warning');
+
+        $this->assertTrue($session->hasWarnings());
+    }
 }
