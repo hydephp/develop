@@ -270,7 +270,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return null;
     }
 
-    private function getLocalContentLength(): ?int
+    protected function getLocalContentLength(): ?int
     {
         if (file_exists($this->getPath())) {
             return filesize($this->getPath());
