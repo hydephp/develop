@@ -70,7 +70,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeLabel(): ?string
     {
-        return $this->matter('navigation.label') ?? $this->searchForLabelInConfig() ?? $this->matter('title') ?? $this->title;
+        return $this->matter('navigation.label')
+            ?? $this->searchForLabelInConfig()
+            ?? $this->matter('title')
+            ?? $this->title;
     }
 
     protected function makeGroup(): ?string
