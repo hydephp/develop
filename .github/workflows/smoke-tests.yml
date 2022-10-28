@@ -1,6 +1,6 @@
 # This workflow is especially helpful for pull requests to quickly see if the other tests will definitely fail
 
-name: Smoke Tests
+name: 🔥 Smoke Tests
 
 on:
   pull_request:
