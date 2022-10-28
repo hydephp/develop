@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Hyde\Framework\Features\Navigation\NavigationData;
 use function array_flip;
 use function array_key_exists;
 use function array_merge;
@@ -60,6 +61,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             'hidden' => $this->hidden,
             'priority' => $this->priority,
         ];
+    }
+
+    public static function make(...$args): NavigationData
+    {
+        return NavigationData::make((new self(...$args))->toArray());
     }
 
     protected function makeLabel(): ?string
