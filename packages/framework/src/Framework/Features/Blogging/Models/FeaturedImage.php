@@ -122,12 +122,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         }
     }
 
-    /** @inheritDoc */
-    public function __toString()
-    {
-        return $this->getLink();
-    }
-
     /** Dynamically create an image based on string or front matter array */
     public static function make(string|array $data): static
     {
@@ -143,6 +137,12 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return str_starts_with($image, 'http')
             ? new static(['url' => $image])
             : new static(['path' => $image]);
+    }
+
+    /** @inheritDoc */
+    public function __toString()
+    {
+        return $this->getLink();
     }
 
     public function getSource(): string
