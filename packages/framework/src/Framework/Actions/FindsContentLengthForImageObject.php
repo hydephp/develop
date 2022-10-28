@@ -25,7 +25,7 @@ class FindsContentLengthForImageObject
     /**
      * Testing adding console debug output.
      */
-    protected OutputInterface|false $output;
+    protected OutputInterface|false $output = false;
 
     public function __construct(FeaturedImage $image)
     {
@@ -33,8 +33,6 @@ class FindsContentLengthForImageObject
 
         if (app(Session::class)->has('output')) {
             $this->output = app(Session::class)->get('output');
-        } else {
-            $this->output = false;
         }
     }
 
