@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use Exception;
+use BadMethodCallException;
+use function basename;
+use function e;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Illuminate\Support\HtmlString;
+use function implode;
 use Stringable;
 
 /**
- * Holds the information for an image.
+ * Holds the information for an image, and contains helper methods for generating fluent HTML around it.
  *
  * $schema = [
  *    'path'         => '?string',
@@ -31,77 +35,68 @@ use Stringable;
 class FeaturedImage implements FeaturedImageSchema, Stringable
 {
     /**
-     * The image's path (if it is stored locally (in the _media directory)).
-     * Example: image.jpg.
+     * The image's path if it's stored locally.
      *
-     * @var string|null
+     * @example image.jpg.
      */
     public ?string $path;
 
     /**
-     * The image's URL (if stored externally).
-     * Example: https://example.com/media/image.jpg.
-     *
+     * The image's URL if it's stored remotely.
      * Will override the path property if both are set.
      *
-     * @var string|null
+     * @example https://example.com/media/image.jpg
      */
     public ?string $url;
 
     /**
      * The image's description. (Used for alt text for screen readers.)
      * You should always set this to provide accessibility.
-     * Example: "This is an image of a cat sitting in a basket.".
      *
-     * @var string|null
+     * @example "This is an image of a cat sitting in a basket.".
      */
     public ?string $description;
 
     /**
-     * The image's title. (Shows a tooltip on hover.)
-     * Example: "My Cat Archer".
+     * The image's title. (Shows a tooltip on hover.).
      *
-     * @var string|null
+     * @example "My Cat Archer".
      */
     public ?string $title;
 
     /**
-     * The image's copyright.
-     * Example: "Copyright (c) 2020 John Doe".
+     * The image's copyright information.
      *
-     * @var string|null
+     * @example "Copyright (c) 2020 John Doe".
      */
     public ?string $copyright;
 
     /**
      * The image's license name.
-     * Example: "CC BY-NC-SA 4.0".
      *
-     * @var string|null
+     * @example "CC BY-NC-SA 4.0".
      */
     public ?string $license;
 
     /**
      * The image's license URL.
-     * Example: "https://creativecommons.org/licenses/by-nc-sa/4.0/".
      *
-     * @var string|null
+     * @example "https://creativecommons.org/licenses/by-nc-sa/4.0/".
      */
     public ?string $licenseUrl;
 
     /**
-     * The image's author.
-     * Example: "John Doe".
+     * The image's author/photographer.
      *
-     * @var string|null
+     * @example "John Doe".
      */
     public ?string $author;
 
     /**
-     * The image's source (for attribution).
-     * Example: "https://unsplash.com/photos/example".
+     * Link to the image author/source (for attribution/credit).
+     * When added, the rendered $author's name will link to this URL.
      *
-     * @var string|null
+     * @example "https://unsplash.com/photos/example".
      */
     public ?string $credit = null;
 
@@ -141,7 +136,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     public function getSource(): string
     {
-        return $this->url ?? $this->getPath() ?? throw new Exception('Attempting to get source from Image that has no source.');
+        return $this->url ?? $this->getPath() ?? throw new BadMethodCallException('Attempting to get source from Image that has no source.');
     }
 
     public function getLink(): string
@@ -154,65 +149,27 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return (new FindsContentLengthForImageObject($this))->execute();
     }
 
-    public function getImageAuthorAttributionString(): string|null
-    {
-        if (isset($this->author)) {
-            if (isset($this->credit)) {
-                return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person"><a href="'.e($this->credit).'" rel="author noopener nofollow" itemprop="url"><span itemprop="name">'.e($this->author).'</span></a></span>';
-            } else {
-                return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">'.e($this->author).'</span></span>';
-            }
-        }
-
-        return null;
-    }
-
-    public function getCopyrightString(): string|null
-    {
-        if (isset($this->copyright)) {
-            return '<span itemprop="copyrightNotice">'.e($this->copyright).'</span>';
-        }
-
-        return null;
-    }
-
-    public function getLicenseString(): string|null
-    {
-        if (isset($this->license) && isset($this->licenseUrl)) {
-            return '<a href="'.e($this->licenseUrl).'" rel="license nofollow noopener" itemprop="license">'.e($this->license).'</a>';
-        }
-
-        if (isset($this->license)) {
-            return '<span itemprop="license">'.e($this->license).'</span>';
-        }
-
-        return null;
-    }
-
-    public function getFluentAttribution(): string
+    public function getFluentAttribution(): HtmlString
     {
         $attribution = [];
 
-        $getImageAuthorAttributionString = $this->getImageAuthorAttributionString();
-        if ($getImageAuthorAttributionString !== null) {
-            $attribution[] = 'Image by '.$getImageAuthorAttributionString;
+        if ($this->getImageAuthorAttributionString() !== null) {
+            $attribution[] = 'Image by '.$this->getImageAuthorAttributionString();
         }
 
-        $getCopyrightString = $this->getCopyrightString();
-        if ($getCopyrightString !== null) {
-            $attribution[] = $getCopyrightString;
+        if ($this->getCopyrightString() !== null) {
+            $attribution[] = $this->getCopyrightString();
         }
 
-        $getLicenseString = $this->getLicenseString();
-        if ($getLicenseString !== null) {
-            $attribution[] = 'License '.$getLicenseString;
+        if ($this->getLicenseString() !== null) {
+            $attribution[] = 'License '.$this->getLicenseString();
         }
 
-        return implode('. ', $attribution);
+        return new HtmlString(implode('. ', $attribution).((count($attribution) > 0) ? '.' : ''));
     }
 
     /**
-     * Used in resources\views\components\post\image.blade.php to add meta tags with itemprop attributes.
+     * Used in resources/views/components/post/image.blade.php to add meta tags with itemprop attributes.
      *
      * @return array
      */
@@ -232,6 +189,57 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         $metadata['contentUrl'] = $this->getLink();
 
         return $metadata;
+    }
+
+    /** @internal */
+    public function getImageAuthorAttributionString(): string|null
+    {
+        if (isset($this->author)) {
+            return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">'.$this->getAuthorElement().'</span>';
+        }
+
+        return null;
+    }
+
+    /** @internal */
+    public function getCopyrightString(): string|null
+    {
+        if (isset($this->copyright)) {
+            return '<span itemprop="copyrightNotice">'.e($this->copyright).'</span>';
+        }
+
+        return null;
+    }
+
+    /** @internal */
+    public function getLicenseString(): string|null
+    {
+        if (isset($this->license) && isset($this->licenseUrl)) {
+            return '<a href="'.e($this->licenseUrl).'" rel="license nofollow noopener" itemprop="license">'.e($this->license).'</a>';
+        }
+
+        if (isset($this->license)) {
+            return '<span itemprop="license">'.e($this->license).'</span>';
+        }
+
+        return null;
+    }
+
+    protected function getCreditedAuthorLink(): string
+    {
+        return '<a href="'.e($this->credit).'" rel="author noopener nofollow" itemprop="url">'.$this->getAuthorSpan().'</a>';
+    }
+
+    protected function getAuthorSpan(): string
+    {
+        return '<span itemprop="name">'.e($this->author).'</span>';
+    }
+
+    protected function getAuthorElement(): string
+    {
+        return isset($this->credit)
+            ? $this->getCreditedAuthorLink()
+            : $this->getAuthorSpan();
     }
 
     protected function getPath(): ?string

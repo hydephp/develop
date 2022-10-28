@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use function strip_tags;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
  */
-class ImageModelTest extends TestCase
+class FeaturedImageModelTest extends TestCase
 {
     public function test_can_construct_new_image()
     {
@@ -85,6 +88,7 @@ class ImageModelTest extends TestCase
     {
         $image = new FeaturedImage();
 
+        $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Attempting to get source from Image that has no source.');
         $image->getSource();
     }
@@ -154,25 +158,90 @@ class ImageModelTest extends TestCase
         $this->assertNull($image->getLicenseString());
     }
 
-    public function test_get_fluent_attribution_method()
+    public function test_get_fluent_attribution_method_uses_rich_html_tags()
     {
+        $image = new FeaturedImage([
+            'author' => 'John Doe',
+            'copyright' => 'foo',
+            'license' => 'foo',
+        ]);
+        $string = $image->getFluentAttribution()->toHtml();
+
+        $this->assertStringContainsString('Image by <span itemprop="creator" ', $string);
+        $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
+        $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
+
         $image = new FeaturedImage(['author' => 'John Doe']);
-        $string = $image->getFluentAttribution();
+        $string = $image->getFluentAttribution()->toHtml();
 
         $this->assertStringContainsString('Image by ', $string);
+        $this->assertStringContainsString('John Doe', $string);
 
         $image = new FeaturedImage(['copyright' => 'foo']);
-        $string = $image->getFluentAttribution();
+        $string = $image->getFluentAttribution()->toHtml();
 
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
 
         $image = new FeaturedImage(['license' => 'foo']);
 
-        $string = $image->getFluentAttribution();
+        $string = $image->getFluentAttribution()->toHtml();
         $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
 
         $image = new FeaturedImage();
-        $this->assertEquals('', $image->getFluentAttribution());
+        $this->assertEquals('', $image->getFluentAttribution()->toHtml());
+    }
+
+    public function test_get_fluent_attribution_method_creates_fluent_messages()
+    {
+        $this->assertSame(
+            'Image by John Doe. CC. License MIT.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+                'copyright' => 'CC',
+                'license' => 'MIT',
+            ]))->getFluentAttribution()->toHtml())
+        );
+
+        $this->assertSame(
+            'Image by John Doe. License MIT.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+                'license' => 'MIT',
+            ]))->getFluentAttribution()->toHtml())
+        );
+
+        $this->assertSame(
+            'Image by John Doe. CC.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+                'copyright' => 'CC',
+            ]))->getFluentAttribution()->toHtml())
+        );
+
+        $this->assertSame(
+            'All rights reserved.',
+            $this->stripHtml((new FeaturedImage([
+                'copyright' => 'All rights reserved',
+            ]))->getFluentAttribution()->toHtml())
+        );
+
+        $this->assertSame(
+            'Image by John Doe.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+            ]))->getFluentAttribution()->toHtml())
+        );
+
+        $this->assertSame(
+            'License MIT.',
+            $this->stripHtml((new FeaturedImage([
+                'license' => 'MIT',
+            ]))->getFluentAttribution()->toHtml())
+        );
+
+        $this->assertSame('',
+            $this->stripHtml((new FeaturedImage())->getFluentAttribution()->toHtml())
+        );
     }
 
     public function test_get_metadata_array()
@@ -288,5 +357,41 @@ class ImageModelTest extends TestCase
         $this->assertEquals('../media/image.jpg', (string) (new FeaturedImage([
             'path' => 'image.jpg',
         ])));
+    }
+
+    public function test_the_view()
+    {
+        $page = new MarkdownPost();
+
+        $image = FeaturedImage::make([
+            'path' => 'foo',
+            'description' => 'This is an image',
+            'title' => 'FeaturedImage Title',
+            'author' => 'John Doe',
+            'license' => 'Creative Commons',
+            'licenseUrl' => 'https://licence.example.com',
+        ]);
+
+        $page->image = $image;
+
+        $this->mockPage($page);
+
+        $component = view('hyde::components.post.image')->render();
+
+        $this->assertStringContainsString('src="media/foo"', $component);
+        $this->assertStringContainsString('alt="This is an image"', $component);
+        $this->assertStringContainsString('title="FeaturedImage Title"', $component);
+        $this->assertStringContainsString('Image by', $component);
+        $this->assertStringContainsString('John Doe', $component);
+        $this->assertStringContainsString('License', $component);
+        $this->assertStringContainsString('Creative Commons', $component);
+        $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
+
+        $this->assertEquals('Image by John Doe. License Creative Commons.', $this->stripHtml($component));
+    }
+
+    protected function stripHtml(string $string): string
+    {
+        return trim(strip_newlines(strip_tags($string)), "\t ");
     }
 }
