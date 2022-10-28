@@ -30,6 +30,15 @@ class SessionTest extends TestCase
         $this->assertEquals('bar', app(Session::class)->get('foo'));
     }
 
+    public function test_it_can_forget_data()
+    {
+        app(Session::class)->put('foo', 'bar');
+        $this->assertTrue(app(Session::class)->has('foo'));
+
+        app(Session::class)->forget('foo');
+        $this->assertFalse(app(Session::class)->has('foo'));
+    }
+
     public function test_session_can_add_warning()
     {
         app(Session::class)->addWarning('warning');
