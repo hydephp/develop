@@ -30,4 +30,4 @@ jobs:
       - name: Ping statistics server with test results
         run: |
           curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
-          php ping.php "Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }}
+          php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }}
