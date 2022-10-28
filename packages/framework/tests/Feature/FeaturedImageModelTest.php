@@ -8,6 +8,7 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use function strip_tags;
+use function strip_whitespace;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
@@ -320,6 +321,6 @@ class FeaturedImageModelTest extends TestCase
         $this->assertStringContainsString('Creative Commons', $component);
         $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
 
-        $this->assertEquals('Image by John Doe. License Creative Commons.', strip_newlines(strip_tags($component)));
+        $this->assertEquals('Image by John Doe. License Creative Commons.', trim(strip_newlines(strip_tags($component)), "\t "));
     }
 }
