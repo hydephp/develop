@@ -65,7 +65,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     public static function make(FrontMatter $matter, string $identifier, string $pageClass, string $routeKey, string $title): NavigationData
     {
-        return NavigationData::make((new self($matter, $identifier, $pageClass, $routeKey, $title))->toArray());
+        return NavigationData::make(
+            (new self($matter, $identifier, $pageClass, $routeKey, $title))->toArray()
+        );
     }
 
     protected function makeLabel(): ?string
