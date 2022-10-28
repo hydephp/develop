@@ -19,4 +19,13 @@ class SessionTest extends TestCase
         $this->assertInstanceOf(Session::class, $this->app->make(Session::class));
         $this->assertSame(app(Session::class), $this->app->make(Session::class));
     }
+
+    public function test_session_can_add_warning()
+    {
+        $session = app(Session::class);
+
+        $session->addWarning('warning');
+
+        $this->assertSame(['warning'], $session->getWarnings());
+    }
 }
