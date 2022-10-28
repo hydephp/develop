@@ -143,11 +143,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             : $this->matter('navigation.group', 'other');
     }
 
-    protected function isInstanceOf(string $class): bool
-    {
-        return is_a($this->pageClass, $class, true);
-    }
-
     protected function searchForLabelInConfig(): ?string
     {
         $labelConfig = array_merge([
@@ -160,5 +155,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         return null;
+    }
+
+    protected function isInstanceOf(string $class): bool
+    {
+        return is_a($this->pageClass, $class, true);
     }
 }
