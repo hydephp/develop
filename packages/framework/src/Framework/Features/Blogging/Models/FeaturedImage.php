@@ -73,7 +73,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     public ?string $title;
 
     /**
-     * The image's copyright.
+     * The image's copyright information.
      *
      * @var string|null
      *
@@ -100,7 +100,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     public ?string $licenseUrl;
 
     /**
-     * The image's author.
+     * The image's author/photographer.
      *
      * @var string|null
      *
@@ -109,7 +109,8 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     public ?string $author;
 
     /**
-     * The image's source (for attribution/credit).
+     * Link to the image author/source (for attribution/credit).
+     * When added, the rendered $author's name will link to this URL.
      *
      * @var string|null
      *
