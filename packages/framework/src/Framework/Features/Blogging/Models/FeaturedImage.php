@@ -157,7 +157,9 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     public function getImageAuthorAttributionString(): string|null
     {
-        return isset($this->author) ? $this->makeAuthorString() : null;
+        return isset($this->author) ? sprintf('<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">%s</span>', isset($this->credit)
+            ? $this->getCreditedAuthorLink()
+            : $this->getAuthorSpan()) : null;
 
     }
 
@@ -242,12 +244,5 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     protected function getAuthorSpan(): string
     {
         return '<span itemprop="name">' . e($this->author) . '</span>';
-    }
-
-    protected function makeAuthorString(): string
-    {
-        return sprintf('<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">%s</span>', isset($this->credit)
-            ? $this->getCreditedAuthorLink()
-            : $this->getAuthorSpan());
     }
 }
