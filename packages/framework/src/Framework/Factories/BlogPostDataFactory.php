@@ -26,6 +26,9 @@ class BlogPostDataFactory extends Concerns\PageDataFactory
 {
     use HasFrontMatter;
 
+    /**
+     * The front matter properties supported by this factory.
+     */
     public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
 
     private FrontMatter $matter;
