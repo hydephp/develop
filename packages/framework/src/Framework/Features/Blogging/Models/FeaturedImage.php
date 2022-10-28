@@ -263,7 +263,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
             : $this->getAuthorSpan();
     }
 
-    protected function getPath(): ?string
+    public function getPath(): ?string
     {
         return $this->path ?? null;
     }
