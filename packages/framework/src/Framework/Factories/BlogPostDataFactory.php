@@ -21,7 +21,7 @@ use function substr;
  * All data can be set using front matter in the page source file. If no front matter is set for the given key,
  * this class will attempt to generate and discover the values based on the page and the project's configuration.
  */
-class BlogPostFactory extends Concerns\PageFactory
+class BlogPostDataFactory extends Concerns\PageDataFactory
 {
     use HasFrontMatter;
 
