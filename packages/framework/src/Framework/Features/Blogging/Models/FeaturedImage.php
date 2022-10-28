@@ -160,8 +160,8 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         if (isset($this->author)) {
             return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">' . $this->getAuthorElement() . '</span>';
         }
-        return null;
 
+        return null;
     }
 
     public function getCopyrightString(): string|null
