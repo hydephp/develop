@@ -20,7 +20,7 @@ class SessionTest extends TestCase
         $this->assertSame(app(Session::class), $this->app->make(Session::class));
     }
 
-    public function test_it_can_store_and_retrieve_data()
+    public function test_session_can_store_and_retrieve_data()
     {
         $this->assertFalse(app(Session::class)->has('foo'));
 
@@ -28,6 +28,15 @@ class SessionTest extends TestCase
 
         $this->assertTrue(app(Session::class)->has('foo'));
         $this->assertEquals('bar', app(Session::class)->get('foo'));
+    }
+
+    public function test_session_can_forget_data()
+    {
+        app(Session::class)->put('foo', 'bar');
+        $this->assertTrue(app(Session::class)->has('foo'));
+
+        app(Session::class)->forget('foo');
+        $this->assertFalse(app(Session::class)->has('foo'));
     }
 
     public function test_session_can_add_warning()

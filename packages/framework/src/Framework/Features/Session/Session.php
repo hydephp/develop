@@ -35,6 +35,11 @@ class Session
         return array_key_exists($key, $this->session);
     }
 
+    public function forget(string $key): void
+    {
+        unset($this->session[$key]);
+    }
+
     public function addWarning(string $warning): void
     {
         $this->warnings[] = $warning;
