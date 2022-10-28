@@ -70,6 +70,7 @@ class PostAuthor implements Stringable
         return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
     }
 
+    /** Get an Author from the config, or create it. */
     public static function get(string $username): static
     {
         return static::all()->firstWhere('username', $username) ?? static::create($username);
