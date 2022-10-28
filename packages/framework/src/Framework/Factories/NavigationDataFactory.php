@@ -103,7 +103,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findGroup(): ?string
     {
-        if (is_a($this->pageClass, DocumentationPage::class, true)) {
+        if ($this->isInstanceOf(DocumentationPage::class)) {
             return $this->getDocumentationPageGroup();
         }
 
@@ -112,7 +112,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findHidden(): bool
     {
-        if (is_a($this->pageClass, MarkdownPost::class, true)) {
+        if ($this->isInstanceOf(MarkdownPost::class)) {
             return true;
         }
 
@@ -133,7 +133,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->matter('navigation.priority');
         }
 
-        return is_a($this->pageClass, DocumentationPage::class, true)
+        return $this->isInstanceOf(DocumentationPage::class)
             ? $this->findPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
             : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
     }
@@ -172,5 +172,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ? Str::before($this->identifier, '/')
             // Otherwise, we look in the front matter.
             : $this->matter('navigation.group', 'other');
+    }
+
+    protected function isInstanceOf(string $class): bool
+    {
+        return is_a($this->pageClass, $class, true);
     }
 }
