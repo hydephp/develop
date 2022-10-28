@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions\Constructors;
+namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use function Hyde\Framework\Actions\Constructors\str_starts_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\FindsContentLengthForImageObjectTest

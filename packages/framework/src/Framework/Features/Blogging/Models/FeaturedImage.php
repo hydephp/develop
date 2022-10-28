@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use BadMethodCallException;
-use function basename;
-use function e;
-use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
+use Hyde\Framework\Actions\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\HtmlString;
-use function implode;
 use Stringable;
+use function basename;
+use function e;
+use function implode;
 
 /**
  * Holds the information for an image, and contains helper methods for generating fluent HTML around it.
