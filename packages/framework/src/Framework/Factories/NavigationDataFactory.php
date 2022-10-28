@@ -10,6 +10,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 {
     /**
      * The front matter properties supported by this factory.
+     *
+     * Note that this represents a sub-schema, and is used as part of the page schema.
      */
     public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
 
