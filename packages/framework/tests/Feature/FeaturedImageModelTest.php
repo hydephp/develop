@@ -170,7 +170,6 @@ class FeaturedImageModelTest extends TestCase
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
         $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
 
-
         $image = new FeaturedImage(['author' => 'John Doe']);
         $string = $image->getFluentAttribution();
 
