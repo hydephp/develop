@@ -70,38 +70,38 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeLabel(): ?string
     {
-        return $this->findNavigationMenuLabel();
+        return $this->findLabel();
     }
 
     protected function makeGroup(): ?string
     {
-        return $this->findNavigationMenuGroup();
+        return $this->findGroup();
     }
 
     protected function makeHidden(): ?bool
     {
-        return $this->findNavigationMenuHidden();
+        return $this->findHidden();
     }
 
     protected function makePriority(): ?int
     {
-        return $this->findNavigationMenuPriority();
+        return $this->findPriority();
     }
 
-    private function findNavigationMenuLabel(): string
+    private function findLabel(): string
     {
         if ($this->matter('navigation.label') !== null) {
             return $this->matter('navigation.label');
         }
 
-        if (isset($this->getNavigationLabelConfig()[$this->routeKey])) {
-            return $this->getNavigationLabelConfig()[$this->routeKey];
+        if (isset($this->getLabelConfig()[$this->routeKey])) {
+            return $this->getLabelConfig()[$this->routeKey];
         }
 
         return $this->matter('title') ?? $this->title;
     }
 
-    private function findNavigationMenuGroup(): ?string
+    private function findGroup(): ?string
     {
         if (is_a($this->pageClass, DocumentationPage::class, true)) {
             return $this->getDocumentationPageGroup();
@@ -110,7 +110,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return null;
     }
 
-    private function findNavigationMenuHidden(): bool
+    private function findHidden(): bool
     {
         if (is_a($this->pageClass, MarkdownPost::class, true)) {
             return true;
@@ -127,23 +127,23 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return false;
     }
 
-    private function findNavigationMenuPriority(): int
+    private function findPriority(): int
     {
         if ($this->matter('navigation.priority') !== null) {
             return $this->matter('navigation.priority');
         }
 
         return is_a($this->pageClass, DocumentationPage::class, true)
-            ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
-            : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
+            ? $this->findPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
+            : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
     }
 
-    private function findNavigationMenuPriorityInNavigationConfig(array $config): ?int
+    private function findPriorityInNavigationConfig(array $config): ?int
     {
         return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
     }
 
-    private function findNavigationMenuPriorityInSidebarConfig(array $config): ?int
+    private function findPriorityInSidebarConfig(array $config): ?int
     {
         // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
 
@@ -156,7 +156,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             : null;
     }
 
-    private function getNavigationLabelConfig(): array
+    private function getLabelConfig(): array
     {
         return array_merge([
             'index' => 'Home',
