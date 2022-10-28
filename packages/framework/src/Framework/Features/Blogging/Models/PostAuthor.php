@@ -55,6 +55,11 @@ class PostAuthor implements Stringable
         $this->website = $website;
     }
 
+    public static function create(string $username, ?string $name = null, ?string $website = null): static
+    {
+        return new static($username, $name, $website);
+    }
+
     /** Dynamically get or create an author based on a username string or front matter array */
     public static function make(string|array $data): static
     {
@@ -63,11 +68,6 @@ class PostAuthor implements Stringable
         }
 
         return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
-    }
-
-    public static function create(string $username, ?string $name = null, ?string $website = null): static
-    {
-        return new static($username, $name, $website);
     }
 
     public static function get(string $username): static
