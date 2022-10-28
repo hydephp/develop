@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
+use RuntimeException;
 
 /**
  * @covers \Hyde\Framework\Actions\FindsContentLengthForImageObject
@@ -76,5 +77,20 @@ class FindsContentLengthForImageObjectTest extends TestCase
         $this->assertEquals(
             0, $image->getContentLength()
         );
+    }
+
+    public function test_it_throws_exception_on_fail_if_configured()
+    {
+        config(['hyde.throw_on_missing_image' => true]);
+
+        Http::fake(function () {
+            return Http::response(null, 404);
+        });
+
+        $this->expectException(RuntimeException::class);
+
+        $image = new FeaturedImage();
+        $image->url = 'https://hyde.test/static/image.png';
+        $image->getContentLength();
     }
 }

@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Framework\Features\Session\Session;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Http;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-use function str_starts_with;
+use RuntimeException;
+use function array_flip;
+use function array_key_exists;
+use function config;
+use function file_exists;
+use function filesize;
+use function key;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\FindsContentLengthForImageObjectTest
@@ -18,19 +21,20 @@ use function str_starts_with;
 class FindsContentLengthForImageObject
 {
     protected FeaturedImage $image;
+    protected bool $shouldThrow;
 
     public function __construct(FeaturedImage $image)
     {
         $this->image = $image;
+
+        $this->shouldThrow = config('hyde.throw_on_missing_image', false);
     }
 
     public function execute(): int
     {
-        if ($this->isImageStoredRemotely()) {
-            return $this->fetchRemoteImageInformation();
-        }
-
-        return $this->fetchLocalImageInformation();
+        return $this->isImageStoredRemotely()
+            ? $this->fetchRemoteImageInformation()
+            : $this->fetchLocalImageInformation();
     }
 
     protected function isImageStoredRemotely(): bool
@@ -40,41 +44,35 @@ class FindsContentLengthForImageObject
 
     protected function fetchRemoteImageInformation(): int
     {
-        $this->write(PHP_EOL.'<fg=gray> ></> <fg=gray>Fetching remote image information for '.basename($this->image->getSource()).'...</>');
-
-        $response = Http::withHeaders([
+        $headers = Http::withHeaders([
             'User-Agent' => config('hyde.http_user_agent', 'RSS Request Client'),
-        ])->head($this->image->getSource());
-
-        $headers = $response->headers();
+        ])->head($this->image->getSource())->headers();
 
         if (array_key_exists('Content-Length', $headers)) {
             return (int) key(array_flip($headers['Content-Length']));
         }
 
-        $this->write(' > <comment>Warning:</comment> Could not find content length in headers for '.basename($this->image->getSource().'!')
-        .PHP_EOL.'           <fg=gray> Using default content length of 0. '.'</>'
-        .PHP_EOL.'           <fg=gray> Is the image path valid? '.($this->image->getSource()).'</>');
-
-        return 0;
+        return $this->handleFailure('remote');
     }
 
     protected function fetchLocalImageInformation(): int
     {
-        $path = Hyde::path('_media/'.$this->image->getSource());
-
-        if (! file_exists($path)) {
-            $this->write(' > <comment>Warning:</comment> Could not find image file at '.$path.'!'
-            .PHP_EOL.'         <fg=gray>   Using default content length of 0. '.'</>');
-
-            return 0;
-        }
-
-        return filesize($path);
+        return file_exists($this->getLocalPath())
+            ? filesize($this->getLocalPath())
+            : $this->handleFailure('local');
     }
 
-    protected function write(string $string): void
+    protected function handleFailure(string $location): int
     {
-        app(Session::class)->addWarning($string);
+        if ($this->shouldThrow) {
+            throw new RuntimeException("Could not find Content-Length header for $location image {$this->image->getSource()}");
+        }
+
+        return 0;
+    }
+
+    protected function getLocalPath(): string
+    {
+        return Hyde::path('_media/' . $this->image->getSource());
     }
 }
