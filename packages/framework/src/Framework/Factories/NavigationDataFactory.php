@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
@@ -26,13 +27,17 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected const FALLBACK_PRIORITY = 999;
     protected const CONFIG_OFFSET = 500;
 
+    private FrontMatter $matter;
+
     protected readonly ?string $label;
     protected readonly ?string $group;
     protected readonly ?bool $hidden;
     protected readonly ?int $priority;
 
-    public function __construct()
+    public function __construct(FrontMatter $matter)
     {
+        $this->matter = $matter;
+
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
         $this->hidden = $this->makeHidden();
