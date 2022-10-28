@@ -29,4 +29,19 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     {
         // TODO: Implement toArray() method.
     }
+
+    protected function makeTitle(): string
+    {
+        // TODO: Implement makeTitle() method.
+    }
+
+    protected function makeCanonicalUrl(): ?string
+    {
+        // TODO: Implement makeCanonicalUrl() method.
+    }
+
+    protected function makeNavigation(): ?NavigationData
+    {
+        // TODO: Implement makeNavigation() method.
+    }
 }
