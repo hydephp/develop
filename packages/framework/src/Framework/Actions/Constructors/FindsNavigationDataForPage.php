@@ -71,7 +71,7 @@ final class FindsNavigationDataForPage
             return $this->getNavigationLabelConfig()[$this->page->routeKey];
         }
 
-        return $this->page->matter('title') ?? $this->page->title;
+        return $this->page->matter('title') ?? 'not refactored yet' ?? $this->page->title;
     }
 
     private function findNavigationMenuHidden(): bool
