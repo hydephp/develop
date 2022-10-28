@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use BadMethodCallException;
-use Hyde\Framework\Actions\FindsContentLengthForImageObject;
+use Hyde\Framework\Actions\FindsContentLengthForRemoteImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\HtmlString;
@@ -148,7 +148,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     public function getContentLength(): int
     {
-        return (new FindsContentLengthForImageObject($this))->execute();
+        return (new FindsContentLengthForRemoteImageObject($this))->execute();
     }
 
     public function getFluentAttribution(): HtmlString

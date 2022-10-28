@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
 /**
- * @covers \Hyde\Framework\Actions\FindsContentLengthForImageObject
+ * @covers \Hyde\Framework\Actions\FindsContentLengthForRemoteImageObject
  */
 class FindsContentLengthForImageObjectTest extends TestCase
 {
