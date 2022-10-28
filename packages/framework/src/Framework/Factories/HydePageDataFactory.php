@@ -72,7 +72,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     protected function makeNavigation(): ?NavigationData
     {
-        return NavigationData::make((new NavigationDataFactory())->toArray());
+        return NavigationData::make((new NavigationDataFactory($this->matter))->toArray());
     }
 
     private function findTitleForPage(): string
