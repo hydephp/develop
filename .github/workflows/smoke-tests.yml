@@ -25,7 +25,7 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run smoke tests
-        run: vendor/bin/pest --stop-on-failure
+        run: vendor/bin/pest --stop-on-failure --testdox-text testdox.txt
 
       - name: Ping statistics server with test results
         run: |
