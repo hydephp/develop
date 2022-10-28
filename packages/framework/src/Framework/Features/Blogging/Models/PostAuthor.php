@@ -72,7 +72,7 @@ class PostAuthor implements Stringable
 
     public static function all(): Collection
     {
-        return new Collection(config('authors', []));
+        return new Collection(config('hyde.authors', []));
     }
 
     public static function create(string $username, ?string $name = null, ?string $website = null): static

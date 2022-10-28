@@ -38,7 +38,7 @@ class PostAuthorTest extends TestCase
 
     public function test_make_method_creates_new_author_model_from_string_can_find_existing_author()
     {
-        Config::set('authors', [
+        Config::set('hyde.authors', [
             PostAuthor::create('foo', 'bar'),
         ]);
 
@@ -62,7 +62,7 @@ class PostAuthorTest extends TestCase
 
     public function test_all_method_returns_empty_collection_if_no_authors_are_set_in_config()
     {
-        Config::set('authors', []);
+        Config::set('hyde.authors', []);
         $authors = PostAuthor::all();
 
         $this->assertInstanceOf(Collection::class, $authors);
@@ -71,7 +71,7 @@ class PostAuthorTest extends TestCase
 
     public function test_all_method_returns_collection_with_all_authors_defined_in_config()
     {
-        Config::set('authors', [
+        Config::set('hyde.authors', [
             PostAuthor::create('foo'),
         ]);
         $authors = PostAuthor::all();
@@ -83,7 +83,7 @@ class PostAuthorTest extends TestCase
 
     public function test_multiple_authors_can_be_defined_in_config()
     {
-        Config::set('authors', [
+        Config::set('hyde.authors', [
             PostAuthor::create('foo'),
             PostAuthor::create('bar'),
         ]);
@@ -97,7 +97,7 @@ class PostAuthorTest extends TestCase
 
     public function test_get_method_returns_config_defined_author_by_username()
     {
-        Config::set('authors', [
+        Config::set('hyde.authors', [
             PostAuthor::create('foo', 'bar'),
         ]);
         $author = PostAuthor::get('foo');
@@ -109,7 +109,7 @@ class PostAuthorTest extends TestCase
 
     public function test_get_method_returns_new_author_if_username_not_found_in_config()
     {
-        Config::set('authors', []);
+        Config::set('hyde.authors', []);
         $author = PostAuthor::get('foo');
 
         $this->assertInstanceOf(PostAuthor::class, $author);
