@@ -65,6 +65,11 @@ class PostAuthor implements Stringable
         return static::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
     }
 
+    public static function create(string $username, ?string $name = null, ?string $website = null): static
+    {
+        return new static($username, $name, $website);
+    }
+
     public static function get(string $username): static
     {
         return static::all()->firstWhere('username', $username) ?? static::create($username);
@@ -73,11 +78,6 @@ class PostAuthor implements Stringable
     public static function all(): Collection
     {
         return new Collection(config('hyde.authors', []));
-    }
-
-    public static function create(string $username, ?string $name = null, ?string $website = null): static
-    {
-        return new static($username, $name, $website);
     }
 
     public function __toString(): string
