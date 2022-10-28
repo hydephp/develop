@@ -28,4 +28,9 @@ class SessionTest extends TestCase
 
         $this->assertSame(['warning'], $session->getWarnings());
     }
+
+    public function test_session_is_not_persisted()
+    {
+        $this->assertSame([], app(Session::class)->getWarnings());
+    }
 }
