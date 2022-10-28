@@ -34,8 +34,6 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         private readonly string $outputPath,
         protected HydePage $page // @deprecated
     ) {
-
-        /** @deprecated */
         $this->title = $this->makeTitle();
         $this->canonicalUrl = $this->makeCanonicalUrl();
         $this->navigation = $this->makeNavigation();
