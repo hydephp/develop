@@ -154,6 +154,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return (new FindsContentLengthForImageObject($this))->execute();
     }
 
+    /** @internal */
     public function getImageAuthorAttributionString(): string|null
     {
         if (isset($this->author)) {
@@ -163,6 +164,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return null;
     }
 
+    /** @internal */
     public function getCopyrightString(): string|null
     {
         if (isset($this->copyright)) {
@@ -172,6 +174,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return null;
     }
 
+    /** @internal */
     public function getLicenseString(): string|null
     {
         if (isset($this->license) && isset($this->licenseUrl)) {
