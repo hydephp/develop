@@ -8,6 +8,11 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 
 class NavigationDataFactory extends Concerns\PageDataFactory implements NavigationSchema
 {
+    /**
+     * The front matter properties supported by this factory.
+     */
+    public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
+
     public function toArray(): array
     {
         // TODO: Implement toArray() method.
