@@ -7,6 +7,7 @@ namespace Hyde\Framework\Concerns\Internal;
 use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Actions\Constructors\FindsTitleForPage;
 use Hyde\Framework\Factories\BlogPostDataFactory;
+use Hyde\Framework\Factories\HydePageDataFactory;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 
@@ -26,21 +27,6 @@ trait ConstructsPageSchemas
 
     protected function constructPageSchema(): void
     {
-        $this->title = FindsTitleForPage::run($this);
-        $this->navigation = FindsNavigationDataForPage::run($this);
-        $this->canonicalUrl = $this->makeCanonicalUrl();
-    }
-
-    protected function makeCanonicalUrl(): ?string
-    {
-        if (! empty($this->matter('canonicalUrl'))) {
-            return $this->matter('canonicalUrl');
-        }
-
-        if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
-            return Hyde::url($this->getRoute()->getOutputPath());
-        }
-
-        return null;
+        $this->constructFactoryData(new HydePageDataFactory($this->matter, $this->markdown ?? false, $this->identifier, $this->getOutputPath(), $this));
     }
 }
