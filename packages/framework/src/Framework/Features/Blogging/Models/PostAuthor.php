@@ -32,8 +32,8 @@ class PostAuthor implements Stringable
     /**
      * The author's website URL.
      *
-     * Could for example, be a Twitter page, website,
-     * or a hyperlink to more posts by the author.
+     * Could for example, be a Twitter page, website, or a hyperlink to more posts by the author.
+     * Should be a fully qualified link, meaning it starts with http:// or https://.
      *
      * @var string|null
      */
