@@ -54,3 +54,14 @@ if (! function_exists('unlinkUnlessDefault')) {
         }
     }
 }
+
+if (! function_exists('strip_newlines')) {
+    function strip_newlines(string $string, bool $keepUnixEndings = false): string
+    {
+        if ($keepUnixEndings) {
+            return str_replace("\r", '', $string);
+        }
+
+        return str_replace(["\r", "\n"], '', $string);
+    }
+}
