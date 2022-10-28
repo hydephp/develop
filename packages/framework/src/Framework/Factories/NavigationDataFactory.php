@@ -15,6 +15,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
+use function config as config1;
 use function in_array;
 use function is_a;
 
@@ -74,7 +75,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->matter('navigation.label');
         }
 
-        $labelConfig = $this->getLabelConfig();
+        $labelConfig = array_merge([
+            'index' => 'Home',
+            'docs/index' => 'Docs',
+        ], config1('hyde.navigation.labels', []));
+
         if (isset($labelConfig[$this->routeKey])) {
             return $labelConfig[$this->routeKey];
         }
@@ -135,14 +140,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return isset($config[$this->identifier])
             ? $config[$this->identifier] + (self::CONFIG_OFFSET)
             : null;
-    }
-
-    private function getLabelConfig(): array
-    {
-        return array_merge([
-            'index' => 'Home',
-            'docs/index' => 'Docs',
-        ], config('hyde.navigation.labels', []));
     }
 
     private function getDocumentationPageGroup(): ?string
