@@ -157,7 +157,7 @@ class FeaturedImageModelTest extends TestCase
         $this->assertNull($image->getLicenseString());
     }
 
-    public function test_get_fluent_attribution_method()
+    public function test_get_fluent_attribution_method_uses_rich_html_tags()
     {
         $image = new FeaturedImage([
             'author' => 'John Doe',
