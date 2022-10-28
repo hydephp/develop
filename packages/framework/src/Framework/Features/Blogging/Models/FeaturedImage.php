@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use Illuminate\Support\Str;
 use function array_flip;
 use function array_key_exists;
 use BadMethodCallException;
@@ -15,6 +14,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use function implode;
 use function key;
 use Stringable;
@@ -114,6 +114,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     /**
      * @var string The path to the image in the _media directory, relative to the root of the site.
+     *
      * @example "_media/image.jpg".
      */
     protected string $sourcePath;
