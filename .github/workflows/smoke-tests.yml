@@ -1,6 +1,6 @@
 # This workflow is especially helpful for pull requests to quickly see if the other tests will definitely fail
 
-name: Smoke Tests
+name: 🔥 Smoke Tests
 
 on:
   pull_request:
@@ -26,3 +26,8 @@ jobs:
 
       - name: Run smoke tests
         run: vendor/bin/pest --stop-on-failure
+
+      - name: Ping statistics server with test results
+        run: |
+          curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
+          php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }}
