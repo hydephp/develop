@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use function Hyde\Framework\Actions\Constructors\str_starts_with;
+use function str_starts_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\FindsContentLengthForImageObjectTest
