@@ -320,6 +320,6 @@ class FeaturedImageModelTest extends TestCase
         $this->assertStringContainsString('Creative Commons', $component);
         $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
 
-        $this->assertStringContainsString('Image by John Doe. License Creative Commons', strip_tags($component));
+        $this->assertStringContainsString('Image by John Doe. License Creative Commons.', strip_tags($component));
     }
 }
