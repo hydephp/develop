@@ -26,7 +26,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  * @covers \Hyde\Framework\Actions\Constructors\FindsTitleForPage
- * @covers \Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage
+ * @covers \Hyde\Framework\Factories\NavigationDataFactory
  */
 class HydePageTest extends TestCase
 {
