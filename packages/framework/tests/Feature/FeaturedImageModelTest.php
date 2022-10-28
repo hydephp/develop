@@ -333,6 +333,11 @@ class FeaturedImageModelTest extends TestCase
         $this->assertStringContainsString('Creative Commons', $component);
         $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
 
-        $this->assertEquals('Image by John Doe. License Creative Commons.', trim(strip_newlines(strip_tags($component)), "\t "));
+        $this->assertEquals('Image by John Doe. License Creative Commons.', $this->stripHtml($component));
+    }
+
+    protected function stripHtml(string $string): string
+    {
+        return trim(strip_newlines(strip_tags($string)), "\t ");
     }
 }
