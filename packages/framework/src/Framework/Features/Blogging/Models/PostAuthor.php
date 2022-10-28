@@ -44,9 +44,9 @@ class PostAuthor implements Stringable
      *
      * If your input is in the form of an array, you may rather want to use the `make` method.
      *
-     * @param string $username
-     * @param string|null $name
-     * @param string|null $website
+     * @param  string  $username
+     * @param  string|null  $name
+     * @param  string|null  $website
      */
     public function __construct(string $username, ?string $name = null, ?string $website = null)
     {
