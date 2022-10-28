@@ -15,6 +15,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
      */
     public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
 
+    protected readonly ?string $label;
+    protected readonly ?string $group;
+    protected readonly ?bool $hidden;
+    protected readonly ?int $priority;
+
     public function toArray(): array
     {
         // TODO: Implement toArray() method.
