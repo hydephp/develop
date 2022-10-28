@@ -42,16 +42,28 @@ class FeaturedImageModelTest extends TestCase
         $this->assertEquals('bar', $image->title);
     }
 
-    public function test_image_path_is_normalized_to_always_begin_with_media_prefix()
+    public function test_image_path_is_normalized_to_never_begin_with_media_prefix()
     {
         $image = FeaturedImage::make('foo');
-        $this->assertSame('_media/foo', $image->path);
+        $this->assertSame('foo', $image->path);
 
         $image = FeaturedImage::make('_media/foo');
-        $this->assertSame('_media/foo', $image->path);
+        $this->assertSame('foo', $image->path);
 
         $image = FeaturedImage::make('_media/foo');
-        $this->assertSame('_media/foo', $image->path);
+        $this->assertSame('foo', $image->path);
+    }
+
+    public function test_image_source_path_is_normalized_to_always_begin_with_media_prefix()
+    {
+        $image = FeaturedImage::make('foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
     }
 
     public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()

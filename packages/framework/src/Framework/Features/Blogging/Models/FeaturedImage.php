@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Illuminate\Support\Str;
 use function array_flip;
 use function array_key_exists;
 use BadMethodCallException;
@@ -43,10 +44,10 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * The image must be stored in the _media directory.
      *
      * It no longer matters if you add the _media/ prefix or not,
-     * as it will be normalized to always begin with _media/.
+     * as it will be normalized to have the prefix stripped.
      *
      * @example image.jpg.
-     * @example _media/image.jpg.
+     * @example _media/image.jpg. (will be normalized to image.jpg)
      */
     public ?string $path;
 
@@ -111,6 +112,12 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      */
     public ?string $attributionUrl = null;
 
+    /**
+     * @var string The path to the image in the _media directory, relative to the root of the site.
+     * @example "_media/image.jpg".
+     */
+    protected string $sourcePath;
+
     public function __construct(array $data = [])
     {
         foreach ($data as $key => $value) {
@@ -118,7 +125,8 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         }
 
         if (isset($this->path)) {
-            $this->path = static::normalizePath($this->path);
+            $this->sourcePath = static::normalizeSourcePath($this->path);
+            $this->path = Str::after($this->sourcePath, '_media/');
         }
     }
 
@@ -260,6 +268,11 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return $this->path ?? null;
     }
 
+    public function getSourcePath(): ?string
+    {
+        return $this->sourcePath ?? null;
+    }
+
     protected function getContentLengthFromRemote(): ?int
     {
         $headers = Http::withHeaders([
@@ -282,7 +295,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return null;
     }
 
-    protected static function normalizePath(string $path): string
+    protected static function normalizeSourcePath(string $path): string
     {
         $path = Hyde::pathToRelative($path);
 
