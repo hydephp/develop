@@ -21,5 +21,12 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 abstract class PageDataFactory implements Arrayable
 {
+    /**
+     * The front matter properties supported by this factory.
+     *
+     * @var array<string, string|array>
+     */
+    public const SCHEMA = [];
+
     abstract public function toArray(): array;
 }

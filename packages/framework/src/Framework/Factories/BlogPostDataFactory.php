@@ -7,6 +7,7 @@ namespace Hyde\Framework\Factories;
 use Hyde\Framework\Concerns\HasFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Models\DateString;
@@ -24,6 +25,8 @@ use function substr;
 class BlogPostDataFactory extends Concerns\PageDataFactory
 {
     use HasFrontMatter;
+
+    public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
 
     private FrontMatter $matter;
     private Markdown $markdown;
