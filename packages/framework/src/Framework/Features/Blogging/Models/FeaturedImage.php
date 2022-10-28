@@ -157,7 +157,10 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     public function getImageAuthorAttributionString(): string|null
     {
-        return isset($this->author) ? '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">' . $this->getAuthorElement() . '</span>' : null;
+        if (isset($this->author)) {
+            return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">' . $this->getAuthorElement() . '</span>';
+        }
+        return null;
 
     }
 
