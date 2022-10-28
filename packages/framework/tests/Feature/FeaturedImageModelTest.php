@@ -190,6 +190,59 @@ class FeaturedImageModelTest extends TestCase
         $this->assertEquals('', $image->getFluentAttribution());
     }
 
+    public function test_get_fluent_attribution_method_creates_fluent_messages()
+    {
+        $this->assertSame(
+            'Image by John Doe. CC. License MIT.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+                'copyright' => 'CC',
+                'license' => 'MIT'
+            ]))->getFluentAttribution())
+        );
+
+        $this->assertSame(
+            'Image by John Doe. License MIT.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+                'license' => 'MIT'
+            ]))->getFluentAttribution())
+        );
+
+        $this->assertSame(
+            'Image by John Doe. CC.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+                'copyright' => 'CC',
+            ]))->getFluentAttribution())
+        );
+
+        $this->assertSame(
+            'All rights reserved.',
+            $this->stripHtml((new FeaturedImage([
+                'copyright' => 'All rights reserved',
+            ]))->getFluentAttribution())
+        );
+
+        $this->assertSame(
+            'Image by John Doe.',
+            $this->stripHtml((new FeaturedImage([
+                'author' => 'John Doe',
+            ]))->getFluentAttribution())
+        );
+
+        $this->assertSame(
+            'License MIT.',
+            $this->stripHtml((new FeaturedImage([
+                'license' => 'MIT',
+            ]))->getFluentAttribution())
+        );
+
+        $this->assertSame('',
+            $this->stripHtml((new FeaturedImage())->getFluentAttribution())
+        );
+    }
+
     public function test_get_metadata_array()
     {
         $image = new FeaturedImage([
