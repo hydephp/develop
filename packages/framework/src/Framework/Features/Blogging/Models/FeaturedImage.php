@@ -255,7 +255,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     protected function getPath(): ?string
     {
         if (isset($this->path)) {
-            return basename($this->path);
+            return ($this->path);
         }
 
         return null;
