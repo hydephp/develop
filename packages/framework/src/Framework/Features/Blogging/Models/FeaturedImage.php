@@ -239,7 +239,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     protected function getCreditedAuthorLink(): string
     {
-        return '<a href="' . e($this->credit) . '" rel="author noopener nofollow" itemprop="url"><span itemprop="name">' . e($this->author) . '</span></a>';
+        return '<a href="' . e($this->credit) . '" rel="author noopener nofollow" itemprop="url">'.$this->getAuthorSpan().'</a>';
     }
 
     protected function getAuthorSpan(): string
