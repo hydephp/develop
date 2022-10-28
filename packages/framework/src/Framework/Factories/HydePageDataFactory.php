@@ -10,7 +10,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\Concerns\HydePage;
 use function substr;
 use function trim;
 
