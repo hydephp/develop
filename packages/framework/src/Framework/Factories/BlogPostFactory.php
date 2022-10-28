@@ -17,6 +17,9 @@ use function substr;
  * Streamlines the data construction specific to a blog post.
  *
  * Simply pass along the data the class needs to run, then access the data using the toArray() method.
+ *
+ * All data can be set using front matter in the page source file. If no front matter is set for the given key,
+ * this class will attempt to generate and discover the values based on the page and the project's configuration.
  */
 class BlogPostFactory extends Concerns\PageFactory
 {
