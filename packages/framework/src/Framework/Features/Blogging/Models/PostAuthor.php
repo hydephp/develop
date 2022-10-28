@@ -48,7 +48,7 @@ class PostAuthor implements Stringable
      * @param  string  $username
      * @param  array|null  $data
      */
-    final public function __construct(string $username, ?array $data = [])
+    public function __construct(string $username, ?array $data = [])
     {
         $this->username = $username;
 
@@ -62,7 +62,7 @@ class PostAuthor implements Stringable
     }
 
     /** Dynamically get or create an author based on a username string or front matter array */
-    final public static function make(string|array $data): static
+    public static function make(string|array $data): static
     {
         if (is_string($data)) {
             return static::get($data);
