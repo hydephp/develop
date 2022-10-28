@@ -15,7 +15,6 @@ use Illuminate\Support\Str;
  * Helper for HydePages to discover data used for navigation menus and the documentation sidebar.
  *
  * @deprecated Refactor to use factories instead. As this action is rather complex, it should have its own factory.
- *
  * @see \Hyde\Framework\Testing\Feature\PageModelConstructorsTest
  * @see \Hyde\Pages\Concerns\HydePage
  */

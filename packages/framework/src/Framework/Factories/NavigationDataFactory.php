@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use function array_flip;
+use function array_key_exists;
+use function array_merge;
+use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
-use function array_flip;
-use function array_key_exists;
-use function array_merge;
-use function config;
 use function in_array;
 use function is_a;
 
@@ -37,10 +37,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected readonly ?int $priority;
 
     public function __construct(private readonly FrontMatter $matter,
-                                private readonly string      $identifier,
-                                private readonly string      $routeKey,
-                                private readonly string      $title,
-                                private readonly string      $pageClass)
+                                private readonly string $identifier,
+                                private readonly string $routeKey,
+                                private readonly string $title,
+                                private readonly string $pageClass)
     {
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
@@ -93,7 +93,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuGroup(): ?string
     {
-        if (is_a($this->pageClass,  DocumentationPage::class, true)) {
+        if (is_a($this->pageClass, DocumentationPage::class, true)) {
             return $this->getDocumentationPageGroup();
         }
 
@@ -102,7 +102,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuHidden(): bool
     {
-        if (is_a($this->pageClass,  MarkdownPost::class, true)) {
+        if (is_a($this->pageClass, MarkdownPost::class, true)) {
             return true;
         }
 

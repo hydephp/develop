@@ -10,7 +10,6 @@ use Hyde\Pages\Concerns\HydePage;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PageModelConstructorsTest
- *
  * @deprecated Refactor to use factories instead.
  */
 final class FindsTitleForPage
