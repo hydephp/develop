@@ -8,7 +8,6 @@ use function array_flip;
 use function array_key_exists;
 use function array_merge;
 use function config;
-use function config as config1;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
@@ -78,7 +77,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $labelConfig = array_merge([
             'index' => 'Home',
             'docs/index' => 'Docs',
-        ], config1('hyde.navigation.labels', []));
+        ], config('hyde.navigation.labels', []));
 
         if (isset($labelConfig[$this->routeKey])) {
             return $labelConfig[$this->routeKey];
