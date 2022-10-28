@@ -37,4 +37,24 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             'priority' => $this->priority,
         ];
     }
+
+    protected function makeLabel(): ?string
+    {
+        //
+    }
+
+    protected function makeGroup(): ?string
+    {
+        //
+    }
+
+    protected function makeHidden(): ?bool
+    {
+        //
+    }
+
+    protected function makePriority(): ?int
+    {
+        //
+    }
 }
