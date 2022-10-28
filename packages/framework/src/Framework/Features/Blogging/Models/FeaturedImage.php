@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use BadMethodCallException;
+use function e;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Stringable;
-use function e;
 
 /**
  * Holds the information for an image.
@@ -158,7 +158,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     public function getImageAuthorAttributionString(): string|null
     {
         if (isset($this->author)) {
-            return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">' . $this->getAuthorElement() . '</span>';
+            return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">'.$this->getAuthorElement().'</span>';
         }
 
         return null;
@@ -239,12 +239,12 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     protected function getCreditedAuthorLink(): string
     {
-        return '<a href="' . e($this->credit) . '" rel="author noopener nofollow" itemprop="url">'.$this->getAuthorSpan().'</a>';
+        return '<a href="'.e($this->credit).'" rel="author noopener nofollow" itemprop="url">'.$this->getAuthorSpan().'</a>';
     }
 
     protected function getAuthorSpan(): string
     {
-        return '<span itemprop="name">' . e($this->author) . '</span>';
+        return '<span itemprop="name">'.e($this->author).'</span>';
     }
 
     protected function getAuthorElement(): string
