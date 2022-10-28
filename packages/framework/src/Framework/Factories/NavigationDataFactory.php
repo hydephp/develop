@@ -83,7 +83,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getNavigationLabelConfig()[$this->routeKey];
         }
 
-        return $this->matter('title') ?? 'not refactored yet' ?? $this->page->title;
+        return $this->matter('title') ?? $this->page->title;
     }
 
     private function findNavigationMenuGroup(): ?string
