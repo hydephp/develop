@@ -16,7 +16,7 @@ class EnsureCommandsFollowNamingConventionTest extends TestCase
 
         foreach ($files as $filepath) {
             $filename = basename($filepath, '.php');
-            $this->assertStringStartsWith('Hyde', $filename);
+            $this->assertStringStartsNotWith('Hyde', $filename);
             $this->assertStringEndsWith('Command', $filename);
         }
     }
