@@ -8,11 +8,17 @@ use BadMethodCallException;
 use Hyde\Framework\Actions\FindsContentLengthForRemoteImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\HtmlString;
 use Stringable;
+use function array_flip;
+use function array_key_exists;
 use function basename;
+use function config;
 use function e;
+use function file_exists;
 use function implode;
+use function key;
 
 /**
  * Holds the information for an image, and contains helper methods for generating fluent HTML around it.
@@ -148,7 +154,9 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     public function getContentLength(): int
     {
-        return (new FindsContentLengthForRemoteImageObject($this))->execute();
+        return (str_starts_with($this->getSource(), 'http')
+            ? $this->getContentLengthFromRemote()
+            : $this->getLocalContentLength()) ?? 0;
     }
 
     public function getFluentAttribution(): HtmlString
@@ -248,6 +256,28 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     {
         if (isset($this->path)) {
             return basename($this->path);
+        }
+
+        return null;
+    }
+
+    protected function getContentLengthFromRemote(): ?int
+    {
+        $headers = Http::withHeaders([
+            'User-Agent' => config('hyde.http_user_agent', 'RSS Request Client'),
+        ])->head($this->getSource())->headers();
+
+        if (array_key_exists('Content-Length', $headers)) {
+            return (int) key(array_flip($headers['Content-Length']));
+        }
+
+        return null;
+    }
+
+    private function getLocalContentLength(): ?int
+    {
+        if (file_exists($this->getPath())) {
+            return filesize($this->getPath());
         }
 
         return null;
