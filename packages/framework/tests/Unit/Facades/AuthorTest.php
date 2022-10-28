@@ -34,4 +34,11 @@ class AuthorTest extends TestCase
 
         $this->assertEquals(PostAuthor::get('foo'), Author::get('foo'));
     }
+
+    public function testAll()
+    {
+        $authors = Author::all();
+        $this->assertCount(1, $authors);
+        $this->assertContainsOnlyInstancesOf(PostAuthor::class, $authors);
+    }
 }

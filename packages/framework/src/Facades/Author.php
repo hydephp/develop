@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Illuminate\Support\Collection;
 
 /**
  * Allows you to easily add pre-defined authors for your blog posts.
@@ -40,5 +41,15 @@ class Author
     public static function get(string $username): PostAuthor
     {
         return PostAuthor::get($username);
+    }
+
+    /**
+     * Get all the defined Post Author instances from the config.
+     *
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Blogging\Models\PostAuthor>
+     */
+    public static function all(): Collection
+    {
+        return PostAuthor::all();
     }
 }
