@@ -8,7 +8,6 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use function strip_tags;
-use function strip_whitespace;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
@@ -162,7 +161,7 @@ class FeaturedImageModelTest extends TestCase
         $image = new FeaturedImage([
             'author' => 'John Doe',
             'copyright' => 'foo',
-            'license' => 'foo'
+            'license' => 'foo',
         ]);
         $string = $image->getFluentAttribution();
 
@@ -197,7 +196,7 @@ class FeaturedImageModelTest extends TestCase
             $this->stripHtml((new FeaturedImage([
                 'author' => 'John Doe',
                 'copyright' => 'CC',
-                'license' => 'MIT'
+                'license' => 'MIT',
             ]))->getFluentAttribution())
         );
 
@@ -205,7 +204,7 @@ class FeaturedImageModelTest extends TestCase
             'Image by John Doe. License MIT.',
             $this->stripHtml((new FeaturedImage([
                 'author' => 'John Doe',
-                'license' => 'MIT'
+                'license' => 'MIT',
             ]))->getFluentAttribution())
         );
 

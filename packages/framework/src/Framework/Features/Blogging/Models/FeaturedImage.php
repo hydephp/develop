@@ -8,7 +8,6 @@ use Exception;
 use Hyde\Framework\Actions\Constructors\FindsContentLengthForImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
-use Illuminate\Support\Benchmark;
 use Stringable;
 
 /**
@@ -195,7 +194,7 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         $attribution = [];
 
         if ($this->getImageAuthorAttributionString() !== null) {
-            $attribution[] = 'Image by '. $this->getImageAuthorAttributionString();
+            $attribution[] = 'Image by '.$this->getImageAuthorAttributionString();
         }
 
         if ($this->getCopyrightString() !== null) {
@@ -203,10 +202,10 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         }
 
         if ($this->getLicenseString() !== null) {
-            $attribution[] = 'License '. $this->getLicenseString();
+            $attribution[] = 'License '.$this->getLicenseString();
         }
 
-        return implode('. ', $attribution). ((count($attribution) > 0) ? '.' : '');
+        return implode('. ', $attribution).((count($attribution) > 0) ? '.' : '');
     }
 
     /**
