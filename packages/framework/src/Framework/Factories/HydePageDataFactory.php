@@ -53,7 +53,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     protected function makeTitle(): string
     {
-        // TODO: Implement makeTitle() method.
+        return trim($this->findTitleForPage());
     }
 
     protected function makeCanonicalUrl(): ?string
