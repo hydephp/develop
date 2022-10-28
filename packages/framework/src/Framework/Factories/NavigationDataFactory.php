@@ -137,8 +137,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // It's lower than the fallback of 500 so that the config ones still come first.
         // This is all to make it easier to mix ways of adding priorities.
 
-        return isset($config[$this->page->identifier])
-            ? $config[$this->page->identifier] + (self::CONFIG_OFFSET)
+        return isset($config[$this->identifier])
+            ? $config[$this->identifier] + (self::CONFIG_OFFSET)
             : null;
     }
 
@@ -153,9 +153,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function getDocumentationPageGroup(): ?string
     {
         // If the documentation page is in a subdirectory,
-        return str_contains($this->page->identifier, '/')
+        return str_contains($this->identifier, '/')
             // then we can use that as the category name.
-            ? Str::before($this->page->identifier, '/')
+            ? Str::before($this->identifier, '/')
             // Otherwise, we look in the front matter.
             : $this->matter('navigation.group', 'other');
     }
