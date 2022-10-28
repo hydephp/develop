@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\Models;
 
 use BadMethodCallException;
-use Hyde\Framework\Actions\FindsContentLengthForRemoteImageObject;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\Facades\Http;
