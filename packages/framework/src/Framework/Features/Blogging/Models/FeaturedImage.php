@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\Blogging\Models;
 use function array_flip;
 use function array_key_exists;
 use BadMethodCallException;
-use function basename;
 use function config;
 use function e;
 use function file_exists;
