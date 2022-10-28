@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-use Hyde\Framework\Concerns\HasFrontMatter;
+use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
@@ -24,7 +24,7 @@ use function substr;
  */
 class BlogPostDataFactory extends Concerns\PageDataFactory
 {
-    use HasFrontMatter;
+    use InteractsWithFrontMatter;
 
     /**
      * The front matter properties supported by this factory.

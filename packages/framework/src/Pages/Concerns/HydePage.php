@@ -6,7 +6,7 @@ namespace Hyde\Pages\Concerns;
 
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
-use Hyde\Framework\Concerns\HasFrontMatter;
+use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Concerns\Internal\ConstructsPageSchemas;
 use Hyde\Framework\Factories\Concerns\HasFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
@@ -38,7 +38,7 @@ use Hyde\Support\Models\RouteKey;
 abstract class HydePage implements PageSchema
 {
     use ConstructsPageSchemas;
-    use HasFrontMatter;
+    use InteractsWithFrontMatter;
     use HasFactory;
 
     public static string $sourceDirectory;

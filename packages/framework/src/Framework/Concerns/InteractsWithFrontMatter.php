@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 /**
  * Adds methods to a class to allow it to fluently interact with the front matter.
  */
-trait HasFrontMatter
+trait InteractsWithFrontMatter
 {
     /**
      * Get a value from the computed page data, or fallback to the page's front matter, then to the default value.
