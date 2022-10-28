@@ -14,26 +14,14 @@ use function str_starts_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\FindsContentLengthForImageObjectTest
- *
- * @todo Refactor output to buffer into the service container, so output can be controlled better,
- *       for example by grouping all warnings at the end of a build (with options to fail on warning, useful for CI setups).
  */
 class FindsContentLengthForImageObject
 {
     protected FeaturedImage $image;
 
-    /**
-     * Testing adding console debug output.
-     */
-    protected OutputInterface|false $output = false;
-
     public function __construct(FeaturedImage $image)
     {
         $this->image = $image;
-
-        if (app(Session::class)->has('output')) {
-            $this->output = app(Session::class)->get('output');
-        }
     }
 
     public function execute(): int
@@ -87,8 +75,6 @@ class FindsContentLengthForImageObject
 
     protected function write(string $string): void
     {
-        if ($this->output !== false) {
-            $this->output->writeln($string);
-        }
+        app(Session::class)->addWarning($string);
     }
 }
