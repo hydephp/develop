@@ -35,7 +35,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected readonly ?bool $hidden;
     protected readonly ?int $priority;
 
-    public function __construct(private FrontMatter $matter, private string $identifier, private string $routeKey)
+    public function __construct(private FrontMatter $matter, private string $identifier, private string $routeKey, private string $title)
     {
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
@@ -83,7 +83,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getNavigationLabelConfig()[$this->routeKey];
         }
 
-        return $this->matter('title') ?? $this->page->title;
+        return $this->matter('title') ?? $this->title;
     }
 
     private function findNavigationMenuGroup(): ?string
