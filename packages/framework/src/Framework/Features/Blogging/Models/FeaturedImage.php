@@ -154,40 +154,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return (new FindsContentLengthForImageObject($this))->execute();
     }
 
-    /** @internal */
-    public function getImageAuthorAttributionString(): string|null
-    {
-        if (isset($this->author)) {
-            return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">'.$this->getAuthorElement().'</span>';
-        }
-
-        return null;
-    }
-
-    /** @internal */
-    public function getCopyrightString(): string|null
-    {
-        if (isset($this->copyright)) {
-            return '<span itemprop="copyrightNotice">'.e($this->copyright).'</span>';
-        }
-
-        return null;
-    }
-
-    /** @internal */
-    public function getLicenseString(): string|null
-    {
-        if (isset($this->license) && isset($this->licenseUrl)) {
-            return '<a href="'.e($this->licenseUrl).'" rel="license nofollow noopener" itemprop="license">'.e($this->license).'</a>';
-        }
-
-        if (isset($this->license)) {
-            return '<span itemprop="license">'.e($this->license).'</span>';
-        }
-
-        return null;
-    }
-
     public function getFluentAttribution(): string
     {
         $attribution = [];
@@ -230,10 +196,35 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return $metadata;
     }
 
-    protected function getPath(): ?string
+    /** @internal */
+    public function getImageAuthorAttributionString(): string|null
     {
-        if (isset($this->path)) {
-            return basename($this->path);
+        if (isset($this->author)) {
+            return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">'.$this->getAuthorElement().'</span>';
+        }
+
+        return null;
+    }
+
+    /** @internal */
+    public function getCopyrightString(): string|null
+    {
+        if (isset($this->copyright)) {
+            return '<span itemprop="copyrightNotice">'.e($this->copyright).'</span>';
+        }
+
+        return null;
+    }
+
+    /** @internal */
+    public function getLicenseString(): string|null
+    {
+        if (isset($this->license) && isset($this->licenseUrl)) {
+            return '<a href="'.e($this->licenseUrl).'" rel="license nofollow noopener" itemprop="license">'.e($this->license).'</a>';
+        }
+
+        if (isset($this->license)) {
+            return '<span itemprop="license">'.e($this->license).'</span>';
         }
 
         return null;
@@ -254,5 +245,14 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return isset($this->credit)
             ? $this->getCreditedAuthorLink()
             : $this->getAuthorSpan();
+    }
+
+    protected function getPath(): ?string
+    {
+        if (isset($this->path)) {
+            return basename($this->path);
+        }
+
+        return null;
     }
 }
