@@ -10,7 +10,7 @@ class SessionServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        //
+        $this->app->singleton(Session::class, Session::class);
     }
 
     public function boot()
