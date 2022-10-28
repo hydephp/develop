@@ -28,6 +28,8 @@ class BlogPostDataFactory extends Concerns\PageDataFactory
 
     /**
      * The front matter properties supported by this factory.
+     *
+     * Note that this class does not add the title, as that is already added to all pages.
      */
     public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
 
