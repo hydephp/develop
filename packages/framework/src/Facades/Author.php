@@ -29,4 +29,16 @@ class Author
     {
         return new PostAuthor($username, $name, $website);
     }
+
+    /**
+     * Get a Post Author instance from the config. If no author matching the username is found,
+     * a new Post Author instance will be created with just username supplied to the method.
+     *
+     * @param string $username
+     * @return \Hyde\Framework\Features\Blogging\Models\PostAuthor
+     */
+    public static function get(string $username): PostAuthor
+    {
+        return PostAuthor::get($username);
+    }
 }
