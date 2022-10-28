@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
@@ -11,6 +12,8 @@ use Hyde\Markdown\Models\Markdown;
 
 class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 {
+    use InteractsWithFrontMatter;
+
     /**
      * The front matter properties supported by this factory.
      */
