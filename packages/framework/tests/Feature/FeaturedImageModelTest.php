@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use function strip_tags;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
@@ -288,5 +290,38 @@ class FeaturedImageModelTest extends TestCase
         $this->assertEquals('../media/image.jpg', (string) (new FeaturedImage([
             'path' => 'image.jpg',
         ])));
+    }
+
+    public function test_the_view()
+    {
+        $page = new MarkdownPost();
+
+        $image = FeaturedImage::make([
+            'path' => 'foo',
+            'description' => 'This is an image',
+            'title' => 'FeaturedImage Title',
+            'author' => 'John Doe',
+            'license' => 'Creative Commons',
+            'licenseUrl' => 'https://licence.example.com',
+        ]);
+
+        $page->image = $image;
+
+        $this->mockPage($page);
+
+        $component = view('hyde::components.post.image', [
+            'image' => $image,
+        ])->render();
+
+        $this->assertStringContainsString('src="media/foo"', $component);
+        $this->assertStringContainsString('alt="This is an image"', $component);
+        $this->assertStringContainsString('title="FeaturedImage Title"', $component);
+        $this->assertStringContainsString('Image by', $component);
+        $this->assertStringContainsString('John Doe', $component);
+        $this->assertStringContainsString('License', $component);
+        $this->assertStringContainsString('Creative Commons', $component);
+        $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
+
+        $this->assertStringContainsString('Image by John Doe. License Creative Commons', strip_tags($component));
     }
 }
