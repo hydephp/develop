@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-use Hyde\Framework\Features\Navigation\NavigationData;
 use function array_flip;
 use function array_key_exists;
 use function array_merge;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
+use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
