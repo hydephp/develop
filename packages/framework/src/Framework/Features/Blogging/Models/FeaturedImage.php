@@ -26,7 +26,7 @@ use Stringable;
  *    'license'      => '?string',
  *    'licenseUrl'   => '?string',
  *    'author'       => '?string',
- *    'credit'       => '?string'
+ *    'attributionUrl' => '?string'
  * ];
  *
  * @see \Hyde\Framework\Testing\Feature\ImageModelTest
@@ -96,9 +96,11 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
      * Link to the image author/source (for attribution/credit).
      * When added, the rendered $author's name will link to this URL.
      *
+     * @note This was previously called "credit" but was renamed to "attributionUrl" for clarity.
+     *
      * @example "https://unsplash.com/photos/example".
      */
-    public ?string $credit = null;
+    public ?string $attributionUrl = null;
 
     public function __construct(array $data = [])
     {
@@ -225,9 +227,9 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return null;
     }
 
-    protected function getCreditedAuthorLink(): string
+    protected function getAuthorLink(): string
     {
-        return '<a href="'.e($this->credit).'" rel="author noopener nofollow" itemprop="url">'.$this->getAuthorSpan().'</a>';
+        return '<a href="'.e($this->attributionUrl).'" rel="author noopener nofollow" itemprop="url">'.$this->getAuthorSpan().'</a>';
     }
 
     protected function getAuthorSpan(): string
@@ -237,8 +239,8 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
     protected function getAuthorElement(): string
     {
-        return isset($this->credit)
-            ? $this->getCreditedAuthorLink()
+        return isset($this->attributionUrl)
+            ? $this->getAuthorLink()
             : $this->getAuthorSpan();
     }
 

@@ -51,15 +51,15 @@ class SchemaContractsTest extends TestCase
         ], BlogPostSchema::AUTHOR_SCHEMA);
 
         $this->assertEquals([
-            'path'         => 'string',
-            'url'          => 'string',
-            'description'  => 'string',
-            'title'        => 'string',
-            'copyright'    => 'string',
-            'license'      => 'string',
-            'licenseUrl'   => 'string',
-            'author'       => 'string',
-            'credit'       => 'string',
+            'path'           => 'string',
+            'url'            => 'string',
+            'description'    => 'string',
+            'title'          => 'string',
+            'copyright'      => 'string',
+            'license'        => 'string',
+            'licenseUrl'     => 'string',
+            'author'         => 'string',
+            'attributionUrl' => 'string',
         ], BlogPostSchema::FEATURED_IMAGE_SCHEMA);
 
         $this->assertEquals([
