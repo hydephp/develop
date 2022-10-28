@@ -79,15 +79,15 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuLabel(): string
     {
-        if ($this->page->matter('navigation.label') !== null) {
-            return $this->page->matter('navigation.label');
+        if ($this->matter('navigation.label') !== null) {
+            return $this->matter('navigation.label');
         }
 
         if (isset($this->getNavigationLabelConfig()[$this->page->routeKey])) {
             return $this->getNavigationLabelConfig()[$this->page->routeKey];
         }
 
-        return $this->page->matter('title') ?? 'not refactored yet' ?? $this->page->title;
+        return $this->matter('title') ?? 'not refactored yet' ?? $this->page->title;
     }
 
     private function findNavigationMenuGroup(): ?string
@@ -105,7 +105,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
-        if ($this->page->matter('navigation.hidden', false)) {
+        if ($this->matter('navigation.hidden', false)) {
             return true;
         }
 
@@ -118,8 +118,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuPriority(): int
     {
-        if ($this->page->matter('navigation.priority') !== null) {
-            return $this->page->matter('navigation.priority');
+        if ($this->matter('navigation.priority') !== null) {
+            return $this->matter('navigation.priority');
         }
 
         // Different default return values are to preserve backwards compatibility
@@ -161,6 +161,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             // then we can use that as the category name.
             ? Str::before($this->page->identifier, '/')
             // Otherwise, we look in the front matter.
-            : $this->page->matter('navigation.group', 'other');
+            : $this->matter('navigation.group', 'other');
     }
 }
