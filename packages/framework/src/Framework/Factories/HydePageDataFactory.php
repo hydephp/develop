@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Hyde\Framework\Actions\Constructors\FindsNavigationDataForPage;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Hyde;
@@ -11,6 +12,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
+use Hyde\Pages\Concerns\HydePage;
 use function substr;
 use function trim;
 
@@ -28,16 +30,20 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     private string $identifier;
     private string $outputPath;
 
+    protected HydePage $page;
+
     protected readonly string $title;
     protected readonly ?string $canonicalUrl;
     protected readonly ?NavigationData $navigation;
 
-    public function __construct(FrontMatter $matter, Markdown|false $markdown, string $identifier, string $outputPath)
+    public function __construct(FrontMatter $matter, Markdown|false $markdown, string $identifier, string $outputPath, HydePage $page)
     {
         $this->matter = $matter;
         $this->markdown = $markdown;
         $this->identifier = $identifier;
         $this->outputPath = $outputPath;
+
+        $this->page = $page;
 
         $this->title = $this->makeTitle();
         $this->canonicalUrl = $this->makeCanonicalUrl();
