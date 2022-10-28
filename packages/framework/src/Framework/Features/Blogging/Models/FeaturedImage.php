@@ -290,6 +290,10 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
             return $path;
         }
 
+        if (str_starts_with($path, 'media/')) {
+            return '_'.$path;
+        }
+
         return '_media/'.$path;
     }
 }

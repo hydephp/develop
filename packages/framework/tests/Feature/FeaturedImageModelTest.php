@@ -49,6 +49,9 @@ class FeaturedImageModelTest extends TestCase
 
         $image = FeaturedImage::make('_media/foo');
         $this->assertSame('_media/foo', $image->path);
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('_media/foo', $image->path);
     }
 
     public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()
