@@ -60,7 +60,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     protected function makeCanonicalUrl(): ?string
     {
-        // TODO: Implement makeCanonicalUrl() method.
+        return $this->getCanonicalUrl();
     }
 
     protected function makeNavigation(): ?NavigationData
@@ -83,6 +83,19 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
                     return trim(substr($line, 2), ' ');
                 }
             }
+        }
+
+        return null;
+    }
+
+    protected function getCanonicalUrl(): ?string
+    {
+        if (! empty($this->matter('canonicalUrl'))) {
+            return $this->matter('canonicalUrl');
+        }
+
+        if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {
+            return Hyde::url($this->outputPath);
         }
 
         return null;
