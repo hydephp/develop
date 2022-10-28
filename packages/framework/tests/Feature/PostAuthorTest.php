@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Config;
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\PostAuthor
  */
-class AuthorTest extends TestCase
+class PostAuthorTest extends TestCase
 {
     public function test_create_method_creates_new_author_model()
     {

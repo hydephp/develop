@@ -10,7 +10,7 @@ use Stringable;
 /**
  * The Post Author model object.
  *
- * @see \Hyde\Framework\Testing\Feature\AuthorTest
+ * @see \Hyde\Framework\Testing\Feature\PostAuthorTest
  */
 class PostAuthor implements Stringable
 {
