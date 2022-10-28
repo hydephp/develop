@@ -8,6 +8,7 @@ use function array_flip;
 use function array_key_exists;
 use function array_merge;
 use function config;
+use function config as config1;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
@@ -15,7 +16,6 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
-use function config as config1;
 use function in_array;
 use function is_a;
 
