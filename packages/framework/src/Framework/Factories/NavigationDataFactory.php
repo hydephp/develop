@@ -56,11 +56,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeGroup(): ?string
     {
-        if ($this->page instanceof DocumentationPage) {
-            return $this->getDocumentationPageGroup();
-        }
-
-        return null;
+        return $this->findNavigationMenuGroup();
     }
 
     protected function makeHidden(): ?bool
@@ -149,5 +145,14 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ? Str::before($this->page->identifier, '/')
             // Otherwise, we look in the front matter.
             : $this->page->matter('navigation.group', 'other');
+    }
+
+    private function findNavigationMenuGroup(): ?string
+    {
+        if ($this->page instanceof DocumentationPage) {
+            return $this->getDocumentationPageGroup();
+        }
+
+        return null;
     }
 }
