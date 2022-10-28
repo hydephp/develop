@@ -35,7 +35,11 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     public function toArray(): array
     {
-        // TODO: Implement toArray() method.
+        return [
+            'title' => $this->title,
+            'canonicalUrl' => $this->canonicalUrl,
+            'navigation' => $this->navigation,
+        ];
     }
 
     protected function makeTitle(): string
