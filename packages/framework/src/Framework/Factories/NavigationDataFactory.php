@@ -74,8 +74,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->matter('navigation.label');
         }
 
-        if (isset($this->getLabelConfig()[$this->routeKey])) {
-            return $this->getLabelConfig()[$this->routeKey];
+        $labelConfig = $this->getLabelConfig();
+        if (isset($labelConfig[$this->routeKey])) {
+            return $labelConfig[$this->routeKey];
         }
 
         return $this->matter('title') ?? $this->title;
