@@ -17,13 +17,13 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     public const SCHEMA = PageSchema::PAGE_SCHEMA;
 
     private FrontMatter $matter;
-    private Markdown $markdown;
+    private Markdown|bool $markdown;
 
     protected readonly string $title;
     protected readonly ?string $canonicalUrl;
     protected readonly ?NavigationData $navigation;
 
-    public function __construct(FrontMatter $matter, Markdown $markdown)
+    public function __construct(FrontMatter $matter, Markdown|bool $markdown)
     {
         $this->matter = $matter;
         $this->markdown = $markdown;
