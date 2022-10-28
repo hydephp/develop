@@ -1,5 +1,6 @@
 @props([
     /** @var \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle $document */
+    'document',
 ])
 
 <article id="document" itemscope itemtype="http://schema.org/Article" @class([
