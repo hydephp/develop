@@ -6,6 +6,8 @@ namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
 
 class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 {
@@ -14,12 +16,18 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
      */
     public const SCHEMA = PageSchema::PAGE_SCHEMA;
 
+    private FrontMatter $matter;
+    private Markdown $markdown;
+
     protected readonly string $title;
     protected readonly ?string $canonicalUrl;
     protected readonly ?NavigationData $navigation;
 
-    public function __construct()
+    public function __construct(FrontMatter $matter, Markdown $markdown)
     {
+        $this->matter = $matter;
+        $this->markdown = $markdown;
+
         $this->title = $this->makeTitle();
         $this->canonicalUrl = $this->makeCanonicalUrl();
         $this->navigation = $this->makeNavigation();
