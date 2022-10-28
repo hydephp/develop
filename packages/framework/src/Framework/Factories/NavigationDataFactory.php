@@ -82,6 +82,15 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->page->matter('title') ?? 'not refactored yet' ?? $this->page->title;
     }
 
+    private function findNavigationMenuGroup(): ?string
+    {
+        if ($this->page instanceof DocumentationPage) {
+            return $this->getDocumentationPageGroup();
+        }
+
+        return null;
+    }
+
     private function findNavigationMenuHidden(): bool
     {
         if ($this->page instanceof MarkdownPost) {
@@ -145,14 +154,5 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ? Str::before($this->page->identifier, '/')
             // Otherwise, we look in the front matter.
             : $this->page->matter('navigation.group', 'other');
-    }
-
-    private function findNavigationMenuGroup(): ?string
-    {
-        if ($this->page instanceof DocumentationPage) {
-            return $this->getDocumentationPageGroup();
-        }
-
-        return null;
     }
 }
