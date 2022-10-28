@@ -74,16 +74,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->matter('navigation.label');
         }
 
-        $labelConfig = array_merge([
-            'index' => 'Home',
-            'docs/index' => 'Docs',
-        ], config('hyde.navigation.labels', []));
-
-        if (isset($labelConfig[$this->routeKey])) {
-            return $labelConfig[$this->routeKey];
-        }
-
-        return $this->matter('title') ?? $this->title;
+        return $this->searchForLabelInConfig() ?? $this->matter('title') ?? $this->title;
     }
 
     protected function makeGroup(): ?string
@@ -154,5 +145,19 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function isInstanceOf(string $class): bool
     {
         return is_a($this->pageClass, $class, true);
+    }
+
+    protected function searchForLabelInConfig(): ?string
+    {
+        $labelConfig = array_merge([
+            'index' => 'Home',
+            'docs/index' => 'Docs',
+        ], config('hyde.navigation.labels', []));
+
+        if (isset($labelConfig[$this->routeKey])) {
+            return $labelConfig[$this->routeKey];
+        }
+
+        return null;
     }
 }
