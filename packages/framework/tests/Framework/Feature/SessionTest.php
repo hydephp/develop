@@ -22,11 +22,9 @@ class SessionTest extends TestCase
 
     public function test_session_can_add_warning()
     {
-        $session = app(Session::class);
+        app(Session::class)->addWarning('warning');
 
-        $session->addWarning('warning');
-
-        $this->assertSame(['warning'], $session->getWarnings());
+        $this->assertSame(['warning'], app(Session::class)->getWarnings());
     }
 
     public function test_session_is_not_persisted()
