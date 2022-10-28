@@ -159,10 +159,23 @@ class FeaturedImageModelTest extends TestCase
 
     public function test_get_fluent_attribution_method()
     {
+        $image = new FeaturedImage([
+            'author' => 'John Doe',
+            'copyright' => 'foo',
+            'license' => 'foo'
+        ]);
+        $string = $image->getFluentAttribution();
+
+        $this->assertStringContainsString('Image by <span itemprop="creator" ', $string);
+        $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
+        $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
+
+
         $image = new FeaturedImage(['author' => 'John Doe']);
         $string = $image->getFluentAttribution();
 
         $this->assertStringContainsString('Image by ', $string);
+        $this->assertStringContainsString('John Doe', $string);
 
         $image = new FeaturedImage(['copyright' => 'foo']);
         $string = $image->getFluentAttribution();
