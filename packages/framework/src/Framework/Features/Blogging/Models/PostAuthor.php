@@ -42,23 +42,17 @@ class PostAuthor implements Stringable
     /**
      * Construct a new Post Author object.
      *
-     * Parameters are supplied through an array to make it
-     * easy to load data from Markdown post front matter.
+     * If your input is in the form of an array, you may rather want to use the `make` method.
      *
-     * @param  string  $username
-     * @param  array|null  $data
+     * @param string $username
+     * @param string|null $name
+     * @param string|null $website
      */
-    public function __construct(string $username, ?array $data = [])
+    public function __construct(string $username, ?string $name = null, ?string $website = null)
     {
         $this->username = $username;
-
-        if (isset($data['name'])) {
-            $this->name = $data['name'];
-        }
-
-        if (isset($data['website'])) {
-            $this->website = $data['website'];
-        }
+        $this->name = $name;
+        $this->website = $website;
     }
 
     /** Dynamically get or create an author based on a username string or front matter array */
@@ -83,7 +77,7 @@ class PostAuthor implements Stringable
 
     public static function create(string $username, ?string $name = null, ?string $website = null): static
     {
-        return new static($username, ['name' => $name, 'website' => $website]);
+        return new static($username, $name, $website);
     }
 
     public function __toString(): string

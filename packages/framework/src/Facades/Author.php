@@ -15,6 +15,6 @@ class Author
 {
     public static function create(string $username, ?string $name = null, ?string $website = null): PostAuthor
     {
-        return new PostAuthor($username, ['name' => $name, 'website' => $website]);
+        return new PostAuthor($username, $name, $website);
     }
 }
