@@ -9,6 +9,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Features\Session\Session
+ * @covers \Hyde\Framework\Features\Session\SessionServiceProvider
  */
 class SessionTest extends TestCase
 {
