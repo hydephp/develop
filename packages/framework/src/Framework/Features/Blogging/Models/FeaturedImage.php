@@ -163,6 +163,16 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return Hyde::image($this->getSource());
     }
 
+    public function getPath(): ?string
+    {
+        return $this->path ?? null;
+    }
+
+    public function getSourcePath(): ?string
+    {
+        return $this->sourcePath ?? null;
+    }
+
     public function getContentLength(): int
     {
         return (str_starts_with($this->getSource(), 'http')
@@ -261,16 +271,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return isset($this->attributionUrl)
             ? $this->getAuthorLink()
             : $this->getAuthorSpan();
-    }
-
-    public function getPath(): ?string
-    {
-        return $this->path ?? null;
-    }
-
-    public function getSourcePath(): ?string
-    {
-        return $this->sourcePath ?? null;
     }
 
     protected function getContentLengthFromRemote(): ?int
