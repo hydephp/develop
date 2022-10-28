@@ -150,7 +150,11 @@ class HydeServiceProviderTest extends TestCase
             return get_class($command);
         }, Artisan::all());
 
-        foreach (glob(Hyde::vendorPath('src/Commands/*.php')) as $file) {
+        $glob = glob(Hyde::vendorPath('src/Commands/*.php'));
+
+        $this->assertNotEmpty($glob);
+
+        foreach ($glob as $file) {
             $class = 'Hyde\Framework\Commands\\'.basename($file, '.php');
 
             $this->assertContains($class, $commands);
