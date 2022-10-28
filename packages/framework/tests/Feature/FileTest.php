@@ -143,12 +143,12 @@ class FileTest extends TestCase
         $this->file('foo.txt', 'foo bar');
 
         $this->assertSame([
-         'name'     => 'foo.txt',
-         'path'     => 'foo.txt',
-         'contents' => 'foo bar',
-         'length'   => 7,
-         'mimeType' => 'text/plain',
-         'model'    => null,
+            'name'     => 'foo.txt',
+            'path'     => 'foo.txt',
+            'contents' => 'foo bar',
+            'length'   => 7,
+            'mimeType' => 'text/plain',
+            'model'    => null,
         ], File::make('foo.txt')->toArray());
     }
 
