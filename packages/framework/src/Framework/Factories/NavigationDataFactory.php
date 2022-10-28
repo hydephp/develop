@@ -88,7 +88,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuGroup(): ?string
     {
-        if ($this->page instanceof DocumentationPage) {
+        if ($this->pageClass === DocumentationPage::class) {
             return $this->getDocumentationPageGroup();
         }
 
@@ -97,7 +97,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findNavigationMenuHidden(): bool
     {
-        if ($this->page instanceof MarkdownPost) {
+        if ($this->pageClass === MarkdownPost::class) {
             return true;
         }
 
@@ -119,7 +119,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         // Different default return values are to preserve backwards compatibility
-        return $this->page instanceof DocumentationPage
+        return $this->pageClass === DocumentationPage::class
             ? $this->findNavigationMenuPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
             : $this->findNavigationMenuPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
     }
