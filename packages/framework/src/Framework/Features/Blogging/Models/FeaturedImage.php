@@ -15,7 +15,7 @@ use Stringable;
 use function implode;
 
 /**
- * Holds the information for an image.
+ * Holds the information for an image, and contains helper methods for generating fluent HTML around it.
  *
  * $schema = [
  *    'path'         => '?string',
