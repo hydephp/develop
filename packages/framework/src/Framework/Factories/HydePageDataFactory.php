@@ -30,9 +30,10 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     public function __construct(
         private readonly FrontMatter $matter,
         private readonly Markdown|false $markdown,
+        private readonly string $pageClass,
         private readonly string $identifier,
         private readonly string $outputPath,
-        protected HydePage $page // @deprecated
+        private readonly string $routeKey,
     ) {
         $this->title = $this->makeTitle();
         $this->canonicalUrl = $this->makeCanonicalUrl();
@@ -60,7 +61,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     protected function makeNavigation(): ?NavigationData
     {
-        return NavigationDataFactory::make($this->matter, $this->identifier, $this->page::class, $this->page->routeKey, $this->title);
+        return NavigationDataFactory::make($this->matter, $this->identifier, $this->pageClass, $this->routeKey, $this->title);
     }
 
     private function findTitleForPage(): string

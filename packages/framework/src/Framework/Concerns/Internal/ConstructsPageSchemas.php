@@ -24,6 +24,6 @@ trait ConstructsPageSchemas
 
     protected function constructPageSchema(): void
     {
-        $this->constructFactoryData(new HydePageDataFactory($this->matter, $this->markdown ?? false, $this->identifier, $this->getOutputPath(), $this));
+        $this->constructFactoryData(new HydePageDataFactory($this->matter, $this->markdown ?? false, $this::class, $this->identifier, $this->getOutputPath(), $this->routeKey));
     }
 }
