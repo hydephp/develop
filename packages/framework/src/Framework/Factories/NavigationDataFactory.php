@@ -20,6 +20,14 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected readonly ?bool $hidden;
     protected readonly ?int $priority;
 
+    public function __construct()
+    {
+        $this->label = $this->makeLabel();
+        $this->group = $this->makeGroup();
+        $this->hidden = $this->makeHidden();
+        $this->priority = $this->makePriority();
+    }
+
     public function toArray(): array
     {
         return [
