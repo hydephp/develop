@@ -6,5 +6,5 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 class LocalFeaturedImage extends FeaturedImage
 {
-    //
+    protected readonly string $source;
 }
