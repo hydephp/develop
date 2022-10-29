@@ -40,7 +40,7 @@ class RemoteFeaturedImage extends FeaturedImage
             return (int) key(array_flip($headers['Content-Length']));
         }
 
-        // Here we could throw an exception if we want to be strict about this.
+        // Here we could throw an exception if we want to be strict about this, or add a warning.
 
         return 0;
     }
