@@ -71,7 +71,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected function makeSource(): string
     {
         if (is_string($this->matter('image'))) {
-            return $this->matter('image');
+            if (str_starts_with($this->matter('image'), 'http')) {
+                return $this->matter('image');
+            }
+
+            return self::normalizeLocalImagePath($this->matter('image'));
         }
 
         if ($this->matter('image.url') !== null) {
@@ -82,7 +86,8 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return $this->normalizeLocalImagePath($this->matter('image.path'));
         }
 
-        // Todo, we might want to add a note about which file caused the error
+        // Todo, we might want to add a note about which file caused the error.
+        // We could also check for these before calling the factory, and just ignore the image if it's not valid.
         throw new RuntimeException('No featured image source was found');
     }
 

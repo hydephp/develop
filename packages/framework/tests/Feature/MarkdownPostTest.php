@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Blogging\Models\LegacyFeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
@@ -51,8 +51,8 @@ class MarkdownPostTest extends TestCase
             'image' => 'https://example.com/image.jpg',
         ]));
 
-        $this->assertInstanceOf(LegacyFeaturedImage::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->url);
+        $this->assertInstanceOf(FeaturedImage::class, $post->image);
+        $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
     }
 
     public function test_constructor_can_create_a_new_image_instance_from_an_array()
@@ -63,8 +63,8 @@ class MarkdownPostTest extends TestCase
             ],
         ]));
 
-        $this->assertInstanceOf(LegacyFeaturedImage::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->url);
+        $this->assertInstanceOf(FeaturedImage::class, $post->image);
+        $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
     }
 
     public function test_constructor_can_create_a_new_date_string_instance_from_matter()
@@ -87,24 +87,24 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(LegacyFeaturedImage::class, $image);
-        $this->assertEquals('foo.png', $image->path);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertEquals('media/foo.png', $image->getSource());
     }
 
     public function test_featured_image_can_be_constructed_returns_image_object_with_remote_path_when_matter_is_string()
     {
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(LegacyFeaturedImage::class, $image);
-        $this->assertEquals('https://example.com/foo.png', $image->url);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertEquals('https://example.com/foo.png', $image->getSource());
     }
 
     public function test_featured_image_can_be_constructed_returns_image_object_with_supplied_data_when_matter_is_array()
     {
         $page = MarkdownPost::make(matter: ['image' => ['path' => 'foo.png', 'title' => 'bar']]);
         $image = $page->image;
-        $this->assertInstanceOf(LegacyFeaturedImage::class, $image);
-        $this->assertEquals('foo.png', $image->path);
-        $this->assertEquals('bar', $image->title);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertEquals('media/foo.png', $image->getSource());
+        $this->assertEquals('bar', $image->getTitleText());
     }
 }

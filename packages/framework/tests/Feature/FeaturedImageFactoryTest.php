@@ -53,7 +53,7 @@ class FeaturedImageFactoryTest extends TestCase
         ]));
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
-        $this->assertSame('_media/path', $image->getSource());
+        $this->assertSame('media/path', $image->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
@@ -80,6 +80,7 @@ class FeaturedImageFactoryTest extends TestCase
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
     {
         $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No featured image source was found');
 
         FeaturedImageFactory::make(new FrontMatter([]));
     }
@@ -90,7 +91,17 @@ class FeaturedImageFactoryTest extends TestCase
             'image' => 'foo',
         ]));
 
+        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $this->assertSame('media/foo', $image->getSource());
+    }
+
+    public function testMakeMethodCanCreateImageFromJustStringWithUrl()
+    {
+        $image = FeaturedImageFactory::make(new FrontMatter([
+            'image' => 'https://example.com/foo',
+        ]));
+
         $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('foo', $image->getSource());
+        $this->assertSame('https://example.com/foo', $image->getSource());
     }
 }

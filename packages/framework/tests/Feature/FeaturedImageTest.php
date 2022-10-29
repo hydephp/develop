@@ -128,7 +128,7 @@ class FeaturedImageTest extends TestCase
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
-        $this->assertEquals('_media/foo', $image->getSource());
+        $this->assertEquals('media/foo', $image->getSource());
     }
 
     public function testCannotConstructLocalFeaturedImageWithInvalidSource()

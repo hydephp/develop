@@ -8,7 +8,15 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use InvalidArgumentException;
 use function str_starts_with;
+use function substr;
 
+/**
+ * A featured image object, for a file stored locally.
+ *
+ * The internal data structure forces the image source to reference a file in the _media directory,
+ * and thus that is what is required for the input. However, when outputting data, the data will
+ * be used for the _site/media directory, so it will provide data relative to the site root.
+ */
 class LocalFeaturedImage extends FeaturedImage
 {
     protected readonly string $source;
@@ -27,7 +35,8 @@ class LocalFeaturedImage extends FeaturedImage
 
     public function getSource(): string
     {
-        return $this->source;
+        // Return value must be relative to the site's root.
+        return Hyde::relativeLink(substr($this->source, 1));
     }
 
     public function getContentLength(): int
