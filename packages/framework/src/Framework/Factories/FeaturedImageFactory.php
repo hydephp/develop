@@ -18,6 +18,17 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
 
+    public function __construct()
+    {
+        $this->altText = $this->makeAltText();
+        $this->titleText = $this->makeTitleText();
+        $this->authorName = $this->makeAuthorName();
+        $this->authorUrl = $this->makeAuthorUrl();
+        $this->copyrightText = $this->makeCopyrightText();
+        $this->licenseName = $this->makeLicenseName();
+        $this->licenseUrl = $this->makeLicenseUrl();
+    }
+
     public function toArray(): array
     {
         return [
