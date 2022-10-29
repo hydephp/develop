@@ -167,7 +167,7 @@ class FeaturedImageTest extends TestCase
     public function testCannotConstructRemoteFeaturedImageWithInvalidSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('RemoteFeaturedImage source must be a valid url');
+        $this->expectExceptionMessage('RemoteFeaturedImage source must be a valid URL');
 
         new RemoteFeaturedImage('foo', ...$this->defaultArguments());
     }
