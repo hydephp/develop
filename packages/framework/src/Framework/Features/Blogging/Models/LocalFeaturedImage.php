@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-class LocalFeaturedImage
+class LocalFeaturedImage extends FeaturedImage
 {
     //
 }
