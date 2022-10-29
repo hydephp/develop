@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use function file_put_contents;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Http;
 use function strip_tags;
+use function unlink;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
@@ -37,6 +40,30 @@ class FeaturedImageModelTest extends TestCase
         $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('foo', $image->path);
         $this->assertEquals('bar', $image->title);
+    }
+
+    public function test_image_path_is_normalized_to_never_begin_with_media_prefix()
+    {
+        $image = FeaturedImage::make('foo');
+        $this->assertSame('foo', $image->path);
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('foo', $image->path);
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('foo', $image->path);
+    }
+
+    public function test_image_source_path_is_normalized_to_always_begin_with_media_prefix()
+    {
+        $image = FeaturedImage::make('foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
     }
 
     public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()
@@ -388,6 +415,58 @@ class FeaturedImageModelTest extends TestCase
         $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
 
         $this->assertEquals('Image by John Doe. License Creative Commons.', $this->stripHtml($component));
+    }
+
+    public function test_it_can_find_the_content_length_for_a_local_image_stored_in_the_media_directory()
+    {
+        $image = new FeaturedImage(['path' => 'image.jpg']);
+        file_put_contents($image->getSourcePath(), '16bytelongstring');
+
+        $this->assertEquals(
+            16, $image->getContentLength()
+        );
+
+        unlink($image->getSourcePath());
+    }
+
+    public function test_it_can_find_the_content_length_for_a_remote_image()
+    {
+        Http::fake(function () {
+            return Http::response(null, 200, [
+                'Content-Length' => 16,
+            ]);
+        });
+
+        $image = new FeaturedImage();
+        $image->url = 'https://hyde.test/static/image.png';
+
+        $this->assertEquals(
+            16, $image->getContentLength()
+        );
+    }
+
+    public function test_it_returns_0_if_local_image_is_missing()
+    {
+        $image = new FeaturedImage();
+        $image->path = '_media/image.jpg';
+
+        $this->assertEquals(
+            0, $image->getContentLength()
+        );
+    }
+
+    public function test_it_returns_0_if_remote_image_is_missing()
+    {
+        Http::fake(function () {
+            return Http::response(null, 404);
+        });
+
+        $image = new FeaturedImage();
+        $image->url = 'https://hyde.test/static/image.png';
+
+        $this->assertEquals(
+            0, $image->getContentLength()
+        );
     }
 
     protected function stripHtml(string $string): string
