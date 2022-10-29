@@ -36,7 +36,7 @@ class LocalFeaturedImage extends FeaturedImage
     public function getSource(): string
     {
         // Return value must be relative to the site's root.
-        return substr($this->source, 1);
+        return Hyde::relativeLink(substr($this->source, 1));
     }
 
     public function getContentLength(): int
