@@ -82,7 +82,8 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             return $this->normalizeLocalImagePath($this->matter('image.path'));
         }
 
-        // Todo, we might want to add a note about which file caused the error
+        // Todo, we might want to add a note about which file caused the error.
+        // We could also check for these before calling the factory, and just ignore the image if it's not valid.
         throw new RuntimeException('No featured image source was found');
     }
 
