@@ -41,4 +41,39 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             'licenseUrl' => $this->licenseUrl,
         ];
     }
+
+    protected function makeAltText(): ?string
+    {
+        return null;
+    }
+
+    protected function makeTitleText(): ?string
+    {
+        return null;
+    }
+
+    protected function makeAuthorName(): ?string
+    {
+        return null;
+    }
+
+    protected function makeAuthorUrl(): ?string
+    {
+        return null;
+    }
+
+    protected function makeCopyrightText(): ?string
+    {
+        return null;
+    }
+
+    protected function makeLicenseName(): ?string
+    {
+        return null;
+    }
+
+    protected function makeLicenseUrl(): ?string
+    {
+        return null;
+    }
 }
