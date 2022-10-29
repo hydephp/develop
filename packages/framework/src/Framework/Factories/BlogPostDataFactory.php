@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
-use Hyde\Framework\Features\Blogging\Models\LegacyFeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Models\FrontMatter;
@@ -40,7 +40,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected readonly ?string $category;
     protected readonly ?DateString $date;
     protected readonly ?PostAuthor $author;
-    protected readonly ?LegacyFeaturedImage $image;
+    protected readonly ?FeaturedImage $image;
 
     public function __construct(FrontMatter $matter, Markdown $markdown)
     {
@@ -93,10 +93,10 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         return null;
     }
 
-    protected function makeImage(): ?LegacyFeaturedImage
+    protected function makeImage(): ?FeaturedImage
     {
         if ($this->matter('image')) {
-            return LegacyFeaturedImage::make($this->matter('image'));
+            return FeaturedImage::make($this->matter('image'));
         }
 
         return null;

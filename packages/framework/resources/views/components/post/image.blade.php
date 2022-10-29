@@ -1,6 +1,6 @@
 @php
     /** @var \Hyde\Pages\MarkdownPost $page  */
-    /** @var \Hyde\Framework\Features\Blogging\Models\LegacyFeaturedImage $image  */
+    /** @var \Hyde\Framework\Features\Blogging\Models\FeaturedImage $image  */
     $image = $page->image;
 @endphp
 <figure aria-label="Cover image" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" role="doc-cover">
