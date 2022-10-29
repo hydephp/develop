@@ -191,11 +191,17 @@ class FeaturedImageViewTest extends TestCase
         return str_replace(' ', '', $string);
     }
 
-    protected function renderComponent(FeaturedImage $image): string
+    protected function renderComponent(FeaturedImage $image, bool $makeFile = true): string
     {
         $page = new MarkdownPost();
 
         $page->image = $image;
+
+
+        if ($makeFile) {
+            $image->path = $image->getSourcePath() ?? '_media/foo.jpg';
+            $this->file($image->getSourcePath() ?? '_media/foo.jpg');
+        }
 
         $this->mockPage($page);
 
