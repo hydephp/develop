@@ -80,6 +80,7 @@ class FeaturedImageFactoryTest extends TestCase
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
     {
         $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No featured image source was found');
 
         FeaturedImageFactory::make(new FrontMatter([]));
     }
