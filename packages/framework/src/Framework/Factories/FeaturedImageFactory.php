@@ -71,7 +71,10 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected function makeSource(): string
     {
         if (is_string($this->matter('image'))) {
-            return $this->matter('image');
+            if (str_starts_with($this->matter('image'), 'http')) {
+                return $this->matter('image');
+            }
+            return self::normalizeLocalImagePath($this->matter('image'));
         }
 
         if ($this->matter('image.url') !== null) {
