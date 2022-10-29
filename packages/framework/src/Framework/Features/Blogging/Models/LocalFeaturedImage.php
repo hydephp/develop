@@ -31,7 +31,7 @@ class LocalFeaturedImage extends FeaturedImage
 
     public function getContentLength(): int
     {
-        return filesize($this->storagePath());
+        return filesize($this->storageValidatedPath());
     }
 
     protected function storagePath(): string
