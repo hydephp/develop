@@ -35,7 +35,8 @@ abstract class FeaturedImage implements Stringable
     }
 
     /**
-     * Get the source of the image, must be usable within the src attribute of an image tag.
+     * Get the source of the image, must be usable within the src attribute of an image tag,
+     * and is thus not necessarily the path to the source image on disk.
      * @return string The image's url or path
      */
     abstract public function getSource(): string;
