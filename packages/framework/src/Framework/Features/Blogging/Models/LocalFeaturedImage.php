@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Hyde;
 use InvalidArgumentException;
 use function str_starts_with;
 
@@ -30,6 +31,6 @@ class LocalFeaturedImage extends FeaturedImage
 
     public function getContentLength(): int
     {
-        return filesize($this->source);
+        return filesize(Hyde::path($this->source));
     }
 }
