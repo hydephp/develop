@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
+use function str_replace;
 use function strip_tags;
 use function unlink;
 
@@ -414,7 +415,10 @@ class FeaturedImageModelTest extends TestCase
         $this->assertStringContainsString('Creative Commons', $component);
         $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
 
-        $this->assertEquals('Image by John Doe. License Creative Commons.', $this->stripHtml($component));
+        $this->assertEquals(
+            $this->stripWhitespace('Image by John Doe. License Creative Commons.'),
+            $this->stripWhitespace($this->stripHtml($component))
+        );
     }
 
     public function test_it_can_find_the_content_length_for_a_local_image_stored_in_the_media_directory()
@@ -472,5 +476,10 @@ class FeaturedImageModelTest extends TestCase
     protected function stripHtml(string $string): string
     {
         return trim(strip_newlines(strip_tags($string)), "\t ");
+    }
+
+    protected function stripWhitespace(string $string): string
+    {
+        return str_replace(' ', '', $string);
     }
 }
