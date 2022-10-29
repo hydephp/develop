@@ -212,21 +212,31 @@ class FeaturedImageViewTest extends TestCase
         return view('hyde::components.post.image')->render();
     }
 
-    protected function assertSee(string $needle, string $haystack, bool $stripHtmlTabsAndWhitespace = true): void
+    protected function assertSee(string $needle, string $haystack, bool $stripTabsAndWhitespace = true, bool $stripHtml = true): void
     {
-        if ($stripHtmlTabsAndWhitespace) {
-            $needle = $this->stripWhitespace($this->stripHtml($needle));
-            $haystack = $this->stripWhitespace($this->stripHtml($haystack));
+        if ($stripTabsAndWhitespace) {
+            $needle = $this->stripWhitespace(($needle));
+            $haystack = $this->stripWhitespace($haystack);
+        }
+
+        if ($stripHtml) {
+            $needle = $this->stripHtml($needle);
+            $haystack =($this->stripHtml($haystack));
         }
 
         $this->assertStringContainsString($needle, $haystack);
     }
 
-    protected function assertDontSee(string $needle, string $haystack, bool $stripHtmlTabsAndWhitespace = true): void
+    protected function assertDontSee(string $needle, string $haystack, bool $stripTabsAndWhitespace = true, bool $stripHtml = true): void
     {
-        if ($stripHtmlTabsAndWhitespace) {
-            $needle = $this->stripWhitespace($this->stripHtml($needle));
-            $haystack = $this->stripWhitespace($this->stripHtml($haystack));
+        if ($stripTabsAndWhitespace) {
+            $needle = $this->stripWhitespace(($needle));
+            $haystack = $this->stripWhitespace($haystack);
+        }
+
+        if ($stripHtml) {
+            $needle = $this->stripHtml($needle);
+            $haystack =($this->stripHtml($haystack));
         }
 
         $this->assertStringNotContainsString($needle, $haystack);
