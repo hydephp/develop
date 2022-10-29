@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Factories\FeaturedImageFactory;
+use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 
@@ -45,7 +46,13 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCreatesLocalImageWhenPathIsSet()
     {
-        
+        $array = [
+            'image.path' => 'path',
+        ];
+
+        $factory = FeaturedImageFactory::make(new FrontMatter($array));
+
+        $this->assertInstanceOf(LocalFeaturedImage::class, $factory);
     }
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
