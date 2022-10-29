@@ -10,11 +10,11 @@ abstract class FeaturedImage implements Stringable
 {
     protected ?string $altText = null;
     protected ?string $titleText = null;
+    protected ?string $copyrightMessage = null;
     protected ?string $licenseName = null;
     protected ?string $licenseUrl = null;
     protected ?string $authorName = null;
     protected ?string $authorUrl = null;
-    protected ?string $copyright = null;
 
     /**
      * Get the source of the image, must be usable within the src attribute of an image tag.
