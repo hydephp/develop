@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
@@ -114,11 +115,19 @@ class FeaturedImageTest extends TestCase
 
     public function testCanConstructLocalFeaturedImage()
     {
-        $image = new LocalFeaturedImage('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
+        $image = new LocalFeaturedImage('_media/foo', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
-        $this->assertEquals('source', $image->getSource());
+        $this->assertEquals('_media/foo', $image->getSource());
+    }
+
+    public function testCannotConstructLocalFeaturedImageWithInvalidSource()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('LocalFeaturedImage source must start with _media/');
+
+        new LocalFeaturedImage('foo', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
     }
 }
 

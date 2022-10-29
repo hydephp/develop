@@ -4,12 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use InvalidArgumentException;
+use function str_starts_with;
+
 class LocalFeaturedImage extends FeaturedImage
 {
     protected readonly string $source;
 
     protected function setSource(string $source): void
     {
+        if (! str_starts_with($source, '_media/')) {
+            // Throwing an exception here ensures we have a super predictable state.
+            throw new InvalidArgumentException('LocalFeaturedImage source must start with _media/');
+        }
+
         $this->source = $source;
     }
 
