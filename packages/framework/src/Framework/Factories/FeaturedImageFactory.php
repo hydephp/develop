@@ -58,36 +58,36 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected function makeAltText(): ?string
     {
-        return $this->matter('description');
+        return $this->matter('image.description');
     }
 
     protected function makeTitleText(): ?string
     {
-        return $this->matter('title');
+        return $this->matter('image.title');
     }
 
     protected function makeAuthorName(): ?string
     {
-        return $this->matter('author');
+        return $this->matter('image.author');
     }
 
     protected function makeAuthorUrl(): ?string
     {
-        return $this->matter('attributionUrl');
+        return $this->matter('image.attributionUrl');
     }
 
     protected function makeCopyrightText(): ?string
     {
-        return $this->matter('copyright');
+        return $this->matter('image.copyright');
     }
 
     protected function makeLicenseName(): ?string
     {
-        return $this->matter('license');
+        return $this->matter('image.license');
     }
 
     protected function makeLicenseUrl(): ?string
     {
-        return $this->matter('licenseUrl');
+        return $this->matter('image.licenseUrl');
     }
 }

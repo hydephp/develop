@@ -16,15 +16,15 @@ class FeaturedImageFactoryTest extends TestCase
     public function testWithDataFromSchema()
     {
         $array = [
-            'path' => 'path',
-            'url' => 'url',
-            'description' => 'description',
-            'title' => 'title',
-            'copyright' => 'copyright',
-            'license' => 'license',
-            'licenseUrl' => 'licenseUrl',
-            'author' => 'author',
-            'attributionUrl' => 'attributionUrl',
+            'image.path' => 'path',
+            'image.url' => 'url',
+            'image.description' => 'description',
+            'image.title' => 'title',
+            'image.copyright' => 'copyright',
+            'image.license' => 'license',
+            'image.licenseUrl' => 'licenseUrl',
+            'image.author' => 'author',
+            'image.attributionUrl' => 'attributionUrl',
         ];
 
         $expected = [
