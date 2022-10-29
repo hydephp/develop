@@ -8,15 +8,15 @@ use Stringable;
 
 abstract class FeaturedImage implements Stringable
 {
-    protected ?string $altText = null;
-    protected ?string $titleText = null;
+    protected readonly ?string $altText = null;
+    protected readonly ?string $titleText = null;
 
-    protected ?string $authorName = null;
-    protected ?string $authorUrl = null;
+    protected readonly ?string $authorName = null;
+    protected readonly ?string $authorUrl = null;
 
-    protected ?string $copyrightText = null;
-    protected ?string $licenseName = null;
-    protected ?string $licenseUrl = null;
+    protected readonly ?string $copyrightText = null;
+    protected readonly ?string $licenseName = null;
+    protected readonly ?string $licenseUrl = null;
 
     /**
      * Get the source of the image, must be usable within the src attribute of an image tag.
