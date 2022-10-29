@@ -8,15 +8,26 @@ use Stringable;
 
 abstract class FeaturedImage implements Stringable
 {
-    protected readonly ?string $altText = null;
-    protected readonly ?string $titleText = null;
+    protected readonly ?string $altText;
+    protected readonly ?string $titleText;
 
-    protected readonly ?string $authorName = null;
-    protected readonly ?string $authorUrl = null;
+    protected readonly ?string $authorName;
+    protected readonly ?string $authorUrl;
 
-    protected readonly ?string $copyrightText = null;
-    protected readonly ?string $licenseName = null;
-    protected readonly ?string $licenseUrl = null;
+    protected readonly ?string $copyrightText;
+    protected readonly ?string $licenseName;
+    protected readonly ?string $licenseUrl;
+
+    public function __construct()
+    {
+        $this->altText = null;
+        $this->titleText = null;
+        $this->authorName = null;
+        $this->authorUrl = null;
+        $this->copyrightText = null;
+        $this->licenseName = null;
+        $this->licenseUrl = null;
+    }
 
     /**
      * Get the source of the image, must be usable within the src attribute of an image tag.
