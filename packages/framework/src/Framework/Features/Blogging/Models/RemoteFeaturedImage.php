@@ -8,7 +8,6 @@ use function array_flip;
 use function array_key_exists;
 use function config;
 use Illuminate\Support\Facades\Http;
-use InvalidArgumentException;
 use function key;
 
 class RemoteFeaturedImage extends FeaturedImage
@@ -17,10 +16,7 @@ class RemoteFeaturedImage extends FeaturedImage
 
     protected function setSource(string $source): void
     {
-        if (! str_starts_with($source, 'http')) {
-            // Throwing an exception here ensures we have a super predictable state.
-            throw new InvalidArgumentException('RemoteFeaturedImage source must be a valid URL');
-        }
+        // Here we can validate the source URL if we want.
 
         $this->source = $source;
     }
