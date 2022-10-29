@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 
@@ -152,6 +153,23 @@ class FeaturedImageTest extends TestCase
 
         $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
+    }
+
+    public function testCanConstructRemoteFeaturedImage()
+    {
+        $image = new RemoteFeaturedImage('http/foo', ...$this->defaultArguments());
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
+
+        $this->assertEquals('http/foo', $image->getSource());
+    }
+
+    public function testCannotConstructRemoteFeaturedImageWithInvalidSource()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('RemoteFeaturedImage source must start with http/https');
+
+        new RemoteFeaturedImage('foo', ...$this->defaultArguments());
     }
 
     protected function defaultArguments(): array
