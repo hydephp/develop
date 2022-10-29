@@ -1,10 +1,11 @@
 @php
     /** @var \Hyde\Pages\MarkdownPost $page  */
-    /** @var \Hyde\Framework\Features\Blogging\Models\FeaturedImage $image  */
+    /** @var \Hyde\Framework\Features\Blogging\Models\LegacyFeaturedImage $image  */
     $image = $page->image;
 @endphp
 <figure aria-label="Cover image" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" role="doc-cover">
-    <img src="{{ $image->getLink() }}" alt="{{ $image->description ?? '' }}" title="{{ $image->title ?? '' }}" itemprop="image" class="mb-0">
+    <img src="{{ $image->getLink() }}" alt="{{ $image->description ?? '' }}" title="{{ $image->title ?? '' }}"
+         itemprop="image" class="mb-0">
     <figcaption aria-label="Image caption" itemprop="caption">
         @isset($image->author)
             <span>Image by</span>

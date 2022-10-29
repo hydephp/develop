@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\LegacyFeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
@@ -51,7 +51,7 @@ class MarkdownPostTest extends TestCase
             'image' => 'https://example.com/image.jpg',
         ]));
 
-        $this->assertInstanceOf(FeaturedImage::class, $post->image);
+        $this->assertInstanceOf(LegacyFeaturedImage::class, $post->image);
         $this->assertEquals('https://example.com/image.jpg', $post->image->url);
     }
 
@@ -63,7 +63,7 @@ class MarkdownPostTest extends TestCase
             ],
         ]));
 
-        $this->assertInstanceOf(FeaturedImage::class, $post->image);
+        $this->assertInstanceOf(LegacyFeaturedImage::class, $post->image);
         $this->assertEquals('https://example.com/image.jpg', $post->image->url);
     }
 
@@ -87,7 +87,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertInstanceOf(LegacyFeaturedImage::class, $image);
         $this->assertEquals('foo.png', $image->path);
     }
 
@@ -95,7 +95,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
-        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertInstanceOf(LegacyFeaturedImage::class, $image);
         $this->assertEquals('https://example.com/foo.png', $image->url);
     }
 
@@ -103,7 +103,7 @@ class MarkdownPostTest extends TestCase
     {
         $page = MarkdownPost::make(matter: ['image' => ['path' => 'foo.png', 'title' => 'bar']]);
         $image = $page->image;
-        $this->assertInstanceOf(FeaturedImage::class, $image);
+        $this->assertInstanceOf(LegacyFeaturedImage::class, $image);
         $this->assertEquals('foo.png', $image->path);
         $this->assertEquals('bar', $image->title);
     }

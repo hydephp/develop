@@ -4,178 +4,119 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use function array_flip;
-use function array_key_exists;
-use BadMethodCallException;
-use function config;
-use function file_exists;
-use Hyde\Hyde;
-use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use function key;
+use function method_exists;
 use Stringable;
 
-/**
- * Holds the information for an image, and contains helper methods for generating fluent HTML around it.
- *
- * $schema = [
- *    'path'         => '?string',
- *    'url'          => '?string',
- *    'description'  => '?string',
- *    'title'        => '?string',
- *    'copyright'    => '?string',
- *    'license'      => '?string',
- *    'licenseUrl'   => '?string',
- *    'author'       => '?string',
- *    'attributionUrl' => '?string'
- * ];
- *
- * @see \Hyde\Framework\Testing\Feature\ImageModelTest
- * @phpstan-consistent-constructor
- */
-class FeaturedImage implements FeaturedImageSchema, Stringable
+abstract class FeaturedImage implements Stringable
 {
-    /**
-     * The image's path if it's stored locally.
-     * The image must be stored in the _media directory.
-     *
-     * It no longer matters if you add the _media/ prefix or not,
-     * as it will be normalized to have the prefix stripped.
-     *
-     * @example image.jpg.
-     * @example _media/image.jpg. (will be normalized to image.jpg)
-     */
-    public ?string $path;
+    protected readonly ?string $altText;
+    protected readonly ?string $titleText;
 
-    /**
-     * The image's URL if it's stored remotely.
-     * Will override the path property if both are set.
-     *
-     * @example https://example.com/media/image.jpg
-     */
-    public ?string $url;
+    protected readonly ?string $authorName;
+    protected readonly ?string $authorUrl;
 
-    /**
-     * The image's description. (Used for alt text for screen readers.)
-     * You should always set this to provide accessibility.
-     *
-     * @example "This is an image of a cat sitting in a basket.".
-     */
-    public ?string $description;
+    protected readonly ?string $copyrightText;
+    protected readonly ?string $licenseName;
+    protected readonly ?string $licenseUrl;
 
-    /**
-     * The image's title. (Shows a tooltip on hover.).
-     *
-     * @example "My Cat Archer".
-     */
-    public ?string $title;
-
-    /**
-     * The image's copyright information.
-     *
-     * @example "Copyright (c) 2020 John Doe".
-     */
-    public ?string $copyright;
-
-    /**
-     * The image's license name.
-     *
-     * @example "CC BY-NC-SA 4.0".
-     */
-    public ?string $license;
-
-    /**
-     * The image's license URL.
-     *
-     * @example "https://creativecommons.org/licenses/by-nc-sa/4.0/".
-     */
-    public ?string $licenseUrl;
-
-    /**
-     * The image's author/photographer.
-     *
-     * @example "John Doe".
-     */
-    public ?string $author;
-
-    /**
-     * Link to the image author/source (for attribution/credit).
-     * When added, the rendered $author's name will link to this URL.
-     *
-     * @note This was previously called "credit" but was renamed to "attributionUrl" for clarity.
-     *
-     * @example "https://unsplash.com/photos/example".
-     */
-    public ?string $attributionUrl = null;
-
-    /**
-     * @var string The path to the image in the _media directory, relative to the root of the site.
-     *
-     * @example "_media/image.jpg".
-     */
-    protected string $sourcePath;
-
-    public function __construct(array $data = [])
+    public function __construct(string $source, ?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
     {
-        foreach ($data as $key => $value) {
-            $this->{$key} = $value;
-        }
+        $this->altText = $altText;
+        $this->titleText = $titleText;
+        $this->authorName = $authorName;
+        $this->authorUrl = $authorUrl;
+        $this->copyrightText = $copyrightText;
+        $this->licenseName = $licenseName;
+        $this->licenseUrl = $licenseUrl;
 
-        if (isset($this->path)) {
-            $this->sourcePath = static::normalizeSourcePath($this->path);
-            $this->path = Str::after($this->sourcePath, '_media/');
+        if (method_exists($this, 'setSource')) {
+            $this->setSource($source);
         }
     }
 
-    /** Dynamically create an image based on string or front matter array */
-    public static function make(string|array $data): static
+    public function __toString(): string
     {
-        if (is_string($data)) {
-            return static::fromSource($data);
-        }
-
-        return new static($data);
+        return $this->getSource();
     }
 
-    public static function fromSource(string $image): static
+    /**
+     * Get the source of the image, must be usable within the src attribute of an image tag,
+     * and is thus not necessarily the path to the source image on disk.
+     *
+     * @return string The image's url or path
+     */
+    abstract public function getSource(): string;
+
+    abstract public function getContentLength(): int;
+
+    public function getAltText(): ?string
     {
-        return str_starts_with($image, 'http')
-            ? new static(['url' => $image])
-            : new static(['path' => $image]);
+        return $this->altText;
     }
 
-    /** @inheritDoc */
-    public function __toString()
+    public function getTitleText(): ?string
     {
-        return $this->getLink();
+        return $this->titleText;
     }
 
-    public function getSource(): string
+    public function getAuthorName(): ?string
     {
-        return $this->url ?? $this->getPath() ?? throw new BadMethodCallException('Attempting to get source from Image that has no source.');
+        return $this->authorName;
     }
 
-    public function getLink(): string
+    public function getAuthorUrl(): ?string
     {
-        return Hyde::image($this->getSource());
+        return $this->authorUrl;
     }
 
-    public function getPath(): ?string
+    public function getCopyrightText(): ?string
     {
-        return $this->path ?? null;
+        return $this->copyrightText;
     }
 
-    public function getSourcePath(): ?string
+    public function getLicenseName(): ?string
     {
-        return $this->sourcePath ?? null;
+        return $this->licenseName;
     }
 
-    public function getContentLength(): int
+    public function getLicenseUrl(): ?string
     {
-        return (str_starts_with($this->getSource(), 'http')
-            ? $this->getContentLengthFromRemote()
-            : $this->getLocalContentLength()) ?? 0;
+        return $this->licenseUrl;
+    }
+
+    public function hasAltText(): bool
+    {
+        return $this->altText !== null;
+    }
+
+    public function hasTitleText(): bool
+    {
+        return $this->titleText !== null;
+    }
+
+    public function hasAuthorName(): bool
+    {
+        return $this->authorName !== null;
+    }
+
+    public function hasAuthorUrl(): bool
+    {
+        return $this->authorUrl !== null;
+    }
+
+    public function hasCopyrightText(): bool
+    {
+        return $this->copyrightText !== null;
+    }
+
+    public function hasLicenseName(): bool
+    {
+        return $this->licenseName !== null;
+    }
+
+    public function hasLicenseUrl(): bool
+    {
+        return $this->licenseUrl !== null;
     }
 
     /**
@@ -187,54 +128,17 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
     {
         $metadata = [];
 
-        if (isset($this->description)) {
-            $metadata['text'] = $this->description;
+        if ($this->hasAltText()) {
+            $metadata['text'] = $this->getAltText();
         }
 
-        if (isset($this->title)) {
-            $metadata['name'] = $this->title;
+        if ($this->hasTitleText()) {
+            $metadata['name'] = $this->getTitleText();
         }
 
-        $metadata['url'] = $this->getLink();
-        $metadata['contentUrl'] = $this->getLink();
+        $metadata['url'] = $this->getSource();
+        $metadata['contentUrl'] = $this->getSource();
 
         return $metadata;
-    }
-
-    protected function getContentLengthFromRemote(): ?int
-    {
-        $headers = Http::withHeaders([
-            'User-Agent' => config('hyde.http_user_agent', 'RSS Request Client'),
-        ])->head($this->getSource())->headers();
-
-        if (array_key_exists('Content-Length', $headers)) {
-            return (int) key(array_flip($headers['Content-Length']));
-        }
-
-        return null;
-    }
-
-    protected function getLocalContentLength(): ?int
-    {
-        if (isset($this->sourcePath) && file_exists(Hyde::path($this->getSourcePath()))) {
-            return filesize(Hyde::path($this->getSourcePath()));
-        }
-
-        return null;
-    }
-
-    protected static function normalizeSourcePath(string $path): string
-    {
-        $path = Hyde::pathToRelative($path);
-
-        if (str_starts_with($path, '_media/')) {
-            return $path;
-        }
-
-        if (str_starts_with($path, 'media/')) {
-            return '_'.$path;
-        }
-
-        return '_media/'.$path;
     }
 }

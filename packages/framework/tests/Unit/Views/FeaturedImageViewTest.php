@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\LegacyFeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use function str_replace;
@@ -19,10 +19,10 @@ class FeaturedImageViewTest extends TestCase
 {
     public function test_the_view()
     {
-        $component = $this->renderComponent(FeaturedImage::make([
+        $component = $this->renderComponent(LegacyFeaturedImage::make([
             'path' => 'foo',
             'description' => 'This is an image',
-            'title' => 'FeaturedImage Title',
+            'title' => 'LegacyFeaturedImage Title',
             'author' => 'John Doe',
             'license' => 'Creative Commons',
             'licenseUrl' => 'https://licence.example.com',
@@ -30,7 +30,7 @@ class FeaturedImageViewTest extends TestCase
 
         $this->assertStringContainsString('src="media/foo"', $component);
         $this->assertStringContainsString('alt="This is an image"', $component);
-        $this->assertStringContainsString('title="FeaturedImage Title"', $component);
+        $this->assertStringContainsString('title="LegacyFeaturedImage Title"', $component);
         $this->assertStringContainsString('Image by', $component);
         $this->assertStringContainsString('John Doe', $component);
         $this->assertStringContainsString('License', $component);
@@ -45,7 +45,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_image_author_attribution_string()
     {
-        $string = $this->renderComponent(new FeaturedImage(['author' => 'John Doe']));
+        $string = $this->renderComponent(new LegacyFeaturedImage(['author' => 'John Doe']));
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
@@ -53,7 +53,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_image_author_attribution_string_with_url()
     {
-        $string = $this->renderComponent(new FeaturedImage([
+        $string = $this->renderComponent(new LegacyFeaturedImage([
             'author' => 'John Doe',
             'attributionUrl' => 'https://example.com/',
         ]));
@@ -66,27 +66,27 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_copyright_string()
     {
-        $string = $this->renderComponent(new FeaturedImage(['copyright' => 'foo copy']));
+        $string = $this->renderComponent(new LegacyFeaturedImage(['copyright' => 'foo copy']));
         $this->assertStringContainsString('<span itemprop="copyrightNotice">', $string);
         $this->assertStringContainsString('foo copy', $string);
     }
 
     public function test_copyright_string_inverse()
     {
-        $string = $this->renderComponent(new FeaturedImage());
+        $string = $this->renderComponent(new LegacyFeaturedImage());
         $this->assertStringNotContainsString('<span itemprop="copyrightNotice">', $string);
     }
 
     public function test_license_string()
     {
-        $string = $this->renderComponent(new FeaturedImage(['license' => 'foo']));
+        $string = $this->renderComponent(new LegacyFeaturedImage(['license' => 'foo']));
 
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
     }
 
     public function test_license_string_with_url()
     {
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'license' => 'foo',
             'licenseUrl' => 'https://example.com/bar.html',
         ]);
@@ -97,21 +97,21 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_license_string_inverse()
     {
-        $string = $this->renderComponent(new FeaturedImage());
+        $string = $this->renderComponent(new LegacyFeaturedImage());
         $this->assertStringNotContainsString('<span itemprop="license">', $string);
         $this->assertStringNotContainsString('license', $string);
     }
 
     public function test_license_string_inverse_with_url()
     {
-        $string = $this->renderComponent(new FeaturedImage(['licenseUrl' => 'https://example.com/bar.html']));
+        $string = $this->renderComponent(new LegacyFeaturedImage(['licenseUrl' => 'https://example.com/bar.html']));
         $this->assertStringNotContainsString('<span itemprop="license">', $string);
         $this->assertStringNotContainsString('license', $string);
     }
 
     public function test_fluent_attribution_logic_uses_rich_html_tags()
     {
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'author' => 'John Doe',
             'copyright' => 'foo',
             'license' => 'foo',
@@ -130,7 +130,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_1()
     {
-        $image = new FeaturedImage(['author' => 'John Doe']);
+        $image = new LegacyFeaturedImage(['author' => 'John Doe']);
         $string = $this->renderComponent($image);
         $this->assertStringContainsString('Image by', $string);
         $this->assertStringContainsString('John Doe', $string);
@@ -138,7 +138,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_2()
     {
-        $image = new FeaturedImage(['copyright' => 'foo']);
+        $image = new LegacyFeaturedImage(['copyright' => 'foo']);
         $string = $this->renderComponent($image);
 
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
@@ -146,7 +146,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_3()
     {
-        $image = new FeaturedImage(['license' => 'foo']);
+        $image = new LegacyFeaturedImage(['license' => 'foo']);
 
         $string = $this->renderComponent($image);
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
@@ -154,7 +154,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_4()
     {
-        $image = new FeaturedImage();
+        $image = new LegacyFeaturedImage();
         $string = $this->renderComponent($image);
         $this->assertStringNotContainsString('Image by', $string);
         $this->assertStringNotContainsString('License', $string);
@@ -162,7 +162,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_creates_fluent_messages1()
     {
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'author' => 'John Doe',
             'copyright' => 'CC',
             'license' => 'MIT',
@@ -176,7 +176,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_creates_fluent_messages2()
     {
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'author' => 'John Doe',
             'license' => 'MIT',
         ]);
@@ -190,7 +190,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages3()
     {
         $expect = 'Image by John Doe. CC.';
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'author' => 'John Doe',
             'copyright' => 'CC',
         ]);
@@ -204,7 +204,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages4()
     {
         $expect = 'All rights reserved.';
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'copyright' => 'All rights reserved',
         ]);
 
@@ -217,7 +217,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages5()
     {
         $expect = 'Image by John Doe.';
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'author' => 'John Doe',
         ]);
 
@@ -230,7 +230,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages6()
     {
         $expect = 'License MIT.';
-        $image = new FeaturedImage([
+        $image = new LegacyFeaturedImage([
             'license' => 'MIT',
         ]);
 
@@ -243,7 +243,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_fluent_attribution_logic_creates_fluent_messages7()
     {
         $expect = '';
-        $image = new FeaturedImage([]);
+        $image = new LegacyFeaturedImage([]);
 
         $this->assertSame(
             $this->stripWhitespace($expect),
@@ -261,7 +261,7 @@ class FeaturedImageViewTest extends TestCase
         return str_replace([' ', "\r", "\n"], '', $string);
     }
 
-    protected function renderComponent(FeaturedImage $image, bool $makeFile = true): string
+    protected function renderComponent(LegacyFeaturedImage $image, bool $makeFile = true): string
     {
         $page = new MarkdownPost();
 
