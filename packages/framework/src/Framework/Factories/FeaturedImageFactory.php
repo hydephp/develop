@@ -8,6 +8,7 @@ use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
+use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use RuntimeException;
@@ -82,7 +83,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
         if ($this->matter('image.path') !== null)
         {
-            return $this->matter('image.path');
+            return $this->normalizeLocalImagePath($this->matter('image.path'));
         }
 
         // Todo, we might want to add a note about which file caused the error
@@ -122,5 +123,20 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected function makeLicenseUrl(): ?string
     {
         return $this->matter('image.licenseUrl');
+    }
+
+    protected static function normalizeLocalImagePath(string $path): string
+    {
+        $path = Hyde::pathToRelative($path);
+
+        if (str_starts_with($path, '_media/')) {
+            return $path;
+        }
+
+        if (str_starts_with($path, 'media/')) {
+            return '_'.$path;
+        }
+
+        return '_media/'.$path;
     }
 }
