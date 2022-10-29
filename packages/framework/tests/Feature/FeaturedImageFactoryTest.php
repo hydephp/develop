@@ -6,8 +6,10 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
+use RuntimeException;
 
 /**
  * @covers \Hyde\Framework\Factories\FeaturedImageFactory
@@ -55,21 +57,36 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
     {
-        
+        $factory = FeaturedImageFactory::make(new FrontMatter([
+            'image.url' => 'url',
+        ]));
+
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
     }
 
     public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
     {
+        $factory = FeaturedImageFactory::make(new FrontMatter([
+            'image.url' => 'url',
+            'image.path' => 'path',
+        ]));
 
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
     }
 
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
     {
-        
+        $this->expectException(RuntimeException::class);
+
+        FeaturedImageFactory::make(new FrontMatter([]));
     }
 
     public function testMakeMethodCanCreateImageFromJustString()
     {
-        
+        $factory = FeaturedImageFactory::make(new FrontMatter([
+            'image' => 'foo',
+        ]));
+
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
     }
 }
