@@ -113,6 +113,12 @@ class FeaturedImageTest extends TestCase
         ], (new FilledImage)->getMetadataArray());
     }
 
+    public function testGetContentLength()
+    {
+        $this->assertEquals(0, (new NullImage)->getContentLength());
+        $this->assertEquals(0, (new FilledImage)->getContentLength());
+    }
+
     public function testCanConstructLocalFeaturedImage()
     {
         $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
