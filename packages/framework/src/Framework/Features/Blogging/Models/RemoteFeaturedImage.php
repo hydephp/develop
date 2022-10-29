@@ -22,7 +22,7 @@ class RemoteFeaturedImage extends FeaturedImage
 
     public function getSource(): string
     {
-        // TODO: Implement getSource() method.
+        return $this->source;
     }
 
     public function getContentLength(): int
