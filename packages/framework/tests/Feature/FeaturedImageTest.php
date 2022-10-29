@@ -12,48 +12,6 @@ use Hyde\Testing\TestCase;
  */
 class FeaturedImageTest extends TestCase
 {
-    public function testHasAltText()
-    {
-        $this->assertFalse((new NullImage)->hasAltText());
-        $this->assertTrue((new FilledImage)->hasAltText());
-    }
-
-    public function testHasTitleText()
-    {
-        $this->assertFalse((new NullImage)->hasTitleText());
-        $this->assertTrue((new FilledImage)->hasTitleText());
-    }
-
-    public function testHasAuthorName()
-    {
-        $this->assertFalse((new NullImage)->hasAuthorName());
-        $this->assertTrue((new FilledImage)->hasAuthorName());
-    }
-
-    public function testHasAuthorUrl()
-    {
-        $this->assertFalse((new NullImage)->hasAuthorUrl());
-        $this->assertTrue((new FilledImage)->hasAuthorUrl());
-    }
-
-    public function testHasCopyrightText()
-    {
-        $this->assertFalse((new NullImage)->hasCopyrightText());
-        $this->assertTrue((new FilledImage)->hasCopyrightText());
-    }
-
-    public function testHasLicenseName()
-    {
-        $this->assertFalse((new NullImage)->hasLicenseName());
-        $this->assertTrue((new FilledImage)->hasLicenseName());
-    }
-
-    public function testHasLicenseUrl()
-    {
-        $this->assertFalse((new NullImage)->hasLicenseUrl());
-        $this->assertTrue((new FilledImage)->hasLicenseUrl());
-    }
-
     public function testGetAltText()
     {
         $this->assertNull((new NullImage)->getAltText());
@@ -94,6 +52,48 @@ class FeaturedImageTest extends TestCase
     {
         $this->assertNull((new NullImage)->getLicenseUrl());
         $this->assertEquals('licenseUrl', (new FilledImage)->getLicenseUrl());
+    }
+
+    public function testHasAltText()
+    {
+        $this->assertFalse((new NullImage)->hasAltText());
+        $this->assertTrue((new FilledImage)->hasAltText());
+    }
+
+    public function testHasTitleText()
+    {
+        $this->assertFalse((new NullImage)->hasTitleText());
+        $this->assertTrue((new FilledImage)->hasTitleText());
+    }
+
+    public function testHasAuthorName()
+    {
+        $this->assertFalse((new NullImage)->hasAuthorName());
+        $this->assertTrue((new FilledImage)->hasAuthorName());
+    }
+
+    public function testHasAuthorUrl()
+    {
+        $this->assertFalse((new NullImage)->hasAuthorUrl());
+        $this->assertTrue((new FilledImage)->hasAuthorUrl());
+    }
+
+    public function testHasCopyrightText()
+    {
+        $this->assertFalse((new NullImage)->hasCopyrightText());
+        $this->assertTrue((new FilledImage)->hasCopyrightText());
+    }
+
+    public function testHasLicenseName()
+    {
+        $this->assertFalse((new NullImage)->hasLicenseName());
+        $this->assertTrue((new FilledImage)->hasLicenseName());
+    }
+
+    public function testHasLicenseUrl()
+    {
+        $this->assertFalse((new NullImage)->hasLicenseUrl());
+        $this->assertTrue((new FilledImage)->hasLicenseUrl());
     }
 }
 

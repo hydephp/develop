@@ -42,41 +42,6 @@ abstract class FeaturedImage implements Stringable
 
     abstract public function getContentLength(): int;
 
-    public function hasAltText(): bool
-    {
-        return $this->altText !== null;
-    }
-
-    public function hasTitleText(): bool
-    {
-        return $this->titleText !== null;
-    }
-
-    public function hasAuthorName(): bool
-    {
-        return $this->authorName !== null;
-    }
-
-    public function hasAuthorUrl(): bool
-    {
-        return $this->authorUrl !== null;
-    }
-
-    public function hasCopyrightText(): bool
-    {
-        return $this->copyrightText !== null;
-    }
-
-    public function hasLicenseName(): bool
-    {
-        return $this->licenseName !== null;
-    }
-
-    public function hasLicenseUrl(): bool
-    {
-        return $this->licenseUrl !== null;
-    }
-
     public function getAltText(): ?string
     {
         return $this->altText;
@@ -110,5 +75,40 @@ abstract class FeaturedImage implements Stringable
     public function getLicenseUrl(): ?string
     {
         return $this->licenseUrl;
+    }
+
+    public function hasAltText(): bool
+    {
+        return $this->altText !== null;
+    }
+
+    public function hasTitleText(): bool
+    {
+        return $this->titleText !== null;
+    }
+
+    public function hasAuthorName(): bool
+    {
+        return $this->authorName !== null;
+    }
+
+    public function hasAuthorUrl(): bool
+    {
+        return $this->authorUrl !== null;
+    }
+
+    public function hasCopyrightText(): bool
+    {
+        return $this->copyrightText !== null;
+    }
+
+    public function hasLicenseName(): bool
+    {
+        return $this->licenseName !== null;
+    }
+
+    public function hasLicenseUrl(): bool
+    {
+        return $this->licenseUrl !== null;
     }
 }
