@@ -10,6 +10,11 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected readonly string $source;
 
+    protected function setSource(string $source): void
+    {
+        $this->source = $source;
+    }
+
     public function getSource(): string
     {
         return $this->source;
