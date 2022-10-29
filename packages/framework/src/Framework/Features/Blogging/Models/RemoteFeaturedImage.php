@@ -8,7 +8,6 @@ use function array_flip;
 use function array_key_exists;
 use function config;
 use Illuminate\Support\Facades\Http;
-use InvalidArgumentException;
 use function key;
 
 class RemoteFeaturedImage extends FeaturedImage
