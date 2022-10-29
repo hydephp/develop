@@ -44,7 +44,7 @@ class FeaturedImageViewTest extends TestCase
         );
     }
 
-    public function test_get_image_author_attribution_string_method()
+    public function test_image_author_attribution_string()
     {
         $image = new FeaturedImage([
             'author' => 'John Doe',
@@ -67,7 +67,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertNull($image->getImageAuthorAttributionString());
     }
 
-    public function test_get_copyright_string()
+    public function test_copyright_string()
     {
         $image = new FeaturedImage(['copyright' => 'foo']);
         $this->assertEquals('<span itemprop="copyrightNotice">foo</span>', $image->getCopyrightString());
@@ -76,7 +76,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertNull($image->getCopyrightString());
     }
 
-    public function test_get_license_string()
+    public function test_license_string()
     {
         $image = new FeaturedImage([
             'license' => 'foo',
@@ -95,7 +95,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertNull($image->getLicenseString());
     }
 
-    public function test_get_fluent_attribution_method_uses_rich_html_tags()
+    public function test_fluent_attribution_logic_uses_rich_html_tags()
     {
         $image = new FeaturedImage([
             'author' => 'John Doe',
@@ -128,7 +128,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertEquals('', $image->getFluentAttribution()->toHtml());
     }
 
-    public function test_get_fluent_attribution_method_creates_fluent_messages()
+    public function test_fluent_attribution_logic_creates_fluent_messages()
     {
         $this->assertSame(
             'Image by John Doe. CC. License MIT.',
