@@ -21,6 +21,18 @@ So many in fact, it could actually be easier and faster to recreate your project
 
 The good news however, is that this release is the last one containing breaking changes.
 
+While I've got your attention: read this the section right after this, as you might not need to make any changes at all.
+
+#### Do I need to make any changes to my project?
+
+If any of these statements are true, you will probably need to make changes to your project, and it might be easiest to copy over your content to a new project.
+
+- You currently only have PHP 8.0 installed, HydePHP now requires PHP 8.1.
+- You have written custom code (for example in Blade views) that relies on the old API.
+- You have published the built-in Blade views (you should be able to get away by just republishing them).
+
+In all cases, you will most definitely need to republish the configuration files.
+
 #### Major breaking changes
 
 These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
