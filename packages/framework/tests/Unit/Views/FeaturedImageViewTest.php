@@ -46,6 +46,15 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_image_author_attribution_string()
     {
+        $image = new FeaturedImage(['author' => 'John Doe']);
+        $string = $this->renderComponent($image);
+        $this->assertStringContainsString('itemprop="creator"', $string);
+        $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
+        $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
+    }
+
+    public function test_image_author_attribution_string_with_url()
+    {
         $image = new FeaturedImage([
             'author' => 'John Doe',
             'attributionUrl' => 'https://example.com/',
@@ -57,12 +66,6 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
         $this->assertStringContainsString('<a href="https://example.com/"', $string);
-
-        $image = new FeaturedImage(['author' => 'John Doe']);
-        $string = $this->renderComponent($image);
-        $this->assertStringContainsString('itemprop="creator"', $string);
-        $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
-        $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
     }
 
     public function test_copyright_string()
