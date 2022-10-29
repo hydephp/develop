@@ -56,7 +56,7 @@ class HydeKernel implements Arrayable, JsonSerializable
 
     protected bool $booted = false;
 
-    public const VERSION = '0.64.0-dev';
+    public const VERSION = '1.0.0-dev';
 
     public function __construct(?string $basePath = null)
     {
