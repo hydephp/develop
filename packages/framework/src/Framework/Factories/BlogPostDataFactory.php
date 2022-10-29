@@ -96,7 +96,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected function makeImage(): ?FeaturedImage
     {
         if ($this->matter('image')) {
-            return FeaturedImage::make($this->matter('image'));
+            return FeaturedImageFactory::make($this->matter('image'));
         }
 
         return null;
