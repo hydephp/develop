@@ -181,25 +181,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
             : $this->getLocalContentLength()) ?? 0;
     }
 
-    public function getFluentAttribution(): HtmlString
-    {
-        $attribution = [];
-
-        if ($this->getImageAuthorAttributionString() !== null) {
-            $attribution[] = 'Image by '.$this->getImageAuthorAttributionString();
-        }
-
-        if ($this->getCopyrightString() !== null) {
-            $attribution[] = $this->getCopyrightString();
-        }
-
-        if ($this->getLicenseString() !== null) {
-            $attribution[] = 'License '.$this->getLicenseString();
-        }
-
-        return new HtmlString(implode('. ', $attribution).((count($attribution) > 0) ? '.' : ''));
-    }
-
     /**
      * Used in resources/views/components/post/image.blade.php to add meta tags with itemprop attributes.
      *
@@ -223,56 +204,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
         return $metadata;
     }
 
-    /** @internal */
-    public function getImageAuthorAttributionString(): string|null
-    {
-        if (isset($this->author)) {
-            return '<span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">'.$this->getAuthorElement().'</span>';
-        }
-
-        return null;
-    }
-
-    /** @internal */
-    public function getCopyrightString(): string|null
-    {
-        if (isset($this->copyright)) {
-            return '<span itemprop="copyrightNotice">'.e($this->copyright).'</span>';
-        }
-
-        return null;
-    }
-
-    /** @internal */
-    public function getLicenseString(): string|null
-    {
-        if (isset($this->license) && isset($this->licenseUrl)) {
-            return '<a href="'.e($this->licenseUrl).'" rel="license nofollow noopener" itemprop="license">'.e($this->license).'</a>';
-        }
-
-        if (isset($this->license)) {
-            return '<span itemprop="license">'.e($this->license).'</span>';
-        }
-
-        return null;
-    }
-
-    protected function getAuthorLink(): string
-    {
-        return '<a href="'.e($this->attributionUrl).'" rel="author noopener nofollow" itemprop="url">'.$this->getAuthorSpan().'</a>';
-    }
-
-    protected function getAuthorSpan(): string
-    {
-        return '<span itemprop="name">'.e($this->author).'</span>';
-    }
-
-    protected function getAuthorElement(): string
-    {
-        return isset($this->attributionUrl)
-            ? $this->getAuthorLink()
-            : $this->getAuthorSpan();
-    }
 
     protected function getContentLengthFromRemote(): ?int
     {
