@@ -136,6 +136,15 @@ class FeaturedImageTest extends TestCase
         new LocalFeaturedImage('foo', ...$this->defaultArguments());
     }
 
+    public function testFeaturedImageGetContentLengthWithNoSource()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Image at _media/foo does not exist');
+
+        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
+        $this->assertEquals(0, $image->getContentLength());
+    }
+
     protected function defaultArguments(): array
     {
         return ['alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl'];
