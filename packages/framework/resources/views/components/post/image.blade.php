@@ -20,7 +20,7 @@
         @endif
 
         @isset($image->copyright)
-            <span itemprop="copyrightNotice">{{ $image->copyright }}</span>
+            <span itemprop="copyrightNotice">{{ $image->copyright }}</span>.
         @endif
 
         @isset($image->license)
