@@ -28,5 +28,6 @@ class RemoteFeaturedImage extends FeaturedImage
     public function getContentLength(): int
     {
         // TODO: Implement getContentLength() method.
+        return 0;
     }
 }
