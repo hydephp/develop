@@ -117,6 +117,8 @@ class FeaturedImageTest extends TestCase
         $image = new LocalFeaturedImage('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertInstanceOf(FeaturedImage::class, $image);
+
+        $this->assertEquals('source', $image->getSource());
     }
 }
 
