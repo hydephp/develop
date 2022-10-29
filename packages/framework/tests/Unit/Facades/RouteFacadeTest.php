@@ -13,27 +13,27 @@ use Hyde\Testing\TestCase;
  */
 class RouteFacadeTest extends TestCase
 {
-    public function testGet()
+    public function testFacadeMethodGetCallsSameOnModel()
     {
         $this->assertSame(Route::get('index'), RouteModel::get('index'));
     }
 
-    public function testGetOrFail()
+    public function testFacadeMethodGetOrFailCallsSameOnModel()
     {
         $this->assertSame(Route::getOrFail('index'), RouteModel::getOrFail('index'));
     }
 
-    public function testAll()
+    public function testFacadeMethodAllCallsSameOnModel()
     {
         $this->assertSame(Route::all(), RouteModel::all());
     }
 
-    public function testCurrent()
+    public function testFacadeMethodCurrentCallsSameOnModel()
     {
         $this->assertSame(Route::current(), RouteModel::current());
     }
 
-    public function testExists()
+    public function testFacadeMethodExistsCallsSameOnModel()
     {
         $this->assertSame(Route::exists('index'), RouteModel::exists('index'));
     }
