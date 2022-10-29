@@ -112,4 +112,27 @@ abstract class FeaturedImage implements Stringable
     {
         return $this->licenseUrl !== null;
     }
+
+    /**
+     * Used in resources/views/components/post/image.blade.php to add meta tags with itemprop attributes.
+     *
+     * @return array
+     */
+    public function getMetadataArray(): array
+    {
+        $metadata = [];
+
+        if ($this->hasAltText()) {
+            $metadata['text'] = $this->getAltText();
+        }
+
+        if ($this->hasTitleText()) {
+            $metadata['name'] = $this->getTitleText();
+        }
+
+        $metadata['url'] = $this->getSource();
+        $metadata['contentUrl'] = $this->getSource();
+
+        return $metadata;
+    }
 }

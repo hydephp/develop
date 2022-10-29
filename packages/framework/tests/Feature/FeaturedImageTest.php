@@ -95,6 +95,21 @@ class FeaturedImageTest extends TestCase
         $this->assertFalse((new NullImage)->hasLicenseUrl());
         $this->assertTrue((new FilledImage)->hasLicenseUrl());
     }
+
+    public function testGetMetadataArray()
+    {
+        $this->assertSame([
+            'url' => 'source',
+            'contentUrl' => 'source',
+        ], (new NullImage)->getMetadataArray());
+
+        $this->assertSame([
+            'text' => 'alt',
+            'name' => 'title',
+            'url' => 'source',
+            'contentUrl' => 'source',
+        ], (new FilledImage)->getMetadataArray());
+    }
 }
 
 class NullImage extends FeaturedImage
