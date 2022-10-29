@@ -13,11 +13,6 @@ use Hyde\Testing\TestCase;
  */
 class RouteFacadeTest extends TestCase
 {
-    public function test_route_facade_can_call_methods_on_the_route_model()
-    {
-        $this->assertEquals(Route::all(), RouteModel::all());
-    }
-
     public function testGet()
     {
         $this->assertSame(Route::get('index'), RouteModel::get('index'));
