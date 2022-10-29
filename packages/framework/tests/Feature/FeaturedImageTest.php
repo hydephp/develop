@@ -164,6 +164,15 @@ class FeaturedImageTest extends TestCase
         $this->assertEquals('http/foo', $image->getSource());
     }
 
+    public function testCanConstructRemoteFeaturedImageWithHttps()
+    {
+        $image = new RemoteFeaturedImage('https/foo', ...$this->defaultArguments());
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
+
+        $this->assertEquals('https/foo', $image->getSource());
+    }
+
     public function testCannotConstructRemoteFeaturedImageWithInvalidSource()
     {
         $this->expectException(InvalidArgumentException::class);
