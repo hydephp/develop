@@ -94,4 +94,14 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertSame('_media/foo', $image->getSource());
     }
+
+    public function testMakeMethodCanCreateImageFromJustStringWithUrl()
+    {
+        $image = FeaturedImageFactory::make(new FrontMatter([
+            'image' => 'https://example.com/foo',
+        ]));
+
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertSame('https://example.com/foo', $image->getSource());
+    }
 }
