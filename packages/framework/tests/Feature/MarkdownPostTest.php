@@ -88,7 +88,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('_media/foo.png', $image->getSource());
+        $this->assertEquals('media/foo.png', $image->getSource());
     }
 
     public function test_featured_image_can_be_constructed_returns_image_object_with_remote_path_when_matter_is_string()
@@ -104,7 +104,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => ['path' => 'foo.png', 'title' => 'bar']]);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('_media/foo.png', $image->getSource());
+        $this->assertEquals('media/foo.png', $image->getSource());
         $this->assertEquals('bar', $image->getTitleText());
     }
 }
