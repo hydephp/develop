@@ -48,33 +48,33 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCreatesLocalImageWhenPathIsSet()
     {
-        $factory = FeaturedImageFactory::make(new FrontMatter([
+        $image = FeaturedImageFactory::make(new FrontMatter([
             'image.path' => 'path',
         ]));
 
-        $this->assertInstanceOf(LocalFeaturedImage::class, $factory);
-        $this->assertSame('_media/path', $factory->getSource());
+        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $this->assertSame('_media/path', $image->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
     {
-        $factory = FeaturedImageFactory::make(new FrontMatter([
+        $image = FeaturedImageFactory::make(new FrontMatter([
             'image.url' => 'url',
         ]));
 
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
-        $this->assertSame('url', $factory->getSource());
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertSame('url', $image->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
     {
-        $factory = FeaturedImageFactory::make(new FrontMatter([
+        $image = FeaturedImageFactory::make(new FrontMatter([
             'image.url' => 'url',
             'image.path' => 'path',
         ]));
 
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
-        $this->assertSame('url', $factory->getSource());
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertSame('url', $image->getSource());
     }
 
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
@@ -86,11 +86,11 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCanCreateImageFromJustString()
     {
-        $factory = FeaturedImageFactory::make(new FrontMatter([
+        $image = FeaturedImageFactory::make(new FrontMatter([
             'image' => 'foo',
         ]));
 
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
-        $this->assertSame('foo', $factory->getSource());
+        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
+        $this->assertSame('foo', $image->getSource());
     }
 }
