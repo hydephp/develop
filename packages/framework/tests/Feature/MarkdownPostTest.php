@@ -52,7 +52,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(FeaturedImage::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->url);
+        $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
     }
 
     public function test_constructor_can_create_a_new_image_instance_from_an_array()
@@ -64,7 +64,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(FeaturedImage::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->url);
+        $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
     }
 
     public function test_constructor_can_create_a_new_date_string_instance_from_matter()
@@ -88,7 +88,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('foo.png', $image->path);
+        $this->assertEquals('foo.png', $image->getSource());
     }
 
     public function test_featured_image_can_be_constructed_returns_image_object_with_remote_path_when_matter_is_string()
@@ -96,7 +96,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('https://example.com/foo.png', $image->url);
+        $this->assertEquals('https://example.com/foo.png', $image->getSource());
     }
 
     public function test_featured_image_can_be_constructed_returns_image_object_with_supplied_data_when_matter_is_array()
@@ -104,7 +104,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => ['path' => 'foo.png', 'title' => 'bar']]);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('foo.png', $image->path);
-        $this->assertEquals('bar', $image->title);
+        $this->assertEquals('foo.png', $image->getSource());
+        $this->assertEquals('bar', $image->getTitleText());
     }
 }
