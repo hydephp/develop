@@ -8,6 +8,7 @@ use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use RuntimeException;
 use function is_string;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
@@ -75,6 +76,9 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         {
             return $this->matter('image.path');
         }
+
+        // Todo, we might want to add a note about which file caused the error
+        throw new RuntimeException('No featured image source was found');
     }
 
     protected function makeAltText(): ?string
