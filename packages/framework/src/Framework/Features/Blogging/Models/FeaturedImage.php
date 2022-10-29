@@ -8,6 +8,14 @@ use Stringable;
 
 abstract class FeaturedImage implements Stringable
 {
+    protected ?string $altText = null;
+    protected ?string $titleText = null;
+    protected ?string $copyrightMessage = null;
+    protected ?string $licenseText = null;
+    protected ?string $licenseUrl = null;
+    protected ?string $authorName = null;
+    protected ?string $authorUrl = null;
+
     /**
      * Get the source of the image, must be usable within the src attribute of an image tag.
      * @return string The image's url or path
