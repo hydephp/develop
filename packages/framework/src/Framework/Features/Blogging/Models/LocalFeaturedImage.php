@@ -31,6 +31,11 @@ class LocalFeaturedImage extends FeaturedImage
 
     public function getContentLength(): int
     {
-        return filesize(Hyde::path($this->source));
+        return filesize($this->storagePath());
+    }
+
+    protected function storagePath(): string
+    {
+        return Hyde::path($this->source);
     }
 }
