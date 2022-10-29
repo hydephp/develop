@@ -14,7 +14,7 @@ class RemoteFeaturedImage extends FeaturedImage
     {
         if (! str_starts_with($source, 'http')) {
             // Throwing an exception here ensures we have a super predictable state.
-            throw new InvalidArgumentException('RemoteFeaturedImage source must start with http/https');
+            throw new InvalidArgumentException('RemoteFeaturedImage source must be a valid url');
         }
 
         $this->source = $source;
