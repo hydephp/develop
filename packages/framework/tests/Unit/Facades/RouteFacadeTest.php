@@ -17,4 +17,29 @@ class RouteFacadeTest extends TestCase
     {
         $this->assertEquals(Route::all(), RouteModel::all());
     }
+
+    public function testGet()
+    {
+        $this->assertSame(Route::get('index'), RouteModel::get('index'));
+    }
+
+    public function testGetOrFail()
+    {
+        $this->assertSame(Route::getOrFail('index'), RouteModel::getOrFail('index'));
+    }
+
+    public function testAll()
+    {
+        $this->assertSame(Route::all(), RouteModel::all());
+    }
+
+    public function testCurrent()
+    {
+        $this->assertSame(Route::current(), RouteModel::current());
+    }
+
+    public function testExists()
+    {
+        $this->assertSame(Route::exists('index'), RouteModel::exists('index'));
+    }
 }
