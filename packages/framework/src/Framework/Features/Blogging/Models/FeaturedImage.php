@@ -8,5 +8,5 @@ use Stringable;
 
 abstract class FeaturedImage implements Stringable
 {
-    //
+    abstract public function getSource(): string;
 }
