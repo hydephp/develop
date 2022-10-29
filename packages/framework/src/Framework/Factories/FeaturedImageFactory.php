@@ -8,6 +8,7 @@ use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
+use function is_string;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {
@@ -60,7 +61,20 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected function makeSource(): string
     {
-        // 
+        if (is_string($this->matter('image')))
+        {
+            return $this->matter('image');
+        }
+
+        if ($this->matter('image.url') !== null)
+        {
+            return $this->matter('image.url');
+        }
+
+        if ($this->matter('image.path') !== null)
+        {
+            return $this->matter('image.path');
+        }
     }
 
     protected function makeAltText(): ?string
