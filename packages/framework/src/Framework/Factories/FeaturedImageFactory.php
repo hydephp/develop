@@ -74,6 +74,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             if (str_starts_with($this->matter('image'), 'http')) {
                 return $this->matter('image');
             }
+
             return self::normalizeLocalImagePath($this->matter('image'));
         }
 
