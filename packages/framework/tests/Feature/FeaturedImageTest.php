@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Testing\TestCase;
@@ -146,7 +147,7 @@ class FeaturedImageTest extends TestCase
 
     public function testFeaturedImageGetContentLengthWithNoSource()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('Image at _media/foo does not exist');
 
         $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use InvalidArgumentException;
 use function str_starts_with;
@@ -44,7 +45,7 @@ class LocalFeaturedImage extends FeaturedImage
         $path = $this->storagePath();
 
         if (! file_exists($path)) {
-            throw new InvalidArgumentException("Image at $this->source does not exist");
+            throw new FileNotFoundException("Image at $this->source does not exist");
         }
 
         return $path;
