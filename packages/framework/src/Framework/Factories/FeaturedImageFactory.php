@@ -20,6 +20,14 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     public function toArray(): array
     {
-        // TODO: Implement toArray() method.
+        return [
+            'altText' => $this->altText,
+            'titleText' => $this->titleText,
+            'authorName' => $this->authorName,
+            'authorUrl' => $this->authorUrl,
+            'copyrightText' => $this->copyrightText,
+            'licenseName' => $this->licenseName,
+            'licenseUrl' => $this->licenseUrl,
+        ];
     }
 }
