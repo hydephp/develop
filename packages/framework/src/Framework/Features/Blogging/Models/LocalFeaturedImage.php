@@ -10,12 +10,6 @@ class LocalFeaturedImage extends FeaturedImage
 {
     protected readonly string $source;
 
-    public function __construct(string $source, ?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
-    {
-        parent::__construct(...func_get_args());
-        $this->source = $source;
-    }
-
     public function getSource(): string
     {
         return $this->source;
