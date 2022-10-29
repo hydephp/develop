@@ -15,6 +15,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 
+    protected readonly string $source;
     protected readonly ?string $altText;
     protected readonly ?string $titleText;
     protected readonly ?string $authorName;
@@ -27,6 +28,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         private readonly FrontMatter $matter,
     )
     {
+        $this->source = $this->makeSource();
         $this->altText = $this->makeAltText();
         $this->titleText = $this->makeTitleText();
         $this->authorName = $this->makeAuthorName();
@@ -54,6 +56,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $data = (new static($matter))->toArray();
 
         // Todo: Return the proper image type
+    }
+
+    protected function makeSource(): string
+    {
+        // 
     }
 
     protected function makeAltText(): ?string

@@ -28,6 +28,7 @@ class FeaturedImageFactoryTest extends TestCase
         ];
 
         $expected = [
+            'source' => 'url',
             'altText' => 'description',
             'titleText' => 'title',
             'authorName' => 'author',
