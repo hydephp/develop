@@ -13,4 +13,14 @@ class LocalFeaturedImage extends FeaturedImage
         parent::__construct($altText, $titleText, $authorName, $authorUrl, $copyrightText, $licenseName, $licenseUrl);
         $this->source = $source;
     }
+
+    public function getSource(): string
+    {
+        return $this->source;
+    }
+
+    public function getContentLength(): int
+    {
+        return filesize($this->source);
+    }
 }
