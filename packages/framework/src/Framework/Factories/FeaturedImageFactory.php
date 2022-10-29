@@ -6,10 +6,13 @@ namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use RuntimeException;
 use function is_string;
+use function str_starts_with;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {
@@ -57,7 +60,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        // Todo: Return the proper image type
+        if (str_starts_with($data['source'], 'http')) {
+            return new RemoteFeaturedImage(...$data);
+        }
+
+        return new LocalFeaturedImage(...$data);
     }
 
     protected function makeSource(): string
