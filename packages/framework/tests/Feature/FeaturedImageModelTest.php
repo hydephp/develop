@@ -42,6 +42,30 @@ class FeaturedImageModelTest extends TestCase
         $this->assertEquals('bar', $image->title);
     }
 
+    public function test_image_path_is_normalized_to_never_begin_with_media_prefix()
+    {
+        $image = FeaturedImage::make('foo');
+        $this->assertSame('foo', $image->path);
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('foo', $image->path);
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('foo', $image->path);
+    }
+
+    public function test_image_source_path_is_normalized_to_always_begin_with_media_prefix()
+    {
+        $image = FeaturedImage::make('foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
+
+        $image = FeaturedImage::make('_media/foo');
+        $this->assertSame('_media/foo', $image->getSourcePath());
+    }
+
     public function test_from_source_automatically_assigns_proper_property_depending_on_if_the_string_is_remote()
     {
         $image = FeaturedImage::fromSource('https://example.com/image.jpg');
@@ -395,15 +419,14 @@ class FeaturedImageModelTest extends TestCase
 
     public function test_it_can_find_the_content_length_for_a_local_image_stored_in_the_media_directory()
     {
-        $image = new FeaturedImage();
-        $image->path = '_media/image.jpg';
-        file_put_contents($image->path, '16bytelongstring');
+        $image = new FeaturedImage(['path' => 'image.jpg']);
+        file_put_contents($image->getSourcePath(), '16bytelongstring');
 
         $this->assertEquals(
             16, $image->getContentLength()
         );
 
-        unlink($image->path);
+        unlink($image->getSourcePath());
     }
 
     public function test_it_can_find_the_content_length_for_a_remote_image()
