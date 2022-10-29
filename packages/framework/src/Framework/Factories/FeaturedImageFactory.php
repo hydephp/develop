@@ -62,11 +62,11 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (str_starts_with($data['source'], 'http')) {
-            return new RemoteFeaturedImage(...$data);
+        if (str_starts_with($data['source'], '_media')) {
+            return new LocalFeaturedImage(...$data);
         }
 
-        return new LocalFeaturedImage(...$data);
+        return new RemoteFeaturedImage(...$data);
     }
 
     protected function makeSource(): string
