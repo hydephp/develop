@@ -10,6 +10,14 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 {
     public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 
+    protected readonly ?string $altText;
+    protected readonly ?string $titleText;
+    protected readonly ?string $authorName;
+    protected readonly ?string $authorUrl;
+    protected readonly ?string $copyrightText;
+    protected readonly ?string $licenseName;
+    protected readonly ?string $licenseUrl;
+
     public function toArray(): array
     {
         // TODO: Implement toArray() method.
