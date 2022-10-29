@@ -13,8 +13,8 @@ abstract class FeaturedImage implements Stringable
 
     protected ?string $authorName = null;
     protected ?string $authorUrl = null;
-    protected ?string $copyrightMessage = null;
 
+    protected ?string $copyrightText = null;
     protected ?string $licenseName = null;
     protected ?string $licenseUrl = null;
 
