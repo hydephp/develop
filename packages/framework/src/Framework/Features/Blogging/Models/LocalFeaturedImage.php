@@ -38,4 +38,15 @@ class LocalFeaturedImage extends FeaturedImage
     {
         return Hyde::path($this->source);
     }
+
+    protected function storageValidatedPath(): string
+    {
+        $path = $this->storagePath();
+
+        if (! file_exists($path)) {
+            throw new InvalidArgumentException("Image at $this->source does not exist");
+        }
+
+        return $path;
+    }
 }
