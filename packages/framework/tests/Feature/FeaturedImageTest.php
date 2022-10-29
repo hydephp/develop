@@ -129,6 +129,7 @@ class FeaturedImageTest extends TestCase
 
         new LocalFeaturedImage('foo', ...$this->defaultArguments());
     }
+
     protected function defaultArguments(): array
     {
         return ['alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl'];
