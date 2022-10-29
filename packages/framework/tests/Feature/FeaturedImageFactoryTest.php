@@ -91,7 +91,7 @@ class FeaturedImageFactoryTest extends TestCase
             'image' => 'foo',
         ]));
 
-        $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
-        $this->assertSame('foo', $image->getSource());
+        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $this->assertSame('_media/foo', $image->getSource());
     }
 }
