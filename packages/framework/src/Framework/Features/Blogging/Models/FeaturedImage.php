@@ -29,6 +29,11 @@ abstract class FeaturedImage implements Stringable
         $this->licenseUrl = $licenseUrl;
     }
 
+    public function __toString(): string
+    {
+        return $this->getSource();
+    }
+
     /**
      * Get the source of the image, must be usable within the src attribute of an image tag.
      * @return string The image's url or path
