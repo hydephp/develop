@@ -115,7 +115,6 @@ class NullImage extends FeaturedImage
     }
 }
 
-
 class FilledImage extends FeaturedImage
 {
     public function __construct()
