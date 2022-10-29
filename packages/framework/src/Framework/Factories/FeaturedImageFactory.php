@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
+use Hyde\Markdown\Models\FrontMatter;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {
+    use InteractsWithFrontMatter;
+
     public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 
     protected readonly ?string $altText;
@@ -18,7 +22,9 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
 
-    public function __construct()
+    public function __construct(
+        private readonly FrontMatter $matter,
+    )
     {
         $this->altText = $this->makeAltText();
         $this->titleText = $this->makeTitleText();
