@@ -46,13 +46,11 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCreatesLocalImageWhenPathIsSet()
     {
-        $array = [
-            'image.path' => 'path',
-        ];
-
-        $factory = FeaturedImageFactory::make(new FrontMatter($array));
-
-        $this->assertInstanceOf(LocalFeaturedImage::class, $factory);
+        $this->assertInstanceOf(LocalFeaturedImage::class,
+            FeaturedImageFactory::make(new FrontMatter([
+                'image.path' => 'path',
+            ])
+        ));
     }
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
