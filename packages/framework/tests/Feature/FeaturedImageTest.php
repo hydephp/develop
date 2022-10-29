@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
+use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Testing\TestCase;
 
 /**
@@ -109,6 +110,13 @@ class FeaturedImageTest extends TestCase
             'url' => 'source',
             'contentUrl' => 'source',
         ], (new FilledImage)->getMetadataArray());
+    }
+
+    public function testCanConstructLocalFeaturedImage()
+    {
+        $image = new LocalFeaturedImage('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
+        $this->assertInstanceOf(LocalFeaturedImage::class, $image);
+        $this->assertInstanceOf(FeaturedImage::class, $image);
     }
 }
 
