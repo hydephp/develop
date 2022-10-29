@@ -18,25 +18,16 @@ use function view;
  */
 class FeaturedImageViewTest extends TestCase
 {
-
     public function test_the_view()
     {
-        $page = new MarkdownPost();
-
-        $image = FeaturedImage::make([
+        $component = $this->renderComponent(FeaturedImage::make([
             'path' => 'foo',
             'description' => 'This is an image',
             'title' => 'FeaturedImage Title',
             'author' => 'John Doe',
             'license' => 'Creative Commons',
             'licenseUrl' => 'https://licence.example.com',
-        ]);
-
-        $page->image = $image;
-
-        $this->mockPage($page);
-
-        $component = view('hyde::components.post.image')->render();
+        ]));
 
         $this->assertStringContainsString('src="media/foo"', $component);
         $this->assertStringContainsString('alt="This is an image"', $component);
@@ -198,5 +189,16 @@ class FeaturedImageViewTest extends TestCase
     protected function stripWhitespace(string $string): string
     {
         return str_replace(' ', '', $string);
+    }
+
+    protected function renderComponent(FeaturedImage $image): string
+    {
+        $page = new MarkdownPost();
+
+        $page->image = $image;
+
+        $this->mockPage($page);
+
+        return view('hyde::components.post.image')->render();
     }
 }
