@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use function array_merge;
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-use function array_merge;
 use function str_replace;
 use function strip_tags;
 use function trim;
@@ -264,7 +264,7 @@ class FeaturedImageViewTest extends TestCase
         return str_replace([' ', "\r", "\n"], '', $string);
     }
 
-    protected function renderComponent(FeaturedImage|array $data= ['image.path'=>'foo']): string
+    protected function renderComponent(FeaturedImage|array $data = ['image.path'=>'foo']): string
     {
         $image = $data instanceof FeaturedImage ? $data : $this->make($data);
 
@@ -275,7 +275,7 @@ class FeaturedImageViewTest extends TestCase
         return view('hyde::components.post.image')->render();
     }
 
-    protected function make(array $data = [], string $path ='foo.png'): FeaturedImage
+    protected function make(array $data = [], string $path = 'foo.png'): FeaturedImage
     {
         $this->file("_media/$path");
 
