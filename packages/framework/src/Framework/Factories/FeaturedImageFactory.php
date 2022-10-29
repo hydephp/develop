@@ -46,6 +46,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     public function toArray(): array
     {
         return [
+            'source' => $this->source,
             'altText' => $this->altText,
             'titleText' => $this->titleText,
             'authorName' => $this->authorName,
