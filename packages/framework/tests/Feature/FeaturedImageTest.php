@@ -136,6 +136,14 @@ class FeaturedImageTest extends TestCase
         new LocalFeaturedImage('foo', ...$this->defaultArguments());
     }
 
+    public function testFeaturedImageGetContentLength()
+    {
+        $this->file('_media/foo', 'image');
+
+        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
+        $this->assertEquals(5, $image->getContentLength());
+    }
+
     public function testFeaturedImageGetContentLengthWithNoSource()
     {
         $this->expectException(InvalidArgumentException::class);
