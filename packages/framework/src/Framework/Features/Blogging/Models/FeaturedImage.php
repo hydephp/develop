@@ -18,7 +18,7 @@ abstract class FeaturedImage implements Stringable
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
 
-    public function __construct(?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
+    public function __construct(string $source, ?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
     {
         $this->altText = $altText;
         $this->titleText = $titleText;

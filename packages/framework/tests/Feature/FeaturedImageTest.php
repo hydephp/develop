@@ -116,7 +116,7 @@ class NullImage extends FeaturedImage
 {
     public function __construct()
     {
-        parent::__construct(null, null, null, null, null, null, null);
+        parent::__construct('source',null, null, null, null, null, null, null);
     }
 
     public function getSource(): string
@@ -134,7 +134,7 @@ class FilledImage extends FeaturedImage
 {
     public function __construct()
     {
-        parent::__construct('alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
+        parent::__construct('source', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
     }
 
     public function getSource(): string
