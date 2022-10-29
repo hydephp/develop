@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
@@ -212,6 +214,22 @@ class FeaturedImageTest extends TestCase
 
         $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
         $this->assertEquals(0, $image->getContentLength());
+    }
+
+    public function testGetSourceMethod()
+    {
+        $this->assertEquals('media/foo', (new LocalFeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
+
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.path' => 'foo']))->getSource());
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.path' => 'media/foo']))->getSource());
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.path' => '_media/foo']))->getSource());
+
+        $this->assertEquals('foo', FeaturedImageFactory::make(new FrontMatter(['image.url' => 'foo']))->getSource());
+        $this->assertEquals('//foo', FeaturedImageFactory::make(new FrontMatter(['image.url' => '//foo']))->getSource());
+        $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image.url' => 'http']))->getSource());
+
+        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image' => 'foo']))->getSource());
+        $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image' => 'http']))->getSource());
     }
 
     protected function defaultArguments(): array
