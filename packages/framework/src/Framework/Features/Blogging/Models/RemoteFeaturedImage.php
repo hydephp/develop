@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
+use function array_flip;
+use function array_key_exists;
+use function config;
+use function key;
 
 class RemoteFeaturedImage extends FeaturedImage
 {
@@ -27,7 +32,16 @@ class RemoteFeaturedImage extends FeaturedImage
 
     public function getContentLength(): int
     {
-        // TODO: Implement getContentLength() method.
+        $headers = Http::withHeaders([
+            'User-Agent' => config('hyde.http_user_agent', 'RSS Request Client'),
+        ])->head($this->getSource())->headers();
+
+        if (array_key_exists('Content-Length', $headers)) {
+            return (int) key(array_flip($headers['Content-Length']));
+        }
+
+        // Here we could throw an exception if we want to be strict about this.
+
         return 0;
     }
 }

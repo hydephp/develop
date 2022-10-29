@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
 
 /**
@@ -179,6 +180,40 @@ class FeaturedImageTest extends TestCase
         $this->expectExceptionMessage('RemoteFeaturedImage source must be a valid URL');
 
         new RemoteFeaturedImage('foo', ...$this->defaultArguments());
+    }
+
+    public function testFeaturedImageGetContentLengthWithRemoteSource()
+    {
+        Http::fake(function () {
+            return Http::response(null, 200, [
+                'Content-Length' => 16,
+            ]);
+        });
+
+        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $this->assertEquals(16, $image->getContentLength());
+    }
+
+    public function testFeaturedImageGetContentLengthWithRemoteSourceAndNotFoundResponse()
+    {
+        Http::fake(function () {
+            return Http::response(null, 404);
+        });
+
+        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $this->assertEquals(0, $image->getContentLength());
+    }
+
+    public function testFeaturedImageGetContentLengthWithRemoteSourceAndInvalidResponse()
+    {
+        Http::fake(function () {
+            return Http::response(null, 200, [
+                'Content-Length' => 'foo',
+            ]);
+        });
+
+        $image = new RemoteFeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
+        $this->assertEquals(0, $image->getContentLength());
     }
 
     protected function defaultArguments(): array
