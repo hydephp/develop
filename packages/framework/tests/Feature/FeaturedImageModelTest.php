@@ -419,15 +419,14 @@ class FeaturedImageModelTest extends TestCase
 
     public function test_it_can_find_the_content_length_for_a_local_image_stored_in_the_media_directory()
     {
-        $image = new FeaturedImage();
-        $image->path = '_media/image.jpg';
-        file_put_contents($image->path, '16bytelongstring');
+        $image = new FeaturedImage(['path' => 'image.jpg']);
+        file_put_contents($image->getSourcePath(), '16bytelongstring');
 
         $this->assertEquals(
             16, $image->getContentLength()
         );
 
-        unlink($image->path);
+        unlink($image->getSourcePath());
     }
 
     public function test_it_can_find_the_content_length_for_a_remote_image()
