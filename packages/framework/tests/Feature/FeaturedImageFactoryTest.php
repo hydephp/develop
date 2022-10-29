@@ -41,4 +41,29 @@ class FeaturedImageFactoryTest extends TestCase
 
         $this->assertSame($expected, $factory->toArray());
     }
+
+    public function testMakeMethodCreatesLocalImageWhenPathIsSet()
+    {
+        
+    }
+
+    public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
+    {
+        
+    }
+
+    public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
+    {
+
+    }
+
+    public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
+    {
+        
+    }
+
+    public function testMakeMethodCanCreateImageFromJustString()
+    {
+        
+    }
 }

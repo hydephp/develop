@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 
@@ -46,6 +47,13 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             'licenseName' => $this->licenseName,
             'licenseUrl' => $this->licenseUrl,
         ];
+    }
+
+    public static function make(FrontMatter $matter): FeaturedImage
+    {
+        $data = (new static($matter))->toArray();
+
+        // Todo: Return the proper image type
     }
 
     protected function makeAltText(): ?string
