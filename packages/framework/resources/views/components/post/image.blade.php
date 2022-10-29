@@ -27,8 +27,7 @@
         @isset($image->license)
             <span>License</span>
             @isset($image->licenseUrl)
-                <a href="{{ $image->licenseUrl }}" rel="license nofollow noopener"
-                   itemprop="license">{{ $image->license }}</a>.
+                <a href="{{ $image->licenseUrl }}" rel="license nofollow noopener" itemprop="license">{{ $image->license }}</a>.
             @else
                 <span itemprop="license">{{ $image->license }}</span>.
             @endif
