@@ -18,6 +18,17 @@ abstract class FeaturedImage implements Stringable
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
 
+    public function __construct(?string $altText, ?string $titleText, ?string $authorName, ?string $authorUrl, ?string $copyrightText, ?string $licenseName, ?string $licenseUrl)
+    {
+        $this->altText = $altText;
+        $this->titleText = $titleText;
+        $this->authorName = $authorName;
+        $this->authorUrl = $authorUrl;
+        $this->copyrightText = $copyrightText;
+        $this->licenseName = $licenseName;
+        $this->licenseUrl = $licenseUrl;
+    }
+
     /**
      * Get the source of the image, must be usable within the src attribute of an image tag.
      * @return string The image's url or path
