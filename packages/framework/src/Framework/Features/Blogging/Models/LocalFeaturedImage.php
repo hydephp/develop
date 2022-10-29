@@ -42,12 +42,10 @@ class LocalFeaturedImage extends FeaturedImage
 
     protected function storageValidatedPath(): string
     {
-        $path = $this->storagePath();
-
-        if (! file_exists($path)) {
+        if (! file_exists($this->storagePath())) {
             throw new FileNotFoundException("Image at $this->source does not exist");
         }
 
-        return $path;
+        return $this->storagePath();
     }
 }
