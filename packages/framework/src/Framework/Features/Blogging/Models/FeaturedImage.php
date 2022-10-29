@@ -39,4 +39,39 @@ abstract class FeaturedImage implements Stringable
      * @return string The image's url or path
      */
     abstract public function getSource(): string;
+
+    public function hasAltText(): bool
+    {
+        return $this->altText !== null;
+    }
+
+    public function hasTitleText(): bool
+    {
+        return $this->titleText !== null;
+    }
+
+    public function hasAuthorName(): bool
+    {
+        return $this->authorName !== null;
+    }
+
+    public function hasAuthorUrl(): bool
+    {
+        return $this->authorUrl !== null;
+    }
+
+    public function hasCopyrightText(): bool
+    {
+        return $this->copyrightText !== null;
+    }
+
+    public function hasLicenseName(): bool
+    {
+        return $this->licenseName !== null;
+    }
+
+    public function hasLicenseUrl(): bool
+    {
+        return $this->licenseUrl !== null;
+    }
 }
