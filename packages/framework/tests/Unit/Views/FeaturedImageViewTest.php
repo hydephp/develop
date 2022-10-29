@@ -71,7 +71,7 @@ class FeaturedImageViewTest extends TestCase
     public function test_copyright_string()
     {
         $image = new FeaturedImage(['copyright' => 'foo']);
-        $this->assertEquals('<span itemprop="copyrightNotice">foo</span>', $image->getCopyrightString());
+        $this->assertSee($this->renderComponent($image), '<span itemprop="copyrightNotice">foo</span>');
 
         $image = new FeaturedImage();
         $this->assertNull($image->getCopyrightString());
@@ -207,5 +207,15 @@ class FeaturedImageViewTest extends TestCase
         $this->mockPage($page);
 
         return view('hyde::components.post.image')->render();
+    }
+
+    protected function assertSee(string $needle, string $haystack, bool $stripHtmlTabsAndWhitespace = true): void
+    {
+        if ($stripHtmlTabsAndWhitespace) {
+            $needle = $this->stripWhitespace($this->stripHtml($needle));
+            $haystack = $this->stripWhitespace($this->stripHtml($haystack));
+        }
+
+        $this->assertStringContainsString($needle, $haystack);
     }
 }
