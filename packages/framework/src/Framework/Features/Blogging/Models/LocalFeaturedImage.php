@@ -8,6 +8,7 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use InvalidArgumentException;
 use function str_starts_with;
+use function substr;
 
 class LocalFeaturedImage extends FeaturedImage
 {
@@ -27,7 +28,7 @@ class LocalFeaturedImage extends FeaturedImage
 
     public function getSource(): string
     {
-        return $this->source;
+        return substr($this->source, 1);
     }
 
     public function getContentLength(): int

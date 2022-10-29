@@ -53,7 +53,7 @@ class FeaturedImageFactoryTest extends TestCase
         ]));
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
-        $this->assertSame('_media/path', $image->getSource());
+        $this->assertSame('media/path', $image->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
@@ -92,7 +92,7 @@ class FeaturedImageFactoryTest extends TestCase
         ]));
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
-        $this->assertSame('_media/foo', $image->getSource());
+        $this->assertSame('media/foo', $image->getSource());
     }
 
     public function testMakeMethodCanCreateImageFromJustStringWithUrl()
