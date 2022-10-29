@@ -8,5 +8,5 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {
-    //
+    public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 }
