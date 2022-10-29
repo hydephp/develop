@@ -108,6 +108,11 @@ class NullImage extends FeaturedImage
     {
         return 'source';
     }
+
+    public function getContentLength(): int
+    {
+        return 0;
+    }
 }
 
 
@@ -121,5 +126,10 @@ class FilledImage extends FeaturedImage
     public function getSource(): string
     {
         return 'source';
+    }
+
+    public function getContentLength(): int
+    {
+        return 0;
     }
 }
