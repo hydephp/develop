@@ -182,4 +182,10 @@ class RouteTest extends TestCase
         $this->assertTrue($route->is(new RouteKey('foo')));
         $this->assertFalse($route->is(new RouteKey('bar')));
     }
+
+    public function testExists()
+    {
+        $this->assertTrue(Route::exists('index'));
+        $this->assertFalse(Route::exists('not-found'));
+    }
 }
