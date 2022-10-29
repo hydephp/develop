@@ -8,7 +8,6 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use function str_replace;
-use function strip_newlines;
 use function strip_tags;
 use function trim;
 use function view;
@@ -46,8 +45,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_image_author_attribution_string()
     {
-        $image = new FeaturedImage(['author' => 'John Doe']);
-        $string = $this->renderComponent($image);
+        $string = $this->renderComponent(new FeaturedImage(['author' => 'John Doe']));
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
         $this->assertStringContainsString('<span itemprop="name">John Doe</span>', $string);
@@ -55,12 +53,10 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_image_author_attribution_string_with_url()
     {
-        $image = new FeaturedImage([
+        $string = $this->renderComponent(new FeaturedImage([
             'author' => 'John Doe',
             'attributionUrl' => 'https://example.com/',
-        ]);
-
-        $string = $this->renderComponent($image);
+        ]));
         $this->assertStringContainsString('itemprop="creator"', $string);
         $this->assertStringContainsString('itemprop="url"', $string);
         $this->assertStringContainsString('itemtype="http://schema.org/Person"', $string);
@@ -70,35 +66,47 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_copyright_string()
     {
-        $image = new FeaturedImage(['copyright' => 'foo']);
-        $this->assertSee($this->renderComponent($image), '<span itemprop="copyrightNotice">foo</span>');
+        $string = $this->renderComponent(new FeaturedImage(['copyright' => 'foo copy']));
+        $this->assertStringContainsString('<span itemprop="copyrightNotice">', $string);
+        $this->assertStringContainsString('foo copy', $string);
     }
 
     public function test_copyright_string_inverse()
     {
-        $image = new FeaturedImage();
-        $this->assertDontSee($this->renderComponent($image), '<span itemprop="copyrightNotice">foo</span>');
+        $string = $this->renderComponent(new FeaturedImage());
+        $this->assertStringNotContainsString('<span itemprop="copyrightNotice">', $string);
     }
 
     public function test_license_string()
+    {
+        $string = $this->renderComponent(new FeaturedImage(['license' => 'foo']));
+
+        $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
+    }
+    public function test_license_string_with_url()
     {
         $image = new FeaturedImage([
             'license' => 'foo',
             'licenseUrl' => 'https://example.com/bar.html',
         ]);
-        $this->assertEquals('<a href="https://example.com/bar.html" rel="license nofollow noopener" '.
-            'itemprop="license">foo</a>', $image->getLicenseString());
+        $string = $this->renderComponent($image);
 
-        $image = new FeaturedImage(['license' => 'foo']);
-        $this->assertEquals('<span itemprop="license">foo</span>', $image->getLicenseString());
-
-        $image = new FeaturedImage(['licenseUrl' => 'https://example.com/bar.html']);
-        $this->assertNull($image->getLicenseString());
-
-        $image = new FeaturedImage();
-        $this->assertNull($image->getLicenseString());
+        $this->assertStringContainsString('<a href="https://example.com/bar.html" rel="license nofollow noopener" itemprop="license">foo</a>', $string);
     }
 
+    public function test_license_string_inverse()
+    {
+        $string = $this->renderComponent(new FeaturedImage());
+        $this->assertStringNotContainsString('<span itemprop="license">', $string);
+        $this->assertStringNotContainsString('license', $string);
+    }
+
+    public function test_license_string_inverse_with_url()
+    {
+        $string = $this->renderComponent(new FeaturedImage(['licenseUrl' => 'https://example.com/bar.html']));
+        $this->assertStringNotContainsString('<span itemprop="license">', $string);
+        $this->assertStringNotContainsString('license', $string);
+    }
     public function test_fluent_attribution_logic_uses_rich_html_tags()
     {
         $image = new FeaturedImage([
@@ -106,93 +114,148 @@ class FeaturedImageViewTest extends TestCase
             'copyright' => 'foo',
             'license' => 'foo',
         ]);
-        $string = $image->getFluentAttribution()->toHtml();
+        $string = $this->renderComponent($image);
 
-        $this->assertStringContainsString('Image by <span itemprop="creator" ', $string);
+        $this->assertStringContainsString('Image by', $string);
+        $this->assertStringContainsString('License', $string);
+        $this->assertStringContainsString('<span itemprop="creator" ', $string);
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
-        $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
+        $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
+
+        $this->assertStringContainsString('Image by', $string);
+        $this->assertStringContainsString('John Doe', $string);
+    }
+
+    public function test_fluent_attribution_logic_uses_rich_html_tags_1()
+    {
 
         $image = new FeaturedImage(['author' => 'John Doe']);
-        $string = $image->getFluentAttribution()->toHtml();
-
-        $this->assertStringContainsString('Image by ', $string);
+        $string = $this->renderComponent($image);
+        $this->assertStringContainsString('Image by', $string);
         $this->assertStringContainsString('John Doe', $string);
+    }
+
+    public function test_fluent_attribution_logic_uses_rich_html_tags_2()
+    {
 
         $image = new FeaturedImage(['copyright' => 'foo']);
-        $string = $image->getFluentAttribution()->toHtml();
+        $string = $this->renderComponent($image);
 
         $this->assertStringContainsString('<span itemprop="copyrightNotice">foo</span>', $string);
+    }
+
+    public function test_fluent_attribution_logic_uses_rich_html_tags_3()
+    {
 
         $image = new FeaturedImage(['license' => 'foo']);
 
-        $string = $image->getFluentAttribution()->toHtml();
-        $this->assertStringContainsString('License <span itemprop="license">foo</span>', $string);
-
-        $image = new FeaturedImage();
-        $this->assertEquals('', $image->getFluentAttribution()->toHtml());
+        $string = $this->renderComponent($image);
+        $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
     }
 
-    public function test_fluent_attribution_logic_creates_fluent_messages()
+    public function test_fluent_attribution_logic_uses_rich_html_tags_4()
     {
-        $this->assertSame(
-            'Image by John Doe. CC. License MIT.',
-            $this->stripHtml((new FeaturedImage([
-                'author' => 'John Doe',
-                'copyright' => 'CC',
-                'license' => 'MIT',
-            ]))->getFluentAttribution()->toHtml())
-        );
+
+        $image = new FeaturedImage();
+        $string = $this->renderComponent($image);
+        $this->assertStringNotContainsString('Image by', $string);
+        $this->assertStringNotContainsString('License', $string);
+    }
+    public function test_fluent_attribution_logic_creates_fluent_messages1()
+    {
+        $image = new FeaturedImage([
+            'author' => 'John Doe',
+            'copyright' => 'CC',
+            'license' => 'MIT',
+        ]);
 
         $this->assertSame(
-            'Image by John Doe. License MIT.',
-            $this->stripHtml((new FeaturedImage([
-                'author' => 'John Doe',
-                'license' => 'MIT',
-            ]))->getFluentAttribution()->toHtml())
+            $this->stripWhitespace('Image by John Doe. CC. License MIT.'),
+            $this->stripHtml(($this->renderComponent($image)))
         );
+    }
+    public function test_fluent_attribution_logic_creates_fluent_messages2()
+    {
+        $image = new FeaturedImage([
+            'author' => 'John Doe',
+            'license' => 'MIT',
+        ]);
+        $expect = 'Image by John Doe. License MIT.';
+        $this->assertSame(
+            $this->stripWhitespace($expect),
+            $this->stripHtml(($this->renderComponent($image)))
+        );
+    }
+    public function test_fluent_attribution_logic_creates_fluent_messages3()
+    {
+        $expect = 'Image by John Doe. CC.';
+        $image = new FeaturedImage([
+            'author' => 'John Doe',
+            'copyright' => 'CC',
+        ]);
 
         $this->assertSame(
-            'Image by John Doe. CC.',
-            $this->stripHtml((new FeaturedImage([
-                'author' => 'John Doe',
-                'copyright' => 'CC',
-            ]))->getFluentAttribution()->toHtml())
+            $this->stripWhitespace($expect),
+            $this->stripHtml(($this->renderComponent($image)))
         );
+    }
+    public function test_fluent_attribution_logic_creates_fluent_messages4()
+    {
+        $expect = 'All rights reserved.';
+        $image = new FeaturedImage([
+            'copyright' => 'All rights reserved',
+        ]);
 
         $this->assertSame(
-            'All rights reserved.',
-            $this->stripHtml((new FeaturedImage([
-                'copyright' => 'All rights reserved',
-            ]))->getFluentAttribution()->toHtml())
+            $this->stripWhitespace($expect),
+            $this->stripHtml(($this->renderComponent($image)))
         );
+    }
+
+    public function test_fluent_attribution_logic_creates_fluent_messages5()
+    {
+        $expect = 'Image by John Doe.';
+        $image = new FeaturedImage([
+            'author' => 'John Doe',
+        ]);
 
         $this->assertSame(
-            'Image by John Doe.',
-            $this->stripHtml((new FeaturedImage([
-                'author' => 'John Doe',
-            ]))->getFluentAttribution()->toHtml())
+            $this->stripWhitespace($expect),
+            $this->stripHtml(($this->renderComponent($image)))
         );
+    }
+    public function test_fluent_attribution_logic_creates_fluent_messages6()
+    {
+        $expect =            'License MIT.';
+        $image = new FeaturedImage([
+            'license' => 'MIT',
+        ]);
 
         $this->assertSame(
-            'License MIT.',
-            $this->stripHtml((new FeaturedImage([
-                'license' => 'MIT',
-            ]))->getFluentAttribution()->toHtml())
+            $this->stripWhitespace($expect),
+            $this->stripHtml(($this->renderComponent($image)))
         );
+    }
 
-        $this->assertSame('',
-            $this->stripHtml((new FeaturedImage())->getFluentAttribution()->toHtml())
+    public function test_fluent_attribution_logic_creates_fluent_messages7()
+    {
+        $expect =            '';
+        $image = new FeaturedImage([]);
+
+        $this->assertSame(
+            $this->stripWhitespace($expect),
+            $this->stripHtml(($this->renderComponent($image)))
         );
     }
 
     protected function stripHtml(string $string): string
     {
-        return trim(strip_newlines(strip_tags($string)), "\t ");
+        return trim(($this->stripWhitespace(strip_tags($string))), "\t ");
     }
 
     protected function stripWhitespace(string $string): string
     {
-        return str_replace(' ', '', $string);
+        return str_replace([' ', "\r", "\n"], '', $string);
     }
 
     protected function renderComponent(FeaturedImage $image, bool $makeFile = true): string
@@ -210,35 +273,5 @@ class FeaturedImageViewTest extends TestCase
         $this->mockPage($page);
 
         return view('hyde::components.post.image')->render();
-    }
-
-    protected function assertSee(string $needle, string $haystack, bool $stripTabsAndWhitespace = true, bool $stripHtml = true): void
-    {
-        if ($stripTabsAndWhitespace) {
-            $needle = $this->stripWhitespace(($needle));
-            $haystack = $this->stripWhitespace($haystack);
-        }
-
-        if ($stripHtml) {
-            $needle = $this->stripHtml($needle);
-            $haystack =($this->stripHtml($haystack));
-        }
-
-        $this->assertStringContainsString($needle, $haystack);
-    }
-
-    protected function assertDontSee(string $needle, string $haystack, bool $stripTabsAndWhitespace = true, bool $stripHtml = true): void
-    {
-        if ($stripTabsAndWhitespace) {
-            $needle = $this->stripWhitespace(($needle));
-            $haystack = $this->stripWhitespace($haystack);
-        }
-
-        if ($stripHtml) {
-            $needle = $this->stripHtml($needle);
-            $haystack =($this->stripHtml($haystack));
-        }
-
-        $this->assertStringNotContainsString($needle, $haystack);
     }
 }
