@@ -53,6 +53,48 @@ class FeaturedImageTest extends TestCase
         $this->assertFalse((new NullImage)->hasLicenseUrl());
         $this->assertTrue((new FilledImage)->hasLicenseUrl());
     }
+
+    public function testGetAltText()
+    {
+        $this->assertNull((new NullImage)->getAltText());
+        $this->assertEquals('alt', (new FilledImage)->getAltText());
+    }
+
+    public function testGetTitleText()
+    {
+        $this->assertNull((new NullImage)->getTitleText());
+        $this->assertEquals('title', (new FilledImage)->getTitleText());
+    }
+
+    public function testGetAuthorName()
+    {
+        $this->assertNull((new NullImage)->getAuthorName());
+        $this->assertEquals('author', (new FilledImage)->getAuthorName());
+    }
+
+    public function testGetAuthorUrl()
+    {
+        $this->assertNull((new NullImage)->getAuthorUrl());
+        $this->assertEquals('authorUrl', (new FilledImage)->getAuthorUrl());
+    }
+
+    public function testGetCopyrightText()
+    {
+        $this->assertNull((new NullImage)->getCopyrightText());
+        $this->assertEquals('copyright', (new FilledImage)->getCopyrightText());
+    }
+
+    public function testGetLicenseName()
+    {
+        $this->assertNull((new NullImage)->getLicenseName());
+        $this->assertEquals('license', (new FilledImage)->getLicenseName());
+    }
+
+    public function testGetLicenseUrl()
+    {
+        $this->assertNull((new NullImage)->getLicenseUrl());
+        $this->assertEquals('licenseUrl', (new FilledImage)->getLicenseUrl());
+    }
 }
 
 class NullImage extends FeaturedImage

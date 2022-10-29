@@ -74,4 +74,39 @@ abstract class FeaturedImage implements Stringable
     {
         return $this->licenseUrl !== null;
     }
+
+    public function getAltText(): ?string
+    {
+        return $this->altText;
+    }
+
+    public function getTitleText(): ?string
+    {
+        return $this->titleText;
+    }
+
+    public function getAuthorName(): ?string
+    {
+        return $this->authorName;
+    }
+
+    public function getAuthorUrl(): ?string
+    {
+        return $this->authorUrl;
+    }
+
+    public function getCopyrightText(): ?string
+    {
+        return $this->copyrightText;
+    }
+
+    public function getLicenseName(): ?string
+    {
+        return $this->licenseName;
+    }
+
+    public function getLicenseUrl(): ?string
+    {
+        return $this->licenseUrl;
+    }
 }
