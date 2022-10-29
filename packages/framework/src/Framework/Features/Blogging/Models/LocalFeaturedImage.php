@@ -18,6 +18,8 @@ class LocalFeaturedImage extends FeaturedImage
             throw new InvalidArgumentException('LocalFeaturedImage source must start with _media/');
         }
 
+        // We could also validate the file exists here if we want. We might also want to just send a warning.
+
         $this->source = $source;
     }
 
