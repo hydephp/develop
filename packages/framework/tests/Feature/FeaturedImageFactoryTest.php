@@ -53,6 +53,7 @@ class FeaturedImageFactoryTest extends TestCase
         ]));
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $factory);
+        $this->assertSame('_media/path', $factory->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
@@ -62,6 +63,7 @@ class FeaturedImageFactoryTest extends TestCase
         ]));
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
+        $this->assertSame('url', $factory->getSource());
     }
 
     public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
@@ -72,6 +74,7 @@ class FeaturedImageFactoryTest extends TestCase
         ]));
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
+        $this->assertSame('url', $factory->getSource());
     }
 
     public function testMakeMethodThrowsExceptionIfNoPathInformationIsSet()
@@ -88,5 +91,6 @@ class FeaturedImageFactoryTest extends TestCase
         ]));
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $factory);
+        $this->assertSame('foo', $factory->getSource());
     }
 }
