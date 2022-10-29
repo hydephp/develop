@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use Stringable;
 use function method_exists;
+use Stringable;
 
 abstract class FeaturedImage implements Stringable
 {
@@ -42,6 +42,7 @@ abstract class FeaturedImage implements Stringable
     /**
      * Get the source of the image, must be usable within the src attribute of an image tag,
      * and is thus not necessarily the path to the source image on disk.
+     *
      * @return string The image's url or path
      */
     abstract public function getSource(): string;

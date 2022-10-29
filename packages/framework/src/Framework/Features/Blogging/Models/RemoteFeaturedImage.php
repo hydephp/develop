@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
-use Illuminate\Support\Facades\Http;
-use InvalidArgumentException;
 use function array_flip;
 use function array_key_exists;
 use function config;
+use Illuminate\Support\Facades\Http;
+use InvalidArgumentException;
 use function key;
 
 class RemoteFeaturedImage extends FeaturedImage
