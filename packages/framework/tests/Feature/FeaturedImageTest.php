@@ -16,6 +16,8 @@ use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
+ * @covers \Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage
+ * @covers \Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage
  */
 class FeaturedImageTest extends TestCase
 {
