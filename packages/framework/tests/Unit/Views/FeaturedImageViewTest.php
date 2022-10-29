@@ -72,7 +72,10 @@ class FeaturedImageViewTest extends TestCase
     {
         $image = new FeaturedImage(['copyright' => 'foo']);
         $this->assertSee($this->renderComponent($image), '<span itemprop="copyrightNotice">foo</span>');
+    }
 
+    public function test_copyright_string_inverse()
+    {
         $image = new FeaturedImage();
         $this->assertDontSee($this->renderComponent($image), '<span itemprop="copyrightNotice">foo</span>');
     }
