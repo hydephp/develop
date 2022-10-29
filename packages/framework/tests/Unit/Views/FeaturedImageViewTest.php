@@ -74,7 +74,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertSee($this->renderComponent($image), '<span itemprop="copyrightNotice">foo</span>');
 
         $image = new FeaturedImage();
-        $this->assertNull($image->getCopyrightString());
+        $this->assertDontSee($this->renderComponent($image), '<span itemprop="copyrightNotice">foo</span>');
     }
 
     public function test_license_string()
@@ -217,5 +217,15 @@ class FeaturedImageViewTest extends TestCase
         }
 
         $this->assertStringContainsString($needle, $haystack);
+    }
+
+    protected function assertDontSee(string $needle, string $haystack, bool $stripHtmlTabsAndWhitespace = true): void
+    {
+        if ($stripHtmlTabsAndWhitespace) {
+            $needle = $this->stripWhitespace($this->stripHtml($needle));
+            $haystack = $this->stripWhitespace($this->stripHtml($haystack));
+        }
+
+        $this->assertStringNotContainsString($needle, $haystack);
     }
 }
