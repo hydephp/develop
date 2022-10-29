@@ -8,14 +8,11 @@ use function array_flip;
 use function array_key_exists;
 use BadMethodCallException;
 use function config;
-use function e;
 use function file_exists;
 use Hyde\Hyde;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
-use function implode;
 use function key;
 use Stringable;
 
@@ -203,7 +200,6 @@ class FeaturedImage implements FeaturedImageSchema, Stringable
 
         return $metadata;
     }
-
 
     protected function getContentLengthFromRemote(): ?int
     {

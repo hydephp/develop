@@ -7,11 +7,8 @@ namespace Hyde\Framework\Testing\Feature;
 use BadMethodCallException;
 use function file_put_contents;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
-use function str_replace;
-use function strip_tags;
 use function unlink;
 
 /**
@@ -301,5 +298,4 @@ class FeaturedImageModelTest extends TestCase
             0, $image->getContentLength()
         );
     }
-
 }

@@ -83,6 +83,7 @@ class FeaturedImageViewTest extends TestCase
 
         $this->assertStringContainsString('<span itemprop="license">foo</span>', $string);
     }
+
     public function test_license_string_with_url()
     {
         $image = new FeaturedImage([
@@ -107,6 +108,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringNotContainsString('<span itemprop="license">', $string);
         $this->assertStringNotContainsString('license', $string);
     }
+
     public function test_fluent_attribution_logic_uses_rich_html_tags()
     {
         $image = new FeaturedImage([
@@ -128,7 +130,6 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_1()
     {
-
         $image = new FeaturedImage(['author' => 'John Doe']);
         $string = $this->renderComponent($image);
         $this->assertStringContainsString('Image by', $string);
@@ -137,7 +138,6 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_2()
     {
-
         $image = new FeaturedImage(['copyright' => 'foo']);
         $string = $this->renderComponent($image);
 
@@ -146,7 +146,6 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_3()
     {
-
         $image = new FeaturedImage(['license' => 'foo']);
 
         $string = $this->renderComponent($image);
@@ -155,12 +154,12 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_uses_rich_html_tags_4()
     {
-
         $image = new FeaturedImage();
         $string = $this->renderComponent($image);
         $this->assertStringNotContainsString('Image by', $string);
         $this->assertStringNotContainsString('License', $string);
     }
+
     public function test_fluent_attribution_logic_creates_fluent_messages1()
     {
         $image = new FeaturedImage([
@@ -174,6 +173,7 @@ class FeaturedImageViewTest extends TestCase
             $this->stripHtml(($this->renderComponent($image)))
         );
     }
+
     public function test_fluent_attribution_logic_creates_fluent_messages2()
     {
         $image = new FeaturedImage([
@@ -186,6 +186,7 @@ class FeaturedImageViewTest extends TestCase
             $this->stripHtml(($this->renderComponent($image)))
         );
     }
+
     public function test_fluent_attribution_logic_creates_fluent_messages3()
     {
         $expect = 'Image by John Doe. CC.';
@@ -199,6 +200,7 @@ class FeaturedImageViewTest extends TestCase
             $this->stripHtml(($this->renderComponent($image)))
         );
     }
+
     public function test_fluent_attribution_logic_creates_fluent_messages4()
     {
         $expect = 'All rights reserved.';
@@ -224,9 +226,10 @@ class FeaturedImageViewTest extends TestCase
             $this->stripHtml(($this->renderComponent($image)))
         );
     }
+
     public function test_fluent_attribution_logic_creates_fluent_messages6()
     {
-        $expect =            'License MIT.';
+        $expect = 'License MIT.';
         $image = new FeaturedImage([
             'license' => 'MIT',
         ]);
@@ -239,7 +242,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function test_fluent_attribution_logic_creates_fluent_messages7()
     {
-        $expect =            '';
+        $expect = '';
         $image = new FeaturedImage([]);
 
         $this->assertSame(
@@ -263,7 +266,6 @@ class FeaturedImageViewTest extends TestCase
         $page = new MarkdownPost();
 
         $page->image = $image;
-
 
         if ($makeFile) {
             $image->path = $image->getSourcePath() ?? '_media/foo.jpg';
