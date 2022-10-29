@@ -14,7 +14,9 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Factories\PageDataFactory
+ * @covers \Hyde\Framework\Factories\FeaturedImageFactory
+ * @covers \Hyde\Framework\Factories\HydePageDataFactory
+ * @covers \Hyde\Framework\Factories\BlogPostDataFactory
  */
 class PageModelConstructorsTest extends TestCase
 {
