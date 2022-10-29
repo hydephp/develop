@@ -115,7 +115,7 @@ class FeaturedImageTest extends TestCase
 
     public function testCanConstructLocalFeaturedImage()
     {
-        $image = new LocalFeaturedImage('_media/foo', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
+        $image = new LocalFeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
@@ -127,7 +127,12 @@ class FeaturedImageTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('LocalFeaturedImage source must start with _media/');
 
-        new LocalFeaturedImage('foo', 'alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl');
+        new LocalFeaturedImage('foo', ...$this->defaultArguments());
+    }
+
+    protected function defaultArguments(): array
+    {
+        return ['alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl'];
     }
 }
 
