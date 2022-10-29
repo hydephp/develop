@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Http;
 use function unlink;
 
 /**
+ * @deprecated
  * @covers \Hyde\Framework\Features\Blogging\Models\LegacyFeaturedImage
  */
 class FeaturedImageModelTest extends TestCase
