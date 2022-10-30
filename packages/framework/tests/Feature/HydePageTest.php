@@ -38,7 +38,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'source',
-            HandlesPageFilesystemTestClass::sourceDirectory()
+            TestPage::sourceDirectory()
         );
     }
 
@@ -46,7 +46,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'output',
-            HandlesPageFilesystemTestClass::outputDirectory()
+            TestPage::outputDirectory()
         );
     }
 
@@ -54,7 +54,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             '.md',
-            HandlesPageFilesystemTestClass::fileExtension()
+            TestPage::fileExtension()
         );
     }
 
@@ -62,7 +62,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'source/hello-world.md',
-            HandlesPageFilesystemTestClass::sourcePath('hello-world')
+            TestPage::sourcePath('hello-world')
         );
     }
 
@@ -70,7 +70,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'output/hello-world.html',
-            HandlesPageFilesystemTestClass::outputPath('hello-world')
+            TestPage::outputPath('hello-world')
         );
     }
 
@@ -78,7 +78,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'source/hello-world.md',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getSourcePath()
+            (new TestPage('hello-world'))->getSourcePath()
         );
     }
 
@@ -86,7 +86,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'output/hello-world.html',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()
+            (new TestPage('hello-world'))->getOutputPath()
         );
     }
 
@@ -94,7 +94,7 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             'output/hello-world.html',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
+            (new TestPage('hello-world'))->getLink()
         );
     }
 
@@ -811,15 +811,15 @@ class HydePageTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
         $this->assertEquals('output/hello-world',
-            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
+            (new TestPage('hello-world'))->getLink()
         );
     }
 
     public function testGetLinkUsesHyperlinksHelper()
     {
         $this->assertSame(
-            Hyde::formatLink((new HandlesPageFilesystemTestClass('hello-world'))->getOutputPath()),
-            (new HandlesPageFilesystemTestClass('hello-world'))->getLink()
+            Hyde::formatLink((new TestPage('hello-world'))->getOutputPath()),
+            (new TestPage('hello-world'))->getLink()
         );
     }
 
@@ -833,7 +833,7 @@ class HydePageTest extends TestCase
     }
 }
 
-class HandlesPageFilesystemTestClass extends HydePage
+class TestPage extends HydePage
 {
     public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
