@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Factories\FeaturedImageFactory;
+use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\LocalFeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\RemoteFeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
@@ -48,9 +49,9 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCreatesLocalImageWhenPathIsSet()
     {
-        $image = FeaturedImageFactory::make(new FrontMatter([
+        $image = $this->makeFromArray([
             'image.path' => 'path',
-        ]));
+        ]);
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertSame('media/path', $image->getSource());
@@ -58,9 +59,9 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCreatesRemoteImageWhenUrlIsSet()
     {
-        $image = FeaturedImageFactory::make(new FrontMatter([
+        $image = $this->makeFromArray([
             'image.url' => 'url',
-        ]));
+        ]);
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
         $this->assertSame('url', $image->getSource());
@@ -68,10 +69,10 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCreatesRemoteImageWhenBothUrlAndPathIsSet()
     {
-        $image = FeaturedImageFactory::make(new FrontMatter([
+        $image = $this->makeFromArray([
             'image.url' => 'url',
             'image.path' => 'path',
-        ]));
+        ]);
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
         $this->assertSame('url', $image->getSource());
@@ -82,14 +83,14 @@ class FeaturedImageFactoryTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('No featured image source was found');
 
-        FeaturedImageFactory::make(new FrontMatter([]));
+        $this->makeFromArray([]);
     }
 
     public function testMakeMethodCanCreateImageFromJustString()
     {
-        $image = FeaturedImageFactory::make(new FrontMatter([
+        $image = $this->makeFromArray([
             'image' => 'foo',
-        ]));
+        ]);
 
         $this->assertInstanceOf(LocalFeaturedImage::class, $image);
         $this->assertSame('media/foo', $image->getSource());
@@ -97,11 +98,16 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testMakeMethodCanCreateImageFromJustStringWithUrl()
     {
-        $image = FeaturedImageFactory::make(new FrontMatter([
+        $image = $this->makeFromArray([
             'image' => 'https://example.com/foo',
-        ]));
+        ]);
 
         $this->assertInstanceOf(RemoteFeaturedImage::class, $image);
         $this->assertSame('https://example.com/foo', $image->getSource());
+    }
+
+    protected function makeFromArray(array $matter): FeaturedImage
+    {
+        return FeaturedImageFactory::make(new FrontMatter($matter));
     }
 }
