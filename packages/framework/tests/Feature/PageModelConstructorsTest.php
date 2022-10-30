@@ -12,7 +12,7 @@ use Hyde\Testing\TestCase;
 /**
  * Test the constructor actions and schema constructors for page models.
  *
- * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Factories\FeaturedImageFactory
  * @covers \Hyde\Framework\Factories\HydePageDataFactory

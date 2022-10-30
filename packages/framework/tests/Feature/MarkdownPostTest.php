@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Pages\MarkdownPost
- * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  */
 class MarkdownPostTest extends TestCase
 {
