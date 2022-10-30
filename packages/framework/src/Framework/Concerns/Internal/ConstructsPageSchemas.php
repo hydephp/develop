@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Framework\Factories\BlogPostDataFactory;
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Factories\HydePageDataFactory;
 use Hyde\Pages\MarkdownPost;
 
@@ -15,14 +16,17 @@ trait ConstructsPageSchemas
 {
     protected function constructPageSchemas(): void
     {
-        $this->constructFactoryData(new HydePageDataFactory(
+        $pageData = new CoreDataObject(
             $this->matter,
             $this->markdown ?? false,
             static::class,
             $this->identifier,
+            $this->getSourcePath(),
             $this->getOutputPath(),
-            $this->routeKey
-        ));
+            $this->getRouteKey(),
+        );
+
+        $this->constructFactoryData(new HydePageDataFactory($pageData));
 
         if ($this instanceof MarkdownPost) {
             $this->constructFactoryData(new BlogPostDataFactory($this->matter, $this->markdown));
