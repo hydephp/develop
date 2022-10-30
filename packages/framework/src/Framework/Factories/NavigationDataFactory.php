@@ -69,11 +69,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         ];
     }
 
-    public static function make(CoreDataObject $pageData, string $title): NavigationData
-    {
-        return NavigationData::make((new static($pageData, $title))->toArray());
-    }
-
     protected function makeLabel(): ?string
     {
         return $this->matter('navigation.label')
