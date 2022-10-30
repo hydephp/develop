@@ -47,12 +47,12 @@ class ServeCommand extends Command
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
     }
 
+    /** @codeCoverageIgnore */
     protected function runServerCommand(string $command): void
     {
         if (app()->environment('testing')) {
             $this->line($command);
         } else {
-            /** @codeCoverageIgnore */
             passthru($command);
         }
     }
