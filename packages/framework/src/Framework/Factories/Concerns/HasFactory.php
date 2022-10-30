@@ -24,7 +24,7 @@ trait HasFactory
         $this->constructFactoryData(new HydePageDataFactory($pageData));
 
         if ($this instanceof MarkdownPost) {
-            $this->constructFactoryData(new BlogPostDataFactory($this->matter, $this->markdown));
+            $this->constructFactoryData(new BlogPostDataFactory($pageData));
         }
     }
 
