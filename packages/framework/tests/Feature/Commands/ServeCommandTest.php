@@ -15,6 +15,7 @@ class ServeCommandTest extends TestCase
     {
         $this->artisan('serve')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
+            ->expectsOutputToContain('php -S localhost:8080')
             ->assertExitCode(0);
     }
 
