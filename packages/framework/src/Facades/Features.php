@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use function count;
+use Hyde\Framework\Concerns\Internal\MockableFeatures;
+use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use JsonSerializable;
@@ -26,6 +27,7 @@ use function str_starts_with;
 class Features implements Arrayable, JsonSerializable
 {
     use JsonSerializesArrayable;
+    use MockableFeatures;
 
     /**
      * Determine if the given specified is enabled.
@@ -35,7 +37,7 @@ class Features implements Arrayable, JsonSerializable
      */
     public static function enabled(string $feature): bool
     {
-        return in_array($feature, config('hyde.features', [
+        return static::resolveMockedInstance($feature) ?? in_array($feature, config('hyde.features', [
             // Page Modules
             static::htmlPages(),
             static::markdownPosts(),
@@ -166,7 +168,7 @@ class Features implements Arrayable, JsonSerializable
     /** Can a sitemap be generated? */
     public static function sitemap(): bool
     {
-        return Hyde::hasSiteUrl()
+        return static::resolveMockedInstance('sitemap') ?? Hyde::hasSiteUrl()
             && config('site.generate_sitemap', true)
             && extension_loaded('simplexml');
     }
@@ -174,7 +176,7 @@ class Features implements Arrayable, JsonSerializable
     /** Can an RSS feed be generated? */
     public static function rss(): bool
     {
-        return Hyde::hasSiteUrl()
+        return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
             && static::hasMarkdownPosts()
             && config('hyde.generate_rss_feed', true)
             && extension_loaded('simplexml')
