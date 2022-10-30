@@ -78,7 +78,7 @@ class HydeMakePageCommand extends Command
 
         $this->info("Created file $creator->outputPath");
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**

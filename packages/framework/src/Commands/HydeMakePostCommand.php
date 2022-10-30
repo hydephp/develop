@@ -78,7 +78,7 @@ class HydeMakePostCommand extends Command
             $path = $creator->save($this->option('force'));
             $this->info("Post created! File is saved to $path");
 
-            return 0;
+            return Command::SUCCESS;
         } catch (Exception $exception) {
             $this->error('Something went wrong when trying to save the file!');
             $this->warn($exception->getMessage());

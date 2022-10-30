@@ -16,6 +16,20 @@ use Hyde\Framework\Helpers\Meta;
 use Hyde\Framework\Models\Support\Author;
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Build-in Server
+    |--------------------------------------------------------------------------
+    |
+    | Here you can configure settings for the built-in realtime compiler server.
+    |
+    */
+
+    'server' => [
+        'port' => env('SERVER_PORT', 8080),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Global Site Meta Tags
