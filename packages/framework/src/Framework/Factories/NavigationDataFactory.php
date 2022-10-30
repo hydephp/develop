@@ -10,7 +10,6 @@ use function array_merge;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
-use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
@@ -46,7 +45,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private readonly string $identifier;
     private readonly FrontMatter $matter;
 
-    public function __construct(CoreDataObject $pageData, string $title) {
+    public function __construct(CoreDataObject $pageData, string $title)
+    {
         $this->matter = $pageData->matter;
         $this->identifier = $pageData->identifier;
         $this->pageClass = $pageData->pageClass;
