@@ -106,6 +106,17 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSame('https://example.com/foo', $image->getSource());
     }
 
+    public function testImagePathsAreNormalized()
+    {
+        $this->assertSame('media/foo', $this->makeFromArray(['image' => 'foo'])->getSource());
+        $this->assertSame('media/foo', $this->makeFromArray(['image' => 'media/foo'])->getSource());
+        $this->assertSame('media/foo', $this->makeFromArray(['image' => '_media/foo'])->getSource());
+
+        $this->assertSame('media/foo', $this->makeFromArray(['image' => ['path' => 'foo'] ])->getSource());
+        $this->assertSame('media/foo', $this->makeFromArray(['image' => ['path' => 'media/foo'] ])->getSource());
+        $this->assertSame('media/foo', $this->makeFromArray(['image' => ['path' => '_media/foo'] ])->getSource());
+    }
+
     protected function makeFromArray(array $matter): FeaturedImage
     {
         return FeaturedImageFactory::make(new FrontMatter($matter));
