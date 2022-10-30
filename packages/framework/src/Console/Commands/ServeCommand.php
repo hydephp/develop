@@ -48,8 +48,9 @@ class ServeCommand extends Command
     protected function runCommand(string $command): void
     {
         if (app()->environment('testing')) {
-            $command = 'echo ' . $command;
+            $this->line($command);
+        } else {
+            passthru($command);
         }
-        passthru($command);
     }
 }
