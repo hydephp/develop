@@ -6,6 +6,7 @@ namespace Hyde\Framework\Helpers;
 
 use Hyde\Framework\Concerns\JsonSerializesArrayable;
 use Hyde\Framework\Hyde;
+use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Hyde\Framework\Services\DiscoveryService;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
@@ -22,6 +23,7 @@ use JsonSerializable;
 class Features implements Arrayable, JsonSerializable
 {
     use JsonSerializesArrayable;
+    use MockableFeatures;
 
     /**
      * Determine if the given specified is enabled.
