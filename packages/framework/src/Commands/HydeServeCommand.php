@@ -37,7 +37,7 @@ class HydeServeCommand extends Command
 
         $host = $this->option('host');
         $port = $this->option('port');
-        if (!$port) {
+        if (! $port) {
             $port = config('hyde.server.port', 8080);
         }
 
