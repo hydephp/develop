@@ -108,17 +108,22 @@ class FeaturedImageFactoryTest extends TestCase
 
     public function testImagePathsAreNormalized()
     {
-        $this->assertSame('media/foo', $this->makeFromArray(['image' => 'foo'])->getSource());
-        $this->assertSame('media/foo', $this->makeFromArray(['image' => 'media/foo'])->getSource());
-        $this->assertSame('media/foo', $this->makeFromArray(['image' => '_media/foo'])->getSource());
+        $this->assertSourceIsSame('media/foo', ['image' => 'foo']);
+        $this->assertSourceIsSame('media/foo', ['image' => 'media/foo']);
+        $this->assertSourceIsSame('media/foo', ['image' => '_media/foo']);
 
-        $this->assertSame('media/foo', $this->makeFromArray(['image' => ['path' => 'foo']])->getSource());
-        $this->assertSame('media/foo', $this->makeFromArray(['image' => ['path' => 'media/foo']])->getSource());
-        $this->assertSame('media/foo', $this->makeFromArray(['image' => ['path' => '_media/foo']])->getSource());
+        $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['path' => 'media/foo']]);
+        $this->assertSourceIsSame('media/foo', ['image' => ['path' => '_media/foo']]);
     }
 
     protected function makeFromArray(array $matter): FeaturedImage
     {
         return FeaturedImageFactory::make(new FrontMatter($matter));
+    }
+
+    protected function assertSourceIsSame(string $expected, array $matter): void
+    {
+        $this->assertSame($expected, $this->makeFromArray($matter)->getSource());
     }
 }
