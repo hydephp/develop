@@ -33,15 +33,14 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     private readonly Markdown|false $markdown;
     private readonly FrontMatter $matter;
 
-    public function __construct(
-        private readonly CoreDataObject $pageData,
-    ) {
+    public function __construct(private readonly CoreDataObject $pageData) {
         $this->matter = $this->pageData->matter;
         $this->markdown = $this->pageData->markdown;
         $this->pageClass = $this->pageData->pageClass;
         $this->identifier = $this->pageData->identifier;
         $this->outputPath = $this->pageData->outputPath;
         $this->routeKey = $this->pageData->routeKey;
+
         $this->title = $this->makeTitle();
         $this->canonicalUrl = $this->makeCanonicalUrl();
         $this->navigation = $this->makeNavigation();
