@@ -28,7 +28,11 @@ class ServeCommand extends Command
     {
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
 
-        $this->runServerCommand("php -S {$this->option('host')}:{$this->getPort()} {$this->getExecutablePath()}");
+        $this->runServerCommand(sprintf("php -S %s:%d %s",
+            $this->option('host'),
+            $this->getPort(),
+            $this->getExecutablePath()
+        ));
 
         return Command::SUCCESS;
     }
