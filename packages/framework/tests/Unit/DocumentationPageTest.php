@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
 /**
  * @covers \Hyde\Pages\DocumentationPage
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Factories\NavigationDataFactory
  */
 class DocumentationPageTest extends TestCase
 {
