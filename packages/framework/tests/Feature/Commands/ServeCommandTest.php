@@ -72,4 +72,14 @@ class ServeCommandTest extends TestCase
             ->expectsOutputToContain('php -S localhost:8080')
             ->assertExitCode(0);
     }
+
+    public function test_hyde_serve_command_with_invalid_config_value()
+    {
+        config(['hyde.server.port' => 'foo']);
+
+        $this->artisan('serve')
+            ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
+            ->expectsOutputToContain('php -S localhost:8080')
+            ->assertExitCode(0);
+    }
 }

@@ -42,7 +42,7 @@ class ServeCommand extends Command
         if (! $port) {
             $port = config('hyde.server.port', 8080);
         }
-        return (int) $port;
+        return (int) $port ?: 8080;
     }
 
     protected function runServerCommand(string $command): void
