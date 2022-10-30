@@ -21,8 +21,8 @@ trait ConstructsPageSchemas
             static::class,
             $this->identifier,
             $this->getOutputPath(),
-            $this->routeKey)
-        );
+            $this->routeKey
+        ));
 
         if ($this instanceof MarkdownPost) {
             $this->constructFactoryData(new BlogPostDataFactory($this->matter, $this->markdown));
