@@ -24,7 +24,7 @@ use Hyde\Testing\TestCase;
  *
  * @covers \Hyde\Pages\Concerns\HydePage
  * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
- * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
+ * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Factories\FeaturedImageFactory
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
