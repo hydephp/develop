@@ -25,10 +25,7 @@ class ServeCommand extends Command
         $this->line('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop');
 
         $host = $this->option('host');
-        $port = $this->option('port');
-        if (! $port) {
-            $port = config('hyde.server.port', 8080);
-        }
+        $port = $this->getPort();
 
         $command = "php -S $host:$port ".Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
         if (app()->environment('testing')) {
@@ -37,5 +34,14 @@ class ServeCommand extends Command
         passthru($command);
 
         return Command::SUCCESS;
+    }
+
+    protected function getPort(): int
+    {
+        $port = $this->option('port');
+        if (!$port) {
+            $port = config('hyde.server.port', 8080);
+        }
+        return $port;
     }
 }
