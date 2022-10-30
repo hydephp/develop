@@ -47,13 +47,13 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private readonly FrontMatter $matter;
 
     public function __construct(
-        private readonly CoreDataObject $pageData,
+        CoreDataObject $pageData,
         string $title,
     ) {
-        $this->matter = $this->pageData->matter;
-        $this->identifier = $this->pageData->identifier;
-        $this->pageClass = $this->pageData->pageClass;
-        $this->routeKey = $this->pageData->routeKey;
+        $this->matter = $pageData->matter;
+        $this->identifier = $pageData->identifier;
+        $this->pageClass = $pageData->pageClass;
+        $this->routeKey = $pageData->routeKey;
         $this->title = $title;
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
