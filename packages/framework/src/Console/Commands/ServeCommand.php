@@ -31,7 +31,7 @@ class ServeCommand extends Command
         $host = $this->option('host');
         $port = $this->getPort();
 
-        $this->runServerCommand("php -S $host:$port ".Hyde::path('vendor/hyde/realtime-compiler/bin/server.php'));
+        $this->runServerCommand("php -S $host:$port ". $this->getExecutablePath());
 
         return Command::SUCCESS;
     }
@@ -43,6 +43,11 @@ class ServeCommand extends Command
             $port = config('hyde.server.port', 8080);
         }
         return (int) $port ?: 8080;
+    }
+
+    protected function getExecutablePath(): string
+    {
+        return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
     }
 
     protected function runServerCommand(string $command): void
