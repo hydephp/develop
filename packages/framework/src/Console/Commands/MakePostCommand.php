@@ -42,10 +42,10 @@ class MakePostCommand extends Command
 
         $this->info('Creating a post with the following details:');
         $creator = new CreatesNewMarkdownPostFile(
-            title: $title,
-            description: $description,
-            category: $category,
-            author: $author
+            $title,
+            $description,
+            $category,
+            $author
         );
 
         $this->line("Title: $creator->title");
