@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Support\Concerns\JsonSerializesArrayable;
 use function count;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
+use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use JsonSerializable;
