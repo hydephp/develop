@@ -3,12 +3,12 @@
 namespace Hyde\Testing;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Illuminate\View\Component;
-use Hyde\Framework\Helpers\Features;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
 require_once __DIR__.'/helpers.php';
