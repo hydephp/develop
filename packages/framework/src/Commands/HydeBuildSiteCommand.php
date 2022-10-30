@@ -71,7 +71,7 @@ class HydeBuildSiteCommand extends Command
 
         $this->printFinishMessage($time_start);
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /** @internal */

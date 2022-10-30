@@ -27,6 +27,6 @@ class HydeUpdateConfigsCommand extends Command
 
         $this->line('<info>Published config files to</info> <comment>'.Hyde::path('config').'</comment>');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

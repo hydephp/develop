@@ -42,7 +42,7 @@ class HydeValidateCommand extends Command
 
         $this->info('All done! '.$this->timeTotal());
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function check(string $check): void

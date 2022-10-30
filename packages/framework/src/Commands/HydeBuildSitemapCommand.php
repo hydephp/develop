@@ -19,6 +19,6 @@ class HydeBuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSitemap($this->output))->handle() ?? 0;
+        return (new GenerateSitemap($this->output))->handle() ?? Command::SUCCESS;
     }
 }

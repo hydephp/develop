@@ -19,6 +19,6 @@ class HydeBuildSearchCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSearch($this->output))->handle() ?? 0;
+        return (new GenerateSearch($this->output))->handle() ?? Command::SUCCESS;
     }
 }

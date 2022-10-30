@@ -47,6 +47,6 @@ class HydeServeCommand extends Command
         }
         passthru($command);
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
