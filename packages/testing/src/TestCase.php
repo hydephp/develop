@@ -2,8 +2,8 @@
 
 namespace Hyde\Testing;
 
+use Hyde\Facades\Features;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Framework\Helpers\Features;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
