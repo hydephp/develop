@@ -16,6 +16,10 @@ use JsonSerializable;
  * It should contain immutable data known at the very start of construction.
  * In addition to the front matter and markdown, the data should contain
  * everything needed to identify the unique page being constructed.
+ *
+ * The benefit of using this class over passing around the page object when constructing a page is
+ * that the latter's state is unpredictable due to the nature of the construction process continuously
+ * mutating the page object. This class on the other hand is immutable, making it highly predictable.
  */
 final class CoreDataObject implements Arrayable, JsonSerializable
 {
