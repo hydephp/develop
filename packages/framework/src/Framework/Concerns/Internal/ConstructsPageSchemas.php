@@ -18,7 +18,7 @@ trait ConstructsPageSchemas
         $this->constructFactoryData(new HydePageDataFactory(
             $this->matter,
             $this->markdown ?? false,
-            $this::class,
+            static::class,
             $this->identifier,
             $this->getOutputPath(),
             $this->routeKey)
