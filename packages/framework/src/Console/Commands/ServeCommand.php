@@ -16,7 +16,7 @@ class ServeCommand extends Command
     protected $signature = 'serve {--port=8080} {--host=localhost}';
 
     /** @var string */
-    protected $description = 'Start the experimental realtime compiler.';
+    protected $description = 'Start the realtime compiler server.';
 
     public function handle(): int
     {
