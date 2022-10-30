@@ -4,6 +4,7 @@ namespace Hyde\Testing;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Concerns\HydePage;
+use Hyde\Framework\Helpers\Features;
 use Hyde\Framework\Hyde;
 use Hyde\Framework\Models\Pages\MarkdownPage;
 use Hyde\Framework\Models\Support\Route;
@@ -55,6 +56,8 @@ abstract class TestCase extends BaseTestCase
             Component::forgetComponentsResolver();
             Component::forgetFactory();
         }
+
+        Features::clearMockedInstances();
 
         parent::tearDown();
     }
