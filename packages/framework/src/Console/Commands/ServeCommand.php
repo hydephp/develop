@@ -30,20 +30,16 @@ class ServeCommand extends Command
 
         $this->runServerCommand(sprintf("php -S %s:%d %s",
             $this->option('host'),
-            $this->getPort(),
+            $this->getPortSelection() ?: 8080,
             $this->getExecutablePath()
         ));
 
         return Command::SUCCESS;
     }
 
-    protected function getPort(): int
+    protected function getPortSelection(): int
     {
-        $port = $this->option('port');
-        if (! $port) {
-            $port = config('hyde.server.port', 8080);
-        }
-        return (int) $port ?: 8080;
+        return (int) ($this->option('port') ?: config('hyde.server.port', 8080));
     }
 
     protected function getExecutablePath(): string
