@@ -15,7 +15,14 @@ trait ConstructsPageSchemas
 {
     protected function constructPageSchemas(): void
     {
-        $this->constructFactoryData(new HydePageDataFactory($this->matter, $this->markdown ?? false, $this::class, $this->identifier, $this->getOutputPath(), $this->routeKey));
+        $this->constructFactoryData(new HydePageDataFactory(
+            $this->matter,
+            $this->markdown ?? false,
+            $this::class,
+            $this->identifier,
+            $this->getOutputPath(),
+            $this->routeKey)
+        );
 
         if ($this instanceof MarkdownPost) {
             $this->constructFactoryData(new BlogPostDataFactory($this->matter, $this->markdown));
