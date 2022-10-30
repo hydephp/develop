@@ -9,6 +9,8 @@ use LaravelZero\Framework\Commands\Command;
 
 /**
  * Start the realtime compiler server.
+ *
+ * @see https://github.com/hydephp/realtime-compiler
  */
 class ServeCommand extends Command
 {
