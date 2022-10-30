@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Foundation\Concerns;
+namespace Hyde\Foundation\Concerns;
 
-use Hyde\Framework\HydeKernel;
+use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Collection;
 
 /**
  * @internal Base class for the kernel auto-discovery collections.
  *
- * @see \Hyde\Framework\Foundation\FileCollection
- * @see \Hyde\Framework\Foundation\PageCollection
- * @see \Hyde\Framework\Foundation\RouteCollection
+ * @see \Hyde\Foundation\FileCollection
+ * @see \Hyde\Foundation\PageCollection
+ * @see \Hyde\Foundation\RouteCollection
  */
 abstract class BaseFoundationCollection extends Collection
 {

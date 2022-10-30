@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
  * Class HydeBasePathCanBeChangedTest.
  *
- * @covers \Hyde\Framework\HydeKernel::getBasePath
- * @covers \Hyde\Framework\HydeKernel::setBasePath
- * @covers \Hyde\Framework\HydeKernel::path
+ * @covers \Hyde\Foundation\HydeKernel::getBasePath
+ * @covers \Hyde\Foundation\HydeKernel::setBasePath
+ * @covers \Hyde\Foundation\HydeKernel::path
  */
 class HydeBasePathCanBeChangedTest extends TestCase
 {

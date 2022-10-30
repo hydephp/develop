@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Hyde;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
@@ -123,7 +123,7 @@ class DiscoveryServiceTest extends TestCase
             DocumentationPage::class,
         ];
 
-        /** @var MarkdownPage $model */
+        /** @var \Hyde\Pages\MarkdownPage $model */
         foreach ($matrix as $model) {
             // Setup
             @mkdir(Hyde::path('foo'));

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\Models\Pages\MarkdownPost::latest()
+ * @see \Hyde\Pages\MarkdownPost::latest()
  */
 class GetLatestMarkdownPostsTest extends TestCase
 {

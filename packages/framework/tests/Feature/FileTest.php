@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Support\File;
+use Hyde\Hyde;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Models\File;
 use Hyde\Testing\TestCase;
+use function mkdir;
+use function rmdir;
+use function touch;
+use function unlink;
 
 /**
- * @covers \Hyde\Framework\Models\Support\File
+ * @covers \Hyde\Support\Models\File
  */
 class FileTest extends TestCase
 {
@@ -137,23 +141,44 @@ class FileTest extends TestCase
     public function test_to_array_returns_array_of_file_properties()
     {
         $this->file('foo.txt', 'foo bar');
-        // $this->assertSame([
-        //     'name'     => 'foo.txt',
-        //     'path'     => 'foo.txt',
-        //     'contents' => 'foo bar',
-        //     'length'   => 7,
-        //     'mimeType' => 'text/plain',
-        // ], File::make('foo.txt')->toArray());
 
         $this->assertSame([
-            'path' => 'foo',
+            'name'     => 'foo.txt',
+            'path'     => 'foo.txt',
+            'contents' => 'foo bar',
+            'length'   => 7,
+            'mimeType' => 'text/plain',
             'model'    => null,
-        ], File::make('foo')->toArray());
+        ], File::make('foo.txt')->toArray());
+    }
 
+    public function test_to_array_with_empty_file_with_no_extension()
+    {
+        $this->file('foo');
         $this->assertSame([
+            'name' => 'foo',
+            'path' => 'foo',
+            'contents' => '',
+            'length' => 0,
+            'mimeType' => 'application/x-empty',
+            'model' => null,
+        ], File::make('foo')->toArray());
+    }
+
+    public function test_to_array_with_file_in_subdirectory()
+    {
+        mkdir(Hyde::path('foo'));
+        touch(Hyde::path('foo/bar.txt'));
+        $this->assertSame([
+            'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
-            'model'    => 'baz',
+            'contents' => '',
+            'length' => 0,
+            'mimeType' => 'text/plain',
+            'model' => 'baz',
         ], File::make('foo/bar.txt', 'baz')->toArray());
+        unlink(Hyde::path('foo/bar.txt'));
+        rmdir(Hyde::path('foo'));
     }
 
     public function test_without_directory_prefix_returns_file_without_directory_prefix()

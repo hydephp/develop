@@ -8,9 +8,9 @@ $time = microtime(true);
 // Generate some file fixtures for quick visual testing.
 
 use Hyde\Framework\Actions\CreatesNewPageSourceFile;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
 
 $autoloader = require __DIR__.'/../../vendor/autoload.php';
 $app = require_once __DIR__.'/../../app/bootstrap.php';

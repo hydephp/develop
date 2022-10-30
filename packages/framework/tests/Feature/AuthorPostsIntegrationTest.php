@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Support\Author;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
@@ -22,7 +22,7 @@ class AuthorPostsIntegrationTest extends TestCase
     {
         parent::setUp();
 
-        Config::set('authors', []);
+        Config::set('hyde.authors', []);
     }
 
     /**
@@ -78,8 +78,8 @@ class AuthorPostsIntegrationTest extends TestCase
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
-        Config::set('authors', [
-            Author::create('test_named_author', 'Test Author'),
+        Config::set('hyde.authors', [
+            PostAuthor::create('test_named_author', 'Test Author'),
         ]);
 
         // Check that the post was created
@@ -116,8 +116,8 @@ class AuthorPostsIntegrationTest extends TestCase
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/test-2dcbb2c-post-with-defined-author-with-name.md'));
 
-        Config::set('authors', [
-            Author::create('test_author_with_website', 'Test Author', 'https://example.org'),
+        Config::set('hyde.authors', [
+            PostAuthor::create('test_author_with_website', 'Test Author', 'https://example.org'),
         ]);
 
         // Check that the post was created

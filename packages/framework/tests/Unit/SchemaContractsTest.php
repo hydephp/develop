@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema;
-use Hyde\Framework\Contracts\FrontMatter\PageSchema;
-use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
+use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
+use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
+use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\TestCase;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
  * This requires contributors to consider the impact of their changes as schema changes are rarely backwards compatible.
  *
- * @see \Hyde\Framework\Contracts\FrontMatter\PageSchema
- * @see \Hyde\Framework\Contracts\FrontMatter\BlogPostSchema
- * @see \Hyde\Framework\Contracts\FrontMatter\DocumentationPageSchema
+ * @see \Hyde\Markdown\Contracts\FrontMatter\PageSchema
+ * @see \Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema
+ * @see \Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema
  */
 class SchemaContractsTest extends TestCase
 {
@@ -51,15 +51,15 @@ class SchemaContractsTest extends TestCase
         ], BlogPostSchema::AUTHOR_SCHEMA);
 
         $this->assertEquals([
-            'path'         => 'string',
-            'url'          => 'string',
-            'description'  => 'string',
-            'title'        => 'string',
-            'copyright'    => 'string',
-            'license'      => 'string',
-            'licenseUrl'   => 'string',
-            'author'       => 'string',
-            'credit'       => 'string',
+            'path'           => 'string',
+            'url'            => 'string',
+            'description'    => 'string',
+            'title'          => 'string',
+            'copyright'      => 'string',
+            'license'        => 'string',
+            'licenseUrl'     => 'string',
+            'author'         => 'string',
+            'attributionUrl' => 'string',
         ], BlogPostSchema::FEATURED_IMAGE_SCHEMA);
 
         $this->assertEquals([

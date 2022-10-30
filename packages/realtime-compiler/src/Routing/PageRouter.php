@@ -5,10 +5,10 @@ namespace Hyde\RealtimeCompiler\Routing;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Models\Support\Route;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\Support\Models\Route;
 
 /**
  * Handle routing for a web page request.
@@ -28,9 +28,7 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
-        $html = $this->getHtml(Route::getFromKey(
-            $this->normalizePath($this->request->path)
-        )->getSourceModel());
+        $html = $this->getHtml(Route::get($this->normalizePath($this->request->path))->getPage());
 
         return (new Response(200, 'OK', [
             'body' => $html,

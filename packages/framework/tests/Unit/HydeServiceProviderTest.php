@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Hyde;
+use Hyde\Facades\Site;
+use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Support\Site;
-use Hyde\Framework\Modules\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Services\AssetService;
+use Hyde\Hyde;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 
@@ -150,8 +150,12 @@ class HydeServiceProviderTest extends TestCase
             return get_class($command);
         }, Artisan::all());
 
-        foreach (glob(Hyde::vendorPath('src/Commands/*.php')) as $file) {
-            $class = 'Hyde\Framework\Commands\\'.basename($file, '.php');
+        $glob = glob(Hyde::vendorPath('src/Console/Commands/*.php'));
+
+        $this->assertNotEmpty($glob);
+
+        foreach ($glob as $file) {
+            $class = 'Hyde\Console\Commands\\'.basename($file, '.php');
 
             $this->assertContains($class, $commands);
         }

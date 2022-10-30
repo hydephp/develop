@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\Markdown\Markdown;
+use Hyde\Markdown\Models\Markdown;
 use Hyde\Testing\TestCase;
 
 /**
  * Class MarkdownConverterTest.
  *
- * @covers \Hyde\Framework\Models\Markdown\Markdown
+ * @covers \Hyde\Markdown\Models\Markdown
  */
 class MarkdownFacadeTest extends TestCase
 {

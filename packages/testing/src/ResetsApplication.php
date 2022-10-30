@@ -2,7 +2,7 @@
 
 namespace Hyde\Testing;
 
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 
 /**
  * @internal

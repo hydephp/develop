@@ -1,7 +1,7 @@
 @if(config('hyde.footer') !== false)
     <footer aria-label="Page footer" class="flex py-4 px-6 w-full text-center mt-auto bg-slate-100 dark:bg-gray-800">
         <div class="prose dark:prose-invert text-center mx-auto">
-            {!! \Hyde\Framework\Helpers\Includes::markdown('footer',
+            {!! \Hyde\Facades\Includes::markdown('footer',
                     config('hyde.footer', 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩')) !!}
         </div>
         <a href="#app" aria-label="Go to top of page" class="float-right">

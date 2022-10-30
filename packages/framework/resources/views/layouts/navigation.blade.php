@@ -1,5 +1,5 @@
 @php
-    $navigation = \Hyde\Framework\Models\Navigation\NavigationMenu::create();
+    $navigation = \Hyde\Framework\Features\Navigation\NavigationMenu::create();
 @endphp
 
 <nav aria-label="Main navigation" id="main-navigation"

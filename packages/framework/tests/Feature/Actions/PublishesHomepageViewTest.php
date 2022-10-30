@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\PublishesHomepageView;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**

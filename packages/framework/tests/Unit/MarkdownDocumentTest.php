@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Markdown\Markdown;
-use Hyde\Framework\Models\Markdown\MarkdownDocument;
+use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
+use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Markdown\MarkdownDocument
- * @covers \Hyde\Framework\Models\Markdown\Markdown
+ * @covers \Hyde\Markdown\Models\MarkdownDocument
+ * @covers \Hyde\Markdown\Models\Markdown
  */
 class MarkdownDocumentTest extends TestCase
 {

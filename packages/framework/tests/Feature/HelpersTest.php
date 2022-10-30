@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\HydeKernel;
+use Hyde\Foundation\HydeKernel;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 class HelpersTest extends TestCase

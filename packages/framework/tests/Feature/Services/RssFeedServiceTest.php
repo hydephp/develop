@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Hyde;
+use Hyde\Facades\Features;
 use Hyde\Framework\Services\RssFeedService;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**

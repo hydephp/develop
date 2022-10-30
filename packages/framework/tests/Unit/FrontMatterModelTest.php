@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Models\Markdown\FrontMatter;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Markdown\FrontMatter
+ * @covers \Hyde\Markdown\Models\FrontMatter
  */
 class FrontMatterModelTest extends TestCase
 {

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Foundation;
+namespace Hyde\Foundation;
 
-use Hyde\Framework\Concerns\HydePage;
-use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\HtmlPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
-use Hyde\Framework\Models\Support\File;
+use Hyde\Facades\Features;
+use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Models\File;
 
 /**
  * @see \Hyde\Framework\Foundation\FileCollection

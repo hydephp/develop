@@ -6,6 +6,9 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Testing\TestCase;
 
+/**
+ * @covers \Hyde\Console\Commands\DebugCommand
+ */
 class DebugCommandTest extends TestCase
 {
     public function test_debug_command_can_run()

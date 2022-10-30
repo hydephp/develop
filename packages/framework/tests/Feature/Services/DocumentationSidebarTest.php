@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Navigation\DocumentationSidebar;
-use Hyde\Framework\Models\Navigation\NavItem;
-use Hyde\Framework\Models\Support\Route;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Models\Navigation\DocumentationSidebar
+ * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  * @covers \Hyde\Framework\Concerns\Internal\ConstructsPageSchemas
  */
 class DocumentationSidebarTest extends TestCase

@@ -80,7 +80,7 @@ Maybe you want to create your own, to for example upload the site to FTP or copy
 Here is a minimal example to get you started. For all these examples we assume you put the file in the `App/Actions` directory, but you can put them anywhere.
 
 ```php
-class SimpleTask extends AbstractBuildTask
+class SimpleTask extends BuildTask
 {
     public function run(): void
     {
@@ -106,9 +106,9 @@ You can also set the description, and an optional `then()` method to run after t
 
 namespace App\Actions;
 
-use Hyde\Framework\Concerns\AbstractBuildTask;
+use Hyde\Framework\Features\BuildTasks\BuildTask;
 
-class ExampleTask extends AbstractBuildTask
+class ExampleTask extends BuildTask
 {
     public static string $description = 'Say hello';
 
