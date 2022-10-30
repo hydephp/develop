@@ -13,17 +13,5 @@ use Hyde\Pages\MarkdownPost;
  */
 trait ConstructsPageSchemas
 {
-    protected function constructPageSchemas(): void
-    {
-        $this->constructPageSchema();
-
-        if ($this instanceof MarkdownPost) {
-            $this->constructFactoryData(new BlogPostDataFactory($this->matter, $this->markdown));
-        }
-    }
-
-    protected function constructPageSchema(): void
-    {
-        $this->constructFactoryData(new HydePageDataFactory($this->matter, $this->markdown ?? false, $this::class, $this->identifier, $this->getOutputPath(), $this->routeKey));
-    }
+    //
 }
