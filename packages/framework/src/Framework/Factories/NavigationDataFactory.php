@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use function array_flip;
 use function array_key_exists;
 use function array_merge;
@@ -39,14 +40,21 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected readonly ?string $group;
     protected readonly ?bool $hidden;
     protected readonly ?int $priority;
+    private readonly string $title;
+    private readonly string $routeKey;
+    private readonly string $pageClass;
+    private readonly string $identifier;
+    private readonly FrontMatter $matter;
 
     public function __construct(
-        private readonly FrontMatter $matter,
-        private readonly string $identifier,
-        private readonly string $pageClass,
-        private readonly string $routeKey,
-        private readonly string $title,
+        private readonly CoreDataObject $pageData,
+        string $title,
     ) {
+        $this->matter = $this->pageData->matter;
+        $this->identifier = $this->pageData->identifier;
+        $this->pageClass = $this->pageData->pageClass;
+        $this->routeKey = $this->pageData->routeKey;
+        $this->title = $title;
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
         $this->hidden = $this->makeHidden();
@@ -63,10 +71,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         ];
     }
 
-    public static function make(FrontMatter $matter, string $identifier, string $pageClass, string $routeKey, string $title): NavigationData
+    public static function make(CoreDataObject $pageData, string $title): NavigationData
     {
         return NavigationData::make(
-            (new static($matter, $identifier, $pageClass, $routeKey, $title))->toArray()
+            (new static($pageData, $title))->toArray()
         );
     }
 
