@@ -42,6 +42,6 @@ class ServeCommand extends Command
         if (!$port) {
             $port = config('hyde.server.port', 8080);
         }
-        return $port;
+        return (int) $port;
     }
 }
