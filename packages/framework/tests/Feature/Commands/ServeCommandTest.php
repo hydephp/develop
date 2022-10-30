@@ -56,4 +56,13 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
             ->assertExitCode(0);
     }
+
+    public function test_hyde_serve_command_with_port_missing_in_config_and_port_option()
+    {
+        $this->app['config']->set('hyde.server.port');
+
+        $this->artisan('serve')
+            ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
+            ->assertExitCode(0);
+    }
 }
