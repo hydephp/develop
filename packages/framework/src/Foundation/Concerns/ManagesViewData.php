@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\View;
 
@@ -19,7 +20,7 @@ trait ManagesViewData
      *
      * @param  \Hyde\Pages\Concerns\HydePage  $page
      */
-    public function shareViewData(\Hyde\Pages\Concerns\HydePage $page): void
+    public function shareViewData(HydePage $page): void
     {
         View::share('page', $page);
         View::share('currentPage', $page->getRouteKey());

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Metadata;
 
+use Hyde\Framework\Features\Metadata\Elements\LinkElement;
+use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
+use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
 use Illuminate\Contracts\Support\Htmlable;
 
 /**
@@ -42,15 +45,15 @@ class MetadataBag implements Htmlable
 
     public function add(MetadataElementContract|string $element): static
     {
-        if ($element instanceof \Hyde\Framework\Features\Metadata\Elements\LinkElement) {
+        if ($element instanceof LinkElement) {
             return $this->addElement('links', $element);
         }
 
-        if ($element instanceof \Hyde\Framework\Features\Metadata\Elements\MetadataElement) {
+        if ($element instanceof MetadataElement) {
             return $this->addElement('metadata', $element);
         }
 
-        if ($element instanceof \Hyde\Framework\Features\Metadata\Elements\OpenGraphElement) {
+        if ($element instanceof OpenGraphElement) {
             return $this->addElement('properties', $element);
         }
 
