@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
+/**
+ * @internal
+ */
 trait MockableFeatures
 {
     protected static array $mockedInstances = [];
