@@ -27,11 +27,7 @@ class ServeCommand extends Command
         $host = $this->option('host');
         $port = $this->getPort();
 
-        $command = sprintf("php -S %s:%d %s", $host, $port, Hyde::path('vendor/hyde/realtime-compiler/bin/server.php'));
-        if (app()->environment('testing')) {
-            $command = 'echo '.$command;
-        }
-        passthru($command);
+        $this->runCommand(sprintf("php -S %s:%d %s", $host, $port, Hyde::path('vendor/hyde/realtime-compiler/bin/server.php')));
 
         return Command::SUCCESS;
     }
@@ -43,5 +39,13 @@ class ServeCommand extends Command
             $port = config('hyde.server.port', 8080);
         }
         return (int) $port;
+    }
+
+    protected function runCommand(string $command): void
+    {
+        if (app()->environment('testing')) {
+            $command = 'echo ' . $command;
+        }
+        passthru($command);
     }
 }
