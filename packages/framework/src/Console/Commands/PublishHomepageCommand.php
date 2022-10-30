@@ -52,7 +52,7 @@ class PublishHomepageCommand extends Command
 
         $this->askToRebuildSite();
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function promptForHomepage(): string

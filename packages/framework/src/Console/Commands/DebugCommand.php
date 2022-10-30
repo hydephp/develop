@@ -58,6 +58,6 @@ class DebugCommand extends Command
             $this->line(" - $feature");
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

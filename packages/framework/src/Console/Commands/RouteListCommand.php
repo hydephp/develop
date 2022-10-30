@@ -30,7 +30,7 @@ class RouteListCommand extends Command
             'Route Key',
         ], $this->getRoutes());
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function getRoutes(): array

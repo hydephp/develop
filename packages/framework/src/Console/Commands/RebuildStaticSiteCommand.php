@@ -39,7 +39,7 @@ class RebuildStaticSiteCommand extends Command
         if ($this->argument('path') === '_media') {
             (new BuildService($this->getOutput()))->transferMediaAssets();
 
-            return 0;
+            return Command::SUCCESS;
         }
 
         $this->path = $this->sanitizePathString($this->argument('path'));
@@ -65,7 +65,7 @@ class RebuildStaticSiteCommand extends Command
             number_format(($execution_time * 1000), 2)
         ));
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**

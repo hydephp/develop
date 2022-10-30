@@ -33,7 +33,7 @@ class PublishViewsCommand extends Command
             $this->publishOption($this->selected);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function publishOption(string $selected): void

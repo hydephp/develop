@@ -55,7 +55,7 @@ class BuildSiteCommand extends Command
 
         $this->printFinishMessage($time_start);
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function runPreBuildActions(): void

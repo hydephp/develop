@@ -67,7 +67,7 @@ class MakePageCommand extends Command
 
         $this->info("Created file $creator->outputPath");
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function validateOptions(): void
