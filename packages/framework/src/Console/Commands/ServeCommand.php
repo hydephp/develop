@@ -31,7 +31,7 @@ class ServeCommand extends Command
         $host = $this->option('host');
         $port = $this->getPort();
 
-        $this->runServerCommand("php -S $host:$port ". $this->getExecutablePath());
+        $this->runServerCommand("php -S $host:$port {$this->getExecutablePath()}");
 
         return Command::SUCCESS;
     }
