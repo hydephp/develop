@@ -19,12 +19,10 @@ trait HasFactory
 
     protected function constructPageSchemas(): void
     {
-        $pageData = $this->toCoreDataObject();
-
-        $this->constructFactoryData(new HydePageDataFactory($pageData));
+        $this->constructFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
 
         if ($this instanceof MarkdownPost) {
-            $this->constructFactoryData(new BlogPostDataFactory($pageData));
+            $this->constructFactoryData(new BlogPostDataFactory($this->toCoreDataObject()));
         }
     }
 
