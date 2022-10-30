@@ -98,6 +98,16 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testMake()
+    {
+        $this->assertEquals(TestPage::make(), new TestPage());
+
+        $this->assertEquals(
+            TestPage::make('foo', ['foo' => 'bar']),
+            new TestPage('foo', ['foo' => 'bar'])
+        );
+    }
+
     public function testShowInNavigation()
     {
         $this->assertTrue((new BladePage('foo'))->showInNavigation());
