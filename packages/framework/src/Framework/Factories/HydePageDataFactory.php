@@ -25,15 +25,27 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     protected readonly string $title;
     protected readonly ?string $canonicalUrl;
     protected readonly ?NavigationData $navigation;
+    private readonly string $routeKey;
+    private readonly string $outputPath;
+    private readonly string $identifier;
+    private readonly string $pageClass;
+    private readonly Markdown|false $markdown;
+    private readonly FrontMatter $matter;
 
     public function __construct(
-        private readonly FrontMatter $matter,
-        private readonly Markdown|false $markdown,
-        private readonly string $pageClass,
-        private readonly string $identifier,
-        private readonly string $outputPath,
-        private readonly string $routeKey,
+        FrontMatter $matter,
+        Markdown|false $markdown,
+        string $pageClass,
+        string $identifier,
+        string $outputPath,
+        string $routeKey,
     ) {
+        $this->matter = $matter;
+        $this->markdown = $markdown;
+        $this->pageClass = $pageClass;
+        $this->identifier = $identifier;
+        $this->outputPath = $outputPath;
+        $this->routeKey = $routeKey;
         $this->title = $this->makeTitle();
         $this->canonicalUrl = $this->makeCanonicalUrl();
         $this->navigation = $this->makeNavigation();
