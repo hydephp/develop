@@ -19,7 +19,7 @@ trait HasFactory
 
     protected function constructPageSchemas(): void
     {
-        $pageData = $this->getCoreDataObject();
+        $pageData = $this->toCoreDataObject();
 
         $this->constructFactoryData(new HydePageDataFactory($pageData));
 
@@ -28,7 +28,7 @@ trait HasFactory
         }
     }
 
-    protected function getCoreDataObject(): CoreDataObject
+    public function toCoreDataObject(): CoreDataObject
     {
         return new CoreDataObject(
             $this->matter,
