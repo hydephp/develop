@@ -6,6 +6,10 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
+use function app;
+use function config;
+use function passthru;
+use function sprintf;
 
 /**
  * Start the realtime compiler server.
@@ -27,7 +31,7 @@ class ServeCommand extends Command
         $host = $this->option('host');
         $port = $this->getPort();
 
-        $this->runCommand(sprintf("php -S %s:%d %s", $host, $port, Hyde::path('vendor/hyde/realtime-compiler/bin/server.php')));
+        $this->runCommand(sprintf('php -S %s:%d %s', $host, $port, Hyde::path('vendor/hyde/realtime-compiler/bin/server.php')));
 
         return Command::SUCCESS;
     }
@@ -35,7 +39,7 @@ class ServeCommand extends Command
     protected function getPort(): int
     {
         $port = $this->option('port');
-        if (!$port) {
+        if (! $port) {
             $port = config('hyde.server.port', 8080);
         }
         return (int) $port;
