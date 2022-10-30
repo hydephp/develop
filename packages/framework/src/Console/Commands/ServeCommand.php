@@ -50,6 +50,7 @@ class ServeCommand extends Command
         if (app()->environment('testing')) {
             $this->line($command);
         } else {
+            /** @codeCoverageIgnore */
             passthru($command);
         }
     }
