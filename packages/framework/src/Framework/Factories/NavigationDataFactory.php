@@ -9,7 +9,7 @@ use function array_key_exists;
 use function array_merge;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
-use Hyde\Framework\Features\Navigation\NavigationData;
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
@@ -39,14 +39,20 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected readonly ?string $group;
     protected readonly ?bool $hidden;
     protected readonly ?int $priority;
+    private readonly string $title;
+    private readonly string $routeKey;
+    private readonly string $pageClass;
+    private readonly string $identifier;
+    private readonly FrontMatter $matter;
 
-    public function __construct(
-        private readonly FrontMatter $matter,
-        private readonly string $identifier,
-        private readonly string $pageClass,
-        private readonly string $routeKey,
-        private readonly string $title,
-    ) {
+    public function __construct(CoreDataObject $pageData, string $title)
+    {
+        $this->matter = $pageData->matter;
+        $this->identifier = $pageData->identifier;
+        $this->pageClass = $pageData->pageClass;
+        $this->routeKey = $pageData->routeKey;
+        $this->title = $title;
+
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
         $this->hidden = $this->makeHidden();
@@ -61,13 +67,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             'hidden' => $this->hidden,
             'priority' => $this->priority,
         ];
-    }
-
-    public static function make(FrontMatter $matter, string $identifier, string $pageClass, string $routeKey, string $title): NavigationData
-    {
-        return NavigationData::make(
-            (new static($matter, $identifier, $pageClass, $routeKey, $title))->toArray()
-        );
     }
 
     protected function makeLabel(): ?string

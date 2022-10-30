@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
@@ -42,10 +43,10 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected readonly ?PostAuthor $author;
     protected readonly ?FeaturedImage $image;
 
-    public function __construct(FrontMatter $matter, Markdown $markdown)
+    public function __construct(CoreDataObject $pageData)
     {
-        $this->matter = $matter;
-        $this->markdown = $markdown;
+        $this->matter = $pageData->matter;
+        $this->markdown = $pageData->markdown;
 
         $this->description = $this->makeDescription();
         $this->category = $this->makeCategory();

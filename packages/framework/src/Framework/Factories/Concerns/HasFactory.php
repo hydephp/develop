@@ -19,15 +19,23 @@ trait HasFactory
 
     protected function constructPageSchemas(): void
     {
-        $this->constructPageSchema();
+        $this->constructFactoryData(new HydePageDataFactory($this->toCoreDataObject()));
 
         if ($this instanceof MarkdownPost) {
-            $this->constructFactoryData(new BlogPostDataFactory($this->matter, $this->markdown));
+            $this->constructFactoryData(new BlogPostDataFactory($this->toCoreDataObject()));
         }
     }
 
-    protected function constructPageSchema(): void
+    public function toCoreDataObject(): CoreDataObject
     {
-        $this->constructFactoryData(new HydePageDataFactory($this->matter, $this->markdown ?? false, $this::class, $this->identifier, $this->getOutputPath(), $this->routeKey));
+        return new CoreDataObject(
+            $this->matter,
+            $this->markdown ?? false,
+            static::class,
+            $this->identifier,
+            $this->getSourcePath(),
+            $this->getOutputPath(),
+            $this->getRouteKey(),
+        );
     }
 }
