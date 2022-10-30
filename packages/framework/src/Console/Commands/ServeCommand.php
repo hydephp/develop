@@ -31,7 +31,7 @@ class ServeCommand extends Command
         $host = $this->option('host');
         $port = $this->getPort();
 
-        $this->runCommand(sprintf('php -S %s:%d %s', $host, $port, Hyde::path('vendor/hyde/realtime-compiler/bin/server.php')));
+        $this->runServerCommand(sprintf('php -S %s:%d %s', $host, $port, Hyde::path('vendor/hyde/realtime-compiler/bin/server.php')));
 
         return Command::SUCCESS;
     }
@@ -45,7 +45,7 @@ class ServeCommand extends Command
         return (int) $port;
     }
 
-    protected function runCommand(string $command): void
+    protected function runServerCommand(string $command): void
     {
         if (app()->environment('testing')) {
             $this->line($command);
