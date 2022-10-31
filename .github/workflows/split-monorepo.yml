@@ -228,6 +228,7 @@ jobs:
         rm hyde/CHANGELOG.md
         rm hyde/phpunit.dusk.xml
         rm hyde/psalm.xml
+        rm -rf monorepo
 
     - name: Commit and push changes
       run: |
