@@ -17,9 +17,9 @@
 |
 */
 
-use Hyde\Framework\Models\Support\Author;
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Helpers\Meta;
+use Hyde\Facades\Author;
+use Hyde\Facades\Features;
+use Hyde\Facades\Meta;
 
 return [
 
