@@ -2,7 +2,7 @@
 title: 'A Nice Cup of Tea'
 description: "A nice cup of tea is the usual answer in Britain and Ireland to any everyday problem. Nothing is so bad that a nice cup of tea with a friend or family member can't make it better."
 category: Cookbook
-author: 'Wikibooks contributors'
+author: 'wikibooks'
 date: '27 July 2022 09:38 UTC'
 image:
     url: https://cdn.desilva.se/hydephp/media/demos/1024px-Nice_Cup_of_Tea.jpg 
