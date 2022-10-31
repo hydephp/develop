@@ -19,4 +19,40 @@ If you're not happy with Hyde's generated data you can always override it by add
 
 ### How it Works
 
-Now, to the fun part: getting into the nitty-gritty details of how Hyde does this. 
+Now, to the fun part: getting into the nitty-gritty details of how Hyde does this!
+
+To make things simple the dynamic data is created in a special stage where the page object is being created.
+If you have not yet read the [page models chapter](page-models.md) you might want to do so now.
+
+### The factory pipeline, in short
+
+After basic information about the page has been gathered, such as the source file information and the front matter,
+the page model is run through a series of factories. These are just classes that work around the limited data
+that is available at this point, and will assign the rich data needed to make your Hyde page awesome.
+
+There are a few factory classes. The one we will be looking at here is the `HydePageDataFactory` class, which is
+responsible for data applicable to all page models. Complex structures and data only relevant to some page types
+have their own factories, making the code more modular and maintainable.
+
+### A practical example
+
+Let's take a look at how Hyde will discover the title of a page. This is done in the `HydePageDataFactory` class.
+
+The factory gets one input, a `CoreDataObject` class. Think of this like a DTO (Data Transfer Object) that holds
+immutable data known from the start of the page construction process. It also has all the information needed
+to identify the page and its source file. Here's a simplified version of the class:
+
+```php
+class CoreDataObject
+{
+    public readonly FrontMatter $matter;
+    public readonly Markdown|false $markdown;
+
+    public readonly string $pageClass;
+    public readonly string $identifier;
+    public readonly string $sourcePath;
+    public readonly string $outputPath;
+    public readonly string $routeKey;
+}
+```
+
