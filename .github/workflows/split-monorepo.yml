@@ -53,7 +53,7 @@ jobs:
 
     - name: Remove monorepo support files
       run: |
-        rm -rf monorepo -v
+        rm -rf hyde/monorepo -v
         rm hyde/CHANGELOG.md -v
         rm hyde/phpunit.dusk.xml -v
         rm hyde/psalm.xml -v
