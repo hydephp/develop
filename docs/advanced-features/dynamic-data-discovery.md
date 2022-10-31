@@ -25,6 +25,7 @@ Now, to the fun part: getting into the nitty-gritty details of how Hyde does thi
 
 To make things simple the dynamic data is created in a special stage where the page object is being created.
 If you have not yet read the [page models chapter](page-models) you might want to do so now.
+You might also want to read about the [autodiscovery lifecycle](autodiscovery) for some context as to when this happens.
 
 ### The factory pipeline, in short
 
