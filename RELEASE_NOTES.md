@@ -16,10 +16,10 @@ This serves two purposes:
 
 #### Abstract
 
-This release contains a plethora of breaking changes compared to the beta versions.
+This beta release contains a plethora of breaking changes compared earlier beta versions.
 So many in fact, it could actually be easier and faster to recreate your project from scratch than to upgrade a particularly complex project.
 
-The good news however, is that this release is the last one containing breaking changes.
+The good news however, is that as HydePHP approaches version 1.0, there will no longer be releases like these with breaking changes.
 
 While I've got your attention: read this the section right after this, as you might not need to make any changes at all.
 
