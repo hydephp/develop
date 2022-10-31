@@ -14,6 +14,64 @@ concurrency:
 
 jobs:
   
+  hyde: 
+    runs-on: ubuntu-latest
+    environment:
+      name: hydephp/hyde
+      url: https://github.com/hydephp/hyde/tree/master
+      
+    steps:
+    - name: Checkout hydephp/develop
+      uses: actions/checkout@v3
+      with:
+        path: develop
+        persist-credentials: false 
+
+    - name: Checkout hydephp/hyde
+      uses: actions/checkout@v3
+      with:
+        repository: hydephp/hyde
+        path: hyde
+        ref: develop
+        fetch-depth: 0
+        persist-credentials: false 
+
+    - name: Download base files
+      run: wget https://github.com/hydephp/develop/zipball/${{ github.sha }} -O hyde.zip
+      
+    - name: Unzip archive
+      run: unzip hyde.zip
+
+    - name: Empty the hyde directory
+      run: rm -rf hyde/* 
+
+    - name: Copy over base files
+      run: cp -rf hydephp-develop-*/* hyde -v
+ 
+    - name: Copy over persisted files
+      run: cp -rf develop/packages/hyde/. hyde -v
+
+    - name: Remove monorepo support files
+      run: |
+        rm hyde/CHANGELOG.md
+        rm hyde/phpunit.dusk.xml
+        rm hyde/psalm.xml
+        rm -rf monorepo
+
+    - name: Commit and push changes
+      run: |
+        cd hyde
+
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
+
+        git add .
+        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+
+        git push upstream develop
+
+
   framework: 
     runs-on: ubuntu-latest
     environment:
@@ -185,63 +243,6 @@ jobs:
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
         git push upstream upcoming
-
-  hyde: 
-    runs-on: ubuntu-latest
-    environment:
-      name: hydephp/hyde
-      url: https://github.com/hydephp/hyde/tree/master
-      
-    steps:
-    - name: Checkout hydephp/develop
-      uses: actions/checkout@v3
-      with:
-        path: develop
-        persist-credentials: false 
-
-    - name: Checkout hydephp/hyde
-      uses: actions/checkout@v3
-      with:
-        repository: hydephp/hyde
-        path: hyde
-        ref: develop
-        fetch-depth: 0
-        persist-credentials: false 
-
-    - name: Download base files
-      run: wget https://github.com/hydephp/develop/zipball/${{ github.sha }} -O hyde.zip
-      
-    - name: Unzip archive
-      run: unzip hyde.zip
-
-    - name: Empty the hyde directory
-      run: rm -rf hyde/* 
-
-    - name: Copy over base files
-      run: cp -rf hydephp-develop-*/* hyde -v
- 
-    - name: Copy over persisted files
-      run: cp -rf develop/packages/hyde/. hyde -v
-
-    - name: Remove monorepo support files
-      run: |
-        rm hyde/CHANGELOG.md
-        rm hyde/phpunit.dusk.xml
-        rm hyde/psalm.xml
-        rm -rf monorepo
-
-    - name: Commit and push changes
-      run: |
-        cd hyde
-
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/hyde.git
-
-        git add .
-        git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
-
-        git push upstream develop
 
 
   testing: 
