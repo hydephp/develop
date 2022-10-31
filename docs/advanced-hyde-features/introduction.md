@@ -1,3 +1,9 @@
+---
+navigation:
+    label: Introduction
+    priority: 40
+---
+
 # Advanced Features in HydePHP
 
 ## Preface
