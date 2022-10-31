@@ -195,7 +195,7 @@ image:
   copyright: "Copyright (c) 2022"
   license: "CC-BY-SA-4.0"
   licenseUrl: https://example.com/license/
-  credit: https://photographer.example.com/
+  attributionUrl: https://photographer.example.com/
   author: "John Doe"
 ```
 

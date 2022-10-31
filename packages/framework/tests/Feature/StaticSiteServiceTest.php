@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Support\Site;
+use Hyde\Facades\Site;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Commands\HydeBuildSiteCommand
+ * @covers \Hyde\Console\Commands\BuildSiteCommand
  * @covers \Hyde\Framework\Services\BuildService
  */
 class StaticSiteServiceTest extends TestCase

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Helpers\Redirect;
-use Hyde\Framework\Hyde;
+use Hyde\Hyde;
+use Hyde\Support\Models\Redirect;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Helpers\Redirect
+ * @covers \Hyde\Support\Models\Redirect
  */
 class RedirectTest extends TestCase
 {

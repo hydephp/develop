@@ -6,7 +6,7 @@
     <nav id="sidebar-navigation"
          class="p-4 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-[calc(100vh_-_8rem)]">
         @php
-            $sidebar = \Hyde\Framework\Models\Navigation\DocumentationSidebar::create();
+            $sidebar = \Hyde\Framework\Features\Navigation\DocumentationSidebar::create();
         @endphp
 
         @if($sidebar->hasGroups())

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Concerns\JsonSerializesArrayable
+ * @covers \Hyde\Support\Concerns\JsonSerializesArrayable
  */
 class JsonSerializesArrayableTest extends TestCase
 {

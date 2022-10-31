@@ -12,12 +12,33 @@ This serves two purposes:
 ### Added
 - for new features.
 
-### Changed
+### Breaking changes
 
-#### Breaking changes
+#### Abstract
+
+This beta release contains a plethora of breaking changes compared earlier beta versions.
+So many in fact, it could actually be easier and faster to recreate your project from scratch than to upgrade a particularly complex project.
+
+The good news however, is that as HydePHP approaches version 1.0, there will no longer be releases like these with breaking changes.
+
+While I've got your attention: read this the section right after this, as you might not need to make any changes at all.
+
+#### Do I need to make any changes to my project?
+
+If any of these statements are true, you will probably need to make changes to your project, and it might be easiest to copy over your content to a new project.
+
+- You currently only have PHP 8.0 installed, HydePHP now requires PHP 8.1.
+- You have written custom code (for example in Blade views) that relies on the old API.
+- You have published the built-in Blade views (you should be able to get away by just republishing them).
+
+In all cases, you will most definitely need to republish the configuration files.
+
+#### Major breaking changes
+
 These are changes that break backwards compatibility and that are likely to concern users using HydePHP to create sites.
 
 - HydePHP now requires PHP 8.1 or higher.
+- Almost all namespaces in the framework have been changed and restructured.
 
 #### Breaking internal changes
 These are changes that break backwards compatibility but are unlikely to concern users using HydePHP to create sites.
@@ -28,49 +49,19 @@ For example, if a namespace is changed, all internal references to that namespac
 If you however have written custom code that explicitly references the old namespace, you will need to update your code to use the new namespace.
 
 - The Framework package now uses strict types for its source files.
-- Changes and refactors regarding the internal metadata handling, see below.
-- The static class property used to determine the site output path has been moved.
-  * Instead of using `StaticPageBuilder::$outputPath` you must now use `Site::$outputPath`.
-- Major refactors to the Metadata services.
-  * Large changes to the Meta.php helper/facade; most of its business logic has been moved to the GlobalMetadataBag class.
-  * This might affect you if you relied on any of the helper methods that were removed from Meta.php.
-  * See https://github.com/hydephp/develop/pull/584 for more details.
 
-### Other changes
+### Changed
 
-- Changes to normalize how navigation priorities are determined.
-  - The fallback navigation priority for all navigation items is now 999.
-  - The offset for config priorities is now +500 instead of +250 for sidebar navigation.
-  * This change may influence the order of navigation items in your site. Before deploying your site to production, you may want to review the order of your navigation items and adjust the priority of any items that are not in the order you want.
+- for changes in existing functionality.
 
 ### Deprecated
 - for soon-to-be removed features.
 
 ### Removed
-- Removed single usage trait AsksToRebuildSite.php (inlined into HydePublishHomepageCommand.php)
-- Removed interface ActionContract.php
+- for now removed features.
 
 ### Fixed
 - for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
-
-
----
-
-## Additional details about the internal changes
-
-These are additional details about the changes that are not relevant to the end user, but could be relevant to
-developers who write custom code and integrations using the HydePHP framework.
-
-### Changes and refactors regarding the internal metadata handling
-
-The internal metadata handling has been refactored to make it more flexible and easier to extend. If you have not written any custom code that interacts with the metadata system, you can skip this section.
-
-#### Class and namespace changes
- 
-- The MetadataBag class's namespace has been changed from `Hyde\Framework\Models\Metadata\MetadataBag` to `Hyde\Framework\Modules\Metadata\MetadataBag;`
-- All metadata models have been moved to the new namespace `Hyde\Framework\Modules\Metadata\Models`
-- All metadata models have been renamed, changing the suffix `Item` to `Element`
-- Renamed MetadataItemContract.php to MetadataElementContract.php in the new namespace `Hyde\Framework\Modules\Metadata`

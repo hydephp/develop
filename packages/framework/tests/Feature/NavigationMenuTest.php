@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Navigation\NavigationMenu;
-use Hyde\Framework\Models\Navigation\NavItem;
-use Hyde\Framework\Models\Support\Route;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Framework\Models\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  */
 class NavigationMenuTest extends TestCase
 {
@@ -21,11 +21,6 @@ class NavigationMenuTest extends TestCase
         $menu = new NavigationMenu();
 
         $this->assertInstanceOf(NavigationMenu::class, $menu);
-    }
-
-    public function test_home_route()
-    {
-        $this->assertEquals('index.html', Route::home());
     }
 
     public function test_generate_method_creates_collection_of_nav_items()

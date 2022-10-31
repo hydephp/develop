@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Contracts\FrontMatter\Support\NavigationSchema;
-use Hyde\Framework\Models\Navigation\NavigationData;
+use Hyde\Framework\Features\Navigation\NavigationData;
+use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Models\Navigation\NavigationData
+ * @covers \Hyde\Framework\Features\Navigation\NavigationData
  */
 class NavigationDataTest extends TestCase
 {

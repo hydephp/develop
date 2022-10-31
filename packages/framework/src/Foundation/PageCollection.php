@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Foundation;
+namespace Hyde\Foundation;
 
-use Hyde\Framework\Concerns\HydePage;
+use Hyde\Facades\Features;
+use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Framework\Foundation\Concerns\BaseFoundationCollection;
-use Hyde\Framework\Helpers\Features;
-use Hyde\Framework\Models\Pages\BladePage;
-use Hyde\Framework\Models\Pages\DocumentationPage;
-use Hyde\Framework\Models\Pages\HtmlPage;
-use Hyde\Framework\Models\Pages\MarkdownPage;
-use Hyde\Framework\Models\Pages\MarkdownPost;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
- * @see \Hyde\Framework\Foundation\RouteCollection
+ * @see \Hyde\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
 final class PageCollection extends BaseFoundationCollection
@@ -66,8 +66,8 @@ final class PageCollection extends BaseFoundationCollection
     }
 
     /**
-     * @param  string<\Hyde\Framework\Concerns\HydePage>  $pageClass
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Concerns\HydePage>
+     * @param  string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * @return \Illuminate\Support\Collection<\Hyde\Pages\Concerns\HydePage>
      */
     protected function parsePagesFor(string $pageClass): Collection
     {

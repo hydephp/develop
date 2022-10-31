@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\MarkdownFileParser;
-use Hyde\Framework\Hyde;
-use Hyde\Framework\Models\Markdown\FrontMatter;
-use Hyde\Framework\Models\Markdown\MarkdownDocument;
+use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 
 class MarkdownFileParserTest extends TestCase
