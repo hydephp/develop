@@ -1,5 +1,8 @@
 # Dynamic Data Discovery
 
+[//]: # (Adds a pseudo-subtitle)
+<h3 style="margin-top: 0px; margin-bottom: 20px;"><i>AKA: Front Matter & Filling in the Gaps</i></h3>
+
 ## Introduction
 
 Hyde wants to allow developers to write less, and do more. This is also a major difference between HydePHP and JekyllRB.
@@ -9,7 +12,6 @@ Jekyll will only do what you _tell it to do_. Hyde, on the other hand, will try 
 As with all other chapters in this category, you don't need to know about this to use Hyde -- that's the whole point!
 However, if you're anything like me, you'll likely find this interesting to read about, even if you don't really need to know it.
 
-## Front Matter (And Filling in the Gaps)
 
 Hyde makes great use of front matter in both Markdown and Blade files (it's true!). However, it can quickly get tedious
 and quite frankly plain boring to have to write a bunch of front matter all the time. As Hyde wants you to focus on
