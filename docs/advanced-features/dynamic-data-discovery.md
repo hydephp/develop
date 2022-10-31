@@ -24,7 +24,7 @@ If you're not happy with Hyde's generated data you can always override it by add
 Now, to the fun part: getting into the nitty-gritty details of how Hyde does this!
 
 To make things simple the dynamic data is created in a special stage where the page object is being created.
-If you have not yet read the [page models chapter](page-models.md) you might want to do so now.
+If you have not yet read the [page models chapter](page-models) you might want to do so now.
 
 ### The factory pipeline, in short
 
