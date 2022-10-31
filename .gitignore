@@ -18,3 +18,5 @@
 !/.idea
 /rocket
 build/cache
+
+/tests/fixtures/example-sites/*/vendor

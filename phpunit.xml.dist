@@ -10,7 +10,7 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="FeatureHyde">
-            <directory suffix="Test.php">./tests/Hyde/Feature</directory>
+            <directory suffix="Test.php">./packages/hyde/tests/Feature</directory>
         </testsuite>
         <testsuite name="FeatureFramework">
             <directory suffix="Test.php">./packages/framework/tests/Feature</directory>
