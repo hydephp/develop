@@ -20,3 +20,6 @@
 build/cache
 
 /tests/fixtures/example-sites/*/vendor
+/tests/fixtures/example-sites/*/storage
+/tests/fixtures/example-sites/*/_site
+/tests/fixtures/example-sites/*/*.lock
