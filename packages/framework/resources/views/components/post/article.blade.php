@@ -1,5 +1,5 @@
 <article aria-label="Article" id="{{ Hyde::url("posts/$page->identifier", '') }}" itemscope
-         itemtype="http://schema.org/Article"
+         itemtype="https://schema.org/Article"
         @class(['post-article mx-auto prose dark:prose-invert', 'torchlight-enabled' => Hyde\Facades\Features::hasTorchlight()])>
     <meta itemprop="identifier" content="{{ $page->identifier }}">
     @if(Hyde::hasSiteUrl())

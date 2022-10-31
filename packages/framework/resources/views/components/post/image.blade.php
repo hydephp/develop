@@ -3,13 +3,13 @@
     /** @var \Hyde\Framework\Features\Blogging\Models\FeaturedImage $image  */
     $image = $page->image;
 @endphp
-<figure aria-label="Cover image" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" role="doc-cover">
+<figure aria-label="Cover image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" role="doc-cover">
     <img src="{{ $image->getSource() }}" alt="{{ $image->getAltText() ?? '' }}" title="{{ $image->getTitleText() ?? '' }}"
          itemprop="image" class="mb-0">
     <figcaption aria-label="Image caption" itemprop="caption">
         @if($image->hasAuthorName())
             <span>Image by</span>
-            <span itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+            <span itemprop="creator" itemscope="" itemtype="https://schema.org/Person">
                 @if($image->hasAuthorUrl())
                     <a href="{{ $image->getAuthorUrl() }}" rel="author noopener nofollow" itemprop="url">
                         <span itemprop="name">{{ $image->getAuthorName() }}</span>.
