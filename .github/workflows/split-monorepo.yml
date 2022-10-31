@@ -53,10 +53,10 @@ jobs:
 
     - name: Remove monorepo support files
       run: |
-        rm hyde/CHANGELOG.md
-        rm hyde/phpunit.dusk.xml
-        rm hyde/psalm.xml
-        rm -rf monorepo
+        rm -rf monorepo -v
+        rm hyde/CHANGELOG.md -v
+        rm hyde/phpunit.dusk.xml -v
+        rm hyde/psalm.xml -v
 
     - name: Commit and push changes
       run: |
