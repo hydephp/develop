@@ -37,9 +37,12 @@ There are a few factory classes. The one we will be looking at here is the `Hyde
 responsible for data applicable to all page models. Complex structures and data only relevant to some page types
 have their own factories, making the code more modular and maintainable.
 
-### A practical example
+## In-depth overview of a page factory 
 
-Let's take a look at how Hyde will discover the title of a page. This is done in the `HydePageDataFactory` class.
+Let's take a look at how Hyde will discover the title of a page as an example. Since this is something used by all pages,
+this discovery is done in the `HydePageDataFactory` class.
+
+### Factory data input
 
 The factory gets one input, a `CoreDataObject` class. Think of this like a DTO (Data Transfer Object) that holds
 immutable data known from the start of the page construction process. It also has all the information needed
