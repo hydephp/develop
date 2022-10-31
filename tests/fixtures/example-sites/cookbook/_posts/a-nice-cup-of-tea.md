@@ -10,7 +10,6 @@ image:
     title: 'A nice cup of tea (and a sit down). A Denby teapot and cup with milk jug.'
     author: 'Wikimedia Commons'
     copyright: 'Public Domain'
-
 ---
 
 <!-- This post was created based on Wikibooks contributors, "Cookbook:A Nice Cup of Tea," Wikibooks, The Free Textbook Project. An article licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License, which this blog post is also licensed under. -->
@@ -19,31 +18,7 @@ image:
 
 A nice cup of tea is the usual answer in Britain and Ireland to any everyday problem. Nothing is so bad that a nice cup of tea with a friend or family member can't make it better.
 
-## Ingredients
-
-**By the cup**
-
-_Yield: 1 cup_
-
-*   6–8 fl oz (200–250 ml) hot [water](/wiki/Cookbook:Water "Cookbook:Water")
-*   1 measure of [tea](/wiki/Cookbook:Tea "Cookbook:Tea") in an infuser or 1 tea bag
-*   Sweetener, such as [sugar](/wiki/Cookbook:Sugar "Cookbook:Sugar") or [honey](/wiki/Cookbook:Honey "Cookbook:Honey"), to taste
-*   [Milk](/wiki/Cookbook:Milk "Cookbook:Milk") or [lemon](/wiki/Cookbook:Lemon "Cookbook:Lemon") to taste
-
-
-**By the pot**
-_Yield: 4 cups_
-
-*   32 fl oz (1 L) of hot water
-*   3–5 measures of loose tea, in an infuser if you like
-
-Serve with:
-
-*   Milk or lemon to taste
-*   Sweetener, such as sugar or honey, to taste
-
 ## Procedure
-
 
 A nice cup of tea, milk and no sugar
 
