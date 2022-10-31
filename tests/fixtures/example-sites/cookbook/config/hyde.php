@@ -122,7 +122,7 @@ return [
     |
     */
 
-    'footer' => 'Demo blog site built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
+    'footer' => 'Demo blog site built with [HydePHP](https://github.com/hydephp/hyde) - Recipes from [Wikibooks](https://en.wikibooks.org/wiki/Cookbook:Recipes) <small>(CC BY-SA 3.0 unless otherwise noted)</small>',
 
     /*
     |--------------------------------------------------------------------------
