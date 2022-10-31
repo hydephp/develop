@@ -28,7 +28,7 @@
           <option value="http://cxf.apache.org/schemas/" />
           <option value="http://primefaces.org/ui" />
           <option value="http://tiles.apache.org/" />
-          <option value="http://schema.org" />
+          <option value="https://schema.org" />
           <option value="http://purl.org" />
         </list>
       </option>

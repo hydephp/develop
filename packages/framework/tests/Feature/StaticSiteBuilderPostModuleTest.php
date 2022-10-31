@@ -105,8 +105,8 @@ class StaticSiteBuilderPostModuleTest extends TestCase
     public function test_post_contains_expected_itemprops()
     {
         $this->inspectHtml([
-            'itemtype="http://schema.org/Article"',
-            'itemtype="http://schema.org/Person"',
+            'itemtype="https://schema.org/Article"',
+            'itemtype="https://schema.org/Person"',
             'itemprop="identifier"',
             'itemprop="headline"',
             'itemprop="dateCreated datePublished"',

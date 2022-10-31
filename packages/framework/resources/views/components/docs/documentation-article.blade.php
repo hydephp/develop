@@ -3,7 +3,7 @@
     'document',
 ])
 
-<article id="document" itemscope itemtype="http://schema.org/Article" @class([
+<article id="document" itemscope itemtype="https://schema.org/Article" @class([
         'mx-auto lg:ml-8 prose dark:prose-invert max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)]',
         'torchlight-enabled' => $document->hasTorchlight()])>
     @yield('content')
