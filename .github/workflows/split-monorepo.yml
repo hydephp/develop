@@ -32,7 +32,7 @@ jobs:
       with:
         repository: hydephp/framework
         path: framework
-        ref: master
+        ref: develop
         fetch-depth: 0
         persist-credentials: false 
         
@@ -53,7 +53,7 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
-        git push upstream master
+        git push upstream develop
 
 
   realtime-compiler: 
@@ -204,7 +204,7 @@ jobs:
       with:
         repository: hydephp/hyde
         path: hyde
-        ref: master
+        ref: develop
         fetch-depth: 0
         persist-credentials: false 
 
@@ -240,7 +240,7 @@ jobs:
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
 
-        git push upstream master
+        git push upstream develop
 
 
   testing: 
