@@ -75,7 +75,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     {
         return $this->matter('title')
             ?? $this->findTitleFromMarkdownHeadings()
-            ?? Hyde::makeTitle($this->identifier);
+            ?? Hyde::makeTitle(basename($this->identifier));
     }
 
     private function findTitleFromMarkdownHeadings(): ?string
