@@ -12,12 +12,9 @@
 
 # /_site
 
-
 # Monorepo Rules
 
 !/.idea
-/rocket
-build/cache
 
 /tests/fixtures/example-sites/*/vendor
 /tests/fixtures/example-sites/*/storage
