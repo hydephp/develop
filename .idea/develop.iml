@@ -9,7 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/Hyde/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/storage/app" />
       <excludeFolder url="file://$MODULE_DIR$/storage/framework" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
