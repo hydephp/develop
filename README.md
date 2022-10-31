@@ -57,7 +57,7 @@ The two most important components are **Hyde** and **Framework**. We also use **
 
 ## How the monorepo works
 
-Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `master` branches of the readonly repositories seen in the table above. These branches could be unstable.
+Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop/master` branches of the readonly repositories seen in the table above. These branches could be unstable.
 
 This monorepo project is still new, and the internal structure of it may be changed without notice.
 
