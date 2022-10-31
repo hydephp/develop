@@ -10,3 +10,4 @@
 .env
 
 /_site
+composer.lock
