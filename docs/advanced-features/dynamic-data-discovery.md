@@ -66,9 +66,6 @@ class CoreDataObject
 
 Now that we have the input we pass it to the factory, where a simple algorithm is used to find the best title for the page.
 
-I'm a big fan of using a lot of helper methods to describe my code, so let's first take a look at the entry-point
-method that is responsible for outputting the data, then we'll take a closer look at the helper methods.
-
 ```php
 private function findTitleForPage(): string
 {
