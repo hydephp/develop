@@ -10,6 +10,8 @@ by a page model. These are simply PHP classes that in addition to holding both t
 for your pages, also houses instructions to Hyde on how to parse, process, and render the pages to static HTML.
 
 In this article, you'll get a high-level overview of the page models, and some code examples to give you a look inside.
+As all good things <sup>(apparently)</sup> comes in threes, we will break down the responsibilities and usages of
+the important parts.
 
 ## The Page Model
 
@@ -35,6 +37,12 @@ class MarkdownPost extends BaseMarkdownPage
 
 _Note that since Hyde pages are modular and class inheritance and traits, this example has been simplified and
 edited to show all the relevant parts inlined into one class._
+
+## The Three Data Categories and Usages
+
+Each supported page type in Hyde has a page model class. At the time of writing, there are five of those.
+For this article, we'll use the `BladePage` and `MarkdownPost` classes as examples. In this section we'll take a look
+the data housed within these classes, and how Hyde uses them.
 
 ### Page Blueprint Data
 
