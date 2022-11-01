@@ -8,10 +8,8 @@
 Hyde wants to allow developers to write less, and do more. This is also a major difference between HydePHP and JekyllRB.
 Jekyll will only do what you _tell it to do_. Hyde, on the other hand, will try to do what you _want it to do_.
 
-### Standard disclaimer
 As with all other chapters in this category, you don't need to know about this to use Hyde -- that's the whole point!
 However, if you're anything like me, you'll likely find this interesting to read about, even if you don't really need to know it.
-
 
 Hyde makes great use of front matter in both Markdown and Blade files (it's true!). However, it can quickly get tedious
 and quite frankly plain boring to have to write a bunch of front matter all the time. As Hyde wants you to focus on
@@ -37,7 +35,7 @@ There are a few factory classes. The one we will be looking at here is the `Hyde
 responsible for data applicable to all page models. Complex structures and data only relevant to some page types
 have their own factories, making the code more modular and maintainable.
 
-## In-depth overview of a page factory 
+## In-depth overview of a page factory
 
 Let's take a look at how Hyde will discover the title of a page as an example. Since this is something used by all pages,
 this discovery is done in the `HydePageDataFactory` class.
@@ -83,7 +81,7 @@ If that fails, the last step will generate a title from the file name. This ensu
 
 ### Injecting the data into the page
 
-Once the data has been discovered, it is injected into the page object. This is rather unglamorous, but is meantioned
+Once the data has been discovered, it is injected into the page object. This is rather unglamorous but is mentioned
 here for completeness. It's pretty simple. The factory will always return an array of the computed data, where the keys
 always match the property names on the page object, so we just need to loop over the array and set the properties.
 
