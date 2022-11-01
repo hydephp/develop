@@ -62,3 +62,70 @@ class CoreDataObject
 }
 ```
 
+### Processing the known data
+
+Now that we have the input we pass it to the factory, where a simple algorithm is used to find the best title for the page.
+
+I'm a big fan of using a lot of helper methods to describe my code, so let's first take a look at the entry-point
+method that is responsible for outputting the data, then we'll take a closer look at the helper methods.
+
+```php
+private function findTitleForPage(): string
+{
+    return $this->matter('title')
+        ?? $this->findTitleFromMarkdownHeadings()
+        ?? Hyde::makeTitle(basename($this->identifier));
+}
+```
+
+As you can see, we are using the null coalescing operator (`??`) to return the first non-null value.
+So we first check if a title is set in the front matter, which we always want to do first in all the factory methods
+to allow the user to override the data.
+
+If no title is set in the matter the method will return null, and Hyde will try the next step which is to search the headings.
+Let's take a look at how that is done! I've added some comments to further explain what is going on.
+
+```php
+private function findTitleFromMarkdownHeadings(): ?string
+{
+    // First we need to check that the page actually has Markdown, since Blade pages do not.
+    if ($this->markdown !== false) {
+        // Since Markdown is internally represented as an object, we can iterate over
+        // each line as an array. This is really powerful and is used a lot in Hyde.
+        foreach ($this->markdown->toArray() as $line) {
+            // And if a line starts with a hash followed by a space,
+            // we know it's a `<h1>` heading that we can use as a title.
+            if (str_starts_with($line, '# ')) {
+                // So we return the line without the hash and space,
+                // and we also trim any trailing whitespace.
+                return trim(substr($line, 2), ' ');
+            }
+        }
+    }
+
+    // And if we find nothing, we return null.
+    return null;
+}
+```
+
+Next up is the fallback, which is to use the file name as a title. This is done by using the `Hyde::makeTitle()`
+method which uses an improved version of the `Str::headline()` method from Laravel that properly formats
+helper words such as `and`, `or`, `the`, etc, to be lowercase.
+
+```php
+public function makeTitle(string $slug): string
+{
+    $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
+
+    return ucfirst(str_ireplace(
+        $alwaysLowercase,
+        $alwaysLowercase,
+        Str::headline($slug)
+    ));
+}
+```
+
+In case these functions are new to you, in short, `str_ireplace()` will replace all occurrences of the words in the
+first array regardless of case, with the words in the second array which here is the same one.
+The `ucfirst()` function will then capitalize the very first letter of the string.
+
