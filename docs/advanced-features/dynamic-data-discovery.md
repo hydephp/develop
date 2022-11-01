@@ -80,3 +80,17 @@ user to be able to set any data explicitly, so we first check the front matter i
 
 If no title is set in the matter the method will return null, and Hyde will try the next step which is to search the headings.
 If that fails, the last step will generate a title from the file name. This ensures that no matter what, we always have a title.
+
+### Injecting the data into the page
+
+Once the data has been discovered, it is injected into the page object. This is rather unglamorous, but is meantioned
+here for completeness. It's pretty simple. The factory will always return an array of the computed data, where the keys
+always match the property names on the page object, so we just need to loop over the array and set the properties.
+
+```php
+foreach ($data->toArray() as $key => $value) {
+    $this->{$key} = $value;
+}
+```
+
+And that's pretty much it! Hyde will do this for all the data it can discover, all so that you can focus on your content.
