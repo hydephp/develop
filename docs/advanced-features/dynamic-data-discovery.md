@@ -78,7 +78,24 @@ private function findTitleForPage(): string
 }
 ```
 
-As you can see, we are using the null coalescing operator (`??`) to return the first non-null value.
+As you can see, we are using the null coalescing operator (`??`) to return the first non-null value. If you are not familiar
+with this operator, the following code without it would be equivalent:
+
+```php
+private function findTitleForPage(): string
+{
+    if ($this->matter('title')) {
+        return $this->matter('title');
+    }
+
+    if ($this->findTitleFromMarkdownHeadings()) {
+        return $this->findTitleFromMarkdownHeadings();
+    }
+
+    return Hyde::makeTitle(basename($this->identifier));
+}
+```
+
 So we first check if a title is set in the front matter, which we always want to do first in all the factory methods
 to allow the user to override the data.
 
