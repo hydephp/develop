@@ -13,6 +13,11 @@ In this article, you'll get a high-level overview of the page models, and some c
 As all good things <sup>(apparently)</sup> comes in threes, we will break down the responsibilities and usages of
 the important parts.
 
+### The short version
+
+In short, page models are classes that acts as blueprints containing instructions for how to parse, process,
+and render a page, in the form of static properties. Each class instance also holds the source data and computed data for the page.
+
 ## The Page Model
 
 To give you an idea of what a page model class looks like, here's a simplified version of the base `MarkdownPost` class,
