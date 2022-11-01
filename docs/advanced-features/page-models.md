@@ -35,3 +35,29 @@ class MarkdownPost extends BaseMarkdownPage
 
 _Note that since Hyde pages are modular and class inheritance and traits, this example has been simplified and
 edited to show all the relevant parts inlined into one class._
+
+### Page Blueprint Data
+
+All page models have some static properties (that is, they belong to the class, not the instance) that are used as
+blueprints, defining information for Hyde to know how to parse a file, and what data around it should be generated.
+
+Let's again take the simplified `MarkdownPost` class as an example, this time only showing the static properties:
+
+```php
+class MarkdownPost extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_posts';
+    public static string $outputDirectory = 'posts';
+    public static string $fileExtension = '.md';
+    public static string $template = 'post';
+}
+```
+
+#### What each property does
+
+The properties should be self-explanatory, but here's a quick rundown to give some context how they are used,
+and how the paths relate to each other. So for the class above, Hyde will thanks to this blueprint know to:
+* Look for files in the `_posts` directory, with the `.md` extension
+* Compile the page using the `post` Blade template
+* Output the compiled page to the `_site/posts` directory
+
