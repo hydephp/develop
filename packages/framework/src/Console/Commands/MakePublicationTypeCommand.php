@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
-use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
-use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPage;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -21,8 +16,7 @@ class MakePublicationTypeCommand extends Command
 {
     /** @var string */
     protected $signature = 'make:publicationType
-		{title? : The name of the publication tye to create. Will be used to generate the storage directory}
-		{--force : Overwrite any existing files}';
+		{title? : The name of the Publication Type to create. Will be used to generate the storage directory}';
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
@@ -45,19 +39,15 @@ class MakePublicationTypeCommand extends Command
             ?? $this->ask('What is the name of the Publication Type?')
             ?? 'My new Publication Type';
 
-        //$this->line('<info>Creating a new '.ucwords($this->selectedType).' page with title:</> '.$this->title."\n");
-
-        //$this->force = $this->option('force') ?? false;
-
         $this->fields = $this->getFieldsDefinitions();
 
         $this->output->writeln('<bg=magenta;fg=white>Now please choose the field you wish to sort by:</>');
-        foreach ($this->fields as $k=>$v) {
-            $_k = $k+1;
-            $this->line("  $_k: $v[name]");
+        foreach ($this->fields as $k => $v) {
+            $humanCount = $k + 1;
+            $this->line("  $humanCount: $v[name]");
         }
-        $this->sortField = $this->ask("Sort field: (1-$_k)");
-        $this->sortField = $this->fields[((int)$this->sortField)-1]['name'];
+        $this->sortField = $this->ask("Sort field: (1-$humanCount)");
+        $this->sortField = $this->fields[((int)$this->sortField) - 1]['name'];
 
         $creator = new CreatesNewPublicationType($this->title, $this->fields, $this->sortField);
 
@@ -67,13 +57,13 @@ class MakePublicationTypeCommand extends Command
     private function getFieldsDefinitions(): array
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
-        $count = 1;
+        $count  = 1;
         $fields = [];
         do {
             $this->line('');
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
-            $field = [];
+            $field         = [];
             $field['name'] = $this->ask('Field name');
             $this->line('Field type:');
             $this->line('  1 - String');
@@ -86,7 +76,7 @@ class MakePublicationTypeCommand extends Command
             $addAnother    = $this->ask('Add another field (y/n)');
 
             // map field choice to actual field type
-            $field['type'] = match((int)$field['type']) {
+            $field['type'] = match ((int)$field['type']) {
                 1 => 'string',
                 2 => 'integer',
                 3 => 'float',
