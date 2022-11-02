@@ -75,3 +75,30 @@ and how the paths relate to each other. So for the class above, Hyde will thanks
 * Output the compiled page to the `_site/posts` directory
 
 ## Page Models as Data Containers
+
+As mentioned above, each page model instance also holds the page source contents, as well as the computed data.
+
+Let's again take the simplified `MarkdownPost` class as an example, this time only showing the instance properties:
+
+```php
+class MarkdownPost extends BaseMarkdownPage
+{
+    public string $identifier;
+    public string $routeKey;
+    public string $title;
+    
+    public FrontMatter $matter;
+    public Markdown $markdown;
+}
+```
+
+There are some more properties than shown here, for example various metadata properties, but these are the most common
+and important ones.
+
+While the static data gives instructions to Hyde on how to process all pages of the type, the instance data tells Hyde
+how to process a specific page. For example, the identifier property is used to uniquely identify the page, and
+the routeKey property is used to generate the URL for the page.
+
+The matter and markdown properties as I'm sure you can guess, hold the page's front matter and markdown content.
+These can then also be processed by [page factories](dynamic-data-discovery.md) to generate the computed data like the
+title property.
