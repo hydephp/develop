@@ -28,3 +28,9 @@ Want to learn more about a particular feature? Click on the links below to visit
 [//]: # (This would be better suited for a component, but it's a fun experiment for now)
 [Blade]: <ul>@foreach(glob(\Hyde\Hyde::path('docs/advanced-features/*.md')) as $file) <li> <a href="{{ basename($file, '.md') }}.html"> {{ \Hyde\Hyde::makeTitle(basename($file, '.md')) }} </a> </li> @endforeach</ul>
 
+
+### Disclaimer
+
+These chapters are written for power users and contributors. If you're just looking to get a site up and running,
+you can safely skip this section. The documentation here will cover advanced topics under the presumption that
+the reader has a basic to intermediate understanding of programming, as well as PHP and to some extent Laravel.
