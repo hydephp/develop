@@ -14,7 +14,5 @@ Before reading this article, you should be familiar with the following concepts:
 
 ## The short version
 
-When booting up Hyde, it will using the information in the registered page models scan the configured
-source directories for files that match the file extension of the page model. These files are then parsed using
-instructions from the page model, and the resulting data is stored in a new instance of the page model, all
-of which are stored in the HydeKernel's `pages` collection.
+Hyde will use the information in the page model classes to scan the source directories for matching files which are
+parsed using instructions from the model's class, resulting in data used to construct objects that get stored in the HydeKernel.
