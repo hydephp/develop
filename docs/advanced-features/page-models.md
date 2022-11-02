@@ -7,7 +7,7 @@ title: Page models
 
 The Hyde page models are an integral part of how HydePHP creates your static site. Each page in your site is represented
 by a page model. These are simply PHP classes that in addition to holding both the source content and computed data
-for your pages, also houses instructions to Hyde on how to parse, process, and render the pages to static HTML.
+for your pages, also house instructions to Hyde on how to parse, process, and render the pages to static HTML.
 
 In this article, you'll get a high-level overview of the page models, and some code examples to give you a look inside.
 
@@ -68,8 +68,8 @@ class MarkdownPost extends BaseMarkdownPage
 
 #### What each property does
 
-The properties should be self-explanatory, but here's a quick rundown to give some context how they are used,
-and how the paths relate to each other. So for the class above, Hyde will thanks to this blueprint know to:
+The properties should be self-explanatory, but here's a quick rundown to give some context on how they are used,
+and how the paths relate to each other. So for the class above, Hyde will thanks to this blueprint, know to:
 * Look for files in the `_posts` directory, with the `.md` extension
 * Compile the page using the `post` Blade template
 * Output the compiled page to the `_site/posts` directory
@@ -92,7 +92,7 @@ class MarkdownPost extends BaseMarkdownPage
 }
 ```
 
-There are some more properties than shown here, for example various metadata properties, but these are the most common
+There are some more properties than shown here, for example, various metadata properties, but these are the most common
 and important ones.
 
 While the static data gives instructions to Hyde on how to process all pages of the type, the instance data tells Hyde
