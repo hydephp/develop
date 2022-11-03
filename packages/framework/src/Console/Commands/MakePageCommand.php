@@ -92,11 +92,11 @@ class MakePageCommand extends Command
 
     protected function getSelectedType(): string
     {
-        $type = 'markdown';
-
-        if ($this->option('type') !== null) {
-            $type = strtolower($this->option('type'));
+        if ($this->option('type') === null) {
+            return 'markdown';
         }
+
+        $type = strtolower($this->option('type'));
 
         if ($this->option('blade')) {
             $type = 'blade';
