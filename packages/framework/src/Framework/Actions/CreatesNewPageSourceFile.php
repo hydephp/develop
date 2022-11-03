@@ -132,6 +132,6 @@ EOF
 
     protected function formatIdentifier(): string
     {
-        return "$this->subDir$this->slug";
+        return $this->subDir . $this->slug;
     }
 }
