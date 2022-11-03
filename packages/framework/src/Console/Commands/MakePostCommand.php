@@ -41,10 +41,7 @@ class MakePostCommand extends Command
             $author
         );
 
-        foreach ($creator->toArray() as $key => $value) {
-            $this->line(sprintf('%s: %s', ucwords($key), $value));
-        }
-        $this->line("Identifier: {$creator->getIdentifier()}");
+        $this->displaySelections($creator);
 
         if (! $this->confirm('Do you wish to continue?', true)) {
             $this->info('Aborting.');
@@ -78,5 +75,13 @@ class MakePostCommand extends Command
         return $this->argument('title')
             ?? $this->ask('What is the title of the post?')
             ?? 'My New Post';
+    }
+
+    protected function displaySelections(CreatesNewMarkdownPostFile $creator): void
+    {
+        foreach ($creator->toArray() as $key => $value) {
+            $this->line(sprintf('%s: %s', ucwords($key), $value));
+        }
+        $this->line("Identifier: {$creator->getIdentifier()}");
     }
 }
