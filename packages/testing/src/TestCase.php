@@ -10,6 +10,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
+use function str_replace;
 
 require_once __DIR__.'/helpers.php';
 
@@ -102,5 +103,13 @@ abstract class TestCase extends BaseTestCase
     protected function markdown(string $path, string $contents = '', array $matter = []): void
     {
         $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter).$contents);
+    }
+
+    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            str_replace("\r", '', $expected),
+            str_replace("\r", '', $actual)
+        );
     }
 }
