@@ -46,9 +46,9 @@ class CreatesNewMarkdownPostFile
     public string $date;
 
     /**
-     * The Post Slug.
+     * The Post Identifier. (slug)
      */
-    public string $slug;
+    public string $identifier;
 
     /**
      * Construct the class.
@@ -58,7 +58,7 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
      * @param  string|null  $date  The Publishing Date.
-     * @param  string|null  $slug  The Post Slug.
+     * @param  string|null  $identifier  The Post Identifier.
      */
     public function __construct(
         string $title,
@@ -66,7 +66,7 @@ class CreatesNewMarkdownPostFile
         ?string $category,
         ?string $author,
         ?string $date = null,
-        ?string $slug = null
+        ?string $identifier = null
     ) {
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
@@ -75,8 +75,8 @@ class CreatesNewMarkdownPostFile
         if ($date === null) {
             $this->date = date('Y-m-d H:i');
         }
-        if ($slug === null) {
-            $this->slug = Str::slug($title);
+        if ($identifier === null) {
+            $this->identifier = Str::slug($title);
         }
     }
 
@@ -86,11 +86,11 @@ class CreatesNewMarkdownPostFile
      * @param  bool  $force  Should the file be created even if a file with the same path already exists?
      * @return string|false Returns the path to the file if successful, or false if the file could not be saved.
      *
-     * @throws FileConflictException if a file with the same slug already exists and the force flag is not set.
+     * @throws FileConflictException if a file with the same identifier already exists and the force flag is not set.
      */
     public function save(bool $force = false): string|false
     {
-        $path = Hyde::path("_posts/$this->slug.md");
+        $path = Hyde::path("_posts/$this->identifier.md");
 
         if ($force !== true && file_exists($path)) {
             throw new FileConflictException($path);
@@ -105,20 +105,20 @@ class CreatesNewMarkdownPostFile
     /**
      * Get the class data as an array.
      *
-     * The slug property is removed from the array as it can't be set in the front matter.
+     * The identifier property is removed from the array as it can't be set in the front matter.
      *
      * @return array
      */
     public function toArray(): array
     {
-        return Arr::except(((array) $this), ['slug']);
+        return Arr::except(((array) $this), ['identifier']);
     }
 
     /**
      * @return string
      */
-    public function getSlug(): string
+    public function getIdentifier(): string
     {
-        return $this->slug;
+        return $this->identifier;
     }
 }

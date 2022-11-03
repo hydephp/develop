@@ -52,7 +52,7 @@ class MakePostCommand extends Command
         foreach ($creator->toArray() as $key => $value) {
             $this->line(sprintf("%s: %s", ucwords($key), $value));
         }
-        $this->line("Slug: {$creator->getSlug()}");
+        $this->line("Identifier: {$creator->getIdentifier()}");
 
         if (! $this->confirm('Do you wish to continue?', true)) {
             $this->info('Aborting.');
