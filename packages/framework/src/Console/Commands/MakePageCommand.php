@@ -10,7 +10,6 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use LaravelZero\Framework\Commands\Command;
-use function filled;
 use function strtolower;
 use function ucfirst;
 
