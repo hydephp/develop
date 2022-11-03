@@ -137,11 +137,8 @@ class CreatesNewPageSourceFile
         $this->failIfFileCannotBeSaved($this->outputPath);
     }
 
-    protected function createFile(string $contents): int|false
+    protected function createFile(string $contents): void
     {
-        return file_put_contents(
-            $this->outputPath,
-            $contents
-        );
+        file_put_contents($this->outputPath, $contents);
     }
 }
