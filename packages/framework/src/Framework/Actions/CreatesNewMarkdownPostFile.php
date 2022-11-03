@@ -119,6 +119,8 @@ class CreatesNewMarkdownPostFile
     /**
      * Get the class data as an array.
      *
+     * The slug property is removed from the array as it can't be set in the front matter.
+     *
      * @return array
      */
     public function toArray(): array
