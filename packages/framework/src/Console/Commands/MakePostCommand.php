@@ -16,7 +16,7 @@ class MakePostCommand extends Command
 {
     /** @var string */
     protected $signature = 'make:post
-                            {title? : The title for the Post. Will be used to generate the filename}
+                            {title? : The title for the Post. Will also be used to generate the filename}
                             {--force : Should the generated file overwrite existing posts with the same filename?}';
 
     /** @var string */
