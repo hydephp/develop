@@ -58,21 +58,12 @@ class CreatesNewPageSourceFile
 
     public function createPage(string $type): int|false
     {
-        if ($type === MarkdownPage::class) {
-
-            return $this->createMarkdownFile();
-        }
-        if ($type === BladePage::class) {
-
-            return $this->createBladeFile();
-        }
-
-        if ($type === DocumentationPage::class) {
-
-            return $this->createDocumentationFile();
-        }
-
-        throw new UnsupportedPageTypeException('The page type must be either "markdown", "blade", or "documentation"');
+        return match ($type) {
+            MarkdownPage::class => $this->createMarkdownFile(),
+            BladePage::class => $this->createBladeFile(),
+            DocumentationPage::class => $this->createDocumentationFile(),
+            default => throw new UnsupportedPageTypeException('The page type must be either "markdown", "blade", or "documentation"')
+        };
     }
 
     public function createMarkdownFile(): int|false
