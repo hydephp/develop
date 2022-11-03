@@ -46,7 +46,7 @@ class CreatesNewMarkdownPostFile
     public string $date;
 
     /**
-     * The Post Identifier. (slug)
+     * The Post Identifier. (slug).
      */
     public string $identifier;
 
