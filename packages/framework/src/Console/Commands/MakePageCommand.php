@@ -74,17 +74,19 @@ class MakePageCommand extends Command
 
     protected function validateOptions(): void
     {
+        $this->getSelectedType();
+
         // Set the type to the fully qualified class name
-        $this->pageClass = $this->getQualifiedPageType($this->getSelectedType());
+        $this->pageClass = $this->getQualifiedPageType();
     }
 
-    protected function getQualifiedPageType(string $type): string
+    protected function getQualifiedPageType(): string
     {
-        return match ($type) {
+        return match ($this->selectedType) {
             'blade' => BladePage::class,
             'markdown' => MarkdownPage::class,
             'docs', 'documentation' => DocumentationPage::class,
-            default => throw new UnsupportedPageTypeException($type),
+            default => throw new UnsupportedPageTypeException($this->selectedType),
         };
     }
 
