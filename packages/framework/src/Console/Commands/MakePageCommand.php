@@ -41,6 +41,8 @@ class MakePageCommand extends Command
 
     /**
      * The page class type.
+     *
+     * @var class-string<\Hyde\Pages\Concerns\HydePage>
      */
     protected string $pageClass;
 
