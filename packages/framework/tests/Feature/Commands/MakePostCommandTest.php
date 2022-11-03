@@ -45,8 +45,8 @@ class MakePostCommandTest extends TestCase
 
             ->expectsOutput('Title: Test Post')
             ->expectsOutput('Description: A short description')
-            ->expectsOutput('Author: PHPUnit')
             ->expectsOutput('Category: general')
+            ->expectsOutput('Author: PHPUnit')
             ->expectsOutputToContain('Date: '.date('Y-m-d')) // Don't check min/sec to avoid flaky tests
             ->expectsOutput('Slug: test-post')
 
