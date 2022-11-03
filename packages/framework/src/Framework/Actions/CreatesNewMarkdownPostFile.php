@@ -115,7 +115,7 @@ class CreatesNewMarkdownPostFile
         return file_put_contents($path, $contents) ? $path : false;
     }
 
-    protected function toArray(): array
+    public function toArray(): array
     {
         $arrayWithoutSlug = ((array) $this);
 
