@@ -48,7 +48,7 @@ class CreatesNewMarkdownPostFile
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
         $this->category = $category ?? 'blog';
-        $this->author = $author ?? 'Mr. Hyde';
+        $this->author = $author ?? 'default';
         if ($date === null) {
             $this->date = date('Y-m-d H:i');
         }
