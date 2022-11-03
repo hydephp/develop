@@ -26,11 +26,13 @@ class CreatesNewPageSourceFile
     public string $slug;
     public string $outputPath;
     public string $subDir = '';
+    public bool $force = false;
 
-    public function __construct(string $title, string $type = MarkdownPage::class, public bool $force = false)
+    public function __construct(string $title, string $type = MarkdownPage::class, bool $force = false)
     {
         $this->title = $this->parseTitle($title);
         $this->slug = $this->parseSlug($title);
+        $this->force = $force;
 
         $this->createPage($type);
     }
