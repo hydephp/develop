@@ -12,6 +12,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Illuminate\Support\Str;
+use function file_exists;
 
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
@@ -49,13 +50,6 @@ class CreatesNewPageSourceFile
         }
 
         return Str::slug(basename($title));
-    }
-
-    protected function failIfFileCannotBeSaved(string $path): void
-    {
-        if (file_exists($path) && ! $this->force) {
-            throw new FileConflictException($path);
-        }
     }
 
     protected function createPage(string $type): int|false
@@ -131,5 +125,12 @@ class CreatesNewPageSourceFile
         }
 
         return $subDir;
+    }
+
+    protected function failIfFileCannotBeSaved(string $path): void
+    {
+        if (file_exists($path) && ! $this->force) {
+            throw new FileConflictException($path);
+        }
     }
 }
