@@ -111,7 +111,13 @@ class CreatesNewMarkdownPostFile
      */
     public function toArray(): array
     {
-        return Arr::except(((array) $this), ['identifier']);
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+            'category' => $this->category,
+            'author' => $this->author,
+            'date' => $this->date,
+        ];
     }
 
     /**
