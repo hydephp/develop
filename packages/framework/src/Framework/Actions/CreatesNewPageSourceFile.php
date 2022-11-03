@@ -13,6 +13,8 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Illuminate\Support\Str;
 use function file_exists;
+use function rtrim;
+use function unslash;
 
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
@@ -45,11 +47,25 @@ class CreatesNewPageSourceFile
 
     public function parseSlug(string $title): string
     {
+        // If title contains a slash, it's a subdirectory
         if (str_contains($title, '/')) {
-            $this->subDir = Str::beforeLast($title, '/').'/';
+            // So we normalize the subdirectory name
+            $this->subDir = $this->parseSubDir($title);
         }
 
+        // And return a slug made from just the title without the subdirectory
         return Str::slug(basename($title));
+    }
+
+    protected function parseSubDir(string $title): string
+    {
+        $subDir = Str::beforeLast($title, '/').'/';
+
+        if ($subDir !== '') {
+            $subDir = unslash('/'.rtrim($subDir, '/\\'));
+        }
+
+        return $subDir;
     }
 
     protected function createPage(string $type): int|false
@@ -64,8 +80,8 @@ class CreatesNewPageSourceFile
 
     protected function createBladeFile(): int|false
     {
-        $this->needsDirectory(BladePage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
+        $this->needsParentDirectory($this->outputPath);
 
         $this->failIfFileCannotBeSaved($this->outputPath);
 
@@ -88,8 +104,8 @@ class CreatesNewPageSourceFile
 
     protected function createMarkdownFile(): int|false
     {
-        $this->needsDirectory(MarkdownPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
+        $this->needsParentDirectory($this->outputPath);
 
         $this->failIfFileCannotBeSaved($this->outputPath);
 
@@ -101,8 +117,8 @@ class CreatesNewPageSourceFile
 
     protected function createDocumentationFile(): int|false
     {
-        $this->needsDirectory(DocumentationPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
+        $this->needsParentDirectory($this->outputPath);
 
         $this->failIfFileCannotBeSaved($this->outputPath);
 
@@ -114,17 +130,7 @@ class CreatesNewPageSourceFile
 
     protected function formatIdentifier(): string
     {
-        return $this->subDir.$this->slug;
-    }
-
-    protected function normalizeSubDir(): string
-    {
-        $subDir = $this->subDir;
-        if ($subDir !== '') {
-            $subDir = '/'.rtrim($subDir, '/\\');
-        }
-
-        return $subDir;
+        return "$this->subDir/$this->slug";
     }
 
     protected function failIfFileCannotBeSaved(string $path): void

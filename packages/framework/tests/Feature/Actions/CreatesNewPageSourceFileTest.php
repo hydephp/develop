@@ -163,7 +163,7 @@ class CreatesNewPageSourceFileTest extends TestCase
     {
         $action = new CreatesNewPageSourceFile('foo');
         $this->assertEquals('bar', $action->parseSlug('/foo/bar'));
-        $this->assertEquals('/foo/', $action->subDir);
+        $this->assertEquals('foo', $action->subDir);
         Hyde::unlink('_pages/foo.md');
     }
 
