@@ -68,6 +68,8 @@ final class FileCollection extends BaseFoundationCollection
             $this->discoverFilesFor(DocumentationPage::class);
         }
 
+        // TODO: Add hook to support custom page types
+
         $this->discoverMediaAssetFiles();
 
         return $this;
