@@ -139,7 +139,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             // then we can use that as the category name.
             ? Str::before($this->identifier, '/')
             // Otherwise, we look in the front matter.
-            : $this->matter('navigation.group', 'other');
+            : $this->findGroupFromMatter();
     }
 
     protected function searchForLabelInConfig(): ?string
@@ -159,5 +159,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function isInstanceOf(string $class): bool
     {
         return is_a($this->pageClass, $class, true);
+    }
+
+    protected function findGroupFromMatter(): mixed
+    {
+        return $this->matter('navigation.group', 'other');
     }
 }
