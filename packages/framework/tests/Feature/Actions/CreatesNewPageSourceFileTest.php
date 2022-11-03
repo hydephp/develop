@@ -39,14 +39,6 @@ class CreatesNewPageSourceFileTest extends TestCase
         );
     }
 
-    public function test_that_a_slug_is_generated_from_the_title()
-    {
-        $this->assertEquals(
-            'test-page',
-            (new CreatesNewPageSourceFile('Test Page'))->slug
-        );
-    }
-
     public function test_that_an_exception_is_thrown_for_invalid_page_type()
     {
         $this->expectException(UnsupportedPageTypeException::class);
