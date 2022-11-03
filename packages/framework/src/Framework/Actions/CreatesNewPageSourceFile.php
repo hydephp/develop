@@ -60,14 +60,14 @@ class CreatesNewPageSourceFile
         // If title contains a slash, it's a subdirectory
         if (str_contains($title, '/')) {
             // So we normalize the subdirectory name
-            $this->subDir = $this->parseSubDir($title);
+            $this->subDir = $this->normalizeSubdirectory($title);
         }
 
         // And return a slug made from just the title without the subdirectory
         return Str::slug(basename($title));
     }
 
-    protected function parseSubDir(string $title): string
+    protected function normalizeSubdirectory(string $title): string
     {
         return unslash('/'.rtrim(Str::beforeLast($title, '/').'/', '/\\'));
     }
