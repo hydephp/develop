@@ -22,43 +22,31 @@ class CreatesNewMarkdownPostFile
 {
     /**
      * The Post Title.
-     *
-     * @var string
      */
     public string $title;
 
     /**
      * The Post Meta Description.
-     *
-     * @var string
      */
     public string $description;
 
     /**
      * The Primary Post Category.
-     *
-     * @var string
      */
     public string $category;
 
     /**
      * The Username of the Author.
-     *
-     * @var string
      */
     public string $author;
 
     /**
      * The Publishing Date.
-     *
-     * @var string
      */
     public string $date;
 
     /**
      * The Post Slug.
-     *
-     * @var string
      */
     public string $slug;
 
