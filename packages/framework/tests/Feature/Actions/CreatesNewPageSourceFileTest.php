@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
@@ -19,12 +20,12 @@ class CreatesNewPageSourceFileTest extends TestCase
 {
     protected function tearDown(): void
     {
-        if (file_exists(Hyde::path('_pages/682072b-test-page.md'))) {
-            unlink(Hyde::path('_pages/682072b-test-page.md'));
+        if (file_exists(Hyde::path('_pages/test-page.md'))) {
+            unlink(Hyde::path('_pages/test-page.md'));
         }
 
-        if (file_exists(Hyde::path('_pages/682072b-test-page.blade.php'))) {
-            unlink(Hyde::path('_pages/682072b-test-page.blade.php'));
+        if (file_exists(Hyde::path('_pages/test-page.blade.php'))) {
+            unlink(Hyde::path('_pages/test-page.blade.php'));
         }
 
         parent::tearDown();
@@ -34,15 +35,7 @@ class CreatesNewPageSourceFileTest extends TestCase
     {
         $this->assertInstanceOf(
             CreatesNewPageSourceFile::class,
-            new CreatesNewPageSourceFile('682072b Test Page')
-        );
-    }
-
-    public function test_that_a_slug_is_generated_from_the_title()
-    {
-        $this->assertEquals(
-            '682072b-test-page',
-            (new CreatesNewPageSourceFile('682072b Test Page'))->slug
+            new CreatesNewPageSourceFile('Test Page')
         );
     }
 
@@ -51,7 +44,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->expectException(UnsupportedPageTypeException::class);
         $this->expectExceptionMessage('The page type must be either "markdown", "blade", or "documentation"');
 
-        (new CreatesNewPageSourceFile('682072b Test Page', 'invalid'));
+        (new CreatesNewPageSourceFile('Test Page', 'invalid'));
     }
 
     public function test_that_an_exception_is_thrown_if_file_already_exists_and_overwrite_is_false()
@@ -81,97 +74,88 @@ class CreatesNewPageSourceFileTest extends TestCase
 
     public function test_that_a_markdown_file_can_be_created_and_contains_expected_content()
     {
-        (new CreatesNewPageSourceFile('682072b Test Page'));
+        (new CreatesNewPageSourceFile('Test Page'));
 
         $this->assertFileExists(
-            Hyde::path('_pages/682072b-test-page.md')
+            Hyde::path('_pages/test-page.md')
         );
 
         $this->assertEquals(
-            "---\ntitle: 682072b Test Page\n---\n\n# 682072b Test Page\n",
-            file_get_contents(Hyde::path('_pages/682072b-test-page.md'))
+            "---\ntitle: Test Page\n---\n\n# Test Page\n",
+            file_get_contents(Hyde::path('_pages/test-page.md'))
         );
     }
 
     public function test_that_a_blade_file_can_be_created_and_contains_expected_content()
     {
-        (new CreatesNewPageSourceFile('682072b Test Page', BladePage::class));
+        (new CreatesNewPageSourceFile('Test Page', BladePage::class));
 
         $this->assertFileExists(
-            Hyde::path('_pages/682072b-test-page.blade.php')
+            Hyde::path('_pages/test-page.blade.php')
         );
 
-        $fileContent = file_get_contents(Hyde::path('_pages/682072b-test-page.blade.php'));
-        $this->assertStringContainsString(
-            '@extends(\'hyde::layouts.app\')',
-            $fileContent
-        );
-        $this->assertStringContainsString(
-            '@php($title = "682072b Test Page")',
-            $fileContent
-        );
-        $this->assertStringContainsString(
-            '<h1 class="text-center text-3xl font-bold">682072b Test Page</h1>',
-            $fileContent
+        $fileContent = file_get_contents(Hyde::path('_pages/test-page.blade.php'));
+        $this->assertEqualsIgnoringLineEndingType(
+            '@extends(\'hyde::layouts.app\')
+@section(\'content\')
+@php($title = "Test Page")
+
+<main class="mx-auto max-w-7xl py-16 px-8">
+    <h1 class="text-center text-3xl font-bold">Test Page</h1>
+</main>
+
+@endsection
+', $fileContent
         );
     }
 
     public function test_that_a_documentation_file_can_be_created_and_contains_expected_content()
     {
-        (new CreatesNewPageSourceFile('682072b Test Page', DocumentationPage::class));
+        (new CreatesNewPageSourceFile('Test Page', DocumentationPage::class));
 
         $this->assertFileExists(
-            Hyde::path('_docs/682072b-test-page.md')
+            Hyde::path('_docs/test-page.md')
         );
 
         $this->assertEquals(
-            "# 682072b Test Page\n",
-            file_get_contents(Hyde::path('_docs/682072b-test-page.md'))
+            "# Test Page\n",
+            file_get_contents(Hyde::path('_docs/test-page.md'))
         );
 
-        Hyde::unlink('_docs/682072b-test-page.md');
+        Hyde::unlink('_docs/test-page.md');
     }
 
     public function test_that_the_file_path_can_be_returned()
     {
         $this->assertEquals(
-            Hyde::path('_pages/682072b-test-page.md'),
-            (new CreatesNewPageSourceFile('682072b Test Page'))->outputPath
+            Hyde::path('_pages/test-page.md'),
+            (new CreatesNewPageSourceFile('Test Page'))->getOutputPath()
         );
 
         $this->assertEquals(
-            Hyde::path('_pages/682072b-test-page.blade.php'),
-            (new CreatesNewPageSourceFile('682072b Test Page', BladePage::class))->outputPath
+            Hyde::path('_pages/test-page.blade.php'),
+            (new CreatesNewPageSourceFile('Test Page', BladePage::class))->getOutputPath()
         );
     }
 
-    public function test_parse_slug_returns_slug_generated_from_title()
+    public function test_file_is_created_using_slug_generated_from_title()
     {
-        $action = new CreatesNewPageSourceFile('Foo Bar');
-        $this->assertEquals('foo-bar', $action->parseSlug('Foo Bar'));
+        new CreatesNewPageSourceFile('Foo Bar');
+        $this->assertFileExists(Hyde::path('_pages/foo-bar.md'));
         Hyde::unlink('_pages/foo-bar.md');
-    }
-
-    public function test_parse_slug_does_not_include_path_information()
-    {
-        $action = new CreatesNewPageSourceFile('Foo Bar');
-        $this->assertEquals('foo-bar', $action->parseSlug('/foo/bar/Foo Bar'));
-        Hyde::unlink('_pages/foo-bar.md');
-    }
-
-    public function test_parse_slug_sets_sub_dir_property_for_nested_pages()
-    {
-        $action = new CreatesNewPageSourceFile('foo');
-        $this->assertEquals('bar', $action->parseSlug('/foo/bar'));
-        $this->assertEquals('/foo/', $action->subDir);
-        Hyde::unlink('_pages/foo.md');
     }
 
     public function test_action_can_generate_nested_pages()
     {
         new CreatesNewPageSourceFile('foo/bar');
         $this->assertFileExists(Hyde::path('_pages/foo/bar.md'));
-        Hyde::unlink('_pages/foo/bar.md');
-        rmdir(Hyde::path('_pages/foo'));
+        File::deleteDirectory(Hyde::path('_pages/foo'));
+    }
+
+    public function test_can_create_deeply_nested_pages()
+    {
+        new CreatesNewPageSourceFile('/foo/bar/Foo Bar');
+        $this->assertFileExists(Hyde::path('_pages/foo/bar/foo-bar.md'));
+        File::deleteDirectory(Hyde::path('_pages/foo'));
     }
 }

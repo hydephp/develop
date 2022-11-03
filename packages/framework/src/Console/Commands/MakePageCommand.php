@@ -10,6 +10,8 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use LaravelZero\Framework\Commands\Command;
+use function strtolower;
+use function ucfirst;
 
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
@@ -32,82 +34,87 @@ class MakePageCommand extends Command
     /**
      * The page title.
      */
-    public string $title;
+    protected string $title;
 
     /**
      * The selected page type.
      */
-    public string $selectedType;
+    protected string $selectedType;
 
     /**
-     * The page type.
+     * The page class type.
+     *
+     * @var class-string<\Hyde\Pages\Concerns\HydePage>
      */
-    public string $type;
+    protected string $pageClass;
 
     /**
      * Can the file be overwritten?
      */
-    public bool $force;
+    protected bool $force;
 
     public function handle(): int
     {
         $this->title('Creating a new page!');
 
-        $this->title = $this->argument('title')
-            ?? $this->ask('What is the title of the page?')
-            ?? 'My New Page';
-
         $this->validateOptions();
 
-        $this->line('<info>Creating a new '.ucwords($this->selectedType).' page with title:</> '.$this->title."\n");
+        $this->line('<info>Creating a new '.ucfirst($this->selectedType).' page with title:</info> '.$this->title."\n");
 
-        $this->force = $this->option('force') ?? false;
+        $creator = new CreatesNewPageSourceFile($this->title, $this->pageClass, $this->force);
 
-        $creator = new CreatesNewPageSourceFile($this->title, $this->type, $this->force);
-
-        $this->info("Created file $creator->outputPath");
+        $this->info("Created file {$creator->getOutputPath()}");
 
         return Command::SUCCESS;
     }
 
     protected function validateOptions(): void
     {
-        $type = $this->getSelectedType();
+        $this->title = $this->getTitle();
 
-        // Set the type to the fully qualified class name
-        if ($type === 'markdown') {
-            $this->type = MarkdownPage::class;
+        $this->selectedType = $this->getSelectedType();
+        $this->pageClass = $this->getQualifiedPageType();
 
-            return;
-        }
-        if ($type === 'blade') {
-            $this->type = BladePage::class;
+        $this->force = $this->option('force') ?? false;
+    }
 
-            return;
-        }
-        if ($type === 'docs' || $type === 'documentation') {
-            $this->type = DocumentationPage::class;
+    protected function getTitle(): string
+    {
+        return $this->argument('title')
+            ?? $this->ask('What is the title of the page?')
+            ?? 'My New Page';
+    }
 
-            return;
-        }
-
-        throw new UnsupportedPageTypeException("Invalid page type: $type");
+    protected function getQualifiedPageType(): string
+    {
+        return match ($this->selectedType) {
+            'blade' => BladePage::class,
+            'markdown' => MarkdownPage::class,
+            'docs', 'documentation' => DocumentationPage::class,
+            default => throw new UnsupportedPageTypeException($this->selectedType),
+        };
     }
 
     protected function getSelectedType(): string
     {
-        $type = 'markdown';
+        return $this->getTypeOption() ?? $this->getTypeSelection();
+    }
 
-        if ($this->option('type') !== null) {
-            $type = strtolower($this->option('type'));
-        }
+    protected function getTypeSelection(): string
+    {
+        return strtolower($this->option('type'));
+    }
 
+    protected function getTypeOption(): ?string
+    {
         if ($this->option('blade')) {
-            $type = 'blade';
-        } elseif ($this->option('docs')) {
-            $type = 'documentation';
+            return 'blade';
         }
 
-        return $this->selectedType = $type;
+        if ($this->option('docs')) {
+            return 'documentation';
+        }
+
+        return null;
     }
 }
