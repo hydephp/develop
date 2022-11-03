@@ -94,8 +94,7 @@ class MakePageCommand extends Command
 
     protected function getSelectedType(): string
     {
-        return $this->getTypeOption()
-            ?? $this->getTypeSelection();
+        return $this->getTypeOption() ?? $this->getTypeSelection();
     }
 
     protected function getTypeSelection(): string
