@@ -40,9 +40,9 @@ class MakePageCommand extends Command
     protected string $selectedType;
 
     /**
-     * The page type.
+     * The page class type.
      */
-    protected string $type;
+    protected string $pageClass;
 
     /**
      * Can the file be overwritten?
@@ -63,7 +63,7 @@ class MakePageCommand extends Command
 
         $this->force = $this->option('force') ?? false;
 
-        $creator = new CreatesNewPageSourceFile($this->title, $this->type, $this->force);
+        $creator = new CreatesNewPageSourceFile($this->title, $this->pageClass, $this->force);
 
         $this->info("Created file {$creator->getOutputPath()}");
 
@@ -78,7 +78,7 @@ class MakePageCommand extends Command
 
     protected function setPageType(string $type): void
     {
-        $this->type = match ($type) {
+        $this->pageClass = match ($type) {
             'blade' => BladePage::class,
             'markdown' => MarkdownPage::class,
             'docs', 'documentation' => DocumentationPage::class,
