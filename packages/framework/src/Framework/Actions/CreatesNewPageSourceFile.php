@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function file_exists;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
@@ -12,7 +13,6 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Illuminate\Support\Str;
-use function file_exists;
 use function rtrim;
 use function unslash;
 
