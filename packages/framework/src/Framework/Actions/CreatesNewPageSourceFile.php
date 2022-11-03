@@ -45,7 +45,7 @@ class CreatesNewPageSourceFile
         return Str::afterLast($title, '/');
     }
 
-    public function parseSlug(string $title): string
+    protected function parseSlug(string $title): string
     {
         // If title contains a slash, it's a subdirectory
         if (str_contains($title, '/')) {
