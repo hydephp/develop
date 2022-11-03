@@ -77,8 +77,6 @@ class MakePageCommand extends Command
     protected function validateOptions(): void
     {
         $this->selectedType = $this->getSelectedType();
-
-        // Set the type to the fully qualified class name
         $this->pageClass = $this->getQualifiedPageType();
     }
 
