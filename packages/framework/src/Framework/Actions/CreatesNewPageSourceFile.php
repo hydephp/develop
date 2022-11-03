@@ -75,10 +75,10 @@ class CreatesNewPageSourceFile
         return $subDir;
     }
 
-    protected function makeOutputPath(string $type): string
+    protected function makeOutputPath(string $pageClass): string
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $type */
-        return Hyde::path($type::sourcePath($this->formatIdentifier()));
+        /** @var \Hyde\Pages\Concerns\HydePage $pageClass */
+        return Hyde::path($pageClass::sourcePath($this->formatIdentifier()));
     }
 
     protected function createPage(string $type): void
