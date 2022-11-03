@@ -16,8 +16,8 @@ class MakePostCommand extends Command
 {
     /** @var string */
     protected $signature = 'make:post
-                            {title? : The title for the Post. Will be used to generate the slug}
-                            {--force : Should the generated file overwrite existing posts with the same slug?}';
+                            {title? : The title for the Post. Will be used to generate the filename}
+                            {--force : Should the generated file overwrite existing posts with the same filename?}';
 
     /** @var string */
     protected $description = 'Scaffold a new Markdown blog post file';
@@ -72,7 +72,7 @@ class MakePostCommand extends Command
     {
         $this->line($this->argument('title')
                 ? '<info>Selected title: ' . $this->argument('title') . "</info>\n"
-                : 'Please enter the title of the post, it will be used to generate the slug.'
+                : 'Please enter the title of the post, it will be used to generate the filename.'
         );
 
         return $this->argument('title')
