@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
@@ -156,16 +157,13 @@ class CreatesNewPageSourceFileTest extends TestCase
     {
         new CreatesNewPageSourceFile('foo/bar');
         $this->assertFileExists(Hyde::path('_pages/foo/bar.md'));
-        Hyde::unlink('_pages/foo/bar.md');
-        rmdir(Hyde::path('_pages/foo'));
+        File::deleteDirectory(Hyde::path('_pages/foo'));
     }
 
     public function test_can_create_deeply_nested_pages()
     {
         new CreatesNewPageSourceFile('/foo/bar/Foo Bar');
         $this->assertFileExists(Hyde::path('_pages/foo/bar/foo-bar.md'));
-        Hyde::unlink('_pages/foo/bar/foo-bar.md');
-        rmdir(Hyde::path('_pages/foo/bar'));
-        rmdir(Hyde::path('_pages/foo'));
+        File::deleteDirectory(Hyde::path('_pages/foo'));
     }
 }
