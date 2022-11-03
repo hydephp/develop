@@ -59,18 +59,15 @@ class CreatesNewPageSourceFile
     public function createPage(string $type): int|false
     {
         if ($type === MarkdownPage::class) {
-            $this->needsDirectory(MarkdownPage::sourceDirectory(). $this->normalizeSubDir());
 
             return $this->createMarkdownFile();
         }
         if ($type === BladePage::class) {
-            $this->needsDirectory(BladePage::sourceDirectory(). $this->normalizeSubDir());
 
             return $this->createBladeFile();
         }
 
         if ($type === DocumentationPage::class) {
-            $this->needsDirectory(DocumentationPage::sourceDirectory(). $this->normalizeSubDir());
 
             return $this->createDocumentationFile();
         }
@@ -80,6 +77,7 @@ class CreatesNewPageSourceFile
 
     public function createMarkdownFile(): int|false
     {
+        $this->needsDirectory(MarkdownPage::sourceDirectory(). $this->normalizeSubDir());
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
 
         $this->canSaveFile($this->outputPath);
@@ -92,6 +90,7 @@ class CreatesNewPageSourceFile
 
     public function createBladeFile(): int|false
     {
+        $this->needsDirectory(BladePage::sourceDirectory(). $this->normalizeSubDir());
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
 
         $this->canSaveFile($this->outputPath);
@@ -115,6 +114,7 @@ class CreatesNewPageSourceFile
 
     public function createDocumentationFile(): int|false
     {
+        $this->needsDirectory(DocumentationPage::sourceDirectory(). $this->normalizeSubDir());
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
 
         $this->canSaveFile($this->outputPath);
