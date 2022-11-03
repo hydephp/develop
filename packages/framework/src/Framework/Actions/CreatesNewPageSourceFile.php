@@ -59,24 +59,11 @@ class CreatesNewPageSourceFile
     public function createPage(string $type): int|false
     {
         return match ($type) {
-            MarkdownPage::class => $this->createMarkdownFile(),
             BladePage::class => $this->createBladeFile(),
+            MarkdownPage::class => $this->createMarkdownFile(),
             DocumentationPage::class => $this->createDocumentationFile(),
             default => throw new UnsupportedPageTypeException('The page type must be either "markdown", "blade", or "documentation"')
         };
-    }
-
-    public function createMarkdownFile(): int|false
-    {
-        $this->needsDirectory(MarkdownPage::sourceDirectory(). $this->normalizeSubDir());
-        $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
-
-        $this->canSaveFile($this->outputPath);
-
-        return file_put_contents(
-            $this->outputPath,
-            "---\ntitle: $this->title\n---\n\n# $this->title\n"
-        );
     }
 
     public function createBladeFile(): int|false
@@ -100,6 +87,19 @@ class CreatesNewPageSourceFile
             @endsection
 
             BLADE
+        );
+    }
+
+    public function createMarkdownFile(): int|false
+    {
+        $this->needsDirectory(MarkdownPage::sourceDirectory(). $this->normalizeSubDir());
+        $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
+
+        $this->canSaveFile($this->outputPath);
+
+        return file_put_contents(
+            $this->outputPath,
+            "---\ntitle: $this->title\n---\n\n# $this->title\n"
         );
     }
 
