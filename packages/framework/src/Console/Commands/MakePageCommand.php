@@ -75,23 +75,17 @@ class MakePageCommand extends Command
         $type = $this->getSelectedType();
 
         // Set the type to the fully qualified class name
-        if ($type === 'markdown') {
-            $this->type = MarkdownPage::class;
+        match ($type) {
+            'blade' => $this->setPageType(BladePage::class),
+            'markdown' => $this->setPageType(MarkdownPage::class),
+            'docs', 'documentation' => $this->setPageType(DocumentationPage::class),
+            default =>  throw new UnsupportedPageTypeException("Invalid page type: $type")
+        };
+    }
 
-            return;
-        }
-        if ($type === 'blade') {
-            $this->type = BladePage::class;
-
-            return;
-        }
-        if ($type === 'docs' || $type === 'documentation') {
-            $this->type = DocumentationPage::class;
-
-            return;
-        }
-
-        throw new UnsupportedPageTypeException("Invalid page type: $type");
+    protected function setPageType(string $classString): void
+    {
+        $this->type = $classString;
     }
 
     protected function getSelectedType(): string
