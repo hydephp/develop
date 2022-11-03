@@ -12,6 +12,7 @@ use Hyde\Pages\MarkdownPage;
 use LaravelZero\Framework\Commands\Command;
 use function filled;
 use function strtolower;
+use function ucfirst;
 
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
@@ -63,7 +64,7 @@ class MakePageCommand extends Command
 
         $this->validateOptions();
 
-        $this->line('<info>Creating a new '.ucwords($this->selectedType).' page with title:</> '.$this->title."\n");
+        $this->line('<info>Creating a new '.ucfirst($this->selectedType).' page with title:</info> '.$this->title."\n");
 
         $this->force = $this->option('force') ?? false;
 
