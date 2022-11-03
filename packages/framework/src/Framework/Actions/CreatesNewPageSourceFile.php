@@ -58,21 +58,19 @@ class CreatesNewPageSourceFile
 
     public function createPage(string $type): int|false
     {
-        $subDir = $this->normalizeSubDir();
-
         if ($type === MarkdownPage::class) {
-            $this->needsDirectory(MarkdownPage::sourceDirectory().$subDir);
+            $this->needsDirectory(MarkdownPage::sourceDirectory(). $this->normalizeSubDir());
 
             return $this->createMarkdownFile();
         }
         if ($type === BladePage::class) {
-            $this->needsDirectory(BladePage::sourceDirectory().$subDir);
+            $this->needsDirectory(BladePage::sourceDirectory(). $this->normalizeSubDir());
 
             return $this->createBladeFile();
         }
 
         if ($type === DocumentationPage::class) {
-            $this->needsDirectory(DocumentationPage::sourceDirectory().$subDir);
+            $this->needsDirectory(DocumentationPage::sourceDirectory(). $this->normalizeSubDir());
 
             return $this->createDocumentationFile();
         }
