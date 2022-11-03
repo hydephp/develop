@@ -13,6 +13,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Illuminate\Support\Str;
+use function in_array;
 use function rtrim;
 use function unslash;
 
@@ -37,6 +38,7 @@ class CreatesNewPageSourceFile
         $this->slug = $this->parseSlug($title);
         $this->force = $force;
 
+        $this->validateType($type);
         $this->outputPath = $this->makeOutputPath($type);
 
         $this->createPage($type);
@@ -87,7 +89,6 @@ class CreatesNewPageSourceFile
             BladePage::class => $this->createBladeFile(),
             MarkdownPage::class => $this->createMarkdownFile(),
             DocumentationPage::class => $this->createDocumentationFile(),
-            default => throw new UnsupportedPageTypeException('The page type must be either "markdown", "blade", or "documentation"')
         };
     }
 
@@ -121,6 +122,13 @@ class CreatesNewPageSourceFile
     protected function formatIdentifier(): string
     {
         return "$this->subDir/$this->slug";
+    }
+
+    protected function validateType(string $pageClass): void
+    {
+        if (! in_array($pageClass, [MarkdownPage::class, BladePage::class, DocumentationPage::class])) {
+            throw new UnsupportedPageTypeException('The page type must be either "markdown", "blade", or "documentation"');
+        }
     }
 
     protected function failIfFileCannotBeSaved(string $path): void
