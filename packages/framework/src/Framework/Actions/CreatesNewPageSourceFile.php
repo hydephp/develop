@@ -83,9 +83,7 @@ class CreatesNewPageSourceFile
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
         $this->prepareOutputDirectory();
 
-        file_put_contents(
-            $this->outputPath,
-            <<<BLADE
+        $this->createFile(<<<BLADE
             @extends('hyde::layouts.app')
             @section('content')
             @php(\$title = "$this->title")
@@ -105,10 +103,7 @@ class CreatesNewPageSourceFile
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
         $this->prepareOutputDirectory();
 
-        file_put_contents(
-            $this->outputPath,
-            "---\ntitle: $this->title\n---\n\n# $this->title\n"
-        );
+        $this->createFile("---\ntitle: $this->title\n---\n\n# $this->title\n");
     }
 
     protected function createDocumentationFile(): void
@@ -116,10 +111,7 @@ class CreatesNewPageSourceFile
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
         $this->prepareOutputDirectory();
 
-        file_put_contents(
-            $this->outputPath,
-            "# $this->title\n"
-        );
+        $this->createFile("# $this->title\n");
     }
 
     protected function formatIdentifier(): string
@@ -143,5 +135,13 @@ class CreatesNewPageSourceFile
     {
         $this->needsParentDirectory($this->outputPath);
         $this->failIfFileCannotBeSaved($this->outputPath);
+    }
+
+    protected function createFile(string $contents): int|false
+    {
+        return file_put_contents(
+            $this->outputPath,
+            $contents
+        );
     }
 }
