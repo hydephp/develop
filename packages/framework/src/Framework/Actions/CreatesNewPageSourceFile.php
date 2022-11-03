@@ -139,4 +139,9 @@ class CreatesNewPageSourceFile
             throw new FileConflictException($path);
         }
     }
+
+    public function getOutputPath(): string
+    {
+        return $this->outputPath;
+    }
 }
