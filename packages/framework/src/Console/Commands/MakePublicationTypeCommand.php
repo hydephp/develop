@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\CreatesNewPublicationType;
+use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -27,9 +27,20 @@ class MakePublicationTypeCommand extends Command
     protected string $title;
 
     /**
-     * The page title.
+     * The default field to sort by
+     */
+    protected string $canonicalField;
+
+    /**
+     * The default field to sort by
      */
     protected string $sortField;
+
+    /**
+     * The default sort direction
+     */
+    protected string $sortDirection;
+
 
     public function handle(): int
     {
@@ -41,7 +52,7 @@ class MakePublicationTypeCommand extends Command
 
         $this->fields = $this->getFieldsDefinitions();
 
-        $this->output->writeln('<bg=magenta;fg=white>Now please choose the field you wish to sort by:</>');
+        $this->output->writeln('<bg=magenta;fg=white>Now please choose the default field you wish to sort by:</>');
         foreach ($this->fields as $k => $v) {
             $humanCount = $k + 1;
             $this->line("  $humanCount: $v[name]");
@@ -49,7 +60,24 @@ class MakePublicationTypeCommand extends Command
         $this->sortField = $this->ask("Sort field: (1-$humanCount)");
         $this->sortField = $this->fields[((int)$this->sortField) - 1]['name'];
 
-        $creator = new CreatesNewPublicationType($this->title, $this->fields, $this->sortField);
+        $this->output->writeln('<bg=magenta;fg=white>Now please choose the default sort direction:</>');
+        $this->line('  1 - Ascending (ASC)');
+        $this->line('  2 - Descending (DESC)');
+        $this->sortDirection = $this->ask('Sort direction (1-2)');
+        $this->sortDirection = match ((int)$this->sortDirection) {
+            1 => 'ASC',
+            2 => 'DESC',
+        };
+
+        $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
+        foreach ($this->fields as $k => $v) {
+            $humanCount = $k + 1;
+            $this->line("  $humanCount: $v[name]");
+        }
+        $this->canonicalField = $this->ask("Canonical field: (1-$humanCount)");
+        $this->canonicalField = $this->fields[((int)$this->canonicalField) - 1]['name'];
+
+        $creator = new CreatesNewPublicationTypeSchema($this->title, $this->fields, $this->canonicalField, $this->sortField, $this->sortDirection);
 
         return Command::SUCCESS;
     }

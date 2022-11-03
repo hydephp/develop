@@ -16,26 +16,29 @@ class HydeConsoleServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->commands([
-            Commands\BuildRssFeedCommand::class,
-            Commands\BuildSearchCommand::class,
-            Commands\BuildSiteCommand::class,
-            Commands\BuildSitemapCommand::class,
-            Commands\RebuildStaticSiteCommand::class,
+        $this->commands(
+            [
+                Commands\BuildRssFeedCommand::class,
+                Commands\BuildSearchCommand::class,
+                Commands\BuildSiteCommand::class,
+                Commands\BuildSitemapCommand::class,
+                Commands\RebuildStaticSiteCommand::class,
 
-            Commands\MakePageCommand::class,
-            Commands\MakePostCommand::class,
-            Commands\MakePublicationTypeCommand::class,
+                Commands\MakePageCommand::class,
+                Commands\MakePostCommand::class,
+                Commands\MakePublicationTypeCommand::class,
+                Commands\MakePublicationCommand::class,
 
-            Commands\PublishHomepageCommand::class,
-            Commands\PublishViewsCommand::class,
-            Commands\UpdateConfigsCommand::class,
-            Commands\PackageDiscoverCommand::class,
+                Commands\PublishHomepageCommand::class,
+                Commands\PublishViewsCommand::class,
+                Commands\UpdateConfigsCommand::class,
+                Commands\PackageDiscoverCommand::class,
 
-            Commands\RouteListCommand::class,
-            Commands\ValidateCommand::class,
-            Commands\ServeCommand::class,
-            Commands\DebugCommand::class,
-        ]);
+                Commands\RouteListCommand::class,
+                Commands\ValidateCommand::class,
+                Commands\ServeCommand::class,
+                Commands\DebugCommand::class,
+            ]
+        );
     }
 }
