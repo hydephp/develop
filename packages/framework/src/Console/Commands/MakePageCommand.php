@@ -58,10 +58,6 @@ class MakePageCommand extends Command
     {
         $this->title('Creating a new page!');
 
-        $this->title = $this->argument('title')
-            ?? $this->ask('What is the title of the page?')
-            ?? 'My New Page';
-
         $this->validateOptions();
 
         $this->line('<info>Creating a new '.ucfirst($this->selectedType).' page with title:</info> '.$this->title."\n");
@@ -77,6 +73,10 @@ class MakePageCommand extends Command
 
     protected function validateOptions(): void
     {
+        $this->title = $this->argument('title')
+            ?? $this->ask('What is the title of the page?')
+            ?? 'My New Page';
+
         $this->selectedType = $this->getSelectedType();
         $this->pageClass = $this->getQualifiedPageType();
     }
