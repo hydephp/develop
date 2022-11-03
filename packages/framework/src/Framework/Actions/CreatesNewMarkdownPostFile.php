@@ -6,7 +6,6 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
