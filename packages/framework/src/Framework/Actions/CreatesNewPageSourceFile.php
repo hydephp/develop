@@ -71,11 +71,7 @@ class CreatesNewPageSourceFile
     {
         $subDir = Str::beforeLast($title, '/').'/';
 
-        if ($subDir !== '') {
-            $subDir = unslash('/'.rtrim($subDir, '/\\'));
-        }
-
-        return $subDir;
+        return unslash('/'.rtrim($subDir, '/\\'));
     }
 
     protected function makeOutputPath(string $pageClass): string
