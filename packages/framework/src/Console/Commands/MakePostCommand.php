@@ -40,20 +40,7 @@ class MakePostCommand extends Command
             return 130;
         }
 
-        try {
-            $path = $creator->save($this->option('force'));
-            $this->info("Post created! File is saved to $path");
-
-            return Command::SUCCESS;
-        } catch (Exception $exception) {
-            $this->error('Something went wrong when trying to save the file!');
-            $this->warn($exception->getMessage());
-            if ($exception->getCode() === 409) {
-                $this->comment('If you want to overwrite the file supply the --force flag.');
-            }
-
-            return (int) $exception->getCode();
-        }
+        return $this->createPostFile($creator);
     }
 
     protected function getTitle(): mixed
@@ -88,5 +75,24 @@ class MakePostCommand extends Command
         }
 
         $this->line("Identifier: {$creator->getIdentifier()}");
+    }
+
+    protected function createPostFile(CreatesNewMarkdownPostFile $creator): int
+    {
+        try {
+            $path = $creator->save($this->option('force'));
+            $this->info("Post created! File is saved to $path");
+
+            return Command::SUCCESS;
+        } catch (Exception $exception) {
+            $this->error('Something went wrong when trying to save the file!');
+            $this->warn($exception->getMessage());
+
+            if ($exception->getCode() === 409) {
+                $this->comment('If you want to overwrite the file supply the --force flag.');
+            }
+
+            return (int) $exception->getCode();
+        }
     }
 }
