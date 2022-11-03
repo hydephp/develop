@@ -69,9 +69,7 @@ class CreatesNewPageSourceFile
 
     protected function parseSubDir(string $title): string
     {
-        $subDir = Str::beforeLast($title, '/').'/';
-
-        return unslash('/'.rtrim($subDir, '/\\'));
+        return unslash('/'.rtrim(Str::beforeLast($title, '/').'/', '/\\'));
     }
 
     protected function makeOutputPath(string $pageClass): string
