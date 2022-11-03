@@ -62,8 +62,6 @@ class MakePageCommand extends Command
 
         $this->line('<info>Creating a new '.ucfirst($this->selectedType).' page with title:</info> '.$this->title."\n");
 
-        $this->force = $this->option('force') ?? false;
-
         $creator = new CreatesNewPageSourceFile($this->title, $this->pageClass, $this->force);
 
         $this->info("Created file {$creator->getOutputPath()}");
@@ -79,6 +77,8 @@ class MakePageCommand extends Command
 
         $this->selectedType = $this->getSelectedType();
         $this->pageClass = $this->getQualifiedPageType();
+
+        $this->force = $this->option('force') ?? false;
     }
 
     protected function getQualifiedPageType(): string
