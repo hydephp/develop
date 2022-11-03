@@ -103,18 +103,18 @@ class CreatesNewPageSourceFile
 
         return file_put_contents(
             $this->outputPath,
-            <<<EOF
-@extends('hyde::layouts.app')
-@section('content')
-@php(\$title = "$this->title")
+            <<<BLADE
+            @extends('hyde::layouts.app')
+            @section('content')
+            @php(\$title = "$this->title")
+            
+            <main class="mx-auto max-w-7xl py-16 px-8">
+                <h1 class="text-center text-3xl font-bold">$this->title</h1>
+            </main>
+            
+            @endsection
 
-<main class="mx-auto max-w-7xl py-16 px-8">
-	<h1 class="text-center text-3xl font-bold">$this->title</h1>
-</main>
-
-@endsection
-
-EOF
+            BLADE
         );
     }
 
