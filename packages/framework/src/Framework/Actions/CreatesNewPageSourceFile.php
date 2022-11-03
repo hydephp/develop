@@ -35,7 +35,7 @@ class CreatesNewPageSourceFile
         $this->createPage($type);
     }
 
-    public function parseTitle(string $title): string
+    protected function parseTitle(string $title): string
     {
         return Str::afterLast($title, '/');
     }
@@ -49,14 +49,14 @@ class CreatesNewPageSourceFile
         return Str::slug(basename($title));
     }
 
-    public function canSaveFile(string $path): void
+    protected function canSaveFile(string $path): void
     {
         if (file_exists($path) && ! $this->force) {
             throw new FileConflictException($path);
         }
     }
 
-    public function createPage(string $type): int|false
+    protected function createPage(string $type): int|false
     {
         return match ($type) {
             BladePage::class => $this->createBladeFile(),
@@ -66,7 +66,7 @@ class CreatesNewPageSourceFile
         };
     }
 
-    public function createBladeFile(): int|false
+    protected function createBladeFile(): int|false
     {
         $this->needsDirectory(BladePage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
@@ -90,7 +90,7 @@ class CreatesNewPageSourceFile
         );
     }
 
-    public function createMarkdownFile(): int|false
+    protected function createMarkdownFile(): int|false
     {
         $this->needsDirectory(MarkdownPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
@@ -103,7 +103,7 @@ class CreatesNewPageSourceFile
         );
     }
 
-    public function createDocumentationFile(): int|false
+    protected function createDocumentationFile(): int|false
     {
         $this->needsDirectory(DocumentationPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
