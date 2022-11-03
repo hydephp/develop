@@ -28,10 +28,7 @@ class MakePostCommand extends Command
 
         $title = $this->getTitle();
 
-        $this->line('Tip: You can just hit return to use the defaults.');
-        $description = $this->ask('Write a short post excerpt/description');
-        $author = $this->ask('What is your (the author\'s) name?');
-        $category = $this->ask('What is the primary category of the post?');
+        list($description, $author, $category) = $this->getSelections();
 
         $creator = new CreatesNewMarkdownPostFile($title, $description, $category, $author);
 
@@ -69,6 +66,16 @@ class MakePostCommand extends Command
         return $this->argument('title')
             ?? $this->ask('What is the title of the post?')
             ?? 'My New Post';
+    }
+
+    protected function getSelections(): array
+    {
+        $this->line('Tip: You can just hit return to use the defaults.');
+        $description = $this->ask('Write a short post excerpt/description');
+        $author = $this->ask('What is your (the author\'s) name?');
+        $category = $this->ask('What is the primary category of the post?');
+
+        return array($description, $author, $category);
     }
 
     protected function displaySelections(CreatesNewMarkdownPostFile $creator): void
