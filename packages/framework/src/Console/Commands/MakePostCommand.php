@@ -34,12 +34,7 @@ class MakePostCommand extends Command
         $category = $this->ask('What is the primary category of the post?');
 
         $this->info('Creating a post with the following details:');
-        $creator = new CreatesNewMarkdownPostFile(
-            $title,
-            $description,
-            $category,
-            $author
-        );
+        $creator = new CreatesNewMarkdownPostFile($title, $description, $category, $author);
 
         $this->displaySelections($creator);
 
