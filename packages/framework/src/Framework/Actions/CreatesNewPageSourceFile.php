@@ -85,7 +85,7 @@ class CreatesNewPageSourceFile
 
     public function createMarkdownFile(): int|false
     {
-        $this->outputPath = Hyde::path("_pages/$this->subDir$this->slug.md");
+        $this->outputPath = Hyde::path("_pages/{$this->formatIdentifier()}.md");
 
         $this->canSaveFile($this->outputPath);
 
@@ -97,7 +97,7 @@ class CreatesNewPageSourceFile
 
     public function createBladeFile(): int|false
     {
-        $this->outputPath = Hyde::path("_pages/$this->subDir$this->slug.blade.php");
+        $this->outputPath = Hyde::path("_pages/{$this->formatIdentifier()}.blade.php");
 
         $this->canSaveFile($this->outputPath);
 
@@ -120,7 +120,7 @@ EOF
 
     public function createDocumentationFile(): int|false
     {
-        $this->outputPath = Hyde::path("_docs/$this->subDir$this->slug.md");
+        $this->outputPath = Hyde::path("_docs/{$this->formatIdentifier()}.md");
 
         $this->canSaveFile($this->outputPath);
 
@@ -128,5 +128,10 @@ EOF
             $this->outputPath,
             "# $this->title\n"
         );
+    }
+
+    protected function formatIdentifier(): string
+    {
+        return "$this->subDir$this->slug";
     }
 }
