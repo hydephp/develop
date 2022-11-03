@@ -96,9 +96,7 @@ class CreatesNewMarkdownPostFile
             throw new FileConflictException($path);
         }
 
-        $arrayWithoutSlug = $this->toArray();
-
-        $contents = (new ConvertsArrayToFrontMatter)->execute($arrayWithoutSlug).
+        $contents = (new ConvertsArrayToFrontMatter)->execute($this->toArray()).
             "\n## Write something awesome.\n\n";
 
         return file_put_contents($path, $contents) ? $path : false;
