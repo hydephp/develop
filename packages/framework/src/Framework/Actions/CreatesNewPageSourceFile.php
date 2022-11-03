@@ -40,6 +40,11 @@ class CreatesNewPageSourceFile
         $this->createPage($type);
     }
 
+    public function getOutputPath(): string
+    {
+        return $this->outputPath;
+    }
+
     protected function parseTitle(string $title): string
     {
         return Str::afterLast($title, '/');
@@ -124,11 +129,6 @@ class CreatesNewPageSourceFile
         if (file_exists($path) && ! $this->force) {
             throw new FileConflictException($path);
         }
-    }
-
-    public function getOutputPath(): string
-    {
-        return $this->outputPath;
     }
 
     protected function prepareOutputDirectory(): void
