@@ -34,11 +34,12 @@ class CreatesNewPageSourceFile
 
     public function __construct(string $title, string $type = MarkdownPage::class, bool $force = false)
     {
+        $this->validateType($type);
+
         $this->title = $this->parseTitle($title);
         $this->slug = $this->parseSlug($title);
         $this->force = $force;
 
-        $this->validateType($type);
         $this->outputPath = $this->makeOutputPath($type);
 
         $this->createPage($type);
