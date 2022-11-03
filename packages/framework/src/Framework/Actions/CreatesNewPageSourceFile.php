@@ -58,10 +58,7 @@ class CreatesNewPageSourceFile
 
     public function createPage(string $type): int|false
     {
-        $subDir = $this->subDir;
-        if ($subDir !== '') {
-            $subDir = '/'.rtrim($subDir, '/\\');
-        }
+        $subDir = $this->normalizeSubDir();
 
         if ($type === MarkdownPage::class) {
             $this->needsDirectory(MarkdownPage::sourceDirectory().$subDir);
@@ -133,5 +130,14 @@ class CreatesNewPageSourceFile
     protected function formatIdentifier(): string
     {
         return $this->subDir . $this->slug;
+    }
+
+    protected function normalizeSubDir(): string
+    {
+        $subDir = $this->subDir;
+        if ($subDir !== '') {
+            $subDir = '/' . rtrim($subDir, '/\\');
+        }
+        return $subDir;
     }
 }
