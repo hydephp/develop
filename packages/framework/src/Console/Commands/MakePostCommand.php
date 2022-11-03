@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Exception;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use LaravelZero\Framework\Commands\Command;
+use function ucwords;
 
 /**
  * Hyde Command to scaffold a new Markdown Post.
@@ -48,12 +49,10 @@ class MakePostCommand extends Command
             $author
         );
 
-        $this->line("Title: $creator->title");
-        $this->line("Description: $creator->description");
-        $this->line("Author: $creator->author");
-        $this->line("Category: $creator->category");
-        $this->line("Date: $creator->date");
-        $this->line("Slug: $creator->slug");
+        foreach ($creator->toArray() as $key => $value) {
+            $this->line(sprintf('%s: %s', ucwords($key), $value));
+        }
+        $this->line("Identifier: {$creator->getIdentifier()}");
 
         if (! $this->confirm('Do you wish to continue?', true)) {
             $this->info('Aborting.');

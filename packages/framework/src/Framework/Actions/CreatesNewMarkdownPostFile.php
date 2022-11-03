@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
 
 /**
@@ -19,47 +20,12 @@ use Illuminate\Support\Str;
  */
 class CreatesNewMarkdownPostFile
 {
-    /**
-     * The Post Title.
-     *
-     * @var string
-     */
-    public string $title;
-
-    /**
-     * The Post Meta Description.
-     *
-     * @var string
-     */
-    public string $description;
-
-    /**
-     * The Primary Post Category.
-     *
-     * @var string
-     */
-    public string $category;
-
-    /**
-     * The Username of the Author.
-     *
-     * @var string
-     */
-    public string $author;
-
-    /**
-     * The Publishing Date.
-     *
-     * @var string
-     */
-    public string $date;
-
-    /**
-     * The Post Slug.
-     *
-     * @var string
-     */
-    public string $slug;
+    protected string $title;
+    protected string $description;
+    protected string $category;
+    protected string $author;
+    protected string $date;
+    protected string $identifier;
 
     /**
      * Construct the class.
@@ -69,7 +35,7 @@ class CreatesNewMarkdownPostFile
      * @param  string|null  $category  The Primary Post Category.
      * @param  string|null  $author  The Username of the Author.
      * @param  string|null  $date  The Publishing Date.
-     * @param  string|null  $slug  The Post Slug.
+     * @param  string|null  $identifier  The Post Identifier.
      */
     public function __construct(
         string $title,
@@ -77,17 +43,17 @@ class CreatesNewMarkdownPostFile
         ?string $category,
         ?string $author,
         ?string $date = null,
-        ?string $slug = null
+        ?string $identifier = null
     ) {
         $this->title = $title;
         $this->description = $description ?? 'A short description used in previews and SEO';
         $this->category = $category ?? 'blog';
-        $this->author = $author ?? 'Mr. Hyde';
+        $this->author = $author ?? 'default';
         if ($date === null) {
             $this->date = date('Y-m-d H:i');
         }
-        if ($slug === null) {
-            $this->slug = Str::slug($title);
+        if ($identifier === null) {
+            $this->identifier = Str::slug($title);
         }
     }
 
@@ -97,23 +63,45 @@ class CreatesNewMarkdownPostFile
      * @param  bool  $force  Should the file be created even if a file with the same path already exists?
      * @return string|false Returns the path to the file if successful, or false if the file could not be saved.
      *
-     * @throws FileConflictException if a file with the same slug already exists and the force flag is not set.
+     * @throws FileConflictException if a file with the same identifier already exists and the force flag is not set.
      */
     public function save(bool $force = false): string|false
     {
-        $path = Hyde::path("_posts/$this->slug.md");
+        $path = Hyde::path(MarkdownPost::sourcePath($this->identifier));
 
         if ($force !== true && file_exists($path)) {
             throw new FileConflictException($path);
         }
 
-        $arrayWithoutSlug = ((array) $this);
-
-        unset($arrayWithoutSlug['slug']);
-
-        $contents = (new ConvertsArrayToFrontMatter)->execute($arrayWithoutSlug).
+        $contents = (new ConvertsArrayToFrontMatter)->execute($this->toArray()).
             "\n## Write something awesome.\n\n";
 
         return file_put_contents($path, $contents) ? $path : false;
+    }
+
+    /**
+     * Get the class data as an array.
+     *
+     * The identifier property is removed from the array as it can't be set in the front matter.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+            'category' => $this->category,
+            'author' => $this->author,
+            'date' => $this->date,
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
     }
 }
