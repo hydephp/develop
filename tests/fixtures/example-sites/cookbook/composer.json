@@ -1,0 +1,63 @@
+{
+    "name": "hyde/hyde",
+    "description": "Static Site Generator to rapidly create Blogs, Documentation Sites, and more, using Markdown and Blade.",
+    "keywords": [
+        "framework",
+        "hyde",
+        "hyde framework",
+        "hydephp",
+        "static site generator",
+        "static site framework",
+        "ssg"
+    ],
+    "homepage": "https://hydephp.com",
+    "type": "project",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/hydephp/hyde/issues",
+        "source": "https://github.com/hydephp/hyde"
+    },
+    "authors": [
+        {
+            "name": "Caen De Silva",
+            "email": "caen@desilva.se"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "hyde/framework": "dev-develop",
+        "laravel-zero/framework": "^9.1"
+    },
+    "require-dev": {
+        "hyde/realtime-compiler": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hyde\\Testing\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php -r \"@unlink('./storage/framework/cache/packages.php');\"",
+            "@php hyde package:discover --ansi"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "bin": [
+        "hyde"
+    ]
+}
