@@ -71,6 +71,7 @@ class MakePostCommand extends Command
     protected function getSelections(): array
     {
         $this->line('Tip: You can just hit return to use the defaults.');
+
         $description = $this->ask('Write a short post excerpt/description');
         $author = $this->ask('What is your (the author\'s) name?');
         $category = $this->ask('What is the primary category of the post?');
