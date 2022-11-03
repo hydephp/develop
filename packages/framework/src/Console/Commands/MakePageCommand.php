@@ -84,7 +84,7 @@ class MakePageCommand extends Command
             'blade' => BladePage::class,
             'markdown' => MarkdownPage::class,
             'docs', 'documentation' => DocumentationPage::class,
-            default => throw new UnsupportedPageTypeException("Invalid page type: $type"),
+            default => throw new UnsupportedPageTypeException($type),
         };
     }
 
