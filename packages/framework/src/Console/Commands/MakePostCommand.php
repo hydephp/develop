@@ -33,7 +33,6 @@ class MakePostCommand extends Command
         $author = $this->ask('What is your (the author\'s) name?');
         $category = $this->ask('What is the primary category of the post?');
 
-        $this->info('Creating a post with the following details:');
         $creator = new CreatesNewMarkdownPostFile($title, $description, $category, $author);
 
         $this->displaySelections($creator);
@@ -74,9 +73,12 @@ class MakePostCommand extends Command
 
     protected function displaySelections(CreatesNewMarkdownPostFile $creator): void
     {
+        $this->info('Creating a post with the following details:');
+
         foreach ($creator->toArray() as $key => $value) {
             $this->line(sprintf('%s: %s', ucwords($key), $value));
         }
+
         $this->line("Identifier: {$creator->getIdentifier()}");
     }
 }
