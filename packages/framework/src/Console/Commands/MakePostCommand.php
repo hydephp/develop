@@ -26,15 +26,7 @@ class MakePostCommand extends Command
     {
         $this->title('Creating a new post!');
 
-        $this->line(
-            $this->argument('title')
-                ? '<info>Selected title: '.$this->argument('title')."</info>\n"
-                : 'Please enter the title of the post, it will be used to generate the slug.'
-        );
-
-        $title = $this->argument('title')
-            ?? $this->ask('What is the title of the post?')
-            ?? 'My New Post';
+        $title = $this->getTitle();
 
         $this->line('Tip: You can just hit return to use the defaults.');
         $description = $this->ask('Write a short post excerpt/description');
@@ -74,5 +66,17 @@ class MakePostCommand extends Command
 
             return (int) $exception->getCode();
         }
+    }
+
+    protected function getTitle(): mixed
+    {
+        $this->line($this->argument('title')
+                ? '<info>Selected title: ' . $this->argument('title') . "</info>\n"
+                : 'Please enter the title of the post, it will be used to generate the slug.'
+        );
+
+        return $this->argument('title')
+            ?? $this->ask('What is the title of the post?')
+            ?? 'My New Post';
     }
 }
