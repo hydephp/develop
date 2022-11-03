@@ -68,9 +68,9 @@ class CreatesNewPageSourceFile
         return $subDir;
     }
 
-    protected function createPage(string $type): int|false
+    protected function createPage(string $type): void
     {
-        return match ($type) {
+        match ($type) {
             BladePage::class => $this->createBladeFile(),
             MarkdownPage::class => $this->createMarkdownFile(),
             DocumentationPage::class => $this->createDocumentationFile(),
@@ -78,12 +78,12 @@ class CreatesNewPageSourceFile
         };
     }
 
-    protected function createBladeFile(): int|false
+    protected function createBladeFile(): void
     {
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
         $this->prepareOutputDirectory();
 
-        return file_put_contents(
+        file_put_contents(
             $this->outputPath,
             <<<BLADE
             @extends('hyde::layouts.app')
@@ -100,23 +100,23 @@ class CreatesNewPageSourceFile
         );
     }
 
-    protected function createMarkdownFile(): int|false
+    protected function createMarkdownFile(): void
     {
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
         $this->prepareOutputDirectory();
 
-        return file_put_contents(
+        file_put_contents(
             $this->outputPath,
             "---\ntitle: $this->title\n---\n\n# $this->title\n"
         );
     }
 
-    protected function createDocumentationFile(): int|false
+    protected function createDocumentationFile(): void
     {
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
         $this->prepareOutputDirectory();
 
-        return file_put_contents(
+        file_put_contents(
             $this->outputPath,
             "# $this->title\n"
         );
