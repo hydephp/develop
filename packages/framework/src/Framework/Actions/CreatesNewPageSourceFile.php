@@ -81,9 +81,7 @@ class CreatesNewPageSourceFile
     protected function createBladeFile(): int|false
     {
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
-        $this->needsParentDirectory($this->outputPath);
-
-        $this->failIfFileCannotBeSaved($this->outputPath);
+        $this->prepareOutputDirectory();
 
         return file_put_contents(
             $this->outputPath,
@@ -105,9 +103,7 @@ class CreatesNewPageSourceFile
     protected function createMarkdownFile(): int|false
     {
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
-        $this->needsParentDirectory($this->outputPath);
-
-        $this->failIfFileCannotBeSaved($this->outputPath);
+        $this->prepareOutputDirectory();
 
         return file_put_contents(
             $this->outputPath,
@@ -118,9 +114,7 @@ class CreatesNewPageSourceFile
     protected function createDocumentationFile(): int|false
     {
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
-        $this->needsParentDirectory($this->outputPath);
-
-        $this->failIfFileCannotBeSaved($this->outputPath);
+        $this->prepareOutputDirectory();
 
         return file_put_contents(
             $this->outputPath,
@@ -143,5 +137,11 @@ class CreatesNewPageSourceFile
     public function getOutputPath(): string
     {
         return $this->outputPath;
+    }
+
+    protected function prepareOutputDirectory(): void
+    {
+        $this->needsParentDirectory($this->outputPath);
+        $this->failIfFileCannotBeSaved($this->outputPath);
     }
 }
