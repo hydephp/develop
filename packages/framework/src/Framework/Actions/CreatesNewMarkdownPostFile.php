@@ -116,6 +116,11 @@ class CreatesNewMarkdownPostFile
         return file_put_contents($path, $contents) ? $path : false;
     }
 
+    /**
+     * Get the class data as an array.
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return Arr::except(((array) $this), ['slug']);
