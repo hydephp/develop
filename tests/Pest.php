@@ -13,7 +13,9 @@ declare(strict_types=1);
 |
 */
 
-uses(\Hyde\Testing\TestCase::class)->in('Feature');
+use Hyde\Testing\TestCase;
+
+uses(TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
