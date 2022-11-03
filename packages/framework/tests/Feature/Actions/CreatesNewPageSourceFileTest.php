@@ -102,17 +102,17 @@ class CreatesNewPageSourceFileTest extends TestCase
         );
 
         $fileContent = file_get_contents(Hyde::path('_pages/test-page.blade.php'));
-        $this->assertStringContainsString(
-            '@extends(\'hyde::layouts.app\')',
-            $fileContent
-        );
-        $this->assertStringContainsString(
-            '@php($title = "Test Page")',
-            $fileContent
-        );
-        $this->assertStringContainsString(
-            '<h1 class="text-center text-3xl font-bold">Test Page</h1>',
-            $fileContent
+        $this->assertEqualsIgnoringLineEndingType(
+            '@extends(\'hyde::layouts.app\')
+@section(\'content\')
+@php($title = "Test Page")
+
+<main class="mx-auto max-w-7xl py-16 px-8">
+	<h1 class="text-center text-3xl font-bold">Test Page</h1>
+</main>
+
+@endsection
+', $fileContent
         );
     }
 
