@@ -10,7 +10,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
-use function str_replace;
 use function strip_newlines;
 
 require_once __DIR__.'/helpers.php';

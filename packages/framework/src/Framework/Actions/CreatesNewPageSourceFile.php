@@ -68,7 +68,7 @@ class CreatesNewPageSourceFile
 
     public function createBladeFile(): int|false
     {
-        $this->needsDirectory(BladePage::sourceDirectory(). $this->normalizeSubDir());
+        $this->needsDirectory(BladePage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
 
         $this->canSaveFile($this->outputPath);
@@ -92,7 +92,7 @@ class CreatesNewPageSourceFile
 
     public function createMarkdownFile(): int|false
     {
-        $this->needsDirectory(MarkdownPage::sourceDirectory(). $this->normalizeSubDir());
+        $this->needsDirectory(MarkdownPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
 
         $this->canSaveFile($this->outputPath);
@@ -105,7 +105,7 @@ class CreatesNewPageSourceFile
 
     public function createDocumentationFile(): int|false
     {
-        $this->needsDirectory(DocumentationPage::sourceDirectory(). $this->normalizeSubDir());
+        $this->needsDirectory(DocumentationPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
 
         $this->canSaveFile($this->outputPath);
@@ -118,15 +118,16 @@ class CreatesNewPageSourceFile
 
     protected function formatIdentifier(): string
     {
-        return $this->subDir . $this->slug;
+        return $this->subDir.$this->slug;
     }
 
     protected function normalizeSubDir(): string
     {
         $subDir = $this->subDir;
         if ($subDir !== '') {
-            $subDir = '/' . rtrim($subDir, '/\\');
+            $subDir = '/'.rtrim($subDir, '/\\');
         }
+
         return $subDir;
     }
 }
