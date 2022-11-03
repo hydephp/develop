@@ -51,7 +51,7 @@ class CreatesNewPageSourceFile
         return Str::slug(basename($title));
     }
 
-    protected function canSaveFile(string $path): void
+    protected function failIfFileCannotBeSaved(string $path): void
     {
         if (file_exists($path) && ! $this->force) {
             throw new FileConflictException($path);
@@ -73,7 +73,7 @@ class CreatesNewPageSourceFile
         $this->needsDirectory(BladePage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(BladePage::sourcePath($this->formatIdentifier()));
 
-        $this->canSaveFile($this->outputPath);
+        $this->failIfFileCannotBeSaved($this->outputPath);
 
         return file_put_contents(
             $this->outputPath,
@@ -97,7 +97,7 @@ class CreatesNewPageSourceFile
         $this->needsDirectory(MarkdownPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(MarkdownPage::sourcePath($this->formatIdentifier()));
 
-        $this->canSaveFile($this->outputPath);
+        $this->failIfFileCannotBeSaved($this->outputPath);
 
         return file_put_contents(
             $this->outputPath,
@@ -110,7 +110,7 @@ class CreatesNewPageSourceFile
         $this->needsDirectory(DocumentationPage::sourceDirectory().$this->normalizeSubDir());
         $this->outputPath = Hyde::path(DocumentationPage::sourcePath($this->formatIdentifier()));
 
-        $this->canSaveFile($this->outputPath);
+        $this->failIfFileCannotBeSaved($this->outputPath);
 
         return file_put_contents(
             $this->outputPath,
