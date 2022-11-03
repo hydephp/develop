@@ -113,4 +113,12 @@ class CreatesNewMarkdownPostFile
     {
         return Arr::except(((array) $this), ['slug']);
     }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
 }
