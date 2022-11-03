@@ -32,22 +32,22 @@ class MakePageCommand extends Command
     /**
      * The page title.
      */
-    public string $title;
+    protected string $title;
 
     /**
      * The selected page type.
      */
-    public string $selectedType;
+    protected string $selectedType;
 
     /**
      * The page type.
      */
-    public string $type;
+    protected string $type;
 
     /**
      * Can the file be overwritten?
      */
-    public bool $force;
+    protected bool $force;
 
     public function handle(): int
     {
