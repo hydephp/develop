@@ -145,26 +145,11 @@ class CreatesNewPageSourceFileTest extends TestCase
         );
     }
 
-    public function test_parse_slug_returns_slug_generated_from_title()
+    public function test_file_is_created_using_slug_generated_from_title()
     {
-        $action = new CreatesNewPageSourceFile('Foo Bar');
-        $this->assertEquals('foo-bar', $action->parseSlug('Foo Bar'));
+        new CreatesNewPageSourceFile('Foo Bar');
+        $this->assertFileExists(Hyde::path('_pages/foo-bar.md'));
         Hyde::unlink('_pages/foo-bar.md');
-    }
-
-    public function test_parse_slug_does_not_include_path_information()
-    {
-        $action = new CreatesNewPageSourceFile('Foo Bar');
-        $this->assertEquals('foo-bar', $action->parseSlug('/foo/bar/Foo Bar'));
-        Hyde::unlink('_pages/foo-bar.md');
-    }
-
-    public function test_parse_slug_sets_sub_dir_property_for_nested_pages()
-    {
-        $action = new CreatesNewPageSourceFile('foo');
-        $this->assertEquals('bar', $action->parseSlug('/foo/bar'));
-        $this->assertEquals('foo', $action->subDir);
-        Hyde::unlink('_pages/foo.md');
     }
 
     public function test_action_can_generate_nested_pages()
@@ -172,6 +157,15 @@ class CreatesNewPageSourceFileTest extends TestCase
         new CreatesNewPageSourceFile('foo/bar');
         $this->assertFileExists(Hyde::path('_pages/foo/bar.md'));
         Hyde::unlink('_pages/foo/bar.md');
+        rmdir(Hyde::path('_pages/foo'));
+    }
+
+    public function test_can_create_deeply_nested_pages()
+    {
+        new CreatesNewPageSourceFile('/foo/bar/Foo Bar');
+        $this->assertFileExists(Hyde::path('_pages/foo/bar/foo-bar.md'));
+        Hyde::unlink('_pages/foo/bar/foo-bar.md');
+        rmdir(Hyde::path('_pages/foo/bar'));
         rmdir(Hyde::path('_pages/foo'));
     }
 }
