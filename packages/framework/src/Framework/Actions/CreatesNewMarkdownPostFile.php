@@ -20,34 +20,11 @@ use Illuminate\Support\Str;
  */
 class CreatesNewMarkdownPostFile
 {
-    /**
-     * The Post Title.
-     */
     protected string $title;
-
-    /**
-     * The Post Meta Description.
-     */
     protected string $description;
-
-    /**
-     * The Primary Post Category.
-     */
     protected string $category;
-
-    /**
-     * The Username of the Author.
-     */
     protected string $author;
-
-    /**
-     * The Publishing Date.
-     */
     protected string $date;
-
-    /**
-     * The Post Identifier. (slug).
-     */
     protected string $identifier;
 
     /**
