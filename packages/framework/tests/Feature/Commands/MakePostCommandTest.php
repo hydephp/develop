@@ -42,6 +42,14 @@ class MakePostCommandTest extends TestCase
             ->expectsQuestion('What is your (the author\'s) name?', 'PHPUnit')
             ->expectsQuestion('What is the primary category of the post?', 'general')
             ->expectsOutput('Creating a post with the following details:')
+
+            ->expectsOutput('Title: Test Post')
+            ->expectsOutput('Description: A short description')
+            ->expectsOutput('Author: PHPUnit')
+            ->expectsOutput('Category: general')
+            ->expectsOutput('Date: '.date('Y-m-d H:i'))
+            ->expectsOutput('Slug: test-post')
+
             ->expectsConfirmation('Do you wish to continue?', 'yes')
 
             ->assertExitCode(0);
