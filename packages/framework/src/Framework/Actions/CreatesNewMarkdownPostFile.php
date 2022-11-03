@@ -107,13 +107,20 @@ class CreatesNewMarkdownPostFile
             throw new FileConflictException($path);
         }
 
-        $arrayWithoutSlug = ((array) $this);
-
-        unset($arrayWithoutSlug['slug']);
+        $arrayWithoutSlug = $this->toArray();
 
         $contents = (new ConvertsArrayToFrontMatter)->execute($arrayWithoutSlug).
             "\n## Write something awesome.\n\n";
 
         return file_put_contents($path, $contents) ? $path : false;
+    }
+
+    protected function toArray(): array
+    {
+        $arrayWithoutSlug = ((array) $this);
+
+        unset($arrayWithoutSlug['slug']);
+
+        return $arrayWithoutSlug;
     }
 }
