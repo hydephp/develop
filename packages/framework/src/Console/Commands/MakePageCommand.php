@@ -10,6 +10,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use LaravelZero\Framework\Commands\Command;
+use function filled;
 
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
@@ -74,7 +75,7 @@ class MakePageCommand extends Command
 
     protected function validateOptions(): void
     {
-        $this->getSelectedType();
+        $this->selectedType = $this->getSelectedType();
 
         // Set the type to the fully qualified class name
         $this->pageClass = $this->getQualifiedPageType();
@@ -92,18 +93,30 @@ class MakePageCommand extends Command
 
     protected function getSelectedType(): string
     {
-        if ($this->option('type') === null) {
-            return 'markdown';
+        return $this->getTypeOption()
+            ?? $this->getTypeSelection()
+            ?? 'markdown';
+    }
+
+    protected function getTypeSelection(): ?string
+    {
+        if (filled($this->option('type'))) {
+            return strtolower($this->option('type'));
         }
+        
+        return null;
+    }
 
-        $type = strtolower($this->option('type'));
-
+    protected function getTypeOption(): ?string
+    {
         if ($this->option('blade')) {
-            $type = 'blade';
-        } elseif ($this->option('docs')) {
-            $type = 'documentation';
+            return 'blade';
         }
 
-        return $this->selectedType = $type;
+        if ($this->option('docs')) {
+            return 'documentation';
+        }
+
+        return null;
     }
 }
