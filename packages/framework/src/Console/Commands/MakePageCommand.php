@@ -75,12 +75,12 @@ class MakePageCommand extends Command
     protected function validateOptions(): void
     {
         // Set the type to the fully qualified class name
-        $this->setPageType($this->getSelectedType());
+        $this->pageClass = $this->getQualifiedPageType($this->getSelectedType());
     }
 
-    protected function setPageType(string $type): void
+    protected function getQualifiedPageType(string $type): string
     {
-        $this->pageClass = match ($type) {
+        return match ($type) {
             'blade' => BladePage::class,
             'markdown' => MarkdownPage::class,
             'docs', 'documentation' => DocumentationPage::class,
