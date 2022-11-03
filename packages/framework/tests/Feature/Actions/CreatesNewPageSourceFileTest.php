@@ -133,19 +133,6 @@ class CreatesNewPageSourceFileTest extends TestCase
         Hyde::unlink('_docs/test-page.md');
     }
 
-    public function test_that_the_file_path_can_be_returned()
-    {
-        $this->assertEquals(
-            Hyde::path('_pages/test-page.md'),
-            (new CreatesNewPageSourceFile('Test Page'))->outputPath
-        );
-
-        $this->assertEquals(
-            Hyde::path('_pages/test-page.blade.php'),
-            (new CreatesNewPageSourceFile('Test Page', BladePage::class))->outputPath
-        );
-    }
-
     public function test_file_is_created_using_slug_generated_from_title()
     {
         new CreatesNewPageSourceFile('Foo Bar');

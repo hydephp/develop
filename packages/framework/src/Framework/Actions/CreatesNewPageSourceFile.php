@@ -25,11 +25,11 @@ class CreatesNewPageSourceFile
 {
     use InteractsWithDirectories;
 
-    public string $title;
-    public string $slug;
-    public string $outputPath;
-    public string $subDir = '';
-    public bool $force = false;
+    protected string $title;
+    protected string $slug;
+    protected string $outputPath;
+    protected string $subDir = '';
+    protected bool $force = false;
 
     public function __construct(string $title, string $type = MarkdownPage::class, bool $force = false)
     {
