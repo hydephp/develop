@@ -71,14 +71,19 @@ class MakePageCommand extends Command
 
     protected function validateOptions(): void
     {
-        $this->title = $this->argument('title')
-            ?? $this->ask('What is the title of the page?')
-            ?? 'My New Page';
+        $this->title = $this->getTitle();
 
         $this->selectedType = $this->getSelectedType();
         $this->pageClass = $this->getQualifiedPageType();
 
         $this->force = $this->option('force') ?? false;
+    }
+
+    protected function getTitle(): string
+    {
+        return $this->argument('title')
+            ?? $this->ask('What is the title of the page?')
+            ?? 'My New Page';
     }
 
     protected function getQualifiedPageType(): string
