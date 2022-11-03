@@ -23,32 +23,32 @@ class CreatesNewMarkdownPostFile
     /**
      * The Post Title.
      */
-    public string $title;
+    protected string $title;
 
     /**
      * The Post Meta Description.
      */
-    public string $description;
+    protected string $description;
 
     /**
      * The Primary Post Category.
      */
-    public string $category;
+    protected string $category;
 
     /**
      * The Username of the Author.
      */
-    public string $author;
+    protected string $author;
 
     /**
      * The Publishing Date.
      */
-    public string $date;
+    protected string $date;
 
     /**
      * The Post Identifier. (slug)
      */
-    public string $identifier;
+    protected string $identifier;
 
     /**
      * Construct the class.
