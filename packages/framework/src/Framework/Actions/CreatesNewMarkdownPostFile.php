@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -117,10 +118,6 @@ class CreatesNewMarkdownPostFile
 
     public function toArray(): array
     {
-        $arrayWithoutSlug = ((array) $this);
-
-        unset($arrayWithoutSlug['slug']);
-
-        return $arrayWithoutSlug;
+        return Arr::except(((array) $this), ['slug']);
     }
 }
