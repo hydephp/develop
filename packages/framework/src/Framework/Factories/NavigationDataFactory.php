@@ -163,6 +163,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function findGroupFromMatter(): mixed
     {
-        return $this->matter('navigation.group', 'other');
+        return $this->matter('navigation.group')
+            ?? $this->matter('navigation.category')
+            ?? 'other';
     }
 }
