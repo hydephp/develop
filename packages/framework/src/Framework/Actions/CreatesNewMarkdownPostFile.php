@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -90,7 +91,7 @@ class CreatesNewMarkdownPostFile
      */
     public function save(bool $force = false): string|false
     {
-        $path = Hyde::path("_posts/$this->identifier.md");
+        $path = Hyde::path(MarkdownPost::sourcePath($this->identifier));
 
         if ($force !== true && file_exists($path)) {
             throw new FileConflictException($path);
