@@ -28,7 +28,7 @@ class MakePostCommand extends Command
 
         $title = $this->getTitle();
 
-        list($description, $author, $category) = $this->getSelections();
+        [$description, $author, $category] = $this->getSelections();
 
         $creator = new CreatesNewMarkdownPostFile($title, $description, $category, $author);
 
@@ -46,7 +46,7 @@ class MakePostCommand extends Command
     protected function getTitle(): mixed
     {
         $this->line($this->argument('title')
-                ? '<info>Selected title: ' . $this->argument('title') . "</info>\n"
+                ? '<info>Selected title: '.$this->argument('title')."</info>\n"
                 : 'Please enter the title of the post, it will be used to generate the filename.'
         );
 
@@ -63,7 +63,7 @@ class MakePostCommand extends Command
         $author = $this->ask('What is your (the author\'s) name?');
         $category = $this->ask('What is the primary category of the post?');
 
-        return array($description, $author, $category);
+        return [$description, $author, $category];
     }
 
     protected function displaySelections(CreatesNewMarkdownPostFile $creator): void
