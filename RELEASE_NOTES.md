@@ -17,7 +17,7 @@ This serves two purposes:
 #### Abstract
 
 This beta release contains a plethora of breaking changes compared earlier beta versions.
-So many in fact, it could actually be easier and faster to recreate your project from scratch than to upgrade a particularly complex project.
+So many in fact, it could actually be easier and faster to recreate your project from scratch than to upgrade a particularly complex project. Though it only took me like five minutes to upgrade a simple documentation site, see [this diff](https://github.com/caendesilva/hyde-example-documentation-site/commit/f647f9250ecb20cf7bbf43bb10cd6401fae201cb) to see what I did.
 
 The good news however, is that as HydePHP approaches version 1.0, there will no longer be releases like these with breaking changes.
 
