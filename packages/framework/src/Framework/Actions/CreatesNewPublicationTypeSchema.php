@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Exceptions\FileConflictException;
 use Illuminate\Support\Str;
 
 /**
@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPageSourceFileTest
  */
-class CreatesNewPublicationTypeSchema
+class CreatesNewPublicationTypeSchema implements CreateActionInterface
 {
     use InteractsWithDirectories;
 
@@ -24,17 +24,10 @@ class CreatesNewPublicationTypeSchema
         protected string $sortField,
         protected string $sortDirection
     ) {
-        $this->createPage();
     }
 
-    protected function canSaveFile(string $path): void
-    {
-        if (file_exists($path) && !$this->force) {
-            throw new FileConflictException($path);
-        }
-    }
 
-    protected function createPage(): int|false
+    public function create(): string|bool
     {
         $name = Str::camel($this->name);
         @mkdir($name);
@@ -49,6 +42,6 @@ class CreatesNewPublicationTypeSchema
         $data['fields']         = $this->fields;
         $json                   = json_encode($data, JSON_PRETTY_PRINT);
 
-        return file_put_contents("$name/schema.json", $json);
+        return (bool)file_put_contents("$name/schema.json", $json);
     }
 }

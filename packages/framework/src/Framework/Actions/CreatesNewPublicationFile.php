@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Illuminate\Support\Str;
 
@@ -12,7 +13,7 @@ use Illuminate\Support\Str;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPageSourceFileTest
  */
-class CreatesNewPublicationFile
+class CreatesNewPublicationFile implements CreateActionInterface
 {
     use InteractsWithDirectories;
 
@@ -20,15 +21,15 @@ class CreatesNewPublicationFile
         protected \stdclass $pubType,
         protected array $fieldData
     ) {
-        $this->createPage();
     }
 
-    protected function createPage(): int|false
+    public function create(): string|bool
     {
         $dir = dirname($this->pubType->file);
         @mkdir($dir);
         $canonical = Str::camel($this->fieldData[$this->pubType->canonicalField]);
         $slug      = Str::slug($this->fieldData[$this->pubType->canonicalField]);
+        $outFile   = "$dir/$canonical.md";
 
         $output = "---\n";
         $output .= "__canonical: {$canonical}\n";
@@ -39,6 +40,7 @@ class CreatesNewPublicationFile
         $output .= "---\n";
         $output .= "Raw MD text ...\n";
 
-        return file_put_contents("$dir/$canonical.md", $output);
+        print "Saving page data to [$outFile]\n";
+        return (bool)file_put_contents($outFile, $output);
     }
 }

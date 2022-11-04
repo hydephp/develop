@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
 use LaravelZero\Framework\Commands\Command;
 
@@ -12,7 +13,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
  */
-class MakePublicationCommand extends Command
+class MakePublicationCommand extends Command implements CommandHandleInterface
 {
     /** @var string */
     protected $signature = 'make:publication
@@ -20,21 +21,6 @@ class MakePublicationCommand extends Command
 
     /** @var string */
     protected $description = 'Create a new publication item';
-
-    /**
-     * The page title.
-     */
-    protected string $title;
-
-    /**
-     * The page title.
-     */
-    protected \stdClass $pubType;
-
-    /**
-     * The default field to sort by
-     */
-    protected array $fieldData = [];
 
 
     public function handle(): int
@@ -49,19 +35,24 @@ class MakePublicationCommand extends Command
                 $humanCount = $k + 1;
                 $this->line("  $humanCount: $pubType->name");
             }
-            $selected      = $this->ask("Publication type: (1-$humanCount)");
-            $this->pubType = $pubTypes[((int)$selected) - 1];
+            $selected = (int)$this->ask("Publication type: (1-$humanCount)");
+            $pubType  = $pubTypes[$selected - 1];
         }
 
+        $fieldData = [];
         $this->output->writeln('<bg=magenta;fg=white>You now need to enter the fields data:</>');
-        foreach ($this->pubType->fields as $field) {
-            $this->fieldData[$field->name] = $this->ask("  $field->name ($field->type, min=$field->min, max=$field->max): ");
+        foreach ($pubType->fields as $field) {
+            $fieldData[$field->name] = $this->ask("  $field->name ($field->type, min=$field->min, max=$field->max): ");
         }
 
-        $creator = new CreatesNewPublicationFile($this->pubType, $this->fieldData);
+        $creator = new CreatesNewPublicationFile($pubType, $fieldData);
+        if (!$creator->create()) {
+            return Command::FAILURE;
+        }
 
         return Command::SUCCESS;
     }
+
 
     // Fixme: this should probably be moved to a generic util/helper class
     private function getPublicationTypes(): array

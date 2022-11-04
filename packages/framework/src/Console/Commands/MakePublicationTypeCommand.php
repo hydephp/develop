@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
 use LaravelZero\Framework\Commands\Command;
 
@@ -12,7 +13,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
  */
-class MakePublicationTypeCommand extends Command
+class MakePublicationTypeCommand extends Command implements CommandHandleInterface
 {
     /** @var string */
     protected $signature = 'make:publicationType
@@ -21,66 +22,50 @@ class MakePublicationTypeCommand extends Command
     /** @var string */
     protected $description = 'Create a new publication type definition';
 
-    /**
-     * The page title.
-     */
-    protected string $title;
-
-    /**
-     * The default field to sort by
-     */
-    protected string $canonicalField;
-
-    /**
-     * The default field to sort by
-     */
-    protected string $sortField;
-
-    /**
-     * The default sort direction
-     */
-    protected string $sortDirection;
-
 
     public function handle(): int
     {
         $this->title('Creating a new Publication Type!');
 
-        $this->title = $this->argument('title')
+        $title = $this->argument('title')
             ?? $this->ask('What is the name of the Publication Type?')
             ?? 'My new Publication Type';
 
-        $this->fields = $this->getFieldsDefinitions();
+        $fields = $this->getFieldsDefinitions();
 
         $this->output->writeln('<bg=magenta;fg=white>Now please choose the default field you wish to sort by:</>');
-        foreach ($this->fields as $k => $v) {
+        foreach ($fields as $k => $v) {
             $humanCount = $k + 1;
             $this->line("  $humanCount: $v[name]");
         }
-        $this->sortField = $this->ask("Sort field: (1-$humanCount)");
-        $this->sortField = $this->fields[((int)$this->sortField) - 1]['name'];
+        $sortField = $this->ask("Sort field: (1-$humanCount)");
+        $sortField = $fields[((int)$sortField) - 1]['name'];
 
         $this->output->writeln('<bg=magenta;fg=white>Now please choose the default sort direction:</>');
         $this->line('  1 - Ascending (ASC)');
         $this->line('  2 - Descending (DESC)');
-        $this->sortDirection = $this->ask('Sort direction (1-2)');
-        $this->sortDirection = match ((int)$this->sortDirection) {
+        $sortDirection = $this->ask('Sort direction (1-2)');
+        $sortDirection = match ((int)$sortDirection) {
             1 => 'ASC',
             2 => 'DESC',
         };
 
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
-        foreach ($this->fields as $k => $v) {
+        foreach ($fields as $k => $v) {
             $humanCount = $k + 1;
             $this->line("  $humanCount: $v[name]");
         }
-        $this->canonicalField = $this->ask("Canonical field: (1-$humanCount)");
-        $this->canonicalField = $this->fields[((int)$this->canonicalField) - 1]['name'];
+        $canonicalField = $this->ask("Canonical field: (1-$humanCount)");
+        $canonicalField = $fields[((int)$canonicalField) - 1]['name'];
 
-        $creator = new CreatesNewPublicationTypeSchema($this->title, $this->fields, $this->canonicalField, $this->sortField, $this->sortDirection);
+        $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection);
+        if (!$creator->create()) {
+            return Command::FAILURE;
+        }
 
         return Command::SUCCESS;
     }
+
 
     private function getFieldsDefinitions(): array
     {
@@ -98,14 +83,14 @@ class MakePublicationTypeCommand extends Command
             $this->line('  2 - Integer');
             $this->line('  3 - Float');
             $this->line('  4 - Datetime');
-            $field['type'] = $this->ask('Field type (1-4)');
-            $field['min']  = $this->ask('Min value (for strings, this refers to string length)');
-            $field['max']  = $this->ask('Max value (for strings, this refers to string length)');
-            $addAnother    = $this->ask('Add another field (y/n)');
+            $field['type'] = (int)$this->ask('Field type (1-4)');
+            $field['min']  = (int)$this->ask('Min value (for strings, this refers to string length)');
+            $field['max']  = (int)$this->ask('Max value (for strings, this refers to string length)');
+            $addAnother    = (string)$this->ask('Add another field (y/n)');
 
             // map field choice to actual field type
-            $field['type'] = match ((int)$field['type']) {
-                1 => 'string',
+            $field['type'] = match ($field['type']) {
+                0, 1 => 'string',
                 2 => 'integer',
                 3 => 'float',
                 4 => 'datetime',
@@ -113,7 +98,7 @@ class MakePublicationTypeCommand extends Command
 
             $fields[] = $field;
             $count++;
-        } while ($addAnother && strtolower($addAnother) != 'n');
+        } while (strtolower($addAnother) != 'n');
 
         return $fields;
     }
