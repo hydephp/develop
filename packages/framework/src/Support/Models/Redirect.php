@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
+use Illuminate\Contracts\Support\Renderable;
 
 /**
  * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.
@@ -16,20 +17,26 @@ use Hyde\Hyde;
  *
  * @example `Redirect::make('foo', 'bar')->store();`
  */
-class Redirect
+class Redirect implements Renderable
 {
-    public string $path;
-    public string $destination;
+    public readonly string $path;
+    public readonly string $destination;
 
+    /**
+     * Create a new redirect page file in the project's site output directory.
+     *
+     * @param  string  $path  The URI path to redirect from.
+     * @param  string  $destination  The destination to redirect to.
+     */
     public function __construct(string $path, string $destination)
     {
-        $this->path = $path;
+        $this->path = $this->normalizePath($path);
         $this->destination = $destination;
     }
 
     public static function make(string $path, string $destination): static
     {
-        return new static($path, $destination);
+        return (new static($path, $destination))->store();
     }
 
     public function render(): string
@@ -44,5 +51,14 @@ class Redirect
         file_put_contents(Hyde::sitePath("$this->path.html"), $this->render());
 
         return $this;
+    }
+
+    protected function normalizePath(string $path): string
+    {
+        if (str_ends_with($path, '.html')) {
+            return substr($path, 0, -5);
+        }
+
+        return $path;
     }
 }
