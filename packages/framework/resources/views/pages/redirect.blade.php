@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="refresh" content="0;url='{{ $destination }}'" />
-        <style>@media (prefers-color-scheme:dark){html{background-color:#111827}}</style>
+        <style>@media (prefers-color-scheme:dark){html{background-color:#111827;color:white;}}</style>
 
         <title>Redirecting to {{ $destination }}</title>
     </head>
