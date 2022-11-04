@@ -31,9 +31,6 @@ class Features implements Arrayable, JsonSerializable
 
     /**
      * Determine if the given specified is enabled.
-     *
-     * @param  string  $feature
-     * @return bool
      */
     public static function enabled(string $feature): bool
     {

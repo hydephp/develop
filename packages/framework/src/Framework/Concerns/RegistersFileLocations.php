@@ -25,7 +25,6 @@ trait RegistersFileLocations
      * @example registerSourceDirectories([HydePage::class => '_pages'])
      *
      * @param  array  $directoryMapping{class:  string<HydePage>, location: string}
-     * @return void
      */
     protected function registerSourceDirectories(array $directoryMapping): void
     {
