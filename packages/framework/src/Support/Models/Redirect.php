@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
+use Illuminate\Contracts\Support\Renderable;
 
 /**
  * A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.
@@ -16,7 +17,7 @@ use Hyde\Hyde;
  *
  * @example `Redirect::make('foo', 'bar')->store();`
  */
-class Redirect
+class Redirect implements Renderable
 {
     public string $path;
     public string $destination;
