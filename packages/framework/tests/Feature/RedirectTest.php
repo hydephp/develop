@@ -22,7 +22,7 @@ class RedirectTest extends TestCase
         $this->assertSame('foo', $redirect->path);
         $this->assertSame('bar', $redirect->destination);
 
-        $this->assertSame(str_replace("\r", '', <<<HTML
+        $this->assertSame(str_replace("\r", '', <<<'HTML'
             <!DOCTYPE html>
             <html lang="en">
                 <head>
