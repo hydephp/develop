@@ -8,8 +8,8 @@
         <title>Redirecting to {{ $destination }}</title>
     </head>
     <body>
-        @if($showText)
-            Redirecting to <a href="{{ $destination }}">{{ $destination }}</a>.
-        @endif
+@if($showText)
+        Redirecting to <a href="{{ $destination }}">{{ $destination }}</a>.
+@endif
     </body>
 </html>
