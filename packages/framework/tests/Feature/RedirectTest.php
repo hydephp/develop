@@ -26,8 +26,6 @@ class RedirectTest extends TestCase
             str_replace("\r", '', $redirect->render())
         );
 
-        $redirect->store();
-
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertSame($redirect->render(), file_get_contents(Hyde::path('_site/foo.html')));
 

@@ -29,7 +29,7 @@ class Redirect
 
     public static function make(string $path, string $destination): static
     {
-        return new static($path, $destination);
+        return (new static($path, $destination))->store();
     }
 
     public function render(): string
