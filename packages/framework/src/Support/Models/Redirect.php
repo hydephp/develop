@@ -19,8 +19,8 @@ use Illuminate\Contracts\Support\Renderable;
  */
 class Redirect implements Renderable
 {
-    protected string $path;
-    protected string $destination;
+    public string $path;
+    public string $destination;
 
     /**
      * Create a new redirect page file in the project's site output directory.
