@@ -40,4 +40,13 @@ class RedirectTest extends TestCase
 
         unlink(Hyde::path('_site/foo.html'));
     }
+
+    public function test_text_can_be_disabled()
+    {
+        $redirect = Redirect::make('foo', 'bar');
+        $this->assertStringContainsString('Redirecting to <a href=', $redirect->render());
+
+        $redirect = Redirect::make('foo', 'bar', false);
+        $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->render());
+    }
 }

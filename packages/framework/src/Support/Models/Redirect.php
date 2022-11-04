@@ -21,6 +21,7 @@ class Redirect implements Renderable
 {
     public readonly string $path;
     public readonly string $destination;
+    public readonly bool $showText;
 
     /**
      * Create a new redirect page file in the project's site output directory.
@@ -28,21 +29,23 @@ class Redirect implements Renderable
      * @param  string  $path  The URI path to redirect from.
      * @param  string  $destination  The destination to redirect to.
      */
-    public function __construct(string $path, string $destination)
+    public function __construct(string $path, string $destination, bool $showText = true)
     {
         $this->path = $this->normalizePath($path);
         $this->destination = $destination;
+        $this->showText = $showText;
     }
 
-    public static function make(string $path, string $destination): static
+    public static function make(string $path, string $destination, bool $showText = true): static
     {
-        return (new static($path, $destination))->store();
+        return (new static($path, $destination, $showText))->store();
     }
 
     public function render(): string
     {
         return view('hyde::pages.redirect', [
             'destination' => $this->destination,
+            'showText' => $this->showText,
         ])->render();
     }
 
