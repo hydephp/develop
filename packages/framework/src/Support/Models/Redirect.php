@@ -24,7 +24,7 @@ class Redirect implements Renderable
 
     public function __construct(string $path, string $destination)
     {
-        $this->path = $path;
+        $this->path = $this->normalizePath($path);
         $this->destination = $destination;
     }
 
@@ -45,5 +45,14 @@ class Redirect implements Renderable
         file_put_contents(Hyde::sitePath("$this->path.html"), $this->render());
 
         return $this;
+    }
+
+    protected function normalizePath(string $path): string
+    {
+        if (str_ends_with($path, '.html')) {
+            return substr($path, 0, -5);
+        }
+
+        return $path;
     }
 }

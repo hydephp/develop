@@ -31,4 +31,13 @@ class RedirectTest extends TestCase
 
         unlink(Hyde::path('_site/foo.html'));
     }
+
+    public function test_path_parameter_is_normalized()
+    {
+        $redirect = Redirect::make('foo.html', 'bar');
+
+        $this->assertSame('foo', $redirect->path);
+
+        unlink(Hyde::path('_site/foo.html'));
+    }
 }
