@@ -25,8 +25,8 @@ class Redirect implements Renderable
     /**
      * Create a new redirect page file in the project's site output directory.
      *
-     * @param string $path The URI path to redirect from.
-     * @param string $destination The destination to redirect to.
+     * @param  string  $path  The URI path to redirect from.
+     * @param  string  $destination  The destination to redirect to.
      */
     public function __construct(string $path, string $destination)
     {
