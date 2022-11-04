@@ -122,7 +122,7 @@ class DiscoveryService
     protected static function getMediaGlobPattern(): string
     {
         return sprintf('_media/*.{%s}', str_replace(' ', '',
-            config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
+            (string) config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
         ));
     }
 }
