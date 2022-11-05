@@ -6,8 +6,8 @@ Please read and understand the contribution guide before creating an issue or pu
 
 ## Resources
 
-Learn more about the Hyde ecosystem at https://hydephp.com/community.
-
+If you're new to HydePHP and are looking to contribute, it may be helpful to learn how the ecosystem and core development works.
+It's thus highly advised you visit our [Developer Resources](https://hydephp.com/community) to learn how HydePHP is structured.
 
 ## Etiquette
 
@@ -23,8 +23,8 @@ quality to benefit the project. Many developers have different skill sets, stren
 
 ## Viability
 
-When requesting or submitting new features, first consider whether it might be useful to others. Open
-source projects are used by many developers, who may have entirely different needs to your own. Think about
+When requesting or submitting new features, first consider whether they might be useful to others. Open
+source projects are used by many developers, who may have entirely different needs from your own. Think about
 whether or not your feature is likely to be used by other users of the project.
 
 ## Procedure
@@ -52,7 +52,7 @@ We try to follow the Laravel standards, https://laravel.com/docs/9.x/contributio
 **Please add tests!**
 - **Add tests!** - Your patch might not be accepted if it doesn't have tests.
 
-- **Document any change in behavior** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 
 <!-- Will be enabled once we enter GA 
 - **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option. -->
