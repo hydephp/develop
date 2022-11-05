@@ -2,7 +2,7 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-Please read and understand the contribution guide before creating an issue or pull request.
+Please read and understand the contribution guide before creating an issue or pull request. Also please note that while HydePHP is still in development, this document is a living standard that like the rest of the codebase may change at any time.
 
 ## Resources
 
