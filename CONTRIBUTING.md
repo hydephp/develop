@@ -27,6 +27,15 @@ When requesting or submitting new features, first consider whether they might be
 source projects are used by many developers, who may have entirely different needs from your own. Think about
 whether or not your feature is likely to be used by other users of the project.
 
+You may also want to make sure that your feature abides by the goals of HydePHP which are as follows:
+
+- **Developer experience first:** Creating sites with Hyde and contributing to the framework should be a joy.
+- **Zero config setup:** You should be able to just install Hyde and start building your project right away. Hyde should follow convention over configuration and come preconfigured with sensible defaults. 
+- **Customizable when you need it:** While configuration should not be a requirement, the option should always be there. As such, we should provide easy ways for customization to those who need it.
+
+When thinking about a new feature, make sure it's intuitive and easy to understand without having to refer to the docs all the time. The most intuitive workflow is often the best one. If a feature requires much explanation to be used and understood, it might need to be simplified.
+
+
 ## Procedure
 
 Before filing an issue:
