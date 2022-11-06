@@ -42,7 +42,7 @@ class SitemapService
     public function __construct()
     {
         throw_unless(extension_loaded('simplexml'),
-            new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.')
+            new Exception('The ext-simplexml extension is not installed, but is required to generate sitemaps.')
         );
 
         $this->timeStart = microtime(true);
