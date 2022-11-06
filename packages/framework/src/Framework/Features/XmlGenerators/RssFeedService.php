@@ -5,17 +5,18 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Framework\Features\XmlGenerators;
 
-use function config;
-use function date;
 use Exception;
-use function extension_loaded;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Helpers\XML;
 use SimpleXMLElement;
+use function config;
+use function date;
+use function extension_loaded;
+use function Hyde\Framework\Services\str_ends_with;
 use function throw_unless;
 
 /**

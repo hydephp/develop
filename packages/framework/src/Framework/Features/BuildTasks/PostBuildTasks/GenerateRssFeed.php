@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Services\RssFeedService;
+use Hyde\Framework\Features\XmlGenerators\RssFeedService;
 use Hyde\Hyde;
 
 class GenerateRssFeed extends BuildTask
