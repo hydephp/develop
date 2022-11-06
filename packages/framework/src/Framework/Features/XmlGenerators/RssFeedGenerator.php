@@ -95,11 +95,6 @@ class RssFeedGenerator extends BaseXmlGenerator
         $atomLink->addAttribute('type', 'application/rss+xml');
     }
 
-    protected function addChild(SimpleXMLElement $element, string $name, string $value): SimpleXMLElement
-    {
-        return $element->addChild($name, $this->escape($value));
-    }
-
     protected function getImageType(MarkdownPost $post): string
     {
         /** @todo Add support for more types */
