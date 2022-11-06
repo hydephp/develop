@@ -21,7 +21,7 @@ use SimpleXMLElement;
 class SitemapService
 {
     public SimpleXMLElement $xmlElement;
-    protected float $time_start;
+    protected float $timeStart;
 
     public function __construct()
     {
@@ -29,7 +29,7 @@ class SitemapService
             throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
         }
 
-        $this->time_start = microtime(true);
+        $this->timeStart = microtime(true);
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
@@ -46,7 +46,7 @@ class SitemapService
 
     public function getXML(): string
     {
-        $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->time_start) * 1000, 2));
+        $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->timeStart) * 1000, 2));
 
         return (string) $this->xmlElement->asXML();
     }
