@@ -184,15 +184,16 @@ class Features implements Arrayable, JsonSerializable
     /**
      * Get an array representation of the features and their status.
      *
-     * @return  array<string, bool>
+     * @return array<string, bool>
+     *
      * @example ['html-pages' => true, 'markdown-pages' => false, ...]
      */
     public function toArray(): array
     {
         return collect(get_class_methods(static::class))
-            ->filter(fn(string $method): bool => str_starts_with($method, 'has'))
-            ->mapWithKeys(fn(string $method): array => [
-                Str::kebab(substr($method, 3)) => (static::{$method}())
+            ->filter(fn (string $method): bool => str_starts_with($method, 'has'))
+            ->mapWithKeys(fn (string $method): array => [
+                Str::kebab(substr($method, 3)) => (static::{$method}()),
             ])->toArray();
     }
 }
