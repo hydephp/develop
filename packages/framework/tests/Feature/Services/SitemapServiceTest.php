@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Services\SitemapService;
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Services\SitemapService
+ * @covers \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
+ * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
  */
 class SitemapServiceTest extends TestCase
 {
@@ -26,27 +27,27 @@ class SitemapServiceTest extends TestCase
 
     public function test_service_instantiates_xml_element()
     {
-        $service = new SitemapService();
-        $this->assertInstanceOf('SimpleXMLElement', $service->xmlElement);
+        $service = new SitemapGenerator();
+        $this->assertInstanceOf('SimpleXMLElement', $service->getXmlElement());
     }
 
     public function test_generate_adds_default_pages_to_xml()
     {
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
         // The test runner has an index and 404 page, so we are using that as a baseline
-        $this->assertCount(2, $service->xmlElement->url);
+        $this->assertCount(2, $service->getXmlElement()->url);
     }
 
     public function test_generate_adds_markdown_pages_to_xml()
     {
         Hyde::touch(('_pages/foo.md'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertCount(3, $service->xmlElement->url);
+        $this->assertCount(3, $service->getXmlElement()->url);
 
         unlink(Hyde::path('_pages/foo.md'));
     }
@@ -55,10 +56,10 @@ class SitemapServiceTest extends TestCase
     {
         Hyde::touch(('_posts/foo.md'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertCount(3, $service->xmlElement->url);
+        $this->assertCount(3, $service->getXmlElement()->url);
 
         unlink(Hyde::path('_posts/foo.md'));
     }
@@ -67,19 +68,19 @@ class SitemapServiceTest extends TestCase
     {
         Hyde::touch(('_docs/foo.md'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertCount(3, $service->xmlElement->url);
+        $this->assertCount(3, $service->getXmlElement()->url);
 
         unlink(Hyde::path('_docs/foo.md'));
     }
 
     public function test_get_xml_returns_xml_string()
     {
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
-        $xml = $service->getXML();
+        $xml = $service->getXml();
 
         $this->assertIsString($xml);
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);
@@ -87,7 +88,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_sitemap_shorthand_method_returns_xml_string()
     {
-        $xml = SitemapService::generateSitemap();
+        $xml = SitemapGenerator::make();
 
         $this->assertIsString($xml);
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);
@@ -99,10 +100,10 @@ class SitemapServiceTest extends TestCase
         config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
-        $url = $service->xmlElement->url[0];
+        $url = $service->getXmlElement()->url[0];
         $this->assertEquals('https://example.com/0-test.html', $url->loc);
         $this->assertEquals('daily', $url->changefreq);
         $this->assertTrue(isset($url->lastmod));
@@ -116,10 +117,10 @@ class SitemapServiceTest extends TestCase
         config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
-        $url = $service->xmlElement->url[0];
+        $url = $service->getXmlElement()->url[0];
         $this->assertEquals('https://example.com/0-test', $url->loc);
 
         unlink(Hyde::path('_pages/0-test.blade.php'));
@@ -139,15 +140,15 @@ class SitemapServiceTest extends TestCase
 
         Hyde::touch($files);
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertCount(4, $service->xmlElement->url);
+        $this->assertCount(4, $service->getXmlElement()->url);
 
-        $this->assertEquals('foo/blade.html', $service->xmlElement->url[0]->loc);
-        $this->assertEquals('foo/markdown.html', $service->xmlElement->url[1]->loc);
-        $this->assertEquals('foo/posts/post.html', $service->xmlElement->url[2]->loc);
-        $this->assertEquals('foo/docs/doc.html', $service->xmlElement->url[3]->loc);
+        $this->assertEquals('foo/blade.html', $service->getXmlElement()->url[0]->loc);
+        $this->assertEquals('foo/markdown.html', $service->getXmlElement()->url[1]->loc);
+        $this->assertEquals('foo/posts/post.html', $service->getXmlElement()->url[2]->loc);
+        $this->assertEquals('foo/docs/doc.html', $service->getXmlElement()->url[3]->loc);
 
         Hyde::unlink($files);
 

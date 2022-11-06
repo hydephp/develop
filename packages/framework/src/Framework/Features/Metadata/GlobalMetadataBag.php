@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Metadata;
 
 use Hyde\Facades\Features;
 use Hyde\Facades\Meta;
-use Hyde\Framework\Services\RssFeedService;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
@@ -31,8 +31,8 @@ class GlobalMetadataBag extends MetadataBag
         }
 
         if (Features::rss()) {
-            $metadataBag->add(Meta::link('alternate', Hyde::url(RssFeedService::outputFilename()), [
-                'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
+            $metadataBag->add(Meta::link('alternate', Hyde::url(RssFeedGenerator::getFilename()), [
+                'type' => 'application/rss+xml', 'title' => RssFeedGenerator::getDescription(),
             ]));
         }
 
