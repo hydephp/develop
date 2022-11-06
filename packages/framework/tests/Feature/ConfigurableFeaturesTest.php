@@ -75,6 +75,7 @@ class ConfigurableFeaturesTest extends TestCase
     public function test_to_array_method_contains_all_settings()
     {
         $array = (new Features)->toArray();
+
         $this->assertArrayHasKey('html-pages', $array);
         $this->assertArrayHasKey('markdown-posts', $array);
         $this->assertArrayHasKey('blade-pages', $array);
