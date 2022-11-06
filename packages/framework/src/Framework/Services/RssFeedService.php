@@ -119,12 +119,12 @@ class RssFeedService
         ));
     }
 
-    public static function getTitle(): string
+    protected static function getTitle(): string
     {
         return XML::escape(Site::name());
     }
 
-    public static function getLink(): string
+    protected static function getLink(): string
     {
         return XML::escape(Site::url());
     }
