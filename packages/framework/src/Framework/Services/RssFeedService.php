@@ -112,14 +112,14 @@ class RssFeedService
         $this->feed->channel->addChild('link', static::getLink());
         $this->feed->channel->addChild('description', static::getDescription());
 
+        $this->feed->channel->addChild('language', config('site.language', 'en'));
+        $this->feed->channel->addChild('generator', 'HydePHP '.Hyde::version());
+        $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
+
         $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
         $atomLink->addAttribute('href', static::getLink().'/'.static::outputFilename());
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
-
-        $this->feed->channel->addChild('language', config('site.language', 'en'));
-        $this->feed->channel->addChild('generator', 'HydePHP '.Hyde::version());
-        $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
     }
 
     protected static function getTitle(): string
