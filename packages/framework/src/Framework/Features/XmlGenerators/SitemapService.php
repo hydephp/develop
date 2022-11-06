@@ -4,13 +4,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Services;
+namespace Hyde\Framework\Features\XmlGenerators;
 
-use function config;
-use function date;
 use Exception;
-use function extension_loaded;
-use function filemtime;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -18,10 +14,14 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Helpers\XML;
 use Hyde\Support\Models\Route;
+use SimpleXMLElement;
+use function config;
+use function date;
+use function extension_loaded;
+use function filemtime;
 use function in_array;
 use function microtime;
 use function round;
-use SimpleXMLElement;
 use function throw_unless;
 
 /**

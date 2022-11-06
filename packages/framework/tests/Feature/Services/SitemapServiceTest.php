@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Services\SitemapService;
+use Hyde\Framework\Features\XmlGenerators\SitemapService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Services\SitemapService
+ * @covers \Hyde\Framework\Features\XmlGenerators\SitemapService
  */
 class SitemapServiceTest extends TestCase
 {
@@ -32,7 +32,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_default_pages_to_xml()
     {
-        $service = new SitemapService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapService();
         $service->generate();
 
         // The test runner has an index and 404 page, so we are using that as a baseline
@@ -139,7 +139,7 @@ class SitemapServiceTest extends TestCase
 
         Hyde::touch($files);
 
-        $service = new SitemapService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapService();
         $service->generate();
 
         $this->assertCount(4, $service->xmlElement->url);

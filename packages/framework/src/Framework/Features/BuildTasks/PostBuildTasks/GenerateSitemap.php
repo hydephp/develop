@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\BuildTasks\PostBuildTasks;
 
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use Hyde\Framework\Services\SitemapService;
+use Hyde\Framework\Features\XmlGenerators\SitemapService;
 use Hyde\Hyde;
 
 class GenerateSitemap extends BuildTask
