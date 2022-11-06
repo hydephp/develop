@@ -60,7 +60,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Create a new navigation menu item leading to a external URI.
+     * Create a new navigation menu item leading to an external URI.
      */
     public static function toLink(string $href, string $label, int $priority = 500): static
     {
