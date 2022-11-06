@@ -59,10 +59,9 @@ class RssFeedService
 
     public function generate(): static
     {
-        /** @var \Hyde\Pages\MarkdownPost $post */
-        foreach (MarkdownPost::getLatestPosts() as $post) {
+        MarkdownPost::getLatestPosts()->each(function (MarkdownPost $post): void {
             $this->addItem($post);
-        }
+        });
 
         return $this;
     }
