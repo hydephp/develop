@@ -7,10 +7,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use function config;
+use function date;
 use Exception;
+use function extension_loaded;
+use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Helpers\XML;
 use SimpleXMLElement;
+use function throw_unless;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
@@ -21,28 +27,41 @@ class RssFeedService
 {
     public SimpleXMLElement $feed;
 
+    public static function generateFeed(): string
+    {
+        return (new static)->generate()->getXML();
+    }
+
+    public static function outputFilename(): string
+    {
+        return config('hyde.rss_filename', 'feed.xml');
+    }
+
+    public static function getDescription(): string
+    {
+        return XML::escape(config(
+            'hyde.rss_description',
+            XML::escape(Site::name()).' RSS Feed'
+        ));
+    }
+
     public function __construct()
     {
-        if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
-            throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
-        }
+        throw_unless(extension_loaded('simplexml'),
+            new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.')
+        );
 
         $this->feed = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
             <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />');
         $this->feed->addChild('channel');
 
-        $this->addInitialChannelItems();
+        $this->addBaseChannelItems();
     }
 
-    /**
-     * @throws \Exception
-     */
     public function generate(): static
     {
-        /** @var \Hyde\Pages\MarkdownPost $post */
-        foreach (MarkdownPost::getLatestPosts() as $post) {
-            $this->addItem($post);
-        }
+        MarkdownPost::getLatestPosts()
+            ->each(fn (MarkdownPost $post) => $this->addItem($post));
 
         return $this;
     }
@@ -56,17 +75,18 @@ class RssFeedService
     {
         $item = $this->feed->channel->addChild('item');
         $item->addChild('title', $post->title);
-        if ($post->canonicalUrl !== null) {
+        $item->addChild('description', $post->description);
+
+        $this->addDynamicItemData($item, $post);
+    }
+
+    protected function addDynamicItemData(SimpleXMLElement $item, MarkdownPost $post): void
+    {
+        if (isset($post->canonicalUrl)) {
             $item->addChild('link', $post->canonicalUrl);
             $item->addChild('guid', $post->canonicalUrl);
         }
-        $item->addChild('description', $post->description);
 
-        $this->addAdditionalItemData($item, $post);
-    }
-
-    protected function addAdditionalItemData(SimpleXMLElement $item, MarkdownPost $post): void
-    {
         if (isset($post->date)) {
             $item->addChild('pubDate', $post->date->dateTimeObject->format(DATE_RSS));
         }
@@ -81,72 +101,37 @@ class RssFeedService
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
-            $image->addAttribute('url', Hyde::image((string) $post->image, true));
-            $image->addAttribute('type', str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg');
-            $image->addAttribute('length', (string) $post->image->getContentLength());
+            $image->addAttribute('url', Hyde::image($post->image->getSource(), true));
+            $image->addAttribute('type', $this->getImageType($post));
+            $image->addAttribute('length', $this->getImageLength($post));
         }
     }
 
-    protected function addInitialChannelItems(): void
+    protected function addBaseChannelItems(): void
     {
-        $this->feed->channel->addChild('title', static::getTitle());
-        $this->feed->channel->addChild('link', static::getLink());
+        $this->feed->channel->addChild('title', XML::escape(Site::name()));
+        $this->feed->channel->addChild('link', XML::escape(Site::url()));
         $this->feed->channel->addChild('description', static::getDescription());
 
-        $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
-        $atomLink->addAttribute('href', static::getLink().'/'.static::getDefaultOutputFilename());
-        $atomLink->addAttribute('rel', 'self');
-        $atomLink->addAttribute('type', 'application/rss+xml');
-
-        $this->addAdditionalChannelData();
-    }
-
-    protected function addAdditionalChannelData(): void
-    {
         $this->feed->channel->addChild('language', config('site.language', 'en'));
         $this->feed->channel->addChild('generator', 'HydePHP '.Hyde::version());
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
+
+        $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
+        $atomLink->addAttribute('href', XML::escape(Hyde::url(static::outputFilename())));
+        $atomLink->addAttribute('rel', 'self');
+        $atomLink->addAttribute('type', 'application/rss+xml');
     }
 
-    protected static function xmlEscape(string $string): string
+    protected function getImageType(MarkdownPost $post): string
     {
-        return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+        /** @todo Add support for more types */
+        return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
     }
 
-    public static function getDescription(): string
+    protected function getImageLength(MarkdownPost $post): string
     {
-        return static::xmlEscape(
-            config(
-                'hyde.rss_description',
-                static::getTitle().' RSS Feed'
-            )
-        );
-    }
-
-    public static function getTitle(): string
-    {
-        return static::xmlEscape(
-            config('site.name', 'HydePHP')
-        );
-    }
-
-    public static function getLink(): string
-    {
-        return static::xmlEscape(
-            rtrim(
-                config('site.url') ?? 'http://localhost',
-                '/'
-            )
-        );
-    }
-
-    public static function getDefaultOutputFilename(): string
-    {
-        return config('hyde.rss_filename', 'feed.xml');
-    }
-
-    public static function generateFeed(): string
-    {
-        return (new static)->generate()->getXML();
+        /** @todo We might want to add a build warning if the length is zero */
+        return (string) $post->image->getContentLength();
     }
 }

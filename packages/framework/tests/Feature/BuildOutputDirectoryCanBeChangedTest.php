@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
  * Class BuildOutputDirectoryCanBeChangedTest.
  *
  * @todo add test for the Rebuild Service
+ * @todo this unit test should be moved to the unit test suite
  */
 class BuildOutputDirectoryCanBeChangedTest extends TestCase
 {

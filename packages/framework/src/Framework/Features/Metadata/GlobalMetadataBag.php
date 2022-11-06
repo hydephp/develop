@@ -31,7 +31,7 @@ class GlobalMetadataBag extends MetadataBag
         }
 
         if (Features::rss()) {
-            $metadataBag->add(Meta::link('alternate', Hyde::url(RssFeedService::getDefaultOutputFilename()), [
+            $metadataBag->add(Meta::link('alternate', Hyde::url(RssFeedService::outputFilename()), [
                 'type' => 'application/rss+xml', 'title' => RssFeedService::getDescription(),
             ]));
         }

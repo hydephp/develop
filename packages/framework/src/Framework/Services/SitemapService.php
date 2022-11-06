@@ -1,19 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
 /** @noinspection PhpComposerExtensionStubsInspection */
+
+declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use function config;
+use function date;
 use Exception;
+use function extension_loaded;
+use function filemtime;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Helpers\XML;
 use Hyde\Support\Models\Route;
+use function in_array;
+use function microtime;
+use function round;
 use SimpleXMLElement;
+use function throw_unless;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
@@ -23,15 +32,20 @@ use SimpleXMLElement;
 class SitemapService
 {
     public SimpleXMLElement $xmlElement;
-    protected float $time_start;
+    protected float $timeStart;
+
+    public static function generateSitemap(): string
+    {
+        return (new static)->generate()->getXML();
+    }
 
     public function __construct()
     {
-        if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
-            throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
-        }
+        throw_unless(extension_loaded('simplexml'),
+            new Exception('The ext-simplexml extension is not installed, but is required to generate sitemaps.')
+        );
 
-        $this->time_start = microtime(true);
+        $this->timeStart = microtime(true);
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
@@ -39,7 +53,7 @@ class SitemapService
 
     public function generate(): static
     {
-        \Hyde\Facades\Route::all()->each(function ($route) {
+        Route::all()->each(function (Route $route): void {
             $this->addRoute($route);
         });
 
@@ -48,7 +62,7 @@ class SitemapService
 
     public function getXML(): string
     {
-        $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->time_start) * 1000, 2));
+        $this->xmlElement->addAttribute('processing_time_ms', $this->getFormattedProcessingTime());
 
         return (string) $this->xmlElement->asXML();
     }
@@ -56,19 +70,21 @@ class SitemapService
     public function addRoute(Route $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
-        $urlItem->addChild('loc', htmlentities(Hyde::url($route->getOutputPath())));
-        $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($route->getSourcePath())));
+
+        $urlItem->addChild('loc', XML::escape(Hyde::url($route->getOutputPath())));
+        $urlItem->addChild('lastmod', XML::escape($this->getLastModDate($route->getSourcePath())));
         $urlItem->addChild('changefreq', 'daily');
+
         if (config('hyde.sitemap.dynamic_priority', true)) {
-            $urlItem->addChild('priority', $this->getPriority($route->getPageClass(), $route->getPage()->getIdentifier()));
+            $urlItem->addChild('priority', $this->getPriority(
+                $route->getPageClass(), $route->getPage()->getIdentifier()
+            ));
         }
     }
 
     protected function getLastModDate(string $file): string
     {
-        return date('c', filemtime(
-            $file
-        ));
+        return date('c', filemtime($file));
     }
 
     protected function getPriority(string $pageClass, string $slug): string
@@ -96,8 +112,8 @@ class SitemapService
         return (string) $priority;
     }
 
-    public static function generateSitemap(): string
+    protected function getFormattedProcessingTime(): string
     {
-        return (new static)->generate()->getXML();
+        return (string) round((microtime(true) - $this->timeStart) * 1000, 2);
     }
 }
