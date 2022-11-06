@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Features\XmlGenerators\SitemapService;
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Features\XmlGenerators\SitemapService
+ * @covers \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
  */
 class SitemapServiceTest extends TestCase
 {
@@ -26,13 +26,13 @@ class SitemapServiceTest extends TestCase
 
     public function test_service_instantiates_xml_element()
     {
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $this->assertInstanceOf('SimpleXMLElement', $service->xmlElement);
     }
 
     public function test_generate_adds_default_pages_to_xml()
     {
-        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapGenerator();
         $service->generate();
 
         // The test runner has an index and 404 page, so we are using that as a baseline
@@ -43,7 +43,7 @@ class SitemapServiceTest extends TestCase
     {
         Hyde::touch(('_pages/foo.md'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->xmlElement->url);
@@ -55,7 +55,7 @@ class SitemapServiceTest extends TestCase
     {
         Hyde::touch(('_posts/foo.md'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->xmlElement->url);
@@ -67,7 +67,7 @@ class SitemapServiceTest extends TestCase
     {
         Hyde::touch(('_docs/foo.md'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(3, $service->xmlElement->url);
@@ -77,7 +77,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_get_xml_returns_xml_string()
     {
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
         $xml = $service->getXML();
 
@@ -87,7 +87,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_sitemap_shorthand_method_returns_xml_string()
     {
-        $xml = SitemapService::generateSitemap();
+        $xml = SitemapGenerator::generateSitemap();
 
         $this->assertIsString($xml);
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);
@@ -99,7 +99,7 @@ class SitemapServiceTest extends TestCase
         config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
         $url = $service->xmlElement->url[0];
@@ -116,7 +116,7 @@ class SitemapServiceTest extends TestCase
         config(['site.url' => 'https://example.com']);
         Hyde::touch(('_pages/0-test.blade.php'));
 
-        $service = new SitemapService();
+        $service = new SitemapGenerator();
         $service->generate();
 
         $url = $service->xmlElement->url[0];
@@ -139,7 +139,7 @@ class SitemapServiceTest extends TestCase
 
         Hyde::touch($files);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapGenerator();
         $service->generate();
 
         $this->assertCount(4, $service->xmlElement->url);

@@ -29,7 +29,7 @@ use function throw_unless;
  * @see https://www.sitemaps.org/protocol.html
  * @phpstan-consistent-constructor
  */
-class SitemapService
+class SitemapGenerator
 {
     public SimpleXMLElement $xmlElement;
     protected float $timeStart;
