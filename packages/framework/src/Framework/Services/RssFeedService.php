@@ -143,6 +143,7 @@ class RssFeedService
 
     protected function getImageType(MarkdownPost $post): string
     {
+        /** @todo Add support for more types */
         return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
     }
 }
