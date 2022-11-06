@@ -47,4 +47,6 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
     {
         return $this->xmlElement;
     }
+
+    abstract protected function constructBaseElement();
 }
