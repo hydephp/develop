@@ -57,8 +57,8 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $urlItem = $this->xmlElement->addChild('url');
 
-        $urlItem->addChild('loc', static::escape(Hyde::url($route->getOutputPath())));
-        $urlItem->addChild('lastmod', static::escape($this->getLastModDate($route->getSourcePath())));
+        $urlItem->addChild('loc', $this->escape(Hyde::url($route->getOutputPath())));
+        $urlItem->addChild('lastmod', $this->escape($this->getLastModDate($route->getSourcePath())));
         $urlItem->addChild('changefreq', 'daily');
 
         if (config('hyde.sitemap.dynamic_priority', true)) {
