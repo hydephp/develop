@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Site;
 use Hyde\Framework\HydeServiceProvider;
@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\File;
  * Class BuildOutputDirectoryCanBeChangedTest.
  *
  * @todo add test for the Rebuild Service
- * @todo this unit test should be moved to the unit test suite
  */
 class BuildOutputDirectoryCanBeChangedTest extends TestCase
 {
