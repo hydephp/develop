@@ -133,4 +133,12 @@ class RssFeedGenerator extends BaseXmlGenerator
             static::escape(Site::name()).' RSS Feed'
         ));
     }
+
+    /**
+     * @return \SimpleXMLElement
+     */
+    public function getXmlElement(): SimpleXMLElement
+    {
+        return $this->feed;
+    }
 }

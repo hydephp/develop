@@ -114,4 +114,12 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         return (string) round((microtime(true) - $this->timeStart) * 1000, 2);
     }
+
+    /**
+     * @return \SimpleXMLElement
+     */
+    public function getXmlElement(): SimpleXMLElement
+    {
+        return $this->xmlElement;
+    }
 }
