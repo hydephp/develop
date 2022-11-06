@@ -97,7 +97,7 @@ abstract class HydePage implements PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
+     * @return \Hyde\Foundation\PageCollection<\Hyde\Pages\Concerns\HydePage>
      */
     public static function all(): PageCollection
     {

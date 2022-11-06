@@ -109,9 +109,9 @@ class Features implements Arrayable, JsonSerializable
             && (app('env') !== 'testing');
     }
 
-    // ================================================
-    // Enable a given feature to be used in the config.
-    // ================================================
+    // =================================================
+    // Configure features to be used in the config file.
+    // =================================================
 
     public static function htmlPages(): string
     {
@@ -158,9 +158,10 @@ class Features implements Arrayable, JsonSerializable
         return 'torchlight';
     }
 
-    // ================================================
-    // Dynamic features.
-    // ================================================
+    // ====================================================
+    // Dynamic features that in addition to being enabled
+    // in the config file, require preconditions to be met.
+    // ====================================================
 
     /** Can a sitemap be generated? */
     public static function sitemap(): bool
@@ -180,16 +181,19 @@ class Features implements Arrayable, JsonSerializable
             && count(DiscoveryService::getMarkdownPostFiles()) > 0;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get an array representation of the features and their status.
+     *
+     * @return array<string, bool>
+     *
+     * @example ['html-pages' => true, 'markdown-pages' => false, ...]
+     */
     public function toArray(): array
     {
-        $array = [];
-        foreach (get_class_methods(static::class) as $method) {
-            if (str_starts_with((string) $method, 'has')) {
-                $array[Str::kebab(substr((string) $method, 3))] = static::{$method}();
-            }
-        }
-
-        return $array;
+        return collect(get_class_methods(static::class))
+            ->filter(fn (string $method): bool => str_starts_with($method, 'has'))
+            ->mapWithKeys(fn (string $method): array => [
+                Str::kebab(substr($method, 3)) => (static::{$method}()),
+            ])->toArray();
     }
 }

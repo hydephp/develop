@@ -16,7 +16,7 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\File;
 
 /**
- * @see \Hyde\Framework\Foundation\FileCollection
+ * @see \Hyde\Framework\Testing\Feature\FileCollectionTest
  */
 final class FileCollection extends BaseFoundationCollection
 {

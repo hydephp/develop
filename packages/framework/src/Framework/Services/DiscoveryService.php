@@ -29,7 +29,7 @@ class DiscoveryService
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
-     * @param  string<\Hyde\Pages\Concerns\HydePage>  $model
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      *
@@ -92,8 +92,6 @@ class DiscoveryService
 
     /**
      * Create a filepath that can be opened in the browser from a terminal.
-     *
-     * @param  string<\Hyde\Pages\Concerns\HydePage>  $filepath
      */
     public static function createClickableFilepath(string $filepath): string
     {
