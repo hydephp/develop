@@ -16,7 +16,7 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
 {
     protected SimpleXMLElement $xmlElement;
 
-    abstract protected function constructBaseElement();
+    abstract protected function constructBaseElement(): void;
 
     public static function make(): string
     {
