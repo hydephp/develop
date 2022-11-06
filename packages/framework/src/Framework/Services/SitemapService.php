@@ -69,7 +69,9 @@ class SitemapService
         $urlItem->addChild('changefreq', 'daily');
 
         if (config('hyde.sitemap.dynamic_priority', true)) {
-            $urlItem->addChild('priority', $this->getPriority($route->getPageClass(), $route->getPage()->getIdentifier()));
+            $urlItem->addChild('priority', $this->getPriority(
+                $route->getPageClass(), $route->getPage()->getIdentifier()
+            ));
         }
     }
 
