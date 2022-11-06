@@ -13,6 +13,9 @@ use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Helpers\XML;
 use SimpleXMLElement;
+use function config;
+use function date;
+use function extension_loaded;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
