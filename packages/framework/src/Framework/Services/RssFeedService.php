@@ -23,6 +23,24 @@ class RssFeedService
 {
     public SimpleXMLElement $feed;
 
+    public static function generateFeed(): string
+    {
+        return (new static)->generate()->getXML();
+    }
+
+    public static function outputFilename(): string
+    {
+        return config('hyde.rss_filename', 'feed.xml');
+    }
+
+    public static function getDescription(): string
+    {
+        return XML::escape(config(
+            'hyde.rss_description',
+            static::getTitle().' RSS Feed'
+        ));
+    }
+
     public function __construct()
     {
         if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
@@ -111,14 +129,6 @@ class RssFeedService
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
     }
 
-    public static function getDescription(): string
-    {
-        return XML::escape(config(
-            'hyde.rss_description',
-            static::getTitle().' RSS Feed'
-        ));
-    }
-
     protected static function getTitle(): string
     {
         return XML::escape(Site::name());
@@ -127,16 +137,6 @@ class RssFeedService
     protected static function getLink(): string
     {
         return XML::escape(Site::url());
-    }
-
-    public static function outputFilename(): string
-    {
-        return config('hyde.rss_filename', 'feed.xml');
-    }
-
-    public static function generateFeed(): string
-    {
-        return (new static)->generate()->getXML();
     }
 
     protected function getImageType(MarkdownPost $post): string
