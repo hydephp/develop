@@ -16,12 +16,10 @@ use Hyde\Support\Models\Route;
 use SimpleXMLElement;
 use function config;
 use function date;
-use function extension_loaded;
 use function filemtime;
 use function in_array;
 use function microtime;
 use function round;
-use function throw_unless;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
@@ -30,15 +28,6 @@ use function throw_unless;
 class SitemapGenerator extends BaseXmlGenerator
 {
     protected float $timeStart;
-
-    public function __construct()
-    {
-        throw_unless(extension_loaded('simplexml'),
-            new Exception('The SimpleXML extension is required to generate RSS feeds and sitemaps.')
-        );
-
-        $this->constructBaseElement();
-    }
 
     public function generate(): static
     {

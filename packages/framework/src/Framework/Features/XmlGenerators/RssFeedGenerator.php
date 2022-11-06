@@ -7,16 +7,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
-use Exception;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use SimpleXMLElement;
 use function config;
 use function date;
-use function extension_loaded;
 use function str_ends_with;
-use function throw_unless;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
@@ -24,15 +21,6 @@ use function throw_unless;
  */
 class RssFeedGenerator extends BaseXmlGenerator
 {
-    public function __construct()
-    {
-        throw_unless(extension_loaded('simplexml'),
-            new Exception('The SimpleXML extension is required to generate RSS feeds and sitemaps.')
-        );
-
-        $this->constructBaseElement();
-    }
-
     public function generate(): static
     {
         MarkdownPost::getLatestPosts()
