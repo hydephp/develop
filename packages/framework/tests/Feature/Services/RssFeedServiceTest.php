@@ -121,7 +121,7 @@ class RssFeedServiceTest extends TestCase
     public function test_get_xml_method_returns_xml_string()
     {
         $service = new RssFeedGenerator();
-        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', ($service->getXML()));
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', ($service->getXml()));
     }
 
     public function test_generate_feed_helper_returns_xml_string()

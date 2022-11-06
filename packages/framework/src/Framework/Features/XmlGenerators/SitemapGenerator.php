@@ -38,11 +38,11 @@ class SitemapGenerator extends BaseXmlGenerator
         return $this;
     }
 
-    public function getXML(): string
+    public function getXml(): string
     {
         $this->xmlElement->addAttribute('processing_time_ms', $this->getFormattedProcessingTime());
 
-        return parent::getXML();
+        return parent::getXml();
     }
 
     protected function addRoute(Route $route): void

@@ -79,7 +79,7 @@ class SitemapServiceTest extends TestCase
     {
         $service = new SitemapGenerator();
         $service->generate();
-        $xml = $service->getXML();
+        $xml = $service->getXml();
 
         $this->assertIsString($xml);
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);

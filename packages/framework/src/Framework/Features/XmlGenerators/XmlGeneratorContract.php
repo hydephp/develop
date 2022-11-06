@@ -9,8 +9,6 @@ namespace Hyde\Framework\Features\XmlGenerators;
  *
  * @see \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
  * @see \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
- *
- * @todo Decide if we should use "XML" or "Xml"
  */
 interface XmlGeneratorContract
 {
@@ -34,5 +32,5 @@ interface XmlGeneratorContract
     /**
      * Get the XML document as a string.
      */
-    public function getXML(): string;
+    public function getXml(): string;
 }
