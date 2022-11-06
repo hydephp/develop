@@ -30,15 +30,6 @@ class SitemapServiceTest extends TestCase
         $this->assertInstanceOf('SimpleXMLElement', $service->xmlElement);
     }
 
-    public function test_constructor_throws_exception_when_missing_simplexml_extension()
-    {
-        config(['testing.mock_disabled_extensions' => true]);
-
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
-        new SitemapService();
-    }
-
     public function test_generate_adds_default_pages_to_xml()
     {
         $service = new SitemapService();
