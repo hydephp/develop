@@ -29,13 +29,7 @@ use function throw_unless;
  */
 class SitemapGenerator extends BaseXmlGenerator
 {
-    protected SimpleXMLElement $xmlElement;
     protected float $timeStart;
-
-    public static function make(): string
-    {
-        return (new static)->generate()->getXML();
-    }
 
     public function __construct()
     {
@@ -62,7 +56,7 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $this->xmlElement->addAttribute('processing_time_ms', $this->getFormattedProcessingTime());
 
-        return (string) $this->xmlElement->asXML();
+        return parent::getXML();
     }
 
     public function addRoute(Route $route): void
@@ -113,13 +107,5 @@ class SitemapGenerator extends BaseXmlGenerator
     protected function getFormattedProcessingTime(): string
     {
         return (string) round((microtime(true) - $this->timeStart) * 1000, 2);
-    }
-
-    /**
-     * @return \SimpleXMLElement
-     */
-    public function getXmlElement(): SimpleXMLElement
-    {
-        return $this->xmlElement;
     }
 }

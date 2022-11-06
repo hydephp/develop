@@ -24,13 +24,6 @@ use function throw_unless;
  */
 class RssFeedGenerator extends BaseXmlGenerator
 {
-    protected SimpleXMLElement $xmlElement;
-
-    public static function make(): string
-    {
-        return (new static)->generate()->getXML();
-    }
-
     public function __construct()
     {
         throw_unless(extension_loaded('simplexml'),
@@ -50,11 +43,6 @@ class RssFeedGenerator extends BaseXmlGenerator
             ->each(fn (MarkdownPost $post) => $this->addItem($post));
 
         return $this;
-    }
-
-    public function getXML(): string
-    {
-        return (string) $this->xmlElement->asXML();
     }
 
     protected function addItem(MarkdownPost $post): void
@@ -132,13 +120,5 @@ class RssFeedGenerator extends BaseXmlGenerator
             'hyde.rss_description',
             static::escape(Site::name()).' RSS Feed'
         ));
-    }
-
-    /**
-     * @return \SimpleXMLElement
-     */
-    public function getXmlElement(): SimpleXMLElement
-    {
-        return $this->xmlElement;
     }
 }
