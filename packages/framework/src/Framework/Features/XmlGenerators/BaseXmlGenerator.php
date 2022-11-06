@@ -37,9 +37,6 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
         return (string) $this->xmlElement->asXML();
     }
 
-    /**
-     * @return \SimpleXMLElement
-     */
     public function getXmlElement(): SimpleXMLElement
     {
         return $this->xmlElement;
