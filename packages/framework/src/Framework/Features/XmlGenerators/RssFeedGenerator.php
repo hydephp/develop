@@ -42,8 +42,8 @@ class RssFeedGenerator extends BaseXmlGenerator
     protected function addItem(MarkdownPost $post): void
     {
         $item = $this->xmlElement->channel->addChild('item');
-        $item->addChild('title', $post->title);
-        $item->addChild('description', $post->description);
+        $this->addChild($item, 'title', $post->title);
+        $this->addChild($item, 'description', $post->description);
 
         $this->addDynamicItemData($item, $post);
     }
@@ -51,12 +51,12 @@ class RssFeedGenerator extends BaseXmlGenerator
     protected function addDynamicItemData(SimpleXMLElement $item, MarkdownPost $post): void
     {
         if (isset($post->canonicalUrl)) {
-            $item->addChild('link', $post->canonicalUrl);
-            $item->addChild('guid', $post->canonicalUrl);
+            $this->addChild($item,'link', $post->canonicalUrl);
+            $this->addChild($item,'guid', $post->canonicalUrl);
         }
 
         if (isset($post->date)) {
-            $item->addChild('pubDate', $post->date->dateTimeObject->format(DATE_RSS));
+            $this->addChild($item,'pubDate', $post->date->dateTimeObject->format(DATE_RSS));
         }
 
         if (isset($post->author)) {
@@ -64,7 +64,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         }
 
         if (isset($post->category)) {
-            $item->addChild('category', $post->category);
+            $this->addChild($item,'category', $post->category);
         }
 
         if (isset($post->image)) {
