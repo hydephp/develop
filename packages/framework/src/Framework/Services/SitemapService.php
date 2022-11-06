@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpComposerExtensionStubsInspection */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
@@ -20,7 +22,6 @@ use function throw_unless;
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  * @see https://www.sitemaps.org/protocol.html
  * @phpstan-consistent-constructor
- * @noinspection PhpComposerExtensionStubsInspection
  */
 class SitemapService
 {
