@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Exception;
+use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Helpers\XML;
@@ -125,10 +126,7 @@ class RssFeedService
 
     public static function getLink(): string
     {
-        return XML::escape(rtrim(
-            config('site.url') ?? 'http://localhost',
-            '/'
-        ));
+        return XML::escape(Site::url());
     }
 
     public static function outputFilename(): string
