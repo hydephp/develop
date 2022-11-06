@@ -183,13 +183,9 @@ class Features implements Arrayable, JsonSerializable
     /** @inheritDoc */
     public function toArray(): array
     {
-        $array = [];
-        foreach (get_class_methods(static::class) as $method) {
-            if (str_starts_with($method, 'has')) {
-                $array[Str::kebab(substr($method, 3))] = static::{$method}();
-            }
-        }
-
-        return $array;
+        return collect(get_class_methods(static::class))
+            ->filter(fn ($method) => str_starts_with($method, 'has'))
+            ->mapWithKeys(fn ($method) => [Str::kebab(substr($method, 3)) => static::{$method}()])
+            ->toArray();
     }
 }
