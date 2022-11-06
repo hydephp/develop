@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\View;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
+ * @todo Consider if this logic is better suited for a "Render" class solely for handling data related to the current render.
  *
  * @see \Hyde\Foundation\HydeKernel
  */
