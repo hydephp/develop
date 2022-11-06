@@ -12,7 +12,6 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Helpers\XML;
 use Hyde\Support\Models\Route;
 use SimpleXMLElement;
 use function config;
@@ -71,8 +70,8 @@ class SitemapGenerator extends BaseXmlGenerator
     {
         $urlItem = $this->xmlElement->addChild('url');
 
-        $urlItem->addChild('loc', XML::escape(Hyde::url($route->getOutputPath())));
-        $urlItem->addChild('lastmod', XML::escape($this->getLastModDate($route->getSourcePath())));
+        $urlItem->addChild('loc', static::escape(Hyde::url($route->getOutputPath())));
+        $urlItem->addChild('lastmod', static::escape($this->getLastModDate($route->getSourcePath())));
         $urlItem->addChild('changefreq', 'daily');
 
         if (config('hyde.sitemap.dynamic_priority', true)) {

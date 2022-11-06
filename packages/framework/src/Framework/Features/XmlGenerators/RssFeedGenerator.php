@@ -11,7 +11,6 @@ use Exception;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Helpers\XML;
 use SimpleXMLElement;
 use function config;
 use function date;
@@ -40,9 +39,9 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     public static function getDescription(): string
     {
-        return XML::escape(config(
+        return static::escape(config(
             'hyde.rss_description',
-            XML::escape(Site::name()).' RSS Feed'
+            static::escape(Site::name()).' RSS Feed'
         ));
     }
 
@@ -110,8 +109,8 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function addBaseChannelItems(): void
     {
-        $this->feed->channel->addChild('title', XML::escape(Site::name()));
-        $this->feed->channel->addChild('link', XML::escape(Site::url()));
+        $this->feed->channel->addChild('title', static::escape(Site::name()));
+        $this->feed->channel->addChild('link', static::escape(Site::url()));
         $this->feed->channel->addChild('description', static::getDescription());
 
         $this->feed->channel->addChild('language', config('site.language', 'en'));
@@ -119,7 +118,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
 
         $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
-        $atomLink->addAttribute('href', XML::escape(Hyde::url(static::outputFilename())));
+        $atomLink->addAttribute('href', static::escape(Hyde::url(static::outputFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
     }
