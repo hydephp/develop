@@ -109,16 +109,16 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function addBaseChannelItems(): void
     {
-        $this->feed->channel->addChild('title', static::escape(Site::name()));
-        $this->feed->channel->addChild('link', static::escape(Site::url()));
-        $this->feed->channel->addChild('description', static::getDescription());
+        $this->feed->channel->addChild('title', $this->escape(Site::name()));
+        $this->feed->channel->addChild('link', $this->escape(Site::url()));
+        $this->feed->channel->addChild('description', $this->getDescription());
 
         $this->feed->channel->addChild('language', config('site.language', 'en'));
         $this->feed->channel->addChild('generator', 'HydePHP '.Hyde::version());
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
 
         $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
-        $atomLink->addAttribute('href', static::escape(Hyde::url(static::getFilename())));
+        $atomLink->addAttribute('href', $this->escape(Hyde::url($this->getFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
     }
