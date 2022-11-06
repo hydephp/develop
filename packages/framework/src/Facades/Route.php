@@ -15,7 +15,6 @@ class Route
      * Get a route from the route index for the specified route key.
      *
      * @param  string  $routeKey  Example: posts/foo.md
-     * @return \Hyde\Support\Models\Route|null
      */
     public static function get(string $routeKey): ?\Hyde\Support\Models\Route
     {
@@ -25,8 +24,6 @@ class Route
     /**
      * Get a route from the route index for the specified route key or throw an exception.
      *
-     * @param  string  $routeKey
-     * @return \Hyde\Support\Models\Route
      *
      * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
      */
@@ -55,9 +52,6 @@ class Route
 
     /**
      * Determine if the supplied route key exists in the route index.
-     *
-     * @param  string  $routeKey
-     * @return bool
      */
     public static function exists(string $routeKey): bool
     {

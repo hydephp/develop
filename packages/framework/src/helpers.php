@@ -7,8 +7,6 @@ use Hyde\Foundation\HydeKernel;
 if (! function_exists('hyde')) {
     /**
      * Get the available HydeKernel instance.
-     *
-     * @return \Hyde\Foundation\HydeKernel
      */
     function hyde(): HydeKernel
     {
@@ -19,9 +17,6 @@ if (! function_exists('hyde')) {
 if (! function_exists('unslash')) {
     /**
      * Remove trailing slashes from the start and end of a string.
-     *
-     * @param  string  $string
-     * @return string
      */
     function unslash(string $string): string
     {

@@ -70,9 +70,6 @@ class RebuildStaticSiteCommand extends Command
 
     /**
      * Perform a basic sanitation to strip trailing characters.
-     *
-     * @param  string  $path
-     * @return string
      */
     public function sanitizePathString(string $path): string
     {
@@ -103,7 +100,6 @@ class RebuildStaticSiteCommand extends Command
     /**
      * Output the contents of an exception.
      *
-     * @param  Exception  $exception
      * @return int Error code
      */
     public function handleException(Exception $exception): int

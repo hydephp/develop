@@ -83,8 +83,6 @@ class CreatesNewMarkdownPostFile
      * Get the class data as an array.
      *
      * The identifier property is removed from the array as it can't be set in the front matter.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -97,9 +95,6 @@ class CreatesNewMarkdownPostFile
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return $this->identifier;

@@ -16,7 +16,6 @@ class ConvertsArrayToFrontMatter
     /**
      * Execute the action.
      *
-     * @param  array  $array
      * @return string $yaml front matter
      */
     public function execute(array $array): string

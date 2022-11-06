@@ -30,7 +30,6 @@ class DiscoveryService
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
      * @param  string<\Hyde\Pages\Concerns\HydePage>  $model
-     * @return array
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      *
@@ -95,7 +94,6 @@ class DiscoveryService
      * Create a filepath that can be opened in the browser from a terminal.
      *
      * @param  string<\Hyde\Pages\Concerns\HydePage>  $filepath
-     * @return string
      */
     public static function createClickableFilepath(string $filepath): string
     {
@@ -125,7 +123,7 @@ class DiscoveryService
     protected static function getMediaGlobPattern(): string
     {
         return sprintf('_media/*.{%s}', str_replace(' ', '',
-            config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
+            (string) config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
         ));
     }
 }
