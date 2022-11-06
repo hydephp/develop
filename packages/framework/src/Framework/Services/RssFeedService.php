@@ -117,7 +117,7 @@ class RssFeedService
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
 
         $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
-        $atomLink->addAttribute('href', XML::escape(Site::url()) .'/'.static::outputFilename());
+        $atomLink->addAttribute('href', XML::escape(Hyde::url(static::outputFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
     }
