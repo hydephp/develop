@@ -185,8 +185,8 @@ class Features implements Arrayable, JsonSerializable
     {
         $array = [];
         foreach (get_class_methods(static::class) as $method) {
-            if (str_starts_with((string) $method, 'has')) {
-                $array[Str::kebab(substr((string) $method, 3))] = static::{$method}();
+            if (str_starts_with($method, 'has')) {
+                $array[Str::kebab(substr($method, 3))] = static::{$method}();
             }
         }
 
