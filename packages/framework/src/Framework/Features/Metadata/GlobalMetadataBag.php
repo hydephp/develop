@@ -18,29 +18,29 @@ class GlobalMetadataBag extends MetadataBag
 {
     public static function make(): static
     {
-        $metadataBag = new self();
+        $metadata = new self();
 
         foreach (config('hyde.meta', []) as $item) {
-            $metadataBag->add($item);
+            $metadata->add($item);
         }
 
         if (Features::sitemap()) {
-            $metadataBag->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
+            $metadata->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
                 'type' => 'application/xml', 'title' => 'Sitemap',
             ]));
         }
 
         if (Features::rss()) {
-            $metadataBag->add(Meta::link('alternate', Hyde::url(RssFeedGenerator::getFilename()), [
+            $metadata->add(Meta::link('alternate', Hyde::url(RssFeedGenerator::getFilename()), [
                 'type' => 'application/rss+xml', 'title' => RssFeedGenerator::getDescription(),
             ]));
         }
 
         if (Hyde::currentPage() !== null) {
-            static::filterDuplicateMetadata($metadataBag, View::shared('page'));
+            static::filterDuplicateMetadata($metadata, View::shared('page'));
         }
 
-        return $metadataBag;
+        return $metadata;
     }
 
     protected static function filterDuplicateMetadata(GlobalMetadataBag $global, HydePage $page): void
