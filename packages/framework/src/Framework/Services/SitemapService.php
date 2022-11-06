@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-/** @noinspection PhpComposerExtensionStubsInspection */
-
 namespace Hyde\Framework\Services;
 
 use Exception;
