@@ -7,12 +7,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
+use function config;
+use function date;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use SimpleXMLElement;
-use function config;
-use function date;
 use function str_ends_with;
 
 /**
@@ -114,6 +114,6 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     public static function getDescription(): string
     {
-        return config('hyde.rss_description', Site::name() .' RSS Feed');
+        return config('hyde.rss_description', Site::name().' RSS Feed');
     }
 }

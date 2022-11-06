@@ -7,9 +7,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\XmlGenerators;
 
 use Exception;
-use SimpleXMLElement;
 use function extension_loaded;
 use function htmlspecialchars;
+use SimpleXMLElement;
 use function throw_unless;
 
 abstract class BaseXmlGenerator implements XmlGeneratorContract

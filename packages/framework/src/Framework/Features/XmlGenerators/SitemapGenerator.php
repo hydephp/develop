@@ -6,19 +6,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
+use function config;
+use function date;
+use function filemtime;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
-use SimpleXMLElement;
-use function config;
-use function date;
-use function filemtime;
 use function in_array;
 use function microtime;
 use function round;
+use SimpleXMLElement;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
@@ -49,7 +49,7 @@ class SitemapGenerator extends BaseXmlGenerator
         $this->timeStart = microtime(true);
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
-        $this->xmlElement->addAttribute('generator', 'HydePHP ' . Hyde::version());
+        $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
     }
 
     protected function addRoute(Route $route): void
