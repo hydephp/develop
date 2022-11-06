@@ -27,7 +27,9 @@ class SitemapService
 
     public function __construct()
     {
-        throw_unless(extension_loaded('simplexml'), new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.'));
+        throw_unless(extension_loaded('simplexml'),
+            new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.')
+        );
 
         $this->timeStart = microtime(true);
 
@@ -37,7 +39,7 @@ class SitemapService
 
     public function generate(): static
     {
-        \Hyde\Facades\Route::all()->each(function ($route) {
+        Route::all()->each(function ($route) {
             $this->addRoute($route);
         });
 
@@ -64,9 +66,7 @@ class SitemapService
 
     protected function getLastModDate(string $file): string
     {
-        return date('c', filemtime(
-            $file
-        ));
+        return date('c', filemtime($file));
     }
 
     protected function getPriority(string $pageClass, string $slug): string
