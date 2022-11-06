@@ -34,6 +34,8 @@
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel touch" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel unlink" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Framework\HydeKernel url" />
+      <entry_point TYPE="phpClass" FQNAME="\Hyde\Console\HydeConsoleServiceProvider" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\HydeConsoleServiceProvider register" />
     </entry_point>
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_a_torchlight_api_token_is_set" />
     <pattern value="\Hyde\Framework\Services\ValidationService" />
@@ -67,5 +69,7 @@
     <pattern value="\Hyde\Framework\HydeKernel" member="touch" />
     <pattern value="\Hyde\Framework\HydeKernel" member="unlink" />
     <pattern value="\Hyde\Framework\HydeKernel" member="url" />
+    <pattern value="\Hyde\Console\HydeConsoleServiceProvider" />
+    <pattern value="\Hyde\Console\HydeConsoleServiceProvider" member="register" />
   </component>
 </project>
