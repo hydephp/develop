@@ -15,13 +15,13 @@ class GenerateRssFeed extends BuildTask
     public function run(): void
     {
         file_put_contents(
-            Hyde::sitePath(RssFeedGenerator::outputFilename()),
+            Hyde::sitePath(RssFeedGenerator::getFilename()),
             RssFeedGenerator::make()
         );
     }
 
     public function then(): void
     {
-        $this->createdSiteFile('_site/'.RssFeedGenerator::outputFilename())->withExecutionTime();
+        $this->createdSiteFile('_site/'.RssFeedGenerator::getFilename())->withExecutionTime();
     }
 }

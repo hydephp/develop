@@ -32,7 +32,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         return (new static)->generate()->getXML();
     }
 
-    public static function outputFilename(): string
+    public static function getFilename(): string
     {
         return config('hyde.rss_filename', 'feed.xml');
     }
@@ -118,7 +118,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
 
         $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
-        $atomLink->addAttribute('href', static::escape(Hyde::url(static::outputFilename())));
+        $atomLink->addAttribute('href', static::escape(Hyde::url(static::getFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
     }
