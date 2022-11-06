@@ -16,6 +16,8 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
 {
     protected SimpleXMLElement $xmlElement;
 
+    abstract protected function constructBaseElement();
+
     public static function make(): string
     {
         return (new static)->generate()->getXML();
@@ -28,11 +30,6 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
         );
 
         $this->constructBaseElement();
-    }
-
-    protected static function escape(string $string): string
-    {
-        return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
     }
 
     public function getXML(): string
@@ -48,5 +45,8 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
         return $this->xmlElement;
     }
 
-    abstract protected function constructBaseElement();
+    protected static function escape(string $string): string
+    {
+        return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+    }
 }
