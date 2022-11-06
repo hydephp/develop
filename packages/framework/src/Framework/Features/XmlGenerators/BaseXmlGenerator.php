@@ -46,4 +46,9 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
     {
         return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
     }
+
+    protected function addChild(SimpleXMLElement $element, string $name, string $value): SimpleXMLElement
+    {
+        return $element->addChild($name, $this->escape($value));
+    }
 }
