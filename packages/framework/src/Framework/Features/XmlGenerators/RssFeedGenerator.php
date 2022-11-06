@@ -29,6 +29,15 @@ class RssFeedGenerator extends BaseXmlGenerator
         return $this;
     }
 
+    protected function constructBaseElement(): void
+    {
+        $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
+            <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />');
+        $this->xmlElement->addChild('channel');
+
+        $this->addBaseChannelItems();
+    }
+
     protected function addItem(MarkdownPost $post): void
     {
         $item = $this->xmlElement->channel->addChild('item');
@@ -104,14 +113,5 @@ class RssFeedGenerator extends BaseXmlGenerator
             'hyde.rss_description',
             static::escape(Site::name()).' RSS Feed'
         ));
-    }
-
-    protected function constructBaseElement(): void
-    {
-        $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
-            <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />');
-        $this->xmlElement->addChild('channel');
-
-        $this->addBaseChannelItems();
     }
 }

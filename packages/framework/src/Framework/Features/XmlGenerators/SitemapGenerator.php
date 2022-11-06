@@ -45,6 +45,14 @@ class SitemapGenerator extends BaseXmlGenerator
         return parent::getXml();
     }
 
+    protected function constructBaseElement(): void
+    {
+        $this->timeStart = microtime(true);
+
+        $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
+        $this->xmlElement->addAttribute('generator', 'HydePHP ' . Hyde::version());
+    }
+
     protected function addRoute(Route $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
@@ -93,13 +101,5 @@ class SitemapGenerator extends BaseXmlGenerator
     protected function getFormattedProcessingTime(): string
     {
         return (string) round((microtime(true) - $this->timeStart) * 1000, 2);
-    }
-
-    protected function constructBaseElement(): void
-    {
-        $this->timeStart = microtime(true);
-
-        $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
-        $this->xmlElement->addAttribute('generator', 'HydePHP ' . Hyde::version());
     }
 }
