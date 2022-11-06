@@ -24,7 +24,7 @@ use function throw_unless;
  */
 class RssFeedGenerator extends BaseXmlGenerator
 {
-    protected SimpleXMLElement $feed;
+    protected SimpleXMLElement $xmlElement;
 
     public static function make(): string
     {
@@ -37,9 +37,9 @@ class RssFeedGenerator extends BaseXmlGenerator
             new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.')
         );
 
-        $this->feed = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
+        $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
             <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />');
-        $this->feed->addChild('channel');
+        $this->xmlElement->addChild('channel');
 
         $this->addBaseChannelItems();
     }
@@ -54,12 +54,12 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     public function getXML(): string
     {
-        return (string) $this->feed->asXML();
+        return (string) $this->xmlElement->asXML();
     }
 
     protected function addItem(MarkdownPost $post): void
     {
-        $item = $this->feed->channel->addChild('item');
+        $item = $this->xmlElement->channel->addChild('item');
         $item->addChild('title', $post->title);
         $item->addChild('description', $post->description);
 
@@ -95,15 +95,15 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function addBaseChannelItems(): void
     {
-        $this->feed->channel->addChild('title', $this->escape(Site::name()));
-        $this->feed->channel->addChild('link', $this->escape(Site::url()));
-        $this->feed->channel->addChild('description', $this->getDescription());
+        $this->xmlElement->channel->addChild('title', $this->escape(Site::name()));
+        $this->xmlElement->channel->addChild('link', $this->escape(Site::url()));
+        $this->xmlElement->channel->addChild('description', $this->getDescription());
 
-        $this->feed->channel->addChild('language', config('site.language', 'en'));
-        $this->feed->channel->addChild('generator', 'HydePHP '.Hyde::version());
-        $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
+        $this->xmlElement->channel->addChild('language', config('site.language', 'en'));
+        $this->xmlElement->channel->addChild('generator', 'HydePHP '.Hyde::version());
+        $this->xmlElement->channel->addChild('lastBuildDate', date(DATE_RSS));
 
-        $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
+        $atomLink = $this->xmlElement->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
         $atomLink->addAttribute('href', $this->escape(Hyde::url($this->getFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
@@ -139,6 +139,6 @@ class RssFeedGenerator extends BaseXmlGenerator
      */
     public function getXmlElement(): SimpleXMLElement
     {
-        return $this->feed;
+        return $this->xmlElement;
     }
 }
