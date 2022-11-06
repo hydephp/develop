@@ -84,7 +84,7 @@ class RssFeedService
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
             $image->addAttribute('url', Hyde::image((string) $post->image, true));
-            $image->addAttribute('type', str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg');
+            $image->addAttribute('type', $this->getImageType($post));
             $image->addAttribute('length', (string) $post->image->getContentLength());
         }
     }
@@ -139,5 +139,10 @@ class RssFeedService
     public static function generateFeed(): string
     {
         return (new static)->generate()->getXML();
+    }
+
+    protected function getImageType(MarkdownPost $post): string
+    {
+        return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
     }
 }
