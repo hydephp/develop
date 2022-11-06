@@ -26,6 +26,11 @@ class SitemapService
     public SimpleXMLElement $xmlElement;
     protected float $timeStart;
 
+    public static function generateSitemap(): string
+    {
+        return (new static)->generate()->getXML();
+    }
+
     public function __construct()
     {
         throw_unless(extension_loaded('simplexml'),
@@ -98,10 +103,5 @@ class SitemapService
     protected function getFormattedProcessingTime(): string
     {
         return (string) round((microtime(true) - $this->timeStart) * 1000, 2);
-    }
-
-    public static function generateSitemap(): string
-    {
-        return (new static)->generate()->getXML();
     }
 }
