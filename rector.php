@@ -12,5 +12,4 @@ return static function (RectorConfig $rectorConfig): void {
         \Rector\Set\ValueObject\SetList::PHP_80,
         \Rector\Set\ValueObject\SetList::PHP_81,
     ]);
-    $rectorConfig->rule(Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class);
 };
