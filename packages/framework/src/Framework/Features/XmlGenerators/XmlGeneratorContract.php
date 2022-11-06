@@ -9,6 +9,8 @@ namespace Hyde\Framework\Features\XmlGenerators;
  *
  * @see \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
  * @see \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
+ *
+ * @todo Decide if we should use "XML" or "Xml"
  */
 interface XmlGeneratorContract
 {
