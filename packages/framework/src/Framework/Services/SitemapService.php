@@ -100,8 +100,6 @@ class SitemapService
     /** @codeCoverageIgnore  */
     protected function checkIfXMLIsSupported(): void
     {
-        if (!extension_loaded('simplexml')) {
-            throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
-        }
+        throw_unless(extension_loaded('simplexml'), new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.'));
     }
 }
