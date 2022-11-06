@@ -96,7 +96,7 @@ class RssFeedService
         $this->feed->channel->addChild('description', static::getDescription());
 
         $atomLink = $this->feed->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
-        $atomLink->addAttribute('href', static::getLink().'/'.static::getDefaultOutputFilename());
+        $atomLink->addAttribute('href', static::getLink().'/'.static::outputFilename());
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
 
@@ -131,7 +131,7 @@ class RssFeedService
         ));
     }
 
-    public static function getDefaultOutputFilename(): string
+    public static function outputFilename(): string
     {
         return config('hyde.rss_filename', 'feed.xml');
     }
