@@ -38,7 +38,7 @@ class RssFeedServiceTest extends TestCase
         config(['site.name' => 'Test Blog']);
         config(['site.url' => 'https://example.com']);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
+        $service = new RssFeedGenerator();
         $this->assertObjectHasAttribute('title', $service->getXmlElement()->channel);
         $this->assertObjectHasAttribute('link', $service->getXmlElement()->channel);
         $this->assertObjectHasAttribute('description', $service->getXmlElement()->channel);
@@ -52,7 +52,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['site.url' => 'https://example.com']);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
+        $service = new RssFeedGenerator();
         $this->assertObjectHasAttribute('link', $service->getXmlElement()->channel);
         $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
         $this->assertEquals('https://example.com/feed.xml',
@@ -69,7 +69,7 @@ class RssFeedServiceTest extends TestCase
         config(['site.url' => 'https://blog.foo.com/bar']);
         config(['hyde.rss_description' => 'Foo is a web log about stuff']);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
+        $service = new RssFeedGenerator();
         $this->assertEquals('Foo', $service->getXmlElement()->channel->title);
         $this->assertEquals('https://blog.foo.com/bar', $service->getXmlElement()->channel->link);
         $this->assertEquals('Foo is a web log about stuff', $service->getXmlElement()->channel->description);
@@ -120,13 +120,13 @@ class RssFeedServiceTest extends TestCase
 
     public function test_get_xml_method_returns_xml_string()
     {
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
+        $service = new RssFeedGenerator();
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', ($service->getXML()));
     }
 
     public function test_generate_feed_helper_returns_xml_string()
     {
-        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (\Hyde\Framework\Features\XmlGenerators\RssFeedGenerator::make()));
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (RssFeedGenerator::make()));
     }
 
     public function test_can_generate_feed_helper_returns_true_if_hyde_has_base_url()

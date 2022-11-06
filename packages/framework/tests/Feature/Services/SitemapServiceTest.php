@@ -32,7 +32,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_adds_default_pages_to_xml()
     {
-        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapGenerator();
+        $service = new SitemapGenerator();
         $service->generate();
 
         // The test runner has an index and 404 page, so we are using that as a baseline
@@ -139,7 +139,7 @@ class SitemapServiceTest extends TestCase
 
         Hyde::touch($files);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\SitemapGenerator();
+        $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(4, $service->getXmlElement()->url);
