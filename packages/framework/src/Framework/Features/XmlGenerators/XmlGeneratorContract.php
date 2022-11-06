@@ -9,5 +9,5 @@ interface XmlGeneratorContract
     /**
      * Generate a new XML document and get the contents as a string.
      */
-    public static function generate(): string;
+    public static function make(): string;
 }
