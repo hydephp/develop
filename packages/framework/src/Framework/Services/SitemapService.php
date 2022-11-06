@@ -12,6 +12,8 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use SimpleXMLElement;
+use function extension_loaded;
+use function throw_unless;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
@@ -25,7 +27,7 @@ class SitemapService
 
     public function __construct()
     {
-        $this->checkIfXMLIsSupported();
+        throw_unless(extension_loaded('simplexml'), new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.'));
 
         $this->timeStart = microtime(true);
 
@@ -95,11 +97,5 @@ class SitemapService
     public static function generateSitemap(): string
     {
         return (new static)->generate()->getXML();
-    }
-
-    /** @codeCoverageIgnore  */
-    protected function checkIfXMLIsSupported(): void
-    {
-        throw_unless(extension_loaded('simplexml'), new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.'));
     }
 }
