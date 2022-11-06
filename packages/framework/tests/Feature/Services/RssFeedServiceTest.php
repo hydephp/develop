@@ -20,15 +20,6 @@ class RssFeedServiceTest extends TestCase
         $this->assertInstanceOf('SimpleXMLElement', $service->feed);
     }
 
-    public function test_constructor_throws_exception_when_missing_simplexml_extension()
-    {
-        config(['testing.mock_disabled_extensions' => true]);
-
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
-        new RssFeedService();
-    }
-
     public function test_xml_root_element_is_set_to_rss_2_0()
     {
         $service = new RssFeedService();

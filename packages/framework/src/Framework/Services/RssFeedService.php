@@ -46,7 +46,7 @@ class RssFeedService
 
     public function __construct()
     {
-        if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
+        if (! extension_loaded('simplexml')) {
             throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
         }
 
