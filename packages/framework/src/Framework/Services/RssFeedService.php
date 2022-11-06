@@ -57,10 +57,6 @@ class RssFeedService
     {
         $item = $this->feed->channel->addChild('item');
         $item->addChild('title', $post->title);
-        if ($post->canonicalUrl !== null) {
-            $item->addChild('link', $post->canonicalUrl);
-            $item->addChild('guid', $post->canonicalUrl);
-        }
         $item->addChild('description', $post->description);
 
         $this->addAdditionalItemData($item, $post);
@@ -68,6 +64,11 @@ class RssFeedService
 
     protected function addAdditionalItemData(SimpleXMLElement $item, MarkdownPost $post): void
     {
+        if ($post->canonicalUrl !== null) {
+            $item->addChild('link', $post->canonicalUrl);
+            $item->addChild('guid', $post->canonicalUrl);
+        }
+
         if (isset($post->date)) {
             $item->addChild('pubDate', $post->date->dateTimeObject->format(DATE_RSS));
         }
