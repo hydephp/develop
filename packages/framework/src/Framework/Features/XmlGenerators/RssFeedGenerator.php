@@ -32,19 +32,6 @@ class RssFeedGenerator extends BaseXmlGenerator
         return (new static)->generate()->getXML();
     }
 
-    public static function getFilename(): string
-    {
-        return config('hyde.rss_filename', 'feed.xml');
-    }
-
-    public static function getDescription(): string
-    {
-        return static::escape(config(
-            'hyde.rss_description',
-            static::escape(Site::name()).' RSS Feed'
-        ));
-    }
-
     public function __construct()
     {
         throw_unless(extension_loaded('simplexml'),
@@ -133,5 +120,18 @@ class RssFeedGenerator extends BaseXmlGenerator
     {
         /** @todo We might want to add a build warning if the length is zero */
         return (string) $post->image->getContentLength();
+    }
+
+    public static function getFilename(): string
+    {
+        return config('hyde.rss_filename', 'feed.xml');
+    }
+
+    public static function getDescription(): string
+    {
+        return static::escape(config(
+            'hyde.rss_description',
+            static::escape(Site::name()).' RSS Feed'
+        ));
     }
 }
