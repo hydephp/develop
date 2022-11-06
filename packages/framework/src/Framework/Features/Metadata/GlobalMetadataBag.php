@@ -49,8 +49,8 @@ class GlobalMetadataBag extends MetadataBag
         // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
 
         foreach (['links', 'metadata', 'properties', 'generics'] as $type) {
-            $global->$type = array_filter($global->$type, fn (MetadataElement $meta) => ! in_array($meta->uniqueKey(),
-                array_map(fn (MetadataElement $meta) => $meta->uniqueKey(), $page->metadata->$type)
+            $global->$type = array_filter($global->$type, fn (MetadataElement $element) => ! in_array($element->uniqueKey(),
+                array_map(fn (MetadataElement $element) => $element->uniqueKey(), $page->metadata->$type)
             ));
         }
     }
