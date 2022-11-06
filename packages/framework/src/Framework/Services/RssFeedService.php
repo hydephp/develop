@@ -83,7 +83,7 @@ class RssFeedService
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
-            $image->addAttribute('url', Hyde::image((string) $post->image, true));
+            $image->addAttribute('url', Hyde::image($post->image->getSource(), true));
             $image->addAttribute('type', $this->getImageType($post));
             $image->addAttribute('length', (string) $post->image->getContentLength());
         }
