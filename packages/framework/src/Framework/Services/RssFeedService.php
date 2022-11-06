@@ -57,9 +57,6 @@ class RssFeedService
         $this->addInitialChannelItems();
     }
 
-    /**
-     * @throws \Exception
-     */
     public function generate(): static
     {
         /** @var \Hyde\Pages\MarkdownPost $post */
