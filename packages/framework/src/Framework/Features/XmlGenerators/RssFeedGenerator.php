@@ -36,6 +36,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->xmlElement->addChild('channel');
 
         $this->addBaseChannelItems();
+        $this->addAtomLinkItem();
     }
 
     protected function addItem(MarkdownPost $post): void
@@ -83,7 +84,10 @@ class RssFeedGenerator extends BaseXmlGenerator
         $this->xmlElement->channel->addChild('language', config('site.language', 'en'));
         $this->xmlElement->channel->addChild('generator', 'HydePHP '.Hyde::version());
         $this->xmlElement->channel->addChild('lastBuildDate', date(DATE_RSS));
+    }
 
+    protected function addAtomLinkItem(): void
+    {
         $atomLink = $this->xmlElement->channel->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
         $atomLink->addAttribute('href', $this->escape(Hyde::url($this->getFilename())));
         $atomLink->addAttribute('rel', 'self');
