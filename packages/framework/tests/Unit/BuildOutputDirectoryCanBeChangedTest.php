@@ -13,11 +13,22 @@ use Illuminate\Support\Facades\File;
 
 /**
  * Class BuildOutputDirectoryCanBeChangedTest.
- *
- * @todo add test for the site:build logic
  */
 class BuildOutputDirectoryCanBeChangedTest extends TestCase
 {
+    public function test_site_output_directory_can_be_changed_for_site_builds()
+    {
+        $this->file('_posts/test-post.md');
+
+        Site::$outputPath = ('_site/build');
+
+        $this->artisan('build');
+
+        $this->assertFileExists(Hyde::path('_site/build/posts/test-post.html'));
+
+        File::deleteDirectory(Hyde::path('_site/build'));
+    }
+
     public function test_site_output_directory_can_be_changed_in_static_page_builder()
     {
         $this->file('_posts/test-post.md');
