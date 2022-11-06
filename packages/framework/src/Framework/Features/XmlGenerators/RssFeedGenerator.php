@@ -24,7 +24,7 @@ use function throw_unless;
  * @see https://validator.w3.org/feed/docs/rss2.html
  * @phpstan-consistent-constructor
  */
-class RssFeedService
+class RssFeedGenerator
 {
     public SimpleXMLElement $feed;
 

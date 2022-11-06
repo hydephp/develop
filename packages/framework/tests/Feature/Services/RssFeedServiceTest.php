@@ -5,31 +5,31 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Facades\Features;
-use Hyde\Framework\Features\XmlGenerators\RssFeedService;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Features\XmlGenerators\RssFeedService
+ * @covers \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
  */
 class RssFeedServiceTest extends TestCase
 {
     public function test_service_instantiates_xml_element()
     {
-        $service = new RssFeedService();
+        $service = new RssFeedGenerator();
         $this->assertInstanceOf('SimpleXMLElement', $service->feed);
     }
 
     public function test_xml_root_element_is_set_to_rss_2_0()
     {
-        $service = new RssFeedService();
+        $service = new RssFeedGenerator();
         $this->assertEquals('rss', $service->feed->getName());
         $this->assertEquals('2.0', $service->feed->attributes()->version);
     }
 
     public function test_xml_element_has_channel_element()
     {
-        $service = new RssFeedService();
+        $service = new RssFeedGenerator();
         $this->assertObjectHasAttribute('channel', $service->feed);
     }
 
@@ -38,7 +38,7 @@ class RssFeedServiceTest extends TestCase
         config(['site.name' => 'Test Blog']);
         config(['site.url' => 'https://example.com']);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
         $this->assertObjectHasAttribute('title', $service->feed->channel);
         $this->assertObjectHasAttribute('link', $service->feed->channel);
         $this->assertObjectHasAttribute('description', $service->feed->channel);
@@ -52,7 +52,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['site.url' => 'https://example.com']);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
         $this->assertObjectHasAttribute('link', $service->feed->channel);
         $this->assertEquals('https://example.com', $service->feed->channel->link);
         $this->assertEquals('https://example.com/feed.xml',
@@ -69,7 +69,7 @@ class RssFeedServiceTest extends TestCase
         config(['site.url' => 'https://blog.foo.com/bar']);
         config(['hyde.rss_description' => 'Foo is a web log about stuff']);
 
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
         $this->assertEquals('Foo', $service->feed->channel->title);
         $this->assertEquals('https://blog.foo.com/bar', $service->feed->channel->link);
         $this->assertEquals('Foo is a web log about stuff', $service->feed->channel->description);
@@ -97,7 +97,7 @@ class RssFeedServiceTest extends TestCase
 
         file_put_contents(Hyde::path('_media/rss-test.jpg'), 'statData'); // 8 bytes to test stat gets file length
 
-        $service = new RssFeedService();
+        $service = new RssFeedGenerator();
         $service->generate();
         $this->assertCount(1, $service->feed->channel->item);
 
@@ -120,13 +120,13 @@ class RssFeedServiceTest extends TestCase
 
     public function test_get_xml_method_returns_xml_string()
     {
-        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedService();
+        $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', ($service->getXML()));
     }
 
     public function test_generate_feed_helper_returns_xml_string()
     {
-        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (\Hyde\Framework\Features\XmlGenerators\RssFeedService::generateFeed()));
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (\Hyde\Framework\Features\XmlGenerators\RssFeedGenerator::generateFeed()));
     }
 
     public function test_can_generate_feed_helper_returns_true_if_hyde_has_base_url()
