@@ -49,7 +49,7 @@ class SitemapService
 
     public function getXML(): string
     {
-        $this->xmlElement->addAttribute('processing_time_ms', (string) round((microtime(true) - $this->timeStart) * 1000, 2));
+        $this->xmlElement->addAttribute('processing_time_ms', $this->getFormattedProcessingTime());
 
         return (string) $this->xmlElement->asXML();
     }
@@ -93,6 +93,11 @@ class SitemapService
         }
 
         return (string) $priority;
+    }
+
+    protected function getFormattedProcessingTime(): string
+    {
+        return (string) round((microtime(true) - $this->timeStart) * 1000, 2);
     }
 
     public static function generateSitemap(): string
