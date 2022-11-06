@@ -59,10 +59,10 @@ class RssFeedService
         $item->addChild('title', $post->title);
         $item->addChild('description', $post->description);
 
-        $this->addAdditionalItemData($item, $post);
+        $this->addDynamicItemData($item, $post);
     }
 
-    protected function addAdditionalItemData(SimpleXMLElement $item, MarkdownPost $post): void
+    protected function addDynamicItemData(SimpleXMLElement $item, MarkdownPost $post): void
     {
         if ($post->canonicalUrl !== null) {
             $item->addChild('link', $post->canonicalUrl);
