@@ -34,7 +34,7 @@ class SitemapGenerator extends BaseXmlGenerator
     public function __construct()
     {
         throw_unless(extension_loaded('simplexml'),
-            new Exception('The ext-simplexml extension is not installed, but is required to generate sitemaps.')
+            new Exception('The SimpleXML extension is required to generate RSS feeds and sitemaps.')
         );
 
         $this->timeStart = microtime(true);

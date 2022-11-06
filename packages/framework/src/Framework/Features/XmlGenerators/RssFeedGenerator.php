@@ -27,7 +27,7 @@ class RssFeedGenerator extends BaseXmlGenerator
     public function __construct()
     {
         throw_unless(extension_loaded('simplexml'),
-            new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.')
+            new Exception('The SimpleXML extension is required to generate RSS feeds and sitemaps.')
         );
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
