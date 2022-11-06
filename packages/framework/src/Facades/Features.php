@@ -180,7 +180,12 @@ class Features implements Arrayable, JsonSerializable
             && count(DiscoveryService::getMarkdownPostFiles()) > 0;
     }
 
-    /** @inheritDoc */
+    /**
+     * Get an array representation of the features and their status.
+     *
+     * @return  array<string, bool>
+     * @example ['html-pages' => true, 'markdown-pages' => false, ...]
+     */
     public function toArray(): array
     {
         return collect(get_class_methods(static::class))
