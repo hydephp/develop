@@ -59,9 +59,8 @@ class RssFeedService
 
     public function generate(): static
     {
-        MarkdownPost::getLatestPosts()->each(function (MarkdownPost $post): void {
-            $this->addItem($post);
-        });
+        MarkdownPost::getLatestPosts()
+            ->each(fn(MarkdownPost $post) => $this->addItem($post));
 
         return $this;
     }
