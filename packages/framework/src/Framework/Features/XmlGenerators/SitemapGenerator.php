@@ -45,7 +45,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return parent::getXML();
     }
 
-    public function addRoute(Route $route): void
+    protected function addRoute(Route $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
 
