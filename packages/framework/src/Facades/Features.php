@@ -109,9 +109,9 @@ class Features implements Arrayable, JsonSerializable
             && (app('env') !== 'testing');
     }
 
-    // ================================================
-    // Enable a given feature to be used in the config.
-    // ================================================
+    // =================================================
+    // Configure features to be used in the config file.
+    // =================================================
 
     public static function htmlPages(): string
     {
@@ -158,9 +158,10 @@ class Features implements Arrayable, JsonSerializable
         return 'torchlight';
     }
 
-    // ================================================
-    // Dynamic features.
-    // ================================================
+    // ====================================================
+    // Dynamic features that in addition to being enabled
+    // in the config file, require preconditions to be met.
+    // ====================================================
 
     /** Can a sitemap be generated? */
     public static function sitemap(): bool
