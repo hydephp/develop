@@ -79,12 +79,12 @@ class RssFeedGenerator extends BaseXmlGenerator
     {
         $channel = $this->xmlElement->channel;
 
-        $channel->addChild('title', $this->escape(Site::name()));
-        $channel->addChild('link', $this->escape(Site::url()));
-        $channel->addChild('description', $this->escape($this->getDescription()));
-        $channel->addChild('language', config('site.language', 'en'));
-        $channel->addChild('generator', 'HydePHP '.Hyde::version());
-        $channel->addChild('lastBuildDate', date(DATE_RSS));
+        $this->addChild($channel, 'title', Site::name());
+        $this->addChild($channel, 'link', Site::url());
+        $this->addChild($channel, 'description', $this->getDescription());
+        $this->addChild($channel, 'language', config('site.language', 'en'));
+        $this->addChild($channel, 'generator', 'HydePHP '.Hyde::version());
+        $this->addChild($channel, 'lastBuildDate', date(DATE_RSS));
     }
 
     protected function addAtomLinkItem(): void
@@ -93,6 +93,11 @@ class RssFeedGenerator extends BaseXmlGenerator
         $atomLink->addAttribute('href', $this->escape(Hyde::url($this->getFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
+    }
+
+    protected function addChild(SimpleXMLElement $element, string $name, string $value): SimpleXMLElement
+    {
+        return $element->addChild($name, $this->escape($value));
     }
 
     protected function getImageType(MarkdownPost $post): string
