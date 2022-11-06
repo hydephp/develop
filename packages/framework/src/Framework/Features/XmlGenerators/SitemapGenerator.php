@@ -6,7 +6,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
-use Exception;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
