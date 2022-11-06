@@ -6,6 +6,9 @@ namespace Hyde\Support\Helpers;
 
 use function htmlspecialchars;
 
+/**
+ * @internal This class is currently experimental and may change without notice.
+ */
 class XML
 {
     public static function escape(string $string): string
