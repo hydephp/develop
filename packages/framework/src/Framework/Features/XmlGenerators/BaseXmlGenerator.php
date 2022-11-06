@@ -42,7 +42,7 @@ abstract class BaseXmlGenerator implements XmlGeneratorContract
         return $this->xmlElement;
     }
 
-    protected static function escape(string $string): string
+    protected function escape(string $string): string
     {
         return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
     }
