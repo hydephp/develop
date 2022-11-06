@@ -10,6 +10,7 @@ namespace Hyde\Framework\Services;
 use Exception;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Helpers\XML;
 use SimpleXMLElement;
 
 /**
@@ -108,36 +109,25 @@ class RssFeedService
         $this->feed->channel->addChild('lastBuildDate', date(DATE_RSS));
     }
 
-    protected static function xmlEscape(string $string): string
-    {
-        return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
-    }
-
     public static function getDescription(): string
     {
-        return static::xmlEscape(
-            config(
-                'hyde.rss_description',
-                static::getTitle().' RSS Feed'
-            )
-        );
+        return XML::escape(config(
+            'hyde.rss_description',
+            static::getTitle() . ' RSS Feed'
+        ));
     }
 
     public static function getTitle(): string
     {
-        return static::xmlEscape(
-            config('site.name', 'HydePHP')
-        );
+        return XML::escape(config('site.name', 'HydePHP'));
     }
 
     public static function getLink(): string
     {
-        return static::xmlEscape(
-            rtrim(
-                config('site.url') ?? 'http://localhost',
-                '/'
-            )
-        );
+        return XML::escape(rtrim(
+            config('site.url') ?? 'http://localhost',
+            '/'
+        ));
     }
 
     public static function getDefaultOutputFilename(): string
