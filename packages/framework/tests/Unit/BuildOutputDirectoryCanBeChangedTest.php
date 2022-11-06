@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\File;
 
 /**
  * Class BuildOutputDirectoryCanBeChangedTest.
+ *
+ * @todo add test for the Rebuild Service
  */
 class BuildOutputDirectoryCanBeChangedTest extends TestCase
 {
