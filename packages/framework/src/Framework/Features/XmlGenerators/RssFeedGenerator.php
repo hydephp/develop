@@ -114,7 +114,7 @@ class RssFeedGenerator extends BaseXmlGenerator
     {
         return static::escape(config(
             'hyde.rss_description',
-            static::escape(Site::name()).' RSS Feed'
+            Site::name() .' RSS Feed'
         ));
     }
 }
