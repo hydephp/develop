@@ -40,7 +40,7 @@ class SitemapService
 
     public function generate(): static
     {
-        Route::all()->each(function ($route) {
+        Route::all()->each(function (Route $route): void {
             $this->addRoute($route);
         });
 
