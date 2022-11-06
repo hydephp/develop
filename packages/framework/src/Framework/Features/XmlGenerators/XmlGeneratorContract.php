@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\XmlGenerators;
 
+/**
+ * Defines the public API for XML generators.
+ *
+ * @see \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
+ * @see \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
+ */
 interface XmlGeneratorContract
 {
     /**
