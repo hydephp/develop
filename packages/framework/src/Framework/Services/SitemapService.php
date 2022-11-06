@@ -63,8 +63,8 @@ class SitemapService
     {
         $urlItem = $this->xmlElement->addChild('url');
 
-        $urlItem->addChild('loc', htmlentities(Hyde::url($route->getOutputPath())));
-        $urlItem->addChild('lastmod', htmlentities($this->getLastModDate($route->getSourcePath())));
+        $urlItem->addChild('loc', htmlspecialchars(Hyde::url($route->getOutputPath())));
+        $urlItem->addChild('lastmod', htmlspecialchars($this->getLastModDate($route->getSourcePath())));
         $urlItem->addChild('changefreq', 'daily');
 
         if (config('hyde.sitemap.dynamic_priority', true)) {
