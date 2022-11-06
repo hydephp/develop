@@ -92,8 +92,6 @@ class DiscoveryService
 
     /**
      * Create a filepath that can be opened in the browser from a terminal.
-     *
-     * @param  string  $filepath
      */
     public static function createClickableFilepath(string $filepath): string
     {
