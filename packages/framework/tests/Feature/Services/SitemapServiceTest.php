@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
+ * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
  */
 class SitemapServiceTest extends TestCase
 {

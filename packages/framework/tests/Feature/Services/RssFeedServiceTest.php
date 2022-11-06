@@ -11,6 +11,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
+ * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
  */
 class RssFeedServiceTest extends TestCase
 {
