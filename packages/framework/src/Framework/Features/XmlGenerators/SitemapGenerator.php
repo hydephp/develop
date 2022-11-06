@@ -29,7 +29,7 @@ use function throw_unless;
  */
 class SitemapGenerator extends BaseXmlGenerator
 {
-    public SimpleXMLElement $xmlElement;
+    protected SimpleXMLElement $xmlElement;
     protected float $timeStart;
 
     public static function make(): string

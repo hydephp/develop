@@ -24,7 +24,7 @@ use function throw_unless;
  */
 class RssFeedGenerator extends BaseXmlGenerator
 {
-    public SimpleXMLElement $feed;
+    protected SimpleXMLElement $feed;
 
     public static function make(): string
     {
