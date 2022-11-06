@@ -25,6 +25,8 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
         $this->artisan('build');
 
         $this->assertFileExists(Hyde::path('_site/build/posts/test-post.html'));
+        $this->assertFileExists(Hyde::path('_site/build/media/app.css'));
+        $this->assertFileExists(Hyde::path('_site/build/index.html'));
 
         File::deleteDirectory(Hyde::path('_site/build'));
     }
