@@ -10,6 +10,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Helpers\XML;
 use Hyde\Support\Models\Route;
 use SimpleXMLElement;
 use function extension_loaded;
@@ -63,8 +64,8 @@ class SitemapService
     {
         $urlItem = $this->xmlElement->addChild('url');
 
-        $urlItem->addChild('loc', htmlspecialchars(Hyde::url($route->getOutputPath())));
-        $urlItem->addChild('lastmod', htmlspecialchars($this->getLastModDate($route->getSourcePath())));
+        $urlItem->addChild('loc', XML::escape(Hyde::url($route->getOutputPath())));
+        $urlItem->addChild('lastmod', XML::escape($this->getLastModDate($route->getSourcePath())));
         $urlItem->addChild('changefreq', 'daily');
 
         if (config('hyde.sitemap.dynamic_priority', true)) {
