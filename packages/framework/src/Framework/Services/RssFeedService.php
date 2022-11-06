@@ -54,7 +54,7 @@ class RssFeedService
             <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />');
         $this->feed->addChild('channel');
 
-        $this->addInitialChannelItems();
+        $this->addBaseChannelItems();
     }
 
     public function generate(): static
@@ -106,7 +106,7 @@ class RssFeedService
         }
     }
 
-    protected function addInitialChannelItems(): void
+    protected function addBaseChannelItems(): void
     {
         $this->feed->channel->addChild('title', static::getTitle());
         $this->feed->channel->addChild('link', static::getLink());
