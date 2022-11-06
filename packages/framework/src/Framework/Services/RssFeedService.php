@@ -7,15 +7,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use function config;
+use function date;
 use Exception;
+use function extension_loaded;
 use Hyde\Facades\Site;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Helpers\XML;
 use SimpleXMLElement;
-use function config;
-use function date;
-use function extension_loaded;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
@@ -40,7 +40,7 @@ class RssFeedService
     {
         return XML::escape(config(
             'hyde.rss_description',
-            XML::escape(Site::name()) .' RSS Feed'
+            XML::escape(Site::name()).' RSS Feed'
         ));
     }
 
@@ -60,7 +60,7 @@ class RssFeedService
     public function generate(): static
     {
         MarkdownPost::getLatestPosts()
-            ->each(fn(MarkdownPost $post) => $this->addItem($post));
+            ->each(fn (MarkdownPost $post) => $this->addItem($post));
 
         return $this;
     }
