@@ -25,9 +25,7 @@ class SitemapService
 
     public function __construct()
     {
-        if (! extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
-            throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
-        }
+        $this->checkIfXMLIsSupported();
 
         $this->timeStart = microtime(true);
 
@@ -97,5 +95,12 @@ class SitemapService
     public static function generateSitemap(): string
     {
         return (new static)->generate()->getXML();
+    }
+
+    protected function checkIfXMLIsSupported(): void
+    {
+        if (!extension_loaded('simplexml') || config('testing.mock_disabled_extensions', false) === true) {
+            throw new Exception('The ext-simplexml extension is not installed, but is required to generate RSS feeds.');
+        }
     }
 }
