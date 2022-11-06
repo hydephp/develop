@@ -79,7 +79,7 @@ class RssFeedGenerator extends BaseXmlGenerator
     {
         $this->xmlElement->channel->addChild('title', $this->escape(Site::name()));
         $this->xmlElement->channel->addChild('link', $this->escape(Site::url()));
-        $this->xmlElement->channel->addChild('description', $this->getDescription());
+        $this->xmlElement->channel->addChild('description', $this->escape($this->getDescription()));
         $this->xmlElement->channel->addChild('language', config('site.language', 'en'));
         $this->xmlElement->channel->addChild('generator', 'HydePHP '.Hyde::version());
         $this->xmlElement->channel->addChild('lastBuildDate', date(DATE_RSS));
@@ -112,9 +112,9 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     public static function getDescription(): string
     {
-        return static::escape(config(
+        return config(
             'hyde.rss_description',
             Site::name() .' RSS Feed'
-        ));
+        );
     }
 }
