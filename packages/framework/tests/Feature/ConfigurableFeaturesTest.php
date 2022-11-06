@@ -72,6 +72,21 @@ class ConfigurableFeaturesTest extends TestCase
         }
     }
 
+    public function test_to_array_method_contains_all_settings()
+    {
+        $array = (new Features)->toArray();
+        $this->assertArrayHasKey('html-pages', $array);
+        $this->assertArrayHasKey('markdown-posts', $array);
+        $this->assertArrayHasKey('blade-pages', $array);
+        $this->assertArrayHasKey('markdown-pages', $array);
+        $this->assertArrayHasKey('documentation-pages', $array);
+        $this->assertArrayHasKey('darkmode', $array);
+        $this->assertArrayHasKey('documentation-search', $array);
+        $this->assertArrayHasKey('torchlight', $array);
+
+        $this->assertCount(9, $array);
+    }
+
     public function test_features_can_be_mocked()
     {
         Features::mock('darkmode', true);
