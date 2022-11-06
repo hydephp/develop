@@ -85,7 +85,7 @@ class RssFeedService
             $image = $item->addChild('enclosure');
             $image->addAttribute('url', Hyde::image($post->image->getSource(), true));
             $image->addAttribute('type', $this->getImageType($post));
-            $image->addAttribute('length', (string) $post->image->getContentLength());
+            $image->addAttribute('length', $this->getImageLength($post));
         }
     }
 
@@ -145,5 +145,11 @@ class RssFeedService
     {
         /** @todo Add support for more types */
         return str_ends_with($post->image->getSource(), '.png') ? 'image/png' : 'image/jpeg';
+    }
+
+    protected function getImageLength(MarkdownPost $post): string
+    {
+        /** @todo We might want to add a build warning if the length is zero */
+        return (string)$post->image->getContentLength();
     }
 }
