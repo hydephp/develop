@@ -114,7 +114,7 @@ class RssFeedService
     {
         return XML::escape(config(
             'hyde.rss_description',
-            static::getTitle() . ' RSS Feed'
+            static::getTitle().' RSS Feed'
         ));
     }
 
@@ -150,6 +150,6 @@ class RssFeedService
     protected function getImageLength(MarkdownPost $post): string
     {
         /** @todo We might want to add a build warning if the length is zero */
-        return (string)$post->image->getContentLength();
+        return (string) $post->image->getContentLength();
     }
 }
