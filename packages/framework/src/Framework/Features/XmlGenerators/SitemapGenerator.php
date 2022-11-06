@@ -26,7 +26,6 @@ use function throw_unless;
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  * @see https://www.sitemaps.org/protocol.html
- * @phpstan-consistent-constructor
  */
 class SitemapGenerator extends BaseXmlGenerator
 {
