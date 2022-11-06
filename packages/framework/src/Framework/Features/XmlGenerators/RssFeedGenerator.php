@@ -16,7 +16,7 @@ use SimpleXMLElement;
 use function config;
 use function date;
 use function extension_loaded;
-use function Hyde\Framework\Services\str_ends_with;
+use function str_ends_with;
 use function throw_unless;
 
 /**
