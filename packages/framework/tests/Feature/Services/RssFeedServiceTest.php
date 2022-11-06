@@ -17,20 +17,20 @@ class RssFeedServiceTest extends TestCase
     public function test_service_instantiates_xml_element()
     {
         $service = new RssFeedGenerator();
-        $this->assertInstanceOf('SimpleXMLElement', $service->feed);
+        $this->assertInstanceOf('SimpleXMLElement', $service->getXmlElement());
     }
 
     public function test_xml_root_element_is_set_to_rss_2_0()
     {
         $service = new RssFeedGenerator();
-        $this->assertEquals('rss', $service->feed->getName());
-        $this->assertEquals('2.0', $service->feed->attributes()->version);
+        $this->assertEquals('rss', $service->getXmlElement()->getName());
+        $this->assertEquals('2.0', $service->getXmlElement()->attributes()->version);
     }
 
     public function test_xml_element_has_channel_element()
     {
         $service = new RssFeedGenerator();
-        $this->assertObjectHasAttribute('channel', $service->feed);
+        $this->assertObjectHasAttribute('channel', $service->getXmlElement());
     }
 
     public function test_xml_channel_element_has_required_elements()
@@ -39,13 +39,13 @@ class RssFeedServiceTest extends TestCase
         config(['site.url' => 'https://example.com']);
 
         $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
-        $this->assertObjectHasAttribute('title', $service->feed->channel);
-        $this->assertObjectHasAttribute('link', $service->feed->channel);
-        $this->assertObjectHasAttribute('description', $service->feed->channel);
+        $this->assertObjectHasAttribute('title', $service->getXmlElement()->channel);
+        $this->assertObjectHasAttribute('link', $service->getXmlElement()->channel);
+        $this->assertObjectHasAttribute('description', $service->getXmlElement()->channel);
 
-        $this->assertEquals('Test Blog', $service->feed->channel->title);
-        $this->assertEquals('https://example.com', $service->feed->channel->link);
-        $this->assertEquals('Test Blog RSS Feed', $service->feed->channel->description);
+        $this->assertEquals('Test Blog', $service->getXmlElement()->channel->title);
+        $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
+        $this->assertEquals('Test Blog RSS Feed', $service->getXmlElement()->channel->description);
     }
 
     public function test_xml_channel_element_has_additional_elements()
@@ -53,14 +53,14 @@ class RssFeedServiceTest extends TestCase
         config(['site.url' => 'https://example.com']);
 
         $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
-        $this->assertObjectHasAttribute('link', $service->feed->channel);
-        $this->assertEquals('https://example.com', $service->feed->channel->link);
+        $this->assertObjectHasAttribute('link', $service->getXmlElement()->channel);
+        $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
         $this->assertEquals('https://example.com/feed.xml',
-            $service->feed->channel->children('atom', true)->link->attributes()->href);
+            $service->getXmlElement()->channel->children('atom', true)->link->attributes()->href);
 
-        $this->assertObjectHasAttribute('language', $service->feed->channel);
-        $this->assertObjectHasAttribute('generator', $service->feed->channel);
-        $this->assertObjectHasAttribute('lastBuildDate', $service->feed->channel);
+        $this->assertObjectHasAttribute('language', $service->getXmlElement()->channel);
+        $this->assertObjectHasAttribute('generator', $service->getXmlElement()->channel);
+        $this->assertObjectHasAttribute('lastBuildDate', $service->getXmlElement()->channel);
     }
 
     public function test_xml_channel_data_can_be_customized()
@@ -70,9 +70,9 @@ class RssFeedServiceTest extends TestCase
         config(['hyde.rss_description' => 'Foo is a web log about stuff']);
 
         $service = new \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator();
-        $this->assertEquals('Foo', $service->feed->channel->title);
-        $this->assertEquals('https://blog.foo.com/bar', $service->feed->channel->link);
-        $this->assertEquals('Foo is a web log about stuff', $service->feed->channel->description);
+        $this->assertEquals('Foo', $service->getXmlElement()->channel->title);
+        $this->assertEquals('https://blog.foo.com/bar', $service->getXmlElement()->channel->link);
+        $this->assertEquals('Foo is a web log about stuff', $service->getXmlElement()->channel->description);
     }
 
     public function test_markdown_blog_posts_are_added_to_rss_feed_through_autodiscovery()
@@ -99,9 +99,9 @@ class RssFeedServiceTest extends TestCase
 
         $service = new RssFeedGenerator();
         $service->generate();
-        $this->assertCount(1, $service->feed->channel->item);
+        $this->assertCount(1, $service->getXmlElement()->channel->item);
 
-        $item = $service->feed->channel->item[0];
+        $item = $service->getXmlElement()->channel->item[0];
         $this->assertEquals('RSS', $item->title);
         $this->assertEquals('RSS description', $item->description);
         $this->assertEquals('https://example.com/posts/rss.html', $item->link);
