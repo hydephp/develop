@@ -64,7 +64,7 @@ class RssFeedService
 
     protected function addDynamicItemData(SimpleXMLElement $item, MarkdownPost $post): void
     {
-        if ($post->canonicalUrl !== null) {
+        if (isset($post->canonicalUrl)) {
             $item->addChild('link', $post->canonicalUrl);
             $item->addChild('guid', $post->canonicalUrl);
         }
