@@ -97,6 +97,7 @@ class SitemapService
         return (new static)->generate()->getXML();
     }
 
+    /** @codeCoverageIgnore  */
     protected function checkIfXMLIsSupported(): void
     {
         if (!extension_loaded('simplexml')) {
