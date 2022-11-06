@@ -87,7 +87,7 @@ class SitemapServiceTest extends TestCase
 
     public function test_generate_sitemap_shorthand_method_returns_xml_string()
     {
-        $xml = SitemapGenerator::generateSitemap();
+        $xml = SitemapGenerator::make();
 
         $this->assertIsString($xml);
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xml);

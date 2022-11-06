@@ -16,7 +16,7 @@ class GenerateSitemap extends BuildTask
     {
         file_put_contents(
             Hyde::sitePath('sitemap.xml'),
-            SitemapGenerator::generateSitemap()
+            SitemapGenerator::make()
         );
     }
 

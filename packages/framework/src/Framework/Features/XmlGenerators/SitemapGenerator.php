@@ -29,12 +29,12 @@ use function throw_unless;
  * @see https://www.sitemaps.org/protocol.html
  * @phpstan-consistent-constructor
  */
-class SitemapGenerator
+class SitemapGenerator extends BaseXmlGenerator
 {
     public SimpleXMLElement $xmlElement;
     protected float $timeStart;
 
-    public static function generateSitemap(): string
+    public static function make(): string
     {
         return (new static)->generate()->getXML();
     }
