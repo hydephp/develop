@@ -24,11 +24,11 @@ use function throw_unless;
  * @see https://validator.w3.org/feed/docs/rss2.html
  * @phpstan-consistent-constructor
  */
-class RssFeedGenerator
+class RssFeedGenerator extends BaseXmlGenerator
 {
     public SimpleXMLElement $feed;
 
-    public static function generateFeed(): string
+    public static function make(): string
     {
         return (new static)->generate()->getXML();
     }

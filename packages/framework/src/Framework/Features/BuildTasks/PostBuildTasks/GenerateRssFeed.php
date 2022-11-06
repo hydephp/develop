@@ -16,7 +16,7 @@ class GenerateRssFeed extends BuildTask
     {
         file_put_contents(
             Hyde::sitePath(RssFeedGenerator::outputFilename()),
-            RssFeedGenerator::generateFeed()
+            RssFeedGenerator::make()
         );
     }
 

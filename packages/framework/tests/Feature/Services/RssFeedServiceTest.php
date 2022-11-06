@@ -126,7 +126,7 @@ class RssFeedServiceTest extends TestCase
 
     public function test_generate_feed_helper_returns_xml_string()
     {
-        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (\Hyde\Framework\Features\XmlGenerators\RssFeedGenerator::generateFeed()));
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', (\Hyde\Framework\Features\XmlGenerators\RssFeedGenerator::make()));
     }
 
     public function test_can_generate_feed_helper_returns_true_if_hyde_has_base_url()
