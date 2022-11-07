@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Services\DiscoveryService;
+use Hyde\Framework\Services\RebuildService;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
@@ -49,5 +50,15 @@ class MarkdownPageTest extends TestCase
         $this->assertEquals('PHPUnit Test File', $page->title);
         $this->assertEquals("# PHPUnit Test File \n Hello World!", $page->markdown);
         $this->assertEquals('test-post', $page->identifier);
+    }
+
+    public function test_can_render_markdown_page()
+    {
+        $page = MarkdownPage::parse('test-post');
+
+        (new RebuildService($page->getSourcePath()))->execute();
+
+        $this->assertFileExists(Hyde::path('_site/test-post.html'));
+        $this->assertStringContainsString('<h1>PHPUnit Test File</h1>', file_get_contents(Hyde::path('_site/test-post.html')));
     }
 }
