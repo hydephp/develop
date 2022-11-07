@@ -40,7 +40,7 @@ class MarkdownDocumentTest extends TestCase
         $this->assertEquals('Hello, world!', (string) $document);
     }
 
-    public function test_render_method_returns_rendered_html()
+    public function test_compile_method_returns_rendered_html()
     {
         $document = new MarkdownDocument([], 'Hello, world!');
         $this->assertEquals("<p>Hello, world!</p>\n", $document->markdown->compile());
