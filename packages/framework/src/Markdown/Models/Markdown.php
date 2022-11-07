@@ -37,7 +37,6 @@ class Markdown implements Arrayable, Stringable
      * Compile the Markdown body to a string of HTML.
      *
      * @param string|null $sourceModel If the Markdown is being compiled from a model, pass the model's class name here.
-     * @return string
      */
     public function compile(?string $sourceModel = null): string
     {
