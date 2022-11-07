@@ -18,16 +18,25 @@ class Markdown implements Arrayable, Stringable
 {
     protected string $body;
 
+    /**
+     * Create a new Markdown object from a string.
+     */
     public function __construct(string $body = '')
     {
         $this->body = $body;
     }
 
+    /**
+     * Get the source Markdown body.
+     */
     public function __toString(): string
     {
         return $this->body;
     }
 
+    /**
+     * Get the source Markdown body.
+     */
     public function body(): string
     {
         return $this->body;
