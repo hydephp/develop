@@ -24,7 +24,7 @@ class MarkdownPageTest extends TestCase
         File::deleteDirectory(Hyde::path('_pages'));
         mkdir(Hyde::path('_pages'));
 
-        file_put_contents(Hyde::path('_pages/test-post.md'), "# PHPUnit Test File \n Hello World!");
+        file_put_contents(Hyde::path('_pages/test-page.md'), "# Test Page \n Hello World!");
     }
 
     protected function tearDown(): void
@@ -40,25 +40,29 @@ class MarkdownPageTest extends TestCase
 
         $this->assertIsArray($array);
         $this->assertCount(1, $array);
-        $this->assertArrayHasKey('test-post', array_flip($array));
+        $this->assertArrayHasKey('test-page', array_flip($array));
     }
 
     public function test_created_model_contains_expected_data()
     {
-        $page = MarkdownPage::parse('test-post');
+        $page = MarkdownPage::parse('test-page');
 
-        $this->assertEquals('PHPUnit Test File', $page->title);
-        $this->assertEquals("# PHPUnit Test File \n Hello World!", $page->markdown);
-        $this->assertEquals('test-post', $page->identifier);
+        $this->assertEquals('Test Page', $page->title);
+        $this->assertEquals("# Test Page \n Hello World!", $page->markdown);
+        $this->assertEquals('test-page', $page->identifier);
     }
 
     public function test_can_render_markdown_page()
     {
-        $page = MarkdownPage::parse('test-post');
+        $page = MarkdownPage::parse('test-page');
 
         (new RebuildService($page->getSourcePath()))->execute();
 
-        $this->assertFileExists(Hyde::path('_site/test-post.html'));
-        $this->assertStringContainsString('<h1>PHPUnit Test File</h1>', file_get_contents(Hyde::path('_site/test-post.html')));
+        $this->assertFileExists(Hyde::path('_site/test-page.html'));
+        $this->assertStringContainsString('<h1>Test Page</h1>',
+            file_get_contents(Hyde::path('_site/test-page.html'))
+        );
+
+        unlink(Hyde::path('_site/test-page.html'));
     }
 }
