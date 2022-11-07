@@ -7,6 +7,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Illuminate\Support\Str;
+use Rgasch\Collection;
 
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
@@ -19,7 +20,7 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
 
     public function __construct(
         protected string $name,
-        protected array $fields,
+        protected Collection $fields,
         protected string $canonicalField,
         protected string $sortField,
         protected string $sortDirection

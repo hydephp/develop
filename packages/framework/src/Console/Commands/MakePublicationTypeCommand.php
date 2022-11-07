@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
 use LaravelZero\Framework\Commands\Command;
+use Rgasch\Collection;
 
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
@@ -67,36 +68,36 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
     }
 
 
-    private function getFieldsDefinitions(): array
+    private function getFieldsDefinitions(): Collection
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
         $count  = 1;
-        $fields = [];
+        $fields = Collection::create();
         do {
             $this->line('');
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
-            $field         = [];
-            $field['name'] = $this->ask('Field name');
+            $field       = Collection::create();
+            $field->name = $this->ask('Field name');
             $this->line('Field type:');
             $this->line('  1 - String');
             $this->line('  2 - Integer');
             $this->line('  3 - Float');
             $this->line('  4 - Datetime');
-            $field['type'] = (int)$this->ask('Field type (1-4)');
-            $field['min']  = (int)$this->ask('Min value (for strings, this refers to string length)');
-            $field['max']  = (int)$this->ask('Max value (for strings, this refers to string length)');
-            $addAnother    = (string)$this->ask('Add another field (y/n)');
+            $type       = (int)$this->ask('Field type (1-4)');
+            $field->min = (int)$this->ask('Min value (for strings, this refers to string length)');
+            $field->max = (int)$this->ask('Max value (for strings, this refers to string length)');
+            $addAnother = (string)$this->ask('Add another field (y/n)');
 
             // map field choice to actual field type
-            $field['type'] = match ($field['type']) {
+            $field->type = match ($type) {
                 0, 1 => 'string',
                 2 => 'integer',
                 3 => 'float',
                 4 => 'datetime',
             };
 
-            $fields[] = $field;
+            $fields->add($field);
             $count++;
         } while (strtolower($addAnother) != 'n');
 

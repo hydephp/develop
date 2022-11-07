@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
 use LaravelZero\Framework\Commands\Command;
+use Rgasch\Collection;
 
 /**
  * Hyde Command to scaffold a new Markdown or Blade page file.
@@ -39,10 +40,10 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             $pubType  = $pubTypes[$selected - 1];
         }
 
-        $fieldData = [];
+        $fieldData = Collection::create();
         $this->output->writeln('<bg=magenta;fg=white>You now need to enter the fields data:</>');
         foreach ($pubType->fields as $field) {
-            $fieldData[$field->name] = $this->ask("  $field->name ($field->type, min=$field->min, max=$field->max): ");
+            $fieldData->{$field->name} = $this->ask("  $field->name ($field->type, min=$field->min, max=$field->max): ");
         }
 
         $creator = new CreatesNewPublicationFile($pubType, $fieldData);
@@ -55,18 +56,23 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
 
     // Fixme: this should probably be moved to a generic util/helper class
-    private function getPublicationTypes(): array
+    private function getPublicationTypes(): Collection
     {
         $root = base_path();
 
-        $data        = [];
+        $pubTypes    = Collection::create();
         $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
         foreach ($schemaFiles as $schemaFile) {
-            $schema       = json_decode(file_get_contents($schemaFile));
+            $fileData = file_get_contents($schemaFile);
+            if (!$fileData) {
+                throw new \Exception("Unable to read schema file [$schemaFile]");
+            }
+
+            $schema       = Collection::create(json_decode($fileData, true));
             $schema->file = $schemaFile;
-            $data[]       = $schema;
+            $pubTypes->add($schema);
         }
 
-        return $data;
+        return $pubTypes;
     }
 }
