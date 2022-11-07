@@ -56,6 +56,9 @@ class Markdown implements Arrayable, Stringable
         return explode("\n", $this->body);
     }
 
+    /**
+     * Parse a Markdown file into a new Markdown object.
+     */
     public static function fromFile(string $localFilepath): static
     {
         return MarkdownDocument::parse($localFilepath)->markdown();
