@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Metadata;
 
 use Hyde\Facades\Features;
 use Hyde\Facades\Meta;
-use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
