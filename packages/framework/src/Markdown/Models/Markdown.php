@@ -18,7 +18,7 @@ use Stringable;
  */
 class Markdown implements Arrayable, Stringable, Htmlable
 {
-    protected string $body;
+    public string $body;
 
     /**
      * Create a new Markdown object from a string.
