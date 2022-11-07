@@ -7,6 +7,8 @@ namespace Hyde\Markdown\Models;
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Markdown\MarkdownConverter;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\HtmlString;
 use Stringable;
 
 /**
@@ -14,7 +16,7 @@ use Stringable;
  *
  * @see \Hyde\Framework\Testing\Unit\MarkdownDocumentTest
  */
-class Markdown implements Arrayable, Stringable
+class Markdown implements Arrayable, Stringable, Htmlable
 {
     protected string $body;
 
@@ -53,6 +55,14 @@ class Markdown implements Arrayable, Stringable
     public function compile(?string $sourceModel = null): string
     {
         return static::render($this->body, $sourceModel);
+    }
+
+    /**
+     * Same as Markdown::compile(), but returns an HtmlString object.
+     */
+    public function toHtml(?string $sourceModel = null): HtmlString
+    {
+        return new HtmlString($this->compile($sourceModel));
     }
 
     /**
