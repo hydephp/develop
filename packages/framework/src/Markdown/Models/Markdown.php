@@ -47,7 +47,7 @@ class Markdown implements Arrayable, Stringable
     }
 
     /**
-     * Return the Markdown document body explored by line into an array.
+     * Return the Markdown document body exploded by line into an array.
      *
      * @return string[]
      */
