@@ -39,7 +39,7 @@ class Markdown implements Arrayable, Stringable
      * If the Markdown being compiled is from a page model, supply
      * model's class name here so the dynamic parser can be used.
      *
-     * @param class-string<\Hyde\Pages\Concerns\HydePage>|null $sourceModel
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $sourceModel
      */
     public function compile(?string $sourceModel = null): string
     {
