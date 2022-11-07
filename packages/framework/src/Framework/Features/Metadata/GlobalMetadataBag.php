@@ -10,6 +10,7 @@ use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
+use \Hyde\Framework\Features\Metadata\MetadataElementContract as Element;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\GlobalMetadataBagTest
@@ -48,8 +49,8 @@ class GlobalMetadataBag extends MetadataBag
         // Reject any metadata from the global metadata bag that is already present in the page metadata bag.
 
         foreach (['links', 'metadata', 'properties', 'generics'] as $type) {
-            $global->$type = array_filter($global->$type, fn (MetadataElementContract $element): bool => ! in_array($element->uniqueKey(),
-                array_map(fn (MetadataElementContract $element): string => $element->uniqueKey(), $page->metadata->$type)
+            $global->$type = array_filter($global->$type, fn (Element $element): bool => ! in_array($element->uniqueKey(),
+                array_map(fn (Element $element): string => $element->uniqueKey(), $page->metadata->$type)
             ));
         }
     }
