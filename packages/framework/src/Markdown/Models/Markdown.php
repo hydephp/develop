@@ -16,7 +16,7 @@ use Stringable;
  */
 class Markdown implements Arrayable, Stringable
 {
-    public string $body;
+    protected string $body;
 
     public function __construct(string $body = '')
     {
