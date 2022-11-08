@@ -25,7 +25,7 @@ use Illuminate\Support\Str;
  */
 class DiscoveryService
 {
-    public const DEFAULT_MEDIA_EXTENSIONS = 'png,svg,jpg,jpeg,gif,ico,css,js';
+    public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
