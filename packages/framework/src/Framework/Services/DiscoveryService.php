@@ -121,8 +121,13 @@ class DiscoveryService
 
     protected static function getMediaGlobPattern(): string
     {
-        return sprintf('_media/*.{%s}', str_replace(' ', '',
+        return sprintf('_media/*.{%s}', self::parseConfiguredMediaExtensions());
+    }
+
+    protected static function parseConfiguredMediaExtensions(): string
+    {
+        return str_replace(' ', '',
             (string) config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
-        ));
+        );
     }
 }
