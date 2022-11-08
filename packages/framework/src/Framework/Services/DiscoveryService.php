@@ -126,8 +126,12 @@ class DiscoveryService
 
     protected static function parseConfiguredMediaExtensions(): string
     {
-        return str_replace(' ', '',
-            (string) config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
-        );
+         $extensions = config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS);
+
+         if (is_array($extensions)) {
+            return implode(',', $extensions);
+         }
+
+         return str_replace(' ', '', (string) $extensions);
     }
 }
