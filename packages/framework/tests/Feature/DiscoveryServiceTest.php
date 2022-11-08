@@ -166,16 +166,8 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_get_media_asset_files_discovers_files()
     {
-        $testFiles = [
-            'png',
-            'svg',
-            'jpg',
-            'jpeg',
-            'gif',
-            'ico',
-            'css',
-            'js',
-        ];
+        $testFiles = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+
         foreach ($testFiles as $fileType) {
             $path = Hyde::path('_media/test.'.$fileType);
             touch($path);
@@ -197,10 +189,7 @@ class DiscoveryServiceTest extends TestCase
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
         Hyde::touch(('_pages/_foo.blade.php'));
-        $this->assertEquals([
-            '404',
-            'index',
-        ], DiscoveryService::getBladePageFiles());
+        $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
         unlink(Hyde::path('_pages/_foo.blade.php'));
     }
 
