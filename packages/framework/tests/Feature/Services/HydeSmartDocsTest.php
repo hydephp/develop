@@ -30,11 +30,11 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_create_helper_creates_new_instance_and_processes_it()
     {
-        $page = $this->makeArticle();
+        $article = $this->makeArticle();
 
-        $this->assertInstanceOf(SemanticDocumentationArticle::class, $page);
+        $this->assertInstanceOf(SemanticDocumentationArticle::class, $article);
 
-        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
+        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $article->renderBody());
     }
 
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
@@ -121,15 +121,15 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
 
-        $page = $this->makeArticle();
+        $article = $this->makeArticle();
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
-        HTML, $page->renderHeader());
+        HTML, $article->renderHeader());
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
-        HTML, $page->renderFooter());
+        HTML, $article->renderFooter());
     }
 
     public function test_edit_source_link_text_can_be_customized()
@@ -138,21 +138,25 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
 
-        $page = $this->makeArticle();
+        $article = $this->makeArticle();
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
-        HTML, $page->renderHeader());
+        HTML, $article->renderHeader());
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
-        HTML, $page->renderFooter());
+        HTML, $article->renderFooter());
     }
 
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
     {
-        $this->mockTorchlight();
-        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $this->makeArticle('Syntax highlighted by torchlight.dev')->renderFooter()->toHtml());
+        app()->bind('env', fn() => 'production');
+        config(['torchlight.token' => '12345']);
+
+        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"',
+            $this->makeArticle('Syntax highlighted by torchlight.dev')->renderFooter()->toHtml()
+        );
     }
 
     public function test_the_documentation_article_view()
@@ -163,6 +167,13 @@ class HydeSmartDocsTest extends TestCase
 
         $this->assertStringContainsString('<h1>Foo</h1>', $rendered);
         $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
+    }
+
+    protected function makeArticle(?string $sourceFileContents = null): SemanticDocumentationArticle
+    {
+        file_put_contents(Hyde::path('_docs/foo.md'), $sourceFileContents ?? "# Foo\n\nHello world.");
+
+        return SemanticDocumentationArticle::create(DocumentationPage::parse('foo'));
     }
 
     protected function assertEqualsIgnoringNewlines(string $expected, HtmlString $actual): void
@@ -189,21 +200,5 @@ class HydeSmartDocsTest extends TestCase
     protected function withoutNewLinesAndIndentation(string $expected): string
     {
         return str_replace(["\n", "\r", '    '], '', $expected);
-    }
-
-    protected function mockTorchlight(): void
-    {
-        app()->bind('env', function () {
-            return 'production';
-        });
-
-        config(['torchlight.token' => '12345']);
-    }
-
-    protected function makeArticle(string $sourceFileContents = "# Foo\n\nHello world."): SemanticDocumentationArticle
-    {
-        file_put_contents(Hyde::path('_docs/foo.md'), $sourceFileContents);
-
-        return SemanticDocumentationArticle::create(DocumentationPage::parse('foo'));
     }
 }
