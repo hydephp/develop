@@ -29,18 +29,17 @@ class SemanticDocumentationArticle
      * Create a new SemanticDocumentationArticle instance, process, and return it.
      *
      * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
-     * @param  string  $html  compiled HTML content
      * @return static new processed instance
      */
-    public static function create(DocumentationPage $page, string $html): static
+    public static function create(DocumentationPage $page): static
     {
-        return (new self($page, $html))->process();
+        return (new self($page))->process();
     }
 
-    public function __construct(DocumentationPage $page, string $html)
+    public function __construct(DocumentationPage $page)
     {
         $this->page = $page;
-        $this->html = $html;
+        $this->html = $page->markdown->compile();
     }
 
     public function renderHeader(): HtmlString

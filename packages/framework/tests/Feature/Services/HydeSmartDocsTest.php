@@ -21,7 +21,6 @@ use function view;
 class HydeSmartDocsTest extends TestCase
 {
     protected DocumentationPage $page;
-    protected string $html;
 
     protected function setUp(): void
     {
@@ -29,7 +28,6 @@ class HydeSmartDocsTest extends TestCase
 
         file_put_contents(Hyde::path('_docs/foo.md'), "# Foo\n\nHello world.");
         $this->page = DocumentationPage::parse('foo');
-        $this->html = Markdown::render($this->page->markdown->body());
     }
 
     protected function tearDown(): void
@@ -41,7 +39,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_create_helper_creates_new_instance_and_processes_it()
     {
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertInstanceOf(SemanticDocumentationArticle::class, $page);
 
@@ -50,8 +48,8 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
     {
-        $class = new SemanticDocumentationArticle($this->page, $this->html);
-        $facade = SemanticDocumentationArticle::create($this->page, $this->html);
+        $class = new SemanticDocumentationArticle($this->page);
+        $facade = SemanticDocumentationArticle::create($this->page);
 
         // Baseline since we manually need to call the process method
         $this->assertNotEquals($class, $facade);
@@ -64,7 +62,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_render_header_returns_the_extracted_header()
     {
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
     }
@@ -78,14 +76,14 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $page = SemanticDocumentationArticle::create($this->page, Markdown::render($test));
+            $page = SemanticDocumentationArticle::create($this->page);
             $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
         }
     }
 
     public function test_render_body_returns_the_extracted_body()
     {
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
     }
@@ -99,14 +97,14 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $page = SemanticDocumentationArticle::create($this->page, Markdown::render($test));
+            $page = SemanticDocumentationArticle::create($this->page);
             $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
         }
     }
 
     public function test_render_footer_is_empty_by_default()
     {
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertEqualsIgnoringNewlines('', $page->renderFooter());
     }
@@ -115,7 +113,7 @@ class HydeSmartDocsTest extends TestCase
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'header']);
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
@@ -126,7 +124,7 @@ class HydeSmartDocsTest extends TestCase
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'footer']);
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
@@ -138,7 +136,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
 
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
@@ -155,7 +153,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
 
-        $page = SemanticDocumentationArticle::create($this->page, $this->html);
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
@@ -169,7 +167,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
     {
         $this->mockTorchlight();
-        $page = SemanticDocumentationArticle::create($this->page, 'Syntax highlighted by torchlight.dev');
+        $page = SemanticDocumentationArticle::create($this->page);
 
         $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $page->renderFooter()->toHtml());
     }
@@ -177,7 +175,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_the_documentation_article_view()
     {
         $rendered = view('hyde::components.docs.documentation-article', [
-            'document' => SemanticDocumentationArticle::create($this->page, $this->html),
+            'document' => SemanticDocumentationArticle::create($this->page),
         ])->render();
 
         $this->assertStringContainsString('<h1>Foo</h1>', $rendered);
