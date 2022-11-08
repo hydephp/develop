@@ -97,11 +97,7 @@ class DiscoveryService
             return $filepath;
         }
 
-        return 'file://'.str_replace(
-            '\\',
-            '/',
-            realpath($filepath)
-        );
+        return 'file://'.str_replace('\\', '/', realpath($filepath));
     }
 
     public static function formatSlugForModel(string $model, string $filepath): string
