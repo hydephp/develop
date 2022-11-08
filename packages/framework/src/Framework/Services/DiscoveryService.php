@@ -100,6 +100,9 @@ class DiscoveryService
         return 'file://'.str_replace('\\', '/', realpath($filepath));
     }
 
+    /**
+     * @param class-string<\Hyde\Pages\Concerns\HydePage> $model
+     */
     public static function formatSlugForModel(string $model, string $identifier): string
     {
         /** @var HydePage $model */
