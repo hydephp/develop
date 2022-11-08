@@ -80,6 +80,8 @@ class DiscoveryService
     /**
      * Get all the Media asset file paths.
      * Returns a full file path, unlike the other get*List methods.
+     *
+     * @return array<string> An array of absolute file paths.
      */
     public static function getMediaAssetFiles(): array
     {
