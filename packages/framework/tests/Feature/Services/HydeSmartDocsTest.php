@@ -68,8 +68,7 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            file_put_contents(Hyde::path('_docs/foo.md'), $test);
-            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makeArticle()->renderHeader());
+            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makeArticle($test)->renderHeader());
         }
     }
 
@@ -87,8 +86,7 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            file_put_contents(Hyde::path('_docs/foo.md'), $test);
-            $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $this->makeArticle()->renderBody());
+            $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $this->makeArticle($test)->renderBody());
         }
     }
 
