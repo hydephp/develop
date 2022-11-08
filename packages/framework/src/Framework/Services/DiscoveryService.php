@@ -109,13 +109,13 @@ class DiscoveryService
      */
     public static function pathToIdentifier(string $model, string $filename): string
     {
-        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filename);
+        $identifier = str_replace(Hyde::path($model::$sourceDirectory), '', $filename);
 
-        if (str_ends_with($slug, $model::$fileExtension)) {
-            $slug = substr($slug, 0, -strlen($model::$fileExtension));
+        if (str_ends_with($identifier, $model::$fileExtension)) {
+            $identifier = substr($identifier, 0, -strlen($model::$fileExtension));
         }
 
-        return unslash($slug);
+        return unslash($identifier);
     }
 
     protected static function getMediaGlobPattern(): string
