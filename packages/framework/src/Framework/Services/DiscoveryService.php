@@ -109,7 +109,6 @@ class DiscoveryService
      */
     public static function pathToIdentifier(string $model, string $filename): string
     {
-        /** @var HydePage $model */
         $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filename);
 
         if (str_ends_with($slug, $model::$fileExtension)) {
