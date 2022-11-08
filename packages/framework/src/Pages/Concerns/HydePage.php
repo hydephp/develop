@@ -31,6 +31,8 @@ use Hyde\Support\Models\RouteKey;
  * and you can then access the parsed file from the HydeKernel's page index.
  * The source files are usually parsed by the SourceFileParser action.
  *
+ * In Blade views, you can always access the current page instance being rendered using the $page variable.
+ *
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
  */

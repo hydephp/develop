@@ -47,6 +47,7 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
     {
         return view($this->getBladeView())->with([
             'title' => $this->title,
+            'content' => $this->markdown->toHtml(static::class),
         ])->render();
     }
 

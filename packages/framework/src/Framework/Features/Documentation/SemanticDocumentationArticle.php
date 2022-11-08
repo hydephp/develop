@@ -28,7 +28,7 @@ class SemanticDocumentationArticle
     /**
      * Create a new SemanticDocumentationArticle instance, process, and return it.
      *
-     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
+     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object to process.
      * @return static new processed instance
      */
     public static function create(DocumentationPage $page): static
@@ -39,7 +39,7 @@ class SemanticDocumentationArticle
     public function __construct(DocumentationPage $page)
     {
         $this->page = $page;
-        $this->html = $page->markdown->compile();
+        $this->html = $page->markdown->compile($page::class);
 
         $this->process();
     }
