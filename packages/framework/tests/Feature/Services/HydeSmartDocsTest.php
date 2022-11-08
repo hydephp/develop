@@ -13,6 +13,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
 use function file_put_contents;
 use function str_replace;
+use function strip_newlines;
 use function unlinkIfExists;
 use function view;
 
@@ -179,8 +180,8 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlines(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            $this->withoutNewLines($expected),
-            $this->withoutNewLines($actual->toHtml())
+            strip_newlines($expected),
+            strip_newlines($actual->toHtml())
         );
     }
 
@@ -190,11 +191,6 @@ class HydeSmartDocsTest extends TestCase
             $this->withoutNewLinesAndIndentation($expected),
             $this->withoutNewLinesAndIndentation($actual->toHtml())
         );
-    }
-
-    protected function withoutNewLines(string $expected): string
-    {
-        return str_replace(["\n", "\r"], '', $expected);
     }
 
     protected function withoutNewLinesAndIndentation(string $expected): string
