@@ -75,10 +75,8 @@ class SemanticDocumentationArticle
         // extracting the first <h1> tag and everything before it.
 
         if (str_contains($this->html, '<h1>')) {
-            // Split the HTML content by the first newline
-            $parts = explode("\n", $this->html, 2);
-            $this->header = $parts[0];
-            $this->body = rtrim($parts[1] ?? '', "\n"); // Remove trailing newline added by the Markdown compiler to normalize it
+            $this->header = Str::before($this->html, '</h1>') . '</h1>';
+            $this->body = trim(Str::after($this->html, '</h1>'), "\n");
         } else {
             $this->header = '';
             $this->body = rtrim($this->html, "\n");
