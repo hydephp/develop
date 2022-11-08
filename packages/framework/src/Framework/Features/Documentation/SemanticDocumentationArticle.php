@@ -77,13 +77,13 @@ class SemanticDocumentationArticle
         if (str_contains($this->html, '<h1>')) {
             // Split the HTML content by the first newline, which is always after the <h1> tag
             $parts = explode("\n", $this->html, 2);
-            // Remove trailing newline added by the Markdown compiler to normalize it
-            $parts[1] = rtrim($parts[1], "\n");
 
             [$this->header, $this->body] = $parts;
         } else {
-            $this->body = rtrim($this->html, "\n");
+            $this->body = $this->html;
         }
+
+        $this->normalizeBody();
 
         return $this;
     }
@@ -148,5 +148,13 @@ class SemanticDocumentationArticle
         $positions = $config === 'both' ? ['header', 'footer'] : [$config];
 
         return ($this->page->getOnlineSourcePath() !== false) && in_array($inPosition, $positions);
+    }
+
+    /**
+     * Remove possible trailing newlines added by the Markdown compiler to normalize the body.
+     */
+    protected function normalizeBody(): void
+    {
+        $this->body = trim($this->body, "\n");
     }
 }
