@@ -137,9 +137,6 @@ class SemanticDocumentationArticle
 
     /**
      * Do we satisfy the requirements to render an edit source button in the supplied position?
-     *
-     * @param  string  $inPosition
-     * @return bool
      */
     protected function canRenderSourceLink(string $inPosition): bool
     {
@@ -151,8 +148,6 @@ class SemanticDocumentationArticle
 
     /**
      * Does the current document use Torchlight?
-     *
-     * @return bool
      */
     public function hasTorchlight(): bool
     {
