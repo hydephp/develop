@@ -33,7 +33,7 @@ class SemanticDocumentationArticle
      */
     public static function create(DocumentationPage $page): static
     {
-        return (new self($page));
+        return new self($page);
     }
 
     public function __construct(DocumentationPage $page)
@@ -155,5 +155,4 @@ class SemanticDocumentationArticle
     {
         return Features::hasTorchlight() && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
     }
-
 }
