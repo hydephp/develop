@@ -37,6 +37,26 @@ class DiscoveryService
 {
     public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
+    public static function getBladePageFiles(): array
+    {
+        return static::getSourceFileListForModel(BladePage::class);
+    }
+
+    public static function getMarkdownPageFiles(): array
+    {
+        return static::getSourceFileListForModel(MarkdownPage::class);
+    }
+
+    public static function getMarkdownPostFiles(): array
+    {
+        return static::getSourceFileListForModel(MarkdownPost::class);
+    }
+
+    public static function getDocumentationPageFiles(): array
+    {
+        return static::getSourceFileListForModel(DocumentationPage::class);
+    }
+
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
@@ -68,26 +88,6 @@ class DiscoveryService
     public static function getModelSourceDirectory(string $model): string
     {
         return $model::sourceDirectory();
-    }
-
-    public static function getBladePageFiles(): array
-    {
-        return static::getSourceFileListForModel(BladePage::class);
-    }
-
-    public static function getMarkdownPageFiles(): array
-    {
-        return static::getSourceFileListForModel(MarkdownPage::class);
-    }
-
-    public static function getMarkdownPostFiles(): array
-    {
-        return static::getSourceFileListForModel(MarkdownPost::class);
-    }
-
-    public static function getDocumentationPageFiles(): array
-    {
-        return static::getSourceFileListForModel(DocumentationPage::class);
     }
 
     /**
