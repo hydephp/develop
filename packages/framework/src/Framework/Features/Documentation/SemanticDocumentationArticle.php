@@ -136,16 +136,6 @@ class SemanticDocumentationArticle
     }
 
     /**
-     * Does the current document use Torchlight?
-     *
-     * @return bool
-     */
-    public function hasTorchlight(): bool
-    {
-        return Features::hasTorchlight() && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
-    }
-
-    /**
      * Do we satisfy the requirements to render an edit source button in the supplied position?
      *
      * @param  string  $inPosition
@@ -158,4 +148,15 @@ class SemanticDocumentationArticle
 
         return ($this->page->getOnlineSourcePath() !== false) && in_array($inPosition, $positions);
     }
+
+    /**
+     * Does the current document use Torchlight?
+     *
+     * @return bool
+     */
+    public function hasTorchlight(): bool
+    {
+        return Features::hasTorchlight() && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
+    }
+
 }
