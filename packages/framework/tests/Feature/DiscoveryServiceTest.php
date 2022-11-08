@@ -166,16 +166,8 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_get_media_asset_files_discovers_files()
     {
-        $testFiles = [
-            'png',
-            'svg',
-            'jpg',
-            'jpeg',
-            'gif',
-            'ico',
-            'css',
-            'js',
-        ];
+        $testFiles = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+
         foreach ($testFiles as $fileType) {
             $path = Hyde::path('_media/test.'.$fileType);
             touch($path);
@@ -194,13 +186,71 @@ class DiscoveryServiceTest extends TestCase
         unlink($path);
     }
 
+    public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
+    {
+        config(['hyde.media_extensions' => null]);
+        Hyde::touch('_media/test.one');
+        Hyde::touch('_media/test.two');
+        Hyde::touch('_media/test.three');
+
+        $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
+
+        config(['hyde.media_extensions' => 'one,two,three']);
+        $this->assertEquals([
+            Hyde::path('_media/test.one'),
+            Hyde::path('_media/test.two'),
+            Hyde::path('_media/test.three'),
+        ], DiscoveryService::getMediaAssetFiles());
+
+        Hyde::unlink('_media/test.one');
+        Hyde::unlink('_media/test.two');
+        Hyde::unlink('_media/test.three');
+    }
+
+    public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
+    {
+        config(['hyde.media_extensions' => null]);
+        Hyde::touch('_media/test.one');
+        Hyde::touch('_media/test.two');
+        Hyde::touch('_media/test.three');
+
+        $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
+        config(['hyde.media_extensions' => 'one, two, three']);
+        $this->assertEquals([
+            Hyde::path('_media/test.one'),
+            Hyde::path('_media/test.two'),
+            Hyde::path('_media/test.three'),
+        ], DiscoveryService::getMediaAssetFiles());
+
+        Hyde::unlink('_media/test.one');
+        Hyde::unlink('_media/test.two');
+        Hyde::unlink('_media/test.three');
+    }
+
+    public function test_media_asset_extensions_can_be_added_by_array()
+    {
+        config(['hyde.media_extensions' => null]);
+        Hyde::touch('_media/test.one');
+        Hyde::touch('_media/test.two');
+        Hyde::touch('_media/test.three');
+
+        $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
+        config(['hyde.media_extensions' => ['one', 'two', 'three']]);
+        $this->assertEquals([
+            Hyde::path('_media/test.one'),
+            Hyde::path('_media/test.two'),
+            Hyde::path('_media/test.three'),
+        ], DiscoveryService::getMediaAssetFiles());
+
+        Hyde::unlink('_media/test.one');
+        Hyde::unlink('_media/test.two');
+        Hyde::unlink('_media/test.three');
+    }
+
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
         Hyde::touch(('_pages/_foo.blade.php'));
-        $this->assertEquals([
-            '404',
-            'index',
-        ], DiscoveryService::getBladePageFiles());
+        $this->assertEquals(['404', 'index'], DiscoveryService::getBladePageFiles());
         unlink(Hyde::path('_pages/_foo.blade.php'));
     }
 
@@ -223,6 +273,22 @@ class DiscoveryServiceTest extends TestCase
         Hyde::touch(('_docs/_foo.md'));
         $this->assertEquals([], DiscoveryService::getDocumentationPageFiles());
         unlink(Hyde::path('_docs/_foo.md'));
+    }
+
+    public function test_path_to_identifier_helper_formats_path_to_identifier()
+    {
+        foreach ([MarkdownPage::class, MarkdownPost::class, DocumentationPage::class] as $page) {
+            $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo'));
+            $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo.md'));
+            $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier($page, 'foo/bar.md'));
+        }
+
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo'));
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo.blade.php'));
+        $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier(BladePage::class, 'foo/bar.blade.php'));
+
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, Hyde::path('_pages/foo.blade.php')));
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, ('_pages/foo.blade.php')));
     }
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)

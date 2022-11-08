@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use function class_exists;
+use function config;
+use function glob;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -12,6 +15,14 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\File;
+use Illuminate\Support\Str;
+use function implode;
+use function is_array;
+use function is_subclass_of;
+use function realpath;
+use function sprintf;
+use function str_replace;
+use function unslash;
 
 /**
  * The core service that powers all HydePHP file auto-discovery.
@@ -20,12 +31,32 @@ use Hyde\Support\Models\File;
  * and provides helper methods for source file auto-discovery used in the site
  * building process to determine where files are located and how to parse them.
  *
- * The CollectionService was in v0.53.0 merged into this class.
- *
  * @see \Hyde\Framework\Testing\Feature\DiscoveryServiceTest
  */
 class DiscoveryService
 {
+    public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+
+    public static function getBladePageFiles(): array
+    {
+        return static::getSourceFileListForModel(BladePage::class);
+    }
+
+    public static function getMarkdownPageFiles(): array
+    {
+        return static::getSourceFileListForModel(MarkdownPage::class);
+    }
+
+    public static function getMarkdownPostFiles(): array
+    {
+        return static::getSourceFileListForModel(MarkdownPost::class);
+    }
+
+    public static function getDocumentationPageFiles(): array
+    {
+        return static::getSourceFileListForModel(DocumentationPage::class);
+    }
+
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
@@ -33,7 +64,8 @@ class DiscoveryService
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      *
-     * @example DiscoveryService::getSourceFileListForModel(BladePage::class)
+     * @example Usage: DiscoveryService::getSourceFileListForModel(BladePage::class)
+     * @example Returns: ['index', 'about', 'contact']
      */
     public static function getSourceFileListForModel(string $model): array
     {
@@ -41,53 +73,21 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        $files = [];
-        Hyde::files()->getSourceFiles($model)->each(function (File $file) use (&$files, $model) {
-            $files[] = self::formatSlugForModel($model, $file->withoutDirectoryPrefix());
-        });
-
-        return $files;
+        return Hyde::files()->getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
+            return static::pathToIdentifier($model, $file->withoutDirectoryPrefix());
+        })->toArray();
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
     public static function getModelFileExtension(string $model): string
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $model */
         return $model::fileExtension();
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
     public static function getModelSourceDirectory(string $model): string
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $model */
         return $model::sourceDirectory();
-    }
-
-    public static function getBladePageFiles(): array
-    {
-        return self::getSourceFileListForModel(BladePage::class);
-    }
-
-    public static function getMarkdownPageFiles(): array
-    {
-        return self::getSourceFileListForModel(MarkdownPage::class);
-    }
-
-    public static function getMarkdownPostFiles(): array
-    {
-        return self::getSourceFileListForModel(MarkdownPost::class);
-    }
-
-    public static function getDocumentationPageFiles(): array
-    {
-        return self::getSourceFileListForModel(DocumentationPage::class);
-    }
-
-    /**
-     * Get all the Media asset file paths.
-     * Returns a full file path, unlike the other get*List methods.
-     */
-    public static function getMediaAssetFiles(): array
-    {
-        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
     }
 
     /**
@@ -99,29 +99,52 @@ class DiscoveryService
             return $filepath;
         }
 
-        return 'file://'.str_replace(
-            '\\',
-            '/',
-            realpath($filepath)
+        return 'file://'.str_replace('\\', '/', realpath($filepath));
+    }
+
+    /**
+     * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
+     * within the source directory are retained in order to satisfy the page identifier definition.
+     *
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
+     * @param  string  $filepath  Example: index.blade.php
+     * @return string Example: index
+     */
+    public static function pathToIdentifier(string $model, string $filepath): string
+    {
+        return unslash(Str::between(Hyde::pathToRelative($filepath),
+            $model::$sourceDirectory.'/',
+            $model::$fileExtension)
         );
     }
 
-    public static function formatSlugForModel(string $model, string $filepath): string
+    /**
+     * Get all the Media asset file paths.
+     * Returns a full file path, unlike the other get*List methods.
+     *
+     * @return array<string> An array of absolute file paths.
+     */
+    public static function getMediaAssetFiles(): array
     {
-        /** @var HydePage $model */
-        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
-
-        if (str_ends_with($slug, $model::$fileExtension)) {
-            $slug = substr($slug, 0, -strlen($model::$fileExtension));
-        }
-
-        return unslash($slug);
+        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
     }
 
     protected static function getMediaGlobPattern(): string
     {
-        return sprintf('_media/*.{%s}', str_replace(' ', '',
-            (string) config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
+        return sprintf('_media/*.{%s}', static::parseConfiguredMediaExtensions(
+            config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
         ));
+    }
+
+    protected static function parseConfiguredMediaExtensions(string|array|null $extensions): string
+    {
+        return is_array($extensions)
+            ? implode(',', $extensions)
+            : static::removeSpaces((string) $extensions);
+    }
+
+    protected static function removeSpaces(string $string): string
+    {
+        return str_replace(' ', '', $string);
     }
 }
