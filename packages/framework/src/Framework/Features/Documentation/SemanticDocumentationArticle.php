@@ -78,7 +78,7 @@ class SemanticDocumentationArticle
         $parts = explode("\n", $this->html, 2);
 
         $this->header = $parts[0];
-        $this->body = $parts[1] ?? '';
+        $this->body = rtrim($parts[1] ?? '', "\n"); // Remove trailing newline added by the Markdown compiler to normalize it
         $this->footer = '';
 
         return $this;
