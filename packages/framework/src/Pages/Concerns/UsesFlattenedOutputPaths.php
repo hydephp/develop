@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use function basename;
-use function trim;
+use function unslash;
 
 /**
  * @internal This trait is currently experimental and should not be relied upon outside of Hyde.
@@ -25,7 +25,7 @@ trait UsesFlattenedOutputPaths
      */
     public function getRouteKey(): string
     {
-        return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
+        return unslash(static::outputDirectory().'/'.basename($this->identifier));
     }
 
     /**
