@@ -74,12 +74,7 @@ class SemanticDocumentationArticle
         // we need to split the content into header and body. We do this by
         // extracting the first <h1> tag and everything before it.
 
-        if (str_contains($this->html, '<h1>')) {
-            // Split the HTML content by the first newline, which is always after the <h1> tag
-            [$this->header, $this->body] = explode("\n", $this->html, 2);
-        } else {
-            [$this->header, $this->body] = ['', $this->html];
-        }
+        [$this->header, $this->body] = $this->getTokenizedDataArray();
 
         $this->normalizeBody();
 
@@ -154,5 +149,13 @@ class SemanticDocumentationArticle
     protected function normalizeBody(): void
     {
         $this->body = trim($this->body, "\n");
+    }
+
+    /**
+     * Split the HTML content by the first newline, which is always after the <h1> tag
+     */
+    protected function getTokenizedDataArray(): array
+    {
+        return str_contains($this->html, '<h1>') ? explode("\n", $this->html, 2) : ['', $this->html];
     }
 }
