@@ -105,12 +105,12 @@ class DiscoveryService
      * within the source directory are retained in order to satisfy the page identifier definition.
      *
      * @param class-string<\Hyde\Pages\Concerns\HydePage> $model
-     * @param string $filename Example: index.blade.php
+     * @param string $filepath Example: index.blade.php
      * @return string Example: index
      */
-    public static function pathToIdentifier(string $model, string $filename): string
+    public static function pathToIdentifier(string $model, string $filepath): string
     {
-        $identifier = str_replace($model::$sourceDirectory, '', Hyde::pathToRelative($filename));
+        $identifier = str_replace($model::$sourceDirectory, '', Hyde::pathToRelative($filepath));
 
         if (str_ends_with($identifier, $model::$fileExtension)) {
             $identifier = substr($identifier, 0, -strlen($model::$fileExtension));
