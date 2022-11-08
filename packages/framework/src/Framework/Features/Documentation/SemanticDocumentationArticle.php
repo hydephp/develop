@@ -75,7 +75,7 @@ class SemanticDocumentationArticle
         // extracting the first <h1> tag and everything before it.
 
         if (str_contains($this->html, '<h1>')) {
-            // Split the HTML content by the first newline
+            // Split the HTML content by the first newline, which is always after the <h1> tag
             $parts = explode("\n", $this->html, 2);
             // Remove trailing newline added by the Markdown compiler to normalize it
             $parts[1] = rtrim($parts[1] ?? '', "\n");
