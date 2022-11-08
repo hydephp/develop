@@ -111,12 +111,7 @@ class DiscoveryService
      */
     public static function pathToIdentifier(string $model, string $filepath): string
     {
-        $identifier = Hyde::pathToRelative($filepath);
-
-        $identifier = Str::after($identifier, $model::$sourceDirectory . '/');
-        $identifier = Str::before($identifier, $model::$fileExtension);
-
-        return unslash($identifier);
+        return unslash(Str::before(Str::after(Hyde::pathToRelative($filepath), $model::$sourceDirectory . '/'), $model::$fileExtension));
     }
 
     protected static function getMediaGlobPattern(): string
