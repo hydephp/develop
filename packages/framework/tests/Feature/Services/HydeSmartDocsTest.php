@@ -45,6 +45,22 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEquals('<p>Body Content</p>', $article->renderBody());
     }
 
+    public function test_class_can_handle_document_with_only_header()
+    {
+        $article = $this->makeArticle('# Header Content');
+
+        $this->assertEquals('<h1>Header Content</h1>', $article->renderHeader());
+        $this->assertEquals('', $article->renderBody());
+    }
+
+    public function test_class_can_handle_empty_document()
+    {
+        $article = $this->makeArticle('');
+
+        $this->assertEquals('', $article->renderHeader());
+        $this->assertEquals('', $article->renderBody());
+    }
+
     public function test_create_helper_creates_new_instance_and_processes_it()
     {
         $article = $this->makeArticle();
