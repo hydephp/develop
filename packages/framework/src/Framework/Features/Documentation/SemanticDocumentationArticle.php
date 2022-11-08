@@ -77,8 +77,10 @@ class SemanticDocumentationArticle
         if (str_contains($this->html, '<h1>')) {
             // Split the HTML content by the first newline
             $parts = explode("\n", $this->html, 2);
+            $parts[1] = rtrim($parts[1] ?? '', "\n"); // Remove trailing newline added by the Markdown compiler to normalize it
+
             $this->header = $parts[0];
-            $this->body = rtrim($parts[1] ?? '', "\n"); // Remove trailing newline added by the Markdown compiler to normalize it
+            $this->body = $parts[1];
         } else {
             $this->body = rtrim($this->html, "\n");
         }
