@@ -81,17 +81,6 @@ class DiscoveryService
     }
 
     /**
-     * Get all the Media asset file paths.
-     * Returns a full file path, unlike the other get*List methods.
-     *
-     * @return array<string> An array of absolute file paths.
-     */
-    public static function getMediaAssetFiles(): array
-    {
-        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
-    }
-
-    /**
      * Create a filepath that can be opened in the browser from a terminal.
      */
     public static function createClickableFilepath(string $filepath): string
@@ -117,6 +106,17 @@ class DiscoveryService
             $model::$sourceDirectory . '/',
             $model::$fileExtension)
         );
+    }
+
+    /**
+     * Get all the Media asset file paths.
+     * Returns a full file path, unlike the other get*List methods.
+     *
+     * @return array<string> An array of absolute file paths.
+     */
+    public static function getMediaAssetFiles(): array
+    {
+        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
     }
 
     protected static function getMediaGlobPattern(): string
