@@ -100,10 +100,10 @@ class DiscoveryService
         return 'file://'.str_replace('\\', '/', realpath($filepath));
     }
 
-    public static function formatSlugForModel(string $model, string $filepath): string
+    public static function formatSlugForModel(string $model, string $identifier): string
     {
         /** @var HydePage $model */
-        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filepath);
+        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $identifier);
 
         if (str_ends_with($slug, $model::$fileExtension)) {
             $slug = substr($slug, 0, -strlen($model::$fileExtension));
