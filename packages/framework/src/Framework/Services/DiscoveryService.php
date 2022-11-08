@@ -41,7 +41,7 @@ class DiscoveryService
         }
 
         return Hyde::files()->getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
-            return self::formatSlugForModel($model, $file->withoutDirectoryPrefix());
+            return static::formatSlugForModel($model, $file->withoutDirectoryPrefix());
         })->toArray();
     }
 
@@ -59,22 +59,22 @@ class DiscoveryService
 
     public static function getBladePageFiles(): array
     {
-        return self::getSourceFileListForModel(BladePage::class);
+        return static::getSourceFileListForModel(BladePage::class);
     }
 
     public static function getMarkdownPageFiles(): array
     {
-        return self::getSourceFileListForModel(MarkdownPage::class);
+        return static::getSourceFileListForModel(MarkdownPage::class);
     }
 
     public static function getMarkdownPostFiles(): array
     {
-        return self::getSourceFileListForModel(MarkdownPost::class);
+        return static::getSourceFileListForModel(MarkdownPost::class);
     }
 
     public static function getDocumentationPageFiles(): array
     {
-        return self::getSourceFileListForModel(DocumentationPage::class);
+        return static::getSourceFileListForModel(DocumentationPage::class);
     }
 
     /**
