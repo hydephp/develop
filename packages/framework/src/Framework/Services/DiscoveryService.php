@@ -104,13 +104,13 @@ class DiscoveryService
      * Format a filename to a slug/identifier for a given model.
      *
      * @param class-string<\Hyde\Pages\Concerns\HydePage> $model
-     * @param string $identifier Example: index.blade.php
+     * @param string $filename Example: index.blade.php
      * @return string Example: index
      */
-    public static function formatSlugForModel(string $model, string $identifier): string
+    public static function formatSlugForModel(string $model, string $filename): string
     {
         /** @var HydePage $model */
-        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $identifier);
+        $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filename);
 
         if (str_ends_with($slug, $model::$fileExtension)) {
             $slug = substr($slug, 0, -strlen($model::$fileExtension));
