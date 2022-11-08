@@ -277,8 +277,7 @@ class DiscoveryServiceTest extends TestCase
 
     public function test_path_to_identifier_helper_formats_path_to_identifier()
     {
-        foreach ([MarkdownPage::class, MarkdownPost::class, DocumentationPage::class] as $page)
-        {
+        foreach ([MarkdownPage::class, MarkdownPost::class, DocumentationPage::class] as $page) {
             $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo'));
             $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo.md'));
             $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier($page, 'foo/bar.md'));

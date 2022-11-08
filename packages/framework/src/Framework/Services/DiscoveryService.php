@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use function class_exists;
+use function config;
+use function glob;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -13,9 +16,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\File;
 use Illuminate\Support\Str;
-use function class_exists;
-use function config;
-use function glob;
 use function implode;
 use function is_array;
 use function is_subclass_of;
@@ -30,7 +30,7 @@ use function unslash;
  * Contains service methods to return helpful collections of arrays and lists,
  * and provides helper methods for source file auto-discovery used in the site
  * building process to determine where files are located and how to parse them.
-
+ *
  * @see \Hyde\Framework\Testing\Feature\DiscoveryServiceTest
  */
 class DiscoveryService
@@ -106,14 +106,14 @@ class DiscoveryService
      * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
      * within the source directory are retained in order to satisfy the page identifier definition.
      *
-     * @param class-string<\Hyde\Pages\Concerns\HydePage> $model
-     * @param string $filepath Example: index.blade.php
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $model
+     * @param  string  $filepath  Example: index.blade.php
      * @return string Example: index
      */
     public static function pathToIdentifier(string $model, string $filepath): string
     {
         return unslash(Str::between(Hyde::pathToRelative($filepath),
-            $model::$sourceDirectory . '/',
+            $model::$sourceDirectory.'/',
             $model::$fileExtension)
         );
     }
