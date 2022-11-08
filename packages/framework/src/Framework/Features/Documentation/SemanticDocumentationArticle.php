@@ -76,9 +76,7 @@ class SemanticDocumentationArticle
 
         if (str_contains($this->html, '<h1>')) {
             // Split the HTML content by the first newline, which is always after the <h1> tag
-            $parts = explode("\n", $this->html, 2);
-
-            [$this->header, $this->body] = $parts;
+            [$this->header, $this->body] = explode("\n", $this->html, 2);
         } else {
             $this->body = $this->html;
         }
