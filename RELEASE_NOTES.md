@@ -31,7 +31,7 @@ If any of these statements are true, you will probably need to make changes to y
 - You have written custom code (for example in Blade views) that relies on the old API.
 - You have published the built-in Blade views (you should be able to get away by just republishing them).
 
-In all cases, you will most definitely need to republish the configuration files.
+In all cases, you will most definitely need to republish the configuration files and update the `app/bootstrap.php` file.
 
 #### Major breaking changes
 

@@ -65,3 +65,19 @@ if (! function_exists('strip_newlines')) {
         return str_replace(["\r", "\n"], '', $string);
     }
 }
+
+if (! function_exists('strip_indentation')) {
+    function strip_indentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    {
+        $indentation = $indentUsingSpaces ? str_repeat(' ', $indentationLength) : "\t";
+
+        return str_replace($indentation, '', $string);
+    }
+}
+
+if (! function_exists('strip_newlines_and_indentation')) {
+    function strip_newlines_and_indentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    {
+        return strip_newlines(strip_indentation($string, $indentUsingSpaces, $indentationLength));
+    }
+}
