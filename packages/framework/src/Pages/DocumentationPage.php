@@ -25,6 +25,11 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
+    public static function home(): ?Route
+    {
+        return Route::get(static::$outputDirectory.'/index');
+    }
+
     /** @see https://hydephp.com/docs/master/documentation-pages#automatic-edit-page-button */
     public function getOnlineSourcePath(): string|false
     {
@@ -35,10 +40,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
-    public static function home(): ?Route
-    {
-        return Route::get(static::$outputDirectory.'/index');
-    }
 
     public static function hasTableOfContents(): bool
     {
