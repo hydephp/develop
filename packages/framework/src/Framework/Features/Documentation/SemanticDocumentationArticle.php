@@ -21,9 +21,9 @@ class SemanticDocumentationArticle
     protected DocumentationPage $page;
     protected string $html;
 
-    protected string $header;
+    protected string $header = '';
     protected string $body;
-    protected string $footer;
+    protected string $footer = '';
 
     /**
      * Create a new SemanticDocumentationArticle instance, process, and return it.
