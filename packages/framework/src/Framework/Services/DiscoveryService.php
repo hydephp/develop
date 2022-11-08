@@ -121,7 +121,7 @@ class DiscoveryService
 
     protected static function getMediaGlobPattern(): string
     {
-        return sprintf('_media/*.{%s}', self::parseConfiguredMediaExtensions(
+        return sprintf('_media/*.{%s}', static::parseConfiguredMediaExtensions(
             config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
         ));
     }
@@ -130,7 +130,7 @@ class DiscoveryService
     {
         return is_array($extensions)
             ? implode(',', $extensions)
-            : self::removeSpaces((string) $extensions);
+            : static::removeSpaces((string) $extensions);
     }
 
     protected static function removeSpaces(string $string): string
