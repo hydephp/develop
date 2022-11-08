@@ -84,7 +84,11 @@ class SemanticDocumentationArticle
     protected function getTokenizedDataArray(): array
     {
         // Split the HTML content by the first newline, which is always after the <h1> tag
-        return str_contains($this->html, '<h1>') ? explode("\n", $this->html, 2) : ['', $this->html];
+        if (str_contains($this->html, '<h1>')) {
+            return explode("\n", $this->html, 2);
+        }
+
+        return ['', $this->html];
     }
 
     protected function normalizeBody(): void
