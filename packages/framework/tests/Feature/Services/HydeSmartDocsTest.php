@@ -6,14 +6,14 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use function app;
 use function config;
+use function file_put_contents;
 use Hyde\Framework\Features\Documentation\SemanticDocumentationArticle;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
-use function file_put_contents;
-use function strip_newlines_and_indentation;
 use function strip_newlines;
+use function strip_newlines_and_indentation;
 use function unlinkIfExists;
 use function view;
 
@@ -39,7 +39,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_class_can_handle_document_with_no_header()
     {
-        $article = $this->makeArticle("Body Content");
+        $article = $this->makeArticle('Body Content');
 
         $this->assertEquals('', $article->renderHeader());
         $this->assertEquals('<p>Body Content</p>', $article->renderBody());
@@ -186,7 +186,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
     {
-        app()->bind('env', fn() => 'production');
+        app()->bind('env', fn () => 'production');
         config(['torchlight.token' => '12345']);
 
         $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"',
