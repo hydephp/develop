@@ -80,11 +80,8 @@ class SemanticDocumentationArticle
             $this->header = $parts[0];
             $this->body = rtrim($parts[1] ?? '', "\n"); // Remove trailing newline added by the Markdown compiler to normalize it
         } else {
-            $this->header = '';
             $this->body = rtrim($this->html, "\n");
         }
-
-        $this->footer = '';
 
         return $this;
     }
