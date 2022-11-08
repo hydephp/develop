@@ -19,14 +19,15 @@ use Hyde\Support\Models\Route;
  */
 class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSchema
 {
+    use Concerns\UsesFlattenedOutputPaths;
+
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
-    /** @inheritDoc */
-    public function getRouteKey(): string
+    public static function home(): ?Route
     {
-        return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
+        return Route::get(static::$outputDirectory.'/index');
     }
 
     /** @see https://hydephp.com/docs/master/documentation-pages#automatic-edit-page-button */
@@ -37,11 +38,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
         }
 
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
-    }
-
-    public static function home(): ?Route
-    {
-        return Route::get(static::$outputDirectory.'/index');
     }
 
     public static function hasTableOfContents(): bool
@@ -55,13 +51,5 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public function getTableOfContents(): string
     {
         return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
-    }
-
-    /**
-     * Return the output path for the identifier basename so nested pages are flattened.
-     */
-    public function getOutputPath(): string
-    {
-        return static::outputPath(basename($this->identifier));
     }
 }
