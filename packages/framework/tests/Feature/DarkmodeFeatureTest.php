@@ -46,7 +46,7 @@ class DarkmodeFeatureTest extends TestCase
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
-            'markdown' => 'foo',
+            'content' => 'foo',
             'currentPage' => 'foo',
         ])->render();
 
@@ -65,7 +65,7 @@ class DarkmodeFeatureTest extends TestCase
 
         $view = view('hyde::layouts/docs')->with([
             'title' => 'foo',
-            'markdown' => 'foo',
+            'content' => 'foo',
             'currentPage' => 'foo',
         ])->render();
 
@@ -82,7 +82,7 @@ class DarkmodeFeatureTest extends TestCase
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
-            'markdown' => 'foo',
+            'content' => 'foo',
             'currentPage' => 'foo',
         ])->render();
 
@@ -100,7 +100,7 @@ class DarkmodeFeatureTest extends TestCase
 
         $view = view('hyde::layouts/docs')->with([
             'title' => 'foo',
-            'markdown' => 'foo',
+            'content' => 'foo',
             'currentPage' => 'foo',
         ])->render();
 

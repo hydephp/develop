@@ -9,6 +9,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\HtmlString;
 
 /**
  * @covers \Hyde\Markdown\Models\MarkdownDocument
@@ -40,10 +41,17 @@ class MarkdownDocumentTest extends TestCase
         $this->assertEquals('Hello, world!', (string) $document);
     }
 
-    public function test_render_method_returns_rendered_html()
+    public function test_compile_method_returns_rendered_html()
     {
         $document = new MarkdownDocument([], 'Hello, world!');
         $this->assertEquals("<p>Hello, world!</p>\n", $document->markdown->compile());
+    }
+
+    public function test_to_html_method_returns_rendered_as_html_string()
+    {
+        $document = new MarkdownDocument([], 'Hello, world!');
+        $this->assertInstanceOf(HtmlString::class, $document->markdown->toHtml());
+        $this->assertEquals("<p>Hello, world!</p>\n", (string) $document->markdown->toHtml());
     }
 
     public function test_parse_method_parses_a_file_using_the_markdown_file_service()
