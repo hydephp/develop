@@ -81,6 +81,22 @@ class SemanticDocumentationArticle
         return $this;
     }
 
+    /**
+     * Split the HTML content by the first newline, which is always after the <h1> tag
+     */
+    protected function getTokenizedDataArray(): array
+    {
+        return str_contains($this->html, '<h1>') ? explode("\n", $this->html, 2) : ['', $this->html];
+    }
+
+    /**
+     * Remove possible trailing newlines added by the Markdown compiler to normalize the body.
+     */
+    protected function normalizeBody(): void
+    {
+        $this->body = trim($this->body, "\n");
+    }
+
     protected function addDynamicHeaderContent(): static
     {
         // Hook to add dynamic content to the header.
@@ -141,21 +157,5 @@ class SemanticDocumentationArticle
         $positions = $config === 'both' ? ['header', 'footer'] : [$config];
 
         return ($this->page->getOnlineSourcePath() !== false) && in_array($inPosition, $positions);
-    }
-
-    /**
-     * Remove possible trailing newlines added by the Markdown compiler to normalize the body.
-     */
-    protected function normalizeBody(): void
-    {
-        $this->body = trim($this->body, "\n");
-    }
-
-    /**
-     * Split the HTML content by the first newline, which is always after the <h1> tag
-     */
-    protected function getTokenizedDataArray(): array
-    {
-        return str_contains($this->html, '<h1>') ? explode("\n", $this->html, 2) : ['', $this->html];
     }
 }
