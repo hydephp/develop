@@ -41,7 +41,7 @@ class DiscoveryService
         }
 
         return Hyde::files()->getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
-            return static::formatSlugForModel($model, $file->withoutDirectoryPrefix());
+            return static::pathToIdentifier($model, $file->withoutDirectoryPrefix());
         })->toArray();
     }
 
@@ -107,7 +107,7 @@ class DiscoveryService
      * @param string $filename Example: index.blade.php
      * @return string Example: index
      */
-    public static function formatSlugForModel(string $model, string $filename): string
+    public static function pathToIdentifier(string $model, string $filename): string
     {
         /** @var HydePage $model */
         $slug = str_replace(Hyde::path($model::$sourceDirectory), '', $filename);
