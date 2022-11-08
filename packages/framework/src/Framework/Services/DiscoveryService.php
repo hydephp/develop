@@ -13,6 +13,16 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\File;
 use Illuminate\Support\Str;
+use function class_exists;
+use function config;
+use function glob;
+use function implode;
+use function is_array;
+use function is_subclass_of;
+use function realpath;
+use function sprintf;
+use function str_replace;
+use function unslash;
 
 /**
  * The core service that powers all HydePHP file auto-discovery.
