@@ -39,7 +39,7 @@ class SemanticDocumentationArticle
     public function __construct(DocumentationPage $page)
     {
         $this->page = $page;
-        $this->html = $page->markdown->compile();
+        $this->html = $page->markdown->compile($page::class);
 
         $this->process();
     }
