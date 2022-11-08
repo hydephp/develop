@@ -128,10 +128,8 @@ class DiscoveryService
     {
          $extensions = config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS);
 
-         if (is_array($extensions)) {
-            return implode(',', $extensions);
-         }
-
-         return str_replace(' ', '', (string) $extensions);
+        return is_array($extensions)
+            ? implode(',', $extensions)
+            : str_replace(' ', '', (string) $extensions);
     }
 }
