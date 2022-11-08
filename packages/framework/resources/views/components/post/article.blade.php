@@ -16,7 +16,7 @@
     </header>
     @includeWhen(isset($page->image), 'hyde::components.post.image')
     <div aria-label="Article body" itemprop="articleBody">
-        {{ $page->markdown->toHtml() }}
+        {{ $content }}
     </div>
     <span class="sr-only">End of article</span>
 </article>
