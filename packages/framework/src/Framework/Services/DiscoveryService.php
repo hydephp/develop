@@ -12,6 +12,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\File;
+use Illuminate\Support\Str;
 
 /**
  * The core service that powers all HydePHP file auto-discovery.
@@ -113,11 +114,11 @@ class DiscoveryService
         $identifier = Hyde::pathToRelative($filepath);
 
         if (str_starts_with($identifier, $model::$sourceDirectory . '/')) {
-            $identifier = substr($identifier, strlen($model::$sourceDirectory) + 1);
+            $identifier = Str::after($identifier, $model::$sourceDirectory . '/');
         }
 
         if (str_ends_with($identifier, $model::$fileExtension)) {
-            $identifier = substr($identifier, 0, -strlen($model::$fileExtension));
+            $identifier = Str::before($identifier, $model::$fileExtension);
         }
 
         return unslash($identifier);
