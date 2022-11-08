@@ -18,14 +18,20 @@ use function trim;
  */
 trait UsesFlattenedOutputPaths
 {
-    /** @inheritDoc */
+    /**
+     * Get the route key for the page.
+     *
+     * Uses the identifier basename so nested pages are flattened.
+     */
     public function getRouteKey(): string
     {
         return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
     }
 
     /**
-     * Return the output path for the identifier basename so nested pages are flattened.
+     * Get the path where the compiled page will be saved.
+     *
+     * Uses the identifier basename so nested pages are flattened.
      */
     public function getOutputPath(): string
     {
