@@ -74,3 +74,10 @@ if (! function_exists('strip_indentation')) {
         return str_replace($indentation, '', $string);
     }
 }
+
+if (! function_exists('strip_newlines_and_indentation')) {
+    function strip_newlines_and_indentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    {
+        return strip_newlines(strip_indentation($string, $indentUsingSpaces, $indentationLength));
+    }
+}
