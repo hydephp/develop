@@ -25,6 +25,8 @@ use Illuminate\Support\Str;
  */
 class DiscoveryService
 {
+    public const DEFAULT_MEDIA_EXTENSIONS = 'png,svg,jpg,jpeg,gif,ico,css,js';
+
     /**
      * Supply a model::class constant and get a list of all the existing source file base names.
      *
@@ -120,7 +122,7 @@ class DiscoveryService
     protected static function getMediaGlobPattern(): string
     {
         return sprintf('_media/*.{%s}', str_replace(' ', '',
-            (string) config('hyde.media_extensions', 'png,svg,jpg,jpeg,gif,ico,css,js')
+            (string) config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
         ));
     }
 }
