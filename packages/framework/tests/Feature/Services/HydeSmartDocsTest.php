@@ -11,7 +11,9 @@ use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
+use function file_put_contents;
 use function str_replace;
+use function unlinkIfExists;
 use function view;
 
 /**
@@ -19,18 +21,11 @@ use function view;
  */
 class HydeSmartDocsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        file_put_contents(Hyde::path('_docs/foo.md'), "# Foo\n\nHello world.");
-    }
-
     protected function tearDown(): void
     {
         parent::tearDown();
 
-        unlink(Hyde::path('_docs/foo.md'));
+        unlinkIfExists(Hyde::path('_docs/foo.md'));
     }
 
     public function test_create_helper_creates_new_instance_and_processes_it()
@@ -44,6 +39,8 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
     {
+        $this->makeArticle(); // Create the file
+
         $class = new SemanticDocumentationArticle(DocumentationPage::parse('foo'));
         $facade = $this->makeArticle();
 
@@ -155,8 +152,7 @@ class HydeSmartDocsTest extends TestCase
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
     {
         $this->mockTorchlight();
-        file_put_contents(Hyde::path('_docs/foo.md'), 'Syntax highlighted by torchlight.dev');
-        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $this->makeArticle()->renderFooter()->toHtml());
+        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $this->makeArticle('Syntax highlighted by torchlight.dev')->renderFooter()->toHtml());
     }
 
     public function test_the_documentation_article_view()
@@ -204,8 +200,10 @@ class HydeSmartDocsTest extends TestCase
         config(['torchlight.token' => '12345']);
     }
 
-    protected function makeArticle(): SemanticDocumentationArticle
+    protected function makeArticle(string $sourceFileContents = "# Foo\n\nHello world."): SemanticDocumentationArticle
     {
+        file_put_contents(Hyde::path('_docs/foo.md'), $sourceFileContents);
+
         return SemanticDocumentationArticle::create(DocumentationPage::parse('foo'));
     }
 }
