@@ -215,5 +215,4 @@ class HydeSmartDocsTest extends TestCase
 
         config(['torchlight.token' => '12345']);
     }
-
 }
