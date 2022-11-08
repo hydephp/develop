@@ -12,7 +12,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
 use function file_put_contents;
-use function str_replace;
+use function strip_newlines_and_indentation;
 use function strip_newlines;
 use function unlinkIfExists;
 use function view;
@@ -188,13 +188,8 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            $this->withoutNewLinesAndIndentation($expected),
-            $this->withoutNewLinesAndIndentation($actual->toHtml())
+            strip_newlines_and_indentation($expected),
+            strip_newlines_and_indentation($actual->toHtml()),
         );
-    }
-
-    protected function withoutNewLinesAndIndentation(string $expected): string
-    {
-        return str_replace(["\n", "\r", '    '], '', $expected);
     }
 }
