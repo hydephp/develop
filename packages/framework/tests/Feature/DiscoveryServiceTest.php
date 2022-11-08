@@ -225,6 +225,20 @@ class DiscoveryServiceTest extends TestCase
         unlink(Hyde::path('_docs/_foo.md'));
     }
 
+    public function test_path_to_identifier_helper_formats_path_to_identifier()
+    {
+        foreach ([MarkdownPage::class, MarkdownPost::class, DocumentationPage::class] as $page)
+        {
+            $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo'));
+            $this->assertEquals('foo', DiscoveryService::pathToIdentifier($page, 'foo.md'));
+            $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier($page, 'foo/bar.md'));
+        }
+
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo'));
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo.blade.php'));
+        $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier(BladePage::class, 'foo/bar.blade.php'));
+    }
+
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
     {
         Hyde::touch(($path));
