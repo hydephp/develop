@@ -25,12 +25,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
-    /** @inheritDoc */
-    public function getRouteKey(): string
-    {
-        return trim(static::outputDirectory().'/'.basename($this->identifier), '/');
-    }
-
     /** @see https://hydephp.com/docs/master/documentation-pages#automatic-edit-page-button */
     public function getOnlineSourcePath(): string|false
     {
@@ -57,13 +51,5 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
     public function getTableOfContents(): string
     {
         return (new GeneratesSidebarTableOfContents($this->markdown))->execute();
-    }
-
-    /**
-     * Return the output path for the identifier basename so nested pages are flattened.
-     */
-    public function getOutputPath(): string
-    {
-        return static::outputPath(basename($this->identifier));
     }
 }
