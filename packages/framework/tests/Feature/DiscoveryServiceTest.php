@@ -237,6 +237,9 @@ class DiscoveryServiceTest extends TestCase
         $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo'));
         $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, 'foo.blade.php'));
         $this->assertEquals('foo/bar', DiscoveryService::pathToIdentifier(BladePage::class, 'foo/bar.blade.php'));
+
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, Hyde::path('_pages/foo.blade.php')));
+        $this->assertEquals('foo', DiscoveryService::pathToIdentifier(BladePage::class, ('_pages/foo.blade.php')));
     }
 
     protected function unitTestMarkdownBasedPageList(string $model, string $path, ?string $expected = null)
