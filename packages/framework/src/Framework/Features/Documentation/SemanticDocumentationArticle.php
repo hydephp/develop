@@ -28,7 +28,7 @@ class SemanticDocumentationArticle
     /**
      * Create a new SemanticDocumentationArticle instance, process, and return it.
      *
-     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object
+     * @param  \Hyde\Pages\DocumentationPage  $page  The source page object to process.
      * @return static new processed instance
      */
     public static function create(DocumentationPage $page): static
