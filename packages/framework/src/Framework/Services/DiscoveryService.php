@@ -40,7 +40,7 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        return Hyde::files()->getSourceFiles($model)->flatten()->map(function (File $file) use ($model) {
+        return Hyde::files()->getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
             return self::formatSlugForModel($model, $file->withoutDirectoryPrefix());
         })->toArray();
     }
