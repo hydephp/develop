@@ -31,7 +31,8 @@ class DiscoveryService
      *
      * @throws \Hyde\Framework\Exceptions\UnsupportedPageTypeException
      *
-     * @example DiscoveryService::getSourceFileListForModel(BladePage::class)
+     * @example Usage: DiscoveryService::getSourceFileListForModel(BladePage::class)
+     * @example Returns: ['index', 'about', 'contact']
      */
     public static function getSourceFileListForModel(string $model): array
     {
