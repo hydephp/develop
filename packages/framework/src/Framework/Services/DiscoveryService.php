@@ -110,7 +110,7 @@ class DiscoveryService
      */
     public static function pathToIdentifier(string $model, string $filepath): string
     {
-        $identifier = str_replace([Hyde::path($model::$sourceDirectory), ($model::$sourceDirectory)], '', $filepath);
+        $identifier = str_replace([Hyde::path($model::$sourceDirectory), $model::$sourceDirectory], '', $filepath);
 
         if (str_ends_with($identifier, $model::$fileExtension)) {
             $identifier = substr($identifier, 0, -strlen($model::$fileExtension));
