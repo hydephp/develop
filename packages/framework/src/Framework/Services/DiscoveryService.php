@@ -121,13 +121,13 @@ class DiscoveryService
 
     protected static function getMediaGlobPattern(): string
     {
-        return sprintf('_media/*.{%s}', self::parseConfiguredMediaExtensions());
+        return sprintf('_media/*.{%s}', self::parseConfiguredMediaExtensions(
+            config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
+        ));
     }
 
-    protected static function parseConfiguredMediaExtensions(): string
+    protected static function parseConfiguredMediaExtensions(string|array|null $extensions): string
     {
-         $extensions = config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS);
-
         return is_array($extensions)
             ? implode(',', $extensions)
             : str_replace(' ', '', (string) $extensions);
