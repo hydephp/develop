@@ -72,18 +72,14 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
     {
-        $this->makeArticle(); // Create the file
+        file_put_contents(Hyde::path('_docs/foo.md'),"# Foo\n\nHello world.");
 
-        $class = new SemanticDocumentationArticle(DocumentationPage::parse('foo'));
-        $facade = $this->makeArticle();
+        $page = DocumentationPage::parse('foo');
 
-        // Baseline since we manually need to call the process method
-        $this->assertNotEquals($class, $facade);
-
-        $class->process();
-
-        // Now they should be the equal
-        $this->assertEquals($class, $facade);
+        $this->assertEquals(
+            new SemanticDocumentationArticle($page),
+            SemanticDocumentationArticle::create($page)
+        );
     }
 
     public function test_render_header_returns_the_extracted_header()
