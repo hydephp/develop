@@ -58,15 +58,15 @@ class DiscoveryService
         })->toArray();
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
     public static function getModelFileExtension(string $model): string
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $model */
         return $model::fileExtension();
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $model */
     public static function getModelSourceDirectory(string $model): string
     {
-        /** @var \Hyde\Pages\Concerns\HydePage $model */
         return $model::sourceDirectory();
     }
 
