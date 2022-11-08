@@ -40,7 +40,6 @@ class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSch
         return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
-
     public static function hasTableOfContents(): bool
     {
         return config('docs.table_of_contents.enabled', true);
