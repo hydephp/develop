@@ -59,18 +59,31 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makeArticle()->renderHeader());
     }
 
-    public function test_render_header_returns_the_extracted_header_with_varying_newlines()
+    public function test_render_header_returns_the_extracted_header_with_extra_newlines()
     {
-        $tests = [
-            "# Foo\n\nHello world.",
-            "# Foo\r\n\r\nHello world.",
-            "\n\n\n# Foo \r\n\r\n\n\n\n Hello world.",
-        ];
+        $testString = "# Foo\n\n\nHello world.";
 
-        foreach ($tests as $test) {
-            file_put_contents(Hyde::path('_docs/foo.md'), $test);
-            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makeArticle()->renderHeader());
-        }
+        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>',
+                $this->makeArticle($testString)->renderHeader()
+        );
+    }
+
+    public function test_render_header_returns_the_extracted_header_with_mixed_extra_newlines()
+    {
+        $testString = "# Foo\r\n\r\nHello world.";
+
+        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>',
+            $this->makeArticle($testString)->renderHeader()
+        );
+    }
+
+    public function test_render_header_returns_the_extracted_header_with_varying_scattered_newlines()
+    {
+        $testString = "\n\r\n# Foo\r\n\r\nHello world.\r\n";
+
+        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>',
+            $this->makeArticle($testString)->renderHeader()
+        );
     }
 
     public function test_render_body_returns_the_extracted_body()
