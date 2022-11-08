@@ -58,7 +58,7 @@ class SemanticDocumentationArticle
     }
 
     /** @internal */
-    public function process(): self
+    protected function process(): self
     {
         $this->tokenize();
 
