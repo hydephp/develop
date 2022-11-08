@@ -113,13 +113,8 @@ class DiscoveryService
     {
         $identifier = Hyde::pathToRelative($filepath);
 
-        if (str_starts_with($identifier, $model::$sourceDirectory . '/')) {
-            $identifier = Str::after($identifier, $model::$sourceDirectory . '/');
-        }
-
-        if (str_ends_with($identifier, $model::$fileExtension)) {
-            $identifier = Str::before($identifier, $model::$fileExtension);
-        }
+        $identifier = Str::after($identifier, $model::$sourceDirectory . '/');
+        $identifier = Str::before($identifier, $model::$fileExtension);
 
         return unslash($identifier);
     }
