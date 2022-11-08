@@ -186,6 +186,27 @@ class DiscoveryServiceTest extends TestCase
         unlink($path);
     }
 
+    public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
+    {
+        config(['hyde.media_extensions' => null]);
+        Hyde::touch('_media/test.one');
+        Hyde::touch('_media/test.two');
+        Hyde::touch('_media/test.three');
+
+        $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
+
+        config(['hyde.media_extensions' => 'one,two,three']);
+        $this->assertEquals([
+            Hyde::path('_media/test.one'),
+            Hyde::path('_media/test.two'),
+            Hyde::path('_media/test.three'),
+        ], DiscoveryService::getMediaAssetFiles());
+
+        Hyde::unlink('_media/test.one');
+        Hyde::unlink('_media/test.two');
+        Hyde::unlink('_media/test.three');
+    }
+
     public function test_blade_page_files_starting_with_underscore_are_ignored()
     {
         Hyde::touch(('_pages/_foo.blade.php'));
