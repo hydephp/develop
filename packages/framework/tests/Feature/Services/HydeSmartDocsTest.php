@@ -96,13 +96,17 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makeArticle($test)->renderHeader());
+            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>',
+                $this->makeArticle($test)->renderHeader()
+            );
         }
     }
 
     public function test_render_body_returns_the_extracted_body()
     {
-        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $this->makeArticle()->renderBody());
+        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>',
+            $this->makeArticle()->renderBody()
+        );
     }
 
     public function test_render_body_returns_the_extracted_body_with_varying_newlines()
@@ -114,7 +118,9 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $this->makeArticle($test)->renderBody());
+            $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>',
+                $this->makeArticle($test)->renderBody()
+            );
         }
     }
 
