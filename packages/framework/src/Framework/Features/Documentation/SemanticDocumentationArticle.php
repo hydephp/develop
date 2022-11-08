@@ -81,19 +81,15 @@ class SemanticDocumentationArticle
         return $this;
     }
 
-    /**
-     * Split the HTML content by the first newline, which is always after the <h1> tag
-     */
     protected function getTokenizedDataArray(): array
     {
+        // Split the HTML content by the first newline, which is always after the <h1> tag
         return str_contains($this->html, '<h1>') ? explode("\n", $this->html, 2) : ['', $this->html];
     }
 
-    /**
-     * Remove possible trailing newlines added by the Markdown compiler to normalize the body.
-     */
     protected function normalizeBody(): void
     {
+        // Remove possible trailing newlines added by the Markdown compiler to normalize the body.
         $this->body = trim($this->body, "\n");
     }
 
