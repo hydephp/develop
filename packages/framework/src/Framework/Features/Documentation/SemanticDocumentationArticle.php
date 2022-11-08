@@ -78,7 +78,7 @@ class SemanticDocumentationArticle
             // Split the HTML content by the first newline, which is always after the <h1> tag
             [$this->header, $this->body] = explode("\n", $this->html, 2);
         } else {
-            $this->body = $this->html;
+            [$this->header, $this->body] = ['', $this->html];
         }
 
         $this->normalizeBody();
