@@ -58,9 +58,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_render_header_returns_the_extracted_header()
     {
-        $page = $this->makePage();
-
-        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
+        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makePage()->renderHeader());
     }
 
     public function test_render_header_returns_the_extracted_header_with_varying_newlines()
@@ -73,16 +71,13 @@ class HydeSmartDocsTest extends TestCase
 
         foreach ($tests as $test) {
             file_put_contents(Hyde::path('_docs/foo.md'), $test);
-            $page = $this->makePage();
-            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $page->renderHeader());
+            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makePage()->renderHeader());
         }
     }
 
     public function test_render_body_returns_the_extracted_body()
     {
-        $page = $this->makePage();
-
-        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
+        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $this->makePage()->renderBody());
     }
 
     public function test_render_body_returns_the_extracted_body_with_varying_newlines()
@@ -95,38 +90,33 @@ class HydeSmartDocsTest extends TestCase
 
         foreach ($tests as $test) {
             file_put_contents(Hyde::path('_docs/foo.md'), $test);
-            $page = $this->makePage();
-            $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $page->renderBody());
+            $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $this->makePage()->renderBody());
         }
     }
 
     public function test_render_footer_is_empty_by_default()
     {
-        $page = $this->makePage();
-
-        $this->assertEqualsIgnoringNewlines('', $page->renderFooter());
+        $this->assertEqualsIgnoringNewlines('', $this->makePage()->renderFooter());
     }
 
     public function test_add_dynamic_header_content_adds_source_link_when_conditions_are_met()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'header']);
-        $page = $this->makePage();
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
-        HTML, $page->renderHeader());
+        HTML, $this->makePage()->renderHeader());
     }
 
     public function test_edit_source_link_is_added_to_footer_when_conditions_are_met()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'footer']);
-        $page = $this->makePage();
 
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
-        HTML, $page->renderFooter());
+        HTML, $this->makePage()->renderFooter());
     }
 
     public function test_edit_source_link_can_be_added_to_both_header_and_footer()
@@ -166,9 +156,7 @@ class HydeSmartDocsTest extends TestCase
     {
         $this->mockTorchlight();
         file_put_contents(Hyde::path('_docs/foo.md'), 'Syntax highlighted by torchlight.dev');
-        $page = $this->makePage();
-
-        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $page->renderFooter()->toHtml());
+        $this->assertStringContainsString('Syntax highlighting by <a href="https://torchlight.dev/"', $this->makePage()->renderFooter()->toHtml());
     }
 
     public function test_the_documentation_article_view()
