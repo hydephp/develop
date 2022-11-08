@@ -112,7 +112,7 @@ class DiscoveryService
     {
         $identifier = Hyde::pathToRelative($filepath);
 
-        if (str_starts_with($identifier, $model::$sourceDirectory)) {
+        if (str_starts_with($identifier, $model::$sourceDirectory . '/')) {
             $identifier = substr($identifier, strlen($model::$sourceDirectory) + 1);
         }
 
