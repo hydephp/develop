@@ -101,7 +101,8 @@ class DiscoveryService
     }
 
     /**
-     * Format a filename to a slug/identifier for a given model.
+     * Format a filename to an identifier for a given model. Unlike the basename function, any nested paths
+     * within the source directory are retained in order to satisfy the page identifier definition.
      *
      * @param class-string<\Hyde\Pages\Concerns\HydePage> $model
      * @param string $filename Example: index.blade.php
