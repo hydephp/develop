@@ -16,7 +16,7 @@ use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
- * The PageCollection contains all the discovered pages.
+ * The PageCollection contains all the instantiated pages.
  *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
