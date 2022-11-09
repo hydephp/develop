@@ -33,14 +33,14 @@ enum MimeType: string
         return $this->value;
     }
 
-    public static function has(string $extension): bool
-    {
-        return self::get($extension) !== null;
-    }
-
     public static function get(string $extension): ?self
     {
         return collect(self::cases())->where('name', $extension)->first();
+    }
+
+    public static function has(string $extension): bool
+    {
+        return self::get($extension) !== null;
     }
 
     public static function match(string $pathOrExtension, ?string $default = 'text/plain'): ?string
