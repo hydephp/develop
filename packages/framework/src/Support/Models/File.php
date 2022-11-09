@@ -101,6 +101,11 @@ class File implements Arrayable, JsonSerializable, Stringable
         return $this->belongsTo !== null;
     }
 
+    public function isMediaFile(): bool
+    {
+        return $this->belongsTo === null;
+    }
+
     public function getName(): string
     {
         return basename($this->path);

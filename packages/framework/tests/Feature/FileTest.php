@@ -78,6 +78,12 @@ class FileTest extends TestCase
         $this->assertFalse(File::make('_media/foo.css')->isSourceFile());
     }
 
+    public function test_is_media_file()
+    {
+        $this->assertTrue(File::make('_media/foo.css')->isMediaFile());
+        $this->assertFalse(File::make('_pages/foo.blade.php', 'bar')->isMediaFile());
+    }
+
     public function test_get_name_returns_name_of_file()
     {
         $this->assertSame('foo.txt', File::make('foo.txt')->getName());
