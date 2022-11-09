@@ -8,6 +8,9 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\FileCollection;
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * @mixin \Hyde\Foundation\FileCollection
+ */
 class FileCollectionFacade extends Facade
 {
     protected static function getFacadeAccessor(): string
