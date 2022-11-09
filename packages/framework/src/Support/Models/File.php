@@ -15,7 +15,6 @@ use Stringable;
  * @deprecated Will be split into a new class structure.
  *
  * Filesystem abstraction for a file stored in the project.
- *
  * @see \Hyde\Framework\Testing\Feature\FileTest
  */
 class File implements Arrayable, JsonSerializable, Stringable
