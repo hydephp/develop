@@ -14,7 +14,7 @@ use Hyde\Support\Models\Route;
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
  *
- * @see \Hyde\Foundation\Facades\RouteCollection
+ * @see \Hyde\Foundation\Facades\Router
  * @see \Hyde\Hyde::routes()
  *
  * This is not a router in the traditional sense that it decides where to go.

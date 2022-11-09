@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Foundation;
 
 use Hyde\Foundation\Facades\FileCollection;
 use Hyde\Foundation\Facades\PageCollection;
-use Hyde\Foundation\Facades\RouteCollection;
+use Hyde\Foundation\Facades\Router;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -46,12 +46,12 @@ class FoundationFacadesTest extends TestCase
     {
         $this->assertSame(
             HydeKernel::getInstance()->routes(),
-            RouteCollection::getInstance()
+            Router::getInstance()
         );
 
         $this->assertEquals(
             Hyde::routes()->getRoutes(),
-            RouteCollection::getRoutes()
+            Router::getRoutes()
         );
     }
 
@@ -59,6 +59,6 @@ class FoundationFacadesTest extends TestCase
     {
         $this->assertSame(FileCollection::getInstance(), FileCollection::getFacadeRoot());
         $this->assertSame(PageCollection::getInstance(), PageCollection::getFacadeRoot());
-        $this->assertSame(RouteCollection::getInstance(), RouteCollection::getFacadeRoot());
+        $this->assertSame(Router::getInstance(), Router::getFacadeRoot());
     }
 }

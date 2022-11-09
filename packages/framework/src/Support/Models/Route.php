@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-use Hyde\Foundation\Facades\RouteCollection as Router;
+use Hyde\Foundation\Facades\Router;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
