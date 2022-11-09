@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\Concerns;
 
+use Hyde\Foundation\Facades;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
@@ -103,7 +104,7 @@ abstract class HydePage implements PageSchema
      */
     public static function all(): PageCollection
     {
-        return Hyde::pages()->getPages(static::class);
+        return Facades\PageCollection::getPages(static::class);
     }
 
     // Section: Filesystem

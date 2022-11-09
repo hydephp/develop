@@ -16,7 +16,13 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\File;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\FileCollectionTest
+ * The FileCollection contains all the discovered source and media files.
+ *
+ * This class is stored as a singleton in the HydeKernel.
+ * You would commonly access it via one of the facades:
+ *
+ * @see \Hyde\Foundation\Facades\FileCollection
+ * @see \Hyde\Hyde::files()
  */
 final class FileCollection extends BaseFoundationCollection
 {
