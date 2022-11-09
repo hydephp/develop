@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Facades;
 
-use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @mixin \Hyde\Foundation\FileCollection
  */
-class FileCollectionFacade extends Facade
+class FileCollection extends Facade
 {
-    public static function getFacadeRoot(): FileCollection
+    public static function getFacadeRoot(): \Hyde\Foundation\FileCollection
     {
         return HydeKernel::getInstance()->files();
     }

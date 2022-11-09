@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Foundation\Facades\FileCollectionFacade;
+use Hyde\Foundation\Facades\FileCollection;
 use function class_exists;
 use function config;
 use function glob;
@@ -74,7 +74,7 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        return FileCollectionFacade::getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
+        return FileCollection::getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
             return static::pathToIdentifier($model, $file->withoutDirectoryPrefix());
         })->toArray();
     }

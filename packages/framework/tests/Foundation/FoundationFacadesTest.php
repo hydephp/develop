@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Foundation;
 
-use Hyde\Foundation\Facades\FileCollectionFacade;
+use Hyde\Foundation\Facades\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Foundation\Facades\FileCollectionFacade
+ * @covers \Hyde\Foundation\Facades\FileCollection
  */
 class FoundationFacadesTest extends TestCase
 {
@@ -18,20 +18,20 @@ class FoundationFacadesTest extends TestCase
     {
         $this->assertSame(
             HydeKernel::getInstance()->files(),
-            FileCollectionFacade::getInstance()
+            FileCollection::getInstance()
         );
 
         $this->assertEquals(
             Hyde::files()->getSourceFiles(),
-            FileCollectionFacade::getSourceFiles()
+            FileCollection::getSourceFiles()
         );
     }
 
     public function test_facade_roots()
     {
         $this->assertSame(
-            FileCollectionFacade::getInstance(),
-            FileCollectionFacade::getFacadeRoot()
+            FileCollection::getInstance(),
+            FileCollection::getFacadeRoot()
         );
     }
 }
