@@ -17,7 +17,6 @@ use Illuminate\Support\Collection;
 /**
  * @covers \Hyde\Foundation\FileCollection
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
- * @covers \Hyde\Foundation\Facades\FileCollectionFacade
  */
 class FileCollectionTest extends TestCase
 {
