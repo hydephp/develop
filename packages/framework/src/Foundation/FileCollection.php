@@ -26,11 +26,18 @@ use Hyde\Support\Models\File;
  */
 final class FileCollection extends BaseFoundationCollection
 {
+    /**
+     * @param class-string<\Hyde\Pages\Concerns\HydePage>|null $pageClass
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getSourceFiles(?string $pageClass = null): self
     {
         return ! $pageClass ? $this->getAllSourceFiles() : $this->getSourceFilesFor($pageClass);
     }
 
+    /**
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getMediaFiles(): self
     {
         return $this->filter(function (File $file): bool {
@@ -38,6 +45,9 @@ final class FileCollection extends BaseFoundationCollection
         });
     }
 
+    /**
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getAllSourceFiles(): self
     {
         return $this->filter(function (File $file) {
@@ -45,6 +55,10 @@ final class FileCollection extends BaseFoundationCollection
         });
     }
 
+    /**
+     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getSourceFilesFor(string $pageClass): self
     {
         return $this->filter(function (File $file) use ($pageClass): bool {
