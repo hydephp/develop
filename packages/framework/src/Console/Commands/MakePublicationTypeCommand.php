@@ -96,9 +96,16 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->line('  5 - Datetime');
             $this->line('  6 - URL');
             $this->line('  7 - Text');
-            $type       = (int)HydeHelper::askWithValidation($this, 'type', 'Field type (1-7)', ['required', 'integer', 'between:1,7'], 1);
-            $field->min = HydeHelper::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
-            $field->max = HydeHelper::askWithValidation($this, 'max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
+            $type = (int)HydeHelper::askWithValidation($this, 'type', 'Field type (1-7)', ['required', 'integer', 'between:1,7'], 1);
+            do {
+                $field->min   = HydeHelper::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
+                $field->max   = HydeHelper::askWithValidation($this, 'max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
+                $lengthsValid = true;
+                if ($field->max < $field->min) {
+                    $lengthsValid = false;
+                    $this->output->warning("Field length [max] must be [>=] than [min]");
+                }
+            } while (!$lengthsValid);
             $addAnother = HydeHelper::askWithValidation($this, 'addAnother', 'Add another field (y/n)', ['required', 'string', "in:y,n"], 'y');
 
             // map field choice to actual field type
