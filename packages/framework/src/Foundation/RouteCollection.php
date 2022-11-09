@@ -43,6 +43,7 @@ final class RouteCollection extends BaseFoundationCollection
     /**
      * This internal method adds the specified route to the route index.
      * It's made public so package developers can hook into the routing system.
+     * As a package developer, you will need to make sure your route leads to something.
      */
     public function addRoute(Route $route): self
     {
