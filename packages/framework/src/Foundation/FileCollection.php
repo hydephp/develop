@@ -49,7 +49,7 @@ final class FileCollection extends BaseFoundationCollection
     /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
     public function getAllSourceFiles(): self
     {
-        return $this->filter(function (File $file) {
+        return $this->filter(function (File $file): bool {
             return $file->isSourceFile();
         });
     }
