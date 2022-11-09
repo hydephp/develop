@@ -14,8 +14,8 @@ class MimeTypeTest extends TestCase
 {
     public function test_can_get_the_mime_types()
     {
-        $this->assertEquals('text/plain', MimeType::txt->value);
-        $this->assertEquals('text/html', MimeType::html->value());
+        $this->assertSame('text/plain', MimeType::txt->value);
+        $this->assertSame('text/html', MimeType::html->value());
     }
 
     public function test_match_method_maps_extensions_to_mime_types()
