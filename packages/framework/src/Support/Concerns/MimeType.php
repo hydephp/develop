@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Concerns;
 
+use Illuminate\Support\Str;
+
 /**
  * Map file extensions to mime types.
  *
@@ -23,4 +25,9 @@ enum MimeType: string
     case svg  = 'image/svg+xml';
     case txt  = 'text/plain';
     case xml  = 'application/xml';
+
+    public static function match(string $path, ?string $default = 'text/plain'): ?string
+    {
+        return (collect(self::cases())->where('name', Str::after($path, '.'))->first()?->value) ?? $default;
+    }
 }
