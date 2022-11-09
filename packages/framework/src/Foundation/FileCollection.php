@@ -31,6 +31,13 @@ final class FileCollection extends BaseFoundationCollection
         return ! $pageClass ? $this->getAllSourceFiles() : $this->getSourceFilesFor($pageClass);
     }
 
+    public function getMediaFiles(): self
+    {
+        return $this->filter(function (File $file): bool {
+            return $file->isMediaFile();
+        });
+    }
+
     public function getAllSourceFiles(): self
     {
         return $this->filter(function (File $file) {
@@ -42,13 +49,6 @@ final class FileCollection extends BaseFoundationCollection
     {
         return $this->filter(function (File $file) use ($pageClass): bool {
             return $file->belongsToPage($pageClass);
-        });
-    }
-
-    public function getMediaFiles(): self
-    {
-        return $this->filter(function (File $file): bool {
-            return $file->isMediaFile();
         });
     }
 
