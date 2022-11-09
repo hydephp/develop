@@ -30,6 +30,7 @@ abstract class BaseFoundationCollection extends Collection
         parent::__construct($items);
     }
 
+    /** @return $this */
     protected function setKernel(HydeKernel $kernel): static
     {
         $this->kernel = $kernel;
@@ -37,6 +38,7 @@ abstract class BaseFoundationCollection extends Collection
         return $this;
     }
 
+    /** @return $this */
     public function getInstance(): static
     {
         return $this;
