@@ -18,6 +18,19 @@ class MimeTypeTest extends TestCase
         $this->assertSame('text/html', MimeType::html->value());
     }
 
+    public function test_can_check_if_mime_type_exists()
+    {
+        $this->assertTrue(MimeType::has('txt'));
+        $this->assertTrue(MimeType::has('html'));
+        $this->assertFalse(MimeType::has('foo'));
+    }
+
+    public function test_can_get_the_mime_type_from_extension()
+    {
+        $this->assertSame('text/plain', MimeType::get('txt')->value());
+        $this->assertSame('text/html', MimeType::get('html')->value());
+    }
+
     public function test_match_method_maps_extensions_to_mime_types()
     {
         $this->assertSame('text/plain', MimeType::match('foo.txt'));
