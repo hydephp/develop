@@ -134,7 +134,6 @@ class FileTest extends TestCase
             'svg'  => 'image/svg+xml',
             'png'  => 'image/png',
             'jpg'  => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
             'gif'  => 'image/gif',
             'json' => 'application/json',
             'js'   => 'application/javascript',
