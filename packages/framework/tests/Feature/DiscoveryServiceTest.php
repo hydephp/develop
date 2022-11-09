@@ -189,62 +189,62 @@ class DiscoveryServiceTest extends TestCase
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
     {
         config(['hyde.media_extensions' => null]);
-        Hyde::touch('_media/test.one');
-        Hyde::touch('_media/test.two');
-        Hyde::touch('_media/test.three');
+        Hyde::touch('_media/test.1');
+        Hyde::touch('_media/test.2');
+        Hyde::touch('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
 
-        config(['hyde.media_extensions' => 'one,two,three']);
+        config(['hyde.media_extensions' => '1,2,3']);
         $this->assertEquals([
-            Hyde::path('_media/test.one'),
-            Hyde::path('_media/test.two'),
-            Hyde::path('_media/test.three'),
+            Hyde::path('_media/test.1'),
+            Hyde::path('_media/test.2'),
+            Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Hyde::unlink('_media/test.one');
-        Hyde::unlink('_media/test.two');
-        Hyde::unlink('_media/test.three');
+        Hyde::unlink('_media/test.1');
+        Hyde::unlink('_media/test.2');
+        Hyde::unlink('_media/test.3');
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values_containing_spaces()
     {
         config(['hyde.media_extensions' => null]);
-        Hyde::touch('_media/test.one');
-        Hyde::touch('_media/test.two');
-        Hyde::touch('_media/test.three');
+        Hyde::touch('_media/test.1');
+        Hyde::touch('_media/test.2');
+        Hyde::touch('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
-        config(['hyde.media_extensions' => 'one, two, three']);
+        config(['hyde.media_extensions' => '1, 2, 3']);
         $this->assertEquals([
-            Hyde::path('_media/test.one'),
-            Hyde::path('_media/test.two'),
-            Hyde::path('_media/test.three'),
+            Hyde::path('_media/test.1'),
+            Hyde::path('_media/test.2'),
+            Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Hyde::unlink('_media/test.one');
-        Hyde::unlink('_media/test.two');
-        Hyde::unlink('_media/test.three');
+        Hyde::unlink('_media/test.1');
+        Hyde::unlink('_media/test.2');
+        Hyde::unlink('_media/test.3');
     }
 
     public function test_media_asset_extensions_can_be_added_by_array()
     {
         config(['hyde.media_extensions' => null]);
-        Hyde::touch('_media/test.one');
-        Hyde::touch('_media/test.two');
-        Hyde::touch('_media/test.three');
+        Hyde::touch('_media/test.1');
+        Hyde::touch('_media/test.2');
+        Hyde::touch('_media/test.3');
 
         $this->assertEquals([], DiscoveryService::getMediaAssetFiles());
-        config(['hyde.media_extensions' => ['one', 'two', 'three']]);
+        config(['hyde.media_extensions' => ['1', '2', '3']]);
         $this->assertEquals([
-            Hyde::path('_media/test.one'),
-            Hyde::path('_media/test.two'),
-            Hyde::path('_media/test.three'),
+            Hyde::path('_media/test.1'),
+            Hyde::path('_media/test.2'),
+            Hyde::path('_media/test.3'),
         ], DiscoveryService::getMediaAssetFiles());
 
-        Hyde::unlink('_media/test.one');
-        Hyde::unlink('_media/test.two');
-        Hyde::unlink('_media/test.three');
+        Hyde::unlink('_media/test.1');
+        Hyde::unlink('_media/test.2');
+        Hyde::unlink('_media/test.3');
     }
 
     public function test_blade_page_files_starting_with_underscore_are_ignored()
