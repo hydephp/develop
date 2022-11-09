@@ -34,7 +34,7 @@ final class FileCollection extends BaseFoundationCollection
     public function getAllSourceFiles(): self
     {
         return $this->filter(function (File $file) {
-            return $file->belongsToPage();
+            return $file->isSourceFile();
         });
     }
 
@@ -48,7 +48,7 @@ final class FileCollection extends BaseFoundationCollection
     public function getMediaFiles(): self
     {
         return $this->filter(function (File $file): bool {
-            return str_starts_with((string) $file, '_media');
+            return $file->isMediaFile();
         });
     }
 
