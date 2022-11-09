@@ -6,11 +6,13 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
+use Hyde\HydeHelper;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
-use Rgasch\Collection;
+use Rgasch\Collection\Collection;
 
 /**
- * Hyde Command to scaffold a new Markdown or Blade page file.
+ * Hyde Command to create a new publication for a given publication type
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
  */
@@ -29,21 +31,66 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         $this->title('Creating a new Publication Item!');
 
         $pubType  = $this->argument('publicationType');
-        $pubTypes = $this->getPublicationTypes();
+        $pubTypes = HydeHelper::getPublicationTypes();
         if (!$pubType) {
             $this->output->writeln('<bg=magenta;fg=white>Now please choose the Publication Type to create an item for:</>');
+            $offset = 0;
             foreach ($pubTypes as $k => $pubType) {
-                $humanCount = $k + 1;
-                $this->line("  $humanCount: $pubType->name");
+                $offset++;
+                $this->line("  $offset: $pubType->name");
             }
-            $selected = (int)$this->ask("Publication type: (1-$humanCount)");
-            $pubType  = $pubTypes[$selected - 1];
+            $selected = (int)HydeHelper::askWithValidation($this, 'selected', "Publication type (1-$offset)", ['required', 'integer', "between:1,$offset"]);
+            $pubType  = $pubTypes->{$pubTypes->keys()[$selected - 1]};
         }
 
+        $rulesPerType = Collection::create(
+            [
+                'string'   => ['required', 'string', 'between'],
+                'boolean'  => ['required', 'boolean'],
+                'integer'  => ['required', 'integer', 'between'],
+                'float'    => ['required', 'numeric', 'between'],
+                'datetime' => ['required', 'datetime', 'between'],
+                'url'      => ['required', 'url'],
+                'text'     => ['required', 'string', 'between'],
+            ]
+        );
+
         $fieldData = Collection::create();
-        $this->output->writeln('<bg=magenta;fg=white>You now need to enter the fields data:</>');
+        $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
         foreach ($pubType->fields as $field) {
-            $fieldData->{$field->name} = $this->ask("  $field->name ($field->type, min=$field->min, max=$field->max): ");
+            // Need to capture text line-by-line
+            if ($field->type === 'text') {
+                $lines = [];
+                $this->output->writeln($field->name . " (end with a line containing only '<<<')");
+                do {
+                    $line    = Str::replace("\n", '', fgets(STDIN));
+                    $lines[] = $line;
+                } while ($line != '<<<');
+
+                $fieldData->{$field->name} = implode("\n", $lines);
+                continue;
+            }
+
+            // Non-text block fields
+            $fieldRules = $rulesPerType->{$field->type};
+            if ($fieldRules->contains('between')) {
+                $fieldRules->forget($fieldRules->search('between'));
+                if ($field->min && $field->max) {
+                    switch ($field->type) {
+                        case 'string':
+                        case 'integer':
+                        case 'float':
+                            $fieldRules->add("between:$field->min,$field->max");
+                            break;
+                        case 'datetime':
+                            $fieldRules->add("after:$field->min");
+                            $fieldRules->add("before:$field->max");
+                            break;
+                    }
+                }
+            }
+            dump($fieldRules);
+            $fieldData->{$field->name} = HydeHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
         }
 
         $creator = new CreatesNewPublicationFile($pubType, $fieldData);
@@ -52,27 +99,5 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         }
 
         return Command::SUCCESS;
-    }
-
-
-    // Fixme: this should probably be moved to a generic util/helper class
-    private function getPublicationTypes(): Collection
-    {
-        $root = base_path();
-
-        $pubTypes    = Collection::create();
-        $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
-        foreach ($schemaFiles as $schemaFile) {
-            $fileData = file_get_contents($schemaFile);
-            if (!$fileData) {
-                throw new \Exception("Unable to read schema file [$schemaFile]");
-            }
-
-            $schema       = Collection::create(json_decode($fileData, true));
-            $schema->file = $schemaFile;
-            $pubTypes->add($schema);
-        }
-
-        return $pubTypes;
     }
 }

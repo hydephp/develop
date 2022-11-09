@@ -78,6 +78,8 @@ return [
 
     'providers' => [
         App\Providers\AppServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
         Hyde\Framework\HydeServiceProvider::class,
     ],
 
@@ -93,14 +95,14 @@ return [
     */
 
     'aliases' => [
-        'Hyde' => Hyde\Hyde::class,
-        'Site' => \Hyde\Facades\Site::class,
-        'Route' => \Hyde\Facades\Route::class,
-        'Asset' => \Hyde\Facades\Asset::class,
-        'BladePage' => \Hyde\Pages\BladePage::class,
-        'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
-        'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
-        'DocumentationPage' => \Hyde\Pages\DocumentationPage::class,
+        'Hyde'              => Hyde\Hyde::class,
+        'Site'              => Hyde\Facades\Site::class,
+        'Route'             => Hyde\Facades\Route::class,
+        'Asset'             => Hyde\Facades\Asset::class,
+        'BladePage'         => Hyde\Pages\BladePage::class,
+        'MarkdownPage'      => Hyde\Pages\MarkdownPage::class,
+        'MarkdownPost'      => Hyde\Pages\MarkdownPost::class,
+        'DocumentationPage' => Hyde\Pages\DocumentationPage::class,
     ],
 
 ];

@@ -23,6 +23,7 @@
     "php": "^8.1",
     "hyde/framework": "dev-master",
     "laravel-zero/framework": "^9.1",
+    "illuminate/validation": "^9.0.0",
     "rgasch/illuminate-collection-extended": "^1.0"
   },
   "require-dev": {

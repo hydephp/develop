@@ -6,11 +6,12 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
+use Hyde\HydeHelper;
 use LaravelZero\Framework\Commands\Command;
-use Rgasch\Collection;
+use Rgasch\Collection\Collection;
 
 /**
- * Hyde Command to scaffold a new Markdown or Blade page file.
+ * Hyde Command to create a new publication type
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
  */
@@ -28,38 +29,46 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
     {
         $this->title('Creating a new Publication Type!');
 
-        $title = $this->argument('title')
-            ?? $this->ask('What is the name of the Publication Type?')
-            ?? 'My new Publication Type';
+        $title = $this->argument('title');
+        if (!$title) {
+            $title   = trim(HydeHelper::askWithValidation($this, 'nanme', 'Publication type name', ['required', 'string']));
+            $dirname = HydeHelper::formatNameForStorage($title);
+            if (file_exists($dirname)) {
+                throw new \InvalidArgumentException("Storage path [$dirname] already exists");
+            }
+        }
 
         $fields = $this->getFieldsDefinitions();
 
-        $this->output->writeln('<bg=magenta;fg=white>Now please choose the default field you wish to sort by:</>');
+        $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
+        $this->line("  0: dateCreated (meta field)");
         foreach ($fields as $k => $v) {
-            $humanCount = $k + 1;
-            $this->line("  $humanCount: $v[name]");
+            $offset = $k + 1;
+            $this->line("  $offset: $v[name]");
         }
-        $sortField = $this->ask("Sort field: (1-$humanCount)");
-        $sortField = $fields[((int)$sortField) - 1]['name'];
+        $selected  = (int)HydeHelper::askWithValidation($this, 'selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
+        $sortField = $selected ? $fields[$selected - 1]['name'] : '__createdAt';
 
-        $this->output->writeln('<bg=magenta;fg=white>Now please choose the default sort direction:</>');
+        $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
         $this->line('  1 - Ascending (ASC)');
         $this->line('  2 - Descending (DESC)');
-        $sortDirection = $this->ask('Sort direction (1-2)');
-        $sortDirection = match ((int)$sortDirection) {
+        $selected      = (int)HydeHelper::askWithValidation($this, 'selected', "Sort field (1-2)", ['required', 'integer', "between:1,2"], 2);
+        $sortDirection = match ($selected) {
             1 => 'ASC',
             2 => 'DESC',
         };
 
+        $pagesize = (int)HydeHelper::askWithValidation($this, 'pagesize', "Enter the pagesize (0 for no limit)", ['required', 'integer', 'between:0,100'], 25);
+
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
         foreach ($fields as $k => $v) {
-            $humanCount = $k + 1;
-            $this->line("  $humanCount: $v[name]");
+            $offset = $k + 1;
+            $this->line("  $offset: $v[name]");
         }
-        $canonicalField = $this->ask("Canonical field: (1-$humanCount)");
-        $canonicalField = $fields[((int)$canonicalField) - 1]['name'];
+        $selected       = (int)HydeHelper::askWithValidation($this, 'selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
+        $canonicalField = $fields[$selected - 1]['name'];
 
-        $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection);
+        $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize);
         if (!$creator->create()) {
             return Command::FAILURE;
         }
@@ -78,23 +87,29 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
             $field       = Collection::create();
-            $field->name = $this->ask('Field name');
+            $field->name = HydeHelper::askWithValidation($this, 'name', 'Field name', ['required']);
             $this->line('Field type:');
             $this->line('  1 - String');
-            $this->line('  2 - Integer');
-            $this->line('  3 - Float');
-            $this->line('  4 - Datetime');
-            $type       = (int)$this->ask('Field type (1-4)');
-            $field->min = (int)$this->ask('Min value (for strings, this refers to string length)');
-            $field->max = (int)$this->ask('Max value (for strings, this refers to string length)');
-            $addAnother = (string)$this->ask('Add another field (y/n)');
+            $this->line('  2 - Boolean ');
+            $this->line('  3 - Integer');
+            $this->line('  4 - Float');
+            $this->line('  5 - Datetime');
+            $this->line('  6 - URL');
+            $this->line('  7 - Text');
+            $type       = (int)HydeHelper::askWithValidation($this, 'type', 'Field type (1-7)', ['required', 'integer', 'between:1,7'], 1);
+            $field->min = HydeHelper::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
+            $field->max = HydeHelper::askWithValidation($this, 'max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
+            $addAnother = HydeHelper::askWithValidation($this, 'addAnother', 'Add another field (y/n)', ['required', 'string', "in:y,n"], 'y');
 
             // map field choice to actual field type
             $field->type = match ($type) {
-                0, 1 => 'string',
-                2 => 'integer',
-                3 => 'float',
-                4 => 'datetime',
+                1 => 'string',
+                2 => 'boolean',
+                3 => 'integer',
+                4 => 'float',
+                5 => 'datetime',
+                6 => 'url',
+                7 => 'text',
             };
 
             $fields->add($field);
