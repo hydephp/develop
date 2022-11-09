@@ -6,6 +6,7 @@ namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\MimeType;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Stringable;
@@ -139,23 +140,8 @@ class File implements Arrayable, JsonSerializable, Stringable
 
         // See if we can find a mime type for the extension,
         // instead of having to rely on a PHP extension.
-        $lookup = [
-            'txt'  => 'text/plain',
-            'md'   => 'text/markdown',
-            'html' => 'text/html',
-            'css'  => 'text/css',
-            'svg'  => 'image/svg+xml',
-            'png'  => 'image/png',
-            'jpg'  => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'gif'  => 'image/gif',
-            'json' => 'application/json',
-            'js'   => 'application/javascript',
-            'xml'  => 'application/xml',
-        ];
-
-        if (isset($lookup[$extension])) {
-            return $lookup[$extension];
+        if (MimeType::has($extension)) {
+            return MimeType::get($extension)->value();
         }
 
         if (extension_loaded('fileinfo') && file_exists($this->getAbsolutePath())) {
