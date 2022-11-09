@@ -16,6 +16,12 @@ use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 
 /**
+ * The PageCollection contains all the discovered pages.
+ *
+ * This class is stored as a singleton in the HydeKernel. You would commonly access it via one of the facades.
+ * @example `\Hyde\Hyde::pages()->getPage('_pages/index.md')`
+ * @example `Facades\PageCollection::pages()->getPage('_pages/index.md')`
+ *
  * @see \Hyde\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
