@@ -28,8 +28,13 @@ enum MimeType: string
     case json = 'application/json';
     case xml  = 'application/xml';
 
+    public function value(): string
+    {
+        return $this->value;
+    }
+
     public static function match(string $path, ?string $default = 'text/plain'): ?string
     {
-        return (collect(self::cases())->where('name', Str::after($path, '.'))->first()?->value) ?? $default;
+        return (collect(self::cases())->where('name', Str::after($path, '.'))->first()?->value()) ?? $default;
     }
 }
