@@ -36,12 +36,13 @@ final class FileCollection extends BaseFoundationCollection
     }
 
     /**
+     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass
      * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
      */
-    public function getMediaFiles(): self
+    public function getSourceFilesFor(string $pageClass): self
     {
-        return $this->filter(function (File $file): bool {
-            return $file->isMediaFile();
+        return $this->filter(function (File $file) use ($pageClass): bool {
+            return $file->belongsToPage($pageClass);
         });
     }
 
@@ -56,13 +57,12 @@ final class FileCollection extends BaseFoundationCollection
     }
 
     /**
-     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass
      * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
      */
-    public function getSourceFilesFor(string $pageClass): self
+    public function getMediaFiles(): self
     {
-        return $this->filter(function (File $file) use ($pageClass): bool {
-            return $file->belongsToPage($pageClass);
+        return $this->filter(function (File $file): bool {
+            return $file->isMediaFile();
         });
     }
 
