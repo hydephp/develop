@@ -63,6 +63,15 @@ class FileTest extends TestCase
         $this->assertSame('baz', File::make('foo', 'bar')->belongsTo('baz')->belongsTo());
     }
 
+    public function test_belongs_to_page()
+    {
+        $this->assertTrue(File::make('foo', 'bar')->belongsToPage());
+        $this->assertFalse(File::make('foo')->belongsToPage());
+
+        $this->assertTrue(File::make('foo', 'bar')->belongsToPage('bar'));
+        $this->assertFalse(File::make('foo', 'bar')->belongsToPage('baz'));
+    }
+
     public function test_get_name_returns_name_of_file()
     {
         $this->assertSame('foo.txt', File::make('foo.txt')->getName());

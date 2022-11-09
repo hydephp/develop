@@ -79,6 +79,23 @@ class File implements Arrayable, JsonSerializable, Stringable
         return $this->belongsTo;
     }
 
+    /**
+     * Check if the file belongs to a page. If a class is specified,
+     * the method will check if the file belongs to that class.
+     * Leave blank to check if the file belongs to any page.
+     *
+     * @param  string<\Hyde\Pages\Concerns\HydePage>|null  $class
+     * @return bool
+     */
+    public function belongsToPage(?string $class = null): bool
+    {
+        if ($class) {
+            return $this->belongsTo === $class;
+        }
+
+        return $this->belongsTo !== null;
+    }
+
     public function getName(): string
     {
         return basename($this->path);
