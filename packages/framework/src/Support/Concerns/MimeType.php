@@ -43,8 +43,8 @@ enum MimeType: string
         return collect(self::cases())->where('name', $extension)->first();
     }
 
-    public static function match(string $path, ?string $default = 'text/plain'): ?string
+    public static function match(string $pathOrExtension, ?string $default = 'text/plain'): ?string
     {
-        return collect(self::cases())->where('name', Str::after($path, '.'))->first()?->value() ?? $default;
+        return collect(self::cases())->where('name', Str::after($pathOrExtension, '.'))->first()?->value() ?? $default;
     }
 }
