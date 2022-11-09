@@ -29,12 +29,8 @@ class CreatesNewPublicationFile implements CreateActionInterface
 
     public function create(): bool
     {
-        $dir = dirname($this->pubType->schemaFile);
-        @mkdir($dir);
-        $slug     = Str::of($this->fieldData[$this->pubType->canonicalField])
-                       ->substr(0, 64)
-                       ->slug()
-                       ->toString();
+        $dir      = dirname($this->pubType->schemaFile);
+        $slug     = Str::of($this->fieldData[$this->pubType->canonicalField])->substr(0, 64)->slug()->toString();
         $fileName = HydeHelper::formatNameForStorage($slug);
         $outFile  = "$dir/$fileName.md";
 
@@ -60,7 +56,8 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $output .= "Raw MD text ...\n";
 
         $this->result = $output;
-        print "Saving page data to [$outFile]\n";
+        print "Saving publication data to [$outFile]\n";
+
         return (bool)file_put_contents($outFile, $output);
     }
 

@@ -34,6 +34,7 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
     public function create(): bool
     {
         $dirName = HydeHelper::formatNameForStorage($this->name);
+        $outFile = "$dirName/schema.json";
         @mkdir($dirName);
 
         $data                   = [];
@@ -48,7 +49,9 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
         $json                   = json_encode($data, JSON_PRETTY_PRINT);
         $this->result           = $json;
 
-        return (bool)file_put_contents("$dirName/schema.json", $json);
+        print "Saving publicationType data to [$outFile]\n";
+
+        return (bool)file_put_contents($outFile, $json);
     }
 
     public function getResult(): string
