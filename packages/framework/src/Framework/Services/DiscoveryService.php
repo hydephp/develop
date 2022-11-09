@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Foundation\Facades\FileCollection;
 use function class_exists;
 use function config;
 use function glob;
+use Hyde\Foundation\Facades\FileCollection;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
