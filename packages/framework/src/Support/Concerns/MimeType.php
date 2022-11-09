@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Concerns;
 
+/**
+ * Map file extensions to mime types.
+ *
+ * @see \Hyde\Support\Concerns\File
+ */
 enum MimeType
 {
     case css  = 'text/css';
