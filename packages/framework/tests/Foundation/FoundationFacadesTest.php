@@ -26,4 +26,12 @@ class FoundationFacadesTest extends TestCase
             FileCollectionFacade::getSourceFiles()
         );
     }
+
+    public function test_facade_roots()
+    {
+        $this->assertSame(
+            FileCollectionFacade::getInstance(),
+            FileCollectionFacade::getFacadeRoot()
+        );
+    }
 }
