@@ -41,25 +41,19 @@ final class FileCollection extends BaseFoundationCollection
      */
     public function getSourceFilesFor(string $pageClass): self
     {
-        return $this->filter(function (File $file) use ($pageClass): bool {
-            return $file->belongsToPage($pageClass);
-        });
+        return $this->filter(fn(File $file): bool => $file->belongsToPage($pageClass));
     }
 
     /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
     public function getAllSourceFiles(): self
     {
-        return $this->filter(function (File $file): bool {
-            return $file->isSourceFile();
-        });
+        return $this->filter(fn(File $file): bool => $file->isSourceFile());
     }
 
     /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
     public function getMediaFiles(): self
     {
-        return $this->filter(function (File $file): bool {
-            return $file->isMediaFile();
-        });
+        return $this->filter(fn(File $file): bool => $file->isMediaFile());
     }
 
     protected function runDiscovery(): self
