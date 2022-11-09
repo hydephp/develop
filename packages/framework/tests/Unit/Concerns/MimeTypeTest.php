@@ -12,5 +12,8 @@ use Hyde\Testing\TestCase;
  */
 class MimeTypeTest extends TestCase
 {
-    //
+    public function test_can_get_the_mime_types()
+    {
+        $this->assertEquals('text/plain', MimeType::txt->value);
+    }
 }
