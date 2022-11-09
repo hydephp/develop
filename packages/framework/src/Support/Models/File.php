@@ -103,7 +103,7 @@ class File implements Arrayable, JsonSerializable, Stringable
 
     public function isMediaFile(): bool
     {
-        return $this->belongsTo === null;
+        return $this->belongsTo === null || str_starts_with((string) $this, '_media');
     }
 
     public function getName(): string

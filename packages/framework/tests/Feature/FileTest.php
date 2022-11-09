@@ -81,6 +81,7 @@ class FileTest extends TestCase
     public function test_is_media_file()
     {
         $this->assertTrue(File::make('_media/foo.css')->isMediaFile());
+        $this->assertTrue(File::make('_media/foo.css', 'bar')->isMediaFile());
         $this->assertFalse(File::make('_pages/foo.blade.php', 'bar')->isMediaFile());
     }
 
