@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\HydeKernel;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
 /**
@@ -26,7 +27,7 @@ abstract class BaseFoundationCollection extends Collection
         return (new static())->setKernel($kernel)->runDiscovery();
     }
 
-    protected function __construct(array $items = [])
+    protected function __construct(array|Arrayable|null $items = [])
     {
         parent::__construct($items);
     }

@@ -26,30 +26,34 @@ use Hyde\Support\Models\File;
  */
 final class FileCollection extends BaseFoundationCollection
 {
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getSourceFiles(?string $pageClass = null): self
     {
         return ! $pageClass ? $this->getAllSourceFiles() : $this->getSourceFilesFor($pageClass);
     }
 
-    public function getAllSourceFiles(): self
-    {
-        return $this->filter(function (File $file) {
-            return $file->belongsTo !== null;
-        });
-    }
-
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getSourceFilesFor(string $pageClass): self
     {
-        return $this->filter(function (File $file) use ($pageClass): bool {
-            return $file->belongsTo() === $pageClass;
-        });
+        return $this->where(fn (File $file): bool => $file->belongsToPage($pageClass));
     }
 
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
+    public function getAllSourceFiles(): self
+    {
+        return $this->where(fn (File $file): bool => $file->isSourceFile());
+    }
+
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
     public function getMediaFiles(): self
     {
-        return $this->filter(function (File $file): bool {
-            return str_starts_with((string) $file, '_media');
-        });
+        return $this->where(fn (File $file): bool => $file->isMediaFile());
     }
 
     protected function runDiscovery(): self
