@@ -19,6 +19,7 @@ use Illuminate\Support\Collection;
  * The PageCollection contains all the discovered pages.
  *
  * This class is stored as a singleton in the HydeKernel. You would commonly access it via one of the facades:
+ *
  * @see \Hyde\Foundation\Facades\PageCollection
  * @see \Hyde\Hyde::pages()
  */
