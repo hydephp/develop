@@ -18,9 +18,9 @@ use Illuminate\Support\Collection;
 /**
  * The PageCollection contains all the discovered pages.
  *
- * This class is stored as a singleton in the HydeKernel. You would commonly access it via one of the facades.
- * @example `\Hyde\Hyde::pages()->getPage('_pages/index.md')`
- * @example `Facades\PageCollection::pages()->getPage('_pages/index.md')`
+ * This class is stored as a singleton in the HydeKernel. You would commonly access it via one of the facades:
+ * @see \Hyde\Foundation\Facades\PageCollection
+ * @see \Hyde\Hyde::pages()
  *
  * @see \Hyde\Foundation\RouteCollection
  * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
