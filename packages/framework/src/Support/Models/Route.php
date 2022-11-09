@@ -116,7 +116,7 @@ class Route implements Stringable, JsonSerializable, Arrayable
 
     public static function getOrFail(string $routeKey): Route
     {
-        return Route::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return static::get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     public static function all(): RouteCollection
