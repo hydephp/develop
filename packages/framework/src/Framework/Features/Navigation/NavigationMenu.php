@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Foundation\Facades\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
@@ -32,7 +33,7 @@ class NavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        Hyde::routes()->each(function (Route $route) {
+        RouteCollection::each(function (Route $route) {
             $this->items->push(NavItem::fromRoute($route));
         });
 

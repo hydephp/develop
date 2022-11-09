@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Exception;
+use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RebuildService;
@@ -57,7 +58,7 @@ class RebuildStaticSiteCommand extends Command
 
         $this->info(sprintf(
             'Created %s in %s seconds. (%sms)',
-            DiscoveryService::createClickableFilepath(Hyde::pages()->getPage($this->path)->getOutputPath()),
+            DiscoveryService::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
             number_format(
                 $execution_time,
                 2

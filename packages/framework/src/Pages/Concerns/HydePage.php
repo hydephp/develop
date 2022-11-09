@@ -16,7 +16,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
-
+use Hyde\Foundation\Facades;
 /**
  * The base class for all Hyde pages.
  *
@@ -103,7 +103,7 @@ abstract class HydePage implements PageSchema
      */
     public static function all(): PageCollection
     {
-        return Hyde::pages()->getPages(static::class);
+        return Facades\PageCollection::getPages(static::class);
     }
 
     // Section: Filesystem
