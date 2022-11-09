@@ -89,7 +89,6 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                     }
                 }
             }
-            dump($fieldRules);
             $fieldData->{$field->name} = HydeHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
         }
 
