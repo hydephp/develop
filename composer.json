@@ -22,9 +22,10 @@
   "require": {
     "php": "^8.1",
     "hyde/framework": "dev-master",
-    "laravel-zero/framework": "^9.1",
     "illuminate/validation": "^9.0.0",
-    "rgasch/illuminate-collection-extended": "^1.0"
+    "laravel-zero/framework": "^9.1",
+    "rgasch/illuminate-collection-extended": "^1.0",
+    "thecodingmachine/safe": "^2.4"
   },
   "require-dev": {
     "driftingly/rector-laravel": "^0.14.0",
@@ -35,6 +36,7 @@
     "phpstan/phpstan": "^1.8",
     "rector/rector": "^0.14.6",
     "squizlabs/php_codesniffer": "^3.7",
+    "thecodingmachine/phpstan-safe-rule": "^1.2",
     "vimeo/psalm": "^4.24"
   },
   "autoload": {
