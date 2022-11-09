@@ -13,6 +13,8 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Foundation\FileCollection
  * @see \Hyde\Foundation\PageCollection
  * @see \Hyde\Foundation\RouteCollection
+ *
+ * @see \Hyde\Framework\Testing\Unit\BaseFoundationCollectionTest
  */
 abstract class BaseFoundationCollection extends Collection
 {
