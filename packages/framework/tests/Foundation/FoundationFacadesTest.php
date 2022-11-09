@@ -15,6 +15,11 @@ class FoundationFacadesTest extends TestCase
 {
     public function test_file_collection_facade()
     {
+        $this->assertSame(
+            Hyde::getInstance()->files(),
+            FileCollectionFacade::getInstance()
+        );
+
         $this->assertEquals(
             Hyde::getInstance()->files()->getSourceFiles(),
             FileCollectionFacade::getSourceFiles()
