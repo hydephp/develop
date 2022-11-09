@@ -21,9 +21,6 @@ use Illuminate\Support\Collection;
  * This class is stored as a singleton in the HydeKernel. You would commonly access it via one of the facades:
  * @see \Hyde\Foundation\Facades\PageCollection
  * @see \Hyde\Hyde::pages()
- *
- * @see \Hyde\Foundation\RouteCollection
- * @see \Hyde\Framework\Testing\Feature\PageCollectionTest
  */
 final class PageCollection extends BaseFoundationCollection
 {
