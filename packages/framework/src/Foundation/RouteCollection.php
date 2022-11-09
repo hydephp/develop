@@ -9,9 +9,13 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
 /**
- * Pseudo-Router for Hyde.
+ * The RouteCollection contains all the routes, making it the Pseudo-Router for Hyde.
  *
- * @see \Hyde\Foundation\PageCollection
+ * This class is stored as a singleton in the HydeKernel.
+ * You would commonly access it via one of the facades:
+ *
+ * @see \Hyde\Foundation\Facades\RouteCollection
+ * @see \Hyde\Hyde::routes()
  *
  * This is not a router in the traditional sense that it decides where to go.
  * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
