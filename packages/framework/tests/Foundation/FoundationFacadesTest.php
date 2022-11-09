@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Foundation;
 
 use Hyde\Foundation\Facades\FileCollection;
+use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Foundation\Facades\RouteCollection;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
