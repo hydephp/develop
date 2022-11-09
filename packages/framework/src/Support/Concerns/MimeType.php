@@ -13,17 +13,19 @@ use Illuminate\Support\Str;
  */
 enum MimeType: string
 {
-    case css  = 'text/css';
-    case gif  = 'image/gif';
+    case txt  = 'text/plain';
     case html = 'text/html';
-    case ico  = 'image/x-icon';
+    case css  = 'text/css';
+    case md   = 'text/markdown';
+
+    case png  = 'image/png';
+    case gif  = 'image/gif';
     case jpg  = 'image/jpeg';
+    case svg  = 'image/svg+xml';
+    case ico  = 'image/x-icon';
+
     case js   = 'application/javascript';
     case json = 'application/json';
-    case md   = 'text/markdown';
-    case png  = 'image/png';
-    case svg  = 'image/svg+xml';
-    case txt  = 'text/plain';
     case xml  = 'application/xml';
 
     public static function match(string $path, ?string $default = 'text/plain'): ?string
