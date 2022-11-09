@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\Concerns;
 
+use Hyde\Foundation\Facades;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
@@ -16,7 +17,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
-use Hyde\Foundation\Facades;
+
 /**
  * The base class for all Hyde pages.
  *
