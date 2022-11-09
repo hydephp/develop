@@ -30,8 +30,13 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
     {
         $this->title('Creating a new Publication Item!');
 
-        $pubType  = $this->argument('publicationType');
         $pubTypes = HydeHelper::getPublicationTypes();
+        if ($pubTypes->isEmpty()) {
+            $this->output->error("Unable to locate any publication-types ... did you create any?");
+            return Command::FAILURE;
+        }
+
+        $pubType = $this->argument('publicationType');
         if (!$pubType) {
             $this->output->writeln('<bg=magenta;fg=white>Now please choose the Publication Type to create an item for:</>');
             $offset = 0;
