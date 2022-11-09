@@ -31,7 +31,9 @@ use Hyde\Support\Models\Route;
  *
  * The route index serves as a multidimensional mapping allowing you to
  * determine where a source file will be compiled to, and where a compiled
- * file was generated from.
+ * file was generated from. This bridges the gaps between the source and
+ * the compiled web accessible URI routes the static site generator creates.
+ *
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  * @see \Hyde\Framework\Testing\Feature\RouteCollectionTest
  */
