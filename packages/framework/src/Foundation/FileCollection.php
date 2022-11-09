@@ -46,9 +46,7 @@ final class FileCollection extends BaseFoundationCollection
         });
     }
 
-    /**
-     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
-     */
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
     public function getAllSourceFiles(): self
     {
         return $this->filter(function (File $file) {
@@ -56,9 +54,7 @@ final class FileCollection extends BaseFoundationCollection
         });
     }
 
-    /**
-     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
-     */
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
     public function getMediaFiles(): self
     {
         return $this->filter(function (File $file): bool {
