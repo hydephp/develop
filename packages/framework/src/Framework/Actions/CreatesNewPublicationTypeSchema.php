@@ -9,6 +9,10 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\HydeHelper;
 use Rgasch\Collection\Collection;
 
+use function Safe\file_put_contents;
+use function Safe\json_encode;
+use function Safe\mkdir;
+
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
  *
@@ -31,11 +35,11 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
     }
 
 
-    public function create(): bool
+    public function create(): void
     {
         $dirName = HydeHelper::formatNameForStorage($this->name);
         $outFile = "$dirName/schema.json";
-        @mkdir($dirName);
+        mkdir($dirName);
 
         $data                   = [];
         $data['name']           = $this->name;
@@ -51,7 +55,7 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
 
         print "Saving publicationType data to [$outFile]\n";
 
-        return (bool)file_put_contents($outFile, $json);
+        file_put_contents($outFile, $json);
     }
 
     public function getResult(): string

@@ -10,6 +10,9 @@ use Hyde\HydeHelper;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 
+use function Safe\date;
+use function Safe\file_put_contents;
+
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
  *
@@ -27,7 +30,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
     ) {
     }
 
-    public function create(): bool
+    public function create(): void
     {
         $dir      = dirname($this->pubType->schemaFile);
         $slug     = Str::of($this->fieldData[$this->pubType->canonicalField])->substr(0, 64)->slug()->toString();
@@ -58,7 +61,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $this->result = $output;
         print "Saving publication data to [$outFile]\n";
 
-        return (bool)file_put_contents($outFile, $output);
+        file_put_contents($outFile, $output);
     }
 
     public function getResult(): string

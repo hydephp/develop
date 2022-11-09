@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
+use function Safe\file_get_contents;
+
 class HydeHelper
 {
     /**
@@ -78,7 +80,7 @@ class HydeHelper
         foreach ($schemaFiles as $schemaFile) {
             $fileData = file_get_contents($schemaFile);
             if (!$fileData) {
-                throw new \Exception("Unable to read schema file [$schemaFile]");
+                throw new \Exception("No data read from [$schemaFile]");
             }
 
             $schema                         = Collection::create(json_decode($fileData, true));
@@ -101,8 +103,6 @@ class HydeHelper
         if ($isRaw) {
             $pubTypeName = self::formatNameForStorage($pubTypeName);
         }
-
-        $publicationTypes = self::getPublicationTypes();
 
         return self::getPublicationTypes()->has($pubTypeName);
     }

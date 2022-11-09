@@ -4,5 +4,5 @@ namespace Hyde\Framework\Actions\Interfaces;
 
 interface CreateActionInterface
 {
-    public function create(): bool;
+    public function create(): void;
 }

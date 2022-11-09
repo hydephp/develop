@@ -40,7 +40,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         if (!$pubType) {
             $this->output->writeln('<bg=magenta;fg=white>Now please choose the Publication Type to create an item for:</>');
             $offset = 0;
-            foreach ($pubTypes as $k => $pubType) {
+            foreach ($pubTypes as $pubType) {
                 $offset++;
                 $this->line("  $offset: $pubType->name");
             }
@@ -97,8 +97,11 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             $fieldData->{$field->name} = HydeHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
         }
 
-        $creator = new CreatesNewPublicationFile($pubType, $fieldData);
-        if (!$creator->create()) {
+        try {
+            $creator = new CreatesNewPublicationFile($pubType, $fieldData);
+            $creator->create();
+        } catch (\Exception $e) {
+            $this->error("Error: " . $e->getMessage() . " at " . $e->getFile() . ':' . $e->getLine());
             return Command::FAILURE;
         }
 

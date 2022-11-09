@@ -68,8 +68,11 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         $selected       = (int)HydeHelper::askWithValidation($this, 'selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
         $canonicalField = $fields[$selected - 1]['name'];
 
-        $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize);
-        if (!$creator->create()) {
+        try {
+            $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize);
+            $creator->create();
+        } catch (\Exception $e) {
+            $this->error("Error: " . $e->getMessage() . " at " . $e->getFile() . ':' . $e->getLine());
             return Command::FAILURE;
         }
 
