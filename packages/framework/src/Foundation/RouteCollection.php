@@ -12,8 +12,6 @@ use Hyde\Support\Models\Route;
  * Pseudo-Router for Hyde.
  *
  * @see \Hyde\Foundation\PageCollection
- * @see \Hyde\Framework\Testing\Feature\RouteTest
- * @see \Hyde\Framework\Testing\Feature\RouteCollectionTest
  *
  * This is not a router in the traditional sense that it decides where to go.
  * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
@@ -30,6 +28,9 @@ use Hyde\Support\Models\Route;
  * The route index serves as a multidimensional mapping allowing you to
  * determine where a source file will be compiled to, and where a compiled
  * file was generated from.
+ *
+ * @see \Hyde\Framework\Testing\Feature\RouteTest
+ * @see \Hyde\Framework\Testing\Feature\RouteCollectionTest
  */
 final class RouteCollection extends BaseFoundationCollection
 {
