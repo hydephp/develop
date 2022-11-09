@@ -9,7 +9,7 @@ namespace Hyde\Support\Concerns;
  *
  * @see \Hyde\Support\Concerns\File
  */
-enum MimeType
+enum MimeType: string
 {
     case css  = 'text/css';
     case gif  = 'image/gif';
