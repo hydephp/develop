@@ -35,6 +35,6 @@ enum MimeType: string
 
     public static function match(string $path, ?string $default = 'text/plain'): ?string
     {
-        return (collect(self::cases())->where('name', Str::after($path, '.'))->first()?->value()) ?? $default;
+        return collect(self::cases())->where('name', Str::after($path, '.'))->first()?->value() ?? $default;
     }
 }
