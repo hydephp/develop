@@ -93,6 +93,11 @@ class File implements Arrayable, JsonSerializable, Stringable
             return $this->belongsTo === $class;
         }
 
+        return $this->isSourceFile();
+    }
+
+    public function isSourceFile(): bool
+    {
         return $this->belongsTo !== null;
     }
 
@@ -173,7 +178,7 @@ class File implements Arrayable, JsonSerializable, Stringable
 
     public function withoutDirectoryPrefix(): string
     {
-        if ($this->belongsTo !== null) {
+        if ($this->isSourceFile()) {
             // If a model is set, use that to remove the directory, so any subdirectories within is retained
             return substr($this->__toString(), strlen($this->belongsTo::$sourceDirectory) + 1);
         }
