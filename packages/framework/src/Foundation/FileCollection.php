@@ -33,12 +33,16 @@ final class FileCollection extends BaseFoundationCollection
 
     public function getAllSourceFiles(): self
     {
-        return $this->whereNotNull('pageClass');
+        return $this->filter(function (File $file) {
+            return $file->belongsTo !== null;
+        });
     }
 
     public function getSourceFilesFor(string $pageClass): self
     {
-        return $this->whereStrict('belongsTo', $pageClass);
+        return $this->filter(function (File $file) use ($pageClass): bool {
+            return $file->belongsTo() === $pageClass;
+        });
     }
 
     public function getMediaFiles(): self
