@@ -9,6 +9,7 @@ use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 use function Safe\file_get_contents;
 
@@ -67,16 +68,17 @@ class HydeHelper
     }
 
     /**
-     * Return a collection of all defined publication types, indexed by the
+     * Return a collection of all defined publication types, indexed by the directory name.
+     *
      * @return Collection
      * @throws \Exception
      */
     public static function getPublicationTypes(): Collection
     {
         $root        = base_path();
-        $pubTypes    = Collection::create();
         $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
 
+        $pubTypes = Collection::create();
         foreach ($schemaFiles as $schemaFile) {
             $fileData = file_get_contents($schemaFile);
             if (!$fileData) {
@@ -93,6 +95,43 @@ class HydeHelper
     }
 
     /**
+     * Return all publications for a given pub type, optionally sorted by the publication's sortField.
+     *
+     * @param Collection $pubType
+     * @return Collection
+     * @throws \Safe\Exceptions\FilesystemException
+     */
+    public static function getPublications(Collection $pubType, $sort = true): Collection
+    {
+        $root    = base_path();
+        $mdFiles = glob("$root/{$pubType->directory}/*.md");
+
+        $publications = Collection::create();
+        foreach ($mdFiles as $mdFile) {
+            $fileData = file_get_contents($mdFile);
+            if (!$fileData) {
+                throw new \Exception("No data read from [$mdFile]");
+            }
+
+            $publication           = Collection::create();
+            $parsedFileData        = YamlFrontMatter::markdownCompatibleParse($fileData);
+            $publication->matter   = $parsedFileData->matter();
+            $publication->markdown = $parsedFileData->body();
+            $publications->add($publication);
+        }
+
+        if ($sort) {
+            return $publications->sortBy(function ($publication) use ($pubType) {
+                return $publication->matter->{$pubType->sortField};
+            });
+        }
+
+        return $publications;
+    }
+
+    /**
+     * Check whether a given publication type exists.
+     *
      * @param string $pubTypeName
      * @param bool $isRaw
      * @return bool
