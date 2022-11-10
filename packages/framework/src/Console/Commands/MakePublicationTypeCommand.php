@@ -58,7 +58,20 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             2 => 'DESC',
         };
 
-        $pagesize = (int)HydeHelper::askWithValidation($this, 'pagesize', "Enter the pagesize (0 for no limit)", ['required', 'integer', 'between:0,100'], 25);
+        $pagesize      = (int)HydeHelper::askWithValidation(
+            $this,
+            'pagesize',
+            "Enter the pagesize (0 for no limit)",
+            ['required', 'integer', 'between:0,100'],
+            25
+        );
+        $prevNextLinks = HydeHelper::askWithValidation(
+            $this,
+            'prevNextLinks',
+            'Generate previous/next links in detail view (y/n)',
+            ['required', 'string', "in:y,n"],
+            'y'
+        );
 
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
         foreach ($fields as $k => $v) {
@@ -69,7 +82,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         $canonicalField = $fields[$selected - 1]['name'];
 
         try {
-            $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize);
+            $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize, $prevNextLinks);
             $creator->create();
         } catch (\Exception $e) {
             $this->error("Error: " . $e->getMessage() . " at " . $e->getFile() . ':' . $e->getLine());

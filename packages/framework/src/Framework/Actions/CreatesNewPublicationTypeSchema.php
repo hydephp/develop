@@ -30,7 +30,8 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
         protected string $canonicalField,
         protected string $sortField,
         protected string $sortDirection,
-        protected int $pagesize
+        protected int $pagesize,
+        protected bool $prevNextLinks
     ) {
     }
 
@@ -47,6 +48,7 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
         $data['sortField']      = $this->sortField;
         $data['sortDirection']  = $this->sortDirection;
         $data['pagesize']       = $this->pagesize;
+        $data['prevNextLinks']  = $this->prevNextLinks;
         $data['detailTemplate'] = "{$dirName}.detail.blade.php";
         $data['listTemplate']   = "{$dirName}.list.blade.php";
         $data['fields']         = $this->fields;
