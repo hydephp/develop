@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-final class RelativePathString
+use Stringable;
+
+final class RelativePathString implements Stringable
 {
     protected readonly string $value;
 
@@ -16,6 +18,11 @@ final class RelativePathString
     public function __construct(string $value)
     {
         $this->value = $value;
+    }
+
+    public function __toString(): string
+    {
+        return $this->value;
     }
 
     public function getValue(): string
