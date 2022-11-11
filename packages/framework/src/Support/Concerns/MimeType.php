@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 /**
  * Map file extensions to mime types.
  *
- * @internal This class is currently experimental and should not be relied upon outside of Hyde.
+ * @internal This class is currently experimental and should not be relied upon outside of Hyde as it may change at any time.
  *
  * @see \Hyde\Support\Concerns\File
  */
