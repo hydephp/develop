@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Concerns;
+namespace Hyde\Support\Filesystem;
 
+use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Stringable;

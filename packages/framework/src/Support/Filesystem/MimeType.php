@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Concerns;
+namespace Hyde\Support\Filesystem;
 
 use Illuminate\Support\Str;
 
@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  *
  * @internal This class is currently experimental and should not be relied upon outside of Hyde as it may change at any time.
  *
- * @see \Hyde\Support\Concerns\File
+ * @see \Hyde\Support\Filesystem\File
  */
 enum MimeType: string
 {

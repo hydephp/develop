@@ -6,7 +6,7 @@ namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Hyde\Support\Concerns\MimeType;
+use Hyde\Support\Filesystem\MimeType;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Stringable;
