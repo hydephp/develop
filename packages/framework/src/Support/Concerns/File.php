@@ -15,5 +15,7 @@ use Stringable;
  */
 abstract class File implements Arrayable, JsonSerializable, Stringable
 {
+    use JsonSerializesArrayable;
+
     //
 }
