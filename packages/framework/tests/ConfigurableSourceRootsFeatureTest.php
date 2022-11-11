@@ -11,6 +11,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use function app;
 use function config;
+use function file_put_contents;
 use function mkdir;
 
 /**
@@ -42,5 +43,23 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
         $this->assertCount(1, MarkdownPage::all());
 
         File::deleteDirectory(Hyde::path('custom'));
+    }
+
+    public function test_files_in_custom_source_root_can_be_compiled()
+    {
+        mkdir(Hyde::path('custom'));
+        mkdir(Hyde::path('custom/_pages'));
+
+        config(['hyde.source_root' => 'custom']);
+        (new HydeServiceProvider(app()))->register();
+
+        file_put_contents(Hyde::path('custom/_pages/markdown.md'), 'Hello, world!');
+
+        $this->artisan('build');
+
+        $this->assertFileExists(Hyde::path('_site/markdown.html'));
+
+        File::deleteDirectory(Hyde::path('custom'));
+        File::deleteDirectory(Hyde::path('_site'));
     }
 }
