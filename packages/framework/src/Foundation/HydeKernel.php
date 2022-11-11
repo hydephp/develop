@@ -46,6 +46,7 @@ class HydeKernel implements Arrayable, JsonSerializable
     protected static HydeKernel $instance;
 
     protected string $basePath;
+    protected string $sourceRoot;
 
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
