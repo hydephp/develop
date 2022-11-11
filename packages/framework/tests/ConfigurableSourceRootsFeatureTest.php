@@ -31,13 +31,7 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
 
     public function test_files_in_custom_source_root_can_be_discovered()
     {
-        mkdir(Hyde::path('custom'));
-        mkdir(Hyde::path('custom/_pages'));
-
-        config(['hyde.source_root' => 'custom']);
-        (new HydeServiceProvider(app()))->register();
-
-        Hyde::touch('custom/_pages/markdown.md');
+        $this->setupCustomSourceRoot();
 
         $this->assertCount(1, MarkdownPage::files());
         $this->assertCount(1, MarkdownPage::all());
@@ -47,13 +41,7 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
 
     public function test_files_in_custom_source_root_can_be_compiled()
     {
-        mkdir(Hyde::path('custom'));
-        mkdir(Hyde::path('custom/_pages'));
-
-        config(['hyde.source_root' => 'custom']);
-        (new HydeServiceProvider(app()))->register();
-
-        file_put_contents(Hyde::path('custom/_pages/markdown.md'), 'Hello, world!');
+        $this->setupCustomSourceRoot();
 
         $this->artisan('build');
 
@@ -61,5 +49,16 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
 
         File::deleteDirectory(Hyde::path('custom'));
         File::deleteDirectory(Hyde::path('_site'));
+    }
+
+    protected function setupCustomSourceRoot(): void
+    {
+        mkdir(Hyde::path('custom'));
+        mkdir(Hyde::path('custom/_pages'));
+
+        config(['hyde.source_root' => 'custom']);
+        (new HydeServiceProvider(app()))->register();
+
+        file_put_contents(Hyde::path('custom/_pages/markdown.md'), 'Hello, world!');
     }
 }
