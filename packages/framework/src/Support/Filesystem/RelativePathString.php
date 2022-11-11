@@ -8,6 +8,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use JetBrains\PhpStorm\ArrayShape;
 use Stringable;
 
+/**
+ * Denotes a path relative to the project root.
+ */
 final class RelativePathString implements Stringable, Arrayable
 {
     protected readonly string $value;
