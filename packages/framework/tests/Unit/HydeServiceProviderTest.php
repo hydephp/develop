@@ -167,4 +167,14 @@ class HydeServiceProviderTest extends TestCase
 
         $this->assertArrayHasKey(DataCollectionServiceProvider::class, $this->app->getLoadedProviders());
     }
+
+    public function test_source_root_set_in_config_is_assigned()
+    {
+        $this->assertSame('', Hyde::getSourceRoot());
+        config(['hyde.source_root' => 'foo']);
+
+        $this->provider->register();
+
+        $this->assertSame('foo', Hyde::getSourceRoot());
+    }
 }
