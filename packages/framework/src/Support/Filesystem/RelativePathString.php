@@ -33,6 +33,6 @@ final class RelativePathString implements Stringable, Arrayable
 
     public function toArray()
     {
-        return ['relativePath' => $this->value];
+        return ['relative_path' => $this->value];
     }
 }
