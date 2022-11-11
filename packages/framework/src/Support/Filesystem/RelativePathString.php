@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Stringable;
 
-final class RelativePathString implements Stringable
+final class RelativePathString implements Stringable, Arrayable
 {
     protected readonly string $value;
 
@@ -28,5 +29,10 @@ final class RelativePathString implements Stringable
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    public function toArray()
+    {
+        return [$this->value];
     }
 }
