@@ -173,6 +173,7 @@ class HydeServiceProviderTest extends TestCase
         $this->assertSame('', Hyde::getSourceRoot());
         config(['hyde.source_root' => 'foo']);
 
+        $this->assertSame('', Hyde::getSourceRoot());
         $this->provider->register();
 
         $this->assertSame('foo', Hyde::getSourceRoot());
