@@ -35,9 +35,9 @@ return [
     | Source Root Directory
     |--------------------------------------------------------------------------
     |
-    | By default, HydePHP will look for the underscored source directories in
-    | the root of your project. If you want to change this, you can do so here.
-    | For example, you might want to put everything in a "src" subdirectory.
+    | HydePHP will by default look for the underscored source directories in the
+    | root of your project. For example, you might want everything in a 'src'
+    | subdirectory. That's easy enough, just set the value below to "src"!
     |
     */
 
