@@ -32,7 +32,7 @@ trait RegistersFileLocations
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var HydePage $class */
-            $class::$sourceDirectory = unslash(Hyde::getSourceRoot() . '/' . unslash($location));
+            $class::$sourceDirectory = unslash(Hyde::getSourceRoot().'/'.unslash($location));
         }
     }
 
