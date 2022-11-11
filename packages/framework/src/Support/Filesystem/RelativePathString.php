@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-class RelativePathString
+final class RelativePathString
 {
     protected readonly string $value;
 
