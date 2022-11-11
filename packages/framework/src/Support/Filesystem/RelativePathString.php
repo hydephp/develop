@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Illuminate\Contracts\Support\Arrayable;
+use JetBrains\PhpStorm\ArrayShape;
 use Stringable;
 
 final class RelativePathString implements Stringable, Arrayable
@@ -31,6 +32,7 @@ final class RelativePathString implements Stringable, Arrayable
         return $this->value;
     }
 
+    #[ArrayShape(['relative_path' => "string"])]
     public function toArray(): array
     {
         return ['relative_path' => $this->value];
