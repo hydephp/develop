@@ -25,5 +25,18 @@ abstract class File implements Arrayable, JsonSerializable, Stringable
         return $this->path;
     }
 
+    /** @inheritDoc */
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->getName(),
+            'path' => $this->getPath(),
+            'contents' => $this->getContents(),
+            'length' => $this->getContentLength(),
+            'mimeType' => $this->getMimeType(),
+            'model' => $this->belongsTo,
+        ];
+    }
+
     //
 }
