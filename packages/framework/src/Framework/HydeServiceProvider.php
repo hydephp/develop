@@ -41,6 +41,8 @@ class HydeServiceProvider extends ServiceProvider
             return new MarkdownConverter();
         });
 
+        Hyde::setSourceRoot(config('hyde.source_root', ''));
+
         $this->registerSourceDirectories([
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
