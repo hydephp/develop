@@ -17,5 +17,13 @@ abstract class File implements Arrayable, JsonSerializable, Stringable
 {
     use JsonSerializesArrayable;
 
+    /**
+     * @return string The path relative to the project root.
+     */
+    public function __toString(): string
+    {
+        return $this->path;
+    }
+
     //
 }
