@@ -35,6 +35,6 @@ class RelativePathStringTest extends TestCase
 
     public function testCanCastToArray()
     {
-        $this->assertEquals(['foo'], RelativePathString::make('foo')->toArray());
+        $this->assertEquals(['relativePath' => 'foo'], RelativePathString::make('foo')->toArray());
     }
 }
