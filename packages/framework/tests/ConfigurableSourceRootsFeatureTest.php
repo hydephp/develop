@@ -51,6 +51,16 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
         File::deleteDirectory(Hyde::path('_site'));
     }
 
+    public function test_hyde_page_path_method_supports_custom_source_roots()
+    {
+        config(['hyde.source_root' => 'custom']);
+        (new HydeServiceProvider(app()))->register();
+
+        $this->assertSame(
+            Hyde::path('custom/_pages/foo.md'), MarkdownPage::path('foo.md')
+        );
+    }
+
     protected function setupCustomSourceRoot(): void
     {
         mkdir(Hyde::path('custom'));
