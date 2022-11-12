@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
@@ -14,6 +15,8 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+use function app;
+use function config;
 
 /**
  * Test the HydePage class.
@@ -254,6 +257,30 @@ class HydePageTest extends TestCase
     {
         $this->assertSame(
             Hyde::path('source'), TestPage::path()
+        );
+    }
+
+    public function test_path_returns_absolute_path_to_file_in_source_directory_when_parameter_is_supplied()
+    {
+        $this->assertSame(
+            Hyde::path('source/foo.md'), TestPage::path('foo.md')
+        );
+    }
+
+    public function test_path_method_supports_custom_source_roots()
+    {
+        config(['hyde.source_root' => 'custom']);
+        (new HydeServiceProvider(app()))->register();
+
+        $this->assertSame(
+            Hyde::path('custom/_pages/foo.md'), MarkdownPage::path('foo.md')
+        );
+    }
+
+    public function test_path_method_removes_trailing_slashes()
+    {
+        $this->assertSame(
+            Hyde::path('source/foo.md'), TestPage::path('/foo.md/')
         );
     }
 
