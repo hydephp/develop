@@ -34,7 +34,7 @@ class PublishHomepageCommand extends Command
         $selected = $this->parseSelection();
 
         if (! array_key_exists($selected, $this->getTemplateOptions())) {
-            $this->error('Homepage '.$selected.' does not exist.');
+            $this->error("Homepage $selected does not exist.");
             return 404;
         }
 
