@@ -73,11 +73,16 @@ class PublishHomepageCommand extends Command
     protected function formatPublishableChoices(): array
     {
         $keys = [];
-        foreach (PublishesHomepageView::$homePages as $key => $value) {
+        foreach ($this->getOptions() as $key => $value) {
             $keys[] = "<comment>$key</comment>: {$value['description']}";
         }
 
         return $keys;
+    }
+
+    protected function getOptions(): array
+    {
+        return PublishesHomepageView::$homePages;
     }
 
     protected function parseChoiceIntoKey(string $choice): string
