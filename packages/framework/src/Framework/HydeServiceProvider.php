@@ -60,7 +60,7 @@ class HydeServiceProvider extends ServiceProvider
             DocumentationPage::class => config('docs.output_directory', 'docs'),
         ]);
 
-        $this->storeCompiledSiteIn(unslash(config('site.output_directory', '_site')));
+        $this->storeCompiledSiteIn(config('site.output_directory', '_site'));
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
 
