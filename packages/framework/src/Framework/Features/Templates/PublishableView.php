@@ -6,10 +6,7 @@ namespace Hyde\Framework\Features\Templates;
 
 abstract class PublishableView implements PublishableContract
 {
-    public static function publish(): bool
-    {
-        // TODO: Implement publish() method.
-    }
+    abstract public static function publish(): bool;
 
     public static function getTitle(): string
     {
