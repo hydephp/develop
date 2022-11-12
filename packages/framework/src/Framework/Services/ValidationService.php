@@ -6,6 +6,8 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Facades\Features;
 use Hyde\Hyde;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\ValidationResult as Result;
 
 /**
@@ -42,8 +44,8 @@ class ValidationService
 
     public function check_site_has_a_404_page(Result $result): Result
     {
-        if (file_exists(Hyde::path('_pages/404.md'))
-            || file_exists(Hyde::path('_pages/404.blade.php'))
+        if (file_exists(MarkdownPage::path('404.md'))
+            || file_exists(BladePage::path('404.blade.php'))
         ) {
             return $result->pass('Your site has a 404 page');
         }
@@ -54,8 +56,9 @@ class ValidationService
 
     public function check_site_has_an_index_page(Result $result): Result
     {
-        if (file_exists(Hyde::path('_pages/index.md'))
-            || file_exists('_pages/index.blade.php')) {
+        if (file_exists(MarkdownPage::path('index.md'))
+            || file_exists(BladePage::path('index.blade.php'))
+        ) {
             return $result->pass('Your site has an index page');
         }
 
