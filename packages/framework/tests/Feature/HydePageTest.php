@@ -862,6 +862,22 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function test_path_helpers_return_same_result_as_fluent_filesystem_helpers()
+    {
+        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), Hyde::getBladePagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), Hyde::getMarkdownPagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::getMarkdownPostPath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::getDocumentationPagePath('foo'));
+    }
+
+    protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
+    {
+        $this->assertSame(
+            str_replace('\\', '/', $expected),
+            str_replace('\\', '/', $actual)
+        );
+    }
+
     protected function resetDirectoryConfiguration(): void
     {
         BladePage::$sourceDirectory = '_pages';
