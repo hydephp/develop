@@ -101,6 +101,34 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('docs', DocumentationPage::outputDirectory());
     }
 
+    public function test_custom_source_roots_are_applied_to_the_page_models()
+    {
+        $this->assertSame('_pages', BladePage::sourceDirectory());
+        $this->assertSame('_pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('_posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('_docs', DocumentationPage::sourceDirectory());
+
+        config(['hyde.source_root' => 'foo']);
+
+        $this->provider->register();
+
+        $this->assertSame('foo/_pages', BladePage::sourceDirectory());
+        $this->assertSame('foo/_pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('foo/_posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('foo/_docs', DocumentationPage::sourceDirectory());
+    }
+
+    public function test_source_root_set_in_config_is_assigned()
+    {
+        $this->assertSame('', Hyde::getSourceRoot());
+        config(['hyde.source_root' => 'foo']);
+
+        $this->assertSame('', Hyde::getSourceRoot());
+
+        $this->provider->register();
+        $this->assertSame('foo', Hyde::getSourceRoot());
+    }
+
     public function test_provider_registers_configured_documentation_output_directory()
     {
         $this->assertEquals('docs', DocumentationPage::outputDirectory());
@@ -166,33 +194,5 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
 
         $this->assertArrayHasKey(DataCollectionServiceProvider::class, $this->app->getLoadedProviders());
-    }
-
-    public function test_source_root_set_in_config_is_assigned()
-    {
-        $this->assertSame('', Hyde::getSourceRoot());
-        config(['hyde.source_root' => 'foo']);
-
-        $this->assertSame('', Hyde::getSourceRoot());
-
-        $this->provider->register();
-        $this->assertSame('foo', Hyde::getSourceRoot());
-    }
-
-    public function test_custom_source_roots_are_applied_to_the_page_models()
-    {
-        $this->assertSame('_pages', BladePage::sourceDirectory());
-        $this->assertSame('_pages', MarkdownPage::sourceDirectory());
-        $this->assertSame('_posts', MarkdownPost::sourceDirectory());
-        $this->assertSame('_docs', DocumentationPage::sourceDirectory());
-
-        config(['hyde.source_root' => 'foo']);
-
-        $this->provider->register();
-
-        $this->assertSame('foo/_pages', BladePage::sourceDirectory());
-        $this->assertSame('foo/_pages', MarkdownPage::sourceDirectory());
-        $this->assertSame('foo/_posts', MarkdownPost::sourceDirectory());
-        $this->assertSame('foo/_docs', DocumentationPage::sourceDirectory());
     }
 }
