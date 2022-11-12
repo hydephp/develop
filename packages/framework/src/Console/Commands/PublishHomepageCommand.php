@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Framework\Features\Templates\Homepages;
+use Hyde\Framework\Features\Templates\PublishableContract;
 use function array_key_exists;
 use Hyde\Framework\Features\Templates\Homepages\BlankHomepageTemplate;
 use Hyde\Framework\Features\Templates\Homepages\PostsFeedHomepageTemplate;
@@ -91,9 +92,7 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): array
     {
-        return Homepages::options()->map(
-            /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
-            fn (string $page): array => $page::toArray())->toArray();
+        return Homepages::options()->map(fn (PublishableContract $page): array => $page::toArray())->toArray();
     }
 
     protected function parseChoiceIntoKey(string $choice): string

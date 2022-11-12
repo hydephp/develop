@@ -18,7 +18,7 @@ final class Homepages
         ]);
     }
 
-    public static function get(string $page): ?string
+    public static function get(string $page): ?PublishableContract
     {
         return self::options()->get($page);
     }
@@ -28,18 +28,18 @@ final class Homepages
         return self::options()->has($page);
     }
 
-    public static function blank(): string
+    public static function blank(): Homepages\BlankHomepageTemplate
     {
-        return Homepages\BlankHomepageTemplate::class;
+        return new Homepages\BlankHomepageTemplate;
     }
 
-    public static function posts(): string
+    public static function posts(): Homepages\PostsFeedHomepageTemplate
     {
-        return Homepages\PostsFeedHomepageTemplate::class;
+        return new Homepages\PostsFeedHomepageTemplate;
     }
 
-    public static function welcome(): string
+    public static function welcome(): Homepages\WelcomeHomepageTemplate
     {
-        return Homepages\WelcomeHomepageTemplate::class;
+        return new Homepages\WelcomeHomepageTemplate;
     }
 }
