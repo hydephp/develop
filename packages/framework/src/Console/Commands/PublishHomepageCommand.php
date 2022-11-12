@@ -91,7 +91,7 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): array
     {
-        return collect(Homepages::options())->map(
+        return Homepages::options()->map(
             /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
             fn (string $page): array => $page::toArray())->toArray();
     }

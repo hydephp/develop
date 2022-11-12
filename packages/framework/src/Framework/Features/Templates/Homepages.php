@@ -4,25 +4,28 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Templates;
 
+use Illuminate\Support\Collection;
+use function collect;
+
 final class Homepages
 {
-    public static function options(): array
+    public static function options(): Collection
     {
-        return [
+        return collect([
             'blank' => self::blank(),
             'posts' => self::posts(),
             'welcome' => self::welcome(),
-        ];
+        ]);
     }
 
     public static function get(string $page): ?string
     {
-        return self::options()[$page] ?? null;
+        return self::options()->get($page);
     }
 
     public static function exists(string $page): bool
     {
-        return array_key_exists($page, self::options());
+        return self::options()->has($page);
     }
 
     public static function blank(): string
