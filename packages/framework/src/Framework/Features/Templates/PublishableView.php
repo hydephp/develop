@@ -6,15 +6,18 @@ namespace Hyde\Framework\Features\Templates;
 
 abstract class PublishableView implements PublishableContract
 {
+    protected static string $title;
+    protected static string $description;
+
     abstract public static function publish(): bool;
 
     public static function getTitle(): string
     {
-        // TODO: Implement getTitle() method.
+        return static::$title;
     }
 
     public static function getDescription(): string
     {
-        // TODO: Implement getDescription() method.
+        return static::$description;
     }
 }
