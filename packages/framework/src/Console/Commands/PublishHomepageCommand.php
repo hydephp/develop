@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PublishesHomepageView;
+use function array_key_exists;
 use Hyde\Framework\Features\Templates\Homepages\BlankHomepageTemplate;
 use Hyde\Framework\Features\Templates\Homepages\PostsFeedHomepageTemplate;
 use Hyde\Framework\Features\Templates\Homepages\WelcomeHomepageTemplate;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
-use function array_key_exists;
 
 /**
  * Publish one of the default homepages.
@@ -35,6 +33,7 @@ class PublishHomepageCommand extends Command
 
         if (! array_key_exists($selected, $this->getTemplateOptions())) {
             $this->error("Homepage $selected does not exist.");
+
             return 404;
         }
 
@@ -51,6 +50,7 @@ class PublishHomepageCommand extends Command
 
         if (! $returnValue) {
             $this->error('The homepage was not published.');
+
             return 500;
         }
 
@@ -101,7 +101,7 @@ class PublishHomepageCommand extends Command
     {
         return collect(static::getTemplateClasses())->map(
             /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
-            fn(string $page): array => $page::toArray())->toArray();
+            fn (string $page): array => $page::toArray())->toArray();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
