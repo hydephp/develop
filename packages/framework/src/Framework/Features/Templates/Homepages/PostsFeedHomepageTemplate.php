@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Templates\Homepages;
 
 use Hyde\Framework\Features\Templates\PublishableView;
 
+/** @internal */
 class PostsFeedHomepageTemplate extends PublishableView
 {
     protected static string $title = 'Posts Feed';
