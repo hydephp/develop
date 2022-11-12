@@ -218,11 +218,11 @@ class HydeServiceProviderTest extends TestCase
 
         // Assert we are testing all page models
         $this->assertEquals([
+            HtmlPage::class,
             BladePage::class,
             MarkdownPage::class,
             MarkdownPost::class,
             DocumentationPage::class,
-            HtmlPage::class,
         ], $pages);
 
         /** @var \Hyde\Pages\Concerns\HydePage $page */

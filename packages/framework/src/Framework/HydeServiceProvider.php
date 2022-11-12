@@ -16,6 +16,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\MarkdownConverter;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Facades\Blade;
@@ -44,6 +45,7 @@ class HydeServiceProvider extends ServiceProvider
         Hyde::setSourceRoot(config('hyde.source_root', ''));
 
         $this->registerSourceDirectories([
+            HtmlPage::class => '_pages',
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
@@ -51,6 +53,7 @@ class HydeServiceProvider extends ServiceProvider
         ]);
 
         $this->registerOutputDirectories([
+            HtmlPage::class => '',
             BladePage::class => '',
             MarkdownPage::class => '',
             MarkdownPost::class => 'posts',
