@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Templates;
 
 use Hyde\Hyde;
+use function basename;
 
 abstract class PublishableView implements PublishableContract
 {
@@ -38,7 +39,7 @@ abstract class PublishableView implements PublishableContract
         // All publishable views at this time are Blade templates so to
         // reduce premature complexity we just use the Blade paths here.
 
-        return Hyde::getBladePagePath(static::$path);
+        return Hyde::getBladePagePath(basename(static::$path));
     }
 
     protected static function getSourcePath(): string
