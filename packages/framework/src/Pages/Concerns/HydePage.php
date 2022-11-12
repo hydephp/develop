@@ -17,6 +17,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
+use function unslash;
 
 /**
  * The base class for all Hyde pages.
@@ -147,6 +148,14 @@ abstract class HydePage implements PageSchema
     public static function outputPath(string $identifier): string
     {
         return RouteKey::fromPage(static::class, $identifier).'.html';
+    }
+
+    /**
+     * Get an absolute file path to the page's source directory, or a file within it.
+     */
+    public static function path(string $path = ''): string
+    {
+        return Hyde::path(unslash(static::sourceDirectory().'/'.unslash($path)));
     }
 
     /**

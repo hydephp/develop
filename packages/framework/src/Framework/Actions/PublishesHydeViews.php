@@ -7,11 +7,11 @@ namespace Hyde\Framework\Actions;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\File;
 
-/*
-* Publish one or more of the Hyde Blade views.
-*
-* @see \Hyde\Framework\Testing\Feature\Actions\PublishesHomepageViewTest
-*/
+/**
+ * Publish one or more of the Hyde Blade views.
+ *
+ * @see \Hyde\Framework\Testing\Feature\Actions\PublishesHomepageViewTest
+ */
 class PublishesHydeViews
 {
     public static array $options = [

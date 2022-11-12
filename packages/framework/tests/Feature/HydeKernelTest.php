@@ -247,4 +247,15 @@ class HydeKernelTest extends TestCase
     {
         $this->assertSame(HydeKernel::VERSION, Hyde::version());
     }
+
+    public function test_can_get_source_root()
+    {
+        $this->assertEquals('', Hyde::getSourceRoot());
+    }
+
+    public function test_can_set_source_root()
+    {
+        Hyde::setSourceRoot('foo');
+        $this->assertEquals('foo', Hyde::getSourceRoot());
+    }
 }
