@@ -47,7 +47,7 @@ class PublishHomepageCommand extends Command
         /** @var \Hyde\Framework\Features\Templates\PublishableContract $template */
         $template = $this->getTemplateClasses()[$selected];
 
-        $returnValue = $template::publish($this->option('force'));
+        $returnValue = $template::publish(true);
 
         if (! $returnValue) {
             $this->error('The homepage was not published.');
