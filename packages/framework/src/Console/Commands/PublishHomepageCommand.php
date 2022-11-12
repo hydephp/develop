@@ -100,14 +100,11 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateClasses(): array
     {
-        return collect([
-            BlankHomepageTemplate::class,
-            PostsFeedHomepageTemplate::class,
-            WelcomeHomepageTemplate::class,
-        ])->mapWithKeys(function (string $page): array {
-            /** @var \Hyde\Framework\Features\Templates\PublishableView $page */
-            return [Str::before(Str::kebab($page::getTitle()), '-') => $page];
-        })->toArray();
+        return [
+            'blank' => BlankHomepageTemplate::class,
+            'posts' => PostsFeedHomepageTemplate::class,
+            'welcome' => WelcomeHomepageTemplate::class,
+        ];
     }
 
     protected function parseChoiceIntoKey(string $choice): string
