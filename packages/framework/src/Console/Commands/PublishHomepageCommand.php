@@ -28,7 +28,7 @@ class PublishHomepageCommand extends Command
 
     public function handle(): int
     {
-        $this->selected = $this->argument('homepage') ?? $this->promptForHomepage();
+        $this->selected = $this->parseSelection();
 
         if (! $this->canExistingIndexFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
@@ -53,6 +53,11 @@ class PublishHomepageCommand extends Command
         $this->askToRebuildSite();
 
         return Command::SUCCESS;
+    }
+
+    protected function parseSelection(): string
+    {
+        return $this->argument('homepage') ?? $this->promptForHomepage();
     }
 
     protected function promptForHomepage(): string
