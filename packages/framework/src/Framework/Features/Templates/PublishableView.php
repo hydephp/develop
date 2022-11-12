@@ -11,8 +11,7 @@ abstract class PublishableView implements PublishableContract
     protected static string $title;
     protected static string $description;
 
-    protected static string $sourcePath;
-    protected static string $outputPath;
+    protected static string $path;
 
     public static function publish(bool $force = false): bool
     {
@@ -37,11 +36,11 @@ abstract class PublishableView implements PublishableContract
 
     public static function getOutputPath(): string
     {
-        return static::$outputPath;
+        return static::$path;
     }
 
     protected static function getSourcePath(): string
     {
-        return Hyde::vendorPath(static::$sourcePath);
+        return Hyde::vendorPath(static::$path);
     }
 }
