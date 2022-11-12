@@ -7,6 +7,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Facades\Features;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\ValidationResult as Result;
 
@@ -78,11 +79,11 @@ class ValidationService
                 ->withTip('Skipped because: There are no documentation pages');
         }
 
-        if (file_exists(Hyde::path('_docs/index.md'))) {
+        if (file_exists(DocumentationPage::path('index.md'))) {
             return $result->pass('Your documentation site has an index page');
         }
 
-        if (file_exists(Hyde::path('_docs/README.md'))) {
+        if (file_exists(DocumentationPage::path('README.md'))) {
             return $result->fail('Could not find an index.md file in the _docs directory!')
                 ->withTip('However, a _docs/readme.md file was found. A suggestion would be to copy the _docs/readme.md to _docs/index.md.');
         }
