@@ -7,4 +7,8 @@ namespace Hyde\Framework\Features\Templates;
 interface PublishableContract
 {
     public static function publish(): bool;
+
+    public static function getTitle(): string;
+
+    public static function getDescription(): string;
 }
