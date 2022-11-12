@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Templates;
 
 use Illuminate\Support\Collection;
-use function collect;
 
 final class Homepages
 {
     public static function options(): Collection
     {
-        return collect([
+        return new Collection([
             'blank' => self::blank(),
             'posts' => self::posts(),
             'welcome' => self::welcome(),
