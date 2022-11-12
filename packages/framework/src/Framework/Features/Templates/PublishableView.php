@@ -41,6 +41,14 @@ abstract class PublishableView implements PublishableContract
         return Hyde::getBladePagePath(static::$path);
     }
 
+    public static function getPublishableData(): array
+    {
+        return [
+            'title' => static::getTitle(),
+            'description' => static::getDescription(),
+        ];
+    }
+
     protected static function getSourcePath(): string
     {
         return Hyde::vendorPath(static::$path);
