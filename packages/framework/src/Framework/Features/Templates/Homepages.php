@@ -12,9 +12,9 @@ final class Homepages
     public static function options(): Collection
     {
         return new Collection([
-            'blank' => self::blank(),
-            'posts' => self::posts(),
             'welcome' => self::welcome(),
+            'posts' => self::posts(),
+            'blank' => self::blank(),
         ]);
     }
 
@@ -28,13 +28,13 @@ final class Homepages
         return self::options()->get($page);
     }
 
-    public static function blank(): PublishableContract
+    public static function welcome(): PublishableContract
     {
         return new class extends PublishableView
         {
-            protected static string $title = 'Blank Starter';
-            protected static string $desc = 'A blank Blade template with just the base layout.';
-            protected static string $path = 'resources/views/homepages/blank.blade.php';
+            protected static string $title = 'Welcome';
+            protected static string $desc = 'The default welcome page.';
+            protected static string $path = 'resources/views/homepages/welcome.blade.php';
             protected static ?string $outputPath = 'index.blade.php';
         };
     }
@@ -50,13 +50,13 @@ final class Homepages
         };
     }
 
-    public static function welcome(): PublishableContract
+    public static function blank(): PublishableContract
     {
         return new class extends PublishableView
         {
-            protected static string $title = 'Welcome';
-            protected static string $desc = 'The default welcome page.';
-            protected static string $path = 'resources/views/homepages/welcome.blade.php';
+            protected static string $title = 'Blank Starter';
+            protected static string $desc = 'A blank Blade template with just the base layout.';
+            protected static string $path = 'resources/views/homepages/blank.blade.php';
             protected static ?string $outputPath = 'index.blade.php';
         };
     }
