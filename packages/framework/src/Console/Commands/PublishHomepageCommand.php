@@ -45,7 +45,7 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        if (! (Homepages::get($selected)::publish(true))) {
+        if (! (Homepages::get($selected)->publish(true))) {
             $this->error('The homepage was not published.');
 
             return 500;
