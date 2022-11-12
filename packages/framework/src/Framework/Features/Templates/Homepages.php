@@ -28,17 +28,17 @@ final class Homepages
         return self::options()->get($page);
     }
 
-    public static function blank(): Homepages\BlankHomepageTemplate
+    public static function blank(): PublishableContract
     {
         return new Homepages\BlankHomepageTemplate;
     }
 
-    public static function posts(): Homepages\PostsFeedHomepageTemplate
+    public static function posts(): PublishableContract
     {
         return new Homepages\PostsFeedHomepageTemplate;
     }
 
-    public static function welcome(): Homepages\WelcomeHomepageTemplate
+    public static function welcome(): PublishableContract
     {
         return new Homepages\WelcomeHomepageTemplate;
     }
