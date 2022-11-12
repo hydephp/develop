@@ -33,7 +33,7 @@ class PublishHomepageCommand extends Command
     {
         $selected = $this->parseSelection();
 
-        if (! array_key_exists($selected, $this->getTemplateOptions())) {
+        if (! Homepages::exists($selected)) {
             $this->error("Homepage $selected does not exist.");
 
             return 404;
@@ -45,8 +45,7 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        /** @var \Hyde\Framework\Features\Templates\PublishableContract $template */
-        $template = (Homepages::options())[$selected];
+        $template = Homepages::get($selected);
 
         $returnValue = $template::publish(true);
 
