@@ -99,15 +99,9 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): array
     {
-        return collect(static::getTemplateClasses())->map(function (string $page): array {
-            return $this->getPublishableData($page);
-        })->toArray();
-    }
-
-    /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
-    protected function getPublishableData(string $page): array
-    {
-        return $page::toArray();
+        return collect(static::getTemplateClasses())->map(
+            /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
+            fn(string $page): array => $page::toArray())->toArray();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
