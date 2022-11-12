@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Framework\Actions\PublishesHomepageView;
+use Hyde\Framework\Features\Templates\Homepages\BlankHomepageTemplate;
+use Hyde\Framework\Features\Templates\Homepages\PostsFeedHomepageTemplate;
+use Hyde\Framework\Features\Templates\Homepages\WelcomeHomepageTemplate;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -82,7 +86,19 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): array
     {
-        return PublishesHomepageView::$homePages;
+        return collect([
+            BlankHomepageTemplate::class,
+            PostsFeedHomepageTemplate::class,
+            WelcomeHomepageTemplate::class,
+        ])->mapWithKeys(/** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
+            function (string $page): array {
+                return [
+                    Str::before(Str::kebab($page::getTitle()), '-') => [
+                        'name' => $page::getTitle(),
+                        'description' => $page::getDescription(),
+                    ]
+                ];
+        })->toArray();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
