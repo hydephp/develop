@@ -44,12 +44,15 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        $returnValue = (new PublishesHomepageView(
-            $selected
-        ))->execute();
         /** @var \Hyde\Framework\Features\Templates\PublishableContract $template */
         $template = $this->getTemplateClasses()[$selected];
 
+        $returnValue = $template::publish($this->option('force'));
+
+        if (! $returnValue) {
+            $this->error('The homepage was not published.');
+            return 500;
+        }
 
         $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
