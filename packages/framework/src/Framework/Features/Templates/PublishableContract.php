@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Templates;
 
-use Illuminate\Contracts\Support\Arrayable;
-
-interface PublishableContract extends Arrayable
+interface PublishableContract
 {
     public static function publish(bool $force = false): bool;
 
