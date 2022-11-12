@@ -9,6 +9,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\PublishHomepageCommand
+ * @covers \Hyde\Framework\Features\Templates\Homepages
+ * @covers \Hyde\Framework\Features\Templates\PublishableView
  */
 class PublishHomepageCommandTest extends TestCase
 {
