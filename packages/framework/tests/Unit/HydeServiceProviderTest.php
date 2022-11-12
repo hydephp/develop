@@ -226,7 +226,7 @@ class HydeServiceProviderTest extends TestCase
             DocumentationPage::class,
         ], $pages);
 
-        /** @var \Hyde\Pages\Concerns\HydePage $page */
+        /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
             $page::$sourceDirectory = 'foo';
         }
@@ -244,7 +244,7 @@ class HydeServiceProviderTest extends TestCase
             return str_starts_with($class, 'Hyde\Pages') && !str_starts_with($class, 'Hyde\Pages\Concerns');
         }));
 
-        /** @var \Hyde\Pages\Concerns\HydePage $page */
+        /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
             $page::$outputDirectory = 'foo';
         }
