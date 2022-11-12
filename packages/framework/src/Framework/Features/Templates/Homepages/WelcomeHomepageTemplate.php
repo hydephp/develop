@@ -12,4 +12,5 @@ class WelcomeHomepageTemplate extends PublishableView
     protected static string $title = 'Welcome';
     protected static string $desc = 'The default welcome page.';
     protected static string $path = 'resources/views/homepages/welcome.blade.php';
+    protected static string $outputPath = 'index.blade.php';
 }
