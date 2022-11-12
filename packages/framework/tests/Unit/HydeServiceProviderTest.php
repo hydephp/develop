@@ -11,17 +11,23 @@ use Hyde\Framework\Services\AssetService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Artisan;
 use function app;
+use function array_filter;
+use function array_keys;
 use function array_map;
 use function basename;
 use function config;
 use function get_class;
+use function get_declared_classes;
 use function glob;
 use function method_exists;
+use function str_starts_with;
 
 /**
  * @covers \Hyde\Framework\HydeServiceProvider
@@ -201,5 +207,33 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
 
         $this->assertArrayHasKey(DataCollectionServiceProvider::class, $this->app->getLoadedProviders());
+    }
+
+    public function test_provider_registers_all_page_model_paths()
+    {
+        // Find all classes in the Hyde\Pages namespace that are not abstract
+        $pages = array_values(array_filter(get_declared_classes(), function ($class) {
+            return str_starts_with($class, 'Hyde\Pages') && !str_starts_with($class, 'Hyde\Pages\Concerns');
+        }));
+
+        // Assert we are testing all page models
+        $this->assertEquals([
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+            HtmlPage::class,
+        ], $pages);
+
+        /** @var \Hyde\Pages\Concerns\HydePage $page */
+        foreach ($pages as $page) {
+            $page::$sourceDirectory = 'foo';
+        }
+
+        $this->provider->register();
+
+        foreach ($pages as $page) {
+            $this->assertNotEquals('foo', $page::$sourceDirectory, "Source directory for $page was not set");
+        }
     }
 }
