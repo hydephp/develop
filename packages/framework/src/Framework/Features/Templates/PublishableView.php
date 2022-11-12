@@ -9,7 +9,7 @@ abstract class PublishableView implements PublishableContract
     protected static string $title;
     protected static string $description;
 
-    abstract public static function publish(): bool;
+    abstract public static function publish(bool $force = false): bool;
 
     public static function getTitle(): string
     {
