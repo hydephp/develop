@@ -21,7 +21,7 @@ abstract class PublishableView implements PublishableContract
             return false;
         }
 
-        return copy(static::getSourcePath(), $path);
+        return copy(static::getSourcePath(), Hyde::path($path));
     }
 
     public static function getTitle(): string
