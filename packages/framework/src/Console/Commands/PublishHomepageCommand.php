@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Features\Templates\Homepages;
 use function array_key_exists;
 use Hyde\Framework\Features\Templates\Homepages\BlankHomepageTemplate;
 use Hyde\Framework\Features\Templates\Homepages\PostsFeedHomepageTemplate;
@@ -44,7 +45,7 @@ class PublishHomepageCommand extends Command
         }
 
         /** @var \Hyde\Framework\Features\Templates\PublishableContract $template */
-        $template = $this->getTemplateClasses()[$selected];
+        $template = (Homepages::options())[$selected];
 
         $returnValue = $template::publish(true);
 
@@ -88,18 +89,9 @@ class PublishHomepageCommand extends Command
         return $keys;
     }
 
-    protected function getTemplateClasses(): array
-    {
-        return [
-            'blank' => BlankHomepageTemplate::class,
-            'posts' => PostsFeedHomepageTemplate::class,
-            'welcome' => WelcomeHomepageTemplate::class,
-        ];
-    }
-
     protected function getTemplateOptions(): array
     {
-        return collect(static::getTemplateClasses())->map(
+        return collect(Homepages::options())->map(
             /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
             fn (string $page): array => $page::toArray())->toArray();
     }
