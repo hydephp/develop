@@ -93,7 +93,7 @@ class ValidationService
 
     public function check_site_has_an_app_css_stylesheet(Result $result): Result
     {
-        if (file_exists(Hyde::path('_site/media/app.css')) || file_exists(Hyde::path('_media/app.css'))) {
+        if (file_exists(Hyde::sitePath('media/app.css')) || file_exists(Hyde::path('_media/app.css'))) {
             return $result->pass('Your site has an app.css stylesheet');
         }
 
