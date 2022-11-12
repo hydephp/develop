@@ -99,22 +99,17 @@ class PublishHomepageCommand extends Command
 
     protected function getTemplateOptions(): array
     {
-        return collect([
-            BlankHomepageTemplate::class,
-            PostsFeedHomepageTemplate::class,
-            WelcomeHomepageTemplate::class,
-        ])->mapWithKeys(fn(string $page): array => $this->getPublishableData($page))
-            ->toArray();
+        return collect(static::getTemplateClasses())->map(function (string $page): array {
+            return $this->getPublishableData($page);
+        })->toArray();
     }
 
     /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
     protected function getPublishableData(string $page): array
     {
         return [
-            Str::before(Str::kebab($page::getTitle()), '-') => [
-                'name' => $page::getTitle(),
-                'description' => $page::getDescription(),
-            ]
+            'name' => $page::getTitle(),
+            'description' => $page::getDescription(),
         ];
     }
 
