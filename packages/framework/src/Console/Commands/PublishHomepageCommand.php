@@ -45,11 +45,7 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        $template = Homepages::get($selected);
-
-        $returnValue = $template::publish(true);
-
-        if (! $returnValue) {
+        if (! (Homepages::get($selected)::publish(true))) {
             $this->error('The homepage was not published.');
 
             return 500;
