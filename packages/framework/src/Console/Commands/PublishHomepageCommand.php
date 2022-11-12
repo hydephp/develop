@@ -56,15 +56,10 @@ class PublishHomepageCommand extends Command
 
     protected function parseSelection(): string
     {
-        return $this->argument('homepage') ?? $this->promptForHomepage();
+        return $this->argument('homepage') ?? $this->parseChoiceIntoKey($this->promptForHomepage());
     }
 
     protected function promptForHomepage(): string
-    {
-        return $this->parseChoiceIntoKey($this->getChoice());
-    }
-
-    protected function getChoice(): string
     {
         return $this->choice(
             'Which homepage do you want to publish?',
