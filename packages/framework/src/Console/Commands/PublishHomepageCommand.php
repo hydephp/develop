@@ -47,6 +47,8 @@ class PublishHomepageCommand extends Command
         $returnValue = (new PublishesHomepageView(
             $selected
         ))->execute();
+        $template = $this->getTemplateClasses()[$selected];
+
 
         $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
@@ -90,6 +92,18 @@ class PublishHomepageCommand extends Command
             WelcomeHomepageTemplate::class,
         ])->mapWithKeys(fn(string $page): array => $this->getPublishableData($page))
             ->toArray();
+    }
+
+    protected function getTemplateClasses(): array
+    {
+        return collect([
+            BlankHomepageTemplate::class,
+            PostsFeedHomepageTemplate::class,
+            WelcomeHomepageTemplate::class,
+        ])->mapWithKeys(function (string $page): array {
+            /** @var \Hyde\Framework\Features\Templates\PublishableView $page */
+            return [Str::before(Str::kebab($page::getTitle()), '-') => $page];
+        })->toArray();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
