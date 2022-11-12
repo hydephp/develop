@@ -11,6 +11,7 @@ abstract class PublishableView implements PublishableContract
     protected static string $title;
     protected static string $desc;
     protected static string $path;
+    protected static ?string $outputPath = null;
 
     public static function publish(bool $force = false): bool
     {
@@ -38,7 +39,7 @@ abstract class PublishableView implements PublishableContract
         // All publishable views at this time are Blade templates so to
         // reduce premature complexity we just use the Blade paths here.
 
-        return Hyde::getBladePagePath(static::$path);
+        return Hyde::getBladePagePath(static::$outputPath ?? static::$path);
     }
 
     protected static function getSourcePath(): string
