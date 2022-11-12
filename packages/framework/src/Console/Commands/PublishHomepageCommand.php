@@ -24,11 +24,9 @@ class PublishHomepageCommand extends Command
     /** @var string */
     protected $description = 'Publish one of the default homepages to index.blade.php.';
 
-    protected string $selected;
-
     public function handle(): int
     {
-        $this->selected = $this->parseSelection();
+        $selected = $this->parseSelection();
 
         if (! $this->canExistingIndexFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
@@ -37,18 +35,18 @@ class PublishHomepageCommand extends Command
         }
 
         $returnValue = (new PublishesHomepageView(
-            $this->selected
+            $selected
         ))->execute();
 
         if (is_numeric($returnValue)) {
             if ($returnValue == 404) {
-                $this->error('Homepage '.$this->selected.' does not exist.');
+                $this->error('Homepage '.$selected.' does not exist.');
 
                 return 404;
             }
         }
 
-        $this->line("<info>Published page</info> [<comment>$this->selected</comment>]");
+        $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
         $this->askToRebuildSite();
 
