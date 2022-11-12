@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use function app;
+use function array_filter;
+use function array_map;
+use function array_values;
+use function basename;
+use function config;
+use function get_class;
+use function get_declared_classes;
+use function glob;
 use Hyde\Facades\Site;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
@@ -15,18 +24,7 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Artisan;
-use function app;
-use function array_filter;
-use function array_keys;
-use function array_map;
-use function array_values;
-use function basename;
-use function config;
-use function get_class;
-use function get_declared_classes;
-use function glob;
 use function method_exists;
 use function str_starts_with;
 
@@ -214,7 +212,7 @@ class HydeServiceProviderTest extends TestCase
     {
         // Find all classes in the Hyde\Pages namespace that are not abstract
         $pages = array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && !str_starts_with($class, 'Hyde\Pages\Concerns');
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
         }));
 
         // Assert we are testing all page models
@@ -241,7 +239,7 @@ class HydeServiceProviderTest extends TestCase
     public function test_provider_registers_all_page_model_output_paths()
     {
         $pages = array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && !str_starts_with($class, 'Hyde\Pages\Concerns');
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
         }));
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
