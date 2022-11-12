@@ -18,14 +18,14 @@ final class Homepages
         ]);
     }
 
-    public static function get(string $page): ?PublishableContract
-    {
-        return self::options()->get($page);
-    }
-
     public static function exists(string $page): bool
     {
         return self::options()->has($page);
+    }
+
+    public static function get(string $page): ?PublishableContract
+    {
+        return self::options()->get($page);
     }
 
     public static function blank(): Homepages\BlankHomepageTemplate
