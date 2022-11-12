@@ -74,6 +74,14 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testPath()
+    {
+        $this->assertSame(
+            Hyde::path('source/hello-world'),
+            TestPage::path('hello-world')
+        );
+    }
+
     public function testGetSourcePath()
     {
         $this->assertSame(
