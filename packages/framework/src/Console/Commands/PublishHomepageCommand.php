@@ -107,10 +107,7 @@ class PublishHomepageCommand extends Command
     /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
     protected function getPublishableData(string $page): array
     {
-        return [
-            'name' => $page::getTitle(),
-            'description' => $page::getDescription(),
-        ];
+        return $page::toArray();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
