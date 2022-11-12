@@ -11,7 +11,7 @@ abstract class PublishableView implements PublishableContract
     protected static string $title;
     protected static string $desc;
     protected static string $path;
-    protected static string $outputPath;
+    protected static ?string $outputPath;
 
     public static function publish(bool $force = false): bool
     {
