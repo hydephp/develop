@@ -13,6 +13,7 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
+use function array_key_exists;
 
 /**
  * Publish one of the default homepages.
@@ -32,6 +33,11 @@ class PublishHomepageCommand extends Command
     {
         $selected = $this->parseSelection();
 
+        if (! array_key_exists($selected, $this->getTemplateOptions())) {
+            $this->error('Homepage '.$selected.' does not exist.');
+            return 404;
+        }
+
         if (! $this->canExistingIndexFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
 
@@ -41,14 +47,6 @@ class PublishHomepageCommand extends Command
         $returnValue = (new PublishesHomepageView(
             $selected
         ))->execute();
-
-        if (is_numeric($returnValue)) {
-            if ($returnValue == 404) {
-                $this->error('Homepage '.$selected.' does not exist.');
-
-                return 404;
-            }
-        }
 
         $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
