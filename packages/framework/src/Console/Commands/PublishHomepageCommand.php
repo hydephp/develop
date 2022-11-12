@@ -47,6 +47,7 @@ class PublishHomepageCommand extends Command
         $returnValue = (new PublishesHomepageView(
             $selected
         ))->execute();
+        /** @var \Hyde\Framework\Features\Templates\PublishableContract $template */
         $template = $this->getTemplateClasses()[$selected];
 
 
