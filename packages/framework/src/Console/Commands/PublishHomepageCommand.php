@@ -8,6 +8,7 @@ use Hyde\Framework\Features\Templates\Homepages;
 use Hyde\Framework\Features\Templates\PublishableContract;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
 
@@ -70,17 +71,14 @@ class PublishHomepageCommand extends Command
 
     protected function formatPublishableChoices(): array
     {
-        $keys = [];
-        foreach ($this->getTemplateOptions() as $key => $value) {
-            $keys[] = "<comment>$key</comment>: {$value['description']}";
-        }
-
-        return $keys;
+        return $this->getTemplateOptions()->map(function (array $option, string $key): string {
+            return  "<comment>$key</comment>: {$option['description']}";
+        })->values()->toArray();
     }
 
-    protected function getTemplateOptions(): array
+    protected function getTemplateOptions(): Collection
     {
-        return Homepages::options()->map(fn (PublishableContract $page): array => $page::toArray())->toArray();
+        return Homepages::options()->map(fn (PublishableContract $page): array => $page::toArray());
     }
 
     protected function parseChoiceIntoKey(string $choice): string
