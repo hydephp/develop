@@ -90,14 +90,9 @@ class PublishHomepageCommand extends Command
             BlankHomepageTemplate::class,
             PostsFeedHomepageTemplate::class,
             WelcomeHomepageTemplate::class,
-        ])->mapWithKeys(/** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
+        ])->mapWithKeys(
             function (string $page): array {
-                return [
-                    Str::before(Str::kebab($page::getTitle()), '-') => [
-                        'name' => $page::getTitle(),
-                        'description' => $page::getDescription(),
-                    ]
-                ];
+                return $this->getPublishableData($page);
         })->toArray();
     }
 
@@ -130,5 +125,16 @@ class PublishHomepageCommand extends Command
         } else {
             $this->line('Okay, you can always run the build later!');
         }
+    }
+
+    /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
+    protected function getPublishableData(string $page): array
+    {
+        return [
+            Str::before(Str::kebab($page::getTitle()), '-') => [
+                'name' => $page::getTitle(),
+                'description' => $page::getDescription(),
+            ]
+        ];
     }
 }
