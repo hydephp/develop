@@ -6,10 +6,6 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Framework\Features\Templates\Homepages;
 use Hyde\Framework\Features\Templates\PublishableContract;
-use function array_key_exists;
-use Hyde\Framework\Features\Templates\Homepages\BlankHomepageTemplate;
-use Hyde\Framework\Features\Templates\Homepages\PostsFeedHomepageTemplate;
-use Hyde\Framework\Features\Templates\Homepages\WelcomeHomepageTemplate;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
