@@ -42,11 +42,7 @@ class PublishHomepageCommand extends Command
             return 409;
         }
 
-        if (! (Homepages::get($selected)->publish(true))) {
-            $this->error('The homepage was not published.');
-
-            return 500;
-        }
+        Homepages::get($selected)->publish(true);
 
         $this->line("<info>Published page</info> [<comment>$selected</comment>]");
 
