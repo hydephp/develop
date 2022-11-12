@@ -38,7 +38,7 @@ class PublishHomepageCommand extends Command
             return 404;
         }
 
-        if (! $this->canExistingIndexFileBeOverwritten()) {
+        if (! $this->canExistingFileBeOverwritten()) {
             $this->error('A modified index.blade.php file already exists. Use --force to overwrite.');
 
             return 409;
@@ -112,15 +112,24 @@ class PublishHomepageCommand extends Command
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true);
     }
 
-    protected function canExistingIndexFileBeOverwritten(): bool
+    protected function canExistingFileBeOverwritten(): bool
     {
-        if (! file_exists(Hyde::getBladePagePath('index.blade.php')) || $this->option('force')) {
+        if ($this->option('force')) {
             return true;
         }
 
+        if (! file_exists(Hyde::getBladePagePath('index.blade.php'))) {
+            return true;
+        }
+
+        return $this->isTheExistingFileADefaultOne();
+    }
+
+    protected function isTheExistingFileADefaultOne(): bool
+    {
         return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
             Hyde::getBladePagePath('index.blade.php')
-        )) || $this->option('force');
+        ));
     }
 
     protected function askToRebuildSite(): void
