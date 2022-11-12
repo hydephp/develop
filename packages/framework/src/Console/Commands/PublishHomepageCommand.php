@@ -90,10 +90,8 @@ class PublishHomepageCommand extends Command
             BlankHomepageTemplate::class,
             PostsFeedHomepageTemplate::class,
             WelcomeHomepageTemplate::class,
-        ])->mapWithKeys(
-            function (string $page): array {
-                return $this->getPublishableData($page);
-        })->toArray();
+        ])->mapWithKeys(fn(string $page): array => $this->getPublishableData($page))
+            ->toArray();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
