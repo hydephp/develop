@@ -57,7 +57,7 @@ class HydeServiceProvider extends ServiceProvider
             BladePage::class => '',
             MarkdownPage::class => '',
             MarkdownPost::class => 'posts',
-            DocumentationPage::class => unslash(config('docs.output_directory', 'docs')),
+            DocumentationPage::class => config('docs.output_directory', 'docs'),
         ]);
 
         $this->storeCompiledSiteIn(unslash(config('site.output_directory', '_site')));
