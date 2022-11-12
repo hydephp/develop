@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
+ * @deprecated
  * @covers \Hyde\Framework\Actions\PublishesHomepageView
  */
 class PublishesHomepageViewTest extends TestCase

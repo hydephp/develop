@@ -7,6 +7,8 @@ namespace Hyde\Framework\Actions;
 use Hyde\Hyde;
 
 /**
+ * @deprecated
+ *
  * Publish one of the Hyde homepages.
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\PublishesHomepageViewTest
