@@ -88,6 +88,15 @@ class PublishHomepageCommand extends Command
         return $keys;
     }
 
+    protected function getTemplateClasses(): array
+    {
+        return [
+            'blank' => BlankHomepageTemplate::class,
+            'posts' => PostsFeedHomepageTemplate::class,
+            'welcome' => WelcomeHomepageTemplate::class,
+        ];
+    }
+
     protected function getTemplateOptions(): array
     {
         return collect([
@@ -98,12 +107,14 @@ class PublishHomepageCommand extends Command
             ->toArray();
     }
 
-    protected function getTemplateClasses(): array
+    /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
+    protected function getPublishableData(string $page): array
     {
         return [
-            'blank' => BlankHomepageTemplate::class,
-            'posts' => PostsFeedHomepageTemplate::class,
-            'welcome' => WelcomeHomepageTemplate::class,
+            Str::before(Str::kebab($page::getTitle()), '-') => [
+                'name' => $page::getTitle(),
+                'description' => $page::getDescription(),
+            ]
         ];
     }
 
@@ -145,16 +156,5 @@ class PublishHomepageCommand extends Command
         } else {
             $this->line('Okay, you can always run the build later!');
         }
-    }
-
-    /** @param class-string<\Hyde\Framework\Features\Templates\PublishableContract> $page */
-    protected function getPublishableData(string $page): array
-    {
-        return [
-            Str::before(Str::kebab($page::getTitle()), '-') => [
-                'name' => $page::getTitle(),
-                'description' => $page::getDescription(),
-            ]
-        ];
     }
 }
