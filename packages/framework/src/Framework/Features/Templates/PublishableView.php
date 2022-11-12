@@ -20,7 +20,7 @@ abstract class PublishableView implements PublishableContract
             return false;
         }
 
-        return copy(static::getSourcePath(), Hyde::path($path));
+        return copy(static::getSourcePath(), $path);
     }
 
     public static function getTitle(): string
@@ -35,7 +35,10 @@ abstract class PublishableView implements PublishableContract
 
     public static function getOutputPath(): string
     {
-        return static::$path;
+        // All publishable views at this time are Blade templates so to
+        // reduce premature complexity we just use the Blade paths here.
+
+        return Hyde::getBladePagePath(static::$path);
     }
 
     protected static function getSourcePath(): string
