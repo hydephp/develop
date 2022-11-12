@@ -13,6 +13,4 @@ interface PublishableContract
     public static function getDescription(): string;
 
     public static function getOutputPath(): string;
-
-    public static function getPublishableData(): array;
 }
