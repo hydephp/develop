@@ -9,8 +9,7 @@ use Hyde\Hyde;
 abstract class PublishableView implements PublishableContract
 {
     protected static string $title;
-    protected static string $description;
-
+    protected static string $desc;
     protected static string $path;
 
     public static function publish(bool $force = false): bool
@@ -31,7 +30,7 @@ abstract class PublishableView implements PublishableContract
 
     public static function getDescription(): string
     {
-        return static::$description;
+        return static::$desc;
     }
 
     public static function getOutputPath(): string
