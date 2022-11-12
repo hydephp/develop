@@ -80,11 +80,6 @@ class HydePageTest extends TestCase
             Hyde::path('source/hello-world'),
             TestPage::path('hello-world')
         );
-
-        $this->assertSame(
-            Hyde::path('source'),
-            TestPage::path()
-        );
     }
 
     public function testGetSourcePath()
@@ -253,6 +248,13 @@ class HydePageTest extends TestCase
         MarkdownPage::$fileExtension = 'txt';
         $this->assertEquals('foo/bar.txt', MarkdownPage::sourcePath('bar'));
         $this->resetDirectoryConfiguration();
+    }
+
+    public function test_path_returns_absolute_path_to_source_directory_when_no_parameter_is_supplied()
+    {
+        $this->assertSame(
+            Hyde::path('source'), TestPage::path()
+        );
     }
 
     public function test_get_output_location_returns_the_file_output_path_for_the_supplied_basename()
