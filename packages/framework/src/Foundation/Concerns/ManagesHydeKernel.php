@@ -44,4 +44,14 @@ trait ManagesHydeKernel
     {
         return $this->basePath;
     }
+
+    public function setSourceRoot(string $sourceRoot): void
+    {
+        $this->sourceRoot = rtrim($sourceRoot, '/\\');
+    }
+
+    public function getSourceRoot(): string
+    {
+        return $this->sourceRoot;
+    }
 }
