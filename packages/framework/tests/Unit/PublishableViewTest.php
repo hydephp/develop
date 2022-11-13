@@ -17,14 +17,14 @@ class PublishableViewTest extends TestCase
     {
         $this->assertSame('Test View', PublishableTestView::getTitle());
         $this->assertSame('A test view', PublishableTestView::getDescription());
-        $this->assertSame(Hyde::path('_pages' . DIRECTORY_SEPARATOR . 'output.md'), PublishableTestView::getOutputPath());
+        $this->assertSame(Hyde::path('_pages'.DIRECTORY_SEPARATOR.'output.md'), PublishableTestView::getOutputPath());
     }
 
     public function testPublishableViewWithNoOutputPath(): void
     {
         $this->assertSame('Test View', PublishableTestViewWithNoOutputPath::getTitle());
         $this->assertSame('A test view', PublishableTestViewWithNoOutputPath::getDescription());
-        $this->assertSame(Hyde::path('_pages' . DIRECTORY_SEPARATOR . 'input.md'), PublishableTestViewWithNoOutputPath::getOutputPath());
+        $this->assertSame(Hyde::path('_pages'.DIRECTORY_SEPARATOR.'input.md'), PublishableTestViewWithNoOutputPath::getOutputPath());
     }
 
     public function testPublishableViewPublish(): void
