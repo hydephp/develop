@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\RelativePathString;
@@ -12,35 +11,35 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Support\Filesystem\RelativePathString
  * @covers \Hyde\Support\Filesystem\PathString
  */
-class RelativePathStringTest extends TestCase
+class PathStringTest extends TestCase
 {
-    public function testCanCreateClassUsingConstructor()
+    public function testCanCreateRelativePathStringClassUsingConstructor()
     {
-        $this->assertInstanceOf(RelativePathString::class, RelativePathString::make('foo'));
+        $this->assertInstanceOf(RelativePathString::class, new RelativePathString('foo'));
     }
 
-    public function testCanCreateClassUsingStaticMakeMethod()
+    public function testCanCreateRelativePathStringClassUsingStaticMakeMethod()
     {
         $this->assertInstanceOf(RelativePathString::class, RelativePathString::make('foo'));
         $this->assertEquals(new RelativePathString('foo'), RelativePathString::make('foo'));
     }
 
-    public function testCanGetPathValue()
+    public function testCanGetRelativePathStringPathValue()
     {
         $this->assertSame('foo', RelativePathString::make('foo')->getValue());
     }
 
-    public function testCanCastToString()
+    public function testCanCastRelativePathStringToString()
     {
         $this->assertEquals('foo', (string) RelativePathString::make('foo'));
     }
 
-    public function testCanCastToArray()
+    public function testCanCastRelativePathStringToArray()
     {
         $this->assertEquals(['relative_path' => 'foo'], RelativePathString::make('foo')->toArray());
     }
 
-    public function testAbsolutePathIsCastToRelative()
+    public function testRelativePathStringCastsAbsolutePathToRelative()
     {
         $this->assertEquals('foo', RelativePathString::make(Hyde::path('foo')));
     }
