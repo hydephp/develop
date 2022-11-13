@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Hyde;
 use Hyde\Support\Filesystem\RelativePathString;
 use Hyde\Testing\TestCase;
 
@@ -36,5 +37,10 @@ class RelativePathStringTest extends TestCase
     public function testCanCastToArray()
     {
         $this->assertEquals(['relative_path' => 'foo'], RelativePathString::make('foo')->toArray());
+    }
+
+    public function testAbsolutePathIsCastToRelative()
+    {
+        $this->assertEquals('foo', RelativePathString::make(Hyde::path('foo')));
     }
 }

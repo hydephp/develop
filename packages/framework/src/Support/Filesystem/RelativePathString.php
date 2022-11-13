@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Hyde;
 use Illuminate\Contracts\Support\Arrayable;
 use JetBrains\PhpStorm\ArrayShape;
 use Stringable;
 
 /**
- * Denotes a path relative to the project root.
+ * Denotes and enforces a path relative to the project root.
  */
 final class RelativePathString implements Stringable, Arrayable
 {
@@ -22,7 +23,7 @@ final class RelativePathString implements Stringable, Arrayable
 
     public function __construct(string $value)
     {
-        $this->value = $value;
+        $this->value = Hyde::pathToRelative($value);
     }
 
     public function __toString(): string
