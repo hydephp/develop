@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\AbsolutePathString;
 use Hyde\Support\Filesystem\RelativePathString;
