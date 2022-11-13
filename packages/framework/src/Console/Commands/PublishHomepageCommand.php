@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Concerns\AsksToRebuildSite;
 use Hyde\Framework\Features\Templates\Homepages;
 use Hyde\Framework\Features\Templates\PublishableContract;
 use Hyde\Framework\Services\ChecksumService;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -19,6 +19,8 @@ use LaravelZero\Framework\Commands\Command;
  */
 class PublishHomepageCommand extends Command
 {
+    use AsksToRebuildSite;
+
     /** @var string */
     protected $signature = 'publish:homepage {homepage? : The name of the page to publish}
                                 {--force : Overwrite any existing files}';
@@ -100,20 +102,5 @@ class PublishHomepageCommand extends Command
         return ChecksumService::checksumMatchesAny(ChecksumService::unixsumFile(
             Hyde::getBladePagePath('index.blade.php')
         ));
-    }
-
-    protected function askToRebuildSite(): void
-    {
-        if ($this->option('no-interaction')) {
-            return;
-        }
-
-        if ($this->confirm('Would you like to rebuild the site?', 'Yes')) {
-            $this->line('Okay, building site!');
-            Artisan::call('build');
-            $this->info('Site is built!');
-        } else {
-            $this->line('Okay, you can always run the build later!');
-        }
     }
 }
