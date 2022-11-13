@@ -10,6 +10,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Support\Filesystem\RelativePathString
+ * @covers \Hyde\Support\Filesystem\PathString
  */
 class RelativePathStringTest extends TestCase
 {
