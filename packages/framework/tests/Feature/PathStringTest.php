@@ -75,4 +75,24 @@ class PathStringTest extends TestCase
     {
         $this->assertEquals(Hyde::path('foo'), AbsolutePathString::make(Hyde::path('foo')));
     }
+
+    public function testAbsolutePathStringCanBeCastToAbsolutePathString()
+    {
+        $this->assertEquals(new AbsolutePathString('foo'), AbsolutePathString::make('foo')->toAbsolute());
+    }
+
+    public function testRelativePathStringCanBeCastToAbsolutePathString()
+    {
+        $this->assertEquals(new AbsolutePathString('foo'), RelativePathString::make('foo')->toAbsolute());
+    }
+
+    public function testAbsolutePathStringCanBeCastToRelativePathString()
+    {
+        $this->assertEquals(new RelativePathString('foo'), AbsolutePathString::make('foo')->toRelative());
+    }
+
+    public function testRelativePathStringCanBeCastToRelativePathString()
+    {
+        $this->assertEquals(new RelativePathString('foo'), RelativePathString::make('foo')->toRelative());
+    }
 }

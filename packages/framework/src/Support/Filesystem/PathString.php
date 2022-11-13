@@ -30,4 +30,14 @@ abstract class PathString implements Stringable, Arrayable
     {
         return $this->value;
     }
+
+    public function toRelative(): RelativePathString
+    {
+        return RelativePathString::make($this->value);
+    }
+
+    public function toAbsolute(): AbsolutePathString
+    {
+        return AbsolutePathString::make($this->value);
+    }
 }
