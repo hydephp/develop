@@ -35,7 +35,7 @@ final class RelativePathString implements Stringable, Arrayable
         return $this->value;
     }
 
-    #[ArrayShape(['relative_path' => "string"])]
+    #[ArrayShape(['relative_path' => 'string'])]
     public function toArray(): array
     {
         return ['relative_path' => $this->value];
