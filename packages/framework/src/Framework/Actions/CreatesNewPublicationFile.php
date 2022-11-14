@@ -40,7 +40,6 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $now    = date('Y-m-d H:i:s');
         $output = "---\n";
         $output .= "__canonical: {$fileName}\n";
-        $output .= "__slug: {$slug}\n";
         $output .= "__createdAt: {$now}\n";
         foreach ($this->fieldData as $k => $v) {
             $field = $this->pubType->fields->where('name', $k)->first();
