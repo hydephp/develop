@@ -35,10 +35,6 @@ trait InteractsWithDirectories
 
     /**
      * Ensure the supplied file's parent directory exists by creating it if it does not.
-     *
-     * @param  string  $file
-     * @param  int  $levels
-     * @return void
      */
     public static function needsParentDirectory(string $file, int $levels = 1): void
     {

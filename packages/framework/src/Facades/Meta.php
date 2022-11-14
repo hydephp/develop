@@ -21,7 +21,6 @@ class Meta
      *
      * @param  string  $name  The meta tag's name attribute.
      * @param  string  $content  The content of the meta tag.
-     * @return \Hyde\Framework\Features\Metadata\Elements\MetadataElement
      *
      * @link https://www.w3schools.com/tags/tag_meta.asp
      */
@@ -35,7 +34,6 @@ class Meta
      *
      * @param  string  $property  The meta tag's property attribute. The "og:" prefix is optional.
      * @param  string  $content  The content of the meta tag.
-     * @return \Hyde\Framework\Features\Metadata\Elements\OpenGraphElement
      *
      * @link https://ogp.me/
      */
@@ -50,7 +48,6 @@ class Meta
      * @param  string  $rel  The link tag's rel attribute.
      * @param  string  $href  The link tag's href attribute.
      * @param  array  $attr  An optional key-value array of additional attributes.
-     * @return \Hyde\Framework\Features\Metadata\Elements\LinkElement
      *
      * @link https://www.w3schools.com/tags/tag_link.asp
      */
@@ -69,8 +66,6 @@ class Meta
 
     /**
      * Render the global metadata bag.
-     *
-     * @return string
      */
     public static function render(): string
     {

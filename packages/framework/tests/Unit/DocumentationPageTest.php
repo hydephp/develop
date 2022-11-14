@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
  * @covers \Hyde\Pages\DocumentationPage
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
+ * @covers \Hyde\Pages\Concerns\UsesFlattenedOutputPaths
  */
 class DocumentationPageTest extends TestCase
 {

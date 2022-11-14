@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Exception;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use LaravelZero\Framework\Commands\Command;
+use function ucwords;
 
 /**
  * Hyde Command to scaffold a new Markdown Post.
@@ -15,8 +16,8 @@ class MakePostCommand extends Command
 {
     /** @var string */
     protected $signature = 'make:post
-                            {title? : The title for the Post. Will be used to generate the slug}
-                            {--force : Should the generated file overwrite existing posts with the same slug?}';
+                            {title? : The title for the Post. Will also be used to generate the filename}
+                            {--force : Should the generated file overwrite existing posts with the same filename?}';
 
     /** @var string */
     protected $description = 'Scaffold a new Markdown blog post file';
@@ -25,35 +26,13 @@ class MakePostCommand extends Command
     {
         $this->title('Creating a new post!');
 
-        $this->line(
-            $this->argument('title')
-                ? '<info>Selected title: '.$this->argument('title')."</info>\n"
-                : 'Please enter the title of the post, it will be used to generate the slug.'
-        );
+        $title = $this->getTitle();
 
-        $title = $this->argument('title')
-            ?? $this->ask('What is the title of the post?')
-            ?? 'My New Post';
+        [$description, $author, $category] = $this->getSelections();
 
-        $this->line('Tip: You can just hit return to use the defaults.');
-        $description = $this->ask('Write a short post excerpt/description');
-        $author = $this->ask('What is your (the author\'s) name?');
-        $category = $this->ask('What is the primary category of the post?');
+        $creator = new CreatesNewMarkdownPostFile($title, $description, $category, $author);
 
-        $this->info('Creating a post with the following details:');
-        $creator = new CreatesNewMarkdownPostFile(
-            $title,
-            $description,
-            $category,
-            $author
-        );
-
-        $this->line("Title: $creator->title");
-        $this->line("Description: $creator->description");
-        $this->line("Author: $creator->author");
-        $this->line("Category: $creator->category");
-        $this->line("Date: $creator->date");
-        $this->line("Slug: $creator->slug");
+        $this->displaySelections($creator);
 
         if (! $this->confirm('Do you wish to continue?', true)) {
             $this->info('Aborting.');
@@ -61,6 +40,45 @@ class MakePostCommand extends Command
             return 130;
         }
 
+        return $this->createPostFile($creator);
+    }
+
+    protected function getTitle(): mixed
+    {
+        $this->line($this->argument('title')
+                ? '<info>Selected title: '.$this->argument('title')."</info>\n"
+                : 'Please enter the title of the post, it will be used to generate the filename.'
+        );
+
+        return $this->argument('title')
+            ?? $this->ask('What is the title of the post?')
+            ?? 'My New Post';
+    }
+
+    protected function getSelections(): array
+    {
+        $this->line('Tip: You can just hit return to use the defaults.');
+
+        $description = $this->ask('Write a short post excerpt/description');
+        $author = $this->ask('What is your (the author\'s) name?');
+        $category = $this->ask('What is the primary category of the post?');
+
+        return [$description, $author, $category];
+    }
+
+    protected function displaySelections(CreatesNewMarkdownPostFile $creator): void
+    {
+        $this->info('Creating a post with the following details:');
+
+        foreach ($creator->toArray() as $key => $value) {
+            $this->line(sprintf('%s: %s', ucwords($key), $value));
+        }
+
+        $this->line("Identifier: {$creator->getIdentifier()}");
+    }
+
+    protected function createPostFile(CreatesNewMarkdownPostFile $creator): int
+    {
         try {
             $path = $creator->save($this->option('force'));
             $this->info("Post created! File is saved to $path");
@@ -69,6 +87,7 @@ class MakePostCommand extends Command
         } catch (Exception $exception) {
             $this->error('Something went wrong when trying to save the file!');
             $this->warn($exception->getMessage());
+
             if ($exception->getCode() === 409) {
                 $this->comment('If you want to overwrite the file supply the --force flag.');
             }

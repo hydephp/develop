@@ -1,0 +1,13 @@
+/vendor
+/node_modules
+/builds
+/.idea
+/.vscode
+/.vagrant
+/.cache
+.phpunit.result.cache
+
+.env
+
+/_site
+composer.lock

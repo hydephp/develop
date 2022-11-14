@@ -16,6 +16,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\MarkdownConverter;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Facades\Blade;
@@ -30,8 +31,6 @@ class HydeServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -43,7 +42,10 @@ class HydeServiceProvider extends ServiceProvider
             return new MarkdownConverter();
         });
 
+        Hyde::setSourceRoot(config('hyde.source_root', ''));
+
         $this->registerSourceDirectories([
+            HtmlPage::class => '_pages',
             BladePage::class => '_pages',
             MarkdownPage::class => '_pages',
             MarkdownPost::class => '_posts',
@@ -51,13 +53,14 @@ class HydeServiceProvider extends ServiceProvider
         ]);
 
         $this->registerOutputDirectories([
+            HtmlPage::class => '',
             BladePage::class => '',
             MarkdownPage::class => '',
             MarkdownPost::class => 'posts',
-            DocumentationPage::class => unslash(config('docs.output_directory', 'docs')),
+            DocumentationPage::class => config('docs.output_directory', 'docs'),
         ]);
 
-        $this->storeCompiledSiteIn(unslash(config('site.output_directory', '_site')));
+        $this->storeCompiledSiteIn(config('site.output_directory', '_site'));
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
 
@@ -66,8 +69,6 @@ class HydeServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {

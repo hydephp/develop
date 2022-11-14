@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use function app;
+use function array_filter;
+use function array_map;
+use function array_values;
+use function basename;
+use function config;
+use function get_class;
+use function get_declared_classes;
+use function glob;
 use Hyde\Facades\Site;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
@@ -11,10 +20,13 @@ use Hyde\Framework\Services\AssetService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
+use function method_exists;
+use function str_starts_with;
 
 /**
  * @covers \Hyde\Framework\HydeServiceProvider
@@ -101,6 +113,34 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('docs', DocumentationPage::outputDirectory());
     }
 
+    public function test_custom_source_roots_are_applied_to_the_page_models()
+    {
+        $this->assertSame('_pages', BladePage::sourceDirectory());
+        $this->assertSame('_pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('_posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('_docs', DocumentationPage::sourceDirectory());
+
+        config(['hyde.source_root' => 'foo']);
+
+        $this->provider->register();
+
+        $this->assertSame('foo/_pages', BladePage::sourceDirectory());
+        $this->assertSame('foo/_pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('foo/_posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('foo/_docs', DocumentationPage::sourceDirectory());
+    }
+
+    public function test_source_root_set_in_config_is_assigned()
+    {
+        $this->assertSame('', Hyde::getSourceRoot());
+        config(['hyde.source_root' => 'foo']);
+
+        $this->assertSame('', Hyde::getSourceRoot());
+
+        $this->provider->register();
+        $this->assertSame('foo', Hyde::getSourceRoot());
+    }
+
     public function test_provider_registers_configured_documentation_output_directory()
     {
         $this->assertEquals('docs', DocumentationPage::outputDirectory());
@@ -166,5 +206,51 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
 
         $this->assertArrayHasKey(DataCollectionServiceProvider::class, $this->app->getLoadedProviders());
+    }
+
+    public function test_provider_registers_all_page_model_source_paths()
+    {
+        // Find all classes in the Hyde\Pages namespace that are not abstract
+        $pages = array_values(array_filter(get_declared_classes(), function ($class) {
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
+        }));
+
+        // Assert we are testing all page models
+        $this->assertEquals([
+            HtmlPage::class,
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+        ], $pages);
+
+        /** @var \Hyde\Pages\Concerns\HydePage|string $page */
+        foreach ($pages as $page) {
+            $page::$sourceDirectory = 'foo';
+        }
+
+        $this->provider->register();
+
+        foreach ($pages as $page) {
+            $this->assertNotEquals('foo', $page::$sourceDirectory, "Source directory for $page was not set");
+        }
+    }
+
+    public function test_provider_registers_all_page_model_output_paths()
+    {
+        $pages = array_values(array_filter(get_declared_classes(), function ($class) {
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
+        }));
+
+        /** @var \Hyde\Pages\Concerns\HydePage|string $page */
+        foreach ($pages as $page) {
+            $page::$outputDirectory = 'foo';
+        }
+
+        $this->provider->register();
+
+        foreach ($pages as $page) {
+            $this->assertNotEquals('foo', $page::$outputDirectory, "Output directory for $page was not set");
+        }
     }
 }

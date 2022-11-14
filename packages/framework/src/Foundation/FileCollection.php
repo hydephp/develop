@@ -16,34 +16,44 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\File;
 
 /**
- * @see \Hyde\Framework\Foundation\FileCollection
+ * The FileCollection contains all the discovered source and media files.
+ *
+ * This class is stored as a singleton in the HydeKernel.
+ * You would commonly access it via one of the facades:
+ *
+ * @see \Hyde\Foundation\Facades\FileCollection
+ * @see \Hyde\Hyde::files()
  */
 final class FileCollection extends BaseFoundationCollection
 {
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getSourceFiles(?string $pageClass = null): self
     {
         return ! $pageClass ? $this->getAllSourceFiles() : $this->getSourceFilesFor($pageClass);
     }
 
-    public function getAllSourceFiles(): self
-    {
-        return $this->filter(function (File $file) {
-            return $file->belongsTo !== null;
-        });
-    }
-
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     */
     public function getSourceFilesFor(string $pageClass): self
     {
-        return $this->filter(function (File $file) use ($pageClass): bool {
-            return $file->belongsTo() === $pageClass;
-        });
+        return $this->where(fn (File $file): bool => $file->belongsToPage($pageClass));
     }
 
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
+    public function getAllSourceFiles(): self
+    {
+        return $this->where(fn (File $file): bool => $file->isSourceFile());
+    }
+
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
     public function getMediaFiles(): self
     {
-        return $this->filter(function (File $file): bool {
-            return str_starts_with((string) $file, '_media');
-        });
+        return $this->where(fn (File $file): bool => $file->isMediaFile());
     }
 
     protected function runDiscovery(): self
@@ -68,6 +78,8 @@ final class FileCollection extends BaseFoundationCollection
             $this->discoverFilesFor(DocumentationPage::class);
         }
 
+        // TODO: Add hook to support custom page types
+
         $this->discoverMediaAssetFiles();
 
         return $this;
@@ -78,7 +90,7 @@ final class FileCollection extends BaseFoundationCollection
     {
         // Scan the source directory, and directories therein, for files that match the model's file extension.
         foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $filepath) {
-            if (! str_starts_with(basename($filepath), '_')) {
+            if (! str_starts_with(basename((string) $filepath), '_')) {
                 $this->put($this->kernel->pathToRelative($filepath), File::make($filepath)->belongsTo($pageClass));
             }
         }

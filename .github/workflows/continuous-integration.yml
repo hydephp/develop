@@ -280,6 +280,51 @@ jobs:
         path: '_site'
 
 
+  build-test-fixture-docs:
+    # environment:
+    #  name:
+    #  url: https://hydephp.github.io/develop/master/test-fixtures/docs
+
+    runs-on: ubuntu-latest
+    needs: run-smoke-tests
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: "8.1"
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Download source files
+        run: wget https://github.com/caendesilva/hyde-example-documentation-site/archive/master.zip -O source.zip
+
+      - name: Unzip source
+        run: unzip source.zip -d temp
+
+      - name: Copy source to root
+        run: cp -r temp/hyde-example-documentation-site-master/* .
+
+      - name: Compile the static site
+        run: php hyde build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: 'test-fixture-docs'
+          path: '_site'
+
+
   upload-generated-reports:
     environment:
       name: live-reports
@@ -291,6 +336,7 @@ jobs:
      - build-test-coverage
      - build-api-documentation
      - build-preview-site
+     - build-test-fixture-docs
     
     steps:
     - uses: actions/checkout@v3
@@ -302,6 +348,7 @@ jobs:
         rm -rf master/coverage && mkdir master/coverage
         rm -rf master/api-docs && mkdir master/api-docs
         rm -rf master/preview && mkdir master/preview
+        rm -rf master/test-fixtures && mkdir master/test-fixtures
 
     - name: Download coverage report artifact
       uses: actions/download-artifact@v3
@@ -320,7 +367,14 @@ jobs:
       with:
         name: site-preview
         path: master/preview
-    
+
+    - name: Download test fixture docs artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: test-fixture-docs
+        path: master/test-fixtures/docs
+
+
     - name: Create README.md
       run: echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md
 

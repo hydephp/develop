@@ -9,11 +9,13 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 
 /**
- * Pseudo-Router for Hyde.
+ * The RouteCollection contains all the routes, making it the Pseudo-Router for Hyde.
  *
- * @see \Hyde\Foundation\PageCollection
- * @see \Hyde\Framework\Testing\Feature\RouteTest
- * @see \Hyde\Framework\Testing\Feature\RouteCollectionTest
+ * This class is stored as a singleton in the HydeKernel.
+ * You would commonly access it via one of the facades:
+ *
+ * @see \Hyde\Foundation\Facades\Router
+ * @see \Hyde\Hyde::routes()
  *
  * This is not a router in the traditional sense that it decides where to go.
  * Instead, it creates a pre-generated object encapsulating the Hyde autodiscovery.
@@ -29,7 +31,8 @@ use Hyde\Support\Models\Route;
  *
  * The route index serves as a multidimensional mapping allowing you to
  * determine where a source file will be compiled to, and where a compiled
- * file was generated from.
+ * file was generated from. This bridges the gaps between the source and
+ * the compiled web accessible URI routes the static site generator creates.
  */
 final class RouteCollection extends BaseFoundationCollection
 {
@@ -43,6 +46,7 @@ final class RouteCollection extends BaseFoundationCollection
     /**
      * This internal method adds the specified route to the route index.
      * It's made public so package developers can hook into the routing system.
+     * As a package developer, you will need to make sure your route leads to something.
      */
     public function addRoute(Route $route): self
     {

@@ -46,6 +46,7 @@ class HydeKernel implements Arrayable, JsonSerializable
     protected static HydeKernel $instance;
 
     protected string $basePath;
+    protected string $sourceRoot;
 
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
@@ -58,9 +59,10 @@ class HydeKernel implements Arrayable, JsonSerializable
 
     public const VERSION = '1.0.0-dev';
 
-    public function __construct(?string $basePath = null)
+    public function __construct(?string $basePath = null, string $sourceRoot = '')
     {
         $this->setBasePath($basePath ?? getcwd());
+        $this->setSourceRoot($sourceRoot);
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
     }

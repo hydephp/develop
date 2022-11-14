@@ -12,6 +12,8 @@ use Illuminate\Contracts\Support\Htmlable;
 /**
  * Holds the metadata tags for a page or the site model.
  *
+ * @todo These properties should probably not be public
+ *
  * @see \Hyde\Framework\Testing\Feature\MetadataTest
  * @see \Hyde\Framework\Features\Metadata\PageMetadataBag
  * @see \Hyde\Framework\Features\Metadata\GlobalMetadataBag

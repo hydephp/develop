@@ -79,6 +79,33 @@ class File implements Arrayable, JsonSerializable, Stringable
         return $this->belongsTo;
     }
 
+    /**
+     * Check if the file belongs to a page. If a class is specified,
+     * the method will check if the file belongs to that class.
+     * Leave blank to check if the file belongs to any page.
+     *
+     * @param  string<\Hyde\Pages\Concerns\HydePage>|null  $class
+     * @return bool
+     */
+    public function belongsToPage(?string $class = null): bool
+    {
+        if ($class) {
+            return $this->belongsTo === $class;
+        }
+
+        return $this->isSourceFile();
+    }
+
+    public function isSourceFile(): bool
+    {
+        return $this->belongsTo !== null;
+    }
+
+    public function isMediaFile(): bool
+    {
+        return $this->belongsTo === null || str_starts_with((string) $this, '_media');
+    }
+
     public function getName(): string
     {
         return basename($this->path);
@@ -156,7 +183,7 @@ class File implements Arrayable, JsonSerializable, Stringable
 
     public function withoutDirectoryPrefix(): string
     {
-        if ($this->belongsTo !== null) {
+        if ($this->isSourceFile()) {
             // If a model is set, use that to remove the directory, so any subdirectories within is retained
             return substr($this->__toString(), strlen($this->belongsTo::$sourceDirectory) + 1);
         }

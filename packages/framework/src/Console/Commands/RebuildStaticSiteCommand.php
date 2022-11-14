@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Exception;
+use Hyde\Foundation\Facades\PageCollection;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Framework\Services\RebuildService;
@@ -57,7 +58,7 @@ class RebuildStaticSiteCommand extends Command
 
         $this->info(sprintf(
             'Created %s in %s seconds. (%sms)',
-            DiscoveryService::createClickableFilepath(Hyde::pages()->getPage($this->path)->getOutputPath()),
+            DiscoveryService::createClickableFilepath(PageCollection::getPage($this->path)->getOutputPath()),
             number_format(
                 $execution_time,
                 2
@@ -70,9 +71,6 @@ class RebuildStaticSiteCommand extends Command
 
     /**
      * Perform a basic sanitation to strip trailing characters.
-     *
-     * @param  string  $path
-     * @return string
      */
     public function sanitizePathString(string $path): string
     {
@@ -103,7 +101,6 @@ class RebuildStaticSiteCommand extends Command
     /**
      * Output the contents of an exception.
      *
-     * @param  Exception  $exception
      * @return int Error code
      */
     public function handleException(Exception $exception): int

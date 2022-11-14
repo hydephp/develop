@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns;
 
 use Hyde\Facades\Site;
+use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 
 /**
@@ -20,18 +21,18 @@ trait RegistersFileLocations
 {
     /**
      * Register the default source directories for the given page classes.
-     * Location string should be relative to the root of the application.
+     * Location string should be relative to the source root, which is
+     * usually the root of the project.
      *
      * @example registerSourceDirectories([HydePage::class => '_pages'])
      *
      * @param  array  $directoryMapping{class:  string<HydePage>, location: string}
-     * @return void
      */
     protected function registerSourceDirectories(array $directoryMapping): void
     {
         foreach ($directoryMapping as $class => $location) {
             /** @var HydePage $class */
-            $class::$sourceDirectory = unslash($location);
+            $class::$sourceDirectory = unslash(Hyde::getSourceRoot().'/'.unslash($location));
         }
     }
 
@@ -74,6 +75,6 @@ trait RegistersFileLocations
      */
     protected function storeCompiledSiteIn(string $directory): void
     {
-        Site::$outputPath = $directory;
+        Site::$outputPath = unslash($directory);
     }
 }

@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\View;
 /**
  * @internal Single-use trait for the HydeKernel class.
  *
+ * @todo Consider if this logic is better suited for a "Render" class solely for handling data related to the current render.
+ *
  * @see \Hyde\Foundation\HydeKernel
  */
 trait ManagesViewData
 {
     /**
      * Share data for the page being rendered.
-     *
-     * @param  \Hyde\Pages\Concerns\HydePage  $page
      */
     public function shareViewData(HydePage $page): void
     {
@@ -29,8 +29,6 @@ trait ManagesViewData
 
     /**
      * Get the route key for the page being rendered.
-     *
-     * @return string|null
      */
     public function currentPage(): ?string
     {
@@ -39,8 +37,6 @@ trait ManagesViewData
 
     /**
      * Get the route for the page being rendered.
-     *
-     * @return \Hyde\Support\Models\Route|null
      */
     public function currentRoute(): ?Route
     {

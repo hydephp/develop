@@ -17,7 +17,7 @@ This serves two purposes:
 #### Abstract
 
 This beta release contains a plethora of breaking changes compared earlier beta versions.
-So many in fact, it could actually be easier and faster to recreate your project from scratch than to upgrade a particularly complex project.
+So many in fact, it could actually be easier and faster to recreate your project from scratch than to upgrade a particularly complex project. Though it only took me like five minutes to upgrade a simple documentation site, see [this diff](https://github.com/caendesilva/hyde-example-documentation-site/commit/f647f9250ecb20cf7bbf43bb10cd6401fae201cb) to see what I did.
 
 The good news however, is that as HydePHP approaches version 1.0, there will no longer be releases like these with breaking changes.
 
@@ -31,7 +31,7 @@ If any of these statements are true, you will probably need to make changes to y
 - You have written custom code (for example in Blade views) that relies on the old API.
 - You have published the built-in Blade views (you should be able to get away by just republishing them).
 
-In all cases, you will most definitely need to republish the configuration files.
+In all cases, you will most definitely need to republish the configuration files and update the `app/bootstrap.php` file.
 
 #### Major breaking changes
 

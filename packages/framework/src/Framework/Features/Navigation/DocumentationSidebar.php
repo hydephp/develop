@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Hyde;
+use Hyde\Foundation\Facades\Router;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
@@ -18,7 +18,7 @@ class DocumentationSidebar extends NavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        Hyde::routes()->getRoutes(DocumentationPage::class)->each(function (Route $route) {
+        Router::getRoutes(DocumentationPage::class)->each(function (Route $route) {
             $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
                 $item->label = $item->route->getPage()->get('navigation.label');
             }));

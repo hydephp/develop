@@ -74,6 +74,14 @@ class HydePageTest extends TestCase
         );
     }
 
+    public function testPath()
+    {
+        $this->assertSame(
+            Hyde::path('source/hello-world'),
+            TestPage::path('hello-world')
+        );
+    }
+
     public function testGetSourcePath()
     {
         $this->assertSame(
@@ -240,6 +248,27 @@ class HydePageTest extends TestCase
         MarkdownPage::$fileExtension = 'txt';
         $this->assertEquals('foo/bar.txt', MarkdownPage::sourcePath('bar'));
         $this->resetDirectoryConfiguration();
+    }
+
+    public function test_path_returns_absolute_path_to_source_directory_when_no_parameter_is_supplied()
+    {
+        $this->assertSame(
+            Hyde::path('source'), TestPage::path()
+        );
+    }
+
+    public function test_path_returns_absolute_path_to_file_in_source_directory_when_parameter_is_supplied()
+    {
+        $this->assertSame(
+            Hyde::path('source/foo.md'), TestPage::path('foo.md')
+        );
+    }
+
+    public function test_path_method_removes_trailing_slashes()
+    {
+        $this->assertSame(
+            Hyde::path('source/foo.md'), TestPage::path('/foo.md/')
+        );
     }
 
     public function test_get_output_location_returns_the_file_output_path_for_the_supplied_basename()
@@ -830,6 +859,22 @@ class HydePageTest extends TestCase
         $this->assertSame(
             Hyde::formatLink((new TestPage('hello-world'))->getOutputPath()),
             (new TestPage('hello-world'))->getLink()
+        );
+    }
+
+    public function test_path_helpers_return_same_result_as_fluent_filesystem_helpers()
+    {
+        $this->assertSameIgnoringDirSeparatorType(BladePage::path('foo'), Hyde::getBladePagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), Hyde::getMarkdownPagePath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::getMarkdownPostPath('foo'));
+        $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::getDocumentationPagePath('foo'));
+    }
+
+    protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
+    {
+        $this->assertSame(
+            str_replace('\\', '/', $expected),
+            str_replace('\\', '/', $actual)
         );
     }
 

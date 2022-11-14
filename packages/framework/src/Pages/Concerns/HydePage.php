@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\Concerns;
 
+use Hyde\Foundation\Facades;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
@@ -16,6 +17,7 @@ use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
+use function unslash;
 
 /**
  * The base class for all Hyde pages.
@@ -30,6 +32,8 @@ use Hyde\Support\Models\RouteKey;
  * To create a parsed file instance, you'd typically just create a source file,
  * and you can then access the parsed file from the HydeKernel's page index.
  * The source files are usually parsed by the SourceFileParser action.
+ *
+ * In Blade views, you can always access the current page instance being rendered using the $page variable.
  *
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
  * @see \Hyde\Framework\Testing\Feature\HydePageTest
@@ -97,11 +101,11 @@ abstract class HydePage implements PageSchema
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Foundation\PageCollection<\Hyde\Framework\Concerns\HydePage
+     * @return \Hyde\Foundation\PageCollection<\Hyde\Pages\Concerns\HydePage>
      */
     public static function all(): PageCollection
     {
-        return Hyde::pages()->getPages(static::class);
+        return Facades\PageCollection::getPages(static::class);
     }
 
     // Section: Filesystem
@@ -144,6 +148,14 @@ abstract class HydePage implements PageSchema
     public static function outputPath(string $identifier): string
     {
         return RouteKey::fromPage(static::class, $identifier).'.html';
+    }
+
+    /**
+     * Get an absolute file path to the page's source directory, or a file within it.
+     */
+    public static function path(string $path = ''): string
+    {
+        return Hyde::path(unslash(static::sourceDirectory().'/'.unslash($path)));
     }
 
     /**
