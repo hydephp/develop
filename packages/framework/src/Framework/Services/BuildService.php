@@ -83,6 +83,9 @@ class BuildService
         })->unique();
     }
 
+    /**
+     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass
+     */
     protected function compilePagesForClass(string $pageClass): void
     {
         $this->comment("Creating {$this->getModelPluralName($pageClass)}...");
