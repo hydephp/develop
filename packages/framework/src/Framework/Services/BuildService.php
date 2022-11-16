@@ -85,7 +85,7 @@ class BuildService
      */
     protected function compilePagesForClass(string $pageClass): void
     {
-        $this->comment("Creating {$this->getModelPluralName($pageClass)}...");
+        $this->comment("Creating {$this->getClassPluralName($pageClass)}...");
 
         $collection = $this->router->getRoutes($pageClass);
 
@@ -96,7 +96,7 @@ class BuildService
         $this->newLine(2);
     }
 
-    protected function getModelPluralName(string $pageClass): string
+    protected function getClassPluralName(string $pageClass): string
     {
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
     }
