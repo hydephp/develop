@@ -66,6 +66,7 @@ class BuildService
         $this->withProgressBar(DiscoveryService::getMediaAssetFiles(), function (string $filepath): void {
             copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
         });
+
         $this->newLine(2);
     }
 
