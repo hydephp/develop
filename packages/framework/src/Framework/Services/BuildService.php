@@ -92,7 +92,7 @@ class BuildService
 
         $collection = $this->router->getRoutes($pageClass);
 
-        $this->withProgressBar($collection, function (Route $route) {
+        $this->withProgressBar($collection, function (Route $route): void {
             (new StaticPageBuilder($route->getPage()))->__invoke();
         });
 
