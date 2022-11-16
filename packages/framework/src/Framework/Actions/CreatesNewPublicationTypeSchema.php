@@ -49,8 +49,8 @@ class CreatesNewPublicationTypeSchema implements CreateActionInterface
         $data['sortDirection']  = $this->sortDirection;
         $data['pagesize']       = $this->pagesize;
         $data['prevNextLinks']  = $this->prevNextLinks;
-        $data['detailTemplate'] = "{$dirName}.detail.blade.php";
-        $data['listTemplate']   = "{$dirName}.list.blade.php";
+        $data['detailTemplate'] = "{$dirName}_detail.blade.php";
+        $data['listTemplate']   = "{$dirName}_list.blade.php";
         $data['fields']         = $this->fields;
         $json                   = json_encode($data, JSON_PRETTY_PRINT);
         $this->result           = $json;
