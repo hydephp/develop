@@ -39,7 +39,7 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        $this->getDiscoveredModels()->each(function (string $pageClass) {
+        $this->getClassNamesForDiscoveredPageModels()->each(function (string $pageClass) {
             $this->compilePagesForClass($pageClass);
         });
     }
@@ -75,7 +75,7 @@ class BuildService
     /**
      * @return \Hyde\Foundation\RouteCollection<array-key, class-string<\Hyde\Pages\Concerns\HydePage>>
      */
-    protected function getDiscoveredModels(): RouteCollection
+    protected function getClassNamesForDiscoveredPageModels(): RouteCollection
     {
         return $this->router->getRoutes()->map(function (Route $route) {
             return $route->getPageClass();
