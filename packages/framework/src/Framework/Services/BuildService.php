@@ -89,10 +89,7 @@ class BuildService
 
         $collection = $this->router->getRoutes($pageClass);
 
-        $this->withProgressBar(
-            $collection,
-            $this->compileRoute()
-        );
+        $this->withProgressBar($collection, $this->compileRoute());
 
         $this->newLine(2);
     }
