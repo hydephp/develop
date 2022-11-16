@@ -13,6 +13,7 @@ use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -73,9 +74,9 @@ class BuildService
     }
 
     /**
-     * @return \Hyde\Foundation\RouteCollection<array-key, class-string<\Hyde\Pages\Concerns\HydePage>>
+     * @return \Illuminate\Support\Collection<array-key, class-string<\Hyde\Pages\Concerns\HydePage>>
      */
-    protected function getClassNamesForDiscoveredPageModels(): RouteCollection
+    protected function getClassNamesForDiscoveredPageModels(): Collection
     {
         return $this->router->getRoutes()->map(function (Route $route) {
             return $route->getPageClass();
