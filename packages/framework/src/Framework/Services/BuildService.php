@@ -64,12 +64,9 @@ class BuildService
         $collection = DiscoveryService::getMediaAssetFiles();
         $this->comment('Transferring Media Assets...');
 
-        $this->withProgressBar(
-            $collection,
-            function (string $filepath): void {
-                copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
-            }
-        );
+        $this->withProgressBar($collection, function (string $filepath): void {
+            copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
+        });
         $this->newLine(2);
     }
 
@@ -117,10 +114,7 @@ class BuildService
 
     protected function isOutputDirectoryWhitelisted(): bool
     {
-        return in_array(
-            basename(Hyde::sitePath()),
-            $this->safeOutputDirectories()
-        );
+        return in_array(basename(Hyde::sitePath()), $this->safeOutputDirectories());
     }
 
     protected function askIfUnsafeDirectoryShouldBeEmptied(): bool
