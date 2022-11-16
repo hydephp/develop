@@ -100,6 +100,21 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         try {
             $creator = new CreatesNewPublicationFile($pubType, $fieldData);
             $creator->create();
+        } catch (\InvalidArgumentException $e) {
+            $this->output->writeln('<bg=red;fg=white>A file for this set of data already exists!</>');
+            $overwrite = HydeHelper::askWithValidation(
+                $this,
+                'overwrite',
+                'Do you wish to overwrite the existing file (y/n)',
+                ['required', 'string', "in:y,n"],
+                'n'
+            );
+            if (strtolower($overwrite) == 'y') {
+                $creator = new CreatesNewPublicationFile($pubType, $fieldData, true);
+                $creator->create();
+            } else {
+                $this->output->writeln('<bg=magenta;fg=white>Existing without overwriting existing publication file!</>');
+            }
         } catch (\Exception $e) {
             $this->error("Error: " . $e->getMessage() . " at " . $e->getFile() . ':' . $e->getLine());
             return Command::FAILURE;
