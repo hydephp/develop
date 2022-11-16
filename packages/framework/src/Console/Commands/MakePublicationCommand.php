@@ -100,7 +100,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         try {
             $creator = new CreatesNewPublicationFile($pubType, $fieldData);
             $creator->create();
-        } catch (\InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) { // FIXME: provide a properly typed exception
             $this->output->writeln('<bg=red;fg=white>A file for this set of data already exists!</>');
             $overwrite = HydeHelper::askWithValidation(
                 $this,
