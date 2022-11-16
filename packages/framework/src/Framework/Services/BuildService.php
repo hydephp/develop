@@ -89,17 +89,11 @@ class BuildService
 
         $collection = $this->router->getRoutes($pageClass);
 
-        $this->withProgressBar($collection, $this->compileRoute());
+        $this->withProgressBar($collection, function (Route $route) {
+            return (new StaticPageBuilder($route->getPage()))->__invoke();
+        });
 
         $this->newLine(2);
-    }
-
-    /** @psalm-return \Closure(\Hyde\Support\Models\Route):string */
-    protected function compileRoute(): Closure
-    {
-        return function (Route $route) {
-            return (new StaticPageBuilder($route->getPage()))->__invoke();
-        };
     }
 
     protected function getModelPluralName(string $pageClass): string
