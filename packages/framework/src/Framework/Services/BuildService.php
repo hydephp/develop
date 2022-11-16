@@ -119,7 +119,7 @@ class BuildService
     {
         return in_array(
             basename(Hyde::sitePath()),
-            config('hyde.safe_output_directories', ['_site', 'docs', 'build'])
+            $this->safeOutputDirectories()
         );
     }
 
@@ -130,5 +130,10 @@ class BuildService
             'Are you sure you want to continue?',
             Site::$outputPath
         ));
+    }
+
+    protected function safeOutputDirectories(): array
+    {
+        return config('hyde.safe_output_directories', ['_site', 'docs', 'build']);
     }
 }
