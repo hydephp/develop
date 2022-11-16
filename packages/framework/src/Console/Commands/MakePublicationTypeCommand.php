@@ -50,8 +50,8 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         $sortField = $selected ? $fields[$selected - 1]['name'] : '__createdAt';
 
         $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
-        $this->line('  1 - Ascending (ASC)');
-        $this->line('  2 - Descending (DESC)');
+        $this->line('  1 - Ascending (oldest items first if sorting by dateCreated)');
+        $this->line('  2 - Descending (newest items first if sorting by dateCreated)');
         $selected      = (int)HydeHelper::askWithValidation($this, 'selected', "Sort field (1-2)", ['required', 'integer', "between:1,2"], 2);
         $sortDirection = match ($selected) {
             1 => 'ASC',
@@ -65,7 +65,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             ['required', 'integer', 'between:0,100'],
             25
         );
-        $prevNextLinks = HydeHelper::askWithValidation(
+        $prevNextLinks = (bool)HydeHelper::askWithValidation(
             $this,
             'prevNextLinks',
             'Generate previous/next links in detail view (y/n)',
