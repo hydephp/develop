@@ -66,7 +66,7 @@ class BuildService
 
         $this->withProgressBar(
             $collection,
-            function ($filepath) {
+            function (string $filepath): void {
                 copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
             }
         );
@@ -78,7 +78,7 @@ class BuildService
      */
     protected function getClassNamesForDiscoveredPageModels(): Collection
     {
-        return $this->router->getRoutes()->map(function (Route $route) {
+        return $this->router->getRoutes()->map(function (Route $route): string {
             return $route->getPageClass();
         })->unique();
     }
