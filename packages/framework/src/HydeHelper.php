@@ -84,9 +84,9 @@ class HydeHelper
             if (!$fileData) {
                 throw new \Exception("No data read from [$schemaFile]");
             }
-
+            $dirName                        = Collection::create(explode('/', dirname($schemaFile)))->last();
             $schema                         = Collection::create(json_decode($fileData, true));
-            $schema->directory              = dirname($schemaFile);
+            $schema->directory              = $dirName;
             $schema->schemaFile             = $schemaFile;
             $pubTypes->{$schema->directory} = $schema;
         }
@@ -134,12 +134,11 @@ class HydeHelper
             throw new \Exception("No data read from [$mdFileName]");
         }
 
-        $publication           = Collection::create();
-        $parsedFileData        = YamlFrontMatter::markdownCompatibleParse($fileData);
-        $publication->matter   = $parsedFileData->matter();
-        $publication->markdown = $parsedFileData->body();
+        $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
+        $matter         = $parsedFileData->matter();
+        $markdown       = $parsedFileData->body();
 
-        return $publication;
+        return Collection::create(['matter' => $matter, 'markdown' => $markdown]);
     }
 
     /**
