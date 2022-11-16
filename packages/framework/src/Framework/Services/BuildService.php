@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Closure;
 use Hyde\Facades\Site;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
@@ -81,7 +80,7 @@ class BuildService
     }
 
     /**
-     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
     protected function compilePagesForClass(string $pageClass): void
     {
