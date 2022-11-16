@@ -101,23 +101,14 @@ class HydeHelper
      * @return Collection
      * @throws \Safe\Exceptions\FilesystemException
      */
-    public static function getPublications(Collection $pubType, $sort = true): Collection
+    public static function getPublicationsForPubType(Collection $pubType, $sort = true): Collection
     {
         $root    = base_path();
         $mdFiles = glob("$root/{$pubType->directory}/*.md");
 
         $publications = Collection::create();
         foreach ($mdFiles as $mdFile) {
-            $fileData = file_get_contents($mdFile);
-            if (!$fileData) {
-                throw new \Exception("No data read from [$mdFile]");
-            }
-
-            $publication           = Collection::create();
-            $parsedFileData        = YamlFrontMatter::markdownCompatibleParse($fileData);
-            $publication->matter   = $parsedFileData->matter();
-            $publication->markdown = $parsedFileData->body();
-            $publications->add($publication);
+            $publications->add(self::getPublicationData($mdFile));
         }
 
         if ($sort) {
@@ -127,6 +118,28 @@ class HydeHelper
         }
 
         return $publications;
+    }
+
+
+    /**
+     * Read an MD file and return the parsed data.
+     *
+     * @param string $fileData
+     * @return Collection
+     */
+    public static function getPublicationData(string $mdFileName): Collection
+    {
+        $fileData = file_get_contents($mdFileName);
+        if (!$fileData) {
+            throw new \Exception("No data read from [$mdFileName]");
+        }
+
+        $publication           = Collection::create();
+        $parsedFileData        = YamlFrontMatter::markdownCompatibleParse($fileData);
+        $publication->matter   = $parsedFileData->matter();
+        $publication->markdown = $parsedFileData->body();
+
+        return $publication;
     }
 
     /**

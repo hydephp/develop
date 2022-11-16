@@ -26,7 +26,8 @@ class CreatesNewPublicationFile implements CreateActionInterface
 
     public function __construct(
         protected Collection $pubType,
-        protected Collection $fieldData
+        protected Collection $fieldData,
+        protected bool $force = false
     ) {
     }
 
@@ -36,6 +37,9 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $slug     = Str::of($this->fieldData[$this->pubType->canonicalField])->substr(0, 64)->slug()->toString();
         $fileName = HydeHelper::formatNameForStorage($slug);
         $outFile  = "$dir/$fileName.md";
+        if (file_exists($outFile) && !$this->force) {
+            throw new \InvalidArgumentException("File [$outFile] already exists");
+        }
 
         $now    = date('Y-m-d H:i:s');
         $output = "---\n";
