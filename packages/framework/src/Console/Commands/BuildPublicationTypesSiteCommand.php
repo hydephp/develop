@@ -79,7 +79,7 @@ class BuildPublicationTypesSiteCommand extends Command implements CommandHandleI
 
     protected function buildDetailPages(string $targetDirectory, Collection $pubType, Collection $publications): void
     {
-        $detailTemplate = "hyde::pubtypes.{$pubType->detailTemplate}";
+        $detailTemplate = "hyde::pubtypes." . basename($pubType->detailTemplate, '.blade.php');
         foreach ($publications as $publication) {
             $canonical = $publication->matter->__canonical;
             $this->info("  Building [$canonical] ...");
