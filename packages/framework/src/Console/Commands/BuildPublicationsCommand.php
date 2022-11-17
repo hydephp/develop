@@ -24,10 +24,10 @@ use Rgasch\Collection\Collection;
  *
  * @see \Hyde\Framework\Testing\Feature\StaticSiteServiceTest
  */
-class BuildPublicationTypesSiteCommand extends Command implements CommandHandleInterface
+class BuildPublicationsCommand extends Command implements CommandHandleInterface
 {
     /** @var string */
-    protected $signature = 'build:publicationTypeSite
+    protected $signature = 'build:publications
         {--run-dev : Run the NPM dev script after build}
         {--run-prod : Run the NPM prod script after build}
         {--run-prettier : Format the output using NPM Prettier}
@@ -60,6 +60,8 @@ class BuildPublicationTypesSiteCommand extends Command implements CommandHandleI
 
         $this->printFinishMessage($time_start);
 
+        $this->output->writeln('Max memory used: ' . memory_get_peak_usage() / 1024 / 1024 . ' MB');
+
         return Command::SUCCESS;
     }
 
@@ -67,7 +69,6 @@ class BuildPublicationTypesSiteCommand extends Command implements CommandHandleI
     protected function build(): void
     {
         $pubTypes = HydeHelper::getPublicationTypes();
-        //dump($pubTypes);
         foreach ($pubTypes as $dir => $pubType) {
             $targetDirectory = "_site/$dir";
             @mkdir($targetDirectory);
@@ -80,28 +81,28 @@ class BuildPublicationTypesSiteCommand extends Command implements CommandHandleI
 
     protected function buildDetailPages(string $targetDirectory, Collection $pubType, Collection $publications): void
     {
-        $basename       = basename($pubType->detailTemplate, '.blade.php');
+        $template = $pubType->detailTemplate;
 
         // Mock a page
-        $page          = new MarkdownPage($basename);
+        $page = new MarkdownPage($template);
         view()->share('page', $page);
-        view()->share('currentPage', $basename);
+        view()->share('currentPage', $template);
         view()->share('currentRoute', $page->getRoute());
 
-        $detailTemplate = "hyde::pubtypes." . $basename;
+        $detailTemplate = "hyde::pubtypes." . $template;
         foreach ($publications as $publication) {
-            $canonical = $publication->matter->__canonical;
-            $this->info("  Building [$canonical] ...");
+            $slug = $publication->matter->__slug;
+            $this->info("  Building [$slug] ...");
             $html = view('hyde::layouts.pubtype')->with(['component' => $detailTemplate, 'publication' => $publication])->render();
-            file_put_contents("$targetDirectory/$publication->slug.html", $html);
+            file_put_contents("$targetDirectory/{$slug}.html", $html);
         }
     }
 
     protected function buildListPage(string $targetDirectory, Collection $pubType, Collection $publications): void
     {
+        $template = "hyde::pubtypes." . $pubType->listTemplate;
         $this->info("  Building list page ...");
-        $listTemplate = $pubType->listTemplate;
-        $html         = view($listTemplate)->with('publications', $publications)->render();
+        $html = view($template)->with('publications', $publications)->render();
         file_put_contents("$targetDirectory/index.html", $html);
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde;
 
+use Carbon\Carbon;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
@@ -64,7 +65,7 @@ class HydeHelper
      */
     public static function formatNameForStorage(string $pubTypeNameRaw)
     {
-        return Str::camel($pubTypeNameRaw);
+        return Str::slug($pubTypeNameRaw);
     }
 
     /**
@@ -134,9 +135,11 @@ class HydeHelper
             throw new \Exception("No data read from [$mdFileName]");
         }
 
-        $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
-        $matter         = $parsedFileData->matter();
-        $markdown       = $parsedFileData->body();
+        $parsedFileData              = YamlFrontMatter::markdownCompatibleParse($fileData);
+        $matter                      = $parsedFileData->matter();
+        $markdown                    = $parsedFileData->body();
+        $matter['__slug']            = basename($mdFileName, '.md');
+        $matter['__createdDatetime'] = Carbon::createFromTimestamp($matter['__createdAt']);
 
         return Collection::create(['matter' => $matter, 'markdown' => $markdown]);
     }
