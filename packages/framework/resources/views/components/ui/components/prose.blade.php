@@ -1,3 +1,3 @@
-<article class="prose dark:prose-invert">
+<article @class(['prose dark:prose-invert'])>
     {{ $slot }}
 </article>
