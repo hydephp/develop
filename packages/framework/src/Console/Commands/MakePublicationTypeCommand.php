@@ -111,7 +111,8 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->line('  4 - Float');
             $this->line('  5 - Datetime');
             $this->line('  6 - URL');
-            $this->line('  7 - Text');
+            $this->line('  7 - Array');
+            $this->line('  8 - Text');
             $type = (int)HydeHelper::askWithValidation($this, 'type', 'Field type (1-7)', ['required', 'integer', 'between:1,7'], 1);
             do {
                 $field->min   = HydeHelper::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
@@ -132,7 +133,8 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
                 4 => 'float',
                 5 => 'datetime',
                 6 => 'url',
-                7 => 'text',
+                7 => 'array',
+                8 => 'text',
             };
 
             $fields->add($field);

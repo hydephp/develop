@@ -33,10 +33,14 @@ class CreatesNewPublicationFile implements CreateActionInterface
 
     public function create(): void
     {
-        $dir      = dirname($this->pubType->schemaFile);
-        $slug     = Str::of($this->fieldData[$this->pubType->canonicalField])->substr(0, 64)->slug()->toString();
-        $fileName = HydeHelper::formatNameForStorage($slug);
-        $outFile  = "$dir/$fileName.md";
+        $dir                = dirname($this->pubType->schemaFile);
+        $canonicalFieldName = $this->pubType->canonicalField;
+        $canonicalFieldDef  = $this->pubType->fields->filter(fn($f) => $f->name === $canonicalFieldName)->first();
+        $canonicalValue     = $canonicalFieldDef->type != 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
+        $canonicalStr       = Str::of($canonicalValue)->substr(0, 64);
+        $slug               = $canonicalStr->slug()->toString();
+        $fileName           = HydeHelper::formatNameForStorage($slug);
+        $outFile            = "$dir/$fileName.md";
         if (file_exists($outFile) && !$this->force) {
             throw new \InvalidArgumentException("File [$outFile] already exists");
         }
@@ -46,16 +50,24 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $output .= "__createdAt: {$now}\n";
         foreach ($this->fieldData as $k => $v) {
             $field = $this->pubType->fields->where('name', $k)->first();
-            if ($field->type !== 'text') {
-                $output .= "{$k}: {$v}\n";
+
+            if ($field->type == 'text') {
+                $output .= "{$k}: |\n";
+                foreach ($v as $line) {
+                    $output .= "  $line\n";
+                }
                 continue;
             }
 
-            // Text fields have different syntax
-            $output .= "{$k}: |\n";
-            foreach ($v as $line) {
-                $output .= "  $line\n";
+            if ($field->type == 'array') {
+                $output .= "{$k}:\n";
+                foreach ($v as $item) {
+                    $output .= "  - \"$item\"\n";
+                }
+                continue;
             }
+
+            $output .= "{$k}: {$v}\n";
         }
         $output .= "---\n";
         $output .= "Raw MD text ...\n";

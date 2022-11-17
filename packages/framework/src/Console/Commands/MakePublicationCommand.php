@@ -48,60 +48,20 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             $pubType  = $pubTypes->{$pubTypes->keys()[$selected - 1]};
         }
 
-        $rulesPerType = Collection::create(
-            [
-                'string'   => ['required', 'string', 'between'],
-                'boolean'  => ['required', 'boolean'],
-                'integer'  => ['required', 'integer', 'between'],
-                'float'    => ['required', 'numeric', 'between'],
-                'datetime' => ['required', 'datetime', 'between'],
-                'url'      => ['required', 'url'],
-                'text'     => ['required', 'string', 'between'],
-            ]
-        );
-
         $fieldData = Collection::create();
         $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
         foreach ($pubType->fields as $field) {
-            // Need to capture text line-by-line
-            if ($field->type === 'text') {
-                $lines = [];
-                $this->output->writeln($field->name . " (end with a line containing only '<<<')");
-                do {
-                    $line    = Str::replace("\n", '', fgets(STDIN));
-                    $lines[] = $line;
-                } while ($line != '<<<');
-
-                $fieldData->{$field->name} = implode("\n", $lines);
-                continue;
-            }
-
-            // Non-text block fields
-            $fieldRules = $rulesPerType->{$field->type};
-            if ($fieldRules->contains('between')) {
-                $fieldRules->forget($fieldRules->search('between'));
-                if ($field->min && $field->max) {
-                    switch ($field->type) {
-                        case 'string':
-                        case 'integer':
-                        case 'float':
-                            $fieldRules->add("between:$field->min,$field->max");
-                            break;
-                        case 'datetime':
-                            $fieldRules->add("after:$field->min");
-                            $fieldRules->add("before:$field->max");
-                            break;
-                    }
-                }
-            }
-            $fieldData->{$field->name} = HydeHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
+            $fieldData->{$field->name} = $this->captureFieldInput($field);
         }
 
         try {
             $creator = new CreatesNewPublicationFile($pubType, $fieldData);
             $creator->create();
         } catch (\InvalidArgumentException $e) { // FIXME: provide a properly typed exception
-            $this->output->writeln('<bg=red;fg=white>A file for this set of data already exists!</>');
+            $msg = $e->getMessage();
+            // Useful for debugging
+            //$this->output->writeln("xxx " . $e->getTraceAsString());
+            $this->output->writeln("<bg=red;fg=white>$msg</>");
             $overwrite = HydeHelper::askWithValidation(
                 $this,
                 'overwrite',
@@ -121,5 +81,81 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         }
 
         return Command::SUCCESS;
+    }
+
+
+    private function captureFieldInput(Collection $field): string|array
+    {
+        $rulesPerType = $this->getValidationRulesPerType();
+
+        if ($field->type === 'text') {
+            $lines = [];
+            $this->output->writeln($field->name . " (end with a line containing only '<<<')");
+            do {
+                $line = Str::replace("\n", '', fgets(STDIN));
+                if ($line === '<<<') {
+                    break;
+                }
+                $lines[] = $line;
+            } while (true);
+
+            return implode("\n", $lines);
+        }
+
+        if ($field->type === 'array') {
+            $lines = [];
+            $this->output->writeln($field->name . " (end with an empty line)");
+            do {
+                $line = Str::replace("\n", '', fgets(STDIN));
+                if ($line === '') {
+                    break;
+                }
+                $lines[] = $line;
+            } while (true);
+
+            return $lines;
+        }
+
+        // Fields which are not of type array or text
+        $fieldRules = $rulesPerType->{$field->type};
+        if ($fieldRules->contains('between')) {
+            $fieldRules->forget($fieldRules->search('between'));
+            if ($field->min && $field->max) {
+                switch ($field->type) {
+                    case 'string':
+                    case 'integer':
+                    case 'float':
+                        $fieldRules->add("between:$field->min,$field->max");
+                        break;
+                    case 'datetime':
+                        $fieldRules->add("after:$field->min");
+                        $fieldRules->add("before:$field->max");
+                        break;
+                }
+            }
+        }
+
+        return HydeHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
+    }
+
+
+    private function getValidationRulesPerType(): Collection
+    {
+        static $rulesPerType = null;
+        if (!$rulesPerType) {
+            $rulesPerType = Collection::create(
+                [
+                    'string'   => ['required', 'string', 'between'],
+                    'boolean'  => ['required', 'boolean'],
+                    'integer'  => ['required', 'integer', 'between'],
+                    'float'    => ['required', 'numeric', 'between'],
+                    'datetime' => ['required', 'datetime', 'between'],
+                    'url'      => ['required', 'url'],
+                    'text'     => ['required', 'string', 'between'],
+                ]
+            );
+        }
+
+        return $rulesPerType;
     }
 }
