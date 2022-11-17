@@ -14,6 +14,7 @@ use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\HydeHelper;
+use Hyde\Pages\MarkdownPage;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
@@ -79,7 +80,15 @@ class BuildPublicationTypesSiteCommand extends Command implements CommandHandleI
 
     protected function buildDetailPages(string $targetDirectory, Collection $pubType, Collection $publications): void
     {
-        $detailTemplate = "hyde::pubtypes." . basename($pubType->detailTemplate, '.blade.php');
+        $basename       = basename($pubType->detailTemplate, '.blade.php');
+
+        // Mock a page
+        $page          = new MarkdownPage($basename);
+        view()->share('page', $page);
+        view()->share('currentPage', $basename);
+        view()->share('currentRoute', $page->getRoute());
+
+        $detailTemplate = "hyde::pubtypes." . $basename;
         foreach ($publications as $publication) {
             $canonical = $publication->matter->__canonical;
             $this->info("  Building [$canonical] ...");
