@@ -875,6 +875,34 @@ class HydePageTest extends TestCase
         $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::getDocumentationPagePath('foo'));
     }
 
+    public function test_all_pages_are_routable()
+    {
+        $pages = [
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+            HtmlPage::class,
+        ];
+
+        /** @var HydePage $page */
+        foreach ($pages as $page) {
+            $page = new $page('foo');
+
+            $this->assertInstanceOf(Route::class, $page->getRoute());
+            $this->assertEquals(new Route($page), $page->getRoute());
+            $this->assertSame($page->getRoute()->getLink(), $page->getLink());
+
+            Hyde::touch($page::sourcePath('foo'));
+            Hyde::boot();
+
+            $this->assertArrayHasKey($page->getSourcePath(), Hyde::pages());
+            $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());
+
+            unlink($page::sourcePath('foo'));
+        }
+    }
+
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
     {
         $this->assertSame(
