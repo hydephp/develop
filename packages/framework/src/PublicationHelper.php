@@ -71,7 +71,7 @@ class PublicationHelper
     /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
-     * @return Collection
+     * @return Collection<string, PublicationType>
      *
      * @throws \Exception
      */
