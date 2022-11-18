@@ -186,6 +186,24 @@ class DiscoveryServiceTest extends TestCase
         unlink($path);
     }
 
+    public function test_get_media_asset_files_discovers_files_recursively()
+    {
+        $path = Hyde::path('_media/foo/bar.png');
+        mkdir(dirname($path));
+        touch($path);
+        $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
+        File::deleteDirectory(Hyde::path('_media/foo'));
+    }
+
+    public function test_get_media_asset_files_discovers_files_very_recursively()
+    {
+        $path = Hyde::path('_media/foo/bar/img.png');
+        mkdir(dirname($path), recursive: true);
+        touch($path);
+        $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
+        File::deleteDirectory(Hyde::path('_media/foo'));
+    }
+
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
     {
         config(['hyde.media_extensions' => null]);

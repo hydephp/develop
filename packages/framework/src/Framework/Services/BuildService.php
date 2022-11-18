@@ -14,6 +14,7 @@ use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 /**
  * Moves logic from the build command to a service.
@@ -61,9 +62,10 @@ class BuildService
         $this->needsDirectory(Hyde::sitePath('media'));
 
         $this->comment('Transferring Media Assets...');
-
         $this->withProgressBar(DiscoveryService::getMediaAssetFiles(), function (string $filepath): void {
-            copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
+            $sitePath = Hyde::sitePath('media/'.unslash(Str::after($filepath, Hyde::path('_media'))));
+            $this->needsParentDirectory($sitePath);
+            copy($filepath, $sitePath);
         });
 
         $this->newLine(2);
