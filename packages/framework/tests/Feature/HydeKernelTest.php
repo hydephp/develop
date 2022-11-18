@@ -264,4 +264,9 @@ class HydeKernelTest extends TestCase
         Hyde::setSourceRoot('foo');
         $this->assertEquals('foo', Hyde::getSourceRoot());
     }
+
+    public function get_discovered_page_types_method()
+    {
+        $this->assertSame([BladePage::class], Hyde::getDiscoveredPageTypes());
+    }
 }
