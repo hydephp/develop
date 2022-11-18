@@ -20,6 +20,3 @@
 /tests/fixtures/example-sites/*/storage
 /tests/fixtures/example-sites/*/_site
 /tests/fixtures/example-sites/*/*.lock
-
-# Temporary for this PR
-_pages/ui-examples
