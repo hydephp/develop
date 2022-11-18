@@ -128,7 +128,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             return '_media/' . Str::of($file)->after('media/')->toString();
         }
 
-        // Fields which are not of type array or text
+        // Fields which are not of type array, text or image
         $fieldRules = $rulesPerType->{$field->type};
         if ($fieldRules->contains('between')) {
             $fieldRules->forget($fieldRules->search('between'));
