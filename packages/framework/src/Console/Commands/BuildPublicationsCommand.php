@@ -60,7 +60,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
 
         $this->printFinishMessage($time_start);
 
-        $this->output->writeln('Max memory used: ' . memory_get_peak_usage() / 1024 / 1024 . ' MB');
+        $this->output->writeln('Max memory used: '.memory_get_peak_usage() / 1024 / 1024 .' MB');
 
         return Command::SUCCESS;
     }
@@ -89,7 +89,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
         view()->share('currentPage', $template);
         view()->share('currentRoute', $page->getRoute());
 
-        $detailTemplate = "hyde::pubtypes." . $template;
+        $detailTemplate = 'hyde::pubtypes.'.$template;
         foreach ($publications as $publication) {
             $slug = $publication->matter->__slug;
             $this->info("  Building [$slug] ...");
@@ -100,8 +100,8 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
 
     protected function buildListPage(string $targetDirectory, Collection $pubType, Collection $publications): void
     {
-        $template = "hyde::pubtypes." . $pubType->listTemplate;
-        $this->info("  Building list page ...");
+        $template = 'hyde::pubtypes.'.$pubType->listTemplate;
+        $this->info('  Building list page ...');
         $html = view($template)->with('publications', $publications)->render();
         file_put_contents("$targetDirectory/index.html", $html);
     }
@@ -129,7 +129,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
 
         if ($this->option('run-prettier')) {
             $this->runNodeCommand(
-                'npx prettier ' . Hyde::pathToRelative(Hyde::sitePath()) . '/**/*.html --write --bracket-same-line',
+                'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line',
                 'Prettifying code!',
                 'prettify code'
             );
@@ -163,14 +163,14 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
         $this->line(
-            'Your new homepage is stored here -> ' .
+            'Your new homepage is stored here -> '.
             DiscoveryService::createClickableFilepath(Hyde::sitePath('index.html'))
         );
     }
 
     protected function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
     {
-        $this->info($message . ' This may take a second.');
+        $this->info($message.' This may take a second.');
 
         $output = shell_exec(
             sprintf(

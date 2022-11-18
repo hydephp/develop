@@ -12,7 +12,7 @@ use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
 /**
- * Hyde Command to create a new publication for a given publication type
+ * Hyde Command to create a new publication for a given publication type.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
  */
@@ -25,31 +25,31 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
     /** @var string */
     protected $description = 'Create a new publication item';
 
-
     public function handle(): int
     {
         $this->title('Creating a new Publication Item!');
 
         $pubTypes = HydeHelper::getPublicationTypes();
         if ($pubTypes->isEmpty()) {
-            $this->output->error("Unable to locate any publication-types ... did you create any?");
+            $this->output->error('Unable to locate any publication-types ... did you create any?');
+
             return Command::FAILURE;
         }
 
         $pubType = $this->argument('publicationType');
-        if (!$pubType) {
+        if (! $pubType) {
             $this->output->writeln('<bg=magenta;fg=white>Now please choose the Publication Type to create an item for:</>');
             $offset = 0;
             foreach ($pubTypes as $pubType) {
                 $offset++;
                 $this->line("  $offset: $pubType->name");
             }
-            $selected = (int)HydeHelper::askWithValidation($this, 'selected', "Publication type (1-$offset)", ['required', 'integer', "between:1,$offset"]);
-            $pubType  = $pubTypes->{$pubTypes->keys()[$selected - 1]};
+            $selected = (int) HydeHelper::askWithValidation($this, 'selected', "Publication type (1-$offset)", ['required', 'integer', "between:1,$offset"]);
+            $pubType = $pubTypes->{$pubTypes->keys()[$selected - 1]};
         }
 
         $mediaFiles = HydeHelper::getMediaForPubType($pubType);
-        $fieldData  = Collection::create();
+        $fieldData = Collection::create();
         $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
         foreach ($pubType->fields as $field) {
             $fieldData->{$field->name} = $this->captureFieldInput($field, $mediaFiles);
@@ -67,7 +67,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 $this,
                 'overwrite',
                 'Do you wish to overwrite the existing file (y/n)',
-                ['required', 'string', "in:y,n"],
+                ['required', 'string', 'in:y,n'],
                 'n'
             );
             if (strtolower($overwrite) == 'y') {
@@ -77,13 +77,13 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 $this->output->writeln('<bg=magenta;fg=white>Existing without overwriting existing publication file!</>');
             }
         } catch (\Exception $e) {
-            $this->error("Error: " . $e->getMessage() . " at " . $e->getFile() . ':' . $e->getLine());
+            $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
+
             return Command::FAILURE;
         }
 
         return Command::SUCCESS;
     }
-
 
     private function captureFieldInput(Collection $field, Collection $mediaFiles): string|array
     {
@@ -91,7 +91,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
         if ($field->type === 'text') {
             $lines = [];
-            $this->output->writeln($field->name . " (end with a line containing only '<<<')");
+            $this->output->writeln($field->name." (end with a line containing only '<<<')");
             do {
                 $line = Str::replace("\n", '', fgets(STDIN));
                 if ($line === '<<<') {
@@ -105,7 +105,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
         if ($field->type === 'array') {
             $lines = [];
-            $this->output->writeln($field->name . " (end with an empty line)");
+            $this->output->writeln($field->name.' (end with an empty line)');
             do {
                 $line = Str::replace("\n", '', fgets(STDIN));
                 if ($line === '') {
@@ -118,14 +118,15 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         }
 
         if ($field->type === 'image') {
-            $this->output->writeln($field->name . " (end with an empty line)");
+            $this->output->writeln($field->name.' (end with an empty line)');
             foreach ($mediaFiles as $k => $file) {
                 $offset = $k + 1;
                 $this->output->writeln("  $offset: $file");
             }
             $selected = HydeHelper::askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
-            $file     = $mediaFiles->{$selected - 1};
-            return '_media/' . Str::of($file)->after('media/')->toString();
+            $file = $mediaFiles->{$selected - 1};
+
+            return '_media/'.Str::of($file)->after('media/')->toString();
         }
 
         // Fields which are not of type array, text or image
@@ -150,11 +151,10 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         return HydeHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
     }
 
-
     private function getValidationRulesPerType(): Collection
     {
         static $rulesPerType = null;
-        if (!$rulesPerType) {
+        if (! $rulesPerType) {
             $rulesPerType = Collection::create(
                 [
                     'string'   => ['required', 'string', 'between'],

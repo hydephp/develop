@@ -10,20 +10,19 @@ use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
-
 use function Safe\file_get_contents;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class HydeHelper
 {
     /**
-     * Ask for a CLI input value until we pass validation rules
+     * Ask for a CLI input value until we pass validation rules.
      *
-     * @param Command $command
-     * @param string $name
-     * @param string $message
-     * @param array $rules
-     * @param array $rules
+     * @param  Command  $command
+     * @param  string  $name
+     * @param  string  $message
+     * @param  array  $rules
+     * @param  array  $rules
      * @return mixed $default
      */
     public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null)
@@ -32,8 +31,8 @@ class HydeHelper
             $rules = $rules->toArray();
         }
 
-        $answer    = $command->ask($message, $default);
-        $factory   = app(ValidationFactory::class);
+        $answer = $command->ask($message, $default);
+        $factory = app(ValidationFactory::class);
         $validator = $factory->make([$name => $answer], [$name => $rules]);
 
         if ($validator->passes()) {
@@ -58,9 +57,9 @@ class HydeHelper
     }
 
     /**
-     * Format the publication type name to a suitable representation for file storage
+     * Format the publication type name to a suitable representation for file storage.
      *
-     * @param string $pubTypeNameRaw
+     * @param  string  $pubTypeNameRaw
      * @return string
      */
     public static function formatNameForStorage(string $pubTypeNameRaw)
@@ -72,23 +71,24 @@ class HydeHelper
      * Return a collection of all defined publication types, indexed by the directory name.
      *
      * @return Collection
+     *
      * @throws \Exception
      */
     public static function getPublicationTypes(): Collection
     {
-        $root        = base_path();
+        $root = base_path();
         $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
 
         $pubTypes = Collection::create();
         foreach ($schemaFiles as $schemaFile) {
             $fileData = file_get_contents($schemaFile);
-            if (!$fileData) {
+            if (! $fileData) {
                 throw new \Exception("No data read from [$schemaFile]");
             }
-            $dirName                        = Collection::create(explode('/', dirname($schemaFile)))->last();
-            $schema                         = Collection::create(json_decode($fileData, true));
-            $schema->directory              = $dirName;
-            $schema->schemaFile             = $schemaFile;
+            $dirName = Collection::create(explode('/', dirname($schemaFile)))->last();
+            $schema = Collection::create(json_decode($fileData, true));
+            $schema->directory = $dirName;
+            $schema->schemaFile = $schemaFile;
             $pubTypes->{$schema->directory} = $schema;
         }
 
@@ -98,13 +98,14 @@ class HydeHelper
     /**
      * Return all publications for a given pub type, optionally sorted by the publication's sortField.
      *
-     * @param Collection $pubType
+     * @param  Collection  $pubType
      * @return Collection
+     *
      * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getPublicationsForPubType(Collection $pubType, $sort = true): Collection
     {
-        $root  = base_path();
+        $root = base_path();
         $files = glob("$root/{$pubType->directory}/*.md");
 
         $publications = Collection::create();
@@ -121,17 +122,17 @@ class HydeHelper
         return $publications;
     }
 
-
     /**
-     * Return all media items for a given publication type
+     * Return all media items for a given publication type.
      *
-     * @param Collection $pubType
+     * @param  Collection  $pubType
      * @return Collection
+     *
      * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getMediaForPubType(Collection $pubType, $sort = true): Collection
     {
-        $root  = base_path();
+        $root = base_path();
         $files = glob("$root/_media/{$pubType->directory}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
         $media = Collection::create();
@@ -146,24 +147,23 @@ class HydeHelper
         return $media;
     }
 
-
     /**
      * Read an MD file and return the parsed data.
      *
-     * @param string $fileData
+     * @param  string  $fileData
      * @return Collection
      */
     public static function getPublicationData(string $mdFileName): Collection
     {
         $fileData = file_get_contents($mdFileName);
-        if (!$fileData) {
+        if (! $fileData) {
             throw new \Exception("No data read from [$mdFileName]");
         }
 
-        $parsedFileData              = YamlFrontMatter::markdownCompatibleParse($fileData);
-        $matter                      = $parsedFileData->matter();
-        $markdown                    = $parsedFileData->body();
-        $matter['__slug']            = basename($mdFileName, '.md');
+        $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
+        $matter = $parsedFileData->matter();
+        $markdown = $parsedFileData->body();
+        $matter['__slug'] = basename($mdFileName, '.md');
         $matter['__createdDatetime'] = Carbon::createFromTimestamp($matter['__createdAt']);
 
         return Collection::create(['matter' => $matter, 'markdown' => $markdown]);
@@ -172,9 +172,10 @@ class HydeHelper
     /**
      * Check whether a given publication type exists.
      *
-     * @param string $pubTypeName
-     * @param bool $isRaw
+     * @param  string  $pubTypeName
+     * @param  bool  $isRaw
      * @return bool
+     *
      * @throws \Exception
      */
     public static function publicationTypeExists(string $pubTypeName, bool $isRaw = true): bool
@@ -189,7 +190,7 @@ class HydeHelper
     /**
      * Remove trailing slashes from the start and end of a string.
      *
-     * @param string $string
+     * @param  string  $string
      * @return string
      */
     public static function unslash(string $string): string

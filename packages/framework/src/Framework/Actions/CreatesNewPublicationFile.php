@@ -9,7 +9,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\HydeHelper;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-
 use function Safe\date;
 use function Safe\file_put_contents;
 
@@ -33,19 +32,19 @@ class CreatesNewPublicationFile implements CreateActionInterface
 
     public function create(): void
     {
-        $dir                = dirname($this->pubType->schemaFile);
+        $dir = dirname($this->pubType->schemaFile);
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDef  = $this->pubType->fields->filter(fn($f) => $f->name === $canonicalFieldName)->first();
-        $canonicalValue     = $canonicalFieldDef->type != 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
-        $canonicalStr       = Str::of($canonicalValue)->substr(0, 64);
-        $slug               = $canonicalStr->slug()->toString();
-        $fileName           = HydeHelper::formatNameForStorage($slug);
-        $outFile            = "$dir/$fileName.md";
-        if (file_exists($outFile) && !$this->force) {
+        $canonicalFieldDef = $this->pubType->fields->filter(fn ($f) => $f->name === $canonicalFieldName)->first();
+        $canonicalValue = $canonicalFieldDef->type != 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
+        $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
+        $slug = $canonicalStr->slug()->toString();
+        $fileName = HydeHelper::formatNameForStorage($slug);
+        $outFile = "$dir/$fileName.md";
+        if (file_exists($outFile) && ! $this->force) {
             throw new \InvalidArgumentException("File [$outFile] already exists");
         }
 
-        $now    = date('Y-m-d H:i:s');
+        $now = date('Y-m-d H:i:s');
         $output = "---\n";
         $output .= "__createdAt: {$now}\n";
         foreach ($this->fieldData as $k => $v) {
@@ -73,7 +72,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $output .= "Raw MD text ...\n";
 
         $this->result = $output;
-        print "Saving publication data to [$outFile]\n";
+        echo "Saving publication data to [$outFile]\n";
 
         file_put_contents($outFile, $output);
     }
