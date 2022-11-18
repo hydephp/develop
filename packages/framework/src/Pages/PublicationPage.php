@@ -12,7 +12,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
  */
 class PublicationPage extends Concerns\HydePage
 {
-    protected PublicationType $type;
+    public PublicationType $type;
 
     public function compile(): string
     {
