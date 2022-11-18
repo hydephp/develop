@@ -77,7 +77,7 @@ class PublicationHelper
      */
     public static function getPublicationTypes(): Collection
     {
-        $root = base_path();
+        $root = Hyde::path();
         $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
 
         $pubTypes = Collection::create();
