@@ -14,6 +14,7 @@ use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use function collect;
 
 /**
  * Moves logic from the build command to a service.
@@ -39,7 +40,7 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        $this->getClassNamesForDiscoveredPageModels()->each(function (string $pageClass) {
+        collect(Hyde::getDiscoveredPageTypes())->each(function (string $pageClass) {
             $this->compilePagesForClass($pageClass);
         });
     }
@@ -67,14 +68,6 @@ class BuildService
         });
 
         $this->newLine(2);
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection<class-string<\Hyde\Pages\Concerns\HydePage>>
-     */
-    protected function getClassNamesForDiscoveredPageModels(): Collection
-    {
-        return collect(Hyde::getDiscoveredPageTypes());
     }
 
     /**
