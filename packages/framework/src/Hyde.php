@@ -12,6 +12,7 @@ use Hyde\Foundation\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\HtmlString;
 
 /**
  * General facade for Hyde services.
@@ -36,6 +37,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string image(string $name, bool $preferQualifiedUrl = false)
  * @method static string url(string $path = '')
  * @method static string makeTitle(string $slug)
+ * @method static HtmlString markdown(string $text)
  * @method static string currentPage()
  * @method static string getBasePath()
  * @method static string getSourceRoot()
@@ -54,6 +56,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void setBasePath(string $basePath)
  * @method static void setSourceRoot(string $sourceRoot)
  * @method static void shareViewData(HydePage $page)
+ * @method static array getDiscoveredPageTypes()
  * @method static array toArray()
  * @method static void boot()
  *
