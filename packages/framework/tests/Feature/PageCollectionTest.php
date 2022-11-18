@@ -8,6 +8,7 @@ use Hyde\Foundation\PageCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -103,13 +104,15 @@ class PageCollectionTest extends TestCase
         $this->withoutDefaultPages();
 
         $this->file('_pages/foo.blade.php');
+        $this->file('_pages/foo.html');
         $this->file('_pages/foo.md');
         $this->file('_posts/foo.md');
         $this->file('_docs/foo.md');
         $collection = PageCollection::boot(Hyde::getInstance())->getPages();
-        $this->assertCount(4, $collection);
+        $this->assertCount(5, $collection);
 
         $this->assertEquals(new BladePage('foo'), $collection->get('_pages/foo.blade.php'));
+        $this->assertEquals(new HtmlPage('foo'), $collection->get('_pages/foo.html'));
         $this->assertEquals(new MarkdownPage('foo'), $collection->get('_pages/foo.md'));
         $this->assertEquals(new MarkdownPost('foo'), $collection->get('_posts/foo.md'));
         $this->assertEquals(new DocumentationPage('foo'), $collection->get('_docs/foo.md'));
