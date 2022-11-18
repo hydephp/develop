@@ -9,7 +9,9 @@ use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
@@ -268,5 +270,28 @@ class HydeKernelTest extends TestCase
     public function get_discovered_page_types_method()
     {
         $this->assertSame([BladePage::class], Hyde::getDiscoveredPageTypes());
+    }
+
+    public function test_get_discovered_page_types_returns_class_strings_for_all_discovered_page_types()
+    {
+        $pages = [
+            HtmlPage::class,
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+        ];
+
+        /** @var HydePage $page */
+        foreach ($pages as $page) {
+            Hyde::touch($page::sourcePath('foo'));
+        }
+
+        $this->assertEquals($pages, Hyde::getDiscoveredPageTypes());
+
+        /** @var HydePage $page */
+        foreach ($pages as $page) {
+            Hyde::unlink($page::sourcePath('foo'));
+        }
     }
 }
