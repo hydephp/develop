@@ -24,6 +24,21 @@ class PublicationType
         return $this->$name ?? $this->schema[$name] ?? null;
     }
 
+    public function getSchemaFile(): string
+    {
+        return $this->schemaFile;
+    }
+
+    public function getDirectory(): string
+    {
+        return $this->directory;
+    }
+
+    public function getSchema(): array
+    {
+        return $this->schema;
+    }
+
     protected static function parseSchema(string $schemaFile): array
     {
         return json_decode(file_get_contents($schemaFile), true, 512, JSON_THROW_ON_ERROR);
