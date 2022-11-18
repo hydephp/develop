@@ -6,6 +6,7 @@ namespace Hyde;
 
 use Carbon\Carbon;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
@@ -81,15 +82,8 @@ class PublicationHelper
 
         $pubTypes = Collection::create();
         foreach ($schemaFiles as $schemaFile) {
-            $fileData = file_get_contents($schemaFile);
-            if (! $fileData) {
-                throw new \Exception("No data read from [$schemaFile]");
-            }
-            $dirName = Collection::create(explode('/', dirname($schemaFile)))->last();
-            $schema = Collection::create(json_decode($fileData, true));
-            $schema->directory = $dirName;
-            $schema->schemaFile = $schemaFile;
-            $pubTypes->{$schema->directory} = $schema;
+            $publicationType = new PublicationType($schemaFile);
+            $pubTypes->{$publicationType->directory} = $publicationType;
         }
 
         return $pubTypes;
