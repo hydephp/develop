@@ -19,7 +19,7 @@ class PublicationType
 
     public function __get(string $name): mixed
     {
-        return $this->schema[$name] ?? null;
+        return $this->$name ?? $this->schema[$name] ?? null;
     }
 
     protected static function parseSchema(string $schemaFile): array
