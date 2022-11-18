@@ -7,6 +7,7 @@ namespace Hyde;
 use Carbon\Carbon;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Pages\PublicationPage;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
@@ -149,7 +150,7 @@ class PublicationHelper
      * @param  string  $fileData
      * @return Collection
      */
-    public static function getPublicationData(string $mdFileName): Collection
+    public static function getPublicationData(string $mdFileName): PublicationPage
     {
         $fileData = file_get_contents($mdFileName);
         if (! $fileData) {
@@ -162,7 +163,10 @@ class PublicationHelper
         $matter['__slug'] = basename($mdFileName, '.md');
         $matter['__createdDatetime'] = Carbon::createFromTimestamp($matter['__createdAt']);
 
-        return Collection::create(['matter' => $matter, 'markdown' => $markdown]);
+        $type = PublicationType::get(basename(dirname($mdFileName)));
+
+        $identifier = basename($mdFileName, '.md');
+        return new PublicationPage($type, $identifier, $matter, $markdown);
     }
 
     /**
