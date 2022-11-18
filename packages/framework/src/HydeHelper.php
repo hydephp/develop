@@ -104,12 +104,12 @@ class HydeHelper
      */
     public static function getPublicationsForPubType(Collection $pubType, $sort = true): Collection
     {
-        $root    = base_path();
-        $mdFiles = glob("$root/{$pubType->directory}/*.md");
+        $root  = base_path();
+        $files = glob("$root/{$pubType->directory}/*.md");
 
         $publications = Collection::create();
-        foreach ($mdFiles as $mdFile) {
-            $publications->add(self::getPublicationData($mdFile));
+        foreach ($files as $file) {
+            $publications->add(self::getPublicationData($file));
         }
 
         if ($sort) {
@@ -119,6 +119,31 @@ class HydeHelper
         }
 
         return $publications;
+    }
+
+
+    /**
+     * Return all media items for a given publication type
+     *
+     * @param Collection $pubType
+     * @return Collection
+     * @throws \Safe\Exceptions\FilesystemException
+     */
+    public static function getMediaForPubType(Collection $pubType, $sort = true): Collection
+    {
+        $root  = base_path();
+        $files = glob("$root/_media/{$pubType->directory}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
+
+        $media = Collection::create();
+        foreach ($files as $file) {
+            $media->add($file);
+        }
+
+        if ($sort) {
+            return $media->sort()->values();
+        }
+
+        return $media;
     }
 
 

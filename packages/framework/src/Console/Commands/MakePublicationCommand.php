@@ -48,10 +48,11 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             $pubType  = $pubTypes->{$pubTypes->keys()[$selected - 1]};
         }
 
-        $fieldData = Collection::create();
+        $mediaFiles = HydeHelper::getMediaForPubType($pubType);
+        $fieldData  = Collection::create();
         $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
         foreach ($pubType->fields as $field) {
-            $fieldData->{$field->name} = $this->captureFieldInput($field);
+            $fieldData->{$field->name} = $this->captureFieldInput($field, $mediaFiles);
         }
 
         try {
@@ -84,7 +85,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
     }
 
 
-    private function captureFieldInput(Collection $field): string|array
+    private function captureFieldInput(Collection $field, Collection $mediaFiles): string|array
     {
         $rulesPerType = $this->getValidationRulesPerType();
 
@@ -114,6 +115,17 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             } while (true);
 
             return $lines;
+        }
+
+        if ($field->type === 'image') {
+            $this->output->writeln($field->name . " (end with an empty line)");
+            foreach ($mediaFiles as $k => $file) {
+                $offset = $k + 1;
+                $this->output->writeln("  $offset: $file");
+            }
+            $selected = HydeHelper::askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+            $file     = $mediaFiles->{$selected - 1};
+            return '_media/' . Str::of($file)->after('media/')->toString();
         }
 
         // Fields which are not of type array or text

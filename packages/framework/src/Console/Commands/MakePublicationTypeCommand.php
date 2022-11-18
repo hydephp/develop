@@ -38,7 +38,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             }
         }
 
-        $fields = $this->getFieldsDefinitions();
+        $fields = $this->captureFieldsDefinitions();
 
         $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
         $this->line("  0: dateCreated (meta field)");
@@ -75,8 +75,10 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
         foreach ($fields as $k => $v) {
-            $offset = $k + 1;
-            $this->line("  $offset: $v[name]");
+            if ($fields->type != 'image') {
+                $offset = $k + 1;
+                $this->line("  $offset: $v->name");
+            }
         }
         $selected       = (int)HydeHelper::askWithValidation($this, 'selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
         $canonicalField = $fields[$selected - 1]['name'];
@@ -93,7 +95,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
     }
 
 
-    private function getFieldsDefinitions(): Collection
+    private function captureFieldsDefinitions(): Collection
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
         $count  = 1;
@@ -113,7 +115,8 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->line('  6 - URL');
             $this->line('  7 - Array');
             $this->line('  8 - Text');
-            $type = (int)HydeHelper::askWithValidation($this, 'type', 'Field type (1-7)', ['required', 'integer', 'between:1,7'], 1);
+            $this->line('  9 - Local Image');
+            $type = (int)HydeHelper::askWithValidation($this, 'type', 'Field type (1-7)', ['required', 'integer', 'between:1,9'], 1);
             do {
                 $field->min   = HydeHelper::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
                 $field->max   = HydeHelper::askWithValidation($this, 'max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
@@ -135,6 +138,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
                 6 => 'url',
                 7 => 'array',
                 8 => 'text',
+                9 => 'image',
             };
 
             $fields->add($field);
