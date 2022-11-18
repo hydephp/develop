@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Illuminate\Support\Str;
 use function collect;
 use Hyde\Facades\Site;
 use Hyde\Foundation\RouteCollection;
@@ -61,9 +62,10 @@ class BuildService
         $this->needsDirectory(Hyde::sitePath('media'));
 
         $this->comment('Transferring Media Assets...');
-
         $this->withProgressBar(DiscoveryService::getMediaAssetFiles(), function (string $filepath): void {
-            copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
+            $sitePath = Hyde::sitePath('media/' . unslash(Str::after($filepath, Hyde::path('_media'))));
+            $this->needsParentDirectory($sitePath);
+            copy($filepath, $sitePath);
         });
 
         $this->newLine(2);

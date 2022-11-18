@@ -58,6 +58,19 @@ class StaticSiteServiceTest extends TestCase
         unlink(Hyde::path('_site/media/test-image.png'));
     }
 
+    public function test_build_command_transfers_media_asset_files_recursively()
+    {
+        $path = Hyde::path('_media/foo/img.png');
+        @mkdir(dirname($path), recursive: true);
+        file_put_contents($path, 'foo');
+        $this->artisan('build')->assertSuccessful();
+        $this->assertFileEquals(Hyde::path('_media/foo/img.png'), Hyde::path('_site/media/foo/img.png'));
+        unlink(Hyde::path('_media/foo/img.png'));
+        rmdir(Hyde::path('_media/foo'));
+        unlink(Hyde::path('_site/media/foo/img.png'));
+        rmdir(Hyde::path('_site/media/foo'));
+    }
+
     public function test_all_page_types_can_be_compiled()
     {
         $this->file('_pages/html.html');
