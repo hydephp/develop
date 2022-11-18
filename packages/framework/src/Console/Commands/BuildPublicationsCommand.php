@@ -13,7 +13,7 @@ use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
-use Hyde\HydeHelper;
+use Hyde\PublicationHelper;
 use Hyde\Pages\MarkdownPage;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
@@ -68,11 +68,11 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
     // Warning: This is extremely hacky ...
     protected function build(): void
     {
-        $pubTypes = HydeHelper::getPublicationTypes();
+        $pubTypes = PublicationHelper::getPublicationTypes();
         foreach ($pubTypes as $dir => $pubType) {
             $targetDirectory = "_site/$dir";
             @mkdir($targetDirectory);
-            $publications = HydeHelper::getPublicationsForPubType($pubType);
+            $publications = PublicationHelper::getPublicationsForPubType($pubType);
             $this->info("Building [$pubType->name] into [$targetDirectory] ...");
             $this->buildDetailPages($targetDirectory, $pubType, $publications);
             $this->buildListPage($targetDirectory, $pubType, $publications);

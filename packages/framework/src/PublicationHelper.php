@@ -13,7 +13,7 @@ use Rgasch\Collection\Collection;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
-class HydeHelper
+class PublicationHelper
 {
     /**
      * Ask for a CLI input value until we pass validation rules.

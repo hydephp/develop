@@ -6,7 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\HydeHelper;
+use Hyde\PublicationHelper;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use function Safe\date;
@@ -38,7 +38,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $canonicalValue = $canonicalFieldDef->type != 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
         $slug = $canonicalStr->slug()->toString();
-        $fileName = HydeHelper::formatNameForStorage($slug);
+        $fileName = PublicationHelper::formatNameForStorage($slug);
         $outFile = "$dir/$fileName.md";
         if (file_exists($outFile) && ! $this->force) {
             throw new \InvalidArgumentException("File [$outFile] already exists");
