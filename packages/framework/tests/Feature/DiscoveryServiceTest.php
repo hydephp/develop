@@ -192,8 +192,7 @@ class DiscoveryServiceTest extends TestCase
         mkdir(dirname($path));
         touch($path);
         $this->assertContains($path, DiscoveryService::getMediaAssetFiles());
-        unlink($path);
-        rmdir(dirname($path));
+        File::deleteDirectory(Hyde::path('_media/foo'));
     }
 
     public function test_media_asset_extensions_can_be_added_by_comma_separated_values()
