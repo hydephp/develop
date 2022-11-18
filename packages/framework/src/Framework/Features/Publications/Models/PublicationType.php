@@ -12,6 +12,11 @@ class PublicationType
     protected string $directory;
     protected array $schema;
 
+    public static function get(string $name): self
+    {
+        return new self(Hyde::path("$name/schema.json"));
+    }
+
     public function __construct(string $schemaFile)
     {
         $this->schemaFile = $schemaFile;
