@@ -132,7 +132,7 @@ class DiscoveryService
 
     protected static function getMediaGlobPattern(): string
     {
-        return sprintf('_media/{*,**/*}.{%s}', static::parseConfiguredMediaExtensions(
+        return sprintf('_media/{*,**/*,**/*/*,**/*/*/*}.{%s}', static::parseConfiguredMediaExtensions(
             config('hyde.media_extensions', self::DEFAULT_MEDIA_EXTENSIONS)
         ));
     }
