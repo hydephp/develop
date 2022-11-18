@@ -13,6 +13,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Collection;
 
 /**
@@ -58,6 +59,10 @@ final class PageCollection extends BaseFoundationCollection
 
         if (Features::hasDocumentationPages()) {
             $this->discoverPagesFor(DocumentationPage::class);
+        }
+
+        if (Features::hasPublicationPages()) {
+            $this->discoverPagesFor(PublicationPage::class);
         }
 
         return $this;

@@ -177,4 +177,9 @@ class PageCollectionTest extends TestCase
 
         File::deleteDirectory(Hyde::path('.source'));
     }
+
+    public function test_publication_pages_are_discovered()
+    {
+        // TODO: Implement test_publication_pages_are_discovered() method.
+    }
 }
