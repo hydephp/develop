@@ -17,6 +17,11 @@ class PublicationType
         $this->schema = static::parseSchema($schemaFile);
     }
 
+    public function __get(string $name): mixed
+    {
+        return $this->schema[$name] ?? null;
+    }
+
     protected static function parseSchema(string $schemaFile): array
     {
         return json_decode(file_get_contents($schemaFile), true, 512, JSON_THROW_ON_ERROR);
