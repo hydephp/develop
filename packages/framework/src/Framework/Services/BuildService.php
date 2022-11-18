@@ -70,13 +70,11 @@ class BuildService
     }
 
     /**
-     * @return \Illuminate\Support\Collection<array-key, class-string<\Hyde\Pages\Concerns\HydePage>>
+     * @return \Illuminate\Support\Collection<class-string<\Hyde\Pages\Concerns\HydePage>>
      */
     protected function getClassNamesForDiscoveredPageModels(): Collection
     {
-        return $this->router->getRoutes()->map(function (Route $route): string {
-            return $route->getPageClass();
-        })->unique();
+        return collect(Hyde::getDiscoveredPageTypes());
     }
 
     /**
