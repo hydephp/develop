@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use Hyde\Markdown\Models\Markdown;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 /**
@@ -22,5 +24,10 @@ trait ImplementsStringHelpers
             $alwaysLowercase,
             Str::headline($slug)
         ));
+    }
+
+    public function markdown(string $text): HtmlString
+    {
+        return new HtmlString(Markdown::render($text));
     }
 }

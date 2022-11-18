@@ -9,13 +9,16 @@ use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\HtmlString;
 
 /**
  * This test class runs high-level tests on the HydeKernel class,
@@ -88,6 +91,11 @@ class HydeKernelTest extends TestCase
     public function test_make_title_helper_returns_title_from_page_slug()
     {
         $this->assertEquals('Foo Bar', Hyde::makeTitle('foo-bar'));
+    }
+
+    public function test_markdown_helper_converts_markdown_to_html()
+    {
+        $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('foo'));
     }
 
     public function test_format_html_path_helper_formats_path_according_to_config_rules()
@@ -257,5 +265,33 @@ class HydeKernelTest extends TestCase
     {
         Hyde::setSourceRoot('foo');
         $this->assertEquals('foo', Hyde::getSourceRoot());
+    }
+
+    public function get_discovered_page_types_method()
+    {
+        $this->assertSame([BladePage::class], Hyde::getDiscoveredPageTypes());
+    }
+
+    public function test_get_discovered_page_types_returns_class_strings_for_all_discovered_page_types()
+    {
+        $pages = [
+            HtmlPage::class,
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+        ];
+
+        /** @var HydePage $page */
+        foreach ($pages as $page) {
+            Hyde::touch($page::sourcePath('foo'));
+        }
+
+        $this->assertEquals($pages, Hyde::getDiscoveredPageTypes());
+
+        /** @var HydePage $page */
+        foreach ($pages as $page) {
+            Hyde::unlink($page::sourcePath('foo'));
+        }
     }
 }

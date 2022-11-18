@@ -134,6 +134,7 @@ class SitemapServiceTest extends TestCase
         $files = [
             '_pages/blade.blade.php',
             '_pages/markdown.md',
+            '_pages/html.html',
             '_posts/post.md',
             '_docs/doc.md',
         ];
@@ -143,12 +144,13 @@ class SitemapServiceTest extends TestCase
         $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertCount(4, $service->getXmlElement()->url);
+        $this->assertCount(5, $service->getXmlElement()->url);
 
-        $this->assertEquals('foo/blade.html', $service->getXmlElement()->url[0]->loc);
-        $this->assertEquals('foo/markdown.html', $service->getXmlElement()->url[1]->loc);
-        $this->assertEquals('foo/posts/post.html', $service->getXmlElement()->url[2]->loc);
-        $this->assertEquals('foo/docs/doc.html', $service->getXmlElement()->url[3]->loc);
+        $this->assertEquals('foo/html.html', $service->getXmlElement()->url[0]->loc);
+        $this->assertEquals('foo/blade.html', $service->getXmlElement()->url[1]->loc);
+        $this->assertEquals('foo/markdown.html', $service->getXmlElement()->url[2]->loc);
+        $this->assertEquals('foo/posts/post.html', $service->getXmlElement()->url[3]->loc);
+        $this->assertEquals('foo/docs/doc.html', $service->getXmlElement()->url[4]->loc);
 
         Hyde::unlink($files);
 

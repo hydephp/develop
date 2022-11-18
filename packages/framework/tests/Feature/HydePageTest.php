@@ -10,6 +10,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
@@ -122,6 +123,7 @@ class HydePageTest extends TestCase
         $this->assertTrue((new MarkdownPage())->showInNavigation());
         $this->assertTrue((new DocumentationPage())->showInNavigation());
         $this->assertFalse((new MarkdownPost())->showInNavigation());
+        $this->assertTrue((new HtmlPage())->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
@@ -130,6 +132,7 @@ class HydePageTest extends TestCase
         $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());
         $this->assertSame(999, (new DocumentationPage())->navigationMenuPriority());
         $this->assertSame(10, (new MarkdownPost())->navigationMenuPriority());
+        $this->assertSame(999, (new HtmlPage())->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
@@ -138,6 +141,7 @@ class HydePageTest extends TestCase
         $this->assertSame('Foo', (new MarkdownPage('foo'))->navigationMenuLabel());
         $this->assertSame('Foo', (new MarkdownPost('foo'))->navigationMenuLabel());
         $this->assertSame('Foo', (new DocumentationPage('foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new HtmlPage('foo'))->navigationMenuLabel());
     }
 
     public function testNavigationMenuGroup()
@@ -145,6 +149,7 @@ class HydePageTest extends TestCase
         $this->assertNull((new BladePage('foo'))->navigationMenuGroup());
         $this->assertNull((new MarkdownPage())->navigationMenuGroup());
         $this->assertNull((new MarkdownPost())->navigationMenuGroup());
+        $this->assertNull((new HtmlPage())->navigationMenuGroup());
         $this->assertSame('other', (new DocumentationPage())->navigationMenuGroup());
         $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
     }
@@ -868,6 +873,34 @@ class HydePageTest extends TestCase
         $this->assertSameIgnoringDirSeparatorType(MarkdownPage::path('foo'), Hyde::getMarkdownPagePath('foo'));
         $this->assertSameIgnoringDirSeparatorType(MarkdownPost::path('foo'), Hyde::getMarkdownPostPath('foo'));
         $this->assertSameIgnoringDirSeparatorType(DocumentationPage::path('foo'), Hyde::getDocumentationPagePath('foo'));
+    }
+
+    public function test_all_pages_are_routable()
+    {
+        $pages = [
+            BladePage::class,
+            MarkdownPage::class,
+            MarkdownPost::class,
+            DocumentationPage::class,
+            HtmlPage::class,
+        ];
+
+        /** @var HydePage $page */
+        foreach ($pages as $page) {
+            $page = new $page('foo');
+
+            $this->assertInstanceOf(Route::class, $page->getRoute());
+            $this->assertEquals(new Route($page), $page->getRoute());
+            $this->assertSame($page->getRoute()->getLink(), $page->getLink());
+
+            Hyde::touch($page::sourcePath('foo'));
+            Hyde::boot();
+
+            $this->assertArrayHasKey($page->getSourcePath(), Hyde::pages());
+            $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());
+
+            unlink($page::sourcePath('foo'));
+        }
     }
 
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
