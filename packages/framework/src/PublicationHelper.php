@@ -166,6 +166,7 @@ class PublicationHelper
         $type = PublicationType::get(basename(dirname($mdFileName)));
 
         $identifier = basename($mdFileName, '.md');
+
         return new PublicationPage($type, $identifier, $matter, $markdown);
     }
 
