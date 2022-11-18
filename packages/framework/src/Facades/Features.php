@@ -41,6 +41,7 @@ class Features implements Arrayable, JsonSerializable
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
+            static::publicationPages(),
             // static::dataCollections(),
 
             // Frontend Features
@@ -79,6 +80,11 @@ class Features implements Arrayable, JsonSerializable
     public static function hasDocumentationPages(): bool
     {
         return static::enabled(static::documentationPages());
+    }
+
+    public static function hasPublicationPages(): bool
+    {
+        return static::enabled(static::publicationPages());
     }
 
     public static function hasDataCollections(): bool
@@ -136,6 +142,11 @@ class Features implements Arrayable, JsonSerializable
     public static function documentationPages(): string
     {
         return 'documentation-pages';
+    }
+
+    public static function publicationPages(): string
+    {
+        return 'publication-pages';
     }
 
     public static function documentationSearch(): string
