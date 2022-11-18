@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Hyde;
+
 class PublicationType
 {
     protected string $schemaFile;
@@ -13,7 +15,7 @@ class PublicationType
     public function __construct(string $schemaFile)
     {
         $this->schemaFile = $schemaFile;
-        $this->directory = dirname($schemaFile);
+        $this->directory = Hyde::pathToRelative(dirname($schemaFile));
         $this->schema = static::parseSchema($schemaFile);
     }
 
