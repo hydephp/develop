@@ -11,6 +11,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -180,6 +181,21 @@ class PageCollectionTest extends TestCase
 
     public function test_publication_pages_are_discovered()
     {
-        // TODO: Implement test_publication_pages_are_discovered() method.
+        @mkdir(Hyde::path('publication'));
+        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
+        file_put_contents(Hyde::path('publication/foo.md'), '---
+__canonical: canonical
+__createdAt: 2022-11-16 11:32:52
+foo: bar
+---
+
+Hello World!
+');
+
+        $collection = PageCollection::boot(Hyde::getInstance())->getPages();
+        // $this->assertCount(1, $collection);
+        $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
+
+        File::deleteDirectory(Hyde::path('publication'));
     }
 }
