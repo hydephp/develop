@@ -9,6 +9,7 @@ use Hyde\Facades\Features;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Services\DiscoveryService;
@@ -79,7 +80,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
         }
     }
 
-    protected function buildDetailPages(string $targetDirectory, Collection $pubType, Collection $publications): void
+    protected function buildDetailPages(string $targetDirectory, PublicationType $pubType, Collection $publications): void
     {
         $template = $pubType->detailTemplate;
 
@@ -98,7 +99,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
         }
     }
 
-    protected function buildListPage(string $targetDirectory, Collection $pubType, Collection $publications): void
+    protected function buildListPage(string $targetDirectory, PublicationType $pubType, Collection $publications): void
     {
         $template = 'hyde::pubtypes.'.$pubType->listTemplate;
         $this->info('  Building list page ...');

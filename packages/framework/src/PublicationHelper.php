@@ -94,12 +94,12 @@ class PublicationHelper
     /**
      * Return all publications for a given pub type, optionally sorted by the publication's sortField.
      *
-     * @param  Collection  $pubType
+     * @param  PublicationType  $pubType
      * @return Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      */
-    public static function getPublicationsForPubType(Collection $pubType, $sort = true): Collection
+    public static function getPublicationsForPubType(PublicationType $pubType, $sort = true): Collection
     {
         $root = base_path();
         $files = glob("$root/{$pubType->directory}/*.md");
@@ -121,12 +121,12 @@ class PublicationHelper
     /**
      * Return all media items for a given publication type.
      *
-     * @param  Collection  $pubType
+     * @param  PublicationType  $pubType
      * @return Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      */
-    public static function getMediaForPubType(Collection $pubType, $sort = true): Collection
+    public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
     {
         $root = base_path();
         $files = glob("$root/_media/{$pubType->directory}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
