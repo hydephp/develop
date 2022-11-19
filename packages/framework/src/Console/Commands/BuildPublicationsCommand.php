@@ -6,10 +6,9 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Framework\Services\BuildService;
-use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
-use Hyde\PublicationHelper;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 

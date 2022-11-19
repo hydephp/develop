@@ -6,9 +6,10 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\PublicationHelper;
+use Hyde\Framework\Features\Publications\PublicationHelper;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
+
 use function Safe\date;
 use function Safe\file_put_contents;
 

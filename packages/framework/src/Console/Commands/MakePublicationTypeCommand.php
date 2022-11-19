@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
-use Hyde\PublicationHelper;
+use Hyde\Framework\Features\Publications\PublicationHelper;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 

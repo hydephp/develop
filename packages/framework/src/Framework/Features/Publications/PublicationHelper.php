@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Hyde;
+namespace Hyde\Framework\Features\Publications;
 
 use Carbon\Carbon;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+
+use function Safe\file_get_contents;
 
 class PublicationHelper
 {
