@@ -198,7 +198,7 @@ Hello World!
         $this->assertInstanceOf(PublicationPage::class, $collection->get('publication/foo.md'));
 
         // Test listing pages for publications are discovered
-        $this->assertInstanceOf(PublicationListPage::class, $collection->get('__publications/publication/index.json'));
+        $this->assertInstanceOf(PublicationListPage::class, $collection->get('publication/schema.json'));
 
         File::deleteDirectory(Hyde::path('publication'));
     }
