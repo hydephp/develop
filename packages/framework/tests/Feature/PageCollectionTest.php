@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Foundation\PageCollection;
+use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -12,6 +13,7 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\PublicationPage;
+use Hyde\PublicationHelper;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -193,8 +195,11 @@ Hello World!
 ');
 
         $collection = PageCollection::boot(Hyde::getInstance())->getPages();
-        // $this->assertCount(1, $collection); // TODO: Fix this
+        // $this->assertCount(2, $collection); // TODO: Fix this
         $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
+
+        // Test listing pages for publications are discovered
+        $this->assertInstanceOf(PublicationListPage::class, $collection->get('/publication/index.')); // TODO Fix ugly route key
 
         File::deleteDirectory(Hyde::path('publication'));
     }

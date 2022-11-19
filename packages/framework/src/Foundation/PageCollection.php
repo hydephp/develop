@@ -7,6 +7,7 @@ namespace Hyde\Foundation;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Pages\BladePage;
@@ -104,6 +105,7 @@ final class PageCollection extends BaseFoundationCollection
     {
         PublicationHelper::getPublicationTypes()->each(function (PublicationType $type) {
             $this->discoverPublicationPagesForType($type);
+            $this->generatePublicationListingPageForType($type);
         });
     }
 
@@ -112,5 +114,11 @@ final class PageCollection extends BaseFoundationCollection
         PublicationHelper::getPublicationsForPubType($type)->each(function ($publication) {
             $this->discover($publication);
         });
+    }
+
+    protected function generatePublicationListingPageForType(PublicationType $type): void
+    {
+        $page = new PublicationListPage($type->getDirectory().'/index');
+        $this->put($page->getSourcePath(), $page);
     }
 }
