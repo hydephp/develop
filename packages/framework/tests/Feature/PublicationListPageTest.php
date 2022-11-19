@@ -2,17 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Framework\Features\Publications\Models;
+namespace Hyde\Framework\Testing\Feature;
 
-use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
-use function json_encode;
-use function mkdir;
-use function resource_path;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationListPage
