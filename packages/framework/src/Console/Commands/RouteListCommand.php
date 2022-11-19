@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function basename;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
-
-use function basename;
 use function str_starts_with;
 
 /**
