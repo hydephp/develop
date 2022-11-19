@@ -5,8 +5,8 @@
   "sortDirection": "DESC",
   "pagesize": 0,
   "prevNextLinks": true,
-  "detailTemplate": "blah_detail.blade.php",
-  "listTemplate": "blah_list.blade.php",
+  "detailTemplate": "blah_detail",
+  "listTemplate": "blah_list",
   "fields": [
     {
       "name": "f1",
