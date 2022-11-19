@@ -15,6 +15,8 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
 
+use function memory_get_peak_usage;
+
 /**
  * Hyde Command to run the Build Process.
  *
@@ -54,6 +56,8 @@ class BuildSiteCommand extends Command
         $this->runPostBuildActions();
 
         $this->printFinishMessage($time_start);
+
+        $this->output->writeln('Max memory used: '.memory_get_peak_usage() / 1024 / 1024 .' MB');
 
         return Command::SUCCESS;
     }
