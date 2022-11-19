@@ -27,6 +27,8 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         parent::__construct($identifier, $matter, $markdown);
     }
 
+    // TODO: override method to get output directory from publication type etc
+
     public function compile(): string
     {
         // TODO: Implement compile() method.
