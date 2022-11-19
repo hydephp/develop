@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Framework\Testing\Framework\Features\Publications\Models;
 
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
