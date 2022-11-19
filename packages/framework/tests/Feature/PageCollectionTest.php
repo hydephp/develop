@@ -199,7 +199,7 @@ Hello World!
         $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
 
         // Test listing pages for publications are discovered
-        $this->assertInstanceOf(PublicationListPage::class, $collection->get('/publication/index.')); // TODO Fix ugly route key
+        $this->assertInstanceOf(PublicationListPage::class, $collection->get('__publications/publication/index.json'));
 
         File::deleteDirectory(Hyde::path('publication'));
     }
