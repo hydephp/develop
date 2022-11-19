@@ -32,7 +32,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public function compile(): string
     {
-        return view('hyde::layouts.pubtype', [
+        return view('hyde::layouts.publication', [
             'component' => "pubtypes.{$this->type->getSchema()['detailTemplate']}",
             'publication' => $this,
         ])->render();
