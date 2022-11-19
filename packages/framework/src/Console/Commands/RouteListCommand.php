@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
 
 use function basename;
+use function str_starts_with;
 
 /**
  * Hyde command to display the list of site routes.
@@ -53,7 +54,7 @@ class RouteListCommand extends Command
 
     protected function formatPageType(string $class): string
     {
-        return basename($class);
+        return str_starts_with($class, 'Hyde') ? basename($class) : $class;
     }
 
     protected function formatSourcePath(string $path): string
