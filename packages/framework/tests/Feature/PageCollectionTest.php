@@ -197,7 +197,10 @@ class PageCollectionTest extends TestCase
         mkdir(Hyde::path('publication'));
         $this->createPublication();
 
-        $this->assertInstanceOf(PublicationListPage::class, PageCollection::boot(Hyde::getInstance())->getPage('publication/schema.json'));
+        $this->assertInstanceOf(
+            PublicationListPage::class,
+            PageCollection::boot(Hyde::getInstance())->getPage('publication/schema.json')
+        );
 
         File::deleteDirectory(Hyde::path('publication'));
     }
@@ -205,8 +208,7 @@ class PageCollectionTest extends TestCase
     protected function createPublication(): void
     {
         file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
-        file_put_contents(
-            Hyde::path('publication/foo.md'),
+        file_put_contents(Hyde::path('publication/foo.md'),
             '---
 __canonical: canonical
 __createdAt: 2022-11-16 11:32:52
