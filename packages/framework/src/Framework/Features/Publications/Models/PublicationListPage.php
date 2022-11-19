@@ -10,7 +10,7 @@ class PublicationListPage extends BladePage
 {
     public static string $sourceDirectory = '%type%';
     public static string $outputDirectory = '';
-    public static string $fileExtension = '';
+    public static string $fileExtension = 'json';
 
     public PublicationType $type;
 
