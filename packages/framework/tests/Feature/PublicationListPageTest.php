@@ -23,7 +23,7 @@ class PublicationListPageTest extends TestCase
         $this->assertSame('test-publication/index', $page->getIdentifier());
         $this->assertSame('test-publication/index', $page->getRouteKey());
         $this->assertSame('test-publication/index.html', $page->getOutputPath());
-        $this->assertSame('__publications/test-publication/index.json', $page->getSourcePath());
+        $this->assertSame('test-publication/index.json', $page->getSourcePath());
 
         File::deleteDirectory(Hyde::path('test-publication'));
     }

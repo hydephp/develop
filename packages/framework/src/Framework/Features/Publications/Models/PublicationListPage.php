@@ -38,4 +38,9 @@ class PublicationListPage extends BladePage
 
         return view($template)->with('publications', $publications)->render();
     }
+
+    public function getSourcePath(): string
+    {
+        return $this->type->getDirectory().'/index.json';
+    }
 }
