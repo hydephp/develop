@@ -9,7 +9,6 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-
 use function Safe\date;
 use function Safe\file_put_contents;
 

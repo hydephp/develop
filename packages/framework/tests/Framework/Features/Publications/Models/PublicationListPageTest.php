@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Framework\Features\Publications\Models;
 
+use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
-use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
-
 use Illuminate\Support\Facades\File;
-
-use function file_put_contents;
 use function json_encode;
 
 /**

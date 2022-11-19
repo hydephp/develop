@@ -13,9 +13,8 @@ use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
-
 use function Safe\file_get_contents;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class PublicationHelper
 {
