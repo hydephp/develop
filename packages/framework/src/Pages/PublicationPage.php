@@ -26,7 +26,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     {
         $this->type = $type;
 
-        parent::__construct($identifier, $matter, $markdown);
+        parent::__construct("{$type->getDirectory()}/$identifier", $matter, $markdown);
     }
 
     // TODO: override method to get output directory from publication type etc
