@@ -817,7 +817,7 @@ class HydePageTest extends TestCase
 
     public function test_save_method_writes_page_body_to_file()
     {
-        MarkdownPage::make('foo', body: 'foo')->save();
+        MarkdownPage::make('foo', markdown: 'foo')->save();
         $this->assertEquals('foo',
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
@@ -826,7 +826,7 @@ class HydePageTest extends TestCase
 
     public function test_save_method_writes_page_body_to_file_with_front_matter()
     {
-        MarkdownPage::make('foo', matter: ['foo' => 'bar'], body: 'foo bar')->save();
+        MarkdownPage::make('foo', matter: ['foo' => 'bar'], markdown: 'foo bar')->save();
         $this->assertEquals("---\nfoo: bar\n---\n\nfoo bar",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
