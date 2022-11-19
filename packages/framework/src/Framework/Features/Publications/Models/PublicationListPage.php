@@ -8,7 +8,7 @@ use Hyde\Pages\BladePage;
 
 class PublicationListPage extends BladePage
 {
-    public static string $sourceDirectory = '%type%';
+    public static string $sourceDirectory = '__publications';
     public static string $outputDirectory = '';
     public static string $fileExtension = 'json';
 
