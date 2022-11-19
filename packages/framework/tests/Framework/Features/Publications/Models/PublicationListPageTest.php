@@ -29,7 +29,6 @@ class PublicationListPageTest extends TestCase
         $this->assertSame('test-publication/index', $page->getRouteKey());
         $this->assertSame('test-publication/index.html', $page->getOutputPath());
 
-
         File::deleteDirectory(Hyde::path('publications'));
     }
 
