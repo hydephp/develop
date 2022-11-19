@@ -97,7 +97,6 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discover(HydePage $page): self
     {
-        // Create a new route for the given page, and add it to the index.
         $this->put($page->getSourcePath(), $page);
 
         return $this;
