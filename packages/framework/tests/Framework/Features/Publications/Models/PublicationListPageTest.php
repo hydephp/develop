@@ -20,6 +20,16 @@ use function json_encode;
  */
 class PublicationListPageTest extends TestCase
 {
+    public function testSourcePathMappings()
+    {
+        $this->createPublicationFiles();
+
+        $page = new PublicationListPage($this->getPublicationType());
+        $this->assertSame('test-publication/index', $page->getIdentifier());
+
+        File::deleteDirectory(Hyde::path('publications'));
+    }
+
     protected function createPublicationFiles(): void
     {
         mkdir(Hyde::path('test-publication'));
