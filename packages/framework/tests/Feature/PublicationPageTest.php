@@ -48,6 +48,22 @@ class PublicationPageTest extends TestCase
             deleteDirectory(Hyde::path('test-publication'));
     }
 
+
+    public function test_publication_pages_are_properly_parsed()
+    {
+        mkdir(Hyde::path('test-publication'));
+        $this->createPublicationFiles();
+
+        $page = Hyde::pages()->getPages()->get('__publications/foo.md');
+        $this->assertInstanceOf(PublicationPage::class, $page);
+        $this->assertEquals('foo', $page->getIdentifier());
+        $this->assertEquals('bar', $page->matter('foo'));
+        $this->assertEquals('canonical', $page->matter('__canonical'));
+        $this->assertEquals("Hello World!\n", $page->markdown()->body());
+
+        deleteDirectory(Hyde::path('test-publication'));
+    }
+
     public function test_publication_pages_are_compilable()
     {
         mkdir(Hyde::path('test-publication'));
