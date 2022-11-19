@@ -1,4 +1,4 @@
-{{-- The Post Page Layout --}}
+{{-- The Publication Page Layout --}}
 @extends('hyde::layouts.app')
 @section('content')
 
