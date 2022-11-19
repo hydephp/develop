@@ -46,7 +46,7 @@ class PublicationListPageTest extends TestCase
         $this->assertStringContainsString('Listing Page', $page->compile());
         File::deleteDirectory(Hyde::path('test-publication'));
     }
-    
+
     protected function createPublicationFiles(): void
     {
         mkdir(Hyde::path('test-publication'));
