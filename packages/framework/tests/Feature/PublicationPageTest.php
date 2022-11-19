@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function deleteDirectory;
+use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-
-use function deleteDirectory;
-use function file_put_contents;
 use function json_encode;
 use function mkdir;
 use function resource_path;
@@ -43,11 +42,10 @@ class PublicationPageTest extends TestCase
         $this->createPublicationFiles();
 
         $collection = Hyde::pages()->getPages();
-            $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
+        $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
 
-            deleteDirectory(Hyde::path('test-publication'));
+        deleteDirectory(Hyde::path('test-publication'));
     }
-
 
     public function test_publication_pages_are_properly_parsed()
     {
