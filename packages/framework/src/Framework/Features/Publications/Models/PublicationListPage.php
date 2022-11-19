@@ -31,7 +31,6 @@ class PublicationListPage extends BladePage
     public function compile(): string
     {
         $listTemplate = $this->type->getSchema()['listTemplate'];
-        $listTemplate = Str::before("$listTemplate", '.blade.php');
 
         $pubType = $this->type;
         $template = 'pubtypes.'.$listTemplate;
