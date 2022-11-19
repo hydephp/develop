@@ -80,6 +80,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
         }
     }
 
+    // TODO: Is detail page the right name?
     protected function buildDetailPages(string $targetDirectory, PublicationType $pubType, Collection $publications): void
     {
         $template = $pubType->detailTemplate;
@@ -90,6 +91,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
         view()->share('currentPage', $template);
         view()->share('currentRoute', $page->getRoute());
 
+        // TODO this should not be in the hyde namespace as user is expected to implement this right?
         $detailTemplate = 'hyde::pubtypes.'.$template;
         foreach ($publications as $publication) {
             $slug = $publication->matter->__slug;
