@@ -101,6 +101,7 @@ class BuildPublicationsCommand extends Command implements CommandHandleInterface
         }
     }
 
+    // TODO: Move to post build task?
     protected function buildListPage(string $targetDirectory, PublicationType $pubType, Collection $publications): void
     {
         $template = 'hyde::pubtypes.'.$pubType->listTemplate;
