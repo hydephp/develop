@@ -16,8 +16,7 @@ class PublicationListPage extends BladePage
 
     public function __construct(PublicationType $type)
     {
-        parent::__construct();
+        parent::__construct("{$type->getDirectory()}/index");
         $this->type = $type;
-        $this->identifier = "{$type->getDirectory()}/index";
     }
 }
