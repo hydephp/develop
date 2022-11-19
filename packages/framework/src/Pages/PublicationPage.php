@@ -30,8 +30,6 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         $this->type = $type;
     }
 
-    // TODO: override method to get output directory from publication type etc
-
     public function compile(): string
     {
         $detailTemplate = $this->type->getSchema()['detailTemplate'];
