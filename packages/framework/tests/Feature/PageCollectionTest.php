@@ -194,8 +194,8 @@ Hello World!
 ');
 
         $collection = PageCollection::boot(Hyde::getInstance())->getPages();
-        // $this->assertCount(2, $collection); // TODO: Fix this
-        $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
+        $this->assertCount(4, $collection); // Default pages + publication index + publication page
+        $this->assertInstanceOf(PublicationPage::class, $collection->get('publication/foo.md'));
 
         // Test listing pages for publications are discovered
         $this->assertInstanceOf(PublicationListPage::class, $collection->get('__publications/publication/index.json'));
