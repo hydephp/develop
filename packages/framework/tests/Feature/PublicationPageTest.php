@@ -64,16 +64,18 @@ class PublicationPageTest extends TestCase
         $this->createPublicationFiles();
 
         $collection = Hyde::pages()->getPages();
-        $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
+        $this->assertInstanceOf(PublicationPage::class, $collection->get('test-publication/foo.md'));
     }
 
     public function test_publication_pages_are_properly_parsed()
     {
         $this->createPublicationFiles();
 
-        $page = Hyde::pages()->getPages()->get('__publications/foo.md');
+        $page = Hyde::pages()->getPages()->get('test-publication/foo.md');
         $this->assertInstanceOf(PublicationPage::class, $page);
-        $this->assertEquals('foo', $page->getIdentifier());
+        $this->assertEquals('test-publication/foo', $page->getIdentifier());
+        $this->assertEquals('Foo', $page->title);
+
         $this->assertEquals('bar', $page->matter('foo'));
         $this->assertEquals('canonical', $page->matter('__canonical'));
         $this->assertEquals("Hello World!\n", $page->markdown()->body());
@@ -83,7 +85,7 @@ class PublicationPageTest extends TestCase
     {
         $this->createRealPublicationFiles();
 
-        $page = Hyde::pages()->getPages()->get('__publications/foo.md');
+        $page = Hyde::pages()->getPages()->get('test-publication/foo.md');
 
         Hyde::shareViewData($page);
         $this->assertStringContainsString('Hello World!', $page->compile());
