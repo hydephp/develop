@@ -183,23 +183,38 @@ class PageCollectionTest extends TestCase
     public function test_publication_pages_are_discovered()
     {
         mkdir(Hyde::path('publication'));
+        $this->createPublication();
+
+        $collection = PageCollection::boot(Hyde::getInstance())->getPages();
+        $this->assertCount(4, $collection); // Default pages + publication index + publication page
+        $this->assertInstanceOf(PublicationPage::class, $collection->get('publication/foo.md'));
+
+        File::deleteDirectory(Hyde::path('publication'));
+    }
+
+    public function test_listing_pages_for_publications_are_discovered()
+    {
+        mkdir(Hyde::path('publication'));
+        $this->createPublication();
+
+        $this->assertInstanceOf(PublicationListPage::class, PageCollection::boot(Hyde::getInstance())->getPage('publication/schema.json'));
+
+        File::deleteDirectory(Hyde::path('publication'));
+    }
+
+    protected function createPublication(): void
+    {
         file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
-        file_put_contents(Hyde::path('publication/foo.md'), '---
+        file_put_contents(
+            Hyde::path('publication/foo.md'),
+            '---
 __canonical: canonical
 __createdAt: 2022-11-16 11:32:52
 foo: bar
 ---
 
 Hello World!
-');
-
-        $collection = PageCollection::boot(Hyde::getInstance())->getPages();
-        $this->assertCount(4, $collection); // Default pages + publication index + publication page
-        $this->assertInstanceOf(PublicationPage::class, $collection->get('publication/foo.md'));
-
-        // Test listing pages for publications are discovered
-        $this->assertInstanceOf(PublicationListPage::class, $collection->get('publication/schema.json'));
-
-        File::deleteDirectory(Hyde::path('publication'));
+'
+        );
     }
 }
