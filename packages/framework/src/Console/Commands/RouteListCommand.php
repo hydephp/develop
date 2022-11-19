@@ -53,7 +53,7 @@ class RouteListCommand extends Command
 
     protected function formatPageType(string $class): string
     {
-        return str_starts_with($class, 'Hyde') ? basename($class) : $class;
+        return str_starts_with($class, 'Hyde') ? class_basename($class) : $class;
     }
 
     protected function formatSourcePath(string $path): string
