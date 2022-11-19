@@ -5,18 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
-use Hyde\Facades\Features;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSearch;
-use Hyde\Framework\Features\BuildTasks\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Services\BuildService;
-use Hyde\Framework\Services\BuildTaskService;
-use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
 use Hyde\PublicationHelper;
-use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 

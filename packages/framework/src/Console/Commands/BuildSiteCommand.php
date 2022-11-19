@@ -14,7 +14,6 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
-
 use function memory_get_peak_usage;
 
 /**
