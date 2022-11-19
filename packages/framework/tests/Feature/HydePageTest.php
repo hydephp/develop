@@ -863,6 +863,22 @@ class HydePageTest extends TestCase
         unlink(Hyde::path('_pages/foo.md'));
     }
 
+    public function test_markdown_posts_can_be_saved()
+    {
+        $post = new MarkdownPost('foo');
+        $post->save();
+        $this->assertFileExists(Hyde::path('_posts/foo.md'));
+        unlink(Hyde::path('_posts/foo.md'));
+    }
+
+    public function test_documentation_pages_can_be_saved()
+    {
+        $page = new DocumentationPage('foo');
+        $page->save();
+        $this->assertFileExists(Hyde::path('_docs/foo.md'));
+        unlink(Hyde::path('_docs/foo.md'));
+    }
+
     public function test_get_method_can_access_data_from_page()
     {
         $page = MarkdownPage::make('foo', ['foo' => 'bar']);
