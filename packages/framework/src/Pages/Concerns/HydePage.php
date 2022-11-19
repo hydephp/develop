@@ -170,7 +170,7 @@ abstract class HydePage implements PageSchema
      */
     public function getSourcePath(): string
     {
-        return static::sourcePath($this->identifier);
+        return unslash(static::sourcePath($this->identifier));
     }
 
     /**
@@ -180,7 +180,7 @@ abstract class HydePage implements PageSchema
      */
     public function getOutputPath(): string
     {
-        return static::outputPath($this->identifier);
+        return unslash(static::outputPath($this->identifier));
     }
 
     // Section: Routing
