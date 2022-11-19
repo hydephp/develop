@@ -112,7 +112,7 @@ Hello World!
         // Temporary until we settle on where to store templates
         @mkdir(resource_path('views/pubtypes'));
         $this->file('resources/views/pubtypes/test_list.blade.php');
-        $this->file('resources/views/pubtypes/test_detail.blade.php', '{{ ($publication->markdown()) }}');
+        $this->file('resources/views/pubtypes/test_detail.blade.php', '{{ ($publication->markdown()->body()) }}');
     }
 
     protected function createPublicationFiles(): void
