@@ -817,7 +817,7 @@ class HydePageTest extends TestCase
 
     public function test_save_method_writes_page_body_to_file()
     {
-        MarkdownPage::make('foo', body: 'foo')->save();
+        MarkdownPage::make('foo', markdown: 'foo')->save();
         $this->assertEquals('foo',
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
@@ -826,11 +826,57 @@ class HydePageTest extends TestCase
 
     public function test_save_method_writes_page_body_to_file_with_front_matter()
     {
-        MarkdownPage::make('foo', matter: ['foo' => 'bar'], body: 'foo bar')->save();
+        MarkdownPage::make('foo', matter: ['foo' => 'bar'], markdown: 'foo bar')->save();
         $this->assertEquals("---\nfoo: bar\n---\n\nfoo bar",
             file_get_contents(Hyde::path('_pages/foo.md'))
         );
         unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_new_markdown_pages_can_be_saved()
+    {
+        $page = new MarkdownPage('foo');
+        $page->save();
+
+        $this->assertFileExists(Hyde::path('_pages/foo.md'));
+        $this->assertSame('', file_get_contents(Hyde::path('_pages/foo.md')));
+
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_existing_parsed_markdown_pages_can_be_saved()
+    {
+        $page = new MarkdownPage('foo', markdown: 'bar');
+        $page->save();
+
+        $this->assertSame('bar', file_get_contents(Hyde::path('_pages/foo.md')));
+
+        /** @var BaseMarkdownPage $parsed */
+        $parsed = MarkdownPage::all()->getPage('_pages/foo.md');
+        $this->assertSame('bar', $parsed->markdown->body());
+
+        $parsed->markdown = new Markdown('baz');
+        $parsed->save();
+
+        $this->assertSame('baz', file_get_contents(Hyde::path('_pages/foo.md')));
+
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_markdown_posts_can_be_saved()
+    {
+        $post = new MarkdownPost('foo');
+        $post->save();
+        $this->assertFileExists(Hyde::path('_posts/foo.md'));
+        unlink(Hyde::path('_posts/foo.md'));
+    }
+
+    public function test_documentation_pages_can_be_saved()
+    {
+        $page = new DocumentationPage('foo');
+        $page->save();
+        $this->assertFileExists(Hyde::path('_docs/foo.md'));
+        unlink(Hyde::path('_docs/foo.md'));
     }
 
     public function test_get_method_can_access_data_from_page()
