@@ -48,8 +48,8 @@ class PublicationListPageTest extends TestCase
         mkdir(Hyde::path('test-publication'));
         file_put_contents(Hyde::path('test-publication/schema.json'), json_encode([
             'foo' => 'bar',
-            'detailTemplate' => 'test_detail.blade.php',
-            'listTemplate' => 'test_list.blade.php',
+            'detailTemplate' => 'test_detail',
+            'listTemplate' => 'test_list',
         ]));
         file_put_contents(
             Hyde::path('test-publication/foo.md'),

@@ -100,8 +100,8 @@ class PublicationPageTest extends TestCase
   "sortDirection": "DESC",
   "pagesize": 0,
   "prevNextLinks": true,
-  "detailTemplate": "test_detail.blade.php",
-  "listTemplate": "test_list.blade.php",
+  "detailTemplate": "test_detail",
+  "listTemplate": "test_list",
   "fields": [
     {
       "name": "slug",
