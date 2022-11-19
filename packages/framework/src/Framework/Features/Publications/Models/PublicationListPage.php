@@ -35,7 +35,9 @@ class PublicationListPage extends BladePage
         $template = 'pubtypes.'.$listTemplate;
         $publications = PublicationHelper::getPublicationsForPubType($pubType);
 
-        return view($template)->with('publications', $publications)->render();
+        return view($template, [
+            'publications' => $publications
+        ])->render();
     }
 
     public function getSourcePath(): string
