@@ -26,8 +26,9 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public function __construct(PublicationType $type, string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '')
     {
-        parent::__construct("{$type->getDirectory()}/$identifier", $matter, $markdown);
         $this->type = $type;
+
+        parent::__construct("{$type->getDirectory()}/$identifier", $matter, $markdown);
     }
 
     public function compile(): string
