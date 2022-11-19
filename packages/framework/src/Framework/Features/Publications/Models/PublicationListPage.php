@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Pages\BladePage;
-use Illuminate\Support\Str;
 use function view;
 
 /**

@@ -7,7 +7,6 @@ namespace Hyde\Pages;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Illuminate\Support\Str;
 use function view;
 
 /**
