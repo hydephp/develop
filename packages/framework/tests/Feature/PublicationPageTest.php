@@ -43,4 +43,23 @@ Hello World!
 
         deleteDirectory(Hyde::path('publication'));
     }
+
+    public function test_publication_pages_are_discoverable()
+    {
+        mkdir(Hyde::path('publication'));
+        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
+        file_put_contents(Hyde::path('publication/foo.md'), '---
+__canonical: canonical
+__createdAt: 2022-11-16 11:32:52
+foo: bar
+---
+
+Hello World!
+');
+
+            $collection = Hyde::pages()->getPages();
+            $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
+
+            deleteDirectory(Hyde::path('publication'));
+    }
 }
