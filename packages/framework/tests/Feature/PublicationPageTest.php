@@ -69,7 +69,7 @@ class PublicationPageTest extends TestCase
         mkdir(Hyde::path('test-publication'));
         $this->createRealPublicationFiles();
 
-        $page = new PublicationPage(new PublicationType('test-publication/schema.json'), 'foo');
+        $page = Hyde::pages()->getPages()->get('__publications/foo.md');
 
         Hyde::shareViewData($page);
         $this->assertStringContainsString('Hello World!', $page->compile());
