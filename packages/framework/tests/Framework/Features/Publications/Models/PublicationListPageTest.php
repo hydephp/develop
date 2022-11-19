@@ -20,7 +20,7 @@ use function json_encode;
  */
 class PublicationListPageTest extends TestCase
 {
-    public function testSourcePathMappings()
+    public function test_source_path_mappings()
     {
         $this->createPublicationFiles();
 
