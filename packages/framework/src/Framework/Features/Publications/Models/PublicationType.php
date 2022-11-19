@@ -48,4 +48,6 @@ class PublicationType
     {
         return json_decode(file_get_contents($schemaFile), true, 512, JSON_THROW_ON_ERROR);
     }
+
+    // TODO build list pages and detail pages for each publication type
 }
