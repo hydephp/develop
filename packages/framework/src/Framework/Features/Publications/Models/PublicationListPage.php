@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 class PublicationListPage extends \Hyde\Pages\BladePage
 {
-    public static string $sourceDirectory = '%type%';
-    public static string $outputDirectory = '%type%';
+    public static string $sourceDirectory = '';
+    public static string $outputDirectory = '';
     public static string $fileExtension = '';
 }
