@@ -41,6 +41,6 @@ class PublicationListPage extends BladePage
 
     public function getSourcePath(): string
     {
-        return $this->type->getDirectory().'/index.json';
+        return $this->type->getDirectory().'/schema.json';
     }
 }
