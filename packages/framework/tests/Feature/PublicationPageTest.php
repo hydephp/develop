@@ -23,15 +23,7 @@ class PublicationPageTest extends TestCase
     public function test_publication_pages_are_routable()
     {
         mkdir(Hyde::path('publication'));
-        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
-        file_put_contents(Hyde::path('publication/foo.md'), '---
-__canonical: canonical
-__createdAt: 2022-11-16 11:32:52
-foo: bar
----
-
-Hello World!
-');
+        $this->createPublicationFiles();
 
         $page = new PublicationPage(new PublicationType('publication/schema.json'), 'foo');
 
@@ -47,17 +39,9 @@ Hello World!
     public function test_publication_pages_are_discoverable()
     {
         mkdir(Hyde::path('publication'));
-        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
-        file_put_contents(Hyde::path('publication/foo.md'), '---
-__canonical: canonical
-__createdAt: 2022-11-16 11:32:52
-foo: bar
----
+        $this->createPublicationFiles();
 
-Hello World!
-');
-
-            $collection = Hyde::pages()->getPages();
+        $collection = Hyde::pages()->getPages();
             $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
 
             deleteDirectory(Hyde::path('publication'));
@@ -66,20 +50,28 @@ Hello World!
     public function test_publication_pages_are_compilable()
     {
         mkdir(Hyde::path('publication'));
-        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
-        file_put_contents(Hyde::path('publication/foo.md'), '---
-__canonical: canonical
-__createdAt: 2022-11-16 11:32:52
-foo: bar
----
-
-Hello World!
-');
+        $this->createPublicationFiles();
 
         $page = new PublicationPage(new PublicationType('publication/schema.json'), 'foo');
 
         $this->assertStringContainsString('Hello World!', $page->compile());
 
         deleteDirectory(Hyde::path('publication'));
+    }
+
+    protected function createPublicationFiles(): void
+    {
+        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
+        file_put_contents(
+            Hyde::path('publication/foo.md'),
+            '---
+__canonical: canonical
+__createdAt: 2022-11-16 11:32:52
+foo: bar
+---
+
+Hello World!
+'
+        );
     }
 }
