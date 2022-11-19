@@ -833,6 +833,35 @@ class HydePageTest extends TestCase
         unlink(Hyde::path('_pages/foo.md'));
     }
 
+    public function test_new_markdown_pages_can_be_saved()
+    {
+        $page = new MarkdownPage('foo');
+        $page->save();
+
+        $this->assertFileExists(Hyde::path('_pages/foo.md'));
+        $this->assertSame('', file_get_contents(Hyde::path('_pages/foo.md')));
+
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
+    public function test_existing_parsed_markdown_pages_can_be_saved()
+    {
+        $page = new MarkdownPage('foo', markdown: 'bar');
+        $page->save();
+
+        $this->assertSame('bar', file_get_contents(Hyde::path('_pages/foo.md')));
+
+        $parsed = MarkdownPage::all()->getPage('_pages/foo.md');
+        $this->assertSame('bar', $parsed->markdown->body());
+
+        $parsed->markdown = new Markdown('baz');
+        $parsed->save();
+
+        $this->assertSame('baz', file_get_contents(Hyde::path('_pages/foo.md')));
+
+        unlink(Hyde::path('_pages/foo.md'));
+    }
+
     public function test_get_method_can_access_data_from_page()
     {
         $page = MarkdownPage::make('foo', ['foo' => 'bar']);
