@@ -11,4 +11,6 @@ class PublicationListPage extends BladePage
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
     public static string $fileExtension = '';
+
+    public PublicationType $type;
 }
