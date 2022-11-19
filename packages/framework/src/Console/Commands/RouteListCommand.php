@@ -8,6 +8,8 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use LaravelZero\Framework\Commands\Command;
 
+use function basename;
+
 /**
  * Hyde command to display the list of site routes.
  *
@@ -51,7 +53,7 @@ class RouteListCommand extends Command
 
     protected function formatPageType(string $class): string
     {
-        return str_replace('Hyde\\Pages\\', '', $class);
+        return basename($class);
     }
 
     protected function formatSourcePath(string $path): string
