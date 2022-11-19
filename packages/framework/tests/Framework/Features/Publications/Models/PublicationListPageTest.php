@@ -11,6 +11,8 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use function json_encode;
+use function mkdir;
+use function resource_path;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationListPage
@@ -30,10 +32,29 @@ class PublicationListPageTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
+    public function test_listing_page_can_be_compiled()
+    {
+        $this->createPublicationFiles();
+        // Temporary until we settle on where to store templates
+
+        @mkdir(resource_path('views/pubtypes'));
+        $this->file('resources/views/pubtypes/test_list.blade.php', 'Listing Page');
+
+        $page = new PublicationListPage($this->getPublicationType());
+
+        Hyde::shareViewData($page);
+        $this->assertStringContainsString('Listing Page', $page->compile());
+        File::deleteDirectory(Hyde::path('test-publication'));
+    }
+    
     protected function createPublicationFiles(): void
     {
         mkdir(Hyde::path('test-publication'));
-        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode(['foo' => 'bar']));
+        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode([
+            'foo' => 'bar',
+            'detailTemplate' => 'test_detail.blade.php',
+            'listTemplate' => 'test_list.blade.php',
+        ]));
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---
