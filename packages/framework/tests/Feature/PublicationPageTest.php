@@ -14,6 +14,7 @@ use function deleteDirectory;
 use function file_put_contents;
 use function json_encode;
 use function mkdir;
+use function resource_path;
 
 /**
  * @covers \Hyde\Pages\PublicationPage
@@ -50,13 +51,52 @@ class PublicationPageTest extends TestCase
     public function test_publication_pages_are_compilable()
     {
         mkdir(Hyde::path('test-publication'));
-        $this->createPublicationFiles();
+        $this->createRealPublicationFiles();
 
         $page = new PublicationPage(new PublicationType('test-publication/schema.json'), 'foo');
 
+        Hyde::shareViewData($page);
         $this->assertStringContainsString('Hello World!', $page->compile());
 
         deleteDirectory(Hyde::path('test-publication'));
+    }
+
+    protected function createRealPublicationFiles(): void
+    {
+        file_put_contents(Hyde::path('test-publication/schema.json'), '{
+  "name": "test",
+  "canonicalField": "slug",
+  "sortField": "__createdAt",
+  "sortDirection": "DESC",
+  "pagesize": 0,
+  "prevNextLinks": true,
+  "detailTemplate": "test_detail.blade.php",
+  "listTemplate": "test_list.blade.php",
+  "fields": [
+    {
+      "name": "slug",
+      "min": "4",
+      "max": "32",
+      "type": "string"
+    }
+  ]
+}');
+        file_put_contents(
+            Hyde::path('test-publication/foo.md'),
+            '---
+__canonical: canonical
+__createdAt: 2022-11-16 11:32:52
+foo: bar
+---
+
+Hello World!
+'
+        );
+
+        // Temporary until we settle on where to store templates
+        @mkdir(resource_path('views/pubtypes'));
+        $this->file('resources/views/pubtypes/test_list.blade.php');
+        $this->file('resources/views/pubtypes/test_detail.blade.php', '{{ ($publication->markdown()) }}');
     }
 
     protected function createPublicationFiles(): void
