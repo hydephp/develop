@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use function view;
 
 /**
+ * @see \Hyde\Pages\PublicationPage
  * @see \Hyde\Framework\Testing\Feature\PublicationListPageTest
  */
 class PublicationListPage extends BladePage
