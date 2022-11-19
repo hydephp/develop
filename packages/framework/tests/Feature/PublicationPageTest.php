@@ -34,6 +34,18 @@ class PublicationPageTest extends TestCase
         parent::tearDown();
     }
 
+    public function test_source_path_mappings()
+    {
+        $this->createPublicationFiles();
+
+        $page = new PublicationPage(new PublicationType('test-publication/schema.json'), 'foo');
+
+        $this->assertSame('test-publication/foo', $page->getIdentifier());
+        $this->assertSame('test-publication/foo', $page->getRouteKey());
+        $this->assertSame('test-publication/foo.md', $page->getSourcePath());
+        $this->assertSame('test-publication/foo.html', $page->getOutputPath());
+    }
+
     public function test_publication_pages_are_routable()
     {
         $this->createPublicationFiles();
