@@ -20,9 +20,22 @@ use function resource_path;
  */
 class PublicationPageTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        mkdir(Hyde::path('test-publication'));
+    }
+
+    protected function tearDown(): void
+    {
+        deleteDirectory(Hyde::path('test-publication'));
+
+        parent::tearDown();
+    }
+
     public function test_publication_pages_are_routable()
     {
-        mkdir(Hyde::path('test-publication'));
         $this->createPublicationFiles();
 
         $page = new PublicationPage(new PublicationType('test-publication/schema.json'), 'foo');
@@ -32,24 +45,18 @@ class PublicationPageTest extends TestCase
         $this->assertSame($page->getRoute()->getLink(), $page->getLink());
         $this->assertArrayHasKey($page->getSourcePath(), Hyde::pages());
         $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());
-
-        deleteDirectory(Hyde::path('test-publication'));
     }
 
     public function test_publication_pages_are_discoverable()
     {
-        mkdir(Hyde::path('test-publication'));
         $this->createPublicationFiles();
 
         $collection = Hyde::pages()->getPages();
         $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
-
-        deleteDirectory(Hyde::path('test-publication'));
     }
 
     public function test_publication_pages_are_properly_parsed()
     {
-        mkdir(Hyde::path('test-publication'));
         $this->createPublicationFiles();
 
         $page = Hyde::pages()->getPages()->get('__publications/foo.md');
@@ -58,21 +65,16 @@ class PublicationPageTest extends TestCase
         $this->assertEquals('bar', $page->matter('foo'));
         $this->assertEquals('canonical', $page->matter('__canonical'));
         $this->assertEquals("Hello World!\n", $page->markdown()->body());
-
-        deleteDirectory(Hyde::path('test-publication'));
     }
 
     public function test_publication_pages_are_compilable()
     {
-        mkdir(Hyde::path('test-publication'));
         $this->createRealPublicationFiles();
 
         $page = Hyde::pages()->getPages()->get('__publications/foo.md');
 
         Hyde::shareViewData($page);
         $this->assertStringContainsString('Hello World!', $page->compile());
-
-        deleteDirectory(Hyde::path('test-publication'));
     }
 
     protected function createRealPublicationFiles(): void
