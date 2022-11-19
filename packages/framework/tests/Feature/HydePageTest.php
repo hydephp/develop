@@ -851,6 +851,7 @@ class HydePageTest extends TestCase
 
         $this->assertSame('bar', file_get_contents(Hyde::path('_pages/foo.md')));
 
+        /** @var BaseMarkdownPage $parsed */
         $parsed = MarkdownPage::all()->getPage('_pages/foo.md');
         $this->assertSame('bar', $parsed->markdown->body());
 
