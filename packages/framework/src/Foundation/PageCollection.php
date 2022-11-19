@@ -118,7 +118,7 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function generatePublicationListingPageForType(PublicationType $type): void
     {
-        $page = new PublicationListPage($type->getDirectory().'/index');
+        $page = new PublicationListPage($type);
         $this->put($page->getSourcePath(), $page);
     }
 }

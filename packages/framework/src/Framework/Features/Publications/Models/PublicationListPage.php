@@ -13,4 +13,10 @@ class PublicationListPage extends BladePage
     public static string $fileExtension = '';
 
     public PublicationType $type;
+
+    public function __construct(PublicationType $type)
+    {
+        parent::__construct();
+        $this->type = $type;
+    }
 }
