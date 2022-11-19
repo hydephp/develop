@@ -181,7 +181,7 @@ class PageCollectionTest extends TestCase
 
     public function test_publication_pages_are_discovered()
     {
-        @mkdir(Hyde::path('publication'));
+        mkdir(Hyde::path('publication'));
         file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
         file_put_contents(Hyde::path('publication/foo.md'), '---
 __canonical: canonical
