@@ -9,6 +9,9 @@ use Hyde\Pages\BladePage;
 use Illuminate\Support\Str;
 use function view;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\PublicationListPageTest
+ */
 class PublicationListPage extends BladePage
 {
     public static string $sourceDirectory = '__publications';
