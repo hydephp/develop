@@ -193,7 +193,7 @@ Hello World!
 ');
 
         $collection = PageCollection::boot(Hyde::getInstance())->getPages();
-        // $this->assertCount(1, $collection);
+        // $this->assertCount(1, $collection); // TODO: Fix this
         $this->assertInstanceOf(PublicationPage::class, $collection->get('__publications/foo.md'));
 
         File::deleteDirectory(Hyde::path('publication'));
