@@ -30,7 +30,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $title = $this->argument('title');
         if (! $title) {
-            $title = trim(PublicationHelper::askWithValidation($this, 'nanme', 'Publication type name', ['required', 'string']));
+            $title = trim(PublicationHelper::askWithValidation($this, 'name', 'Publication type name', ['required', 'string']));
             $dirname = PublicationHelper::formatNameForStorage($title);
             if (file_exists($dirname)) {
                 throw new \InvalidArgumentException("Storage path [$dirname] already exists");
