@@ -13,7 +13,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use function json_encode;
 use function mkdir;
-use function resource_path;
 
 /**
  * @covers \Hyde\Pages\PublicationPage

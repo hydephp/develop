@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
+use function file_get_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
-
-use function file_get_contents;
 use function view;
 
 /**
