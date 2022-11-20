@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Exception;
-use RuntimeException;
 use function dirname;
+use Exception;
 use function file_get_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
@@ -14,6 +13,7 @@ use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use function json_decode;
 use JsonSerializable;
+use RuntimeException;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationTypeTest
