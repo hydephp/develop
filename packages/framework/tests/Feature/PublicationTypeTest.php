@@ -21,6 +21,18 @@ class PublicationTypeTest extends TestCase
         }
     }
 
+    public function testClassIsArrayable()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertSame($this->getTestData(), $publicationType->toArray());
+    }
+
+    public function testClassIsJsonSerializable()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertSame(json_encode($this->getTestData()), json_encode($publicationType));
+    }
+
     protected function getTestData(): array
     {
         return [
