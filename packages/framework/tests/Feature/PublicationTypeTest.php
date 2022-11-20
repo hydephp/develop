@@ -76,7 +76,7 @@ class PublicationTypeTest extends TestCase
             'listTemplate'   => 'list',
             'fields'         => [
                 'foo' => 'bar',
-            ]
+            ],
         ];
     }
 
