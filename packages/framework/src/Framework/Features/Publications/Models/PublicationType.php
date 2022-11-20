@@ -26,6 +26,32 @@ class PublicationType
     public string $listTemplate;
     public array $fields;
 
+    public function __construct(
+        string $schemaFile,
+        string $directory,
+        string $name,
+        string $canonicalField,
+        string $sortField,
+        string $sortDirection,
+        int $pagesize,
+        bool $prevNextLinks,
+        string $detailTemplate,
+        string $listTemplate,
+        array $fields
+    ) {
+        $this->schemaFile = $schemaFile;
+        $this->directory = $directory;
+        $this->name = $name;
+        $this->canonicalField = $canonicalField;
+        $this->sortField = $sortField;
+        $this->sortDirection = $sortDirection;
+        $this->pagesize = $pagesize;
+        $this->prevNextLinks = $prevNextLinks;
+        $this->detailTemplate = $detailTemplate;
+        $this->listTemplate = $listTemplate;
+        $this->fields = $fields;
+    }
+
     public static function get(string $name): self
     {
         return new self(Hyde::path("$name/schema.json"));
@@ -36,12 +62,6 @@ class PublicationType
         return new self($schemaFile);
     }
 
-    public function __construct(string $schemaFile)
-    {
-        $this->schemaFile = $schemaFile;
-        $this->directory = Hyde::pathToRelative(dirname($schemaFile));
-        $this->schema = static::parseSchema($schemaFile);
-    }
 
     public function __get(string $name): mixed
     {
