@@ -13,8 +13,6 @@ class PublicationType
 {
     protected string $schemaFile;
     protected string $directory;
-    /** @deprecated */
-    protected array $schema;
 
     public string $name;
     public string $canonicalField;
@@ -80,11 +78,6 @@ class PublicationType
         );
     }
 
-    public function __get(string $name): mixed
-    {
-        return $this->$name ?? $this->schema[$name] ?? null;
-    }
-
     public function getSchemaFile(): string
     {
         return $this->schemaFile;
@@ -93,11 +86,6 @@ class PublicationType
     public function getDirectory(): string
     {
         return $this->directory;
-    }
-
-    public function getSchema(): array
-    {
-        return $this->schema;
     }
 
     protected static function parseSchema(string $schemaFile): array
