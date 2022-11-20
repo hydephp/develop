@@ -45,7 +45,7 @@ class PublicationType implements JsonSerializable, Arrayable
         try {
             $directory = Hyde::pathToRelative(dirname($schemaFile));
             $schema = static::parseSchema($schemaFile);
-            $schema['directory'] ??= $directory;
+            $schema = array_merge($schema, ['directory' => $schema['directory'] ?? $directory]);
             return new static(...$schema);
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
