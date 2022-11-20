@@ -56,6 +56,11 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $publicationType->save('test-publication/foo.json');
+
+        $this->assertFileExists('test-publication/foo.json');
+        $this->assertSame(json_encode($this->getTestData(), 128), file_get_contents(Hyde::path('test-publication/foo.json')));
+
+        File::deleteDirectory(Hyde::path('test-publication'));
     }
 
     protected function getTestData(): array
