@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function copy;
 use function deleteDirectory;
 use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -128,7 +129,7 @@ Hello World!
 
     protected function createPublicationFiles(): void
     {
-        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode(['foo' => 'bar']));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---
