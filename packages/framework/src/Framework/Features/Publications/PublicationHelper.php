@@ -117,7 +117,7 @@ class PublicationHelper
      */
     public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
     {
-        $root = base_path();
+        $root = Hyde::path();
         $files = glob("$root/_media/{$pubType->directory}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
         $media = Collection::create();
