@@ -33,17 +33,17 @@ class PublicationType implements JsonSerializable, Arrayable
     public string $listTemplate;
     public array $fields;
 
-    public static function get(string $name): self
+    public static function get(string $name): static
     {
-        return self::fromFile(Hyde::path("$name/schema.json"));
+        return static::fromFile(Hyde::path("$name/schema.json"));
     }
 
-    public static function fromFile(string $schemaFile): self
+    public static function fromFile(string $schemaFile): static
     {
         $directory = Hyde::pathToRelative(dirname($schemaFile));
         $schema = static::parseSchema($schemaFile);
 
-        return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $directory);
+        return new static($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $directory);
     }
 
     public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $directory = null)
