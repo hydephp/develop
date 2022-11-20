@@ -11,7 +11,7 @@ class PublicationType
     protected string $schemaFile;
     protected string $directory;
     /**
-     * @deprecated 
+     * @deprecated
      */
     protected array $schema;
 
