@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Testing\Helpers\TestsPublications;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\File;
  */
 class PublicationTypeTest extends TestCase
 {
+    use TestsPublications;
+
     public function testCanConstructNewPublicationType()
     {
         $publicationType = new PublicationType(...$this->getTestData());
@@ -61,29 +64,5 @@ class PublicationTypeTest extends TestCase
         $this->assertSame(json_encode($this->getTestData(), 128), file_get_contents(Hyde::path('test-publication/foo.json')));
 
         File::deleteDirectory(Hyde::path('test-publication'));
-    }
-
-    protected function getTestData(): array
-    {
-        return [
-            'name'           => 'test',
-            'canonicalField' => 'canonical',
-            'sortField'      => 'sort',
-            'sortDirection'  => 'asc',
-            'pagesize'       => 10,
-            'prevNextLinks'  => true,
-            'detailTemplate' => 'detail',
-            'listTemplate'   => 'list',
-            'fields'         => [
-                'foo' => 'bar',
-            ],
-        ];
-    }
-
-    protected function getTestDataWithPathInformation(): array
-    {
-        return array_merge($this->getTestData(), [
-            'directory' => 'test-publication',
-        ]);
     }
 }
