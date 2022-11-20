@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function dirname;
+use function file_get_contents;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
-use JsonSerializable;
-
-use function dirname;
-use function file_get_contents;
 use function json_decode;
+use JsonSerializable;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationTypeTest
@@ -42,10 +41,12 @@ class PublicationType implements JsonSerializable, Arrayable
     {
         $directory = Hyde::pathToRelative(dirname($schemaFile));
         $schema = static::parseSchema($schemaFile);
+
         return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $schemaFile, $directory);
     }
 
-    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $schemaFile = null, ?string $directory = null) {
+    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $schemaFile = null, ?string $directory = null)
+    {
         $this->name = $name;
         $this->canonicalField = $canonicalField;
         $this->sortField = $sortField;
