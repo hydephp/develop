@@ -12,15 +12,15 @@ class PublicationType
     protected string $directory;
     protected array $schema;
 
-    public $name;
-    public $canonicalField;
-    public $sortField;
-    public $sortDirection;
-    public $pagesize;
-    public $prevNextLinks;
-    public $detailTemplate;
-    public $listTemplate;
-    public $fields;
+    public string $name;
+    public string $canonicalField;
+    public string $sortField;
+    public string $sortDirection;
+    public int $pagesize;
+    public bool $prevNextLinks;
+    public string $detailTemplate;
+    public string $listTemplate;
+    public array $fields;
 
     public static function get(string $name): self
     {
