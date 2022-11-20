@@ -19,7 +19,6 @@ class PublicationType implements JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
-    protected string $schemaFile;
     protected string $directory;
 
     public string $name;
@@ -42,10 +41,10 @@ class PublicationType implements JsonSerializable, Arrayable
         $directory = Hyde::pathToRelative(dirname($schemaFile));
         $schema = static::parseSchema($schemaFile);
 
-        return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $schemaFile, $directory);
+        return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $directory);
     }
 
-    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $schemaFile = null, ?string $directory = null)
+    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $directory = null)
     {
         $this->name = $name;
         $this->canonicalField = $canonicalField;
@@ -56,9 +55,7 @@ class PublicationType implements JsonSerializable, Arrayable
         $this->detailTemplate = $detailTemplate;
         $this->listTemplate = $listTemplate;
         $this->fields = $fields;
-        if ($schemaFile) {
-            $this->schemaFile = $schemaFile;
-        }
+
         if ($directory) {
             $this->directory = $directory;
         }
@@ -81,7 +78,7 @@ class PublicationType implements JsonSerializable, Arrayable
 
     public function getSchemaFile(): string
     {
-        return $this->schemaFile;
+        return "$this->directory/schema.json";
     }
 
     public function getDirectory(): string

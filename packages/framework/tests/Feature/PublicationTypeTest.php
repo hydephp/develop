@@ -68,7 +68,6 @@ class PublicationTypeTest extends TestCase
             'detail',
             'list',
             ['foo' => 'bar'],
-            'test.json',
             'test-publication',
         ];
     }
