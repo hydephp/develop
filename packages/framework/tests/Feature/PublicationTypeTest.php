@@ -82,7 +82,7 @@ class PublicationTypeTest extends TestCase
 
     protected function getTestDataWithPathInformation(): array
     {
-        return array_merge(self::getTestData(), [
+        return array_merge($this->getTestData(), [
             'directory' => 'test-publication',
         ]);
     }
