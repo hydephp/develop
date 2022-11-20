@@ -87,7 +87,7 @@ class PublicationHelper
     public static function getPublicationsForPubType(PublicationType $pubType, $sort = true): Collection
     {
         $root = base_path();
-        $files = glob("$root/{$pubType->directory}/*.md");
+        $files = glob("$root/{$pubType->getDirectory()}/*.md");
 
         $publications = Collection::create();
         foreach ($files as $file) {
@@ -109,7 +109,7 @@ class PublicationHelper
     public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
     {
         $root = Hyde::path();
-        $files = glob("$root/_media/{$pubType->directory}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
+        $files = glob("$root/_media/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
         $media = Collection::create();
         foreach ($files as $file) {
