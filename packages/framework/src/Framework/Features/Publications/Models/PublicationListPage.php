@@ -48,8 +48,7 @@ class PublicationListPage extends BladePage
             return view($template, $data)->render();
         }
         return Blade::render(
-            file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template") . ".blade.php"),
-            $data
+            file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template").'.blade.php'), $data
         );
     }
 
