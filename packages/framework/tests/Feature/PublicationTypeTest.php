@@ -63,7 +63,7 @@ class PublicationTypeTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public static function getTestData(): array
+    protected function getTestData(): array
     {
         return [
             'name'           => 'test',
@@ -80,7 +80,7 @@ class PublicationTypeTest extends TestCase
         ];
     }
 
-    public static function getTestDataWithPathInformation(): array
+    protected function getTestDataWithPathInformation(): array
     {
         return array_merge(self::getTestData(), [
             'directory' => 'test-publication',
