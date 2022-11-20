@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Console\Commands\MakePublicationTypeCommand;
+use function deleteDirectory;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
-use function deleteDirectory;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationTypeCommand
