@@ -114,10 +114,6 @@ class PublicationHelper
 
     /**
      * Return all media items for a given publication type.
-     *
-     * @param  PublicationType  $pubType
-     * @return Collection
-     *
      */
     public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
     {
