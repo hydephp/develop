@@ -43,6 +43,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
         $this->line('  0: dateCreated (meta field)');
+        $offset = 0;
         foreach ($fields as $k => $v) {
             $offset = $k + 1;
             $this->line("  $offset: $v[name]");
