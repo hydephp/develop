@@ -13,7 +13,7 @@ use Rgasch\Collection\Collection;
 /**
  * Hyde Command to create a new publication type.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
 class MakePublicationTypeCommand extends Command implements CommandHandleInterface
 {
