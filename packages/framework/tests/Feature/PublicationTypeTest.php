@@ -58,17 +58,8 @@ class PublicationTypeTest extends TestCase
 
     protected function getTestDataWithPathInformation(): array
     {
-        return [
-            'test',
-            'canonical',
-            'sort',
-            'asc',
-            10,
-            true,
-            'detail',
-            'list',
-            ['foo' => 'bar'],
-            'test-publication',
-        ];
+        return array_merge($this->getTestData(), [
+            'directory' => 'test-publication',
+        ]);
     }
 }
