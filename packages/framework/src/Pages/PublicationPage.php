@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
+
+use function file_get_contents;
 use function view;
 
 /**
@@ -33,8 +38,24 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     public function compile(): string
     {
         return view('hyde::layouts.publication', [
-            'component' => "pubtypes.{$this->type->getSchema()['detailTemplate']}",
-            'publication' => $this,
+            'publication' => new HtmlString($this->renderComponent()),
         ])->render();
+    }
+
+    protected function renderComponent(): string
+    {
+        $data = [
+            'publication' => $this,
+        ];
+
+        $template = $this->type->getSchema()['detailTemplate'];
+        if (str_contains($template, '::')) {
+            return view($template, $data)->render();
+        }
+
+        // Using the Blade facade we can render any file without having to register the directory with the view finder.
+        return Blade::render(
+            file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template.blade.php")), $data
+        );
     }
 }
