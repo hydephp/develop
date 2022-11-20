@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Hyde;
+use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
@@ -13,6 +14,8 @@ use JsonSerializable;
  */
 class PublicationType implements JsonSerializable, Arrayable
 {
+    use JsonSerializesArrayable;
+
     protected string $schemaFile;
     protected string $directory;
 
