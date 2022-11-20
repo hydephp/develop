@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function file_get_contents;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-
 use Illuminate\Support\Facades\Blade;
-
-use function array_merge;
-use function array_unique;
-use function base_path;
-use function config;
-use function file_get_contents;
 use function str_contains;
 use function view;
 
@@ -47,6 +41,7 @@ class PublicationListPage extends BladePage
         if (str_contains($template, '::')) {
             return view($template, $data)->render();
         }
+
         return Blade::render(
             file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template").'.blade.php'), $data
         );
