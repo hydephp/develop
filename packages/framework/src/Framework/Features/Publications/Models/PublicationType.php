@@ -45,7 +45,7 @@ class PublicationType implements JsonSerializable, Arrayable
         try {
             return new static(...array_merge(
                 static::parseSchemaFile($schemaFile),
-                self::getRelativeDirectoryName($schemaFile))
+                static::getRelativeDirectoryName($schemaFile))
             );
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
