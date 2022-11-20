@@ -12,7 +12,6 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-use function json_encode;
 use function mkdir;
 
 /**
