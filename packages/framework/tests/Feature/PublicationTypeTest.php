@@ -52,6 +52,12 @@ class PublicationTypeTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
+    public function testCanSaveToJsonFileUsingCustomPath()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $publicationType->save('test-publication/foo.json');
+    }
+
     protected function getTestData(): array
     {
         return [

@@ -86,9 +86,9 @@ class PublicationType implements JsonSerializable, Arrayable
         return $this->directory;
     }
 
-    public function save(): void
+    public function save(?string $path = null): void
     {
-        file_put_contents($this->getSchemaFile(), json_encode($this->toArray(), JSON_PRETTY_PRINT));
+        file_put_contents($path ?? $this->getSchemaFile(), json_encode($this->toArray(), JSON_PRETTY_PRINT));
     }
 
     protected static function parseSchema(string $schemaFile): array
