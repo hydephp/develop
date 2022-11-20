@@ -63,9 +63,22 @@ class PublicationType
 
     public static function fromFile(string $schemaFile): self
     {
-        return new self($schemaFile);
+        $directory = Hyde::pathToRelative(dirname($schemaFile));
+        $schema = static::parseSchema($schemaFile);
+        return new self(
+            $schema['name'],
+            $schema['canonicalField'],
+            $schema['sortField'],
+            $schema['sortDirection'],
+            $schema['pagesize'],
+            $schema['prevNextLinks'],
+            $schema['detailTemplate'],
+            $schema['listTemplate'],
+            $schema['fields'],
+            $schemaFile,
+            $directory,
+        );
     }
-
 
     public function __get(string $name): mixed
     {
