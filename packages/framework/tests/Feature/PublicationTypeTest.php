@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationType
@@ -45,7 +47,9 @@ class PublicationTypeTest extends TestCase
         $publicationType->save();
 
         $this->assertFileExists('test-publication/schema.json');
-        $this->assertSame(json_encode($this->getTestData(), 128), file_get_contents('test-publication/schema.json'));
+        $this->assertSame(json_encode($this->getTestData(), 128), file_get_contents(Hyde::path('test-publication/schema.json')));
+
+        File::deleteDirectory(Hyde::path('test-publication'));
     }
 
     protected function getTestData(): array
