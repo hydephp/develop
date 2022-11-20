@@ -6,6 +6,9 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Hyde;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\PublicationTypeTest
+ */
 class PublicationType
 {
     protected string $schemaFile;
