@@ -39,6 +39,15 @@ class PublicationTypeTest extends TestCase
         $this->assertSame('test-publication', $publicationType->getDirectory());
     }
 
+    public function testCanSaveToJsonFile()
+    {
+        $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
+        $publicationType->save();
+
+        $this->assertFileExists('test-publication/schema.json');
+        $this->assertSame(json_encode($this->getTestData(), 128), file_get_contents('test-publication/schema.json'));
+    }
+
     protected function getTestData(): array
     {
         return [
