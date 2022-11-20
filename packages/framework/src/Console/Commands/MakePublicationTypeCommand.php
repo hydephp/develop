@@ -74,7 +74,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
         foreach ($fields as $k => $v) {
-            if ($fields->type != 'image') {
+            if ($fields->first()->type != 'image') {
                 $offset = $k + 1;
                 $this->line("  $offset: $v->name");
             }
