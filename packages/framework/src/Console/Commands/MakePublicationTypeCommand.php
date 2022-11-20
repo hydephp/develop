@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
 use Hyde\Framework\Features\Publications\PublicationHelper;
+use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
@@ -33,7 +35,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $title = trim(PublicationHelper::askWithValidation($this, 'name', 'Publication type name', ['required', 'string']));
             $dirname = PublicationHelper::formatNameForStorage($title);
             if (file_exists($dirname)) {
-                throw new \InvalidArgumentException("Storage path [$dirname] already exists");
+                throw new InvalidArgumentException("Storage path [$dirname] already exists");
             }
         }
 
@@ -85,7 +87,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         try {
             $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize, $prevNextLinks);
             $creator->create();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
 
             return Command::FAILURE;
