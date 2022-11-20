@@ -51,8 +51,6 @@ class PublicationHelper
 
     /**
      * Get the available HydeKernel instance.
-     *
-     * @return \Hyde\Foundation\HydeKernel
      */
     public static function getKernel(): HydeKernel
     {
@@ -61,9 +59,6 @@ class PublicationHelper
 
     /**
      * Format the publication type name to a suitable representation for file storage.
-     *
-     * @param  string  $pubTypeNameRaw
-     * @return string
      */
     public static function formatNameForStorage(string $pubTypeNameRaw): string
     {
@@ -95,9 +90,6 @@ class PublicationHelper
 
     /**
      * Return all publications for a given pub type, optionally sorted by the publication's sortField.
-     *
-     * @param  PublicationType  $pubType
-     * @return Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      */
@@ -148,8 +140,7 @@ class PublicationHelper
     /**
      * Read an MD file and return the parsed data.
      *
-     * @param  string  $fileData
-     * @return Collection
+     * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getPublicationData(string $mdFileName): PublicationPage
     {
@@ -174,10 +165,6 @@ class PublicationHelper
     /**
      * Check whether a given publication type exists.
      *
-     * @param  string  $pubTypeName
-     * @param  bool  $isRaw
-     * @return bool
-     *
      * @throws \Exception
      */
     public static function publicationTypeExists(string $pubTypeName, bool $isRaw = true): bool
@@ -191,9 +178,6 @@ class PublicationHelper
 
     /**
      * Remove trailing slashes from the start and end of a string.
-     *
-     * @param  string  $string
-     * @return string
      */
     public static function unslash(string $string): string
     {
