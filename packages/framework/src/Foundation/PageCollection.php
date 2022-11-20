@@ -24,6 +24,9 @@ use Illuminate\Support\Collection;
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via one of the facades:
  *
+ * @todo We could improve this by catching exceptions and rethrowing them using a
+ *       DiscoveryException to make it clear that the problem is with the discovery process.
+ *
  * @see \Hyde\Foundation\Facades\PageCollection
  * @see \Hyde\Hyde::pages()
  */
