@@ -58,7 +58,7 @@ class PublicationType
 
     public static function get(string $name): self
     {
-        return new self(Hyde::path("$name/schema.json"));
+        return self::fromFile(Hyde::path("$name/schema.json"));
     }
 
     public static function fromFile(string $schemaFile): self
