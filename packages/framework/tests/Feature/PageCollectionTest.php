@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function copy;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Hyde;
@@ -16,8 +17,6 @@ use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-
-use function copy;
 
 /**
  * @covers \Hyde\Foundation\PageCollection
