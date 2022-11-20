@@ -28,7 +28,7 @@ class PublicationHelper
      * @param  mixed|null $default
      * @return mixed
      */
-    public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null)
+    public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null): mixed
     {
         if ($rules instanceof Collection) {
             $rules = $rules->toArray();
@@ -65,7 +65,7 @@ class PublicationHelper
      * @param  string  $pubTypeNameRaw
      * @return string
      */
-    public static function formatNameForStorage(string $pubTypeNameRaw)
+    public static function formatNameForStorage(string $pubTypeNameRaw): string
     {
         return Str::slug($pubTypeNameRaw);
     }
