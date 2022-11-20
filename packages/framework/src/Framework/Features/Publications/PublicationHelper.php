@@ -21,12 +21,12 @@ class PublicationHelper
     /**
      * Ask for a CLI input value until we pass validation rules.
      *
-     * @param  Command  $command
-     * @param  string  $name
-     * @param  string  $message
-     * @param  array  $rules
-     * @param  array  $rules
-     * @return mixed $default
+     * @param  Command $command
+     * @param  string $name
+     * @param  string $message
+     * @param  \Rgasch\Collection\Collection|array $rules
+     * @param  mixed|null $default
+     * @return mixed
      */
     public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null)
     {
