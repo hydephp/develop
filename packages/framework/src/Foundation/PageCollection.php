@@ -7,6 +7,9 @@ namespace Hyde\Foundation;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Framework\Features\Publications\Models\PublicationListPage;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
@@ -60,6 +63,12 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPagesFor(DocumentationPage::class);
         }
 
+        if (Features::hasPublicationPages()) {
+            $this->discoverPublicationPages();
+        }
+
+        // TODO: Add package developer hook to discover custom page types
+
         return $this;
     }
 
@@ -88,9 +97,29 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discover(HydePage $page): self
     {
-        // Create a new route for the given page, and add it to the index.
         $this->put($page->getSourcePath(), $page);
 
         return $this;
+    }
+
+    protected function discoverPublicationPages(): void
+    {
+        PublicationHelper::getPublicationTypes()->each(function (PublicationType $type) {
+            $this->discoverPublicationPagesForType($type);
+            $this->generatePublicationListingPageForType($type);
+        });
+    }
+
+    protected function discoverPublicationPagesForType(PublicationType $type): void
+    {
+        PublicationHelper::getPublicationsForPubType($type)->each(function ($publication) {
+            $this->discover($publication);
+        });
+    }
+
+    protected function generatePublicationListingPageForType(PublicationType $type): void
+    {
+        $page = new PublicationListPage($type);
+        $this->put($page->getSourcePath(), $page);
     }
 }

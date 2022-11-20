@@ -85,6 +85,7 @@ return [
         Features::bladePages(),
         Features::markdownPages(),
         Features::documentationPages(),
+        Features::publicationPages(),
         // Features::dataCollections(),
 
         // Frontend Features

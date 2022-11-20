@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde;
+namespace Hyde\Framework\Features\Publications;
 
 use Carbon\Carbon;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Hyde;
+use Hyde\Pages\PublicationPage;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
@@ -13,7 +16,7 @@ use Rgasch\Collection\Collection;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
-class HydeHelper
+class PublicationHelper
 {
     /**
      * Ask for a CLI input value until we pass validation rules.
@@ -70,26 +73,21 @@ class HydeHelper
     /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
-     * @return Collection
+     * @todo We might want to refactor to cache this in the Kernel, maybe under $publications?
+     *
+     * @return Collection<string, PublicationType>
      *
      * @throws \Exception
      */
     public static function getPublicationTypes(): Collection
     {
-        $root = base_path();
+        $root = Hyde::path();
         $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
 
         $pubTypes = Collection::create();
         foreach ($schemaFiles as $schemaFile) {
-            $fileData = file_get_contents($schemaFile);
-            if (! $fileData) {
-                throw new \Exception("No data read from [$schemaFile]");
-            }
-            $dirName = Collection::create(explode('/', dirname($schemaFile)))->last();
-            $schema = Collection::create(json_decode($fileData, true));
-            $schema->directory = $dirName;
-            $schema->schemaFile = $schemaFile;
-            $pubTypes->{$schema->directory} = $schema;
+            $publicationType = new PublicationType($schemaFile);
+            $pubTypes->{$publicationType->getDirectory()} = $publicationType;
         }
 
         return $pubTypes;
@@ -98,12 +96,12 @@ class HydeHelper
     /**
      * Return all publications for a given pub type, optionally sorted by the publication's sortField.
      *
-     * @param  Collection  $pubType
+     * @param  PublicationType  $pubType
      * @return Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      */
-    public static function getPublicationsForPubType(Collection $pubType, $sort = true): Collection
+    public static function getPublicationsForPubType(PublicationType $pubType, $sort = true): Collection
     {
         $root = base_path();
         $files = glob("$root/{$pubType->directory}/*.md");
@@ -125,12 +123,12 @@ class HydeHelper
     /**
      * Return all media items for a given publication type.
      *
-     * @param  Collection  $pubType
+     * @param  PublicationType  $pubType
      * @return Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      */
-    public static function getMediaForPubType(Collection $pubType, $sort = true): Collection
+    public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
     {
         $root = base_path();
         $files = glob("$root/_media/{$pubType->directory}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
@@ -153,7 +151,7 @@ class HydeHelper
      * @param  string  $fileData
      * @return Collection
      */
-    public static function getPublicationData(string $mdFileName): Collection
+    public static function getPublicationData(string $mdFileName): PublicationPage
     {
         $fileData = file_get_contents($mdFileName);
         if (! $fileData) {
@@ -166,7 +164,11 @@ class HydeHelper
         $matter['__slug'] = basename($mdFileName, '.md');
         $matter['__createdDatetime'] = Carbon::createFromTimestamp($matter['__createdAt']);
 
-        return Collection::create(['matter' => $matter, 'markdown' => $markdown]);
+        $type = PublicationType::get(basename(dirname($mdFileName)));
+
+        $identifier = basename($mdFileName, '.md');
+
+        return new PublicationPage($type, $identifier, $matter, $markdown);
     }
 
     /**

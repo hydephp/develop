@@ -18,7 +18,6 @@ class HydeConsoleServiceProvider extends ServiceProvider
     {
         $this->commands(
             [
-                Commands\BuildPublicationsCommand::class,
                 Commands\BuildRssFeedCommand::class,
                 Commands\BuildSearchCommand::class,
                 Commands\BuildSiteCommand::class,
