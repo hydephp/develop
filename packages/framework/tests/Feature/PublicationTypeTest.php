@@ -77,13 +77,7 @@ class PublicationTypeTest extends TestCase
             'fields'         => [
                 'foo' => 'bar',
             ],
-        ];
-    }
-
-    protected function getTestDataWithPathInformation(): array
-    {
-        return array_merge($this->getTestData(), [
             'directory' => 'test-publication',
-        ]);
+        ];
     }
 }
