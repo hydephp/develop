@@ -9,6 +9,8 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
+use function array_merge;
+
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationType
  */
@@ -61,6 +63,15 @@ class PublicationTypeTest extends TestCase
         $this->assertSame(json_encode($this->getTestData(), 128), file_get_contents(Hyde::path('test-publication/foo.json')));
 
         File::deleteDirectory(Hyde::path('test-publication'));
+    }
+
+    public function testCanLoadFromJsonFile()
+    {
+        $publicationType = new PublicationType(...array_merge($this->getTestData(), [
+            'directory' => 'tests/fixtures',
+        ]));
+
+        $this->assertEquals($publicationType, PublicationType::fromFile(Hyde::path('tests/fixtures/test-publication-schema.json')));
     }
 
     protected function getTestData(): array
