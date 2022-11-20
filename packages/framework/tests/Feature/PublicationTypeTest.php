@@ -33,6 +33,12 @@ class PublicationTypeTest extends TestCase
         $this->assertSame(json_encode($this->getTestData()), json_encode($publicationType));
     }
 
+    public function testGetDirectory()
+    {
+        $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
+        $this->assertSame('test-publication', $publicationType->getDirectory());
+    }
+
     protected function getTestData(): array
     {
         return [
@@ -47,6 +53,23 @@ class PublicationTypeTest extends TestCase
             'fields'         => [
                 'foo' => 'bar',
             ]
+        ];
+    }
+
+    protected function getTestDataWithPathInformation(): array
+    {
+        return [
+            'test',
+            'canonical',
+            'sort',
+            'asc',
+            10,
+            true,
+            'detail',
+            'list',
+            ['foo' => 'bar'],
+            'test.json',
+            'test-publication',
         ];
     }
 }
