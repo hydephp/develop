@@ -24,19 +24,7 @@ class PublicationType
     public string $listTemplate;
     public array $fields;
 
-    public function __construct(
-        string $name,
-        string $canonicalField,
-        string $sortField,
-        string $sortDirection,
-        int $pagesize,
-        bool $prevNextLinks,
-        string $detailTemplate,
-        string $listTemplate,
-        array $fields,
-        ?string $schemaFile = null,
-        ?string $directory = null,
-    ) {
+    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $schemaFile = null, ?string $directory = null) {
         $this->name = $name;
         $this->canonicalField = $canonicalField;
         $this->sortField = $sortField;
@@ -63,19 +51,7 @@ class PublicationType
     {
         $directory = Hyde::pathToRelative(dirname($schemaFile));
         $schema = static::parseSchema($schemaFile);
-        return new self(
-            $schema['name'],
-            $schema['canonicalField'],
-            $schema['sortField'],
-            $schema['sortDirection'],
-            $schema['pagesize'],
-            $schema['prevNextLinks'],
-            $schema['detailTemplate'],
-            $schema['listTemplate'],
-            $schema['fields'],
-            $schemaFile,
-            $directory,
-        );
+        return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $schemaFile, $directory);
     }
 
     public function getSchemaFile(): string
