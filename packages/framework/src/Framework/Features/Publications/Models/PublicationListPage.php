@@ -5,7 +5,17 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Framework\Features\Publications\PublicationHelper;
+use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+
+use Illuminate\Support\Facades\Blade;
+
+use function array_merge;
+use function array_unique;
+use function base_path;
+use function config;
+use function file_get_contents;
+use function str_contains;
 use function view;
 
 /**
@@ -29,9 +39,15 @@ class PublicationListPage extends BladePage
 
     public function compile(): string
     {
-        return view("pubtypes.{$this->type->getSchema()['listTemplate']}", [
+        $data = [
             'publications' => PublicationHelper::getPublicationsForPubType($this->type),
-        ])->render();
+        ];
+
+        $template = $this->type->getSchema()['listTemplate'];
+        return Blade::render(
+            file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template") . ".blade.php"),
+            $data
+        );
     }
 
     public function getSourcePath(): string

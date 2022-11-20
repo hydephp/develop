@@ -31,10 +31,8 @@ class PublicationListPageTest extends TestCase
     public function test_listing_page_can_be_compiled()
     {
         $this->createPublicationFiles();
-        // Temporary until we settle on where to store templates
 
-        @mkdir(resource_path('views/pubtypes'));
-        $this->file('resources/views/pubtypes/test_list.blade.php', 'Listing Page');
+       file_put_contents(Hyde::path('test-publication/test_list.blade.php'), 'Listing Page');
 
         $page = new PublicationListPage($this->getPublicationType());
 
