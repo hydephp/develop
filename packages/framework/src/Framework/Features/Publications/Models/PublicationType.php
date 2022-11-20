@@ -43,8 +43,7 @@ class PublicationType implements JsonSerializable, Arrayable
     public static function fromFile(string $schemaFile): static
     {
         try {
-            $schema = static::parseSchemaFile($schemaFile);
-            return new static(...array_merge($schema, ['directory' => self::getRelativeDirectoryName($schemaFile)]));
+            return new static(...array_merge(static::parseSchemaFile($schemaFile), ['directory' => self::getRelativeDirectoryName($schemaFile)]));
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
         }
