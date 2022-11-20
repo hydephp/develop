@@ -32,7 +32,7 @@ class PublicationListPageTest extends TestCase
     {
         $this->createPublicationFiles();
 
-        file_put_contents(Hyde::path('test-publication/test_list.blade.php'), 'Listing Page');
+        file_put_contents(Hyde::path('test-publication/list.blade.php'), 'Listing Page');
 
         $page = new PublicationListPage($this->getPublicationType());
 
