@@ -27,8 +27,6 @@ class PublicationType
     public array $fields;
 
     public function __construct(
-        string $schemaFile,
-        string $directory,
         string $name,
         string $canonicalField,
         string $sortField,
@@ -37,10 +35,10 @@ class PublicationType
         bool $prevNextLinks,
         string $detailTemplate,
         string $listTemplate,
-        array $fields
+        array $fields,
+        ?string $schemaFile = null,
+        ?string $directory = null,
     ) {
-        $this->schemaFile = $schemaFile;
-        $this->directory = $directory;
         $this->name = $name;
         $this->canonicalField = $canonicalField;
         $this->sortField = $sortField;
@@ -50,6 +48,12 @@ class PublicationType
         $this->detailTemplate = $detailTemplate;
         $this->listTemplate = $listTemplate;
         $this->fields = $fields;
+        if ($schemaFile) {
+            $this->schemaFile = $schemaFile;
+        }
+        if ($directory) {
+            $this->directory = $directory;
+        }
     }
 
     public static function get(string $name): self
