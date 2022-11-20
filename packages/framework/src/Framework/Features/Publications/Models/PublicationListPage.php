@@ -44,6 +44,9 @@ class PublicationListPage extends BladePage
         ];
 
         $template = $this->type->getSchema()['listTemplate'];
+        if (str_contains($template, '::')) {
+            return view($template, $data)->render();
+        }
         return Blade::render(
             file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template") . ".blade.php"),
             $data
