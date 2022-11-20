@@ -44,11 +44,7 @@ class PublicationListPageTest extends TestCase
     protected function createPublicationFiles(): void
     {
         mkdir(Hyde::path('test-publication'));
-        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode([
-            'foo' => 'bar',
-            'detailTemplate' => 'test_detail',
-            'listTemplate' => 'test_list',
-        ]));
+        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode($this->getTestData()));
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---
