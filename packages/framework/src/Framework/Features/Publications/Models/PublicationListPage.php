@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use InvalidArgumentException;
 use function file_get_contents;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Hyde;
@@ -43,8 +44,12 @@ class PublicationListPage extends BladePage
         }
 
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
+        $viewPath = Hyde::path("{$this->type->getDirectory()}/$template") . '.blade.php';
+        if (! file_exists($viewPath)) {
+            throw new InvalidArgumentException("View [$viewPath] not found.");
+        }
         return Blade::render(
-            file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template").'.blade.php'), $data
+            file_get_contents($viewPath), $data
         );
     }
 
