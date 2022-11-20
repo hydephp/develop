@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications;
 
 use Carbon\Carbon;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
@@ -24,11 +23,11 @@ class PublicationHelper
      * @param  Command  $command
      * @param  string  $name
      * @param  string  $message
-     * @param  array  $rules
-     * @param  array  $rules
-     * @return mixed $default
+     * @param  \Rgasch\Collection\Collection|array  $rules
+     * @param  mixed|null  $default
+     * @return mixed
      */
-    public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null)
+    public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null): mixed
     {
         if ($rules instanceof Collection) {
             $rules = $rules->toArray();
@@ -50,22 +49,9 @@ class PublicationHelper
     }
 
     /**
-     * Get the available HydeKernel instance.
-     *
-     * @return \Hyde\Foundation\HydeKernel
-     */
-    public static function getKernel(): HydeKernel
-    {
-        return app(HydeKernel::class);
-    }
-
-    /**
      * Format the publication type name to a suitable representation for file storage.
-     *
-     * @param  string  $pubTypeNameRaw
-     * @return string
      */
-    public static function formatNameForStorage(string $pubTypeNameRaw)
+    public static function formatNameForStorage(string $pubTypeNameRaw): string
     {
         return Str::slug($pubTypeNameRaw);
     }
@@ -96,9 +82,6 @@ class PublicationHelper
     /**
      * Return all publications for a given pub type, optionally sorted by the publication's sortField.
      *
-     * @param  PublicationType  $pubType
-     * @return Collection
-     *
      * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getPublicationsForPubType(PublicationType $pubType, $sort = true): Collection
@@ -122,15 +105,10 @@ class PublicationHelper
 
     /**
      * Return all media items for a given publication type.
-     *
-     * @param  PublicationType  $pubType
-     * @return Collection
-     *
-     * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
     {
-        $root = base_path();
+        $root = Hyde::path();
         $files = glob("$root/_media/{$pubType->directory}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
         $media = Collection::create();
@@ -148,8 +126,7 @@ class PublicationHelper
     /**
      * Read an MD file and return the parsed data.
      *
-     * @param  string  $fileData
-     * @return Collection
+     * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getPublicationData(string $mdFileName): PublicationPage
     {
@@ -174,10 +151,6 @@ class PublicationHelper
     /**
      * Check whether a given publication type exists.
      *
-     * @param  string  $pubTypeName
-     * @param  bool  $isRaw
-     * @return bool
-     *
      * @throws \Exception
      */
     public static function publicationTypeExists(string $pubTypeName, bool $isRaw = true): bool
@@ -187,16 +160,5 @@ class PublicationHelper
         }
 
         return self::getPublicationTypes()->has($pubTypeName);
-    }
-
-    /**
-     * Remove trailing slashes from the start and end of a string.
-     *
-     * @param  string  $string
-     * @return string
-     */
-    public static function unslash(string $string): string
-    {
-        return trim($string, '/\\');
     }
 }

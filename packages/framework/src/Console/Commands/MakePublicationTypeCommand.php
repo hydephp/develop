@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
 use Hyde\Framework\Features\Publications\PublicationHelper;
+use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
 /**
  * Hyde Command to create a new publication type.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
 class MakePublicationTypeCommand extends Command implements CommandHandleInterface
 {
@@ -30,10 +32,10 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $title = $this->argument('title');
         if (! $title) {
-            $title = trim(PublicationHelper::askWithValidation($this, 'nanme', 'Publication type name', ['required', 'string']));
+            $title = trim(PublicationHelper::askWithValidation($this, 'name', 'Publication type name', ['required', 'string']));
             $dirname = PublicationHelper::formatNameForStorage($title);
             if (file_exists($dirname)) {
-                throw new \InvalidArgumentException("Storage path [$dirname] already exists");
+                throw new InvalidArgumentException("Storage path [$dirname] already exists");
             }
         }
 
@@ -41,6 +43,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
         $this->line('  0: dateCreated (meta field)');
+        $offset = 0;
         foreach ($fields as $k => $v) {
             $offset = $k + 1;
             $this->line("  $offset: $v[name]");
@@ -74,7 +77,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
         foreach ($fields as $k => $v) {
-            if ($fields->type != 'image') {
+            if ($fields->first()->type != 'image') {
                 $offset = $k + 1;
                 $this->line("  $offset: $v->name");
             }
@@ -85,7 +88,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         try {
             $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize, $prevNextLinks);
             $creator->create();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
 
             return Command::FAILURE;
