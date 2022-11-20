@@ -36,6 +36,31 @@ class MakePublicationTypeCommandTest extends TestCase
             // ->expectsOutput('Saving publicationType data to [test-publication/schema.json]')
             ->assertExitCode(0);
 
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
+        $this->assertEquals(
+            file_get_contents(Hyde::path('test-publication/schema.json')),
+            <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "Title",
+                "sortField": "__createdAt",
+                "sortDirection": "ASC",
+                "pagesize": 10,
+                "prevNextLinks": true,
+                "detailTemplate": "test-publication_detail",
+                "listTemplate": "test-publication_list",
+                "fields": [
+                    {
+                        "name": "Title",
+                        "min": "default",
+                        "max": "default",
+                        "type": "string"
+                    }
+                ]
+            }
+            JSON
+        );
+
         deleteDirectory(Hyde::path('test-publication'));
     }
 }
