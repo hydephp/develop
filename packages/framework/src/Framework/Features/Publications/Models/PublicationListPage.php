@@ -37,7 +37,7 @@ class PublicationListPage extends BladePage
             'publications' => PublicationHelper::getPublicationsForPubType($this->type),
         ];
 
-        $template = $this->type->getSchema()['listTemplate'];
+        $template = $this->type->listTemplate;
         if (str_contains($template, '::')) {
             return view($template, $data)->render();
         }
