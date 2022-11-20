@@ -43,9 +43,8 @@ class PublicationType implements JsonSerializable, Arrayable
     public static function fromFile(string $schemaFile): static
     {
         try {
-            $directory = Hyde::pathToRelative(dirname($schemaFile));
             $schema = static::parseSchema($schemaFile);
-            $schema = array_merge($schema, ['directory' => $schema['directory'] ?? $directory]);
+            $schema = array_merge($schema, ['directory' => $schema['directory'] ?? Hyde::pathToRelative(dirname($schemaFile))]);
             return new static(...$schema);
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
