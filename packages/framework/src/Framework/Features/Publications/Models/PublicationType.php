@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use function dirname;
 use function file_get_contents;
 use Hyde\Hyde;
@@ -18,6 +19,7 @@ use JsonSerializable;
 class PublicationType implements JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
+    use InteractsWithDirectories;
 
     protected string $directory;
 
@@ -88,7 +90,9 @@ class PublicationType implements JsonSerializable, Arrayable
 
     public function save(?string $path = null): void
     {
-        file_put_contents($path ?? $this->getSchemaFile(), json_encode($this->toArray(), JSON_PRETTY_PRINT));
+        $path ??= $this->getSchemaFile();
+        $this->needsParentDirectory($path);
+        file_put_contents($path, json_encode($this->toArray(), JSON_PRETTY_PRINT));
     }
 
     protected static function parseSchema(string $schemaFile): array
