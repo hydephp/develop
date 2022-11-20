@@ -12,6 +12,16 @@ class PublicationType
     protected string $directory;
     protected array $schema;
 
+    public $name;
+    public $canonicalField;
+    public $sortField;
+    public $sortDirection;
+    public $pagesize;
+    public $prevNextLinks;
+    public $detailTemplate;
+    public $listTemplate;
+    public $fields;
+
     public static function get(string $name): self
     {
         return new self(Hyde::path("$name/schema.json"));
