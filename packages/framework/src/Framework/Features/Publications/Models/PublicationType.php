@@ -29,6 +29,18 @@ class PublicationType implements JsonSerializable, Arrayable
     public string $listTemplate;
     public array $fields;
 
+    public static function get(string $name): self
+    {
+        return self::fromFile(Hyde::path("$name/schema.json"));
+    }
+
+    public static function fromFile(string $schemaFile): self
+    {
+        $directory = Hyde::pathToRelative(dirname($schemaFile));
+        $schema = static::parseSchema($schemaFile);
+        return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $schemaFile, $directory);
+    }
+
     public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $schemaFile = null, ?string $directory = null) {
         $this->name = $name;
         $this->canonicalField = $canonicalField;
@@ -45,18 +57,6 @@ class PublicationType implements JsonSerializable, Arrayable
         if ($directory) {
             $this->directory = $directory;
         }
-    }
-
-    public static function get(string $name): self
-    {
-        return self::fromFile(Hyde::path("$name/schema.json"));
-    }
-
-    public static function fromFile(string $schemaFile): self
-    {
-        $directory = Hyde::pathToRelative(dirname($schemaFile));
-        $schema = static::parseSchema($schemaFile);
-        return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $schemaFile, $directory);
     }
 
     public function toArray(): array
