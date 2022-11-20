@@ -64,6 +64,6 @@ Hello World!
 
     protected function getPublicationType(): PublicationType
     {
-        return new PublicationType('test-publication/schema.json');
+        return PublicationType::fromFile('test-publication/schema.json');
     }
 }

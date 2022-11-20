@@ -72,7 +72,7 @@ class PublicationHelper
 
         $pubTypes = Collection::create();
         foreach ($schemaFiles as $schemaFile) {
-            $publicationType = new PublicationType($schemaFile);
+            $publicationType = PublicationType::fromFile($schemaFile);
             $pubTypes->{$publicationType->getDirectory()} = $publicationType;
         }
 
