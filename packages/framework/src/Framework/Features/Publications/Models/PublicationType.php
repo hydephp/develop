@@ -31,6 +31,11 @@ class PublicationType
         return new self(Hyde::path("$name/schema.json"));
     }
 
+    public static function fromFile(string $schemaFile): self
+    {
+        return new self($schemaFile);
+    }
+
     public function __construct(string $schemaFile)
     {
         $this->schemaFile = $schemaFile;
