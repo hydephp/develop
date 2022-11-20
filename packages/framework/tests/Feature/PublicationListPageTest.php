@@ -66,4 +66,21 @@ Hello World!
     {
         return PublicationType::fromFile('test-publication/schema.json');
     }
+
+    protected function getTestData(): array
+    {
+        return [
+            'name'           => 'test',
+            'canonicalField' => 'canonical',
+            'sortField'      => 'sort',
+            'sortDirection'  => 'asc',
+            'pagesize'       => 10,
+            'prevNextLinks'  => true,
+            'detailTemplate' => 'detail',
+            'listTemplate'   => 'list',
+            'fields'         => [
+                'foo' => 'bar',
+            ],
+        ];
+    }
 }
