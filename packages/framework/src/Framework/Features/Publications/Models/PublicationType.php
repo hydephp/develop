@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Exception;
+use RuntimeException;
 use function dirname;
 use function file_get_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
@@ -40,10 +42,14 @@ class PublicationType implements JsonSerializable, Arrayable
 
     public static function fromFile(string $schemaFile): static
     {
-        $directory = Hyde::pathToRelative(dirname($schemaFile));
-        $schema = static::parseSchema($schemaFile);
+        try {
+            $directory = Hyde::pathToRelative(dirname($schemaFile));
+            $schema = static::parseSchema($schemaFile);
 
-        return new static($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $directory);
+            return new static($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $directory);
+        } catch (Exception $exception) {
+            throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
+        }
     }
 
     public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $directory = null)
