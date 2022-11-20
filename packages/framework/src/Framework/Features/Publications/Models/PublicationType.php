@@ -59,6 +59,21 @@ class PublicationType implements JsonSerializable, Arrayable
         return new self($schema['name'], $schema['canonicalField'], $schema['sortField'], $schema['sortDirection'], $schema['pagesize'], $schema['prevNextLinks'], $schema['detailTemplate'], $schema['listTemplate'], $schema['fields'], $schemaFile, $directory);
     }
 
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'canonicalField' => $this->canonicalField,
+            'sortField' => $this->sortField,
+            'sortDirection' => $this->sortDirection,
+            'pagesize' => $this->pagesize,
+            'prevNextLinks' => $this->prevNextLinks,
+            'detailTemplate' => $this->detailTemplate,
+            'listTemplate' => $this->listTemplate,
+            'fields' => $this->fields,
+        ];
+    }
+
     public function getSchemaFile(): string
     {
         return $this->schemaFile;
