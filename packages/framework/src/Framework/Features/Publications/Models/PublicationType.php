@@ -43,7 +43,7 @@ class PublicationType implements JsonSerializable, Arrayable
     public static function fromFile(string $schemaFile): static
     {
         try {
-            return new static(...array_merge(static::parseSchemaFile($schemaFile), ['directory' => self::getRelativeDirectoryName($schemaFile)]));
+            return new static(...array_merge(static::parseSchemaFile($schemaFile), self::getRelativeDirectoryName($schemaFile)));
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
         }
@@ -103,8 +103,8 @@ class PublicationType implements JsonSerializable, Arrayable
         return json_decode(file_get_contents($schemaFile), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    protected static function getRelativeDirectoryName(string $schemaFile): string
+    protected static function getRelativeDirectoryName(string $schemaFile): array
     {
-        return Hyde::pathToRelative(dirname($schemaFile));
+        return ['directory' => Hyde::pathToRelative(dirname($schemaFile))];
     }
 }
