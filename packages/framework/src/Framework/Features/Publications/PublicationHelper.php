@@ -50,14 +50,6 @@ class PublicationHelper
     }
 
     /**
-     * Get the available HydeKernel instance.
-     */
-    public static function getKernel(): HydeKernel
-    {
-        return app(HydeKernel::class);
-    }
-
-    /**
      * Format the publication type name to a suitable representation for file storage.
      */
     public static function formatNameForStorage(string $pubTypeNameRaw): string
@@ -169,13 +161,5 @@ class PublicationHelper
         }
 
         return self::getPublicationTypes()->has($pubTypeName);
-    }
-
-    /**
-     * Remove trailing slashes from the start and end of a string.
-     */
-    public static function unslash(string $string): string
-    {
-        return trim($string, '/\\');
     }
 }
