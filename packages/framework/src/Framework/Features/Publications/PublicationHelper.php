@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications;
 
 use Carbon\Carbon;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
@@ -21,11 +20,11 @@ class PublicationHelper
     /**
      * Ask for a CLI input value until we pass validation rules.
      *
-     * @param  Command $command
-     * @param  string $name
-     * @param  string $message
-     * @param  \Rgasch\Collection\Collection|array $rules
-     * @param  mixed|null $default
+     * @param  Command  $command
+     * @param  string  $name
+     * @param  string  $message
+     * @param  \Rgasch\Collection\Collection|array  $rules
+     * @param  mixed|null  $default
      * @return mixed
      */
     public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null): mixed
