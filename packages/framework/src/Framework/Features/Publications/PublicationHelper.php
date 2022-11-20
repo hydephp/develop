@@ -118,7 +118,6 @@ class PublicationHelper
      * @param  PublicationType  $pubType
      * @return Collection
      *
-     * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
     {
