@@ -61,6 +61,8 @@ class MakePublicationTypeCommandTest extends TestCase
             JSON
         );
 
+        // TODO: Assert Blade templates were created?
+
         deleteDirectory(Hyde::path('test-publication'));
     }
 }
