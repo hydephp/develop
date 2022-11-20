@@ -17,6 +17,8 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
+use function copy;
+
 /**
  * @covers \Hyde\Foundation\PageCollection
  * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
@@ -207,7 +209,7 @@ class PageCollectionTest extends TestCase
 
     protected function createPublication(): void
     {
-        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('publication/schema.json'));
         file_put_contents(Hyde::path('publication/foo.md'),
             '---
 __canonical: canonical
