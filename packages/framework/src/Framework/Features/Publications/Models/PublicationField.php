@@ -42,4 +42,11 @@ class PublicationField implements JsonSerializable, Arrayable
             'max'  => $this->max,
         ];
     }
+
+    public function validateInputAgainstRules(string $input): bool
+    {
+        // TODO: Implement this method.
+
+        return true;
+    }
 }

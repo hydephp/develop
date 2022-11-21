@@ -53,6 +53,11 @@ class PublicationFieldTest extends TestCase
         new PublicationField('string', 'test', 10, 1);
     }
 
+    public function test_validate_input_against_rules()
+    {
+        $this->markTestIncomplete('TODO: Implement this method.');
+    }
+
     protected function makeField(): PublicationField
     {
         return new PublicationField('string', 'test', 1, 10);
