@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
@@ -24,7 +25,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
     protected string $result;
 
     public function __construct(
-        protected object $pubType,
+        protected PublicationType $pubType,
         protected object $fieldData,
         protected bool $force = false
     ) {
