@@ -13,4 +13,12 @@ class PublicationField
     public readonly string $min;
     public readonly string $max;
     public readonly string $type;
+
+    public function __construct(string $name, string $min, string $max, string $type)
+    {
+        $this->name = $name;
+        $this->min  = $min;
+        $this->max  = $max;
+        $this->type = $type;
+    }
 }
