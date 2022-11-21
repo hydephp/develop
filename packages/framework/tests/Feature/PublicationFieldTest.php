@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationField
@@ -47,7 +48,7 @@ class PublicationFieldTest extends TestCase
 
     public function test_max_value_cannot_be_less_than_min_value()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("The 'max' value cannot be less than the 'min' value.");
 
         new PublicationField('string', 'test', 10, 1);
