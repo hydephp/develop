@@ -41,27 +41,16 @@ class CreatesNewPublicationType implements CreateActionInterface
         $dirName = PublicationHelper::formatNameForStorage($this->name);
         $outFile = Hyde::path("$dirName/schema.json");
 
-        $data = [];
-        $data['name'] = $this->name;
-        $data['canonicalField'] = $this->canonicalField;
-        $data['sortField'] = $this->sortField;
-        $data['sortDirection'] = $this->sortDirection;
-        $data['pageSize'] = $this->pageSize;
-        $data['prevNextLinks'] = $this->prevNextLinks;
-        $data['detailTemplate'] = "{$dirName}_detail";
-        $data['listTemplate'] = "{$dirName}_list";
-        $data['fields'] = $this->fields;
-
         $type = new PublicationType(
-            $data['name'],
-            $data['canonicalField'],
-            $data['sortField'],
-            $data['sortDirection'],
-            $data['pageSize'],
-            $data['prevNextLinks'],
-            $data['detailTemplate'],
-            $data['listTemplate'],
-            $data['fields']->toArray()
+            $this->name,
+            $this->canonicalField,
+            $this->sortField,
+            $this->sortDirection,
+            $this->pageSize,
+            $this->prevNextLinks,
+            "{$dirName}_detail",
+            "{$dirName}_list",
+            $this->fields->toArray()
         );
 
         $this->result = $type->toJson();
