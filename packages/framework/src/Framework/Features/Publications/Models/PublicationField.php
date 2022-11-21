@@ -27,8 +27,8 @@ class PublicationField implements JsonSerializable, Arrayable
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max)
     {
         $this->name = $name;
-        $this->min  = $min === null ? null : (int) $min;
-        $this->max  = $max === null ? null : (int) $max;
+        $this->min  = $this->parseInt($min);
+        $this->max  = $this->parseInt($max);
         $this->type = strtolower($type);
 
         if (! in_array(strtolower($type), self::TYPES)) {
@@ -55,5 +55,10 @@ class PublicationField implements JsonSerializable, Arrayable
         // TODO: Implement this method.
 
         return true;
+    }
+
+    protected function parseInt(int|string|null $min): ?int
+    {
+        return $min === null ? null : (int) $min;
     }
 }
