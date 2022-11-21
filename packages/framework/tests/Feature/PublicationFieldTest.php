@@ -17,10 +17,10 @@ class PublicationFieldTest extends TestCase
         $field = $this->makeField();
         $this->assertInstanceOf(PublicationField::class, $field);
 
+        $this->assertSame('string', $field->type);
         $this->assertSame('test', $field->name);
         $this->assertSame(1, $field->min);
         $this->assertSame(10, $field->max);
-        $this->assertSame('string', $field->type);
     }
 
     public function test_can_get_field_as_array()
