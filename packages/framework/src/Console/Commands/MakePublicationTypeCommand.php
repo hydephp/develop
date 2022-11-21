@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
-use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
+use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -60,10 +60,10 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             2 => 'DESC',
         };
 
-        $pagesize = (int) PublicationHelper::askWithValidation(
+        $pageSize = (int) PublicationHelper::askWithValidation(
             $this,
-            'pagesize',
-            'Enter the pagesize (0 for no limit)',
+            'pageSize',
+            'Enter the pageSize (0 for no limit)',
             ['required', 'integer', 'between:0,100'],
             25
         );
@@ -86,13 +86,15 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         $canonicalField = $fields[$selected - 1]['name'];
 
         try {
-            $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize, $prevNextLinks);
+            $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
             $creator->create();
         } catch (Exception $e) {
             $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
 
             return Command::FAILURE;
         }
+
+        $this->info('Publication type created successfully!');
 
         return Command::SUCCESS;
     }

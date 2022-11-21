@@ -24,18 +24,18 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Add another field (y/n)', 'n')
             ->expectsQuestion('Sort field (0-1)', 0)
             ->expectsQuestion('Sort field (1-2)', 1)
-            ->expectsQuestion('Enter the pagesize (0 for no limit)', 10)
+            ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
             ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
             ->expectsQuestion('Canonical field (1-1)', 1)
             ->expectsOutputToContain('Creating a new Publication Type!')
             ->expectsOutput('Choose the default field you wish to sort by:')
             ->expectsOutput('Choose the default sort direction:')
-            // ->expectsOutput('Publication type created successfully!')
-            // ->expectsOutput('Saving publicationType data to [test-publication/schema.json]')
+            ->expectsOutput('Saving publication data to [test-publication/schema.json]')
+            ->expectsOutput('Publication type created successfully!')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-        $this->assertEquals(
+        $this->assertEqualsIgnoringLineEndingType(
             file_get_contents(Hyde::path('test-publication/schema.json')),
             <<<'JSON'
             {
@@ -43,7 +43,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "canonicalField": "Title",
                 "sortField": "__createdAt",
                 "sortDirection": "ASC",
-                "pagesize": 10,
+                "pageSize": 10,
                 "prevNextLinks": true,
                 "detailTemplate": "test-publication_detail",
                 "listTemplate": "test-publication_list",

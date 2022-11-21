@@ -32,7 +32,7 @@ class PublicationListPageTest extends TestCase
     {
         $this->createPublicationFiles();
 
-        file_put_contents(Hyde::path('test-publication/test_list.blade.php'), 'Listing Page');
+        file_put_contents(Hyde::path('test-publication/list.blade.php'), 'Listing Page');
 
         $page = new PublicationListPage($this->getPublicationType());
 
@@ -44,11 +44,7 @@ class PublicationListPageTest extends TestCase
     protected function createPublicationFiles(): void
     {
         mkdir(Hyde::path('test-publication'));
-        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode([
-            'foo' => 'bar',
-            'detailTemplate' => 'test_detail',
-            'listTemplate' => 'test_list',
-        ]));
+        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode($this->getTestData()));
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---
@@ -64,6 +60,23 @@ Hello World!
 
     protected function getPublicationType(): PublicationType
     {
-        return new PublicationType('test-publication/schema.json');
+        return PublicationType::fromFile('test-publication/schema.json');
+    }
+
+    protected function getTestData(): array
+    {
+        return [
+            'name'           => 'test',
+            'canonicalField' => 'canonical',
+            'sortField'      => 'sort',
+            'sortDirection'  => 'asc',
+            'pageSize'       => 10,
+            'prevNextLinks'  => true,
+            'detailTemplate' => 'detail',
+            'listTemplate'   => 'list',
+            'fields'         => [
+                'foo' => 'bar',
+            ],
+        ];
     }
 }

@@ -47,7 +47,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
             'publication' => $this,
         ];
 
-        $template = $this->type->getSchema()['detailTemplate'];
+        $template = $this->type->detailTemplate;
         if (str_contains($template, '::')) {
             return view($template, $data)->render();
         }

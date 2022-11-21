@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function copy;
 use function deleteDirectory;
 use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -11,7 +12,6 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-use function json_encode;
 use function mkdir;
 
 /**
@@ -37,7 +37,7 @@ class PublicationPageTest extends TestCase
     {
         $this->createPublicationFiles();
 
-        $page = new PublicationPage(new PublicationType('test-publication/schema.json'), 'foo');
+        $page = new PublicationPage(PublicationType::fromFile('test-publication/schema.json'), 'foo');
 
         $this->assertSame('test-publication/foo', $page->getIdentifier());
         $this->assertSame('test-publication/foo', $page->getRouteKey());
@@ -49,7 +49,7 @@ class PublicationPageTest extends TestCase
     {
         $this->createPublicationFiles();
 
-        $page = new PublicationPage(new PublicationType('test-publication/schema.json'), 'foo');
+        $page = new PublicationPage(PublicationType::fromFile('test-publication/schema.json'), 'foo');
 
         $this->assertInstanceOf(Route::class, $page->getRoute());
         $this->assertEquals(new Route($page), $page->getRoute());
@@ -97,7 +97,7 @@ class PublicationPageTest extends TestCase
   "canonicalField": "slug",
   "sortField": "__createdAt",
   "sortDirection": "DESC",
-  "pagesize": 0,
+  "pageSize": 0,
   "prevNextLinks": true,
   "detailTemplate": "test_detail",
   "listTemplate": "test_list",
@@ -128,7 +128,7 @@ Hello World!
 
     protected function createPublicationFiles(): void
     {
-        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode(['foo' => 'bar']));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---

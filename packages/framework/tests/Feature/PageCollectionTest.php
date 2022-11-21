@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function copy;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Hyde;
@@ -207,7 +208,7 @@ class PageCollectionTest extends TestCase
 
     protected function createPublication(): void
     {
-        file_put_contents(Hyde::path('publication/schema.json'), json_encode(['foo' => 'bar']));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('publication/schema.json'));
         file_put_contents(Hyde::path('publication/foo.md'),
             '---
 __canonical: canonical

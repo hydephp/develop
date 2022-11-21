@@ -4,34 +4,101 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function dirname;
+use Exception;
+use function file_get_contents;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Str;
+use function json_decode;
+use JsonSerializable;
+use RuntimeException;
 
-class PublicationType
+/**
+ * @see \Hyde\Framework\Testing\Feature\PublicationTypeTest
+ */
+class PublicationType implements JsonSerializable, Jsonable, Arrayable
 {
-    protected string $schemaFile;
+    use JsonSerializesArrayable;
+    use InteractsWithDirectories;
+
     protected string $directory;
-    protected array $schema;
 
-    public static function get(string $name): self
+    public string $name;
+    public string $canonicalField;
+    public string $sortField;
+    public string $sortDirection;
+    public int $pageSize;
+    public bool $prevNextLinks;
+    public string $detailTemplate;
+    public string $listTemplate;
+    public array $fields;
+
+    public static function get(string $name): static
     {
-        return new self(Hyde::path("$name/schema.json"));
+        return static::fromFile(Hyde::path("$name/schema.json"));
     }
 
-    public function __construct(string $schemaFile)
+    public static function fromFile(string $schemaFile): static
     {
-        $this->schemaFile = $schemaFile;
-        $this->directory = Hyde::pathToRelative(dirname($schemaFile));
-        $this->schema = static::parseSchema($schemaFile);
+        try {
+            return new static(...array_merge(
+                static::parseSchemaFile($schemaFile),
+                static::getRelativeDirectoryName($schemaFile))
+            );
+        } catch (Exception $exception) {
+            throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
+        }
     }
 
-    public function __get(string $name): mixed
+    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pageSize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $directory = null)
     {
-        return $this->$name ?? $this->schema[$name] ?? null;
+        $this->name = $name;
+        $this->canonicalField = $canonicalField;
+        $this->sortField = $sortField;
+        $this->sortDirection = $sortDirection;
+        $this->pageSize = $pageSize;
+        $this->prevNextLinks = $prevNextLinks;
+        $this->detailTemplate = $detailTemplate;
+        $this->listTemplate = $listTemplate;
+        $this->fields = $fields;
+
+        if ($directory) {
+            $this->directory = $directory;
+        }
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'canonicalField' => $this->canonicalField,
+            'sortField' => $this->sortField,
+            'sortDirection' => $this->sortDirection,
+            'pageSize' => $this->pageSize,
+            'prevNextLinks' => $this->prevNextLinks,
+            'detailTemplate' => $this->detailTemplate,
+            'listTemplate' => $this->listTemplate,
+            'fields' => $this->fields,
+        ];
+    }
+
+    public function toJson($options = JSON_PRETTY_PRINT): string
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    public function getIdentifier(): string
+    {
+        return $this->directory ?? Str::slug($this->name);
     }
 
     public function getSchemaFile(): string
     {
-        return $this->schemaFile;
+        return "$this->directory/schema.json";
     }
 
     public function getDirectory(): string
@@ -39,15 +106,20 @@ class PublicationType
         return $this->directory;
     }
 
-    public function getSchema(): array
+    public function save(?string $path = null): void
     {
-        return $this->schema;
+        $path ??= $this->getSchemaFile();
+        $this->needsParentDirectory($path);
+        file_put_contents($path, json_encode($this->toArray(), JSON_PRETTY_PRINT));
     }
 
-    protected static function parseSchema(string $schemaFile): array
+    protected static function parseSchemaFile(string $schemaFile): array
     {
         return json_decode(file_get_contents($schemaFile), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    // TODO build list pages and detail pages for each publication type
+    protected static function getRelativeDirectoryName(string $schemaFile): array
+    {
+        return ['directory' => Hyde::pathToRelative(dirname($schemaFile))];
+    }
 }
