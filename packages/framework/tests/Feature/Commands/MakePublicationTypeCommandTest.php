@@ -30,8 +30,8 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsOutputToContain('Creating a new Publication Type!')
             ->expectsOutput('Choose the default field you wish to sort by:')
             ->expectsOutput('Choose the default sort direction:')
-            // ->expectsOutput('Publication type created successfully!')
             ->expectsOutput('Saving publication data to [test-publication/schema.json]')
+            ->expectsOutput('Publication type created successfully!')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));

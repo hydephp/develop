@@ -94,6 +94,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             return Command::FAILURE;
         }
 
+        $this->info('Publication type created successfully!');
         return Command::SUCCESS;
     }
 
