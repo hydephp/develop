@@ -15,10 +15,10 @@ class PublicationField implements JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
-    public readonly string $type;
-    public readonly string $name;
-    public readonly int $min;
-    public readonly int $max;
+    protected readonly string $type;
+    protected readonly string $name;
+    protected readonly int $min;
+    protected readonly int $max;
 
     public function __construct(string $type, string $name, string $min, string $max)
     {
@@ -28,13 +28,18 @@ class PublicationField implements JsonSerializable, Arrayable
         $this->max  = intval($max);
     }
 
+    public function __get(string $name): string
+    {
+        return (string) $this->$name;
+    }
+
     public function toArray(): array
     {
         return [
-            'type' => $this->type,
-            'name' => $this->name,
-            'min'  => (string) $this->min,
-            'max'  => (string) $this->max,
+            'type' => $this->__get('type'),
+            'name' => $this->__get('name'),
+            'min'  => $this->__get('min'),
+            'max'  => $this->__get('max'),
         ];
     }
 }
