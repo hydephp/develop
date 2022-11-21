@@ -77,6 +77,12 @@ class PublicationFieldTest extends TestCase
         new PublicationField('invalid', 'test', 1, 10);
     }
 
+    public function test_type_input_is_case_insensitive()
+    {
+        $field = new PublicationField('STRING', 'test', 1, 10);
+        $this->assertSame('string', $field->type);
+    }
+
     public function test_validate_input_against_rules()
     {
         $this->markTestIncomplete('TODO: Implement this method.');

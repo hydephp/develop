@@ -9,6 +9,8 @@ use Illuminate\Contracts\Support\Arrayable;
 use InvalidArgumentException;
 use JsonSerializable;
 
+use function strtolower;
+
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTest
  */
@@ -18,9 +20,13 @@ class PublicationField implements JsonSerializable, Arrayable
 
     public final const TYPES = ['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'];
 
-    public function __construct(public readonly string $type, public readonly string $name, public readonly ?int $min, public readonly ?int $max)
+    public readonly string $type;
+
+    public function __construct(string $type, public readonly string $name, public readonly ?int $min, public readonly ?int $max)
     {
-        if (! in_array($type, self::TYPES)) {
+        $this->type = strtolower($type);
+
+        if (! in_array(strtolower($type), self::TYPES)) {
             throw new InvalidArgumentException(sprintf("The type '$type' is not a valid type. Valid types are: %s.", implode(', ', self::TYPES)));
         }
 
