@@ -69,6 +69,14 @@ class PublicationFieldTest extends TestCase
         ], PublicationField::TYPES);
     }
 
+    public function test_type_must_be_valid()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("The type 'invalid' is not a valid type. Valid types are: string, boolean, integer, float, datetime, url, array, text, image.");
+
+        new PublicationField('invalid', 'test', 1, 10);
+    }
+
     public function test_validate_input_against_rules()
     {
         $this->markTestIncomplete('TODO: Implement this method.');
