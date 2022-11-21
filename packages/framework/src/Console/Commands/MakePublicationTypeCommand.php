@@ -60,10 +60,10 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             2 => 'DESC',
         };
 
-        $pagesize = (int) PublicationHelper::askWithValidation(
+        $pageSize = (int) PublicationHelper::askWithValidation(
             $this,
-            'pagesize',
-            'Enter the pagesize (0 for no limit)',
+            'pageSize',
+            'Enter the pageSize (0 for no limit)',
             ['required', 'integer', 'between:0,100'],
             25
         );
@@ -86,7 +86,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         $canonicalField = $fields[$selected - 1]['name'];
 
         try {
-            $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pagesize, $prevNextLinks);
+            $creator = new CreatesNewPublicationTypeSchema($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks);
             $creator->create();
         } catch (Exception $e) {
             $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());

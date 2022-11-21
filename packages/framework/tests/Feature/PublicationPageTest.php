@@ -97,7 +97,7 @@ class PublicationPageTest extends TestCase
   "canonicalField": "slug",
   "sortField": "__createdAt",
   "sortDirection": "DESC",
-  "pagesize": 0,
+  "pageSize": 0,
   "prevNextLinks": true,
   "detailTemplate": "test_detail",
   "listTemplate": "test_list",

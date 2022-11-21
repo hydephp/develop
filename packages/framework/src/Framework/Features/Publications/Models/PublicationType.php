@@ -29,7 +29,7 @@ class PublicationType implements JsonSerializable, Arrayable
     public string $canonicalField;
     public string $sortField;
     public string $sortDirection;
-    public int $pagesize;
+    public int $pageSize;
     public bool $prevNextLinks;
     public string $detailTemplate;
     public string $listTemplate;
@@ -52,13 +52,13 @@ class PublicationType implements JsonSerializable, Arrayable
         }
     }
 
-    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pagesize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $directory = null)
+    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pageSize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $directory = null)
     {
         $this->name = $name;
         $this->canonicalField = $canonicalField;
         $this->sortField = $sortField;
         $this->sortDirection = $sortDirection;
-        $this->pagesize = $pagesize;
+        $this->pageSize = $pageSize;
         $this->prevNextLinks = $prevNextLinks;
         $this->detailTemplate = $detailTemplate;
         $this->listTemplate = $listTemplate;
@@ -76,7 +76,7 @@ class PublicationType implements JsonSerializable, Arrayable
             'canonicalField' => $this->canonicalField,
             'sortField' => $this->sortField,
             'sortDirection' => $this->sortDirection,
-            'pagesize' => $this->pagesize,
+            'pageSize' => $this->pageSize,
             'prevNextLinks' => $this->prevNextLinks,
             'detailTemplate' => $this->detailTemplate,
             'listTemplate' => $this->listTemplate,

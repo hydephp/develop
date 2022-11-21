@@ -24,7 +24,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Add another field (y/n)', 'n')
             ->expectsQuestion('Sort field (0-1)', 0)
             ->expectsQuestion('Sort field (1-2)', 1)
-            ->expectsQuestion('Enter the pagesize (0 for no limit)', 10)
+            ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
             ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
             ->expectsQuestion('Canonical field (1-1)', 1)
             ->expectsOutputToContain('Creating a new Publication Type!')
@@ -43,7 +43,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "canonicalField": "Title",
                 "sortField": "__createdAt",
                 "sortDirection": "ASC",
-                "pagesize": 10,
+                "pageSize": 10,
                 "prevNextLinks": true,
                 "detailTemplate": "test-publication_detail",
                 "listTemplate": "test-publication_list",
