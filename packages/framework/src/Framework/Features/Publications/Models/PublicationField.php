@@ -24,7 +24,7 @@ class PublicationField implements JsonSerializable, Arrayable
             throw new InvalidArgumentException(sprintf("The type '$type' is not a valid type. Valid types are: %s.", implode(', ', self::TYPES)));
         }
 
-        if (($min !== null) && ($max !== null) && $min > $max) {
+        if (($min !== null) && ($max !== null) && $max < $min) {
             throw new InvalidArgumentException("The 'max' value cannot be less than the 'min' value.");
         }
     }
