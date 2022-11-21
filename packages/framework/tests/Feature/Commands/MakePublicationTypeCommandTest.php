@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
  */
 class MakePublicationTypeCommandTest extends TestCase
 {
-    public function test_command_creates_publication()
+    public function test_command_creates_publication_type()
     {
         $this->artisan('make:publicationType')
             ->expectsQuestion('Publication type name', 'Test Publication')
