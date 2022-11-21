@@ -40,7 +40,6 @@ class CreatesNewPublicationType implements CreateActionInterface
     {
         $dirName = PublicationHelper::formatNameForStorage($this->name);
         $outFile = Hyde::path("$dirName/schema.json");
-        mkdir($dirName);
 
         $data = [];
         $data['name'] = $this->name;
