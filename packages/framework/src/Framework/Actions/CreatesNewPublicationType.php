@@ -23,8 +23,6 @@ use function sprintf;
  */
 class CreatesNewPublicationType implements CreateActionInterface
 {
-    use InteractsWithDirectories;
-
     protected string $result;
 
     public function __construct(
