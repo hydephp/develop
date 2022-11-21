@@ -9,5 +9,8 @@ namespace Hyde\Framework\Features\Publications\Models;
  */
 class PublicationField
 {
-    //
+    public string $name;
+    public string $min;
+    public string $max;
+    public string $type;
 }
