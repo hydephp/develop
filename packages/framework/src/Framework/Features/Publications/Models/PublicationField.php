@@ -16,6 +16,8 @@ class PublicationField implements JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
+    public final const TYPES = ['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'];
+
     public readonly string $type;
     public readonly string $name;
     public readonly ?int $min;

@@ -54,6 +54,21 @@ class PublicationFieldTest extends TestCase
         new PublicationField('string', 'test', 10, 1);
     }
 
+    public function test_types_constant()
+    {
+        $this->assertSame([
+            'string',
+            'boolean',
+            'integer',
+            'float',
+            'datetime',
+            'url',
+            'array',
+            'text',
+            'image',
+        ], PublicationField::TYPES);
+    }
+
     public function test_validate_input_against_rules()
     {
         $this->markTestIncomplete('TODO: Implement this method.');
