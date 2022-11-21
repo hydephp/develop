@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Framework\Actions\CreatesNewPublicationTypeSchema;
 use Hyde\Testing\TestCase;
 
 /**
