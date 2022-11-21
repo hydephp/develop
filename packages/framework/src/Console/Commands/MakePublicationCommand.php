@@ -52,7 +52,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         $fieldData = Collection::create();
         $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
         foreach ($pubType->fields as $field) {
-            $fieldData->{$field->name} = $this->captureFieldInput($field, $mediaFiles);
+            $fieldData->{$field['name']} = $this->captureFieldInput($field, $mediaFiles);
         }
 
         try {
