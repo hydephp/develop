@@ -13,9 +13,9 @@ use function Safe\json_encode;
 use function Safe\mkdir;
 
 /**
- * Scaffold a new Markdown, Blade, or documentation page.
+ * Scaffold a new publication type schema.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPageSourceFileTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeSchemaTest
  */
 class CreatesNewPublicationTypeSchema implements CreateActionInterface
 {
