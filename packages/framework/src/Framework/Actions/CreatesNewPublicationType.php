@@ -17,7 +17,7 @@ use function Safe\mkdir;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeSchemaTest
  */
-class CreatesNewPublicationTypeSchema implements CreateActionInterface
+class CreatesNewPublicationType implements CreateActionInterface
 {
     use InteractsWithDirectories;
 

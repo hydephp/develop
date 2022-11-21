@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Actions\CreatesNewPublicationTypeSchema
+ * @covers \Hyde\Framework\Actions\CreatesNewPublicationType
  */
 class CreatesNewPublicationTypeSchemaTest extends TestCase
 {
