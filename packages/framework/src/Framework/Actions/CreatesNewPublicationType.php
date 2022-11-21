@@ -64,8 +64,7 @@ class CreatesNewPublicationType implements CreateActionInterface
             $data['fields']->toArray()
         );
 
-        $json = json_encode($type->toArray(), JSON_PRETTY_PRINT);
-        $this->result = $json;
+        $this->result = $type->toJson();
 
         echo sprintf("Saving publicationType data to [%s]\n", Hyde::pathToRelative($outFile));
 
