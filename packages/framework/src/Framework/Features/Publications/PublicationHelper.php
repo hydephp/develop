@@ -59,7 +59,7 @@ class PublicationHelper
         $tries++;
 
         if ($tries >= self::RETRY_COUNT) {
-            throw new RuntimeException('Too many validation errors');
+            throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
         return self::askWithValidation($command, $name, $message, $rules, isBeingRetried: true);
