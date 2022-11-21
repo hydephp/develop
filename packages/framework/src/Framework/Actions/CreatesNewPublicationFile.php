@@ -24,8 +24,8 @@ class CreatesNewPublicationFile implements CreateActionInterface
     protected string $result;
 
     public function __construct(
-        protected Collection $pubType,
-        protected Collection $fieldData,
+        protected object $pubType,
+        protected object $fieldData,
         protected bool $force = false
     ) {
     }
