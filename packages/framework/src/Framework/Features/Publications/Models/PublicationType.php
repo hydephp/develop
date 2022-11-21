@@ -107,11 +107,11 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
         return $this->directory;
     }
 
-    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Publications\Models\PublicationField> */
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationField> */
     public function getFields(): Collection
     {
-        return collect($this->fields)->map(function (array $data) {
-            return new PublicationField(...$data);
+        return collect($this->fields)->mapWithKeys(function (array $data) {
+            return [$data['name'] => new PublicationField(...$data)];
         });
     }
 
