@@ -107,8 +107,8 @@ class PublicationTypeTest extends TestCase
                     'type' => 'string',
                     'name' => 'test',
                     'min' => 0,
-                    'max' => 128
-                ]
+                    'max' => 128,
+                ],
             ],
         ];
     }
