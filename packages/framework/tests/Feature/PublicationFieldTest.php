@@ -18,8 +18,8 @@ class PublicationFieldTest extends TestCase
         $this->assertInstanceOf(PublicationField::class, $field);
 
         $this->assertSame('test', $field->name);
-        $this->assertSame('1', $field->min);
-        $this->assertSame('10', $field->max);
+        $this->assertSame(1, $field->min);
+        $this->assertSame(10, $field->max);
         $this->assertSame('string', $field->type);
     }
 

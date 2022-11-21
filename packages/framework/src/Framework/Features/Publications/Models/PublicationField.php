@@ -17,15 +17,15 @@ class PublicationField implements JsonSerializable, Arrayable
 
     public readonly string $type;
     public readonly string $name;
-    public readonly string $min;
-    public readonly string $max;
+    public readonly int $min;
+    public readonly int $max;
 
     public function __construct(string $type, string $name, string $min, string $max)
     {
         $this->type = $type;
         $this->name = $name;
-        $this->min  = $min;
-        $this->max  = $max;
+        $this->min  = intval($min);
+        $this->max  = intval($max);
     }
 
     public function toArray(): array
@@ -33,8 +33,8 @@ class PublicationField implements JsonSerializable, Arrayable
         return [
             'type' => $this->type,
             'name' => $this->name,
-            'min'  => $this->min,
-            'max'  => $this->max,
+            'min'  => (string) $this->min,
+            'max'  => (string) $this->max,
         ];
     }
 }
