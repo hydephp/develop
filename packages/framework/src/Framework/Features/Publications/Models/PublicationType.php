@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Illuminate\Support\Str;
 use function dirname;
 use Exception;
 use function file_get_contents;
@@ -82,6 +83,11 @@ class PublicationType implements JsonSerializable, Arrayable
             'listTemplate' => $this->listTemplate,
             'fields' => $this->fields,
         ];
+    }
+
+    public function getIdentifier(): string
+    {
+        return $this->directory ?? Str::slug($this->name);
     }
 
     public function getSchemaFile(): string
