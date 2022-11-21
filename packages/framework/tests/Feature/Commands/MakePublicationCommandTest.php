@@ -4,15 +4,33 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+
+use function copy;
+use function deleteDirectory;
 
 /**
  * @covers \Hyde\Console\CommandsMakePublicationCommand
  */
 class MakePublicationCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        mkdir(Hyde::path('test-publication'));
+    }
+
+    protected function tearDown(): void
+    {
+        deleteDirectory(Hyde::path('test-publication'));
+        parent::tearDown();
+    }
+
     public function test_command_creates_publication()
     {
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+
         $this->artisan('make:publication')
             ->expectsQuestion('Publication type name', 'Test Publication')
             ->expectsQuestion('Field name', 'Title')
