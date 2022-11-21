@@ -40,9 +40,9 @@ class MakePublicationCommandTest extends TestCase
                 "listTemplate": "test-publication_list",
                 "fields": [
                     {
-                        "name": "Title",
-                        "min": "default",
-                        "max": "default",
+                        "name": "My Title",
+                        "min": "0",
+                        "max": "0",
                         "type": "string"
                     }
                 ]
@@ -52,16 +52,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
             ->expectsQuestion('Publication type (1-1)', 1)
-            ->expectsQuestion('Field name', 'Title')
-            ->expectsQuestion('Field type (1-7)', 1)
-            ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
-            ->expectsQuestion('Max value (for strings, this refers to string length)', 'default')
-            ->expectsQuestion('Add another field (y/n)', 'n')
-            ->expectsQuestion('Sort field (0-1)', 0)
-            ->expectsQuestion('Sort field (1-2)', 1)
-            ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
-            ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
-            ->expectsQuestion('Canonical field (1-1)', 1)
+            ->expectsQuestion('My Title', 'Title')
             ->expectsOutputToContain('Creating a new Publication!')
             ->expectsOutput('Choose the default field you wish to sort by:')
             ->expectsOutput('Choose the default sort direction:')
