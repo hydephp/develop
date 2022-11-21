@@ -17,10 +17,10 @@ class PublicationField implements JsonSerializable, Arrayable
 
     public readonly string $type;
     public readonly string $name;
-    public readonly int $min;
-    public readonly int $max;
+    public readonly ?int $min;
+    public readonly ?int $max;
 
-    public function __construct(string $type, string $name, int $min, int $max)
+    public function __construct(string $type, string $name, ?int $min, ?int $max)
     {
         $this->type = $type;
         $this->name = $name;
