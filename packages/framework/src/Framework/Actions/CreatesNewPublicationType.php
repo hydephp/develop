@@ -54,6 +54,8 @@ class CreatesNewPublicationType implements CreateActionInterface
 
         $type->save($outFile);
         $this->result = $type->toJson();
+
+        // TODO: Generate the detail and list templates?
     }
 
     public function getResult(): string
