@@ -12,6 +12,7 @@ use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function json_decode;
 use JsonSerializable;
@@ -104,6 +105,14 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
     public function getDirectory(): string
     {
         return $this->directory;
+    }
+
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Publications\Models\PublicationField */
+    public function getFields(): Collection
+    {
+        return collect($this->fields)->map(function (array $data) {
+            return new PublicationField(...$data);
+        });
     }
 
     public function save(?string $path = null): void

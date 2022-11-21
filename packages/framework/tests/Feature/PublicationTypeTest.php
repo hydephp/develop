@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use function array_merge;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -91,6 +93,16 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals($publicationType, PublicationType::fromFile(Hyde::path('tests/fixtures/test-publication-schema.json')));
     }
 
+    public function test_get_fields_method_returns_collection_of_field_objects()
+    {
+        $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
+        $collection = $publicationType->getFields();
+        $this->assertCount(1, $collection);
+        $this->assertInstanceOf(Collection::class, $collection);
+        $this->assertInstanceOf(PublicationField::class, $collection->first());
+        $this->assertEquals(new Collection([new PublicationField('string', 'test', 0, 128)]), $collection);
+    }
+
     protected function getTestData(): array
     {
         return [
@@ -103,7 +115,12 @@ class PublicationTypeTest extends TestCase
             'detailTemplate' => 'detail',
             'listTemplate'   => 'list',
             'fields'         => [
-                'foo' => 'bar',
+                [
+                    'type' => 'string',
+                    'name' => 'test',
+                    'min' => 0,
+                    'max' => 128,
+                ],
             ],
         ];
     }

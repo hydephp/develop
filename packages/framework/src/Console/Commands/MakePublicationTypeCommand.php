@@ -120,8 +120,9 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->line('  7 - Array');
             $this->line('  8 - Text');
             $this->line('  9 - Local Image');
-            $type = (int) PublicationHelper::askWithValidation($this, 'type', 'Field type (1-7)', ['required', 'integer', 'between:1,9'], 1);
+            $type = (int) PublicationHelper::askWithValidation($this, 'type', 'Field type (1-9)', ['required', 'integer', 'between:1,9'], 1);
             do {
+                // TODO This should only be done for types that can have length restrictions right?
                 $field->min = PublicationHelper::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
                 $field->max = PublicationHelper::askWithValidation($this, 'max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
                 $lengthsValid = true;
