@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use Rgasch\Collection\Collection;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationFile
@@ -18,7 +19,7 @@ class CreatesNewPublicationFileTest extends TestCase
     public function testCreate()
     {
         $pubType   = PublicationType::fromFile(Hyde::path('tests/fixtures/test-publication-schema.json'));
-        $fieldData = (object) [];
+        $fieldData = Collection::make([]);
         $creator   = new CreatesNewPublicationFile($pubType, $fieldData);
         $creator->create();
 
