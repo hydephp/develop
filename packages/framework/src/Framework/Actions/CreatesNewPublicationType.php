@@ -7,6 +7,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\PublicationHelper;
+use Hyde\Hyde;
 use Rgasch\Collection\Collection;
 use function Safe\file_put_contents;
 use function Safe\json_encode;
@@ -37,7 +38,7 @@ class CreatesNewPublicationType implements CreateActionInterface
     public function create(): void
     {
         $dirName = PublicationHelper::formatNameForStorage($this->name);
-        $outFile = "$dirName/schema.json";
+        $outFile = Hyde::path("$dirName/schema.json");
         mkdir($dirName);
 
         $data = [];
