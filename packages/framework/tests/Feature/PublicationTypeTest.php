@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\File;
  */
 class PublicationTypeTest extends TestCase
 {
-    public function testCanConstructNewPublicationType()
+    public function test_can_construct_new_publication_type()
     {
         $publicationType = new PublicationType(...$this->getTestData());
 
@@ -24,37 +24,37 @@ class PublicationTypeTest extends TestCase
         }
     }
 
-    public function testClassIsArrayable()
+    public function test_class_is_arrayable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertSame($this->getTestData(), $publicationType->toArray());
     }
 
-    public function testClassIsJsonSerializable()
+    public function test_class_is_json_serializable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertSame(json_encode($this->getTestData()), json_encode($publicationType));
     }
 
-    public function testGetDirectory()
+    public function test_get_directory()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $this->assertSame('test-publication', $publicationType->getDirectory());
     }
 
-    public function testGetIdentifier()
+    public function test_get_identifier()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $this->assertSame('test-publication', $publicationType->getIdentifier());
     }
 
-    public function testGetIdentifierWithNoDirectory()
+    public function test_get_identifier_with_no_directory()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertSame('test', $publicationType->getIdentifier());
     }
 
-    public function testCanSaveToJsonFile()
+    public function test_can_save_to_json_file()
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $publicationType->save();
@@ -65,7 +65,7 @@ class PublicationTypeTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function testCanSaveToJsonFileUsingCustomPath()
+    public function test_can_save_to_json_file_using_custom_path()
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $publicationType->save('test-publication/foo.json');
@@ -76,7 +76,7 @@ class PublicationTypeTest extends TestCase
         File::deleteDirectory(Hyde::path('test-publication'));
     }
 
-    public function testCanLoadFromJsonFile()
+    public function test_can_load_from_json_file()
     {
         $publicationType = new PublicationType(...array_merge($this->getTestData(), [
             'directory' => 'tests/fixtures',
