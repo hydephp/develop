@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationType
  */
-class CreatesNewPublicationTypeSchemaTest extends TestCase
+class CreatesNewPublicationTypeTest extends TestCase
 {
     //
 }
