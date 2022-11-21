@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Illuminate\Support\Collection;
 use function dirname;
 use Exception;
 use function file_get_contents;
@@ -104,6 +105,14 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
     public function getDirectory(): string
     {
         return $this->directory;
+    }
+
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Publications\Models\PublicationField */
+    public function getFields(): Collection
+    {
+        return collect($this->fields)->map(function (array $data) {
+            return new PublicationField(...$data);
+        });
     }
 
     public function save(?string $path = null): void
