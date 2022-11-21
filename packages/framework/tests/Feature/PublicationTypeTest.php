@@ -103,7 +103,12 @@ class PublicationTypeTest extends TestCase
             'detailTemplate' => 'detail',
             'listTemplate'   => 'list',
             'fields'         => [
-                'foo' => 'bar',
+                [
+                    'type' => 'string',
+                    'name' => 'test',
+                    'min' => 0,
+                    'max' => 128
+                ]
             ],
         ];
     }
