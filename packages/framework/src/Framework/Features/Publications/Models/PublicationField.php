@@ -24,8 +24,8 @@ class PublicationField implements JsonSerializable, Arrayable
     {
         $this->type = $type;
         $this->name = $name;
-        $this->min  = $min;
-        $this->max  = $max;
+        $this->min = $min;
+        $this->max = $max;
     }
 
     public function toArray(): array
