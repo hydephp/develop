@@ -29,14 +29,15 @@ class PublicationHelper
      * @param  string  $message
      * @param  \Rgasch\Collection\Collection|array  $rules
      * @param  mixed|null  $default
-     * @param bool $isBeingRetried
+     * @param  bool  $isBeingRetried
      * @return mixed
+     *
      * @throws RuntimeException
      */
     public static function askWithValidation(Command $command, string $name, string $message, Collection|array $rules = [], mixed $default = null, bool $isBeingRetried = false): mixed
     {
         static $tries = 0;
-        if (!$isBeingRetried) {
+        if (! $isBeingRetried) {
             $tries = 0;
         }
 
