@@ -5,15 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
-use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 use Rgasch\Collection\Collection;
-use function Safe\file_put_contents;
-use function Safe\json_encode;
-use function Safe\mkdir;
 use function sprintf;
 
 /**
