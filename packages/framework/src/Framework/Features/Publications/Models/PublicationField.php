@@ -8,7 +8,6 @@ use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use InvalidArgumentException;
 use JsonSerializable;
-
 use function strtolower;
 
 /**
