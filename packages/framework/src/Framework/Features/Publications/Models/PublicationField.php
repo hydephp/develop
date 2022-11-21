@@ -20,9 +20,15 @@ class PublicationField implements JsonSerializable, Arrayable
     public final const TYPES = ['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'];
 
     public readonly string $type;
+    public readonly ?int $max;
+    public readonly ?int $min;
+    public readonly string $name;
 
-    public function __construct(string $type, public readonly string $name, public readonly ?int $min, public readonly ?int $max)
+    public function __construct(string $type, string $name, ?int $min, ?int $max)
     {
+        $this->name = $name;
+        $this->min  = $min;
+        $this->max  = $max;
         $this->type = strtolower($type);
 
         if (! in_array(strtolower($type), self::TYPES)) {
