@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Scaffold a new publication type schema.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeSchemaTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeTest
  */
 class CreatesNewPublicationType implements CreateActionInterface
 {
