@@ -13,7 +13,7 @@ use function Safe\date;
 use function Safe\file_put_contents;
 
 /**
- * Scaffold a new Markdown, Blade, or documentation page.
+ * Scaffold a publication file.
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationFileTest
  */
