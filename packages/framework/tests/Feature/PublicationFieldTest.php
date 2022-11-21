@@ -14,7 +14,7 @@ class PublicationFieldTest extends TestCase
 {
     public function test_can_instantiate_class()
     {
-        $field = new PublicationField('string', 'test', '1', '10');
+        $field = $this->makeField();
         $this->assertInstanceOf(PublicationField::class, $field);
 
         $this->assertSame('test', $field->name);
@@ -25,18 +25,21 @@ class PublicationFieldTest extends TestCase
 
     public function test_can_get_field_as_array()
     {
-        $field = new PublicationField('string', 'test', '1', '10');
         $this->assertSame([
             'type' => 'string',
             'name' => 'test',
             'min'  => '1',
             'max'  => '10',
-        ], $field->toArray());
+        ], $this->makeField()->toArray());
     }
 
     public function test_can_encode_field_as_json()
     {
-        $field = new PublicationField('string', 'test', '1', '10');
-        $this->assertSame('{"type":"string","name":"test","min":"1","max":"10"}', json_encode($field));
+        $this->assertSame('{"type":"string","name":"test","min":"1","max":"10"}', json_encode($this->makeField()));
+    }
+
+    protected function makeField(): PublicationField
+    {
+        return new PublicationField('string', 'test', '1', '10');
     }
 }
