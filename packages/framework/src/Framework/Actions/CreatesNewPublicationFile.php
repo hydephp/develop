@@ -15,7 +15,7 @@ use function Safe\file_put_contents;
 /**
  * Scaffold a new Markdown, Blade, or documentation page.
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPageSourceFileTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationFileTest
  */
 class CreatesNewPublicationFile implements CreateActionInterface
 {
