@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Illuminate\Support\Collection;
 use function dirname;
 use Exception;
 use function file_get_contents;
@@ -13,6 +12,7 @@ use Hyde\Hyde;
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function json_decode;
 use JsonSerializable;

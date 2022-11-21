@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\Models\PublicationField;
-use Illuminate\Support\Collection;
 use function array_merge;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
