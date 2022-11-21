@@ -53,7 +53,7 @@ class MakePublicationCommandTest extends TestCase
         );
 
         $this->artisan('make:publication')
-            ->expectsQuestion('Publication type name', 'Test Publication')
+            ->expectsQuestion('Publication type (1-1)', 1)
             ->expectsQuestion('Field name', 'Title')
             ->expectsQuestion('Field type (1-7)', 1)
             ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
