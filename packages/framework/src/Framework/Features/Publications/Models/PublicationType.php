@@ -86,7 +86,7 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
         ];
     }
 
-    public function toJson($options = 0): string
+    public function toJson($options = JSON_PRETTY_PRINT): string
     {
         return json_encode($this->toArray(), $options);
     }

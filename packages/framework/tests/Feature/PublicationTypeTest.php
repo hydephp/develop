@@ -39,7 +39,7 @@ class PublicationTypeTest extends TestCase
     public function test_class_is_jsonable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
-        $this->assertSame(json_encode($this->getTestData()), $publicationType->toJson());
+        $this->assertSame(json_encode($this->getTestData(), 128), $publicationType->toJson());
     }
 
     public function test_get_directory()
