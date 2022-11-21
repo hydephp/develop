@@ -39,7 +39,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $dir = dirname($this->pubType->getDirectory());
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationField $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
-        $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
+        $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName}->name : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
         $slug = $canonicalStr->slug()->toString();
         $fileName = PublicationHelper::formatNameForStorage($slug);
