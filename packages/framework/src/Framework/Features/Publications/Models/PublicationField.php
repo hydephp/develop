@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Illuminate\Contracts\Support\Arrayable;
+use JsonSerializable;
+
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTest
  */
-class PublicationField
+class PublicationField implements JsonSerializable, Arrayable
 {
+    use JsonSerializesArrayable;
+
     public readonly string $name;
     public readonly string $min;
     public readonly string $max;
@@ -20,5 +26,15 @@ class PublicationField
         $this->min  = $min;
         $this->max  = $max;
         $this->type = $type;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'min'  => $this->min,
+            'max'  => $this->max,
+            'type' => $this->type,
+        ];
     }
 }
