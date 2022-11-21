@@ -86,7 +86,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         $canonicalField = $fields[$selected - 1]['name'];
 
         try {
-            $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks);
+            $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
             $creator->create();
         } catch (Exception $e) {
             $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());

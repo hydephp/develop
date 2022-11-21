@@ -9,10 +9,12 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Hyde;
+use Illuminate\Console\OutputStyle;
 use Rgasch\Collection\Collection;
 use function Safe\file_put_contents;
 use function Safe\json_encode;
 use function Safe\mkdir;
+use function sprintf;
 
 /**
  * Scaffold a new publication type schema.
@@ -32,7 +34,8 @@ class CreatesNewPublicationType implements CreateActionInterface
         protected string $sortField,
         protected string $sortDirection,
         protected int $pageSize,
-        protected bool $prevNextLinks
+        protected bool $prevNextLinks,
+        protected ?OutputStyle $output = null,
     ) {
     }
 
@@ -53,7 +56,7 @@ class CreatesNewPublicationType implements CreateActionInterface
             $this->fields->toArray()
         );
 
-        echo sprintf("Saving publicationType data to [%s]\n", Hyde::pathToRelative($outFile));
+        $this->output?->writeln(sprintf('Saving publication data to [%s]', Hyde::pathToRelative($outFile)));
 
         $type->save($outFile);
         $this->result = $type->toJson();
