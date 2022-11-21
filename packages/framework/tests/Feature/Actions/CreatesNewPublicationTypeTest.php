@@ -12,6 +12,7 @@ use Rgasch\Collection\Collection;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationType
+ *
  * @see \Hyde\Console\Commands\MakePublicationTypeCommand
  */
 class CreatesNewPublicationTypeTest extends TestCase
