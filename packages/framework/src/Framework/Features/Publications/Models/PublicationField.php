@@ -17,6 +17,7 @@ class PublicationField implements JsonSerializable, Arrayable
     use JsonSerializesArrayable;
 
     public final const TYPES = ['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'];
+    public final const TYPE_LABELS = ['String', 'Boolean', 'Integer', 'Float', 'Datetime', 'URL', 'Array', 'Text', 'Local Image'];
 
     public function __construct(public readonly string $type, public readonly string $name, public readonly ?int $min, public readonly ?int $max)
     {
