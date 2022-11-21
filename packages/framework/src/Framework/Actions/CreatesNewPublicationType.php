@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Hyde;
 use Rgasch\Collection\Collection;
@@ -51,12 +52,25 @@ class CreatesNewPublicationType implements CreateActionInterface
         $data['detailTemplate'] = "{$dirName}_detail";
         $data['listTemplate'] = "{$dirName}_list";
         $data['fields'] = $this->fields;
-        $json = json_encode($data, JSON_PRETTY_PRINT);
+
+        $type = new PublicationType(
+            $data['name'],
+            $data['canonicalField'],
+            $data['sortField'],
+            $data['sortDirection'],
+            $data['pageSize'],
+            $data['prevNextLinks'],
+            $data['detailTemplate'],
+            $data['listTemplate'],
+            $data['fields']->toArray()
+        );
+
+        $json = json_encode($type->toArray(), JSON_PRETTY_PRINT);
         $this->result = $json;
 
         echo sprintf("Saving publicationType data to [%s]\n", Hyde::pathToRelative($outFile));
 
-        file_put_contents($outFile, $json);
+        $type->save($outFile);
     }
 
     public function getResult(): string
