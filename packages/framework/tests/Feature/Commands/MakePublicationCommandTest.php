@@ -29,7 +29,28 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_creates_publication()
     {
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        file_put_contents(Hyde::path('test-publication/schema.json'),
+            <<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "Title",
+                "sortField": "__createdAt",
+                "sortDirection": "ASC",
+                "pageSize": 10,
+                "prevNextLinks": true,
+                "detailTemplate": "test-publication_detail",
+                "listTemplate": "test-publication_list",
+                "fields": [
+                    {
+                        "name": "Title",
+                        "min": "default",
+                        "max": "default",
+                        "type": "string"
+                    }
+                ]
+            }
+            JSON
+        );
 
         $this->artisan('make:publication')
             ->expectsQuestion('Publication type name', 'Test Publication')
