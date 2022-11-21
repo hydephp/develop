@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Illuminate\Contracts\Support\Jsonable;
 use function dirname;
 use Exception;
 use function file_get_contents;
@@ -19,7 +20,7 @@ use RuntimeException;
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationTypeTest
  */
-class PublicationType implements JsonSerializable, Arrayable
+class PublicationType implements JsonSerializable, Jsonable, Arrayable
 {
     use JsonSerializesArrayable;
     use InteractsWithDirectories;
@@ -83,6 +84,11 @@ class PublicationType implements JsonSerializable, Arrayable
             'listTemplate' => $this->listTemplate,
             'fields' => $this->fields,
         ];
+    }
+
+    public function toJson($options = 0): string
+    {
+        return json_encode($this->toArray(), $options);
     }
 
     public function getIdentifier(): string
