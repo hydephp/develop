@@ -45,6 +45,14 @@ class PublicationFieldTest extends TestCase
         $this->assertNull($field->max);
     }
 
+    public function test_max_value_cannot_be_less_than_min_value()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("The 'max' value cannot be less than the 'min' value.");
+
+        new PublicationField('string', 'test', 10, 1);
+    }
+
     protected function makeField(): PublicationField
     {
         return new PublicationField('string', 'test', 1, 10);

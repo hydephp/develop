@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
+use InvalidArgumentException;
 use JsonSerializable;
 
 /**
@@ -22,6 +23,10 @@ class PublicationField implements JsonSerializable, Arrayable
 
     public function __construct(string $type, string $name, ?int $min, ?int $max)
     {
+        if (($min !== null) && ($max !== null) && $min > $max) {
+            throw new InvalidArgumentException("The 'max' value cannot be less than the 'min' value.");
+        }
+
         $this->type = $type;
         $this->name = $name;
         $this->min = $min;
