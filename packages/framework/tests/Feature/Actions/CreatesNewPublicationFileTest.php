@@ -18,9 +18,9 @@ class CreatesNewPublicationFileTest extends TestCase
 {
     public function testCreate()
     {
-        $pubType   = PublicationType::fromFile(Hyde::path('tests/fixtures/test-publication-schema.json'));
+        $pubType = PublicationType::fromFile(Hyde::path('tests/fixtures/test-publication-schema.json'));
         $fieldData = Collection::make([]);
-        $creator   = new CreatesNewPublicationFile($pubType, $fieldData);
+        $creator = new CreatesNewPublicationFile($pubType, $fieldData);
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('tests/fixtures/test-publication/hello-world.md')));

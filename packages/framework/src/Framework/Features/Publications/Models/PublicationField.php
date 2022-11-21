@@ -27,8 +27,8 @@ class PublicationField implements JsonSerializable, Arrayable
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max)
     {
         $this->name = $name;
-        $this->min  = $this->parseInt($min);
-        $this->max  = $this->parseInt($max);
+        $this->min = $this->parseInt($min);
+        $this->max = $this->parseInt($max);
         $this->type = strtolower($type);
 
         if (! in_array(strtolower($type), self::TYPES)) {
