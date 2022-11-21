@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use function deleteDirectory;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Rgasch\Collection\Collection;
-
-use function deleteDirectory;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationType
