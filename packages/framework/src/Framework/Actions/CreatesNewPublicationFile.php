@@ -33,7 +33,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
 
     public function create(): void
     {
-        $dir = dirname($this->pubType->schemaFile);
+        $dir = dirname($this->pubType->getDirectory());
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDef = $this->pubType->fields->filter(fn ($f) => $f->name === $canonicalFieldName)->first();
         $canonicalValue = $canonicalFieldDef->type != 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
