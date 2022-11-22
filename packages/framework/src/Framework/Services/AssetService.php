@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use Illuminate\Support\Str;
+use function str_contains;
 
 /**
  * Handles the retrieval of core asset files. Commonly used through the Asset facade.
@@ -48,6 +50,19 @@ class AssetService
     public function hasMediaFile(string $file): bool
     {
         return file_exists(Hyde::path('_media').'/'.$file);
+    }
+
+    public function injectTailwindConfig(): string
+    {
+        $contents = file_get_contents(Hyde::path('tailwind.config.js'));
+
+        // return everything between the first and last curly braces
+        $config = Str::between($contents, '{', '}');
+
+        // Remove trailing commas
+        $config = rtrim($config, ",\n\r");
+
+        return $config;
     }
 
     protected function getCacheBustKey(string $file): string
