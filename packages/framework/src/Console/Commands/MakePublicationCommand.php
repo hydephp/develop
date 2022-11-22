@@ -89,7 +89,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         return Command::SUCCESS;
     }
 
-    private function captureFieldInput(object $field, Collection $mediaFiles): string|array
+    protected function captureFieldInput(object $field, Collection $mediaFiles): string|array
     {
         $rulesPerType = $this->getValidationRulesPerType();
 
@@ -156,7 +156,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         return PublicationHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
     }
 
-    private function getValidationRulesPerType(): Collection
+    protected function getValidationRulesPerType(): Collection
     {
         return Collection::create([
             'string'   => ['required', 'string', 'between'],
