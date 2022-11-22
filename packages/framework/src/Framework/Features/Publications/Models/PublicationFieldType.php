@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use JsonSerializable;
 use function strtolower;
@@ -26,7 +27,7 @@ class PublicationFieldType implements JsonSerializable, Arrayable
 
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max)
     {
-        $this->name = $name;
+        $this->name = Str::kebab($name);
         $this->min = $this->parseInt($min);
         $this->max = $this->parseInt($max);
         $this->type = strtolower($type);

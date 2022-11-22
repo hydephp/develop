@@ -75,6 +75,12 @@ class PublicationFieldTypeTest extends TestCase
         $this->assertSame('string', $field->type);
     }
 
+    public function test_name_gets_stored_as_kebab_case()
+    {
+        $field = new PublicationFieldType('string', 'Test Field', 1, 10);
+        $this->assertSame('test-field', $field->name);
+    }
+
     public function test_validate_input_against_rules()
     {
         $this->markTestIncomplete('TODO: Implement this method.');
