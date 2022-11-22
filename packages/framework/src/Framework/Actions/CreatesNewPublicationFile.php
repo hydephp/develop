@@ -13,8 +13,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use RuntimeException;
-
-use function Safe\date;
 use function Safe\file_put_contents;
 
 /**
