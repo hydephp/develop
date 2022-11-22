@@ -59,6 +59,13 @@ class AssetService
         // return everything between the first and last curly braces
         $config = Str::between($contents, '{', '}');
 
+        // Remove plugin imports
+        if (str_contains($config, 'plugins: [')) {
+            $tokens = explode('plugins: [', $config, 2);
+            $tokens[1] = Str::after($tokens[1], ']');
+            $config = implode('', $tokens);
+        }
+
         // Remove trailing commas
         $config = rtrim($config, ",\n\r");
 

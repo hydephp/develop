@@ -62,5 +62,6 @@ class AssetServiceTest extends TestCase
         $this->assertStringContainsString('theme: {', $config);
         $this->assertStringContainsString('extend: {', $config);
         $this->assertStringContainsString('typography: {', $config);
+        $this->assertStringNotContainsString('plugins', $config);
     }
 }
