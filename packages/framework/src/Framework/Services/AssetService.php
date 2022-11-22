@@ -62,7 +62,7 @@ class AssetService
             $config = implode('', $tokens);
         }
 
-        return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n". rtrim($config, ",\n\r"));
+        return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n".rtrim($config, ",\n\r"));
     }
 
     protected function getCacheBustKey(string $file): string
