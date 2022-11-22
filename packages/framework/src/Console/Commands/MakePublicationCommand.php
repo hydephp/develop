@@ -158,21 +158,16 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
     private function getValidationRulesPerType(): Collection
     {
-        static $rulesPerType = null;
-        if (! $rulesPerType) {
-            $rulesPerType = Collection::create(
-                [
-                    'string'   => ['required', 'string', 'between'],
-                    'boolean'  => ['required', 'boolean'],
-                    'integer'  => ['required', 'integer', 'between'],
-                    'float'    => ['required', 'numeric', 'between'],
-                    'datetime' => ['required', 'datetime', 'between'],
-                    'url'      => ['required', 'url'],
-                    'text'     => ['required', 'string', 'between'],
-                ]
-            );
-        }
-
-        return $rulesPerType;
+        return Collection::create(
+            [
+                'string'   => ['required', 'string', 'between'],
+                'boolean'  => ['required', 'boolean'],
+                'integer'  => ['required', 'integer', 'between'],
+                'float'    => ['required', 'numeric', 'between'],
+                'datetime' => ['required', 'datetime', 'between'],
+                'url'      => ['required', 'url'],
+                'text'     => ['required', 'string', 'between'],
+            ]
+        );
     }
 }
