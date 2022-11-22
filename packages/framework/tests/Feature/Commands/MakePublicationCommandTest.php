@@ -10,8 +10,6 @@ use function deleteDirectory;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use function file_get_contents;
-use function rmdir;
-use function unlink;
 
 /**
  * @covers \Hyde\Console\CommandsMakePublicationCommand
@@ -71,7 +69,6 @@ title: Hello World
 Raw MD text ...
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
 
-        unlink(Hyde::path('test-publication/hello-world.md'));
-        rmdir(Hyde::path('test-publication'));
+        deleteDirectory(Hyde::path('test-publication'));
     }
 }
