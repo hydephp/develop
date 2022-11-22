@@ -54,28 +54,15 @@ class AssetService
 
     public function injectTailwindConfig(): string
     {
-        $contents = file_get_contents(Hyde::path('tailwind.config.js'));
+        $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
 
-        // return everything between the first and last curly braces
-        $config = Str::between($contents, '{', '}');
-
-        // Remove plugin imports
         if (str_contains($config, 'plugins: [')) {
             $tokens = explode('plugins: [', $config, 2);
             $tokens[1] = Str::after($tokens[1], ']');
             $config = implode('', $tokens);
         }
 
-        // Remove trailing commas
-        $config = rtrim($config, ",\n\r");
-
-        // Add filepath header
-        $config = "/* tailwind.config.js */ \n".$config;
-
-        // Minify script
-        $config = preg_replace('/\s+/', ' ', $config);
-
-        return $config;
+        return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n". rtrim($config, ",\n\r"));
     }
 
     protected function getCacheBustKey(string $file): string
