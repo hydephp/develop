@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use function array_merge;
-use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -99,9 +99,9 @@ class PublicationTypeTest extends TestCase
         $collection = $publicationType->getFields();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
-        $this->assertInstanceOf(PublicationField::class, $collection->first());
+        $this->assertInstanceOf(PublicationFieldType::class, $collection->first());
         $this->assertEquals(new Collection([
-            'test' => new PublicationField('string', 'test', 0, 128),
+                                               'test' => new PublicationFieldType('string', 'test', 0, 128),
         ]), $collection);
     }
 

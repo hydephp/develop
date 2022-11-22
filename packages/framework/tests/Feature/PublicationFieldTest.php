@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldType
  */
 class PublicationFieldTest extends TestCase
 {
     public function test_can_instantiate_class()
     {
         $field = $this->makeField();
-        $this->assertInstanceOf(PublicationField::class, $field);
+        $this->assertInstanceOf(PublicationFieldType::class, $field);
 
         $this->assertSame('string', $field->type);
         $this->assertSame('test', $field->name);
@@ -41,7 +41,7 @@ class PublicationFieldTest extends TestCase
 
     public function test_range_values_can_be_null()
     {
-        $field = new PublicationField('string', 'test', null, null);
+        $field = new PublicationFieldType('string', 'test', null, null);
         $this->assertNull($field->min);
         $this->assertNull($field->max);
     }
@@ -51,12 +51,12 @@ class PublicationFieldTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("The 'max' value cannot be less than the 'min' value.");
 
-        new PublicationField('string', 'test', 10, 1);
+        new PublicationFieldType('string', 'test', 10, 1);
     }
 
     public function test_integers_can_be_added_as_strings()
     {
-        $field = new PublicationField('string', 'test', 1, '10');
+        $field = new PublicationFieldType('string', 'test', 1, '10');
         $this->assertSame(1, $field->min);
         $this->assertSame(10, $field->max);
     }
@@ -73,7 +73,7 @@ class PublicationFieldTest extends TestCase
             'array',
             'text',
             'image',
-        ], PublicationField::TYPES);
+        ],                PublicationFieldType::TYPES);
     }
 
     public function test_type_must_be_valid()
@@ -81,12 +81,12 @@ class PublicationFieldTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("The type 'invalid' is not a valid type. Valid types are: string, boolean, integer, float, datetime, url, array, text, image.");
 
-        new PublicationField('invalid', 'test', 1, 10);
+        new PublicationFieldType('invalid', 'test', 1, 10);
     }
 
     public function test_type_input_is_case_insensitive()
     {
-        $field = new PublicationField('STRING', 'test', 1, 10);
+        $field = new PublicationFieldType('STRING', 'test', 1, 10);
         $this->assertSame('string', $field->type);
     }
 
@@ -95,8 +95,8 @@ class PublicationFieldTest extends TestCase
         $this->markTestIncomplete('TODO: Implement this method.');
     }
 
-    protected function makeField(): PublicationField
+    protected function makeField(): PublicationFieldType
     {
-        return new PublicationField('string', 'test', 1, 10);
+        return new PublicationFieldType('string', 'test', 1, 10);
     }
 }

@@ -13,7 +13,7 @@ use function strtolower;
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTest
  */
-class PublicationField implements JsonSerializable, Arrayable
+class PublicationFieldType implements JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
