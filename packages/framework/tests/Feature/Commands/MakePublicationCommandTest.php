@@ -60,9 +60,6 @@ class MakePublicationCommandTest extends TestCase
             ->expectsQuestion('Publication type (1-1)', 1)
             ->expectsQuestion('Title', 'My Title')
             ->expectsOutputToContain('Creating a new Publication!')
-            ->expectsOutput('Choose the default field you wish to sort by:')
-            ->expectsOutput('Choose the default sort direction:')
-            ->expectsOutput('Saving publication data to [test-publication/schema.json]')
             ->expectsOutput('Publication created successfully!')
             ->assertExitCode(0);
 

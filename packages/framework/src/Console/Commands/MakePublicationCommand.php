@@ -27,7 +27,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
     public function handle(): int
     {
-        $this->title('Creating a new Publication Item!');
+        $this->title('Creating a new Publication!');
 
         $pubTypes = PublicationHelper::getPublicationTypes();
         if ($pubTypes->isEmpty()) {
@@ -81,6 +81,8 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
             return Command::FAILURE;
         }
+
+        $this->info('Publication created successfully!');
 
         return Command::SUCCESS;
     }
