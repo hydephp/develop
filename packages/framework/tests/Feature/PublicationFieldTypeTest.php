@@ -61,21 +61,6 @@ class PublicationFieldTypeTest extends TestCase
         $this->assertSame(10, $field->max);
     }
 
-    public function test_types_constant()
-    {
-        $this->assertSame([
-            'string',
-            'boolean',
-            'integer',
-            'float',
-            'datetime',
-            'url',
-            'array',
-            'text',
-            'image',
-        ], PublicationFieldType::TYPES);
-    }
-
     public function test_type_must_be_valid()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -93,6 +78,11 @@ class PublicationFieldTypeTest extends TestCase
     public function test_validate_input_against_rules()
     {
         $this->markTestIncomplete('TODO: Implement this method.');
+    }
+
+    public function test_types_constant()
+    {
+        $this->assertSame(['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'], PublicationFieldType::TYPES);
     }
 
     protected function makeField(): PublicationFieldType
