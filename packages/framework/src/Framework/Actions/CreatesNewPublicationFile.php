@@ -79,7 +79,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $output .= "Raw MD text ...\n";
 
         $this->result = $output;
-        $this->output?->writeln(sprintf("Saving publication data to [%s]", Hyde::pathToRelative($outFile)));
+        $this->output?->writeln(sprintf('Saving publication data to [%s]', Hyde::pathToRelative($outFile)));
 
         $this->needsParentDirectory($outFile);
         file_put_contents($outFile, $output);
