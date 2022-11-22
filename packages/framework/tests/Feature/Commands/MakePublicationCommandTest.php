@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 use function deleteDirectory;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use function file_get_contents;
+use function rmdir;
+use function unlink;
 
 /**
  * @covers \Hyde\Console\CommandsMakePublicationCommand
@@ -40,7 +45,7 @@ class MakePublicationCommandTest extends TestCase
                 "listTemplate": "test-publication_list",
                 "fields": [
                     {
-                        "name": "My Title",
+                        "name": "Title",
                         "min": "0",
                         "max": "0",
                         "type": "string"
@@ -52,7 +57,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
             ->expectsQuestion('Publication type (1-1)', 1)
-            ->expectsQuestion('My Title', 'Title')
+            ->expectsQuestion('Title', 'My Title')
             ->expectsOutputToContain('Creating a new Publication!')
             ->expectsOutput('Choose the default field you wish to sort by:')
             ->expectsOutput('Choose the default sort direction:')
@@ -60,29 +65,15 @@ class MakePublicationCommandTest extends TestCase
             ->expectsOutput('Publication created successfully!')
             ->assertExitCode(0);
 
-        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-        $this->assertEqualsIgnoringLineEndingType(
-            file_get_contents(Hyde::path('test-publication/schema.json')),
-            <<<'JSON'
-            {
-                "name": "Test Publication",
-                "canonicalField": "Title",
-                "sortField": "__createdAt",
-                "sortDirection": "ASC",
-                "pageSize": 10,
-                "prevNextLinks": true,
-                "detailTemplate": "test-publication_detail",
-                "listTemplate": "test-publication_list",
-                "fields": [
-                    {
-                        "name": "Title",
-                        "min": "default",
-                        "max": "default",
-                        "type": "string"
-                    }
-                ]
-            }
-            JSON
-        );
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEqualsIgnoringLineEndingType('---
+__createdAt: '.Carbon::now()->format('Y-m-d H:i:s').'
+title: Hello World
+---
+Raw MD text ...
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+
+        unlink(Hyde::path('test-publication/hello-world.md'));
+        rmdir(Hyde::path('test-publication'));
     }
 }
