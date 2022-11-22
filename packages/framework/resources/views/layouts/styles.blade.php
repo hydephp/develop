@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ Asset::mediaLink('app.css') }}">
 @endif
 
+{{-- Dynamic TailwindCSS Play CDN --}}
 @if(config('hyde.use_play_cdn', false))
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>tailwind.config = { {!! Asset::injectTailwindConfig() !!} }</script>
