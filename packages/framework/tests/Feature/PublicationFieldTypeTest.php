@@ -11,7 +11,7 @@ use InvalidArgumentException;
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldType
  */
-class PublicationFieldTest extends TestCase
+class PublicationFieldTypeTest extends TestCase
 {
     public function test_can_instantiate_class()
     {
