@@ -13,6 +13,7 @@ use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use Rgasch\Collection\Collection;
 use RuntimeException;
 use function Safe\file_put_contents;
@@ -47,7 +48,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $fileName = PublicationHelper::formatNameForStorage($slug);
         $outFile = Hyde::path("$dir/$fileName.md");
         if (file_exists($outFile) && ! $this->force) {
-            throw new \InvalidArgumentException("File [$outFile] already exists");
+            throw new InvalidArgumentException("File [$outFile] already exists");
         }
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
