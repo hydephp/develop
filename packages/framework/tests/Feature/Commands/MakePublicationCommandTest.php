@@ -15,6 +15,7 @@ use function unlink;
 
 /**
  * @covers \Hyde\Console\CommandsMakePublicationCommand
+ * @covers \Hyde\Framework\Actions\CreatesNewPublicationFile
  */
 class MakePublicationCommandTest extends TestCase
 {
