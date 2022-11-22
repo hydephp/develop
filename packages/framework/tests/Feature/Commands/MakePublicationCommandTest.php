@@ -58,6 +58,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsQuestion('Publication type (1-1)', 1)
             ->expectsQuestion('Title', 'Hello World')
             ->expectsOutputToContain('Creating a new Publication!')
+            ->expectsOutput('Saving publication data to [test-publication/hello-world.md]')
             ->expectsOutput('Publication created successfully!')
             ->assertExitCode(0);
 
