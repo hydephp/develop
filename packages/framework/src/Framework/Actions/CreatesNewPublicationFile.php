@@ -9,6 +9,7 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
+use Hyde\Hyde;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
@@ -42,7 +43,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
         $slug = $canonicalStr->slug()->toString();
         $fileName = PublicationHelper::formatNameForStorage($slug);
-        $outFile = "$dir/$fileName.md";
+        $outFile = Hyde::path("$dir/$fileName.md");
         if (file_exists($outFile) && ! $this->force) {
             throw new \InvalidArgumentException("File [$outFile] already exists");
         }
