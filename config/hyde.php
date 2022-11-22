@@ -181,17 +181,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Load app.css from CDN
+    | CDN Stylesheet Settings
     |--------------------------------------------------------------------------
     |
     | Hyde ships with an app.css file containing compiled TailwindCSS styles
-    | in the _media/ directory. If you want to load this file from the
-    | HydeFront JsDelivr CDN, you can set this setting to true.
+    | with all the classes you need for all built-in pages and templates.
     */
 
+    // The exact file shipped with Hyde can also be loaded from the
+    // HydeFront JsDelivr CDN, by setting the following option to true.
     'load_app_styles_from_cdn' => false,
 
-    // You can also load styles from the TailwindCSS PlayCDN which is useful for local development.
-    // Note that this is not recommended for production use and that your Tailwind config will be injected into the HTML.
+    // The next setting enables a script for the TailwindCSS PlayCDN
+    // which will compile styles in the browser. While this is useful
+    // for local development it's not recommended for production use.
+    // To keep things consistent, your Tailwind configuration file will be injected into the HTML.
     'use_play_cdn' => false,
 ];
