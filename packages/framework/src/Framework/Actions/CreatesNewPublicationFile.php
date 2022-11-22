@@ -6,7 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Hyde;
@@ -41,7 +41,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
     {
         $dir = ($this->pubType->getDirectory());
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationField $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
+        $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
         $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
         $slug = $canonicalStr->slug()->toString();
@@ -55,7 +55,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $output = "---\n";
         $output .= "__createdAt: $now\n";
         foreach ($this->fieldData as $name => $value) {
-            /** @var PublicationField $fieldDefinition */
+            /** @var PublicationFieldType $fieldDefinition */
             $fieldDefinition = $this->pubType->getFields()->where('name', $name)->firstOrFail();
 
             if ($fieldDefinition->type == 'text') {

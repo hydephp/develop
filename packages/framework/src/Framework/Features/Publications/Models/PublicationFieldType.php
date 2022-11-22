@@ -6,14 +6,15 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Support\Concerns\JsonSerializesArrayable;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use JsonSerializable;
 use function strtolower;
 
 /**
- * @see \Hyde\Framework\Testing\Feature\PublicationFieldTest
+ * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypeTest
  */
-class PublicationField implements JsonSerializable, Arrayable
+class PublicationFieldType implements JsonSerializable, Arrayable
 {
     use JsonSerializesArrayable;
 
@@ -26,10 +27,10 @@ class PublicationField implements JsonSerializable, Arrayable
 
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max)
     {
-        $this->name = $name;
+        $this->type = strtolower($type);
+        $this->name = Str::kebab($name);
         $this->min = $this->parseInt($min);
         $this->max = $this->parseInt($max);
-        $this->type = strtolower($type);
 
         if (! in_array(strtolower($type), self::TYPES)) {
             throw new InvalidArgumentException(sprintf("The type '$type' is not a valid type. Valid types are: %s.", implode(', ', self::TYPES)));
