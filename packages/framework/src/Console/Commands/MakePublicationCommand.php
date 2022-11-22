@@ -124,8 +124,8 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         if ($field->type === 'image') {
             $this->output->writeln($field->name.' (end with an empty line)');
             $offset = 0;
-            foreach ($mediaFiles as $k => $file) {
-                $offset = $k + 1;
+            foreach ($mediaFiles as $index => $file) {
+                $offset = $index + 1;
                 $this->output->writeln("  $offset: $file");
             }
             $selected = PublicationHelper::askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
