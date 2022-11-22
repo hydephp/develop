@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePageCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
 class MakePublicationCommand extends Command implements CommandHandleInterface
 {
@@ -27,11 +29,11 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
     public function handle(): int
     {
-        $this->title('Creating a new Publication Item!');
+        $this->title('Creating a new Publication!');
 
         $pubTypes = PublicationHelper::getPublicationTypes();
         if ($pubTypes->isEmpty()) {
-            $this->output->error('Unable to locate any publication-types ... did you create any?');
+            $this->output->error('Unable to locate any publication types. Did you create any?');
 
             return Command::FAILURE;
         }
@@ -52,16 +54,16 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         $fieldData = Collection::create();
         $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
         foreach ($pubType->fields as $field) {
-            $fieldData->{$field->name} = $this->captureFieldInput($field, $mediaFiles);
+            $fieldData->{$field['name']} = $this->captureFieldInput((object) $field, $mediaFiles);
         }
 
         try {
-            $creator = new CreatesNewPublicationFile($pubType, $fieldData);
+            $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
             $creator->create();
-        } catch (\InvalidArgumentException $e) { // FIXME: provide a properly typed exception
-            $msg = $e->getMessage();
+        } catch (InvalidArgumentException $exception) { // FIXME: provide a properly typed exception
+            $msg = $exception->getMessage();
             // Useful for debugging
-            //$this->output->writeln("xxx " . $e->getTraceAsString());
+            //$this->output->writeln("xxx " . $exception->getTraceAsString());
             $this->output->writeln("<bg=red;fg=white>$msg</>");
             $overwrite = PublicationHelper::askWithValidation(
                 $this,
@@ -71,21 +73,23 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 'n'
             );
             if (strtolower($overwrite) == 'y') {
-                $creator = new CreatesNewPublicationFile($pubType, $fieldData, true);
+                $creator = new CreatesNewPublicationFile($pubType, $fieldData, true, $this->output);
                 $creator->create();
             } else {
-                $this->output->writeln('<bg=magenta;fg=white>Existing without overwriting existing publication file!</>');
+                $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
             }
-        } catch (\Exception $e) {
-            $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
+        } catch (Exception $exception) {
+            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
 
             return Command::FAILURE;
         }
 
+        $this->info('Publication created successfully!');
+
         return Command::SUCCESS;
     }
 
-    private function captureFieldInput(Collection $field, Collection $mediaFiles): string|array
+    protected function captureFieldInput(object $field, Collection $mediaFiles): string|array
     {
         $rulesPerType = $this->getValidationRulesPerType();
 
@@ -119,8 +123,9 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
         if ($field->type === 'image') {
             $this->output->writeln($field->name.' (end with an empty line)');
-            foreach ($mediaFiles as $k => $file) {
-                $offset = $k + 1;
+            $offset = 0;
+            foreach ($mediaFiles as $index => $file) {
+                $offset = $index + 1;
                 $this->output->writeln("  $offset: $file");
             }
             $selected = PublicationHelper::askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
@@ -151,23 +156,16 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         return PublicationHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
     }
 
-    private function getValidationRulesPerType(): Collection
+    protected function getValidationRulesPerType(): Collection
     {
-        static $rulesPerType = null;
-        if (! $rulesPerType) {
-            $rulesPerType = Collection::create(
-                [
-                    'string'   => ['required', 'string', 'between'],
-                    'boolean'  => ['required', 'boolean'],
-                    'integer'  => ['required', 'integer', 'between'],
-                    'float'    => ['required', 'numeric', 'between'],
-                    'datetime' => ['required', 'datetime', 'between'],
-                    'url'      => ['required', 'url'],
-                    'text'     => ['required', 'string', 'between'],
-                ]
-            );
-        }
-
-        return $rulesPerType;
+        return Collection::create([
+            'string'   => ['required', 'string', 'between'],
+            'boolean'  => ['required', 'boolean'],
+            'integer'  => ['required', 'integer', 'between'],
+            'float'    => ['required', 'numeric', 'between'],
+            'datetime' => ['required', 'datetime', 'between'],
+            'url'      => ['required', 'url'],
+            'text'     => ['required', 'string', 'between'],
+        ]);
     }
 }

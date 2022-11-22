@@ -54,6 +54,13 @@ class PublicationFieldTest extends TestCase
         new PublicationField('string', 'test', 10, 1);
     }
 
+    public function test_integers_can_be_added_as_strings()
+    {
+        $field = new PublicationField('string', 'test', 1, '10');
+        $this->assertSame(1, $field->min);
+        $this->assertSame(10, $field->max);
+    }
+
     public function test_types_constant()
     {
         $this->assertSame([

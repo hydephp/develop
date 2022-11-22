@@ -10,10 +10,11 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationTypeCommand
+ * @covers \Hyde\Framework\Actions\CreatesNewPublicationType
  */
 class MakePublicationTypeCommandTest extends TestCase
 {
-    public function test_command_creates_publication()
+    public function test_command_creates_publication_type()
     {
         $this->artisan('make:publicationType')
             ->expectsQuestion('Publication type name', 'Test Publication')
