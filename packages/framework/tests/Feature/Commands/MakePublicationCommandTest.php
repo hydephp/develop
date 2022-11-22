@@ -12,7 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Console\CommandsMakePublicationCommand
+ * @covers \Hyde\Console\Commands\MakePublicationCommand
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationFile
  */
 class MakePublicationCommandTest extends TestCase
