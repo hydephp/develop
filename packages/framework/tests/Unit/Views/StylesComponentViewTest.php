@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use function config;
 use Hyde\Facades\Asset;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
-use function config;
 
 /**
  * @see resources/views/layouts/styles.blade.php
