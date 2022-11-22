@@ -56,5 +56,6 @@ Raw MD text ...
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
 
         unlink(Hyde::path('test-publication/hello-world.md'));
+        rmdir(Hyde::path('test-publication'));
     }
 }
