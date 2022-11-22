@@ -73,7 +73,7 @@ class PublicationFieldTypeTest extends TestCase
             'array',
             'text',
             'image',
-        ],                PublicationFieldType::TYPES);
+        ], PublicationFieldType::TYPES);
     }
 
     public function test_type_must_be_valid()
