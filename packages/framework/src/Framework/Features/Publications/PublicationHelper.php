@@ -15,6 +15,7 @@ use Rgasch\Collection\Collection;
 use RuntimeException;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use function ucfirst;
 
 class PublicationHelper
 {
@@ -45,7 +46,7 @@ class PublicationHelper
             $rules = $rules->toArray();
         }
 
-        $answer = $command->ask($message, $default);
+        $answer = $command->ask(ucfirst($message), $default);
         $factory = app(ValidationFactory::class);
         $validator = $factory->make([$name => $answer], [$name => $rules]);
 
