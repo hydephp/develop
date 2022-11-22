@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\File;
 use function deleteDirectory;
+use function file_get_contents;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use function file_get_contents;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Console\CommandsMakePublicationCommand
