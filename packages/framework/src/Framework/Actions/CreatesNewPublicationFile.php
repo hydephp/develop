@@ -9,6 +9,7 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use RuntimeException;
@@ -48,7 +49,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
             throw new \InvalidArgumentException("File [$outFile] already exists");
         }
 
-        $now = date('Y-m-d H:i:s');
+        $now = Carbon::now()->format('Y-m-d H:i:s');
         $output = "---\n";
         $output .= "__createdAt: {$now}\n";
         foreach ($this->fieldData as $name => $value) {

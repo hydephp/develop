@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
 
@@ -42,12 +43,14 @@ class CreatesNewPublicationFileTest extends TestCase
             'title' => 'Hello World',
         ]);
 
+        $this->freezeTime();
+
         $creator = new CreatesNewPublicationFile($pubType, $fieldData);
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEqualsIgnoringLineEndingType('---
-__createdAt: 2022-11-22 11:19:09
+__createdAt: '.Carbon::now()->format('Y-m-d H:i:s').'
 title: Hello World
 ---
 Raw MD text ...
