@@ -60,10 +60,10 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         try {
             $creator = new CreatesNewPublicationFile($pubType, $fieldData);
             $creator->create();
-        } catch (InvalidArgumentException $e) { // FIXME: provide a properly typed exception
-            $msg = $e->getMessage();
+        } catch (InvalidArgumentException $exception) { // FIXME: provide a properly typed exception
+            $msg = $exception->getMessage();
             // Useful for debugging
-            //$this->output->writeln("xxx " . $e->getTraceAsString());
+            //$this->output->writeln("xxx " . $exception->getTraceAsString());
             $this->output->writeln("<bg=red;fg=white>$msg</>");
             $overwrite = PublicationHelper::askWithValidation(
                 $this,
@@ -78,8 +78,8 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             } else {
                 $this->output->writeln('<bg=magenta;fg=white>Existing without overwriting existing publication file!</>');
             }
-        } catch (Exception $e) {
-            $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
+        } catch (Exception $exception) {
+            $this->error('Error: '.$exception->getMessage().' at '.$exception->getFile().':'.$exception->getLine());
 
             return Command::FAILURE;
         }
