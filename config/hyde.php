@@ -193,4 +193,5 @@ return [
 
     // You can also load styles from the TailwindCSS PlayCDN which is useful for local development.
     'use_play_cdn' => false,
+    // Note that this is not recommended for production use and that your Tailwind config will be injected into the HTML.
 ];

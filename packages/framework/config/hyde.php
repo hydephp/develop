@@ -192,5 +192,6 @@ return [
     'load_app_styles_from_cdn' => false,
 
     // You can also load styles from the TailwindCSS PlayCDN which is useful for local development.
+    // Note that this is not recommended for production use and that your Tailwind config will be injected into the HTML.
     'use_play_cdn' => false,
 ];
