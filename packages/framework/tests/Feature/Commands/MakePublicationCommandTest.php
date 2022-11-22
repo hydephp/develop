@@ -37,7 +37,7 @@ class MakePublicationCommandTest extends TestCase
             <<<'JSON'
             {
                 "name": "Test Publication",
-                "canonicalField": "Title",
+                "canonicalField": "title",
                 "sortField": "__createdAt",
                 "sortDirection": "ASC",
                 "pageSize": 10,
