@@ -27,10 +27,10 @@ class PublicationFieldType implements JsonSerializable, Arrayable
 
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max)
     {
+        $this->type = strtolower($type);
         $this->name = Str::kebab($name);
         $this->min = $this->parseInt($min);
         $this->max = $this->parseInt($max);
-        $this->type = strtolower($type);
 
         if (! in_array(strtolower($type), self::TYPES)) {
             throw new InvalidArgumentException(sprintf("The type '$type' is not a valid type. Valid types are: %s.", implode(', ', self::TYPES)));
