@@ -190,4 +190,7 @@ return [
     */
 
     'load_app_styles_from_cdn' => false,
+
+    // You can also load styles from the TailwindCSS PlayCDN which is useful for local development.
+    'use_play_cdn' => false,
 ];
