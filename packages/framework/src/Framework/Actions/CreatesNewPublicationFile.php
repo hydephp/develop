@@ -55,7 +55,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $output .= "__createdAt: $now\n";
         foreach ($this->fieldData as $name => $value) {
             /** @var PublicationField $fieldDefinition */
-            $fieldDefinition = $this->pubType->getFields()->where('name', $name)->first();
+            $fieldDefinition = $this->pubType->getFields()->where('name', $name)->firstOrFail();
 
             if ($fieldDefinition->type == 'text') {
                 $output .= "$name: |\n";
