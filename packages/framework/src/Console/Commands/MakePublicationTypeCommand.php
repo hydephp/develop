@@ -99,7 +99,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
         return Command::SUCCESS;
     }
 
-    private function captureFieldsDefinitions(): Collection
+    protected function captureFieldsDefinitions(): Collection
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
         $count = 1;
