@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
 use Hyde\Framework\Features\Publications\PublicationHelper;
+use Hyde\Hyde;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
@@ -125,7 +126,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 $offset = $k + 1;
                 $this->output->writeln("  $offset: $file");
             }
-            $selected = PublicationHelper::askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+            $selected = PublicationHelper::askWithValidation($this, $field->name, Hyde::makeTitle($field->name), ['required', 'integer', "between:1,$offset"]);
             $file = $mediaFiles->{$selected - 1};
 
             return '_media/'.Str::of($file)->after('media/')->toString();
@@ -150,7 +151,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             }
         }
 
-        return PublicationHelper::askWithValidation($this, $field->name, $field->name, $fieldRules);
+        return PublicationHelper::askWithValidation($this, $field->name, Hyde::makeTitle($field->name), $fieldRules);
     }
 
     private function getValidationRulesPerType(): Collection
