@@ -8,6 +8,7 @@ use Hyde\Foundation\FileCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
+use Hyde\Pages\Concerns\HydePage;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -53,5 +54,13 @@ trait ManagesHydeKernel
     public function getSourceRoot(): string
     {
         return $this->sourceRoot;
+    }
+
+    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
+    public function getDiscoveredPageTypes(): array
+    {
+        return $this->pages()->map(function (HydePage $page): string {
+            return $page::class;
+        })->unique()->values()->toArray();
     }
 }

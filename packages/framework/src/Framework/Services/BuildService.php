@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use function collect;
 use Hyde\Facades\Site;
 use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
@@ -12,8 +13,8 @@ use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 /**
  * Moves logic from the build command to a service.
@@ -39,7 +40,7 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        $this->getClassNamesForDiscoveredPageModels()->each(function (string $pageClass) {
+        collect(Hyde::getDiscoveredPageTypes())->each(function (string $pageClass) {
             $this->compilePagesForClass($pageClass);
         });
     }
@@ -61,22 +62,13 @@ class BuildService
         $this->needsDirectory(Hyde::sitePath('media'));
 
         $this->comment('Transferring Media Assets...');
-
         $this->withProgressBar(DiscoveryService::getMediaAssetFiles(), function (string $filepath): void {
-            copy($filepath, Hyde::sitePath('media/'.basename($filepath)));
+            $sitePath = Hyde::sitePath('media/'.unslash(Str::after($filepath, Hyde::path('_media'))));
+            $this->needsParentDirectory($sitePath);
+            copy($filepath, $sitePath);
         });
 
         $this->newLine(2);
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection<array-key, class-string<\Hyde\Pages\Concerns\HydePage>>
-     */
-    protected function getClassNamesForDiscoveredPageModels(): Collection
-    {
-        return $this->router->getRoutes()->map(function (Route $route): string {
-            return $route->getPageClass();
-        })->unique();
     }
 
     /**

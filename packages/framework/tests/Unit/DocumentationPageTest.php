@@ -22,7 +22,7 @@ class DocumentationPageTest extends TestCase
 {
     public function test_can_generate_table_of_contents()
     {
-        $page = DocumentationPage::make(body: '# Foo');
+        $page = DocumentationPage::make(markdown: '# Foo');
         $this->assertIsString($page->getTableOfContents());
     }
 

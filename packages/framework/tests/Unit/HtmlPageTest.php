@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Pages\HtmlPage;
 use Hyde\Testing\TestCase;
@@ -14,7 +14,7 @@ class HtmlPageTest extends TestCase
 {
     public function testHtmlPageCanBeCompiled()
     {
-        $this->file(HtmlPage::$sourceDirectory.'/foo.html', 'bar');
+        $this->file('_pages/foo.html', 'bar');
 
         $page = new HtmlPage('foo');
 
@@ -23,7 +23,7 @@ class HtmlPageTest extends TestCase
 
     public function testCompileMethodUsesContents()
     {
-        $this->file(HtmlPage::$sourceDirectory.'/foo.html', 'bar');
+        $this->file('_pages/foo.html', 'bar');
 
         $page = new HtmlPage('foo');
 

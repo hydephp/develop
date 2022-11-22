@@ -56,6 +56,7 @@ use Illuminate\Support\HtmlString;
  * @method static void setBasePath(string $basePath)
  * @method static void setSourceRoot(string $sourceRoot)
  * @method static void shareViewData(HydePage $page)
+ * @method static array getDiscoveredPageTypes()
  * @method static array toArray()
  * @method static void boot()
  *
