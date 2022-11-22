@@ -123,6 +123,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
         if ($field->type === 'image') {
             $this->output->writeln($field->name.' (end with an empty line)');
+            $offset = 0;
             foreach ($mediaFiles as $k => $file) {
                 $offset = $k + 1;
                 $this->output->writeln("  $offset: $file");
