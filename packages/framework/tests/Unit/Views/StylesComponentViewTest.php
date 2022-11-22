@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use function config;
 use Hyde\Facades\Asset;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -63,10 +64,16 @@ class StylesComponentViewTest extends TestCase
                 @push("styles")
                 foo bar
                 @endpush
-                
+
                 @include("hyde::layouts.styles")'
              )
         );
+    }
+
+    public function test_component_renders_tailwind_play_cdn_link_when_enabled_in_config()
+    {
+        config(['hyde.use_play_cdn' => true]);
+        $this->assertStringContainsString('<script src="https://cdn.tailwindcss.com?plugins=typography"></script>', $this->renderTestView());
     }
 
     public function test_component_renders_app_cdn_link_when_enabled_in_config()
