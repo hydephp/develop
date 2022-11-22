@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
@@ -58,7 +60,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         try {
             $creator = new CreatesNewPublicationFile($pubType, $fieldData);
             $creator->create();
-        } catch (\InvalidArgumentException $e) { // FIXME: provide a properly typed exception
+        } catch (InvalidArgumentException $e) { // FIXME: provide a properly typed exception
             $msg = $e->getMessage();
             // Useful for debugging
             //$this->output->writeln("xxx " . $e->getTraceAsString());
@@ -76,7 +78,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             } else {
                 $this->output->writeln('<bg=magenta;fg=white>Existing without overwriting existing publication file!</>');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
 
             return Command::FAILURE;
