@@ -72,6 +72,9 @@ class AssetService
         // Add filepath header
         $config = "/* tailwind.config.js */ \n".$config;
 
+        // Minify script
+        $config = preg_replace('/\s+/', ' ', $config);
+
         return $config;
     }
 
