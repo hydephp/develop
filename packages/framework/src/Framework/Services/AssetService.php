@@ -69,6 +69,9 @@ class AssetService
         // Remove trailing commas
         $config = rtrim($config, ",\n\r");
 
+        // Add filepath header
+        $config = "/* tailwind.config.js */ \n".$config;
+
         return $config;
     }
 
