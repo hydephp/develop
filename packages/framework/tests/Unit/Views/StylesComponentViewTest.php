@@ -73,7 +73,7 @@ class StylesComponentViewTest extends TestCase
     public function test_component_renders_tailwind_play_cdn_link_when_enabled_in_config()
     {
         config(['hyde.use_play_cdn' => true]);
-        $this->assertStringContainsString('<script src="https://cdn.tailwindcss.com"></script>', $this->renderTestView());
+        $this->assertStringContainsString('<script src="https://cdn.tailwindcss.com?plugins=typography"></script>', $this->renderTestView());
     }
 
     public function test_component_renders_app_cdn_link_when_enabled_in_config()
