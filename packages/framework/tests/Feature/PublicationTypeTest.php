@@ -100,7 +100,9 @@ class PublicationTypeTest extends TestCase
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertInstanceOf(PublicationField::class, $collection->first());
-        $this->assertEquals(new Collection([new PublicationField('string', 'test', 0, 128)]), $collection);
+        $this->assertEquals(new Collection([
+            'test' => new PublicationField('string', 'test', 0, 128)
+        ]), $collection);
     }
 
     protected function getTestData(): array
