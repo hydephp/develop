@@ -46,7 +46,7 @@ class MakePublicationCommandTest extends TestCase
                 "listTemplate": "test-publication_list",
                 "fields": [
                     {
-                        "name": "Title",
+                        "name": "title",
                         "min": "0",
                         "max": "0",
                         "type": "string"
@@ -58,7 +58,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
             ->expectsQuestion('Publication type (1-1)', 1)
-            ->expectsQuestion('Title', 'My Title')
+            ->expectsQuestion('Title', 'Hello World')
             ->expectsOutputToContain('Creating a new Publication!')
             ->expectsOutput('Publication created successfully!')
             ->assertExitCode(0);
