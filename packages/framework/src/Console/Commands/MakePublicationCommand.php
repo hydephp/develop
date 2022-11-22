@@ -76,7 +76,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 $creator = new CreatesNewPublicationFile($pubType, $fieldData, true);
                 $creator->create();
             } else {
-                $this->output->writeln('<bg=magenta;fg=white>Existing without overwriting existing publication file!</>');
+                $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
             }
         } catch (Exception $exception) {
             $this->error('Error: '.$exception->getMessage().' at '.$exception->getFile().':'.$exception->getLine());
