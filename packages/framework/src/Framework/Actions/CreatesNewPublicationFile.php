@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationHelper;
 use Hyde\Hyde;
+use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
@@ -30,7 +31,8 @@ class CreatesNewPublicationFile implements CreateActionInterface
     public function __construct(
         protected PublicationType $pubType,
         protected Collection $fieldData,
-        protected bool $force = false
+        protected bool $force = false,
+        protected ?OutputStyle $output = null,
     ) {
     }
 
@@ -77,7 +79,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $output .= "Raw MD text ...\n";
 
         $this->result = $output;
-        echo "Saving publication data to [$outFile]\n";
+        $this->output?->writeln(sprintf("Saving publication data to [%s]\n", Hyde::pathToRelative($outFile)));
 
         $this->needsParentDirectory($outFile);
         file_put_contents($outFile, $output);

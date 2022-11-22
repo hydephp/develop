@@ -58,7 +58,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
         }
 
         try {
-            $creator = new CreatesNewPublicationFile($pubType, $fieldData);
+            $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
             $creator->create();
         } catch (InvalidArgumentException $exception) { // FIXME: provide a properly typed exception
             $msg = $exception->getMessage();
@@ -73,7 +73,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 'n'
             );
             if (strtolower($overwrite) == 'y') {
-                $creator = new CreatesNewPublicationFile($pubType, $fieldData, true);
+                $creator = new CreatesNewPublicationFile($pubType, $fieldData, true, $this->output);
                 $creator->create();
             } else {
                 $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
