@@ -33,7 +33,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
 
         $pubTypes = PublicationHelper::getPublicationTypes();
         if ($pubTypes->isEmpty()) {
-            $this->output->error('Unable to locate any publication-types ... did you create any?');
+            $this->output->error('Unable to locate any publication types. Did you create any?');
 
             return Command::FAILURE;
         }
