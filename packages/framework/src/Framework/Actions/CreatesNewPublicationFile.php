@@ -52,13 +52,13 @@ class CreatesNewPublicationFile implements CreateActionInterface
 
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $output = "---\n";
-        $output .= "__createdAt: {$now}\n";
+        $output .= "__createdAt: $now\n";
         foreach ($this->fieldData as $name => $value) {
             /** @var PublicationField $fieldDefinition */
             $fieldDefinition = $this->pubType->getFields()->where('name', $name)->first();
 
             if ($fieldDefinition->type == 'text') {
-                $output .= "{$name}: |\n";
+                $output .= "$name: |\n";
                 foreach ($value as $line) {
                     $output .= "  $line\n";
                 }
@@ -66,14 +66,14 @@ class CreatesNewPublicationFile implements CreateActionInterface
             }
 
             if ($fieldDefinition->type == 'array') {
-                $output .= "{$name}:\n";
+                $output .= "$name:\n";
                 foreach ($value as $item) {
                     $output .= "  - \"$item\"\n";
                 }
                 continue;
             }
 
-            $output .= "{$name}: {$value}\n";
+            $output .= "$name: $value\n";
         }
         $output .= "---\n";
         $output .= "Raw MD text ...\n";
