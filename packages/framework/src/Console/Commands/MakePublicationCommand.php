@@ -79,7 +79,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
             }
         } catch (Exception $exception) {
-            $this->error('Error: '.$exception->getMessage().' at '.$exception->getFile().':'.$exception->getLine());
+            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
 
             return Command::FAILURE;
         }
