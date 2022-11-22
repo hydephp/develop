@@ -36,10 +36,10 @@ class CreatesNewPublicationFile implements CreateActionInterface
 
     public function create(): void
     {
-        $dir = dirname($this->pubType->getDirectory());
+        $dir = ($this->pubType->getDirectory());
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationField $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
-        $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName}->name : $this->fieldData->{$canonicalFieldName}[0];
+        $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
         $slug = $canonicalStr->slug()->toString();
         $fileName = PublicationHelper::formatNameForStorage($slug);
@@ -51,26 +51,27 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $now = date('Y-m-d H:i:s');
         $output = "---\n";
         $output .= "__createdAt: {$now}\n";
-        foreach ($this->fieldData as $k => $v) {
-            $field = $this->pubType->fields->where('name', $k)->first();
+        foreach ($this->fieldData as $name => $value) {
+            /** @var PublicationField $fieldDefinition */
+            $fieldDefinition = $this->pubType->getFields()->where('name', $name)->first();
 
-            if ($field->type == 'text') {
-                $output .= "{$k}: |\n";
-                foreach ($v as $line) {
+            if ($fieldDefinition->type == 'text') {
+                $output .= "{$name}: |\n";
+                foreach ($value as $line) {
                     $output .= "  $line\n";
                 }
                 continue;
             }
 
-            if ($field->type == 'array') {
-                $output .= "{$k}:\n";
-                foreach ($v as $item) {
+            if ($fieldDefinition->type == 'array') {
+                $output .= "{$name}:\n";
+                foreach ($value as $item) {
                     $output .= "  - \"$item\"\n";
                 }
                 continue;
             }
 
-            $output .= "{$k}: {$v}\n";
+            $output .= "{$name}: {$value}\n";
         }
         $output .= "---\n";
         $output .= "Raw MD text ...\n";
@@ -78,6 +79,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $this->result = $output;
         echo "Saving publication data to [$outFile]\n";
 
+        $this->needsParentDirectory($outFile);
         file_put_contents($outFile, $output);
     }
 

@@ -19,15 +19,40 @@ class CreatesNewPublicationFileTest extends TestCase
 {
     public function testCreate()
     {
-        $pubType = PublicationType::fromFile(Hyde::path('tests/fixtures/test-publication-schema.json'));
+        $pubType = new PublicationType(
+                  'test',
+                  'title',
+                  'sort',
+                  'asc',
+                  10,
+                  true,
+                  'detail',
+                  'list',
+                  [
+                      [
+                          'type' => 'string',
+                          'name' => 'title',
+                          'min'  => 0,
+                          'max'  => 128,
+                      ],
+                  ],
+                  'test-publication',
+              );
         $fieldData = Collection::make([
-            'test' => new PublicationField('string', 'test', 1, 10),
+            'title' => 'Hello World',
         ]);
 
         $creator = new CreatesNewPublicationFile($pubType, $fieldData);
         $creator->create();
 
-        $this->assertTrue(File::exists(Hyde::path('tests/fixtures/test-publication/hello-world.md')));
-        $this->assertSame('TODO', file_get_contents(Hyde::path('tests/fixtures/test-publication/hello-world.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEqualsIgnoringLineEndingType('---
+__createdAt: 2022-11-22 11:19:09
+title: Hello World
+---
+Raw MD text ...
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+
+        unlink(Hyde::path('test-publication/hello-world.md'));
     }
 }
