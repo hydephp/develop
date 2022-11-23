@@ -13,6 +13,8 @@ use function ucfirst;
 
 /**
  * An extended Command class that provides validation methods.
+ *
+ * @see \Hyde\Framework\Testing\Feature\ValidatingCommandTest
  */
 class ValidatingCommand extends Command
 {
