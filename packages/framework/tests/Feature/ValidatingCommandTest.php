@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Mockery;
 use RuntimeException;
 
+use function str_starts_with;
+
 /**
  * @covers \Hyde\Console\Concerns\ValidatingCommand
  */
@@ -73,6 +75,10 @@ class ValidatingCommandTest extends TestCase
 
         $command->setOutput($output);
         $command->handle();
+
+        $output->shouldNotReceive('writeln')->once()->withArgs(function (string $message) {
+            return str_starts_with($message, 'Hello');
+        });
     }
 
     public function testValidationIsCalled()
