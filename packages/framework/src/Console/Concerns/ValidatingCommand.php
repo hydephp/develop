@@ -18,7 +18,7 @@ use function ucfirst;
 class ValidatingCommand extends Command
 {
     /** @var int How many times can the validation loop run? Guards against infinite loops. */
-    protected final const RETRY_COUNT = 30;
+    protected final const MAX_RETRIES = 30;
 
     /**
      * Ask for a CLI input value until we pass validation rules.
@@ -57,7 +57,7 @@ class ValidatingCommand extends Command
 
         $retryCount++;
 
-        if ($retryCount >= self::RETRY_COUNT) {
+        if ($retryCount >= self::MAX_RETRIES) {
             // Prevent infinite loops that may happen, for example when testing. The retry count is high enough to not affect normal usage.
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
