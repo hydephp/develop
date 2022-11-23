@@ -30,7 +30,8 @@ class ValidatingCommandTest extends TestCase
         $command = new class extends ValidatingCommand {
             public function handle()
             {
-                $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
+                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
+                $this->output->writeln("Hello $name!");
             }
         };
 
@@ -38,14 +39,13 @@ class ValidatingCommandTest extends TestCase
 
         $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
             return $question === 'What is your name?';
-        });
+        })->andReturn('John Doe');
 
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<error>validation.required</error>';
+            return $message === 'Hello John Doe!';
         });
 
         $command->setOutput($output);
-
         $command->handle();
     }
 }
