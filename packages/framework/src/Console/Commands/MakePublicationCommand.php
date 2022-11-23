@@ -47,7 +47,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 $offset++;
                 $this->line("  $offset: $pubType->name");
             }
-            $selected = (int) ValidatingCommand::askWithValidation($this, 'selected', "Publication type (1-$offset)", ['required', 'integer', "between:1,$offset"]);
+            $selected = (int) $this->askWithValidation($this, 'selected', "Publication type (1-$offset)", ['required', 'integer', "between:1,$offset"]);
             $pubType = $pubTypes->{$pubTypes->keys()[$selected - 1]};
         }
 
@@ -66,7 +66,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             // Useful for debugging
             //$this->output->writeln("xxx " . $exception->getTraceAsString());
             $this->output->writeln("<bg=red;fg=white>$msg</>");
-            $overwrite = ValidatingCommand::askWithValidation(
+            $overwrite = $this->askWithValidation(
                 $this,
                 'overwrite',
                 'Do you wish to overwrite the existing file (y/n)',
@@ -129,7 +129,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 $offset = $index + 1;
                 $this->output->writeln("  $offset: $file");
             }
-            $selected = ValidatingCommand::askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+            $selected = $this->askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
             $file = $mediaFiles->{$selected - 1};
 
             return '_media/'.Str::of($file)->after('media/')->toString();
@@ -154,7 +154,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             }
         }
 
-        return ValidatingCommand::askWithValidation($this, $field->name, $field->name, $fieldRules);
+        return $this->askWithValidation($this, $field->name, $field->name, $fieldRules);
     }
 
     protected function getValidationRulesPerType(): Collection
