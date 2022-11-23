@@ -62,6 +62,6 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        return $this->askWithValidation($name, $message, $rules, $retryCount);
+        return $this->askWithValidation($name, $message, $rules, null, $retryCount);
     }
 }
