@@ -22,7 +22,6 @@ class ValidatingCommand extends Command
     /**
      * Ask for a CLI input value until we pass validation rules.
      *
-     * @param  \LaravelZero\Framework\Commands\Command  $command
      * @param  string  $name
      * @param  string  $message
      * @param  \Rgasch\Collection\Collection|array  $rules
@@ -33,7 +32,6 @@ class ValidatingCommand extends Command
      * @throws RuntimeException
      */
     public function askWithValidation(
-        Command $command,
         string $name,
         string $message,
         Collection|array $rules = [],
@@ -67,6 +65,6 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        return self::askWithValidation($command, $name, $message, $rules, isBeingRetried: true);
+        return self::askWithValidation($name, $message, $rules, default: true, isBeingRetried: true);
     }
 }
