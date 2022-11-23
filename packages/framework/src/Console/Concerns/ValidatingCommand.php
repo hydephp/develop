@@ -6,6 +6,7 @@ namespace Hyde\Console\Concerns;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Illuminate\Support\Facades\Validator;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 use function ucfirst;
@@ -44,8 +45,7 @@ class ValidatingCommand extends Command
         }
 
         $answer = $this->ask(ucfirst($question), $default);
-        $factory = app(ValidationFactory::class);
-        $validator = $factory->make([$name => $answer], [$name => $rules]);
+        $validator = Validator::make([$name => $answer], [$name => $rules]);
 
         if ($validator->passes()) {
             return $answer;
