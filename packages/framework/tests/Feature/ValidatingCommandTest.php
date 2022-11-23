@@ -101,14 +101,16 @@ class ValidatingCommandTest extends TestCase
         $command->handle();
     }
 
-    protected function getCommand()
+    protected function getCommand(): ValidationTestClass
     {
-        return new class extends ValidatingCommand {
-            public function handle()
-            {
-                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
-                $this->output->writeln("Hello $name!");
-            }
-        };
+        return new ValidationTestClass();
+    }
+}
+
+class ValidationTestClass  extends ValidatingCommand {
+    public function handle()
+    {
+        $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
+        $this->output->writeln("Hello $name!");
     }
 }
