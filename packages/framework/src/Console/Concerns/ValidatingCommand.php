@@ -63,7 +63,7 @@ class ValidatingCommand extends Command
 
         $tries++;
 
-        if ($tries >= PublicationService::RETRY_COUNT) {
+        if ($tries >= self::RETRY_COUNT) {
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
