@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console\Concerns;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Support\Facades\Validator;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;

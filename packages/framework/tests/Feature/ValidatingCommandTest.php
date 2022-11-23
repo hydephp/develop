@@ -8,7 +8,6 @@ use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
 use Mockery;
 use RuntimeException;
 
