@@ -18,7 +18,7 @@ class ValidatingCommandTest extends TestCase
 {
     public function testAskWithValidationCapturesInput()
     {
-        $command = $this->getCommand();
+        $command = new ValidationTestCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -36,7 +36,7 @@ class ValidatingCommandTest extends TestCase
 
     public function testAskWithValidationRetries()
     {
-        $command = $this->getCommand();
+        $command = new ValidationTestCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -58,7 +58,7 @@ class ValidatingCommandTest extends TestCase
 
     public function testAskWithValidationRetriesTooManyTimes()
     {
-        $command = $this->getCommand();
+        $command = new ValidationTestCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -79,7 +79,7 @@ class ValidatingCommandTest extends TestCase
 
     public function testValidationIsCalled()
     {
-        $command = $this->getCommand();
+        $command = new ValidationTestCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -99,11 +99,6 @@ class ValidatingCommandTest extends TestCase
 
         $command->setOutput($output);
         $command->handle();
-    }
-
-    protected function getCommand(): ValidationTestCommand
-    {
-        return new ValidationTestCommand();
     }
 }
 
