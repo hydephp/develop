@@ -6,7 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationHelper;
+use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 use Rgasch\Collection\Collection;
@@ -35,7 +35,7 @@ class CreatesNewPublicationType implements CreateActionInterface
 
     public function create(): void
     {
-        $dirName = PublicationHelper::formatNameForStorage($this->name);
+        $dirName = PublicationService::formatNameForStorage($this->name);
         $outFile = Hyde::path("$dirName/schema.json");
 
         $type = new PublicationType(

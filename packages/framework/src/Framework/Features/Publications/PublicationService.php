@@ -17,7 +17,7 @@ use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use function ucfirst;
 
-class PublicationHelper
+class PublicationService
 {
     /** @var int How many times can the validation loop run? Guards against infinite loops. */
     protected final const RETRY_COUNT = 10;

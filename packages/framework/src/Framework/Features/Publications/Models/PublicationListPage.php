@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use function file_get_contents;
-use Hyde\Framework\Features\Publications\PublicationHelper;
+use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Illuminate\Support\Facades\Blade;
@@ -35,7 +35,7 @@ class PublicationListPage extends BladePage
     public function compile(): string
     {
         $data = [
-            'publications' => PublicationHelper::getPublicationsForPubType($this->type),
+            'publications' => PublicationService::getPublicationsForPubType($this->type),
         ];
 
         $template = $this->type->listTemplate;
