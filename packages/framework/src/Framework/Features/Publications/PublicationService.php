@@ -28,7 +28,7 @@ class PublicationService
     /**
      * Ask for a CLI input value until we pass validation rules.
      *
-     * @param  Command  $command
+     * @param  \LaravelZero\Framework\Commands\Command $command
      * @param  string  $name
      * @param  string  $message
      * @param  \Rgasch\Collection\Collection|array  $rules
