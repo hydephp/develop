@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Console\Concerns;
 
 use Hyde\Framework\Features\Publications\PublicationService;
+use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 use RuntimeException;
-use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use function ucfirst;
 
 /**
@@ -41,7 +41,7 @@ class ValidatingCommand extends Command
         bool $isBeingRetried = false
     ): mixed {
         static $tries = 0;
-        if (!$isBeingRetried) {
+        if (! $isBeingRetried) {
             $tries = 0;
         }
 
@@ -49,8 +49,8 @@ class ValidatingCommand extends Command
             $rules = $rules->toArray();
         }
 
-        $answer    = $command->ask(ucfirst($message), $default);
-        $factory   = app(ValidationFactory::class);
+        $answer = $command->ask(ucfirst($message), $default);
+        $factory = app(ValidationFactory::class);
         $validator = $factory->make([$name => $answer], [$name => $rules]);
 
         if ($validator->passes()) {

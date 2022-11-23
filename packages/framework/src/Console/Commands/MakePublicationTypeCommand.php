@@ -49,26 +49,26 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $offset = $k + 1;
             $this->line("  $offset: $v[name]");
         }
-        $selected = (int)ValidatingCommand::askWithValidation($this, 'selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
+        $selected = (int) ValidatingCommand::askWithValidation($this, 'selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
         $sortField = $selected ? $fields[$selected - 1]['name'] : '__createdAt';
 
         $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
         $this->line('  1 - Ascending (oldest items first if sorting by dateCreated)');
         $this->line('  2 - Descending (newest items first if sorting by dateCreated)');
-        $selected = (int)ValidatingCommand::askWithValidation($this, 'selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2);
+        $selected = (int) ValidatingCommand::askWithValidation($this, 'selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2);
         $sortDirection = match ($selected) {
             1 => 'ASC',
             2 => 'DESC',
         };
 
-        $pageSize = (int)ValidatingCommand::askWithValidation(
+        $pageSize = (int) ValidatingCommand::askWithValidation(
             $this,
             'pageSize',
             'Enter the pageSize (0 for no limit)',
             ['required', 'integer', 'between:0,100'],
             25
         );
-        $prevNextLinks = (bool)ValidatingCommand::askWithValidation(
+        $prevNextLinks = (bool) ValidatingCommand::askWithValidation(
             $this,
             'prevNextLinks',
             'Generate previous/next links in detail view (y/n)',
@@ -83,7 +83,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
                 $this->line("  $offset: $v->name");
             }
         }
-        $selected = (int)ValidatingCommand::askWithValidation($this, 'selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
+        $selected = (int) ValidatingCommand::askWithValidation($this, 'selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
         $canonicalField = $fields[$selected - 1]['name'];
 
         try {
@@ -121,7 +121,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->line('  7 - Array');
             $this->line('  8 - Text');
             $this->line('  9 - Local Image');
-            $type = (int)ValidatingCommand::askWithValidation($this, 'type', 'Field type (1-9)', ['required', 'integer', 'between:1,9'], 1);
+            $type = (int) ValidatingCommand::askWithValidation($this, 'type', 'Field type (1-9)', ['required', 'integer', 'between:1,9'], 1);
             do {
                 // TODO This should only be done for types that can have length restrictions right?
                 $field->min = ValidatingCommand::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
