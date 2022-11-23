@@ -71,12 +71,16 @@ class ValidatingCommand extends Command
 
     protected function translate($name, string $error): string
     {
-        $lines = require __DIR__ . '/../../../resources/lang/en/validation.php';
-        return ($this->makeReplacements($name, Str::after($error, 'validation.'), $lines));
+        return ($this->makeReplacements($name, Str::after($error, 'validation.'), $this->getTranslationLines()));
     }
 
     protected function makeReplacements(string $name, string $line, array $replace): string
     {
        return str_replace(':attribute', $name, str_replace(array_keys($replace), array_values($replace), $line));
+    }
+
+    protected function getTranslationLines(): array
+    {
+        return require __DIR__ . '/../../../resources/lang/en/validation.php';
     }
 }
