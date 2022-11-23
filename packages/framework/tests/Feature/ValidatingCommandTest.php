@@ -10,7 +10,6 @@ use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Validator;
 use Mockery;
 use RuntimeException;
-
 use function str_starts_with;
 
 /**
@@ -101,7 +100,8 @@ class ValidatingCommandTest extends TestCase
     }
 }
 
-class ValidationTestCommand extends ValidatingCommand {
+class ValidationTestCommand extends ValidatingCommand
+{
     public function handle()
     {
         $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
