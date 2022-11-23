@@ -45,7 +45,7 @@ class ValidatingCommandTest extends TestCase
         })->andReturn('', 'Jane Doe');
 
         $output->shouldReceive('writeln')->times(1)->withArgs(function (string $message) {
-            return $message === '<error>validation.required</error>';
+            return $message === '<error>The name field is required.</error>';
         });
 
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
@@ -66,7 +66,7 @@ class ValidatingCommandTest extends TestCase
         })->andReturn('');
 
         $output->shouldReceive('writeln')->times(30)->withArgs(function (string $message) {
-            return $message === '<error>validation.required</error>';
+            return $message === '<error>The name field is required.</error>';
         });
 
         $this->expectException(RuntimeException::class);
