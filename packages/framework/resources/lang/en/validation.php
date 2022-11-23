@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * The default Laravel validation language lines.
+ *
+ * @link https://github.com/laravel/laravel/blob/9.x/lang/en/validation.php
+ * @license MIT https://github.com/laravel/framework/blob/9.x/LICENSE.md
+ */
 return [
 
     /*
