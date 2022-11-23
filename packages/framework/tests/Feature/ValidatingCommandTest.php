@@ -14,7 +14,7 @@ use Mockery;
  */
 class ValidatingCommandTest extends TestCase
 {
-    public function testAskWithValidation()
+    public function testAskWithValidationCapturesInput()
     {
         $command = new class extends ValidatingCommand
         {
