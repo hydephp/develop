@@ -37,7 +37,6 @@ class ValidatingCommandTest extends TestCase
     public function testAskWithValidationRetries()
     {
         $command = new ValidationTestCommand();
-
         $output = Mockery::mock(OutputStyle::class);
 
         $output->shouldReceive('ask')->times(2)->withArgs(function (string $question) {
@@ -59,7 +58,6 @@ class ValidatingCommandTest extends TestCase
     public function testAskWithValidationRetriesTooManyTimes()
     {
         $command = new ValidationTestCommand();
-
         $output = Mockery::mock(OutputStyle::class);
 
         $output->shouldReceive('ask')->times(30)->withArgs(function (string $question) {
@@ -80,7 +78,6 @@ class ValidatingCommandTest extends TestCase
     public function testValidationIsCalled()
     {
         $command = new ValidationTestCommand();
-
         $output = Mockery::mock(OutputStyle::class);
 
         $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
