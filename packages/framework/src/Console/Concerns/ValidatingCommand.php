@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
-use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use LaravelZero\Framework\Commands\Command;
