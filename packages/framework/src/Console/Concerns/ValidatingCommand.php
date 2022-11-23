@@ -27,7 +27,7 @@ class ValidatingCommand extends Command
      * @param  string  $message
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $rules
      * @param  mixed|null  $default
-     * @param  bool  $isBeingRetried
+     * @param int $retryCount
      * @return mixed
      *
      * @throws RuntimeException
@@ -37,13 +37,8 @@ class ValidatingCommand extends Command
         string $message,
         Arrayable|array $rules = [],
         mixed $default = null,
-        bool $isBeingRetried = false
+        int $retryCount = 0
     ): mixed {
-        static $tries = 0;
-        if (! $isBeingRetried) {
-            $tries = 0;
-        }
-
         if ($rules instanceof Arrayable) {
             $rules = $rules->toArray();
         }
@@ -60,13 +55,13 @@ class ValidatingCommand extends Command
             $this->error($error);
         }
 
-        $tries++;
+        $retryCount++;
 
-        if ($tries >= self::RETRY_COUNT) {
+        if ($retryCount >= self::RETRY_COUNT) {
             // Prevent infinite loops that may happen, for example when testing. The retry count is high enough to not affect normal usage.
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        return $this->askWithValidation($name, $message, $rules, isBeingRetried: true);
+        return $this->askWithValidation($name, $message, $rules, $retryCount);
     }
 }
