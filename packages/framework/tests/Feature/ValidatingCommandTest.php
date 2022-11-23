@@ -90,8 +90,9 @@ class ValidatingCommandTest extends TestCase
         $output->shouldReceive('writeln')->once();
 
         $validator = Validator::spy();
-        $validator->shouldReceive('make')->once()->withArgs(function (array $data) {
-            return $data === ['name' => 'Jane Doe'];
+        $validator->shouldReceive('make')->once()->withArgs(function (array $data, array $rules) {
+            return $data === ['name' => 'Jane Doe']
+                && $rules === ['name' => ['required']];
         })->andReturn($validator);
         $validator->shouldReceive('passes')->once()->andReturn(true);
 
