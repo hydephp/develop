@@ -49,7 +49,7 @@ class ValidatingCommand extends Command
             $rules = $rules->toArray();
         }
 
-        $answer = $command->ask(ucfirst($message), $default);
+        $answer = $this->ask(ucfirst($message), $default);
         $factory = app(ValidationFactory::class);
         $validator = $factory->make([$name => $answer], [$name => $rules]);
 
@@ -58,7 +58,7 @@ class ValidatingCommand extends Command
         }
 
         foreach ($validator->errors()->all() as $error) {
-            $command->error($error);
+            $this->error($error);
         }
 
         $tries++;
