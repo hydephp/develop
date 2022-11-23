@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Console\Concerns;
 
 use Hyde\Framework\Features\Publications\PublicationService;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use LaravelZero\Framework\Commands\Command;
-use Rgasch\Collection\Collection;
 use RuntimeException;
 use function ucfirst;
 
@@ -26,7 +26,7 @@ class ValidatingCommand extends Command
      *
      * @param  string  $name
      * @param  string  $message
-     * @param  \Rgasch\Collection\Collection|array  $rules
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $rules
      * @param  mixed|null  $default
      * @param  bool  $isBeingRetried
      * @return mixed
@@ -36,7 +36,7 @@ class ValidatingCommand extends Command
     public function askWithValidation(
         string $name,
         string $message,
-        Collection|array $rules = [],
+        Arrayable|array $rules = [],
         mixed $default = null,
         bool $isBeingRetried = false
     ): mixed {
@@ -45,7 +45,7 @@ class ValidatingCommand extends Command
             $tries = 0;
         }
 
-        if ($rules instanceof Collection) {
+        if ($rules instanceof Arrayable) {
             $rules = $rules->toArray();
         }
 
