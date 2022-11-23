@@ -27,7 +27,7 @@ class ValidatingCommand extends Command
      * @param  string  $message
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $rules
      * @param  mixed|null  $default
-     * @param int $retryCount How many times has the validation loop run?
+     * @param int $retryCount How many times has the question been asked?
      * @return mixed
      *
      * @throws RuntimeException
