@@ -18,14 +18,7 @@ class ValidatingCommandTest extends TestCase
 {
     public function testAskWithValidationCapturesInput()
     {
-        $command = new class extends ValidatingCommand
-        {
-            public function handle()
-            {
-                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
-                $this->output->writeln("Hello $name!");
-            }
-        };
+        $command = $this->getCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -43,14 +36,7 @@ class ValidatingCommandTest extends TestCase
 
     public function testAskWithValidationRetries()
     {
-        $command = new class extends ValidatingCommand
-        {
-            public function handle()
-            {
-                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
-                $this->output->writeln("Hello $name!");
-            }
-        };
+        $command = $this->getCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -72,14 +58,7 @@ class ValidatingCommandTest extends TestCase
 
     public function testAskWithValidationRetriesTooManyTimes()
     {
-        $command = new class extends ValidatingCommand
-        {
-            public function handle()
-            {
-                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
-                $this->output->writeln("Hello $name!");
-            }
-        };
+        $command = $this->getCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -100,14 +79,7 @@ class ValidatingCommandTest extends TestCase
 
     public function testValidationIsCalled()
     {
-        $command = new class extends ValidatingCommand
-        {
-            public function handle()
-            {
-                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
-                $this->output->writeln("Hello $name!");
-            }
-        };
+        $command = $this->getCommand();
 
         $output = Mockery::mock(OutputStyle::class);
 
@@ -127,5 +99,16 @@ class ValidatingCommandTest extends TestCase
 
         $command->setOutput($output);
         $command->handle();
+    }
+
+    protected function getCommand()
+    {
+        return new class extends ValidatingCommand {
+            public function handle()
+            {
+                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
+                $this->output->writeln("Hello $name!");
+            }
+        };
     }
 }
