@@ -82,11 +82,11 @@ class ValidatingCommandTest extends TestCase
 
         $output = Mockery::mock(OutputStyle::class);
 
-        $output->shouldReceive('ask')->times(10)->withArgs(function (string $question) {
+        $output->shouldReceive('ask')->times(30)->withArgs(function (string $question) {
             return $question === 'What is your name?';
         })->andReturn('');
 
-        $output->shouldReceive('writeln')->times(10)->withArgs(function (string $message) {
+        $output->shouldReceive('writeln')->times(30)->withArgs(function (string $message) {
             return $message === '<error>validation.required</error>';
         });
 
