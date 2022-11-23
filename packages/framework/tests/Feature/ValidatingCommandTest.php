@@ -39,10 +39,10 @@ class ValidatingCommandTest extends TestCase
 
         $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
             return $question === 'What is your name?';
-        })->andReturn('John Doe');
+        })->andReturn('Jane Doe');
 
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === 'Hello John Doe!';
+            return $message === 'Hello Jane Doe!';
         });
 
         $command->setOutput($output);
