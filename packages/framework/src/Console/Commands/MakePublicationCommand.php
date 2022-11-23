@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
+use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ use Rgasch\Collection\Collection;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
-class MakePublicationCommand extends Command implements CommandHandleInterface
+class MakePublicationCommand extends ValidatingCommand implements CommandHandleInterface
 {
     /** @var string */
     protected $signature = 'make:publication
@@ -46,7 +47,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 $offset++;
                 $this->line("  $offset: $pubType->name");
             }
-            $selected = (int) PublicationService::askWithValidation($this, 'selected', "Publication type (1-$offset)", ['required', 'integer', "between:1,$offset"]);
+            $selected = (int) $this->askWithValidation('selected', "Publication type (1-$offset)", ['required', 'integer', "between:1,$offset"]);
             $pubType = $pubTypes->{$pubTypes->keys()[$selected - 1]};
         }
 
@@ -65,8 +66,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             // Useful for debugging
             //$this->output->writeln("xxx " . $exception->getTraceAsString());
             $this->output->writeln("<bg=red;fg=white>$msg</>");
-            $overwrite = PublicationService::askWithValidation(
-                $this,
+            $overwrite = $this->askWithValidation(
                 'overwrite',
                 'Do you wish to overwrite the existing file (y/n)',
                 ['required', 'string', 'in:y,n'],
@@ -128,7 +128,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
                 $offset = $index + 1;
                 $this->output->writeln("  $offset: $file");
             }
-            $selected = PublicationService::askWithValidation($this, $field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+            $selected = $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
             $file = $mediaFiles->{$selected - 1};
 
             return '_media/'.Str::of($file)->after('media/')->toString();
@@ -153,7 +153,7 @@ class MakePublicationCommand extends Command implements CommandHandleInterface
             }
         }
 
-        return PublicationService::askWithValidation($this, $field->name, $field->name, $fieldRules);
+        return $this->askWithValidation($field->name, $field->name, $fieldRules);
     }
 
     protected function getValidationRulesPerType(): Collection

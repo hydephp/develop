@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
+use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use InvalidArgumentException;
@@ -17,7 +18,7 @@ use Rgasch\Collection\Collection;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
-class MakePublicationTypeCommand extends Command implements CommandHandleInterface
+class MakePublicationTypeCommand extends ValidatingCommand implements CommandHandleInterface
 {
     /** @var string */
     protected $signature = 'make:publicationType
@@ -32,7 +33,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
 
         $title = $this->argument('title');
         if (! $title) {
-            $title = trim(PublicationService::askWithValidation($this, 'name', 'Publication type name', ['required', 'string']));
+            $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
             $dirname = PublicationService::formatNameForStorage($title);
             if (file_exists($dirname)) {
                 throw new InvalidArgumentException("Storage path [$dirname] already exists");
@@ -48,27 +49,25 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $offset = $k + 1;
             $this->line("  $offset: $v[name]");
         }
-        $selected = (int) PublicationService::askWithValidation($this, 'selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
+        $selected = (int) $this->askWithValidation('selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
         $sortField = $selected ? $fields[$selected - 1]['name'] : '__createdAt';
 
         $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
         $this->line('  1 - Ascending (oldest items first if sorting by dateCreated)');
         $this->line('  2 - Descending (newest items first if sorting by dateCreated)');
-        $selected = (int) PublicationService::askWithValidation($this, 'selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2);
+        $selected = (int) $this->askWithValidation('selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2);
         $sortDirection = match ($selected) {
             1 => 'ASC',
             2 => 'DESC',
         };
 
-        $pageSize = (int) PublicationService::askWithValidation(
-            $this,
+        $pageSize = (int) $this->askWithValidation(
             'pageSize',
             'Enter the pageSize (0 for no limit)',
             ['required', 'integer', 'between:0,100'],
             25
         );
-        $prevNextLinks = (bool) PublicationService::askWithValidation(
-            $this,
+        $prevNextLinks = (bool) $this->askWithValidation(
             'prevNextLinks',
             'Generate previous/next links in detail view (y/n)',
             ['required', 'string', 'in:y,n'],
@@ -82,7 +81,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
                 $this->line("  $offset: $v->name");
             }
         }
-        $selected = (int) PublicationService::askWithValidation($this, 'selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
+        $selected = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
         $canonicalField = $fields[$selected - 1]['name'];
 
         try {
@@ -109,7 +108,7 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
             $field = Collection::create();
-            $field->name = PublicationService::askWithValidation($this, 'name', 'Field name', ['required']);
+            $field->name = $this->askWithValidation('name', 'Field name', ['required']);
             $this->line('Field type:');
             $this->line('  1 - String');
             $this->line('  2 - Boolean ');
@@ -120,18 +119,18 @@ class MakePublicationTypeCommand extends Command implements CommandHandleInterfa
             $this->line('  7 - Array');
             $this->line('  8 - Text');
             $this->line('  9 - Local Image');
-            $type = (int) PublicationService::askWithValidation($this, 'type', 'Field type (1-9)', ['required', 'integer', 'between:1,9'], 1);
+            $type = (int) $this->askWithValidation('type', 'Field type (1-9)', ['required', 'integer', 'between:1,9'], 1);
             do {
                 // TODO This should only be done for types that can have length restrictions right?
-                $field->min = PublicationService::askWithValidation($this, 'min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
-                $field->max = PublicationService::askWithValidation($this, 'max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
+                $field->min = $this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
+                $field->max = $this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
                 $lengthsValid = true;
                 if ($field->max < $field->min) {
                     $lengthsValid = false;
                     $this->output->warning('Field length [max] must be [>=] than [min]');
                 }
             } while (! $lengthsValid);
-            $addAnother = PublicationService::askWithValidation($this, 'addAnother', 'Add another field (y/n)', ['required', 'string', 'in:y,n'], 'y');
+            $addAnother = $this->askWithValidation('addAnother', 'Add another field (y/n)', ['required', 'string', 'in:y,n'], 'y');
 
             // map field choice to actual field type
             $field->type = match ($type) {
