@@ -63,6 +63,7 @@ class ValidatingCommand extends Command
         $tries++;
 
         if ($tries >= self::RETRY_COUNT) {
+            // Prevent infinite loops that may happen, for example when testing.
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
