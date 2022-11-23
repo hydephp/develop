@@ -80,13 +80,8 @@ class ValidatingCommandTest extends TestCase
         $command = new ValidationTestCommand();
         $output = Mockery::mock(OutputStyle::class);
 
-        $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
-            return $question === 'What is your name?';
-        })->andReturn('Jane Doe');
-
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === 'Hello Jane Doe!';
-        });
+        $output->shouldReceive('ask')->once()->andReturn('Jane Doe');
+        $output->shouldReceive('writeln')->once();
 
         $validator = Validator::spy();
         $validator->shouldReceive('make')->once()->withArgs(function (array $data) {
