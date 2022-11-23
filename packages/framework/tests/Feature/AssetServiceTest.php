@@ -53,4 +53,15 @@ class AssetServiceTest extends TestCase
         $this->assertIsString($path = $service->mediaLink('app.css'));
         $this->assertEquals('media/app.css', $path);
     }
+
+    public function test_inject_tailwind_config_returns_extracted_tailwind_config()
+    {
+        $service = new AssetService();
+        $this->assertIsString($config = $service->injectTailwindConfig());
+        $this->assertStringContainsString("darkMode: 'class'", $config);
+        $this->assertStringContainsString('theme: {', $config);
+        $this->assertStringContainsString('extend: {', $config);
+        $this->assertStringContainsString('typography: {', $config);
+        $this->assertStringNotContainsString('plugins', $config);
+    }
 }
