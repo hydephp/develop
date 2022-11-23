@@ -7,6 +7,8 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 use Mockery;
 use RuntimeException;
 
@@ -92,6 +94,37 @@ class ValidatingCommandTest extends TestCase
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage("Too many validation errors trying to validate 'name' with rules: [required]");
+
+        $command->setOutput($output);
+        $command->handle();
+    }
+
+    public function testValidationIsCalled()
+    {
+        $command = new class extends ValidatingCommand
+        {
+            public function handle()
+            {
+                $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
+                $this->output->writeln("Hello $name!");
+            }
+        };
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
+            return $question === 'What is your name?';
+        })->andReturn('Jane Doe');
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === 'Hello Jane Doe!';
+        });
+
+        $validator = Validator::spy();
+        $validator->shouldReceive('make')->once()->withArgs(function (array $data) {
+            return $data === ['name' => 'Jane Doe'];
+        })->andReturn($validator);
+        $validator->shouldReceive('passes')->once()->andReturn(true);
 
         $command->setOutput($output);
         $command->handle();
