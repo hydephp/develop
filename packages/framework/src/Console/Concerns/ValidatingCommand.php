@@ -24,7 +24,7 @@ class ValidatingCommand extends Command
      * Ask for a CLI input value until we pass validation rules.
      *
      * @param  string  $name
-     * @param  string  $message
+     * @param  string  $question
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $rules
      * @param  mixed|null  $default
      * @param  int  $retryCount  How many times has the question been asked?
@@ -34,7 +34,7 @@ class ValidatingCommand extends Command
      */
     public function askWithValidation(
         string $name,
-        string $message,
+        string $question,
         Arrayable|array $rules = [],
         mixed $default = null,
         int $retryCount = 0
@@ -43,7 +43,7 @@ class ValidatingCommand extends Command
             $rules = $rules->toArray();
         }
 
-        $answer = $this->ask(ucfirst($message), $default);
+        $answer = $this->ask(ucfirst($question), $default);
         $factory = app(ValidationFactory::class);
         $validator = $factory->make([$name => $answer], [$name => $rules]);
 
@@ -62,6 +62,6 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        return $this->askWithValidation($name, $message, $rules, null, $retryCount);
+        return $this->askWithValidation($name, $question, $rules, null, $retryCount);
     }
 }
