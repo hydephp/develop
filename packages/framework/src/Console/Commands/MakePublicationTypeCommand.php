@@ -18,7 +18,7 @@ use Rgasch\Collection\Collection;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
-class MakePublicationTypeCommand extends Command implements CommandHandleInterface
+class MakePublicationTypeCommand extends ValidatingCommand implements CommandHandleInterface
 {
     /** @var string */
     protected $signature = 'make:publicationType
