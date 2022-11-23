@@ -32,7 +32,7 @@ class ValidatingCommand extends Command
      *
      * @throws RuntimeException
      */
-    public static function askWithValidation(
+    public function askWithValidation(
         Command $command,
         string $name,
         string $message,
