@@ -17,6 +17,9 @@ use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use function ucfirst;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
+ */
 class PublicationService
 {
     /** @var int How many times can the validation loop run? Guards against infinite loops. */
