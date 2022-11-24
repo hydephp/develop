@@ -10,10 +10,6 @@ require_once __DIR__ . '/vendor/php-console/console.php';
 $analyser = new HydeStan();
 $analyser->run();
 
-foreach ($analyser->getErrors() as $error) {
-    echo $error . PHP_EOL;
-}
-
 if ($analyser->hasErrors()) {
     exit(1);
 }

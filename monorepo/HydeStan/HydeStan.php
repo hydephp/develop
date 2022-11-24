@@ -41,6 +41,16 @@ class HydeStan
             number_format($endTime * 1000, 2),
             number_format(memory_get_peak_usage(true) / 1024, 2))
         );
+
+        if ($this->hasErrors()) {
+            $this->console->error(sprintf('HydeStan has found %s errors!', count($this->errors)));
+
+            foreach ($this->errors as $error) {
+                $this->console->warn($error);
+            }
+        } else {
+            $this->console->info('HydeStan has found no errors!');
+        }
     }
 
     public function getErrors(): array
