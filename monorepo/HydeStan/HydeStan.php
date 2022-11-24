@@ -133,6 +133,10 @@ class NoFixMeAnalyser
                 $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
 
                 $errors[] = "Found $search in $file on line $lineNumber";
+
+                // Echo Actions warning
+                // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
+                echo "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title={NoFixMeError}::Found $search in file";
             }
         }
 
