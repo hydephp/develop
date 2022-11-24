@@ -31,9 +31,10 @@ abstract class CreateAction implements CreateActionContract
     }
 
     /** @inheritDoc */
-    public function getOutputPath(): string
+    public function force(bool $force = true): static
     {
-        return $this->outputPath;
+        $this->force = $force;
+        return $this;
     }
 
     /** @inheritDoc */
@@ -44,10 +45,9 @@ abstract class CreateAction implements CreateActionContract
     }
 
     /** @inheritDoc */
-    public function force(bool $force = true): static
+    public function getOutputPath(): string
     {
-        $this->force = $force;
-        return $this;
+        return $this->outputPath;
     }
 
     /** @inheritDoc */

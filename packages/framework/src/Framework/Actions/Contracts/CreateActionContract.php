@@ -17,9 +17,10 @@ interface CreateActionContract
     public function create(): void;
 
     /**
-     * @return string Relative path.
+     * @param bool $force Should existing files at the output path be overwritten?
+     * @return $this
      */
-    public function getOutputPath(): string;
+    public function force(bool $force = true): static;
 
     /**
      * @param string $outputPath Relative path.
@@ -28,10 +29,9 @@ interface CreateActionContract
     public function setOutputPath(string $outputPath): static;
 
     /**
-     * @param bool $force Should existing files at the output path be overwritten?
-     * @return $this
+     * @return string Relative path.
      */
-    public function force(bool $force = true): static;
+    public function getOutputPath(): string;
 
     /**
      * @return bool Does a file at the output path already exist?
