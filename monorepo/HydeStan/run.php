@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+define('BASE_PATH', realpath(__DIR__ . '/../../packages/framework'));
+
 require_once __DIR__ . '/HydeStan.php';
 
 $analyser = new HydeStan();
