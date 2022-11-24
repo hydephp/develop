@@ -28,7 +28,7 @@ class HydeStan
         $this->files = $this->getFiles();
 
         foreach ($this->files as $file) {
-            $this->console->info('Analysing file: ' . $file);
+            $this->console->debug('Analysing file: ' . $file);
 
             $this->analyseFile($file, $this->getFileContents($file));
         }
