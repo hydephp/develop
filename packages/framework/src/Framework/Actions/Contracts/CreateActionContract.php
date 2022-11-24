@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions\Interfaces;
+namespace Hyde\Framework\Actions\Contracts;
 
 interface CreateActionContract
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Actions\Interfaces\CreateActionContract;
+use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
