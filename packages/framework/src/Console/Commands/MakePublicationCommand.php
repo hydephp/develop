@@ -182,6 +182,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             throw new InvalidArgumentException('Unable to locate the publication type you selected.');
         }
 
+        $this->info("Creating a new publication of type '$pubTypeSelection'");
         return $pubType;
     }
 }
