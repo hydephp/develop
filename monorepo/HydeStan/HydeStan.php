@@ -81,13 +81,6 @@ class HydeStan
 
 class NoFixMeAnalyser
 {
-    protected Console $console;
-
-    public function __construct()
-    {
-        $this->console = new Console();
-    }
-
     public function run(string $file, string $contents): array
     {
         $errors = [];
