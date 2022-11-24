@@ -14,7 +14,7 @@ foreach ($analyser->getErrors() as $error) {
     echo $error . PHP_EOL;
 }
 
-if (count($analyser->getErrors()) > 0) {
+if ($analyser->hasErrors()) {
     exit(1);
 }
 

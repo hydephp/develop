@@ -86,6 +86,11 @@ class HydeStan
             new NoFixMeAnalyser(),
         ];
     }
+
+    public function hasErrors(): bool
+    {
+        return count($this->errors) > 0;
+    }
 }
 
 class NoFixMeAnalyser
