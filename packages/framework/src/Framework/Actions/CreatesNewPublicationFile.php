@@ -76,7 +76,7 @@ class CreatesNewPublicationFile extends CreateAction implements CreateActionCont
         $this->result = $output;
         $this->output?->writeln(sprintf('Saving publication data to [%s]', $this->getOutputPath()));
 
-        $this->filePutContents($output);
+        $this->save($output);
     }
 
     public function getResult(): string

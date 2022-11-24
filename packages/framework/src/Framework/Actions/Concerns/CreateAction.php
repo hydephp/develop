@@ -73,7 +73,7 @@ abstract class CreateAction implements CreateActionContract
         return $this->fileExists() && ! $this->force;
     }
 
-    protected function filePutContents(string $contents): void
+    protected function save(string $contents): void
     {
         $this->needsParentDirectory($this->getAbsoluteOutputPath());
         file_put_contents($this->getAbsoluteOutputPath(), $contents);

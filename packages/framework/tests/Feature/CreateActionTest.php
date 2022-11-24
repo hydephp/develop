@@ -97,6 +97,6 @@ class CreateActionTestClass extends CreateAction
 
     protected function handleCreate(): void
     {
-        $this->filePutContents('bar');
+        $this->save('bar');
     }
 }
