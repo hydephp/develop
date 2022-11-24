@@ -23,5 +23,3 @@ if (! function_exists('unslash')) {
         return trim($string, '/\\');
     }
 }
-
-// FIXME just testing
