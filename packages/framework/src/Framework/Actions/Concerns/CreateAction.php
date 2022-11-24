@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Concerns;
 
-use Hyde\Framework\Concerns\InteractsWithDirectories;
 use function file_exists;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 
