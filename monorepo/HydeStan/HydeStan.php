@@ -12,6 +12,7 @@ class HydeStan
     protected array $errors = [];
     protected array $files;
     protected Console $console;
+    protected int $scannedLines = 0;
 
     public function __construct(protected bool $debug = false)
     {
@@ -24,7 +25,10 @@ class HydeStan
     public function __destruct()
     {
         $this->console->newline();
-        $this->console->info('HydeStan has exited.');
+        $this->console->info(sprintf("HydeStan has exited after scanning %s total lines in %s files.",
+            number_format($this->scannedLines),
+            number_format(count($this->files)))
+        );
 
         // Forward warnings to GitHub Actions
         $this->console->line(sprintf("\n%s", implode("\n", self::$warnings)));
@@ -97,6 +101,8 @@ class HydeStan
                 $this->errors[] = $error;
             }
         }
+
+        $this->scannedLines += substr_count($contents, "\n");
     }
 
     private function getFileContents(string $file): string
