@@ -72,6 +72,7 @@ Raw MD text ...
             ->expectsQuestion('Title', 'Hello World')
             ->expectsOutput('Error: A publication already exists with the same canonical field value')
             ->expectsQuestion('Do you wish to overwrite the existing file (y/n)','n')
+            ->expectsOutput('Exiting without overwriting existing publication file!')
             ->assertExitCode(0);
     }
 
