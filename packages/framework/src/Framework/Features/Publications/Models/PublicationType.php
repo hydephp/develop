@@ -119,7 +119,7 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
     {
         $path ??= $this->getSchemaFile();
         $this->needsParentDirectory($path);
-        file_put_contents($path, json_encode($this->toArray(), JSON_PRETTY_PRINT)); // FIXME Should use Hyde::path()
+        file_put_contents(Hyde::path($path), json_encode($this->toArray(), JSON_PRETTY_PRINT));
     }
 
     protected static function parseSchemaFile(string $schemaFile): array
