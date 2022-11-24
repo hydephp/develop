@@ -10,8 +10,6 @@
 
 class Console
 {
-    use ColoredOutput;
-
     public function write(string $string): self
     {
         file_put_contents('php://stdout', $string);
@@ -53,10 +51,6 @@ class Console
     {
         return $this->line(sprintf('%s%s', $this->gray(' > '), $this->lightGray($message)));
     }
-}
-
-trait ColoredOutput
-{
     protected function ansi(string $string, string $color): string
     {
         return "\033[" . $color . 'm' . $string . "\033[0m";
