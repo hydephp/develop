@@ -61,6 +61,21 @@ Raw MD text ...
             ->assertExitCode(1);
     }
 
+    public function test_command_with_existing_publication()
+    {
+        $this->makeSchemaFile();
+        mkdir(Hyde::path('test-publication/hello-world.md'));
+
+        $this->artisan('make:publication')
+            ->expectsOutputToContain('Creating a new Publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+            ->expectsQuestion('Title', 'Hello World')
+            // ->expectsOutput('Error: A publication with the title [Hello World] already exists.')
+            ->expectsOutput('Error: File [' .Hyde::path('test-publication/hello-world.md').  '] already exists')
+            ->expectsQuestion('Do you wish to overwrite the existing file (y/n)','n')
+            ->assertExitCode(0);
+    }
+
     protected function makeSchemaFile(): void
     {
         file_put_contents(
