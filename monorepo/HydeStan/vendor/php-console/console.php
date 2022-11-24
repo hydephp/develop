@@ -34,51 +34,37 @@ class Console implements ConsoleContract
 
     public function line(string $message = ''): self
     {
-        $this->write($message . PHP_EOL);
-
-        return $this;
+        return $this->write($message . PHP_EOL);
     }
 
     public function newline(int $count = 1): self
     {
-        $this->line(str_repeat(PHP_EOL, $count - 1));
-
-        return $this;
+        return $this->line(str_repeat(PHP_EOL, $count - 1));
     }
 
     public function info(string $message): self
     {
-        $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->green('Info'), $this->gray(']'), $message));
-
-        return $this;
+        return $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->green('Info'), $this->gray(']'), $message));
     }
 
     public function warn(string $message): self
     {
-        $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->yellow('Warning'), $this->gray(']'), $message));
-
-        return $this;
+        return $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->yellow('Warning'), $this->gray(']'), $message));
     }
 
     public function error(string $message): self
     {
-        $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->red('Error'), $this->gray(']'), $message));
-
-        return $this;
+        return $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->red('Error'), $this->gray(']'), $message));
     }
 
     public function debug(string $message): self
     {
-        $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->lightGray('Debug'), $this->gray(']'), $message));
-
-        return $this;
+        return $this->line(sprintf('%s%s%s: %s', $this->gray('['), $this->lightGray('Debug'), $this->gray(']'), $message));
     }
 
     public function debugComment(string $message): self
     {
-        $this->line(sprintf('%s%s', $this->gray(' > '), $this->lightGray($message)));
-
-        return $this;
+        return $this->line(sprintf('%s%s', $this->gray(' > '), $this->lightGray($message)));
     }
 }
 
