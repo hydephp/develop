@@ -34,9 +34,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
         $pubTypes = PublicationService::getPublicationTypes();
         if ($pubTypes->isEmpty()) {
-            $this->output->error('Unable to locate any publication types. Did you create any?');
-
-            return Command::FAILURE;
+            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
         }
 
         $pubTypeSelection = $this->argument('publicationType');
@@ -49,9 +47,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         }
         $pubType = $pubTypes->get($pubTypeSelection);
         if (! $pubType) {
-            $this->output->error('Unable to locate the publication type you selected.');
-
-            return Command::FAILURE;
+            throw new InvalidArgumentException('Unable to locate the publication type you selected.');
         }
 
         $mediaFiles = PublicationService::getMediaForPubType($pubType);
@@ -84,7 +80,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         } catch (Exception $exception) {
             $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
 
-            return Command::FAILURE;
+            throw $exception;
         }
 
         $this->info('Publication created successfully!');
