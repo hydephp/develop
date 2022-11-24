@@ -54,11 +54,15 @@ class HydeStan
         return $files;
     }
 
-    private function analyseFile(string $file, string $getFileContents): void
+    private function analyseFile(string $file, string $contents): void
     {
         foreach ($this->analysers() as $analyser) {
             $this->console->debugComment('Running  ' . $analyser::class);
-            $analyser->run($file, $getFileContents);
+            $result = $analyser->run($file, $contents);
+            foreach ($result as $error) {
+                $this->console->debugComment('Adding error: ' . $error);
+                $this->errors[] = $error;
+            }
         }
     }
 
@@ -70,7 +74,7 @@ class HydeStan
     private function analysers(): array
     {
         return [
-            //
+            new NoFixMeAnalyser(),
         ];
     }
 }
