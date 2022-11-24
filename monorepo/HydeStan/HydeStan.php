@@ -135,12 +135,3 @@ class NoFixMeAnalyser
         return $errors;
     }
 }
-
-function dd(...$args): never
-{
-    foreach ($args as $arg) {
-        var_dump($arg);
-    }
-
-    exit(1);
-}
