@@ -21,8 +21,6 @@ use RuntimeException;
  */
 class CreatesNewPublicationFile extends CreateAction implements CreateActionContract
 {
-    protected string $result;
-
     public function __construct(
         protected PublicationType $pubType,
         protected Collection $fieldData,
@@ -69,14 +67,8 @@ class CreatesNewPublicationFile extends CreateAction implements CreateActionCont
         $output .= "---\n";
         $output .= "Raw MD text ...\n";
 
-        $this->result = $output;
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
         $this->save($output);
-    }
-
-    public function getResult(): string
-    {
-        return $this->result;
     }
 }
