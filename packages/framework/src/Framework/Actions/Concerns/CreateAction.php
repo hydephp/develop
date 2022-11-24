@@ -6,6 +6,9 @@ namespace Hyde\Framework\Actions\Concerns;
 
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 
+/**
+ * @see \Hyde\Framework\Testing\Feature\CreateActionTest
+ */
 abstract class CreateAction implements CreateActionContract
 {
     public function create(): void
