@@ -145,7 +145,7 @@ class NoFixMeAnalyser
 
                 $errors[] = "Found $search in $file on line $lineNumber";
 
-                HydeStan::addActionsWarning($file, $lineNumber, 'NoFixMeError', "Found $search in file");
+                HydeStan::addActionsWarning($file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
                 // Todo we might want to check for more errors after the first marker
             }
