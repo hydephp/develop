@@ -56,26 +56,24 @@ Raw MD text ...
     {
         file_put_contents(
             Hyde::path('test-publication/schema.json'),
-            <<<'JSON'
-            {
-                "name": "Test Publication",
-                "canonicalField": "title",
-                "sortField": "__createdAt",
-                "sortDirection": "ASC",
-                "pageSize": 10,
-                "prevNextLinks": true,
-                "detailTemplate": "test-publication_detail",
-                "listTemplate": "test-publication_list",
-                "fields": [
-                    {
-                        "name": "title",
-                        "min": "0",
-                        "max": "0",
-                        "type": "string"
-                    }
-                ]
-            }
-            JSON
+            json_encode([
+                  'name'           => 'Test Publication',
+                  'canonicalField' => 'title',
+                  'sortField'      => '__createdAt',
+                  'sortDirection'  => 'ASC',
+                  'pageSize'       => 10,
+                  'prevNextLinks'  => true,
+                  'detailTemplate' => 'test-publication_detail',
+                  'listTemplate'   => 'test-publication_list',
+                  'fields'         => [
+                      [
+                          'name' => 'title',
+                          'min'  => '0',
+                          'max'  => '0',
+                          'type' => 'string'
+                      ]
+                  ]
+            ])
         );
     }
 }
