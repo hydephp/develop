@@ -48,8 +48,6 @@ title: Hello World
 ---
 Raw MD text ...
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
-
-        deleteDirectory(Hyde::path('test-publication'));
     }
 
     protected function makeSchemaFile(): void
