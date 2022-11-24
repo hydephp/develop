@@ -8,7 +8,7 @@ declare(strict_types=1);
 class HydeStan
 {
     const VERSION = '0.0.0-dev';
-    protected static array $warnings;
+    protected static array $warnings = [];
     protected array $errors = [];
     protected array $files;
     protected Console $console;
