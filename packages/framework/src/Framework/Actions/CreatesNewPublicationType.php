@@ -7,7 +7,6 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Console\OutputStyle;
 use Rgasch\Collection\Collection;
 use function sprintf;

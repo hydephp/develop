@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Concerns;
 
-use Illuminate\Support\Str;
 use function file_exists;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
+use Illuminate\Support\Str;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\CreateActionTest
+ *
  * @internal This class is experimental and is not meant to be used outside the Hyde framework.
  */
 abstract class CreateAction implements CreateActionContract
