@@ -8,9 +8,12 @@ declare(strict_types=1);
 class HydeStan
 {
     const VERSION = '0.0.0-dev';
-    protected array $errors = [];
+
     protected array $files;
+    protected array $errors = [];
+    protected int $scannedLines = 0;
     protected Console $console;
+    protected static array $warnings = [];
 
     public function __construct(protected bool $debug = false)
     {
@@ -23,7 +26,13 @@ class HydeStan
     public function __destruct()
     {
         $this->console->newline();
-        $this->console->info('HydeStan has exited.');
+        $this->console->info(sprintf('HydeStan has exited after scanning %s total lines in %s files.',
+            number_format($this->scannedLines),
+            number_format(count($this->files)))
+        );
+
+        // Forward warnings to GitHub Actions
+        $this->console->line(sprintf("\n%s", implode("\n", self::$warnings)));
     }
 
     public function run(): void
@@ -93,6 +102,8 @@ class HydeStan
                 $this->errors[] = $error;
             }
         }
+
+        $this->scannedLines += substr_count($contents, "\n");
     }
 
     private function getFileContents(string $file): string
@@ -111,6 +122,13 @@ class HydeStan
     {
         return count($this->errors) > 0;
     }
+
+    public static function addActionsMessage(string $level, string $file, int $lineNumber, string $title, string $message): void
+    {
+        // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-a-warning-message
+        // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
+        self::$warnings[] = sprintf("::$level file=%s,line=%s,endLine=%s,title=%s::%s", 'packages/framework/'.str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
+    }
 }
 
 class NoFixMeAnalyser
@@ -122,13 +140,22 @@ class NoFixMeAnalyser
         $searches = [
             'fixme',
             'fix me',
+            'fix-me',
         ];
 
         $contents = strtolower($contents);
 
         foreach ($searches as $search) {
             if (str_contains($contents, $search)) {
-                $errors[] = 'Found '.$search.' in '.$file;
+                // Get line number of marker by counting new \n tags before it
+                $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
+                $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
+
+                $errors[] = "Found $search in $file on line $lineNumber";
+
+                HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
+
+                // Todo we might want to check for more errors after the first marker
             }
         }
 

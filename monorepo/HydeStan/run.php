@@ -16,6 +16,4 @@ if ($analyser->hasErrors()) {
     exit(1);
 }
 
-// If warnings we could try forwarding those to GitHub Actions
-
 exit(0);
