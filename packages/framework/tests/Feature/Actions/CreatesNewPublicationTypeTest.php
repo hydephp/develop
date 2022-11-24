@@ -22,7 +22,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         $creator = new CreatesNewPublicationType('name', new Collection(), 'canonical', 'sort', 'asc', 10, true);
         $creator->create();
 
-        $this->assertFileExists('name/schema.json');
+        $this->assertFileExists(Hyde::path('name/schema.json'));
         $this->assertStringContainsString('"name": "name"', $creator->getResult());
         $this->assertStringContainsString('"canonicalField": "canonical"', $creator->getResult());
         $this->assertStringContainsString('"sortField": "sort"', $creator->getResult());
