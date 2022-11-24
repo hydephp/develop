@@ -111,6 +111,12 @@ class HydeStan
     {
         return count($this->errors) > 0;
     }
+
+    public static function addActionsWarning(string $file, int $lineNumber, string $title, string $message): string
+    {
+        // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
+        return "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title=$title::$message\n";
+    }
 }
 
 class NoFixMeAnalyser
@@ -134,10 +140,7 @@ class NoFixMeAnalyser
 
                 $errors[] = "Found $search in $file on line $lineNumber";
 
-                // Echo Actions warning
-                // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
-                $title = "NoFixMeError";
-                echo "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title=$title::Found $search in file\n";
+                echo HydeStan::addActionsWarning($file, $lineNumber, "NoFixMeError", "Found $search in file");
 
                 // Todo we might want to check for more errors after the first marker
             }
