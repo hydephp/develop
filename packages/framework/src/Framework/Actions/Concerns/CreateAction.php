@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Concerns;
 
-use Hyde\Hyde;
 use function file_exists;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Exceptions\FileConflictException;
+use Hyde\Hyde;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\CreateActionTest

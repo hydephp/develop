@@ -8,7 +8,6 @@ use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
 use function unlinkIfExists;
 
 /**
