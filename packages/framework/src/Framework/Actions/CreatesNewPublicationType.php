@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
-use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 use Rgasch\Collection\Collection;
 use function sprintf;
@@ -17,9 +17,10 @@ use function sprintf;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeTest
  */
-class CreatesNewPublicationType implements CreateActionContract
+class CreatesNewPublicationType extends CreateAction implements CreateActionContract
 {
     protected string $result;
+    protected string $dirName;
 
     public function __construct(
         protected string $name,
@@ -31,13 +32,12 @@ class CreatesNewPublicationType implements CreateActionContract
         protected bool $prevNextLinks,
         protected ?OutputStyle $output = null,
     ) {
+        $this->dirName = PublicationService::formatNameForStorage($this->name);
+        $this->outputPath = ("$this->dirName/schema.json");
     }
 
-    public function create(): void
+    protected function handleCreate(): void
     {
-        $dirName = PublicationService::formatNameForStorage($this->name);
-        $outFile = Hyde::path("$dirName/schema.json");
-
         $type = new PublicationType(
             $this->name,
             $this->canonicalField,
@@ -45,14 +45,14 @@ class CreatesNewPublicationType implements CreateActionContract
             $this->sortDirection,
             $this->pageSize,
             $this->prevNextLinks,
-            "{$dirName}_detail",
-            "{$dirName}_list",
+            "{$this->dirName}_detail",
+            "{$this->dirName}_list",
             $this->fields->toArray()
         );
 
-        $this->output?->writeln(sprintf('Saving publication data to [%s]', Hyde::pathToRelative($outFile)));
+        $this->output?->writeln(sprintf('Saving publication data to [%s]', ($this->outputPath)));
 
-        $type->save($outFile);
+        $type->save($this->outputPath);
         $this->result = $type->toJson();
 
         // TODO: Generate the detail and list templates?
