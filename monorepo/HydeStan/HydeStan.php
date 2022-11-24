@@ -27,7 +27,7 @@ class HydeStan
         $this->console->info('HydeStan has exited.');
 
         // Forward warnings to GitHub Actions
-        echo "\n".implode("\n", self::getActionsWarnings())."\n";
+        echo "\n".implode("\n", self::$warnings)."\n";
     }
 
     public function run(): void
@@ -122,10 +122,6 @@ class HydeStan
         self::$warnings[] = "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title=$title::$message";
     }
 
-    public static function getActionsWarnings(): array
-    {
-        return self::$warnings;
-    }
 }
 
 class NoFixMeAnalyser
