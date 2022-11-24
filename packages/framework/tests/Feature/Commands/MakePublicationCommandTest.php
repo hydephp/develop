@@ -49,7 +49,9 @@ class MakePublicationCommandTest extends TestCase
 __createdAt: 2022-01-01 00:00:00
 title: Hello World
 ---
-Raw MD text ...
+
+## Write something awesome.
+
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 

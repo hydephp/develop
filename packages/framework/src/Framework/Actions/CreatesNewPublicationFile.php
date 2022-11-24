@@ -65,7 +65,7 @@ class CreatesNewPublicationFile extends CreateAction implements CreateActionCont
             $output .= "$name: $value\n";
         }
         $output .= "---\n";
-        $output .= "Raw MD text ...\n";
+        $output .= "\n## Write something awesome.\n\n";
 
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
