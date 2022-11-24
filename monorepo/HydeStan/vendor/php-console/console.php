@@ -9,7 +9,6 @@ declare(strict_types=1);
  * @license MIT
  * @internal
  */
-
 class Console
 {
     public function write(string $string): self
