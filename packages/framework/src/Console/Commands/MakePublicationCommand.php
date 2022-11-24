@@ -48,6 +48,11 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             $pubTypeSelection = $pubTypes->keys()->get($choice);
         }
         $pubType = $pubTypes->get($pubTypeSelection);
+        if (! $pubType) {
+            $this->output->error('Unable to locate the publication type you selected.');
+
+            return Command::FAILURE;
+        }
 
         $mediaFiles = PublicationService::getMediaForPubType($pubType);
         $fieldData = Collection::create();
