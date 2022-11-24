@@ -209,7 +209,7 @@ class FormatsAnsiString
     private function canTokenize(): bool
     {
         // Check if the string contains a word followed by ': ' and then a string
-        return preg_match('/^[a-zA-Z0-9_]+: /', $this->inputString);
+        return preg_match('/^[a-zA-Z0-9_]+: /', $this->inputString) === 1;
     }
 
     private function tokenize(): string
