@@ -17,7 +17,6 @@ use Rgasch\Collection\Collection;
  */
 class CreatesNewPublicationType extends CreateAction implements CreateActionContract
 {
-    protected string $result;
     protected string $dirName;
 
     public function __construct(
@@ -51,13 +50,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
         $type->save($this->outputPath);
-        $this->result = $type->toJson();
 
         // TODO: Generate the detail and list templates?
-    }
-
-    public function getResult(): string
-    {
-        return $this->result;
     }
 }
