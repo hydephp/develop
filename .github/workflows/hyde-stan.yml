@@ -1,0 +1,20 @@
+name: HydeStan
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run static analysis
+        run: php ./monorepo/HydeStan/run.php
