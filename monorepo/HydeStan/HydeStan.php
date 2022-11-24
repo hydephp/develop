@@ -26,7 +26,7 @@ class HydeStan
     public function __destruct()
     {
         $this->console->newline();
-        $this->console->info(sprintf("HydeStan has exited after scanning %s total lines in %s files.",
+        $this->console->info(sprintf('HydeStan has exited after scanning %s total lines in %s files.',
             number_format($this->scannedLines),
             number_format(count($this->files)))
         );
