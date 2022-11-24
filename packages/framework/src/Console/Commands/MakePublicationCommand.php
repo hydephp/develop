@@ -39,16 +39,15 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             return Command::FAILURE;
         }
 
-        $pubType = $this->argument('publicationType');
-        if (! $pubType) {
-            $this->output->writeln('<bg=magenta;fg=white>Now please choose the Publication Type to create an item for:</>');
-            foreach ($pubTypes->values() as $key => $pubType) {
-                $this->line('  ' . $key + 1 . ': ' . $pubType->name);
-            }
-            $options  = count($pubTypes);
-            $selected = (int) $this->askWithValidation('selected', "Publication type (1-$options)", ['required', 'integer', "between:1,$options"]);
-            $pubType  = $pubTypes->{$pubTypes->keys()[$selected - 1]};
+        $pubTypeSelection = $this->argument('publicationType');
+        if (! $pubTypeSelection) {
+            $choice = (int) $this->choice(
+                'Which publication type would you like to create a publication item for?',
+                $pubTypes->keys()->toArray(),
+            );
+            $pubTypeSelection = $pubTypes->keys()->get($choice);
         }
+        $pubType = $pubTypes->get($pubTypeSelection);
 
         $mediaFiles = PublicationService::getMediaForPubType($pubType);
         $fieldData = Collection::create();
