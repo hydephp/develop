@@ -9,6 +9,12 @@ class HydeStan
 {
     protected array $errors = [];
     protected array $files;
+    protected Console $console;
+
+    public function __construct()
+    {
+        $this->console = new Console();
+    }
 
     public function run(): void
     {
