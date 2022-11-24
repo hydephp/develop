@@ -8,6 +8,7 @@ declare(strict_types=1);
 class HydeStan
 {
     const VERSION = '0.0.0-dev';
+    protected static array $warnings;
     protected array $errors = [];
     protected array $files;
     protected Console $console;
@@ -24,6 +25,9 @@ class HydeStan
     {
         $this->console->newline();
         $this->console->info('HydeStan has exited.');
+
+        // Forward warnings to GitHub Actions
+        echo "\n".implode("\n", self::getActionsWarnings())."\n";
     }
 
     public function run(): void
@@ -112,10 +116,15 @@ class HydeStan
         return count($this->errors) > 0;
     }
 
-    public static function addActionsWarning(string $file, int $lineNumber, string $title, string $message): string
+    public static function addActionsWarning(string $file, int $lineNumber, string $title, string $message): void
     {
         // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
-        return "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title=$title::$message\n";
+        self::$warnings[] = "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title=$title::$message";
+    }
+
+    public static function getActionsWarnings(): array
+    {
+        return self::$warnings;
     }
 }
 
@@ -140,7 +149,7 @@ class NoFixMeAnalyser
 
                 $errors[] = "Found $search in $file on line $lineNumber";
 
-                echo HydeStan::addActionsWarning($file, $lineNumber, "NoFixMeError", "Found $search in file");
+                HydeStan::addActionsWarning($file, $lineNumber, "NoFixMeError", "Found $search in file");
 
                 // Todo we might want to check for more errors after the first marker
             }
