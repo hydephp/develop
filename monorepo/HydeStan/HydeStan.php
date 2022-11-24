@@ -14,6 +14,8 @@ class HydeStan
     public function __construct()
     {
         $this->console = new Console();
+
+        $this->console->info('HydeStan is running...');
     }
 
     public function run(): void
