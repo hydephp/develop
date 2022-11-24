@@ -34,6 +34,11 @@ interface CreateActionContract
     public function getOutputPath(): string;
 
     /**
+     * @return string Absolute path.
+     */
+    public function getAbsoluteOutputPath(): string;
+
+    /**
      * @return bool Does a file at the output path already exist?
      */
     public function fileExists(): bool;

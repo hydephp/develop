@@ -52,9 +52,15 @@ abstract class CreateAction implements CreateActionContract
     }
 
     /** @inheritDoc */
+    public function getAbsoluteOutputPath(): string
+    {
+        return Hyde::path($this->outputPath);
+    }
+
+    /** @inheritDoc */
     public function fileExists(): bool
     {
-        return file_exists(Hyde::path($this->outputPath));
+        return file_exists($this->getAbsoluteOutputPath());
     }
 
     /** @inheritDoc */
@@ -65,6 +71,6 @@ abstract class CreateAction implements CreateActionContract
 
     protected function filePutContents(string $contents): void
     {
-        file_put_contents(Hyde::path($this->outputPath), $contents);
+        file_put_contents($this->getAbsoluteOutputPath(), $contents);
     }
 }
