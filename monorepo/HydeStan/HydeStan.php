@@ -8,11 +8,12 @@ declare(strict_types=1);
 class HydeStan
 {
     const VERSION = '0.0.0-dev';
-    protected static array $warnings = [];
-    protected array $errors = [];
+
     protected array $files;
-    protected Console $console;
+    protected array $errors = [];
     protected int $scannedLines = 0;
+    protected Console $console;
+    protected static array $warnings = [];
 
     public function __construct(protected bool $debug = false)
     {
