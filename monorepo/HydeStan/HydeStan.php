@@ -75,6 +75,36 @@ class HydeStan
     }
 }
 
+class NoFixMeAnalyser
+{
+    protected Console $console;
+
+    public function __construct()
+    {
+        $this->console = new Console();
+    }
+
+    public function run(string $file, string $contents): array
+    {
+        $errors = [];
+
+        $searches = [
+            'fixme',
+            'fix me',
+        ];
+
+        $contents = strtolower($contents);
+
+        foreach ($searches as $search) {
+            if (str_contains($contents, $search)) {
+                $errors[] = 'Found ' . $search . ' in ' . $file;
+            }
+        }
+
+        return $errors;
+    }
+}
+
 function dd(...$args): never
 {
     foreach ($args as $arg) {
