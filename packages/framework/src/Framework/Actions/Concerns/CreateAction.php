@@ -62,4 +62,9 @@ abstract class CreateAction implements CreateActionContract
     {
         return $this->fileExists() && ! $this->force;
     }
+
+    protected function filePutContents(string $contents): void
+    {
+        file_put_contents(Hyde::path($this->outputPath), $contents);
+    }
 }
