@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Forked version that is simplified to work without Composer.
+ *
+ * @link https://github.com/caendesilva/php-console
+ * @license MIT
+ */
+
 declare(strict_types=1);
 
 interface ConsoleContract
