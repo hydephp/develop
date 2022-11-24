@@ -37,7 +37,7 @@ class CreatesNewPublicationFile extends CreateAction implements CreateActionCont
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
         $slug = $canonicalStr->slug()->toString();
-        $fileName = PublicationService::formatNameForStorage($slug);
+        $fileName = $this->formatStringForStorage($slug);
 
         $outFile = ("$dir/$fileName.md");
         $this->outputPath = $outFile;

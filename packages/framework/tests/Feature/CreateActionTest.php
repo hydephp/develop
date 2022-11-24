@@ -89,6 +89,12 @@ class CreateActionTest extends TestCase
         unlink(Hyde::path('foo/bar'));
         rmdir(Hyde::path('foo'));
     }
+
+    public function testFormatStringForStorage()
+    {
+        $action = new CreateActionTestClass;
+        $this->assertSame('hello-world', $action->getFormattedNameForStorage());
+    }
 }
 
 class CreateActionTestClass extends CreateAction
@@ -98,5 +104,10 @@ class CreateActionTestClass extends CreateAction
     protected function handleCreate(): void
     {
         $this->save('bar');
+    }
+
+    public function getFormattedNameForStorage(): string
+    {
+        return $this->formatStringForStorage('Hello World!');
     }
 }

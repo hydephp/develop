@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Concerns;
 
+use Illuminate\Support\Str;
 use function file_exists;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
@@ -77,5 +78,10 @@ abstract class CreateAction implements CreateActionContract
     {
         $this->needsParentDirectory($this->getAbsoluteOutputPath());
         file_put_contents($this->getAbsoluteOutputPath(), $contents);
+    }
+
+    protected function formatStringForStorage(string $string): string
+    {
+        return Str::slug($string);
     }
 }

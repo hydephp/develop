@@ -32,7 +32,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected bool $prevNextLinks,
         protected ?OutputStyle $output = null,
     ) {
-        $this->dirName = PublicationService::formatNameForStorage($this->name);
+        $this->dirName = $this->formatStringForStorage($this->name);
         $this->outputPath = ("$this->dirName/schema.json");
     }
 
