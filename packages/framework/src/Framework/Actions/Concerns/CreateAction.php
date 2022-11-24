@@ -23,12 +23,12 @@ abstract class CreateAction implements CreateActionContract
     /** @inheritDoc */
     public function getOutputPath(): string
     {
-        // TODO: Implement getOutputPath() method.
+        return $this->outputPath;
     }
 
     public function force(bool $force = true): void
     {
-        // TODO: Implement force() method.
+        $this->force = $force;
     }
 
     public function pathConflicts(): bool
