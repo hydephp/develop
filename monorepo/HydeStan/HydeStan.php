@@ -15,7 +15,7 @@ class HydeStan
     {
         $this->console = new Console();
 
-        $this->console->info('HydeStan is running...');
+        $this->console->info('HydeStan is running!');
     }
 
     public function __destruct()
