@@ -11,8 +11,10 @@ foreach ($analyser->getErrors() as $error) {
     echo $error . PHP_EOL;
 }
 
-if ($analyser->hasErrors()) {
+if (count($analyser->getErrors()) > 0) {
     exit(1);
 }
+
+// If warnings we could try forwarding those to GitHub Actions
 
 exit(0);
