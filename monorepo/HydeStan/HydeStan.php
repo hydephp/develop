@@ -120,9 +120,8 @@ class HydeStan
     {
         // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-a-warning-message
         // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
-        self::$warnings[] = sprintf("::warning file=%s,line=%s,endLine=%s,title=%s::%s", 'packages/framework/'. str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
+        self::$warnings[] = sprintf('::warning file=%s,line=%s,endLine=%s,title=%s::%s', 'packages/framework/'.str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
     }
-
 }
 
 class NoFixMeAnalyser
@@ -146,7 +145,7 @@ class NoFixMeAnalyser
 
                 $errors[] = "Found $search in $file on line $lineNumber";
 
-                HydeStan::addActionsWarning($file, $lineNumber, "NoFixMeError", "Found $search in file");
+                HydeStan::addActionsWarning($file, $lineNumber, 'NoFixMeError', "Found $search in file");
 
                 // Todo we might want to check for more errors after the first marker
             }
