@@ -16,5 +16,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run static analysis
+      - name: Run Static Analysis
         run: php ./monorepo/HydeStan/run.php
