@@ -18,6 +18,11 @@ class HydeStan
         $this->console->info('HydeStan is running...');
     }
 
+    public function __destruct()
+    {
+        $this->console->info('HydeStan has finished.');
+    }
+
     public function run(): void
     {
         $this->files = $this->getFiles();
