@@ -27,7 +27,7 @@ class HydeStan
         $this->console->info('HydeStan has exited.');
 
         // Forward warnings to GitHub Actions
-        $this->console->line("\n".implode("\n", self::$warnings));
+        $this->console->line(sprintf("\n%s", implode("\n", self::$warnings)));
     }
 
     public function run(): void
