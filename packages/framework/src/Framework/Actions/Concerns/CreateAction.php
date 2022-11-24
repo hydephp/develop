@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Concerns;
 
+use Hyde\Hyde;
 use function file_exists;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Exceptions\FileConflictException;
@@ -53,7 +54,7 @@ abstract class CreateAction implements CreateActionContract
     /** @inheritDoc */
     public function fileExists(): bool
     {
-        return file_exists($this->outputPath);
+        return file_exists(Hyde::path($this->outputPath));
     }
 
     /** @inheritDoc */
