@@ -36,10 +36,11 @@ class HydeStan
         }
 
         $endTime = microtime(true) - $time;
-        $endTimeMs = $endTime * 1000;
-        $memoryUsageKb = memory_get_peak_usage(true) / 1024 ;
-
-        $this->console->info(sprintf("HydeStan has finished in %s seconds (%sms) using %s KB RAM", number_format($endTime, 2), number_format($endTimeMs, 2), number_format($memoryUsageKb, 2)));
+        $this->console->info(sprintf("HydeStan has finished in %s seconds (%sms) using %s KB RAM",
+            number_format($endTime, 2),
+            number_format($endTime * 1000, 2),
+            number_format(memory_get_peak_usage(true) / 1024, 2))
+        );
     }
 
     public function getErrors(): array
