@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
+use Hyde\Framework\Actions\Interfaces\CreateActionContract;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
@@ -23,7 +23,7 @@ use function Safe\file_put_contents;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationFileTest
  */
-class CreatesNewPublicationFile implements CreateActionInterface
+class CreatesNewPublicationFile implements CreateActionContract
 {
     use InteractsWithDirectories;
 

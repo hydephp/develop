@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
+use Hyde\Framework\Actions\Interfaces\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
@@ -17,7 +17,7 @@ use function sprintf;
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationTypeTest
  */
-class CreatesNewPublicationType implements CreateActionInterface
+class CreatesNewPublicationType implements CreateActionContract
 {
     protected string $result;
 
