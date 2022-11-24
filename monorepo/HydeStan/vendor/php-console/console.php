@@ -12,7 +12,6 @@ interface ConsoleContract
 {
     public function write(string $string): self;
     public function line(string $message = ''): self;
-    public function format(string $message): self;
     public function newline(int $count = 1): self;
 
     public function info(string $message): self;
@@ -103,18 +102,6 @@ class Console implements ConsoleContract
 
         return $this;
     }
-
-    /**
-     * Automatically format a log message.
-     * Example: 'Info: Hello World!' becomes '[Info]: Hello World!' with colors.
-     * @internal May be removed in the future.
-     */
-    public function format(string $message): self
-    {
-        $this->line((new FormatsAnsiString($message))->getOutputString());
-
-        return $this;
-    }
 }
 
 trait ColoredOutput
@@ -172,85 +159,5 @@ trait ColoredOutput
     protected function lightGray(string $string): string
     {
         return $this->ansi($string, '37');
-    }
-}
-
-
-/**
- * @internal May be removed in the future.
- * Ported from https://github.com/hydephp/realtime-compiler/blob/1.x/src/Server.php
- */
-class FormatsAnsiString
-{
-    private string $inputString;
-    private string $outputString;
-
-    public function __construct(string $inputString)
-    {
-        $this->inputString = $inputString;
-
-        $this->outputString = $this->execute();
-    }
-
-    private function execute(): string
-    {
-        if ($this->canTokenize()) {
-            return $this->tokenize();
-        }
-
-        return $this->inputString;
-    }
-
-    public function getOutputString(): string
-    {
-        return $this->outputString;
-    }
-
-    private function canTokenize(): bool
-    {
-        // Check if the string contains a word followed by ': ' and then a string
-        return preg_match('/^[a-zA-Z0-9_]+: /', $this->inputString) === 1;
-    }
-
-    private function tokenize(): string
-    {
-        $tokens = explode(': ', $this->inputString);
-
-        // Implode the rest of the tokens
-        $value = implode(': ', array_slice($tokens, 1));
-
-        $this->outputString = static::lightGray('[') . static::main($tokens[0]) . static::lightGray(']');
-
-        if (isset($tokens[1])) {
-            $this->outputString .= ': ' . $value;
-        }
-
-        return $this->outputString;
-    }
-
-    private static function lightGray(string $string): string
-    {
-        return "\033[0;90m" . $string . "\033[0m";
-    }
-
-    /** The primary color */
-    private static function main(string $string): string
-    {
-        // If token string is an action, use a less bright (visible) color
-        if (in_array($string, [
-            'SourceFileFinder',
-            'CompilesSourceFile',
-            'FormatsAnsiString',
-        ])) {
-            return $string;
-        }
-
-        // Gold (yellow) color
-        return "\033[0;33m" . $string . "\033[0m";
-    }
-
-    public static function get(string $string): string
-    {
-        return (new self($string))->getOutputString();
     }
 }
