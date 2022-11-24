@@ -118,6 +118,7 @@ class HydeStan
 
     public static function addActionsWarning(string $file, int $lineNumber, string $title, string $message): void
     {
+        // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-a-warning-message
         // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
         self::$warnings[] = sprintf("::warning file=%s,line=%s,endLine=%s,title=%s::%s", 'packages/framework/'. str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
     }
