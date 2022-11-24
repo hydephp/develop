@@ -133,6 +133,7 @@ class NoFixMeAnalyser
         $searches = [
             'fixme',
             'fix me',
+            'fix-me',
         ];
 
         $contents = strtolower($contents);
