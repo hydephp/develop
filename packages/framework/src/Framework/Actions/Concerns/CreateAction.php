@@ -6,6 +6,8 @@ namespace Hyde\Framework\Actions\Concerns;
 
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 
+use function file_exists;
+
 /**
  * @see \Hyde\Framework\Testing\Feature\CreateActionTest
  */
@@ -31,8 +33,15 @@ abstract class CreateAction implements CreateActionContract
         $this->force = $force;
     }
 
-    public function pathConflicts(): bool
+    /** @inheritDoc */
+    public function fileExists(): bool
     {
-        // TODO: Implement pathConflicts() method.
+        return file_exists($this->outputPath);
+    }
+
+    /** @inheritDoc */
+    public function fileConflicts(): bool
+    {
+        return file_exists($this->outputPath) && ! $this->force;
     }
 }

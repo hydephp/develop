@@ -21,5 +21,13 @@ interface CreateActionContract
 
     public function force(bool $force = true): void;
 
-    public function pathConflicts(): bool;
+    /**
+     * @return bool Does a file at the output path already exist?
+     */
+    public function fileExists(): bool;
+
+    /**
+     * @return bool Will the action cause a file conflict exception?
+     */
+    public function fileConflicts(): bool;
 }
