@@ -16,6 +16,8 @@ abstract class CreateAction implements CreateActionContract
     protected string $outputPath;
     protected bool $force = false;
 
+    abstract protected function handleCreate(): void;
+
     /** @inheritDoc */
     public function create(): void
     {
