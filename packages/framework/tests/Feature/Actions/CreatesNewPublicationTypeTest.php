@@ -23,14 +23,16 @@ class CreatesNewPublicationTypeTest extends TestCase
         $creator->create();
 
         $this->assertFileExists(Hyde::path('name/schema.json'));
-        $this->assertStringContainsString('"name": "name"', $creator->getResult());
-        $this->assertStringContainsString('"canonicalField": "canonical"', $creator->getResult());
-        $this->assertStringContainsString('"sortField": "sort"', $creator->getResult());
-        $this->assertStringContainsString('"sortDirection": "asc"', $creator->getResult());
-        $this->assertStringContainsString('"pageSize": 10', $creator->getResult());
-        $this->assertStringContainsString('"prevNextLinks": true', $creator->getResult());
-        $this->assertStringContainsString('"detailTemplate": "name_detail"', $creator->getResult());
-        $this->assertStringContainsString('"listTemplate": "name_list"', $creator->getResult());
+
+        $result = file_get_contents(Hyde::path('name/schema.json'));
+        $this->assertStringContainsString('"name": "name"', $result);
+        $this->assertStringContainsString('"canonicalField": "canonical"', $result);
+        $this->assertStringContainsString('"sortField": "sort"', $result);
+        $this->assertStringContainsString('"sortDirection": "asc"', $result);
+        $this->assertStringContainsString('"pageSize": 10', $result);
+        $this->assertStringContainsString('"prevNextLinks": true', $result);
+        $this->assertStringContainsString('"detailTemplate": "name_detail"', $result);
+        $this->assertStringContainsString('"listTemplate": "name_list"', $result);
 
         deleteDirectory(Hyde::path('name'));
     }
