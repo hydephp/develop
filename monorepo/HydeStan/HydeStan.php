@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+/**
+ * @internal
+ */
 class HydeStan
 {
     protected array $errors = [];
