@@ -11,6 +11,9 @@ use Hyde\Framework\Actions\Contracts\CreateActionContract;
  */
 abstract class CreateAction implements CreateActionContract
 {
+    protected string $outputPath;
+    protected bool $force = false;
+
     /** @inheritDoc */
     public function create(): void
     {
