@@ -76,7 +76,11 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 throw $exception;
             }
         } catch (Exception $exception) {
-            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
+            if ($exception->getFile() === __FILE__) {
+                $this->error("Error: {$exception->getMessage()}");
+            } else {
+                $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
+            }
 
             return Command::FAILURE;
         }
