@@ -8,6 +8,7 @@ use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
+use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -40,18 +41,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
             }
 
-            $pubTypeSelection = $this->argument('publicationType');
-            if (! $pubTypeSelection) {
-                $choice = (int) $this->choice(
-                    'Which publication type would you like to create a publication item for?',
-                    $pubTypes->keys()->toArray(),
-                );
-                $pubTypeSelection = $pubTypes->keys()->get($choice);
-            }
-            $pubType = $pubTypes->get($pubTypeSelection);
-            if (! $pubType) {
-                throw new InvalidArgumentException('Unable to locate the publication type you selected.');
-            }
+            $pubType = $this->getPubTypeSelection($pubTypes);
 
             $mediaFiles = PublicationService::getMediaForPubType($pubType);
             $fieldData = Collection::create();
@@ -175,5 +165,22 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             'url'      => ['required', 'url'],
             'text'     => ['required', 'string', 'between'],
         ]);
+    }
+
+    protected function getPubTypeSelection(Collection $pubTypes): PublicationType
+    {
+        $pubTypeSelection = $this->argument('publicationType');
+        if (!$pubTypeSelection) {
+            $choice           = (int)$this->choice(
+                'Which publication type would you like to create a publication item for?',
+                $pubTypes->keys()->toArray(),
+            );
+            $pubTypeSelection = $pubTypes->keys()->get($choice);
+        }
+        $pubType = $pubTypes->get($pubTypeSelection);
+        if (!$pubType) {
+            throw new InvalidArgumentException('Unable to locate the publication type you selected.');
+        }
+        return $pubType;
     }
 }
