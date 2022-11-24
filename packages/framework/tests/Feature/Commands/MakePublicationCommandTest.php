@@ -34,9 +34,9 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile();
 
         $this->artisan('make:publication')
+            ->expectsOutputToContain('Creating a new Publication!')
             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
             ->expectsQuestion('Title', 'Hello World')
-            ->expectsOutputToContain('Creating a new Publication!')
             ->expectsOutput('Saving publication data to [test-publication/hello-world.md]')
             ->expectsOutput('Publication created successfully!')
             ->assertExitCode(0);
