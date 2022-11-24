@@ -22,6 +22,11 @@ interface CreateActionContract
     public function getOutputPath(): string;
 
     /**
+     * @param string $outputPath Relative path.
+     */
+    public function setOutputPath(string $outputPath): void;
+
+    /**
      * @param bool $force Should existing files at the output path be overwritten?
      */
     public function force(bool $force = true): void;
