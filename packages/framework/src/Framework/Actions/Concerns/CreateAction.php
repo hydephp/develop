@@ -59,6 +59,6 @@ abstract class CreateAction implements CreateActionContract
     /** @inheritDoc */
     public function fileConflicts(): bool
     {
-        return file_exists($this->outputPath) && ! $this->force;
+        return $this->fileExists() && ! $this->force;
     }
 }
