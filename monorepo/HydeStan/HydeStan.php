@@ -7,6 +7,7 @@ declare(strict_types=1);
  */
 class HydeStan
 {
+    const VERSION = '0.0.0-dev';
     protected array $errors = [];
     protected array $files;
     protected Console $console;
@@ -15,7 +16,7 @@ class HydeStan
     {
         $this->console = new Console();
 
-        $this->console->info('HydeStan is running!');
+        $this->console->info(sprintf("HydeStan v%s is running!", self::VERSION));
     }
 
     public function __destruct()
