@@ -128,7 +128,11 @@ class NoFixMeAnalyser
 
         foreach ($searches as $search) {
             if (str_contains($contents, $search)) {
-                $errors[] = 'Found '.$search.' in '.$file;
+                // Get line number of marker by counting new \n tags before it
+                $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
+                $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
+
+                $errors[] = "Found $search in $file on line $lineNumber";
             }
         }
 
