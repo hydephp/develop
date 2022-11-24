@@ -116,11 +116,11 @@ class HydeStan
         return count($this->errors) > 0;
     }
 
-    public static function addActionsWarning(string $file, int $lineNumber, string $title, string $message): void
+    public static function addActionsMessage(string $level, string $file, int $lineNumber, string $title, string $message): void
     {
         // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-a-warning-message
         // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
-        self::$warnings[] = sprintf('::warning file=%s,line=%s,endLine=%s,title=%s::%s', 'packages/framework/'.str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
+        self::$warnings[] = sprintf("::$level file=%s,line=%s,endLine=%s,title=%s::%s", 'packages/framework/'.str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
     }
 }
 
@@ -145,7 +145,7 @@ class NoFixMeAnalyser
 
                 $errors[] = "Found $search in $file on line $lineNumber";
 
-                HydeStan::addActionsWarning($file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
+                HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
                 // Todo we might want to check for more errors after the first marker
             }
