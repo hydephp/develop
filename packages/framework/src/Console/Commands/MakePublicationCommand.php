@@ -20,6 +20,7 @@ use function strtolower;
 /**
  * Hyde Command to create a new publication for a given publication type.
  *
+ * @todo Add --force option?
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
 class MakePublicationCommand extends ValidatingCommand implements CommandHandleInterface
