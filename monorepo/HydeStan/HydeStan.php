@@ -12,7 +12,7 @@ class HydeStan
     protected array $files;
     protected Console $console;
 
-    public function __construct()
+    public function __construct(protected bool $debug = false)
     {
         $this->console = new Console();
 
@@ -31,7 +31,9 @@ class HydeStan
         $this->files = $this->getFiles();
 
         foreach ($this->files as $file) {
-            $this->console->debug('Analysing file: ' . $file);
+            if ($this->debug) {
+                $this->console->debug('Analysing file: ' . $file);
+            }
 
             $this->analyseFile($file, $this->getFileContents($file));
         }
@@ -77,10 +79,15 @@ class HydeStan
     private function analyseFile(string $file, string $contents): void
     {
         foreach ($this->analysers() as $analyser) {
-            $this->console->debugComment('Running  ' . $analyser::class);
+            if ($this->debug) {
+                $this->console->debugComment('Running  ' . $analyser::class);
+            }
+
             $result = $analyser->run($file, $contents);
             foreach ($result as $error) {
-                $this->console->debugComment('Adding error: ' . $error);
+                if ($this->debug) {
+                    $this->console->debugComment('Adding error: ' . $error);
+                }
                 $this->errors[] = $error;
             }
         }
