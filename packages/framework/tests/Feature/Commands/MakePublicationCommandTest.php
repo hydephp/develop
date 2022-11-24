@@ -56,6 +56,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
             ->expectsQuestion('Publication type (1-1)', 1)
+            ->expectsOutput('  1: Test Publication')
             ->expectsQuestion('Title', 'Hello World')
             ->expectsOutputToContain('Creating a new Publication!')
             ->expectsOutput('Saving publication data to [test-publication/hello-world.md]')
