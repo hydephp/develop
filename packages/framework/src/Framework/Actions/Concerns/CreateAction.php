@@ -78,7 +78,7 @@ abstract class CreateAction implements CreateActionContract
     protected function save(string $contents): void
     {
         $this->needsParentDirectory($this->getAbsoluteOutputPath());
-        file_put_contents($this->getAbsoluteOutputPath(), $contents);
+        \Safe\file_put_contents($this->getAbsoluteOutputPath(), $contents);
     }
 
     protected function formatStringForStorage(string $string): string
