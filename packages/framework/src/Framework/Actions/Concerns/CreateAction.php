@@ -6,6 +6,8 @@ namespace Hyde\Framework\Actions\Concerns;
 
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 
+use Hyde\Framework\Exceptions\FileConflictException;
+
 use function file_exists;
 
 /**
@@ -21,7 +23,11 @@ abstract class CreateAction implements CreateActionContract
     /** @inheritDoc */
     public function create(): void
     {
-        // TODO: Implement create() method.
+        if ($this->fileConflicts()) {
+            throw new FileConflictException($this->outputPath);
+        }
+
+        $this->handleCreate();
     }
 
     /** @inheritDoc */
