@@ -32,7 +32,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected ?OutputStyle $output = null,
     ) {
         $this->dirName = $this->formatStringForStorage($this->name);
-        $this->outputPath = ("$this->dirName/schema.json");
+        $this->outputPath = "$this->dirName/schema.json";
     }
 
     protected function handleCreate(): void
@@ -49,7 +49,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             $this->fields->toArray()
         );
 
-        $this->output?->writeln(sprintf('Saving publication data to [%s]', ($this->outputPath)));
+        $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
         $type->save($this->outputPath);
         $this->result = $type->toJson();

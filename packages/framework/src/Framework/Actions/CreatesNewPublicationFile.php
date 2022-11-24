@@ -35,11 +35,9 @@ class CreatesNewPublicationFile extends CreateAction implements CreateActionCont
         $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
-        $slug = $canonicalStr->slug()->toString();
-        $fileName = $this->formatStringForStorage($slug);
+        $fileName = $this->formatStringForStorage($canonicalStr->slug()->toString());
 
-        $outFile = ("$dir/$fileName.md");
-        $this->outputPath = $outFile;
+        $this->outputPath = "$dir/$fileName.md";
     }
 
     protected function handleCreate(): void
@@ -73,7 +71,7 @@ class CreatesNewPublicationFile extends CreateAction implements CreateActionCont
         $output .= "Raw MD text ...\n";
 
         $this->result = $output;
-        $this->output?->writeln(sprintf('Saving publication data to [%s]', $this->getOutputPath()));
+        $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
         $this->save($output);
     }
