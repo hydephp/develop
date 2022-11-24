@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
+use function array_keys;
+use function array_values;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
-
-use function array_keys;
-use function array_values;
 use function str_replace;
 use function ucfirst;
 
@@ -71,12 +70,12 @@ class ValidatingCommand extends Command
 
     protected function translate($name, string $error): string
     {
-        return ($this->makeReplacements($name, Str::after($error, 'validation.'), $this->getTranslationLines()));
+        return $this->makeReplacements($name, Str::after($error, 'validation.'), $this->getTranslationLines());
     }
 
     protected function makeReplacements(string $name, string $line, array $replace): string
     {
-       return str_replace(':attribute', $name, str_replace(array_keys($replace), array_values($replace), $line));
+        return str_replace(':attribute', $name, str_replace(array_keys($replace), array_values($replace), $line));
     }
 
     protected function getTranslationLines(): array
