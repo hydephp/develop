@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Concerns;
 
-use Hyde\Framework\Actions\Contracts\CreateActionContract;
-
-use Hyde\Framework\Exceptions\FileConflictException;
-
 use function file_exists;
+use Hyde\Framework\Actions\Contracts\CreateActionContract;
+use Hyde\Framework\Exceptions\FileConflictException;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\CreateActionTest
@@ -34,6 +32,7 @@ abstract class CreateAction implements CreateActionContract
     public function force(bool $force = true): static
     {
         $this->force = $force;
+
         return $this;
     }
 
@@ -41,6 +40,7 @@ abstract class CreateAction implements CreateActionContract
     public function setOutputPath(string $outputPath): static
     {
         $this->outputPath = $outputPath;
+
         return $this;
     }
 

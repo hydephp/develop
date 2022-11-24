@@ -17,13 +17,13 @@ interface CreateActionContract
     public function create(): void;
 
     /**
-     * @param bool $force Should existing files at the output path be overwritten?
+     * @param  bool  $force  Should existing files at the output path be overwritten?
      * @return $this
      */
     public function force(bool $force = true): static;
 
     /**
-     * @param string $outputPath Relative path.
+     * @param  string  $outputPath  Relative path.
      * @return $this
      */
     public function setOutputPath(string $outputPath): static;
