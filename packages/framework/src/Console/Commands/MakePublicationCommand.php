@@ -53,10 +53,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
                 $creator->create();
             } catch (InvalidArgumentException $exception) { // FIXME: provide a properly typed exception
-                $msg = $exception->getMessage();
-                // Useful for debugging
-                //$this->output->writeln("xxx " . $exception->getTraceAsString());
-                $this->output->writeln("<bg=red;fg=white>$msg</>");
+                $this->error("Error: {$exception->getMessage()}");
                 $overwrite = $this->askWithValidation(
                     'overwrite',
                     'Do you wish to overwrite the existing file (y/n)',
