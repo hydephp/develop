@@ -5,6 +5,7 @@
  *
  * @link https://github.com/caendesilva/php-console
  * @license MIT
+ * @internal
  */
 
 declare(strict_types=1);
