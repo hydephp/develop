@@ -4,29 +4,24 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
-use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
-use Hyde\Hyde;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use RuntimeException;
-use function Safe\file_put_contents;
 
 /**
  * Scaffold a publication file.
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationFileTest
  */
-class CreatesNewPublicationFile implements CreateActionContract
+class CreatesNewPublicationFile extends CreateAction implements CreateActionContract
 {
-    use InteractsWithDirectories;
-
     protected string $result;
 
     public function __construct(
@@ -35,22 +30,21 @@ class CreatesNewPublicationFile implements CreateActionContract
         protected bool $force = false,
         protected ?OutputStyle $output = null,
     ) {
-    }
-
-    public function create(): void
-    {
         $dir = ($this->pubType->getDirectory());
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
         $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
+
         $slug = $canonicalStr->slug()->toString();
         $fileName = PublicationService::formatNameForStorage($slug);
-        $outFile = Hyde::path("$dir/$fileName.md");
-        if (file_exists($outFile) && ! $this->force) {
-            throw new FileConflictException($outFile);
-        }
 
+        $outFile = ("$dir/$fileName.md");
+        $this->outputPath = $outFile;
+    }
+
+    protected function handleCreate(): void
+    {
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $output = "---\n";
         $output .= "__createdAt: $now\n";
@@ -80,10 +74,9 @@ class CreatesNewPublicationFile implements CreateActionContract
         $output .= "Raw MD text ...\n";
 
         $this->result = $output;
-        $this->output?->writeln(sprintf('Saving publication data to [%s]', Hyde::pathToRelative($outFile)));
+        $this->output?->writeln(sprintf('Saving publication data to [%s]', $this->getOutputPath()));
 
-        $this->needsParentDirectory($outFile);
-        file_put_contents($outFile, $output);
+        $this->filePutContents($output);
     }
 
     public function getResult(): string
