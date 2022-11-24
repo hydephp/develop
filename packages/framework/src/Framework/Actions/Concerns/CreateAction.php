@@ -11,6 +11,7 @@ use Hyde\Framework\Actions\Contracts\CreateActionContract;
  */
 abstract class CreateAction implements CreateActionContract
 {
+    /** @inheritDoc */
     public function create(): void
     {
         // TODO: Implement create() method.
