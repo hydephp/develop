@@ -53,6 +53,14 @@ Raw MD text ...
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
+    public function test_command_with_no_publication_types()
+    {
+        $this->artisan('make:publication')
+            ->expectsOutputToContain('Creating a new Publication!')
+            ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
+            ->assertExitCode(1);
+    }
+
     protected function makeSchemaFile(): void
     {
         file_put_contents(
