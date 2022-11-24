@@ -78,6 +78,23 @@ Raw MD text ...
         $this->assertSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
+    public function test_command_with_existing_publication_and_overwrite()
+    {
+        $this->makeSchemaFile();
+        file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
+
+        $this->artisan('make:publication')
+             ->expectsOutputToContain('Creating a new Publication!')
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsQuestion('Title', 'Hello World')
+             ->expectsOutput('Error: A publication already exists with the same canonical field value')
+             ->expectsQuestion('Do you wish to overwrite the existing file (y/n)', 'y')
+             ->expectsOutput('Publication created successfully!')
+             ->assertExitCode(0);
+
+        $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
     protected function makeSchemaFile(): void
     {
         file_put_contents(
