@@ -8,8 +8,6 @@
  * @internal
  */
 
-declare(strict_types=1);
-
 interface ConsoleContract
 {
     public function write(string $string): self;
