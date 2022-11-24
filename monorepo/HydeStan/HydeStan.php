@@ -17,10 +17,12 @@ class HydeStan
         $this->console = new Console();
 
         $this->console->info(sprintf("HydeStan v%s is running!", self::VERSION));
+        $this->console->newline();
     }
 
     public function __destruct()
     {
+        $this->console->newline();
         $this->console->info('HydeStan has exited.');
     }
 
