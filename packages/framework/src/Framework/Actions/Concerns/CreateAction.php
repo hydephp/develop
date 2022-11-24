@@ -29,15 +29,17 @@ abstract class CreateAction implements CreateActionContract
     }
 
     /** @inheritDoc */
-    public function setOutputPath(string $outputPath): void
+    public function setOutputPath(string $outputPath): static
     {
         $this->outputPath = $outputPath;
+        return $this;
     }
 
     /** @inheritDoc */
-    public function force(bool $force = true): void
+    public function force(bool $force = true): static
     {
         $this->force = $force;
+        return $this;
     }
 
     /** @inheritDoc */
