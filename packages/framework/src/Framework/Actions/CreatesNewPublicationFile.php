@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Interfaces\CreateActionInterface;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -48,7 +49,7 @@ class CreatesNewPublicationFile implements CreateActionInterface
         $fileName = PublicationService::formatNameForStorage($slug);
         $outFile = Hyde::path("$dir/$fileName.md");
         if (file_exists($outFile) && ! $this->force) {
-            throw new InvalidArgumentException("File [$outFile] already exists");
+            throw new FileConflictException($outFile);
         }
 
         $now = Carbon::now()->format('Y-m-d H:i:s');

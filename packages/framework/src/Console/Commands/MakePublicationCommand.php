@@ -8,6 +8,7 @@ use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
+use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
@@ -52,7 +53,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             try {
                 $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
                 $creator->create();
-            } catch (InvalidArgumentException $exception) { // FIXME: provide a properly typed exception
+            } catch (FileConflictException $exception) {
                 $this->error("Error: {$exception->getMessage()}");
                 $overwrite = $this->askWithValidation(
                     'overwrite',
