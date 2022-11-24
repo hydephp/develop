@@ -16,6 +16,7 @@ use Rgasch\Collection\Collection;
 /**
  * Hyde Command to create a new publication type.
  *
+ * @see \Hyde\Framework\Actions\CreatesNewPublicationType
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
 class MakePublicationTypeCommand extends ValidatingCommand implements CommandHandleInterface

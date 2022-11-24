@@ -22,6 +22,7 @@ use function strtolower;
  *
  * @todo Add --force option?
  *
+ * @see \Hyde\Framework\Actions\CreatesNewPublicationFile
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
 class MakePublicationCommand extends ValidatingCommand implements CommandHandleInterface

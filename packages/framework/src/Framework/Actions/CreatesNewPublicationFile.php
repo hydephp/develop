@@ -17,6 +17,7 @@ use RuntimeException;
 /**
  * Scaffold a publication file.
  *
+ * @see \Hyde\Console\Commands\MakePublicationCommand
  * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationFileTest
  */
 class CreatesNewPublicationFile extends CreateAction implements CreateActionContract
