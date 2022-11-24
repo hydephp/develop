@@ -64,7 +64,7 @@ Raw MD text ...
     public function test_command_with_existing_publication()
     {
         $this->makeSchemaFile();
-        touch(Hyde::path('test-publication/hello-world.md'));
+        file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
 
         $this->artisan('make:publication')
             ->expectsOutputToContain('Creating a new Publication!')
@@ -74,6 +74,8 @@ Raw MD text ...
             ->expectsQuestion('Do you wish to overwrite the existing file (y/n)','n')
             ->expectsOutput('Exiting without overwriting existing publication file!')
             ->assertExitCode(0);
+
+        $this->assertSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     protected function makeSchemaFile(): void
