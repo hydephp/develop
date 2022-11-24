@@ -31,7 +31,31 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_creates_publication()
     {
-        file_put_contents(Hyde::path('test-publication/schema.json'),
+        $this->makeSchemaFile();
+
+        $this->artisan('make:publication')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+            ->expectsQuestion('Title', 'Hello World')
+            ->expectsOutputToContain('Creating a new Publication!')
+            ->expectsOutput('Saving publication data to [test-publication/hello-world.md]')
+            ->expectsOutput('Publication created successfully!')
+            ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEqualsIgnoringLineEndingType('---
+__createdAt: '.Carbon::now()->format('Y-m-d H:i:s').'
+title: Hello World
+---
+Raw MD text ...
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+
+        deleteDirectory(Hyde::path('test-publication'));
+    }
+
+    protected function makeSchemaFile(): void
+    {
+        file_put_contents(
+            Hyde::path('test-publication/schema.json'),
             <<<'JSON'
             {
                 "name": "Test Publication",
@@ -53,23 +77,5 @@ class MakePublicationCommandTest extends TestCase
             }
             JSON
         );
-
-        $this->artisan('make:publication')
-            ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
-            ->expectsQuestion('Title', 'Hello World')
-            ->expectsOutputToContain('Creating a new Publication!')
-            ->expectsOutput('Saving publication data to [test-publication/hello-world.md]')
-            ->expectsOutput('Publication created successfully!')
-            ->assertExitCode(0);
-
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEqualsIgnoringLineEndingType('---
-__createdAt: '.Carbon::now()->format('Y-m-d H:i:s').'
-title: Hello World
----
-Raw MD text ...
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
-
-        deleteDirectory(Hyde::path('test-publication'));
     }
 }
