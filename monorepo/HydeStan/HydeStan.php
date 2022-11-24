@@ -119,7 +119,7 @@ class HydeStan
     public static function addActionsWarning(string $file, int $lineNumber, string $title, string $message): void
     {
         // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
-        self::$warnings[] = sprintf("::warning file=%s,line=%s,endLine=%s,title=%s::%s", $file, $lineNumber, $lineNumber, $title, $message);
+        self::$warnings[] = sprintf("::warning file=%s,line=%s,endLine=%s,title=%s::%s", 'packages/framework/'. $file, $lineNumber, $lineNumber, $title, $message);
     }
 
 }
