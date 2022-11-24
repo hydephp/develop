@@ -9,5 +9,8 @@ namespace Hyde\Framework\Actions\Contracts;
  */
 interface CreateActionContract
 {
+    /**
+     * @throws \Hyde\Framework\Exceptions\FileConflictException
+     */
     public function create(): void;
 }
