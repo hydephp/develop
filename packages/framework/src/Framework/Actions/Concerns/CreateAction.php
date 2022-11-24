@@ -12,6 +12,7 @@ use Hyde\Hyde;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\CreateActionTest
+ * @internal This class is experimental and is not meant to be used outside the Hyde framework.
  */
 abstract class CreateAction implements CreateActionContract
 {
