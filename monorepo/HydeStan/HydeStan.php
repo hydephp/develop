@@ -26,6 +26,12 @@ class HydeStan
     public function run(): void
     {
         $this->files = $this->getFiles();
+
+        foreach ($this->files as $file) {
+            $this->console->info('Analysing file: ' . $file);
+
+            $this->analyseFile($file, $this->getFileContents($file));
+        }
     }
 
     public function getErrors(): array
@@ -46,5 +52,15 @@ class HydeStan
         }
 
         return $files;
+    }
+
+    private function analyseFile(string $file, string $getFileContents): void
+    {
+        // TODO
+    }
+
+    private function getFileContents(string $file): string
+    {
+        return file_get_contents(BASE_PATH . '/' . $file);
     }
 }
