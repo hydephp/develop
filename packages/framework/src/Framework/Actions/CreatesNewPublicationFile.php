@@ -29,15 +29,14 @@ class CreatesNewPublicationFile extends CreateAction implements CreateActionCont
         protected bool $force = false,
         protected ?OutputStyle $output = null,
     ) {
-        $dir = ($this->pubType->getDirectory());
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
         $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
         $fileName = $this->formatStringForStorage($canonicalStr->slug()->toString());
-
-        $this->outputPath = "$dir/$fileName.md";
+        $directory = $this->pubType->getDirectory();
+        $this->outputPath = "$directory/$fileName.md";
     }
 
     protected function handleCreate(): void
