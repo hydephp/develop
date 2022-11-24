@@ -20,11 +20,13 @@ class HydeStan
 
     public function __destruct()
     {
-        $this->console->info('HydeStan has finished.');
+        $this->console->info('HydeStan has exited.');
     }
 
     public function run(): void
     {
+        $time = microtime(true);
+
         $this->files = $this->getFiles();
 
         foreach ($this->files as $file) {
@@ -32,6 +34,11 @@ class HydeStan
 
             $this->analyseFile($file, $this->getFileContents($file));
         }
+
+        $endTime = microtime(true) - $time;
+        $endTimeMs = $endTime * 1000;
+
+        $this->console->info(sprintf("HydeStan has finished in %s seconds (%sms)", number_format($endTime, 2), number_format($endTimeMs, 2)));
     }
 
     public function getErrors(): array
