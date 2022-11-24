@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-
 use function strtolower;
 
 /**
@@ -172,16 +171,17 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         if ($this->argument('publicationType')) {
             $pubTypeSelection = $this->argument('publicationType');
         } else {
-            $choice           = (int)$this->choice(
+            $choice = (int) $this->choice(
                 'Which publication type would you like to create a publication item for?',
                 $pubTypes->keys()->toArray(),
             );
             $pubTypeSelection = $pubTypes->keys()->get($choice);
         }
         $pubType = $pubTypes->get($pubTypeSelection);
-        if (!$pubType) {
+        if (! $pubType) {
             throw new InvalidArgumentException('Unable to locate the publication type you selected.');
         }
+
         return $pubType;
     }
 }
