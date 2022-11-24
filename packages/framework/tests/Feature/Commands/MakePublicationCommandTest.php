@@ -21,6 +21,8 @@ class MakePublicationCommandTest extends TestCase
     {
         parent::setUp();
         mkdir(Hyde::path('test-publication'));
+
+        Carbon::setTestNow(Carbon::create(2022));
     }
 
     protected function tearDown(): void
@@ -44,7 +46,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEqualsIgnoringLineEndingType('---
-__createdAt: '.Carbon::now()->format('Y-m-d H:i:s').'
+__createdAt: 2022-01-01 00:00:00
 title: Hello World
 ---
 Raw MD text ...
