@@ -64,7 +64,7 @@ Raw MD text ...
     public function test_command_with_existing_publication()
     {
         $this->makeSchemaFile();
-        mkdir(Hyde::path('test-publication/hello-world.md'));
+        touch(Hyde::path('test-publication/hello-world.md'));
 
         $this->artisan('make:publication')
             ->expectsOutputToContain('Creating a new Publication!')
