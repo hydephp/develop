@@ -21,6 +21,7 @@ use function strtolower;
  * Hyde Command to create a new publication for a given publication type.
  *
  * @todo Add --force option?
+ *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
 class MakePublicationCommand extends ValidatingCommand implements CommandHandleInterface
@@ -55,7 +56,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
                 $creator->create();
             } catch (FileConflictException) {
-                $this->error("Error: A publication already exists with the same canonical field value");
+                $this->error('Error: A publication already exists with the same canonical field value');
                 $overwrite = $this->askWithValidation(
                     'overwrite',
                     'Do you wish to overwrite the existing file (y/n)',
@@ -181,6 +182,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         }
 
         $this->line("<info>Creating a new publication of type</info> [<comment>$pubTypeSelection</comment>]");
+
         return $pubType;
     }
 }
