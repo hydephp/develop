@@ -32,55 +32,61 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
     {
         $this->title('Creating a new Publication!');
 
-        $pubTypes = PublicationService::getPublicationTypes();
-        if ($pubTypes->isEmpty()) {
-            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
-        }
-
-        $pubTypeSelection = $this->argument('publicationType');
-        if (! $pubTypeSelection) {
-            $choice = (int) $this->choice(
-                'Which publication type would you like to create a publication item for?',
-                $pubTypes->keys()->toArray(),
-            );
-            $pubTypeSelection = $pubTypes->keys()->get($choice);
-        }
-        $pubType = $pubTypes->get($pubTypeSelection);
-        if (! $pubType) {
-            throw new InvalidArgumentException('Unable to locate the publication type you selected.');
-        }
-
-        $mediaFiles = PublicationService::getMediaForPubType($pubType);
-        $fieldData = Collection::create();
-        $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
-        foreach ($pubType->fields as $field) {
-            $fieldData->{$field['name']} = $this->captureFieldInput((object) $field, $mediaFiles);
-        }
-
         try {
-            $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
-            $creator->create();
-        } catch (InvalidArgumentException $exception) { // FIXME: provide a properly typed exception
-            $msg = $exception->getMessage();
-            // Useful for debugging
-            //$this->output->writeln("xxx " . $exception->getTraceAsString());
-            $this->output->writeln("<bg=red;fg=white>$msg</>");
-            $overwrite = $this->askWithValidation(
-                'overwrite',
-                'Do you wish to overwrite the existing file (y/n)',
-                ['required', 'string', 'in:y,n'],
-                'n'
-            );
-            if (strtolower($overwrite) == 'y') {
-                $creator = new CreatesNewPublicationFile($pubType, $fieldData, true, $this->output);
+            $pubTypes = PublicationService::getPublicationTypes();
+            if ($pubTypes->isEmpty()) {
+                throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
+            }
+
+            $pubTypeSelection = $this->argument('publicationType');
+            if (! $pubTypeSelection) {
+                $choice = (int) $this->choice(
+                    'Which publication type would you like to create a publication item for?',
+                    $pubTypes->keys()->toArray(),
+                );
+                $pubTypeSelection = $pubTypes->keys()->get($choice);
+            }
+            $pubType = $pubTypes->get($pubTypeSelection);
+            if (! $pubType) {
+                throw new InvalidArgumentException('Unable to locate the publication type you selected.');
+            }
+
+            $mediaFiles = PublicationService::getMediaForPubType($pubType);
+            $fieldData = Collection::create();
+            $this->output->writeln('<bg=magenta;fg=white>Now please enter the field data:</>');
+            foreach ($pubType->fields as $field) {
+                $fieldData->{$field['name']} = $this->captureFieldInput((object) $field, $mediaFiles);
+            }
+
+            try {
+                $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
                 $creator->create();
-            } else {
-                $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
+            } catch (InvalidArgumentException $exception) { // FIXME: provide a properly typed exception
+                $msg = $exception->getMessage();
+                // Useful for debugging
+                //$this->output->writeln("xxx " . $exception->getTraceAsString());
+                $this->output->writeln("<bg=red;fg=white>$msg</>");
+                $overwrite = $this->askWithValidation(
+                    'overwrite',
+                    'Do you wish to overwrite the existing file (y/n)',
+                    ['required', 'string', 'in:y,n'],
+                    'n'
+                );
+                if (strtolower($overwrite) == 'y') {
+                    $creator = new CreatesNewPublicationFile($pubType, $fieldData, true, $this->output);
+                    $creator->create();
+                } else {
+                    $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
+                }
+            } catch (Exception $exception) {
+                $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
+
+                throw $exception;
             }
         } catch (Exception $exception) {
             $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
 
-            throw $exception;
+            return Command::FAILURE;
         }
 
         $this->info('Publication created successfully!');
