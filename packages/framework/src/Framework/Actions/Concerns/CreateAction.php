@@ -54,7 +54,7 @@ abstract class CreateAction implements CreateActionContract
     /** @inheritDoc */
     public function getAbsoluteOutputPath(): string
     {
-        return Hyde::path($this->outputPath);
+        return Hyde::path($this->getOutputPath());
     }
 
     /** @inheritDoc */
