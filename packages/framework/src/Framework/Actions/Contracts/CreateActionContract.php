@@ -10,15 +10,20 @@ namespace Hyde\Framework\Actions\Contracts;
 interface CreateActionContract
 {
     /**
+     * Create the file at the configured output path.
+     *
      * @throws \Hyde\Framework\Exceptions\FileConflictException
      */
     public function create(): void;
 
     /**
-     * @return string Relative path
+     * @return string Relative path.
      */
     public function getOutputPath(): string;
 
+    /**
+     * @param bool $force Should existing files at the output path be overwritten?
+     */
     public function force(bool $force = true): void;
 
     /**
