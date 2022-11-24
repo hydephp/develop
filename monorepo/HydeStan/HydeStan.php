@@ -136,7 +136,8 @@ class NoFixMeAnalyser
 
                 // Echo Actions warning
                 // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
-                echo "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title={NoFixMeError}::Found $search in file\n";
+                $title = "NoFixMeError";
+                echo "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title=$title::Found $search in file\n";
 
                 // Todo we might want to check for more errors after the first marker
             }
