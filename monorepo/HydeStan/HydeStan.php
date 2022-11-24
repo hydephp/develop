@@ -136,7 +136,7 @@ class NoFixMeAnalyser
 
                 // Echo Actions warning
                 // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
-                echo "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title={NoFixMeError}::Found $search in file";
+                echo "::warning file=$file,line=$lineNumber,endLine=$lineNumber,title={NoFixMeError}::Found $search in file\n";
             }
         }
 
