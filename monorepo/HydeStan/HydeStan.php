@@ -56,11 +56,21 @@ class HydeStan
 
     private function analyseFile(string $file, string $getFileContents): void
     {
-        // TODO
+        foreach ($this->analysers() as $analyser) {
+            $this->console->debugComment('Running  ' . $analyser::class);
+            $analyser->run($file, $getFileContents);
+        }
     }
 
     private function getFileContents(string $file): string
     {
         return file_get_contents(BASE_PATH . '/' . $file);
+    }
+
+    private function analysers(): array
+    {
+        return [
+            //
+        ];
     }
 }
