@@ -16,7 +16,7 @@ class HydeStan
     {
         $this->console = new Console();
 
-        $this->console->info(sprintf("HydeStan v%s is running!", self::VERSION));
+        $this->console->info(sprintf('HydeStan v%s is running!', self::VERSION));
         $this->console->newline();
     }
 
@@ -34,14 +34,14 @@ class HydeStan
 
         foreach ($this->files as $file) {
             if ($this->debug) {
-                $this->console->debug('Analysing file: ' . $file);
+                $this->console->debug('Analysing file: '.$file);
             }
 
             $this->analyseFile($file, $this->getFileContents($file));
         }
 
         $endTime = microtime(true) - $time;
-        $this->console->info(sprintf("HydeStan has finished in %s seconds (%sms) using %s KB RAM",
+        $this->console->info(sprintf('HydeStan has finished in %s seconds (%sms) using %s KB RAM',
             number_format($endTime, 2),
             number_format($endTime * 1000, 2),
             number_format(memory_get_peak_usage(true) / 1024, 2))
@@ -67,7 +67,7 @@ class HydeStan
     {
         $files = [];
 
-        $directory = new RecursiveDirectoryIterator(BASE_PATH . '/src');
+        $directory = new RecursiveDirectoryIterator(BASE_PATH.'/src');
         $iterator = new RecursiveIteratorIterator($directory);
         $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
 
@@ -82,13 +82,13 @@ class HydeStan
     {
         foreach ($this->analysers() as $analyser) {
             if ($this->debug) {
-                $this->console->debugComment('Running  ' . $analyser::class);
+                $this->console->debugComment('Running  '.$analyser::class);
             }
 
             $result = $analyser->run($file, $contents);
             foreach ($result as $error) {
                 if ($this->debug) {
-                    $this->console->debugComment('Adding error: ' . $error);
+                    $this->console->debugComment('Adding error: '.$error);
                 }
                 $this->errors[] = $error;
             }
@@ -97,7 +97,7 @@ class HydeStan
 
     private function getFileContents(string $file): string
     {
-        return file_get_contents(BASE_PATH . '/' . $file);
+        return file_get_contents(BASE_PATH.'/'.$file);
     }
 
     private function analysers(): array
@@ -128,7 +128,7 @@ class NoFixMeAnalyser
 
         foreach ($searches as $search) {
             if (str_contains($contents, $search)) {
-                $errors[] = 'Found ' . $search . ' in ' . $file;
+                $errors[] = 'Found '.$search.' in '.$file;
             }
         }
 
