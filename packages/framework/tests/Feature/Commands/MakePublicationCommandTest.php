@@ -70,8 +70,7 @@ Raw MD text ...
             ->expectsOutputToContain('Creating a new Publication!')
             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
             ->expectsQuestion('Title', 'Hello World')
-            // ->expectsOutput('Error: A publication with the title [Hello World] already exists.')
-            ->expectsOutput('Error: File already exists: ' .Hyde::path('test-publication/hello-world.md'))
+            ->expectsOutput('Error: A publication already exists with the same canonical field value')
             ->expectsQuestion('Do you wish to overwrite the existing file (y/n)','n')
             ->assertExitCode(0);
     }
