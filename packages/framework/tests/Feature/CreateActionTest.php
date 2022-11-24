@@ -77,6 +77,18 @@ class CreateActionTest extends TestCase
         $action->force(false);
         $this->assertTrue($action->fileConflicts());
     }
+
+    public function testCanSaveToSubdirectory()
+    {
+        $action = new CreateActionTestClass;
+        $action->setOutputPath('foo/bar');
+        $action->create();
+
+        $this->assertTrue(file_exists(Hyde::path('foo/bar')));
+        $this->assertSame('bar', file_get_contents(Hyde::path('foo/bar')));
+        unlink(Hyde::path('foo/bar'));
+        rmdir(Hyde::path('foo'));
+    }
 }
 
 class CreateActionTestClass extends CreateAction

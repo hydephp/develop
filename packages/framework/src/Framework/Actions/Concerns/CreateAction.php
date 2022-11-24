@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\Concerns;
 
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use function file_exists;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Exceptions\FileConflictException;
@@ -14,6 +15,8 @@ use Hyde\Hyde;
  */
 abstract class CreateAction implements CreateActionContract
 {
+    use InteractsWithDirectories;
+
     protected string $outputPath;
     protected bool $force = false;
 
@@ -71,6 +74,7 @@ abstract class CreateAction implements CreateActionContract
 
     protected function filePutContents(string $contents): void
     {
+        $this->needsParentDirectory($this->getAbsoluteOutputPath());
         file_put_contents($this->getAbsoluteOutputPath(), $contents);
     }
 }
