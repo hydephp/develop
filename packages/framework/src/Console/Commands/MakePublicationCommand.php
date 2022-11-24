@@ -67,11 +67,6 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 } else {
                     $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
                 }
-            } catch (Exception $exception) {
-                // FIXME: This is probably redundant and can likely be removed after it's covered by tests
-                $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
-
-                throw $exception;
             }
         } catch (Exception $exception) {
             if ($exception->getFile() === __FILE__) {
