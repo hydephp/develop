@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
+use function debug_backtrace;
 use function str_replace;
 use function ucfirst;
 
@@ -71,7 +72,7 @@ class ValidatingCommand extends Command
 
     protected function handleException(Exception $exception): int
     {
-        if ($exception->getFile() === __FILE__) {
+        if ($exception->getFile() === debug_backtrace()[0]['file']) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
             $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
