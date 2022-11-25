@@ -68,7 +68,7 @@ class PublicationService
     }
 
     /**
-     * Read an MD file and return the parsed data.
+     * Parse a publication Markdown source file and return a PublicationPage object.
      *
      * @param  string  $mdFileName  Example: my-publication/hello.md
      */
