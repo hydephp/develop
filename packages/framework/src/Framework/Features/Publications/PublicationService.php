@@ -98,7 +98,7 @@ class PublicationService
 
     /**
      * @throws \Safe\Exceptions\FilesystemException
-     * @throws \Exception If the file could not be read
+     * @throws \Exception If the file could not be read.
      */
     protected static function getPublicationFileData(string $filepath): string
     {
