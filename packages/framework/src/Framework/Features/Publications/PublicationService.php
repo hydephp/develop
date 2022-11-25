@@ -25,8 +25,6 @@ class PublicationService
      * @todo We might want to refactor to cache this in the Kernel, maybe under $publications?
      *
      * @return Collection<string, PublicationType>
-     *
-     * @throws \Exception
      */
     public static function getPublicationTypes(): Collection
     {
@@ -94,8 +92,6 @@ class PublicationService
 
     /**
      * Check whether a given publication type exists.
-     *
-     * @throws \Exception
      */
     public static function publicationTypeExists(string $pubTypeName): bool
     {
