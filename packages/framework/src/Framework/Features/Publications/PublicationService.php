@@ -108,7 +108,6 @@ class PublicationService
     {
         // Todo use custom content root?
 
-        $root = Hyde::path();
-        return glob("$root/*/schema.json");
+        return glob(Hyde::path().'/*/schema.json');
     }
 }
