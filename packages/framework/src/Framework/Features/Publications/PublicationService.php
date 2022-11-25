@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Carbon\Carbon;
 use Exception;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
@@ -30,6 +29,7 @@ class PublicationService
     {
         return Collection::create(self::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
             $publicationType = PublicationType::fromFile($schemaFile);
+
             return [$publicationType->getDirectory() => $publicationType];
         });
     }
@@ -77,6 +77,7 @@ class PublicationService
         $fileData = self::getPublicationFileData($mdFileName);
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
+
         return new PublicationPage(
             type:       PublicationType::get(dirname($mdFileName)),
             identifier: basename($mdFileName, '.md'),
@@ -99,9 +100,10 @@ class PublicationService
     protected static function getPublicationFileData(string $mdFileName): string
     {
         $fileData = file_get_contents(Hyde::path($mdFileName));
-        if (!$fileData) {
+        if (! $fileData) {
             throw new Exception("No data read from [$mdFileName]");
         }
+
         return $fileData;
     }
 
