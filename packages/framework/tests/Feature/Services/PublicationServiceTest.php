@@ -11,6 +11,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
 
+use function copy;
 use function mkdir;
 
 /**
@@ -32,7 +33,7 @@ class PublicationServiceTest extends TestCase
         parent::tearDown();
     }
 
-    public function testGetPublicationTypesWithNoTypes()
+    public function testGetPublicationTypes()
     {
         $this->assertEquals(new Collection(), PublicationService::getPublicationTypes());
     }
