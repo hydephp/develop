@@ -30,7 +30,7 @@ class PublicationService
      */
     public static function getPublicationTypes(): Collection
     {
-        return Collection::create(self::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
+        return Collection::create(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
             $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
 
             return [$publicationType->getDirectory() => $publicationType];
@@ -42,8 +42,8 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
-        return Collection::create(self::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
-            return self::parsePublicationFile(Hyde::pathToRelative($file));
+        return Collection::create(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
+            return static::parsePublicationFile(Hyde::pathToRelative($file));
         });
     }
 
@@ -52,7 +52,7 @@ class PublicationService
      */
     public static function getMediaForPubType(PublicationType $pubType): Collection
     {
-        return Collection::create(self::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
+        return Collection::create(static::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
             return Hyde::pathToRelative($file);
         });
     }
@@ -65,7 +65,7 @@ class PublicationService
     public static function parsePublicationFile(string $identifier): PublicationPage
     {
         $identifier = Str::replaceLast('.md', '', $identifier);
-        $fileData = self::getFileData("$identifier.md");
+        $fileData = static::getFileData("$identifier.md");
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
 
@@ -82,7 +82,7 @@ class PublicationService
      */
     public static function publicationTypeExists(string $pubTypeName): bool
     {
-        return self::getPublicationTypes()->has(Str::slug($pubTypeName));
+        return static::getPublicationTypes()->has(Str::slug($pubTypeName));
     }
 
     /**
