@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications;
 
 use function basename;
+use function dirname;
 use Exception;
+use function glob;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-use function dirname;
-use function glob;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
