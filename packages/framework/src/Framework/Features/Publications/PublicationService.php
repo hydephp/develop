@@ -56,8 +56,8 @@ class PublicationService
             $publications->add(self::getPublicationData($file));
         }
 
-        if ($sort) {
-            return $publications->sortBy(function ($publication) use ($pubType) {
+        if ($sort === true) {
+            return $publications->sortBy(function (PublicationPage $publication) use ($pubType): ?string {
                 return $publication->matter->{$pubType->sortField};
             });
         }
