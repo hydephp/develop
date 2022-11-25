@@ -31,13 +31,10 @@ class PublicationService
         $root = Hyde::path();
         $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
 
-        $pubTypes = Collection::create();
-        foreach ($schemaFiles as $schemaFile) {
+        return Collection::create($schemaFiles)->mapWithKeys(function (string $schemaFile) {
             $publicationType = PublicationType::fromFile($schemaFile);
-            $pubTypes->{$publicationType->getDirectory()} = $publicationType;
-        }
-
-        return $pubTypes;
+            return [$publicationType->getDirectory() => $publicationType];
+        });
     }
 
     /**
