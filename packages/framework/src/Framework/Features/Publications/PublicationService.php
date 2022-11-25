@@ -111,6 +111,6 @@ class PublicationService
 
     protected static function getMediaFiles(PublicationType $pubType): array
     {
-        return glob(Hyde::path("_media/{$pubType->getDirectory()}/*") . '.{jpg,jpeg,png,gif,pdf}', GLOB_BRACE);
+        return glob(Hyde::path("_media/{$pubType->getDirectory()}/*").'.{jpg,jpeg,png,gif,pdf}', GLOB_BRACE);
     }
 }
