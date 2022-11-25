@@ -84,6 +84,32 @@ class PublicationServiceTest extends TestCase
         );
     }
 
+    public function testGetMediaForPubType()
+    {
+        $this->createPublicationType();
+
+        $this->assertEquals(
+            new Collection(),
+            PublicationService::getMediaForPubType(PublicationType::get('test-publication'))
+        );
+    }
+
+    public function testGetMediaForPubTypeWithMedia()
+    {
+        $this->createPublicationType();
+        mkdir(Hyde::path('_media/test-publication'));
+        file_put_contents(Hyde::path('_media/test-publication/image.png'), '');
+
+        $this->assertEquals(
+            new Collection([
+                Hyde::path('_media/test-publication/image.png'),
+            ]),
+            PublicationService::getMediaForPubType(PublicationType::get('test-publication'))
+        );
+
+        File::deleteDirectory(Hyde::path('_media/test-publication'));
+    }
+
     public function testParsePublicationFile()
     {
         $this->createPublicationType();
