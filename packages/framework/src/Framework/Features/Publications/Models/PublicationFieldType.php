@@ -25,6 +25,11 @@ class PublicationFieldType implements JsonSerializable, Arrayable
     public readonly ?int $min;
     public readonly string $name;
 
+    public static function fromArray(array $array): static
+    {
+        return new static(...$array);
+    }
+
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max)
     {
         $this->type = strtolower($type);

@@ -24,6 +24,23 @@ class PublicationFieldTypeTest extends TestCase
         $this->assertSame(10, $field->max);
     }
 
+    public function test_from_array_method()
+    {
+        $field = PublicationFieldType::fromArray([
+            'type' => 'string',
+            'name' => 'test',
+            'min'  => 1,
+            'max'  => 10,
+        ]);
+
+        $this->assertInstanceOf(PublicationFieldType::class, $field);
+
+        $this->assertSame('string', $field->type);
+        $this->assertSame('test', $field->name);
+        $this->assertSame(1, $field->min);
+        $this->assertSame(10, $field->max);
+    }
+
     public function test_can_get_field_as_array()
     {
         $this->assertSame([
