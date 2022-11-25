@@ -29,7 +29,7 @@ class PublicationService
     public static function getPublicationTypes(): Collection
     {
         return Collection::create(self::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
-            $publicationType = PublicationType::fromFile($schemaFile);
+            $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
 
             return [$publicationType->getDirectory() => $publicationType];
         });
