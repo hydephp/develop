@@ -28,6 +28,8 @@ class PublicationService
      */
     public static function getPublicationTypes(): Collection
     {
+        // Todo use custom content root?
+
         $root = Hyde::path();
         $schemaFiles = glob("$root/*/schema.json");
 
