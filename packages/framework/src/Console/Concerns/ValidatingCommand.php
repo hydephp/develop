@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
+use function str_ends_with;
 use function str_replace;
 use function ucfirst;
 
@@ -93,13 +94,12 @@ class ValidatingCommand extends Command
     /**
      * Handle an exception that occurred during command execution.
      *
-     * @param  string|null  $file  Optionally specify the file calling this method.
      * @return int The exit code
      */
-    public function handleException(Exception $exception, ?string $file = null): int
+    public function handleException(Exception $exception): int
     {
-        // If the exception was thrown from the same file as the command, then we don't need to show which file it was thrown from.
-        if ($exception->getFile() === ($file ?? debug_backtrace()[1]['file'])) {
+        // If the exception was thrown from the same file as a command, then we don't need to show which file it was thrown from.
+        if (str_ends_with($exception->getFile(), 'Command.php')) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
             $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
