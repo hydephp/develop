@@ -107,12 +107,8 @@ class PublicationService
      *
      * @throws \Exception
      */
-    public static function publicationTypeExists(string $pubTypeName, bool $isRaw = true): bool
+    public static function publicationTypeExists(string $pubTypeName): bool
     {
-        if ($isRaw) {
-            $pubTypeName = Str::slug($pubTypeName);
-        }
-
-        return self::getPublicationTypes()->has($pubTypeName);
+        return self::getPublicationTypes()->has(Str::slug($pubTypeName));
     }
 }
