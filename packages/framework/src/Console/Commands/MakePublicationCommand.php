@@ -42,20 +42,20 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
             $fieldData = $this->collectFieldData($pubType);
 
-            try {
-                $creator = new CreatesNewPublicationFile($pubType, $fieldData, false, $this->output);
-                $creator->create();
-            } catch (FileConflictException) {
+            $creator = new CreatesNewPublicationFile($pubType, $fieldData, false, $this->output);
+            if ($creator->fileConflicts()) {
                 $this->error('Error: A publication already exists with the same canonical field value');
                 if ($this->confirm('Do you wish to overwrite the existing file?')) {
-                    $creator = new CreatesNewPublicationFile($pubType, $fieldData, true, $this->output);
-                    $creator->create();
+                    $creator->force();
                 } else {
                     $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
 
                     return ValidatingCommand::USER_EXIT;
                 }
             }
+
+            $creator->create();
+
         } catch (Exception $exception) {
             return $this->handleException($exception);
         }
