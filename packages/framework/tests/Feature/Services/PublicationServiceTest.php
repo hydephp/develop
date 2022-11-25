@@ -7,11 +7,13 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
+use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
 
 use function copy;
+use function file_put_contents;
 use function mkdir;
 
 /**
@@ -47,8 +49,46 @@ class PublicationServiceTest extends TestCase
         ]), PublicationService::getPublicationTypes());
     }
 
+    public function testGetPublicationsForPubType()
+    {
+        $this->setupTestFile();
+
+        $this->assertEquals(
+            new Collection(),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+        );
+    }
+
+    public function testGetPublicationsForPubTypeWithPublications()
+    {
+        $this->setupTestFile();
+        $this->createPublication();
+
+        $this->assertEquals(
+            new Collection([
+               PublicationService::getPublicationData('test-publication/foo.md')
+            ]),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+        );
+    }
+
     protected function setupTestFile(): void
     {
         copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+    }
+
+    protected function createPublication(): void
+    {
+        file_put_contents(
+            Hyde::path('test-publication/foo.md'),
+            '---
+__canonical: canonical
+__createdAt: 2022-11-16 11:32:52
+foo: bar
+---
+
+Hello World!
+'
+        );
     }
 }
