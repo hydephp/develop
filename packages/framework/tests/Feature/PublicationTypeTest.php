@@ -91,7 +91,7 @@ class PublicationTypeTest extends TestCase
             'directory' => 'tests/fixtures',
         ]));
 
-        $this->assertEquals($publicationType, PublicationType::fromFile(Hyde::path('tests/fixtures/test-publication-schema.json')));
+        $this->assertEquals($publicationType, PublicationType::fromFile(('tests/fixtures/test-publication-schema.json')));
     }
 
     public function test_get_fields_method_returns_collection_of_field_objects()
@@ -118,7 +118,7 @@ class PublicationTypeTest extends TestCase
     public function test_get_method_fails_if_publication_type_does_not_exist()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Could not parse schema file '.Hyde::path('missing/schema.json'));
+        $this->expectExceptionMessage('Could not parse schema file '.('missing/schema.json'));
         PublicationType::get('missing');
     }
 

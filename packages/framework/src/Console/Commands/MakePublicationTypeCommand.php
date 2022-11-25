@@ -8,7 +8,7 @@ use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
-use Hyde\Framework\Features\Publications\PublicationService;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
@@ -35,7 +35,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $title = $this->argument('title');
         if (! $title) {
             $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
-            $dirname = PublicationService::formatNameForStorage($title);
+            $dirname = Str::slug($title);
             if (file_exists($dirname) && is_dir($dirname) && count(scandir($dirname)) > 2) {
                 throw new InvalidArgumentException("Storage path [$dirname] already exists");
             }

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Carbon\Carbon;
+use function basename;
+use function dirname;
+use Exception;
+use function glob;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
@@ -19,116 +22,95 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class PublicationService
 {
     /**
-     * Format the publication type name to a suitable representation for file storage.
-     */
-    public static function formatNameForStorage(string $pubTypeNameRaw): string
-    {
-        return Str::slug($pubTypeNameRaw);
-    }
-
-    /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
      * @todo We might want to refactor to cache this in the Kernel, maybe under $publications?
      *
      * @return Collection<string, PublicationType>
-     *
-     * @throws \Exception
      */
     public static function getPublicationTypes(): Collection
     {
-        $root = Hyde::path();
-        $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
+        return Collection::create(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
+            $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
 
-        $pubTypes = Collection::create();
-        foreach ($schemaFiles as $schemaFile) {
-            $publicationType = PublicationType::fromFile($schemaFile);
-            $pubTypes->{$publicationType->getDirectory()} = $publicationType;
-        }
-
-        return $pubTypes;
+            return [$publicationType->getDirectory() => $publicationType];
+        });
     }
 
     /**
-     * Return all publications for a given pub type, optionally sorted by the publication's sortField.
-     *
-     * @throws \Safe\Exceptions\FilesystemException
+     * Return all publications for a given publication type.
      */
-    public static function getPublicationsForPubType(PublicationType $pubType, $sort = true): Collection
+    public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
-        $root = base_path();
-        $files = glob("$root/{$pubType->getDirectory()}/*.md");
-
-        $publications = Collection::create();
-        foreach ($files as $file) {
-            $publications->add(self::getPublicationData($file));
-        }
-
-        if ($sort) {
-            return $publications->sortBy(function ($publication) use ($pubType) {
-                return $publication->matter->{$pubType->sortField};
-            });
-        }
-
-        return $publications;
+        return Collection::create(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
+            return static::parsePublicationFile(Hyde::pathToRelative($file));
+        });
     }
 
     /**
      * Return all media items for a given publication type.
      */
-    public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
+    public static function getMediaForPubType(PublicationType $pubType): Collection
     {
-        $root = Hyde::path();
-        $files = glob("$root/_media/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
-
-        $media = Collection::create();
-        foreach ($files as $file) {
-            $media->add($file);
-        }
-
-        if ($sort) {
-            return $media->sort()->values();
-        }
-
-        return $media;
+        return Collection::create(static::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
+            return Hyde::pathToRelative($file);
+        });
     }
 
     /**
-     * Read an MD file and return the parsed data.
+     * Parse a publication Markdown source file and return a PublicationPage object.
      *
-     * @throws \Safe\Exceptions\FilesystemException
+     * @param  string  $identifier  Example: my-publication/hello.md or my-publication/hello
      */
-    public static function getPublicationData(string $mdFileName): PublicationPage
+    public static function parsePublicationFile(string $identifier): PublicationPage
     {
-        $fileData = file_get_contents($mdFileName);
-        if (! $fileData) {
-            throw new \Exception("No data read from [$mdFileName]");
-        }
+        $identifier = Str::replaceLast('.md', '', $identifier);
+        $fileData = static::getFileData("$identifier.md");
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
-        $matter = $parsedFileData->matter();
-        $markdown = $parsedFileData->body();
-        $matter['__slug'] = basename($mdFileName, '.md');
-        $matter['__createdDatetime'] = Carbon::createFromTimestamp($matter['__createdAt']);
 
-        $type = PublicationType::get(basename(dirname($mdFileName)));
-
-        $identifier = basename($mdFileName, '.md');
-
-        return new PublicationPage($type, $identifier, $matter, $markdown);
+        return new PublicationPage(
+            type:       PublicationType::get(dirname($identifier)),
+            identifier: basename($identifier),
+            matter:     $parsedFileData->matter(),
+            markdown:   $parsedFileData->body()
+        );
     }
 
     /**
      * Check whether a given publication type exists.
-     *
-     * @throws \Exception
      */
-    public static function publicationTypeExists(string $pubTypeName, bool $isRaw = true): bool
+    public static function publicationTypeExists(string $pubTypeName): bool
     {
-        if ($isRaw) {
-            $pubTypeName = self::formatNameForStorage($pubTypeName);
+        return static::getPublicationTypes()->has(Str::slug($pubTypeName));
+    }
+
+    /**
+     * @throws \Safe\Exceptions\FilesystemException
+     * @throws \Exception If the file could not be read.
+     */
+    protected static function getFileData(string $filepath): string
+    {
+        $fileData = file_get_contents(Hyde::path($filepath));
+        if (! $fileData) {
+            throw new Exception("No data read from [$filepath]");
         }
 
-        return self::getPublicationTypes()->has($pubTypeName);
+        return $fileData;
+    }
+
+    protected static function getSchemaFiles(): array
+    {
+        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
+    }
+
+    protected static function getPublicationFiles(string $directory): array
+    {
+        return glob(Hyde::path("$directory/*.md"));
+    }
+
+    protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
+    {
+        return glob(Hyde::path("_media/$directory/*.$extensions"), GLOB_BRACE);
     }
 }
