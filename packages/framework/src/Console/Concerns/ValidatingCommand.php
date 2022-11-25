@@ -31,7 +31,7 @@ class ValidatingCommand extends Command
      *
      * @param  int  $retryCount  How many times has the question been asked?
      *
-     * @throws RuntimeException
+     * @throws RuntimeException If the validation fails after MAX_RETRIES attempts.
      */
     public function askWithValidation(
         string $name,
