@@ -68,7 +68,7 @@ class ValidatingCommand extends Command
     /**
      * Handle an exception that occurred during command execution.
      *
-     * @param string|null $file Optionally specify the file calling this method.
+     * @param  string|null  $file  Optionally specify the file calling this method.
      * @return int The exit code
      */
     public function handleException(Exception $exception, ?string $file = null): int

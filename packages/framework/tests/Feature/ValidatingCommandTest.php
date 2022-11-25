@@ -141,8 +141,7 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
     {
         try {
             throw new RuntimeException('This is a test');
-        }
-        catch (RuntimeException $exception) {
+        } catch (RuntimeException $exception) {
             return $this->handleException($exception, $mockFile);
         }
     }
