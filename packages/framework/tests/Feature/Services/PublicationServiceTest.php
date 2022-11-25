@@ -83,33 +83,6 @@ class PublicationServiceTest extends TestCase
         );
     }
 
-    public function testGetPublicationsForPubTypeSorting()
-    {
-        $this->createPublicationType();
-        file_put_contents(Hyde::path('test-publication/1.md'),
-            "---\n__canonical: canonical\n__createdAt: 2022-11-16 11:32:52\nfoo: bar\nsort: 2\n---\n\nHello World!\n"
-        );
-        file_put_contents(Hyde::path('test-publication/2.md'),
-          "---\n__canonical: canonical\n__createdAt: 2022-11-16 11:32:52\nfoo: bar\nsort: 1\n---\n\nHello World!\n"
-        );
-
-        $this->assertEquals(
-            new Collection([
-                PublicationService::getPublicationData('test-publication/2.md'),
-                PublicationService::getPublicationData('test-publication/1.md'),
-            ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
-        );
-
-        $this->assertEquals(
-            new Collection([
-                PublicationService::getPublicationData('test-publication/1.md'),
-                PublicationService::getPublicationData('test-publication/2.md'),
-            ]),
-            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'), false)
-        );
-    }
-
     protected function createPublicationType(): void
     {
         copy(

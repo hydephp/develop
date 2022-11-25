@@ -47,7 +47,7 @@ class PublicationService
      *
      * @throws \Safe\Exceptions\FilesystemException
      */
-    public static function getPublicationsForPubType(PublicationType $pubType, $sort = true): Collection
+    public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
         $root = Hyde::path();
         $files = glob("$root/{$pubType->getDirectory()}/*.md");
@@ -57,17 +57,13 @@ class PublicationService
             $publications->add(self::getPublicationData($file));
         }
 
-        if ($sort === true) {
-            return self::sortPublications($publications, $pubType);
-        }
-
         return $publications;
     }
 
     /**
      * Return all media items for a given publication type.
      */
-    public static function getMediaForPubType(PublicationType $pubType, $sort = true): Collection
+    public static function getMediaForPubType(PublicationType $pubType): Collection
     {
         $root = Hyde::path();
         $files = glob("$root/_media/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
@@ -75,10 +71,6 @@ class PublicationService
         $media = Collection::create();
         foreach ($files as $file) {
             $media->add($file);
-        }
-
-        if ($sort) {
-            return $media->sort()->values();
         }
 
         return $media;
@@ -121,11 +113,5 @@ class PublicationService
         }
 
         return self::getPublicationTypes()->has($pubTypeName);
-    }
-
-    protected static function sortPublications(Collection $publications, PublicationType $pubType): Collection
-    {
-        return $publications->sortBy(fn(PublicationPage $publication): string|int|null => $publication->matter->{$pubType->sortField},
-            descending: str_starts_with($pubType->sortDirection, 'desc'));
     }
 }
