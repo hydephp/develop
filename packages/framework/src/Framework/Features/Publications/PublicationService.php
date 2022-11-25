@@ -58,8 +58,7 @@ class PublicationService
         }
 
         if ($sort === true) {
-            return $publications->sortBy(fn(PublicationPage $publication): string|int|null => $publication->matter->{$pubType->sortField},
-                descending: str_starts_with($pubType->sortDirection, 'desc'));
+            return self::sortPublications($publications, $pubType);
         }
 
         return $publications;
@@ -122,5 +121,11 @@ class PublicationService
         }
 
         return self::getPublicationTypes()->has($pubTypeName);
+    }
+
+    protected static function sortPublications(Collection $publications, PublicationType $pubType): Collection
+    {
+        return $publications->sortBy(fn(PublicationPage $publication): string|int|null => $publication->matter->{$pubType->sortField},
+            descending: str_starts_with($pubType->sortDirection, 'desc'));
     }
 }
