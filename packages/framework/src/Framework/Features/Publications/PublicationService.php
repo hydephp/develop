@@ -91,14 +91,12 @@ class PublicationService
         }
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
-        $matter = $parsedFileData->matter();
-        $markdown = $parsedFileData->body();
-
-        $type = PublicationType::get(basename(dirname($mdFileName)));
-
-        $identifier = basename($mdFileName, '.md');
-
-        return new PublicationPage($type, $identifier, $matter, $markdown);
+        return new PublicationPage(
+            PublicationType::get(basename(dirname($mdFileName))),
+            basename($mdFileName, '.md'),
+            $parsedFileData->matter(),
+            $parsedFileData->body()
+        );
     }
 
     public static function publicationTypeExists(string $pubTypeName): bool
