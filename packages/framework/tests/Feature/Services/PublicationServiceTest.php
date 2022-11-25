@@ -40,10 +40,15 @@ class PublicationServiceTest extends TestCase
 
     public function testGetPublicationTypesWithTypes()
     {
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        $this->setupTestFile();
 
         $this->assertEquals(new Collection([
             'test-publication' => PublicationType::get('test-publication')
         ]), PublicationService::getPublicationTypes());
+    }
+
+    protected function setupTestFile(): bool
+    {
+        return copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
     }
 }
