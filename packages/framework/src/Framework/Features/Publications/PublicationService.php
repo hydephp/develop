@@ -93,7 +93,6 @@ class PublicationService
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
         $matter = $parsedFileData->matter();
         $markdown = $parsedFileData->body();
-        $matter['__createdDatetime'] = Carbon::createFromTimestamp($matter['__createdAt']);
 
         $type = PublicationType::get(basename(dirname($mdFileName)));
 
