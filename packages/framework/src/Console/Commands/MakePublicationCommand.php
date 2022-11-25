@@ -177,10 +177,9 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
 
         $mediaFiles = PublicationService::getMediaForPubType($pubType);
-        $fieldData = Collection::create();
-        foreach ($pubType->fields as $field) {
-            $fieldData->{$field['name']} = $this->captureFieldInput(PublicationFieldType::fromArray($field), $mediaFiles);
-        }
-        return $fieldData;
+
+        return Collection::make($pubType->fields)->mapWithKeys(function ($field) use ($mediaFiles) {
+            return [$field['name'] => $this->captureFieldInput(PublicationFieldType::fromArray($field), $mediaFiles)];
+        });
     }
 }
