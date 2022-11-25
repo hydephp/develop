@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use RuntimeException;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -103,6 +104,22 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals(new Collection([
             'test' => new PublicationFieldType('string', 'test', 0, 128),
         ]), $collection);
+    }
+
+
+    public function test_get_method_can_find_existing_file_on_disk()
+    {
+        $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
+        $publicationType->save();
+
+        $this->assertEquals($publicationType, PublicationType::get('test-publication'));
+    }
+
+    public function test_get_method_fails_if_publication_type_does_not_exist()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Could not parse schema file '.Hyde::path('missing/schema.json'));
+        PublicationType::get('missing');
     }
 
     protected function getTestData(): array
