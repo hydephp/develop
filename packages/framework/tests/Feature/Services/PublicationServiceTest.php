@@ -85,7 +85,10 @@ class PublicationServiceTest extends TestCase
 
     protected function createPublicationType(): void
     {
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        copy(
+            Hyde::path('tests/fixtures/test-publication-schema.json'),
+            Hyde::path('test-publication/schema.json')
+        );
     }
 
     protected function createPublication(): void
