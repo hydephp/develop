@@ -28,7 +28,7 @@ abstract class CreateAction implements CreateActionContract
     /** @inheritDoc */
     public function create(): void
     {
-        if ($this->fileConflicts()) {
+        if ($this->hasFileConflict()) {
             throw new FileConflictException($this->outputPath);
         }
 
@@ -70,7 +70,7 @@ abstract class CreateAction implements CreateActionContract
     }
 
     /** @inheritDoc */
-    public function fileConflicts(): bool
+    public function hasFileConflict(): bool
     {
         return $this->fileExists() && ! $this->force;
     }

@@ -48,5 +48,5 @@ interface CreateActionContract
     /**
      * @return bool Will the action cause a file conflict exception?
      */
-    public function fileConflicts(): bool;
+    public function hasFileConflict(): bool;
 }

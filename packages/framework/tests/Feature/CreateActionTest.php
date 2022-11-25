@@ -65,17 +65,17 @@ class CreateActionTest extends TestCase
         $action = new CreateActionTestClass;
 
         $this->assertFalse($action->fileExists());
-        $this->assertFalse($action->fileConflicts());
+        $this->assertFalse($action->hasFileConflict());
 
         file_put_contents(Hyde::path('foo'), 'keep');
         $this->assertTrue($action->fileExists());
-        $this->assertTrue($action->fileConflicts());
+        $this->assertTrue($action->hasFileConflict());
 
         $action->force();
-        $this->assertFalse($action->fileConflicts());
+        $this->assertFalse($action->hasFileConflict());
 
         $action->force(false);
-        $this->assertTrue($action->fileConflicts());
+        $this->assertTrue($action->hasFileConflict());
     }
 
     public function testCanSaveToSubdirectory()
