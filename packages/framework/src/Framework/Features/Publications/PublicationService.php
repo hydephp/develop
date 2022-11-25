@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use function basename;
 use Exception;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-use function basename;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -76,7 +76,7 @@ class PublicationService
     public static function parsePublicationFile(string $identifier): PublicationPage
     {
         $identifier = Str::replaceLast('.md', '', $identifier);
-        $fileData   = self::getPublicationFileData("$identifier.md");
+        $fileData = self::getPublicationFileData("$identifier.md");
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
 

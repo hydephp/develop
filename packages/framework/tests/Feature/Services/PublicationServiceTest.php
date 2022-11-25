@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use function copy;
 use ErrorException;
 use Exception;
-use function copy;
 use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
