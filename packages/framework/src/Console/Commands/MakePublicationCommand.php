@@ -165,6 +165,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
         if ($pubTypes->has($pubTypeSelection)) {
             $this->line("<info>Creating a new publication of type</info> [<comment>$pubTypeSelection</comment>]");
+
             return $pubTypes->get($pubTypeSelection);
         }
 

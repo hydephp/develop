@@ -115,7 +115,6 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    
     protected function makeSchemaFile(): void
     {
         file_put_contents(
