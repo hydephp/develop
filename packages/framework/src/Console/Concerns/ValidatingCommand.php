@@ -103,7 +103,7 @@ class ValidatingCommand extends Command
         if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
-            $this->error("Error: {$exception->getMessage()} at ". sprintf("%s:%s", $file ?? $exception->getFile(), $line ?? $exception->getLine()));
+            $this->error(sprintf("Error: %s at ", $exception->getMessage()) . sprintf("%s:%s", $file ?? $exception->getFile(), $line ?? $exception->getLine()));
         }
 
         return Command::FAILURE;
