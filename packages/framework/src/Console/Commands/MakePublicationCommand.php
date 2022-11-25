@@ -168,10 +168,13 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         throw new InvalidArgumentException("Unable to locate publication type [$pubTypeSelection]");
     }
 
+    /**
+     * @param \Hyde\Framework\Features\Publications\Models\PublicationType $pubType
+     * @return Collection<string, string|array>
+     */
     protected function collectFieldData(PublicationType $pubType): Collection
     {
         $mediaFiles = PublicationService::getMediaForPubType($pubType);
-        /** @var Collection<string, string|array> $fieldData */
         $fieldData = Collection::create();
         $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
         foreach ($pubType->fields as $field) {
