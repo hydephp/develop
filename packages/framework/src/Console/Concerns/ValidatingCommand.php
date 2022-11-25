@@ -73,12 +73,12 @@ class ValidatingCommand extends Command
      */
     public function handleException(Exception $exception, ?bool $showErrorLocation = null): int
     {
+        // If the exception was thrown from the same file as the command, then we don't need to show which file it was thrown from.
         $showErrorLocation ??= ($exception->getFile() !== ($file ?? debug_backtrace()[0]['file']));
-        if (! $showErrorLocation) {
-            // If the exception was thrown from the same file as the command, then we don't need to show which file it was thrown from.
-            $this->error("Error: {$exception->getMessage()}");
-        } else {
+        if ($showErrorLocation) {
             $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
+        } else {
+            $this->error("Error: {$exception->getMessage()}");
         }
 
         return Command::FAILURE;
