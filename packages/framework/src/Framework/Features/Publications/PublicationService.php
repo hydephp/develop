@@ -106,8 +106,6 @@ class PublicationService
 
     protected static function getSchemaFiles(): array
     {
-        // Todo use custom content root?
-
-        return glob(Hyde::path().'/*/schema.json');
+        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
     }
 }
