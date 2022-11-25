@@ -132,6 +132,7 @@ class ValidationTestCommand extends ValidatingCommand
     {
         $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
         $this->output->writeln("Hello $name!");
+
         return 0;
     }
 }

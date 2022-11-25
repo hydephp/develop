@@ -6,7 +6,6 @@ namespace Hyde\Console\Concerns;
 
 use function array_keys;
 use function array_values;
-use function debug_backtrace;
 use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Validator;
@@ -94,7 +93,7 @@ class ValidatingCommand extends Command
     /**
      * Handle an exception that occurred during command execution.
      *
-     * @param string|null $file The file where the exception occurred. Leave null to auto-detect.
+     * @param  string|null  $file  The file where the exception occurred. Leave null to auto-detect.
      * @return int The exit code
      */
     public function handleException(Exception $exception, ?string $file = null, ?int $line = null): int
@@ -103,7 +102,7 @@ class ValidatingCommand extends Command
         if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
-            $this->error(sprintf("Error: %s at ", $exception->getMessage()) . sprintf("%s:%s", $file ?? $exception->getFile(), $line ?? $exception->getLine()));
+            $this->error(sprintf('Error: %s at ', $exception->getMessage()).sprintf('%s:%s', $file ?? $exception->getFile(), $line ?? $exception->getLine()));
         }
 
         return Command::FAILURE;
