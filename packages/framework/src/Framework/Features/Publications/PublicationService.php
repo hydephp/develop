@@ -19,14 +19,6 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class PublicationService
 {
     /**
-     * Format the publication type name to a suitable representation for file storage.
-     */
-    public static function formatNameForStorage(string $pubTypeNameRaw): string
-    {
-        return Str::slug($pubTypeNameRaw);
-    }
-
-    /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
      * @todo We might want to refactor to cache this in the Kernel, maybe under $publications?
@@ -126,7 +118,7 @@ class PublicationService
     public static function publicationTypeExists(string $pubTypeName, bool $isRaw = true): bool
     {
         if ($isRaw) {
-            $pubTypeName = self::formatNameForStorage($pubTypeName);
+            $pubTypeName = Str::slug($pubTypeName);
         }
 
         return self::getPublicationTypes()->has($pubTypeName);
