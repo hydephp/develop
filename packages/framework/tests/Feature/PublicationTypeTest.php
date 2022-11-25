@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use RuntimeException;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -12,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use RuntimeException;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationType
@@ -105,7 +105,6 @@ class PublicationTypeTest extends TestCase
             'test' => new PublicationFieldType('string', 'test', 0, 128),
         ]), $collection);
     }
-
 
     public function test_get_method_can_find_existing_file_on_disk()
     {
