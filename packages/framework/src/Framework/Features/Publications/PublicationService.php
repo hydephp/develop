@@ -42,8 +42,7 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
-        $root = Hyde::path();
-        $files = glob("$root/{$pubType->getDirectory()}/*.md");
+        $files = glob(Hyde::path("{$pubType->getDirectory()}/*.md"));
 
         return Collection::create($files)->map(function (string $file): PublicationPage {
             return self::parsePublicationFile(Hyde::pathToRelative($file));
@@ -55,8 +54,8 @@ class PublicationService
      */
     public static function getMediaForPubType(PublicationType $pubType): Collection
     {
-        $root = Hyde::path('_media');
-        $files = glob("$root/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
+        $path    = Hyde::path("_media/{$pubType->getDirectory()}/*");
+        $files = glob("$path.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
         return Collection::create($files)->map(function (string $file): string {
             return Hyde::pathToRelative($file);
