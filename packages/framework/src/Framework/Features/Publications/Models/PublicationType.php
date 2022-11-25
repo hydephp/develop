@@ -126,6 +126,7 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
 
     protected static function parseSchemaFile(string $schemaFile): array
     {
+        // FIXME this should use Hyde::path()
         return json_decode(file_get_contents($schemaFile), true, 512, JSON_THROW_ON_ERROR);
     }
 
