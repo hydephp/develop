@@ -97,11 +97,11 @@ class PublicationService
     /**
      * @throws \Safe\Exceptions\FilesystemException
      */
-    protected static function getPublicationFileData(string $mdFileName): string
+    protected static function getPublicationFileData(string $filepath): string
     {
-        $fileData = file_get_contents(Hyde::path($mdFileName));
+        $fileData = file_get_contents(Hyde::path($filepath));
         if (! $fileData) {
-            throw new Exception("No data read from [$mdFileName]");
+            throw new Exception("No data read from [$filepath]");
         }
 
         return $fileData;
