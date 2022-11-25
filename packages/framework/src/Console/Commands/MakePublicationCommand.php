@@ -54,7 +54,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             }
 
             try {
-                $creator = new CreatesNewPublicationFile($pubType, $fieldData, output: $this->output);
+                $creator = new CreatesNewPublicationFile($pubType, $fieldData, false, $this->output);
                 $creator->create();
             } catch (FileConflictException) {
                 $this->error('Error: A publication already exists with the same canonical field value');
