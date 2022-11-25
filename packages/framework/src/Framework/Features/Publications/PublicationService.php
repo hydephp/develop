@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use function str_starts_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
@@ -57,7 +58,8 @@ class PublicationService
         }
 
         if ($sort === true) {
-            return $publications->sortBy(fn(PublicationPage $publication): string|int|null => $publication->matter->{$pubType->sortField});
+            return $publications->sortBy(fn(PublicationPage $publication): string|int|null => $publication->matter->{$pubType->sortField},
+                descending: str_starts_with($pubType->sortDirection, 'desc'));
         }
 
         return $publications;
