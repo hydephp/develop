@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
+use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
@@ -67,6 +68,11 @@ class PublicationServiceTest extends TestCase
             new Collection([
                PublicationService::getPublicationData('test-publication/foo.md')
             ]),
+            PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+        );
+
+        $this->assertContainsOnlyInstancesOf(
+            PublicationPage::class,
             PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
         );
     }
