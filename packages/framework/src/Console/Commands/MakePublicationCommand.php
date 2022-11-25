@@ -15,7 +15,6 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-use function strtolower;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -63,6 +62,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                     $creator->create();
                 } else {
                     $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
+
                     return Command::SUCCESS;
                 }
             }

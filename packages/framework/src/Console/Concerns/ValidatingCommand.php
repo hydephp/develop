@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
-use Exception;
 use function array_keys;
 use function array_values;
+use function debug_backtrace;
+use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
-use function debug_backtrace;
 use function str_replace;
 use function ucfirst;
 
