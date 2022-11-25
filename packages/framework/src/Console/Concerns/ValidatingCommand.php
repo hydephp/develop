@@ -70,7 +70,7 @@ class ValidatingCommand extends Command
         return $this->askWithValidation($name, $question, $rules, null, $retryCount);
     }
 
-    protected function handleException(Exception $exception): int
+    public function handleException(Exception $exception): int
     {
         if ($exception->getFile() === debug_backtrace()[0]['file']) {
             // If the exception was thrown from the same file as the command, then we don't need to show which file it was thrown from.
