@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications;
 
 use Carbon\Carbon;
+use Exception;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
@@ -85,7 +86,7 @@ class PublicationService
     {
         $fileData = file_get_contents($mdFileName);
         if (! $fileData) {
-            throw new \Exception("No data read from [$mdFileName]");
+            throw new Exception("No data read from [$mdFileName]");
         }
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
