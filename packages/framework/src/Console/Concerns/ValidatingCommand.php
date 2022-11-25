@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
+use Exception;
 use function array_keys;
 use function array_values;
 use Illuminate\Contracts\Support\Arrayable;
@@ -66,6 +67,17 @@ class ValidatingCommand extends Command
         }
 
         return $this->askWithValidation($name, $question, $rules, null, $retryCount);
+    }
+
+    protected function handleException(Exception $exception): int
+    {
+        if ($exception->getFile() === __FILE__) {
+            $this->error("Error: {$exception->getMessage()}");
+        } else {
+            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
+        }
+
+        return Command::FAILURE;
     }
 
     protected function translate($name, string $error): string
