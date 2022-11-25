@@ -168,7 +168,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         }
         $pubType = $pubTypes->get($pubTypeSelection);
         if (! $pubType) {
-            throw new InvalidArgumentException('Unable to locate the publication type you selected.');
+            throw new InvalidArgumentException("Unable to locate publication type [$pubTypeSelection]");
         }
 
         $this->line("<info>Creating a new publication of type</info> [<comment>$pubTypeSelection</comment>]");
