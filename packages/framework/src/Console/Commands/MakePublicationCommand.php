@@ -8,7 +8,6 @@ use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
-use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -53,7 +52,6 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             }
 
             $creator->create();
-
         } catch (Exception $exception) {
             return $this->handleException($exception);
         }
