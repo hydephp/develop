@@ -151,6 +151,10 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         ]);
     }
 
+    /**
+     * @param \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType> $pubTypes
+     * @return \Hyde\Framework\Features\Publications\Models\PublicationType
+     */
     protected function getPubTypeSelection(Collection $pubTypes): PublicationType
     {
         $pubTypeSelection = $this->argument('publicationType') ?? $pubTypes->keys()->get(
