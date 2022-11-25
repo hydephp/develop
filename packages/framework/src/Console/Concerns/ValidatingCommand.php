@@ -71,6 +71,8 @@ class ValidatingCommand extends Command
     }
 
     /**
+     * Handle an exception that occurred during command execution.
+     *
      * @return int The exit code
      */
     public function handleException(Exception $exception): int
