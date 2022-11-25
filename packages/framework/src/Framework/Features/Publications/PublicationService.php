@@ -65,7 +65,7 @@ class PublicationService
     public static function parsePublicationFile(string $identifier): PublicationPage
     {
         $identifier = Str::replaceLast('.md', '', $identifier);
-        $fileData = self::getPublicationFileData("$identifier.md");
+        $fileData = self::getFileData("$identifier.md");
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
 
@@ -89,7 +89,7 @@ class PublicationService
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Exception If the file could not be read.
      */
-    protected static function getPublicationFileData(string $filepath): string
+    protected static function getFileData(string $filepath): string
     {
         $fileData = file_get_contents(Hyde::path($filepath));
         if (! $fileData) {
