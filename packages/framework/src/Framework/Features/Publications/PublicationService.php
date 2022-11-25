@@ -79,7 +79,8 @@ class PublicationService
     /**
      * Read an MD file and return the parsed data.
      *
-     * @param string $mdFileName Example: my-publication/hello.md
+     * @param  string  $mdFileName  Example: my-publication/hello.md
+     *
      * @throws \Safe\Exceptions\FilesystemException
      */
     public static function parsePublicationFile(string $mdFileName): PublicationPage

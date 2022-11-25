@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use function copy;
+use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
-use Rgasch\Collection\Collection;
-
-use function copy;
-use function file_put_contents;
 use function mkdir;
+use Rgasch\Collection\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\PublicationService
@@ -45,7 +44,7 @@ class PublicationServiceTest extends TestCase
         $this->createPublicationType();
 
         $this->assertEquals(new Collection([
-            'test-publication' => PublicationType::get('test-publication')
+            'test-publication' => PublicationType::get('test-publication'),
         ]), PublicationService::getPublicationTypes());
     }
 
@@ -66,7 +65,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-               PublicationService::parsePublicationFile('test-publication/foo.md')
+                PublicationService::parsePublicationFile('test-publication/foo.md'),
             ]),
             PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
         );
