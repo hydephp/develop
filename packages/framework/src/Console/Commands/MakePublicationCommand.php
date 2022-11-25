@@ -53,7 +53,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 } else {
                     $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
 
-                    return Command::SUCCESS;
+                    return ValidatingCommand::USER_EXIT;
                 }
             }
         } catch (Exception $exception) {

@@ -69,7 +69,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsConfirmation('Do you wish to overwrite the existing file?')
             ->expectsOutput('Exiting without overwriting existing publication file!')
             ->doesntExpectOutput('Publication created successfully!')
-            ->assertExitCode(0);
+            ->assertExitCode(130);
 
         $this->assertSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
