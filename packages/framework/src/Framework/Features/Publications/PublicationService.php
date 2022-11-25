@@ -85,7 +85,7 @@ class PublicationService
      */
     public static function parsePublicationFile(string $mdFileName): PublicationPage
     {
-        $fileData = file_get_contents($mdFileName);
+        $fileData = file_get_contents(Hyde::path($mdFileName));
         if (! $fileData) {
             throw new Exception("No data read from [$mdFileName]");
         }
