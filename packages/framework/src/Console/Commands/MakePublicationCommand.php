@@ -46,13 +46,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
             $pubType = $this->getPubTypeSelection($pubTypes);
 
-            $mediaFiles = PublicationService::getMediaForPubType($pubType);
-            /** @var Collection<string, string|array> $fieldData */
-            $fieldData = Collection::create();
-            $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
-            foreach ($pubType->fields as $field) {
-                $fieldData->{$field['name']} = $this->captureFieldInput(PublicationFieldType::fromArray($field), $mediaFiles);
-            }
+            $fieldData = $this->collectFieldData($pubType);
 
             try {
                 $creator = new CreatesNewPublicationFile($pubType, $fieldData, false, $this->output);
@@ -172,5 +166,17 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         }
 
         throw new InvalidArgumentException("Unable to locate publication type [$pubTypeSelection]");
+    }
+
+    protected function collectFieldData(PublicationType $pubType): Collection
+    {
+        $mediaFiles = PublicationService::getMediaForPubType($pubType);
+        /** @var Collection<string, string|array> $fieldData */
+        $fieldData = Collection::create();
+        $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
+        foreach ($pubType->fields as $field) {
+            $fieldData->{$field['name']} = $this->captureFieldInput(PublicationFieldType::fromArray($field), $mediaFiles);
+        }
+        return $fieldData;
     }
 }
