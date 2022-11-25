@@ -68,11 +68,12 @@ class ValidatingCommand extends Command
     /**
      * Handle an exception that occurred during command execution.
      *
+     * @param string|null $file Optionally specific the file calling this method.
      * @return int The exit code
      */
-    public function handleException(Exception $exception): int
+    public function handleException(Exception $exception, ?string $file = null): int
     {
-        if ($exception->getFile() === debug_backtrace()[0]['file']) {
+        if ($exception->getFile() === ($file ?? debug_backtrace()[0]['file'])) {
             // If the exception was thrown from the same file as the command, then we don't need to show which file it was thrown from.
             $this->error("Error: {$exception->getMessage()}");
         } else {

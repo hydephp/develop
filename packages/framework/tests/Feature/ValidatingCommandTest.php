@@ -111,6 +111,19 @@ class ValidatingCommandTest extends TestCase
 
         $this->assertSame(1, $code);
     }
+
+    public function testHandleExceptionInDifferentFile()
+    {
+        $command = new ThrowingValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test at '.__FILE__.':143</error>';
+        });
+        $command->setOutput($output);
+        $code = $command->handle('foo');
+
+        $this->assertSame(1, $code);
+    }
 }
 
 class ValidationTestCommand extends ValidatingCommand
@@ -124,13 +137,13 @@ class ValidationTestCommand extends ValidatingCommand
 
 class ThrowingValidatingTestCommand extends ValidatingCommand
 {
-    public function handle(): int
+    public function handle(?string $mockFile = null): int
     {
         try {
             throw new RuntimeException('This is a test');
         }
         catch (RuntimeException $exception) {
-            return $this->handleException($exception);
+            return $this->handleException($exception, $mockFile);
         }
     }
 }
