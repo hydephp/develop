@@ -42,7 +42,7 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
-        return Collection::create(self::getPublicationFiles($pubType))->map(function (string $file): PublicationPage {
+        return Collection::create(self::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
             return self::parsePublicationFile(Hyde::pathToRelative($file));
         });
     }
@@ -52,7 +52,7 @@ class PublicationService
      */
     public static function getMediaForPubType(PublicationType $pubType): Collection
     {
-        return Collection::create(self::getMediaFiles($pubType))->map(function (string $file): string {
+        return Collection::create(self::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
             return Hyde::pathToRelative($file);
         });
     }
@@ -104,13 +104,13 @@ class PublicationService
         return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
     }
 
-    protected static function getPublicationFiles(PublicationType $pubType): array
+    protected static function getPublicationFiles(string $directory): array
     {
-        return glob(Hyde::path("{$pubType->getDirectory()}/*.md"));
+        return glob(Hyde::path("$directory/*.md"));
     }
 
-    protected static function getMediaFiles(PublicationType $pubType): array
+    protected static function getMediaFiles(string $directory): array
     {
-        return glob(Hyde::path("_media/{$pubType->getDirectory()}/*").'.{jpg,jpeg,png,gif,pdf}', GLOB_BRACE);
+        return glob(Hyde::path("_media/$directory/*").'.{jpg,jpeg,png,gif,pdf}', GLOB_BRACE);
     }
 }
