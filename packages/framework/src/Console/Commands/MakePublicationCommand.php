@@ -39,13 +39,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         $this->title('Creating a new Publication!');
 
         try {
-            $pubTypes = PublicationService::getPublicationTypes();
-            if ($pubTypes->isEmpty()) {
-                throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
-            }
-
-            $pubType = $this->getPubTypeSelection($pubTypes);
-
+            $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
             $fieldData = $this->collectFieldData($pubType);
 
             try {
@@ -177,5 +171,18 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         return Collection::make($pubType->fields)->mapWithKeys(function ($field) use ($mediaFiles) {
             return [$field['name'] => $this->captureFieldInput(PublicationFieldType::fromArray($field), $mediaFiles)];
         });
+    }
+
+    /**
+     * @return \Rgasch\Collection\Collection<string, PublicationType>
+     * @throws \InvalidArgumentException
+     */
+    protected function getPublicationTypes(): Collection
+    {
+        $pubTypes = PublicationService::getPublicationTypes();
+        if ($pubTypes->isEmpty()) {
+            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
+        }
+        return $pubTypes;
     }
 }
