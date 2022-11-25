@@ -29,12 +29,7 @@ class ValidatingCommand extends Command
     /**
      * Ask for a CLI input value until we pass validation rules.
      *
-     * @param  string  $name
-     * @param  string  $question
-     * @param  \Illuminate\Contracts\Support\Arrayable|array  $rules
-     * @param  mixed|null  $default
      * @param  int  $retryCount  How many times has the question been asked?
-     * @return mixed
      *
      * @throws RuntimeException
      */
