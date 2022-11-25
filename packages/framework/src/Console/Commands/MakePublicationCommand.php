@@ -67,13 +67,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 }
             }
         } catch (Exception $exception) {
-            if ($exception->getFile() === __FILE__) {
-                $this->error("Error: {$exception->getMessage()}");
-            } else {
-                $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
-            }
-
-            return Command::FAILURE;
+            return $this->handleException($exception);
         }
 
         $this->info('Publication created successfully!');
@@ -180,5 +174,16 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         $this->line("<info>Creating a new publication of type</info> [<comment>$pubTypeSelection</comment>]");
 
         return $pubType;
+    }
+
+    protected function handleException(Exception $exception): int
+    {
+        if ($exception->getFile() === __FILE__) {
+            $this->error("Error: {$exception->getMessage()}");
+        } else {
+            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
+        }
+
+        return Command::FAILURE;
     }
 }
