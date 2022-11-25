@@ -63,7 +63,7 @@ class PublicationService
 
         $media = Collection::create();
         foreach ($files as $file) {
-            $media->add($file);
+            $media->add(Hyde::pathToRelative($file));
         }
 
         return $media;

@@ -102,7 +102,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-                Hyde::path('_media/test-publication/image.png'),
+                '_media/test-publication/image.png',
             ]),
             PublicationService::getMediaForPubType(PublicationType::get('test-publication'))
         );
