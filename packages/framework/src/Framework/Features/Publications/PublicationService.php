@@ -29,7 +29,7 @@ class PublicationService
     public static function getPublicationTypes(): Collection
     {
         $root = Hyde::path();
-        $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
+        $schemaFiles = glob("$root/*/schema.json");
 
         return Collection::create($schemaFiles)->mapWithKeys(function (string $schemaFile): array {
             $publicationType = PublicationType::fromFile($schemaFile);
