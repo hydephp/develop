@@ -73,7 +73,7 @@ title: Hello World
             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
             ->expectsQuestion('Title', 'Hello World')
             ->expectsOutput('Error: A publication already exists with the same canonical field value')
-            ->expectsQuestion('Do you wish to overwrite the existing file (y/n)', 'n')
+            ->expectsConfirmation('Do you wish to overwrite the existing file?')
             ->expectsOutput('Exiting without overwriting existing publication file!')
             ->doesntExpectOutput('Publication created successfully!')
             ->assertExitCode(0);
@@ -91,7 +91,7 @@ title: Hello World
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
              ->expectsQuestion('Title', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
-             ->expectsQuestion('Do you wish to overwrite the existing file (y/n)', 'y')
+             ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
              ->expectsOutput('Publication created successfully!')
              ->assertExitCode(0);
 
