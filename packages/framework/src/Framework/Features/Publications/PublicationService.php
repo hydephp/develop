@@ -28,12 +28,7 @@ class PublicationService
      */
     public static function getPublicationTypes(): Collection
     {
-        // Todo use custom content root?
-
-        $root = Hyde::path();
-        $schemaFiles = glob("$root/*/schema.json");
-
-        return Collection::create($schemaFiles)->mapWithKeys(function (string $schemaFile): array {
+        return Collection::create(self::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
             $publicationType = PublicationType::fromFile($schemaFile);
             return [$publicationType->getDirectory() => $publicationType];
         });
@@ -107,5 +102,13 @@ class PublicationService
             throw new Exception("No data read from [$mdFileName]");
         }
         return $fileData;
+    }
+
+    protected static function getSchemaFiles(): array
+    {
+        // Todo use custom content root?
+
+        $root = Hyde::path();
+        return glob("$root/*/schema.json");
     }
 }
