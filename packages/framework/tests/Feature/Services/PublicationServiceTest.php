@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use ErrorException;
+use Exception;
 use function copy;
 use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -102,6 +103,27 @@ class PublicationServiceTest extends TestCase
             PublicationService::parsePublicationFile('test-publication/foo'),
             PublicationService::parsePublicationFile('test-publication/foo.md')
         );
+    }
+
+    public function testParsePublicationFileWithNonExistentFile()
+    {
+        $this->createPublicationType();
+
+        $this->expectException(ErrorException::class);
+        $this->expectExceptionMessage('Failed to open stream: No such file or directory');
+
+        PublicationService::parsePublicationFile('test-publication/foo');
+    }
+
+    public function testParsePublicationFileWithInvalidFile()
+    {
+        $this->createPublicationType();
+        file_put_contents(Hyde::path('test-publication/foo.md'), '');
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('No data read from [test-publication/foo.md]');
+
+        PublicationService::parsePublicationFile('test-publication/foo');
     }
 
     public function testPublicationTypeExists()
