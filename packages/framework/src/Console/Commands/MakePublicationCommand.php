@@ -9,6 +9,7 @@ use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationFile;
 use Hyde\Framework\Exceptions\FileConflictException;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
@@ -49,7 +50,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             $fieldData = Collection::create();
             $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
             foreach ($pubType->fields as $field) {
-                $fieldData->{$field['name']} = $this->captureFieldInput((object) $field, $mediaFiles);
+                $fieldData->{$field['name']} = $this->captureFieldInput(PublicationFieldType::fromArray($field), $mediaFiles);
             }
 
             try {
@@ -75,7 +76,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         return Command::SUCCESS;
     }
 
-    protected function captureFieldInput(object $field, Collection $mediaFiles): string|array
+    protected function captureFieldInput(PublicationFieldType $field, Collection $mediaFiles): string|array
     {
         $rulesPerType = $this->getValidationRulesPerType();
 
