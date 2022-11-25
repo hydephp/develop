@@ -128,10 +128,11 @@ class ValidatingCommandTest extends TestCase
 
 class ValidationTestCommand extends ValidatingCommand
 {
-    public function handle()
+    public function handle(): int
     {
         $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
         $this->output->writeln("Hello $name!");
+        return 0;
     }
 }
 
