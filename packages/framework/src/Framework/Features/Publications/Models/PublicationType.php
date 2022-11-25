@@ -42,7 +42,7 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
 
     public static function get(string $name): static
     {
-        return static::fromFile(Hyde::path("$name/schema.json"));
+        return static::fromFile("$name/schema.json");
     }
 
     public static function fromFile(string $schemaFile): static
