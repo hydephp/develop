@@ -45,14 +45,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEqualsIgnoringLineEndingType('---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
----
-
-## Write something awesome.
-
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+        $this->assertPublicationFileWasCreatedCorrectly();
     }
 
     public function test_command_with_no_publication_types()
@@ -110,14 +103,7 @@ title: Hello World
             ->assertExitCode(0);
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEqualsIgnoringLineEndingType('---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
----
-
-## Write something awesome.
-
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+        $this->assertPublicationFileWasCreatedCorrectly();
     }
     
     protected function makeSchemaFile(): void
@@ -142,6 +128,21 @@ title: Hello World
                     ],
                 ],
             ])
+        );
+    }
+
+    protected function assertPublicationFileWasCreatedCorrectly(): void
+    {
+        $this->assertEqualsIgnoringLineEndingType(
+            '---
+__createdAt: 2022-01-01 00:00:00
+title: Hello World
+---
+
+## Write something awesome.
+
+',
+            file_get_contents(Hyde::path('test-publication/hello-world.md'))
         );
     }
 }
