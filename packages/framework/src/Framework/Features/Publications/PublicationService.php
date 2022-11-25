@@ -58,8 +58,8 @@ class PublicationService
      */
     public static function getMediaForPubType(PublicationType $pubType): Collection
     {
-        $root = Hyde::path();
-        $files = glob("$root/_media/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
+        $root = Hyde::path('_media');
+        $files = glob("$root/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
         $media = Collection::create();
         foreach ($files as $file) {
