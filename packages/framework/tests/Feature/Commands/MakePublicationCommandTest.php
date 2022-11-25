@@ -134,15 +134,16 @@ class MakePublicationCommandTest extends TestCase
     protected function assertPublicationFileWasCreatedCorrectly(): void
     {
         $this->assertEqualsIgnoringLineEndingType(
-            '---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
----
-
-## Write something awesome.
-
-',
-            file_get_contents(Hyde::path('test-publication/hello-world.md'))
+            <<<'MARKDOWN'
+            ---
+            __createdAt: 2022-01-01 00:00:00
+            title: Hello World
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, file_get_contents(Hyde::path('test-publication/hello-world.md'))
         );
     }
 }
