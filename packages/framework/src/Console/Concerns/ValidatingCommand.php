@@ -70,6 +70,9 @@ class ValidatingCommand extends Command
         return $this->askWithValidation($name, $question, $rules, null, $retryCount);
     }
 
+    /**
+     * @return int The exit code
+     */
     public function handleException(Exception $exception): int
     {
         if ($exception->getFile() === debug_backtrace()[0]['file']) {
