@@ -48,9 +48,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 if ($this->confirm('Do you wish to overwrite the existing file?')) {
                     $creator->force();
                 } else {
-                    $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
-
-                    return ValidatingCommand::USER_EXIT;
+                    return $this->exitWithMessage('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>', ValidatingCommand::USER_EXIT);
                 }
             }
 
