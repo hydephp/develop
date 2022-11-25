@@ -55,6 +55,7 @@ class PublicationService
      */
     public static function getMediaForPubType(PublicationType $pubType): Collection
     {
+        // Todo use custom content root to match self::getSchemaFiles()
         $root = Hyde::path();
         $files = glob("$root/_media/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
