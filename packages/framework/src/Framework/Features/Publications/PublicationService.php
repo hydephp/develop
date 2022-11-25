@@ -31,7 +31,7 @@ class PublicationService
         $root = Hyde::path();
         $schemaFiles = glob("$root/*/schema.json", GLOB_BRACE);
 
-        return Collection::create($schemaFiles)->mapWithKeys(function (string $schemaFile) {
+        return Collection::create($schemaFiles)->mapWithKeys(function (string $schemaFile): array {
             $publicationType = PublicationType::fromFile($schemaFile);
             return [$publicationType->getDirectory() => $publicationType];
         });
