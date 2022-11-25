@@ -70,17 +70,17 @@ class PublicationService
     /**
      * Parse a publication Markdown source file and return a PublicationPage object.
      *
-     * @param  string  $mdFileName  Example: my-publication/hello.md
+     * @param  string  $identifier  Example: my-publication/hello
      */
-    public static function parsePublicationFile(string $mdFileName): PublicationPage
+    public static function parsePublicationFile(string $identifier): PublicationPage
     {
-        $fileData = self::getPublicationFileData($mdFileName);
+        $fileData   = self::getPublicationFileData("$identifier.md");
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
 
         return new PublicationPage(
-            type:       PublicationType::get(dirname($mdFileName)),
-            identifier: basename($mdFileName, '.md'),
+            type:       PublicationType::get(dirname($identifier)),
+            identifier: $identifier,
             matter:     $parsedFileData->matter(),
             markdown:   $parsedFileData->body()
         );
