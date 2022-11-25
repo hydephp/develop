@@ -98,6 +98,28 @@ title: Hello World
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
+    public function test_command_with_publication_type_passed_as_argument()
+    {
+        $this->makeSchemaFile();
+
+        $this->artisan('make:publication test-publication')
+            ->expectsOutput('Creating a new publication of type [test-publication]')
+            ->expectsQuestion('Title', 'Hello World')
+            ->expectsOutput('Saving publication data to [test-publication/hello-world.md]')
+            ->expectsOutput('Publication created successfully!')
+            ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEqualsIgnoringLineEndingType('---
+__createdAt: 2022-01-01 00:00:00
+title: Hello World
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+    
     protected function makeSchemaFile(): void
     {
         file_put_contents(
