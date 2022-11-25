@@ -68,17 +68,16 @@ class ValidatingCommand extends Command
     /**
      * Handle an exception that occurred during command execution.
      *
-     * @param bool|null $showErrorLocation Should the file and line number of the error be shown? Leave null to be dynamic.
+     * @param string|null $file Optionally specify the file calling this method.
      * @return int The exit code
      */
-    public function handleException(Exception $exception, ?bool $showErrorLocation = null): int
+    public function handleException(Exception $exception, ?string $file = null): int
     {
         // If the exception was thrown from the same file as the command, then we don't need to show which file it was thrown from.
-        $showErrorLocation ??= ($exception->getFile() !== ($file ?? debug_backtrace()[0]['file']));
-        if ($showErrorLocation) {
-            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
-        } else {
+        if ($exception->getFile() === ($file ?? debug_backtrace()[0]['file'])) {
             $this->error("Error: {$exception->getMessage()}");
+        } else {
+            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
         }
 
         return Command::FAILURE;
