@@ -102,11 +102,6 @@ class PublicationService
         return new PublicationPage($type, $identifier, $matter, $markdown);
     }
 
-    /**
-     * Check whether a given publication type exists.
-     *
-     * @throws \Exception
-     */
     public static function publicationTypeExists(string $pubTypeName): bool
     {
         return self::getPublicationTypes()->has(Str::slug($pubTypeName));
