@@ -19,8 +19,6 @@ use Rgasch\Collection\Collection;
 /**
  * Hyde Command to create a new publication for a given publication type.
  *
- * @todo Add --force option?
- *
  * @see \Hyde\Framework\Actions\CreatesNewPublicationFile
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
@@ -28,7 +26,8 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 {
     /** @var string */
     protected $signature = 'make:publication
-		{publicationType? : The name of the PublicationType to create a publication for}';
+		{publicationType? : The name of the PublicationType to create a publication for}
+        {--force : Should the generated file overwrite existing publications with the same filename?}';
 
     /** @var string */
     protected $description = 'Create a new publication item';
@@ -36,12 +35,11 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
     public function handle(): int
     {
         $this->title('Creating a new Publication!');
-
         try {
             $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
             $fieldData = $this->collectFieldData($pubType);
 
-            $creator = new CreatesNewPublicationFile($pubType, $fieldData, false, $this->output);
+            $creator = new CreatesNewPublicationFile($pubType, $fieldData, $this->option('force'), $this->output);
             if ($creator->fileConflicts()) {
                 $this->error('Error: A publication already exists with the same canonical field value');
                 if ($this->confirm('Do you wish to overwrite the existing file?')) {

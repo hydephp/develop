@@ -91,6 +91,21 @@ class MakePublicationCommandTest extends TestCase
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
+    public function test_can_overwrite_existing_publication_by_passing_force_flag()
+    {
+        $this->makeSchemaFile();
+        file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
+
+        $this->artisan('make:publication', ['--force' => true])
+             ->expectsOutputToContain('Creating a new Publication!')
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsQuestion('Title', 'Hello World')
+             ->expectsOutput('Publication created successfully!')
+             ->assertExitCode(0);
+
+        $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
     public function test_command_with_publication_type_passed_as_argument()
     {
         $this->makeSchemaFile();
