@@ -98,6 +98,19 @@ class ValidatingCommandTest extends TestCase
         $command->setOutput($output);
         $command->handle();
     }
+
+    public function testHandleException()
+    {
+        $command = new ThrowingValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test</error>';
+        });
+        $command->setOutput($output);
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
 }
 
 class ValidationTestCommand extends ValidatingCommand
@@ -106,5 +119,18 @@ class ValidationTestCommand extends ValidatingCommand
     {
         $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
         $this->output->writeln("Hello $name!");
+    }
+}
+
+class ThrowingValidatingTestCommand extends ValidatingCommand
+{
+    public function handle(): int
+    {
+        try {
+            throw new RuntimeException('This is a test');
+        }
+        catch (RuntimeException $exception) {
+            return $this->handleException($exception);
+        }
     }
 }
