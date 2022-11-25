@@ -47,8 +47,8 @@ class PublicationServiceTest extends TestCase
         ]), PublicationService::getPublicationTypes());
     }
 
-    protected function setupTestFile(): bool
+    protected function setupTestFile(): void
     {
-        return copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
     }
 }
