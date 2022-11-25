@@ -105,6 +105,16 @@ class MakePublicationCommandTest extends TestCase
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertPublicationFileWasCreatedCorrectly();
     }
+
+    public function test_command_with_invalid_publication_type_passed_as_argument()
+    {
+        $this->makeSchemaFile();
+
+        $this->artisan('make:publication foo')
+            ->expectsOutput('Error: Unable to locate publication type [foo]')
+            ->assertExitCode(1);
+    }
+
     
     protected function makeSchemaFile(): void
     {
