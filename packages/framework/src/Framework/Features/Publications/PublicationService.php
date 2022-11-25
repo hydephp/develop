@@ -57,9 +57,7 @@ class PublicationService
         }
 
         if ($sort === true) {
-            return $publications->sortBy(function (PublicationPage $publication) use ($pubType): ?string {
-                return $publication->matter->{$pubType->sortField};
-            });
+            return $publications->sortBy(fn(PublicationPage $publication): ?string => $publication->matter->{$pubType->sortField});
         }
 
         return $publications;
