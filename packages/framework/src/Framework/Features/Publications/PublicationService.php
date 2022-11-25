@@ -44,8 +44,6 @@ class PublicationService
 
     /**
      * Return all publications for a given pub type, optionally sorted by the publication's sortField.
-     *
-     * @throws \Safe\Exceptions\FilesystemException
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
