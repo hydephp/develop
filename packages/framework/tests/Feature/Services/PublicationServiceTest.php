@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
-use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
@@ -42,7 +41,7 @@ class PublicationServiceTest extends TestCase
 
     public function testGetPublicationTypesWithTypes()
     {
-        $this->setupTestFile();
+        $this->createPublicationType();
 
         $this->assertEquals(new Collection([
             'test-publication' => PublicationType::get('test-publication')
@@ -51,7 +50,7 @@ class PublicationServiceTest extends TestCase
 
     public function testGetPublicationsForPubType()
     {
-        $this->setupTestFile();
+        $this->createPublicationType();
 
         $this->assertEquals(
             new Collection(),
@@ -61,7 +60,7 @@ class PublicationServiceTest extends TestCase
 
     public function testGetPublicationsForPubTypeWithPublications()
     {
-        $this->setupTestFile();
+        $this->createPublicationType();
         $this->createPublication();
 
         $this->assertEquals(
@@ -72,7 +71,7 @@ class PublicationServiceTest extends TestCase
         );
     }
 
-    protected function setupTestFile(): void
+    protected function createPublicationType(): void
     {
         copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
     }
@@ -81,14 +80,7 @@ class PublicationServiceTest extends TestCase
     {
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
-            '---
-__canonical: canonical
-__createdAt: 2022-11-16 11:32:52
-foo: bar
----
-
-Hello World!
-'
+            "---\n__canonical: canonical\n__createdAt: 2022-11-16 11:32:52\nfoo: bar\n---\n\nHello World!\n"
         );
     }
 }
