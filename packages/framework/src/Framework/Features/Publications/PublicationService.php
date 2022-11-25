@@ -10,6 +10,7 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
+use function basename;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -81,7 +82,7 @@ class PublicationService
 
         return new PublicationPage(
             type:       PublicationType::get(dirname($identifier)),
-            identifier: $identifier,
+            identifier: basename($identifier),
             matter:     $parsedFileData->matter(),
             markdown:   $parsedFileData->body()
         );
