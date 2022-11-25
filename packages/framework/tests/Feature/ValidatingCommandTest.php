@@ -117,10 +117,10 @@ class ValidatingCommandTest extends TestCase
         $command = new ThrowingValidatingTestCommand();
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<error>Error: This is a test at TestCommand.php:10</error>';
+            return $message === '<error>Error: This is a test at TestClass.php:10</error>';
         });
         $command->setOutput($output);
-        $code = $command->handle('foo');
+        $code = $command->handle('TestClass.php', 10);
 
         $this->assertSame(1, $code);
     }
@@ -138,12 +138,12 @@ class ValidationTestCommand extends ValidatingCommand
 
 class ThrowingValidatingTestCommand extends ValidatingCommand
 {
-    public function handle(string $mockFile = 'TestCommand.php'): int
+    public function handle(?string $file = 'TestCommand.php', ?int $line = null): int
     {
         try {
             throw new RuntimeException('This is a test');
         } catch (RuntimeException $exception) {
-            return $this->handleException($exception, $mockFile);
+            return $this->handleException($exception, $file, $line);
         }
     }
 }

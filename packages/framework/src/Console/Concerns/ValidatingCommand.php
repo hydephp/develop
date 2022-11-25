@@ -94,15 +94,16 @@ class ValidatingCommand extends Command
     /**
      * Handle an exception that occurred during command execution.
      *
+     * @param string|null $file The file where the exception occurred. Leave null to auto-detect.
      * @return int The exit code
      */
-    public function handleException(Exception $exception): int
+    public function handleException(Exception $exception, ?string $file = null, ?int $line = null): int
     {
         // If the exception was thrown from the same file as a command, then we don't need to show which file it was thrown from.
-        if (str_ends_with($exception->getFile(), 'Command.php')) {
+        if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
-            $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
+            $this->error("Error: {$exception->getMessage()} at ". sprintf("%s:%s", $file ?? $exception->getFile(), $line ?? $exception->getLine()));
         }
 
         return Command::FAILURE;
