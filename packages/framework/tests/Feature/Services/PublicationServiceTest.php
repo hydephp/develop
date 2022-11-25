@@ -66,7 +66,7 @@ class PublicationServiceTest extends TestCase
 
         $this->assertEquals(
             new Collection([
-               PublicationService::getPublicationData('test-publication/foo.md')
+               PublicationService::parsePublicationFile('test-publication/foo.md')
             ]),
             PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
         );

@@ -54,7 +54,7 @@ class PublicationService
 
         $publications = Collection::create();
         foreach ($files as $file) {
-            $publications->add(self::getPublicationData($file));
+            $publications->add(self::parsePublicationFile($file));
         }
 
         return $publications;
@@ -81,7 +81,7 @@ class PublicationService
      *
      * @throws \Safe\Exceptions\FilesystemException
      */
-    public static function getPublicationData(string $mdFileName): PublicationPage
+    public static function parsePublicationFile(string $mdFileName): PublicationPage
     {
         $fileData = file_get_contents($mdFileName);
         if (! $fileData) {
