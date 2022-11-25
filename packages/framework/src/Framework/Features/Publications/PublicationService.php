@@ -80,15 +80,10 @@ class PublicationService
      * Read an MD file and return the parsed data.
      *
      * @param  string  $mdFileName  Example: my-publication/hello.md
-     *
-     * @throws \Safe\Exceptions\FilesystemException
      */
     public static function parsePublicationFile(string $mdFileName): PublicationPage
     {
-        $fileData = file_get_contents(Hyde::path($mdFileName));
-        if (! $fileData) {
-            throw new Exception("No data read from [$mdFileName]");
-        }
+        $fileData = self::getPublicationFileData($mdFileName);
 
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
         return new PublicationPage(
@@ -107,5 +102,17 @@ class PublicationService
     public static function publicationTypeExists(string $pubTypeName): bool
     {
         return self::getPublicationTypes()->has(Str::slug($pubTypeName));
+    }
+
+    /**
+     * @throws \Safe\Exceptions\FilesystemException
+     */
+    protected static function getPublicationFileData(string $mdFileName): string
+    {
+        $fileData = file_get_contents(Hyde::path($mdFileName));
+        if (!$fileData) {
+            throw new Exception("No data read from [$mdFileName]");
+        }
+        return $fileData;
     }
 }
