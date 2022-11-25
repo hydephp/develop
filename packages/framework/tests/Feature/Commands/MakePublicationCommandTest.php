@@ -75,6 +75,7 @@ title: Hello World
             ->expectsOutput('Error: A publication already exists with the same canonical field value')
             ->expectsQuestion('Do you wish to overwrite the existing file (y/n)', 'n')
             ->expectsOutput('Exiting without overwriting existing publication file!')
+            ->doesntExpectOutput('Publication created successfully!')
             ->assertExitCode(0);
 
         $this->assertSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
