@@ -157,15 +157,12 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
     protected function getPubTypeSelection(Collection $pubTypes): PublicationType
     {
-        if ($this->argument('publicationType')) {
-            $pubTypeSelection = $this->argument('publicationType');
-        } else {
-            $pubTypeSelection = $pubTypes->keys()->get(
-                (int) $this->choice('Which publication type would you like to create a publication item for?',
-                    $pubTypes->keys()->toArray()
-                )
-            );
-        }
+        $pubTypeSelection = $this->argument('publicationType') ? $this->argument('publicationType') : $pubTypes->keys()->get(
+            (int)$this->choice(
+                'Which publication type would you like to create a publication item for?',
+                $pubTypes->keys()->toArray()
+            )
+        );
 
         if ($pubTypes->has($pubTypeSelection)) {
             $this->line("<info>Creating a new publication of type</info> [<comment>$pubTypeSelection</comment>]");
