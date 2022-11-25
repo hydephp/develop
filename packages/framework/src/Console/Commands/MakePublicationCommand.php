@@ -170,7 +170,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
     /**
      * @param \Hyde\Framework\Features\Publications\Models\PublicationType $pubType
-     * @return Collection<string, string|array>
+     * @return \Rgasch\Collection\Collection<string, string|array>
      */
     protected function collectFieldData(PublicationType $pubType): Collection
     {
