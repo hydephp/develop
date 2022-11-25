@@ -45,12 +45,9 @@ class PublicationService
         $root = Hyde::path();
         $files = glob("$root/{$pubType->getDirectory()}/*.md");
 
-        $publications = Collection::create();
-        foreach ($files as $file) {
-            $publications->add(self::parsePublicationFile(Hyde::pathToRelative($file)));
-        }
-
-        return $publications;
+        return Collection::create($files)->map(function (string $file): PublicationPage {
+            return self::parsePublicationFile(Hyde::pathToRelative($file));
+        });
     }
 
     /**
@@ -61,12 +58,9 @@ class PublicationService
         $root = Hyde::path('_media');
         $files = glob("$root/{$pubType->getDirectory()}/*.{jpg,jpeg,png,gif,pdf}", GLOB_BRACE);
 
-        $media = Collection::create();
-        foreach ($files as $file) {
-            $media->add(Hyde::pathToRelative($file));
-        }
-
-        return $media;
+        return Collection::create($files)->map(function (string $file): string {
+            return Hyde::pathToRelative($file);
+        });
     }
 
     /**
