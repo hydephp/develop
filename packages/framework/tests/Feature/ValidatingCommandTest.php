@@ -112,12 +112,25 @@ class ValidatingCommandTest extends TestCase
         $this->assertSame(1, $code);
     }
 
-    public function testHandleExceptionWithErrorLocation()
+    public function testHandleExceptionWithErrorLocationFalse()
     {
         $command = new ThrowingValidatingTestCommand();
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === '<error>Error: This is a test at '.__FILE__.':143</error>';
+            return $message === '<error>Error: This is a test</error>';
+        });
+        $command->setOutput($output);
+        $code = $command->handle(false);
+
+        $this->assertSame(1, $code);
+    }
+
+    public function testHandleExceptionWithErrorLocationTrue()
+    {
+        $command = new ThrowingValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test at '.__FILE__.':156</error>';
         });
         $command->setOutput($output);
         $code = $command->handle(true);
