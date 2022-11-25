@@ -131,7 +131,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
     }
 
     /**
-     * @param \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType> $pubTypes
+     * @param  \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
      * @return \Hyde\Framework\Features\Publications\Models\PublicationType
      */
     protected function getPubTypeSelection(Collection $pubTypes): PublicationType
@@ -152,7 +152,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
     }
 
     /**
-     * @param \Hyde\Framework\Features\Publications\Models\PublicationType $pubType
+     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $pubType
      * @return \Rgasch\Collection\Collection<string, string|array>
      */
     protected function collectFieldData(PublicationType $pubType): Collection
@@ -168,6 +168,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
     /**
      * @return \Rgasch\Collection\Collection<string, PublicationType>
+     *
      * @throws \InvalidArgumentException
      */
     protected function getPublicationTypes(): Collection
@@ -176,6 +177,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         if ($pubTypes->isEmpty()) {
             throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
         }
+
         return $pubTypes;
     }
 }
