@@ -36,6 +36,8 @@ class PublicationType implements JsonSerializable, Jsonable, Arrayable
     public bool $prevNextLinks;
     public string $detailTemplate;
     public string $listTemplate;
+
+    /** @var array<array<string, mixed>> */
     public array $fields;
 
     public static function get(string $name): static
