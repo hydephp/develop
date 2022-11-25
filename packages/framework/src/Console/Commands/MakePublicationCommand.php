@@ -67,7 +67,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
     protected function captureFieldInput(PublicationFieldType $field, Collection $mediaFiles): string|array
     {
-        $rulesPerType = $this->getValidationRulesPerType();
+        $rulesPerType = Collection::create(PublicationFieldType::DEFAULT_RULES);
 
         if ($field->type === 'text') {
             $lines = [];
@@ -130,11 +130,6 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         }
 
         return $this->askWithValidation($field->name, $field->name, $fieldRules);
-    }
-
-    protected function getValidationRulesPerType(): Collection
-    {
-        return Collection::create(PublicationFieldType::DEFAULT_RULES);
     }
 
     /**
