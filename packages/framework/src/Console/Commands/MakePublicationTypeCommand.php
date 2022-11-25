@@ -16,6 +16,7 @@ use Rgasch\Collection\Collection;
 /**
  * Hyde Command to create a new publication type.
  *
+ * @see \Hyde\Framework\Actions\CreatesNewPublicationType
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
 class MakePublicationTypeCommand extends ValidatingCommand implements CommandHandleInterface
@@ -35,7 +36,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         if (! $title) {
             $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
             $dirname = PublicationService::formatNameForStorage($title);
-            if (file_exists($dirname)) {
+            if (file_exists($dirname) && is_dir($dirname) && count(scandir($dirname)) > 2) {
                 throw new InvalidArgumentException("Storage path [$dirname] already exists");
             }
         }

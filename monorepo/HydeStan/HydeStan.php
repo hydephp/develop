@@ -31,8 +31,10 @@ class HydeStan
             number_format(count($this->files)))
         );
 
-        // Forward warnings to GitHub Actions
-        $this->console->line(sprintf("\n%s", implode("\n", self::$warnings)));
+        if (count(self::$warnings) > 0) {
+            // Forward warnings to GitHub Actions
+            $this->console->line(sprintf("\n%s", implode("\n", self::$warnings)));
+        }
     }
 
     public function run(): void

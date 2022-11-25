@@ -19,11 +19,25 @@ class PublicationFieldType implements JsonSerializable, Arrayable
     use JsonSerializesArrayable;
 
     public final const TYPES = ['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'];
+    public final const DEFAULT_RULES = [
+        'string'   => ['required', 'string', 'between'],
+        'boolean'  => ['required', 'boolean'],
+        'integer'  => ['required', 'integer', 'between'],
+        'float'    => ['required', 'numeric', 'between'],
+        'datetime' => ['required', 'datetime', 'between'],
+        'url'      => ['required', 'url'],
+        'text'     => ['required', 'string', 'between'],
+    ];
 
     public readonly string $type;
     public readonly ?int $max;
     public readonly ?int $min;
     public readonly string $name;
+
+    public static function fromArray(array $array): static
+    {
+        return new static(...$array);
+    }
 
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max)
     {

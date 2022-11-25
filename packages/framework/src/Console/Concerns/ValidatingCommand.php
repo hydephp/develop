@@ -6,11 +6,13 @@ namespace Hyde\Console\Concerns;
 
 use function array_keys;
 use function array_values;
+use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
+use function str_ends_with;
 use function str_replace;
 use function ucfirst;
 
@@ -21,20 +23,40 @@ use function ucfirst;
  */
 class ValidatingCommand extends Command
 {
+    public const USER_EXIT = 130;
+
     /** @var int How many times can the validation loop run? Guards against infinite loops. */
     protected final const MAX_RETRIES = 30;
 
     /**
+     * @return int The exit code.
+     */
+    public function handle(): int
+    {
+        try {
+            return $this->safeHandle();
+        } catch (Exception $exception) {
+            return $this->handleException($exception);
+        }
+    }
+
+    /**
+     * This method can be overridden by child classes to provide automatic exception handling.
+     * Existing code can be converted simply by renaming the handle() method to safeHandle().
+     *
+     * @return int The exit code.
+     */
+    protected function safeHandle(): int
+    {
+        return Command::SUCCESS;
+    }
+
+    /**
      * Ask for a CLI input value until we pass validation rules.
      *
-     * @param  string  $name
-     * @param  string  $question
-     * @param  \Illuminate\Contracts\Support\Arrayable|array  $rules
-     * @param  mixed|null  $default
      * @param  int  $retryCount  How many times has the question been asked?
-     * @return mixed
      *
-     * @throws RuntimeException
+     * @throws RuntimeException If the validation fails after MAX_RETRIES attempts.
      */
     public function askWithValidation(
         string $name,
@@ -65,7 +87,25 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        return $this->askWithValidation($name, $question, $rules, null, $retryCount);
+        return $this->askWithValidation($name, $question, $rules, $default, $retryCount);
+    }
+
+    /**
+     * Handle an exception that occurred during command execution.
+     *
+     * @param  string|null  $file  The file where the exception occurred. Leave null to auto-detect.
+     * @return int The exit code
+     */
+    public function handleException(Exception $exception, ?string $file = null, ?int $line = null): int
+    {
+        // If the exception was thrown from the same file as a command, then we don't need to show which file it was thrown from.
+        if (str_ends_with($file ?? $exception->getFile(), 'Command.php')) {
+            $this->error("Error: {$exception->getMessage()}");
+        } else {
+            $this->error(sprintf('Error: %s at ', $exception->getMessage()).sprintf('%s:%s', $file ?? $exception->getFile(), $line ?? $exception->getLine()));
+        }
+
+        return Command::FAILURE;
     }
 
     protected function translate($name, string $error): string

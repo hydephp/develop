@@ -52,7 +52,9 @@ class CreatesNewPublicationFileTest extends TestCase
 __createdAt: '.Carbon::now()->format('Y-m-d H:i:s').'
 title: Hello World
 ---
-Raw MD text ...
+
+## Write something awesome.
+
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
 
         unlink(Hyde::path('test-publication/hello-world.md'));

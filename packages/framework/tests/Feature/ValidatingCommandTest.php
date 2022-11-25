@@ -98,13 +98,53 @@ class ValidatingCommandTest extends TestCase
         $command->setOutput($output);
         $command->handle();
     }
+
+    public function testHandleException()
+    {
+        $command = new ThrowingValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test</error>';
+        });
+        $command->setOutput($output);
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
+
+    public function testHandleExceptionWithErrorLocation()
+    {
+        $command = new ThrowingValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test at TestClass.php:10</error>';
+        });
+        $command->setOutput($output);
+        $code = $command->handle('TestClass.php', 10);
+
+        $this->assertSame(1, $code);
+    }
 }
 
 class ValidationTestCommand extends ValidatingCommand
 {
-    public function handle()
+    public function handle(): int
     {
         $name = $this->askWithValidation('name', 'What is your name?', ['required'], 'John Doe');
         $this->output->writeln("Hello $name!");
+
+        return 0;
+    }
+}
+
+class ThrowingValidatingTestCommand extends ValidatingCommand
+{
+    public function handle(?string $file = 'TestCommand.php', ?int $line = null): int
+    {
+        try {
+            throw new RuntimeException('This is a test');
+        } catch (RuntimeException $exception) {
+            return $this->handleException($exception, $file, $line);
+        }
     }
 }
