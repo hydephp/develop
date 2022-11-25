@@ -85,13 +85,6 @@ class ValidatingCommand extends Command
         return Command::FAILURE;
     }
 
-    public function exitWithMessage(string $message, int $exitCode): int
-    {
-        $this->output->writeln($message);
-
-        return $exitCode;
-    }
-
     protected function translate($name, string $error): string
     {
         return $this->makeReplacements($name, Str::after($error, 'validation.'), $this->getTranslationLines());
