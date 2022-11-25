@@ -48,7 +48,7 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType, $sort = true): Collection
     {
-        $root = base_path();
+        $root = Hyde::path();
         $files = glob("$root/{$pubType->getDirectory()}/*.md");
 
         $publications = Collection::create();
