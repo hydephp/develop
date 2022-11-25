@@ -32,29 +32,26 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
     /** @var string */
     protected $description = 'Create a new publication item';
 
-    public function handle(): int
+    public function safeHandle(): int
     {
         $this->title('Creating a new Publication!');
-        try {
-            $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
-            $fieldData = $this->collectFieldData($pubType);
 
-            $creator = new CreatesNewPublicationFile($pubType, $fieldData, $this->hasForceOption(), $this->output);
-            if ($creator->hasFileConflict()) {
-                $this->error('Error: A publication already exists with the same canonical field value');
-                if ($this->confirm('Do you wish to overwrite the existing file?')) {
-                    $creator->force();
-                } else {
-                    $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
+        $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
+        $fieldData = $this->collectFieldData($pubType);
 
-                    return ValidatingCommand::USER_EXIT;
-                }
+        $creator = new CreatesNewPublicationFile($pubType, $fieldData, $this->hasForceOption(), $this->output);
+        if ($creator->hasFileConflict()) {
+            $this->error('Error: A publication already exists with the same canonical field value');
+            if ($this->confirm('Do you wish to overwrite the existing file?')) {
+                $creator->force();
+            } else {
+                $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
+
+                return ValidatingCommand::USER_EXIT;
             }
-
-            $creator->create();
-        } catch (Exception $exception) {
-            return $this->handleException($exception);
         }
+
+        $creator->create();
 
         $this->info('Publication created successfully!');
 

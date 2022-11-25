@@ -29,6 +29,29 @@ class ValidatingCommand extends Command
     protected final const MAX_RETRIES = 30;
 
     /**
+     * @return int The exit code.
+     */
+    public function handle(): int
+    {
+        try {
+            return $this->safeHandle();
+        } catch (Exception $exception) {
+            return $this->handleException($exception);
+        }
+    }
+
+    /**
+     * This method can be overridden by child classes to provide automatic exception handling.
+     * Existing code can be converted simply by renaming the handle() method to safeHandle().
+     *
+     * @return int The exit code.
+     */
+    protected function safeHandle(): int
+    {
+        return Command::SUCCESS;
+    }
+
+    /**
      * Ask for a CLI input value until we pass validation rules.
      *
      * @param  int  $retryCount  How many times has the question been asked?
@@ -76,7 +99,7 @@ class ValidatingCommand extends Command
     public function handleException(Exception $exception, ?string $file = null): int
     {
         // If the exception was thrown from the same file as the command, then we don't need to show which file it was thrown from.
-        if ($exception->getFile() === ($file ?? debug_backtrace()[0]['file'])) {
+        if ($exception->getFile() === ($file ?? debug_backtrace()[1]['file'])) {
             $this->error("Error: {$exception->getMessage()}");
         } else {
             $this->error("Error: {$exception->getMessage()} at {$exception->getFile()}:{$exception->getLine()}");
