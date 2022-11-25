@@ -54,7 +54,7 @@ class PublicationService
 
         $publications = Collection::create();
         foreach ($files as $file) {
-            $publications->add(self::parsePublicationFile($file));
+            $publications->add(self::parsePublicationFile(Hyde::pathToRelative($file)));
         }
 
         return $publications;
