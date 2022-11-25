@@ -67,8 +67,6 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
     protected function captureFieldInput(PublicationFieldType $field, Collection $mediaFiles): string|array
     {
-        $rulesPerType = Collection::create(PublicationFieldType::DEFAULT_RULES);
-
         if ($field->type === 'text') {
             $lines = [];
             $this->output->writeln($field->name." (end with a line containing only '<<<')");
@@ -111,7 +109,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         }
 
         // Fields which are not of type array, text or image
-        $fieldRules = $rulesPerType->{$field->type};
+        $fieldRules = Collection::create(PublicationFieldType::DEFAULT_RULES)->{$field->type};
         if ($fieldRules->contains('between')) {
             $fieldRules->forget($fieldRules->search('between'));
             if ($field->min && $field->max) {
