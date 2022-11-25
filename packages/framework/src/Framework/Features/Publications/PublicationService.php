@@ -11,7 +11,6 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-use function collect;
 use function dirname;
 use function glob;
 use function Safe\file_get_contents;
@@ -32,7 +31,7 @@ class PublicationService
     public static function getPublicationTypes(): Collection
     {
         return Collection::create(self::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
-            $publicationType = PublicationType::fromFile($schemaFile);
+            $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
 
             return [$publicationType->getDirectory() => $publicationType];
         });
@@ -115,8 +114,6 @@ class PublicationService
 
     protected static function getSchemaFiles(): array
     {
-        return collect(glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json'))->each(function (string $path): string {
-            return Hyde::pathToRelative($path);
-        })->toArray();
+        return glob(Hyde::path(Hyde::getSourceRoot()).'/*/schema.json');
     }
 }
