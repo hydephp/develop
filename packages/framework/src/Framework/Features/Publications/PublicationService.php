@@ -38,7 +38,7 @@ class PublicationService
     }
 
     /**
-     * Return all publications for a given pub type, optionally sorted by the publication's sortField.
+     * Return all publications for a given publication type.
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
