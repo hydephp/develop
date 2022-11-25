@@ -70,6 +70,12 @@ class PublicationServiceTest extends TestCase
             ]),
             PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
         );
+    }
+
+    public function testGetPublicationsForPubTypeOnlyContainsInstancesOfPublicationPage()
+    {
+        $this->createPublicationType();
+        $this->createPublication();
 
         $this->assertContainsOnlyInstancesOf(
             PublicationPage::class,
