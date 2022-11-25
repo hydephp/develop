@@ -113,6 +113,7 @@ class PublicationTypeTest extends TestCase
         $publicationType->save();
 
         $this->assertEquals($publicationType, PublicationType::get('test-publication'));
+        File::deleteDirectory(Hyde::path('test-publication'));
     }
 
     public function test_get_method_fails_if_publication_type_does_not_exist()
