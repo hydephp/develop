@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
-use function str_starts_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
