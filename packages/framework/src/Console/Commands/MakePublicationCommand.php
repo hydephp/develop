@@ -140,15 +140,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
     protected function getValidationRulesPerType(): Collection
     {
-        return Collection::create([
-            'string'   => ['required', 'string', 'between'],
-            'boolean'  => ['required', 'boolean'],
-            'integer'  => ['required', 'integer', 'between'],
-            'float'    => ['required', 'numeric', 'between'],
-            'datetime' => ['required', 'datetime', 'between'],
-            'url'      => ['required', 'url'],
-            'text'     => ['required', 'string', 'between'],
-        ]);
+        return Collection::create(PublicationFieldType::DEFAULT_RULES);
     }
 
     /**
