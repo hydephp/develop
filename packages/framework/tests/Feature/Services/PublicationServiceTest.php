@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use ErrorException;
 use function copy;
 use function file_put_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -79,6 +80,27 @@ class PublicationServiceTest extends TestCase
         $this->assertContainsOnlyInstancesOf(
             PublicationPage::class,
             PublicationService::getPublicationsForPubType(PublicationType::get('test-publication'))
+        );
+    }
+
+    public function testParsePublicationFile()
+    {
+        $this->createPublicationType();
+        $this->createPublication();
+
+        $file = PublicationService::parsePublicationFile('test-publication/foo');
+        $this->assertInstanceOf(PublicationPage::class, $file);
+        $this->assertEquals('test-publication/foo', $file->getIdentifier());
+    }
+
+    public function testParsePublicationFileWithFileExtension()
+    {
+        $this->createPublicationType();
+        $this->createPublication();
+
+        $this->assertEquals(
+            PublicationService::parsePublicationFile('test-publication/foo'),
+            PublicationService::parsePublicationFile('test-publication/foo.md')
         );
     }
 
