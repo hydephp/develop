@@ -126,7 +126,7 @@ class Filesystem implements FilesystemContract
     /** @inheritDoc */
     public static function delete(array|string $paths): bool
     {
-        return self::filesystem()->delete(self::absolutePath($paths));
+        return self::filesystem()->delete(self::qualifyPossiblePathArray($paths));
     }
 
     /** @inheritDoc */
