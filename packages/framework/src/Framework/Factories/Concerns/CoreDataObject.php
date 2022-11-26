@@ -7,6 +7,7 @@ namespace Hyde\Framework\Factories\Concerns;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
@@ -21,7 +22,7 @@ use JsonSerializable;
  * that the latter's state is unpredictable due to the nature of the construction process continuously
  * mutating the page object. This class on the other hand is immutable, making it highly predictable.
  */
-final class CoreDataObject implements Arrayable, JsonSerializable
+final class CoreDataObject implements SerializableContract
 {
     use Serializable;
 
