@@ -87,7 +87,7 @@ class FilesystemFacadeTest extends TestCase
 
     public function testReplaceInFile()
     {
-        $this->createExpectation('replaceInFile', null,'search', 'replace', Hyde::path('path'));
+        $this->createExpectation('replaceInFile', null, 'search', 'replace', Hyde::path('path'));
 
         Filesystem::replaceInFile('search', 'replace', 'path');
     }
