@@ -13,11 +13,11 @@ namespace Hyde\Support\Concerns;
 trait Serializable
 {
     /** @inheritDoc */
+    abstract public function toArray(): array;
+
+    /** @inheritDoc */
     public function jsonSerialize(): array
     {
         return $this->toArray();
     }
-
-    /** @inheritDoc */
-    abstract public function toArray(): array;
 }
