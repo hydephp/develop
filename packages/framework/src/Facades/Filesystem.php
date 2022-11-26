@@ -30,7 +30,7 @@ class Filesystem implements FilesystemContract
      * @param  string  $path
      * @return string
      */
-    public static function absolutePath(string $path = ''): string
+    public static function absolutePath(string $path): string
     {
         return Hyde::pathToAbsolute(self::relativePath($path));
     }

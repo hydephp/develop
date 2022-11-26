@@ -18,7 +18,6 @@ class FilesystemFacadeTest extends TestCase
 {
     public function testAbsolutePath()
     {
-        $this->assertSame(Hyde::path(), Filesystem::absolutePath());
         $this->assertSame(Hyde::path('foo'), Filesystem::absolutePath('foo'));
         $this->assertSame(Hyde::path('foo'), Filesystem::absolutePath(Hyde::path('foo')));
     }
