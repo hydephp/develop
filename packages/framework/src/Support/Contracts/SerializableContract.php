@@ -8,6 +8,10 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
 
+/**
+ * @template TKey of array-key
+ * @template TValue
+ */
 interface SerializableContract extends Arrayable, Jsonable, JsonSerializable
 {
     /**
