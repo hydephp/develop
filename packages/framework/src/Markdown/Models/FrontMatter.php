@@ -6,6 +6,7 @@ namespace Hyde\Markdown\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use JsonSerializable;
@@ -25,7 +26,7 @@ use Stringable;
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  * @phpstan-consistent-constructor
  */
-class FrontMatter implements Arrayable, Stringable, JsonSerializable
+class FrontMatter implements Stringable, SerializableContract
 {
     use Serializable;
 
