@@ -161,6 +161,14 @@ class Filesystem
     }
 
     /**
+     * Get an absolute file path from a supplied relative path.
+     */
+    public function pathToAbsolute(string $path): string
+    {
+        return $this->path($path);
+    }
+
+    /**
      * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
      */
     public function pathToRelative(string $path): string

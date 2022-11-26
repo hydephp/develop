@@ -25,6 +25,7 @@ use Illuminate\Support\HtmlString;
  *
  * @method static string path(string $path = '')
  * @method static string vendorPath(string $path = '')
+ * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
  * @method static string getModelSourcePath(string $model, string $path = '')
  * @method static string getBladePagePath(string $path = '')
