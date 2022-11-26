@@ -9,6 +9,8 @@ use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
 
 /**
+ * Specifies that a class can be serialized to an array and/or JSON.
+ *
  * @template TKey of array-key
  * @template TValue
  */
