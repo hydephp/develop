@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Facades\Filesystem
@@ -13,12 +16,22 @@ class FilesystemFacadeTest extends TestCase
 {
     public function testExists()
     {
-        //
+        File::shouldReceive('exists')
+            ->withArgs([Hyde::path('foo')])
+            ->once()
+            ->andReturn(true);
+
+        Filesystem::exists('foo');
     }
 
     public function testMissing()
     {
-        //
+        File::shouldReceive('missing')
+            ->withArgs([Hyde::path('foo')])
+            ->once()
+            ->andReturn(true);
+
+        Filesystem::missing('foo');
     }
 
     public function testGet()

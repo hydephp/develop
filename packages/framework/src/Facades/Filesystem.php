@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Hyde;
 use Hyde\Support\Contracts\FilesystemContract;
+use Illuminate\Support\Facades\File;
 
 /**
  * Proxies the Laravel File facade with extra features and helpers tailored for HydePHP.
@@ -18,13 +20,13 @@ class Filesystem implements FilesystemContract
     /** @inheritDoc */
     public static function exists(string $path): bool
     {
-        // TODO: Implement exists() method.
+        return self::filesystem()->exists(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function missing(string $path): bool
     {
-        // TODO: Implement missing() method.
+        return self::filesystem()->missing(Hyde::path($path));
     }
 
     /** @inheritDoc */
