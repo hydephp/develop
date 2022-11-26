@@ -45,8 +45,8 @@ class Filesystem implements FilesystemContract
      * While this method will use the absolute path when interacting with the filesystem,
      * the returned collection will only contain relative paths.
      *
-     * @param string $pattern
-     * @param int $flags
+     * @param  string  $pattern
+     * @param  int  $flags
      * @return \Illuminate\Support\Collection<string>
      */
     public static function smartGlob(string $pattern, int $flags = 0): Collection
