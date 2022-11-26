@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Testing\TestCase;
+use JsonSerializable;
 
 /**
  * @covers \Hyde\Support\Concerns\Serializable
@@ -14,7 +15,7 @@ class SerializableTest extends TestCase
 {
     public function test_json_serialize()
     {
-        $class = new class implements \JsonSerializable
+        $class = new class implements JsonSerializable
         {
             use Serializable;
 
@@ -37,7 +38,7 @@ class SerializableTest extends TestCase
 
     public function test_to_json()
     {
-        $class = new class implements \JsonSerializable
+        $class = new class implements JsonSerializable
         {
             use Serializable;
 
