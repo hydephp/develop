@@ -13,6 +13,7 @@ use Illuminate\Support\LazyCollection;
 
 /**
  * @covers \Hyde\Facades\Filesystem
+ * @covers \Hyde\Foundation\Filesystem
  */
 class FilesystemFacadeTest extends TestCase
 {
