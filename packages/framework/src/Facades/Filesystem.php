@@ -389,9 +389,9 @@ class Filesystem implements FilesystemContract
         return self::filesystem()->cleanDirectory(self::absolutePath($directory));
     }
 
-    protected static function kernel(): HydeKernel
+    protected static function qualifyPossiblePathArray(array|string $paths): array|string
     {
-        return HydeKernel::getInstance();
+        return self::kernel()->filesystem()->qualifyPossiblePathArray($paths);
     }
 
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem
@@ -399,8 +399,8 @@ class Filesystem implements FilesystemContract
         return File::getFacadeRoot();
     }
 
-    protected static function qualifyPossiblePathArray(array|string $paths): array|string
+    protected static function kernel(): HydeKernel
     {
-        return self::kernel()->filesystem()->qualifyPossiblePathArray($paths);
+        return HydeKernel::getInstance();
     }
 }
