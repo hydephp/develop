@@ -32,55 +32,55 @@ class Filesystem implements FilesystemContract
     /** @inheritDoc */
     public static function get(string $path, bool $lock = false): string
     {
-        // TODO: Implement get() method.
+        return self::filesystem()->get(Hyde::path($path), $lock);
     }
 
     /** @inheritDoc */
     public static function sharedGet(string $path): string
     {
-        // TODO: Implement sharedGet() method.
+        return self::filesystem()->sharedGet(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function getRequire(string $path, array $data = []): mixed
     {
-        // TODO: Implement getRequire() method.
+        return self::filesystem()->getRequire(Hyde::path($path), $data);
     }
 
     /** @inheritDoc */
     public static function requireOnce(string $path, array $data = []): mixed
     {
-        // TODO: Implement requireOnce() method.
+        return self::filesystem()->requireOnce(Hyde::path($path), $data);
     }
 
     /** @inheritDoc */
     public static function lines(string $path): \Illuminate\Support\LazyCollection
     {
-        // TODO: Implement lines() method.
+        return self::filesystem()->lines(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function hash(string $path, string $algorithm = 'md5'): string
     {
-        // TODO: Implement hash() method.
+        return self::filesystem()->hash(Hyde::path($path), $algorithm);
     }
 
     /** @inheritDoc */
     public static function put(string $path, string $contents, bool $lock = false): bool|int
     {
-        // TODO: Implement put() method.
+        return self::filesystem()->put(Hyde::path($path), $contents, $lock);
     }
 
     /** @inheritDoc */
     public static function replace(string $path, string $content): void
     {
-        // TODO: Implement replace() method.
+        self::filesystem()->replace(Hyde::path($path), $content);
     }
 
     /** @inheritDoc */
     public static function replaceInFile(array|string $search, array|string $replace, string $path): void
     {
-        // TODO: Implement replaceInFile() method.
+        self::filesystem()->replaceInFile($search, $replace, Hyde::path($path));
     }
 
     /** @inheritDoc */
