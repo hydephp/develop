@@ -17,7 +17,17 @@ use Illuminate\Support\Facades\File;
  */
 class Filesystem implements FilesystemContract
 {
-    /** @inheritDoc */
+    public static function absolutePath(string $path = ''): string
+    {
+        return Hyde::path($path);
+    }
+
+    public static function relativePath(string $path): string
+    {
+        return Hyde::pathToRelative($path);
+    }
+
+   /** @inheritDoc */
     public static function exists(string $path): bool
     {
         return self::filesystem()->exists(Hyde::path($path));

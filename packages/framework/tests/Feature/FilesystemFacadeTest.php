@@ -15,6 +15,19 @@ use Illuminate\Support\LazyCollection;
  */
 class FilesystemFacadeTest extends TestCase
 {
+    public function testAbsolutePath()
+    {
+        $this->assertSame(Hyde::path(), Filesystem::absolutePath());
+        $this->assertSame(Hyde::path('foo'), Filesystem::absolutePath('foo'));
+    }
+
+    public function testRelativePath()
+    {
+        $this->assertSame('', Filesystem::relativePath(Hyde::path()));
+        $this->assertSame('foo', Filesystem::relativePath(Hyde::path('foo')));
+        $this->assertSame('foo', Filesystem::relativePath('foo'));
+    }
+
     public function testExists()
     {
         $this->createExpectation('exists', true, Hyde::path('path'));
