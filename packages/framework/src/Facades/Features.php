@@ -8,10 +8,9 @@ use function count;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Illuminate\Contracts\Support\Arrayable;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
-use JsonSerializable;
 use function str_starts_with;
 
 /**
@@ -24,9 +23,9 @@ use function str_starts_with;
  * Based entirely on Laravel Jetstream (License MIT)
  * @see https://jetstream.laravel.com/
  */
-class Features implements Arrayable, JsonSerializable
+class Features implements SerializableContract
 {
-    use JsonSerializesArrayable;
+    use Serializable;
     use MockableFeatures;
 
     /**

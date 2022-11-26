@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Illuminate\Contracts\Support\Arrayable;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Traits\Macroable;
-use JsonSerializable;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
@@ -31,7 +30,7 @@ use JsonSerializable;
  *
  * The Kernel instance is constructed in bootstrap.php, and is available globally as $hyde.
  */
-class HydeKernel implements Arrayable, JsonSerializable
+class HydeKernel implements SerializableContract
 {
     use Concerns\HandlesFoundationCollections;
     use Concerns\ImplementsStringHelpers;
@@ -40,7 +39,7 @@ class HydeKernel implements Arrayable, JsonSerializable
     use Concerns\ManagesHydeKernel;
     use Concerns\ManagesViewData;
 
-    use JsonSerializesArrayable;
+    use Serializable;
     use Macroable;
 
     protected static HydeKernel $instance;
