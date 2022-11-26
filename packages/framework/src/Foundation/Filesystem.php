@@ -192,6 +192,16 @@ class Filesystem
             ->map(fn (string $path): string => $this->pathToRelative($path));
     }
 
+    /** @internal */
+    public function qualifyPossiblePathArray(array|string $paths): array|string
+    {
+        if (is_array($paths)) {
+            return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
+        }
+
+        return $this->pathToAbsolute($paths);
+    }
+
     /**
      * Implode path components into a string with directory separators.
      */

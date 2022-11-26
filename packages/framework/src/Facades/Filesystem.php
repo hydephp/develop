@@ -401,10 +401,6 @@ class Filesystem implements FilesystemContract
 
     protected static function qualifyPossiblePathArray(array|string $paths): array|string
     {
-        if (is_array($paths)) {
-            return array_map(fn ($path) => self::absolutePath($path), $paths);
-        }
-
-        return self::absolutePath($paths);
+        return self::kernel()->filesystem()->qualifyPossiblePathArray($paths);
     }
 }
