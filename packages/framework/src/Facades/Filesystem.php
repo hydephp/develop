@@ -15,6 +15,9 @@ use function is_array;
 /**
  * Proxies the Laravel File facade with extra features and helpers tailored for HydePHP.
  *
+ * For maximum compatability and interoperability, all path references in HydePHP are relative to the root of the project.
+ * The helpers here will then prepend the project root to the path before actually interacting with the filesystem.
+ *
  * @see \Hyde\Foundation\Filesystem
  * @see \Illuminate\Filesystem\Filesystem
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
