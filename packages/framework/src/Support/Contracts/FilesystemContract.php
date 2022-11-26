@@ -12,7 +12,7 @@ interface FilesystemContract
     /**
      * Determine if a file or directory exists.
      *
-     * @param string $path
+     * @param  string  $path
      * @return bool
      */
     public function exists(string $path): bool;
@@ -20,7 +20,7 @@ interface FilesystemContract
     /**
      * Determine if a file or directory is missing.
      *
-     * @param string $path
+     * @param  string  $path
      * @return bool
      */
     public function missing(string $path): bool;
@@ -28,8 +28,8 @@ interface FilesystemContract
     /**
      * Get the contents of a file.
      *
-     * @param string $path
-     * @param bool $lock
+     * @param  string  $path
+     * @param  bool  $lock
      * @return string
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -39,7 +39,7 @@ interface FilesystemContract
     /**
      * Get contents of a file with shared access.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     public function sharedGet(string $path): string;
@@ -47,8 +47,8 @@ interface FilesystemContract
     /**
      * Get the returned value of a file.
      *
-     * @param string $path
-     * @param array $data
+     * @param  string  $path
+     * @param  array  $data
      * @return mixed
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -58,8 +58,8 @@ interface FilesystemContract
     /**
      * Require the given file once.
      *
-     * @param string $path
-     * @param array $data
+     * @param  string  $path
+     * @param  array  $data
      * @return mixed
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -69,7 +69,7 @@ interface FilesystemContract
     /**
      * Get the contents of a file one line at a time.
      *
-     * @param string $path
+     * @param  string  $path
      * @return \Illuminate\Support\LazyCollection
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -79,8 +79,8 @@ interface FilesystemContract
     /**
      * Get the hash of the file at the given path.
      *
-     * @param string $path
-     * @param string $algorithm
+     * @param  string  $path
+     * @param  string  $algorithm
      * @return string
      */
     public function hash(string $path, string $algorithm = 'md5'): string;
@@ -88,9 +88,9 @@ interface FilesystemContract
     /**
      * Write the contents of a file.
      *
-     * @param string $path
-     * @param string $contents
-     * @param bool $lock
+     * @param  string  $path
+     * @param  string  $contents
+     * @param  bool  $lock
      * @return int|bool
      */
     public function put(string $path, string $contents, bool $lock = false): bool|int;
@@ -98,8 +98,8 @@ interface FilesystemContract
     /**
      * Write the contents of a file, replacing it atomically if it already exists.
      *
-     * @param string $path
-     * @param string $content
+     * @param  string  $path
+     * @param  string  $content
      * @return void
      */
     public function replace(string $path, string $content): void;
@@ -107,9 +107,9 @@ interface FilesystemContract
     /**
      * Replace a given string within a given file.
      *
-     * @param array|string $search
-     * @param array|string $replace
-     * @param string $path
+     * @param  array|string  $search
+     * @param  array|string  $replace
+     * @param  string  $path
      * @return void
      */
     public function replaceInFile(array|string $search, array|string $replace, string $path): void;
@@ -117,8 +117,8 @@ interface FilesystemContract
     /**
      * Prepend to a file.
      *
-     * @param string $path
-     * @param string $data
+     * @param  string  $path
+     * @param  string  $data
      * @return int
      */
     public function prepend(string $path, string $data): int;
@@ -126,8 +126,8 @@ interface FilesystemContract
     /**
      * Append to a file.
      *
-     * @param string $path
-     * @param string $data
+     * @param  string  $path
+     * @param  string  $data
      * @return int
      */
     public function append(string $path, string $data): int;
@@ -135,8 +135,8 @@ interface FilesystemContract
     /**
      * Get or set UNIX mode of a file or directory.
      *
-     * @param string $path
-     * @param int|null $mode
+     * @param  string  $path
+     * @param  int|null  $mode
      * @return mixed
      */
     public function chmod(string $path, int $mode = null): mixed;
@@ -144,7 +144,7 @@ interface FilesystemContract
     /**
      * Delete the file at a given path.
      *
-     * @param string|array $paths
+     * @param  string|array  $paths
      * @return bool
      */
     public function delete(array|string $paths): bool;
@@ -152,8 +152,8 @@ interface FilesystemContract
     /**
      * Move a file to a new location.
      *
-     * @param string $path
-     * @param string $target
+     * @param  string  $path
+     * @param  string  $target
      * @return bool
      */
     public function move(string $path, string $target): bool;
@@ -161,8 +161,8 @@ interface FilesystemContract
     /**
      * Copy a file to a new location.
      *
-     * @param string $path
-     * @param string $target
+     * @param  string  $path
+     * @param  string  $target
      * @return bool
      */
     public function copy(string $path, string $target): bool;
@@ -170,8 +170,8 @@ interface FilesystemContract
     /**
      * Create a symlink to the target file or directory. On Windows, a hard link is created if the target is a file.
      *
-     * @param string $target
-     * @param string $link
+     * @param  string  $target
+     * @param  string  $link
      * @return void
      */
     public function link(string $target, string $link): void;
@@ -179,8 +179,8 @@ interface FilesystemContract
     /**
      * Create a relative symlink to the target file or directory.
      *
-     * @param string $target
-     * @param string $link
+     * @param  string  $target
+     * @param  string  $link
      * @return void
      *
      * @throws \RuntimeException
@@ -190,7 +190,7 @@ interface FilesystemContract
     /**
      * Extract the file name from a file path.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     public function name(string $path): string;
@@ -198,7 +198,7 @@ interface FilesystemContract
     /**
      * Extract the trailing name component from a file path.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     public function basename(string $path): string;
@@ -206,7 +206,7 @@ interface FilesystemContract
     /**
      * Extract the parent directory from a file path.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     public function dirname(string $path): string;
@@ -214,7 +214,7 @@ interface FilesystemContract
     /**
      * Extract the file extension from a file path.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     public function extension(string $path): string;
@@ -222,7 +222,7 @@ interface FilesystemContract
     /**
      * Guess the file extension from the mime-type of a given file.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string|null
      *
      * @throws \RuntimeException
@@ -232,7 +232,7 @@ interface FilesystemContract
     /**
      * Get the file type of the given file.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     public function type(string $path): string;
@@ -240,7 +240,7 @@ interface FilesystemContract
     /**
      * Get the mime-type of a given file.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string|false
      */
     public function mimeType(string $path): bool|string;
@@ -248,7 +248,7 @@ interface FilesystemContract
     /**
      * Get the file size of a given file.
      *
-     * @param string $path
+     * @param  string  $path
      * @return int
      */
     public function size(string $path): int;
@@ -256,7 +256,7 @@ interface FilesystemContract
     /**
      * Get the file's last modification time.
      *
-     * @param string $path
+     * @param  string  $path
      * @return int
      */
     public function lastModified(string $path): int;
@@ -264,7 +264,7 @@ interface FilesystemContract
     /**
      * Determine if the given path is a directory.
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return bool
      */
     public function isDirectory(string $directory): bool;
@@ -272,8 +272,8 @@ interface FilesystemContract
     /**
      * Determine if the given path is a directory that does not contain any other files or directories.
      *
-     * @param string $directory
-     * @param bool $ignoreDotFiles
+     * @param  string  $directory
+     * @param  bool  $ignoreDotFiles
      * @return bool
      */
     public function isEmptyDirectory(string $directory, bool $ignoreDotFiles = false): bool;
@@ -281,7 +281,7 @@ interface FilesystemContract
     /**
      * Determine if the given path is readable.
      *
-     * @param string $path
+     * @param  string  $path
      * @return bool
      */
     public function isReadable(string $path): bool;
@@ -289,7 +289,7 @@ interface FilesystemContract
     /**
      * Determine if the given path is writable.
      *
-     * @param string $path
+     * @param  string  $path
      * @return bool
      */
     public function isWritable(string $path): bool;
@@ -297,8 +297,8 @@ interface FilesystemContract
     /**
      * Determine if two files are the same by comparing their hashes.
      *
-     * @param string $firstFile
-     * @param string $secondFile
+     * @param  string  $firstFile
+     * @param  string  $secondFile
      * @return bool
      */
     public function hasSameHash(string $firstFile, string $secondFile): bool;
@@ -306,7 +306,7 @@ interface FilesystemContract
     /**
      * Determine if the given path is a file.
      *
-     * @param string $file
+     * @param  string  $file
      * @return bool
      */
     public function isFile(string $file): bool;
@@ -314,8 +314,8 @@ interface FilesystemContract
     /**
      * Find path names matching a given pattern.
      *
-     * @param string $pattern
-     * @param int $flags
+     * @param  string  $pattern
+     * @param  int  $flags
      * @return array
      */
     public function glob(string $pattern, int $flags = 0): array;
@@ -323,8 +323,8 @@ interface FilesystemContract
     /**
      * Get an array of all files in a directory.
      *
-     * @param string $directory
-     * @param bool $hidden
+     * @param  string  $directory
+     * @param  bool  $hidden
      * @return \Symfony\Component\Finder\SplFileInfo[]
      */
     public function files(string $directory, bool $hidden = false): array;
@@ -332,8 +332,8 @@ interface FilesystemContract
     /**
      * Get all the files from the given directory (recursive).
      *
-     * @param string $directory
-     * @param bool $hidden
+     * @param  string  $directory
+     * @param  bool  $hidden
      * @return \Symfony\Component\Finder\SplFileInfo[]
      */
     public function allFiles(string $directory, bool $hidden = false): array;
@@ -341,7 +341,7 @@ interface FilesystemContract
     /**
      * Get all the directories within a given directory.
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return array
      */
     public function directories(string $directory): array;
@@ -349,9 +349,9 @@ interface FilesystemContract
     /**
      * Ensure a directory exists.
      *
-     * @param string $path
-     * @param int $mode
-     * @param bool $recursive
+     * @param  string  $path
+     * @param  int  $mode
+     * @param  bool  $recursive
      * @return void
      */
     public function ensureDirectoryExists(string $path, int $mode = 0755, bool $recursive = true): void;
@@ -359,10 +359,10 @@ interface FilesystemContract
     /**
      * Create a directory.
      *
-     * @param string $path
-     * @param int $mode
-     * @param bool $recursive
-     * @param bool $force
+     * @param  string  $path
+     * @param  int  $mode
+     * @param  bool  $recursive
+     * @param  bool  $force
      * @return bool
      */
     public function makeDirectory(string $path, int $mode = 0755, bool $recursive = false, bool $force = false): bool;
@@ -370,9 +370,9 @@ interface FilesystemContract
     /**
      * Move a directory.
      *
-     * @param string $from
-     * @param string $to
-     * @param bool $overwrite
+     * @param  string  $from
+     * @param  string  $to
+     * @param  bool  $overwrite
      * @return bool
      */
     public function moveDirectory(string $from, string $to, bool $overwrite = false): bool;
@@ -380,9 +380,9 @@ interface FilesystemContract
     /**
      * Copy a directory from one location to another.
      *
-     * @param string $directory
-     * @param string $destination
-     * @param int|null $options
+     * @param  string  $directory
+     * @param  string  $destination
+     * @param  int|null  $options
      * @return bool
      */
     public function copyDirectory(string $directory, string $destination, int|null $options = null): bool;
@@ -392,8 +392,8 @@ interface FilesystemContract
      *
      * The directory itself may be optionally preserved.
      *
-     * @param string $directory
-     * @param bool $preserve
+     * @param  string  $directory
+     * @param  bool  $preserve
      * @return bool
      */
     public function deleteDirectory(string $directory, bool $preserve = false): bool;
@@ -401,7 +401,7 @@ interface FilesystemContract
     /**
      * Remove all the directories within a given directory.
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return bool
      */
     public function deleteDirectories(string $directory): bool;
@@ -409,7 +409,7 @@ interface FilesystemContract
     /**
      * Empty the specified directory of all files and folders.
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return bool
      */
     public function cleanDirectory(string $directory): bool;
