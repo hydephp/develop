@@ -314,6 +314,13 @@ class FilesystemTest extends TestCase
         }
     }
 
+    public function test_implode_helper_merges_path_components_into_a_string_with_directory_separators()
+    {
+        $this->assertSame($this->systemPath('foo'), Filesystem::implode('foo'));
+        $this->assertSame($this->systemPath('foo/bar'), Filesystem::implode('foo', 'bar'));
+        $this->assertSame($this->systemPath('foo/bar/baz'), Filesystem::implode('foo', 'bar', 'baz'));
+    }
+
     protected function systemPath(string $path): string
     {
         return str_replace('/', DIRECTORY_SEPARATOR, $path);
