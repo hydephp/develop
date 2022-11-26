@@ -17,11 +17,23 @@ use Illuminate\Support\Facades\File;
  */
 class Filesystem implements FilesystemContract
 {
+    /**
+     * Format the given project path to be absolute. Already absolute paths are normalized.
+     *
+     * @param string $path
+     * @return string
+     */
     public static function absolutePath(string $path = ''): string
     {
         return Hyde::pathToAbsolute(self::relativePath($path));
     }
 
+    /**
+     * Remove the absolute path from the given project path so it becomes relative.
+     *
+     * @param string $path
+     * @return string
+     */
     public static function relativePath(string $path): string
     {
         return Hyde::pathToRelative($path);
