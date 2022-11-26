@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Illuminate\Contracts\Support\Arrayable;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
-use JsonSerializable;
 use Stringable;
 
 /**
@@ -25,9 +24,9 @@ use Stringable;
  * @see \Hyde\Framework\Testing\Unit\FrontMatterModelTest
  * @phpstan-consistent-constructor
  */
-class FrontMatter implements Arrayable, Stringable, JsonSerializable
+class FrontMatter implements Stringable, SerializableContract
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     public array $data;
 

@@ -9,9 +9,8 @@ use Hyde\Foundation\RouteCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Illuminate\Contracts\Support\Arrayable;
-use JsonSerializable;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use function str_replace;
 use Stringable;
 
@@ -25,9 +24,9 @@ use Stringable;
  *
  * @see \Hyde\Framework\Testing\Feature\RouteTest
  */
-class Route implements Stringable, JsonSerializable, Arrayable
+class Route implements Stringable, SerializableContract
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     protected HydePage $page;
 
