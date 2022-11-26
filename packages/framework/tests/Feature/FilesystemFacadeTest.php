@@ -346,9 +346,6 @@ class FilesystemFacadeTest extends TestCase
 
     protected function createExpectation(string $method, mixed $returns, ...$args): void
     {
-        File::shouldReceive($method)
-            ->withArgs($args)
-            ->once()
-            ->andReturn($returns);
+        File::shouldReceive($method)->withArgs($args)->once()->andReturn($returns);
     }
 }
