@@ -7,9 +7,7 @@ namespace Hyde\Markdown\Models;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
-use JsonSerializable;
 use Stringable;
 
 /**
