@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use function array_map;
-use function collect;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Contracts\FilesystemContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use function is_array;
 
 /**
  * Proxies the Laravel File facade with extra features and helpers tailored for HydePHP.
@@ -67,8 +64,7 @@ class Filesystem implements FilesystemContract
      */
     public static function smartGlob(string $pattern, int $flags = 0): Collection
     {
-        return collect(self::glob($pattern, $flags))
-            ->map(fn (string $path): string => self::relativePath($path));
+        return self::kernel()->filesystem()->smartGlob($pattern, $flags);
     }
 
     /**
@@ -390,9 +386,9 @@ class Filesystem implements FilesystemContract
         return self::filesystem()->cleanDirectory(self::absolutePath($directory));
     }
 
-    protected static function kernel(): HydeKernel
+    protected static function qualifyPossiblePathArray(array|string $paths): array|string
     {
-        return HydeKernel::getInstance();
+        return self::kernel()->filesystem()->qualifyPossiblePathArray($paths);
     }
 
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem
@@ -400,12 +396,8 @@ class Filesystem implements FilesystemContract
         return File::getFacadeRoot();
     }
 
-    protected static function qualifyPossiblePathArray(array|string $paths): array|string
+    protected static function kernel(): HydeKernel
     {
-        if (is_array($paths)) {
-            return array_map(fn ($path) => self::absolutePath($path), $paths);
-        }
-
-        return self::absolutePath($paths);
+        return HydeKernel::getInstance();
     }
 }

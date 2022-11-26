@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use function collect;
 use function copy;
 use Hyde\Facades\Site;
 use Hyde\Framework\Services\DiscoveryService;
@@ -12,6 +13,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Illuminate\Support\Collection;
 use function is_string;
 use function str_replace;
 use function touch;
@@ -182,6 +184,22 @@ class Filesystem
     public function getDocumentationPagePath(string $path = ''): string
     {
         return $this->getModelSourcePath(DocumentationPage::class, $path);
+    }
+
+    public function smartGlob(string $pattern, int $flags = 0): Collection
+    {
+        return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
+            ->map(fn (string $path): string => $this->pathToRelative($path));
+    }
+
+    /** @internal */
+    public function qualifyPossiblePathArray(array|string $paths): array|string
+    {
+        if (is_array($paths)) {
+            return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
+        }
+
+        return $this->pathToAbsolute($paths);
     }
 
     /**
