@@ -58,7 +58,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->getBasePath().DIRECTORY_SEPARATOR.$path;
+        return $this->implode($this->getBasePath(), $path);
     }
 
     /**
@@ -161,7 +161,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->path(DiscoveryService::getModelSourceDirectory($model).DIRECTORY_SEPARATOR.$path);
+        return $this->path($this->implode(DiscoveryService::getModelSourceDirectory($model), $path));
     }
 
     public function getBladePagePath(string $path = ''): string
@@ -182,5 +182,13 @@ class Filesystem
     public function getDocumentationPagePath(string $path = ''): string
     {
         return $this->getModelSourcePath(DocumentationPage::class, $path);
+    }
+    
+    /**
+     * Implode path components into a string with directory separators.
+     */
+    public static function implode(string $base, string ...$paths): string
+    {
+        return implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths));
     }
 }
