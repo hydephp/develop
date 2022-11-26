@@ -15,7 +15,7 @@ interface FilesystemContract
      * @param string $path
      * @return bool
      */
-    public function exists($path);
+    public function exists($path): bool;
 
     /**
      * Determine if a file or directory is missing.
@@ -23,7 +23,7 @@ interface FilesystemContract
      * @param string $path
      * @return bool
      */
-    public function missing($path);
+    public function missing($path): bool;
 
     /**
      * Get the contents of a file.
@@ -34,7 +34,7 @@ interface FilesystemContract
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function get($path, $lock = false);
+    public function get($path, $lock = false): string;
 
     /**
      * Get contents of a file with shared access.
@@ -42,7 +42,7 @@ interface FilesystemContract
      * @param string $path
      * @return string
      */
-    public function sharedGet($path);
+    public function sharedGet($path): string;
 
     /**
      * Get the returned value of a file.
@@ -53,7 +53,7 @@ interface FilesystemContract
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function getRequire($path, array $data = []);
+    public function getRequire($path, array $data = []): mixed;
 
     /**
      * Require the given file once.
@@ -64,7 +64,7 @@ interface FilesystemContract
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function requireOnce($path, array $data = []);
+    public function requireOnce($path, array $data = []): mixed;
 
     /**
      * Get the contents of a file one line at a time.
@@ -74,7 +74,7 @@ interface FilesystemContract
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function lines($path);
+    public function lines($path): \Illuminate\Support\LazyCollection;
 
     /**
      * Get the hash of the file at the given path.
@@ -83,7 +83,7 @@ interface FilesystemContract
      * @param string $algorithm
      * @return string
      */
-    public function hash($path, $algorithm = 'md5');
+    public function hash($path, $algorithm = 'md5'): string;
 
     /**
      * Write the contents of a file.
@@ -93,7 +93,7 @@ interface FilesystemContract
      * @param bool $lock
      * @return int|bool
      */
-    public function put($path, $contents, $lock = false);
+    public function put($path, $contents, $lock = false): bool|int;
 
     /**
      * Write the contents of a file, replacing it atomically if it already exists.
@@ -102,7 +102,7 @@ interface FilesystemContract
      * @param string $content
      * @return void
      */
-    public function replace($path, $content);
+    public function replace($path, $content): void;
 
     /**
      * Replace a given string within a given file.
@@ -112,7 +112,7 @@ interface FilesystemContract
      * @param string $path
      * @return void
      */
-    public function replaceInFile($search, $replace, $path);
+    public function replaceInFile($search, $replace, $path): void;
 
     /**
      * Prepend to a file.
@@ -121,7 +121,7 @@ interface FilesystemContract
      * @param string $data
      * @return int
      */
-    public function prepend($path, $data);
+    public function prepend($path, $data): int;
 
     /**
      * Append to a file.
@@ -130,7 +130,7 @@ interface FilesystemContract
      * @param string $data
      * @return int
      */
-    public function append($path, $data);
+    public function append($path, $data): int;
 
     /**
      * Get or set UNIX mode of a file or directory.
@@ -139,7 +139,7 @@ interface FilesystemContract
      * @param int|null $mode
      * @return mixed
      */
-    public function chmod($path, $mode = null);
+    public function chmod($path, $mode = null): mixed;
 
     /**
      * Delete the file at a given path.
@@ -147,7 +147,7 @@ interface FilesystemContract
      * @param string|array $paths
      * @return bool
      */
-    public function delete($paths);
+    public function delete($paths): bool;
 
     /**
      * Move a file to a new location.
@@ -156,7 +156,7 @@ interface FilesystemContract
      * @param string $target
      * @return bool
      */
-    public function move($path, $target);
+    public function move($path, $target): bool;
 
     /**
      * Copy a file to a new location.
@@ -165,7 +165,7 @@ interface FilesystemContract
      * @param string $target
      * @return bool
      */
-    public function copy($path, $target);
+    public function copy($path, $target): bool;
 
     /**
      * Create a symlink to the target file or directory. On Windows, a hard link is created if the target is a file.
@@ -174,7 +174,7 @@ interface FilesystemContract
      * @param string $link
      * @return void
      */
-    public function link($target, $link);
+    public function link($target, $link): void;
 
     /**
      * Create a relative symlink to the target file or directory.
@@ -185,7 +185,7 @@ interface FilesystemContract
      *
      * @throws \RuntimeException
      */
-    public function relativeLink($target, $link);
+    public function relativeLink($target, $link): void;
 
     /**
      * Extract the file name from a file path.
@@ -193,7 +193,7 @@ interface FilesystemContract
      * @param string $path
      * @return string
      */
-    public function name($path);
+    public function name($path): string;
 
     /**
      * Extract the trailing name component from a file path.
@@ -201,7 +201,7 @@ interface FilesystemContract
      * @param string $path
      * @return string
      */
-    public function basename($path);
+    public function basename($path): string;
 
     /**
      * Extract the parent directory from a file path.
@@ -209,7 +209,7 @@ interface FilesystemContract
      * @param string $path
      * @return string
      */
-    public function dirname($path);
+    public function dirname($path): string;
 
     /**
      * Extract the file extension from a file path.
@@ -217,7 +217,7 @@ interface FilesystemContract
      * @param string $path
      * @return string
      */
-    public function extension($path);
+    public function extension($path): string;
 
     /**
      * Guess the file extension from the mime-type of a given file.
@@ -227,7 +227,7 @@ interface FilesystemContract
      *
      * @throws \RuntimeException
      */
-    public function guessExtension($path);
+    public function guessExtension($path): ?string;
 
     /**
      * Get the file type of a given file.
@@ -235,7 +235,7 @@ interface FilesystemContract
      * @param string $path
      * @return string
      */
-    public function type($path);
+    public function type($path): string;
 
     /**
      * Get the mime-type of a given file.
@@ -243,7 +243,7 @@ interface FilesystemContract
      * @param string $path
      * @return string|false
      */
-    public function mimeType($path);
+    public function mimeType($path): bool|string;
 
     /**
      * Get the file size of a given file.
@@ -251,7 +251,7 @@ interface FilesystemContract
      * @param string $path
      * @return int
      */
-    public function size($path);
+    public function size($path): int;
 
     /**
      * Get the file's last modification time.
@@ -259,7 +259,7 @@ interface FilesystemContract
      * @param string $path
      * @return int
      */
-    public function lastModified($path);
+    public function lastModified($path): int;
 
     /**
      * Determine if the given path is a directory.
@@ -267,7 +267,7 @@ interface FilesystemContract
      * @param string $directory
      * @return bool
      */
-    public function isDirectory($directory);
+    public function isDirectory($directory): bool;
 
     /**
      * Determine if the given path is a directory that does not contain any other files or directories.
@@ -276,7 +276,7 @@ interface FilesystemContract
      * @param bool $ignoreDotFiles
      * @return bool
      */
-    public function isEmptyDirectory($directory, $ignoreDotFiles = false);
+    public function isEmptyDirectory($directory, $ignoreDotFiles = false): bool;
 
     /**
      * Determine if the given path is readable.
@@ -284,7 +284,7 @@ interface FilesystemContract
      * @param string $path
      * @return bool
      */
-    public function isReadable($path);
+    public function isReadable($path): bool;
 
     /**
      * Determine if the given path is writable.
@@ -292,7 +292,7 @@ interface FilesystemContract
      * @param string $path
      * @return bool
      */
-    public function isWritable($path);
+    public function isWritable($path): bool;
 
     /**
      * Determine if two files are the same by comparing their hashes.
@@ -301,7 +301,7 @@ interface FilesystemContract
      * @param string $secondFile
      * @return bool
      */
-    public function hasSameHash($firstFile, $secondFile);
+    public function hasSameHash($firstFile, $secondFile): bool;
 
     /**
      * Determine if the given path is a file.
@@ -309,7 +309,7 @@ interface FilesystemContract
      * @param string $file
      * @return bool
      */
-    public function isFile($file);
+    public function isFile($file): bool;
 
     /**
      * Find path names matching a given pattern.
@@ -318,7 +318,7 @@ interface FilesystemContract
      * @param int $flags
      * @return array
      */
-    public function glob($pattern, $flags = 0);
+    public function glob($pattern, $flags = 0): array;
 
     /**
      * Get an array of all files in a directory.
@@ -327,7 +327,7 @@ interface FilesystemContract
      * @param bool $hidden
      * @return \Symfony\Component\Finder\SplFileInfo[]
      */
-    public function files($directory, $hidden = false);
+    public function files($directory, $hidden = false): array;
 
     /**
      * Get all of the files from the given directory (recursive).
@@ -336,7 +336,7 @@ interface FilesystemContract
      * @param bool $hidden
      * @return \Symfony\Component\Finder\SplFileInfo[]
      */
-    public function allFiles($directory, $hidden = false);
+    public function allFiles($directory, $hidden = false): array;
 
     /**
      * Get all of the directories within a given directory.
@@ -344,7 +344,7 @@ interface FilesystemContract
      * @param string $directory
      * @return array
      */
-    public function directories($directory);
+    public function directories($directory): array;
 
     /**
      * Ensure a directory exists.
@@ -354,7 +354,7 @@ interface FilesystemContract
      * @param bool $recursive
      * @return void
      */
-    public function ensureDirectoryExists($path, $mode = 0755, $recursive = true);
+    public function ensureDirectoryExists($path, $mode = 0755, $recursive = true): void;
 
     /**
      * Create a directory.
@@ -365,7 +365,7 @@ interface FilesystemContract
      * @param bool $force
      * @return bool
      */
-    public function makeDirectory($path, $mode = 0755, $recursive = false, $force = false);
+    public function makeDirectory($path, $mode = 0755, $recursive = false, $force = false): bool;
 
     /**
      * Move a directory.
@@ -375,7 +375,7 @@ interface FilesystemContract
      * @param bool $overwrite
      * @return bool
      */
-    public function moveDirectory($from, $to, $overwrite = false);
+    public function moveDirectory($from, $to, $overwrite = false): bool;
 
     /**
      * Copy a directory from one location to another.
@@ -385,7 +385,7 @@ interface FilesystemContract
      * @param int|null $options
      * @return bool
      */
-    public function copyDirectory($directory, $destination, $options = null);
+    public function copyDirectory($directory, $destination, $options = null): bool;
 
     /**
      * Recursively delete a directory.
@@ -396,7 +396,7 @@ interface FilesystemContract
      * @param bool $preserve
      * @return bool
      */
-    public function deleteDirectory($directory, $preserve = false);
+    public function deleteDirectory($directory, $preserve = false): bool;
 
     /**
      * Remove all of the directories within a given directory.
@@ -404,7 +404,7 @@ interface FilesystemContract
      * @param string $directory
      * @return bool
      */
-    public function deleteDirectories($directory);
+    public function deleteDirectories($directory): bool;
 
     /**
      * Empty the specified directory of all files and folders.
@@ -412,5 +412,5 @@ interface FilesystemContract
      * @param string $directory
      * @return bool
      */
-    public function cleanDirectory($directory);
+    public function cleanDirectory($directory): bool;
 }
