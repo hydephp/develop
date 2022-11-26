@@ -401,7 +401,7 @@ interface FilesystemContract
     public static function deleteDirectory(string $directory, bool $preserve = false): bool;
 
     /**
-     * Remove all the directories within a given directory.
+     * Remove all the subdirectories within a given directory.
      *
      * @param  string  $directory
      * @return bool
