@@ -33,9 +33,6 @@ interface SerializableContract extends Arrayable, Jsonable, JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON.
-     *
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
      */
-    public function jsonSerialize(): mixed;
+    public function jsonSerialize(): array;
 }

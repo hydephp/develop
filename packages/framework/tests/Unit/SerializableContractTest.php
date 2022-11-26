@@ -48,7 +48,7 @@ class SerializableContractTestClass implements SerializableContract
         return '';
     }
 
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return [];
     }
