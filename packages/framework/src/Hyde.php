@@ -6,6 +6,7 @@ namespace Hyde;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\FileCollection;
+use Hyde\Foundation\Filesystem;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PageCollection;
 use Hyde\Foundation\RouteCollection;
@@ -48,6 +49,7 @@ use Illuminate\Support\HtmlString;
  * @method static RouteCollection routes()
  * @method static Route|null currentRoute()
  * @method static HydeKernel getInstance()
+ * @method static Filesystem filesystem()
  * @method static bool hasFeature(string $feature)
  * @method static bool hasSiteUrl()
  * @method static bool copy(string $from, string $to)
