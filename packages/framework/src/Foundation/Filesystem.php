@@ -152,12 +152,12 @@ class Filesystem
     public function sitePath(string $path = ''): string
     {
         if (empty($path)) {
-            return Hyde::path(Site::$outputPath);
+            return $this->path(Site::$outputPath);
         }
 
         $path = unslash($path);
 
-        return Hyde::path(self::implode(Site::$outputPath, $path));
+        return $this->path(self::implode(Site::$outputPath, $path));
     }
 
     /**
