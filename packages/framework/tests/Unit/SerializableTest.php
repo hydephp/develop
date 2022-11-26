@@ -25,13 +25,8 @@ class SerializableTest extends TestCase
             }
         };
 
-        $this->assertSame([
-            'foo' => 'bar',
-        ], $class->toArray());
-
-        $this->assertSame([
-            'foo' => 'bar',
-        ], $class->jsonSerialize());
+        $this->assertSame(['foo' => 'bar'], $class->toArray());
+        $this->assertSame(['foo' => 'bar'], $class->jsonSerialize());
 
         $this->assertSame('{"foo":"bar"}', json_encode($class));
     }
