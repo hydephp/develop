@@ -86,205 +86,205 @@ class Filesystem implements FilesystemContract
     /** @inheritDoc */
     public static function prepend(string $path, string $data): int
     {
-        // TODO: Implement prepend() method.
+        return self::filesystem()->prepend(Hyde::path($path), $data);
     }
 
     /** @inheritDoc */
     public static function append(string $path, string $data): int
     {
-        // TODO: Implement append() method.
+        return self::filesystem()->append(Hyde::path($path), $data);
     }
 
     /** @inheritDoc */
     public static function chmod(string $path, int $mode = null): mixed
     {
-        // TODO: Implement chmod() method.
+        return self::filesystem()->chmod(Hyde::path($path), $mode);
     }
 
     /** @inheritDoc */
     public static function delete(array|string $paths): bool
     {
-        // TODO: Implement delete() method.
+        return self::filesystem()->delete(Hyde::path($paths));
     }
 
     /** @inheritDoc */
     public static function move(string $path, string $target): bool
     {
-        // TODO: Implement move() method.
+        return self::filesystem()->move(Hyde::path($path), Hyde::path($target));
     }
 
     /** @inheritDoc */
     public static function copy(string $path, string $target): bool
     {
-        // TODO: Implement copy() method.
+        return self::filesystem()->copy(Hyde::path($path), Hyde::path($target));
     }
 
     /** @inheritDoc */
     public static function link(string $target, string $link): void
     {
-        // TODO: Implement link() method.
+        self::filesystem()->link(Hyde::path($target), Hyde::path($link));
     }
 
     /** @inheritDoc */
     public static function relativeLink(string $target, string $link): void
     {
-        // TODO: Implement relativeLink() method.
+        self::filesystem()->relativeLink(Hyde::path($target), Hyde::path($link));
     }
 
     /** @inheritDoc */
     public static function name(string $path): string
     {
-        // TODO: Implement name() method.
+        return self::filesystem()->name(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function basename(string $path): string
     {
-        // TODO: Implement basename() method.
+        return self::filesystem()->basename(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function dirname(string $path): string
     {
-        // TODO: Implement dirname() method.
+        return self::filesystem()->dirname(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function extension(string $path): string
     {
-        // TODO: Implement extension() method.
+        return self::filesystem()->extension(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function guessExtension(string $path): ?string
     {
-        // TODO: Implement guessExtension() method.
+        return self::filesystem()->guessExtension(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function type(string $path): string
     {
-        // TODO: Implement type() method.
+        return self::filesystem()->type(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function mimeType(string $path): bool|string
     {
-        // TODO: Implement mimeType() method.
+        return self::filesystem()->mimeType(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function size(string $path): int
     {
-        // TODO: Implement size() method.
+        return self::filesystem()->size(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function lastModified(string $path): int
     {
-        // TODO: Implement lastModified() method.
+        return self::filesystem()->lastModified(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function isDirectory(string $directory): bool
     {
-        // TODO: Implement isDirectory() method.
+        return self::filesystem()->isDirectory(Hyde::path($directory));
     }
 
     /** @inheritDoc */
     public static function isEmptyDirectory(string $directory, bool $ignoreDotFiles = false): bool
     {
-        // TODO: Implement isEmptyDirectory() method.
+        return self::filesystem()->isEmptyDirectory(Hyde::path($directory), $ignoreDotFiles);
     }
 
     /** @inheritDoc */
     public static function isReadable(string $path): bool
     {
-        // TODO: Implement isReadable() method.
+        return self::filesystem()->isReadable(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function isWritable(string $path): bool
     {
-        // TODO: Implement isWritable() method.
+        return self::filesystem()->isWritable(Hyde::path($path));
     }
 
     /** @inheritDoc */
     public static function hasSameHash(string $firstFile, string $secondFile): bool
     {
-        // TODO: Implement hasSameHash() method.
+        return self::filesystem()->hasSameHash(Hyde::path($firstFile), Hyde::path($secondFile));
     }
 
     /** @inheritDoc */
     public static function isFile(string $file): bool
     {
-        // TODO: Implement isFile() method.
+        return self::filesystem()->isFile(Hyde::path($file));
     }
 
     /** @inheritDoc */
     public static function glob(string $pattern, int $flags = 0): array
     {
-        // TODO: Implement glob() method.
+        return self::filesystem()->glob(Hyde::path($pattern), $flags);
     }
 
     /** @inheritDoc */
     public static function files(string $directory, bool $hidden = false): array
     {
-        // TODO: Implement files() method.
+        return self::filesystem()->files(Hyde::path($directory), $hidden);
     }
 
     /** @inheritDoc */
     public static function allFiles(string $directory, bool $hidden = false): array
     {
-        // TODO: Implement allFiles() method.
+        return self::filesystem()->allFiles(Hyde::path($directory), $hidden);
     }
 
     /** @inheritDoc*/
     public static function directories(string $directory): array
     {
-        // TODO: Implement directories() method.
+        return self::filesystem()->directories(Hyde::path($directory));
     }
 
     /** @inheritDoc */
     public static function ensureDirectoryExists(string $path, int $mode = 0755, bool $recursive = true): void
     {
-        // TODO: Implement ensureDirectoryExists() method.
+        self::filesystem()->ensureDirectoryExists(Hyde::path($path), $mode, $recursive);
     }
 
     /** @inheritDoc */
     public static function makeDirectory(string $path, int $mode = 0755, bool $recursive = false, bool $force = false): bool
     {
-        // TODO: Implement makeDirectory() method.
+        return self::filesystem()->makeDirectory(Hyde::path($path), $mode, $recursive, $force);
     }
 
     /** @inheritDoc */
     public static function moveDirectory(string $from, string $to, bool $overwrite = false): bool
     {
-        // TODO: Implement moveDirectory() method.
+        return self::filesystem()->moveDirectory(Hyde::path($from), Hyde::path($to), $overwrite);
     }
 
     /** @inheritDoc */
     public static function copyDirectory(string $directory, string $destination, ?int $options = null): bool
     {
-        // TODO: Implement copyDirectory() method.
+        return self::filesystem()->copyDirectory(Hyde::path($directory), Hyde::path($destination), $options);
     }
 
     /** @inheritDoc */
     public static function deleteDirectory(string $directory, bool $preserve = false): bool
     {
-        // TODO: Implement deleteDirectory() method.
+        return self::filesystem()->deleteDirectory(Hyde::path($directory), $preserve);
     }
 
     /** @inheritDoc */
     public static function deleteDirectories(string $directory): bool
     {
-        // TODO: Implement deleteDirectories() method.
+        return self::filesystem()->deleteDirectories(Hyde::path($directory));
     }
 
     /** @inheritDoc */
     public static function cleanDirectory(string $directory): bool
     {
-        // TODO: Implement cleanDirectory() method.
+        return self::filesystem()->cleanDirectory(Hyde::path($directory));
     }
 
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem
