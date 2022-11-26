@@ -44,6 +44,22 @@ class FilesystemFacadeTest extends TestCase
         );
     }
 
+    public function testTouch()
+    {
+        Filesystem::touch('foo');
+
+        $this->assertFileExists(Hyde::path('foo'));
+        unlink(Hyde::path('foo'));
+    }
+
+    public function testUnlink()
+    {
+        touch(Hyde::path('foo'));
+        Filesystem::unlink('foo');
+
+        $this->assertFileDoesNotExist(Hyde::path('foo'));
+    }
+
     public function testExists()
     {
         $this->createExpectation('exists', true, Hyde::path('path'));

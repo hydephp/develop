@@ -58,6 +58,28 @@ class Filesystem implements FilesystemContract
             ->map(fn (string $path): string => self::relativePath($path));
     }
 
+    /**
+     * Touch one or more files in the project's directory.
+     *
+     * @param string|array $path
+     * @return bool
+     */
+    public static function touch(string|array $path): bool
+    {
+        return Hyde::touch($path);
+    }
+
+    /**
+     * Unlink one or more files in the project's directory.
+     *
+     * @param string|array $path
+     * @return bool
+     */
+    public static function unlink(string|array $path): bool
+    {
+        return Hyde::unlink($path);
+    }
+
     /** @inheritDoc */
     public static function exists(string $path): bool
     {
