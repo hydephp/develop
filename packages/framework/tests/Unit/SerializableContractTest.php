@@ -14,3 +14,8 @@ class SerializableContractTest extends TestCase
 {
     //
 }
+
+class SerializableContractTestClass implements SerializableContract
+{
+    //
+}
