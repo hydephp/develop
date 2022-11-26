@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Support\Concerns\Serializable;
-use Hyde\Support\Contracts\SerializableContract;
 use function dirname;
 use Exception;
 use function file_get_contents;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function json_decode;
