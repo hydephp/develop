@@ -52,6 +52,6 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
         $type->save($this->outputPath);
 
-        // TODO: Generate the detail and list templates?
+        // TODO: Generate the detail and list templates
     }
 }
