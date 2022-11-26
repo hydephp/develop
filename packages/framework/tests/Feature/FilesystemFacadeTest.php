@@ -16,14 +16,14 @@ class FilesystemFacadeTest extends TestCase
 {
     public function testExists()
     {
-        $this->createExpectation('exists', Hyde::path('foo'), true);
+        $this->createExpectation('exists', true, Hyde::path('foo'));
 
         Filesystem::exists('foo');
     }
 
     public function testMissing()
     {
-        $this->createExpectation('missing', Hyde::path('foo'), true);
+        $this->createExpectation('missing', true, Hyde::path('foo'));
 
         Filesystem::missing('foo');
     }
@@ -243,10 +243,10 @@ class FilesystemFacadeTest extends TestCase
         //
     }
 
-    protected function createExpectation(string $method, string $path, mixed $returns): void
+    protected function createExpectation(string $method, mixed $returns, ...$args): void
     {
         File::shouldReceive($method)
-            ->withArgs([$path])
+            ->withArgs($args)
             ->once()
             ->andReturn($returns);
     }
