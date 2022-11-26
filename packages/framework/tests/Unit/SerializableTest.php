@@ -38,7 +38,7 @@ class SerializableTest extends TestCase
 
     public function test_to_json()
     {
-        $class = new class implements JsonSerializable
+        $class = new class
         {
             use Serializable;
 
