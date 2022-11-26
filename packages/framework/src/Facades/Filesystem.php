@@ -6,6 +6,7 @@ namespace Hyde\Facades;
 
 use Hyde\Hyde;
 use Hyde\Support\Contracts\FilesystemContract;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -37,6 +38,21 @@ class Filesystem implements FilesystemContract
     public static function relativePath(string $path): string
     {
         return Hyde::pathToRelative($path);
+    }
+
+    /**
+     * A smarter glob function that will run the specified glob pattern a bit more intelligently.
+     * While this method will use the absolute path when interacting with the filesystem,
+     * the returned collection will only contain relative paths.
+     *
+     * @param string $pattern
+     * @param int $flags
+     * @return \Illuminate\Support\Collection<string>
+     */
+    public static function smartGlob(string $pattern, int $flags = 0): Collection
+    {
+        return collect(self::glob($pattern, $flags))
+            ->map(fn (string $path): string => self::relativePath($path));
     }
 
     /** @inheritDoc */

@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\LazyCollection;
 
@@ -27,6 +28,20 @@ class FilesystemFacadeTest extends TestCase
         $this->assertSame('', Filesystem::relativePath(Hyde::path()));
         $this->assertSame('foo', Filesystem::relativePath(Hyde::path('foo')));
         $this->assertSame('foo', Filesystem::relativePath('foo'));
+    }
+
+    public function testSmartGlob()
+    {
+        $this->createExpectation('glob', [
+            Hyde::path('foo'),
+            Hyde::path('bar'),
+            Hyde::path('baz'),
+        ], Hyde::path('pattern/*.md'), 0);
+
+        $this->assertEquals(
+            Collection::make(['foo', 'bar', 'baz']),
+            Filesystem::smartGlob('pattern/*.md')
+        );
     }
 
     public function testExists()
