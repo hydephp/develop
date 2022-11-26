@@ -67,8 +67,7 @@ class Filesystem implements FilesystemContract
      */
     public static function smartGlob(string $pattern, int $flags = 0): Collection
     {
-        return collect(self::glob($pattern, $flags))
-            ->map(fn (string $path): string => self::relativePath($path));
+        return self::kernel()->filesystem()->smartGlob($pattern, $flags);
     }
 
     /**

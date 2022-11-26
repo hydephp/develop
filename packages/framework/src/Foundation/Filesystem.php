@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use Illuminate\Support\Collection;
+use function collect;
 use function copy;
 use Hyde\Facades\Site;
 use Hyde\Framework\Services\DiscoveryService;
@@ -182,6 +184,12 @@ class Filesystem
     public function getDocumentationPagePath(string $path = ''): string
     {
         return $this->getModelSourcePath(DocumentationPage::class, $path);
+    }
+
+    public function smartGlob(string $pattern, int $flags = 0): Collection
+    {
+        return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
+            ->map(fn (string $path): string => $this->pathToRelative($path));
     }
 
     /**
