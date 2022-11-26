@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
+use Hyde\Foundation\Filesystem;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -151,6 +152,11 @@ class HydeKernelTest extends TestCase
         Config::set('site.pretty_urls', true);
         $this->assertEquals('https://example.com/foo', Hyde::url('foo.html'));
         $this->assertEquals('https://example.com', Hyde::url('index.html'));
+    }
+
+    public function test_filesystem_helper_returns_the_kernel_filesystem_instance()
+    {
+        $this->assertInstanceOf(Filesystem::class, Hyde::filesystem());
     }
 
     public function test_path_returns_qualified_path_for_given_path()
