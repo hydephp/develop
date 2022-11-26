@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use function copy;
 use Hyde\Facades\Site;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
@@ -11,6 +12,11 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use function is_string;
+use function str_replace;
+use function touch;
+use function unlink;
+use function unslash;
 
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
@@ -52,7 +58,39 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->getBasePath().DIRECTORY_SEPARATOR.$path;
+        return $this->implode($this->getBasePath(), $path);
+    }
+
+    /**
+     * Get an absolute file path from a supplied relative path.
+     */
+    public function pathToAbsolute(string $path): string
+    {
+        return $this->path($path);
+    }
+
+    /**
+     * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
+     */
+    public function pathToRelative(string $path): string
+    {
+        return str_starts_with($path, $this->path())
+            ? unslash(str_replace($this->path(), '', $path))
+            : $path;
+    }
+
+    /**
+     * Get the absolute path to the compiled site directory, or a file within it.
+     */
+    public function sitePath(string $path = ''): string
+    {
+        if (empty($path)) {
+            return Hyde::path(Site::$outputPath);
+        }
+
+        $path = unslash($path);
+
+        return Hyde::path(Site::$outputPath.DIRECTORY_SEPARATOR.$path);
     }
 
     /**
@@ -123,7 +161,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->path(DiscoveryService::getModelSourceDirectory($model).DIRECTORY_SEPARATOR.$path);
+        return $this->path($this->implode(DiscoveryService::getModelSourceDirectory($model), $path));
     }
 
     public function getBladePagePath(string $path = ''): string
@@ -147,36 +185,10 @@ class Filesystem
     }
 
     /**
-     * Get the absolute path to the compiled site directory, or a file within it.
+     * Implode path components into a string with directory separators.
      */
-    public function sitePath(string $path = ''): string
+    public static function implode(string $base, string ...$paths): string
     {
-        if (empty($path)) {
-            return Hyde::path(Site::$outputPath);
-        }
-
-        $path = unslash($path);
-
-        return Hyde::path(Site::$outputPath.DIRECTORY_SEPARATOR.$path);
-    }
-
-    /**
-     * Get an absolute file path from a supplied relative path.
-     */
-    public function pathToAbsolute(string $path): string
-    {
-        return $this->path($path);
-    }
-
-    /**
-     * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
-     */
-    public function pathToRelative(string $path): string
-    {
-        return str_starts_with($path, $this->path()) ? unslash(str_replace(
-            $this->path(),
-            '',
-            $path
-        )) : $path;
+        return implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths));
     }
 }
