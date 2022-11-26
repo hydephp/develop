@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Foundation\HydeKernel;
 use function array_map;
 use function collect;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Contracts\FilesystemContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
