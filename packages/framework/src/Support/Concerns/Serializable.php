@@ -9,7 +9,7 @@ namespace Hyde\Support\Concerns;
  *
  * @see \JsonSerializable
  * @see \Illuminate\Contracts\Support\Arrayable
- * @see \Hyde\Framework\Testing\Unit\JsonSerializesArrayableTest
+ * @see \Hyde\Framework\Testing\Unit\Serializable
  */
 trait Serializable
 {

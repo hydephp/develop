@@ -10,7 +10,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Support\Concerns\Serializable
  */
-class JsonSerializesArrayableTest extends TestCase
+class SerializableTest extends TestCase
 {
     public function test_json_serialize()
     {
