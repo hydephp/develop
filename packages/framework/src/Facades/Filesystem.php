@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Support\Contracts\FilesystemContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use function collect;
 
 /**
  * Proxies the Laravel File facade with extra features and helpers tailored for HydePHP.
