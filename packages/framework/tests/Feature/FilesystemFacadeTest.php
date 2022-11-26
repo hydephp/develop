@@ -17,79 +17,79 @@ class FilesystemFacadeTest extends TestCase
 {
     public function testExists()
     {
-        $this->createExpectation('exists', true, Hyde::path('foo'));
+        $this->createExpectation('exists', true, Hyde::path('path'));
 
-        Filesystem::exists('foo');
+        Filesystem::exists('path');
     }
 
     public function testMissing()
     {
-        $this->createExpectation('missing', true, Hyde::path('foo'));
+        $this->createExpectation('missing', true, Hyde::path('path'));
 
-        Filesystem::missing('foo');
+        Filesystem::missing('path');
     }
 
     public function testGet()
     {
-        $this->createExpectation('get', 'bar', Hyde::path('foo'), false);
+        $this->createExpectation('get', 'string', Hyde::path('path'), false);
 
-        Filesystem::get('foo');
+        Filesystem::get('path');
     }
 
     public function testSharedGet()
     {
-        $this->createExpectation('sharedGet', 'bar', Hyde::path('foo'));
+        $this->createExpectation('sharedGet', 'string', Hyde::path('path'));
 
-        Filesystem::sharedGet('foo');
+        Filesystem::sharedGet('path');
     }
 
     public function testGetRequire()
     {
-        $this->createExpectation('getRequire', 'bar', Hyde::path('foo'), []);
+        $this->createExpectation('getRequire', 'string', Hyde::path('path'), []);
 
-        Filesystem::getRequire('foo');
+        Filesystem::getRequire('path');
     }
 
     public function testRequireOnce()
     {
-        $this->createExpectation('requireOnce', 'bar', Hyde::path('foo'), []);
+        $this->createExpectation('requireOnce', 'string', Hyde::path('path'), []);
 
-        Filesystem::requireOnce('foo');
+        Filesystem::requireOnce('path');
     }
 
     public function testLines()
     {
-        $this->createExpectation('lines', new LazyCollection(), Hyde::path('foo'));
+        $this->createExpectation('lines', new LazyCollection(), Hyde::path('path'));
 
-        Filesystem::lines('foo');
+        Filesystem::lines('path');
     }
 
     public function testHash()
     {
-        $this->createExpectation('hash', 'bar', Hyde::path('foo'), 'md5');
+        $this->createExpectation('hash', 'string', Hyde::path('path'), 'md5');
 
-        Filesystem::hash('foo');
+        Filesystem::hash('path');
     }
 
     public function testPut()
     {
-        $this->createExpectation('put', true, Hyde::path('foo'), 'bar', false);
+        $this->createExpectation('put', true, Hyde::path('path'), 'contents', false);
 
-        Filesystem::put('foo', 'bar');
+        Filesystem::put('path', 'contents');
     }
 
     public function testReplace()
     {
-        $this->createExpectation('replace', null, Hyde::path('foo'), 'bar');
+        $this->createExpectation('replace', null, Hyde::path('path'), 'content');
 
-        Filesystem::replace('foo', 'bar');
+        Filesystem::replace('path', 'content');
     }
 
     public function testReplaceInFile()
     {
-        $this->createExpectation('replaceInFile', null,'foo', 'bar', Hyde::path('baz'));
+        $this->createExpectation('replaceInFile', null,'search', 'replace', Hyde::path('path'));
 
-        Filesystem::replaceInFile('foo', 'bar', 'baz');
+        Filesystem::replaceInFile('search', 'replace', 'path');
     }
 
     public function testPrepend()
