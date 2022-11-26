@@ -284,4 +284,9 @@ class Filesystem implements FilesystemContract
     {
         // TODO: Implement cleanDirectory() method.
     }
+
+    protected static function filesystem(): \Illuminate\Filesystem\Filesystem
+    {
+        return File::getFacadeRoot();
+    }
 }
