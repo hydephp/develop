@@ -94,6 +94,19 @@ class Filesystem implements FilesystemContract
         return self::get($path, $lock);
     }
 
+    /**
+     * Write the contents of a file.
+     *
+     * @param  string  $path
+     * @param  string  $contents
+     * @param  bool  $lock
+     * @return int|bool
+     */
+    public static function putContents(string $path, string $contents, bool $lock = false): bool|int
+    {
+        return self::put($path, $contents, $lock);
+    }
+
     /** @inheritDoc */
     public static function exists(string $path): bool
     {
