@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use function copy;
 use Hyde\Facades\Site;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
@@ -11,7 +12,6 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use function copy;
 use function is_string;
 use function str_replace;
 use function touch;
