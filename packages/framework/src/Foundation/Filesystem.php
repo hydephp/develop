@@ -183,7 +183,7 @@ class Filesystem
     {
         return $this->getModelSourcePath(DocumentationPage::class, $path);
     }
-    
+
     /**
      * Implode path components into a string with directory separators.
      */
