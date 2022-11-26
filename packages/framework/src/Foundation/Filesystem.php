@@ -52,7 +52,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->getBasePath().DIRECTORY_SEPARATOR.$path;
+        return self::implode($this->getBasePath(), $path);
     }
 
     /**
@@ -123,7 +123,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return $this->path(DiscoveryService::getModelSourceDirectory($model).DIRECTORY_SEPARATOR.$path);
+        return $this->path(self::implode(DiscoveryService::getModelSourceDirectory($model), $path));
     }
 
     public function getBladePagePath(string $path = ''): string
@@ -157,7 +157,7 @@ class Filesystem
 
         $path = unslash($path);
 
-        return Hyde::path(Site::$outputPath.DIRECTORY_SEPARATOR.$path);
+        return Hyde::path(self::implode(Site::$outputPath, $path));
     }
 
     /**
