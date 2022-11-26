@@ -230,7 +230,7 @@ interface FilesystemContract
     public function guessExtension(string $path): ?string;
 
     /**
-     * Get the file type of a given file.
+     * Get the file type of the given file.
      *
      * @param string $path
      * @return string
@@ -330,7 +330,7 @@ interface FilesystemContract
     public function files(string $directory, bool $hidden = false): array;
 
     /**
-     * Get all of the files from the given directory (recursive).
+     * Get all the files from the given directory (recursive).
      *
      * @param string $directory
      * @param bool $hidden
@@ -339,7 +339,7 @@ interface FilesystemContract
     public function allFiles(string $directory, bool $hidden = false): array;
 
     /**
-     * Get all of the directories within a given directory.
+     * Get all the directories within a given directory.
      *
      * @param string $directory
      * @return array
@@ -399,7 +399,7 @@ interface FilesystemContract
     public function deleteDirectory(string $directory, bool $preserve = false): bool;
 
     /**
-     * Remove all of the directories within a given directory.
+     * Remove all the directories within a given directory.
      *
      * @param string $directory
      * @return bool
