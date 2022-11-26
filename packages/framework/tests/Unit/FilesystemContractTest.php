@@ -12,7 +12,7 @@ use Illuminate\Filesystem\Filesystem;
 use ReflectionClass;
 
 /**
- * @covers \Hyde\Support\Contracts\FilesystemContract
+ * @see \Hyde\Support\Contracts\FilesystemContract
  */
 class FilesystemContractTest extends TestCase
 {
