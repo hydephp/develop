@@ -38,17 +38,17 @@ class SerializableContractTest extends TestCase
 
 class SerializableContractTestClass implements SerializableContract
 {
-    public function toArray()
+    public function toArray(): array
     {
         return [];
     }
 
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return '';
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return [];
     }
