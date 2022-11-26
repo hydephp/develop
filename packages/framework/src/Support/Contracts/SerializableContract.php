@@ -33,6 +33,8 @@ interface SerializableContract extends Arrayable, Jsonable, JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON.
+     *
+     * @return array<TKey, TValue>
      */
     public function jsonSerialize(): array;
 }
