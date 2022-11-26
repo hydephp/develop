@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use function array_map;
 use function collect;
 use Hyde\Hyde;
 use Hyde\Support\Contracts\FilesystemContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use function is_array;
 
 /**
  * Proxies the Laravel File facade with extra features and helpers tailored for HydePHP.
