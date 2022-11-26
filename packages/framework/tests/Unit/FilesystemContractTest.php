@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use function array_diff;
+use function get_class_methods;
 use Hyde\Support\Contracts\FilesystemContract;
 use Hyde\Testing\TestCase;
 use Illuminate\Filesystem\Filesystem;
 use ReflectionClass;
-use function array_diff;
-use function get_class_methods;
 
 /**
  * @covers \Hyde\Support\Contracts\FilesystemContract
@@ -29,6 +29,7 @@ class FilesystemContractTest extends TestCase
         foreach ($reflectionClass->getTraits() as $trait) {
             $baseMethods = array_diff($baseMethods, $trait->getMethods());
         }
+
         return $baseMethods;
     }
 }
