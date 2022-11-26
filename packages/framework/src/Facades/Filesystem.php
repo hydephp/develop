@@ -27,7 +27,7 @@ class Filesystem implements FilesystemContract
         return Hyde::pathToRelative($path);
     }
 
-   /** @inheritDoc */
+    /** @inheritDoc */
     public static function exists(string $path): bool
     {
         return self::filesystem()->exists(self::absolutePath($path));
