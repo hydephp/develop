@@ -179,4 +179,16 @@ class Filesystem
             $path
         )) : $path;
     }
+
+    /**
+     * Implode path components into a string with directory separators.
+     *
+     * @param string $base
+     * @param string ...$paths
+     * @return string
+     */
+    public static function implode(string $base, string ...$paths): string
+    {
+        return implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths));
+    }
 }
