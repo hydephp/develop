@@ -173,10 +173,6 @@ class Filesystem
      */
     public function pathToRelative(string $path): string
     {
-        return str_starts_with($path, $this->path()) ? unslash(str_replace(
-            $this->path(),
-            '',
-            $path
-        )) : $path;
+        return str_starts_with($path, $this->path()) ? unslash(str_replace($this->path(), '', $path)) : $path;
     }
 }
