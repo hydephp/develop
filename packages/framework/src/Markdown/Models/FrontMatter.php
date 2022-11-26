@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Models;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use JsonSerializable;
@@ -27,7 +27,7 @@ use Stringable;
  */
 class FrontMatter implements Arrayable, Stringable, JsonSerializable
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     public array $data;
 

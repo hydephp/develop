@@ -11,7 +11,7 @@ namespace Hyde\Support\Concerns;
  * @see \Illuminate\Contracts\Support\Arrayable
  * @see \Hyde\Framework\Testing\Unit\JsonSerializesArrayableTest
  */
-trait JsonSerializesArrayable
+trait Serializable
 {
     /** @inheritDoc */
     public function jsonSerialize(): array

@@ -6,7 +6,7 @@ namespace Hyde\Framework\Factories\Concerns;
 
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
@@ -23,7 +23,7 @@ use JsonSerializable;
  */
 final class CoreDataObject implements Arrayable, JsonSerializable
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     public function __construct(
         public readonly FrontMatter $matter,

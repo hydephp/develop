@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\Serializable;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\Concerns\JsonSerializesArrayable
+ * @covers \Hyde\Support\Concerns\Serializable
  */
 class JsonSerializesArrayableTest extends TestCase
 {
@@ -16,7 +16,7 @@ class JsonSerializesArrayableTest extends TestCase
     {
         $class = new class implements \JsonSerializable
         {
-            use JsonSerializesArrayable;
+            use Serializable;
 
             public function toArray(): array
             {

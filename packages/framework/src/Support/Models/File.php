@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 use Stringable;
@@ -17,7 +17,7 @@ use Stringable;
  */
 class File implements Arrayable, JsonSerializable, Stringable
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     /**
      * @var string The path relative to the project root.

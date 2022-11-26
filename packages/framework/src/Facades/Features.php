@@ -8,7 +8,7 @@ use function count;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use JsonSerializable;
@@ -26,7 +26,7 @@ use function str_starts_with;
  */
 class Features implements Arrayable, JsonSerializable
 {
-    use JsonSerializesArrayable;
+    use Serializable;
     use MockableFeatures;
 
     /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
@@ -40,7 +40,7 @@ class HydeKernel implements Arrayable, JsonSerializable
     use Concerns\ManagesHydeKernel;
     use Concerns\ManagesViewData;
 
-    use JsonSerializesArrayable;
+    use Serializable;
     use Macroable;
 
     protected static HydeKernel $instance;

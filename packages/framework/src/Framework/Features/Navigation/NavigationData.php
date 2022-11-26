@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use ArrayObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
+use Hyde\Support\Concerns\Serializable;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
@@ -16,7 +16,7 @@ use JsonSerializable;
  */
 final class NavigationData extends ArrayObject implements NavigationSchema, Arrayable, JsonSerializable
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     public ?string $label = null;
     public ?string $group = null;
