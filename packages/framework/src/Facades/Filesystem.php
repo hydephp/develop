@@ -61,7 +61,7 @@ class Filesystem implements FilesystemContract
     /**
      * Touch one or more files in the project's directory.
      *
-     * @param string|array $path
+     * @param  string|array  $path
      * @return bool
      */
     public static function touch(string|array $path): bool
@@ -72,7 +72,7 @@ class Filesystem implements FilesystemContract
     /**
      * Unlink one or more files in the project's directory.
      *
-     * @param string|array $path
+     * @param  string|array  $path
      * @return bool
      */
     public static function unlink(string|array $path): bool
