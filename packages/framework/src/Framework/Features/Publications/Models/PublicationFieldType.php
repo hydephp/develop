@@ -74,6 +74,10 @@ class PublicationFieldType implements JsonSerializable, Arrayable
 
     protected function parseInt(int|string|null $min): ?int
     {
-        return $min === null ? null : (int) $min;
+        if ($min === null) {
+            return null;
+        }
+
+        return (int) $min;
     }
 }
