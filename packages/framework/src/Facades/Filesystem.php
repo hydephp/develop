@@ -66,7 +66,7 @@ class Filesystem implements FilesystemContract
      */
     public static function touch(string|array $path): bool
     {
-        return Hyde::touch($path);
+        return Hyde::filesystem()->touch($path);
     }
 
     /**
@@ -77,7 +77,7 @@ class Filesystem implements FilesystemContract
      */
     public static function unlink(string|array $path): bool
     {
-        return Hyde::unlink($path);
+        return Hyde::filesystem()->unlink($path);
     }
 
     /** @inheritDoc */
