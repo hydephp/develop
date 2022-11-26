@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Illuminate\Contracts\Support\Arrayable;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use JsonSerializable;
 use function strtolower;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypeTest
  */
-class PublicationFieldType implements JsonSerializable, Arrayable
+class PublicationFieldType implements SerializableContract
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     public final const TYPES = ['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'];
     public final const DEFAULT_RULES = [
