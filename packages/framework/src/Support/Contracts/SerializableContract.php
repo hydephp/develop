@@ -22,7 +22,7 @@ interface SerializableContract extends Arrayable, Jsonable, JsonSerializable
     public function toArray(): array;
 
     /**
-     * Convert the object to its JSON representation.
+     * Convert the instance to its JSON representation.
      *
      * @param  int  $options
      * @return string
@@ -30,11 +30,10 @@ interface SerializableContract extends Arrayable, Jsonable, JsonSerializable
     public function toJson($options = 0): string;
 
     /**
-     * Specify data which should be serialized to JSON
-     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * Specify data which should be serialized to JSON.
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
-     * @since 5.4
      */
     public function jsonSerialize(): mixed;
 }
