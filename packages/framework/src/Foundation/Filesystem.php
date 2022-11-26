@@ -56,6 +56,38 @@ class Filesystem
     }
 
     /**
+     * Get an absolute file path from a supplied relative path.
+     */
+    public function pathToAbsolute(string $path): string
+    {
+        return $this->path($path);
+    }
+
+    /**
+     * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
+     */
+    public function pathToRelative(string $path): string
+    {
+        return str_starts_with($path, $this->path())
+            ? unslash(str_replace($this->path(), '', $path))
+            : $path;
+    }
+
+    /**
+     * Get the absolute path to the compiled site directory, or a file within it.
+     */
+    public function sitePath(string $path = ''): string
+    {
+        if (empty($path)) {
+            return Hyde::path(Site::$outputPath);
+        }
+
+        $path = unslash($path);
+
+        return Hyde::path(Site::$outputPath.DIRECTORY_SEPARATOR.$path);
+    }
+
+    /**
      * Works similarly to the path() function, but returns a file in the Framework package.
      *
      * @param  string  $path
@@ -144,37 +176,5 @@ class Filesystem
     public function getDocumentationPagePath(string $path = ''): string
     {
         return $this->getModelSourcePath(DocumentationPage::class, $path);
-    }
-
-    /**
-     * Get the absolute path to the compiled site directory, or a file within it.
-     */
-    public function sitePath(string $path = ''): string
-    {
-        if (empty($path)) {
-            return Hyde::path(Site::$outputPath);
-        }
-
-        $path = unslash($path);
-
-        return Hyde::path(Site::$outputPath.DIRECTORY_SEPARATOR.$path);
-    }
-
-    /**
-     * Get an absolute file path from a supplied relative path.
-     */
-    public function pathToAbsolute(string $path): string
-    {
-        return $this->path($path);
-    }
-
-    /**
-     * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
-     */
-    public function pathToRelative(string $path): string
-    {
-        return str_starts_with($path, $this->path())
-            ? unslash(str_replace($this->path(), '', $path))
-            : $path;
     }
 }
