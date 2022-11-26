@@ -129,9 +129,9 @@ class FilesystemFacadeTest extends TestCase
 
     public function testDelete()
     {
-        $this->createExpectation('delete', true, Hyde::path('paths'));
+        $this->createExpectation('delete', true, Hyde::path('path'));
 
-        Filesystem::delete('paths');
+        Filesystem::delete('path');
     }
 
     public function testMove()
