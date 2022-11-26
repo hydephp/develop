@@ -60,6 +60,13 @@ class FilesystemFacadeTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('foo'));
     }
 
+    public function testGetContents()
+    {
+        $this->createExpectation('get', 'string', Hyde::path('path'), false);
+
+        Filesystem::getContents('path');
+    }
+
     public function testExists()
     {
         $this->createExpectation('exists', true, Hyde::path('path'));

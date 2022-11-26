@@ -80,6 +80,20 @@ class Filesystem implements FilesystemContract
         return Hyde::filesystem()->unlink($path);
     }
 
+    /**
+     * Get the contents of a file.
+     *
+     * @param  string  $path
+     * @param  bool  $lock
+     * @return string
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public static function getContents(string $path, bool $lock = false): string
+    {
+        return self::get($path, $lock);
+    }
+
     /** @inheritDoc */
     public static function exists(string $path): bool
     {
