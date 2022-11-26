@@ -8,8 +8,6 @@ use ArrayObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Illuminate\Contracts\Support\Arrayable;
-use JsonSerializable;
 
 /**
  * Object implementation for the NavigationSchema. It extends the ArrayObject class so

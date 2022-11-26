@@ -8,8 +8,6 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Illuminate\Contracts\Support\Arrayable;
-use JsonSerializable;
 
 /**
  * Experimental class to contain the core data for a page being constructed.
