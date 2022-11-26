@@ -7,8 +7,7 @@ namespace Hyde\Support\Concerns;
 /**
  * Automatically serializes an Arrayable interface when JSON is requested.
  *
- * @see \JsonSerializable
- * @see \Illuminate\Contracts\Support\Arrayable
+ * @see \Hyde\Support\Contracts\SerializableContract
  * @see \Hyde\Framework\Testing\Unit\Serializable
  */
 trait Serializable
