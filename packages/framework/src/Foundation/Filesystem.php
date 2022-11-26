@@ -11,6 +11,12 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use function copy;
+use function is_string;
+use function str_replace;
+use function touch;
+use function unlink;
+use function unslash;
 
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
