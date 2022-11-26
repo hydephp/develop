@@ -25,6 +25,16 @@ use function is_array;
 class Filesystem implements FilesystemContract
 {
     /**
+     * Get the base path of the HydePHP project.
+     *
+     * @return string
+     */
+    public static function basePath(): string
+    {
+        return Hyde::path();
+    }
+
+    /**
      * Format the given project path to be absolute. Already absolute paths are normalized.
      *
      * @param  string  $path
