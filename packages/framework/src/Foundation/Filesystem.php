@@ -185,6 +185,6 @@ class Filesystem
      */
     public static function implode(string $base, string ...$paths): string
     {
-        return implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths));
+        return unslash(implode(DIRECTORY_SEPARATOR, array_merge([$base], $paths)));
     }
 }
