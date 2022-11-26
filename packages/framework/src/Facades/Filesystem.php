@@ -30,7 +30,7 @@ class Filesystem implements FilesystemContract
     }
 
     /**
-     * Remove the absolute path from the given project path so it becomes relative.
+     * Remove the absolute path from the given project path so that it becomes relative.
      *
      * @param  string  $path
      * @return string
