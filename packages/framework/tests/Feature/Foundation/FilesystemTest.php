@@ -318,7 +318,7 @@ class FilesystemTest extends TestCase
     {
         $this->assertSame($this->systemPath('foo'), Filesystem::implode('foo'));
         $this->assertSame($this->systemPath('foo/bar'), Filesystem::implode('foo', 'bar'));
-        $this->assertSame($this->systemPath('foo/bar/baz'), Filesystem::implode('foo','bar', 'baz'));
+        $this->assertSame($this->systemPath('foo/bar/baz'), Filesystem::implode('foo', 'bar', 'baz'));
     }
 
     protected function systemPath(string $path): string
