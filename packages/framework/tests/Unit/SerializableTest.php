@@ -25,15 +25,15 @@ class SerializableTest extends TestCase
             }
         };
 
-        $this->assertEquals([
+        $this->assertSame([
             'foo' => 'bar',
         ], $class->toArray());
 
-        $this->assertEquals([
+        $this->assertSame([
             'foo' => 'bar',
         ], $class->jsonSerialize());
 
-        $this->assertEquals('{"foo":"bar"}', json_encode($class));
+        $this->assertSame('{"foo":"bar"}', json_encode($class));
     }
 
     public function test_to_json()
@@ -48,6 +48,6 @@ class SerializableTest extends TestCase
             }
         };
 
-        $this->assertEquals('{"foo":"bar"}', $class->toJson());
+        $this->assertSame('{"foo":"bar"}', $class->toJson());
     }
 }
