@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Foundation\HydeKernel;
 use function array_map;
 use function collect;
-use Hyde\Hyde;
 use Hyde\Support\Contracts\FilesystemContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -31,7 +31,7 @@ class Filesystem implements FilesystemContract
      */
     public static function basePath(): string
     {
-        return Hyde::path();
+        return self::kernel()->path();
     }
 
     /**
@@ -42,7 +42,7 @@ class Filesystem implements FilesystemContract
      */
     public static function absolutePath(string $path): string
     {
-        return Hyde::pathToAbsolute(self::relativePath($path));
+        return self::kernel()->pathToAbsolute(self::relativePath($path));
     }
 
     /**
@@ -53,7 +53,7 @@ class Filesystem implements FilesystemContract
      */
     public static function relativePath(string $path): string
     {
-        return Hyde::pathToRelative($path);
+        return self::kernel()->pathToRelative($path);
     }
 
     /**
@@ -79,7 +79,7 @@ class Filesystem implements FilesystemContract
      */
     public static function touch(string|array $path): bool
     {
-        return Hyde::filesystem()->touch($path);
+        return self::kernel()->filesystem()->touch($path);
     }
 
     /**
@@ -90,7 +90,7 @@ class Filesystem implements FilesystemContract
      */
     public static function unlink(string|array $path): bool
     {
-        return Hyde::filesystem()->unlink($path);
+        return self::kernel()->filesystem()->unlink($path);
     }
 
     /**
@@ -388,6 +388,11 @@ class Filesystem implements FilesystemContract
     public static function cleanDirectory(string $directory): bool
     {
         return self::filesystem()->cleanDirectory(self::absolutePath($directory));
+    }
+
+    protected static function kernel(): HydeKernel
+    {
+        return HydeKernel::getInstance();
     }
 
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem
