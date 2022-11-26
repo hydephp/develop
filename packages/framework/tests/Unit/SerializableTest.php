@@ -34,4 +34,19 @@ class SerializableTest extends TestCase
 
         $this->assertEquals('{"foo":"bar"}', json_encode($class));
     }
+
+    public function test_to_json()
+    {
+        $class = new class implements \JsonSerializable
+        {
+            use Serializable;
+
+            public function toArray(): array
+            {
+                return ['foo' => 'bar'];
+            }
+        };
+
+        $this->assertEquals('{"foo":"bar"}', $class->toJson());
+    }
 }
