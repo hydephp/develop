@@ -16,20 +16,14 @@ class FilesystemFacadeTest extends TestCase
 {
     public function testExists()
     {
-        File::shouldReceive('exists')
-            ->withArgs([Hyde::path('foo')])
-            ->once()
-            ->andReturn(true);
+        $this->createExpectation('exists', Hyde::path('foo'), true);
 
         Filesystem::exists('foo');
     }
 
     public function testMissing()
     {
-        File::shouldReceive('missing')
-            ->withArgs([Hyde::path('foo')])
-            ->once()
-            ->andReturn(true);
+        $this->createExpectation('missing', Hyde::path('foo'), true);
 
         Filesystem::missing('foo');
     }
@@ -247,5 +241,13 @@ class FilesystemFacadeTest extends TestCase
     public function testCleanDirectory()
     {
         //
+    }
+
+    protected function createExpectation(string $method, string $path, mixed $returns): void
+    {
+        File::shouldReceive($method)
+            ->withArgs([$path])
+            ->once()
+            ->andReturn($returns);
     }
 }
