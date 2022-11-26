@@ -94,16 +94,16 @@ class FilesystemFacadeTest extends TestCase
 
     public function testPrepend()
     {
-        $this->createExpectation('prepend', 10, Hyde::path('path'), 'content');
+        $this->createExpectation('prepend', 10, Hyde::path('path'), 'data');
 
-        Filesystem::prepend('path', 'content');
+        Filesystem::prepend('path', 'data');
     }
 
     public function testAppend()
     {
-        $this->createExpectation('append', 10, Hyde::path('path'), 'content');
+        $this->createExpectation('append', 10, Hyde::path('path'), 'data');
 
-        Filesystem::append('path', 'content');
+        Filesystem::append('path', 'data');
     }
 
     public function testChmod()
@@ -115,37 +115,37 @@ class FilesystemFacadeTest extends TestCase
 
     public function testDelete()
     {
-        $this->createExpectation('delete', true, Hyde::path('path'));
+        $this->createExpectation('delete', true, Hyde::path('paths'));
 
-        Filesystem::delete('path');
+        Filesystem::delete('paths');
     }
 
     public function testMove()
     {
-        $this->createExpectation('move', true, Hyde::path('path'), Hyde::path('newPath'));
+        $this->createExpectation('move', true, Hyde::path('path'), Hyde::path('target'));
 
-        Filesystem::move('path', 'newPath');
+        Filesystem::move('path', 'target');
     }
 
     public function testCopy()
     {
-        $this->createExpectation('copy', true, Hyde::path('path'), Hyde::path('newPath'));
+        $this->createExpectation('copy', true, Hyde::path('path'), Hyde::path('target'));
 
-        Filesystem::copy('path', 'newPath');
+        Filesystem::copy('path', 'target');
     }
 
     public function testLink()
     {
-        $this->createExpectation('link', true, Hyde::path('path'), Hyde::path('newPath'));
+        $this->createExpectation('link', true, Hyde::path('target'), Hyde::path('link'));
 
-        Filesystem::link('path', 'newPath');
+        Filesystem::link('target', 'link');
     }
 
     public function testRelativeLink()
     {
-        $this->createExpectation('relativeLink', true, Hyde::path('path'), Hyde::path('newPath'));
+        $this->createExpectation('relativeLink', true, Hyde::path('target'), Hyde::path('link'));
 
-        Filesystem::relativeLink('path', 'newPath');
+        Filesystem::relativeLink('target', 'link');
     }
 
     public function testName()
@@ -213,16 +213,16 @@ class FilesystemFacadeTest extends TestCase
 
     public function testIsDirectory()
     {
-        $this->createExpectation('isDirectory', true, Hyde::path('path'));
+        $this->createExpectation('isDirectory', true, Hyde::path('directory'));
 
-        Filesystem::isDirectory('path');
+        Filesystem::isDirectory('directory');
     }
 
     public function testIsEmptyDirectory()
     {
-        $this->createExpectation('isEmptyDirectory', true, Hyde::path('path'), false);
+        $this->createExpectation('isEmptyDirectory', true, Hyde::path('directory'), false);
 
-        Filesystem::isEmptyDirectory('path');
+        Filesystem::isEmptyDirectory('directory');
     }
 
     public function testIsReadable()
@@ -248,37 +248,37 @@ class FilesystemFacadeTest extends TestCase
 
     public function testIsFile()
     {
-        $this->createExpectation('isFile', true, Hyde::path('path'));
+        $this->createExpectation('isFile', true, Hyde::path('file'));
 
-        Filesystem::isFile('path');
+        Filesystem::isFile('file');
     }
 
     public function testGlob()
     {
-        $this->createExpectation('glob', [], Hyde::path('path'), 0);
+        $this->createExpectation('glob', [], Hyde::path('pattern'), 0);
 
-        Filesystem::glob('path');
+        Filesystem::glob('pattern');
     }
 
     public function testFiles()
     {
-        $this->createExpectation('files', [], Hyde::path('path'), false);
+        $this->createExpectation('files', [], Hyde::path('directory'), false);
 
-        Filesystem::files('path');
+        Filesystem::files('directory');
     }
 
     public function testAllFiles()
     {
-        $this->createExpectation('allFiles', [], Hyde::path('path'), false);
+        $this->createExpectation('allFiles', [], Hyde::path('directory'), false);
 
-        Filesystem::allFiles('path');
+        Filesystem::allFiles('directory');
     }
 
     public function testDirectories()
     {
-        $this->createExpectation('directories', [], Hyde::path('path'));
+        $this->createExpectation('directories', [], Hyde::path('directory'));
 
-        Filesystem::directories('path');
+        Filesystem::directories('directory');
     }
 
     public function testEnsureDirectoryExists()
@@ -297,37 +297,37 @@ class FilesystemFacadeTest extends TestCase
 
     public function testMoveDirectory()
     {
-        $this->createExpectation('moveDirectory', true, Hyde::path('path'), Hyde::path('newPath'), false);
+        $this->createExpectation('moveDirectory', true, Hyde::path('from'), Hyde::path('to'), false);
 
-        Filesystem::moveDirectory('path', 'newPath');
+        Filesystem::moveDirectory('from', 'to');
     }
 
     public function testCopyDirectory()
     {
-        $this->createExpectation('copyDirectory', true, Hyde::path('path'), Hyde::path('newPath'), false);
+        $this->createExpectation('copyDirectory', true, Hyde::path('directory'), Hyde::path('destination'), false);
 
-        Filesystem::copyDirectory('path', 'newPath');
+        Filesystem::copyDirectory('directory', 'destination');
     }
 
     public function testDeleteDirectory()
     {
-        $this->createExpectation('deleteDirectory', true, Hyde::path('path'), false);
+        $this->createExpectation('deleteDirectory', true, Hyde::path('directory'), false);
 
-        Filesystem::deleteDirectory('path');
+        Filesystem::deleteDirectory('directory');
     }
 
     public function testDeleteDirectories()
     {
-        $this->createExpectation('deleteDirectories', true, Hyde::path('path'));
+        $this->createExpectation('deleteDirectories', true, Hyde::path('directory'));
 
-        Filesystem::deleteDirectories('path');
+        Filesystem::deleteDirectories('directory');
     }
 
     public function testCleanDirectory()
     {
-        $this->createExpectation('cleanDirectory', true, Hyde::path('path'));
+        $this->createExpectation('cleanDirectory', true, Hyde::path('directory'));
 
-        Filesystem::cleanDirectory('path');
+        Filesystem::cleanDirectory('directory');
     }
 
     protected function createExpectation(string $method, mixed $returns, ...$args): void
