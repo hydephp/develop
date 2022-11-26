@@ -14,8 +14,15 @@ use JsonSerializable;
  * @template TKey of array-key
  * @template TValue
  */
-interface SerializableContract extends Arrayable, Jsonable, JsonSerializable
+interface SerializableContract extends JsonSerializable, Arrayable, Jsonable
 {
+    /**
+     * Specify data which should be serialized to JSON.
+     *
+     * @return array<TKey, TValue>
+     */
+    public function jsonSerialize(): array;
+
     /**
      * Get the instance as an array.
      *
@@ -30,11 +37,4 @@ interface SerializableContract extends Arrayable, Jsonable, JsonSerializable
      * @return string
      */
     public function toJson($options = 0): string;
-
-    /**
-     * Specify data which should be serialized to JSON.
-     *
-     * @return array<TKey, TValue>
-     */
-    public function jsonSerialize(): array;
 }

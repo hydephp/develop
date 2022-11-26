@@ -20,6 +20,11 @@ class SerializableContractTest extends TestCase
         $this->assertInstanceOf(SerializableContract::class, new SerializableContractTestClass());
     }
 
+    public function testInterfaceExtendsJsonSerializable()
+    {
+        $this->assertInstanceOf(JsonSerializable::class, new SerializableContractTestClass());
+    }
+
     public function testInterfaceExtendsArrayable()
     {
         $this->assertInstanceOf(Arrayable::class, new SerializableContractTestClass());
@@ -29,15 +34,15 @@ class SerializableContractTest extends TestCase
     {
         $this->assertInstanceOf(Jsonable::class, new SerializableContractTestClass());
     }
-
-    public function testInterfaceExtendsJsonSerializable()
-    {
-        $this->assertInstanceOf(JsonSerializable::class, new SerializableContractTestClass());
-    }
 }
 
 class SerializableContractTestClass implements SerializableContract
 {
+    public function jsonSerialize(): array
+    {
+        return [];
+    }
+
     public function toArray(): array
     {
         return [];
@@ -46,10 +51,5 @@ class SerializableContractTestClass implements SerializableContract
     public function toJson($options = 0): string
     {
         return '';
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [];
     }
 }
