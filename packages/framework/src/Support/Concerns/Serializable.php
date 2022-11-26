@@ -20,4 +20,10 @@ trait Serializable
     {
         return $this->toArray();
     }
+
+    /** @inheritDoc */
+    public function toJson($options = 0): string
+    {
+        return json_encode($this->jsonSerialize(), $options);
+    }
 }
