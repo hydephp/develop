@@ -7,9 +7,7 @@ namespace Hyde\Foundation;
 use Hyde\Facades\Features;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
-use JsonSerializable;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
