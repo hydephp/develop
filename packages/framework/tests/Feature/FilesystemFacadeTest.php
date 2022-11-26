@@ -73,7 +73,7 @@ class FilesystemFacadeTest extends TestCase
 
     public function testPut()
     {
-        $this->createExpectation('put', true, Hyde::path('path'), 'contents', false);
+        $this->createExpectation('put', 10, Hyde::path('path'), 'contents', false);
 
         Filesystem::put('path', 'contents');
     }
