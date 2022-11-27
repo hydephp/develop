@@ -15,10 +15,12 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
+require_once __DIR__.'/BaseHydePageUnitTestMethods.php';
+
 /**
  * @covers \Hyde\Pages\MarkdownPost
  */
-class MarkdownPostUnitTest extends TestCase
+class MarkdownPostUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 {
     public function testSourceDirectory()
     {
