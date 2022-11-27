@@ -54,8 +54,8 @@ This is a post stub used in the automated tests
     public function test_parsed_markdown_post_contains_valid_front_matter()
     {
         $post = MarkdownPost::parse('test-post');
-        $this->assertEquals('My New Post', $post->get('title'));
-        $this->assertEquals('Mr. Hyde', $post->get('author'));
-        $this->assertEquals('blog', $post->get('category'));
+        $this->assertEquals('My New Post', $post->data('title'));
+        $this->assertEquals('Mr. Hyde', $post->data('author'));
+        $this->assertEquals('blog', $post->data('category'));
     }
 }

@@ -20,7 +20,7 @@ class DocumentationSidebar extends NavigationMenu
     {
         Router::getRoutes(DocumentationPage::class)->each(function (Route $route) {
             $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
-                $item->label = $item->route->getPage()->get('navigation.label');
+                $item->label = $item->route->getPage()->data('navigation.label');
             }));
         });
 
@@ -48,7 +48,7 @@ class DocumentationSidebar extends NavigationMenu
 
     protected function getPriorityForRoute(Route $route): int
     {
-        return $route->getPage()->get('navigation.priority');
+        return $route->getPage()->data('navigation.priority');
     }
 
     protected function filterDocumentationPage(NavItem $item): bool
