@@ -112,6 +112,12 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
         $this->assertSame('foo', (new BladePage('foo'))->data('identifier'));
     }
 
+    public function testGet()
+    {
+        $this->file(BladePage::sourcePath('foo'));
+        $this->assertEquals(new BladePage('foo'), BladePage::get('foo'));
+    }
+
     public function testParse()
     {
         $this->assertInstanceOf(BladePage::class, (new BladePage('foo'))->parse('404'));
