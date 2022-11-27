@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Factories\Concerns\PageDataFactory;
+use Hyde\Framework\Factories\HydePageDataFactory;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 
 /**
@@ -15,6 +19,11 @@ use Hyde\Testing\TestCase;
  */
 abstract class BaseHydePageUnitTest extends TestCase
 {
+    protected function mockPageDataFactory(): PageDataFactory
+    {
+        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
+    }
+
     abstract public function testPath();
 
     abstract public function testGetBladeView();

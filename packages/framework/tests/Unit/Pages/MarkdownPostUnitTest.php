@@ -217,8 +217,4 @@ class MarkdownPostUnitTest extends BaseHydePageUnitTest
         $this->assertInstanceOf(FrontMatter::class, (new MarkdownPost('foo'))->matter());
     }
 
-    protected function mockPageDataFactory(): PageDataFactory
-    {
-        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
-    }
 }

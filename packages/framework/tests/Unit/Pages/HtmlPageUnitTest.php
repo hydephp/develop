@@ -219,8 +219,4 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         $this->assertInstanceOf(FrontMatter::class, (new HtmlPage('404'))->matter());
     }
 
-    protected function mockPageDataFactory(): PageDataFactory
-    {
-        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
-    }
 }

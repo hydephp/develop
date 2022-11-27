@@ -192,8 +192,4 @@ class DocumentationPageUnitTest extends BaseHydePageUnitTest
         $this->assertInstanceOf(FrontMatter::class, (new DocumentationPage('foo'))->matter());
     }
 
-    protected function mockPageDataFactory(): PageDataFactory
-    {
-        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
-    }
 }
