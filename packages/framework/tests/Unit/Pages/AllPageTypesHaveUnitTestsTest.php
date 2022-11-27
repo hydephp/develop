@@ -10,8 +10,9 @@ class AllPageTypesHaveUnitTestsTest extends TestCase
 {
     public function testAllPageTypesHaveUnitTests()
     {
-        $pages = glob(__DIR__ . '/../../../src/Pages/*Page.php');
+        $pages = glob(__DIR__ . '/../../../src/Pages/*.php');
         $this->assertNotEmpty($pages);
+        $this->assertCount(5, $pages);
 
         foreach ($pages as $page) {
             $page = basename($page, '.php');
