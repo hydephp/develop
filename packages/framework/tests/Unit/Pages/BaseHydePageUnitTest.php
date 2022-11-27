@@ -15,9 +15,9 @@ use Hyde\Testing\TestCase;
 abstract class BaseHydePageUnitTest extends TestCase
 {
     /**
-     * @var class-string<\Hyde\Pages\Concerns\HydePage>
+     * @var class-string<\Hyde\Pages\Concerns\HydePage>|HydePage
      */
-    protected static string $page = HydePage::class;
+    protected static string|HydePage $page = HydePage::class;
 
     public function testPath()
     {
