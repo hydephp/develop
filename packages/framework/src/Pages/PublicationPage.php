@@ -37,7 +37,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     {
         $this->type = $type;
 
-        parent::__construct(self::normaliseIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
+        parent::__construct(static::normaliseIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
     }
 
     public function compile(): string
