@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
@@ -171,7 +172,7 @@ class DocumentationPageTest extends TestCase
         $page = DocumentationPage::parse('foo');
         $this->assertNotNull($page->matter());
         $this->assertNotEmpty($page->matter());
-        $this->assertEquals($expected, $page->matter());
+        $this->assertEquals(new FrontMatter($expected), $page->matter());
     }
 
     public function test_page_can_be_hidden_from_sidebar_using_front_matter()
