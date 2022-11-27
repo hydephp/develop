@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use function deleteDirectory;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
@@ -12,9 +13,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
-use Hyde\Testing\TestCase;
-
-use function deleteDirectory;
 
 require_once __DIR__.'/BaseHydePageUnitTest.php';
 
@@ -127,7 +125,6 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertNull((new PublicationPage($this->pubType(), 'foo'))->navigationMenuGroup());
     }
-
 
     public function testGetBladeView()
     {
