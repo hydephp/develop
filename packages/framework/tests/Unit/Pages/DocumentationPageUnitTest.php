@@ -15,74 +15,47 @@ class DocumentationPageUnitTest extends TestCase
 {
     public function testSourceDirectory()
     {
-        $this->assertSame(
-            '_docs',
-            DocumentationPage::sourceDirectory()
-        );
+        $this->assertSame('_docs', DocumentationPage::sourceDirectory());
     }
 
     public function testOutputDirectory()
     {
-        $this->assertSame(
-            'docs',
-            DocumentationPage::outputDirectory()
-        );
+        $this->assertSame('docs', DocumentationPage::outputDirectory());
     }
 
     public function testFileExtension()
     {
-        $this->assertSame(
-            '.md',
-            DocumentationPage::fileExtension()
-        );
+        $this->assertSame('.md', DocumentationPage::fileExtension());
     }
 
     public function testSourcePath()
     {
-        $this->assertSame(
-            '_docs/hello-world.md',
-            DocumentationPage::sourcePath('hello-world')
-        );
+        $this->assertSame('_docs/hello-world.md', DocumentationPage::sourcePath('hello-world'));
     }
 
     public function testOutputPath()
     {
-        $this->assertSame(
-            'docs/hello-world.html',
-            DocumentationPage::outputPath('hello-world')
-        );
+        $this->assertSame('docs/hello-world.html', DocumentationPage::outputPath('hello-world'));
     }
 
     public function testPath()
     {
-        $this->assertSame(
-            Hyde::path('_docs/hello-world.md'),
-            DocumentationPage::path('hello-world.md')
-        );
+        $this->assertSame(Hyde::path('_docs/hello-world.md'), DocumentationPage::path('hello-world.md'));
     }
 
     public function testGetSourcePath()
     {
-        $this->assertSame(
-            '_docs/hello-world.md',
-            (new DocumentationPage('hello-world'))->getSourcePath()
-        );
+        $this->assertSame('_docs/hello-world.md', (new DocumentationPage('hello-world'))->getSourcePath());
     }
 
     public function testGetOutputPath()
     {
-        $this->assertSame(
-            'docs/hello-world.html',
-            (new DocumentationPage('hello-world'))->getOutputPath()
-        );
+        $this->assertSame('docs/hello-world.html', (new DocumentationPage('hello-world'))->getOutputPath());
     }
 
     public function testGetLink()
     {
-        $this->assertSame(
-            'docs/hello-world.html',
-            (new DocumentationPage('hello-world'))->getLink()
-        );
+        $this->assertSame('docs/hello-world.html', (new DocumentationPage('hello-world'))->getLink());
     }
 
     public function testMake()
@@ -92,10 +65,7 @@ class DocumentationPageUnitTest extends TestCase
 
     public function testMakeWithData()
     {
-        $this->assertEquals(
-            DocumentationPage::make('foo', ['foo' => 'bar']),
-            new DocumentationPage('foo', ['foo' => 'bar'])
-        );
+        $this->assertEquals(DocumentationPage::make('foo', ['foo' => 'bar']), new DocumentationPage('foo', ['foo' => 'bar']));
     }
 
     public function testShowInNavigation()
