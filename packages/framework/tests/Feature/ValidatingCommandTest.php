@@ -124,6 +124,31 @@ class ValidatingCommandTest extends TestCase
 
         $this->assertSame(1, $code);
     }
+
+    public function testSafeHandle()
+    {
+        $command = new SafeValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $command->setOutput($output);
+
+        $code = $command->handle();
+
+        $this->assertSame(0, $code);
+    }
+
+    public function testSafeHandleException()
+    {
+        $command = new SafeThrowingValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<error>Error: This is a test at '.__FILE__.':186</error>';
+        });
+        $command->setOutput($output);
+
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
 }
 
 class ValidationTestCommand extends ValidatingCommand
@@ -146,5 +171,18 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
         } catch (RuntimeException $exception) {
             return $this->handleException($exception, $file, $line);
         }
+    }
+}
+
+class SafeValidatingTestCommand extends ValidatingCommand
+{
+    //
+}
+
+class SafeThrowingValidatingTestCommand extends ValidatingCommand
+{
+    public function safeHandle(): int
+    {
+        throw new RuntimeException('This is a test');
     }
 }
