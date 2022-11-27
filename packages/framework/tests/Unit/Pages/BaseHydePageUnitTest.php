@@ -36,19 +36,22 @@ abstract class BaseHydePageUnitTest extends TestCase implements BaseHydePageUnit
         return app()->make(static::$page, $parameters);
     }
 
+    /** @see HydePage::Path */
     public function testPath()
     {
         $this->testMethod('path', Hyde::getBasePath() . DIRECTORY_SEPARATOR . static::$page::$sourceDirectory);
     }
 
+    /** @see HydePage::GetBladeView */
     public function testGetBladeView()
     {
-        $this->testMethod('getBladeView', 'foo');
+        $this->testMethod('getBladeView', static::$page::$template ?? '');
     }
 
+    /** @see HydePage::SourcePath */
     public function testSourcePath()
     {
-        $this->testMethod('sourcePath', 'foo');
+        $this->testMethod('sourcePath', static::$page::$sourceDirectory.'/foo'.static::$page::$fileExtension, [], ['foo']);
     }
 
     public function testFiles()
