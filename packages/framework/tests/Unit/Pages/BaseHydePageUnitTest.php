@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Exception;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
@@ -18,6 +19,23 @@ abstract class BaseHydePageUnitTest extends TestCase
      * @var class-string<\Hyde\Pages\Concerns\HydePage>|HydePage
      */
     protected static string|HydePage $page = HydePage::class;
+
+    protected array $expectations;
+
+    protected function expect(string $method): PendingExpectation
+    {
+        return new PendingExpectation($this, $method);
+    }
+
+    protected function getExpectationValue(string $method): mixed
+    {
+        return $this->expectations[$method] ?? throw new Exception("No expectation set for method '$method'");
+    }
+
+    public function addExpectation(string $method, mixed $value): void
+    {
+        $this->expectations[$method] = $value;
+    }
 
     public function testPath()
     {
@@ -167,5 +185,22 @@ abstract class BaseHydePageUnitTest extends TestCase
     public function testOutputPath()
     {
         //
+    }
+}
+
+class PendingExpectation
+{
+    protected BaseHydePageUnitTest $test;
+    protected string $property;
+
+    public function __construct(BaseHydePageUnitTest $test, string $property)
+    {
+        $this->test = $test;
+        $this->property = $property;
+    }
+
+    public function toReturn($expected): void
+    {
+        $this->test->addExpectation($this->property, $expected);
     }
 }
