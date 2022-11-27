@@ -80,6 +80,7 @@ abstract class HydePage implements PageSchema
      *
      * @param string $identifier
      * @return \Hyde\Pages\Concerns\HydePage
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
      */
     public static function get(string $identifier): HydePage
     {
