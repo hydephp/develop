@@ -119,7 +119,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
             }
         }
 
-        return $this->askWithValidation($field->name, $field->name, $fieldRules);
+        return $this->askWithValidation($field->name, $field->name, $fieldRules->toArray());
     }
 
     /**
