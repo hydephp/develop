@@ -60,7 +60,7 @@ class PublicationTypeTest extends TestCase
     public function test_get_identifier_with_no_directory()
     {
         $publicationType = new PublicationType(...$this->getTestData());
-        $this->assertSame('test', $publicationType->getIdentifier());
+        $this->assertSame('test-publication', $publicationType->getIdentifier());
     }
 
     public function test_can_save_to_json_file()
@@ -102,7 +102,7 @@ class PublicationTypeTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertInstanceOf(PublicationFieldType::class, $collection->first());
         $this->assertEquals(new Collection([
-            'test' => new PublicationFieldType('string', 'test', 0, 128),
+            'title' => new PublicationFieldType('string', 'title', 0, 128),
         ]), $collection);
     }
 
@@ -125,22 +125,24 @@ class PublicationTypeTest extends TestCase
     protected function getTestData(): array
     {
         return [
-            'name'           => 'test',
-            'canonicalField' => 'canonical',
-            'sortField'      => 'sort',
-            'sortDirection'  => 'asc',
-            'pageSize'       => 10,
+            'name'           => 'Test Publication',
+            'canonicalField' => 'title',
+            'sortField'      => '__createdAt',
+            'sortDirection'  => 'DESC',
+            'pageSize'       => 25,
             'prevNextLinks'  => true,
-            'detailTemplate' => 'detail',
-            'listTemplate'   => 'list',
-            'fields'         => [
+            'detailTemplate' => 'test-publication_detail',
+            'listTemplate'   => 'test-publication_list',
+            'fields'         =>
                 [
-                    'type' => 'string',
-                    'name' => 'test',
-                    'min' => 0,
-                    'max' => 128,
+                    0 =>
+                        [
+                            'name' => 'title',
+                            'min'  => '0',
+                            'max'  => '128',
+                            'type' => 'string',
+                        ],
                 ],
-            ],
         ];
     }
 
