@@ -18,7 +18,7 @@ class AllPageTypesHaveUnitTestsTest extends TestCase
             $page = basename($page, '.php');
             $test = __DIR__ . "/{$page}UnitTest.php";
 
-            $this->assertFileExists($test, "Missing unit test for {$page}");
+            $this->assertFileExists($test, "Missing unit test for '$page'");
         }
     }
 }
