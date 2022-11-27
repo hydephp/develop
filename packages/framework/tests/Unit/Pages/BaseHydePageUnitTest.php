@@ -28,9 +28,9 @@ abstract class BaseHydePageUnitTest extends TestCase implements BaseHydePageUnit
         );
     }
 
-    protected function page(): HydePage
+    protected function page(array $parameters = []): HydePage
     {
-        return app()->make(static::$page);
+        return app()->make(static::$page, $parameters);
     }
 }
 
