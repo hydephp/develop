@@ -182,14 +182,14 @@ class DocumentationPageUnitTest extends TestCase implements BaseHydePageUnitTest
 
     public function testCompile()
     {
-        $page = new DocumentationPage('404');
+        $page = new DocumentationPage('foo');
         Hyde::shareViewData($page);
         $this->assertIsString(DocumentationPage::class, $page->compile());
     }
 
     public function testMatter()
     {
-        $this->assertInstanceOf(FrontMatter::class, (new DocumentationPage('404'))->matter());
+        $this->assertInstanceOf(FrontMatter::class, (new DocumentationPage('foo'))->matter());
     }
 
     protected function mockPageDataFactory(): PageDataFactory

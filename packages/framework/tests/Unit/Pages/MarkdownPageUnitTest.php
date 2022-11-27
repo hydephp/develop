@@ -207,14 +207,14 @@ class MarkdownPageUnitTest extends TestCase implements BaseHydePageUnitTestMetho
 
     public function testCompile()
     {
-        $page = new MarkdownPage('404');
+        $page = new MarkdownPage('foo');
         Hyde::shareViewData($page);
         $this->assertIsString(MarkdownPage::class, $page->compile());
     }
 
     public function testMatter()
     {
-        $this->assertInstanceOf(FrontMatter::class, (new MarkdownPage('404'))->matter());
+        $this->assertInstanceOf(FrontMatter::class, (new MarkdownPage('foo'))->matter());
     }
 
     protected function mockPageDataFactory(): PageDataFactory
