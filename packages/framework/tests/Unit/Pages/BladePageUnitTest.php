@@ -117,4 +117,84 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
     {
         $this->assertNull((new BladePage('foo'))->navigationMenuGroup());
     }
+
+    public function testGetBladeView()
+    {
+        // TODO: Implement testGetBladeView() method.
+    }
+
+    public function testFiles()
+    {
+        // TODO: Implement testFiles() method.
+    }
+
+    public function testGet()
+    {
+        // TODO: Implement testGet() method.
+    }
+
+    public function testParse()
+    {
+        // TODO: Implement testParse() method.
+    }
+
+    public function testGetRouteKey()
+    {
+        // TODO: Implement testGetRouteKey() method.
+    }
+
+    public function testHtmlTitle()
+    {
+        // TODO: Implement testHtmlTitle() method.
+    }
+
+    public function testAll()
+    {
+        // TODO: Implement testAll() method.
+    }
+
+    public function testMetadata()
+    {
+        // TODO: Implement testMetadata() method.
+    }
+
+    public function test__construct()
+    {
+        // TODO: Implement test__construct() method.
+    }
+
+    public function testGetRoute()
+    {
+        // TODO: Implement testGetRoute() method.
+    }
+
+    public function testGetIdentifier()
+    {
+        // TODO: Implement testGetIdentifier() method.
+    }
+
+    public function testHas()
+    {
+        // TODO: Implement testHas() method.
+    }
+
+    public function testToCoreDataObject()
+    {
+        // TODO: Implement testToCoreDataObject() method.
+    }
+
+    public function testConstructFactoryData()
+    {
+        // TODO: Implement testConstructFactoryData() method.
+    }
+
+    public function testCompile()
+    {
+        // TODO: Implement testCompile() method.
+    }
+
+    public function testMatter()
+    {
+        // TODO: Implement testMatter() method.
+    }
 }
