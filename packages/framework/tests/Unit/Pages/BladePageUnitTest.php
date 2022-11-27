@@ -7,13 +7,13 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Factories\Concerns\PageDataFactory;
+use Hyde\Framework\Factories\HydePageDataFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\BladePage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-use Mockery\MockInterface;
 
 require_once __DIR__.'/BaseHydePageUnitTestMethods.php';
 
@@ -179,8 +179,8 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
         // $this->assertInstanceOf(FrontMatter::class, (new BladePage('404'))->matter());
     }
 
-    protected function mockPageDataFactory(): MockInterface|PageDataFactory
+    protected function mockPageDataFactory(): PageDataFactory
     {
-        return $this->mock(PageDataFactory::class)->shouldReceive('toArray')->andReturn([])->getMock();
+        return new HydePageDataFactory((new BladePage())->toCoreDataObject());
     }
 }
