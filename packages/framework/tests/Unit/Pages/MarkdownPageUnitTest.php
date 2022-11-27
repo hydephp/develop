@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Foundation\PageCollection;
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Testing\TestCase;
+use Hyde\Support\Models\Route;
+
+require_once __DIR__.'/BaseHydePageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\MarkdownPage
  */
-class MarkdownPageUnitTest extends TestCase
+class MarkdownPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()
     {
@@ -116,5 +122,95 @@ class MarkdownPageUnitTest extends TestCase
     public function testNavigationMenuGroup()
     {
         $this->assertNull((new MarkdownPage('foo'))->navigationMenuGroup());
+    }
+
+    public function testGetBladeView()
+    {
+        $this->assertSame('hyde::layouts/page', (new MarkdownPage('foo'))->getBladeView());
+    }
+
+    public function testFiles()
+    {
+        $this->assertSame([], MarkdownPage::files());
+    }
+
+    public function testData()
+    {
+        $this->assertSame('foo', (new MarkdownPage('foo'))->data('identifier'));
+    }
+
+    public function testGet()
+    {
+        $this->file(MarkdownPage::sourcePath('foo'));
+        $this->assertEquals(new MarkdownPage('foo'), MarkdownPage::get('foo'));
+    }
+
+    public function testParse()
+    {
+        $this->file(MarkdownPage::sourcePath('foo'));
+        $this->assertInstanceOf(MarkdownPage::class, MarkdownPage::parse('foo'));
+    }
+
+    public function testGetRouteKey()
+    {
+        $this->assertSame('foo', (new MarkdownPage('foo'))->getRouteKey());
+    }
+
+    public function testHtmlTitle()
+    {
+        $this->assertSame('HydePHP - Foo', (new MarkdownPage('foo'))->htmlTitle());
+    }
+
+    public function testAll()
+    {
+        $this->assertInstanceOf(PageCollection::class, MarkdownPage::all());
+    }
+
+    public function testMetadata()
+    {
+        $this->assertInstanceOf(PageMetadataBag::class, (new MarkdownPage())->metadata());
+    }
+
+    public function test__construct()
+    {
+        $this->assertInstanceOf(MarkdownPage::class, new MarkdownPage());
+    }
+
+    public function testGetRoute()
+    {
+        $this->assertInstanceOf(Route::class, (new MarkdownPage())->getRoute());
+    }
+
+    public function testGetIdentifier()
+    {
+        $this->assertSame('foo', (new MarkdownPage('foo'))->getIdentifier());
+    }
+
+    public function testHas()
+    {
+        $this->assertTrue((new MarkdownPage('foo'))->has('identifier'));
+    }
+
+    public function testToCoreDataObject()
+    {
+        $this->assertInstanceOf(CoreDataObject::class, (new MarkdownPage('foo'))->toCoreDataObject());
+    }
+
+    public function testConstructFactoryData()
+    {
+        (new MarkdownPage())->constructFactoryData($this->mockPageDataFactory());
+        $this->assertTrue(true);
+    }
+
+    public function testCompile()
+    {
+        $page = new MarkdownPage('foo');
+        Hyde::shareViewData($page);
+        $this->assertIsString(MarkdownPage::class, $page->compile());
+    }
+
+    public function testMatter()
+    {
+        $this->assertInstanceOf(FrontMatter::class, (new MarkdownPage('foo'))->matter());
     }
 }

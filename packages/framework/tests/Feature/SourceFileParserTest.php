@@ -85,13 +85,13 @@ class SourceFileParserTest extends TestCase
     {
         $this->file('_pages/foo.blade.php', "@php(\$foo = 'bar')\n");
         $page = BladePage::parse('foo');
-        $this->assertEquals('bar', $page->get('foo'));
+        $this->assertEquals('bar', $page->data('foo'));
     }
 
     public function test_blade_page_matter_is_used_for_the_page_title()
     {
         $this->file('_pages/foo.blade.php', "@php(\$title = 'Foo Bar')\n");
         $page = BladePage::parse('foo');
-        $this->assertEquals('Foo Bar', $page->get('title'));
+        $this->assertEquals('Foo Bar', $page->data('title'));
     }
 }

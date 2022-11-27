@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
@@ -30,6 +31,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Factories\FeaturedImageFactory
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
  * @covers \Hyde\Framework\Factories\BlogPostDataFactory
+ * @covers \Hyde\Framework\Concerns\InteractsWithFrontMatter
  */
 class HydePageTest extends TestCase
 {
@@ -205,6 +207,17 @@ class HydePageTest extends TestCase
     {
         $page = new MarkdownPage('foo');
         $this->assertEquals('foo', $page->getIdentifier());
+    }
+
+    public function test_static_get_method_returns_discovered_page()
+    {
+        $this->assertEquals(BladePage::parse('index'), BladePage::get('index'));
+    }
+
+    public function test_static_get_method_throws_exception_if_page_not_found()
+    {
+        $this->expectException(FileNotFoundException::class);
+        BladePage::get('foo');
     }
 
     public function test_parse_parses_supplied_slug_into_a_page_model()
@@ -885,19 +898,19 @@ class HydePageTest extends TestCase
     public function test_get_method_can_access_data_from_page()
     {
         $page = MarkdownPage::make('foo', ['foo' => 'bar']);
-        $this->assertEquals('bar', $page->get('foo'));
+        $this->assertEquals('bar', $page->data('foo'));
     }
 
     public function test_get_method_can_access_nested_data_from_page()
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
-        $this->assertEquals('baz', $page->get('foo')['bar']);
+        $this->assertEquals('baz', $page->data('foo')['bar']);
     }
 
     public function test_get_method_can_access_nested_data_from_page_with_dot_notation()
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
-        $this->assertEquals('baz', $page->get('foo.bar'));
+        $this->assertEquals('baz', $page->data('foo.bar'));
     }
 
     public function testGetLinkWithPrettyUrls()
