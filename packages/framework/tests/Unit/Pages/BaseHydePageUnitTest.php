@@ -41,7 +41,7 @@ abstract class BaseHydePageUnitTest extends TestCase
     {
         $this->assertSame(
             $this->getExpectationValue($method),
-            static::$page::$method(),
+            app(static::$page)->$method(),
         );
     }
 
