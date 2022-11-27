@@ -110,7 +110,10 @@ class HydePageTest extends TestCase
     public function testMake()
     {
         $this->assertEquals(TestPage::make(), new TestPage());
+    }
 
+    public function testMakeWithData()
+    {
         $this->assertEquals(
             TestPage::make('foo', ['foo' => 'bar']),
             new TestPage('foo', ['foo' => 'bar'])
