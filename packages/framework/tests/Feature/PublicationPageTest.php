@@ -95,7 +95,7 @@ class PublicationPageTest extends TestCase
         $this->createPublicationFiles();
         $type = PublicationType::fromFile('test-publication/schema.json');
 
-        $page1= new PublicationPage('foo', [], '', $type);
+        $page1 = new PublicationPage('foo', [], '', $type);
         $page2 = new PublicationPage('test-publication/foo', [], '', $type);
 
         $this->assertSame('test-publication/foo', $page1->getIdentifier());
