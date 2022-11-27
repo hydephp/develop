@@ -27,6 +27,11 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     public static string $outputDirectory = '';
     public static string $template = '__dynamic';
 
+    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Markdown $markdown = '', ?PublicationType $type = null): static
+    {
+        return new static($type, $identifier, $matter, $markdown);
+    }
+
     public function __construct(PublicationType $type, string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '')
     {
         $this->type = $type;
