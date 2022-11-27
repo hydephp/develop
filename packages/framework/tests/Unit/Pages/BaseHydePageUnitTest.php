@@ -47,6 +47,11 @@ abstract class BaseHydePageUnitTest extends TestCase
         //
     }
 
+    public function testGet()
+    {
+        //
+    }
+
     public function testOutputDirectory()
     {
         //
@@ -122,6 +127,21 @@ abstract class BaseHydePageUnitTest extends TestCase
         //
     }
 
+    public function testHas()
+    {
+        //
+    }
+
+    public function testToCoreDataObject()
+    {
+        //
+    }
+
+    public function testConstructFactoryData()
+    {
+        //
+    }
+
     public function testFileExtension()
     {
         //
@@ -133,6 +153,11 @@ abstract class BaseHydePageUnitTest extends TestCase
     }
 
     public function testCompile()
+    {
+        //
+    }
+
+    public function testMatter()
     {
         //
     }
