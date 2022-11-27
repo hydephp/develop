@@ -139,7 +139,7 @@ abstract class HydePage implements PageSchema
      */
     public static function sourcePath(string $identifier): string
     {
-        return static::sourceDirectory().'/'.unslash($identifier).static::fileExtension();
+        return unslash(static::sourceDirectory().'/'.unslash($identifier).static::fileExtension());
     }
 
     /**
