@@ -104,6 +104,15 @@ class PublicationPageTest extends TestCase
         $this->assertEquals($page1, $page2);
     }
 
+    public function test_identifier_normalizer_does_not_affect_directory_with_same_name_as_identifier()
+    {
+        $this->createPublicationFiles();
+        $type = PublicationType::fromFile('test-publication/schema.json');
+
+        $page = new PublicationPage('test-publication/test-publication', [], '', $type);
+        $this->assertSame('test-publication/test-publication', $page->getIdentifier());
+    }
+
     protected function createRealPublicationFiles(): void
     {
         file_put_contents(Hyde::path('test-publication/schema.json'), '{
