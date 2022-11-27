@@ -20,11 +20,11 @@ abstract class BaseHydePageUnitTest extends TestCase implements BaseHydePageUnit
      */
     protected static string|HydePage $page = HydePage::class;
 
-    protected function testMethod(string $method, mixed $returns): void
+    protected function testMethod(string $method, mixed $returns, array $constructorParameters = [], array $methodParameters = []): void
     {
         $this->assertSame(
             $returns,
-            $this->page()->$method(),
+            $this->page($constructorParameters)->$method(...$methodParameters),
         );
     }
 
