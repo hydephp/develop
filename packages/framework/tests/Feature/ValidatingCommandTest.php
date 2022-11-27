@@ -19,13 +19,7 @@ class ValidatingCommandTest extends TestCase
 {
     public function testSafeHandle()
     {
-        $command = new SafeValidatingTestCommand();
-        $output = Mockery::mock(OutputStyle::class);
-        $command->setOutput($output);
-
-        $code = $command->handle();
-
-        $this->assertSame(0, $code);
+        $this->assertSame(0, (new SafeValidatingTestCommand())->handle());
     }
 
     public function testSafeHandleException()
