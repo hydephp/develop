@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Testing\TestCase;
 
-class AllPageTypesHaveUnitTestsTest extends TestCase
+class TestAllPageTypesHaveUnitTestsTest extends TestCase
 {
     public function testAllPageTypesHaveUnitTests()
     {
