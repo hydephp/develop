@@ -45,13 +45,14 @@ class FrontMatter implements Stringable, SerializableContract
         return $this->get($key);
     }
 
+    /** @return mixed|static */
     public function get(string $key = null, mixed $default = null): mixed
     {
         if ($key) {
             return Arr::get($this->data, $key, $default);
         }
 
-        return $this->data;
+        return $this;
     }
 
     public function set(string $key, mixed $value): static
