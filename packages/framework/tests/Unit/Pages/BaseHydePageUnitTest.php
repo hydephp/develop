@@ -22,9 +22,9 @@ abstract class BaseHydePageUnitTest extends TestCase
 
     protected array $expectations;
 
-    protected function expect(string $method): PendingExpectation
+    public function addExpectation(string $method, mixed $value): void
     {
-        return new PendingExpectation($this, $method);
+        $this->expectations[$method] = $value;
     }
 
     protected function getExpectationValue(string $method): mixed
@@ -32,9 +32,9 @@ abstract class BaseHydePageUnitTest extends TestCase
         return $this->expectations[$method] ?? throw new Exception("No expectation set for method '$method'");
     }
 
-    public function addExpectation(string $method, mixed $value): void
+    protected function expect(string $method): PendingExpectation
     {
-        $this->expectations[$method] = $value;
+        return new PendingExpectation($this, $method);
     }
 
     public function testPath()
