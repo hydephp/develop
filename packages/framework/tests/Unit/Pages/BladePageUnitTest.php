@@ -120,7 +120,7 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     public function testParse()
     {
-        $this->assertInstanceOf(BladePage::class, (new BladePage('foo'))->parse('404'));
+        $this->assertInstanceOf(BladePage::class, BladePage::parse('404'));
     }
 
     public function testGetRouteKey()
