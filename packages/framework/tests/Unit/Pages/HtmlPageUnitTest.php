@@ -207,7 +207,9 @@ class HtmlPageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     public function testCompile()
     {
-        $page = new HtmlPage('404');
+        $this->file('_pages/foo.html');
+
+        $page = new HtmlPage('foo');
         Hyde::shareViewData($page);
         $this->assertIsString(HtmlPage::class, $page->compile());
     }
