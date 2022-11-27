@@ -122,7 +122,6 @@ Hello World!
 '
         );
 
-        // Temporary until we settle on where to store templates
         file_put_contents(Hyde::path('test-publication/test_detail.blade.php'), '{{ ($publication->markdown()->body()) }}');
     }
 
