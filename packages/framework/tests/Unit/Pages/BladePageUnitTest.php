@@ -203,7 +203,7 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
     {
         $this->assertInstanceOf(
             Route::class,
-            (new BladePage('foo'))->getRoute()
+            (new BladePage())->getRoute()
         );
     }
 
