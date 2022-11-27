@@ -24,8 +24,13 @@ abstract class BaseHydePageUnitTest extends TestCase implements BaseHydePageUnit
     {
         $this->assertSame(
             $returns,
-            app(static::$page)->$method(),
+            $this->page()->$method(),
         );
+    }
+
+    protected function page(): HydePage
+    {
+        return app(static::$page);
     }
 }
 
