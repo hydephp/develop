@@ -26,6 +26,9 @@ class SourceFileParser
     protected string $identifier;
     protected HydePage $page;
 
+    /**
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist.
+     */
     public function __construct(string $pageClass, string $identifier)
     {
         $this->validateExistence($pageClass, $identifier);

@@ -92,6 +92,7 @@ abstract class HydePage implements PageSchema
      *
      * @param  string  $identifier  The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist.
      */
     public static function parse(string $identifier): HydePage
     {
