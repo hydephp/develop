@@ -39,7 +39,10 @@ abstract class BaseHydePageUnitTest extends TestCase
 
     public function testPath()
     {
-        //
+        $this->assertSame(
+            $this->getExpectationValue('path'),
+            static::$page::path(),
+        );
     }
 
     public function testGetBladeView()
