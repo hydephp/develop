@@ -6,14 +6,11 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
-use Hyde\Framework\Factories\Concerns\PageDataFactory;
-use Hyde\Framework\Factories\HydePageDataFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\HtmlPage;
 use Hyde\Support\Models\Route;
-use Hyde\Testing\TestCase;
 
 require_once __DIR__.'/BaseHydePageUnitTest.php';
 
@@ -218,5 +215,4 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertInstanceOf(FrontMatter::class, (new HtmlPage('404'))->matter());
     }
-
 }
