@@ -88,7 +88,10 @@ class BladePageUnitTest extends TestCase
     public function testMake()
     {
         $this->assertEquals(BladePage::make(), new BladePage());
+    }
 
+    public function testMakeWithData()
+    {
         $this->assertEquals(
             BladePage::make('foo', ['foo' => 'bar']),
             new BladePage('foo', ['foo' => 'bar'])
