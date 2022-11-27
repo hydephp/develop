@@ -15,12 +15,12 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
-require_once __DIR__.'/BaseHydePageUnitTestMethods.php';
+require_once __DIR__.'/BaseHydePageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\HtmlPage
  */
-class HtmlPageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
+class HtmlPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()
     {
