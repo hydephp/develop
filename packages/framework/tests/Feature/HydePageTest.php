@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
@@ -206,6 +207,17 @@ class HydePageTest extends TestCase
     {
         $page = new MarkdownPage('foo');
         $this->assertEquals('foo', $page->getIdentifier());
+    }
+
+    public function test_static_get_method_returns_discovered_page()
+    {
+        $this->assertEquals(BladePage::parse('index'), BladePage::get('index'));
+    }
+
+    public function test_static_get_method_throws_exception_if_page_not_found()
+    {
+        $this->expectException(FileNotFoundException::class);
+        BladePage::get('foo');
     }
 
     public function test_parse_parses_supplied_slug_into_a_page_model()
