@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function copy;
+use function deleteDirectory;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -13,9 +15,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
-
-use function copy;
-use function deleteDirectory;
 
 /**
  * @covers \Hyde\Framework\Actions\SourceFileParser
