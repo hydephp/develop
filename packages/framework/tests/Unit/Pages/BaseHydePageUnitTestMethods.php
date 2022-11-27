@@ -18,7 +18,7 @@ interface BaseHydePageUnitTestMethods
 
     public function testGetOutputPath();
 
-    public function testGet();
+    public function testData();
 
     public function testOutputDirectory();
 
