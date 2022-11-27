@@ -117,4 +117,9 @@ class DocumentationPageUnitTest extends TestCase
     {
         $this->assertSame('other', (new DocumentationPage('foo'))->navigationMenuGroup());
     }
+
+    public function testNavigationMenuGroupWithData()
+    {
+        $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
+    }
 }
