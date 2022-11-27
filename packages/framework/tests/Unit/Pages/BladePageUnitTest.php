@@ -8,6 +8,8 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 
+require_once __DIR__.'/BaseHydePageUnitTestMethods.php';
+
 /**
  * @covers \Hyde\Pages\BladePage
  */
