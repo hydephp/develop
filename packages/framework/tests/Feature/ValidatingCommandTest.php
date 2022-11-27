@@ -39,7 +39,6 @@ class ValidatingCommandTest extends TestCase
     public function testAskWithValidationCapturesInput()
     {
         $command = new ValidationTestCommand();
-
         $output = Mockery::mock(OutputStyle::class);
 
         $output->shouldReceive('ask')->once()->withArgs(function (string $question) {
@@ -122,9 +121,11 @@ class ValidatingCommandTest extends TestCase
     {
         $command = new ThrowingValidatingTestCommand();
         $output = Mockery::mock(OutputStyle::class);
+
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
             return $message === '<error>Error: This is a test</error>';
         });
+
         $command->setOutput($output);
         $code = $command->handle();
 
@@ -135,9 +136,11 @@ class ValidatingCommandTest extends TestCase
     {
         $command = new ThrowingValidatingTestCommand();
         $output = Mockery::mock(OutputStyle::class);
+
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
             return $message === '<error>Error: This is a test at TestClass.php:10</error>';
         });
+
         $command->setOutput($output);
         $code = $command->handle('TestClass.php', 10);
 
