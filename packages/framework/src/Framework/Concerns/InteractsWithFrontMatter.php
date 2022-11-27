@@ -21,10 +21,7 @@ trait InteractsWithFrontMatter
      */
     public function get(string $key = null, mixed $default = null): mixed
     {
-        return Arr::get(array_filter(array_merge(
-            $this->matter->toArray(),
-            (array) $this,
-        )), $key, $default);
+        return $this->extracted($key, $default);
     }
 
     /**
@@ -43,5 +40,13 @@ trait InteractsWithFrontMatter
     public function has(string $key): bool
     {
         return ! blank($this->get($key));
+    }
+
+    protected function extracted(?string $key, mixed $default): mixed
+    {
+        return Arr::get(array_filter(array_merge(
+            $this->matter->toArray(),
+            (array)$this,
+        )), $key, $default);
     }
 }
