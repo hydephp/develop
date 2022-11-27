@@ -101,12 +101,12 @@ class PublicationPageUnitTest extends TestCase
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new PublicationPage($this->pubType(), ))->showInNavigation());
+        $this->assertTrue((new PublicationPage($this->pubType()))->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new PublicationPage($this->pubType(), ))->navigationMenuPriority());
+        $this->assertSame(999, (new PublicationPage($this->pubType()))->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
