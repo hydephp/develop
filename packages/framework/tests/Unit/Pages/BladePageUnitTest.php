@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Foundation\PageCollection;
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Factories\HydePageDataFactory;
+use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\BladePage;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 require_once __DIR__.'/BaseHydePageUnitTestMethods.php';
@@ -122,81 +128,126 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     public function testGetBladeView()
     {
-        // TODO: Implement testGetBladeView() method.
+        $this->assertSame(
+            'foo',
+            (new BladePage('foo'))->getBladeView()
+        );
     }
 
     public function testFiles()
     {
-        // TODO: Implement testFiles() method.
+        $this->assertSame(
+            ['404', 'index'],
+            BladePage::files()
+        );
     }
 
     public function testGet()
     {
-        // TODO: Implement testGet() method.
+        $this->assertEquals(
+            'foo',
+            (new BladePage('foo'))->get('identifier')
+        );
     }
 
     public function testParse()
     {
-        // TODO: Implement testParse() method.
+        $this->assertInstanceOf(
+            BladePage::class,
+            (new BladePage('foo'))->parse('404')
+        );
     }
 
     public function testGetRouteKey()
     {
-        // TODO: Implement testGetRouteKey() method.
+        $this->assertSame(
+            'foo',
+            (new BladePage('foo'))->getRouteKey()
+        );
     }
 
     public function testHtmlTitle()
     {
-        // TODO: Implement testHtmlTitle() method.
+        $this->assertSame(
+            'HydePHP - Foo',
+            (new BladePage('foo'))->htmlTitle()
+        );
     }
 
     public function testAll()
     {
-        // TODO: Implement testAll() method.
+        $this->assertInstanceOf(
+            PageCollection::class,
+            BladePage::all()
+        );
     }
 
     public function testMetadata()
     {
-        // TODO: Implement testMetadata() method.
+        $this->assertInstanceOf(
+            PageMetadataBag::class,
+            (new BladePage())->metadata()
+        );
     }
 
     public function test__construct()
     {
-        // TODO: Implement test__construct() method.
+        $this->assertInstanceOf(
+            BladePage::class,
+            new BladePage()
+        );
     }
 
     public function testGetRoute()
     {
-        // TODO: Implement testGetRoute() method.
+        $this->assertInstanceOf(
+            Route::class,
+            (new BladePage('foo'))->getRoute()
+        );
     }
 
     public function testGetIdentifier()
     {
-        // TODO: Implement testGetIdentifier() method.
+        $this->assertSame(
+            'foo',
+            (new BladePage('foo'))->getIdentifier()
+        );
     }
 
     public function testHas()
     {
-        // TODO: Implement testHas() method.
+        $this->assertTrue(
+            (new BladePage('foo'))->has('identifier')
+        );
     }
 
     public function testToCoreDataObject()
     {
-        // TODO: Implement testToCoreDataObject() method.
+        $this->assertInstanceOf(
+            CoreDataObject::class,
+            (new BladePage('foo'))->toCoreDataObject()
+        );
     }
 
     public function testConstructFactoryData()
     {
-        // TODO: Implement testConstructFactoryData() method.
+        (new BladePage())->constructFactoryData(new HydePageDataFactory((new BladePage())->toCoreDataObject()));
+        $this->assertTrue(true);
     }
 
     public function testCompile()
     {
-        // TODO: Implement testCompile() method.
+        $this->assertIsString(
+            BladePage::class,
+            (new BladePage('404'))->compile()
+        );
     }
 
     public function testMatter()
     {
-        // TODO: Implement testMatter() method.
+         $this->assertInstanceOf(
+             FrontMatter::class,
+             (new BladePage('404'))->matter()
+         );
     }
 }
