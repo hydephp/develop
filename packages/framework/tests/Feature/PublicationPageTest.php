@@ -90,6 +90,20 @@ class PublicationPageTest extends TestCase
         $this->assertStringContainsString('Hello World!', $page->compile());
     }
 
+    public function test_identifier_passed_constructor_is_normalized()
+    {
+        $this->createPublicationFiles();
+        $type = PublicationType::fromFile('test-publication/schema.json');
+
+        $page1= new PublicationPage('foo', [], '', $type);
+        $page2 = new PublicationPage('test-publication/foo', [], '', $type);
+
+        $this->assertSame('test-publication/foo', $page1->getIdentifier());
+        $this->assertSame('test-publication/foo', $page2->getIdentifier());
+
+        $this->assertEquals($page1, $page2);
+    }
+
     protected function createRealPublicationFiles(): void
     {
         file_put_contents(Hyde::path('test-publication/schema.json'), '{

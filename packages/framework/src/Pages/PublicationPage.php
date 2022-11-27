@@ -11,6 +11,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
+use function str_starts_with;
 use function view;
 
 /**
@@ -36,7 +37,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
     {
         $this->type = $type;
 
-        parent::__construct("{$type->getDirectory()}/$identifier", $matter, $markdown);
+        parent::__construct($this->normaliseIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
     }
 
     public function compile(): string
@@ -61,5 +62,14 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         return Blade::render(
             file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template.blade.php")), $data
         );
+    }
+
+    protected static function normaliseIdentifier(string $directory, string $identifier): string
+    {
+        if (str_starts_with($identifier, $directory)) {
+            return $identifier;
+        }
+
+        return "$directory/$identifier";
     }
 }
