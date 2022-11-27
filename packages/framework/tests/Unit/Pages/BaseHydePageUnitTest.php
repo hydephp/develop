@@ -11,6 +11,8 @@ use Hyde\Testing\TestCase;
 /**
  * This extendable base text class provides dynamic unit testing for the specified page class.
  *
+ * These unit tests ensure all inherited methods are callable, and that they return the expected value.
+ *
  * @coversNothing
  */
 abstract class BaseHydePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
