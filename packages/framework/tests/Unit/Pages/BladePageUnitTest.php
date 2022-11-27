@@ -181,8 +181,7 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     public function testMatter()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/issues/708');
-        // $this->assertInstanceOf(FrontMatter::class, (new BladePage('404'))->matter());
+        $this->assertInstanceOf(FrontMatter::class, (new BladePage('404'))->matter());
     }
 
     protected function mockPageDataFactory(): PageDataFactory
