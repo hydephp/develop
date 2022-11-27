@@ -14,6 +14,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\BladePage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+use Mockery\MockInterface;
 
 require_once __DIR__.'/BaseHydePageUnitTestMethods.php';
 
@@ -232,7 +233,7 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     public function testConstructFactoryData()
     {
-        (new BladePage())->constructFactoryData($this->mock(PageDataFactory::class)->shouldReceive('toArray')->andReturn([])->getMock());
+        (new BladePage())->constructFactoryData($this->mockPageDataFactory());
         $this->assertTrue(true);
     }
 
@@ -251,5 +252,10 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
         //     FrontMatter::class,
         //     (new BladePage('404'))->matter()
         // );
+    }
+
+    protected function mockPageDataFactory(): MockInterface|PageDataFactory
+    {
+        return $this->mock(PageDataFactory::class)->shouldReceive('toArray')->andReturn([])->getMock();
     }
 }
