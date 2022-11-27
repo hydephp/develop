@@ -73,7 +73,7 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'directory/hello-world.md',
-            (new PublicationPage($this->pubType(), 'hello-world'))->getSourcePath()
+            (new PublicationPage('hello-world', [], '', $this->pubType()))->getSourcePath()
         );
     }
 
@@ -81,7 +81,7 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'directory/hello-world.html',
-            (new PublicationPage($this->pubType(), 'hello-world'))->getOutputPath()
+            (new PublicationPage('hello-world', [], '', $this->pubType()))->getOutputPath()
         );
     }
 
@@ -89,46 +89,46 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertSame(
             'directory/hello-world.html',
-            (new PublicationPage($this->pubType(), 'hello-world'))->getLink()
+            (new PublicationPage('hello-world', [], '', $this->pubType()))->getLink()
         );
     }
 
     public function testMake()
     {
-        $this->assertEquals(PublicationPage::make(type: $this->pubType()), new PublicationPage($this->pubType()));
+        $this->assertEquals(PublicationPage::make(type: $this->pubType()), new PublicationPage('', [], '', $this->pubType()));
     }
 
     public function testMakeWithData()
     {
         $this->assertEquals(
             PublicationPage::make('foo', ['foo' => 'bar'], type: $this->pubType()),
-            new PublicationPage($this->pubType(), 'foo', ['foo' => 'bar'])
+            new PublicationPage('foo', ['foo' => 'bar'], '', $this->pubType())
         );
     }
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new PublicationPage($this->pubType()))->showInNavigation());
+        $this->assertTrue((new PublicationPage('', [], '', $this->pubType()))->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new PublicationPage($this->pubType()))->navigationMenuPriority());
+        $this->assertSame(999, (new PublicationPage('', [], '', $this->pubType()))->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
     {
-        $this->assertSame('Foo', (new PublicationPage($this->pubType(), 'foo'))->navigationMenuLabel());
+        $this->assertSame('Foo', (new PublicationPage('foo', [], '', $this->pubType()))->navigationMenuLabel());
     }
 
     public function testNavigationMenuGroup()
     {
-        $this->assertNull((new PublicationPage($this->pubType(), 'foo'))->navigationMenuGroup());
+        $this->assertNull((new PublicationPage('foo', [], '', $this->pubType()))->navigationMenuGroup());
     }
 
     public function testGetBladeView()
     {
-        $this->assertSame('__dynamic', (new PublicationPage($this->pubType(), 'foo'))->getBladeView());
+        $this->assertSame('__dynamic', (new PublicationPage('foo', [], '', $this->pubType()))->getBladeView());
     }
 
     public function testFiles()
@@ -138,12 +138,12 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
 
     public function testData()
     {
-        $this->assertSame('directory/foo', (new PublicationPage($this->pubType(), 'foo'))->data('identifier'));
+        $this->assertSame('directory/foo', (new PublicationPage('foo', [], '', $this->pubType()))->data('identifier'));
     }
 
     public function testGet()
     {
-        $page = new PublicationPage($this->pubType(), 'foo');
+        $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::pages()->put($page->getSourcePath(), $page);
         $this->assertEquals($page, PublicationPage::get('directory/foo'));
     }
@@ -159,12 +159,12 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
 
     public function testGetRouteKey()
     {
-        $this->assertSame('directory/foo', (new PublicationPage($this->pubType(), 'foo'))->getRouteKey());
+        $this->assertSame('directory/foo', (new PublicationPage('foo', [], '', $this->pubType()))->getRouteKey());
     }
 
     public function testHtmlTitle()
     {
-        $this->assertSame('HydePHP - Foo', (new PublicationPage($this->pubType(), 'foo'))->htmlTitle());
+        $this->assertSame('HydePHP - Foo', (new PublicationPage('foo', [], '', $this->pubType()))->htmlTitle());
     }
 
     public function testAll()
@@ -174,37 +174,37 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
 
     public function testMetadata()
     {
-        $this->assertInstanceOf(PageMetadataBag::class, (new PublicationPage($this->pubType()))->metadata());
+        $this->assertInstanceOf(PageMetadataBag::class, (new PublicationPage('', [], '', $this->pubType()))->metadata());
     }
 
     public function test__construct()
     {
-        $this->assertInstanceOf(PublicationPage::class, new PublicationPage($this->pubType()));
+        $this->assertInstanceOf(PublicationPage::class, new PublicationPage('', [], '', $this->pubType()));
     }
 
     public function testGetRoute()
     {
-        $this->assertInstanceOf(Route::class, (new PublicationPage($this->pubType()))->getRoute());
+        $this->assertInstanceOf(Route::class, (new PublicationPage('', [], '', $this->pubType()))->getRoute());
     }
 
     public function testGetIdentifier()
     {
-        $this->assertSame('directory/foo', (new PublicationPage($this->pubType(), 'foo'))->getIdentifier());
+        $this->assertSame('directory/foo', (new PublicationPage('foo', [], '', $this->pubType()))->getIdentifier());
     }
 
     public function testHas()
     {
-        $this->assertTrue((new PublicationPage($this->pubType(), 'foo'))->has('identifier'));
+        $this->assertTrue((new PublicationPage('foo', [], '', $this->pubType()))->has('identifier'));
     }
 
     public function testToCoreDataObject()
     {
-        $this->assertInstanceOf(CoreDataObject::class, (new PublicationPage($this->pubType(), 'foo'))->toCoreDataObject());
+        $this->assertInstanceOf(CoreDataObject::class, (new PublicationPage('foo', [], '', $this->pubType()))->toCoreDataObject());
     }
 
     public function testConstructFactoryData()
     {
-        (new PublicationPage($this->pubType()))->constructFactoryData($this->mockPageDataFactory());
+        (new PublicationPage('', [], '', $this->pubType()))->constructFactoryData($this->mockPageDataFactory());
         $this->assertTrue(true);
     }
 
@@ -213,7 +213,7 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
         mkdir(Hyde::path('directory'));
         touch(Hyde::path('directory/detailTemplate.blade.php'));
 
-        $page = new PublicationPage($this->pubType(), 'foo');
+        $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::shareViewData($page);
         $this->assertIsString(PublicationPage::class, $page->compile());
         deleteDirectory(Hyde::path('directory'));
@@ -221,7 +221,7 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
 
     public function testMatter()
     {
-        $this->assertInstanceOf(FrontMatter::class, (new PublicationPage($this->pubType(), 'foo'))->matter());
+        $this->assertInstanceOf(FrontMatter::class, (new PublicationPage('foo', [], '', $this->pubType()))->matter());
     }
 
     protected function pubType(): PublicationType

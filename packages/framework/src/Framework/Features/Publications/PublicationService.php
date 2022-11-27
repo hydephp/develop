@@ -70,10 +70,10 @@ class PublicationService
         $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
 
         return new PublicationPage(
-            type:       PublicationType::get(dirname($identifier)),
             identifier: basename($identifier),
-            matter:     $parsedFileData->matter(),
-            markdown:   $parsedFileData->body()
+            matter: $parsedFileData->matter(),
+            markdown: $parsedFileData->body(),
+            type: PublicationType::get(dirname($identifier))
         );
     }
 

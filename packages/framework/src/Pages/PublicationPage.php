@@ -29,10 +29,10 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Markdown $markdown = '', ?PublicationType $type = null): static
     {
-        return new static($type, $identifier, $matter, $markdown);
+        return new static($identifier, $matter, $markdown, $type);
     }
 
-    public function __construct(PublicationType $type, string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '')
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '', ?PublicationType $type = null)
     {
         $this->type = $type;
 

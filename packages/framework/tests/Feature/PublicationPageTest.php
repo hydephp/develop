@@ -37,7 +37,7 @@ class PublicationPageTest extends TestCase
     {
         $this->createPublicationFiles();
 
-        $page = new PublicationPage(PublicationType::fromFile('test-publication/schema.json'), 'foo');
+        $page = new PublicationPage('foo', [], '', PublicationType::fromFile('test-publication/schema.json'));
 
         $this->assertSame('test-publication/foo', $page->getIdentifier());
         $this->assertSame('test-publication/foo', $page->getRouteKey());
@@ -49,7 +49,7 @@ class PublicationPageTest extends TestCase
     {
         $this->createPublicationFiles();
 
-        $page = new PublicationPage(PublicationType::fromFile('test-publication/schema.json'), 'foo');
+        $page = new PublicationPage('foo', [], '', PublicationType::fromFile('test-publication/schema.json'));
 
         $this->assertInstanceOf(Route::class, $page->getRoute());
         $this->assertEquals(new Route($page), $page->getRoute());
