@@ -133,16 +133,14 @@ class PublicationTypeTest extends TestCase
             'prevNextLinks'  => true,
             'detailTemplate' => 'test-publication_detail',
             'listTemplate'   => 'test-publication_list',
-            'fields'         =>
-                [
-                    0 =>
-                        [
-                            'name' => 'title',
-                            'min'  => '0',
-                            'max'  => '128',
-                            'type' => 'string',
-                        ],
+            'fields'         => [
+                0 => [
+                    'name' => 'title',
+                    'min'  => '0',
+                    'max'  => '128',
+                    'type' => 'string',
                 ],
+            ],
         ];
     }
 
