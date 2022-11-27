@@ -105,7 +105,7 @@ class MarkdownPostUnitTest extends TestCase
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new MarkdownPost())->navigationMenuPriority());
+        $this->assertSame(10, (new MarkdownPost())->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
