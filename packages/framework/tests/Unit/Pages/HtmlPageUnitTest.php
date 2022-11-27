@@ -129,7 +129,7 @@ class HtmlPageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     public function testGetBladeView()
     {
-        $this->assertSame('hyde::layouts/html', (new HtmlPage('foo'))->getBladeView());
+        $this->assertSame('_pages/foo.html', (new HtmlPage('foo'))->getBladeView());
     }
 
     public function testFiles()

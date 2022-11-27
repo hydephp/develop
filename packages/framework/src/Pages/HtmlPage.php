@@ -29,4 +29,9 @@ class HtmlPage extends HydePage
     {
         return $this->contents();
     }
+
+    public function getBladeView(): string
+    {
+        return $this->getSourcePath();
+    }
 }
