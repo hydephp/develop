@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Factories\Concerns\PageDataFactory;
 use Hyde\Framework\Factories\HydePageDataFactory;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
@@ -231,7 +232,7 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     public function testConstructFactoryData()
     {
-        (new BladePage())->constructFactoryData(new HydePageDataFactory((new BladePage())->toCoreDataObject()));
+        (new BladePage())->constructFactoryData($this->mock(PageDataFactory::class)->shouldReceive('toArray')->andReturn([])->getMock());
         $this->assertTrue(true);
     }
 
