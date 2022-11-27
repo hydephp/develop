@@ -30,6 +30,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Factories\FeaturedImageFactory
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
  * @covers \Hyde\Framework\Factories\BlogPostDataFactory
+ * @covers \Hyde\Framework\Concerns\InteractsWithFrontMatter
  */
 class HydePageTest extends TestCase
 {
