@@ -37,12 +37,17 @@ abstract class BaseHydePageUnitTest extends TestCase
         return new PendingExpectation($this, $method);
     }
 
-    public function testPath()
+    protected function assertMethodReturnsExpectedValue(string $method): void
     {
         $this->assertSame(
-            $this->getExpectationValue('path'),
-            static::$page::path(),
+            $this->getExpectationValue($method),
+            static::$page::$method(),
         );
+    }
+
+    public function testPath()
+    {
+        $this->assertMethodReturnsExpectedValue('path');
     }
 
     public function testGetBladeView()
