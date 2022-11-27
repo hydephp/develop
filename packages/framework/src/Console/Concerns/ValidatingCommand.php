@@ -7,7 +7,6 @@ namespace Hyde\Console\Concerns;
 use function array_keys;
 use function array_values;
 use Exception;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
@@ -61,14 +60,10 @@ class ValidatingCommand extends Command
     public function askWithValidation(
         string $name,
         string $question,
-        Arrayable|array $rules = [],
+        array $rules = [],
         mixed $default = null,
         int $retryCount = 0
     ): mixed {
-        if ($rules instanceof Arrayable) {
-            $rules = $rules->toArray();
-        }
-
         $answer = $this->ask(ucfirst($question), $default);
         $validator = Validator::make([$name => $answer], [$name => $rules]);
 
