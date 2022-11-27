@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Pages\BladePage;
-use Hyde\Pages\Concerns\HydePage;
-
-require_once __DIR__ . '/BaseHydePageUnitTest.php';
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Pages\BladePage
  */
-class BladePageUnitTest extends BaseHydePageUnitTest
+class BladePageUnitTest extends TestCase
 {
-    protected static string|HydePage $page = BladePage::class;
+    //
 }
