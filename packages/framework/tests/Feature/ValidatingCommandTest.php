@@ -17,6 +17,31 @@ use function str_starts_with;
  */
 class ValidatingCommandTest extends TestCase
 {
+    public function testSafeHandle()
+    {
+        $command = new SafeValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $command->setOutput($output);
+
+        $code = $command->handle();
+
+        $this->assertSame(0, $code);
+    }
+
+    public function testSafeHandleException()
+    {
+        $command = new SafeThrowingValidatingTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':1');
+        });
+        $command->setOutput($output);
+
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
+
     public function testAskWithValidationCapturesInput()
     {
         $command = new ValidationTestCommand();
@@ -124,30 +149,18 @@ class ValidatingCommandTest extends TestCase
 
         $this->assertSame(1, $code);
     }
+}
 
-    public function testSafeHandle()
+class SafeValidatingTestCommand extends ValidatingCommand
+{
+    //
+}
+
+class SafeThrowingValidatingTestCommand extends ValidatingCommand
+{
+    public function safeHandle(): int
     {
-        $command = new SafeValidatingTestCommand();
-        $output = Mockery::mock(OutputStyle::class);
-        $command->setOutput($output);
-
-        $code = $command->handle();
-
-        $this->assertSame(0, $code);
-    }
-
-    public function testSafeHandleException()
-    {
-        $command = new SafeThrowingValidatingTestCommand();
-        $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':1');
-        });
-        $command->setOutput($output);
-
-        $code = $command->handle();
-
-        $this->assertSame(1, $code);
+        throw new RuntimeException('This is a test');
     }
 }
 
@@ -171,18 +184,5 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
         } catch (RuntimeException $exception) {
             return $this->handleException($exception, $file, $line);
         }
-    }
-}
-
-class SafeValidatingTestCommand extends ValidatingCommand
-{
-    //
-}
-
-class SafeThrowingValidatingTestCommand extends ValidatingCommand
-{
-    public function safeHandle(): int
-    {
-        throw new RuntimeException('This is a test');
     }
 }
