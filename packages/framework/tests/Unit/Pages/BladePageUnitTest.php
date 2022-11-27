@@ -181,6 +181,6 @@ class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 
     protected function mockPageDataFactory(): PageDataFactory
     {
-        return new HydePageDataFactory((new BladePage())->toCoreDataObject());
+        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
     }
 }
