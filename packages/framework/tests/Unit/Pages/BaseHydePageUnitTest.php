@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Exception;
-use Hyde\Hyde;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
 /**
- * This extendable base text class provides dynamic unit testing for the specified page class.
+ * Providers helpers and a contract for unit testing for the specified page class.
  *
  * These unit tests ensure all inherited methods are callable, and that they return the expected value.
  *
@@ -18,174 +15,65 @@ use Hyde\Testing\TestCase;
  */
 abstract class BaseHydePageUnitTest extends TestCase
 {
-    /**
-     * @var class-string<\Hyde\Pages\Concerns\HydePage>|HydePage
-     */
-    protected static string|HydePage $page = HydePage::class;
+    abstract public function testPath();
 
-    protected function testMethod(string $method, mixed $returns, array $constructorParameters = [], array $methodParameters = []): void
-    {
-        $this->assertSame(
-            $returns,
-            $this->page($constructorParameters)->$method(...$methodParameters),
-        );
-    }
+    abstract public function testGetBladeView();
 
-    protected function page(array $parameters = []): HydePage
-    {
-        return app()->make(static::$page, $parameters);
-    }
+    abstract public function testSourcePath();
 
-    /** @see HydePage::Path */
-    public function testPath()
-    {
-        $this->testMethod('path', Hyde::getBasePath() . DIRECTORY_SEPARATOR . static::$page::$sourceDirectory);
-    }
+    abstract public function testFiles();
 
-    /** @see HydePage::GetBladeView */
-    public function testGetBladeView()
-    {
-        $this->testMethod('getBladeView', static::$page::$template ?? '');
-    }
+    abstract public function testNavigationMenuLabel();
 
-    /** @see HydePage::SourcePath */
-    public function testSourcePath()
-    {
-        $this->testMethod('sourcePath', static::$page::$sourceDirectory.'/foo'.static::$page::$fileExtension, [], ['foo']);
-    }
+    abstract public function testGetOutputPath();
 
-    public function testFiles()
-    {
-        $this->testMethod('files', 'foo');
-    }
+    abstract public function testGet();
 
-    public function testNavigationMenuLabel()
-    {
-        $this->testMethod('navigationMenuLabel', 'foo');
-    }
+    abstract public function testData();
 
-    public function testGetOutputPath()
-    {
-        $this->testMethod('getOutputPath', 'foo');
-    }
+    abstract public function testOutputDirectory();
 
-    public function testGet()
-    {
-        $this->testMethod('get', 'foo');
-    }
+    abstract public function testParse();
 
-    public function testOutputDirectory()
-    {
-        $this->testMethod('outputDirectory', 'foo');
-    }
+    abstract public function testNavigationMenuGroup();
 
-    public function testParse()
-    {
-        $this->testMethod('parse', 'foo');
-    }
+    abstract public function testNavigationMenuPriority();
 
-    public function testNavigationMenuGroup()
-    {
-        $this->testMethod('navigationMenuGroup', 'foo');
-    }
+    abstract public function testGetRouteKey();
 
-    public function testNavigationMenuPriority()
-    {
-        $this->testMethod('navigationMenuPriority', 'foo');
-    }
+    abstract public function testHtmlTitle();
 
-    public function testGetRouteKey()
-    {
-        $this->testMethod('getRouteKey', 'foo');
-    }
+    abstract public function testAll();
 
-    public function testHtmlTitle()
-    {
-        $this->testMethod('htmlTitle', 'foo');
-    }
+    abstract public function testMetadata();
 
-    public function testAll()
-    {
-        $this->testMethod('all', 'foo');
-    }
+    abstract public function test__construct();
 
-    public function testMetadata()
-    {
-        $this->testMethod('metadata', 'foo');
-    }
+    abstract public function testMake();
 
-    public function test__construct()
-    {
-        $this->testMethod('__construct', 'foo');
-    }
+    abstract public function testGetRoute();
 
-    public function testMake()
-    {
-        $this->testMethod('make', 'foo');
-    }
+    abstract public function testShowInNavigation();
 
-    public function testGetRoute()
-    {
-        $this->testMethod('getRoute', 'foo');
-    }
+    abstract public function testGetSourcePath();
 
-    public function testShowInNavigation()
-    {
-        $this->testMethod('showInNavigation', 'foo');
-    }
+    abstract public function testGetLink();
 
-    public function testGetSourcePath()
-    {
-        $this->testMethod('getSourcePath', 'foo');
-    }
+    abstract public function testGetIdentifier();
 
-    public function testGetLink()
-    {
-        $this->testMethod('getLink', 'foo');
-    }
+    abstract public function testHas();
 
-    public function testGetIdentifier()
-    {
-        $this->testMethod('getIdentifier', 'foo');
-    }
+    abstract public function testToCoreDataObject();
 
-    public function testHas()
-    {
-        $this->testMethod('has', 'foo');
-    }
+    abstract public function testConstructFactoryData();
 
-    public function testToCoreDataObject()
-    {
-        $this->testMethod('toCoreDataObject', 'foo');
-    }
+    abstract public function testFileExtension();
 
-    public function testConstructFactoryData()
-    {
-        $this->testMethod('constructFactoryData', 'foo');
-    }
+    abstract public function testSourceDirectory();
 
-    public function testFileExtension()
-    {
-        $this->testMethod('fileExtension', 'foo');
-    }
+    abstract public function testCompile();
 
-    public function testSourceDirectory()
-    {
-        $this->testMethod('sourceDirectory', 'foo');
-    }
+    abstract public function testMatter();
 
-    public function testCompile()
-    {
-        $this->testMethod('compile', 'foo');
-    }
-
-    public function testMatter()
-    {
-        $this->testMethod('matter', 'foo');
-    }
-
-    public function testOutputPath()
-    {
-        $this->testMethod('outputPath', 'foo');
-    }
+    abstract public function testOutputPath();
 }
