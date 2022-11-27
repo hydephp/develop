@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\SourceFileParser;
+use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
+
+use function copy;
+use function deleteDirectory;
 
 /**
  * @covers \Hyde\Framework\Actions\SourceFileParser
@@ -72,6 +77,24 @@ class SourceFileParserTest extends TestCase
         $this->assertInstanceOf(HtmlPage::class, $page);
         $this->assertEquals('foo', $page->identifier);
         $this->assertEquals('<h1>Foo Bar</h1>', $page->contents());
+    }
+
+    public function test_publication_parser()
+    {
+        mkdir(Hyde::path('test-publication'));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/foo.md'));
+
+        $parser = new SourceFileParser(PublicationPage::class, 'test-publication/foo');
+        $page = $parser->get();
+        $this->assertInstanceOf(PublicationPage::class, $page);
+        $this->assertEquals('test-publication/foo', $page->identifier);
+        $this->assertEquals("## Write something awesome.\n\n", $page->markdown);
+        $this->assertEquals('My Title', $page->title);
+        $this->assertEquals('My Title', $page->matter->get('title'));
+        $this->assertTrue($page->matter->has('__createdAt'));
+
+        deleteDirectory(Hyde::path('test-publication'));
     }
 
     public function test_parsed_page_is_run_through_dynamic_constructor()
