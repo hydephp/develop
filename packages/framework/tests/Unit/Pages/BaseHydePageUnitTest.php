@@ -20,46 +20,12 @@ abstract class BaseHydePageUnitTest extends TestCase implements BaseHydePageUnit
      */
     protected static string|HydePage $page = HydePage::class;
 
-    protected array $expectations;
-
-    public function addExpectation(string $method, mixed $value): void
-    {
-        $this->expectations[$method] = $value;
-    }
-
-    protected function getExpectationValue(string $method): mixed
-    {
-        return $this->expectations[$method] ?? throw new Exception("No expectation set for method '$method'");
-    }
-
-    protected function expect(string $method): PendingExpectation
-    {
-        return new PendingExpectation($this, $method);
-    }
-
-    protected function testMethod(string $method): void
+    protected function testMethod(string $method, mixed $returns): void
     {
         $this->assertSame(
-            $this->getExpectationValue($method),
+            $returns,
             app(static::$page)->$method(),
         );
-    }
-}
-
-class PendingExpectation
-{
-    protected BaseHydePageUnitTest $test;
-    protected string $property;
-
-    public function __construct(BaseHydePageUnitTest $test, string $property)
-    {
-        $this->test = $test;
-        $this->property = $property;
-    }
-
-    public function toReturn($expected): void
-    {
-        $this->test->addExpectation($this->property, $expected);
     }
 }
 

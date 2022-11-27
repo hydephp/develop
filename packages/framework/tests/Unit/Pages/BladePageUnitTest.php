@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 
@@ -17,308 +16,153 @@ class BladePageUnitTest extends BaseHydePageUnitTest
 {
     protected static string|HydePage $page = BladePage::class;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        /** @see BladePage::path */
-        $this->expect('path')->toReturn(
-            Hyde::path('_pages')
-        );
-
-        /** @see BladePage::getBladeView */
-        $this->expect('getBladeView')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::sourcePath */
-        $this->expect('sourcePath')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::files */
-        $this->expect('files')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::navigationMenuLabel */
-        $this->expect('navigationMenuLabel')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::getOutputPath */
-        $this->expect('getOutputPath')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::get */
-        $this->expect('get')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::outputDirectory */
-        $this->expect('outputDirectory')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::parse */
-        $this->expect('parse')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::navigationMenuGroup */
-        $this->expect('navigationMenuGroup')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::navigationMenuPriority */
-        $this->expect('navigationMenuPriority')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::getRouteKey */
-        $this->expect('getRouteKey')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::htmlTitle */
-        $this->expect('htmlTitle')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::all */
-        $this->expect('all')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::metadata */
-        $this->expect('metadata')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::__construct */
-        $this->expect('__construct')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::make */
-        $this->expect('make')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::getRoute */
-        $this->expect('getRoute')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::showInNavigation */
-        $this->expect('showInNavigation')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::getSourcePath */
-        $this->expect('getSourcePath')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::getLink */
-        $this->expect('getLink')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::getIdentifier */
-        $this->expect('getIdentifier')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::has */
-        $this->expect('has')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::toCoreDataObject */
-        $this->expect('toCoreDataObject')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::constructFactoryData */
-        $this->expect('constructFactoryData')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::fileExtension */
-        $this->expect('fileExtension')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::sourceDirectory */
-        $this->expect('sourceDirectory')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::compile */
-        $this->expect('compile')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::matter */
-        $this->expect('matter')->toReturn(
-            '// TODO'
-        );
-
-        /** @see BladePage::outputPath */
-        $this->expect('outputPath')->toReturn(
-            '// TODO'
-        );
-    }
-
     public function testPath()
     {
-        $this->testMethod('path');
+        $this->testMethod('path', 'foo');
     }
 
     public function testGetBladeView()
     {
-        $this->testMethod('getBladeView');
+        $this->testMethod('getBladeView', 'foo');
     }
 
     public function testSourcePath()
     {
-        $this->testMethod('sourcePath');
+        $this->testMethod('sourcePath', 'foo');
     }
 
     public function testFiles()
     {
-        $this->testMethod('files');
+        $this->testMethod('files', 'foo');
     }
 
     public function testNavigationMenuLabel()
     {
-        $this->testMethod('navigationMenuLabel');
+        $this->testMethod('navigationMenuLabel', 'foo');
     }
 
     public function testGetOutputPath()
     {
-        $this->testMethod('getOutputPath');
+        $this->testMethod('getOutputPath', 'foo');
     }
 
     public function testGet()
     {
-        $this->testMethod('get');
+        $this->testMethod('get', 'foo');
     }
 
     public function testOutputDirectory()
     {
-        $this->testMethod('outputDirectory');
+        $this->testMethod('outputDirectory', 'foo');
     }
 
     public function testParse()
     {
-        $this->testMethod('parse');
+        $this->testMethod('parse', 'foo');
     }
 
     public function testNavigationMenuGroup()
     {
-        $this->testMethod('navigationMenuGroup');
+        $this->testMethod('navigationMenuGroup', 'foo');
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->testMethod('navigationMenuPriority');
+        $this->testMethod('navigationMenuPriority', 'foo');
     }
 
     public function testGetRouteKey()
     {
-        $this->testMethod('getRouteKey');
+        $this->testMethod('getRouteKey', 'foo');
     }
 
     public function testHtmlTitle()
     {
-        $this->testMethod('htmlTitle');
+        $this->testMethod('htmlTitle', 'foo');
     }
 
     public function testAll()
     {
-        $this->testMethod('all');
+        $this->testMethod('all', 'foo');
     }
 
     public function testMetadata()
     {
-        $this->testMethod('metadata');
+        $this->testMethod('metadata', 'foo');
     }
 
     public function test__construct()
     {
-        $this->testMethod('__construct');
+        $this->testMethod('__construct', 'foo');
     }
 
     public function testMake()
     {
-        $this->testMethod('make');
+        $this->testMethod('make', 'foo');
     }
 
     public function testGetRoute()
     {
-        $this->testMethod('getRoute');
+        $this->testMethod('getRoute', 'foo');
     }
 
     public function testShowInNavigation()
     {
-        $this->testMethod('showInNavigation');
+        $this->testMethod('showInNavigation', 'foo');
     }
 
     public function testGetSourcePath()
     {
-        $this->testMethod('getSourcePath');
+        $this->testMethod('getSourcePath', 'foo');
     }
 
     public function testGetLink()
     {
-        $this->testMethod('getLink');
+        $this->testMethod('getLink', 'foo');
     }
 
     public function testGetIdentifier()
     {
-        $this->testMethod('getIdentifier');
+        $this->testMethod('getIdentifier', 'foo');
     }
 
     public function testHas()
     {
-        $this->testMethod('has');
+        $this->testMethod('has', 'foo');
     }
 
     public function testToCoreDataObject()
     {
-        $this->testMethod('toCoreDataObject');
+        $this->testMethod('toCoreDataObject', 'foo');
     }
 
     public function testConstructFactoryData()
     {
-        $this->testMethod('constructFactoryData');
+        $this->testMethod('constructFactoryData', 'foo');
     }
 
     public function testFileExtension()
     {
-        $this->testMethod('fileExtension');
+        $this->testMethod('fileExtension', 'foo');
     }
 
     public function testSourceDirectory()
     {
-        $this->testMethod('sourceDirectory');
+        $this->testMethod('sourceDirectory', 'foo');
     }
 
     public function testCompile()
     {
-        $this->testMethod('compile');
+        $this->testMethod('compile', 'foo');
     }
 
     public function testMatter()
     {
-        $this->testMethod('matter');
+        $this->testMethod('matter', 'foo');
     }
 
     public function testOutputPath()
     {
-        $this->testMethod('outputPath');
+        $this->testMethod('outputPath', 'foo');
     }
 }
