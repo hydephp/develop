@@ -9,10 +9,12 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 
+require_once __DIR__.'/BaseHydePageUnitTest.php';
+
 /**
  * @covers \Hyde\Pages\PublicationPage
  */
-class PublicationPageUnitTest extends TestCase
+class PublicationPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()
     {
