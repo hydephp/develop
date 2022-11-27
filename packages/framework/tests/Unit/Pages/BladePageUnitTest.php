@@ -21,7 +21,9 @@ class BladePageUnitTest extends BaseHydePageUnitTest
     {
         parent::setUp();
 
-        $this->expect('path')->toReturn(Hyde::path('_pages'));
+        $this->expect('path')->toReturn(
+            Hyde::path('_pages')
+        );
 
         $this->expect('getBladeView')->toReturn(
             //
