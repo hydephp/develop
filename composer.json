@@ -1,11 +1,7 @@
 {
     "name": "hyde/hyde",
     "description": "Static Site Generator to rapidly create Blogs, Documentation, and more, using Markdown and Blade.",
-    "keywords": [
-        "framework",
-        "hyde",
-        "hyde framework"
-    ],
+    "keywords": ["framework", "hyde", "hyde framework"],
     "homepage": "https://hydephp.com",
     "type": "project",
     "license": "MIT",
@@ -65,9 +61,7 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "bin": [
-        "hyde"
-    ],
+    "bin": ["hyde"],
     "repositories": [
         {
             "type": "path",
