@@ -100,12 +100,12 @@ class MarkdownPageUnitTest extends TestCase
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new MarkdownPage('foo'))->showInNavigation());
+        $this->assertTrue((new MarkdownPage())->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new MarkdownPage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()

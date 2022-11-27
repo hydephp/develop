@@ -105,7 +105,7 @@ class DocumentationPageUnitTest extends TestCase
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new DocumentationPage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new DocumentationPage())->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()

@@ -100,12 +100,12 @@ class HtmlPageUnitTest extends TestCase
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new HtmlPage('foo'))->showInNavigation());
+        $this->assertTrue((new HtmlPage())->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new HtmlPage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new HtmlPage())->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
