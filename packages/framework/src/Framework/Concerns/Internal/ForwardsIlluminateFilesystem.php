@@ -7,6 +7,8 @@ namespace Hyde\Framework\Concerns\Internal;
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
  *
+ * @interal 
+ *
  * @see \Hyde\Facades\Filesystem
  */
 trait ForwardsIlluminateFilesystem
