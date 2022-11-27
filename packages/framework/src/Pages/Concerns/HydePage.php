@@ -76,6 +76,17 @@ abstract class HydePage implements PageSchema
     // Section: Query
 
     /**
+     * Get a page instance from the Kernel's page index by its identifier.
+     *
+     * @param string $identifier
+     * @return \Hyde\Pages\Concerns\HydePage
+     */
+    public static function get(string $identifier): HydePage
+    {
+        return Hyde::pages()->getPage(static::sourcePath($identifier));
+    }
+
+    /**
      * Parse a source file into a page model instance.
      *
      * @param  string  $identifier  The identifier of the page to parse.
