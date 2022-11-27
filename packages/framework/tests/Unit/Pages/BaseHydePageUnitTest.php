@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
 /**
@@ -11,5 +12,8 @@ use Hyde\Testing\TestCase;
  */
 abstract class BaseHydePageUnitTest extends TestCase
 {
-    //
+    /**
+     * @var class-string<\Hyde\Pages\Concerns\HydePage>
+     */
+    protected static string $page = HydePage::class;
 }
