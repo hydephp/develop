@@ -76,10 +76,25 @@ abstract class HydePage implements PageSchema
     // Section: Query
 
     /**
+     * Get a page instance from the Kernel's page index by its identifier.
+     *
+     * @param  string  $identifier
+     * @return \Hyde\Pages\Concerns\HydePage
+     *
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
+     */
+    public static function get(string $identifier): HydePage
+    {
+        return Hyde::pages()->getPage(static::sourcePath($identifier));
+    }
+
+    /**
      * Parse a source file into a page model instance.
      *
      * @param  string  $identifier  The identifier of the page to parse.
      * @return static New page model instance for the parsed source file.
+     *
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist.
      */
     public static function parse(string $identifier): HydePage
     {
