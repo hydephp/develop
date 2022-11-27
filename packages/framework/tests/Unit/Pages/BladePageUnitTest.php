@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Pages\BladePage;
+
 require_once __DIR__ . '/BaseHydePageUnitTest.php';
 
 /**
@@ -11,5 +13,5 @@ require_once __DIR__ . '/BaseHydePageUnitTest.php';
  */
 class BladePageUnitTest extends BaseHydePageUnitTest
 {
-    //
+    protected static string $page = BladePage::class;
 }
