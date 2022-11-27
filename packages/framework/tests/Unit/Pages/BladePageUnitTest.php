@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Pages\BladePage
  */
-class BladePageUnitTest extends TestCase
+class BladePageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 {
     public function testSourceDirectory()
     {
