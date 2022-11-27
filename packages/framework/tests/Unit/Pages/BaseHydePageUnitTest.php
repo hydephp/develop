@@ -9,6 +9,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * This extendable base text class provides dynamic unit testing for the specified page class.
+ *
+ * @coversNothing
  */
 abstract class BaseHydePageUnitTest extends TestCase
 {
