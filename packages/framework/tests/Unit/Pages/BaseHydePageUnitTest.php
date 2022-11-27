@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Exception;
+use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Testing\TestCase;
 
@@ -37,7 +38,7 @@ abstract class BaseHydePageUnitTest extends TestCase implements BaseHydePageUnit
 
     public function testPath()
     {
-        $this->testMethod('path', 'foo');
+        $this->testMethod('path', Hyde::getBasePath() . DIRECTORY_SEPARATOR . static::$page::$sourceDirectory);
     }
 
     public function testGetBladeView()
