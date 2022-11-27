@@ -4,14 +4,23 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Foundation\PageCollection;
+use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Factories\Concerns\PageDataFactory;
+use Hyde\Framework\Factories\HydePageDataFactory;
+use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+
+require_once __DIR__.'/BaseHydePageUnitTestMethods.php';
 
 /**
  * @covers \Hyde\Pages\DocumentationPage
  */
-class DocumentationPageUnitTest extends TestCase
+class DocumentationPageUnitTest extends TestCase implements BaseHydePageUnitTestMethods
 {
     public function testSourceDirectory()
     {
@@ -91,5 +100,100 @@ class DocumentationPageUnitTest extends TestCase
     public function testNavigationMenuGroupWithData()
     {
         $this->assertSame('foo', DocumentationPage::make(matter: ['navigation' => ['group' => 'foo']])->navigationMenuGroup());
+    }
+
+    public function testGetBladeView()
+    {
+        $this->assertSame('hyde::layouts/docs', (new DocumentationPage('foo'))->getBladeView());
+    }
+
+    public function testFiles()
+    {
+        $this->assertSame([], DocumentationPage::files());
+    }
+
+    public function testData()
+    {
+        $this->assertSame('foo', (new DocumentationPage('foo'))->data('identifier'));
+    }
+
+    public function testGet()
+    {
+        $this->file(DocumentationPage::sourcePath('foo'));
+        $this->assertEquals(new DocumentationPage('foo'), DocumentationPage::get('foo'));
+    }
+
+    public function testParse()
+    {
+        $this->file(DocumentationPage::sourcePath('foo'));
+        $this->assertInstanceOf(DocumentationPage::class, DocumentationPage::parse('foo'));
+    }
+
+    public function testGetRouteKey()
+    {
+        $this->assertSame('docs/foo', (new DocumentationPage('foo'))->getRouteKey());
+    }
+
+    public function testHtmlTitle()
+    {
+        $this->assertSame('HydePHP - Foo', (new DocumentationPage('foo'))->htmlTitle());
+    }
+
+    public function testAll()
+    {
+        $this->assertInstanceOf(PageCollection::class, DocumentationPage::all());
+    }
+
+    public function testMetadata()
+    {
+        $this->assertInstanceOf(PageMetadataBag::class, (new DocumentationPage())->metadata());
+    }
+
+    public function test__construct()
+    {
+        $this->assertInstanceOf(DocumentationPage::class, new DocumentationPage());
+    }
+
+    public function testGetRoute()
+    {
+        $this->assertInstanceOf(Route::class, (new DocumentationPage())->getRoute());
+    }
+
+    public function testGetIdentifier()
+    {
+        $this->assertSame('foo', (new DocumentationPage('foo'))->getIdentifier());
+    }
+
+    public function testHas()
+    {
+        $this->assertTrue((new DocumentationPage('foo'))->has('identifier'));
+    }
+
+    public function testToCoreDataObject()
+    {
+        $this->assertInstanceOf(CoreDataObject::class, (new DocumentationPage('foo'))->toCoreDataObject());
+    }
+
+    public function testConstructFactoryData()
+    {
+        (new DocumentationPage())->constructFactoryData($this->mockPageDataFactory());
+        $this->assertTrue(true);
+    }
+
+    public function testCompile()
+    {
+        $page = new DocumentationPage('404');
+        Hyde::shareViewData($page);
+        $this->assertIsString(DocumentationPage::class, $page->compile());
+    }
+
+    public function testMatter()
+    {
+        $this->assertInstanceOf(FrontMatter::class, (new DocumentationPage('404'))->matter());
+    }
+
+    protected function mockPageDataFactory(): PageDataFactory
+    {
+        return new HydePageDataFactory(new CoreDataObject(new FrontMatter(), false, '', '', '', '', ''));
     }
 }
