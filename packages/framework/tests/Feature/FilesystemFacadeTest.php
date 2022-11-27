@@ -14,6 +14,7 @@ use Illuminate\Support\LazyCollection;
 /**
  * @covers \Hyde\Facades\Filesystem
  * @covers \Hyde\Foundation\Filesystem
+ * @covers \Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem
  */
 class FilesystemFacadeTest extends TestCase
 {
