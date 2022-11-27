@@ -100,12 +100,12 @@ class BladePageUnitTest extends TestCase
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new BladePage('foo'))->showInNavigation());
+        $this->assertTrue((new BladePage())->showInNavigation());
     }
 
     public function testNavigationMenuPriority()
     {
-        $this->assertSame(999, (new BladePage('foo'))->navigationMenuPriority());
+        $this->assertSame(999, (new BladePage())->navigationMenuPriority());
     }
 
     public function testNavigationMenuLabel()
