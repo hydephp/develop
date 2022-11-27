@@ -66,7 +66,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     protected static function normaliseIdentifier(string $directory, string $identifier): string
     {
-        if (str_starts_with($identifier, $directory)) {
+        if (str_starts_with("$identifier/", $directory)) {
             return $identifier;
         }
 
