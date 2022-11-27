@@ -125,7 +125,6 @@ class MarkdownPostUnitTest extends TestCase
         $this->assertNull((new MarkdownPost('foo'))->navigationMenuGroup());
     }
 
-
     public function testGetBladeView()
     {
         $this->assertSame('hyde::layouts/post', (new MarkdownPost('foo'))->getBladeView());
