@@ -6,10 +6,6 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\HtmlPage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
