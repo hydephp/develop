@@ -61,6 +61,14 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
+    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            strip_newlines($expected, true),
+            strip_newlines($actual, true),
+        );
+    }
+
     /** @internal */
     protected function mockRoute(?Route $route = null)
     {
@@ -112,14 +120,6 @@ abstract class TestCase extends BaseTestCase
     protected function markdown(string $path, string $contents = '', array $matter = []): void
     {
         $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter).$contents);
-    }
-
-    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
-    {
-        $this->assertEquals(
-            strip_newlines($expected, true),
-            strip_newlines($actual, true),
-        );
     }
 
     protected function cleanUpFilesystem(): void
