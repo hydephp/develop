@@ -22,7 +22,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Field type (1-10)', 1)
             ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('Max value (for strings, this refers to string length)', 'default')
-            ->expectsQuestion('Add another field (y/n)', 'n')
+            ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
             ->expectsQuestion('Sort field (0-1)', 0)
             ->expectsQuestion('Sort field (1-2)', 1)
             ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
