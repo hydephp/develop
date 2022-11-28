@@ -81,7 +81,7 @@ class PublicationFieldTypeTest extends TestCase
     public function test_type_must_be_valid()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("The type 'invalid' is not a valid type. Valid types are: string, boolean, integer, float, datetime, url, array, text, image.");
+        $this->expectExceptionMessage("The type 'invalid' is not a valid type. Valid types are: string, boolean, integer, float, datetime, url, array, text, image, tag.");
 
         new PublicationFieldType('invalid', 'test', 1, 10);
     }
@@ -105,7 +105,7 @@ class PublicationFieldTypeTest extends TestCase
 
     public function test_types_constant()
     {
-        $this->assertSame(['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image'], PublicationFieldType::TYPES);
+        $this->assertSame(['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image', 'tag'], PublicationFieldType::TYPES);
     }
 
     protected function makeField(): PublicationFieldType
