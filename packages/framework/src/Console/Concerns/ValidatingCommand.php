@@ -69,7 +69,7 @@ class ValidatingCommand extends Command
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
-        $answer = trim($this->ask(ucfirst($question), $default));
+        $answer = trim((string) $this->ask(ucfirst($question), $default));
         $validator = Validator::make([$name => $answer], [$name => $rules]);
 
         if ($validator->passes()) {
