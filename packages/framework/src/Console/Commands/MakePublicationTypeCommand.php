@@ -135,11 +135,6 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
             if ($type < 10) {
                 do {
-                    // TODO This should only be done for types that can have length restrictions right?
-                    // ANSWER: No, it can also be a value restriction
-                    // - (int: 0 - 2022)
-                    // - (float: 0 - 360)
-                    // - (datetime: 2022-01-01 - 2022-12-31)
                     $field->min   = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
                     $field->max   = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
                     $lengthsValid = true;
