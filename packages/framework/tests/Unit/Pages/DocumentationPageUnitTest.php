@@ -11,7 +11,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use function unlink;
 
@@ -191,7 +190,6 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $this->assertInstanceOf(FrontMatter::class, (new DocumentationPage('foo'))->matter());
     }
-
 
     public function testMarkdown()
     {
