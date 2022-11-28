@@ -9,15 +9,17 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
+use function unlink;
 
-require_once __DIR__.'/BaseHydePageUnitTest.php';
+require_once __DIR__.'/BaseMarkdownPageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\MarkdownPost
  */
-class MarkdownPostUnitTest extends BaseHydePageUnitTest
+class MarkdownPostUnitTest extends BaseMarkdownPageUnitTest
 {
     public function testSourceDirectory()
     {
@@ -212,5 +214,18 @@ class MarkdownPostUnitTest extends BaseHydePageUnitTest
     public function testMatter()
     {
         $this->assertInstanceOf(FrontMatter::class, (new MarkdownPost('foo'))->matter());
+    }
+
+    public function testMarkdown()
+    {
+        $this->assertInstanceOf(Markdown::class, (new MarkdownPost('foo'))->markdown());
+    }
+
+    public function testSave()
+    {
+        $page = new MarkdownPost('foo');
+        $this->assertSame($page, $page->save());
+        $this->assertFileExists('_posts/foo.md');
+        unlink(Hyde::path('_posts/foo.md'));
     }
 }
