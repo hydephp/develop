@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Hyde\Framework\Features\Publications\PublicationService;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
 use function file_get_contents;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
@@ -38,7 +35,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], Markdown|string $markdown = '', ?PublicationType $type = null)
     {
-        $this->type = $type ?? static::tryToFindType($identifier);
+        $this->type = $type;
 
         parent::__construct(static::normaliseIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
     }
@@ -74,11 +71,5 @@ class PublicationPage extends Concerns\BaseMarkdownPage
         }
 
         return "$directory/$identifier";
-    }
-
-    /** @throws \InvalidArgumentException if the publication type cannot be found. */
-    protected static function tryToFindType(string $identifier): PublicationType
-    {
-        return PublicationService::getPublicationTypes()->firstWhere(Str::before($identifier, '/')) ?? throw new InvalidArgumentException("Unable to find publication type for '$identifier'");
     }
 }
