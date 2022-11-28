@@ -3,6 +3,7 @@
 namespace Hyde\Testing;
 
 use Hyde\Facades\Features;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
@@ -46,10 +47,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function tearDown(): void
     {
-        if (sizeof($this->fileMemory) > 0) {
-            Hyde::unlink($this->fileMemory);
-            $this->fileMemory = [];
-        }
+        $this->cleanUpFilesystem();
 
         if (method_exists(\Illuminate\View\Component::class, 'flushCache')) {
             /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
@@ -61,6 +59,14 @@ abstract class TestCase extends BaseTestCase
         Features::clearMockedInstances();
 
         parent::tearDown();
+    }
+
+    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            strip_newlines($expected, true),
+            strip_newlines($actual, true),
+        );
     }
 
     /** @internal */
@@ -94,7 +100,18 @@ abstract class TestCase extends BaseTestCase
             Hyde::touch($path);
         }
 
-        $this->fileMemory[] = $path;
+        $this->cleanUpWhenDone($path);
+    }
+
+    /**
+     * Create a temporary directory in the project directory.
+     * The TestCase will automatically remove the entire directory when the test is completed.
+     */
+    protected function directory(string $path): void
+    {
+        Filesystem::makeDirectory($path, recursive: true, force: true);
+
+        $this->cleanUpWhenDone($path);
     }
 
     /**
@@ -105,11 +122,29 @@ abstract class TestCase extends BaseTestCase
         $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter).$contents);
     }
 
-    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    protected function cleanUpFilesystem(): void
     {
-        $this->assertEquals(
-            strip_newlines($expected, true),
-            strip_newlines($actual, true),
-        );
+        if (sizeof($this->fileMemory) > 0) {
+            foreach ($this->fileMemory as $file) {
+                if (Filesystem::isDirectory($file)) {
+                    $dontDelete = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
+
+                    if (! in_array($file, $dontDelete)) {
+                        Filesystem::deleteDirectory($file);
+                    }
+                } else {
+                    Filesystem::unlink($file);
+                }
+            }
+            $this->fileMemory = [];
+        }
+    }
+
+    /**
+     * Mark a path to be deleted when the test is completed.
+     */
+    protected function cleanUpWhenDone(string $path): void
+    {
+        $this->fileMemory[] = $path;
     }
 }

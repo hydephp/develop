@@ -39,6 +39,15 @@ if (! function_exists('deleteDirectory')) {
     }
 }
 
+if (! function_exists('makeDirectory')) {
+    function makeDirectory(string $directory): void
+    {
+        if (file_exists($directory)) {
+            File::makeDirectory($directory);
+        }
+    }
+}
+
 if (! function_exists('unlinkUnlessDefault')) {
     function unlinkUnlessDefault(string $filepath): void
     {
