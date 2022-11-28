@@ -85,7 +85,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                 $this->line("  $offset: $v->name");
             }
         }
-        $selected       = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
+        $selected = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
         $canonicalField = $fieldNames[$selected - 1];
 
         try {
@@ -114,7 +114,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $field = Collection::create();
             do {
                 $field->name = trim($this->askWithValidation('name', 'Field name', ['required']));
-                $duplicate   = $fields->where('name', $field->name)->count();
+                $duplicate = $fields->where('name', $field->name)->count();
                 if ($duplicate) {
                     $this->error("Field name [$field->name] already exists!");
                 }
@@ -135,14 +135,14 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
             if ($type < 10) {
                 do {
-                    $field->min   = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $field->max   = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $field->min = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $field->max = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
                     $lengthsValid = true;
                     if ($field->max < $field->min) {
                         $lengthsValid = false;
                         $this->output->warning('Field length [max] must be [>=] than [min]');
                     }
-                } while (!$lengthsValid);
+                } while (! $lengthsValid);
             } else {
                 $allTags = PublicationService::getAllTags();
                 $offset = 1;
@@ -151,10 +151,10 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                     $offset++;
                 }
                 $offset--; // The above loop overcounts by 1
-                $selected        = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
+                $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
                 $field->tagGroup = $allTags->keys()->{$selected - 1};
-                $field->min      = 0;
-                $field->max      = 0;
+                $field->min = 0;
+                $field->max = 0;
             }
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'y');
 

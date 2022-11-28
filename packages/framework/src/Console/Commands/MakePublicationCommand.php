@@ -90,13 +90,13 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         if ($field->type === 'image') {
             $this->output->writeln($field->name.' (end with an empty line)');
             do {
-                $offset     = 0;
+                $offset = 0;
                 $mediaFiles = PublicationService::getMediaForPubType($pubType);
                 foreach ($mediaFiles as $index => $file) {
                     $offset = $index + 1;
                     $this->output->writeln("  $offset: $file");
                 }
-                $selected = (int)$this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+                $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
             } while ($selected == 0);
             $file = $mediaFiles->{$selected - 1};
 
@@ -112,9 +112,8 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                     $offset = $index + 1;
                     $this->output->writeln("  $offset: $value");
                 }
-                $selected = (int)$this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:0,$offset"]);
-            }
-            while ($selected == 0);
+                $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:0,$offset"]);
+            } while ($selected == 0);
 
             return $tagsForGroup->{$selected - 1};
         }

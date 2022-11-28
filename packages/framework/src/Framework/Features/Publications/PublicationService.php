@@ -12,10 +12,10 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 use function Safe\file_get_contents;
 use function Safe\glob;
 use function Safe\json_decode;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
@@ -26,13 +26,14 @@ class PublicationService
      * Get all available/tags.
      *
      * @return \Rgasch\Collection\Collection
+     *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */
     public static function getAllTags(): Collection
     {
         $filename = Hyde::pathToRelative('tags.json');
-        if (!file_exists($filename)) {
+        if (! file_exists($filename)) {
             return Collection::create();
         }
 
@@ -78,9 +79,10 @@ class PublicationService
     /**
      * Get all values for a given tag name.
      *
-     * @param string $tagName
-     * @param \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType
+     * @param  string  $tagName
+     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $publicationType
      * @return \Rgasch\Collection\Collection|null
+     *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */

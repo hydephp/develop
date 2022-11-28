@@ -80,7 +80,7 @@ class ValidatingCommand extends Command
             $this->error($this->translate($name, $error));
         }
 
-        return $this->askWithValidation($name, $question, $rules, $default, $retryCount+1);
+        return $this->askWithValidation($name, $question, $rules, $default, $retryCount + 1);
     }
 
     /**

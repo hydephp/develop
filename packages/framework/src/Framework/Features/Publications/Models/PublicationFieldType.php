@@ -39,12 +39,12 @@ class PublicationFieldType implements SerializableContract
         return new static(...$array);
     }
 
-    public function __construct(string $type, string $name, int|string|null $min, int|string|null $max, ?string $tagGroup=null)
+    public function __construct(string $type, string $name, int|string|null $min, int|string|null $max, ?string $tagGroup = null)
     {
         $this->type = strtolower($type);
         $this->name = Str::kebab($name);
-        $this->min = (string)$min;
-        $this->max = (string)$max;
+        $this->min = (string) $min;
+        $this->max = (string) $max;
         $this->tagGroup = $tagGroup;
 
         if (! in_array(strtolower($type), self::TYPES)) {

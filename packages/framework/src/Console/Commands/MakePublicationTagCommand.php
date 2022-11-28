@@ -10,9 +10,8 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
-use function Safe\json_decode;
-use function Safe\json_encode;
 use function Safe\file_put_contents;
+use function Safe\json_encode;
 
 /**
  * Hyde Command to create a new publication type.
@@ -32,10 +31,11 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->title('Creating a new Publication Type Tag!');
 
         $filename = Hyde::pathToRelative('tags.json');
-        $tags     = PublicationService::getAllTags();
-        $tagName  = $this->askWithValidation('name', 'Tag name', ['required', 'string']);
+        $tags = PublicationService::getAllTags();
+        $tagName = $this->askWithValidation('name', 'Tag name', ['required', 'string']);
         if (isset($tags[$tagName])) {
             $this->output->error("Tag [$tagName] already exists");
+
             return Command::FAILURE;
         }
 
