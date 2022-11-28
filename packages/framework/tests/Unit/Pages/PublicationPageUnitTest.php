@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Markdown\Models\Markdown;
 use function deleteDirectory;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
@@ -14,12 +15,12 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 
-require_once __DIR__.'/BaseHydePageUnitTest.php';
+require_once __DIR__.'/BaseMarkdownPageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\PublicationPage
  */
-class PublicationPageUnitTest extends BaseHydePageUnitTest
+class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 {
     public function testSourceDirectory()
     {
@@ -222,6 +223,21 @@ class PublicationPageUnitTest extends BaseHydePageUnitTest
     public function testMatter()
     {
         $this->assertInstanceOf(FrontMatter::class, (new PublicationPage('foo', [], '', $this->pubType()))->matter());
+    }
+
+    public function testMarkdown()
+    {
+        $this->assertInstanceOf(Markdown::class, (new PublicationPage('test-publication/foo', type: $this->pubType()))->markdown());
+    }
+
+    public function testSave()
+    {
+        mkdir(Hyde::path('directory'));
+        $page = new PublicationPage('foo', type: $this->pubType());
+        $this->assertSame($page, $page->save());
+        $this->assertFileExists('directory/foo.md');
+        unlink(Hyde::path('directory/foo.md'));
+        rmdir(Hyde::path('directory'));
     }
 
     protected function pubType(): PublicationType
