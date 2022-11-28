@@ -92,7 +92,7 @@ abstract class TestCase extends BaseTestCase
             Hyde::touch($path);
         }
 
-        $this->fileMemory[] = $path;
+        $this->cleanUpWhenDone($path);
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class TestCase extends BaseTestCase
     {
         Filesystem::makeDirectory($path, recursive: true, force: true);
 
-        $this->fileMemory[] = $path;
+        $this->cleanUpWhenDone($path);
     }
 
     /**
@@ -138,5 +138,13 @@ abstract class TestCase extends BaseTestCase
             }
             $this->fileMemory = [];
         }
+    }
+
+    /**
+     * Mark a path to be deleted when the test is completed.
+     */
+    protected function cleanUpWhenDone(string $path): void
+    {
+        $this->fileMemory[] = $path;
     }
 }
