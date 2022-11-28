@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Markdown\Models\Markdown;
 use function deleteDirectory;
 use Hyde\Foundation\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
@@ -12,6 +11,7 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 
