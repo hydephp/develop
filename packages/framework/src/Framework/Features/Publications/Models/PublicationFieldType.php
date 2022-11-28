@@ -29,8 +29,8 @@ class PublicationFieldType implements SerializableContract
     ];
 
     public readonly string $type;
-    public readonly string $max; // FIXME: needs to be string (dates, etc), should not be null, default = 0?
-    public readonly string $min; // FIXME: needs to be string (dates, etc), should not be null, default = 0?
+    public readonly string $max; // FIXME: should not be null, default = 0?
+    public readonly string $min; // FIXME: should not be null, default = 0?
     public readonly string $name;
     public readonly ?string $tagGroup;
 
