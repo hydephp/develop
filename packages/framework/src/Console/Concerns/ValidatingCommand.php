@@ -63,7 +63,7 @@ class ValidatingCommand extends Command
         array $rules = [],
         mixed $default = null,
         int $retryCount = 0
-    ): mixed {
+    ): string {
         if ($retryCount >= self::MAX_RETRIES) {
             // Prevent infinite loops that may happen, for example when testing. The retry count is high enough to not affect normal usage.
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
