@@ -50,7 +50,11 @@ abstract class TestCase extends BaseTestCase
         if (sizeof($this->fileMemory) > 0) {
             foreach ($this->fileMemory as $file) {
                 if (Filesystem::isDirectory($file)) {
-                    Filesystem::deleteDirectory($file);
+                    $dontDelete = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
+
+                    if (! in_array($file, $dontDelete)) {
+                        Filesystem::deleteDirectory($file);
+                    }
                 } else {
                     Filesystem::unlink($file);
                 }
