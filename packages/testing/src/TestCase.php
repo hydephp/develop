@@ -129,7 +129,7 @@ abstract class TestCase extends BaseTestCase
                 if (Filesystem::isDirectory($file)) {
                     $dontDelete = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
 
-                    if (!in_array($file, $dontDelete)) {
+                    if (! in_array($file, $dontDelete)) {
                         Filesystem::deleteDirectory($file);
                     }
                 } else {
