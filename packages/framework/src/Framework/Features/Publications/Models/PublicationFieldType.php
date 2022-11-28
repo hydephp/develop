@@ -43,8 +43,8 @@ class PublicationFieldType implements SerializableContract
     {
         $this->type = strtolower($type);
         $this->name = Str::kebab($name);
-        $this->min = (string)$min; // FIXME: should always be string, loose comparison will also work on numeric datatypes
-        $this->max = (string)$max; // FIXME: should always be string, loose comparison will also work on numeric datatypes
+        $this->min = (string)$min;
+        $this->max = (string)$max;
         $this->tagGroup = $tagGroup;
 
         if (! in_array(strtolower($type), self::TYPES)) {
