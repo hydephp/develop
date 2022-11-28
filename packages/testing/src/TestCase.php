@@ -47,20 +47,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function tearDown(): void
     {
-        if (sizeof($this->fileMemory) > 0) {
-            foreach ($this->fileMemory as $file) {
-                if (Filesystem::isDirectory($file)) {
-                    $dontDelete = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
-
-                    if (! in_array($file, $dontDelete)) {
-                        Filesystem::deleteDirectory($file);
-                    }
-                } else {
-                    Filesystem::unlink($file);
-                }
-            }
-            $this->fileMemory = [];
-        }
+        $this->cleanUpFilesystem();
 
         if (method_exists(\Illuminate\View\Component::class, 'flushCache')) {
             /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
@@ -133,5 +120,23 @@ abstract class TestCase extends BaseTestCase
             strip_newlines($expected, true),
             strip_newlines($actual, true),
         );
+    }
+
+    protected function cleanUpFilesystem(): void
+    {
+        if (sizeof($this->fileMemory) > 0) {
+            foreach ($this->fileMemory as $file) {
+                if (Filesystem::isDirectory($file)) {
+                    $dontDelete = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
+
+                    if (!in_array($file, $dontDelete)) {
+                        Filesystem::deleteDirectory($file);
+                    }
+                } else {
+                    Filesystem::unlink($file);
+                }
+            }
+            $this->fileMemory = [];
+        }
     }
 }
