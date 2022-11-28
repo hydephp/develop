@@ -26,6 +26,7 @@ class HydeConsoleServiceProvider extends ServiceProvider
 
                 Commands\MakePageCommand::class,
                 Commands\MakePostCommand::class,
+                Commands\MakePublicationTagCommand::class,
                 Commands\MakePublicationTypeCommand::class,
                 Commands\MakePublicationCommand::class,
 

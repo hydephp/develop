@@ -57,7 +57,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         return Command::SUCCESS;
     }
 
-    protected function captureFieldInput(PublicationFieldType $field, Collection $mediaFiles): string|array
+    protected function captureFieldInput(PublicationFieldType $field, PublicationType $pubType): string|array
     {
         if ($field->type === 'text') {
             $lines = [];
@@ -70,7 +70,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 $lines[] = $line;
             } while (true);
 
-            return implode("\n", $lines);
+            return $lines;
         }
 
         if ($field->type === 'array') {
@@ -81,7 +81,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
                 if ($line === '') {
                     break;
                 }
-                $lines[] = $line;
+                $lines[] = trim($line);
             } while (true);
 
             return $lines;
@@ -89,15 +89,33 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
         if ($field->type === 'image') {
             $this->output->writeln($field->name.' (end with an empty line)');
-            $offset = 0;
-            foreach ($mediaFiles as $index => $file) {
-                $offset = $index + 1;
-                $this->output->writeln("  $offset: $file");
-            }
-            $selected = $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+            do {
+                $offset = 0;
+                $mediaFiles = PublicationService::getMediaForPubType($pubType);
+                foreach ($mediaFiles as $index => $file) {
+                    $offset = $index + 1;
+                    $this->output->writeln("  $offset: $file");
+                }
+                $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+            } while ($selected == 0);
             $file = $mediaFiles->{$selected - 1};
 
             return '_media/'.Str::of($file)->after('media/')->toString();
+        }
+
+        if ($field->type === 'tag') {
+            $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
+            do {
+                $offset = 0;
+                $tagsForGroup = PublicationService::getAllTags()->{$field->tagGroup};
+                foreach ($tagsForGroup as $index=>$value) {
+                    $offset = $index + 1;
+                    $this->output->writeln("  $offset: $value");
+                }
+                $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:0,$offset"]);
+            } while ($selected == 0);
+
+            return $tagsForGroup->{$selected - 1};
         }
 
         // Fields which are not of type array, text or image
@@ -151,10 +169,8 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
     {
         $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
 
-        $mediaFiles = PublicationService::getMediaForPubType($pubType);
-
-        return Collection::make($pubType->fields)->mapWithKeys(function ($field) use ($mediaFiles) {
-            return [$field['name'] => $this->captureFieldInput(PublicationFieldType::fromArray($field), $mediaFiles)];
+        return Collection::make($pubType->fields)->mapWithKeys(function ($field) use ($pubType) {
+            return [$field['name'] => $this->captureFieldInput(PublicationFieldType::fromArray($field), $pubType)];
         });
     }
 
