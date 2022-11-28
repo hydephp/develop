@@ -18,5 +18,7 @@ require_once __DIR__.'/BaseHydePageUnitTest.php';
  */
 abstract class BaseMarkdownPageUnitTest extends BaseHydePageUnitTest
 {
-    //
+    abstract public function testMarkdown();
+
+    abstract public function testSave();
 }
