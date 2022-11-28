@@ -42,7 +42,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $lines = [];
         $this->output->writeln('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
         do {
-            $line = Str::replace("\n", '', fgets(STDIN));
+            $line = Str::replace(["\n", "\r"], '', fgets(STDIN));
             if ($line === '') {
                 break;
             }
