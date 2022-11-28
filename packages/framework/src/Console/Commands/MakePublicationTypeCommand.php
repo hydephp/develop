@@ -8,6 +8,7 @@ use Exception;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
+use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -76,14 +77,16 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         );
 
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
+        $fieldNames = [];
         foreach ($fields as $k => $v) {
-            if ($fields->first()->type != 'image') {
+            if ($v->type != 'image' && $v->type != 'tag') {
+                $fieldNames[] = $v->name;
                 $offset = $k + 1;
                 $this->line("  $offset: $v->name");
             }
         }
-        $selected = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
-        $canonicalField = $fields[$selected - 1]['name'];
+        $selected       = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
+        $canonicalField = $fieldNames[$selected - 1];
 
         try {
             $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
@@ -109,41 +112,69 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
             $field = Collection::create();
-            $field->name = $this->askWithValidation('name', 'Field name', ['required']);
+            do {
+                $field->name = trim($this->askWithValidation('name', 'Field name', ['required']));
+                $duplicate   = $fields->where('name', $field->name)->count();
+                if ($duplicate) {
+                    $this->error("Field name [$field->name] already exists!");
+                }
+            } while ($duplicate);
+
             $this->line('Field type:');
             $this->line('  1 - String');
             $this->line('  2 - Boolean ');
             $this->line('  3 - Integer');
             $this->line('  4 - Float');
-            $this->line('  5 - Datetime');
+            $this->line('  5 - Datetime (YYYY-MM-DD (HH:MM:SS))');
             $this->line('  6 - URL');
             $this->line('  7 - Array');
             $this->line('  8 - Text');
             $this->line('  9 - Local Image');
-            $type = (int) $this->askWithValidation('type', 'Field type (1-9)', ['required', 'integer', 'between:1,9'], 1);
-            do {
-                // TODO This should only be done for types that can have length restrictions right?
-                $field->min = $this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0);
-                $field->max = $this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0);
-                $lengthsValid = true;
-                if ($field->max < $field->min) {
-                    $lengthsValid = false;
-                    $this->output->warning('Field length [max] must be [>=] than [min]');
+            $this->line('  10 - Tag (select value from list)');
+            $type = (int) $this->askWithValidation('type', 'Field type (1-10)', ['required', 'integer', 'between:1,10'], 1);
+
+            if ($type < 10) {
+                do {
+                    // TODO This should only be done for types that can have length restrictions right?
+                    // ANSWER: No, it can also be a value restriction
+                    // - (int: 0 - 2022)
+                    // - (float: 0 - 360)
+                    // - (datetime: 2022-01-01 - 2022-12-31)
+                    $field->min   = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $field->max   = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $lengthsValid = true;
+                    if ($field->max < $field->min) {
+                        $lengthsValid = false;
+                        $this->output->warning('Field length [max] must be [>=] than [min]');
+                    }
+                } while (!$lengthsValid);
+            } else {
+                $allTags = PublicationService::getAllTags();
+                $offset = 1;
+                foreach ($allTags as $k=>$v) {
+                    $this->line("  $offset - $k");
+                    $offset++;
                 }
-            } while (! $lengthsValid);
-            $addAnother = $this->askWithValidation('addAnother', 'Add another field (y/n)', ['required', 'string', 'in:y,n'], 'y');
+                $offset--; // The above loop overcounts by 1
+                $selected        = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
+                $field->tagGroup = $allTags->keys()->{$selected - 1};
+                $field->min      = 0;
+                $field->max      = 0;
+            }
+            $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'y');
 
             // map field choice to actual field type
             $field->type = match ($type) {
-                1 => 'string',
-                2 => 'boolean',
-                3 => 'integer',
-                4 => 'float',
-                5 => 'datetime',
-                6 => 'url',
-                7 => 'array',
-                8 => 'text',
-                9 => 'image',
+                1  => 'string',
+                2  => 'boolean',
+                3  => 'integer',
+                4  => 'float',
+                5  => 'datetime',
+                6  => 'url',
+                7  => 'array',
+                8  => 'text',
+                9  => 'image',
+                10 => 'tag',
             };
 
             $fields->add($field);

@@ -7,20 +7,38 @@ namespace Hyde\Framework\Features\Publications;
 use function basename;
 use function dirname;
 use Exception;
-use function glob;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-use function Safe\file_get_contents;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use function Safe\file_get_contents;
+use function Safe\glob;
+use function Safe\json_decode;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
  */
 class PublicationService
 {
+    /**
+     * Get all available/tags.
+     *
+     * @return \Rgasch\Collection\Collection
+     * @throws \Safe\Exceptions\FilesystemException
+     * @throws \Safe\Exceptions\JsonException
+     */
+    public static function getAllTags(): Collection
+    {
+        $filename = Hyde::pathToRelative('tags.json');
+        if (!file_exists($filename)) {
+            return Collection::create();
+        }
+
+        return Collection::create(json_decode(file_get_contents($filename), true))->sortKeys();
+    }
+
     /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
@@ -55,6 +73,25 @@ class PublicationService
         return Collection::create(static::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
             return Hyde::pathToRelative($file);
         });
+    }
+
+    /**
+     * Get all values for a given tag name.
+     *
+     * @param string $tagName
+     * @param \Hyde\Framework\Features\Publications\Models\PublicationType $publicationType
+     * @return \Rgasch\Collection\Collection|null
+     * @throws \Safe\Exceptions\FilesystemException
+     * @throws \Safe\Exceptions\JsonException
+     */
+    public static function getValuesForTagName(string $tagName, PublicationType $publicationType): ?Collection
+    {
+        $tags = self::getAllTags($publicationType);
+        if ($tags->has($tagName)) {
+            return $tags->$tagName;
+        }
+
+        return null;
     }
 
     /**
