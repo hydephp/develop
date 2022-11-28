@@ -3,6 +3,7 @@
 namespace Hyde\Testing;
 
 use Hyde\Facades\Features;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
@@ -47,7 +48,13 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         if (sizeof($this->fileMemory) > 0) {
-            Hyde::unlink($this->fileMemory);
+            foreach ($this->fileMemory as $file) {
+                if (Filesystem::isDirectory($file)) {
+                    Filesystem::deleteDirectory($file);
+                } else {
+                    Filesystem::unlink($file);
+                }
+            }
             $this->fileMemory = [];
         }
 
@@ -93,6 +100,17 @@ abstract class TestCase extends BaseTestCase
         } else {
             Hyde::touch($path);
         }
+
+        $this->fileMemory[] = $path;
+    }
+
+    /**
+     * Create a temporary directory in the project directory.
+     * The TestCase will automatically remove the entire directory when the test is completed.
+     */
+    protected function directory(string $path): void
+    {
+        Filesystem::makeDirectory($path, recursive: true, force: true);
 
         $this->fileMemory[] = $path;
     }
