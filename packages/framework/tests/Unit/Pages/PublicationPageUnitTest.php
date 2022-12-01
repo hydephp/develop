@@ -145,13 +145,14 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     {
         $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::pages()->put($page->getSourcePath(), $page);
-        $this->assertEquals($page, PublicationPage::get('directory/foo'));
+        $this->assertSame($page, PublicationPage::get('directory/foo'));
     }
 
     public function testParse()
     {
-        $this->directory(Hyde::path('directory'));
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('directory/schema.json'));
+        $this->directory('directory');
+        $this->setupTestPublication('directory');
+
         Hyde::touch(PublicationPage::sourcePath('directory/foo'));
         $this->assertInstanceOf(PublicationPage::class, PublicationPage::parse('directory/foo'));
     }
@@ -209,8 +210,8 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testCompile()
     {
-        $this->directory(Hyde::path('directory'));
-        touch(Hyde::path('directory/detailTemplate.blade.php'));
+        $this->directory('directory');
+        Hyde::touch('directory/detailTemplate.blade.php');
 
         $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::shareViewData($page);
@@ -229,10 +230,11 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testSave()
     {
-        $this->directory(Hyde::path('directory'));
+        $this->directory('directory');
+
         $page = new PublicationPage('foo', type: $this->pubType());
         $this->assertSame($page, $page->save());
-        $this->assertFileExists('directory/foo.md');
+        $this->assertFileExists(Hyde::path('directory/foo.md'));
     }
 
     protected function pubType(): PublicationType
