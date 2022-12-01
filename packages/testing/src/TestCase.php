@@ -147,4 +147,9 @@ abstract class TestCase extends BaseTestCase
     {
         $this->fileMemory[] = $path;
     }
+
+    protected function setupTestPublication(string $pubName = 'test-publication')
+    {
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path("$pubName/schema.json"));
+    }
 }
