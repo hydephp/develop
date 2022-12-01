@@ -151,11 +151,10 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testParse()
     {
-        // TODO
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/685#discussion_r1033004814');
-        $this->file(PublicationPage::sourcePath('directory/foo'));
+        $this->directory(Hyde::path('directory'));
+        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('directory/schema.json'));
+        Hyde::touch(PublicationPage::sourcePath('directory/foo'));
         $this->assertInstanceOf(PublicationPage::class, PublicationPage::parse('directory/foo'));
-        deleteDirectory(Hyde::path('directory'));
     }
 
     public function testGetRouteKey()
