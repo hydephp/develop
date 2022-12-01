@@ -210,13 +210,12 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testCompile()
     {
-        mkdir(Hyde::path('directory'));
+        $this->directory(Hyde::path('directory'));
         touch(Hyde::path('directory/detailTemplate.blade.php'));
 
         $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::shareViewData($page);
         $this->assertIsString(PublicationPage::class, $page->compile());
-        deleteDirectory(Hyde::path('directory'));
     }
 
     public function testMatter()
@@ -231,12 +230,10 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testSave()
     {
-        mkdir(Hyde::path('directory'));
+        $this->directory(Hyde::path('directory'));
         $page = new PublicationPage('foo', type: $this->pubType());
         $this->assertSame($page, $page->save());
         $this->assertFileExists('directory/foo.md');
-        unlink(Hyde::path('directory/foo.md'));
-        rmdir(Hyde::path('directory'));
     }
 
     protected function pubType(): PublicationType
