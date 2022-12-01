@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\View;
  * @internal Single-use trait for the HydeKernel class.
  *
  * @todo Consider if this logic is better suited for a "Render" class solely for handling data related to the current render.
+ *       This could then also have a proper schema for the defined data so it can be type-hinted.
  *
  * @see \Hyde\Foundation\HydeKernel
  */
