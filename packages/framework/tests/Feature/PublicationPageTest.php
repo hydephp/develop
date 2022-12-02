@@ -77,7 +77,7 @@ class PublicationPageTest extends TestCase
 
         $this->assertEquals('bar', $page->matter('foo'));
         $this->assertEquals('canonical', $page->matter('__canonical'));
-        $this->assertEquals("Hello World!\n", $page->markdown()->body());
+        $this->assertEquals("Hello World!", $page->markdown()->body());
     }
 
     public function test_publication_pages_are_compilable()
