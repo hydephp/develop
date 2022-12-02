@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Hyde\Support\Facades\Render;
 use function config;
 use Hyde\Facades\Asset;
 use Hyde\Hyde;
@@ -57,7 +58,7 @@ class StylesComponentViewTest extends TestCase
 
     public function test_styles_can_be_pushed_to_the_component_styles_stack()
     {
-        view()->share('currentPage', '');
+        Render::share('currentPage', '');
 
         $this->assertStringContainsString('foo bar',
              Blade::render('
