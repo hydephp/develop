@@ -35,17 +35,17 @@ class Render
 
     public static function getPage(): ?HydePage
     {
-        return static::$page ?? null;
+        return static::$page ?? View::shared('page');
     }
 
     public static function getCurrentRoute(): ?Route
     {
-        return static::$currentRoute ?? null;
+        return static::$currentRoute ?? View::shared('currentRoute');
     }
 
     public static function getCurrentPage(): ?string
     {
-        return static::$currentPage ?? null;
+        return static::$currentPage ?? View::shared('currentPage');
     }
 
     public static function share(string $key, mixed $value): void
