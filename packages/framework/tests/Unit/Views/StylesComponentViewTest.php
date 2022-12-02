@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit\Views;
 use function config;
 use Hyde\Facades\Asset;
 use Hyde\Hyde;
+use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
@@ -20,7 +21,7 @@ class StylesComponentViewTest extends TestCase
     protected function renderTestView(): string
     {
         config(['hyde.cache_busting' => false]);
-        view()->share('currentPage', $this->mockCurrentPage ?? '');
+        $this->mockCurrentPage($this->mockCurrentPage ?? '');
 
         return Blade::render(file_get_contents(
             Hyde::vendorPath('resources/views/layouts/styles.blade.php')
@@ -57,7 +58,7 @@ class StylesComponentViewTest extends TestCase
 
     public function test_styles_can_be_pushed_to_the_component_styles_stack()
     {
-        view()->share('currentPage', '');
+        Render::share('currentPage', '');
 
         $this->assertStringContainsString('foo bar',
              Blade::render('

@@ -15,10 +15,10 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\HtmlString;
 
 /**
@@ -76,14 +76,14 @@ class HydeKernelTest extends TestCase
 
     public function test_current_page_helper_returns_current_page_name()
     {
-        View::share('currentPage', 'foo');
+        Render::share('currentPage', 'foo');
         $this->assertEquals('foo', Hyde::currentPage());
     }
 
     public function test_current_route_helper_returns_current_route_object()
     {
         $expected = new Route(new MarkdownPage());
-        View::share('currentRoute', $expected);
+        Render::share('currentRoute', $expected);
         $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertEquals($expected, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
@@ -112,20 +112,20 @@ class HydeKernelTest extends TestCase
 
     public function test_relative_link_helper_returns_relative_link_to_destination()
     {
-        View::share('currentPage', 'bar');
+        Render::share('currentPage', 'bar');
         $this->assertEquals('foo', Hyde::relativeLink('foo'));
 
-        View::share('currentPage', 'foo/bar');
+        Render::share('currentPage', 'foo/bar');
         $this->assertEquals('../foo', Hyde::relativeLink('foo'));
     }
 
     public function test_image_helper_returns_image_path_for_given_name()
     {
-        View::share('currentPage', 'foo');
+        Render::share('currentPage', 'foo');
         $this->assertEquals('media/foo.jpg', Hyde::image('foo.jpg'));
         $this->assertEquals('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
 
-        View::share('currentPage', 'foo/bar');
+        Render::share('currentPage', 'foo/bar');
         $this->assertEquals('../media/foo.jpg', Hyde::image('foo.jpg'));
         $this->assertEquals('https://example.com/foo.jpg', Hyde::image('https://example.com/foo.jpg'));
     }
