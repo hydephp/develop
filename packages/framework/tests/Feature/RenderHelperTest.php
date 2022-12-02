@@ -77,7 +77,6 @@ class RenderHelperTest extends TestCase
         $this->assertNull(View::shared('currentRoute'));
         $this->assertNull(View::shared('currentPage'));
 
-
         View::share('keep', 'this');
         $this->assertNotNull(View::shared('keep'));
 

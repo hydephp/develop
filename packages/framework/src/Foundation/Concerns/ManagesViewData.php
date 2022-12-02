@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Concerns;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
-use Illuminate\Support\Facades\View;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
