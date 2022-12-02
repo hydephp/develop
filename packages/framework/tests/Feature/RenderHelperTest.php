@@ -69,6 +69,14 @@ class RenderHelperTest extends TestCase
         Render::share('foo', 'bar');
     }
 
+    public function testShareCascadesDataToView()
+    {
+        $this->assertNull(View::shared('currentPage'));
+
+        Render::share('currentPage', 'bar');
+        $this->assertSame('bar', View::shared('currentPage'));
+    }
+
     public function testClearData()
     {
         Render::setPage(new MarkdownPage());
