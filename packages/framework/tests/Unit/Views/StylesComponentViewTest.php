@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Support\Facades\Render;
 use function config;
 use Hyde\Facades\Asset;
 use Hyde\Hyde;
+use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
 
