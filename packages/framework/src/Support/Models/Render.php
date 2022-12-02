@@ -74,7 +74,7 @@ class Render implements Arrayable
         $shared = View::shared($property);
 
         if ($shared !== null) {
-            trigger_error('Setting page rendering data via the view facade is deprecated. Use the Render model/facade instead.', E_USER_DEPRECATED);
+            trigger_error('Setting page rendering data via the view facade is deprecated. Use the Render model/facade instead.', E_USER_ERROR);
         }
 
         return $shared;
