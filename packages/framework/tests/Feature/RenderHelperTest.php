@@ -112,19 +112,20 @@ class RenderHelperTest extends TestCase
 
     public function testToArray()
     {
+        $render = Render::getFacadeRoot();
         $this->assertSame([
-            'render' => Render::getFacadeRoot(),
+            'render' => $render,
             'page' => null,
             'currentRoute' => null,
             'currentPage' => null,
-        ], Render::getFacadeRoot()->toArray());
+        ], $render->toArray());
 
         Render::setPage($page = new MarkdownPage());
         $this->assertEquals([
-            'render' => Render::getFacadeRoot(),
+            'render' => $render,
             'page' => $page,
             'currentRoute' => $page->getRoute(),
             'currentPage' => $page->getRouteKey(),
-        ], Render::getFacadeRoot()->toArray());
+        ], $render->toArray());
     }
 }
