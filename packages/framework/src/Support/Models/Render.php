@@ -51,6 +51,13 @@ class Render implements Arrayable
         View::share($this->toArray());
     }
 
+    public function share(string $key, mixed $value): void
+    {
+        if (property_exists($this, $key)) {
+            $this->{$key} = $value;
+        }
+    }
+
     public function clearData(): void
     {
         unset($this->page, $this->currentRoute, $this->currentPage);
