@@ -107,4 +107,20 @@ class RenderHelperTest extends TestCase
         Render::clearData();
         $this->assertNotNull(View::shared('keep'));
     }
+
+    public function testToArray()
+    {
+        $this->assertSame([
+            'page' => null,
+            'currentRoute' => null,
+            'currentPage' => null,
+        ], Render::toArray());
+
+        Render::setPage($page = new MarkdownPage());
+        $this->assertEquals([
+            'page' => $page,
+            'currentRoute' => $page->getRoute(),
+            'currentPage' => $page->getRouteKey(),
+        ], Render::toArray());
+    }
 }
