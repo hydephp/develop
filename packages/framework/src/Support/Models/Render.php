@@ -16,8 +16,6 @@ use InvalidArgumentException;
  *
  * @see \Hyde\Support\Facades\Render
  * @see \Hyde\Framework\Testing\Feature\RenderHelperTest
- *
- * @todo Refactor to actually utilize this class
  */
 class Render implements Arrayable
 {
