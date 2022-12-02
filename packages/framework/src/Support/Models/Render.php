@@ -24,8 +24,6 @@ class Render
     protected static Route $currentRoute;
     protected static string $currentPage;
 
-    protected static array $data = [];
-
     public static function setPage(HydePage $page): void
     {
         static::$page = $page;
@@ -46,21 +44,6 @@ class Render
     public static function getCurrentPage(): ?string
     {
         return static::$currentPage ?? self::handleFallback('currentPage');
-    }
-
-    public static function share(string $key, mixed $value): void
-    {
-        static::$data[$key] = $value;
-    }
-
-    public static function shared(string $key, mixed $default = null): mixed
-    {
-        return static::$data[$key] ?? $default;
-    }
-
-    public static function has(string $key): bool
-    {
-        return isset(static::$data[$key]);
     }
 
     public static function shareToView(): void
