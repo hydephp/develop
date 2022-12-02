@@ -94,20 +94,29 @@ class RenderHelperTest extends TestCase
         $this->assertNotNull(View::shared('page'));
         $this->assertNotNull(View::shared('currentRoute'));
         $this->assertNotNull(View::shared('currentPage'));
-        $this->assertNotNull(View::shared('render'));
 
         Render::clearData();
-
         $this->assertNull(View::shared('page'));
         $this->assertNull(View::shared('currentRoute'));
         $this->assertNull(View::shared('currentPage'));
-        $this->assertNotNull(View::shared('render'));
+    }
 
-        View::share('keep', 'this');
-        $this->assertNotNull(View::shared('keep'));
+    public function testClearDataDoesNotClearOtherViewData()
+    {
+        View::share('foo', 'bar');
+        $this->assertNotNull(View::shared('foo'));
 
         Render::clearData();
-        $this->assertNotNull(View::shared('keep'));
+        $this->assertNotNull(View::shared('foo'));
+    }
+
+    public function testClearDataDoesNotClearRenderInstanceFromViewData()
+    {
+        Render::shareToView();
+        $this->assertNotNull(View::shared('render'));
+
+        Render::clearData();
+        $this->assertNotNull(View::shared('render'));
     }
 
     public function testToArray()
