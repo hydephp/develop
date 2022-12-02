@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Facade;
  * @see \Hyde\Support\Models\Render
  *
  * @method static void setPage(HydePage $page)
- * @method static HydePage getPage()
- * @method static Route getCurrentRoute()
- * @method static string getCurrentPage()
+ * @method static HydePage|null getPage()
+ * @method static Route|null getCurrentRoute()
+ * @method static string|null getCurrentPage()
  * @method static void share(string $key, mixed $value)
- * @method static mixed shared(string $key, mixed $default = null)
- * @method static bool has(string $key)
+ * @method static void shareToView()
+ * @method static void clearData()
  */
 class Render extends Facade
 {
