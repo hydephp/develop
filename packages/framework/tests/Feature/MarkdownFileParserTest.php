@@ -57,8 +57,10 @@ This is a post stub used in the automated tests
         ]), $document->matter);
 
         $this->assertEquals(
-            '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', (string) $document->markdown)
+            '# My New Post
+
+This is a post stub used in the automated tests',
+            str_replace("\r", '', (string) $document->markdown)
         );
     }
 
@@ -72,15 +74,6 @@ This is a post stub used in the automated tests
         $this->assertEquals('blog', $post->matter('category'));
     }
 
-    public function test_parsed_front_matter_does_not_contain_slug_key()
-    {
-        file_put_contents(Hyde::path('_posts/test-post.md'), "---\nslug: foo\n---\n");
-
-        $post = (new MarkdownFileParser(('_posts/test-post.md')))->get();
-        $this->assertNull($post->matter('slug'));
-        $this->assertEquals(FrontMatter::fromArray([]), $post->matter);
-    }
-
     public function test_static_parse_shorthand()
     {
         $this->makeTestPost();
@@ -91,8 +84,10 @@ This is a post stub used in the automated tests
         $this->assertEquals('blog', $post->matter('category'));
 
         $this->assertEquals(
-            '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', (string) $post->markdown)
+            '# My New Post
+
+This is a post stub used in the automated tests',
+            str_replace("\r", '', (string) $post->markdown)
         );
     }
 }

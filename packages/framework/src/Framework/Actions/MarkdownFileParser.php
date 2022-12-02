@@ -39,13 +39,10 @@ class MarkdownFileParser
 
             if ($object->matter()) {
                 $this->matter = $object->matter();
-
-                // Unset the slug from the matter, as it can cause problems if it exists.
-                unset($this->matter['slug']);
             }
 
             if ($object->body()) {
-                $this->markdown = $object->body();
+                $this->markdown = rtrim($object->body());
             }
         } else {
             $this->markdown = $stream;
