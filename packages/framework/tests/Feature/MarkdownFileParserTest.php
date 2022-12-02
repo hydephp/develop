@@ -59,8 +59,7 @@ This is a post stub used in the automated tests
         $this->assertEquals(
             '# My New Post
 
-This is a post stub used in the automated tests
-',
+This is a post stub used in the automated tests',
             str_replace("\r", '', (string) $document->markdown)
         );
     }
@@ -87,8 +86,7 @@ This is a post stub used in the automated tests
         $this->assertEquals(
             '# My New Post
 
-This is a post stub used in the automated tests
-',
+This is a post stub used in the automated tests',
             str_replace("\r", '', (string) $post->markdown)
         );
     }

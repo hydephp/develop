@@ -42,7 +42,7 @@ class MarkdownFileParser
             }
 
             if ($object->body()) {
-                $this->markdown = $object->body();
+                $this->markdown = rtrim($object->body());
             }
         } else {
             $this->markdown = $stream;
