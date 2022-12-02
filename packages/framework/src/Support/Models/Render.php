@@ -65,8 +65,8 @@ class Render
 
     public static function shareToView(): void
     {
-        View::share('page', static::$page);
-        View::share('currentRoute', static::$currentRoute);
-        View::share('currentPage', static::$currentPage);
+        View::share('page', static::getPage());
+        View::share('currentRoute', static::getCurrentRoute());
+        View::share('currentPage', static::getCurrentPage());
     }
 }
