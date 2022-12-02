@@ -79,12 +79,12 @@ class Render implements Arrayable
     }
 
     /** @codeCoverageIgnore */
-    protected function handleFallback(string $property): mixed
+    protected static function handleFallback(string $property): mixed
     {
         $shared = View::shared($property);
 
         if ($shared !== null) {
-            $this->{$property} = $shared;
+            trigger_error("Setting page rendering data via the view facade is deprecated. Use `Render::share('$property', \$value)` instead", E_USER_ERROR);
         }
 
         return $shared;
