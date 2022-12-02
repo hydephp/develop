@@ -78,7 +78,10 @@ class Render implements Arrayable
         ];
     }
 
-    /** @codeCoverageIgnore */
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
     protected static function handleFallback(string $property): mixed
     {
         $shared = View::shared($property);
