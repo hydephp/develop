@@ -61,4 +61,9 @@ class Render
     {
         return isset(static::$data[$key]);
     }
+
+    public static function shareToView(): void
+    {
+        // TODO
+    }
 }
