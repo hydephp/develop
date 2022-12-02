@@ -37,4 +37,13 @@ class RenderHelperTest extends TestCase
         Render::setPage($page = new MarkdownPage());
         $this->assertSame($page->getRouteKey(), Render::getCurrentPage());
     }
+
+    public function testClearData()
+    {
+        Render::setPage(new MarkdownPage());
+        $this->assertNotNull(Render::getPage());
+
+        Render::clearData();
+        $this->assertNull(Render::getPage());
+    }
 }

@@ -54,7 +54,7 @@ class Render
 
     public function clearData(): void
     {
-        // TODO
+        unset($this->page, $this->currentRoute, $this->currentPage);
     }
 
     /** @codeCoverageIgnore */
