@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Pages\MarkdownPage;
-use Hyde\Support\Models\Render;
+use Hyde\Facades\Render;
 use Hyde\Testing\TestCase;
 
 /**
