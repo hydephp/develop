@@ -88,7 +88,7 @@ class SourceFileParserTest extends TestCase
         $page = $parser->get();
         $this->assertInstanceOf(PublicationPage::class, $page);
         $this->assertEquals('test-publication/foo', $page->identifier);
-        $this->assertEquals("## Write something awesome.\n\n", $page->markdown);
+        $this->assertEquals('## Write something awesome.', $page->markdown);
         $this->assertEquals('My Title', $page->title);
         $this->assertEquals('My Title', $page->matter->get('title'));
         $this->assertTrue($page->matter->has('__createdAt'));
