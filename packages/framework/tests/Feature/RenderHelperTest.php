@@ -10,6 +10,7 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Support\Models\Render
+ * @covers \Hyde\Facades\Render
  */
 class RenderHelperTest extends TestCase
 {
