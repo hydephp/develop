@@ -21,7 +21,6 @@ trait ManagesViewData
     public function shareViewData(HydePage $page): void
     {
         Render::setPage($page);
-        Render::shareToView();
     }
 
     /**

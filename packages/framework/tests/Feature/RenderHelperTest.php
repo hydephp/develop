@@ -23,6 +23,14 @@ class RenderHelperTest extends TestCase
         $this->assertSame($page, Render::getPage());
     }
 
+    public function testSetPageSharesDataToViewAutomatically()
+    {
+        $this->assertNull(View::shared('page'));
+
+        Render::setPage($page = new MarkdownPage());
+        $this->assertSame($page, View::shared('page'));
+    }
+
     public function testGetCurrentRoute()
     {
         $this->assertNull(Render::getCurrentRoute());
@@ -46,7 +54,6 @@ class RenderHelperTest extends TestCase
         $this->assertNull(View::shared('currentPage'));
 
         Render::setPage($page = new MarkdownPage());
-        Render::shareToView();
 
         $this->assertSame($page, View::shared('page'));
         $this->assertEquals($page->getRoute(), View::shared('currentRoute'));
@@ -89,7 +96,6 @@ class RenderHelperTest extends TestCase
     public function testClearDataCascadesToClearItsViewData()
     {
         Render::setPage(new MarkdownPage());
-        Render::shareToView();
 
         $this->assertNotNull(View::shared('page'));
         $this->assertNotNull(View::shared('currentRoute'));

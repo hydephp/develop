@@ -30,6 +30,8 @@ class Render implements Arrayable
         $this->page = $page;
         $this->currentRoute = $page->getRoute();
         $this->currentPage = $page->getRouteKey();
+
+        $this->shareToView();
     }
 
     public function getPage(): ?HydePage
