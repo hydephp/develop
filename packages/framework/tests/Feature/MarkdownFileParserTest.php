@@ -57,8 +57,11 @@ This is a post stub used in the automated tests
         ]), $document->matter);
 
         $this->assertEquals(
-            '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', (string) $document->markdown)
+            '# My New Post
+
+This is a post stub used in the automated tests
+',
+            str_replace("\r", '', (string) $document->markdown)
         );
     }
 
@@ -82,8 +85,11 @@ This is a post stub used in the automated tests
         $this->assertEquals('blog', $post->matter('category'));
 
         $this->assertEquals(
-            '# My New PostThis is a post stub used in the automated tests',
-            str_replace(["\n", "\r"], '', (string) $post->markdown)
+            '# My New Post
+
+This is a post stub used in the automated tests
+',
+            str_replace("\r", '', (string) $post->markdown)
         );
     }
 }
