@@ -25,7 +25,7 @@ class Markdown implements Arrayable, Stringable, Htmlable
      */
     public function __construct(string $body = '')
     {
-        $this->body = $body;
+        $this->body = rtrim($body);
     }
 
     /**
