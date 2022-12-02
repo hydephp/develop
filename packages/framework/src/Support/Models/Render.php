@@ -20,37 +20,42 @@ use Illuminate\Support\Facades\View;
  */
 class Render
 {
-    protected static HydePage $page;
-    protected static Route $currentRoute;
-    protected static string $currentPage;
+    protected HydePage $page;
+    protected Route $currentRoute;
+    protected string $currentPage;
 
-    public static function setPage(HydePage $page): void
+    public function setPage(HydePage $page): void
     {
-        static::$page = $page;
-        static::$currentRoute = $page->getRoute();
-        static::$currentPage = $page->getRouteKey();
+        $this->page = $page;
+        $this->currentRoute = $page->getRoute();
+        $this->currentPage = $page->getRouteKey();
     }
 
-    public static function getPage(): ?HydePage
+    public function getPage(): ?HydePage
     {
-        return static::$page ?? self::handleFallback('page');
+        return $this->page ?? self::handleFallback('page');
     }
 
-    public static function getCurrentRoute(): ?Route
+    public function getCurrentRoute(): ?Route
     {
-        return static::$currentRoute ?? self::handleFallback('currentRoute');
+        return $this->currentRoute ?? self::handleFallback('currentRoute');
     }
 
-    public static function getCurrentPage(): ?string
+    public function getCurrentPage(): ?string
     {
-        return static::$currentPage ?? self::handleFallback('currentPage');
+        return $this->currentPage ?? self::handleFallback('currentPage');
     }
 
-    public static function shareToView(): void
+    public function shareToView(): void
     {
-        View::share('page', static::getPage());
-        View::share('currentRoute', static::getCurrentRoute());
-        View::share('currentPage', static::getCurrentPage());
+        View::share('page', $this->getPage());
+        View::share('currentRoute', $this->getCurrentRoute());
+        View::share('currentPage', $this->getCurrentPage());
+    }
+
+    public function clearData(): void
+    {
+        // TODO
     }
 
     /** @codeCoverageIgnore */
