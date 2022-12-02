@@ -14,6 +14,7 @@ use Hyde\Pages\Concerns\HydePage;
  * @see \Hyde\Framework\Testing\Feature\RenderHelperTest
  *
  * @todo Refactor into singleton and add facade
+ * @todo Refactor to actually utilize this class
  */
 class Render
 {
