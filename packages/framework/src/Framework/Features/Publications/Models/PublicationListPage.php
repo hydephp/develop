@@ -8,6 +8,7 @@ use function file_get_contents;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
+use Hyde\Support\Contracts\DynamicPage;
 use Illuminate\Support\Facades\Blade;
 use InvalidArgumentException;
 use function str_contains;
@@ -17,7 +18,7 @@ use function view;
  * @see \Hyde\Pages\PublicationPage
  * @see \Hyde\Framework\Testing\Feature\PublicationListPageTest
  */
-class PublicationListPage extends BladePage
+class PublicationListPage extends BladePage implements DynamicPage
 {
     public static string $sourceDirectory = '__publications';
     public static string $outputDirectory = '';
