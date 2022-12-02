@@ -47,17 +47,17 @@ class Render
 
     public function shareToView(): void
     {
-        View::share('page', $this->getPage());
-        View::share('currentRoute', $this->getCurrentRoute());
-        View::share('currentPage', $this->getCurrentPage());
+        View::share([
+            'page' => $this->getPage(),
+            'currentRoute' => $this->getCurrentRoute(),
+            'currentPage' => $this->getCurrentPage()
+        ]);
     }
 
     public function clearData(): void
     {
         unset($this->page, $this->currentRoute, $this->currentPage);
-        View::share('page');
-        View::share('currentRoute');
-        View::share('currentPage');
+        View::share(['page' => null, 'currentRoute' => null, 'currentPage' => null]);
     }
 
     /** @codeCoverageIgnore */
