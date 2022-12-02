@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Pages\Concerns\HydePage;
+use Illuminate\Support\Facades\View;
 
 /**
  * Contains data for the current page being rendered/compiled.
@@ -64,6 +65,8 @@ class Render
 
     public static function shareToView(): void
     {
-        // TODO
+        View::share('page', static::$page);
+        View::share('currentRoute', static::$currentRoute);
+        View::share('currentPage', static::$currentPage);
     }
 }
