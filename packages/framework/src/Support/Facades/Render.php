@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Facade;
  * Manages data for the current page being rendered/compiled.
  *
  * @see \Hyde\Support\Models\Render
- * @mixin \Hyde\Support\Models\Render
  */
 class Render extends Facade
 {
