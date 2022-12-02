@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\View;
 
@@ -20,9 +21,8 @@ trait ManagesViewData
      */
     public function shareViewData(HydePage $page): void
     {
-        View::share('page', $page);
-        View::share('currentPage', $page->getRouteKey());
-        View::share('currentRoute', $page->getRoute());
+        Render::setPage($page);
+        Render::shareToView();
     }
 
     /**
@@ -30,7 +30,7 @@ trait ManagesViewData
      */
     public function currentPage(): ?string
     {
-        return View::shared('currentPage');
+        return Render::getCurrentPage();
     }
 
     /**
@@ -38,6 +38,6 @@ trait ManagesViewData
      */
     public function currentRoute(): ?Route
     {
-        return View::shared('currentRoute');
+        return Render::getCurrentRoute();
     }
 }
