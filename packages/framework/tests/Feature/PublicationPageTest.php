@@ -150,7 +150,7 @@ Hello World!
 
     protected function createPublicationFiles(): void
     {
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path('test-publication/schema.json'));
+        $this->setupTestPublication();
         file_put_contents(
             Hyde::path('test-publication/foo.md'),
             '---
