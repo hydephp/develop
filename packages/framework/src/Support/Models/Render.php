@@ -73,6 +73,7 @@ class Render implements Arrayable
     public function toArray(): array
     {
         return [
+            'render' => $this,
             'page' => $this->getPage(),
             'currentRoute' => $this->getCurrentRoute(),
             'currentPage' => $this->getCurrentPage(),

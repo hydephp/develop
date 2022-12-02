@@ -94,12 +94,14 @@ class RenderHelperTest extends TestCase
         $this->assertNotNull(View::shared('page'));
         $this->assertNotNull(View::shared('currentRoute'));
         $this->assertNotNull(View::shared('currentPage'));
+        $this->assertNotNull(View::shared('render'));
 
         Render::clearData();
 
         $this->assertNull(View::shared('page'));
         $this->assertNull(View::shared('currentRoute'));
         $this->assertNull(View::shared('currentPage'));
+        $this->assertNotNull(View::shared('render'));
 
         View::share('keep', 'this');
         $this->assertNotNull(View::shared('keep'));
@@ -111,6 +113,7 @@ class RenderHelperTest extends TestCase
     public function testToArray()
     {
         $this->assertSame([
+            'render' => Render::getFacadeRoot(),
             'page' => null,
             'currentRoute' => null,
             'currentPage' => null,
@@ -118,6 +121,7 @@ class RenderHelperTest extends TestCase
 
         Render::setPage($page = new MarkdownPage());
         $this->assertEquals([
+            'render' => Render::getFacadeRoot(),
             'page' => $page,
             'currentRoute' => $page->getRoute(),
             'currentPage' => $page->getRouteKey(),
