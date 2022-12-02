@@ -7,6 +7,7 @@ namespace Hyde\Support\Models;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
+use InvalidArgumentException;
 
 /**
  * Contains data for the current page being rendered/compiled.
@@ -55,6 +56,8 @@ class Render implements Arrayable
     {
         if (property_exists($this, $key)) {
             $this->{$key} = $value;
+        } else {
+            throw new InvalidArgumentException("Property '$key' does not exist on " . self::class);
         }
     }
 
