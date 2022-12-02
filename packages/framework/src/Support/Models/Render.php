@@ -66,8 +66,6 @@ class Render implements Arrayable
     {
         unset($this->page, $this->currentRoute, $this->currentPage);
         View::share(['page' => null, 'currentRoute' => null, 'currentPage' => null]);
-
-        // TODO: Can be used when fallback is removed: View::share($this->toArray());
     }
 
     public function toArray(): array
