@@ -61,4 +61,27 @@ class RenderHelperTest extends TestCase
         Render::clearData();
         $this->assertNull(Render::getPage());
     }
+
+    public function testClearDataCascadesToClearItsViewData()
+    {
+        Render::setPage(new MarkdownPage());
+        Render::shareToView();
+
+        $this->assertNotNull(View::shared('page'));
+        $this->assertNotNull(View::shared('currentRoute'));
+        $this->assertNotNull(View::shared('currentPage'));
+
+        Render::clearData();
+
+        $this->assertNull(View::shared('page'));
+        $this->assertNull(View::shared('currentRoute'));
+        $this->assertNull(View::shared('currentPage'));
+
+
+        View::share('keep', 'this');
+        $this->assertNotNull(View::shared('keep'));
+
+        Render::clearData();
+        $this->assertNotNull(View::shared('keep'));
+    }
 }

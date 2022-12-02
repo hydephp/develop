@@ -55,6 +55,9 @@ class Render
     public function clearData(): void
     {
         unset($this->page, $this->currentRoute, $this->currentPage);
+        View::share('page');
+        View::share('currentRoute');
+        View::share('currentPage');
     }
 
     /** @codeCoverageIgnore */
