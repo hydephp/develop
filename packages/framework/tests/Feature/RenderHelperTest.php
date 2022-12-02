@@ -53,6 +53,22 @@ class RenderHelperTest extends TestCase
         $this->assertSame($page->getRouteKey(), View::shared('currentPage'));
     }
 
+    public function testShare()
+    {
+        $this->assertNull(Render::getCurrentPage());
+
+        Render::share('currentPage', 'bar');
+        $this->assertSame('bar', Render::getCurrentPage());
+    }
+
+    public function testShareInvalidProperty()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Property 'foo' does not exist on Hyde\Support\Models\Render");
+
+        Render::share('foo', 'bar');
+    }
+
     public function testClearData()
     {
         Render::setPage(new MarkdownPage());
