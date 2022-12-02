@@ -32,19 +32,19 @@ class Render
         static::$currentPage = $page->getRouteKey();
     }
 
-    public static function getPage(): HydePage
+    public static function getPage(): ?HydePage
     {
-        return static::$page;
+        return static::$page ?? null;
     }
 
-    public static function getCurrentRoute(): Route
+    public static function getCurrentRoute(): ?Route
     {
-        return static::$currentRoute;
+        return static::$currentRoute ?? null;
     }
 
-    public static function getCurrentPage(): string
+    public static function getCurrentPage(): ?string
     {
-        return static::$currentPage;
+        return static::$currentPage ?? null;
     }
 
     public static function share(string $key, mixed $value): void
