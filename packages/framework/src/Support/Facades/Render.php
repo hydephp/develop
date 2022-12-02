@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Facades;
+namespace Hyde\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

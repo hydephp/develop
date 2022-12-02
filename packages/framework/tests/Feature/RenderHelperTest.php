@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Pages\MarkdownPage;
-use Hyde\Facades\Render;
+use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Support\Models\Render
- * @covers \Hyde\Facades\Render
+ * @covers \Hyde\Support\Facades\Render
  */
 class RenderHelperTest extends TestCase
 {

@@ -11,7 +11,7 @@ use Hyde\Pages\Concerns\HydePage;
  *
  * All public data here will be available in the Blade views through @see ManagesViewData::shareViewData().
  *
- * @see \Hyde\Facades\Render
+ * @see \Hyde\Support\Facades\Render
  * @see \Hyde\Framework\Testing\Feature\RenderHelperTest
  *
  * @todo Refactor into singleton and add facade
