@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\View;
 
 /**
  * @covers \Hyde\Support\Models\Render
@@ -36,6 +37,20 @@ class RenderHelperTest extends TestCase
 
         Render::setPage($page = new MarkdownPage());
         $this->assertSame($page->getRouteKey(), Render::getCurrentPage());
+    }
+
+    public function testShareToView()
+    {
+        $this->assertNull(View::shared('page'));
+        $this->assertNull(View::shared('currentRoute'));
+        $this->assertNull(View::shared('currentPage'));
+
+        Render::setPage($page = new MarkdownPage());
+        Render::shareToView();
+
+        $this->assertSame($page, View::shared('page'));
+        $this->assertEquals($page->getRoute(), View::shared('currentRoute'));
+        $this->assertSame($page->getRouteKey(), View::shared('currentPage'));
     }
 
     public function testClearData()
