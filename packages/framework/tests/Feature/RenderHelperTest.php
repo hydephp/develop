@@ -117,7 +117,7 @@ class RenderHelperTest extends TestCase
             'page' => null,
             'currentRoute' => null,
             'currentPage' => null,
-        ], Render::toArray());
+        ], Render::getFacadeRoot()->toArray());
 
         Render::setPage($page = new MarkdownPage());
         $this->assertEquals([
@@ -125,6 +125,6 @@ class RenderHelperTest extends TestCase
             'page' => $page,
             'currentRoute' => $page->getRoute(),
             'currentPage' => $page->getRouteKey(),
-        ], Render::toArray());
+        ], Render::getFacadeRoot()->toArray());
     }
 }
