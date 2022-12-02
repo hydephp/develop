@@ -57,7 +57,7 @@ class Render implements Arrayable
         if (property_exists($this, $key)) {
             $this->{$key} = $value;
         } else {
-            throw new InvalidArgumentException("Property '$key' does not exist on " . self::class);
+            throw new InvalidArgumentException("Property '$key' does not exist on ".self::class);
         }
     }
 
