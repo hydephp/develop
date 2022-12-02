@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\View;
  * @see \Hyde\Support\Facades\Render
  * @see \Hyde\Framework\Testing\Feature\RenderHelperTest
  *
- * @todo Refactor into singleton and add facade
  * @todo Refactor to actually utilize this class
  */
 class Render
