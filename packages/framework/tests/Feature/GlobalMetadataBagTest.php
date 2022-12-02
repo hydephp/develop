@@ -7,8 +7,8 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Meta;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\View;
 
 /**
  * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
@@ -119,8 +119,8 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add($duplicate);
 
-        View::share('currentPage', 'foo');
-        View::share('page', $page);
+        Render::share('currentPage', 'foo');
+        Render::share('page', $page);
 
         $this->assertEquals(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
     }
@@ -134,8 +134,8 @@ class GlobalMetadataBagTest extends TestCase
         $page = new MarkdownPage('foo');
         $page->metadata->add(Meta::name('foo', 'baz'));
 
-        View::share('currentPage', 'foo');
-        View::share('page', $page);
+        Render::share('currentPage', 'foo');
+        Render::share('page', $page);
 
         $this->assertEquals([], GlobalMetadataBag::make()->get());
     }

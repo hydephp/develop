@@ -8,6 +8,7 @@ use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
@@ -72,20 +73,20 @@ abstract class TestCase extends BaseTestCase
     /** @internal */
     protected function mockRoute(?Route $route = null)
     {
-        view()->share('currentRoute', $route ?? (new Route(new MarkdownPage())));
+        Render::share('currentRoute', $route ?? (new Route(new MarkdownPage())));
     }
 
     /** @internal */
     protected function mockPage(?HydePage $page = null, ?string $currentPage = null)
     {
-        view()->share('page', $page ?? new MarkdownPage());
-        view()->share('currentPage', $currentPage ?? 'PHPUnit');
+        Render::share('page', $page ?? new MarkdownPage());
+        Render::share('currentPage', $currentPage ?? 'PHPUnit');
     }
 
     /** @internal */
     protected function mockCurrentPage(string $currentPage)
     {
-        view()->share('currentPage', $currentPage);
+        Render::share('currentPage', $currentPage);
     }
 
     /**
