@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Pages\Concerns\HydePage;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\View;
  *
  * @todo Refactor to actually utilize this class
  */
-class Render
+class Render implements Arrayable
 {
     protected HydePage $page;
     protected Route $currentRoute;
@@ -47,17 +48,22 @@ class Render
 
     public function shareToView(): void
     {
-        View::share([
-            'page' => $this->getPage(),
-            'currentRoute' => $this->getCurrentRoute(),
-            'currentPage' => $this->getCurrentPage()
-        ]);
+        View::share($this->toArray());
     }
 
     public function clearData(): void
     {
         unset($this->page, $this->currentRoute, $this->currentPage);
         View::share(['page' => null, 'currentRoute' => null, 'currentPage' => null]);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'page' => $this->getPage(),
+            'currentRoute' => $this->getCurrentRoute(),
+            'currentPage' => $this->getCurrentPage()
+        ];
     }
 
     /** @codeCoverageIgnore */
