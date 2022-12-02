@@ -35,17 +35,17 @@ class Render
 
     public static function getPage(): ?HydePage
     {
-        return static::$page ?? View::shared('page');
+        return static::$page ?? self::handleFallback('page');
     }
 
     public static function getCurrentRoute(): ?Route
     {
-        return static::$currentRoute ?? View::shared('currentRoute');
+        return static::$currentRoute ?? self::handleFallback('currentRoute');
     }
 
     public static function getCurrentPage(): ?string
     {
-        return static::$currentPage ?? View::shared('currentPage');
+        return static::$currentPage ?? self::handleFallback('currentPage');
     }
 
     public static function share(string $key, mixed $value): void
@@ -68,5 +68,17 @@ class Render
         View::share('page', static::getPage());
         View::share('currentRoute', static::getCurrentRoute());
         View::share('currentPage', static::getCurrentPage());
+    }
+
+    /** @codeCoverageIgnore */
+    protected static function handleFallback(string $property): mixed
+    {
+        $shared = View::shared($property);
+
+        if ($shared !== null) {
+            trigger_error("Setting page rendering data via the view facade is deprecated. Use the Render model/facade instead.", E_USER_DEPRECATED);
+        }
+
+        return $shared;
     }
 }
