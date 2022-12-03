@@ -88,12 +88,6 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         return fgets(STDIN);
     }
 
-    /** @internal Allows for mocking of the standard input stream */
-    public static function mockInput(string $input): void
-    {
-        self::$streamBuffer = explode("\n", $input);
-    }
-
     protected function getTagName(): string
     {
         if ($this->argument('tagName')) {
@@ -104,5 +98,11 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         }
 
         return $this->askWithValidation('name', 'Tag name', ['required', 'string']);
+    }
+
+    /** @internal Allows for mocking of the standard input stream */
+    public static function mockInput(string $input): void
+    {
+        self::$streamBuffer = explode("\n", $input);
     }
 }
