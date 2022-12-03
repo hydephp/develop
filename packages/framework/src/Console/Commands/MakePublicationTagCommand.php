@@ -38,7 +38,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     {
         $this->title('Creating a new Publication Type Tag!');
 
-        $this->tagName = $this->getTagName();
+        $this->getTagName();
 
         $this->validateTagNameIsNotUsed();
 
@@ -51,9 +51,9 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         return Command::SUCCESS;
     }
 
-    protected function getTagName(): string
+    protected function getTagName(): void
     {
-        return $this->getTagNameFromArgument($this->argument('tagName'))
+        $this->tagName = $this->getTagNameFromArgument($this->argument('tagName'))
             ?? $this->askWithValidation('name', 'Tag name', ['required', 'string']);
     }
 
