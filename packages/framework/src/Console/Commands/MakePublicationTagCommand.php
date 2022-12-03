@@ -11,8 +11,6 @@ use Hyde\Hyde;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
-use Rgasch\Collection\Collection;
-
 use function array_merge;
 use function explode;
 use function implode;
