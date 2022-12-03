@@ -60,6 +60,20 @@ class MakePublicationTagCommandTest extends TestCase
         );
     }
 
+    public function testCommandFailsIfTagNameIsAlreadySet()
+    {
+        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+
+        $this->artisan('make:publicationTag foo')
+             ->assertExitCode(0);
+
+        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+
+        $this->artisan('make:publicationTag foo')
+            ->expectsOutput('Tag [foo] already exists')
+             ->assertExitCode(1);
+    }
+
     public function testCanTerminateWithCarriageReturns()
     {
         MakePublicationTagCommand::mockInput("foo\r\nbar\r\nbaz\r\n");

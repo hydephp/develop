@@ -43,8 +43,8 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
         $tagName = $this->getTagName();
         $existingTags = PublicationService::getAllTags()->toArray();
-        if (isset($tags[$tagName])) {
-            $this->output->error("Tag [$tagName] already exists");
+        if (isset($existingTags[$tagName])) {
+            $this->error("Tag [$tagName] already exists");
 
             return Command::FAILURE;
         }
