@@ -15,10 +15,7 @@ class MakePublicationTagCommandTest extends TestCase
 {
     public function testCanCreateNewPublicationType()
     {
-        MakePublicationTagCommand::mockInput('foo
-bar
-baz
-');
+        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag')
             ->expectsQuestion('Tag name', 'foo')
@@ -33,6 +30,28 @@ baz
             json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
             file_get_contents(Hyde::path('tags.json'))
         );
+
+        unlink(Hyde::path('tags.json'));
+    }
+
+    public function testCanTerminateWithCarriageReturns()
+    {
+        MakePublicationTagCommand::mockInput("foo\r\nbar\r\nbaz\r\n");
+
+        $this->artisan('make:publicationTag')
+            ->expectsQuestion('Tag name', 'foo')
+            ->assertExitCode(0);
+
+        unlink(Hyde::path('tags.json'));
+    }
+
+    public function testCanTerminateWithUnixEndings()
+    {
+        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+
+        $this->artisan('make:publicationTag')
+             ->expectsQuestion('Tag name', 'foo')
+             ->assertExitCode(0);
 
         unlink(Hyde::path('tags.json'));
     }
