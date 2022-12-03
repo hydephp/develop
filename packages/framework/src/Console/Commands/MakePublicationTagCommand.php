@@ -24,6 +24,8 @@ use function sprintf;
  * Hyde Command to create a new publication type.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTagCommandTest
+ *
+ * @todo Add dynamic support for detecting and using comma separated values?
  */
 class MakePublicationTagCommand extends ValidatingCommand implements CommandHandleInterface
 {
