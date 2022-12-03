@@ -8,6 +8,7 @@ use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
+use Hyde\Support\Contracts\DynamicPage;
 use Illuminate\Support\HtmlString;
 use function str_starts_with;
 use function view;
@@ -18,7 +19,7 @@ use function view;
  *
  * @see \Hyde\Framework\Testing\Feature\PublicationPageTest
  */
-class PublicationPage extends Concerns\BaseMarkdownPage
+class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
 {
     public PublicationType $type;
 

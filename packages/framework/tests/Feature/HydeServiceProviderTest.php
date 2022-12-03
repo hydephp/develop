@@ -23,6 +23,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Contracts\DynamicPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use function method_exists;
@@ -212,7 +213,7 @@ class HydeServiceProviderTest extends TestCase
     {
         // Find all classes in the Hyde\Pages namespace that are not abstract
         $pages = array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns') && ! is_subclass_of($class, DynamicPage::class);
         }));
 
         // Assert we are testing all page models
