@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use function file_get_contents;
+use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Contracts\DynamicPage;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use function str_starts_with;
 use function view;
@@ -50,19 +48,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
 
     protected function renderComponent(): string
     {
-        $data = [
-            'publication' => $this,
-        ];
-
-        $template = $this->type->detailTemplate;
-        if (str_contains($template, '::')) {
-            return view($template, $data)->render();
-        }
-
-        // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        return Blade::render(
-            file_get_contents(Hyde::path("{$this->type->getDirectory()}/$template.blade.php")), $data
-        );
+        return PublicationPageCompiler::call($this);
     }
 
     protected static function normaliseIdentifier(string $directory, string $identifier): string
