@@ -78,4 +78,22 @@ class MarkdownDocumentTest extends TestCase
         $this->assertEquals('Hello, world!', $markdown->body());
         unlink(Hyde::path('_pages/foo.md'));
     }
+
+    public function end_of_markdown_body_is_trimmed()
+    {
+        $markdown = new Markdown("Hello, world!\n\r\t   ");
+        $this->assertEquals('Hello, world!', $markdown->body());
+    }
+
+    public function test_carriage_returns_are_normalized()
+    {
+        $markdown = new Markdown("foo\rbar");
+        $this->assertEquals("foo\rbar", $markdown->body());
+
+        $markdown = new Markdown("foo\r\nbar");
+        $this->assertEquals("foo\nbar", $markdown->body());
+
+        $markdown = new Markdown("foo\nbar");
+        $this->assertEquals("foo\nbar", $markdown->body());
+    }
 }

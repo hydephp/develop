@@ -25,7 +25,7 @@ class Markdown implements Arrayable, Stringable, Htmlable
      */
     public function __construct(string $body = '')
     {
-        $this->body = rtrim($body);
+        $this->body = str_replace("\r\n", "\n", rtrim($body));
     }
 
     /**
