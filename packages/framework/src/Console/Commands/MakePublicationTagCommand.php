@@ -28,7 +28,7 @@ use function sprintf;
 class MakePublicationTagCommand extends ValidatingCommand implements CommandHandleInterface
 {
     /** @var string */
-    protected $signature = 'make:publicationTag';
+    protected $signature = 'make:publicationTag {tagName? : The name of the tag to create}';
 
     /** @var string */
     protected $description = 'Create a new publication type tag definition';
@@ -41,7 +41,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->title('Creating a new Publication Type Tag!');
 
         $filename = Hyde::pathToRelative('tags.json');
-        $tagName = $this->askWithValidation('name', 'Tag name', ['required', 'string']);
+        $tagName = $this->argument('tagName') ?? $this->askWithValidation('name', 'Tag name', ['required', 'string']);
         if (isset($tags[$tagName])) {
             $this->output->error("Tag [$tagName] already exists");
 

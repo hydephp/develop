@@ -41,6 +41,24 @@ class MakePublicationTagCommandTest extends TestCase
         );
     }
 
+    public function canCreateNewPublicationTagWithTagNameArgument()
+    {
+        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+
+        $this->artisan('make:publicationTag foo')
+            ->expectsOutput('Enter the tag values (end with an empty line):')
+            ->expectsOutput('Adding the following tags:')
+            ->expectsOutput('  foo: foo, bar, baz')
+            ->expectsOutput('Saving tag data to [tags.json]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('tags.json'));
+        $this->assertSame(
+            json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
+            file_get_contents(Hyde::path('tags.json'))
+        );
+    }
+
     public function testCanTerminateWithCarriageReturns()
     {
         MakePublicationTagCommand::mockInput("foo\r\nbar\r\nbaz\r\n");
