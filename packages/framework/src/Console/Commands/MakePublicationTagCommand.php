@@ -40,9 +40,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
         $this->tagName = $this->getTagName();
 
-        if (PublicationService::getAllTags()->has($this->tagName)) {
-            throw new RuntimeException("Tag [$this->tagName] already exists");
-        }
+        $this->validateTagNameIsNotUsed();
 
         $this->collectTags();
 
@@ -69,6 +67,13 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         }
 
         return null;
+    }
+
+    protected function validateTagNameIsNotUsed(): void
+    {
+        if (PublicationService::getAllTags()->has($this->tagName)) {
+            throw new RuntimeException("Tag [$this->tagName] already exists");
+        }
     }
 
     protected function collectTags(): void
