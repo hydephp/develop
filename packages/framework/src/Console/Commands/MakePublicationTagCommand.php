@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
+use Hyde\Facades\Filesystem;
 use function array_merge;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
@@ -88,7 +89,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $filename = Hyde::path('tags.json');
         $this->infoComment('Saving tag data to', DiscoveryService::createClickableFilepath($filename));
 
-        file_put_contents($filename, json_encode(array_merge(
+        Filesystem::putContents('tags.json', json_encode(array_merge(
             PublicationService::getAllTags()->toArray(), $this->tags
         ), JSON_PRETTY_PRINT));
     }
