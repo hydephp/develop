@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
@@ -58,7 +59,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             $this->output->writeln(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
         }
 
-        $this->output->writeln(sprintf('Saving tag data to [%s]', $filename));
+        $this->output->writeln(sprintf('Saving tag data to [%s]', DiscoveryService::createClickableFilepath($filename)));
 
         $tags = array_merge(PublicationService::getAllTags()->toArray(), $tags);
         file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
