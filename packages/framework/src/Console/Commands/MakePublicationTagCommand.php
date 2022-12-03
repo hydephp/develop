@@ -10,6 +10,8 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
+
+use function explode;
 use function Safe\file_put_contents;
 use function Safe\json_encode;
 
@@ -25,6 +27,9 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
     /** @var string */
     protected $description = 'Create a new publication type tag definition';
+
+    /** @internal Allows for mocking of the standard input stream */
+    private static ?array $streamBuffer = null;
 
     public function handle(): int
     {
@@ -53,7 +58,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     protected function getLinesFromInputStream(array $lines): array
     {
         do {
-            $feed = fgets(STDIN);
+            $feed = $this->readInputStream();
             if ($feed === false) {
                 break;
             }
@@ -64,5 +69,21 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             $lines[] = trim($line);
         } while (true);
         return $lines;
+    }
+
+    /** @codeCoverageIgnore Allows for mocking of the standard input stream */
+    protected function readInputStream(): array|string|false
+    {
+        if (self::$streamBuffer)
+        {
+            return array_shift(self::$streamBuffer);
+        }
+        return fgets(STDIN);
+    }
+
+    /** @internal Allows for mocking of the standard input stream */
+    public static function mockInput(string $input): void
+    {
+        self::$streamBuffer = explode("\n", $input);
     }
 }
