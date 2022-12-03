@@ -75,9 +75,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     protected function collectTags(): void
     {
         $this->info('Enter the tag values: (end with an empty line)');
-        $lines = InputStreamHandler::call();
-
-        $this->tags = [$this->tagName => $lines];
+        $this->tags = [$this->tagName => InputStreamHandler::call()];
     }
 
     protected function printSelectionInformation(): void
