@@ -10,6 +10,7 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
+use Hyde\Support\Contracts\DynamicPage;
 use Illuminate\Support\HtmlString;
 use function str_starts_with;
 use function view;
@@ -20,7 +21,7 @@ use function view;
  *
  * @see \Hyde\Framework\Testing\Feature\PublicationPageTest
  */
-class PublicationPage extends Concerns\BaseMarkdownPage
+class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
 {
     public PublicationType $type;
 
