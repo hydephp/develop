@@ -15,8 +15,10 @@ use Rgasch\Collection\Collection;
 
 use function array_merge;
 use function explode;
+use function implode;
 use function Safe\file_put_contents;
 use function Safe\json_encode;
+use function sprintf;
 
 /**
  * Hyde Command to create a new publication type.
@@ -50,6 +52,11 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->output->writeln('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
         $lines          = $this->getLinesFromInputStream($lines);
         $tags[$tagName] = $lines;
+
+        $this->output->writeln('<bg=magenta;fg=white>Adding the following tags:</>');
+        foreach ($tags as $tag => $values) {
+            $this->output->writeln(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
+        }
 
         $this->output->writeln(sprintf('Saving tag data to [%s]', $filename));
 
