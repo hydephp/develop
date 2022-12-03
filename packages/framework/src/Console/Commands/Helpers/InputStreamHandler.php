@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands\Helpers;
 
-use Hyde\Framework\Concerns\InvokableAction;
-use Illuminate\Support\Str;
-
 use function array_shift;
 use function explode;
 use function fgets;
+use Hyde\Framework\Concerns\InvokableAction;
+use Illuminate\Support\Str;
 use function trim;
 
 /**

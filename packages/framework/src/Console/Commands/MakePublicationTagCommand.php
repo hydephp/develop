@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Commands\Helpers\InputStreamHandler;
-use Hyde\Facades\Filesystem;
 use function array_merge;
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use function implode;
 use LaravelZero\Framework\Commands\Command;
-use function Safe\file_put_contents;
 use function Safe\json_encode;
 use function sprintf;
 
@@ -70,7 +69,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     protected function collectTags(): void
     {
         $this->info('Enter the tag values: (end with an empty line)');
-        $lines          = InputStreamHandler::call();
+        $lines = InputStreamHandler::call();
         $tags[$this->tagName] = $lines;
         $this->tags = $tags;
     }
