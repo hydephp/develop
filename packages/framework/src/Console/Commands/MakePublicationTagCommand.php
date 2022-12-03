@@ -57,11 +57,10 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     protected function getTagName(): string
     {
         if ($this->argument('tagName')) {
-            $value = $this->argument('tagName');
-            $this->infoComment('Using tag name', $value, 'from command line argument');
+            $this->infoComment('Using tag name', $this->argument('tagName'), 'from command line argument');
             $this->newLine();
 
-            return $value;
+            return $this->argument('tagName');
         }
 
         return $this->askWithValidation('name', 'Tag name', ['required', 'string']);
