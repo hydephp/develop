@@ -41,22 +41,28 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
         $lines = [];
         $this->output->writeln('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
-        do {
-            $feed = fgets(STDIN);
-            if ($feed === false) {
-                break;
-            }
-            $line    = Str::replace(["\n", "\r"], '', $feed);
-            if ($line === '') {
-                break;
-            }
-            $lines[] = trim($line);
-        } while (true);
+        $lines          = $this->getLinesFromInputStream($lines);
         $tags[$tagName] = $lines;
 
         $this->output->writeln(sprintf('Saving tag data to [%s]', $filename));
         file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
 
         return Command::SUCCESS;
+    }
+
+    protected function getLinesFromInputStream(array $lines): array
+    {
+        do {
+            $feed = fgets(STDIN);
+            if ($feed === false) {
+                break;
+            }
+            $line = Str::replace(["\n", "\r"], '', $feed);
+            if ($line === '') {
+                break;
+            }
+            $lines[] = trim($line);
+        } while (true);
+        return $lines;
     }
 }
