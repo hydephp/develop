@@ -163,6 +163,22 @@ class ValidatingCommandTest extends TestCase
         $command->setOutput($output);
         $command->handle();
     }
+
+    public function testInfoCommentWithExtraInfo()
+    {
+        $command = new DynamicValidatingTestCommand();
+        $command->closure = function (ValidatingCommand $command) {
+            $command->infoComment('foo', 'bar', 'baz');
+        };
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<info>foo</info> [<comment>bar</comment>] <info>baz</info>';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
 }
 
 class SafeValidatingTestCommand extends ValidatingCommand

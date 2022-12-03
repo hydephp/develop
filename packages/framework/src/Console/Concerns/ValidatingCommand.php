@@ -104,9 +104,9 @@ class ValidatingCommand extends Command
     /**
      * Write a nicely formatted and consistent message to the console. Using InfoComment for a lack of a better term.
      */
-    public function infoComment(string $info, string $comment): void
+    public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
     {
-        $this->line("<info>$info</info> [<comment>$comment</comment>]");
+        $this->line("<info>$info</info> [<comment>$comment</comment>]" . ($moreInfo ? " <info>$moreInfo</info>" : ''));
     }
 
     protected function translate($name, string $error): string
