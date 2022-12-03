@@ -35,8 +35,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->title('Creating a new Publication Type Tag!');
 
         $tagName = $this->getTagName();
-        $existingTags = PublicationService::getAllTags()->toArray();
-        if (isset($existingTags[$tagName])) {
+        if ((PublicationService::getAllTags()->has($tagName))) {
             $this->error("Tag [$tagName] already exists");
 
             return Command::FAILURE;
@@ -46,7 +45,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
         $this->printSelectionInformation($tags);
 
-        $this->saveTagsToDisk($existingTags, $tags);
+        $this->saveTagsToDisk($tags);
 
         return Command::SUCCESS;
     }
@@ -81,12 +80,12 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->newLine();
     }
 
-    protected function saveTagsToDisk(array $existingTags, $tags): void
+    protected function saveTagsToDisk($tags): void
     {
         $filename = Hyde::path('tags.json');
         $this->infoComment('Saving tag data to', DiscoveryService::createClickableFilepath($filename));
 
-        $tags = array_merge($existingTags, $tags);
+        $tags = array_merge(PublicationService::getAllTags()->toArray(), $tags);
         file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
     }
 }
