@@ -88,7 +88,7 @@ class PublicationService
      */
     public static function getValuesForTagName(string $tagName, PublicationType $publicationType): ?Collection
     {
-        $tags = self::getAllTags($publicationType);
+        $tags = static::getAllTags($publicationType);
         if ($tags->has($tagName)) {
             return $tags->$tagName;
         }
