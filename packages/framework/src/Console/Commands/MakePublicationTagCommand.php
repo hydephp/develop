@@ -41,7 +41,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->title('Creating a new Publication Type Tag!');
 
         $filename = Hyde::pathToRelative('tags.json');
-        $tagName = $this->argument('tagName') ?? $this->askWithValidation('name', 'Tag name', ['required', 'string']);
+        $tagName = $this->getTagName();
         if (isset($tags[$tagName])) {
             $this->output->error("Tag [$tagName] already exists");
 
@@ -92,5 +92,10 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     public static function mockInput(string $input): void
     {
         self::$streamBuffer = explode("\n", $input);
+    }
+
+    protected function getTagName(): string
+    {
+        return $this->argument('tagName') ?? $this->askWithValidation('name', 'Tag name', ['required', 'string']);
     }
 }
