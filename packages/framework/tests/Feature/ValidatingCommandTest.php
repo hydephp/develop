@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Closure;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
@@ -184,5 +185,17 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
         } catch (RuntimeException $exception) {
             return $this->handleException($exception, $file, $line);
         }
+    }
+}
+
+class DynamicValidatingTestCommand extends ValidatingCommand
+{
+    public Closure $closure;
+
+    public function handle(): int
+    {
+        ($this->closure)($this);
+
+        return 0;
     }
 }
