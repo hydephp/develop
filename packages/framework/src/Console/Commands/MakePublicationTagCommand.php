@@ -16,7 +16,7 @@ use function Safe\json_encode;
 /**
  * Hyde Command to create a new publication type.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTagCommandTest
  */
 class MakePublicationTagCommand extends ValidatingCommand implements CommandHandleInterface
 {
