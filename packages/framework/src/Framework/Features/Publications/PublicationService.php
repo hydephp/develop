@@ -23,7 +23,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class PublicationService
 {
     /**
-     * Get all available/tags.
+     * Get all available tags.
      *
      * @return \Rgasch\Collection\Collection
      *
