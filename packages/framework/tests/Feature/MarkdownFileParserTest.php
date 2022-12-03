@@ -56,11 +56,11 @@ This is a post stub used in the automated tests
             'author' => 'Mr. Hyde',
         ]), $document->matter);
 
-        $this->assertEquals(
-            '# My New Post
+        $this->assertEquals(str_replace("\r", '',
+                '# My New Post
 
-This is a post stub used in the automated tests',
-            str_replace("\r", '', (string) $document->markdown)
+This is a post stub used in the automated tests'),
+            (string) $document->markdown
         );
     }
 
@@ -83,11 +83,11 @@ This is a post stub used in the automated tests',
         $this->assertEquals('Mr. Hyde', $post->matter('author'));
         $this->assertEquals('blog', $post->matter('category'));
 
-        $this->assertEquals(
-            '# My New Post
+        $this->assertEquals(str_replace("\r", '',
+                '# My New Post
 
-This is a post stub used in the automated tests',
-            str_replace("\r", '', (string) $post->markdown)
+This is a post stub used in the automated tests'),
+            (string) $post->markdown
         );
     }
 }
