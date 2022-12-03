@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Support\Contracts\DynamicPage;
 use function app;
 use function array_filter;
 use function array_map;
@@ -212,7 +213,7 @@ class HydeServiceProviderTest extends TestCase
     {
         // Find all classes in the Hyde\Pages namespace that are not abstract
         $pages = array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns') && ! is_subclass_of($class, DynamicPage::class);
         }));
 
         // Assert we are testing all page models
