@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use function array_merge;
-use function explode;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
-use Illuminate\Support\Str;
 use function implode;
 use LaravelZero\Framework\Commands\Command;
 use function Safe\file_put_contents;
@@ -22,8 +21,6 @@ use function sprintf;
  * Hyde Command to create a new publication type.
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTagCommandTest
- *
- * @todo Add dynamic support for detecting and using comma separated values?
  */
 class MakePublicationTagCommand extends ValidatingCommand implements CommandHandleInterface
 {
@@ -32,9 +29,6 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
     /** @var string */
     protected $description = 'Create a new publication type tag definition';
-
-    /** @internal Allows for mocking of the standard input stream */
-    private static ?array $streamBuffer = null;
 
     public function handle(): int
     {
@@ -48,9 +42,8 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             return Command::FAILURE;
         }
 
-        $lines = [];
         $this->line('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
-        $lines = $this->getLinesFromInputStream($lines);
+        $lines = InputStreamHandler::call();
         $tags[$tagName] = $lines;
 
         $this->line('<bg=magenta;fg=white>Adding the following tags:</>');
@@ -69,29 +62,6 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         return Command::SUCCESS;
     }
 
-    protected function getLinesFromInputStream(array $lines): array
-    {
-        do {
-            $line = Str::replace(["\n", "\r"], '', $this->readInputStream());
-            if ($line === '') {
-                break;
-            }
-            $lines[] = trim($line);
-        } while (true);
-
-        return $lines;
-    }
-
-    /** @codeCoverageIgnore Allows for mocking of the standard input stream */
-    protected function readInputStream(): array|string|false
-    {
-        if (self::$streamBuffer) {
-            return array_shift(self::$streamBuffer);
-        }
-
-        return fgets(STDIN);
-    }
-
     protected function getTagName(): string
     {
         if ($this->argument('tagName')) {
@@ -103,11 +73,5 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         }
 
         return $this->askWithValidation('name', 'Tag name', ['required', 'string']);
-    }
-
-    /** @internal Allows for mocking of the standard input stream */
-    public static function mockInput(string $input): void
-    {
-        self::$streamBuffer = explode("\n", $input);
     }
 }

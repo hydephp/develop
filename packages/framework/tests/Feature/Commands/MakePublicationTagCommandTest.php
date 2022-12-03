@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Console\Commands\MakePublicationTagCommand;
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use function unlink;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationTagCommand
+ * @covers \Hyde\Console\Commands\Helpers\InputStreamHandler {@todo Extract this to a separate test class}
  */
 class MakePublicationTagCommandTest extends TestCase
 {
@@ -23,7 +24,7 @@ class MakePublicationTagCommandTest extends TestCase
 
     public function testCanCreateNewPublicationTag()
     {
-        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag')
             ->expectsQuestion('Tag name', 'foo')
@@ -42,7 +43,7 @@ class MakePublicationTagCommandTest extends TestCase
 
     public function testCanCreateNewPublicationTagWithTagNameArgument()
     {
-        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag foo')
             ->expectsOutput('Using tag name [foo] from command line argument')
@@ -61,12 +62,12 @@ class MakePublicationTagCommandTest extends TestCase
 
     public function testCommandFailsIfTagNameIsAlreadySet()
     {
-        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag foo')
              ->assertExitCode(0);
 
-        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag foo')
             ->expectsOutput('Tag [foo] already exists')
@@ -75,14 +76,14 @@ class MakePublicationTagCommandTest extends TestCase
 
     public function testCanTerminateWithCarriageReturns()
     {
-        MakePublicationTagCommand::mockInput("foo\r\nbar\r\nbaz\r\n");
+        InputStreamHandler::mockInput("foo\r\nbar\r\nbaz\r\n");
 
         $this->artisan('make:publicationTag foo')->assertExitCode(0);
     }
 
     public function testCanTerminateWithUnixEndings()
     {
-        MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag foo')->assertExitCode(0);
     }
