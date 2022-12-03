@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use function file_get_contents;
-use Hyde\Framework\Features\Publications\PublicationService;
-use Hyde\Hyde;
+use Hyde\Framework\Actions\PublicationPageCompiler;
 use Hyde\Pages\BladePage;
 use Hyde\Support\Contracts\DynamicPage;
-use Illuminate\Support\Facades\Blade;
-use InvalidArgumentException;
-use function str_contains;
-use function view;
 
 /**
  * @see \Hyde\Pages\PublicationPage
@@ -35,24 +29,7 @@ class PublicationListPage extends BladePage implements DynamicPage
 
     public function compile(): string
     {
-        $data = [
-            'publications' => PublicationService::getPublicationsForPubType($this->type),
-        ];
-
-        $template = $this->type->listTemplate;
-        if (str_contains($template, '::')) {
-            return view($template, $data)->render();
-        }
-
-        // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        $viewPath = Hyde::path("{$this->type->getDirectory()}/$template").'.blade.php';
-        if (! file_exists($viewPath)) {
-            throw new InvalidArgumentException("View [$viewPath] not found.");
-        }
-
-        return Blade::render(
-            file_get_contents($viewPath), $data
-        );
+        return (new PublicationPageCompiler($this))->__invoke();
     }
 
     public function getSourcePath(): string
