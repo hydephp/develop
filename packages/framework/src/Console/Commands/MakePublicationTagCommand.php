@@ -50,16 +50,16 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         }
 
         $lines = [];
-        $this->output->writeln('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
+        $this->line('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
         $lines          = $this->getLinesFromInputStream($lines);
         $tags[$tagName] = $lines;
 
-        $this->output->writeln('<bg=magenta;fg=white>Adding the following tags:</>');
+        $this->line('<bg=magenta;fg=white>Adding the following tags:</>');
         foreach ($tags as $tag => $values) {
-            $this->output->writeln(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
+            $this->line(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
         }
 
-        $this->output->writeln(sprintf('Saving tag data to [%s]', DiscoveryService::createClickableFilepath($filename)));
+        $this->line(sprintf('Saving tag data to [%s]', DiscoveryService::createClickableFilepath($filename)));
 
         $tags = array_merge(PublicationService::getAllTags()->toArray(), $tags);
         file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
