@@ -58,7 +58,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     {
         if ($this->argument('tagName')) {
             $value = $this->argument('tagName');
-            $this->line("<info>Using tag name</info> [<comment>$value</comment>] <info>from command line argument</info>");
+            $this->infoComment('Using tag name', $value, 'from command line argument');
             $this->newLine();
 
             return $value;
