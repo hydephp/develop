@@ -122,6 +122,11 @@ class PublicationType implements SerializableContract
         file_put_contents(Hyde::path($path), json_encode($this->toArray(), JSON_PRETTY_PRINT));
     }
 
+    public function getListPage(): PublicationListPage
+    {
+        return new PublicationListPage($this);
+    }
+
     protected static function parseSchemaFile(string $schemaFile): array
     {
         return json_decode(file_get_contents(Hyde::path($schemaFile)), true, 512, JSON_THROW_ON_ERROR);

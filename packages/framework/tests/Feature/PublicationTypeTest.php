@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -120,6 +121,12 @@ class PublicationTypeTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Could not parse schema file '.('missing/schema.json'));
         PublicationType::get('missing');
+    }
+
+    public function test_get_list_page()
+    {
+        $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
+        $this->assertEquals(new PublicationListPage($publicationType), $publicationType->getListPage());
     }
 
     protected function getTestData(): array
