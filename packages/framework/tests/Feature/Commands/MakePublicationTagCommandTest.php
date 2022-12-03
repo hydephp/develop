@@ -46,6 +46,7 @@ class MakePublicationTagCommandTest extends TestCase
         MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag foo')
+            ->expectsOutput('Using tag name [foo] from command line argument')
             ->expectsOutput('Enter the tag values (end with an empty line):')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
