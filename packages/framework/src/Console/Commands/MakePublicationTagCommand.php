@@ -59,7 +59,8 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             $this->line(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
         }
 
-        $this->line(sprintf('Saving tag data to [%s]', DiscoveryService::createClickableFilepath($filename)));
+        $this->newLine();
+        $this->line(sprintf('<info>Saving tag data to</info> [<comment>%s</comment>]', DiscoveryService::createClickableFilepath($filename)));
 
         $tags = array_merge(PublicationService::getAllTags()->toArray(), $tags);
         file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
