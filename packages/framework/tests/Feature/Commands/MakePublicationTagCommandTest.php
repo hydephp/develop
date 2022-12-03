@@ -22,7 +22,7 @@ class MakePublicationTagCommandTest extends TestCase
         parent::tearDown();
     }
 
-    public function testCanCreateNewPublicationType()
+    public function testCanCreateNewPublicationTag()
     {
         MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
 
@@ -41,7 +41,7 @@ class MakePublicationTagCommandTest extends TestCase
         );
     }
 
-    public function canCreateNewPublicationTagWithTagNameArgument()
+    public function testCanCreateNewPublicationTagWithTagNameArgument()
     {
         MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
 
