@@ -64,17 +64,13 @@ class MakePublicationTagCommandTest extends TestCase
     {
         MakePublicationTagCommand::mockInput("foo\r\nbar\r\nbaz\r\n");
 
-        $this->artisan('make:publicationTag')
-            ->expectsQuestion('Tag name', 'foo')
-            ->assertExitCode(0);
+        $this->artisan('make:publicationTag foo')->assertExitCode(0);
     }
 
     public function testCanTerminateWithUnixEndings()
     {
         MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
 
-        $this->artisan('make:publicationTag')
-             ->expectsQuestion('Tag name', 'foo')
-             ->assertExitCode(0);
+        $this->artisan('make:publicationTag foo')->assertExitCode(0);
     }
 }
