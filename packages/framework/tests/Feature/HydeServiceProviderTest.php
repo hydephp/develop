@@ -240,7 +240,7 @@ class HydeServiceProviderTest extends TestCase
     public function test_provider_registers_all_page_model_output_paths()
     {
         $pages = array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns') && ! is_subclass_of($class, DynamicPage::class);
         }));
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
