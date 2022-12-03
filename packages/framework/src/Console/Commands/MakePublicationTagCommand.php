@@ -60,7 +60,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
         $this->newLine();
 
-        $filename = Hyde::pathToRelative('tags.json');
+        $filename = Hyde::path('tags.json');
         $this->line(sprintf('<info>Saving tag data to</info> [<comment>%s</comment>]', DiscoveryService::createClickableFilepath($filename)));
 
         $tags = array_merge(PublicationService::getAllTags()->toArray(), $tags);
