@@ -42,22 +42,11 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             return Command::FAILURE;
         }
 
-        $this->info('Enter the tag values: (end with an empty line)');
-        $lines = InputStreamHandler::call();
-        $tags[$tagName] = $lines;
+        $tags = $this->collectTags($tagName);
 
-        $this->line('Adding the following tags:');
-        foreach ($tags as $tag => $values) {
-            $this->line(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
-        }
+        $this->printSelectionInformation($tags);
 
-        $this->newLine();
-
-        $filename = Hyde::path('tags.json');
-        $this->infoComment('Saving tag data to', DiscoveryService::createClickableFilepath($filename));
-
-        $tags = array_merge($existingTags, $tags);
-        file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
+        $this->saveTagsToDisk($existingTags, $tags);
 
         return Command::SUCCESS;
     }
@@ -73,5 +62,31 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         }
 
         return $this->askWithValidation('name', 'Tag name', ['required', 'string']);
+    }
+
+    protected function collectTags(string $tagName): array
+    {
+        $this->info('Enter the tag values: (end with an empty line)');
+        $lines          = InputStreamHandler::call();
+        $tags[$tagName] = $lines;
+        return $tags;
+    }
+
+    protected function printSelectionInformation(array $tags): void
+    {
+        $this->line('Adding the following tags:');
+        foreach ($tags as $tag => $values) {
+            $this->line(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
+        }
+        $this->newLine();
+    }
+
+    protected function saveTagsToDisk(array $existingTags, $tags): void
+    {
+        $filename = Hyde::path('tags.json');
+        $this->infoComment('Saving tag data to', DiscoveryService::createClickableFilepath($filename));
+
+        $tags = array_merge($existingTags, $tags);
+        file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
     }
 }
