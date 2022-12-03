@@ -82,7 +82,7 @@ class MarkdownDocumentTest extends TestCase
     public function end_of_markdown_body_is_trimmed()
     {
         $markdown = new Markdown("Hello, world!\n\r\t   ");
-        $this->assertEquals("Hello, world!", $markdown->body());
+        $this->assertEquals('Hello, world!', $markdown->body());
     }
 
     public function test_carriage_returns_are_normalized()
