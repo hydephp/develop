@@ -30,22 +30,25 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     /** @var string */
     protected $description = 'Create a new publication type tag definition';
 
+    protected array $tags;
+    protected string $tagName;
+
     public function handle(): int
     {
         $this->title('Creating a new Publication Type Tag!');
 
-        $tagName = $this->getTagName();
-        if ((PublicationService::getAllTags()->has($tagName))) {
-            $this->error("Tag [$tagName] already exists");
+        $this->tagName = $this->getTagName();
+        if ((PublicationService::getAllTags()->has($this->tagName))) {
+            $this->error("Tag [$this->tagName] already exists");
 
             return Command::FAILURE;
         }
 
-        $tags = $this->collectTags($tagName);
+        $this->collectTags();
 
-        $this->printSelectionInformation($tags);
+        $this->printSelectionInformation();
 
-        $this->saveTagsToDisk($tags);
+        $this->saveTagsToDisk();
 
         return Command::SUCCESS;
     }
@@ -63,29 +66,29 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         return $this->askWithValidation('name', 'Tag name', ['required', 'string']);
     }
 
-    protected function collectTags(string $tagName): array
+    protected function collectTags(): void
     {
         $this->info('Enter the tag values: (end with an empty line)');
         $lines          = InputStreamHandler::call();
-        $tags[$tagName] = $lines;
-        return $tags;
+        $tags[$this->tagName] = $lines;
+        $this->tags = $tags;
     }
 
-    protected function printSelectionInformation(array $tags): void
+    protected function printSelectionInformation(): void
     {
         $this->line('Adding the following tags:');
-        foreach ($tags as $tag => $values) {
+        foreach ($this->tags as $tag => $values) {
             $this->line(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
         }
         $this->newLine();
     }
 
-    protected function saveTagsToDisk($tags): void
+    protected function saveTagsToDisk(): void
     {
         $filename = Hyde::path('tags.json');
         $this->infoComment('Saving tag data to', DiscoveryService::createClickableFilepath($filename));
 
-        $tags = array_merge(PublicationService::getAllTags()->toArray(), $tags);
+        $tags = array_merge(PublicationService::getAllTags()->toArray(), $this->tags);
         file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
     }
 }
