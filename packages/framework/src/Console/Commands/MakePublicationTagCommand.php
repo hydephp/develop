@@ -11,6 +11,9 @@ use Hyde\Hyde;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
+use Rgasch\Collection\Collection;
+
+use function array_merge;
 use function explode;
 use function Safe\file_put_contents;
 use function Safe\json_encode;
@@ -36,7 +39,6 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->title('Creating a new Publication Type Tag!');
 
         $filename = Hyde::pathToRelative('tags.json');
-        $tags = PublicationService::getAllTags();
         $tagName = $this->askWithValidation('name', 'Tag name', ['required', 'string']);
         if (isset($tags[$tagName])) {
             $this->output->error("Tag [$tagName] already exists");
@@ -50,6 +52,8 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $tags[$tagName] = $lines;
 
         $this->output->writeln(sprintf('Saving tag data to [%s]', $filename));
+
+        $tags = array_merge(PublicationService::getAllTags()->toArray(), $tags);
         file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
 
         return Command::SUCCESS;
