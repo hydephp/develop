@@ -33,7 +33,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     protected array $tags;
     protected string $tagName;
 
-    public function handle(): int
+    public function safeHandle(): int
     {
         $this->title('Creating a new Publication Type Tag!');
 
