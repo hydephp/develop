@@ -57,6 +57,7 @@ class PublicationService
             return Hyde::pathToRelative($file);
         });
     }
+
     /**
      * Get all available tags.
      *

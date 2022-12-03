@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function array_merge;
+use function explode;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
-use LaravelZero\Framework\Commands\Command;
-
-use function array_merge;
-use function explode;
 use function implode;
+use LaravelZero\Framework\Commands\Command;
 use function Safe\file_put_contents;
 use function Safe\json_encode;
 use function sprintf;
@@ -51,7 +50,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
         $lines = [];
         $this->line('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
-        $lines          = $this->getLinesFromInputStream($lines);
+        $lines = $this->getLinesFromInputStream($lines);
         $tags[$tagName] = $lines;
 
         $this->line('<bg=magenta;fg=white>Adding the following tags:</>');
@@ -79,16 +78,17 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             }
             $lines[] = trim($line);
         } while (true);
+
         return $lines;
     }
 
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */
     protected function readInputStream(): array|string|false
     {
-        if (self::$streamBuffer)
-        {
+        if (self::$streamBuffer) {
             return array_shift(self::$streamBuffer);
         }
+
         return fgets(STDIN);
     }
 
@@ -98,6 +98,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             $value = $this->argument('tagName');
             $this->line("<info>Using tag name</info> [<comment>$value</comment>] <info>from command line argument</info>");
             $this->newLine();
+
             return $value;
         }
 

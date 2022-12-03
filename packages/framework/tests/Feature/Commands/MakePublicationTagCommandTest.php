@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Console\Commands\MakePublicationTagCommand;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
 use function unlink;
 
 /**
@@ -31,7 +30,7 @@ class MakePublicationTagCommandTest extends TestCase
             ->expectsOutput('Enter the tag values (end with an empty line):')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
-            ->expectsOutput('Saving tag data to [' . Hyde::path('tags.json') . ']')
+            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.json').']')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('tags.json'));
@@ -50,7 +49,7 @@ class MakePublicationTagCommandTest extends TestCase
             ->expectsOutput('Enter the tag values (end with an empty line):')
             ->expectsOutput('Adding the following tags:')
             ->expectsOutput('  foo: foo, bar, baz')
-            ->expectsOutput('Saving tag data to [' . Hyde::path('tags.json') . ']')
+            ->expectsOutput('Saving tag data to ['.Hyde::path('tags.json').']')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('tags.json'));
