@@ -42,11 +42,11 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
             return Command::FAILURE;
         }
 
-        $this->line('<bg=magenta;fg=white>Enter the tag values (end with an empty line):</>');
+        $this->info('Enter the tag values: (end with an empty line)');
         $lines = InputStreamHandler::call();
         $tags[$tagName] = $lines;
 
-        $this->line('<bg=magenta;fg=white>Adding the following tags:</>');
+        $this->line('Adding the following tags:');
         foreach ($tags as $tag => $values) {
             $this->line(sprintf('  <comment>%s</comment>: %s', $tag, implode(', ', $values)));
         }
