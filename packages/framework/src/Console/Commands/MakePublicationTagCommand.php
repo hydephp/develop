@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use RuntimeException;
 use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
@@ -40,9 +41,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->tagName = $this->getTagName();
 
         if (PublicationService::getAllTags()->has($this->tagName)) {
-            $this->error("Tag [$this->tagName] already exists");
-
-            return Command::FAILURE;
+            throw new RuntimeException("Tag [$this->tagName] already exists");
         }
 
         $this->collectTags();

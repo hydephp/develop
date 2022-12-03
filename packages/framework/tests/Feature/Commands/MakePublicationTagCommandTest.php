@@ -70,7 +70,7 @@ class MakePublicationTagCommandTest extends TestCase
         InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
         $this->artisan('make:publicationTag foo')
-            ->expectsOutput('Tag [foo] already exists')
+            ->expectsOutput('Error: Tag [foo] already exists')
              ->assertExitCode(1);
     }
 
