@@ -88,7 +88,8 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $filename = Hyde::path('tags.json');
         $this->infoComment('Saving tag data to', DiscoveryService::createClickableFilepath($filename));
 
-        $tags = array_merge(PublicationService::getAllTags()->toArray(), $this->tags);
-        file_put_contents($filename, json_encode($tags, JSON_PRETTY_PRINT));
+        file_put_contents($filename, json_encode(array_merge(
+            PublicationService::getAllTags()->toArray(), $this->tags
+        ), JSON_PRETTY_PRINT));
     }
 }
