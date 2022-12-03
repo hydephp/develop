@@ -86,7 +86,9 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
     protected function saveTagsToDisk(): void
     {
-        $this->infoComment('Saving tag data to', DiscoveryService::createClickableFilepath(Hyde::path('tags.json')));
+        $this->infoComment('Saving tag data to',
+            DiscoveryService::createClickableFilepath(Hyde::path('tags.json'))
+        );
 
         Filesystem::putContents('tags.json', json_encode(array_merge(
             PublicationService::getAllTags()->toArray(), $this->tags
