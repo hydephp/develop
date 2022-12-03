@@ -255,7 +255,7 @@ class HydeServiceProviderTest extends TestCase
     {
         return array_values(
             array_filter(get_declared_classes(), function ($class) {
-                return str_starts_with($class, 'Hyde\Pages') && !str_starts_with($class, 'Hyde\Pages\Concerns') && !is_subclass_of($class, DynamicPage::class);
+                return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns') && ! is_subclass_of($class, DynamicPage::class);
             })
         );
     }
