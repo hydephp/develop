@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Support\Contracts\DynamicPage;
 use function app;
 use function array_filter;
 use function array_map;
@@ -24,6 +23,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Contracts\DynamicPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use function method_exists;
