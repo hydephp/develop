@@ -29,7 +29,7 @@ class PublicationListPage extends BladePage implements DynamicPage
 
     public function compile(): string
     {
-        return (new PublicationPageCompiler($this))->__invoke();
+        return PublicationPageCompiler::call($this);
     }
 
     public function getSourcePath(): string

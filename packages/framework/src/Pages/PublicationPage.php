@@ -47,7 +47,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage
 
     protected function renderComponent(): string
     {
-        return (new PublicationPageCompiler($this))->__invoke();
+        return PublicationPageCompiler::call($this);
     }
 
     protected static function normaliseIdentifier(string $directory, string $identifier): string

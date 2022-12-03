@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
@@ -19,7 +20,7 @@ use function view;
 /**
  * @see \Hyde\Framework\Testing\Feature\Actions\PublicationPageCompilerTest
  */
-class PublicationPageCompiler
+class PublicationPageCompiler extends InvokableAction
 {
     protected PublicationPage|PublicationListPage $page;
 
