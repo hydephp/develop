@@ -8,11 +8,20 @@ use Hyde\Console\Commands\MakePublicationTagCommand;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
+use function unlink;
+
 /**
  * @covers \Hyde\Console\Commands\MakePublicationTagCommand
  */
 class MakePublicationTagCommandTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        unlink(Hyde::path('tags.json'));
+
+        parent::tearDown();
+    }
+
     public function testCanCreateNewPublicationType()
     {
         MakePublicationTagCommand::mockInput("foo\nbar\nbaz\n");
@@ -30,8 +39,6 @@ class MakePublicationTagCommandTest extends TestCase
             json_encode(['foo' => ['foo', 'bar', 'baz']], 128),
             file_get_contents(Hyde::path('tags.json'))
         );
-
-        unlink(Hyde::path('tags.json'));
     }
 
     public function testCanTerminateWithCarriageReturns()
@@ -41,8 +48,6 @@ class MakePublicationTagCommandTest extends TestCase
         $this->artisan('make:publicationTag')
             ->expectsQuestion('Tag name', 'foo')
             ->assertExitCode(0);
-
-        unlink(Hyde::path('tags.json'));
     }
 
     public function testCanTerminateWithUnixEndings()
@@ -52,7 +57,5 @@ class MakePublicationTagCommandTest extends TestCase
         $this->artisan('make:publicationTag')
              ->expectsQuestion('Tag name', 'foo')
              ->assertExitCode(0);
-
-        unlink(Hyde::path('tags.json'));
     }
 }
