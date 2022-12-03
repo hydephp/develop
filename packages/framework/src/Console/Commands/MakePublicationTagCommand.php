@@ -38,7 +38,8 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
         $this->title('Creating a new Publication Type Tag!');
 
         $this->tagName = $this->getTagName();
-        if ((PublicationService::getAllTags()->has($this->tagName))) {
+
+        if (PublicationService::getAllTags()->has($this->tagName)) {
             $this->error("Tag [$this->tagName] already exists");
 
             return Command::FAILURE;
