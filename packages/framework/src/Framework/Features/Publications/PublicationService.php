@@ -80,15 +80,14 @@ class PublicationService
      * Get all values for a given tag name.
      *
      * @param  string  $tagName
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $publicationType
      * @return \Rgasch\Collection\Collection|null
      *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */
-    public static function getValuesForTagName(string $tagName, PublicationType $publicationType): ?Collection
+    public static function getValuesForTagName(string $tagName): ?Collection
     {
-        $tags = static::getAllTags($publicationType);
+        $tags = static::getAllTags();
         if ($tags->has($tagName)) {
             return $tags->$tagName;
         }
