@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function file_exists;
+use function file_get_contents;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\Blade;
-
 use InvalidArgumentException;
-
-use function file_exists;
-use function file_get_contents;
 use function view;
 
 /**
