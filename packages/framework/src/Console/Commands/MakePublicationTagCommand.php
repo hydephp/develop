@@ -69,11 +69,7 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     protected function getLinesFromInputStream(array $lines): array
     {
         do {
-            $feed = $this->readInputStream();
-            if ($feed === false) {
-                break;
-            }
-            $line = Str::replace(["\n", "\r"], '', $feed);
+            $line = Str::replace(["\n", "\r"], '', $this->readInputStream());
             if ($line === '') {
                 break;
             }
