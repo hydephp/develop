@@ -40,6 +40,8 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
 
         $this->getTagName();
 
+        $this->validateTagName();
+
         $this->collectTags();
 
         $this->printSelectionInformation();
@@ -53,8 +55,6 @@ class MakePublicationTagCommand extends ValidatingCommand implements CommandHand
     {
         $this->tagName = $this->getTagNameFromArgument($this->argument('tagName'))
             ?? $this->askWithValidation('name', 'Tag name', ['required', 'string']);
-
-        $this->validateTagName();
     }
 
     protected function getTagNameFromArgument(?string $value): ?string
