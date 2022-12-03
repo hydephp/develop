@@ -23,24 +23,6 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 class PublicationService
 {
     /**
-     * Get all available/tags.
-     *
-     * @return \Rgasch\Collection\Collection
-     *
-     * @throws \Safe\Exceptions\FilesystemException
-     * @throws \Safe\Exceptions\JsonException
-     */
-    public static function getAllTags(): Collection
-    {
-        $filename = Hyde::pathToRelative('tags.json');
-        if (! file_exists($filename)) {
-            return Collection::create();
-        }
-
-        return Collection::create(json_decode(file_get_contents($filename), true))->sortKeys();
-    }
-
-    /**
      * Return a collection of all defined publication types, indexed by the directory name.
      *
      * @todo We might want to refactor to cache this in the Kernel, maybe under $publications?
@@ -77,18 +59,35 @@ class PublicationService
     }
 
     /**
+     * Get all available tags.
+     *
+     * @return \Rgasch\Collection\Collection
+     *
+     * @throws \Safe\Exceptions\FilesystemException
+     * @throws \Safe\Exceptions\JsonException
+     */
+    public static function getAllTags(): Collection
+    {
+        $filename = Hyde::pathToRelative('tags.json');
+        if (! file_exists($filename)) {
+            return Collection::create();
+        }
+
+        return Collection::create(json_decode(file_get_contents($filename), true))->sortKeys();
+    }
+
+    /**
      * Get all values for a given tag name.
      *
      * @param  string  $tagName
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $publicationType
      * @return \Rgasch\Collection\Collection|null
      *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */
-    public static function getValuesForTagName(string $tagName, PublicationType $publicationType): ?Collection
+    public static function getValuesForTagName(string $tagName): ?Collection
     {
-        $tags = self::getAllTags($publicationType);
+        $tags = static::getAllTags();
         if ($tags->has($tagName)) {
             return $tags->$tagName;
         }

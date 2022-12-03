@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Closure;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
@@ -146,11 +147,46 @@ class ValidatingCommandTest extends TestCase
 
         $this->assertSame(1, $code);
     }
+
+    public function testInfoComment()
+    {
+        $command = new DynamicValidatingTestCommand();
+        $command->closure = function (ValidatingCommand $command) {
+            $command->infoComment('foo', 'bar');
+        };
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<info>foo</info> [<comment>bar</comment>]';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
+
+    public function testInfoCommentWithExtraInfo()
+    {
+        $command = new DynamicValidatingTestCommand();
+        $command->closure = function (ValidatingCommand $command) {
+            $command->infoComment('foo', 'bar', 'baz');
+        };
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === '<info>foo</info> [<comment>bar</comment>] <info>baz</info>';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
 }
 
 class SafeValidatingTestCommand extends ValidatingCommand
 {
-    //
+    protected function safeHandle(): int
+    {
+        return parent::SUCCESS;
+    }
 }
 
 class SafeThrowingValidatingTestCommand extends ValidatingCommand
@@ -181,5 +217,17 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
         } catch (RuntimeException $exception) {
             return $this->handleException($exception, $file, $line);
         }
+    }
+}
+
+class DynamicValidatingTestCommand extends ValidatingCommand
+{
+    public Closure $closure;
+
+    public function handle(): int
+    {
+        ($this->closure)($this);
+
+        return 0;
     }
 }

@@ -101,6 +101,14 @@ class ValidatingCommand extends Command
         return Command::FAILURE;
     }
 
+    /**
+     * Write a nicely formatted and consistent message to the console. Using InfoComment for a lack of a better term.
+     */
+    public function infoComment(string $info, string $comment, ?string $moreInfo = null): void
+    {
+        $this->line("<info>$info</info> [<comment>$comment</comment>]".($moreInfo ? " <info>$moreInfo</info>" : ''));
+    }
+
     protected function translate($name, string $error): string
     {
         return $this->makeReplacements($name, Str::after($error, 'validation.'), $this->getTranslationLines());
