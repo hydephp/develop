@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use RuntimeException;
 use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
@@ -15,6 +14,7 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use function implode;
 use LaravelZero\Framework\Commands\Command;
+use RuntimeException;
 use function Safe\json_encode;
 use function sprintf;
 
