@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+/**
+ * The default validation language lines from Laravel.
+ *
+ * @link https://github.com/laravel/laravel/blob/9.x/lang/en/validation.php
+ * @license MIT
+ */
 return [
 
     /*
