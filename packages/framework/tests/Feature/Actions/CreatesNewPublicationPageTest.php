@@ -51,7 +51,6 @@ title: Hello World
 ## Write something awesome.
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
-
     }
 
     protected function makePublicationType(): PublicationType

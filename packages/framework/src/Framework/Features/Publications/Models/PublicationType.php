@@ -55,7 +55,8 @@ class PublicationType implements SerializableContract
         }
     }
 
-    public function __construct(string $name, string $canonicalField, string $sortField = '__createdAt', string $sortDirection = 'DESC', int $pageSize = 25, bool $prevNextLinks = true, string $detailTemplate = 'detail', string $listTemplate = 'list', array $fields = [], ?string $directory = null) {
+    public function __construct(string $name, string $canonicalField, string $sortField = '__createdAt', string $sortDirection = 'DESC', int $pageSize = 25, bool $prevNextLinks = true, string $detailTemplate = 'detail', string $listTemplate = 'list', array $fields = [], ?string $directory = null)
+    {
         $this->name = $name;
         $this->canonicalField = $canonicalField;
         $this->sortField = $sortField;
