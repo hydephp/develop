@@ -27,9 +27,6 @@ class ValidatingCommand extends Command
     /** @var int How many times can the validation loop run? Guards against infinite loops. */
     protected final const MAX_RETRIES = 30;
 
-    /** @interal */
-    public static bool $throwExceptions = false;
-
     /**
      * @return int The exit code.
      */
@@ -95,7 +92,7 @@ class ValidatingCommand extends Command
     public function handleException(Exception $exception, ?string $file = null, ?int $line = null): int
     {
         // When testing it might be more useful to see the full stack trace, so we have an option to actually throw the exception.
-        if (self::$throwExceptions) {
+        if (config('app.throw_on_console_exception', false)) {
             throw $exception;
         }
 
