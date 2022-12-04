@@ -86,18 +86,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                 }
             } while ($duplicate);
 
-            $this->line('Field type:');
-            $this->line('  1 - String');
-            $this->line('  2 - Boolean ');
-            $this->line('  3 - Integer');
-            $this->line('  4 - Float');
-            $this->line('  5 - Datetime (YYYY-MM-DD (HH:MM:SS))');
-            $this->line('  6 - URL');
-            $this->line('  7 - Array');
-            $this->line('  8 - Text');
-            $this->line('  9 - Local Image');
-            $this->line('  10 - Tag (select value from list)');
-            $type = (int) $this->askWithValidation('type', 'Field type (1-10)', ['required', 'integer', 'between:1,10'], 1);
+            $type = $this->getFieldType();
 
             if ($type < 10) {
                 do {
@@ -198,5 +187,22 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             ['required', 'string', 'in:y,n'],
             'y'
         );
+    }
+
+    protected function getFieldType(): int
+    {
+        $this->line('Field type:');
+        $this->line('  1 - String');
+        $this->line('  2 - Boolean ');
+        $this->line('  3 - Integer');
+        $this->line('  4 - Float');
+        $this->line('  5 - Datetime (YYYY-MM-DD (HH:MM:SS))');
+        $this->line('  6 - URL');
+        $this->line('  7 - Array');
+        $this->line('  8 - Text');
+        $this->line('  9 - Local Image');
+        $this->line('  10 - Tag (select value from list)');
+        $type = (int) $this->askWithValidation('type', 'Field type (1-10)', ['required', 'integer', 'between:1,10'], 1);
+        return $type;
     }
 }
