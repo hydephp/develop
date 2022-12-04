@@ -29,7 +29,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
     /** @var string */
     protected $description = 'Create a new publication type definition';
 
-    public function handle(): int
+    public function safeHandle(): int
     {
         $this->title('Creating a new Publication Type!');
 
