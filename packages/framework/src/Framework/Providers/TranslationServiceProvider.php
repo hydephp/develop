@@ -21,6 +21,6 @@ class TranslationServiceProvider extends ServiceProvider implements DeferrablePr
 
     public function provides(): array
     {
-        return [];
+        return ['translator', 'translation.loader'];
     }
 }
