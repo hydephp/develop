@@ -79,12 +79,12 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $this->line('');
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
-            $field = Collection::create();
+            $fieldData = [];
             do {
-                $field->name = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
-                $duplicate = $fields->where('name', $field->name)->count();
+                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
+                $duplicate = $fields->where('name', $fieldData['name'])->count();
                 if ($duplicate) {
-                    $this->error("Field name [$field->name] already exists!");
+                    $this->error("Field name [{$fieldData['name']}] already exists!");
                 }
             } while ($duplicate);
 
@@ -92,9 +92,9 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
             if ($type < 10) {
                 do {
-                    $field->min = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $field->max = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $lengthsValid = $this->validateLengths($field->min, $field->max);
+                    $fieldData['min'] = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $fieldData['max'] = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $lengthsValid = $this->validateLengths($fieldData['min'], $fieldData['max']);
                 } while (! $lengthsValid);
             } else {
                 $allTags = PublicationService::getAllTags();
@@ -105,16 +105,16 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                 }
                 $offset--; // The above loop overcounts by 1
                 $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
-                $field->tagGroup = $allTags->keys()->{$selected - 1};
-                $field->min = 0;
-                $field->max = 0;
+                $fieldData['tagGroup'] = $allTags->keys()->{$selected - 1};
+                $fieldData['min'] = 0;
+                $fieldData['max'] = 0;
             }
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
-            $field->type = PublicationFieldType::TYPES[$type];
+            $fieldData['type'] = PublicationFieldType::TYPES[$type];
 
-            $fields->add($field);
+            $fields->add(PublicationFieldType::fromArray($fieldData));
             $count++;
         } while (strtolower($addAnother) != 'n');
 
@@ -176,11 +176,11 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getCanonicalField(Collection $fields): string
     {
-        $options = $fields->reject(function (Collection $field): bool {
+        $options = $fields->reject(function (PublicationFieldType $field): bool {
             // Temporary verbose check to see code coverage
-            if ($field['type'] === 'image') {
+            if ($field->type === 'image') {
                 return true;
-            } elseif ($field['type'] === 'tag') {
+            } elseif ($field->type === 'tag') {
                 return true;
             } else {
                 return false;
