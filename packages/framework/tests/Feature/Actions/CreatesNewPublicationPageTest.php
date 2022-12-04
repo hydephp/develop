@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Framework\Actions\CreatesNewPublicationFile;
+use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
 
 /**
- * @covers \Hyde\Framework\Actions\CreatesNewPublicationFile
+ * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage
  */
-class CreatesNewPublicationFileTest extends TestCase
+class CreatesNewPublicationPageTest extends TestCase
 {
     public function testCreate()
     {
@@ -44,7 +44,7 @@ class CreatesNewPublicationFileTest extends TestCase
 
         $this->freezeTime();
 
-        $creator = new CreatesNewPublicationFile($pubType, $fieldData);
+        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));

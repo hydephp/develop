@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationCommand
- * @covers \Hyde\Framework\Actions\CreatesNewPublicationFile
+ * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage
  */
 class MakePublicationCommandTest extends TestCase
 {

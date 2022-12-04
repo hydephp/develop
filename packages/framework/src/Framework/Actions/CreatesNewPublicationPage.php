@@ -18,9 +18,9 @@ use RuntimeException;
  * Scaffold a publication file.
  *
  * @see \Hyde\Console\Commands\MakePublicationCommand
- * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationFileTest
+ * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationPageTest
  */
-class CreatesNewPublicationFile extends CreateAction implements CreateActionContract
+class CreatesNewPublicationPage extends CreateAction implements CreateActionContract
 {
     public function __construct(
         protected PublicationType $pubType,

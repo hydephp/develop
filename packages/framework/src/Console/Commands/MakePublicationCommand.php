@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Framework\Actions\CreatesNewPublicationFile;
+use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -18,7 +18,7 @@ use Rgasch\Collection\Collection;
 /**
  * Hyde Command to create a new publication for a given publication type.
  *
- * @see \Hyde\Framework\Actions\CreatesNewPublicationFile
+ * @see \Hyde\Framework\Actions\CreatesNewPublicationPage
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
 class MakePublicationCommand extends ValidatingCommand implements CommandHandleInterface
@@ -38,7 +38,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
         $fieldData = $this->collectFieldData($pubType);
 
-        $creator = new CreatesNewPublicationFile($pubType, $fieldData, $this->hasForceOption(), $this->output);
+        $creator = new CreatesNewPublicationPage($pubType, $fieldData, $this->hasForceOption(), $this->output);
         if ($creator->hasFileConflict()) {
             $this->error('Error: A publication already exists with the same canonical field value');
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
