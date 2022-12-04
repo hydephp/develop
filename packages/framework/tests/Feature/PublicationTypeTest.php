@@ -28,6 +28,21 @@ class PublicationTypeTest extends TestCase
         }
     }
 
+    public function testConstructWithDefaultValues()
+    {
+        $publicationType = new PublicationType('test');
+
+        $this->assertEquals('test', $publicationType->name);
+        $this->assertEquals('identifier', $publicationType->canonicalField);
+        $this->assertEquals('__createdAt', $publicationType->sortField);
+        $this->assertEquals('DESC', $publicationType->sortDirection);
+        $this->assertEquals(25, $publicationType->pageSize);
+        $this->assertEquals(true, $publicationType->prevNextLinks);
+        $this->assertEquals('detail', $publicationType->detailTemplate);
+        $this->assertEquals('list', $publicationType->listTemplate);
+        $this->assertEquals([], $publicationType->fields);
+    }
+
     public function test_class_is_arrayable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
