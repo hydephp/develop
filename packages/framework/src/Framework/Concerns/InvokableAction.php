@@ -6,5 +6,5 @@ namespace Hyde\Framework\Concerns;
 
 abstract class InvokableAction
 {
-    //
+    abstract public function __invoke();
 }
