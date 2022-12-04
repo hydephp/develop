@@ -69,6 +69,8 @@ class PublicationType implements SerializableContract
 
         if ($directory) {
             $this->directory = $directory;
+        } else {
+            $this->directory = Str::slug($name);
         }
     }
 

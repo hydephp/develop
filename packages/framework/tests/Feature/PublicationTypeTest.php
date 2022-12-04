@@ -30,9 +30,9 @@ class PublicationTypeTest extends TestCase
 
     public function testConstructWithDefaultValues()
     {
-        $publicationType = new PublicationType('test');
+        $publicationType = new PublicationType('Test Publication');
 
-        $this->assertEquals('test', $publicationType->name);
+        $this->assertEquals('Test Publication', $publicationType->name);
         $this->assertEquals('identifier', $publicationType->canonicalField);
         $this->assertEquals('__createdAt', $publicationType->sortField);
         $this->assertEquals('DESC', $publicationType->sortDirection);
@@ -41,6 +41,8 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals('detail', $publicationType->detailTemplate);
         $this->assertEquals('list', $publicationType->listTemplate);
         $this->assertEquals([], $publicationType->fields);
+
+        $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
 
     public function test_class_is_arrayable()
