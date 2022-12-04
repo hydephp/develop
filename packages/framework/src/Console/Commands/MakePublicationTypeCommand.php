@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use function array_flip;
 use function array_keys;
 use function array_merge;
@@ -114,18 +115,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
-            $field->type = match ($type) {
-                1  => 'string',
-                2  => 'boolean',
-                3  => 'integer',
-                4  => 'float',
-                5  => 'datetime',
-                6  => 'url',
-                7  => 'array',
-                8  => 'text',
-                9  => 'image',
-                10 => 'tag',
-            };
+            $field->type = PublicationFieldType::TYPES[$type];
 
             $fields->add($field);
             $count++;
