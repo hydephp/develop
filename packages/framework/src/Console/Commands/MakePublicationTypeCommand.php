@@ -4,15 +4,24 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Exception;
+use function array_flip;
+use function array_keys;
+use function array_merge;
+use function file_exists;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
+use function scandir;
+use function strtolower;
+use function trim;
+use function ucfirst;
 
 /**
  * Hyde Command to create a new publication type.
@@ -29,7 +38,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
     /** @var string */
     protected $description = 'Create a new publication type definition';
 
-    public function handle(): int
+    public function safeHandle(): int
     {
         $this->title('Creating a new Publication Type!');
 
@@ -44,58 +53,17 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
         $fields = $this->captureFieldsDefinitions();
 
-        $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
-        $this->line('  0: dateCreated (meta field)');
-        $offset = 0;
-        foreach ($fields as $k => $v) {
-            $offset = $k + 1;
-            $this->line("  $offset: $v[name]");
-        }
-        $selected = (int) $this->askWithValidation('selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
-        $sortField = $selected ? $fields[$selected - 1]['name'] : '__createdAt';
+        $sortField = $this->getSortField($fields);
 
-        $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
-        $this->line('  1 - Ascending (oldest items first if sorting by dateCreated)');
-        $this->line('  2 - Descending (newest items first if sorting by dateCreated)');
-        $selected = (int) $this->askWithValidation('selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2);
-        $sortDirection = match ($selected) {
-            1 => 'ASC',
-            2 => 'DESC',
-        };
+        $sortDirection = $this->getSortDirection();
 
-        $pageSize = (int) $this->askWithValidation(
-            'pageSize',
-            'Enter the pageSize (0 for no limit)',
-            ['required', 'integer', 'between:0,100'],
-            25
-        );
-        $prevNextLinks = (bool) $this->askWithValidation(
-            'prevNextLinks',
-            'Generate previous/next links in detail view (y/n)',
-            ['required', 'string', 'in:y,n'],
-            'y'
-        );
+        $pageSize = $this->getPageSize();
+        $prevNextLinks = $this->getPrevNextLinks();
 
-        $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
-        $fieldNames = [];
-        foreach ($fields as $k => $v) {
-            if ($v->type != 'image' && $v->type != 'tag') {
-                $fieldNames[] = $v->name;
-                $offset = $k + 1;
-                $this->line("  $offset: $v->name");
-            }
-        }
-        $selected = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
-        $canonicalField = $fieldNames[$selected - 1];
+        $canonicalField = $this->getCanonicalField($fields);
 
-        try {
-            $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
-            $creator->create();
-        } catch (Exception $e) {
-            $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
-
-            return Command::FAILURE;
-        }
+        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
+        $creator->create();
 
         $this->info('Publication type created successfully!');
 
@@ -111,71 +79,139 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $this->line('');
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
-            $field = Collection::create();
+            $fieldData = [];
             do {
-                $field->name = trim($this->askWithValidation('name', 'Field name', ['required']));
-                $duplicate = $fields->where('name', $field->name)->count();
-                if ($duplicate) {
-                    $this->error("Field name [$field->name] already exists!");
-                }
+                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
+                $duplicate = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
             } while ($duplicate);
 
-            $this->line('Field type:');
-            $this->line('  1 - String');
-            $this->line('  2 - Boolean ');
-            $this->line('  3 - Integer');
-            $this->line('  4 - Float');
-            $this->line('  5 - Datetime (YYYY-MM-DD (HH:MM:SS))');
-            $this->line('  6 - URL');
-            $this->line('  7 - Array');
-            $this->line('  8 - Text');
-            $this->line('  9 - Local Image');
-            $this->line('  10 - Tag (select value from list)');
-            $type = (int) $this->askWithValidation('type', 'Field type (1-10)', ['required', 'integer', 'between:1,10'], 1);
+            $type = $this->getFieldType();
 
             if ($type < 10) {
                 do {
-                    $field->min = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $field->max = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $lengthsValid = true;
-                    if ($field->max < $field->min) {
-                        $lengthsValid = false;
-                        $this->output->warning('Field length [max] must be [>=] than [min]');
-                    }
+                    $fieldData['min'] = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $fieldData['max'] = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $lengthsValid = $this->validateLengths($fieldData['min'], $fieldData['max']);
                 } while (! $lengthsValid);
             } else {
-                $allTags = PublicationService::getAllTags();
-                $offset = 1;
-                foreach ($allTags as $k=>$v) {
-                    $this->line("  $offset - $k");
-                    $offset++;
-                }
-                $offset--; // The above loop overcounts by 1
-                $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
-                $field->tagGroup = $allTags->keys()->{$selected - 1};
-                $field->min = 0;
-                $field->max = 0;
+                $fieldData = $this->getFieldDataForTag($fieldData);
             }
-            $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'y');
+            $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
-            $field->type = match ($type) {
-                1  => 'string',
-                2  => 'boolean',
-                3  => 'integer',
-                4  => 'float',
-                5  => 'datetime',
-                6  => 'url',
-                7  => 'array',
-                8  => 'text',
-                9  => 'image',
-                10 => 'tag',
-            };
+            $fieldData['type'] = PublicationFieldType::TYPES[$type];
 
-            $fields->add($field);
+            $fields->add(PublicationFieldType::fromArray($fieldData));
             $count++;
-        } while (strtolower($addAnother) != 'n');
+        } while (strtolower($addAnother) !== 'n');
 
         return $fields;
+    }
+
+    protected function getFieldType(): int
+    {
+        $options = PublicationFieldType::TYPES;
+        foreach ($options as $key => $value) {
+            $options[$key] = ucfirst($value);
+        }
+        $options[5] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
+        $options[6] = 'URL';
+        $options[9] = 'Local Image';
+        $options[10] = 'Tag (select value from list)';
+
+        return (int) $this->choice('Field type', $options, 1) + 1;
+    }
+
+    protected function getSortField(Collection $fields): string
+    {
+        $options = array_merge(['dateCreated (meta field)'], $fields->pluck('name')->toArray());
+
+        $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
+
+        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
+    }
+
+    protected function getSortDirection(): string
+    {
+        $options = [
+            'Ascending (oldest items first if sorting by dateCreated)'  => 'ASC',
+            'Descending (newest items first if sorting by dateCreated)' => 'DESC',
+        ];
+
+        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
+    }
+
+    protected function getPageSize(): int
+    {
+        return (int) $this->askWithValidation(
+            'pageSize',
+            'Enter the pageSize (0 for no limit)',
+            ['required', 'integer', 'between:0,100'],
+            25
+        );
+    }
+
+    protected function getPrevNextLinks(): bool
+    {
+        return (bool) $this->askWithValidation(
+            'prevNextLinks',
+            'Generate previous/next links in detail view (y/n)',
+            ['required', 'string', 'in:y,n'],
+            'y'
+        );
+    }
+
+    protected function getCanonicalField(Collection $fields): string
+    {
+        $options = $fields->reject(function (PublicationFieldType $field): bool {
+            // Temporary verbose check to see code coverage
+            if ($field->type === 'image') {
+                return true;
+            } elseif ($field->type === 'tag') {
+                return true;
+            } else {
+                return false;
+            }
+        })->pluck('name');
+
+        return $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first());
+    }
+
+    protected function validateLengths(string $min, string $max): bool
+    {
+        if ($max < $min) {
+            $this->error('Field length [max] cannot be less than [min]');
+
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function getFieldDataForTag(array $fieldData): array
+    {
+        $allTags = PublicationService::getAllTags();
+        $offset = 1;
+        foreach ($allTags as $k => $v) {
+            $this->line("  $offset - $k");
+            $offset++;
+        }
+        $offset--; // The above loop overcounts by 1
+        $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
+        $fieldData['tagGroup'] = $allTags->keys()->{$selected - 1};
+        $fieldData['min'] = 0;
+        $fieldData['max'] = 0;
+
+        return $fieldData;
+    }
+
+    protected function checkIfFieldIsDuplicate(Collection $fields, $name): bool
+    {
+        $duplicate = $fields->where('name', $name)->count();
+        if ($duplicate) {
+            $this->error("Field name [$name] already exists!");
+        }
+
+        return (bool) $duplicate;
     }
 }
