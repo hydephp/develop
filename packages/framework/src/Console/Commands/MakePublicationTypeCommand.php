@@ -114,7 +114,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         foreach ($options as $key => $value) {
             $options[$key] = ucfirst($value);
         }
-        $options[4] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
+        $options[5] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
         $options[6] = 'URL';
         $options[9] = 'Local Image';
         $options[10] = 'Tag (select value from list)';
