@@ -8,13 +8,16 @@ use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
 use function config;
+use function is_dir;
+use function lang_path;
 
 class TranslationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register(): void
     {
-        // Todo check this doesn't interfere with overrides and/or other packages
-        $this->app->useLangPath(__DIR__ . '/../../../resources/lang');
+        if (! is_dir(lang_path())) {
+            $this->app->useLangPath(__DIR__ . '/../../../resources/lang');
+        }
 
         config([
            'app.locale' => config('app.locale', 'en'),
