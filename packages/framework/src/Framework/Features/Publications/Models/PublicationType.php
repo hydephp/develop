@@ -67,11 +67,7 @@ class PublicationType implements SerializableContract
         $this->listTemplate = $listTemplate;
         $this->fields = $fields;
 
-        if ($directory) {
-            $this->directory = $directory;
-        } else {
-            $this->directory = Str::slug($name);
-        }
+        $this->directory = $directory ?? Str::slug($name);
     }
 
     public function toArray(): array
