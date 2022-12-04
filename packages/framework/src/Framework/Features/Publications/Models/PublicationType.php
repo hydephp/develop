@@ -32,8 +32,8 @@ class PublicationType implements SerializableContract
     public string $sortDirection = 'DESC';
     public int $pageSize = 25;
     public bool $prevNextLinks = true;
-    public string $detailTemplate;
-    public string $listTemplate;
+    public string $detailTemplate = 'detail';
+    public string $listTemplate = 'list';
 
     /** @var array<array<string, mixed>> */
     public array $fields;
