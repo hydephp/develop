@@ -100,7 +100,7 @@ class PublicationType implements SerializableContract
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldType> */
     public function getFields(): Collection
     {
-        return collect($this->fields)->mapWithKeys(function (array $data) {
+        return collect($this->fields)->mapWithKeys(function (array $data): array {
             return [$data['name'] => new PublicationFieldType(...$data)];
         });
     }
