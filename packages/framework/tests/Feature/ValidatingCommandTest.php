@@ -28,7 +28,7 @@ class ValidatingCommandTest extends TestCase
         $command = new SafeThrowingValidatingTestCommand();
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':1');
+            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
         });
         $command->setOutput($output);
 
@@ -144,6 +144,22 @@ class ValidatingCommandTest extends TestCase
 
         $command->setOutput($output);
         $code = $command->handle('TestClass.php', 10);
+
+        $this->assertSame(1, $code);
+    }
+
+    public function testCanEnableThrowOnException()
+    {
+        config(['app.throw_on_console_exception' => true]);
+        $command = new ThrowingValidatingTestCommand();
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('This is a test');
+
+        $command->setOutput($output);
+        $code = $command->handle();
 
         $this->assertSame(1, $code);
     }
