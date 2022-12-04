@@ -86,4 +86,17 @@ class MakePublicationTypeCommandTest extends TestCase
 
         // TODO: Assert Blade templates were created?
     }
+
+    public function test_cannot_create_field_with_lower_max_than_min_value()
+    {
+        $this->artisan('make:publicationType test-publication')
+            ->expectsQuestion('Field name', 'foo')
+            ->expectsQuestion('Field type', 'foo')
+            ->expectsQuestion('Min value (for strings, this refers to string length)', 10)
+            ->expectsQuestion('Max value (for strings, this refers to string length)', 5)
+            ->expectsQuestion('Min value (for strings, this refers to string length)', 5)
+            ->expectsQuestion('Max value (for strings, this refers to string length)', 10)
+
+             ->assertSuccessful();
+    }
 }
