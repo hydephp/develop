@@ -40,7 +40,9 @@ class MakePublicationTypeCommandTest extends TestCase
             ])
             ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
             ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
-            ->expectsQuestion('Canonical field (1-1)', 1)
+            ->expectsChoice('Choose a canonical name field (the values of this field have to be unique!)', 'publication-title', [
+                'publication-title',
+            ])
             ->expectsOutputToContain('Creating a new Publication Type!')
             ->expectsOutput('Saving publication data to [test-publication/schema.json]')
             ->expectsOutput('Publication type created successfully!')
