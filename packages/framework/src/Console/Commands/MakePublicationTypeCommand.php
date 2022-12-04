@@ -145,7 +145,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                 $field->min = 0;
                 $field->max = 0;
             }
-            $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'y');
+            $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
             $field->type = match ($type) {
