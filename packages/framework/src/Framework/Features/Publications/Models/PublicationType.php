@@ -28,10 +28,10 @@ class PublicationType implements SerializableContract
 
     public string $name;
     public string $canonicalField;
-    public string $sortField;
-    public string $sortDirection;
-    public int $pageSize;
-    public bool $prevNextLinks;
+    public string $sortField = '__createdAt';
+    public string $sortDirection = 'DESC';
+    public int $pageSize = 25;
+    public bool $prevNextLinks = true;
     public string $detailTemplate;
     public string $listTemplate;
 
