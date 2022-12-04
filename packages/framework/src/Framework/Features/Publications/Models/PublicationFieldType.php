@@ -29,6 +29,7 @@ class PublicationFieldType implements SerializableContract
         9  => 'image',
         10 => 'tag',
     ];
+
     public final const DEFAULT_RULES = [
         'string'   => ['required', 'string', 'between'],
         'boolean'  => ['required', 'boolean'],
