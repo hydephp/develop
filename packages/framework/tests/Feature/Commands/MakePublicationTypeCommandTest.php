@@ -104,13 +104,14 @@ class MakePublicationTypeCommandTest extends TestCase
              ->expectsQuestion('Max value (for strings, this refers to string length)', 5)
              ->expectsQuestion('Min value (for strings, this refers to string length)', 5)
              ->expectsQuestion('Max value (for strings, this refers to string length)', 10)
+
              ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
              ->expectsQuestion('Choose the default field you wish to sort by', 'foo')
              ->expectsQuestion('Choose the default sort direction', 'Ascending (oldest items first if sorting by dateCreated)')
-                ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
-                ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
-                ->expectsQuestion('Choose a canonical name field (the values of this field have to be unique!)', 'foo')
-                ->expectsOutputToContain('Creating a new Publication Type!')
+             ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
+             ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
+             ->expectsQuestion('Choose a canonical name field (the values of this field have to be unique!)', 'foo')
+             ->expectsOutputToContain('Creating a new Publication Type!')
              ->assertSuccessful();
     }
 }
