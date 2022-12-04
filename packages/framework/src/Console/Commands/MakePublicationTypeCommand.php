@@ -88,14 +88,8 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $selected = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
         $canonicalField = $fieldNames[$selected - 1];
 
-        try {
-            $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
-            $creator->create();
-        } catch (Exception $e) {
-            $this->error('Error: '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine());
-
-            return Command::FAILURE;
-        }
+        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
+        $creator->create();
 
         $this->info('Publication type created successfully!');
 
