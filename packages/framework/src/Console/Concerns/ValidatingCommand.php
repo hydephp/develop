@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Concerns;
 
 use Hyde\Console\Commands\Helpers\ValidationTranslator;
+use function __;
 use function array_keys;
 use function array_values;
 use Exception;
@@ -117,6 +118,8 @@ class ValidatingCommand extends Command
 
     protected function translate(string $name, string $error): string
     {
-        return ValidationTranslator::translate($name, $error);
+        return __($error, [
+            'attribute' => $name,
+        ]);
     }
 }
