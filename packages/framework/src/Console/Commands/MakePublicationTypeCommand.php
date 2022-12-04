@@ -164,7 +164,6 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
     }
 
-
     protected function getCanonicalField(Collection $fields): string
     {
         $options = $fields->reject(function (Collection $field): bool {
