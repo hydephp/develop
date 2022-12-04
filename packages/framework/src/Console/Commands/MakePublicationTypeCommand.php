@@ -174,6 +174,6 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             'Ascending (oldest items first if sorting by dateCreated)' => 'ASC',
             'Descending (newest items first if sorting by dateCreated)' => 'DESC',
         ];
-        return $options[$this->choice('Choose the default sort direction', array_keys($options))];
+        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
     }
 }
