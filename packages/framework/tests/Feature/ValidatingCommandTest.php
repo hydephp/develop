@@ -28,7 +28,7 @@ class ValidatingCommandTest extends TestCase
         $command = new SafeThrowingValidatingTestCommand();
         $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':1');
+            return str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
         });
         $command->setOutput($output);
 
