@@ -7,12 +7,19 @@ namespace Hyde\Framework\Providers;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
+use function config;
+
 class TranslationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register(): void
     {
         // Todo check this doesn't interfere with overrides and/or other packages
         $this->app->useLangPath(__DIR__ . '/../../../resources/lang');
+
+        config([
+           'app.locale' => 'en',
+           'app.fallback_locale' => 'en',
+        ]);
     }
 
     public function boot(): void
