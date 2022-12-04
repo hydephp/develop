@@ -190,7 +190,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         return $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first());
     }
 
-    protected function validateLengths(int|string $min, int|string $max): bool
+    protected function validateLengths(string $min, string $max): bool
     {
         if ($max < $min) {
             $this->error('Field length [max] cannot be less than [min]');
