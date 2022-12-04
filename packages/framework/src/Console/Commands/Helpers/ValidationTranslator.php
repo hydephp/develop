@@ -10,8 +10,15 @@ use function array_keys;
 use function array_values;
 use function str_replace;
 
+/**
+ * @see \Illuminate\Translation\Translator
+ */
 class ValidationTranslator
 {
+    /**
+     * @param string $name The name of the attribute being validated.
+     * @param string $error The validation error key, for example "validation.required".
+     */
     public static function translate(string $name, string $error): string
     {
         return (new static)->runTranslation($name, $error);
