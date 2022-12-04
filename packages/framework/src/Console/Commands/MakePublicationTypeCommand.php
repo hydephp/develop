@@ -174,7 +174,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                 $fieldNames[] = $field->name;
             }
         }
-        return $fieldNames[array_flip($fieldNames)[$this->choice('Choose a canonical name field (the values of this field have to be unique!)', $fieldNames, $fieldNames[0])]];
+        return $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $fieldNames, $fieldNames[0]);
     }
 
     protected function getPageSize(): int
