@@ -97,17 +97,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                     $lengthsValid = $this->validateLengths($fieldData['min'], $fieldData['max']);
                 } while (! $lengthsValid);
             } else {
-                $allTags = PublicationService::getAllTags();
-                $offset = 1;
-                foreach ($allTags as $k => $v) {
-                    $this->line("  $offset - $k");
-                    $offset++;
-                }
-                $offset--; // The above loop overcounts by 1
-                $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
-                $fieldData['tagGroup'] = $allTags->keys()->{$selected - 1};
-                $fieldData['min'] = 0;
-                $fieldData['max'] = 0;
+                $fieldData = $this->getFieldDataForTag($fieldData);
             }
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
@@ -199,5 +189,21 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         }
 
         return true;
+    }
+
+    protected function getFieldDataForTag(array $fieldData): array
+    {
+        $allTags = PublicationService::getAllTags();
+        $offset  = 1;
+        foreach ($allTags as $k => $v) {
+            $this->line("  $offset - $k");
+            $offset++;
+        }
+        $offset--; // The above loop overcounts by 1
+        $selected              = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
+        $fieldData['tagGroup'] = $allTags->keys()->{$selected - 1};
+        $fieldData['min']      = 0;
+        $fieldData['max']      = 0;
+        return $fieldData;
     }
 }
