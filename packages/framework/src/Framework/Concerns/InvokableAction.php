@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns;
 
+/**
+ * Base class for invokable actions. Provides a helper to invoke the action statically.
+ */
 abstract class InvokableAction
 {
     abstract public function __invoke();
