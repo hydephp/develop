@@ -11,7 +11,7 @@ class TranslationServiceProvider extends ServiceProvider implements DeferrablePr
 {
     public function register(): void
     {
-        //
+        $this->app->useLangPath(__DIR__ . '/../../../resources/lang');
     }
 
     public function boot(): void
