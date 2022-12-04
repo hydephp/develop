@@ -14,6 +14,8 @@ use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
+use function array_keys;
+
 /**
  * Hyde Command to create a new publication type.
  *
@@ -168,9 +170,10 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getSortDirection(): string
     {
-        return $this->choice('Choose the default sort direction', [
-            1 => 'ASC',
-            2 => 'DESC',
-        ]);
+        $options    = [
+            'Ascending (oldest items first if sorting by dateCreated)' => 'ASC',
+            'Descending (newest items first if sorting by dateCreated)' => 'DESC',
+        ];
+        return $options[$this->choice('Choose the default sort direction', array_keys($options))];
     }
 }
