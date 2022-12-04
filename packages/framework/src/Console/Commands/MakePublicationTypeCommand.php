@@ -182,7 +182,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getFieldType(): int
     {
-        $options  = PublicationFieldType::TYPES;
+        $options = PublicationFieldType::TYPES;
         foreach ($options as $key => $value) {
             $options[$key] = ucfirst($value);
         }
