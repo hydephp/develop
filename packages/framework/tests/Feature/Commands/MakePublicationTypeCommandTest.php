@@ -73,10 +73,10 @@ class MakePublicationTypeCommandTest extends TestCase
                 "listTemplate": "test-publication_list",
                 "fields": [
                     {
+                        "type": "string",
                         "name": "publication-title",
                         "min": "default",
-                        "max": "default",
-                        "type": "string"
+                        "max": "default"
                     }
                 ]
             }
