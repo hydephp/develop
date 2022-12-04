@@ -54,14 +54,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $selected = (int) $this->askWithValidation('selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
         $sortField = $selected ? $fields[$selected - 1]['name'] : '__createdAt';
 
-        $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
-        $this->line('  1 - Ascending (oldest items first if sorting by dateCreated)');
-        $this->line('  2 - Descending (newest items first if sorting by dateCreated)');
-        $selected = (int) $this->askWithValidation('selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2);
-        $sortDirection = match ($selected) {
-            1 => 'ASC',
-            2 => 'DESC',
-        };
+        $sortDirection = $this->getSortDirection();
 
         $pageSize = (int) $this->askWithValidation(
             'pageSize',
@@ -171,5 +164,17 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         } while (strtolower($addAnother) != 'n');
 
         return $fields;
+    }
+
+    protected function getSortDirection(): string
+    {
+        $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
+        $this->line('  1 - Ascending (oldest items first if sorting by dateCreated)');
+        $this->line('  2 - Descending (newest items first if sorting by dateCreated)');
+
+        return match (((int) $this->askWithValidation('selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2))) {
+            1 => 'ASC',
+            2 => 'DESC',
+        };
     }
 }
