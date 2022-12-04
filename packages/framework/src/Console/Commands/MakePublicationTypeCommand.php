@@ -82,7 +82,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $fieldData = [];
             do {
                 $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
-                $duplicate         = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
+                $duplicate = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
             } while ($duplicate);
 
             $type = $this->getFieldType();
@@ -191,16 +191,17 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
     protected function getFieldDataForTag(array $fieldData): array
     {
         $allTags = PublicationService::getAllTags();
-        $offset  = 1;
+        $offset = 1;
         foreach ($allTags as $k => $v) {
             $this->line("  $offset - $k");
             $offset++;
         }
         $offset--; // The above loop overcounts by 1
-        $selected              = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
+        $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
         $fieldData['tagGroup'] = $allTags->keys()->{$selected - 1};
-        $fieldData['min']      = 0;
-        $fieldData['max']      = 0;
+        $fieldData['min'] = 0;
+        $fieldData['max'] = 0;
+
         return $fieldData;
     }
 
@@ -210,6 +211,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         if ($duplicate) {
             $this->error("Field name [$name] already exists!");
         }
+
         return (bool) $duplicate;
     }
 }
