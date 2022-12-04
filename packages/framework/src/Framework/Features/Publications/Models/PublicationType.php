@@ -36,7 +36,7 @@ class PublicationType implements SerializableContract
     public string $listTemplate = 'list';
 
     /** @var array<array<string, mixed>> */
-    public array $fields;
+    public array $fields = [];
 
     public static function get(string $name): static
     {
