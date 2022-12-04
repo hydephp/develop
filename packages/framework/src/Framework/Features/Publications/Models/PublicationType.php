@@ -39,7 +39,7 @@ class PublicationType implements SerializableContract
         try {
             return new static(...array_merge(
                 static::parseSchemaFile($schemaFile),
-                static::getRelativeDirectoryName($schemaFile))
+                static::getRelativeDirectoryEntry($schemaFile))
             );
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
@@ -122,7 +122,7 @@ class PublicationType implements SerializableContract
         return json_decode(file_get_contents(Hyde::path($schemaFile)), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    protected static function getRelativeDirectoryName(string $schemaFile): array
+    protected static function getRelativeDirectoryEntry(string $schemaFile): array
     {
         return ['directory' => Hyde::pathToRelative(dirname($schemaFile))];
     }
