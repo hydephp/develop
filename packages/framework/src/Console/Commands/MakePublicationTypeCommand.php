@@ -113,7 +113,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
             $field = Collection::create();
             do {
-                $field->name = trim($this->askWithValidation('name', 'Field name', ['required']));
+                $field->name = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
                 $duplicate = $fields->where('name', $field->name)->count();
                 if ($duplicate) {
                     $this->error("Field name [$field->name] already exists!");

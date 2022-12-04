@@ -18,7 +18,7 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->artisan('make:publicationType')
             ->expectsQuestion('Publication type name', 'Test Publication')
-            ->expectsQuestion('Field name', 'Title')
+            ->expectsQuestion('Field name', 'Publication Title')
             ->expectsQuestion('Field type (1-10)', 1)
             ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('Max value (for strings, this refers to string length)', 'default')
@@ -41,7 +41,7 @@ class MakePublicationTypeCommandTest extends TestCase
             <<<'JSON'
             {
                 "name": "Test Publication",
-                "canonicalField": "Title",
+                "canonicalField": "publication-title",
                 "sortField": "__createdAt",
                 "sortDirection": "ASC",
                 "pageSize": 10,
@@ -50,7 +50,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "listTemplate": "test-publication_list",
                 "fields": [
                     {
-                        "name": "Title",
+                        "name": "publication-title",
                         "min": "default",
                         "max": "default",
                         "type": "string"
