@@ -96,7 +96,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                     $lengthsValid = true;
                     if ($field->max < $field->min) {
                         $lengthsValid = false;
-                        $this->output->error('Field length [max] must be [>=] than [min]');
+                        $this->output->error('Field length [max] cannot be less than [min]');
                     }
                 } while (! $lengthsValid);
             } else {
