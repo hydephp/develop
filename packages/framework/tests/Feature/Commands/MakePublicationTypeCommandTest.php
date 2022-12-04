@@ -30,7 +30,10 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('Max value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
-            ->expectsQuestion('Sort field (0-1)', 0)
+            ->expectsChoice('Choose the default field you wish to sort by','dateCreated (meta field)', [
+                'dateCreated (meta field)',
+                'publication-title',
+            ])
             ->expectsChoice('Choose the default sort direction', 'Ascending (oldest items first if sorting by dateCreated)', [
                    'Ascending (oldest items first if sorting by dateCreated)',
                    'Descending (newest items first if sorting by dateCreated)'
@@ -39,7 +42,6 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
             ->expectsQuestion('Canonical field (1-1)', 1)
             ->expectsOutputToContain('Creating a new Publication Type!')
-            ->expectsOutput('Choose the default field you wish to sort by:')
             ->expectsOutput('Saving publication data to [test-publication/schema.json]')
             ->expectsOutput('Publication type created successfully!')
             ->assertExitCode(0);

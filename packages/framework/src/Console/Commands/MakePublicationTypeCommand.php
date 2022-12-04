@@ -14,6 +14,7 @@ use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
+use function array_flip;
 use function array_keys;
 
 /**
@@ -171,14 +172,12 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getSortField(Collection $fields): string
     {
-        $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
-        $this->line('  0: dateCreated (meta field)');
-        $offset = 0;
-        foreach ($fields as $k => $v) {
-            $offset = $k + 1;
-            $this->line("  $offset: $v[name]");
+        $options = [0 => 'dateCreated (meta field)'];
+        foreach ($fields as $v) {
+            $options[] = $v['name'];
         }
-        $selected = (int) $this->askWithValidation('selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
-        return $selected ? $fields[$selected - 1]['name'] : '__createdAt';
+
+        $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
+        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])] ;
     }
 }
