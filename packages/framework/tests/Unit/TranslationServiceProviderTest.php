@@ -26,4 +26,9 @@ class TranslationServiceProviderTest extends TestCase
 
         $this->assertTrue(true);
     }
+
+    public function testValidation()
+    {
+        $this->assertSame('The :attribute must be accepted.', __('validation.accepted'));
+    }
 }
