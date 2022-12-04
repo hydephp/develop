@@ -26,15 +26,6 @@ class PublicationType implements SerializableContract
 
     protected string $directory;
 
-    public string $name;
-    public string $canonicalField = 'identifier';
-    public string $sortField = '__createdAt';
-    public string $sortDirection = 'DESC';
-    public int $pageSize = 25;
-    public bool $prevNextLinks = true;
-    public string $detailTemplate = 'detail';
-    public string $listTemplate = 'list';
-
     /** @var array<array<string, mixed>> */
     public array $fields = [];
 
@@ -55,18 +46,19 @@ class PublicationType implements SerializableContract
         }
     }
 
-    public function __construct(string $name, string $canonicalField = 'identifier', string $sortField = '__createdAt', string $sortDirection = 'DESC', int $pageSize = 25, bool $prevNextLinks = true, string $detailTemplate = 'detail', string $listTemplate = 'list', array $fields = [], ?string $directory = null)
-    {
-        $this->name = $name;
-        $this->canonicalField = $canonicalField;
-        $this->sortField = $sortField;
-        $this->sortDirection = $sortDirection;
-        $this->pageSize = $pageSize;
-        $this->prevNextLinks = $prevNextLinks;
-        $this->detailTemplate = $detailTemplate;
-        $this->listTemplate = $listTemplate;
+    public function __construct(
+        public string $name,
+        public string $canonicalField = 'identifier',
+        public string $sortField = '__createdAt',
+        public string $sortDirection = 'DESC',
+        public int $pageSize = 25,
+        public bool $prevNextLinks = true,
+        public string $detailTemplate = 'detail',
+        public string $listTemplate = 'list',
+        array $fields = [],
+        ?string $directory = null
+    ) {
         $this->fields = $fields;
-
         $this->directory = $directory ?? Str::slug($name);
     }
 
