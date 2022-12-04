@@ -55,18 +55,8 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
         $sortDirection = $this->getSortDirection();
 
-        $pageSize = (int) $this->askWithValidation(
-            'pageSize',
-            'Enter the pageSize (0 for no limit)',
-            ['required', 'integer', 'between:0,100'],
-            25
-        );
-        $prevNextLinks = (bool) $this->askWithValidation(
-            'prevNextLinks',
-            'Generate previous/next links in detail view (y/n)',
-            ['required', 'string', 'in:y,n'],
-            'y'
-        );
+        $pageSize = $this->getPageSize();
+        $prevNextLinks = $this->getPrevNextLinks();
 
         $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
         $fieldNames = [];
@@ -182,5 +172,25 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
 
         return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
+    }
+
+    protected function getPageSize(): int
+    {
+        return (int) $this->askWithValidation(
+            'pageSize',
+            'Enter the pageSize (0 for no limit)',
+            ['required', 'integer', 'between:0,100'],
+            25
+        );
+    }
+
+    protected function getPrevNextLinks(): bool
+    {
+        return (bool) $this->askWithValidation(
+            'prevNextLinks',
+            'Generate previous/next links in detail view (y/n)',
+            ['required', 'string', 'in:y,n'],
+            'y'
+        );
     }
 }
