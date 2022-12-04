@@ -34,25 +34,7 @@ class CreatesNewPublicationPageTest extends TestCase
 
     public function testCreate()
     {
-        $pubType = new PublicationType(
-                  'test',
-                  'title',
-                  'sort',
-                  'asc',
-                  10,
-                  true,
-                  'detail',
-                  'list',
-                  [
-                      [
-                          'type' => 'string',
-                          'name' => 'title',
-                          'min'  => 0,
-                          'max'  => 128,
-                      ],
-                  ],
-                  'test-publication',
-              );
+        $pubType = $this->makePublicationType();
         $fieldData = Collection::make([
             'title' => 'Hello World',
         ]);
@@ -70,5 +52,28 @@ title: Hello World
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
 
+    }
+
+    protected function makePublicationType(): PublicationType
+    {
+        return new PublicationType(
+            'test',
+            'title',
+            'sort',
+            'asc',
+            10,
+            true,
+            'detail',
+            'list',
+            [
+                [
+                    'type' => 'string',
+                    'name' => 'title',
+                    'min'  => 0,
+                    'max'  => 128,
+                ],
+            ],
+            'test-publication',
+        );
     }
 }
