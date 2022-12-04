@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
@@ -17,6 +18,20 @@ use Rgasch\Collection\Collection;
  */
 class CreatesNewPublicationPageTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow(Carbon::create(2022));
+    }
+
+    protected function tearDown(): void
+    {
+        Filesystem::deleteDirectory(('test-publication'));
+
+        parent::tearDown();
+    }
+
     public function testCreate()
     {
         $pubType = new PublicationType(
@@ -42,8 +57,6 @@ class CreatesNewPublicationPageTest extends TestCase
             'title' => 'Hello World',
         ]);
 
-        Carbon::setTestNow(Carbon::create(2022));
-
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
 
@@ -57,7 +70,5 @@ title: Hello World
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
 
-        unlink(Hyde::path('test-publication/hello-world.md'));
-        rmdir(Hyde::path('test-publication'));
     }
 }
