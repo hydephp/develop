@@ -46,8 +46,8 @@ class MakePublicationTypeCommandTest extends TestCase
                 9 => 'Local Image',
                 10 => 'Tag (select value from list)',
             ])
-            ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
-            ->expectsQuestion('Max value (for strings, this refers to string length)', 'default')
+            ->expectsQuestion('Min value (for strings, this refers to string length)', '0')
+            ->expectsQuestion('Max value (for strings, this refers to string length)', '0')
             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
             ->expectsChoice('Choose the default field you wish to sort by', 'dateCreated (meta field)', [
                 'dateCreated (meta field)',
@@ -83,8 +83,8 @@ class MakePublicationTypeCommandTest extends TestCase
                     {
                         "type": "string",
                         "name": "publication-title",
-                        "min": "default",
-                        "max": "default"
+                        "min": "0",
+                        "max": "0"
                     }
                 ]
             }
