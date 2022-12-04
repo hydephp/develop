@@ -148,6 +148,22 @@ class ValidatingCommandTest extends TestCase
         $this->assertSame(1, $code);
     }
 
+    public function testCanEnableThrowOnException()
+    {
+        config(['app.throw_on_console_exception' => true]);
+        $command = new ThrowingValidatingTestCommand();
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('This is a test');
+
+        $command->setOutput($output);
+        $code = $command->handle();
+
+        $this->assertSame(1, $code);
+    }
+
     public function testInfoComment()
     {
         $command = new DynamicValidatingTestCommand();
