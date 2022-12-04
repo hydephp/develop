@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use function config;
 use function deleteDirectory;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -14,6 +15,13 @@ use Hyde\Testing\TestCase;
  */
 class MakePublicationTypeCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['app.throw_on_console_exception' => true]);
+    }
+
     protected function tearDown(): void
     {
         deleteDirectory(Hyde::path('test-publication'));
