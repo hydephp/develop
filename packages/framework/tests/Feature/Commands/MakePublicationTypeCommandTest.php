@@ -26,7 +26,18 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType')
             ->expectsQuestion('Publication type name', 'Test Publication')
             ->expectsQuestion('Field name', 'Publication Title')
-            ->expectsQuestion('Field type (1-10)', 1)
+            ->expectsChoice('Field type', 'String', [
+                1 => 'String',
+                2 => 'Boolean',
+                3 => 'Integer',
+                4 => 'Datetime (YYYY-MM-DD (HH:MM:SS))',
+                5 => 'Datetime',
+                6 => 'URL',
+                7 => 'Array',
+                8 => 'Text',
+                9 => 'Local Image',
+                10 => 'Tag (select value from list)',
+            ])
             ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('Max value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')

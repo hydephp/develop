@@ -21,6 +21,7 @@ use Rgasch\Collection\Collection;
 use function scandir;
 use function strtolower;
 use function trim;
+use function ucfirst;
 
 /**
  * Hyde Command to create a new publication type.
@@ -181,19 +182,15 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getFieldType(): int
     {
-        $this->line('Field type:');
-        $this->line('  1 - String');
-        $this->line('  2 - Boolean ');
-        $this->line('  3 - Integer');
-        $this->line('  4 - Float');
-        $this->line('  5 - Datetime (YYYY-MM-DD (HH:MM:SS))');
-        $this->line('  6 - URL');
-        $this->line('  7 - Array');
-        $this->line('  8 - Text');
-        $this->line('  9 - Local Image');
-        $this->line('  10 - Tag (select value from list)');
-        $type = (int) $this->askWithValidation('type', 'Field type (1-10)', ['required', 'integer', 'between:1,10'], 1);
+        $options  = PublicationFieldType::TYPES;
+        foreach ($options as $key => $value) {
+            $options[$key] = ucfirst($value);
+        }
+        $options[4] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
+        $options[6] = 'URL';
+        $options[9] = 'Local Image';
+        $options[10] = 'Tag (select value from list)';
 
-        return $type;
+        return (int) $this->choice('Field type', $options, 1) + 1;
     }
 }
