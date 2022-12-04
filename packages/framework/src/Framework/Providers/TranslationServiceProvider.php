@@ -17,8 +17,8 @@ class TranslationServiceProvider extends ServiceProvider implements DeferrablePr
         $this->app->useLangPath(__DIR__ . '/../../../resources/lang');
 
         config([
-           'app.locale' => 'en',
-           'app.fallback_locale' => 'en',
+           'app.locale' => config('app.locale', 'en'),
+           'app.fallback_locale' => config('app.fallback_locale', 'en'),
         ]);
     }
 
