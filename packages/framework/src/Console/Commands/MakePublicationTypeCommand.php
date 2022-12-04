@@ -106,7 +106,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
             $fields->add(PublicationFieldType::fromArray($fieldData));
             $count++;
-        } while (strtolower($addAnother) != 'n');
+        } while (strtolower($addAnother) !== 'n');
 
         return $fields;
     }
