@@ -17,6 +17,11 @@ use Rgasch\Collection\Collection;
 use function array_flip;
 use function array_keys;
 use function array_merge;
+use function file_exists;
+use function is_dir;
+use function scandir;
+use function strtolower;
+use function trim;
 
 /**
  * Hyde Command to create a new publication type.
