@@ -167,8 +167,6 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getCanonicalField(Collection $fields): string
     {
-        $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
-
         $options = $fields->reject(function (Collection $field): bool {
             return ($field['type'] === 'image' || $field['type'] === 'tag');
         })->pluck('name');
