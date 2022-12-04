@@ -9,5 +9,18 @@ use Illuminate\Support\ServiceProvider;
 
 class TranslationServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    //
+    public function register(): void
+    {
+        //
+    }
+
+    public function boot(): void
+    {
+        //
+    }
+
+    public function provides(): array
+    {
+        return [];
+    }
 }
