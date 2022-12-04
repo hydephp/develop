@@ -27,7 +27,7 @@ class PublicationType implements SerializableContract
     protected string $directory;
 
     public string $name;
-    public string $canonicalField;
+    public string $canonicalField = 'identifier';
     public string $sortField = '__createdAt';
     public string $sortDirection = 'DESC';
     public int $pageSize = 25;
