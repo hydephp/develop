@@ -117,12 +117,14 @@ class PublicationPageTest extends TestCase
         file_put_contents(Hyde::path('test-publication/schema.json'), '{
   "name": "test",
   "canonicalField": "slug",
-  "sortField": "__createdAt",
-  "sortDirection": "DESC",
-  "pageSize": 0,
-  "prevNextLinks": true,
   "detailTemplate": "test_detail",
   "listTemplate": "test_list",
+  "paginationSettings": {
+      "sortField": "__createdAt",
+      "sortDirection": "DESC",
+      "pageSize": 0,
+      "prevNextLinks": true
+  },
   "fields": [
     {
       "name": "slug",

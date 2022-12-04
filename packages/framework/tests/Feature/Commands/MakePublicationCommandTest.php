@@ -137,12 +137,14 @@ class MakePublicationCommandTest extends TestCase
             json_encode([
                 'name'           => 'Test Publication',
                 'canonicalField' => 'title',
-                'sortField'      => '__createdAt',
-                'sortDirection'  => 'ASC',
-                'pageSize'       => 10,
-                'prevNextLinks'  => true,
                 'detailTemplate' => 'test-publication_detail',
                 'listTemplate'   => 'test-publication_list',
+                'paginationSettings' => [
+                    'pageSize'       => 10,
+                    'prevNextLinks'  => true,
+                    'sortField'      => '__createdAt',
+                    'sortDirection'  => 'ASC',
+                ],
                 'fields'         => [
                     [
                         'name' => 'title',

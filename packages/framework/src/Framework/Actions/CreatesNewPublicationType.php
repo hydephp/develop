@@ -39,12 +39,14 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         $type = new PublicationType(
             $this->name,
             $this->canonicalField,
-            $this->sortField,
-            $this->sortDirection,
-            $this->pageSize,
-            $this->prevNextLinks,
             "{$this->dirName}_detail",
             "{$this->dirName}_list",
+            [
+                $this->sortField,
+                $this->sortDirection,
+                $this->pageSize,
+                $this->prevNextLinks,
+            ],
             $this->fields->toArray()
         );
 

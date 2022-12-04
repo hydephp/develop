@@ -58,13 +58,7 @@ title: Hello World
         return new PublicationType(
             'test',
             'title',
-            'sort',
-            'asc',
-            10,
-            true,
-            'detail',
-            'list',
-            [
+            fields: [
                 [
                     'type' => 'string',
                     'name' => 'title',
@@ -72,7 +66,7 @@ title: Hello World
                     'max'  => 128,
                 ],
             ],
-            'test-publication',
+            directory: 'test-publication',
         );
     }
 }

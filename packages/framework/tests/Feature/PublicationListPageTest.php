@@ -68,12 +68,14 @@ Hello World!
         return [
             'name'           => 'test',
             'canonicalField' => 'canonical',
-            'sortField'      => 'sort',
-            'sortDirection'  => 'asc',
-            'pageSize'       => 10,
-            'prevNextLinks'  => true,
             'detailTemplate' => 'detail',
             'listTemplate'   => 'list',
+            'paginationSettings' => [
+                'sortField'      => 'sort',
+                'sortDirection'  => 'asc',
+                'pageSize'       => 10,
+                'prevNextLinks'  => true,
+            ],
             'fields'         => [
                 'foo' => 'bar',
             ],
