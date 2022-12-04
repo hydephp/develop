@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function array_flip;
+use function array_keys;
+use function array_merge;
+use function file_exists;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
@@ -11,14 +15,9 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-
-use function array_flip;
-use function array_keys;
-use function array_merge;
-use function file_exists;
-use function is_dir;
 use function scandir;
 use function strtolower;
 use function trim;
@@ -44,8 +43,8 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $this->title('Creating a new Publication Type!');
 
         $title = $this->argument('title');
-        if (!$title) {
-            $title   = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
+        if (! $title) {
+            $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
             $dirname = Str::slug($title);
             if (file_exists($dirname) && is_dir($dirname) && count(scandir($dirname)) > 2) {
                 throw new InvalidArgumentException("Storage path [$dirname] already exists");
@@ -58,7 +57,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
         $sortDirection = $this->getSortDirection();
 
-        $pageSize      = $this->getPageSize();
+        $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
 
         $canonicalField = $this->getCanonicalField($fields);
@@ -74,7 +73,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
     protected function captureFieldsDefinitions(): Collection
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
-        $count  = 1;
+        $count = 1;
         $fields = Collection::create();
         do {
             $this->line('');
@@ -83,7 +82,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $field = Collection::create();
             do {
                 $field->name = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
-                $duplicate   = $fields->where('name', $field->name)->count();
+                $duplicate = $fields->where('name', $field->name)->count();
                 if ($duplicate) {
                     $this->error("Field name [$field->name] already exists!");
                 }
@@ -93,26 +92,26 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
             if ($type < 10) {
                 do {
-                    $field->min   = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $field->max   = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $field->min = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $field->max = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
                     $lengthsValid = true;
                     if ($field->max < $field->min) {
                         $lengthsValid = false;
                         $this->output->error('Field length [max] cannot be less than [min]');
                     }
-                } while (!$lengthsValid);
+                } while (! $lengthsValid);
             } else {
                 $allTags = PublicationService::getAllTags();
-                $offset  = 1;
+                $offset = 1;
                 foreach ($allTags as $k => $v) {
                     $this->line("  $offset - $k");
                     $offset++;
                 }
                 $offset--; // The above loop overcounts by 1
-                $selected        = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
+                $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
                 $field->tagGroup = $allTags->keys()->{$selected - 1};
-                $field->min      = 0;
-                $field->max      = 0;
+                $field->min = 0;
+                $field->max = 0;
             }
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
@@ -132,9 +131,9 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         foreach ($options as $key => $value) {
             $options[$key] = ucfirst($value);
         }
-        $options[4]  = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
-        $options[6]  = 'URL';
-        $options[9]  = 'Local Image';
+        $options[4] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
+        $options[6] = 'URL';
+        $options[9] = 'Local Image';
         $options[10] = 'Tag (select value from list)';
 
         return (int) $this->choice('Field type', $options, 1) + 1;
