@@ -56,8 +56,8 @@ class PublicationType implements SerializableContract
         array $fields = [],
         ?string $directory = null
     ) {
-        $this->fields             = $fields;
-        $this->directory          = $directory ?? Str::slug($name);
+        $this->fields = $fields;
+        $this->directory = $directory ?? Str::slug($name);
         $this->paginationSettings = $paginationSettings instanceof PaginationSettings
             ? $paginationSettings
             : PaginationSettings::fromArray($paginationSettings);
