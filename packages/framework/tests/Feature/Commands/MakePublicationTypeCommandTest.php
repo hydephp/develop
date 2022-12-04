@@ -46,7 +46,6 @@ class MakePublicationTypeCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
         $this->assertEqualsIgnoringLineEndingType(
-            file_get_contents(Hyde::path('test-publication/schema.json')),
             <<<'JSON'
             {
                 "name": "Test Publication",
@@ -66,7 +65,8 @@ class MakePublicationTypeCommandTest extends TestCase
                     }
                 ]
             }
-            JSON
+            JSON,
+            file_get_contents(Hyde::path('test-publication/schema.json'))
         );
 
         // TODO: Assert Blade templates were created?
