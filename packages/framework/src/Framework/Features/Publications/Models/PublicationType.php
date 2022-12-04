@@ -26,17 +26,8 @@ class PublicationType implements SerializableContract
 
     protected string $directory;
 
-    public string $name;
-    public string $canonicalField;
-    public string $sortField;
-    public string $sortDirection;
-    public int $pageSize;
-    public bool $prevNextLinks;
-    public string $detailTemplate;
-    public string $listTemplate;
-
     /** @var array<array<string, mixed>> */
-    public array $fields;
+    public array $fields = [];
 
     public static function get(string $name): static
     {
@@ -48,28 +39,27 @@ class PublicationType implements SerializableContract
         try {
             return new static(...array_merge(
                 static::parseSchemaFile($schemaFile),
-                static::getRelativeDirectoryName($schemaFile))
+                static::getRelativeDirectoryEntry($schemaFile))
             );
         } catch (Exception $exception) {
             throw new RuntimeException("Could not parse schema file $schemaFile", 0, $exception);
         }
     }
 
-    public function __construct(string $name, string $canonicalField, string $sortField, string $sortDirection, int $pageSize, bool $prevNextLinks, string $detailTemplate, string $listTemplate, array $fields, ?string $directory = null)
-    {
-        $this->name = $name;
-        $this->canonicalField = $canonicalField;
-        $this->sortField = $sortField;
-        $this->sortDirection = $sortDirection;
-        $this->pageSize = $pageSize;
-        $this->prevNextLinks = $prevNextLinks;
-        $this->detailTemplate = $detailTemplate;
-        $this->listTemplate = $listTemplate;
+    public function __construct(
+        public string $name,
+        public string $canonicalField = 'identifier',
+        public string $sortField = '__createdAt',
+        public string $sortDirection = 'DESC',
+        public int $pageSize = 25,
+        public bool $prevNextLinks = true,
+        public string $detailTemplate = 'detail',
+        public string $listTemplate = 'list',
+        array $fields = [],
+        ?string $directory = null
+    ) {
         $this->fields = $fields;
-
-        if ($directory) {
-            $this->directory = $directory;
-        }
+        $this->directory = $directory ?? Str::slug($name);
     }
 
     public function toArray(): array
@@ -110,7 +100,7 @@ class PublicationType implements SerializableContract
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldType> */
     public function getFields(): Collection
     {
-        return collect($this->fields)->mapWithKeys(function (array $data) {
+        return collect($this->fields)->mapWithKeys(function (array $data): array {
             return [$data['name'] => new PublicationFieldType(...$data)];
         });
     }
@@ -132,7 +122,7 @@ class PublicationType implements SerializableContract
         return json_decode(file_get_contents(Hyde::path($schemaFile)), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    protected static function getRelativeDirectoryName(string $schemaFile): array
+    protected static function getRelativeDirectoryEntry(string $schemaFile): array
     {
         return ['directory' => Hyde::pathToRelative(dirname($schemaFile))];
     }
