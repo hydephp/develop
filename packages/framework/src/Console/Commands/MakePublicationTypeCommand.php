@@ -16,6 +16,7 @@ use Rgasch\Collection\Collection;
 
 use function array_flip;
 use function array_keys;
+use function array_merge;
 
 /**
  * Hyde Command to create a new publication type.
@@ -172,10 +173,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getSortField(Collection $fields): string
     {
-        $options = [0 => 'dateCreated (meta field)'];
-        foreach ($fields as $v) {
-            $options[] = $v['name'];
-        }
+        $options = array_merge(['dateCreated (meta field)'], $fields->pluck('name')->toArray());
 
         $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
         return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])] ;
