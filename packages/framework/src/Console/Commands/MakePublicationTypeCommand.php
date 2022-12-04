@@ -46,15 +46,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
         $fields = $this->captureFieldsDefinitions();
 
-        $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
-        $this->line('  0: dateCreated (meta field)');
-        $offset = 0;
-        foreach ($fields as $k => $v) {
-            $offset = $k + 1;
-            $this->line("  $offset: $v[name]");
-        }
-        $selected = (int) $this->askWithValidation('selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
-        $sortField = $selected ? $fields[$selected - 1]['name'] : '__createdAt';
+        $sortField = $this->getSortField($fields);
 
         $sortDirection = $this->getSortDirection();
 
@@ -175,5 +167,18 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             'Descending (newest items first if sorting by dateCreated)' => 'DESC',
         ];
         return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
+    }
+
+    protected function getSortField(Collection $fields): string
+    {
+        $this->output->writeln('<bg=magenta;fg=white>Choose the default field you wish to sort by:</>');
+        $this->line('  0: dateCreated (meta field)');
+        $offset = 0;
+        foreach ($fields as $k => $v) {
+            $offset = $k + 1;
+            $this->line("  $offset: $v[name]");
+        }
+        $selected = (int) $this->askWithValidation('selected', "Sort field (0-$offset)", ['required', 'integer', "between:0,$offset"], 0);
+        return $selected ? $fields[$selected - 1]['name'] : '__createdAt';
     }
 }
