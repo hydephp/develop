@@ -58,17 +58,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
 
-        $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
-        $fieldNames = [];
-        foreach ($fields as $k => $v) {
-            if ($v->type != 'image' && $v->type != 'tag') {
-                $fieldNames[] = $v->name;
-                $offset = $k + 1;
-                $this->line("  $offset: $v->name");
-            }
-        }
-        $selected = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
-        $canonicalField = $fieldNames[$selected - 1];
+        $canonicalField = $this->getCanonicalField($fields);
 
         $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
         $creator->create();
@@ -192,5 +182,22 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             ['required', 'string', 'in:y,n'],
             'y'
         );
+    }
+
+    protected function getCanonicalField(Collection $fields): string
+    {
+        $this->output->writeln('<bg=magenta;fg=white>Choose a canonical name field (the values of this field have to be unique!):</>');
+        $fieldNames = [];
+        foreach ($fields as $k => $v) {
+            if ($v->type != 'image' && $v->type != 'tag') {
+                $fieldNames[] = $v->name;
+                $offset = $k + 1;
+                $this->line("  $offset: $v->name");
+            }
+        }
+        $selected = (int) $this->askWithValidation('selected', "Canonical field (1-$offset)", ['required', 'integer', "between:1,$offset"], 1);
+        $canonicalField = $fieldNames[$selected - 1];
+
+        return $canonicalField;
     }
 }
