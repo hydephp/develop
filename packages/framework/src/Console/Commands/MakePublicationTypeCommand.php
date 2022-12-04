@@ -203,6 +203,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $this->line('  9 - Local Image');
         $this->line('  10 - Tag (select value from list)');
         $type = (int) $this->askWithValidation('type', 'Field type (1-10)', ['required', 'integer', 'between:1,10'], 1);
+
         return $type;
     }
 }
