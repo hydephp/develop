@@ -168,13 +168,9 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getSortDirection(): string
     {
-        $this->output->writeln('<bg=magenta;fg=white>Choose the default sort direction:</>');
-        $this->line('  1 - Ascending (oldest items first if sorting by dateCreated)');
-        $this->line('  2 - Descending (newest items first if sorting by dateCreated)');
-
-        return match (((int) $this->askWithValidation('selected', 'Sort field (1-2)', ['required', 'integer', 'between:1,2'], 2))) {
+        return $this->choice('Choose the default sort direction', [
             1 => 'ASC',
             2 => 'DESC',
-        };
+        ]);
     }
 }
