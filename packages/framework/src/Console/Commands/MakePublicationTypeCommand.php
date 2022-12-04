@@ -82,10 +82,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $fieldData = [];
             do {
                 $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
-                $duplicate = $fields->where('name', $fieldData['name'])->count();
-                if ($duplicate) {
-                    $this->error("Field name [{$fieldData['name']}] already exists!");
-                }
+                $duplicate         = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
             } while ($duplicate);
 
             $type = $this->getFieldType();
@@ -205,5 +202,14 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $fieldData['min']      = 0;
         $fieldData['max']      = 0;
         return $fieldData;
+    }
+
+    protected function checkIfFieldIsDuplicate(Collection $fields, $name): bool
+    {
+        $duplicate = $fields->where('name', $name)->count();
+        if ($duplicate) {
+            $this->error("Field name [$name] already exists!");
+        }
+        return (bool) $duplicate;
     }
 }
