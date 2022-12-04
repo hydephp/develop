@@ -28,9 +28,4 @@ class TranslationServiceProvider extends ServiceProvider implements DeferrablePr
     {
         $this->loadTranslationsFrom(__DIR__.'/../../../resources/lang/en/validation.php', 'validation');
     }
-
-    public function provides(): array
-    {
-        return ['translator', 'translation.loader'];
-    }
 }
