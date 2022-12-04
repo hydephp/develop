@@ -42,14 +42,14 @@ class CreatesNewPublicationPageTest extends TestCase
             'title' => 'Hello World',
         ]);
 
-        $this->freezeTime();
+        Carbon::setTestNow(Carbon::create(2022));
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEqualsIgnoringLineEndingType('---
-__createdAt: '.Carbon::now()->format('Y-m-d H:i:s').'
+__createdAt: 2022-01-01 00:00:00
 title: Hello World
 ---
 
