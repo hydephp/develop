@@ -17,7 +17,18 @@ class PublicationFieldType implements SerializableContract
 {
     use Serializable;
 
-    public final const TYPES = ['string', 'boolean', 'integer', 'float', 'datetime', 'url', 'array', 'text', 'image', 'tag'];
+    public final const TYPES = [
+        'string',
+        'boolean',
+        'integer',
+        'float',
+        'datetime',
+        'url',
+        'array',
+        'text',
+        'image',
+        'tag'
+    ];
     public final const DEFAULT_RULES = [
         'string'   => ['required', 'string', 'between'],
         'boolean'  => ['required', 'boolean'],
