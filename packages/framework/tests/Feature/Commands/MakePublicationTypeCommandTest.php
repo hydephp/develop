@@ -30,13 +30,13 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Min value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('Max value (for strings, this refers to string length)', 'default')
             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
-            ->expectsChoice('Choose the default field you wish to sort by','dateCreated (meta field)', [
+            ->expectsChoice('Choose the default field you wish to sort by', 'dateCreated (meta field)', [
                 'dateCreated (meta field)',
                 'publication-title',
             ])
             ->expectsChoice('Choose the default sort direction', 'Ascending (oldest items first if sorting by dateCreated)', [
-                   'Ascending (oldest items first if sorting by dateCreated)',
-                   'Descending (newest items first if sorting by dateCreated)'
+                'Ascending (oldest items first if sorting by dateCreated)',
+                'Descending (newest items first if sorting by dateCreated)',
             ])
             ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
             ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')

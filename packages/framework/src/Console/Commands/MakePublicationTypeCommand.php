@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Exception;
+use function array_flip;
+use function array_keys;
+use function array_merge;
+use function file_exists;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-
-use function array_flip;
-use function array_keys;
-use function array_merge;
-use function file_exists;
-use function is_dir;
 use function scandir;
 use function strtolower;
 use function trim;
@@ -169,10 +167,11 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getSortDirection(): string
     {
-        $options    = [
+        $options = [
             'Ascending (oldest items first if sorting by dateCreated)' => 'ASC',
             'Descending (newest items first if sorting by dateCreated)' => 'DESC',
         ];
+
         return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
     }
 
@@ -181,6 +180,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         $options = array_merge(['dateCreated (meta field)'], $fields->pluck('name')->toArray());
 
         $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
-        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])] ;
+
+        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
     }
 }
