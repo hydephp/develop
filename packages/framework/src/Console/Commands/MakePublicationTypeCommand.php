@@ -94,11 +94,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
                 do {
                     $field->min = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
                     $field->max = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $lengthsValid = true;
-                    if ($field->max < $field->min) {
-                        $lengthsValid = false;
-                        $this->output->error('Field length [max] cannot be less than [min]');
-                    }
+                    $lengthsValid = $this->validateLengths($field->min, $field->max);
                 } while (! $lengthsValid);
             } else {
                 $allTags = PublicationService::getAllTags();
@@ -192,5 +188,15 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         })->pluck('name');
 
         return $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first());
+    }
+
+    protected function validateLengths(int|string $min, int|string $max): bool
+    {
+        $lengthsValid = true;
+        if ($max < $min) {
+            $lengthsValid = false;
+            $this->output->error('Field length [max] cannot be less than [min]');
+        }
+        return $lengthsValid;
     }
 }
