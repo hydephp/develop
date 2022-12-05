@@ -10,16 +10,16 @@ namespace Hyde\Framework\Features\Publications\Concerns;
  * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldType
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
-enum PublicationFieldTypes
+enum PublicationFieldTypes: string
 {
-  case String;
-  case Boolean;
-  case Integer;
-  case Float;
-  case Datetime;
-  case Url;
-  case Array;
-  case Text;
-  case Image;
-  case Tag;
+  case String = 'string';
+  case Boolean = 'boolean';
+  case Integer = 'integer';
+  case Float = 'float';
+  case Datetime = 'datetime';
+  case Url = 'url';
+  case Array = 'array';
+  case Text = 'text';
+  case Image = 'image';
+  case Tag = 'tag';
 }
