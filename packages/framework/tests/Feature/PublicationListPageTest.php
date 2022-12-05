@@ -72,7 +72,7 @@ Hello World!
             'listTemplate'   => 'list',
             'pagination' => [
                 'sortField'      => 'sort',
-                'sortDirection'  => 'asc',
+                'sortAscending'  => 'asc',
                 'pageSize'       => 10,
                 'prevNextLinks'  => true,
             ],

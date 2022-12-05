@@ -5,7 +5,7 @@
     "listTemplate": "test-publication_list",
     "pagination": {
         "sortField": "__createdAt",
-        "sortDirection": "DESC",
+        "sortAscending": "DESC",
         "pageSize": 25,
         "prevNextLinks": true
     },

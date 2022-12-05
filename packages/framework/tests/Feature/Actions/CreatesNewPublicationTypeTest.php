@@ -28,7 +28,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertStringContainsString('"name": "name"', $result);
         $this->assertStringContainsString('"canonicalField": "canonical"', $result);
         $this->assertStringContainsString('"sortField": "sort"', $result);
-        $this->assertStringContainsString('"sortDirection": "asc"', $result);
+        $this->assertStringContainsString('"sortAscending": "asc"', $result);
         $this->assertStringContainsString('"pageSize": 10', $result);
         $this->assertStringContainsString('"prevNextLinks": true', $result);
         $this->assertStringContainsString('"detailTemplate": "name_detail"', $result);

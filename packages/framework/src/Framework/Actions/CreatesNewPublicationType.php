@@ -25,7 +25,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected Collection $fields,
         protected string $canonicalField,
         protected string $sortField,
-        protected string $sortDirection,
+        protected string $sortAscending,
         protected int $pageSize,
         protected bool $prevNextLinks,
         protected ?OutputStyle $output = null,
@@ -43,7 +43,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             "{$this->dirName}_list",
             [
                 $this->sortField,
-                $this->sortDirection,
+                $this->sortAscending,
                 $this->pageSize,
                 $this->prevNextLinks,
             ],

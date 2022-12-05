@@ -77,7 +77,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "listTemplate": "test-publication_list",
                 "pagination": {
                     "sortField": "__createdAt",
-                    "sortDirection": "ASC",
+                    "sortAscending": "ASC",
                     "pageSize": 10,
                     "prevNextLinks": true
                 },
