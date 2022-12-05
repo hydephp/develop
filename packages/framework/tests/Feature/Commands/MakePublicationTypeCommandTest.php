@@ -78,8 +78,8 @@ class MakePublicationTypeCommandTest extends TestCase
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
-                    "pageSize": 10,
-                    "prevNextLinks": true
+                    "prevNextLinks": true,
+                    "pageSize": 10
                 },
                 "fields": [
                     {

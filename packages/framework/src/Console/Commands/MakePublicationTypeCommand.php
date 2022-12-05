@@ -62,7 +62,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
         $canonicalField = $this->getCanonicalField($fields);
 
-        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortAscending, $pageSize, $prevNextLinks, $this->output);
+        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
         $creator->create();
 
         $this->info('Publication type created successfully!');

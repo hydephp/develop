@@ -163,8 +163,8 @@ class PublicationTypeTest extends TestCase
             'pagination' => [
                 'sortField'      => '__createdAt',
                 'sortAscending'  => true,
-                'pageSize'       => 25,
                 'prevNextLinks'  => true,
+                'pageSize'       => 25,
             ],
             'fields'         => [
                 [

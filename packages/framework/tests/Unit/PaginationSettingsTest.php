@@ -24,7 +24,7 @@ class PaginationSettingsTest extends TestCase
 
     public function testConstruct()
     {
-        $paginationSettings = new PaginationSettings('foo', false, 10, false);
+        $paginationSettings = new PaginationSettings('foo', false, false, 10);
 
         $this->assertSame('foo', $paginationSettings->sortField);
         $this->assertFalse($paginationSettings->sortAscending);
@@ -54,8 +54,8 @@ class PaginationSettingsTest extends TestCase
         $this->assertSame([
             'sortField' => '__createdAt',
             'sortAscending' => true,
-            'pageSize' => 25,
             'prevNextLinks' => true,
+            'pageSize' => 25,
         ], $paginationSettings->toArray());
     }
 
@@ -63,7 +63,7 @@ class PaginationSettingsTest extends TestCase
     {
         $paginationSettings = new PaginationSettings();
 
-        $this->assertSame('{"sortField":"__createdAt","sortAscending":true,"pageSize":25,"prevNextLinks":true}', $paginationSettings->toJson());
+        $this->assertSame('{"sortField":"__createdAt","sortAscending":true,"prevNextLinks":true,"pageSize":25}', $paginationSettings->toJson());
     }
 
     public function testJsonSerialize()

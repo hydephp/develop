@@ -26,8 +26,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected string $canonicalField,
         protected string $sortField,
         protected bool $sortAscending,
-        protected int $pageSize,
         protected bool $prevNextLinks,
+        protected int $pageSize,
         protected ?OutputStyle $output = null,
     ) {
         $this->dirName = $this->formatStringForStorage($this->name);
@@ -44,8 +44,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             [
                 $this->sortField,
                 $this->sortAscending,
-                $this->pageSize,
                 $this->prevNextLinks,
+                $this->pageSize,
             ],
             $this->fields->toArray()
         );

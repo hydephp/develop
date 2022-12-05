@@ -19,7 +19,7 @@ class CreatesNewPublicationTypeTest extends TestCase
 {
     public function test_it_creates_a_new_publication_type()
     {
-        $creator = new CreatesNewPublicationType('name', new Collection(), 'canonical', 'sort', true, 10, true);
+        $creator = new CreatesNewPublicationType('name', new Collection(), 'canonical', 'sort', true, true, 10);
         $creator->create();
 
         $this->assertFileExists(Hyde::path('name/schema.json'));
