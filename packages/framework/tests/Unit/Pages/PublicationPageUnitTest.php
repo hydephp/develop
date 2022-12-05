@@ -244,7 +244,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
             'canonicalField',
             'detailTemplate',
             'listTemplate',
-            ['sortField', 'sortAscending', 1, true],
+            ['sortField', true, 1, true],
             [],
             'directory'
         );
