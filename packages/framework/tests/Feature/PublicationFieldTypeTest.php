@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
+use ValueError;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldType
@@ -18,7 +20,7 @@ class PublicationFieldTypeTest extends TestCase
         $field = $this->makeField();
         $this->assertInstanceOf(PublicationFieldType::class, $field);
 
-        $this->assertSame('string', $field->type);
+        $this->assertSame(PublicationFieldTypes::String, $field->type);
         $this->assertSame('test', $field->name);
         $this->assertSame('1', $field->min);
         $this->assertSame('10', $field->max);
@@ -35,7 +37,7 @@ class PublicationFieldTypeTest extends TestCase
 
         $this->assertInstanceOf(PublicationFieldType::class, $field);
 
-        $this->assertSame('string', $field->type);
+        $this->assertSame(PublicationFieldTypes::String, $field->type);
         $this->assertSame('test', $field->name);
         $this->assertSame('1', $field->min);
         $this->assertSame('10', $field->max);
@@ -80,8 +82,8 @@ class PublicationFieldTypeTest extends TestCase
 
     public function test_type_must_be_valid()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("The type 'invalid' is not a valid type. Valid types are: string, boolean, integer, float, datetime, url, array, text, image, tag.");
+        $this->expectException(ValueError::class);
+        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes"');
 
         new PublicationFieldType('invalid', 'test', '1', '10');
     }
@@ -89,7 +91,7 @@ class PublicationFieldTypeTest extends TestCase
     public function test_type_input_is_case_insensitive()
     {
         $field = new PublicationFieldType('STRING', 'test', '1', '10');
-        $this->assertSame('string', $field->type);
+        $this->assertSame(PublicationFieldTypes::String, $field->type);
     }
 
     public function test_name_gets_stored_as_kebab_case()
@@ -101,23 +103,6 @@ class PublicationFieldTypeTest extends TestCase
     public function test_validate_input_against_rules()
     {
         $this->markTestIncomplete('TODO: Implement this method.');
-    }
-
-    public function test_types_constant()
-    {
-        $this->assertSame([
-            1  => 'string',
-            2  => 'boolean',
-            3  => 'integer',
-            4  => 'float',
-            5  => 'datetime',
-            6  => 'url',
-            7  => 'array',
-            8  => 'text',
-            9  => 'image',
-            10 => 'tag',
-
-        ], PublicationFieldType::TYPES);
     }
 
     protected function makeField(): PublicationFieldType

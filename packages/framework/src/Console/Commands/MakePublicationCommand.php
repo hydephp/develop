@@ -119,7 +119,7 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
         }
 
         // Fields which are not of type array, text or image
-        $fieldRules = Collection::create(PublicationFieldType::DEFAULT_RULES)->{$field->type};
+        $fieldRules = collect($field->type->rules());
         if ($fieldRules->contains('between')) {
             $fieldRules->forget($fieldRules->search('between'));
             if ($field->min && $field->max) {

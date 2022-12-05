@@ -11,6 +11,7 @@ use function file_exists;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
@@ -21,7 +22,6 @@ use Rgasch\Collection\Collection;
 use function scandir;
 use function strtolower;
 use function trim;
-use function ucfirst;
 
 /**
  * Hyde Command to create a new publication type.
@@ -99,7 +99,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
-            $fieldData['type'] = PublicationFieldType::TYPES[$type];
+            $fieldData['type'] = PublicationFieldTypes::values()[$type - 1];
 
             $fields->add(PublicationFieldType::fromArray($fieldData));
             $count++;
@@ -110,14 +110,14 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getFieldType(): int
     {
-        $options = PublicationFieldType::TYPES;
+        $options = PublicationFieldTypes::cases();
         foreach ($options as $key => $value) {
-            $options[$key] = ucfirst($value);
+            $options[$key] = $value->name;
         }
-        $options[5] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
-        $options[6] = 'URL';
-        $options[9] = 'Local Image';
-        $options[10] = 'Tag (select value from list)';
+        $options[4] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
+        $options[5] = 'URL';
+        $options[8] = 'Local Image';
+        $options[9] = 'Tag (select value from list)';
 
         return (int) $this->choice('Field type', $options, 1) + 1;
     }
