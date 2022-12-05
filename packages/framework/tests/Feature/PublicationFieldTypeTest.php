@@ -103,23 +103,6 @@ class PublicationFieldTypeTest extends TestCase
         $this->markTestIncomplete('TODO: Implement this method.');
     }
 
-    public function test_types_constant()
-    {
-        $this->assertSame([
-            1  => 'string',
-            2  => 'boolean',
-            3  => 'integer',
-            4  => 'float',
-            5  => 'datetime',
-            6  => 'url',
-            7  => 'array',
-            8  => 'text',
-            9  => 'image',
-            10 => 'tag',
-
-        ], PublicationFieldType::TYPES);
-    }
-
     protected function makeField(): PublicationFieldType
     {
         return new PublicationFieldType('string', 'test', 1, '10');

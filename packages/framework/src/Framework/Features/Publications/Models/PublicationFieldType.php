@@ -20,35 +20,6 @@ class PublicationFieldType implements SerializableContract
 {
     use Serializable;
 
-    /**
-     * @deprecated Use the PublicationFieldTypes enum instead.
-     */
-    public final const TYPES = [
-        1  => 'string',
-        2  => 'boolean',
-        3  => 'integer',
-        4  => 'float',
-        5  => 'datetime',
-        6  => 'url',
-        7  => 'array',
-        8  => 'text',
-        9  => 'image',
-        10 => 'tag',
-    ];
-
-    /**
-     * @deprecated Use the PublicationFieldTypes enum instead.
-     */
-    public final const DEFAULT_RULES = [
-        'string'   => ['required', 'string', 'between'],
-        'boolean'  => ['required', 'boolean'],
-        'integer'  => ['required', 'integer', 'between'],
-        'float'    => ['required', 'numeric', 'between'],
-        'datetime' => ['required', 'datetime', 'between'],
-        'url'      => ['required', 'url'],
-        'text'     => ['required', 'string', 'between'],
-    ];
-
     public readonly string $type;
     public readonly string $max;
     public readonly string $min;
