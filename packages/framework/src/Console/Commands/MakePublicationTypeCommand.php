@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use function array_flip;
 use function array_keys;
 use function array_merge;
@@ -99,7 +100,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
-            $fieldData['type'] = PublicationFieldType::TYPES[$type];
+            $fieldData['type'] = PublicationFieldTypes::values()[$type -1];
 
             $fields->add(PublicationFieldType::fromArray($fieldData));
             $count++;
@@ -110,14 +111,14 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
     protected function getFieldType(): int
     {
-        $options = PublicationFieldType::TYPES;
+        $options = PublicationFieldTypes::cases();
         foreach ($options as $key => $value) {
-            $options[$key] = ucfirst($value);
+            $options[$key] = $value->name;
         }
-        $options[5] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
-        $options[6] = 'URL';
-        $options[9] = 'Local Image';
-        $options[10] = 'Tag (select value from list)';
+        $options[4] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
+        $options[5] = 'URL';
+        $options[8] = 'Local Image';
+        $options[9] = 'Tag (select value from list)';
 
         return (int) $this->choice('Field type', $options, 1) + 1;
     }
