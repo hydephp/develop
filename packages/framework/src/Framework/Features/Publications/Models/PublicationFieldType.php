@@ -21,7 +21,7 @@ class PublicationFieldType implements SerializableContract
 {
     use Serializable;
 
-    public readonly string $type;
+    public readonly PublicationFieldTypes $type;
     public readonly string $max;
     public readonly string $min;
     public readonly string $name;
@@ -34,14 +34,11 @@ class PublicationFieldType implements SerializableContract
 
     public function __construct(string $type, string $name, int|string|null $min, int|string|null $max, ?string $tagGroup = null)
     {
-        $this->type = strtolower($type);
+        $this->type = PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
         $this->min = (string) $min;
         $this->max = (string) $max;
         $this->tagGroup = $tagGroup;
-        if (! in_array(strtolower($type), PublicationFieldTypes::values())) {
-            throw new InvalidArgumentException(sprintf("The type '$type' is not a valid type. Valid types are: %s.", implode(', ', PublicationFieldTypes::values())));
-        }
 
         if ($max < $min) {
             throw new InvalidArgumentException("The 'max' value cannot be less than the 'min' value.");
@@ -51,7 +48,7 @@ class PublicationFieldType implements SerializableContract
     public function toArray(): array
     {
         return [
-            'type' => $this->type,
+            'type' => $this->type->value,
             'name' => $this->name,
             'min'  => $this->min,
             'max'  => $this->max,
