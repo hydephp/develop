@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use function array_flip;
 use function array_keys;
 use function array_merge;
@@ -12,6 +11,7 @@ use function file_exists;
 use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
@@ -22,7 +22,6 @@ use Rgasch\Collection\Collection;
 use function scandir;
 use function strtolower;
 use function trim;
-use function ucfirst;
 
 /**
  * Hyde Command to create a new publication type.
@@ -100,7 +99,7 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
-            $fieldData['type'] = PublicationFieldTypes::values()[$type -1];
+            $fieldData['type'] = PublicationFieldTypes::values()[$type - 1];
 
             $fields->add(PublicationFieldType::fromArray($fieldData));
             $count++;
