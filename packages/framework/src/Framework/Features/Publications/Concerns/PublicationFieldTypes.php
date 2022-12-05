@@ -32,6 +32,7 @@ enum PublicationFieldTypes: string
 
     public static function getRules(self $type): array
     {
+        /** @noinspection PhpDuplicateMatchArmBodyInspection */
         return match ($type) {
             self::String => ['required', 'string', 'between'],
             self::Boolean => ['required', 'boolean'],
