@@ -37,4 +37,17 @@ enum PublicationFieldTypes: string
     {
         return self::DEFAULT_RULES[$this->value];
     }
+
+    public static function getRules(self $type): array
+    {
+        return match ($type) {
+            self::String => ['required', 'string', 'between'],
+            self::Boolean => ['required', 'boolean'],
+            self::Integer => ['required', 'integer', 'between'],
+            self::Float => ['required', 'numeric', 'between'],
+            self::Datetime => ['required', 'datetime', 'between'],
+            self::Url => ['required', 'url'],
+            self::Text => ['required', 'string', 'between'],
+        };
+    }
 }
