@@ -23,9 +23,9 @@ class PaginationSettings implements SerializableContract
 
     public function __construct(string $sortField = '__createdAt', bool $sortAscending = true, int $pageSize = 25, bool $prevNextLinks = true)
     {
-        $this->sortField     = $sortField;
+        $this->sortField = $sortField;
         $this->sortAscending = $sortAscending;
-        $this->pageSize      = $pageSize;
+        $this->pageSize = $pageSize;
         $this->prevNextLinks = $prevNextLinks;
     }
 

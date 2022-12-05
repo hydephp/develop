@@ -143,7 +143,7 @@ class MakePublicationCommandTest extends TestCase
                     'pageSize'       => 10,
                     'prevNextLinks'  => true,
                     'sortField'      => '__createdAt',
-                    'sortAscending'  => 'ASC',
+                    'sortAscending'  => true,
                 ],
                 'fields'         => [
                     [

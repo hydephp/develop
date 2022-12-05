@@ -121,7 +121,7 @@ class PublicationPageTest extends TestCase
   "listTemplate": "test_list",
   "pagination": {
       "sortField": "__createdAt",
-      "sortAscending": "DESC",
+      "sortAscending": true,
       "pageSize": 0,
       "prevNextLinks": true
   },

@@ -44,7 +44,7 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals([], $publicationType->fields);
         $this->assertEquals(PaginationSettings::fromArray([
             'sortField' => '__createdAt',
-            'sortAscending' => 'DESC',
+            'sortAscending' => true,
             'pageSize' => 25,
             'prevNextLinks' => true,
         ]), $publicationType->pagination);
@@ -162,7 +162,7 @@ class PublicationTypeTest extends TestCase
             'listTemplate'   => 'test-publication_list',
             'pagination' => [
                 'sortField'      => '__createdAt',
-                'sortAscending'  => 'DESC',
+                'sortAscending'  => true,
                 'pageSize'       => 25,
                 'prevNextLinks'  => true,
             ],
