@@ -26,6 +26,6 @@ class PublicationFieldTypesEnumTest extends TestCase
     {
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('This type has no validation rules');
-        PublicationFieldTypes::Array->rules();
+        PublicationFieldTypes::Tag->rules();
     }
 }
