@@ -20,6 +20,9 @@ class PublicationFieldType implements SerializableContract
 {
     use Serializable;
 
+    /**
+     * @deprecated Use the PublicationFieldTypes enum instead.
+     */
     public final const TYPES = [
         1  => 'string',
         2  => 'boolean',
@@ -33,6 +36,9 @@ class PublicationFieldType implements SerializableContract
         10 => 'tag',
     ];
 
+    /**
+     * @deprecated Use the PublicationFieldTypes enum instead.
+     */
     public final const DEFAULT_RULES = [
         'string'   => ['required', 'string', 'between'],
         'boolean'  => ['required', 'boolean'],
