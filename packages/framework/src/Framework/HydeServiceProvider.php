@@ -9,7 +9,6 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\Features\Session\SessionServiceProvider;
-use Hyde\Framework\Providers\TranslationServiceProvider;
 use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Services\YamlConfigurationService;
 use Hyde\Framework\Views\Components\LinkComponent;
@@ -115,6 +114,5 @@ class HydeServiceProvider extends ServiceProvider
         $this->app->register(SessionServiceProvider::class);
         $this->app->register(HydeConsoleServiceProvider::class);
         $this->app->register(DataCollectionServiceProvider::class);
-        $this->app->register(TranslationServiceProvider::class);
     }
 }
