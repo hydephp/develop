@@ -27,7 +27,7 @@ enum PublicationFieldTypes: string
 
     public function rules(): array
     {
-        return self::DEFAULT_RULES[$this->value];
+        return self::getRules($this);
     }
 
     public static function getRules(self $type): array
