@@ -115,6 +115,5 @@ class HydeServiceProvider extends ServiceProvider
         $this->app->register(SessionServiceProvider::class);
         $this->app->register(HydeConsoleServiceProvider::class);
         $this->app->register(DataCollectionServiceProvider::class);
-        $this->app->register(TranslationServiceProvider::class);
     }
 }

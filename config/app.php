@@ -80,6 +80,7 @@ return [
         App\Providers\AppServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Hyde\Framework\HydeServiceProvider::class,
+        Hyde\Framework\Providers\TranslationServiceProvider::class
     ],
 
     /*
