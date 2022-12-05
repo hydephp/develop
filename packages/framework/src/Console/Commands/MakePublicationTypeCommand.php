@@ -131,11 +131,11 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
     }
 
-    protected function getSortDirection(): string
+    protected function getSortDirection(): bool
     {
         $options = [
             'Ascending (oldest items first if sorting by dateCreated)'  => true,
-            'Descending (newest items first if sorting by dateCreated)' => true,
+            'Descending (newest items first if sorting by dateCreated)' => false,
         ];
 
         return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
