@@ -11,9 +11,9 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function json_decode;
+use Rgasch\Collection\Collection;
 use RuntimeException;
 
 /**
@@ -95,12 +95,14 @@ class PublicationType implements SerializableContract
         return $this->directory;
     }
 
-    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldType> */
+    /** @return \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldType> */
     public function getFields(): Collection
     {
-        return collect($this->fields)->mapWithKeys(function (array $data): array {
+        $result = collect($this->fields)->mapWithKeys(function (array $data): array {
             return [$data['name'] => new PublicationFieldType(...$data)];
         });
+
+        return Collection::create($result, false);
     }
 
     public function save(?string $path = null): void

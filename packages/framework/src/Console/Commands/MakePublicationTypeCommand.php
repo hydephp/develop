@@ -89,8 +89,8 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
             if ($type < 10) {
                 do {
-                    $fieldData['min'] = trim($this->askWithValidation('min', 'Min value (for strings, this refers to string length)', ['required', 'string'], 0));
-                    $fieldData['max'] = trim($this->askWithValidation('max', 'Max value (for strings, this refers to string length)', ['required', 'string'], 0));
+                    $fieldData['min'] = trim($this->askWithValidation('min', 'Min value (see Documentation)', ['required', 'string'], 0));
+                    $fieldData['max'] = trim($this->askWithValidation('max', 'Max value (see Documentation)', ['required', 'string'], 0));
                     $lengthsValid = $this->validateLengths($fieldData['min'], $fieldData['max']);
                 } while (! $lengthsValid);
             } else {

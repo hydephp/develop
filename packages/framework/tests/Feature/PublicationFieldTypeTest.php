@@ -50,12 +50,13 @@ class PublicationFieldTypeTest extends TestCase
             'name' => 'test',
             'min'  => '1',
             'max'  => '10',
+            'tagGroup' => null,
         ], $this->makeField()->toArray());
     }
 
     public function test_can_encode_field_as_json()
     {
-        $this->assertSame('{"type":"string","name":"test","min":"1","max":"10"}', json_encode($this->makeField()));
+        $this->assertSame('{"type":"string","name":"test","min":"1","max":"10","tagGroup":null}', json_encode($this->makeField()));
     }
 
     public function test_null_range_values_are_cast_to_empty_string()
