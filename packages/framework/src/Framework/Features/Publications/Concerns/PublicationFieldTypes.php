@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Publications\Concerns;
 /**
  * The supported field types for publication types.
  *
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldType
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
 enum PublicationFieldTypes
