@@ -139,7 +139,7 @@ class MakePublicationCommandTest extends TestCase
                 'canonicalField' => 'title',
                 'detailTemplate' => 'test-publication_detail',
                 'listTemplate'   => 'test-publication_list',
-                'paginationSettings' => [
+                'pagination' => [
                     'pageSize'       => 10,
                     'prevNextLinks'  => true,
                     'sortField'      => '__createdAt',

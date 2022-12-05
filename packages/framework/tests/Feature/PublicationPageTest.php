@@ -119,7 +119,7 @@ class PublicationPageTest extends TestCase
   "canonicalField": "slug",
   "detailTemplate": "test_detail",
   "listTemplate": "test_list",
-  "paginationSettings": {
+  "pagination": {
       "sortField": "__createdAt",
       "sortDirection": "DESC",
       "pageSize": 0,

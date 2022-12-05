@@ -3,7 +3,7 @@
     "canonicalField": "title",
     "detailTemplate": "test-publication_detail",
     "listTemplate": "test-publication_list",
-    "paginationSettings": {
+    "pagination": {
         "sortField": "__createdAt",
         "sortDirection": "DESC",
         "pageSize": 25,

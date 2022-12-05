@@ -70,7 +70,7 @@ Hello World!
             'canonicalField' => 'canonical',
             'detailTemplate' => 'detail',
             'listTemplate'   => 'list',
-            'paginationSettings' => [
+            'pagination' => [
                 'sortField'      => 'sort',
                 'sortDirection'  => 'asc',
                 'pageSize'       => 10,

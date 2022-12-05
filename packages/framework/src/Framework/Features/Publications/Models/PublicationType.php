@@ -24,7 +24,7 @@ class PublicationType implements SerializableContract
     use Serializable;
     use InteractsWithDirectories;
 
-    public PaginationSettings|array $paginationSettings = [];
+    public PaginationSettings|array $pagination = [];
     protected string $directory;
 
     /** @var array<array<string, mixed>> */
@@ -52,15 +52,15 @@ class PublicationType implements SerializableContract
         public string $canonicalField = 'identifier',
         public string $detailTemplate = 'detail',
         public string $listTemplate = 'list',
-        array|PaginationSettings $paginationSettings = [],
+        array|PaginationSettings $pagination = [],
         array $fields = [],
         ?string $directory = null
     ) {
         $this->fields = $fields;
         $this->directory = $directory ?? Str::slug($name);
-        $this->paginationSettings = $paginationSettings instanceof PaginationSettings
-            ? $paginationSettings
-            : PaginationSettings::fromArray($paginationSettings);
+        $this->pagination = $pagination instanceof PaginationSettings
+            ? $pagination
+            : PaginationSettings::fromArray($pagination);
     }
 
     public function toArray(): array
@@ -70,7 +70,7 @@ class PublicationType implements SerializableContract
             'canonicalField' => $this->canonicalField,
             'detailTemplate' => $this->detailTemplate,
             'listTemplate' => $this->listTemplate,
-            'paginationSettings' => $this->paginationSettings->toArray(),
+            'pagination' => $this->pagination->toArray(),
             'fields' => $this->fields,
         ];
     }

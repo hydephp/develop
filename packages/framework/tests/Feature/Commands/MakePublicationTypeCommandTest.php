@@ -75,7 +75,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "canonicalField": "publication-title",
                 "detailTemplate": "test-publication_detail",
                 "listTemplate": "test-publication_list",
-                "paginationSettings": {
+                "pagination": {
                     "sortField": "__createdAt",
                     "sortDirection": "ASC",
                     "pageSize": 10,

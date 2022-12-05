@@ -25,7 +25,7 @@ class PublicationTypeTest extends TestCase
         $publicationType = new PublicationType(...$this->getTestData());
 
         foreach ($this->getTestData() as $key => $property) {
-            if ($key === 'paginationSettings') {
+            if ($key === 'pagination') {
                 $this->assertEquals($property, $publicationType->$key->toArray());
             } else {
                 $this->assertEquals($property, $publicationType->$key);
@@ -47,7 +47,7 @@ class PublicationTypeTest extends TestCase
             'sortDirection' => 'DESC',
             'pageSize' => 25,
             'prevNextLinks' => true,
-        ]), $publicationType->paginationSettings);
+        ]), $publicationType->pagination);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
@@ -160,7 +160,7 @@ class PublicationTypeTest extends TestCase
             'canonicalField' => 'title',
             'detailTemplate' => 'test-publication_detail',
             'listTemplate'   => 'test-publication_list',
-            'paginationSettings' => [
+            'pagination' => [
                 'sortField'      => '__createdAt',
                 'sortDirection'  => 'DESC',
                 'pageSize'       => 25,
