@@ -64,13 +64,4 @@ class PublicationFieldType implements SerializableContract
 
         return true;
     }
-
-    protected function parseInt(int|string|null $int): ?int
-    {
-        if ($int === null) {
-            return null;
-        }
-
-        return (int) $int;
-    }
 }
