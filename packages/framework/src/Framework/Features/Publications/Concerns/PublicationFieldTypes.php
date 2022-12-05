@@ -12,5 +12,14 @@ namespace Hyde\Framework\Features\Publications\Concerns;
  */
 enum PublicationFieldTypes
 {
-    //
+  case String;
+  case Boolean;
+  case Integer;
+  case Float;
+  case Datetime;
+  case Url;
+  case Array;
+  case Text;
+  case Image;
+  case Tag;
 }
