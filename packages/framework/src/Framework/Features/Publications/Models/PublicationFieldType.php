@@ -11,6 +11,8 @@ use InvalidArgumentException;
 use function strtolower;
 
 /**
+ * Represents an entry in the "fields" array of a publication type schema.
+ *
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypeTest
  */
 class PublicationFieldType implements SerializableContract
