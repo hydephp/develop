@@ -40,8 +40,7 @@ class PublicationFieldTypesEnumTest extends TestCase
             7 => 'text',
             8 => 'image',
             9 => 'tag',
-        ], PublicationFieldTypes::values()
-        );
+        ], PublicationFieldTypes::values());
     }
 
     public function testCanGetRulesForEnumWithNoRules()
