@@ -25,16 +25,6 @@ enum PublicationFieldTypes: string
     case Image = 'image';
     case Tag = 'tag';
 
-    protected final const DEFAULT_RULES = [
-        'string'   => ['required', 'string', 'between'],
-        'boolean'  => ['required', 'boolean'],
-        'integer'  => ['required', 'integer', 'between'],
-        'float'    => ['required', 'numeric', 'between'],
-        'datetime' => ['required', 'datetime', 'between'],
-        'url'      => ['required', 'url'],
-        'text'     => ['required', 'string', 'between'],
-    ];
-
     public function rules(): array
     {
         return self::DEFAULT_RULES[$this->value];
