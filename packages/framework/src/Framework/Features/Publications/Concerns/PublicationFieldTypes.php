@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Concerns;
 
 use BadMethodCallException;
+use Illuminate\Support\Collection;
 
 /**
  * The supported field types for publication types.
@@ -28,6 +29,11 @@ enum PublicationFieldTypes: string
     public function rules(): array
     {
         return self::getRules($this);
+    }
+
+    public static function collect(): Collection
+    {
+        return collect(self::cases());
     }
 
     public static function getRules(self $type): array

@@ -22,6 +22,11 @@ class PublicationFieldTypesEnumTest extends TestCase
         ], PublicationFieldTypes::String->rules());
     }
 
+    public function testCollectCreatesCollectionOfCases()
+    {
+        $this->assertEquals(collect(PublicationFieldTypes::cases()), PublicationFieldTypes::collect());
+    }
+
     public function testCanGetRulesForEnumWithNoRules()
     {
         $this->expectException(BadMethodCallException::class);
