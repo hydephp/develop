@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 
@@ -23,6 +24,8 @@ class PublicationFieldTypesEnumTest extends TestCase
 
     public function testCanGetRulesForEnumWithNoRules()
     {
-        $this->assertSame([], PublicationFieldTypes::Array->rules());
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('This type has no validation rules');
+        PublicationFieldTypes::Array->rules();
     }
 }

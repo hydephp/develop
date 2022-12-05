@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Concerns;
 
+use BadMethodCallException;
+
 /**
  * The supported field types for publication types.
  *
@@ -48,6 +50,9 @@ enum PublicationFieldTypes: string
             self::Datetime => ['required', 'datetime', 'between'],
             self::Url => ['required', 'url'],
             self::Text => ['required', 'string', 'between'],
+            self::Array => throw new BadMethodCallException('This type has no validation rules'),
+            self::Image => throw new BadMethodCallException('This type has no validation rules'),
+            self::Tag => throw new BadMethodCallException('This type has no validation rules'),
         };
     }
 }
