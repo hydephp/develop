@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
@@ -38,9 +39,8 @@ class PublicationFieldType implements SerializableContract
         $this->min = (string) $min;
         $this->max = (string) $max;
         $this->tagGroup = $tagGroup;
-
-        if (! in_array(strtolower($type), self::TYPES)) {
-            throw new InvalidArgumentException(sprintf("The type '$type' is not a valid type. Valid types are: %s.", implode(', ', self::TYPES)));
+        if (! in_array(strtolower($type), PublicationFieldTypes::values())) {
+            throw new InvalidArgumentException(sprintf("The type '$type' is not a valid type. Valid types are: %s.", implode(', ', PublicationFieldTypes::values())));
         }
 
         if ($max < $min) {
