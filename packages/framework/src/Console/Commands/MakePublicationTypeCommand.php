@@ -55,14 +55,14 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
 
         $sortField = $this->getSortField($fields);
 
-        $sortDirection = $this->getSortDirection();
+        $sortAscending = $this->getSortDirection();
 
         $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
 
         $canonicalField = $this->getCanonicalField($fields);
 
-        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortDirection, $pageSize, $prevNextLinks, $this->output);
+        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
         $creator->create();
 
         $this->info('Publication type created successfully!');
@@ -131,11 +131,11 @@ class MakePublicationTypeCommand extends ValidatingCommand implements CommandHan
         return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
     }
 
-    protected function getSortDirection(): string
+    protected function getSortDirection(): bool
     {
         $options = [
-            'Ascending (oldest items first if sorting by dateCreated)'  => 'ASC',
-            'Descending (newest items first if sorting by dateCreated)' => 'DESC',
+            'Ascending (oldest items first if sorting by dateCreated)'  => true,
+            'Descending (newest items first if sorting by dateCreated)' => false,
         ];
 
         return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];

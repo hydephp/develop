@@ -242,12 +242,9 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
         return new PublicationType(
             'name',
             'canonicalField',
-            'sortField',
-            'sortDirection',
-            1,
-            true,
             'detailTemplate',
             'listTemplate',
+            ['sortField', true, true, 1],
             [],
             'directory'
         );

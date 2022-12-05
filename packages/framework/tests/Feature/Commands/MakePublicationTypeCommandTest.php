@@ -73,12 +73,14 @@ class MakePublicationTypeCommandTest extends TestCase
             {
                 "name": "Test Publication",
                 "canonicalField": "publication-title",
-                "sortField": "__createdAt",
-                "sortDirection": "ASC",
-                "pageSize": 10,
-                "prevNextLinks": true,
                 "detailTemplate": "test-publication_detail",
                 "listTemplate": "test-publication_list",
+                "pagination": {
+                    "sortField": "__createdAt",
+                    "sortAscending": true,
+                    "prevNextLinks": true,
+                    "pageSize": 10
+                },
                 "fields": [
                     {
                         "type": "string",

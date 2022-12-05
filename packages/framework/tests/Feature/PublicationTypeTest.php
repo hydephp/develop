@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use function array_merge;
+use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -24,7 +25,11 @@ class PublicationTypeTest extends TestCase
         $publicationType = new PublicationType(...$this->getTestData());
 
         foreach ($this->getTestData() as $key => $property) {
-            $this->assertEquals($property, $publicationType->$key);
+            if ($key === 'pagination') {
+                $this->assertEquals($property, $publicationType->$key->toArray());
+            } else {
+                $this->assertEquals($property, $publicationType->$key);
+            }
         }
     }
 
@@ -34,13 +39,15 @@ class PublicationTypeTest extends TestCase
 
         $this->assertEquals('Test Publication', $publicationType->name);
         $this->assertEquals('identifier', $publicationType->canonicalField);
-        $this->assertEquals('__createdAt', $publicationType->sortField);
-        $this->assertEquals('DESC', $publicationType->sortDirection);
-        $this->assertEquals(25, $publicationType->pageSize);
-        $this->assertEquals(true, $publicationType->prevNextLinks);
         $this->assertEquals('detail', $publicationType->detailTemplate);
         $this->assertEquals('list', $publicationType->listTemplate);
         $this->assertEquals([], $publicationType->fields);
+        $this->assertEquals(PaginationSettings::fromArray([
+            'sortField' => '__createdAt',
+            'sortAscending' => true,
+            'pageSize' => 25,
+            'prevNextLinks' => true,
+        ]), $publicationType->pagination);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
@@ -151,12 +158,14 @@ class PublicationTypeTest extends TestCase
         return [
             'name'           => 'Test Publication',
             'canonicalField' => 'title',
-            'sortField'      => '__createdAt',
-            'sortDirection'  => 'DESC',
-            'pageSize'       => 25,
-            'prevNextLinks'  => true,
             'detailTemplate' => 'test-publication_detail',
             'listTemplate'   => 'test-publication_list',
+            'pagination' => [
+                'sortField'      => '__createdAt',
+                'sortAscending'  => true,
+                'prevNextLinks'  => true,
+                'pageSize'       => 25,
+            ],
             'fields'         => [
                 [
                     'name' => 'title',

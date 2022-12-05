@@ -1,12 +1,14 @@
 {
     "name": "Test Publication",
     "canonicalField": "title",
-    "sortField": "__createdAt",
-    "sortDirection": "DESC",
-    "pageSize": 25,
-    "prevNextLinks": true,
     "detailTemplate": "test-publication_detail",
     "listTemplate": "test-publication_list",
+    "pagination": {
+        "sortField": "__createdAt",
+        "sortAscending": true,
+        "pageSize": 25,
+        "prevNextLinks": true
+    },
     "fields": [
         {
             "name": "title",
