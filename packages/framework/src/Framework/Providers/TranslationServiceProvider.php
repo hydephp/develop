@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Providers;
 
+use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
+
 use function config;
-use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Support\ServiceProvider;
 use function is_dir;
 use function lang_path;
 
-class TranslationServiceProvider extends ServiceProvider implements DeferrableProvider
+class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
     public function register(): void
     {
+        parent::register();
+
         if (! is_dir(lang_path())) {
             $this->app->useLangPath(__DIR__.'/../../../resources/lang');
         }
