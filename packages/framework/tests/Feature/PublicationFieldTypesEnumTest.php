@@ -12,5 +12,17 @@ use Hyde\Testing\TestCase;
  */
 class PublicationFieldTypesEnumTest extends TestCase
 {
-    //
+    public function testCanGetRulesForEnum()
+    {
+        $this->assertSame([
+            'required',
+            'string',
+            'between',
+        ], PublicationFieldTypes::String->rules());
+    }
+
+    public function testCanGetRulesForEnumWithNoRules()
+    {
+        $this->assertSame([], PublicationFieldTypes::Array->rules());
+    }
 }

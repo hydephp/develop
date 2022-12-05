@@ -32,4 +32,9 @@ enum PublicationFieldTypes: string
         'url'      => ['required', 'url'],
         'text'     => ['required', 'string', 'between'],
     ];
+
+    public function rules(): array
+    {
+        return self::DEFAULT_RULES[$this->value];
+    }
 }
