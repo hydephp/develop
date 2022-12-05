@@ -25,7 +25,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected Collection $fields,
         protected string $canonicalField,
         protected string $sortField,
-        protected string $sortAscending,
+        protected bool $sortAscending,
         protected int $pageSize,
         protected bool $prevNextLinks,
         protected ?OutputStyle $output = null,
