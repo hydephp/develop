@@ -31,7 +31,7 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
-    public function handle(): int
+    public function safeHandle(): int
     {
         $this->title('Validating PublicationType(s)!');
 
