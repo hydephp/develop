@@ -59,6 +59,7 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
             $this->output->write("<fg=yellow>Validating publication type [$name]</>");
             $publicationFieldRules = $pubType->getFieldRules(false);
 
+            /** @var \Hyde\Pages\PublicationPage $publication */
             foreach ($publications as $publication) {
                 $countPubs++;
                 $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
