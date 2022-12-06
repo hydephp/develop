@@ -18,4 +18,11 @@ class ValidatePublicationTypeCommandTest extends TestCase
             ->expectsOutput('Error: No publication types to validate!')
             ->assertExitCode(1);
     }
+
+    public function testCommandWithInvalidPublicationType()
+    {
+        $this->artisan(ValidatePublicationTypeCommand::class, ['publicationType' => 'invalid'])
+            ->expectsOutput('Error: Publication type [invalid] does not exist')
+            ->assertExitCode(1);
+    }
 }
