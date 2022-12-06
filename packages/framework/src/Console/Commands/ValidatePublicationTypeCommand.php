@@ -61,12 +61,12 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
         foreach ($pubTypesToValidate as $name=>$pubType) {
             $countPubTypes++;
             $publications = PublicationService::getPublicationsForPubType($pubType);
-            $this->infoComment("Validating publication type", $name);
+            $this->output->write("<fg=yellow>Validating publication type [$name]</>");
             $publicationFieldRules = $pubType->getFieldRules(false);
 
             foreach ($publications as $publication) {
                 $countPubs++;
-                $this->output->writeln("<fg=cyan>    Validating publication [$publication->title]</>");
+                $this->output->write("\n<fg=cyan>    Validating publication [$publication->title]</>");
                 $publication->matter->forget("__createdAt");
 
                 foreach ($publication->type->fields as $field) {
@@ -76,7 +76,7 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
 
                     try {
                         if ($verbose) {
-                            $this->output->write("<fg=gray>        Validating field [$fieldName] </>");
+                            $this->output->write("\n<fg=gray>        Validating field [$fieldName]</>");
                         }
 
                         if (!$publication->matter->has($fieldName)) {
@@ -85,9 +85,7 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
 
                         $pubTypeField->validate($publication->matter->{$fieldName} ?? null,
                                                 $publicationFieldRules->{$fieldName} ?? null);
-                        if ($verbose) {
-                            $this->output->writeln("<fg=green>$checkmark</>");
-                        }
+                            $this->output->writeln(" <fg=green>$checkmark</>");
                     } catch (Exception $e) {
                         $countErrors++;
                         if ($verbose) {
