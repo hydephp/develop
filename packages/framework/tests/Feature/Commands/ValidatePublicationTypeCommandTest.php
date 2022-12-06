@@ -16,14 +16,14 @@ class ValidatePublicationTypeCommandTest extends TestCase
 {
     public function testCommandWithNoPublicationTypes()
     {
-        $this->artisan(ValidatePublicationTypeCommand::class)
+        $this->artisan('validate:publicationType')
             ->expectsOutput('Error: No publication types to validate!')
             ->assertExitCode(1);
     }
 
     public function testCommandWithInvalidPublicationType()
     {
-        $this->artisan(ValidatePublicationTypeCommand::class, ['publicationType' => 'invalid'])
+        $this->artisan('validate:publicationType', ['publicationType' => 'invalid'])
             ->expectsOutput('Error: Publication type [invalid] does not exist')
             ->assertExitCode(1);
     }
@@ -34,7 +34,7 @@ class ValidatePublicationTypeCommandTest extends TestCase
         $this->setupTestPublication();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
-        $this->artisan(ValidatePublicationTypeCommand::class)
+        $this->artisan('validate:publicationType')
             ->expectsOutputToContain('Validating publication types!')
             ->expectsOutput('Validating publication type [test-publication]')
             ->expectsOutputToContain('Validating publication [My Title]')
@@ -51,7 +51,7 @@ class ValidatePublicationTypeCommandTest extends TestCase
         $this->setupTestPublication();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
-        $this->artisan(ValidatePublicationTypeCommand::class, ['--verbose' => true])
+        $this->artisan('validate:publicationType', ['--verbose' => true])
              ->expectsOutputToContain('Validating publication types!')
              ->expectsOutput('Validating publication type [test-publication]')
              ->expectsOutputToContain('Validating publication [My Title]')
