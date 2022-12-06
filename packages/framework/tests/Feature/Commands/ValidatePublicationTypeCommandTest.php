@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use function copy;
 use Hyde\Console\Commands\ValidatePublicationTypeCommand;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
-use function copy;
 
 /**
  * @covers \Hyde\Console\Commands\ValidatePublicationTypeCommand

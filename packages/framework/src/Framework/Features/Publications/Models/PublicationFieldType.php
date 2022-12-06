@@ -11,7 +11,6 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Rgasch\Collection\Collection;
-
 use function strtolower;
 
 /**
@@ -64,12 +63,12 @@ class PublicationFieldType implements SerializableContract
     public function getValidationRules(bool $reload = true): Collection
     {
         $defaultRules = Collection::create(PublicationFieldTypes::values());
-        $fieldRules   = Collection::create($defaultRules->get($this->type->value));
+        $fieldRules = Collection::create($defaultRules->get($this->type->value));
 
         $doBetween = true;
         // The trim command used to process the min/max input results in a string, so
         // we need to test both int and string values to determine required status.
-        if (($this->min && !$this->max) || ($this->min == '0' && $this->max == '0')) {
+        if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
             $fieldRules->forget($fieldRules->search('required'));
             $doBetween = false;
         }
@@ -94,7 +93,7 @@ class PublicationFieldType implements SerializableContract
                 break;
             case 'image':
                 $mediaFiles = PublicationService::getMediaForPubType($this->publicationType, $reload);
-                $valueList  = $mediaFiles->implode(',');
+                $valueList = $mediaFiles->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
@@ -106,7 +105,7 @@ class PublicationFieldType implements SerializableContract
                 break;
             default:
                 throw new \InvalidArgumentException(
-                    "Unhandled field type [{$this->type->value}]. Possible field types are: " . implode(', ', PublicationFieldTypes::values())
+                    "Unhandled field type [{$this->type->value}]. Possible field types are: ".implode(', ', PublicationFieldTypes::values())
                 );
         }
 
@@ -115,7 +114,7 @@ class PublicationFieldType implements SerializableContract
 
     public function validate(mixed $input = null, Collection $fieldRules = null): array
     {
-        if (!$fieldRules) {
+        if (! $fieldRules) {
             $fieldRules = $this->getValidationRules(false);
         }
 

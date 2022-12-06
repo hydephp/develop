@@ -77,7 +77,7 @@ class FrontMatter implements Stringable, SerializableContract
      */
     public function forget(string $key): void
     {
-     unset($this->data[$key]);
+        unset($this->data[$key]);
     }
 
     public static function fromArray(array $matter): static
