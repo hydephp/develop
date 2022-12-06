@@ -72,6 +72,9 @@ class FrontMatter implements Stringable, SerializableContract
         return $this->data;
     }
 
+    /**
+     * @internal This method is experimental and may change or be removed in the future.
+     */
     public function forget(string $key): void
     {
      unset($this->data[$key]);
