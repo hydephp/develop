@@ -18,19 +18,18 @@ use LaravelZero\Framework\Commands\Command;
  * @see \Hyde\Framework\Testing\Feature\Commands\ValidatePublicationTypeCommandTest
  * @todo Add JSON output option?
  */
-class ValidatePublicationTypeCommand extends ValidatingCommand implements CommandHandleInterface
+class ValidatePublicationsCommand extends ValidatingCommand implements CommandHandleInterface
 {
     /** @var string */
-    protected $signature = 'validate:publicationType
-		{publicationType? : The name of the Publication Type to validate.}';
+    protected $signature = 'validate:publications
+		{publicationType? : The name of the publication type to validate.}';
 
     /** @var string */
     protected $description = 'Validate all or the specified publication type(s)';
 
     public function safeHandle(): int
     {
-        /** ATTN: Are we validating publications or just the types? */
-        $this->title('Validating publication types!');
+        $this->title('Validating publications!');
 
         $pubTypesToValidate = PublicationService::getPublicationTypes();
         $verbose = $this->option('verbose');

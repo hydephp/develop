@@ -9,9 +9,9 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\ValidatePublicationTypeCommand
+ * @covers \Hyde\Console\Commands\ValidatePublicationsCommand
  */
-class ValidatePublicationTypeCommandTest extends TestCase
+class ValidatePublicationsCommandTest extends TestCase
 {
     public function testWithNoPublicationTypes()
     {
