@@ -64,7 +64,7 @@ class PublicationFieldType implements SerializableContract
     public function getValidationRules(bool $reload = true): Collection
     {
         $defaultRules = Collection::create(PublicationFieldTypes::values());
-        $fieldRules   = $defaultRules->get($this->type->value);
+        $fieldRules   = Collection::create($defaultRules->get($this->type->value));
 
         $doBetween = true;
         // The trim command used to process the min/max input results in a string, so
