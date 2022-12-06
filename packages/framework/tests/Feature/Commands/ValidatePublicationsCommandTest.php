@@ -9,20 +9,20 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\ValidatePublicationTypeCommand
+ * @covers \Hyde\Console\Commands\ValidatePublicationsCommand
  */
-class ValidatePublicationTypeCommandTest extends TestCase
+class ValidatePublicationsCommandTest extends TestCase
 {
     public function testWithNoPublicationTypes()
     {
-        $this->artisan('validate:publicationType')
+        $this->artisan('validate:publications')
             ->expectsOutput('Error: No publication types to validate!')
             ->assertExitCode(1);
     }
 
     public function testWithInvalidPublicationType()
     {
-        $this->artisan('validate:publicationType', ['publicationType' => 'invalid'])
+        $this->artisan('validate:publications', ['publicationType' => 'invalid'])
             ->expectsOutput('Error: Publication type [invalid] does not exist')
             ->assertExitCode(1);
     }
@@ -33,8 +33,8 @@ class ValidatePublicationTypeCommandTest extends TestCase
         $this->setupTestPublication();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
-        $this->artisan('validate:publicationType')
-            ->expectsOutputToContain('Validating publication types!')
+        $this->artisan('validate:publications')
+            ->expectsOutputToContain('Validating publications!')
             ->expectsOutput('Validating publication type [test-publication]')
             ->expectsOutputToContain('Validating publication [My Title]')
             ->doesntExpectOutputToContain('Validating field')
@@ -50,8 +50,8 @@ class ValidatePublicationTypeCommandTest extends TestCase
         $this->setupTestPublication();
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
-        $this->artisan('validate:publicationType', ['--verbose' => true])
-             ->expectsOutputToContain('Validating publication types!')
+        $this->artisan('validate:publications', ['--verbose' => true])
+             ->expectsOutputToContain('Validating publications!')
              ->expectsOutput('Validating publication type [test-publication]')
              ->expectsOutputToContain('Validating publication [My Title]')
              ->expectsOutputToContain('Validating field')
@@ -72,8 +72,8 @@ Foo: bar
 Hello World
 ');
 
-        $this->artisan('validate:publicationType')
-             ->expectsOutputToContain('Validating publication types!')
+        $this->artisan('validate:publications')
+             ->expectsOutputToContain('Validating publications!')
              ->expectsOutput('Validating publication type [test-publication]')
              ->expectsOutputToContain('Validating publication [Test]')
              ->doesntExpectOutputToContain('Validating field')
@@ -90,7 +90,7 @@ Hello World
         $this->setupTestPublication();
         $this->setupTestPublication('test-publication-two');
 
-        $this->artisan('validate:publicationType')
+        $this->artisan('validate:publications')
             ->expectsOutput('Validating publication type [test-publication-two]')
             ->expectsOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);
@@ -103,7 +103,7 @@ Hello World
         $this->setupTestPublication();
         $this->setupTestPublication('test-publication-two');
 
-        $this->artisan('validate:publicationType test-publication-two')
+        $this->artisan('validate:publications test-publication-two')
             ->expectsOutput('Validating publication type [test-publication-two]')
             ->doesntExpectOutput('Validating publication type [test-publication]')
             ->assertExitCode(0);

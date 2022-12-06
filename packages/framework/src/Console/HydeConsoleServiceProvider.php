@@ -40,7 +40,7 @@ class HydeConsoleServiceProvider extends ServiceProvider
                 Commands\ServeCommand::class,
                 Commands\DebugCommand::class,
 
-                Commands\ValidatePublicationTypeCommand::class,
+                Commands\ValidatePublicationsCommand::class,
             ]
         );
     }
