@@ -13,21 +13,21 @@ use Hyde\Testing\TestCase;
  */
 class ValidatePublicationTypeCommandTest extends TestCase
 {
-    public function testCommandWithNoPublicationTypes()
+    public function testWithNoPublicationTypes()
     {
         $this->artisan('validate:publicationType')
             ->expectsOutput('Error: No publication types to validate!')
             ->assertExitCode(1);
     }
 
-    public function testCommandWithInvalidPublicationType()
+    public function testWithInvalidPublicationType()
     {
         $this->artisan('validate:publicationType', ['publicationType' => 'invalid'])
             ->expectsOutput('Error: Publication type [invalid] does not exist')
             ->assertExitCode(1);
     }
 
-    public function testCommandWithPublicationType()
+    public function testWithPublicationType()
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
@@ -44,7 +44,7 @@ class ValidatePublicationTypeCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function testCommandWithPublicationTypeAndVerboseOutput()
+    public function testWithPublicationTypeAndVerboseOutput()
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
@@ -61,7 +61,7 @@ class ValidatePublicationTypeCommandTest extends TestCase
              ->assertExitCode(0);
     }
 
-    public function testCommandWithInvalidPublication()
+    public function testWithInvalidPublication()
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
