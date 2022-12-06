@@ -12,5 +12,10 @@ use Hyde\Testing\TestCase;
  */
 class ValidatePublicationTypeCommandTest extends TestCase
 {
-    //
+    public function testCommandWithNoPublicationTypes()
+    {
+        $this->artisan(ValidatePublicationTypeCommand::class)
+            ->expectsOutput('Error: No publication types to validate!')
+            ->assertExitCode(1);
+    }
 }
