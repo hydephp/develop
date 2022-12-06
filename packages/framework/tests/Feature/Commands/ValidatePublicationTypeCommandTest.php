@@ -36,9 +36,9 @@ class ValidatePublicationTypeCommandTest extends TestCase
         copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
 
         $this->artisan(ValidatePublicationTypeCommand::class)
-             ->expectsOutput('Validating PublicationType(s)!')
-             ->expectsOutput('Validating publication type [test-publication]...')
-             ->expectsOutput('Validating publication [test]...')
-             ->assertExitCode(0);
+            ->expectsOutputToContain('Validating publication types!')
+            ->expectsOutput('Validating publication type [test-publication]')
+            ->expectsOutputToContain('Validating publication [My Title]')
+            ->assertExitCode(0);
     }
 }

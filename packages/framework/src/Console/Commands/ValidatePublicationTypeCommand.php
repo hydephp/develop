@@ -33,7 +33,8 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
 
     public function safeHandle(): int
     {
-        $this->title('Validating PublicationType(s)!');
+        /** ATTN: Are we validating publications or just the types? */
+        $this->title('Validating publication types!');
 
         $pubTypesToValidate = PublicationService::getPublicationTypes();
         $verbose = $this->option('verbose');
@@ -60,12 +61,12 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
         foreach ($pubTypesToValidate as $name=>$pubType) {
             $countPubTypes++;
             $publications = PublicationService::getPublicationsForPubType($pubType);
-            $this->output->writeln("<fg=magenta>Validating publicationType [{$name}] ...</>");
+            $this->infoComment("Validating publication type", $name);
             $publicationFieldRules = $pubType->getFieldRules(false);
 
             foreach ($publications as $publication) {
                 $countPubs++;
-                $this->output->writeln("<fg=cyan>    Validating publication [{$publication->title}] ...</>");
+                $this->output->writeln("<fg=cyan>    Validating publication [$publication->title]</>");
                 $publication->matter->forget("__createdAt");
 
                 foreach ($publication->type->fields as $field) {
@@ -75,7 +76,7 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
 
                     try {
                         if ($verbose) {
-                            $this->output->write("<fg=green>        Validating field [$fieldName] ... </>");
+                            $this->output->write("<fg=gray>        Validating field [$fieldName] </>");
                         }
 
                         if (!$publication->matter->has($fieldName)) {
