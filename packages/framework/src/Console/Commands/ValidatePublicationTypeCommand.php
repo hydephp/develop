@@ -87,7 +87,6 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
                             $this->output->writeln("<fg=red>$xmark: {$e->getMessage()}</>");
                         } else {
                             $this->output->writeln("\n<fg=red>$xmark: {$e->getMessage()}</>");
-                            //dump($e->getTrace());
                         }
                     }
                     $publication->matter->forget($fieldName);
