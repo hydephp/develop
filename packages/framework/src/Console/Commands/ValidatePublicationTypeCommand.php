@@ -45,6 +45,10 @@ class ValidatePublicationTypeCommand extends ValidatingCommand implements Comman
             $pubTypesToValidate = [ $name => $pubTypesToValidate->{$name} ];
         }
 
+        if (count($pubTypesToValidate) === 0) {
+            throw new InvalidArgumentException("No publication types to validate!");
+        }
+
         $checkmark     = "\u{2713}";
         $xmark         = "\u{2717}";
         $countPubTypes = 0;
