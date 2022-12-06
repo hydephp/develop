@@ -82,4 +82,30 @@ Hello World
              ->expectsOutput('Found 1 Errors')
              ->assertExitCode(1);
     }
+
+    public function testWithMultiplePublicationTypes()
+    {
+        $this->directory('test-publication');
+        $this->directory('test-publication-two');
+        $this->setupTestPublication();
+        $this->setupTestPublication('test-publication-two');
+
+        $this->artisan('validate:publicationType')
+            ->expectsOutput('Validating publication type [test-publication-two]')
+            ->expectsOutput('Validating publication type [test-publication]')
+            ->assertExitCode(0);
+    }
+
+    public function testOnlySpecifiedTypeIsValidatedWhenUsingArgument()
+    {
+        $this->directory('test-publication');
+        $this->directory('test-publication-two');
+        $this->setupTestPublication();
+        $this->setupTestPublication('test-publication-two');
+
+        $this->artisan('validate:publicationType test-publication-two')
+            ->expectsOutput('Validating publication type [test-publication-two]')
+            ->doesntExpectOutput('Validating publication type [test-publication]')
+            ->assertExitCode(0);
+    }
 }
