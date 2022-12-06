@@ -29,7 +29,7 @@ class ValidatePublicationTypeCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    public function testCommandWithPublicationTypes()
+    public function testCommandWithPublicationType()
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
