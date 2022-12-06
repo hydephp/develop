@@ -39,6 +39,11 @@ class ValidatePublicationTypeCommandTest extends TestCase
             ->expectsOutputToContain('Validating publication types!')
             ->expectsOutput('Validating publication type [test-publication]')
             ->expectsOutputToContain('Validating publication [My Title]')
+            ->doesntExpectOutputToContain('Validating field')
+            ->doesntExpectOutputToContain('is missing from publication')
+            ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
+            ->expectsOutput('Found 0 Warnings')
+            ->expectsOutput('Found 0 Errors')
             ->assertExitCode(0);
     }
 }
