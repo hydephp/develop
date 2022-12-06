@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Console\Commands\ValidatePublicationTypeCommand;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+
+use function copy;
 
 /**
  * @covers \Hyde\Console\Commands\ValidatePublicationTypeCommand
@@ -24,5 +27,18 @@ class ValidatePublicationTypeCommandTest extends TestCase
         $this->artisan(ValidatePublicationTypeCommand::class, ['publicationType' => 'invalid'])
             ->expectsOutput('Error: Publication type [invalid] does not exist')
             ->assertExitCode(1);
+    }
+
+    public function testCommandWithPublicationTypes()
+    {
+        $this->directory('test-publication');
+        $this->setupTestPublication();
+        copy(Hyde::path('tests/fixtures/test-publication.md'), Hyde::path('test-publication/test.md'));
+
+        $this->artisan(ValidatePublicationTypeCommand::class)
+             ->expectsOutput('Validating PublicationType(s)!')
+             ->expectsOutput('Validating publication type [test-publication]...')
+             ->expectsOutput('Validating publication [test]...')
+             ->assertExitCode(0);
     }
 }
