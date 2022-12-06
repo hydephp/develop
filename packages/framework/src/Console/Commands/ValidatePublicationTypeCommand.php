@@ -18,10 +18,9 @@ use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
 /**
- * Hyde Command to validate one or all publications
+ * Hyde Command to validate one or all publications.
  *
- * @see \Hyde\Framework\Actions\CreatesNewPublicationType
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\ValidatePublicationTypeCommandTest
  */
 class ValidatePublicationTypeCommand extends ValidatingCommand implements CommandHandleInterface
 {
