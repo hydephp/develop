@@ -61,4 +61,26 @@ class ValidatePublicationTypeCommandTest extends TestCase
              ->expectsOutput('Found 0 Errors')
              ->assertExitCode(0);
     }
+
+    public function testCommandWithInvalidPublication()
+    {
+        $this->directory('test-publication');
+        $this->setupTestPublication();
+        file_put_contents(Hyde::path('test-publication/test.md'), '---
+Foo: bar
+---
+
+Hello World
+');
+
+        $this->artisan('validate:publicationType')
+             ->expectsOutputToContain('Validating publication types!')
+             ->expectsOutput('Validating publication type [test-publication]')
+             ->expectsOutputToContain('Validating publication [Test]')
+             ->doesntExpectOutputToContain('Validating field')
+             ->expectsOutput('Validated 1 Publication Types, 1 Publications, 1 Fields')
+             ->expectsOutput('Found 1 Warnings')
+             ->expectsOutput('Found 1 Errors')
+             ->assertExitCode(1);
+    }
 }
