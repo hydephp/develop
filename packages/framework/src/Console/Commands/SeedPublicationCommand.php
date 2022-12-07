@@ -40,10 +40,12 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
             ['required', 'integer', 'between:1,100000']
         ));
 
+        $timeStart = microtime(true);
         $seeder = new SeedsPublicationFiles($pubType, $number);
         $seeder->create();
 
-        $this->info("<comment>$number</comment> publications for <comment>$pubType->name</comment> created!");
+        $ms = round((microtime(true) - $timeStart) * 1000);
+        $this->info("<comment>$number</comment> publications for <comment>$pubType->name</comment> created! <fg=gray>Took {$ms}ms");
 
         return Command::SUCCESS;
     }
