@@ -31,19 +31,19 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
 
     public function safeHandle(): int
     {
-        $this->title('Seeding new Publication!');
+        $this->title('Seeding new publications!');
 
         $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
         $number = (int) ($this->argument('number') ?? $this->askWithValidation(
             'number',
-            'How many publications would you like to generate:',
+            'How many publications would you like to generate',
             ['required', 'integer', 'between:1,100000']
         ));
 
         $seeder = new SeedsPublicationFiles($pubType, $number);
         $seeder->create();
 
-        $this->info("$number publications for $pubType->name created!");
+        $this->info("<comment>$number</comment> publications for <comment>$pubType->name</comment> created!");
 
         return Command::SUCCESS;
     }
