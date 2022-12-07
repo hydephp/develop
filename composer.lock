@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05f4ea5218839f90bfacbc74d44350df",
+    "content-hash": "30f5e04b0612b66830374a51fbb951bc",
     "packages": [
         {
             "name": "brick/math",
@@ -432,6 +432,73 @@
                 }
             ],
             "time": "2022-06-18T20:57:19+00:00"
+        },
+        {
+            "name": "fakerphp/faker",
+            "version": "v1.20.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "37f751c67a5372d4e26353bd9384bc03744ec77b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/37f751c67a5372d4e26353bd9384bc03744ec77b",
+                "reference": "37f751c67a5372d4e26353bd9384bc03744ec77b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "doctrine/persistence": "^1.3 || ^2.0",
+                "ext-intl": "*",
+                "symfony/phpunit-bridge": "^4.4 || ^5.2"
+            },
+            "suggest": {
+                "doctrine/orm": "Required to use Faker\\ORM\\Doctrine",
+                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
+                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
+                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
+                "ext-mbstring": "Required for multibyte Unicode string functionality."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "v1.20-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.20.0"
+            },
+            "time": "2022-07-20T13:12:54+00:00"
         },
         {
             "name": "filp/whoops",
@@ -974,7 +1041,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "d798597286187fa0bb7163f498909f1a0b976f24"
+                "reference": "6d64cb61b879f53097eda4cf1ae4ad9845ba7390"
             },
             "require": {
                 "illuminate/support": "^9.5",
@@ -7234,7 +7301,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "905709e5320f7bfc053dea8e5eac64ebd8ec320f"
+                "reference": "26180f50d68466f8a256fbf61b5386be830ecc54"
             },
             "require": {
                 "desilva/microserve": "^1.0",
@@ -7272,7 +7339,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
-                "reference": "05ca2f663e04439be77799bf5e1e1701faaf23c3"
+                "reference": "676a590d21664501707bf4d214ad532ab26a2061"
             },
             "require": {
                 "illuminate/support": "^9.5",
@@ -10238,5 +10305,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }
