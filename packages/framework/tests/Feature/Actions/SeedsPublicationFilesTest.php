@@ -58,6 +58,24 @@ title: ***
         );
     }
 
+
+    public function testCreateWithArrayType()
+    {
+        $this->addToSchema('array', 'tags');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $this->assertFileMatchesString(
+            '---
+__createdAt: ***
+title: ***
+tags:
+  - ***
+  - ***
+  - ***
+',
+            $this->firstPublicationFilePath(), 6);
+    }
+
     protected function getPublicationFiles(): array
     {
         $files = glob(Hyde::path('test-publication/*.md'));
