@@ -32,6 +32,6 @@ class SeedsPublicationFilesTest extends TestCase
 
     protected function getPublicationFiles(): array
     {
-        return glob(Hyde::path('test-publication').'/*.md');
+        return glob(Hyde::path('test-publication/*.md'));
     }
 }
