@@ -76,6 +76,20 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsBool($publication->matter('published'));
     }
 
+    // datetime
+
+    // image
+
+    // integer
+
+    // string
+
+    // tag
+
+    // text
+
+    // url
+
     protected function getPublicationFiles(): array
     {
         $files = glob(Hyde::path('test-publication/*.md'));
