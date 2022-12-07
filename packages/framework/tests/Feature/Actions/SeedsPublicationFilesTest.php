@@ -36,7 +36,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertFileExists($this->getPublicationFiles()[0]);
     }
 
-    // array
     public function testWithArrayType()
     {
         $this->updateSchema('array', 'tags');
@@ -52,7 +51,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertTrue(count($publication->matter('tags')) >= 3 && count($publication->matter('tags')) <= 20);
     }
 
-    // boolean
     public function testWithBooleanType()
     {
         $this->updateSchema('boolean', 'published');
@@ -64,7 +62,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsBool($publication->matter('published'));
     }
 
-    // datetime
     public function testWithDateTimeType()
     {
         $this->updateSchema('datetime', 'published_at');
@@ -76,7 +73,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsInt($publication->matter('published_at')); // Carbon parses to Unix timestamp int
     }
 
-    // float
     public function testWithFloatType()
     {
         $this->updateSchema('float', 'price');
@@ -88,7 +84,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsFloat($publication->matter('price'));
     }
 
-    // image
     public function testWithImageType()
     {
         $this->updateSchema('image', 'image');
@@ -101,7 +96,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertStringStartsWith('https://picsum.photos/id/', $publication->matter('image'));
     }
 
-    // integer
     public function testWithIntegerType()
     {
         $this->updateSchema('integer', 'views');
@@ -113,7 +107,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsInt($publication->matter('views'));
     }
 
-    // string
     public function testWithStringType()
     {
         $this->updateSchema('string', 'title');
@@ -125,7 +118,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertNotEmpty($publication->matter('title'));
     }
 
-    // tag
     public function testWithTagType()
     {
         $this->markTestIncomplete('I am not fully sure what this is supposed to do yet.');
@@ -140,7 +132,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertBaseline($publication);
     }
 
-    // text
     public function testWithTextType()
     {
         $this->updateSchema('text', 'description');
@@ -154,7 +145,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 3 && substr_count($publication->matter('description'), "\n") <= 19);
     }
 
-    // url
     public function testWithUrlType()
     {
         $this->updateSchema('url', 'url');
