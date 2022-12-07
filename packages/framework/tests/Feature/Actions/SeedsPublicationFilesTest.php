@@ -76,6 +76,18 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsInt($publication->matter('published_at')); // Carbon parses to Unix timestamp int
     }
 
+    // float
+    public function testWithFloatType()
+    {
+        $this->updateSchema('float', 'price');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertIsFloat($publication->matter('price'));
+    }
+
     // image
     public function testWithImageType()
     {
