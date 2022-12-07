@@ -129,6 +129,18 @@ class SeedsPublicationFilesTest extends TestCase
     }
 
     // text
+    public function testWithTextType()
+    {
+        $this->updateSchema('text', 'description');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertNotEmpty($publication->matter('description'));
+        $this->assertIsString($publication->matter('description'));
+        $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 3 && substr_count($publication->matter('description'), "\n") <= 19);
+    }
 
     // url
     public function testWithUrlType()
