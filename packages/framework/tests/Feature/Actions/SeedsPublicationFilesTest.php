@@ -27,6 +27,11 @@ class SeedsPublicationFilesTest extends TestCase
         $action = new SeedsPublicationFiles(PublicationType::get('test-publication'));
         $action->create();
 
-        $this->assertFileExists(glob(Hyde::path('test-publication') . '/*.md')[0]);
+        $this->assertFileExists($this->getPublicationFiles()[0]);
+    }
+
+    protected function getPublicationFiles(): array
+    {
+        return glob(Hyde::path('test-publication') . '/*.md');
     }
 }
