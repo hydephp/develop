@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Markdown\Models\MarkdownDocument;
-use function explode;
-use function file_get_contents;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
+use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\ExpectationFailedException;
 use function key;
-use function str_ends_with;
-use function str_replace;
 
 /**
  * @covers \Hyde\Framework\Actions\SeedsPublicationFiles
