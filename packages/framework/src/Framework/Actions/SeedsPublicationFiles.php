@@ -57,6 +57,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
         $output = "---\n";
         $output .= "__createdAt: $now\n";
+        /** @var PublicationFieldType $field */
         foreach ($this->pubType->getFields() as $field) {
             $lines = [];
 
