@@ -60,7 +60,6 @@ class SeedPublicationCommandTest extends TestCase
              ->assertExitCode(130);
     }
 
-
     public function test_command_asks_to_confirm_before_creating_many_publications_when_using_arguments()
     {
         $this->artisan('seed:publications test-publication 10000')
