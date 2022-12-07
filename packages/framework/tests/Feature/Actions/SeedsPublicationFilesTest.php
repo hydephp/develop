@@ -59,7 +59,9 @@ title: ***
 
     protected function getPublicationFiles(): array
     {
-        return glob(Hyde::path('test-publication/*.md'));
+        $files = glob(Hyde::path('test-publication/*.md'));
+        $this->assertNotEmpty($files, 'No publication files found.');
+        return $files;
     }
 
     protected function assertFileEqualsWithWildcards(string $expected, string $filepath)
