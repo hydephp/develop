@@ -102,8 +102,8 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'string':
-                    $min = $field->min ?? 0;
-                    $max = $field->max ?? 255;
+                    $min = $field->min ?: 0;
+                    $max = $field->max ?: 255;
                     $value = Str::of($faker->sentence(10))->limit($faker->numberBetween($min, $max), '...');
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
