@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
@@ -25,5 +26,7 @@ class SeedsPublicationFilesTest extends TestCase
     {
         $action = new SeedsPublicationFiles(PublicationType::get('test-publication'));
         $action->create();
+
+        $this->assertFileExists(glob(Hyde::path('test-publication') . '/*.md')[0]);
     }
 }
