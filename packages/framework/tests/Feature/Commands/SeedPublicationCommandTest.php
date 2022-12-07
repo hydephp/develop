@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 use function config;
@@ -33,5 +34,9 @@ class SeedPublicationCommandTest extends TestCase
             ->expectsQuestion('How many publications would you like to generate', 1)
             ->expectsOutputToContain('1 publications for Test Publication created!')
             ->assertExitCode(0);
+
+        $files = glob(Hyde::path('test-publication/*.md'));
+        $this->assertCount(1, $files);
+        unlink($files[0]);
     }
 }
