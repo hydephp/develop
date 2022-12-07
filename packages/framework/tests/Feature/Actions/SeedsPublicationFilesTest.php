@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use function explode;
+use function file_get_contents;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
 use PHPUnit\Framework\ExpectationFailedException;
-
-use function explode;
-use function file_get_contents;
-use function str_contains;
 use function str_ends_with;
 use function str_replace;
 
@@ -43,7 +40,6 @@ class SeedsPublicationFilesTest extends TestCase
         $action = new SeedsPublicationFiles(PublicationType::get('test-publication'));
         $action->create();
 
-
         $this->assertFileEqualsWithWildcards(
             '---
 __createdAt: ***
@@ -53,8 +49,6 @@ title: ***
 ## Write something awesome.
 
 ', $this->getPublicationFiles()[0]);
-
-
     }
 
     protected function getPublicationFiles(): array
@@ -66,8 +60,8 @@ title: ***
     {
         $actual = file_get_contents($filepath);
 
-        $expectedLines     = explode("\n", str_replace("\r", '', $expected));
-        $actualLines       = explode("\n", str_replace("\r", '', $actual));
+        $expectedLines = explode("\n", str_replace("\r", '', $expected));
+        $actualLines = explode("\n", str_replace("\r", '', $actual));
 
         try {
             $this->assertSame(count($expectedLines), count($actualLines));
