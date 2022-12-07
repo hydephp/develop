@@ -42,6 +42,9 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
 
         if ($number >= 10000) {
             $this->warn('Warning: Generating a large number of publications may take a while.');
+            if (! $this->confirm('Are you sure you want to continue?')) {
+                return parent::USER_EXIT;
+            }
         }
 
         $timeStart = microtime(true);
