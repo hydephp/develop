@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use function config;
+use function glob;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use function glob;
-use function unlink;
 
 /**
  * @covers \Hyde\Console\Commands\SeedPublicationCommand
