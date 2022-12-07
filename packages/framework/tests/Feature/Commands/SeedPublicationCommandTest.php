@@ -39,7 +39,6 @@ class SeedPublicationCommandTest extends TestCase
 
         $files = glob(Hyde::path('test-publication/*.md'));
         $this->assertCount(1, $files);
-        unlink($files[0]);
     }
 
     public function test_can_seed_publications_using_arguments()
@@ -50,7 +49,6 @@ class SeedPublicationCommandTest extends TestCase
 
         $files = glob(Hyde::path('test-publication/*.md'));
         $this->assertCount(1, $files);
-        unlink($files[0]);
     }
 
     public function test_command_asks_to_confirm_before_creating_many_publications()
