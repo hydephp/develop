@@ -46,7 +46,7 @@ class SeedsPublicationFilesTest extends TestCase
         $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
 
-        $this->assertFileEqualsWithWildcards(
+        $this->assertFileMatchesString(
             '---
 __createdAt: ***
 title: ***
@@ -65,7 +65,7 @@ title: ***
         return $files;
     }
 
-    protected function assertFileEqualsWithWildcards(string $expected, string $filepath)
+    protected function assertFileMatchesString(string $expected, string $filepath)
     {
         $actual = file_get_contents($filepath);
 
