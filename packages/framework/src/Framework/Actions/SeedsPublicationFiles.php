@@ -43,7 +43,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
             $output = $publicationData->output;
             $canonicalValue = $publicationData->canonicalValue;
             $slug = Str::of($canonicalValue)->substr(0, 64)->slug()->toString();
-            $fileName = $this->formatStringForStorage("$directory/$slug.md");
+            $fileName = "$directory/{$this->formatStringForStorage($slug)}.md";
             file_put_contents($fileName, $output);
         }
     }
