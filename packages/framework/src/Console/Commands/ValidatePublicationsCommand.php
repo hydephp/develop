@@ -83,7 +83,7 @@ class ValidatePublicationsCommand extends ValidatingCommand implements CommandHa
                         $pubTypeField->validate($publication->matter->{$fieldName} ?? null,
                                                 $publicationFieldRules->{$fieldName} ?? null);
                         $this->output->writeln(" <fg=green>$checkmark</>");
-                    } catch (Exception $e) { // ATTN What if there's more than one error? Should we buffer errors and display them all at the end?
+                    } catch (Exception $e) {
                         $countErrors++;
                         $this->output->writeln(" <fg=red>$xmark\n        {$e->getMessage()}</>");
                     }
