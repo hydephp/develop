@@ -45,7 +45,8 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
         $seeder->create();
 
         $ms = round((microtime(true) - $timeStart) * 1000);
-        $this->info("<comment>$number</comment> publications for <comment>$pubType->name</comment> created! <fg=gray>Took {$ms}ms");
+        $each = round($ms / $number, 2);
+        $this->info("<comment>$number</comment> publications for <comment>$pubType->name</comment> created! <fg=gray>Took {$ms}ms".(($number > 1) ? " ({$each}ms/each)</>" : ''));
 
         return Command::SUCCESS;
     }
