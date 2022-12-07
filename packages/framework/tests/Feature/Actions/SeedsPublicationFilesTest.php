@@ -41,10 +41,7 @@ class SeedsPublicationFilesTest extends TestCase
 
     public function testCreateWithStringType()
     {
-        $this->pubType->fields = [
-            (new PublicationFieldType('string', 'title', '0', '0'))->toArray(),
-        ];
-        $this->pubType->save();
+        $this->updateSchema('string', 'title');
 
         $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
@@ -87,5 +84,13 @@ title: ***
             // Send a more helpful message by "borrowing" the diff from the assertEquals exception.
             $this->assertEquals($expected, $actual, 'Failed asserting that the file '.basename($filepath)." is matches the expected string pattern: \n{$exception->getMessage()}");
         }
+    }
+
+    protected function updateSchema(string $type, string $name, int|string|null $min = 0, int|string|null $max = 0): void
+    {
+        $this->pubType->fields = [
+            (new PublicationFieldType($type, $name, $min, $max))->toArray(),
+        ];
+        $this->pubType->save();
     }
 }
