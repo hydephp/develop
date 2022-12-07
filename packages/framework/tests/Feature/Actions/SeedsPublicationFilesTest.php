@@ -19,17 +19,20 @@ use function str_replace;
  */
 class SeedsPublicationFilesTest extends TestCase
 {
+    protected PublicationType $pubType;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->directory('test-publication');
         $this->setupTestPublication();
+        $this->pubType = PublicationType::get('test-publication');
     }
 
     public function testCreate()
     {
-        $action = new SeedsPublicationFiles(PublicationType::get('test-publication'));
+        $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
 
         $this->assertFileExists($this->getPublicationFiles()[0]);
@@ -37,7 +40,7 @@ class SeedsPublicationFilesTest extends TestCase
 
     public function testCreateWithStringType()
     {
-        $action = new SeedsPublicationFiles(PublicationType::get('test-publication'));
+        $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
 
         $this->assertFileEqualsWithWildcards(
