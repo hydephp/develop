@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use function config;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
-use function config;
 
 /**
  * @covers \Hyde\Console\Commands\SeedPublicationCommand
