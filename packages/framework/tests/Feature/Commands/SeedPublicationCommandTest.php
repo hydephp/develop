@@ -58,6 +58,8 @@ class SeedPublicationCommandTest extends TestCase
              ->expectsOutputToContain('Warning: Generating a large number of publications may take a while. Expected time: 10 seconds.')
              ->expectsConfirmation('Are you sure you want to continue?', false)
              ->assertExitCode(130);
+
+        $this->assertPublicationsCreated(0);
     }
 
     public function test_command_asks_to_confirm_before_creating_many_publications_when_using_arguments()
@@ -67,6 +69,8 @@ class SeedPublicationCommandTest extends TestCase
              ->expectsOutputToContain('Warning: Generating a large number of publications may take a while. Expected time: 10 seconds.')
              ->expectsConfirmation('Are you sure you want to continue?', false)
              ->assertExitCode(130);
+
+        $this->assertPublicationsCreated(0);
     }
 
     protected function assertPublicationsCreated(int $expectedCount = 1): void
