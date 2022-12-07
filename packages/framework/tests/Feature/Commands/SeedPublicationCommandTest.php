@@ -37,8 +37,7 @@ class SeedPublicationCommandTest extends TestCase
             ->expectsOutputToContain('1 publications for Test Publication created!')
             ->assertExitCode(0);
 
-        $files = glob(Hyde::path('test-publication/*.md'));
-        $this->assertCount(1, $files);
+        $this->assertCount(1, glob(Hyde::path('test-publication/*.md')));
     }
 
     public function test_can_seed_publications_using_arguments()
@@ -47,8 +46,7 @@ class SeedPublicationCommandTest extends TestCase
              ->expectsOutputToContain('Seeding new publications!')
              ->assertExitCode(0);
 
-        $files = glob(Hyde::path('test-publication/*.md'));
-        $this->assertCount(1, $files);
+        $this->assertCount(1, glob(Hyde::path('test-publication/*.md')));
     }
 
     public function test_command_asks_to_confirm_before_creating_many_publications()
