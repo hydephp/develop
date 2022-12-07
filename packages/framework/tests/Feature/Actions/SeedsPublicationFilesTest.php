@@ -36,18 +36,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertFileExists($this->getPublicationFiles()[0]);
     }
 
-    // string
-    public function testWithStringType()
-    {
-        $this->updateSchema('string', 'title');
-        (new SeedsPublicationFiles($this->pubType))->create();
-
-        $publication = $this->firstPublication();
-
-        $this->assertBaseline($publication);
-        $this->assertNotEmpty($publication->matter('title'));
-    }
-
     // array
     public function testWithArrayType()
     {
@@ -114,6 +102,16 @@ class SeedsPublicationFilesTest extends TestCase
     }
 
     // string
+    public function testWithStringType()
+    {
+        $this->updateSchema('string', 'title');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertNotEmpty($publication->matter('title'));
+    }
 
     // tag
 
