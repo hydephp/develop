@@ -40,7 +40,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertFileExists($this->firstPublicationFilePath());
     }
 
-    public function testCreateWithStringType()
+    public function testWithStringType()
     {
         $this->updateSchema('string', 'title');
         (new SeedsPublicationFiles($this->pubType))->create();
@@ -57,7 +57,7 @@ title: ***
         );
     }
 
-    public function testCreateWithArrayType()
+    public function testWithArrayType()
     {
         $this->addToSchema('array', 'tags');
         (new SeedsPublicationFiles($this->pubType))->create();
