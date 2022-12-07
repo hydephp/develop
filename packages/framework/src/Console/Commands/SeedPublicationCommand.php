@@ -42,7 +42,7 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
             ['required', 'integer', 'between:1,100000'], 1));
 
         if ($number >= 10000) {
-            $this->warn('Warning: Generating a large number of publications may take a while. <fg=gray>Expected time: ' . ($number / 1000) . ' seconds.</>');
+            $this->warn('Warning: Generating a large number of publications may take a while. <fg=gray>Expected time: '.($number / 1000).' seconds.</>');
             if (! $this->confirm('Are you sure you want to continue?')) {
                 return parent::USER_EXIT;
             }
