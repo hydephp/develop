@@ -18,6 +18,8 @@ use Rgasch\Collection\Collection;
  *
  * @see \Hyde\Framework\Actions\SeedsPublicationFiles
  * @see \Hyde\Framework\Testing\Feature\Commands\SeedPublicationCommandTest
+ *
+ * @todo Normalize command output style, maybe by hooking into the build actions?
  */
 class SeedPublicationCommand extends ValidatingCommand implements CommandHandleInterface
 {
