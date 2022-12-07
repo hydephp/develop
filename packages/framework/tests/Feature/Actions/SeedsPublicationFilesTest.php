@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use function explode;
 use function file_get_contents;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
@@ -40,6 +41,11 @@ class SeedsPublicationFilesTest extends TestCase
 
     public function testCreateWithStringType()
     {
+        $this->pubType->fields = [
+            (new PublicationFieldType('string', 'title', '0', '0'))->toArray(),
+        ];
+        $this->pubType->save();
+
         $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
 
