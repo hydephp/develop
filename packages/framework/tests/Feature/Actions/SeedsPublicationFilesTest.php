@@ -58,7 +58,6 @@ title: ***
         );
     }
 
-
     public function testCreateWithArrayType()
     {
         $this->addToSchema('array', 'tags');
@@ -126,7 +125,6 @@ tags:
         ];
         $this->pubType->save();
     }
-
 
     protected function addToSchema(string $type, string $name, int|string|null $min = 0, int|string|null $max = 0): void
     {
