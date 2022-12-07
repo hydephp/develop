@@ -47,7 +47,7 @@ class ValidatePublicationsCommand extends ValidatingCommand implements CommandHa
         }
 
         $checkmark = "\u{2713}";
-        $xmark = "\u{2717}";
+        $xMark = "\u{2717}";
         $countPubTypes = 0;
         $countPubs = 0;
         $countFields = 0;
@@ -85,7 +85,7 @@ class ValidatePublicationsCommand extends ValidatingCommand implements CommandHa
                         $this->output->writeln(" <fg=green>$checkmark</>");
                     } catch (Exception $e) {
                         $countErrors++;
-                        $this->output->writeln(" <fg=red>$xmark\n        {$e->getMessage()}</>");
+                        $this->output->writeln(" <fg=red>$xMark\n        {$e->getMessage()}</>");
                     }
                     $publication->matter->forget($fieldName);
                 }
