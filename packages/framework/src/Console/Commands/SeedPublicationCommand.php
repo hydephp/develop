@@ -48,10 +48,7 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
         $each = round($ms / $number, 2);
         $this->info(
             sprintf(
-                "<comment>%d</comment> publications for <comment>%s</comment> created! <fg=gray>Took %sms%s",
-                $number,
-                $pubType->name,
-                $ms,
+                "<comment>$number</comment> publications for <comment>$pubType->name</comment> created! <fg=gray>Took {$ms}ms%s",
                 ($number > 1) ? " ({$each}ms/each)</>" : ''
             )
         );
