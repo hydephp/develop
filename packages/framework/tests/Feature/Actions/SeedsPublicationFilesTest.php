@@ -38,7 +38,7 @@ class SeedsPublicationFilesTest extends TestCase
         $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
 
-        $this->assertFileExists($this->firstPublicationFilePath());
+        $this->assertFileExists($this->getPublicationFiles()[0]);
     }
 
     public function testWithStringType()
@@ -86,14 +86,9 @@ class SeedsPublicationFilesTest extends TestCase
         return $files;
     }
 
-    protected function firstPublicationFilePath(): string
-    {
-        return $this->getPublicationFiles()[0];
-    }
-
     protected function firstPublication(): MarkdownDocument
     {
-        return MarkdownDocument::parse(Hyde::pathToRelative($this->firstPublicationFilePath()));
+        return MarkdownDocument::parse(Hyde::pathToRelative($this->getPublicationFiles()[0]));
     }
 
     protected function updateSchema(string $type, string $name, int|string|null $min = 0, int|string|null $max = 0): void
