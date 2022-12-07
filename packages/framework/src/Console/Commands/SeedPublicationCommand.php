@@ -68,7 +68,7 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
     {
         $pubTypeSelection = $this->argument('publicationType') ?? $pubTypes->keys()->get(
             (int) $this->choice(
-                'Which publication type would you like to generate publications for?',
+                'Which publication type would you like to seed?',
                 $pubTypes->keys()->toArray()
             )
         );
