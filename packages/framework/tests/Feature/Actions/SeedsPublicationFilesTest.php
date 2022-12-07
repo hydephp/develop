@@ -118,6 +118,17 @@ class SeedsPublicationFilesTest extends TestCase
     // text
 
     // url
+    public function testWithUrlType()
+    {
+        $this->updateSchema('url', 'url');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertIsString($publication->matter('url'));
+        $this->assertStringStartsWith('https://google.com?q=', $publication->matter('url'));
+    }
 
     protected function getPublicationFiles(): array
     {
