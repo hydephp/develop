@@ -109,6 +109,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'tag':
+                    // TODO Should we throw if the tagGroup is not set or the tags collection is empty?
                     $tagValue = PublicationService::getValuesForTagName($field->tagGroup, false)->random();
                     $output .= "$field->name: $tagValue\n";
                     break;
