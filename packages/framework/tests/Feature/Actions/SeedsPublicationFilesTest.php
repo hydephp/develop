@@ -72,6 +72,22 @@ tags:
 ', $this->firstPublicationFilePath(), 5);
     }
 
+    public function testWithBooleanType()
+    {
+        $this->updateSchema('boolean', 'published');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $this->assertFileMatchesString(
+            '---
+__createdAt: ***
+published: ***
+---
+
+## Write something awesome.
+
+', $this->firstPublicationFilePath());
+    }
+
     protected function getPublicationFiles(): array
     {
         $files = glob(Hyde::path('test-publication/*.md'));
