@@ -59,18 +59,17 @@ title: ***
 
     public function testWithArrayType()
     {
-        $this->addToSchema('array', 'tags');
+        $this->updateSchema('array', 'tags');
         (new SeedsPublicationFiles($this->pubType))->create();
 
         $this->assertFileMatchesString(
             '---
 __createdAt: ***
-title: ***
 tags:
   - ***
   - ***
   - ***
-', $this->firstPublicationFilePath(), 6);
+', $this->firstPublicationFilePath(), 5);
     }
 
     protected function getPublicationFiles(): array
