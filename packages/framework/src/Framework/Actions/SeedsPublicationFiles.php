@@ -43,8 +43,8 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         for ($i = 0; $i < $this->number; $i++) {
             $publicationData = $this->generatePublicationData();
             $output = $publicationData->output;
-            $canonicalValue = $publicationData->canonicalValue ?: throw new InvalidArgumentException('No canonical value found'); //TODO What should happen here?
-            $basename = Str::of($canonicalValue)->substr(0, 64)->slug()->toString() ?: 'untitled';
+            $canonicalValue = $publicationData->canonicalValue;
+            $basename = Str::of($canonicalValue)->substr(0, 64)->slug()->toString();
             $fileName = "$directory/{$this->formatStringForStorage($basename)}.md";
             file_put_contents($fileName, $output);
         }
@@ -134,6 +134,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $output .= "---\n";
         $output .= "\n## Write something awesome.\n\n";
 
-        return Collection::create(['output' => $output, 'canonicalValue' => $canonicalValue]);
+        return Collection::create(['output' => $output, 'canonicalValue' => $canonicalValue ?: $faker->sentence(3)]);
     }
 }
