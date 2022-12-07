@@ -40,6 +40,7 @@ class SeedsPublicationFilesTest extends TestCase
     {
         $this->updateSchema('string', 'title');
         (new SeedsPublicationFiles($this->pubType))->create();
+
         $publication = $this->firstPublication();
 
         $this->assertBaseline($publication);
@@ -50,20 +51,22 @@ class SeedsPublicationFilesTest extends TestCase
     {
         $this->updateSchema('array', 'tags');
         (new SeedsPublicationFiles($this->pubType))->create();
+
         $publication = $this->firstPublication();
 
+        $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('tags'));
         $this->assertIsArray($publication->matter('tags'));
         $this->assertSame(0, key($publication->matter('tags')));
         $this->assertIsString($publication->matter('tags')[0]);
         $this->assertTrue(count($publication->matter('tags')) >= 3 && count($publication->matter('tags')) <= 20);
-        $this->assertBaseline($publication);
     }
 
     public function testWithBooleanType()
     {
         $this->updateSchema('boolean', 'published');
         (new SeedsPublicationFiles($this->pubType))->create();
+
         $publication = $this->firstPublication();
 
         $this->assertBaseline($publication);
