@@ -21,7 +21,7 @@ use Rgasch\Collection\Collection;
  */
 class SeedPublicationCommand extends ValidatingCommand implements CommandHandleInterface
 {
-    /** @var string */
+    /** @var string */  // TODO Should it be publication or publications?
     protected $signature = 'seed:publication
 		{publicationType? : The name of the PublicationType to create a publication for}
         {number? : The number of publications to generate}';
