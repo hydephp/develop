@@ -127,10 +127,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
-                default:
-                    throw new \InvalidArgumentException(
-                        "Unhandled field type [$field->type]. Possible field types are: ".implode(', ', PublicationFieldType::TYPES)
-                    );
             }
         }
         $output .= "---\n";
