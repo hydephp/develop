@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use function array_merge;
 use function explode;
 use function file_get_contents;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
@@ -136,14 +135,6 @@ published: ***
         $this->pubType->fields = [
             (new PublicationFieldType($type, $name, $min, $max))->toArray(),
         ];
-        $this->pubType->save();
-    }
-
-    protected function addToSchema(string $type, string $name, int|string|null $min = 0, int|string|null $max = 0): void
-    {
-        $this->pubType->fields = array_merge($this->pubType->fields, [
-            (new PublicationFieldType($type, $name, $min, $max))->toArray(),
-        ]);
         $this->pubType->save();
     }
 }
