@@ -13,6 +13,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use PHPUnit\Framework\ExpectationFailedException;
+use function key;
 use function str_ends_with;
 use function str_replace;
 
@@ -44,48 +45,37 @@ class SeedsPublicationFilesTest extends TestCase
     {
         $this->updateSchema('string', 'title');
         (new SeedsPublicationFiles($this->pubType))->create();
+        $publication = $this->firstPublication();
 
-        $this->assertFileMatchesString(
-            '---
-__createdAt: ***
-title: ***
----
-
-## Write something awesome.
-
-', $this->firstPublicationFilePath()
-        );
+        $this->assertCount(2, $publication->matter()->toArray());
+        $this->assertNotEmpty($publication->matter('title'));
+        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
     }
 
     public function testWithArrayType()
     {
         $this->updateSchema('array', 'tags');
         (new SeedsPublicationFiles($this->pubType))->create();
+        $publication = $this->firstPublication();
 
-        $this->assertFileMatchesString(
-            '---
-__createdAt: ***
-tags:
-  - ***
-  - ***
-  - ***
-', $this->firstPublicationFilePath(), 5);
+        $this->assertCount(2, $publication->matter()->toArray());
+        $this->assertNotEmpty($publication->matter('tags'));
+        $this->assertIsArray($publication->matter('tags'));
+        $this->assertSame(0, key($publication->matter('tags')));
+        $this->assertIsString($publication->matter('tags')[0]);
+        $this->assertTrue(count($publication->matter('tags')) >= 3 && count($publication->matter('tags')) <= 20);
+        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
     }
 
     public function testWithBooleanType()
     {
         $this->updateSchema('boolean', 'published');
         (new SeedsPublicationFiles($this->pubType))->create();
+        $publication = $this->firstPublication();
 
-        $this->assertFileMatchesString(
-            '---
-__createdAt: ***
-published: ***
----
-
-## Write something awesome.
-
-', $this->firstPublicationFilePath());
+        $this->assertCount(2, $publication->matter()->toArray());
+        $this->assertIsBool($publication->matter('published'));
+        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
     }
 
     protected function getPublicationFiles(): array
@@ -104,36 +94,6 @@ published: ***
     protected function firstPublication(): MarkdownDocument
     {
         return MarkdownDocument::parse(Hyde::pathToRelative($this->firstPublicationFilePath()));
-    }
-
-    protected function assertFileMatchesString(string $expected, string $filepath, ?int $limit = null)
-    {
-        $actual = file_get_contents($filepath);
-
-        $expectedLines = explode("\n", str_replace("\r", '', $expected));
-        $actualLines = explode("\n", str_replace("\r", '', $actual));
-
-        try {
-            foreach ($expectedLines as $key => $expectedLine) {
-                $actualLine = $actualLines[$key];
-                if (str_ends_with($expectedLine, '***')) {
-                    $this->assertStringStartsWith(str_replace('***', '', $expectedLine), $actualLine);
-                } else {
-                    $this->assertSame($expectedLine, $actualLine);
-                }
-
-                if ($limit && $key >= $limit) {
-                    break;
-                }
-            }
-        } catch (ExpectationFailedException $exception) {
-            // Send a more helpful message by "borrowing" the diff from the assertEquals exception.
-            $this->assertEquals($expected, $actual, 'Failed asserting that the file '.basename($filepath)." is matches the expected string pattern: \n{$exception->getMessage()}");
-        }
-
-        if (! $limit) {
-            $this->assertSame(count($expectedLines), count($actualLines));
-        }
     }
 
     protected function updateSchema(string $type, string $name, int|string|null $min = 0, int|string|null $max = 0): void
