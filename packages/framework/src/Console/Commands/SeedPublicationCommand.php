@@ -73,7 +73,11 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
         );
 
         if ($pubTypes->has($pubTypeSelection)) {
-            $this->line("<info>Creating random publications of type</info> [<comment>$pubTypeSelection</comment>]");
+            if ($this->argument('number')) {
+                $this->line("<info>Creating</info> [<comment>{$this->argument('number')}</comment>] <info>random publications of type</info> [<comment>$pubTypeSelection</comment>]");
+            } else {
+                $this->line("<info>Creating random publications of type</info> [<comment>$pubTypeSelection</comment>]");
+            }
 
             return $pubTypes->get($pubTypeSelection);
         }
