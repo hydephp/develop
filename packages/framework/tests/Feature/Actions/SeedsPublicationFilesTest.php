@@ -36,6 +36,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertFileExists($this->getPublicationFiles()[0]);
     }
 
+    // string
     public function testWithStringType()
     {
         $this->updateSchema('string', 'title');
@@ -47,6 +48,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertNotEmpty($publication->matter('title'));
     }
 
+    // array
     public function testWithArrayType()
     {
         $this->updateSchema('array', 'tags');
@@ -62,6 +64,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertTrue(count($publication->matter('tags')) >= 3 && count($publication->matter('tags')) <= 20);
     }
 
+    // boolean
     public function testWithBooleanType()
     {
         $this->updateSchema('boolean', 'published');
