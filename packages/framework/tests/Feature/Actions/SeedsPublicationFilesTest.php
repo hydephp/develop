@@ -11,5 +11,11 @@ use Hyde\Testing\TestCase;
  */
 class SeedsPublicationFilesTest extends TestCase
 {
-    //
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->directory('test-publication');
+        $this->setupTestPublication();
+    }
 }
