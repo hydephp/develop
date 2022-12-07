@@ -33,8 +33,9 @@ class SeedsPublicationFilesTest extends TestCase
         $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
 
-        $this->assertFileExists($this->getPublicationFiles()[0]);
-        $this->assertCount(1, $this->getPublicationFiles());
+        $files = $this->getPublicationFiles();
+        $this->assertFileExists($files[0]);
+        $this->assertCount(1, $files);
     }
 
     public function testWithArrayType()
