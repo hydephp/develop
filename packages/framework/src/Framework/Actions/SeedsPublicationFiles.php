@@ -29,7 +29,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     ) {
     }
 
-    public function handleCreate(): void
+    protected function handleCreate(): void
     {
         $this->create();
     }
