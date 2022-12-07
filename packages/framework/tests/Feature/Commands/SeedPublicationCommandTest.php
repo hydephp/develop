@@ -30,7 +30,7 @@ class SeedPublicationCommandTest extends TestCase
             ->expectsOutputToContain('Seeding new publications!')
             ->expectsQuestion('Which publication type would you like to seed?', 'test-publication')
             ->expectsQuestion('How many publications would you like to generate', 1)
-            ->expectsOutputToContain('1 publications for Test Publication created!')
+            ->expectsOutputToContain('1 publication for Test Publication created!')
             ->assertExitCode(0);
 
         $this->assertPublicationsCreated();
@@ -43,6 +43,16 @@ class SeedPublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertPublicationsCreated();
+    }
+
+    public function test_can_seed_multiple_publications()
+    {
+        $this->artisan('seed:publications test-publication 2')
+             ->expectsOutputToContain('Seeding new publications!')
+             ->expectsOutputToContain('2 publications for Test Publication created!')
+             ->assertExitCode(0);
+
+        $this->assertPublicationsCreated(2);
     }
 
     public function test_command_asks_to_confirm_before_creating_many_publications()
