@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use function explode;
 use function file_get_contents;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -61,6 +61,7 @@ title: ***
     {
         $files = glob(Hyde::path('test-publication/*.md'));
         $this->assertNotEmpty($files, 'No publication files found.');
+
         return $files;
     }
 
