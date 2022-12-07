@@ -114,6 +114,19 @@ class SeedsPublicationFilesTest extends TestCase
     }
 
     // tag
+    public function testWithTagType()
+    {
+        $this->markTestIncomplete('I am not fully sure what this is supposed to do yet.');
+
+        $tags = ["foo", "bar", "baz"];
+        $this->file('tags.json', json_encode($tags));
+        $this->updateSchema('tag', 'tag', tagGroup: 'foo');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+    }
 
     // text
 
