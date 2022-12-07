@@ -142,7 +142,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('description'));
         $this->assertIsString($publication->matter('description'));
-        $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 3);
+        $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 3 && substr_count($publication->matter('description'), "\n") <= 19);
     }
 
     public function testWithUrlType()
