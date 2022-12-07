@@ -61,7 +61,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         foreach ($this->pubType->getFields() as $field) {
             $lines = [];
 
-            switch ($field->type) {
+            switch ($field->type->value) {
                 case 'array':
                     $nLines = $faker->numberBetween(3, 20);
                     for ($i = 0; $i < $nLines; $i++) {
