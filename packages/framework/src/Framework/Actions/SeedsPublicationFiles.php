@@ -16,10 +16,10 @@ use Rgasch\Collection\Collection;
 use function Safe\file_put_contents;
 
 /**
- * Scaffold a publication file.
+ * Seed publication files for a publication type.
  *
- * @see \Hyde\Console\Commands\MakePublicationCommand
- * @see \Hyde\Framework\Testing\Feature\Actions\CreatesNewPublicationFileTest
+ * @see \Hyde\Console\Commands\SeedPublicationCommand
+ * @see \Hyde\Framework\Testing\Feature\Actions\SeedsPublicationFilesTest
  */
 class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 {

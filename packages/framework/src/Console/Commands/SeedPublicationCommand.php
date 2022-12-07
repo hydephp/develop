@@ -14,16 +14,16 @@ use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
 /**
- * Hyde Command to create a new publication for a given publication type.
+ * Hyde Command to seed publication files for a publication type.
  *
- * @see \Hyde\Framework\Actions\CreatesNewPublicationFile
- * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
+ * @see \Hyde\Framework\Actions\SeedsPublicationFiles
+ * @see \Hyde\Framework\Testing\Feature\Commands\SeedPublicationCommandTest
  */
 class SeedPublicationCommand extends ValidatingCommand implements CommandHandleInterface
 {
-    /** @var string */  // TODO Should it be publication or publications?
-    protected $signature = 'seed:publication
-		{publicationType? : The name of the PublicationType to create a publication for}
+    /** @var string */
+    protected $signature = 'seed:publications
+		{publicationType? : The name of the publication type to create publications for}
         {number? : The number of publications to generate}';
 
     /** @var string */
