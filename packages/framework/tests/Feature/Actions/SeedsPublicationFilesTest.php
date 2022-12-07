@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use Hyde\Markdown\Models\MarkdownDocument;
 use function explode;
 use function file_get_contents;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
@@ -98,6 +99,11 @@ published: ***
     protected function firstPublicationFilePath(): string
     {
         return $this->getPublicationFiles()[0];
+    }
+
+    protected function firstPublication(): MarkdownDocument
+    {
+        return MarkdownDocument::parse(Hyde::pathToRelative($this->firstPublicationFilePath()));
     }
 
     protected function assertFileMatchesString(string $expected, string $filepath, ?int $limit = null)
