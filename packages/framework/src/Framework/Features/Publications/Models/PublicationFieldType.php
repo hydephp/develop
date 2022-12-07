@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Rgasch\Collection\Collection;
 use function strtolower;
 
 /**
@@ -58,10 +60,66 @@ class PublicationFieldType implements SerializableContract
         ];
     }
 
-    public function validateInputAgainstRules(string $input): bool
+    public function getValidationRules(bool $reload = true): Collection
     {
-        // TODO: Implement this method.
+        $defaultRules = Collection::create(PublicationFieldTypes::values());
+        $fieldRules = Collection::create($defaultRules->get($this->type->value));
 
-        return true;
+        $doBetween = true;
+        // The trim command used to process the min/max input results in a string, so
+        // we need to test both int and string values to determine required status.
+        if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
+            $fieldRules->forget($fieldRules->search('required'));
+            $doBetween = false;
+        }
+
+        switch ($this->type->value) {
+            case 'array':
+                $fieldRules->add('array');
+                break;
+            case 'datetime':
+                if ($doBetween) {
+                    $fieldRules->add("after:$this->min");
+                    $fieldRules->add("before:$this->max");
+                }
+                break;
+            case 'float':
+            case 'integer':
+            case 'string':
+            case 'text':
+                if ($doBetween) {
+                    $fieldRules->add("between:$this->min,$this->max");
+                }
+                break;
+            case 'image':
+                $mediaFiles = PublicationService::getMediaForPubType($this->publicationType, $reload);
+                $valueList = $mediaFiles->implode(',');
+                $fieldRules->add("in:$valueList");
+                break;
+            case 'tag':
+                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload);
+                $valueList = $tagValues->implode(',');
+                $fieldRules->add("in:$valueList");
+                break;
+            case 'url':
+                break;
+            default:
+                throw new \InvalidArgumentException(
+                    "Unhandled field type [{$this->type->value}]. Possible field types are: ".implode(', ', PublicationFieldTypes::values())
+                );
+        }
+
+        return $fieldRules;
+    }
+
+    public function validate(mixed $input = null, Collection $fieldRules = null): array
+    {
+        if (! $fieldRules) {
+            $fieldRules = $this->getValidationRules(false);
+        }
+
+        $validator = validator([$this->name => $input], [$this->name => $fieldRules->toArray()]);
+
+        return $validator->validate();
     }
 }
