@@ -13,6 +13,8 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
+use InvalidArgumentException;
+
 use function Safe\file_put_contents;
 
 /**
@@ -41,7 +43,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         for ($i = 0; $i < $this->number; $i++) {
             $publicationData = $this->generatePublicationData();
             $output = $publicationData->output;
-            $canonicalValue = $publicationData->canonicalValue;
+            $canonicalValue = $publicationData->canonicalValue ?: throw new InvalidArgumentException('No canonical value found');
             $slug = Str::of($canonicalValue)->substr(0, 64)->slug()->toString() ?: 'untitled';
             $fileName = "$directory/{$this->formatStringForStorage($slug)}.md";
             file_put_contents($fileName, $output);
