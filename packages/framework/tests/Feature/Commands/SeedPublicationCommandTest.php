@@ -23,8 +23,6 @@ class SeedPublicationCommandTest extends TestCase
         $this->directory('test-publication');
         $this->setupTestPublication();
         $this->pubType = PublicationType::get('test-publication');
-
-        config(['app.throw_on_console_exception' => true]);
     }
 
     public function test_can_seed_publications()
@@ -70,6 +68,21 @@ class SeedPublicationCommandTest extends TestCase
              ->assertExitCode(130);
 
         $this->assertPublicationsCreated(0);
+    }
+
+    public function test_with_invalid_publication_type()
+    {
+        $this->artisan('seed:publications invalid-publication')
+            ->expectsOutput('Error: Unable to locate publication type [invalid-publication]')
+            ->assertExitCode(1);
+    }
+
+    public function test_with_no_publication_types()
+    {
+        unlink(Hyde::path('test-publication/schema.json'));
+        $this->artisan('seed:publications')
+            ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
+            ->assertExitCode(1);
     }
 
     protected function assertPublicationsCreated(int $expectedCount = 1): void
