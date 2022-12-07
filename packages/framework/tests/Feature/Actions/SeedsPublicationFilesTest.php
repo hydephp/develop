@@ -89,8 +89,29 @@ class SeedsPublicationFilesTest extends TestCase
     }
 
     // image
+    public function testWithImageType()
+    {
+        $this->updateSchema('image', 'image');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertIsString($publication->matter('image'));
+        $this->assertStringStartsWith('https://picsum.photos/id/', $publication->matter('image'));
+    }
 
     // integer
+    public function testWithIntegerType()
+    {
+        $this->updateSchema('integer', 'views');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertIsInt($publication->matter('views'));
+    }
 
     // string
 
