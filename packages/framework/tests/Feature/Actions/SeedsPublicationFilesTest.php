@@ -77,6 +77,16 @@ class SeedsPublicationFilesTest extends TestCase
     }
 
     // datetime
+    public function testWithDateTimeType()
+    {
+        $this->updateSchema('datetime', 'published_at');
+        (new SeedsPublicationFiles($this->pubType))->create();
+
+        $publication = $this->firstPublication();
+
+        $this->assertBaseline($publication);
+        $this->assertIsInt($publication->matter('published_at')); // Carbon parses to Unix timestamp int
+    }
 
     // image
 
