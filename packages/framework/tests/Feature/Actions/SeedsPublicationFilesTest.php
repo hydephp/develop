@@ -71,7 +71,7 @@ title: ***
         return $this->getPublicationFiles()[0];
     }
 
-    protected function assertFileMatchesString(string $expected, string $filepath)
+    protected function assertFileMatchesString(string $expected, string $filepath, ?int $limit = null)
     {
         $actual = file_get_contents($filepath);
 
@@ -79,8 +79,6 @@ title: ***
         $actualLines = explode("\n", str_replace("\r", '', $actual));
 
         try {
-            $this->assertSame(count($expectedLines), count($actualLines));
-
             foreach ($expectedLines as $key => $expectedLine) {
                 $actualLine = $actualLines[$key];
                 if (str_ends_with($expectedLine, '***')) {
@@ -88,10 +86,18 @@ title: ***
                 } else {
                     $this->assertSame($expectedLine, $actualLine);
                 }
+
+                if ($limit && $key >= $limit) {
+                    break;
+                }
             }
         } catch (ExpectationFailedException $exception) {
             // Send a more helpful message by "borrowing" the diff from the assertEquals exception.
             $this->assertEquals($expected, $actual, 'Failed asserting that the file '.basename($filepath)." is matches the expected string pattern: \n{$exception->getMessage()}");
+        }
+
+        if (! $limit) {
+            $this->assertSame(count($expectedLines), count($actualLines));
         }
     }
 
