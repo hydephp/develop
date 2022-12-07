@@ -42,9 +42,7 @@ class SeedsPublicationFilesTest extends TestCase
     public function testCreateWithStringType()
     {
         $this->updateSchema('string', 'title');
-
-        $action = new SeedsPublicationFiles($this->pubType);
-        $action->create();
+        (new SeedsPublicationFiles($this->pubType))->create();
 
         $this->assertFileMatchesString(
             '---
