@@ -39,8 +39,7 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
         $number = (int) ($this->argument('number') ?? $this->askWithValidation(
             'number',
             'How many publications would you like to generate',
-            ['required', 'integer', 'between:1,100000']
-            , 1));
+            ['required', 'integer', 'between:1,100000'], 1));
 
         if ($number >= 10000) {
             $this->warn('Warning: Generating a large number of publications may take a while. <fg=gray>Expected time: ' . ($number / 1000) . ' seconds.</>');
