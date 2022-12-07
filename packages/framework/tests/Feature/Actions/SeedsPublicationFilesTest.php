@@ -36,7 +36,7 @@ class SeedsPublicationFilesTest extends TestCase
         $action = new SeedsPublicationFiles($this->pubType);
         $action->create();
 
-        $this->assertFileExists($this->getPublicationFiles()[0]);
+        $this->assertFileExists($this->firstPublicationFilePath());
     }
 
     public function testCreateWithStringType()
@@ -52,7 +52,9 @@ title: ***
 
 ## Write something awesome.
 
-', $this->getPublicationFiles()[0]);
+',
+            $this->firstPublicationFilePath()
+        );
     }
 
     protected function getPublicationFiles(): array
@@ -61,6 +63,11 @@ title: ***
         $this->assertNotEmpty($files, 'No publication files found.');
 
         return $files;
+    }
+
+    protected function firstPublicationFilePath(): string
+    {
+        return $this->getPublicationFiles()[0];
     }
 
     protected function assertFileMatchesString(string $expected, string $filepath)
