@@ -38,6 +38,15 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertCount(1, $files);
     }
 
+    public function testCreateMany()
+    {
+        $action = new SeedsPublicationFiles($this->pubType, 3);
+        $action->create();
+
+        $files = $this->getPublicationFiles();
+        $this->assertCount(3, $files);
+    }
+
     public function testWithArrayType()
     {
         $this->updateSchema('array', 'tags');
