@@ -12,6 +12,7 @@ use function config;
 
 /**
  * @covers \Hyde\Console\Commands\SeedPublicationCommand
+ * @covers \Hyde\Framework\Actions\SeedsPublicationFiles
  */
 class SeedPublicationCommandTest extends TestCase
 {
