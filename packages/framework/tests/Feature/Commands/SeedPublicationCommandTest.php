@@ -11,5 +11,5 @@ use Hyde\Testing\TestCase;
  */
 class SeedPublicationCommandTest extends TestCase
 {
-   //
+    //
 }
