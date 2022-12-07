@@ -38,7 +38,7 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
             'number',
             'How many publications would you like to generate',
             ['required', 'integer', 'between:1,100000']
-        ));
+            , 1));
 
         $timeStart = microtime(true);
         $seeder = new SeedsPublicationFiles($pubType, $number);
