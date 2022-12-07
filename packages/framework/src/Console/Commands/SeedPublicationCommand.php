@@ -40,6 +40,10 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
             ['required', 'integer', 'between:1,100000']
             , 1));
 
+        if ($number >= 10000) {
+            $this->warn('Warning: Generating a large number of publications may take a while.');
+        }
+
         $timeStart = microtime(true);
         $seeder = new SeedsPublicationFiles($pubType, $number);
         $seeder->create();
