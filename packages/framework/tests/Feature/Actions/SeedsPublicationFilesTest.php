@@ -42,9 +42,8 @@ class SeedsPublicationFilesTest extends TestCase
         (new SeedsPublicationFiles($this->pubType))->create();
         $publication = $this->firstPublication();
 
-        $this->assertCount(2, $publication->matter()->toArray());
+        $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('title'));
-        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
     }
 
     public function testWithArrayType()
@@ -53,13 +52,12 @@ class SeedsPublicationFilesTest extends TestCase
         (new SeedsPublicationFiles($this->pubType))->create();
         $publication = $this->firstPublication();
 
-        $this->assertCount(2, $publication->matter()->toArray());
         $this->assertNotEmpty($publication->matter('tags'));
         $this->assertIsArray($publication->matter('tags'));
         $this->assertSame(0, key($publication->matter('tags')));
         $this->assertIsString($publication->matter('tags')[0]);
         $this->assertTrue(count($publication->matter('tags')) >= 3 && count($publication->matter('tags')) <= 20);
-        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
+        $this->assertBaseline($publication);
     }
 
     public function testWithBooleanType()
@@ -68,9 +66,8 @@ class SeedsPublicationFilesTest extends TestCase
         (new SeedsPublicationFiles($this->pubType))->create();
         $publication = $this->firstPublication();
 
-        $this->assertCount(2, $publication->matter()->toArray());
+        $this->assertBaseline($publication);
         $this->assertIsBool($publication->matter('published'));
-        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
     }
 
     protected function getPublicationFiles(): array
@@ -92,5 +89,11 @@ class SeedsPublicationFilesTest extends TestCase
             (new PublicationFieldType($type, $name, $min, $max))->toArray(),
         ];
         $this->pubType->save();
+    }
+
+    protected function assertBaseline(MarkdownDocument $publication): void
+    {
+        $this->assertCount(2, $publication->matter()->toArray());
+        $this->assertSame('## Write something awesome.', $publication->markdown()->body());
     }
 }
