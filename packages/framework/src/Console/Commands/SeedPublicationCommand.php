@@ -34,7 +34,7 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
         $this->title('Seeding new Publication!');
 
         $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
-        $number  = (int) ($this->argument('number') ?? $this->askWithValidation(
+        $number = (int) ($this->argument('number') ?? $this->askWithValidation(
             'number',
             'How many publications would you like to generate:',
             ['required', 'integer', 'between:1,100000']
@@ -49,7 +49,7 @@ class SeedPublicationCommand extends ValidatingCommand implements CommandHandleI
     }
 
     /**
-     * @param \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType> $pubTypes
+     * @param  \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
      * @return \Hyde\Framework\Features\Publications\Models\PublicationType
      */
     protected function getPubTypeSelection(Collection $pubTypes): PublicationType
