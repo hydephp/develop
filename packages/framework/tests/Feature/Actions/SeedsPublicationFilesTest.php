@@ -53,8 +53,7 @@ title: ***
 
 ## Write something awesome.
 
-',
-            $this->firstPublicationFilePath()
+', $this->firstPublicationFilePath()
         );
     }
 
@@ -71,8 +70,7 @@ tags:
   - ***
   - ***
   - ***
-',
-            $this->firstPublicationFilePath(), 6);
+', $this->firstPublicationFilePath(), 6);
     }
 
     protected function getPublicationFiles(): array
