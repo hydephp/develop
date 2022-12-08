@@ -20,6 +20,7 @@ class DocumentationSidebar extends BaseNavigationMenu
     public function generate(): static
     {
         Router::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
+            // TODO investigate if this is still needed
             $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item): void {
                 $item->label = $item->route->getPage()->data('navigation.label');
             }));
