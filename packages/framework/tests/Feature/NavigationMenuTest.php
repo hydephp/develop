@@ -210,4 +210,19 @@ class NavigationMenuTest extends TestCase
         Hyde::unlink('_docs/foo.md');
         Hyde::unlink('_docs/index.md');
     }
+
+    public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu()
+    {
+        $this->directory('_pages/foo');
+        Hyde::touch('_pages/foo/bar.md');
+
+        $menu = NavigationMenu::create();
+
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+        ]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+    }
 }
