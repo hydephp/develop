@@ -20,6 +20,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\BaseNavigationMenu
  */
 class NavigationMenuTest extends TestCase
 {
