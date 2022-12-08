@@ -48,8 +48,7 @@ class PublicationPageTest extends TestCase
     {
         $this->createPublicationFiles();
 
-        $page = new PublicationPage('foo', [], '', PublicationType::fromFile('test-publication/schema.json'));
-
+        $page = PublicationPage::get('test-publication/foo');
         $this->assertInstanceOf(Route::class, $page->getRoute());
         $this->assertEquals(new Route($page), $page->getRoute());
         $this->assertSame($page->getRoute()->getLink(), $page->getLink());
