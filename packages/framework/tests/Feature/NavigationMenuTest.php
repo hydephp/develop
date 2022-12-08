@@ -33,8 +33,8 @@ class NavigationMenuTest extends TestCase
     {
         $menu = new NavigationMenu();
 
-        $this->assertInstanceOf(Collection::class, $menu->items);
-        $this->assertEmpty($menu->items);
+        $this->assertInstanceOf(Collection::class, $menu->getItems());
+        $this->assertEmpty($menu->getItems());
     }
 
     public function test_generate_method_adds_route_items()
@@ -47,8 +47,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_sort_method_sorts_items_by_priority()
@@ -61,8 +61,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('404')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_filter_method_removes_items_with_hidden_property_set_to_true()
@@ -74,8 +74,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_static_create_method_creates_new_processed_collection()
@@ -103,8 +103,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('docs/index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
 
         Hyde::unlink('_pages/foo.md');
         Hyde::unlink('_docs/index.md');
@@ -121,15 +121,15 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('foo')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
 
         Hyde::unlink('_pages/foo.md');
     }
 
     public function test_collection_only_contains_nav_items()
     {
-        $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create()->items);
+        $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create()->getItems());
     }
 
     public function test_external_link_can_be_added_in_config()
@@ -143,8 +143,8 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('https://example.com', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_path_link_can_be_added_in_config()
@@ -158,8 +158,8 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_duplicates_are_removed_when_adding_in_config()
@@ -176,8 +176,8 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_duplicates_are_removed_when_adding_in_config_regardless_of_label()
@@ -194,8 +194,8 @@ class NavigationMenuTest extends TestCase
             NavItem::toLink('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_documentation_pages_that_are_not_index_are_not_added_to_the_menu()
@@ -210,8 +210,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('docs/index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
 
         Hyde::unlink('_docs/foo.md');
         Hyde::unlink('_docs/index.md');
@@ -225,8 +225,8 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
         $expected = collect([NavItem::fromRoute(Route::get('index'))]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_pages_in_subdirectories_can_be_added_to_the_navigation_menu_with_config_flat_setting()
@@ -241,8 +241,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('foo/bar')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu_with_config_dropdown_setting()
@@ -256,8 +256,8 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute(Route::get('index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function test_has_dropdowns_returns_false_when_there_are_no_dropdowns()
@@ -271,7 +271,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
         $menu->generate();
         $this->assertTrue($menu->hasDropdowns());
     }
@@ -279,7 +279,7 @@ class NavigationMenuTest extends TestCase
     public function test_has_dropdowns_always_returns_false_when_dropdowns_are_disabled()
     {
         $menu = NavigationMenu::create();
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
         $menu->generate();
         $this->assertFalse($menu->hasDropdowns());
     }
@@ -296,7 +296,7 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
         $menu->generate();
         $this->assertCount(1, $menu->getDropdowns());
 
@@ -312,8 +312,8 @@ class NavigationMenuTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
 
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
         $menu->generate();
 
         $this->assertCount(1, $menu->getDropdowns());
@@ -331,9 +331,9 @@ class NavigationMenuTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
 
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()));
         $menu->generate();
 
         $this->assertCount(2, $menu->getDropdowns());
@@ -363,8 +363,8 @@ class NavigationMenuTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
 
-        $menu->items->push(NavItem::fromRoute((new DocumentationPage('foo'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new DocumentationPage('bar/baz'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new DocumentationPage('foo'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new DocumentationPage('bar/baz'))->getRoute()));
         $menu->generate();
 
         $this->assertFalse($menu->hasDropdowns());
@@ -376,8 +376,8 @@ class NavigationMenuTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
 
-        $menu->items->push(NavItem::fromRoute((new MarkdownPost('foo'))->getRoute()));
-        $menu->items->push(NavItem::fromRoute((new MarkdownPost('bar/baz'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPost('foo'))->getRoute()));
+        $menu->getItems()->push(NavItem::fromRoute((new MarkdownPost('bar/baz'))->getRoute()));
         $menu->generate();
 
         $this->assertFalse($menu->hasDropdowns());
@@ -392,10 +392,10 @@ class NavigationMenuTest extends TestCase
         Router::push(((new MarkdownPage('bar/baz'))->getRoute()));
         $menu = NavigationMenu::create();
 
-        $this->assertCount(2, $menu->items);
+        $this->assertCount(2, $menu->getItems());
         $this->assertEquals([
             NavItem::fromRoute(Route::get('index')),
             NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
-        ], $menu->items->all());
+        ], $menu->getItems()->all());
     }
 }
