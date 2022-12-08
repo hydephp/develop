@@ -23,6 +23,11 @@ class NavigationMenu
 
     public Collection $items;
 
+    /**
+     * @var \Hyde\Framework\Features\Navigation\NavItem[][]
+     */
+    protected array $dropdowns;
+
     public function __construct()
     {
         $this->items = new Collection();
@@ -43,6 +48,10 @@ class NavigationMenu
         collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
             $this->items->push($item);
         });
+
+        if ($this->dropdownsEnabled()) {
+            $this->dropdowns = $this->makeDropdowns();
+        }
 
         return $this;
     }
@@ -117,18 +126,7 @@ class NavigationMenu
             throw new BadMethodCallException('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
         }
 
-        $dropdowns = [];
-
-        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
-        foreach ($this->items as $item) {
-            if (! $this->canBeInDropdown($item)) {
-                continue;
-            }
-
-            $dropdowns[$item->getGroup()][] = $item;
-        }
-
-        return $dropdowns;
+        return $this->dropdowns;
     }
 
     protected static function canBeInDropdown(NavItem $item): bool
@@ -139,5 +137,21 @@ class NavigationMenu
     protected static function dropdownsEnabled(): bool
     {
         return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+    }
+
+    protected function makeDropdowns(): array
+    {
+        $dropdowns = [];
+
+        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
+        foreach ($this->items as $item) {
+            if (!$this->canBeInDropdown($item)) {
+                continue;
+            }
+
+            $dropdowns[$item->getGroup()][] = $item;
+        }
+
+        return $dropdowns;
     }
 }
