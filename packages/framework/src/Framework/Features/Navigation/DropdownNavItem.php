@@ -17,4 +17,9 @@ class DropdownNavItem extends NavItem
         $this->items = $items;
         $this->name = $name;
     }
+
+    public static function fromArray(string $name, array $items): static
+    {
+        return new static($name, $items);
+    }
 }
