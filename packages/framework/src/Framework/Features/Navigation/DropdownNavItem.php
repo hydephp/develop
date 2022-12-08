@@ -17,9 +17,4 @@ class DropdownNavItem extends NavItem
         $this->items = $items;
         $this->name = $name;
     }
-
-    public function getGroup(): ?string
-    {
-        return $this->name;
-    }
 }
