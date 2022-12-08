@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use Hyde\Foundation\Facades\Router;
 use function config;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -381,5 +382,20 @@ class NavigationMenuTest extends TestCase
 
         $this->assertFalse($menu->hasDropdowns());
         $this->assertCount(0, $menu->getDropdowns());
+    }
+
+    public function test_pages_in_dropdowns_do_not_get_added_to_the_main_navigation()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        Router::push(((new MarkdownPage('foo'))->getRoute()));
+        Router::push(((new MarkdownPage('bar/baz'))->getRoute()));
+        $menu = NavigationMenu::create();
+
+        $this->assertCount(2, $menu->items);
+        $this->assertEquals([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
+        ], $menu->items->all());
     }
 }
