@@ -89,7 +89,7 @@ class NavigationMenu
     }
 
     /**
-     * @return array<string, Collection<NavItem>>
+     * @return array<string, array<NavItem>>
      */
     public function getDropdowns(): array
     {
