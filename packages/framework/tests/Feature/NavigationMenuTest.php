@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPost;
 use function config;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -349,5 +351,29 @@ class NavigationMenuTest extends TestCase
 
         $menu = NavigationMenu::create();
         $menu->getDropdowns();
+    }
+
+    public function test_documentation_pages_do_not_get_added_to_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new DocumentationPage('foo'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new DocumentationPage('bar/baz'))->getRoute()));
+
+        $this->assertFalse($menu->hasDropdowns());
+        $this->assertCount(0, $menu->getDropdowns());
+    }
+
+    public function test_blog_posts_do_not_get_added_to_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPost('foo'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPost('bar/baz'))->getRoute()));
+
+        $this->assertFalse($menu->hasDropdowns());
+        $this->assertCount(0, $menu->getDropdowns());
     }
 }
