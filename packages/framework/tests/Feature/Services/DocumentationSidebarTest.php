@@ -6,10 +6,12 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
@@ -47,7 +49,7 @@ class DocumentationSidebarTest extends TestCase
 
         $sidebar = DocumentationSidebar::create();
 
-        $this->assertCount(5, $sidebar->getItems());
+        $this->assertCount(5, $sidebar->items);
     }
 
     public function test_index_page_is_removed_from_sidebar()
@@ -56,7 +58,7 @@ class DocumentationSidebarTest extends TestCase
         Hyde::touch(('_docs/index.md'));
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(5, $sidebar->getItems());
+        $this->assertCount(5, $sidebar->items);
     }
 
     public function test_files_with_front_matter_hidden_set_to_true_are_removed_from_sidebar()
@@ -65,7 +67,7 @@ class DocumentationSidebarTest extends TestCase
         File::put(Hyde::path('_docs/test.md'), "---\nnavigation:\n    hidden: true\n---\n\n# Foo");
 
         $sidebar = DocumentationSidebar::create();
-        $this->assertCount(5, $sidebar->getItems());
+        $this->assertCount(5, $sidebar->items);
     }
 
     public function test_sidebar_is_ordered_alphabetically_when_no_order_is_set_in_config()
@@ -81,7 +83,7 @@ class DocumentationSidebarTest extends TestCase
                 NavItem::fromRoute(Route::get('docs/b'))->setPriority(999),
                 NavItem::fromRoute(Route::get('docs/c'))->setPriority(999),
             ]),
-            DocumentationSidebar::create()->getItems()
+            DocumentationSidebar::create()->items
         );
     }
 
@@ -102,7 +104,7 @@ class DocumentationSidebarTest extends TestCase
                 NavItem::fromRoute(Route::get('docs/b'))->setPriority(250 + 251),
                 NavItem::fromRoute(Route::get('docs/a'))->setPriority(250 + 252),
             ]),
-            DocumentationSidebar::create()->getItems()
+            DocumentationSidebar::create()->items
         );
     }
 
@@ -110,7 +112,7 @@ class DocumentationSidebarTest extends TestCase
     {
         $this->makePage('foo', ['navigation.priority' => 25]);
 
-        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->priority);
+        $this->assertEquals(25, DocumentationSidebar::create()->items->first()->priority);
     }
 
     public function test_sidebar_item_priority_set_in_config_overrides_front_matter()
@@ -119,7 +121,7 @@ class DocumentationSidebarTest extends TestCase
 
         Config::set('docs.sidebar_order', ['foo']);
 
-        $this->assertEquals(25, DocumentationSidebar::create()->getItems()->first()->priority);
+        $this->assertEquals(25, DocumentationSidebar::create()->items->first()->priority);
     }
 
     public function test_sidebar_priorities_can_be_set_in_both_front_matter_and_config()
@@ -141,7 +143,7 @@ class DocumentationSidebarTest extends TestCase
                 NavItem::fromRoute(Route::get('docs/second'))->setPriority(250 + 252),
                 NavItem::fromRoute(Route::get('docs/third'))->setPriority(250 + 300),
             ]),
-            DocumentationSidebar::create()->getItems()
+            DocumentationSidebar::create()->items
         );
     }
 
@@ -149,7 +151,7 @@ class DocumentationSidebarTest extends TestCase
     {
         $this->makePage('foo', ['navigation.group' => 'bar']);
 
-        $this->assertEquals('bar', DocumentationSidebar::create()->getItems()->first()->getGroup());
+        $this->assertEquals('bar', DocumentationSidebar::create()->items->first()->getGroup());
     }
 
     public function test_has_groups_returns_false_when_there_are_no_groups()
@@ -272,7 +274,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([NavItem::fromRoute(Route::get('docs/foo'))->setPriority(999)]),
-            DocumentationSidebar::create()->getItems()
+            DocumentationSidebar::create()->items
         );
     }
 
