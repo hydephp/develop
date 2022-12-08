@@ -100,6 +100,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
+        if (Str::contains($this->identifier, '/')) {
+            return true;
+        }
+
         return false;
     }
 
