@@ -8,4 +8,6 @@ class DropdownNavItem extends NavItem
 {
     /** @var array<NavItem> */
     public array $items;
+
+    public string $name;
 }
