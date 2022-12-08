@@ -19,7 +19,7 @@ use function in_array;
  */
 class NavigationMenu
 {
-    protected Collection $items;
+    public Collection $items;
 
     /** @var array<string, array<NavItem>> */
     protected array $dropdowns;
