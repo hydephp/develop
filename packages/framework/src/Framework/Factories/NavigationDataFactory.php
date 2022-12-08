@@ -83,7 +83,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getDocumentationPageGroup();
         }
 
-        // TODO If config is set to group subdirectory pages, set the group to the subdirectory name
         if (Str::contains($this->identifier, '/') && config('hyde.navigation.subdirectories', 'hidden') === 'dropdown') {
             return Str::before($this->identifier, '/');
         }
