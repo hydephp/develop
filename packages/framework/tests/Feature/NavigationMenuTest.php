@@ -257,22 +257,32 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_has_dropdowns()
+    public function test_has_dropdowns_returns_false_when_there_are_no_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
         $this->assertFalse($menu->hasDropdowns());
+    }
 
+    public function test_has_dropdowns_returns_true_when_there_are_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
         $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
         $this->assertTrue($menu->hasDropdowns());
     }
 
-    public function test_get_dropdowns()
+    public function test_get_dropdowns_returns_empty_array_there_are_no_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
         $this->assertCount(0, $menu->getDropdowns());
+    }
 
+    public function test_get_dropdowns_returns_correct_array_when_there_are_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
         $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
         $this->assertCount(1, $menu->getDropdowns());
 
