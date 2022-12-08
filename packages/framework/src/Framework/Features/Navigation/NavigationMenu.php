@@ -20,31 +20,13 @@ use function in_array;
  */
 class NavigationMenu extends BaseNavigationMenu
 {
-    public Collection $items;
-
     /** @var array<string, array<NavItem>> */
     protected array $dropdowns;
-
-    public function __construct()
-    {
-        $this->items = new Collection();
-    }
-
-    public static function create(): static
-    {
-        return (new static())->generate()->filter()->sort();
-    }
 
     /** @return $this */
     public function generate(): static
     {
-        Router::each(function (Route $route): void {
-            $this->items->push(NavItem::fromRoute($route));
-        });
-
-        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
-            $this->items->push($item);
-        });
+        parent::generate();
 
         if ($this->dropdownsEnabled()) {
             $this->dropdowns = $this->makeDropdowns();
@@ -56,36 +38,13 @@ class NavigationMenu extends BaseNavigationMenu
     /** @return $this */
     public function filter(): static
     {
-        $this->items = $this->filterHiddenItems();
-        $this->items = $this->filterDuplicateItems();
+        parent::filter();
 
         if ($this->dropdownsEnabled()) {
             $this->items = $this->filterDropdownItems();
         }
 
         return $this;
-    }
-
-    /** @return $this */
-    public function sort(): static
-    {
-        $this->items = $this->items->sortBy('priority')->values();
-
-        return $this;
-    }
-
-    protected function filterHiddenItems(): Collection
-    {
-        return $this->items->reject(function (NavItem $item): bool {
-            return $item->hidden || $this->filterDocumentationPage($item);
-        })->values();
-    }
-
-    protected function filterDuplicateItems(): Collection
-    {
-        return $this->items->unique(function (NavItem $item): string {
-            return $item->resolveLink();
-        });
     }
 
     protected function filterDropdownItems(): Collection
@@ -95,13 +54,6 @@ class NavigationMenu extends BaseNavigationMenu
         return $this->items->reject(function (NavItem $item) use ($dropdownItems): bool {
             return in_array($item, $dropdownItems);
         });
-    }
-
-    protected function filterDocumentationPage(NavItem $item): bool
-    {
-        return isset($item->route)
-            && $item->route->getPage() instanceof DocumentationPage
-            && $item->route->getRouteKey() !== 'docs/index';
     }
 
     public function hasDropdowns(): bool
