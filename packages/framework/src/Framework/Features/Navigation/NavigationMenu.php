@@ -19,8 +19,6 @@ use function in_array;
  */
 class NavigationMenu
 {
-    protected Route $currentRoute;
-
     protected Collection $items;
 
     /** @var array<string, array<NavItem>> */
