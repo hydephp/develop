@@ -19,8 +19,16 @@ use function in_array;
  */
 class NavigationMenu
 {
+    /**
+     * @deprecated Will be made protected
+     * @internal
+     */
     public Route $currentRoute;
 
+    /**
+     * @deprecated Will be made protected
+     * @internal
+     */
     public Collection $items;
 
     /** @var array<string, array<NavItem>> */
