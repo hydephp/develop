@@ -1,3 +1,4 @@
+@php/** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */@endphp
 <ul id="sidebar-navigation" role="list">
 	@foreach ($sidebar->getGroups() as $group)
 	<li class="sidebar-group mb-4 mt-4 first:mt-0" role="listitem">

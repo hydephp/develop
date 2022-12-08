@@ -1,3 +1,4 @@
+@php/** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */@endphp
 <ul id="sidebar-navigation" role="list">
 	@foreach ($sidebar->getItems() as $item)
 	<li @class(['sidebar-navigation-item -ml-4 pl-4' , 'active bg-black/5 dark:bg-black/10'=> $item->route->getRouteKey() === $currentRoute->getRouteKey()])>
