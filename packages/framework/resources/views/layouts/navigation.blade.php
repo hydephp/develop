@@ -41,6 +41,13 @@
                     @include('hyde::components.navigation.navigation-link')
                 </li>
             @endforeach
+            @if($navigation->hasDropdowns())
+                @foreach ($navigation->getDropdowns() as $identifier => $dropdownItems)
+                    <li class="md:mx-2">
+                        <x-hyde::navigation.dropdown :label="\Hyde\Hyde::makeTitle($identifier)" :items="$dropdownItems"/>
+                    </li>
+                @endforeach
+            @endif
         </ul>
     </div>
 </nav>
