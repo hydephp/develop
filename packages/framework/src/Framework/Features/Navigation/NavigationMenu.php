@@ -25,7 +25,7 @@ class NavigationMenu extends BaseNavigationMenu
         parent::generate();
 
         if ($this->dropdownsEnabled()) {
-            //
+            $this->organizeDropdownItems();
         }
 
         return $this;
@@ -36,7 +36,7 @@ class NavigationMenu extends BaseNavigationMenu
         parent::filter();
 
         if ($this->dropdownsEnabled()) {
-            $this->organizeDropdownItems();
+            //
         }
 
         return $this;
