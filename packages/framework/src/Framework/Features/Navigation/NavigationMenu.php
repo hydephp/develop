@@ -70,14 +70,16 @@ class NavigationMenu extends BaseNavigationMenu
         return count($this->getDropdowns()) >= 1;
     }
 
-    /** @return array<string, array<NavItem>> */
+    /** @return array<string, DropdownNavItem> */
     public function getDropdowns(): array
     {
         if (! $this->dropdownsEnabled()) {
             throw new BadMethodCallException('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
         }
 
-        return $this->dropdowns;
+        return $this->items->filter(function (NavItem $item): bool {
+            return $item instanceof DropdownNavItem;
+        })->all();
     }
 
     protected static function canBeInDropdown(NavItem $item): bool
