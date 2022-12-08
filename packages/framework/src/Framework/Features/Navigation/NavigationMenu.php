@@ -61,15 +61,6 @@ class NavigationMenu extends BaseNavigationMenu
         }
     }
 
-    protected function filterDropdownItems(): Collection
-    {
-        $dropdownItems = collect($this->getDropdowns())->flatten()->toArray();
-
-        return $this->items->reject(function (NavItem $item) use ($dropdownItems): bool {
-            return in_array($item, $dropdownItems);
-        });
-    }
-
     public function hasDropdowns(): bool
     {
         if (! $this->dropdownsEnabled()) {
