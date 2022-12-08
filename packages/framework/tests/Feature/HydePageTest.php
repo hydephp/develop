@@ -969,6 +969,7 @@ class HydePageTest extends TestCase
             $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());
 
             unlink($page::sourcePath('foo'));
+            Hyde::boot();
         }
     }
 
