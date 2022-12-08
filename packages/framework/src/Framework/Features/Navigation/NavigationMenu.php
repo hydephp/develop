@@ -36,7 +36,7 @@ class NavigationMenu extends BaseNavigationMenu
         parent::filter();
 
         if ($this->dropdownsEnabled()) {
-            $this->items = $this->filterDropdownItems();
+            $this->organizeDropdownItems();
         }
 
         return $this;
