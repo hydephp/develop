@@ -119,6 +119,6 @@ class NavigationMenu
 
     protected static function canBeInDropdown(NavItem $item): bool
     {
-        return $item->getGroup() !== null;
+        return ($item->getGroup() !== null);
     }
 }
