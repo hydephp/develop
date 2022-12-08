@@ -8,6 +8,7 @@ use Hyde\Foundation\Facades\Router;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
+use function config;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
@@ -83,6 +84,10 @@ class NavigationMenu
 
     public function hasDropdowns(): bool
     {
+        if (config('hyde.navigation.subdirectories', 'hidden') !== 'dropdown') {
+            return false;
+        }
+
         return $this->items->contains(function (NavItem $item): bool {
             return $item->getGroup() !== null;
         });
