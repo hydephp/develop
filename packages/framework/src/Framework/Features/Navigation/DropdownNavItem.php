@@ -10,6 +10,7 @@ class DropdownNavItem extends NavItem
     public array $items;
 
     public string $name;
+    public string $href = '#';
 
     public function __construct(string $name, array $items)
     {
