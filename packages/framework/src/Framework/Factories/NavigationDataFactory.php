@@ -102,8 +102,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
-        // TODO make this configurable
-        if (Str::contains($this->identifier, '/')) {
+        if (Str::contains($this->identifier, '/') && config('hyde.navigation.subdirectories', 'hidden') === 'hidden') {
             return true;
         }
 
