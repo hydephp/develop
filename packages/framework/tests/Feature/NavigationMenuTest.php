@@ -11,6 +11,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use function config;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
@@ -258,6 +259,7 @@ class NavigationMenuTest extends TestCase
 
     public function test_has_dropdowns()
     {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
         $this->assertFalse($menu->hasDropdowns());
 
@@ -267,6 +269,7 @@ class NavigationMenuTest extends TestCase
 
     public function test_get_dropdowns()
     {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
         $this->assertCount(0, $menu->getDropdowns());
 
@@ -282,6 +285,7 @@ class NavigationMenuTest extends TestCase
 
     public function test_get_dropdowns_with_multiple_items()
     {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
 
         $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
@@ -299,6 +303,7 @@ class NavigationMenuTest extends TestCase
 
     public function test_get_dropdowns_with_multiple_dropdowns()
     {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
 
         $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
