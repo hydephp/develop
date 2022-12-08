@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
-use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use function collect;
 use function config;
 use Hyde\Foundation\Facades\Router;
+use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
