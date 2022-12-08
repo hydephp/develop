@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
  * @phpstan-consistent-constructor
  */
-class BaseNavigationMenu
+abstract class BaseNavigationMenu
 {
     public Collection $items;
 
