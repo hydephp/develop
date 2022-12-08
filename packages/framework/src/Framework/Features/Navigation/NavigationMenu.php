@@ -83,7 +83,9 @@ class NavigationMenu
 
     public function hasDropdowns(): bool
     {
-        //
+        return $this->items->contains(function (NavItem $item): bool {
+            return $item->getGroup() !== null;
+        });
     }
 
     /**

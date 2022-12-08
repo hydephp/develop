@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
@@ -253,5 +254,14 @@ class NavigationMenuTest extends TestCase
 
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_has_dropdowns()
+    {
+        $menu = NavigationMenu::create();
+        $this->assertFalse($menu->hasDropdowns());
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $this->assertTrue($menu->hasDropdowns());
     }
 }
