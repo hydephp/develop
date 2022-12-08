@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function config;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
@@ -11,7 +12,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use function config;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu

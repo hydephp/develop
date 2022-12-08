@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use BadMethodCallException;
+use function config;
 use Hyde\Foundation\Facades\Router;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
-use function config;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
