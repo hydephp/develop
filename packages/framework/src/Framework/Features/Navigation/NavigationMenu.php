@@ -87,7 +87,7 @@ class NavigationMenu
 
     public function hasDropdowns(): bool
     {
-        if (config('hyde.navigation.subdirectories', 'hidden') !== 'dropdown') {
+        if (! $this->dropdownsEnabled()) {
             return false;
         }
 
@@ -101,7 +101,7 @@ class NavigationMenu
      */
     public function getDropdowns(): array
     {
-        if (config('hyde.navigation.subdirectories', 'hidden') !== 'dropdown') {
+        if (! $this->dropdownsEnabled()) {
             throw new BadMethodCallException('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
         }
 
@@ -122,5 +122,10 @@ class NavigationMenu
     protected static function canBeInDropdown(NavItem $item): bool
     {
         return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
+    }
+
+    protected static function dropdownsEnabled(): bool
+    {
+        return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
 }
