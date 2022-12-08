@@ -23,9 +23,7 @@ class NavigationMenu
 
     public Collection $items;
 
-    /**
-     * @var \Hyde\Framework\Features\Navigation\NavItem[][]
-     */
+    /** @var array<string, array<NavItem>> */
     protected array $dropdowns;
 
     public function __construct()
@@ -116,9 +114,7 @@ class NavigationMenu
         return count($this->getDropdowns()) >= 1;
     }
 
-    /**
-     * @return array<string, array<NavItem>>
-     */
+    /** @return array<string, array<NavItem>> */
     public function getDropdowns(): array
     {
         if (! $this->dropdownsEnabled()) {
