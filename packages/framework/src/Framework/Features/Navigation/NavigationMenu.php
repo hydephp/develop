@@ -17,7 +17,7 @@ use function in_array;
  */
 class NavigationMenu extends BaseNavigationMenu
 {
-    /** @var array<string, array<NavItem>> */
+    /** @deprecated */
     protected array $dropdowns;
 
     public function generate(): static
