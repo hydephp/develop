@@ -20,7 +20,6 @@ class NavigationMenu extends BaseNavigationMenu
     /** @var array<string, array<NavItem>> */
     protected array $dropdowns;
 
-    /** @return $this */
     public function generate(): static
     {
         parent::generate();
@@ -32,7 +31,6 @@ class NavigationMenu extends BaseNavigationMenu
         return $this;
     }
 
-    /** @return $this */
     public function filter(): static
     {
         parent::filter();
