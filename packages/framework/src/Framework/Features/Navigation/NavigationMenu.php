@@ -25,7 +25,7 @@ class NavigationMenu extends BaseNavigationMenu
         parent::generate();
 
         if ($this->dropdownsEnabled()) {
-            $this->dropdowns = $this->makeDropdowns();
+            //
         }
 
         return $this;
@@ -100,21 +100,5 @@ class NavigationMenu extends BaseNavigationMenu
     protected static function dropdownsEnabled(): bool
     {
         return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
-    }
-
-    protected function makeDropdowns(): array
-    {
-        $dropdowns = [];
-
-        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
-        foreach ($this->items as $item) {
-            if (! $this->canBeInDropdown($item)) {
-                continue;
-            }
-
-            $dropdowns[$item->getGroup()][] = $item;
-        }
-
-        return $dropdowns;
     }
 }
