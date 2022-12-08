@@ -388,8 +388,8 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
-        Router::push(((new MarkdownPage('foo'))->getRoute()));
-        Router::push(((new MarkdownPage('bar/baz'))->getRoute()));
+        Router::push((new MarkdownPage('foo'))->getRoute());
+        Router::push((new MarkdownPage('bar/baz'))->getRoute());
         $menu = NavigationMenu::create();
 
         $this->assertCount(2, $menu->getItems());
