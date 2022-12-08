@@ -10,7 +10,6 @@ use Hyde\Foundation\Facades\Router;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
@@ -79,24 +78,5 @@ abstract class BaseNavigationMenu
         return isset($item->route)
             && $item->route->getPage() instanceof DocumentationPage
             && $item->route->getRouteKey() !== 'docs/index';
-    }
-
-    public function hasGroups(): bool
-    {
-        return count($this->getGroups()) >= 1;
-    }
-
-    public function getGroups(): array
-    {
-        return $this->items->map(function (NavItem $item): string {
-            return $item->getGroup();
-        })->unique()->toArray();
-    }
-
-    public function getItemsInGroup(?string $group): Collection
-    {
-        return $this->items->filter(function (NavItem $item) use ($group): bool {
-            return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
-        })->sortBy('navigation.priority')->values();
     }
 }
