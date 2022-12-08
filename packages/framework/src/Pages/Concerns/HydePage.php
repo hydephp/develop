@@ -223,7 +223,7 @@ abstract class HydePage implements PageSchema
      */
     public function getRoute(): Route
     {
-        return \Hyde\Facades\Route::get($this->getRouteKey());
+        return \Hyde\Facades\Route::get($this->getRouteKey()) ?? new Route($this);
     }
 
     /**
