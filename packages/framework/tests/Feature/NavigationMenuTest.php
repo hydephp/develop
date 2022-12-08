@@ -222,4 +222,36 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
     }
+
+    public function test_pages_in_subdirectories_can_be_added_to_the_navigation_menu_with_config_flat_setting()
+    {
+        config(['hyde.navigation.subdirectories' => 'flat']);
+        $this->directory('_pages/foo');
+        Hyde::touch('_pages/foo/bar.md');
+
+        $menu = NavigationMenu::create();
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('foo/bar')),
+        ]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_pages_in_subdirectories_can_be_added_to_the_navigation_menu_with_config_dropdown_setting()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $this->directory('_pages/foo');
+        Hyde::touch('_pages/foo/bar.md');
+
+        $menu = NavigationMenu::create();
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('foo/bar')),
+        ]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+    }
 }
