@@ -112,9 +112,7 @@ class NavigationMenu
             return false;
         }
 
-        return $this->items->contains(function (NavItem $item): bool {
-            return $this->canBeInDropdown($item);
-        });
+        return count($this->getDropdowns()) >= 1;
     }
 
     /**
