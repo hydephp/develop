@@ -94,6 +94,7 @@ class NavigationMenu
     protected function filterDropdownItems(): Collection
     {
         $dropdownItems = collect($this->getDropdowns())->flatten()->toArray();
+
         return $this->items->reject(function (NavItem $item) use ($dropdownItems): bool {
             return in_array($item, $dropdownItems);
         });
@@ -143,7 +144,7 @@ class NavigationMenu
 
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $item) {
-            if (!$this->canBeInDropdown($item)) {
+            if (! $this->canBeInDropdown($item)) {
                 continue;
             }
 
