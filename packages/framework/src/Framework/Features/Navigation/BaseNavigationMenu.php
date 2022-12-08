@@ -13,13 +13,12 @@ use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
- * @phpstan-consistent-constructor
  */
 abstract class BaseNavigationMenu
 {
     public Collection $items;
 
-    public function __construct()
+    final public function __construct()
     {
         $this->items = new Collection();
     }

@@ -14,7 +14,6 @@ use function in_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
- * @phpstan-consistent-constructor
  */
 class NavigationMenu extends BaseNavigationMenu
 {
