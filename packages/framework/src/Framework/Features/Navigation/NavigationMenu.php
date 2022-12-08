@@ -32,11 +32,11 @@ class NavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        Router::each(function (Route $route) {
+        Router::each(function (Route $route): void {
             $this->items->push(NavItem::fromRoute($route));
         });
 
-        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item) {
+        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
             $this->items->push($item);
         });
 
@@ -62,14 +62,14 @@ class NavigationMenu
 
     protected function filterHiddenItems(): Collection
     {
-        return $this->items->reject(function (NavItem $item) {
+        return $this->items->reject(function (NavItem $item): bool {
             return $item->hidden || $this->filterDocumentationPage($item);
         })->values();
     }
 
     protected function filterDuplicateItems(): Collection
     {
-        return $this->items->unique(function (NavItem $item) {
+        return $this->items->unique(function (NavItem $item): string {
             return $item->resolveLink();
         });
     }

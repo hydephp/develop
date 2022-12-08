@@ -83,6 +83,12 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getDocumentationPageGroup();
         }
 
+        if (Str::contains($this->identifier, '/') && $this->getSubdirectoryConfiguration() === 'dropdown') {
+            return Str::before($this->identifier, '/');
+        }
+
+        // TODO Check in front matter for group?
+
         return null;
     }
 
@@ -97,6 +103,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
+            return true;
+        }
+
+        if (Str::contains($this->identifier, '/') && $this->getSubdirectoryConfiguration() === 'hidden') {
             return true;
         }
 
@@ -166,5 +176,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->matter('navigation.group')
             ?? $this->matter('navigation.category')
             ?? 'other';
+    }
+
+    protected static function getSubdirectoryConfiguration(): string
+    {
+        return config('hyde.navigation.subdirectories', 'hidden');
     }
 }
