@@ -8,6 +8,7 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use function config;
 
 class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
 {
@@ -18,6 +19,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         parent::setUp();
 
         config(['hyde.cache_busting' => false]);
+        config(['hyde.navigation.subdirectories' => 'flat']);
 
         $this->needsDirectory('_pages/nested');
         $this->file('_pages/root.md');
