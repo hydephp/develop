@@ -217,10 +217,7 @@ class NavigationMenuTest extends TestCase
         Hyde::touch('_pages/foo/bar.md');
 
         $menu = NavigationMenu::create();
-
-        $expected = collect([
-            NavItem::fromRoute(Route::get('index')),
-        ]);
+        $expected = collect([NavItem::fromRoute(Route::get('index'))]);
 
         $this->assertCount(count($expected), $menu->items);
         $this->assertEquals($expected, $menu->items);
