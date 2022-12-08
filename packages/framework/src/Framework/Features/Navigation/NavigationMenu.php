@@ -159,4 +159,12 @@ class NavigationMenu
 
         return $dropdowns;
     }
+
+    /**
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
 }
