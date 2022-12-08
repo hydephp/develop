@@ -21,12 +21,14 @@ class NavigationMenu
 {
     /**
      * @deprecated Will be made protected
+     *
      * @internal
      */
     public Route $currentRoute;
 
     /**
      * @deprecated Will be made protected
+     *
      * @internal
      */
     public Collection $items;
