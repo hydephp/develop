@@ -17,9 +17,6 @@ use function in_array;
  */
 class NavigationMenu extends BaseNavigationMenu
 {
-    /** @deprecated */
-    protected array $dropdowns;
-
     public function generate(): static
     {
         parent::generate();
