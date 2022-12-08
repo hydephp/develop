@@ -18,8 +18,8 @@ class DocumentationSidebar extends NavigationMenu
     /** @return $this */
     public function generate(): static
     {
-        Router::getRoutes(DocumentationPage::class)->each(function (Route $route) {
-            $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item) {
+        Router::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
+            $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item): void {
                 $item->label = $item->route->getPage()->data('navigation.label');
             }));
         });
@@ -29,20 +29,20 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        return count($this->getGroups()) >= 1 && $this->getGroups() !== [0 => 'other'];
+        return (count($this->getGroups()) >= 1) && ($this->getGroups() !== ['other']);
     }
 
     public function getGroups(): array
     {
-        return $this->items->map(function (NavItem $item) {
+        return $this->items->map(function (NavItem $item): string {
             return $item->getGroup();
         })->unique()->toArray();
     }
 
     public function getItemsInGroup(?string $group): Collection
     {
-        return $this->items->filter(function ($item) use ($group) {
-            return $item->getGroup() === $group || $item->getGroup() === Str::slug($group);
+        return $this->items->filter(function (NavItem $item) use ($group): bool {
+            return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
         })->sortBy('navigation.priority')->values();
     }
 
