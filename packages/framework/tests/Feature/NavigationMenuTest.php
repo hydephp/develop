@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use function collect;
 use function config;
 use Hyde\Foundation\Facades\Router;
@@ -256,6 +257,9 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
+            (new DropdownNavItem('foo', [
+                NavItem::fromRoute(Route::get('foo/bar')),
+            ])),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
