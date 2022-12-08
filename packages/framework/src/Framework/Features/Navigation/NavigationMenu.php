@@ -80,4 +80,17 @@ class NavigationMenu
             && $item->route->getPage() instanceof DocumentationPage
             && $item->route->getRouteKey() !== 'docs/index';
     }
+
+    public function hasDropdowns(): bool
+    {
+        //
+    }
+
+    /**
+     * @return array<string, Collection<NavItem>>
+     */
+    public function getDropdowns(): array
+    {
+        //
+    }
 }
