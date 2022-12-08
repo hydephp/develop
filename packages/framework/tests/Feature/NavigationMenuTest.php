@@ -277,6 +277,7 @@ class NavigationMenuTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
         $this->assertCount(0, $menu->getDropdowns());
+        $this->assertSame([], $menu->getDropdowns());
     }
 
     public function test_get_dropdowns_returns_correct_array_when_there_are_dropdowns()
