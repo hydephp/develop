@@ -90,7 +90,7 @@ class NavigationMenu
         }
 
         return $this->items->contains(function (NavItem $item): bool {
-            return $item->getGroup() !== null;
+            return $this->canBeInDropdown($item);
         });
     }
 
@@ -107,7 +107,7 @@ class NavigationMenu
 
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $item) {
-            if ($item->getGroup() === null) {
+            if (! $this->canBeInDropdown($item)) {
                 continue;
             }
 
@@ -115,5 +115,10 @@ class NavigationMenu
         }
 
         return $dropdowns;
+    }
+
+    protected static function canBeInDropdown(NavItem $item): bool
+    {
+        return $item->getGroup() !== null;
     }
 }
