@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use function collect;
 use function config;
 use Hyde\Foundation\Facades\Router;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
