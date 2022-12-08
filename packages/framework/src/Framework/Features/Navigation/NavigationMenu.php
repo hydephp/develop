@@ -93,6 +93,17 @@ class NavigationMenu
      */
     public function getDropdowns(): array
     {
-        //
+        $dropdowns = [];
+
+        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
+        foreach ($this->items as $item) {
+            if ($item->getGroup() === null) {
+                continue;
+            }
+
+            $dropdowns[$item->getGroup()][] = $item;
+        }
+
+        return $dropdowns;
     }
 }

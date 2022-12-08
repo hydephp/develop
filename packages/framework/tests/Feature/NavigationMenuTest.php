@@ -264,4 +264,57 @@ class NavigationMenuTest extends TestCase
         $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
         $this->assertTrue($menu->hasDropdowns());
     }
+
+    public function test_get_dropdowns()
+    {
+        $menu = NavigationMenu::create();
+        $this->assertCount(0, $menu->getDropdowns());
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $this->assertCount(1, $menu->getDropdowns());
+
+        $this->assertEquals([
+            'foo' => [
+                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
+            ],
+        ], $menu->getDropdowns());
+    }
+
+    public function test_get_dropdowns_with_multiple_items()
+    {
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
+
+        $this->assertCount(1, $menu->getDropdowns());
+
+        $this->assertEquals([
+            'foo' => [
+                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
+                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
+            ],
+        ], $menu->getDropdowns());
+    }
+
+    public function test_get_dropdowns_with_multiple_dropdowns()
+    {
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()));
+
+        $this->assertCount(2, $menu->getDropdowns());
+
+        $this->assertEquals([
+            'foo' => [
+                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
+                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
+            ],
+            'cat' => [
+                NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
+            ],
+        ], $menu->getDropdowns());
+    }
 }
