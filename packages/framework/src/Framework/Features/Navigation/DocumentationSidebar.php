@@ -29,7 +29,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        return (count($this->getGroups()) >= 1) && ($this->getGroups() !== [0 => 'other']);
+        return (count($this->getGroups()) >= 1) && ($this->getGroups() !== ['other']);
     }
 
     public function getGroups(): array
