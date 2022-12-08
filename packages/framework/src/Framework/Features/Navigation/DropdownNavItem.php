@@ -13,7 +13,7 @@ class DropdownNavItem extends NavItem
 
     public function __construct(string $name, array $items)
     {
-        parent::__construct(null, $name);
+        parent::__construct(null, $name, 999);
         $this->items = $items;
         $this->name = $name;
     }
