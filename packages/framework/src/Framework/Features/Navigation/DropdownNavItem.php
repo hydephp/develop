@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Pages\BladePage;
+use Hyde\Support\Models\Route;
+
 class DropdownNavItem extends NavItem
 {
     /** @var array<NavItem> */
@@ -13,8 +16,13 @@ class DropdownNavItem extends NavItem
 
     public function __construct(string $name, array $items)
     {
-        parent::__construct(null, $name);
+        parent::__construct(self::route(), $name);
         $this->items = $items;
         $this->name = $name;
+    }
+
+    protected static function route(): Route
+    {
+        return new Route(new BladePage());
     }
 }
