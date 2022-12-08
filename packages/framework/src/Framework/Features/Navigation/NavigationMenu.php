@@ -121,6 +121,6 @@ class NavigationMenu
 
     protected static function canBeInDropdown(NavItem $item): bool
     {
-        return ($item->getGroup() !== null) && (!in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]));
+        return ($item->getGroup() !== null) && !in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
     }
 }
