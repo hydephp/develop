@@ -109,7 +109,7 @@ class BuildSiteCommand extends Command
     {
         $execution_time = (microtime(true) - $time_start);
         $this->info(sprintf(
-            'All done! Finished in %s seconds. (%sms)',
+            "\nAll done! Finished in %s seconds. (%sms)",
             number_format($execution_time, 2),
             number_format($execution_time * 1000, 2)
         ));
