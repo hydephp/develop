@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use BadMethodCallException;
-use function collect;
 use function config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
-use Illuminate\Support\Collection;
 use function in_array;
 
 /**
