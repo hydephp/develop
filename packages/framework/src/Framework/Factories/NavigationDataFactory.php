@@ -83,6 +83,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getDocumentationPageGroup();
         }
 
+        // TODO If config is set to group subdirectory pages, set the group to the subdirectory name
+
         return null;
     }
 
