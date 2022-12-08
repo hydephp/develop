@@ -42,6 +42,25 @@ class NavigationMenu extends BaseNavigationMenu
         return $this;
     }
 
+    protected function organizeDropdownItems(): void
+    {
+        $dropdowns = [];
+
+        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
+        foreach ($this->items as $item) {
+            if (! $this->canBeInDropdown($item)) {
+                continue;
+            }
+
+            $dropdowns[$item->getGroup()][] = $item;
+            $this->items->forget($item->route->getRouteKey());
+        }
+
+        foreach ($dropdowns as $group => $items) {
+            $this->items->push(new DropdownNavItem($group, $items));
+        }
+    }
+
     protected function filterDropdownItems(): Collection
     {
         $dropdownItems = collect($this->getDropdowns())->flatten()->toArray();
