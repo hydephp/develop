@@ -400,4 +400,6 @@ class NavigationMenuTest extends TestCase
             NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
         ], $menu->items->all());
     }
+
+    // TODO test dropdown items are sorted
 }
