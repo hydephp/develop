@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use function config;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -272,6 +273,13 @@ class NavigationMenuTest extends TestCase
         $this->assertTrue($menu->hasDropdowns());
     }
 
+    public function test_has_dropdowns_always_returns_false_when_dropdowns_are_disabled()
+    {
+        $menu = NavigationMenu::create();
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $this->assertFalse($menu->hasDropdowns());
+    }
+
     public function test_get_dropdowns_returns_empty_array_there_are_no_dropdowns()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
@@ -332,5 +340,14 @@ class NavigationMenuTest extends TestCase
                 NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
             ],
         ], $menu->getDropdowns());
+    }
+
+    public function test_get_dropdowns_throws_exception_when_disabled()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
+
+        $menu = NavigationMenu::create();
+        $menu->getDropdowns();
     }
 }
