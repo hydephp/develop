@@ -32,7 +32,7 @@ abstract class BaseNavigationMenu
     public function generate(): static
     {
         Router::each(function (Route $route): void {
-            $this->items->push(NavItem::fromRoute($route));
+            $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
         });
 
         collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
