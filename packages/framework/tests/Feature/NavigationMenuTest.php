@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
 use function config;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;

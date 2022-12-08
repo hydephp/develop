@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use BadMethodCallException;
-use Hyde\Pages\MarkdownPost;
 use function config;
 use Hyde\Foundation\Facades\Router;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use function in_array;
@@ -121,6 +121,6 @@ class NavigationMenu
 
     protected static function canBeInDropdown(NavItem $item): bool
     {
-        return ($item->getGroup() !== null) && !in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
+        return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
     }
 }
