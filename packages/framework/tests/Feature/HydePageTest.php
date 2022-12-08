@@ -501,6 +501,13 @@ class HydePageTest extends TestCase
         $this->assertEquals(new Route($page), $page->getRoute());
     }
 
+    public function test_get_route_returns_the_route_object_from_the_router_index()
+    {
+        $this->file('_pages/foo.md');
+        $page = MarkdownPage::parse('foo');
+        $this->assertSame(\Hyde\Facades\Route::get('foo'), $page->getRoute());
+    }
+
     public function test_html_title_returns_site_name_plus_page_title()
     {
         $this->assertEquals('HydePHP - Foo', MarkdownPage::make('', ['title' => 'Foo'])->htmlTitle());
