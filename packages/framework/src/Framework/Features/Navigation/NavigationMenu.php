@@ -53,6 +53,10 @@ class NavigationMenu
         $this->items = $this->filterHiddenItems();
         $this->items = $this->filterDuplicateItems();
 
+        if ($this->dropdownsEnabled()) {
+            $this->items = $this->filterDropdownItems();
+        }
+
         return $this;
     }
 
@@ -75,6 +79,14 @@ class NavigationMenu
     {
         return $this->items->unique(function (NavItem $item): string {
             return $item->resolveLink();
+        });
+    }
+
+    protected function filterDropdownItems(): Collection
+    {
+        $dropdownItems = collect($this->getDropdowns())->flatten()->toArray();
+        return $this->items->reject(function (NavItem $item) use ($dropdownItems): bool {
+            return in_array($item, $dropdownItems);
         });
     }
 

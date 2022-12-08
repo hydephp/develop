@@ -244,7 +244,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_pages_in_subdirectories_can_be_added_to_the_navigation_menu_with_config_dropdown_setting()
+    public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu_with_config_dropdown_setting()
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $this->directory('_pages/foo');
@@ -253,7 +253,6 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
-            NavItem::fromRoute(Route::get('foo/bar')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
