@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use BadMethodCallException;
 use Hyde\Foundation\Facades\Router;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
@@ -98,6 +99,10 @@ class NavigationMenu
      */
     public function getDropdowns(): array
     {
+        if (config('hyde.navigation.subdirectories', 'hidden') !== 'dropdown') {
+            throw new BadMethodCallException('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
+        }
+
         $dropdowns = [];
 
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
