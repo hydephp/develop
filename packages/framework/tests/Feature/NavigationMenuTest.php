@@ -271,6 +271,7 @@ class NavigationMenuTest extends TestCase
         config(['hyde.navigation.subdirectories' => 'dropdown']);
         $menu = NavigationMenu::create();
         $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->generate();
         $this->assertTrue($menu->hasDropdowns());
     }
 
@@ -278,6 +279,7 @@ class NavigationMenuTest extends TestCase
     {
         $menu = NavigationMenu::create();
         $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->generate();
         $this->assertFalse($menu->hasDropdowns());
     }
 
@@ -362,6 +364,7 @@ class NavigationMenuTest extends TestCase
 
         $menu->items->push(NavItem::fromRoute((new DocumentationPage('foo'))->getRoute()));
         $menu->items->push(NavItem::fromRoute((new DocumentationPage('bar/baz'))->getRoute()));
+        $menu->generate();
 
         $this->assertFalse($menu->hasDropdowns());
         $this->assertCount(0, $menu->getDropdowns());
@@ -374,6 +377,7 @@ class NavigationMenuTest extends TestCase
 
         $menu->items->push(NavItem::fromRoute((new MarkdownPost('foo'))->getRoute()));
         $menu->items->push(NavItem::fromRoute((new MarkdownPost('bar/baz'))->getRoute()));
+        $menu->generate();
 
         $this->assertFalse($menu->hasDropdowns());
         $this->assertCount(0, $menu->getDropdowns());
