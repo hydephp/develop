@@ -100,6 +100,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
+        // TODO make this configurable
         if (Str::contains($this->identifier, '/')) {
             return true;
         }
