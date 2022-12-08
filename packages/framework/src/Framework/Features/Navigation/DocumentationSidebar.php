@@ -14,7 +14,7 @@ use function tap;
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  */
-class DocumentationSidebar extends NavigationMenu
+class DocumentationSidebar extends BaseNavigationMenu
 {
     /** @return $this */
     public function generate(): static
