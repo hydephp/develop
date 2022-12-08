@@ -11,6 +11,7 @@ use Hyde\Foundation\Facades\Router;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
+use function in_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
@@ -120,6 +121,6 @@ class NavigationMenu
 
     protected static function canBeInDropdown(NavItem $item): bool
     {
-        return ($item->getGroup() !== null) && (!($item->route->getPage() instanceof DocumentationPage) && !($item->route->getPage() instanceof MarkdownPost));
+        return ($item->getGroup() !== null) && (!in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]));
     }
 }
