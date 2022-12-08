@@ -87,6 +87,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return Str::before($this->identifier, '/');
         }
 
+        // TODO Check in front matter for group?
+
         return null;
     }
 
