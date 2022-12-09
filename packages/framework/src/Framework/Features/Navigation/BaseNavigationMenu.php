@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\Navigation;
 use function collect;
 use function config;
 use Hyde\Foundation\Facades\Router;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 
