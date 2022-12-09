@@ -4,80 +4,83 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Foundation\Facades\Router;
+use BadMethodCallException;
+use function config;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Support\Models\Route;
-use Illuminate\Support\Collection;
+use Hyde\Pages\MarkdownPost;
+use function in_array;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
- * @phpstan-consistent-constructor
  */
-class NavigationMenu
+class NavigationMenu extends BaseNavigationMenu
 {
-    public Route $currentRoute;
-
-    public Collection $items;
-
-    public function __construct()
-    {
-        $this->items = new Collection();
-    }
-
-    public static function create(): static
-    {
-        return (new static())->generate()->filter()->sort();
-    }
-
-    /** @return $this */
     public function generate(): static
     {
-        Router::each(function (Route $route): void {
-            $this->items->push(NavItem::fromRoute($route));
-        });
+        parent::generate();
 
-        collect(config('hyde.navigation.custom', []))->each(function (NavItem $item): void {
-            $this->items->push($item);
-        });
+        if ($this->dropdownsEnabled()) {
+            $this->putGroupedItemsInDropdowns();
+        }
 
         return $this;
     }
 
-    /** @return $this */
-    public function filter(): static
+    protected function putGroupedItemsInDropdowns(): void
     {
-        $this->items = $this->filterHiddenItems();
-        $this->items = $this->filterDuplicateItems();
+        $dropdowns = [];
 
-        return $this;
+        /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
+        foreach ($this->items as $item) {
+            if ($this->canBeInDropdown($item)) {
+                // Buffer the item in the dropdowns array
+                $dropdowns[$item->getGroup()][] = $item;
+
+                // Remove the item from the main items collection
+                $this->items->forget($item->route->getRouteKey());
+            }
+        }
+
+        foreach ($dropdowns as $group => $items) {
+            // Create a new dropdown item containing the buffered items
+            $this->items->put("dropdown.$group", new DropdownNavItem($group, $items));
+        }
     }
 
-    /** @return $this */
-    public function sort(): static
+    public function hasDropdowns(): bool
     {
-        $this->items = $this->items->sortBy('priority')->values();
+        if (! $this->dropdownsEnabled()) {
+            return false;
+        }
 
-        return $this;
+        return count($this->getDropdowns()) >= 1;
     }
 
-    protected function filterHiddenItems(): Collection
+    /** @return array<string, DropdownNavItem> */
+    public function getDropdowns(): array
     {
-        return $this->items->reject(function (NavItem $item): bool {
-            return $item->hidden || $this->filterDocumentationPage($item);
-        })->values();
+        if (! $this->dropdownsEnabled()) {
+            throw new BadMethodCallException('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
+        }
+
+        return $this->items->filter(function (NavItem $item): bool {
+            return $item instanceof DropdownNavItem;
+        })->all();
     }
 
-    protected function filterDuplicateItems(): Collection
+    protected static function canBeInDropdown(NavItem $item): bool
     {
-        return $this->items->unique(function (NavItem $item): string {
-            return $item->resolveLink();
-        });
+        return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
     }
 
-    protected function filterDocumentationPage(NavItem $item): bool
+    protected static function dropdownsEnabled(): bool
     {
-        return isset($item->route)
-            && $item->route->getPage() instanceof DocumentationPage
-            && $item->route->getRouteKey() !== 'docs/index';
+        return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+    }
+
+    protected static function shouldItemBeHidden(NavItem $item): bool
+    {
+        return parent::shouldItemBeHidden($item) ||
+            $item->getRoute()?->getPage() instanceof DocumentationPage && ! $item->getRoute()->is('docs/index');
     }
 }

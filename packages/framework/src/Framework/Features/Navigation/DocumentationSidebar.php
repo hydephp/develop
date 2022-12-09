@@ -13,15 +13,13 @@ use Illuminate\Support\Str;
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  */
-class DocumentationSidebar extends NavigationMenu
+class DocumentationSidebar extends BaseNavigationMenu
 {
     /** @return $this */
     public function generate(): static
     {
         Router::getRoutes(DocumentationPage::class)->each(function (Route $route): void {
-            $this->items->push(tap(NavItem::fromRoute($route)->setPriority($this->getPriorityForRoute($route)), function (NavItem $item): void {
-                $item->label = $item->route->getPage()->data('navigation.label');
-            }));
+            $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
         });
 
         return $this;
@@ -46,13 +44,8 @@ class DocumentationSidebar extends NavigationMenu
         })->sortBy('navigation.priority')->values();
     }
 
-    protected function getPriorityForRoute(Route $route): int
+    protected static function shouldItemBeHidden(NavItem $item): bool
     {
-        return $route->getPage()->data('navigation.priority');
-    }
-
-    protected function filterDocumentationPage(NavItem $item): bool
-    {
-        return ! parent::filterDocumentationPage($item);
+        return parent::shouldItemBeHidden($item) || $item->getRoute()?->is('docs/index');
     }
 }
