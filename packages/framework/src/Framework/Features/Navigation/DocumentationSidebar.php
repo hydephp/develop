@@ -55,14 +55,6 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     protected static function shouldItemBeHidden(NavItem $item): bool
     {
-        if (parent::shouldItemBeHidden($item)) {
-            return true;
-        }
-
-        if ($item->getRoute()?->is('docs/index')) {
-            return true;
-        }
-
-        return false;
+        return parent::shouldItemBeHidden($item) || $item->getRoute()?->is('docs/index');
     }
 }
