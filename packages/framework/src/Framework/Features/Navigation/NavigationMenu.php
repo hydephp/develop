@@ -88,4 +88,19 @@ class NavigationMenu extends BaseNavigationMenu
     {
         return config('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
+
+    protected static function shouldItemBeHidden(NavItem $item): bool
+    {
+        if (parent::shouldItemBeHidden($item)) {
+            return true;
+        }
+
+        if ($item->getRoute()?->getPage() instanceof DocumentationPage) {
+            if ($item->getRoute()?->getRouteKey() !== 'docs/index') {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

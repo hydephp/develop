@@ -73,13 +73,6 @@ abstract class BaseNavigationMenu
         });
     }
 
-    /** @deprecated  */
-    protected function filterDocumentationPage(NavItem $item): bool
-    {
-        return $item->getRoute()?->getPage() instanceof DocumentationPage
-            && $item->getRoute()?->getRouteKey() !== 'docs/index';
-    }
-
     protected static function shouldItemBeHidden(NavItem $item): bool
     {
         return $item->hidden;
