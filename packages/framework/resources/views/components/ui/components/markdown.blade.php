@@ -1,3 +1,3 @@
 <div>
-    {{ Hyde::markdown($slot) }}
+    {{ Hyde::markdown($slot, true) }}
 </div>
