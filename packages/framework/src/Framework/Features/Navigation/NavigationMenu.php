@@ -52,7 +52,7 @@ class NavigationMenu extends BaseNavigationMenu
         }
 
         foreach ($dropdowns as $group => $items) {
-            $this->items->put($group, new DropdownNavItem($group, $items));
+            $this->items->put("dropdown.$group", new DropdownNavItem($group, $items));
         }
     }
 
