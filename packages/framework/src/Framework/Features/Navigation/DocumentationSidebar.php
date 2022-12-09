@@ -45,11 +45,6 @@ class DocumentationSidebar extends BaseNavigationMenu
         })->sortBy('navigation.priority')->values();
     }
 
-    protected function getPriorityForRoute(Route $route): int
-    {
-        return $route->getPage()->data('navigation.priority');
-    }
-
     protected static function shouldItemBeHidden(NavItem $item): bool
     {
         return parent::shouldItemBeHidden($item) || $item->getRoute()?->is('docs/index');
