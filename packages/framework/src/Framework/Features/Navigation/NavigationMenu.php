@@ -79,13 +79,6 @@ class NavigationMenu extends BaseNavigationMenu
 
     protected static function canBeInDropdown(NavItem $item): bool
     {
-        if ($item instanceof DropdownNavItem) {
-            return false;
-        }
-        if (! isset($item->route)) {
-            return false;
-        }
-
         return ($item->getGroup() !== null) && ! in_array($item->route->getPageClass(), [DocumentationPage::class, MarkdownPost::class]);
     }
 
