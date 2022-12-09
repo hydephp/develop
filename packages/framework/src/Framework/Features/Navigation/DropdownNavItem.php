@@ -8,6 +8,8 @@ namespace Hyde\Framework\Features\Navigation;
  * A navigation item that contains other navigation items.
  *
  * Unlike a regular navigation items, a dropdown item does not have a route or URL destination.
+ *
+ * @see \Hyde\Framework\Testing\Unit\DropdownNavItemTest
  */
 class DropdownNavItem extends NavItem
 {
