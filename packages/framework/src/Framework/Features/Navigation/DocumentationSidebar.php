@@ -9,7 +9,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function tap;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
