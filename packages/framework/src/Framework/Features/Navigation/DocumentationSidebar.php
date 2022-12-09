@@ -53,6 +53,7 @@ class DocumentationSidebar extends BaseNavigationMenu
         return $route->getPage()->data('navigation.priority');
     }
 
+    /** @deprecated  */
     protected function filterDocumentationPage(NavItem $item): bool
     {
         return ! parent::filterDocumentationPage($item);
