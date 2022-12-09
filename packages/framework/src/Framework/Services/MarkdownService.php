@@ -216,6 +216,7 @@ class MarkdownService
     public static function stripIndentation(string $string): string
     {
         $string = str_replace("\t", '    ', $string);
+        $string = str_replace("\r\n", "\n", $string);
         $lines = explode("\n", $string);
         $indentationLevel = 0;
         $offset = 0;
