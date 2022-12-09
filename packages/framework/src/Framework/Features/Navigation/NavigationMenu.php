@@ -43,12 +43,10 @@ class NavigationMenu extends BaseNavigationMenu
 
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $item) {
-            if (! $this->canBeInDropdown($item)) {
-                continue;
+            if ($this->canBeInDropdown($item)) {
+                $dropdowns[$item->getGroup()][] = $item;
+                $this->items->forget($item->route->getRouteKey());
             }
-
-            $dropdowns[$item->getGroup()][] = $item;
-            $this->items->forget($item->route->getRouteKey());
         }
 
         foreach ($dropdowns as $group => $items) {
