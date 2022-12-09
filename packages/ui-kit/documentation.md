@@ -119,13 +119,12 @@ This component will convert any Markdown within it to HTML using the Hyde Markdo
 
 ```blade
 <x-hyde::ui.components.markdown>
-## Markdown Heading
-
-Hello world!
+    ## Markdown Heading
+    
+    Hello world!
 </x-hyde::ui.components.markdown>
 ```
 
->warn Remember to de-indent the Markdown content otherwise it will be rendered as a code block.
 >info Tip: You may also want to wrap this in the prose element or the Markdown will not be styled.
 
 ### What's Next?
