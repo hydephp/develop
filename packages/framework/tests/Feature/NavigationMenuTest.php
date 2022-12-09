@@ -46,8 +46,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('404')),
-            NavItem::fromRoute(Route::get('index')),
+            '404' => NavItem::fromRoute(Route::get('404')),
+            'index' => NavItem::fromRoute(Route::get('index')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
