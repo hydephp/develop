@@ -99,6 +99,11 @@ class HydeKernelTest extends TestCase
         $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('foo'));
     }
 
+    public function test_markdown_helper_converts_indented_markdown_to_html()
+    {
+        $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('    foo', true));
+    }
+
     public function test_format_html_path_helper_formats_path_according_to_config_rules()
     {
         Config::set('site.pretty_urls', false);
