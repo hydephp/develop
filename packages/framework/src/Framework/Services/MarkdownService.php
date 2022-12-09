@@ -209,4 +209,44 @@ class MarkdownService
             ],
         ], $this->config);
     }
+
+    /**
+     * Normalize indentation for an un-compiled Markdown string.
+     */
+    public static function stripIndentation(string $string): string
+    {
+        $string = str_replace("\t", '    ', $string);
+        $string = str_replace("\r\n", "\n", $string);
+        $lines = explode("\n", $string);
+        $indentationLevel = 0;
+        $offset = 0;
+
+        // Find the indentation level of the first line that has content
+        foreach ($lines as $index => $line) {
+            if (empty(trim($line))) {
+                continue;
+            }
+
+            $lineLen = strlen($line);
+            $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets is know it's indentation level
+
+            if ($lineLen === $stripLen) {
+                continue;
+            }
+
+            $offset = $index;
+            $indentationLevel = $lineLen - $stripLen;
+            break;
+        }
+
+        foreach ($lines as $index => $line) {
+            if ($index < $offset) {
+                continue;
+            }
+
+            $lines[$index] = substr($line, $indentationLevel);
+        }
+
+        return implode("\n", $lines);
+    }
 }
