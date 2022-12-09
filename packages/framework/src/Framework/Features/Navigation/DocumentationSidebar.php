@@ -59,7 +59,7 @@ class DocumentationSidebar extends BaseNavigationMenu
             return true;
         }
 
-        if ($item->getRoute()?->getRouteKey() === 'docs/index') {
+        if ($item->getRoute()?->is('docs/index')) {
             return true;
         }
 
