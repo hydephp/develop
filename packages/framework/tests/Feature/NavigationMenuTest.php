@@ -309,7 +309,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals([
             'dropdown.foo' => DropdownNavItem::fromArray('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-            ])], $menu->getDropdowns());
+            ]), ], $menu->getDropdowns());
     }
 
     public function test_get_dropdowns_with_multiple_items()
