@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use Hyde\Foundation\Filesystem;
+
 /**
  * @internal Single-use trait for the HydeKernel class.
  *
@@ -11,6 +13,11 @@ namespace Hyde\Foundation\Concerns;
  */
 trait ForwardsFilesystem
 {
+    public function filesystem(): Filesystem
+    {
+        return $this->filesystem;
+    }
+
     public function path(string $path = ''): string
     {
         return $this->filesystem->path($path);
@@ -64,6 +71,11 @@ trait ForwardsFilesystem
     public function sitePath(string $path = ''): string
     {
         return $this->filesystem->sitePath($path);
+    }
+
+    public function pathToAbsolute(string $path): string
+    {
+        return $this->filesystem->pathToAbsolute($path);
     }
 
     public function pathToRelative(string $path): string

@@ -3,10 +3,12 @@
 namespace Hyde\Testing;
 
 use Hyde\Facades\Features;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
@@ -46,10 +48,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function tearDown(): void
     {
-        if (sizeof($this->fileMemory) > 0) {
-            Hyde::unlink($this->fileMemory);
-            $this->fileMemory = [];
-        }
+        $this->cleanUpFilesystem();
 
         if (method_exists(\Illuminate\View\Component::class, 'flushCache')) {
             /** Until https://github.com/laravel/framework/pull/44648 makes its way into Laravel Zero, we need to clear the cache ourselves */
@@ -63,23 +62,31 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
+    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            strip_newlines($expected, true),
+            strip_newlines($actual, true),
+        );
+    }
+
     /** @internal */
     protected function mockRoute(?Route $route = null)
     {
-        view()->share('currentRoute', $route ?? (new Route(new MarkdownPage())));
+        Render::share('currentRoute', $route ?? (new Route(new MarkdownPage())));
     }
 
     /** @internal */
     protected function mockPage(?HydePage $page = null, ?string $currentPage = null)
     {
-        view()->share('page', $page ?? new MarkdownPage());
-        view()->share('currentPage', $currentPage ?? 'PHPUnit');
+        Render::share('page', $page ?? new MarkdownPage());
+        Render::share('currentPage', $currentPage ?? 'PHPUnit');
     }
 
     /** @internal */
     protected function mockCurrentPage(string $currentPage)
     {
-        view()->share('currentPage', $currentPage);
+        Render::share('currentPage', $currentPage);
     }
 
     /**
@@ -94,7 +101,18 @@ abstract class TestCase extends BaseTestCase
             Hyde::touch($path);
         }
 
-        $this->fileMemory[] = $path;
+        $this->cleanUpWhenDone($path);
+    }
+
+    /**
+     * Create a temporary directory in the project directory.
+     * The TestCase will automatically remove the entire directory when the test is completed.
+     */
+    protected function directory(string $path): void
+    {
+        Filesystem::makeDirectory($path, recursive: true, force: true);
+
+        $this->cleanUpWhenDone($path);
     }
 
     /**
@@ -105,11 +123,29 @@ abstract class TestCase extends BaseTestCase
         $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter).$contents);
     }
 
-    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    protected function cleanUpFilesystem(): void
     {
-        $this->assertEquals(
-            strip_newlines($expected, true),
-            strip_newlines($actual, true),
-        );
+        if (sizeof($this->fileMemory) > 0) {
+            foreach ($this->fileMemory as $file) {
+                if (Filesystem::isDirectory($file)) {
+                    $dontDelete = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
+
+                    if (! in_array($file, $dontDelete)) {
+                        Filesystem::deleteDirectory($file);
+                    }
+                } else {
+                    Filesystem::unlink($file);
+                }
+            }
+            $this->fileMemory = [];
+        }
+    }
+
+    /**
+     * Mark a path to be deleted when the test is completed.
+     */
+    protected function cleanUpWhenDone(string $path): void
+    {
+        $this->fileMemory[] = $path;
     }
 }

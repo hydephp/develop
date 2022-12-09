@@ -262,6 +262,14 @@ class FilesystemTest extends TestCase
         );
     }
 
+    public function test_path_to_absolute_helper_is_alias_for_path_helper()
+    {
+        $this->assertSame(
+            Hyde::path('foo'),
+            Hyde::pathToAbsolute('foo')
+        );
+    }
+
     public function test_path_to_relative_helper_decodes_hyde_path_into_relative()
     {
         $s = DIRECTORY_SEPARATOR;
@@ -304,6 +312,13 @@ class FilesystemTest extends TestCase
                 )
             );
         }
+    }
+
+    public function test_implode_helper_merges_path_components_into_a_string_with_directory_separators()
+    {
+        $this->assertSame($this->systemPath('foo'), Filesystem::implode('foo'));
+        $this->assertSame($this->systemPath('foo/bar'), Filesystem::implode('foo', 'bar'));
+        $this->assertSame($this->systemPath('foo/bar/baz'), Filesystem::implode('foo', 'bar', 'baz'));
     }
 
     protected function systemPath(string $path): string

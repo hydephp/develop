@@ -6,7 +6,15 @@
     </button>
     <div class="dropdown absolute shadow-lg bg-white z-50" :class="open ? '' : 'hidden'">
         <ul class="dropdown-items px-3 py-2">
-            {{ $slot }}
+            @isset($items)
+                @foreach ($items as $item)
+                    <li>
+                        @include('hyde::components.navigation.navigation-link')
+                    </li>
+                @endforeach
+            @else
+                {{ $slot }}
+            @endif
         </ul>
     </div>
 </div>

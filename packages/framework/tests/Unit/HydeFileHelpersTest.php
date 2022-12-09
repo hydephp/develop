@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
+use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
@@ -15,7 +16,7 @@ class HydeFileHelpersTest extends TestCase
 {
     public function test_current_page_returns_current_page_view_property()
     {
-        view()->share('currentPage', 'foo');
+        Render::share('currentPage', 'foo');
         $this->assertEquals('foo', Hyde::currentPage());
     }
 
@@ -26,7 +27,7 @@ class HydeFileHelpersTest extends TestCase
 
     public function test_current_route_returns_current_route_view_property()
     {
-        view()->share('currentRoute', Route::get('index'));
+        Render::share('currentRoute', Route::get('index'));
         $this->assertEquals(Route::get('index'), Hyde::currentRoute());
     }
 

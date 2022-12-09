@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\BladePage;
@@ -30,6 +31,7 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Factories\FeaturedImageFactory
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
  * @covers \Hyde\Framework\Factories\BlogPostDataFactory
+ * @covers \Hyde\Framework\Concerns\InteractsWithFrontMatter
  */
 class HydePageTest extends TestCase
 {
@@ -110,7 +112,10 @@ class HydePageTest extends TestCase
     public function testMake()
     {
         $this->assertEquals(TestPage::make(), new TestPage());
+    }
 
+    public function testMakeWithData()
+    {
         $this->assertEquals(
             TestPage::make('foo', ['foo' => 'bar']),
             new TestPage('foo', ['foo' => 'bar'])
@@ -202,6 +207,17 @@ class HydePageTest extends TestCase
     {
         $page = new MarkdownPage('foo');
         $this->assertEquals('foo', $page->getIdentifier());
+    }
+
+    public function test_static_get_method_returns_discovered_page()
+    {
+        $this->assertEquals(BladePage::parse('index'), BladePage::get('index'));
+    }
+
+    public function test_static_get_method_throws_exception_if_page_not_found()
+    {
+        $this->expectException(FileNotFoundException::class);
+        BladePage::get('foo');
     }
 
     public function test_parse_parses_supplied_slug_into_a_page_model()
@@ -483,6 +499,13 @@ class HydePageTest extends TestCase
     {
         $page = new MarkdownPage();
         $this->assertEquals(new Route($page), $page->getRoute());
+    }
+
+    public function test_get_route_returns_the_route_object_from_the_router_index()
+    {
+        $this->file('_pages/foo.md');
+        $page = MarkdownPage::parse('foo');
+        $this->assertSame(\Hyde\Facades\Route::get('foo'), $page->getRoute());
     }
 
     public function test_html_title_returns_site_name_plus_page_title()
@@ -882,19 +905,19 @@ class HydePageTest extends TestCase
     public function test_get_method_can_access_data_from_page()
     {
         $page = MarkdownPage::make('foo', ['foo' => 'bar']);
-        $this->assertEquals('bar', $page->get('foo'));
+        $this->assertEquals('bar', $page->data('foo'));
     }
 
     public function test_get_method_can_access_nested_data_from_page()
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
-        $this->assertEquals('baz', $page->get('foo')['bar']);
+        $this->assertEquals('baz', $page->data('foo')['bar']);
     }
 
     public function test_get_method_can_access_nested_data_from_page_with_dot_notation()
     {
         $page = MarkdownPage::make('foo', ['foo' => ['bar' => 'baz']]);
-        $this->assertEquals('baz', $page->get('foo.bar'));
+        $this->assertEquals('baz', $page->data('foo.bar'));
     }
 
     public function testGetLinkWithPrettyUrls()
@@ -946,7 +969,39 @@ class HydePageTest extends TestCase
             $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());
 
             unlink($page::sourcePath('foo'));
+            Hyde::boot();
         }
+    }
+
+    public function test_navigation_data_factory_hides_page_from_navigation_when_in_a_subdirectory()
+    {
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertFalse($page->showInNavigation());
+        $this->assertNull($page->navigationMenuGroup());
+    }
+
+    public function test_navigation_data_factory_hides_page_from_navigation_when_in_a_and_config_is_set_to_hidden()
+    {
+        config(['hyde.navigation.subdirectories' => 'hidden']);
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertFalse($page->showInNavigation());
+        $this->assertNull($page->navigationMenuGroup());
+    }
+
+    public function test_navigation_data_factory_does_not_hide_page_from_navigation_when_in_a_subdirectory_and_allowed_in_configuration()
+    {
+        config(['hyde.navigation.subdirectories' => 'flat']);
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertTrue($page->showInNavigation());
+        $this->assertNull($page->navigationMenuGroup());
+    }
+
+    public function test_navigation_data_factory_allows_show_in_navigation_and_sets_group_when_dropdown_is_selected_in_config()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertTrue($page->showInNavigation());
+        $this->assertEquals('foo', $page->navigationMenuGroup());
     }
 
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void
