@@ -48,9 +48,7 @@ class NavigationMenu extends BaseNavigationMenu
             }
 
             $dropdowns[$item->getGroup()][] = $item;
-            $this->items = $this->items->reject(function (NavItem $navItem) use ($item): bool {
-                return $navItem->route->getRouteKey() === $item->route->getRouteKey();
-            });
+            $this->items->forget($item->route->getRouteKey());
         }
 
         foreach ($dropdowns as $group => $items) {
