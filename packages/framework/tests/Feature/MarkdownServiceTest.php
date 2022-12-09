@@ -266,6 +266,25 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\n    baz", $service->stripIndentation($markdown));
     }
 
+    public function test_stripIndentation_method_with_empty_newlines()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\n\n  bar\n  baz";
+        $this->assertSame("foo\n\nbar\nbaz", $service->stripIndentation($markdown));
+
+        $markdown = "foo\n   \n  bar\n  baz";
+        $this->assertSame("foo\n   \nbar\nbaz", $service->stripIndentation($markdown));
+    }
+
+    public function test_stripIndentation_method_with_trailing_newline()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\n  bar\n  baz\n";
+        $this->assertSame("foo\nbar\nbaz\n", $service->stripIndentation($markdown));
+    }
+
     protected function makeService()
     {
         return new class extends MarkdownService

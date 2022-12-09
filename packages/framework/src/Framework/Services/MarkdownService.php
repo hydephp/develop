@@ -223,6 +223,10 @@ class MarkdownService
 
         // Find the indentation level of the first line that has content
         foreach ($lines as $index => $line) {
+            if (empty(trim($line))) {
+                continue;
+            }
+
             $lineLen = strlen($line);
             $stripLen = strlen(ltrim($line)); // Length of the line without indentation lets is know it's indentation level
 
