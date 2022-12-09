@@ -11,7 +11,7 @@
             {{ $slot }}
         </section>
         @isset($footer)
-        <footer {{ $footer->attributes->class(['px-6 pb-4 mt-2']) }}>
+        <footer {{ $footer->attributes->class(['text-sm px-6 pb-4 mt-2']) }}>
             {{ $footer }}
         </footer>
         @endif
