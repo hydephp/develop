@@ -44,12 +44,16 @@ class NavigationMenu extends BaseNavigationMenu
         /** @var \Hyde\Framework\Features\Navigation\NavItem $item */
         foreach ($this->items as $item) {
             if ($this->canBeInDropdown($item)) {
+                // Buffer the item in the dropdowns array
                 $dropdowns[$item->getGroup()][] = $item;
+
+                // Remove the item from the main items collection
                 $this->items->forget($item->route->getRouteKey());
             }
         }
 
         foreach ($dropdowns as $group => $items) {
+            // Create a new dropdown item containing the buffered items
             $this->items->put("dropdown.$group", new DropdownNavItem($group, $items));
         }
     }
