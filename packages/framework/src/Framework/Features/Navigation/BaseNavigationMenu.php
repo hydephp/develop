@@ -54,7 +54,7 @@ abstract class BaseNavigationMenu
     /** @return $this */
     public function sort(): static
     {
-        $this->items = $this->items->sortBy('priority');
+        $this->items = $this->items->sortBy('priority')->values();
 
         return $this;
     }
