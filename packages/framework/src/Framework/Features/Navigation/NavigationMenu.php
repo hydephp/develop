@@ -95,7 +95,7 @@ class NavigationMenu extends BaseNavigationMenu
             return true;
         }
 
-        if ($item->getRoute()?->getPage() instanceof DocumentationPage && $item->getRoute()?->getRouteKey() !== 'docs/index') {
+        if ($item->getRoute()?->getPage() instanceof DocumentationPage && $item->getRoute()->getRouteKey() !== 'docs/index') {
             return true;
         }
 
