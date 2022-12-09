@@ -183,11 +183,11 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_label()
+    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_destination()
     {
         config(['hyde.navigation.custom' => [
             NavItem::toLink('foo', 'foo'),
-            NavItem::toLink('foo', 'bar'),
+            NavItem::toLink('bar', 'foo'),
         ]]);
 
         $menu = NavigationMenu::create();

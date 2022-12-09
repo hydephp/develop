@@ -68,7 +68,7 @@ abstract class BaseNavigationMenu
     protected function filterDuplicateItems(): Collection
     {
         return $this->items->unique(function (NavItem $item): string {
-            return $item->resolveLink();
+            return $item->label;
         });
     }
 
