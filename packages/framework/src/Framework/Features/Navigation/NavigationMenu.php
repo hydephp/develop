@@ -91,10 +91,7 @@ class NavigationMenu extends BaseNavigationMenu
 
     protected static function shouldItemBeHidden(NavItem $item): bool
     {
-        if (parent::shouldItemBeHidden($item)) {
-            return true;
-        }
-
-        return $item->getRoute()?->getPage() instanceof DocumentationPage && !$item->getRoute()->is('docs/index');
+        return parent::shouldItemBeHidden($item) ||
+            $item->getRoute()?->getPage() instanceof DocumentationPage && !$item->getRoute()->is('docs/index');
     }
 }
