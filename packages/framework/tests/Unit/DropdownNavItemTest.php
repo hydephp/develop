@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\Navigation\DropdownNavItem;
+use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
 /**
@@ -26,5 +29,18 @@ class DropdownNavItemTest extends TestCase
 
         $this->assertSame('foo', $item->name);
         $this->assertSame([], $item->items);
+    }
+
+    public function testWithChildren()
+    {
+        $children = [
+            new NavItem(new Route(new MarkdownPage()), 'bar'),
+        ];
+
+        $item = new DropdownNavItem('foo', $children);
+        $this->assertSame($children, $item->items);
+
+        $item = DropdownNavItem::fromArray('foo', $children);
+        $this->assertSame($children, $item->items);
     }
 }
