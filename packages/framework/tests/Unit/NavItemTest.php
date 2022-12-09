@@ -93,4 +93,12 @@ class NavItemTest extends TestCase
 
         $this->assertTrue($item->isCurrent(Route::get('index')->getPage()));
     }
+
+    public function testGetRoute()
+    {
+        $route = Route::get('index');
+        $item = NavItem::fromRoute($route);
+
+        $this->assertSame($route, $item->getRoute());
+    }
 }
