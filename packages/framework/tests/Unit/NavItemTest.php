@@ -101,4 +101,11 @@ class NavItemTest extends TestCase
 
         $this->assertSame($route, $item->getRoute());
     }
+
+    public function testGetRouteWithNoRoute()
+    {
+        $item = NavItem::toLink('index.html', 'Home');
+
+        $this->assertNull($item->getRoute());
+    }
 }
