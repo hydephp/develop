@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use Hyde\Framework\Services\MarkdownService;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
@@ -26,8 +27,11 @@ trait ImplementsStringHelpers
         ));
     }
 
-    public function markdown(string $text): HtmlString
+    public function markdown(string $text, bool $stripIndentation = false): HtmlString
     {
+        if ($stripIndentation) {
+            $text = MarkdownService::stripIndentation($text);
+        }
         return new HtmlString(Markdown::render($text));
     }
 }
