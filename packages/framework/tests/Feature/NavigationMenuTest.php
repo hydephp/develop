@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
+use function collect;
 use function config;
 use Hyde\Foundation\Facades\Router;
+use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
@@ -19,6 +21,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\BaseNavigationMenu
  */
 class NavigationMenuTest extends TestCase
 {
@@ -43,8 +46,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('404')),
-            NavItem::fromRoute(Route::get('index')),
+            '404' => NavItem::fromRoute(Route::get('404')),
+            'index' => NavItem::fromRoute(Route::get('index')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -180,11 +183,11 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_label()
+    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_destination()
     {
         config(['hyde.navigation.custom' => [
             NavItem::toLink('foo', 'foo'),
-            NavItem::toLink('foo', 'bar'),
+            NavItem::toLink('bar', 'foo'),
         ]]);
 
         $menu = NavigationMenu::create();
@@ -254,6 +257,9 @@ class NavigationMenuTest extends TestCase
         $menu = NavigationMenu::create();
         $expected = collect([
             NavItem::fromRoute(Route::get('index')),
+            DropdownNavItem::fromArray('foo', [
+                NavItem::fromRoute(Route::get('foo/bar')),
+            ]),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -301,10 +307,9 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
-            'foo' => [
+            'dropdown.foo' => DropdownNavItem::fromArray('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-            ],
-        ], $menu->getDropdowns());
+            ]), ], $menu->getDropdowns());
     }
 
     public function test_get_dropdowns_with_multiple_items()
@@ -319,10 +324,10 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(1, $menu->getDropdowns());
 
         $this->assertEquals([
-            'foo' => [
+            'dropdown.foo' => DropdownNavItem::fromArray('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
                 NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
-            ],
+            ]),
         ], $menu->getDropdowns());
     }
 
@@ -339,13 +344,13 @@ class NavigationMenuTest extends TestCase
         $this->assertCount(2, $menu->getDropdowns());
 
         $this->assertEquals([
-            'foo' => [
+            'dropdown.foo' => DropdownNavItem::fromArray('foo', [
                 NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
                 NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
-            ],
-            'cat' => [
+            ]),
+            'dropdown.cat' => DropdownNavItem::fromArray('cat', [
                 NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
-            ],
+            ]),
         ], $menu->getDropdowns());
     }
 
@@ -388,14 +393,19 @@ class NavigationMenuTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
-        Router::push(((new MarkdownPage('foo'))->getRoute()));
-        Router::push(((new MarkdownPage('bar/baz'))->getRoute()));
+        Router::push((new MarkdownPage('foo'))->getRoute());
+        Router::push((new MarkdownPage('bar/baz'))->getRoute());
         $menu = NavigationMenu::create();
 
-        $this->assertCount(2, $menu->items);
+        $this->assertCount(3, $menu->items);
         $this->assertEquals([
             NavItem::fromRoute(Route::get('index')),
             NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
+            DropdownNavItem::fromArray('bar', [
+                NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),
+            ]),
         ], $menu->items->all());
     }
+
+    // TODO test dropdown items are sorted
 }
