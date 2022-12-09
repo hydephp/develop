@@ -62,7 +62,7 @@ abstract class BaseNavigationMenu
     protected function filterHiddenItems(): Collection
     {
         return $this->items->reject(function (NavItem $item): bool {
-            return $item->hidden || $this->filterDocumentationPage($item);
+            return $this->shouldItemBeHidden($item);
         })->values();
     }
 
@@ -78,5 +78,10 @@ abstract class BaseNavigationMenu
     {
         return $item->getRoute()?->getPage() instanceof DocumentationPage
             && $item->getRoute()?->getRouteKey() !== 'docs/index';
+    }
+
+    protected static function shouldItemBeHidden(NavItem $item): bool
+    {
+        return $item->hidden;
     }
 }
