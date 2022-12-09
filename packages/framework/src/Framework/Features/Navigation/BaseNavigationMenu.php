@@ -75,8 +75,7 @@ abstract class BaseNavigationMenu
 
     protected function filterDocumentationPage(NavItem $item): bool
     {
-        return isset($item->route)
-            && $item->route->getPage() instanceof DocumentationPage
-            && $item->route->getRouteKey() !== 'docs/index';
+        return $item->getRoute()?->getPage() instanceof DocumentationPage
+            && $item->getRoute()?->getRouteKey() !== 'docs/index';
     }
 }
