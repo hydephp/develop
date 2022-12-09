@@ -32,6 +32,7 @@ trait ImplementsStringHelpers
         if ($stripIndentation) {
             $text = MarkdownService::stripIndentation($text);
         }
+
         return new HtmlString(Markdown::render($text));
     }
 }
