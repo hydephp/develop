@@ -7,9 +7,15 @@
             </span>
         </header>
         @endif
-        <section class="px-6 py-4">
-            {{ $slot }}
-        </section>
+        @isset($main)
+            <section {{ $main->attributes->class(['px-6 py-4']) }}>
+                {{ $main }}
+            </section>
+        @else
+            <section class="px-6 py-4">
+                {{ $slot }}
+            </section>
+        @endif
         @isset($footer)
         <footer {{ $footer->attributes->class(['text-sm px-6 pb-4 mt-2']) }}>
             {{ $footer }}
