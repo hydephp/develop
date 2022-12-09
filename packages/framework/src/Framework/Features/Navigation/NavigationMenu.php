@@ -26,17 +26,6 @@ class NavigationMenu extends BaseNavigationMenu
         return $this;
     }
 
-    public function filter(): static
-    {
-        parent::filter();
-
-        if ($this->dropdownsEnabled()) {
-            //
-        }
-
-        return $this;
-    }
-
     protected function putGroupedItemsInDropdowns(): void
     {
         $dropdowns = [];
