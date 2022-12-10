@@ -1,5 +1,7 @@
 <?php
 
+namespace Hyde\UIKit;
+
 use Illuminate\Support\ServiceProvider;
 
 class UIKitServiceProvider extends ServiceProvider
