@@ -22,25 +22,25 @@ Please make sure you're familiar with [Laravel Blade](https://laravel.com/docs/b
 #### Primary
 
 ```blade
-<x-hyde::ui.components.button-primary>
+<x-hyde-ui::button-primary>
     Primary Button
-</x-hyde::ui.components.button-primary>
+</x-hyde-ui::button-primary>
 ```
 
 #### Secondary
 
 ```blade
-<x-hyde::ui.components.button-secondary>
+<x-hyde-ui::button-secondary>
     Secondary Button
-</x-hyde::ui.components.button-secondary>
+</x-hyde-ui::button-secondary>
 ```
 
 ### Input
 
-The base component is `<x-hyde::ui.components.input />`, any additional attributes will be passed to the input element as seen below.
+The base component is `<x-hyde-ui::input />`, any additional attributes will be passed to the input element as seen below.
 
 ```blade
-<x-hyde::ui.components.input type="text" name="name" placeholder="Name" value="John Doe" />
+<x-hyde-ui::input type="text" name="name" placeholder="Name" value="John Doe" />
 ```
 
 ### Card
@@ -51,31 +51,31 @@ In the most basic form, a card is just a container with a white background and a
 However, it also supports two slots: `title` and `footer`.
 
 ```blade
-<x-hyde::ui.components.card>
+<x-hyde-ui::card>
     A card with some content.
-</x-hyde::ui.components.card>
+</x-hyde-ui::card>
 ```
 
 ```blade
-<x-hyde::ui.components.card>
+<x-hyde-ui::card>
     <x-slot name="title">
         Card Title
     </x-slot>
-</x-hyde::ui.components.card>
+</x-hyde-ui::card>
 ```
 
 ```blade
-<x-hyde::ui.components.card>
+<x-hyde-ui::card>
     <x-slot name="footer">
        Some footer content.
     </x-slot>
-</x-hyde::ui.components.card>
+</x-hyde-ui::card>
 ```
 
 Why not combine the components?
 
 ```blade
-<x-hyde::ui.components.card>
+<x-hyde-ui::card>
     <x-slot name="title">
         My Amazing Card
     </x-slot>
@@ -83,11 +83,11 @@ Why not combine the components?
     A card with some content and a footer with a button.
 
     <x-slot name="footer" class="text-center">
-        <x-hyde::ui.components.button-primary>
+        <x-hyde-ui::button-primary>
             Primary Button
-        </x-hyde::ui.components.button-primary>
+        </x-hyde-ui::button-primary>
     </x-slot>
-</x-hyde::ui.components.card>
+</x-hyde-ui::card>
 ```
 
 ### Typography Components
@@ -97,9 +97,9 @@ Why not combine the components?
 This component will create a styled `<h1>` level heading centered on the page.
 
 ```blade
-<x-hyde::ui.components.heading>
+<x-hyde-ui::heading>
     Lorem ipsum dolor sit amet.
-</x-hyde::ui.components.heading>
+</x-hyde-ui::heading>
 ```
 
 #### Prose
@@ -107,10 +107,10 @@ This component will create a styled `<h1>` level heading centered on the page.
 This simple component will create an `<article>` element with [TailwindCSS Typography](https://tailwindcss.com/docs/typography-plugin) (prose) styles applied.
 
 ```blade
-<x-hyde::ui.components.prose>
+<x-hyde-ui::prose>
     <h2>Prose Heading</h2>
     <p>Prose paragraph</p>
-</x-hyde::ui.components.prose>
+</x-hyde-ui::prose>
 ```
 
 #### Markdown
@@ -118,11 +118,11 @@ This simple component will create an `<article>` element with [TailwindCSS Typog
 This component will convert any Markdown within it to HTML using the Hyde Markdown compiler.
 
 ```blade
-<x-hyde::ui.components.markdown>
+<x-hyde-ui::markdown>
     ## Markdown Heading
     
     Hello world!
-</x-hyde::ui.components.markdown>
+</x-hyde-ui::markdown>
 ```
 
 >info Tip: You may also want to wrap this in the prose element or the Markdown will not be styled.
@@ -133,28 +133,27 @@ The UI kit is minimal by design. It's up to you to create something amazing.
 You can get surprisingly far when you combine the components. Take this newsletter signup card for example!
 
 ```blade
-<x-hyde::ui.components.card>
+<x-hyde-ui::card>
     <x-slot name="title">
         Let your creativity flow!
     </x-slot>
 
     <x-slot name="main" style="padding-top: 0; padding-bottom: 0;">
-        <x-hyde::ui.components.prose>
-            <x-hyde::ui.components.markdown>
+        <x-hyde-ui::prose>
+            <x-hyde-ui::markdown>
                 The UI kit is minimal by design. It's up to **you** to create something _amazing_.
 
                 Maybe create a form to collect newsletter subscriptions?
-            </x-hyde::ui.components.markdown>
-        </x-hyde::ui.components.prose>
+            </x-hyde-ui::markdown>
+        </x-hyde-ui::prose>
     </x-slot>
 
     <x-slot name="footer" class="text-center flex">
-        <x-hyde::ui.components.input placeholder="Enter email" />
+        <x-hyde-ui::input placeholder="Enter email" />
 
-        <x-hyde::ui.components.button-primary>
+        <x-hyde-ui::button-primary>
             Subscribe
-        </x-hyde::ui.components.button-primary>
+        </x-hyde-ui::button-primary>
     </x-slot>
-</x-hyde::ui.components.card>
+</x-hyde-ui::card>
 ```
-
