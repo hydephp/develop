@@ -17,7 +17,7 @@
         </x-hyde-ui::prose>
         <div class="flex">
             <div class="light">
-                <div class="dark:bg-gray-900 dark:text-white w-[70ch] p-8 border-gray-900 border-2">
+                <div class="dark:bg-gray-900 dark:text-white w-[70ch] p-8 border-gray-500 border-r-gray-900 border-2">
                     @include('ui-examples.components')
                 </div>
             </div>
