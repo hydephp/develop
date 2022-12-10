@@ -1,0 +1,31 @@
+{
+    "name": "hyde/ui-kit",
+    "description": "A set of minimalistic Blade & Tailwind components to kickstart development of your HydePHP site.",
+    "keywords": ["hyde", "hydephp", "ui-kit", "laravel", "blade"],
+    "homepage": "https://github.com/hyde/ui-kit",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Caen De Silva",
+            "email": "caen@desilva.se",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hyde\\UIKit\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hyde\\UIKit\\UIKitServiceProvider"
+            ]
+        }
+    }
+}
