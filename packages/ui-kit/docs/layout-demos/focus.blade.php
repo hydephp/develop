@@ -1,8 +1,7 @@
 <style>
     #contentArea {
         width: 100%;
-        height: 100%;
-        min-height: calc(100vh - 8rem - 66px - 62px);
+        height: calc(100vh - 8rem - 66px - 62px);
         display: flex;
         align-items: center;
         justify-content: center;
