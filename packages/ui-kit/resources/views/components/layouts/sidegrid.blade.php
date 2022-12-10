@@ -6,7 +6,7 @@
             {{ $slot }}
         </main>
 
-        <aside id="sidebar" class="py-8 px-4 w-80">
+        <aside id="sidegrid" class="py-8 px-4 w-80">
             {{ $aside }}
         </aside>
     </div>

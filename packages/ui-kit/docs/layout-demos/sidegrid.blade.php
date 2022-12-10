@@ -20,7 +20,7 @@
         height: 4rem;
     }
 </style>
-<x-hyde-ui::layouts.sidebar>
+<x-hyde-ui::layouts.sidegrid>
     <div class="contentArea">
         <x-hyde-ui::heading>
             Content Area
@@ -34,4 +34,4 @@
             </x-hyde-ui::heading>
         </div>
     </x-slot:aside>
-</x-hyde-ui::layouts.sidebar>
+</x-hyde-ui::layouts.sidegrid>
