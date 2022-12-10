@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ac2aceff68548ae63bdcb9ef19842ae",
+    "content-hash": "fe9d56ad5dfe4608b8d749deca01604a",
     "packages": [
         {
             "name": "brick/math",
@@ -870,6 +870,54 @@
                 }
             ],
             "description": "The HydePHP Framework",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "hyde/ui-kit",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./packages/ui-kit",
+                "reference": "2968d14d65659d847151f8e436616a56be3f33ad"
+            },
+            "require": {
+                "illuminate/support": "^9.5",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hyde\\UIKit\\UIKitServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyde\\UIKit\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caen De Silva",
+                    "email": "caen@desilva.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A set of minimalistic Blade & Tailwind components to kickstart development of your HydePHP site.",
+            "homepage": "https://github.com/hyde/ui-kit",
+            "keywords": [
+                "blade",
+                "hyde",
+                "hydephp",
+                "laravel",
+                "ui-kit"
+            ],
             "transport-options": {
                 "relative": true
             }
@@ -9625,6 +9673,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "hyde/framework": 20,
+        "hyde/ui-kit": 20,
         "hyde/realtime-compiler": 20,
         "hyde/testing": 20
     },
