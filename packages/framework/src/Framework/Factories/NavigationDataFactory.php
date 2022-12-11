@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use function array_flip;
-use function array_merge;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
