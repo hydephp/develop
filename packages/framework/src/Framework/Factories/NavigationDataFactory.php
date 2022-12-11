@@ -135,11 +135,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function searchForPriorityInConfigs(): ?int
     {
         return $this->isInstanceOf(DocumentationPage::class)
-            ? $this->searchForPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', [])))
-            : $this->searchForPriorityInNavigationConfig(config('hyde.navigation.order', []));
+            ? $this->searchForPriorityInSidebarConfig()
+            : $this->searchForPriorityInNavigationConfig();
     }
 
-    private function searchForPriorityInSidebarConfig(array $config): ?int
+    private function searchForPriorityInSidebarConfig(): ?int
     {
         // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
 
@@ -147,13 +147,15 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // It's lower than the fallback of 500 so that the config ones still come first.
         // This is all to make it easier to mix ways of adding priorities.
 
+        $config = array_flip(config('docs.sidebar_order', []));
         return isset($config[$this->identifier])
             ? $config[$this->identifier] + (self::CONFIG_OFFSET)
             : null;
     }
 
-    private function searchForPriorityInNavigationConfig(array $config): ?int
+    private function searchForPriorityInNavigationConfig(): ?int
     {
+        $config = config('hyde.navigation.order', []);
         return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
     }
 
