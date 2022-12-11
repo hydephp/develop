@@ -80,7 +80,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function makeGroup(): ?string
     {
         if ($this->pageIsInSubdirectory()) {
-            if ($this->canUseSubdirectoriesForGroups()) {
+            if ($this->canUseSubdirectoryForGroups()) {
                 return $this->getSubdirectoryName();
             }
         }
@@ -161,7 +161,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return config("hyde.navigation.order.$this->routeKey");
     }
 
-    private function canUseSubdirectoriesForGroups(): bool
+    private function canUseSubdirectoryForGroups(): bool
     {
         return $this->getSubdirectoryConfiguration() === 'dropdown'
             || $this->isInstanceOf(DocumentationPage::class);
