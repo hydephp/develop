@@ -118,8 +118,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function searchForHiddenInFrontMatter(): ?bool
     {
         return $this->matter('navigation.hidden', false)
-            || $this->matter('navigation.visible') !== null
-                && ($this->matter('navigation.visible') !== true) ? true : null;
+            || $this->invert($this->matter('navigation.visible')) ? true : null;
     }
 
     private function searchForPriorityInFrontMatter(): ?int
