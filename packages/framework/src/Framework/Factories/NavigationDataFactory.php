@@ -186,12 +186,12 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return config('hyde.navigation.subdirectories', 'hidden');
     }
 
-    protected function pageIsInSubdirectory(): bool
+    private function pageIsInSubdirectory(): bool
     {
         return Str::contains($this->identifier, '/');
     }
 
-    protected function getSubdirectoryName(): string
+    private function getSubdirectoryName(): string
     {
         return Str::before($this->identifier, '/');
     }
