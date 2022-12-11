@@ -79,8 +79,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeGroup(): ?string
     {
-        // If the documentation page is in a subdirectory,
-        if (Str::contains($this->identifier, '/')) {
+        if ($this->pageIsInSubdirectory()) {
             // And if the configuration is set to dropdown, or the page is a documentation page,
             if ($this->getSubdirectoryConfiguration() === 'dropdown' || $this->isInstanceOf(DocumentationPage::class)) {
                 // Then we'll use the subdirectory name as the group.
@@ -106,7 +105,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
-        if (Str::contains($this->identifier, '/') && $this->getSubdirectoryConfiguration() === 'hidden') {
+        if ($this->pageIsInSubdirectory() && $this->getSubdirectoryConfiguration() === 'hidden') {
             return true;
         }
 
@@ -180,5 +179,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function getSubdirectoryConfiguration(): string
     {
         return config('hyde.navigation.subdirectories', 'hidden');
+    }
+
+    protected function pageIsInSubdirectory(): bool
+    {
+        return Str::contains($this->identifier, '/');
     }
 }
