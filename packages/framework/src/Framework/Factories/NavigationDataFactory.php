@@ -94,12 +94,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
-        if ($this->matter('navigation.hidden', false)) {
+        if ($this->searchForHiddenInFrontMatter()) {
             return true;
-        }
-
-        if ($this->matter('navigation.visible', false)) {
-            return false;
         }
 
         if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
@@ -113,7 +109,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return false;
     }
 
-    protected function makePriority(): ?int
+    protected function makePriority(): int
     {
         if ($this->matter('navigation.priority') !== null) {
             return $this->matter('navigation.priority');
@@ -123,23 +119,20 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->matter('navigation.order');
         }
 
-        return $this->isInstanceOf(DocumentationPage::class)
-            ? $this->findPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
-            : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
+        return $this->searchForPriorityInConfigs() ?? self::FALLBACK_PRIORITY;
     }
 
     private function searchForLabelInConfig(): ?string
     {
-        $labelConfig = array_merge([
+        return $this->defaultLabelConfiguration()[$this->routeKey] ?? null;
+    }
+
+    private function defaultLabelConfiguration(): array
+    {
+        return array_merge([
             'index' => 'Home',
             'docs/index' => 'Docs',
         ], config('hyde.navigation.labels', []));
-
-        if (isset($labelConfig[$this->routeKey])) {
-            return $labelConfig[$this->routeKey];
-        }
-
-        return null;
     }
 
     private function isInstanceOf(string $class): bool
@@ -161,6 +154,26 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         return null;
+    }
+
+    private function searchForHiddenInFrontMatter(): ?bool
+    {
+        if ($this->matter('navigation.hidden', false)) {
+            return true;
+        }
+
+        if ($this->matter('navigation.visible', false)) {
+            return false;
+        }
+
+        return null;
+    }
+
+    protected function searchForPriorityInConfigs(): ?int
+    {
+        return $this->isInstanceOf(DocumentationPage::class)
+            ? $this->findPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', [])))
+            : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', []));
     }
 
     private function findPriorityInSidebarConfig(array $config): ?int
@@ -186,13 +199,14 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return config('hyde.navigation.subdirectories', 'hidden');
     }
 
-    protected function pageIsInSubdirectory(): bool
+    private function pageIsInSubdirectory(): bool
     {
         return Str::contains($this->identifier, '/');
     }
 
-    protected function getSubdirectoryName(): string
+    private function getSubdirectoryName(): string
     {
         return Str::before($this->identifier, '/');
     }
+
 }
