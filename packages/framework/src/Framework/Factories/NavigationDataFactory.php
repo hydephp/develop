@@ -113,7 +113,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return false;
     }
 
-    protected function makePriority(): ?int
+    protected function makePriority(): int
     {
         if ($this->matter('navigation.priority') !== null) {
             return $this->matter('navigation.priority');
