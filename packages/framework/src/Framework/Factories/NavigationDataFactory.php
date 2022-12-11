@@ -172,11 +172,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->isInstanceOf(DocumentationPage::class) ? 'other'  : null;
     }
 
-    private function getSubdirectoryConfiguration(): string
-    {
-        return config('hyde.navigation.subdirectories', 'hidden');
-    }
-
     private function pageIsInSubdirectory(): bool
     {
         return Str::contains($this->identifier, '/');
@@ -185,6 +180,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function getSubdirectoryName(): string
     {
         return Str::before($this->identifier, '/');
+    }
+
+    protected function getSubdirectoryConfiguration(): string
+    {
+        return config('hyde.navigation.subdirectories', 'hidden');
     }
 
     protected function isInstanceOf(string $class): bool
