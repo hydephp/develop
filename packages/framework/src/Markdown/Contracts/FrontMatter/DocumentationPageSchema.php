@@ -12,6 +12,5 @@ interface DocumentationPageSchema
 {
     public const DOCUMENTATION_PAGE_SCHEMA = [
         'category'  => 'string',
-        'navigation'    => 'array|navigation',
     ];
 }
