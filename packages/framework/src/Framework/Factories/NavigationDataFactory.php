@@ -150,7 +150,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $config = array_flip(config('docs.sidebar_order', []));
 
         return isset($config[$this->identifier])
-            ? $config[$this->identifier] + (self::CONFIG_OFFSET)
+            ? (int) $config[$this->identifier] + (self::CONFIG_OFFSET)
             : null;
     }
 
