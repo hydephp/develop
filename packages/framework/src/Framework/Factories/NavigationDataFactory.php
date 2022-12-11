@@ -169,7 +169,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function defaultGroup(): ?string
     {
-        return $this->isInstanceOf(DocumentationPage::class) ? 'other'  : null;
+        return $this->isInstanceOf(DocumentationPage::class) ? 'other' : null;
     }
 
     private function pageIsInSubdirectory(): bool
