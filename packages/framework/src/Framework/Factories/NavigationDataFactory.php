@@ -156,7 +156,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function searchForPriorityInNavigationConfig(): ?int
     {
         $config = config('hyde.navigation.order', []);
-        return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
+        return array_key_exists($this->routeKey, $config)
+            ? (int) $config[$this->routeKey]
+            : null;
     }
 
     private function defaultLabelConfiguration(): array
