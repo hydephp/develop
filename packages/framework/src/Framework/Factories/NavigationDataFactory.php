@@ -174,7 +174,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return array_key_exists($this->routeKey, $config) ? (int)$config[$this->routeKey] : null;
     }
 
-    protected static function getSubdirectoryConfiguration(): string
+    private function getSubdirectoryConfiguration(): string
     {
         return config('hyde.navigation.subdirectories', 'hidden');
     }
