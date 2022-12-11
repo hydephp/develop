@@ -130,16 +130,21 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInConfig(): ?string
     {
-        $labelConfig = array_merge([
-            'index' => 'Home',
-            'docs/index' => 'Docs',
-        ], config('hyde.navigation.labels', []));
+        $labelConfig = $this->defaultLabelConfiguration();
 
         if (isset($labelConfig[$this->routeKey])) {
             return $labelConfig[$this->routeKey];
         }
 
         return null;
+    }
+
+    private function defaultLabelConfiguration(): array
+    {
+        return array_merge([
+            'index' => 'Home',
+            'docs/index' => 'Docs',
+        ], config('hyde.navigation.labels', []));
     }
 
     private function isInstanceOf(string $class): bool
