@@ -80,14 +80,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function makeGroup(): ?string
     {
         if ($this->pageIsInSubdirectory()) {
-            // And if the configuration is set to dropdown, or the page is a documentation page,
             if ($this->getSubdirectoryConfiguration() === 'dropdown' || $this->isInstanceOf(DocumentationPage::class)) {
-                // Then we'll use the subdirectory name as the group.
-                return Str::before($this->identifier, '/');
+                return $this->getSubdirectoryName();
             }
         }
 
-        // Otherwise, we look in the front matter.
         return $this->searchForGroupInFrontMatter();
     }
 
@@ -184,5 +181,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function pageIsInSubdirectory(): bool
     {
         return Str::contains($this->identifier, '/');
+    }
+
+    protected function getSubdirectoryName(): string
+    {
+        return Str::before($this->identifier, '/');
     }
 }
