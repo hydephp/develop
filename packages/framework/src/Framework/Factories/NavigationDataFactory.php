@@ -200,4 +200,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $value === null ? null : ! $value;
     }
+
+    protected function offset(?int $value, int $offset): ?int
+    {
+        return $value === null ? null : $value + $offset;
+    }
 }
