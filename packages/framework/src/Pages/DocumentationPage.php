@@ -17,7 +17,7 @@ use Hyde\Support\Models\Route;
  *
  * @see https://hydephp.com/docs/master/documentation-pages
  */
-class DocumentationPage extends BaseMarkdownPage implements DocumentationPageSchema
+class DocumentationPage extends BaseMarkdownPage
 {
     use Concerns\UsesFlattenedOutputPaths;
 
