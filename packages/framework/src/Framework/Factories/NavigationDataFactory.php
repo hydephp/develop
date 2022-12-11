@@ -130,10 +130,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInConfig(): ?string
     {
-        $labelConfig = $this->defaultLabelConfiguration();
-
-        if (isset($labelConfig[$this->routeKey])) {
-            return $labelConfig[$this->routeKey];
+        if (isset($this->defaultLabelConfiguration()[$this->routeKey])) {
+            return $this->defaultLabelConfiguration()[$this->routeKey];
         }
 
         return null;
