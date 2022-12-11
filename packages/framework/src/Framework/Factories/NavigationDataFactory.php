@@ -148,8 +148,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // It's lower than the fallback of 500 so that the config ones still come first.
         // This is all to make it easier to mix ways of adding priorities.
 
-
-        return $this->offset(Arr::get(array_flip(config('docs.sidebar_order', [])), $this->identifier), self::CONFIG_OFFSET);
+        return $this->offset(Arr::get(
+            array_flip(config('docs.sidebar_order', [])), $this->identifier),
+            self::CONFIG_OFFSET
+        );
     }
 
     private function searchForPriorityInNavigationConfig(): ?int
