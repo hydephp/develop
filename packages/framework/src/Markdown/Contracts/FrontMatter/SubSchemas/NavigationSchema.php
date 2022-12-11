@@ -11,9 +11,9 @@ namespace Hyde\Markdown\Contracts\FrontMatter\SubSchemas;
 interface NavigationSchema
 {
     public const NAVIGATION_SCHEMA = [
-        'label'           => 'string',
-        'group|category'  => 'string',
-        'hidden'          => 'bool',
-        'priority'        => 'int',
+        'label'     => 'string',
+        'group'     => 'string', // Category is also supported
+        'hidden'    => 'bool',
+        'priority'  => 'int',
     ];
 }

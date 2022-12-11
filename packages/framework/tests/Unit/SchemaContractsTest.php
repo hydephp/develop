@@ -28,8 +28,8 @@ class SchemaContractsTest extends TestCase
         ], PageSchema::PAGE_SCHEMA);
 
         $this->assertEquals([
-            'label'              => 'string',
-            'group|category'     => 'string',
+            'label'     => 'string',
+            'group'     => 'string',
             'hidden'    => 'bool',
             'priority'  => 'int',
         ], NavigationSchema::NAVIGATION_SCHEMA);
