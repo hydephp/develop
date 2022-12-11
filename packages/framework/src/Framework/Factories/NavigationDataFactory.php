@@ -109,19 +109,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return false;
     }
 
-    private function searchForHiddenInFrontMatter(): ?bool
-    {
-        if ($this->matter('navigation.hidden', false)) {
-            return true;
-        }
-
-        if ($this->matter('navigation.visible', false)) {
-            return false;
-        }
-
-        return null;
-    }
-
     protected function makePriority(): int
     {
         if ($this->matter('navigation.priority') !== null) {
@@ -169,6 +156,19 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return null;
     }
 
+    private function searchForHiddenInFrontMatter(): ?bool
+    {
+        if ($this->matter('navigation.hidden', false)) {
+            return true;
+        }
+
+        if ($this->matter('navigation.visible', false)) {
+            return false;
+        }
+
+        return null;
+    }
+
     protected function searchForPriorityInConfigs(): ?int
     {
         return $this->isInstanceOf(DocumentationPage::class)
@@ -208,4 +208,5 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return Str::before($this->identifier, '/');
     }
+
 }
