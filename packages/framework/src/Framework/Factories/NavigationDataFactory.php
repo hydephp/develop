@@ -139,7 +139,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             : null;
     }
 
-    protected function searchForLabelInConfig(): ?string
+    private function searchForLabelInConfig(): ?string
     {
         $labelConfig = array_merge([
             'index' => 'Home',
@@ -153,12 +153,12 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return null;
     }
 
-    protected function isInstanceOf(string $class): bool
+    private function isInstanceOf(string $class): bool
     {
         return is_a($this->pageClass, $class, true);
     }
 
-    protected function searchForGroupInFrontMatter(): ?string
+    private function searchForGroupInFrontMatter(): ?string
     {
         return $this->matter('navigation.group')
             ?? $this->matter('navigation.category')
