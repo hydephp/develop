@@ -144,8 +144,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
 
-        // Adding 250 makes so that pages with a front matter priority that is lower can be shown first.
-        // It's lower than the fallback of 500 so that the config ones still come first.
+        // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
         // This is all to make it easier to mix ways of adding priorities.
 
         return $this->offset(Arr::get(
