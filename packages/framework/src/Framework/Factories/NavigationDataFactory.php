@@ -79,17 +79,14 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeGroup(): ?string
     {
-        if ($this->isInstanceOf(DocumentationPage::class)) {
-            return $this->getDocumentationPageGroup();
-        }
-
-        if (Str::contains($this->identifier, '/') && $this->getSubdirectoryConfiguration() === 'dropdown') {
+        // If the documentation page is in a subdirectory,
+        if ((Str::contains($this->identifier, '/') && ($this->getSubdirectoryConfiguration() === 'dropdown')) || $this->isInstanceOf(DocumentationPage::class)) {
+            // then we can use that as the category/group name.
             return Str::before($this->identifier, '/');
         }
 
-        // TODO Check in front matter for group?
-
-        return null;
+        // Otherwise, we look in the front matter.
+        return $this->searchForGroupInFrontMatter();
     }
 
     protected function makeHidden(): ?bool
@@ -142,16 +139,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             : null;
     }
 
-    private function getDocumentationPageGroup(): ?string
-    {
-        // If the documentation page is in a subdirectory,
-        return str_contains($this->identifier, '/')
-            // then we can use that as the category name.
-            ? Str::before($this->identifier, '/')
-            // Otherwise, we look in the front matter.
-            : $this->findGroupFromMatter();
-    }
-
     protected function searchForLabelInConfig(): ?string
     {
         $labelConfig = array_merge([
@@ -171,11 +158,20 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return is_a($this->pageClass, $class, true);
     }
 
-    protected function findGroupFromMatter(): mixed
+    protected function searchForGroupInFrontMatter(): ?string
     {
         return $this->matter('navigation.group')
             ?? $this->matter('navigation.category')
-            ?? 'other';
+            ?? $this->defaultGroup();
+    }
+
+    private function defaultGroup(): ?string
+    {
+        if ($this->isInstanceOf(DocumentationPage::class)) {
+            return 'other';
+        }
+
+        return null;
     }
 
     protected static function getSubdirectoryConfiguration(): string
