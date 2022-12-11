@@ -129,7 +129,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInConfig(): ?string
     {
-        return $this->defaultLabelConfiguration()[$this->routeKey] ?? null;
+        return (array_merge([
+            'index' => 'Home',
+            'docs/index' => 'Docs',
+        ], config('hyde.navigation.labels', [])))[$this->routeKey] ?? null;
     }
 
     private function searchForPriorityInConfigs(): ?int
@@ -156,14 +159,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function searchForPriorityInNavigationConfig(): ?int
     {
         return config("hyde.navigation.order.$this->routeKey");
-    }
-
-    private function defaultLabelConfiguration(): array
-    {
-        return array_merge([
-            'index' => 'Home',
-            'docs/index' => 'Docs',
-        ], config('hyde.navigation.labels', []));
     }
 
     private function defaultGroup(): ?string
