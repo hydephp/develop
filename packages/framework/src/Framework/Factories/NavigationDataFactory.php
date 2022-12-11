@@ -163,11 +163,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function defaultGroup(): ?string
     {
-        if ($this->isInstanceOf(DocumentationPage::class)) {
-            return 'other';
-        }
-
-        return null;
+        return $this->isInstanceOf(DocumentationPage::class) ? 'other'  : null;
     }
 
     private function getSubdirectoryConfiguration(): string
