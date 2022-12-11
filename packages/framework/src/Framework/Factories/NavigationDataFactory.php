@@ -208,5 +208,4 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return Str::before($this->identifier, '/');
     }
-
 }
