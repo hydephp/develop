@@ -194,4 +194,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return is_a($this->pageClass, $class, true);
     }
+
+    protected function invert(?bool $value): ?bool
+    {
+        return $value === null ? null : ! $value;
+    }
 }
