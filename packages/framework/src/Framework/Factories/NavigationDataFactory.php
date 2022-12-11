@@ -123,9 +123,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->matter('navigation.order');
         }
 
-        return $this->isInstanceOf(DocumentationPage::class)
-            ? $this->findPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
-            : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
+        return ($this->isInstanceOf(DocumentationPage::class)
+            ? $this->findPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', [])))
+            : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', []))) ?? self::FALLBACK_PRIORITY;
     }
 
     private function searchForLabelInConfig(): ?string
