@@ -79,10 +79,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeGroup(): ?string
     {
-        if ($this->pageIsInSubdirectory()) {
-            if ($this->canUseSubdirectoryForGroups()) {
-                return $this->getSubdirectoryName();
-            }
+        if ($this->pageIsInSubdirectory() && $this->canUseSubdirectoryForGroups()) {
+            return $this->getSubdirectoryName();
         }
 
         return $this->searchForGroupInFrontMatter() ?? $this->defaultGroup();
