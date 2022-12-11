@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use function array_flip;
+use function array_key_exists;
+use function array_merge;
+use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
@@ -11,10 +15,6 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
-use function array_flip;
-use function array_key_exists;
-use function array_merge;
-use function config;
 use function in_array;
 use function is_a;
 
@@ -174,7 +174,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function findPriorityInNavigationConfig(array $config): ?int
     {
-        return array_key_exists($this->routeKey, $config) ? (int)$config[$this->routeKey] : null;
+        return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
     }
 
     private function getSubdirectoryConfiguration(): string
