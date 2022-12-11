@@ -153,6 +153,7 @@ return [
         // This configuration sets the priorities used to determine the order of the menu.
         // The default values have been added below for reference and easy editing.
         // The array key should match the page's route key (slug).
+        // Lower values show up first in the menu.
         'order' => [
             'index' => 0,
             'posts' => 10,
