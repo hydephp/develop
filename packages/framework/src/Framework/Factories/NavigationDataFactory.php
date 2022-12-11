@@ -85,7 +85,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             }
         }
 
-        return $this->searchForGroupInFrontMatter();
+        return $this->searchForGroupInFrontMatter() ?? $this->defaultGroup();
     }
 
     protected function makeHidden(): ?bool
@@ -143,8 +143,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function searchForGroupInFrontMatter(): ?string
     {
         return $this->matter('navigation.group')
-            ?? $this->matter('navigation.category')
-            ?? $this->defaultGroup();
+            ?? $this->matter('navigation.category');
     }
 
     private function defaultGroup(): ?string
