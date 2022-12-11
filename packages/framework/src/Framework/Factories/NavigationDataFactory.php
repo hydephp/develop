@@ -111,10 +111,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makePriority(): int
     {
-        if ($this->searchForPriorityInFrontMatter()) {
-            return $this->searchForPriorityInFrontMatter();
-        }
-        return $this->searchForPriorityInConfigs() ?? self::FALLBACK_PRIORITY;
+        return $this->searchForPriorityInFrontMatter()
+            ?? $this->searchForPriorityInConfigs()
+            ?? self::FALLBACK_PRIORITY;
     }
 
     private function searchForLabelInFrontMatter(): ?string
