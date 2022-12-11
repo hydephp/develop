@@ -144,15 +144,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForPriorityInFrontMatter(): ?int
     {
-        if ($this->matter('navigation.priority') !== null) {
-            return $this->matter('navigation.priority');
-        }
-
-        if ($this->matter('navigation.order') !== null) {
-            return $this->matter('navigation.order');
-        }
-
-        return null;
+        return $this->matter('navigation.priority')
+            ?? $this->matter('navigation.order');
     }
 
     private function searchForLabelInConfig(): ?string
