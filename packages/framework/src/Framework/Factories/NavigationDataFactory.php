@@ -94,12 +94,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
-        if ($this->matter('navigation.hidden', false)) {
+        if ($this->searchForHiddenInFrontMatter()) {
             return true;
-        }
-
-        if ($this->matter('navigation.visible', false)) {
-            return false;
         }
 
         if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
@@ -111,6 +107,17 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         return false;
+    }
+
+    private function searchForHiddenInFrontMatter()
+    {
+        if ($this->matter('navigation.hidden', false)) {
+            return true;
+        }
+
+        if ($this->matter('navigation.visible', false)) {
+            return false;
+        }
     }
 
     protected function makePriority(): int
