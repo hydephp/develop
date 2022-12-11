@@ -98,6 +98,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return true;
         }
 
+        if ($this->matter('navigation.visible', false)) {
+            return false;
+        }
+
         if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
             return true;
         }
