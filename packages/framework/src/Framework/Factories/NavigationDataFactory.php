@@ -90,14 +90,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeHidden(): ?bool
     {
-        if ($this->isInstanceOf(MarkdownPost::class)
+        return $this->isInstanceOf(MarkdownPost::class)
             || $this->searchForHiddenInFrontMatter()
             || in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))
-            || ($this->pageIsInSubdirectory() && ($this->getSubdirectoryConfiguration() === 'hidden'))) {
-            return true;
-        }
-
-        return false;
+            || ($this->pageIsInSubdirectory() && ($this->getSubdirectoryConfiguration() === 'hidden'));
     }
 
     protected function makePriority(): int
