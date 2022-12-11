@@ -71,7 +71,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeLabel(): ?string
     {
-        return $this->matter('navigation.label')
+        return $this->searchForLabelInFrontMatter()
             ?? $this->searchForLabelInConfig()
             ?? $this->matter('title')
             ?? $this->title;
@@ -206,5 +206,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function getSubdirectoryName(): string
     {
         return Str::before($this->identifier, '/');
+    }
+
+    private function searchForLabelInFrontMatter(): ?string
+    {
+        return $this->matter('navigation.label');
     }
 }
