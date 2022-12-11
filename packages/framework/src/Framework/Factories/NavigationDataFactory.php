@@ -148,6 +148,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         // This is all to make it easier to mix ways of adding priorities.
 
         $config = array_flip(config('docs.sidebar_order', []));
+
         return isset($config[$this->identifier])
             ? $config[$this->identifier] + (self::CONFIG_OFFSET)
             : null;
@@ -156,6 +157,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function searchForPriorityInNavigationConfig(): ?int
     {
         $config = config('hyde.navigation.order', []);
+
         return array_key_exists($this->routeKey, $config)
             ? (int) $config[$this->routeKey]
             : null;
