@@ -109,7 +109,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return false;
     }
 
-    private function searchForHiddenInFrontMatter()
+    private function searchForHiddenInFrontMatter(): ?bool
     {
         if ($this->matter('navigation.hidden', false)) {
             return true;
@@ -118,6 +118,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         if ($this->matter('navigation.visible', false)) {
             return false;
         }
+
+        return null;
     }
 
     protected function makePriority(): int
