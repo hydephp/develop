@@ -61,10 +61,5 @@ class SchemaContractsTest extends TestCase
             'author'         => 'string',
             'attributionUrl' => 'string',
         ], BlogPostSchema::FEATURED_IMAGE_SCHEMA);
-
-        $this->assertEquals([
-            'category'  => 'string',
-            'navigation'    => 'array|navigation',
-        ], DocumentationPageSchema::DOCUMENTATION_PAGE_SCHEMA);
     }
 }
