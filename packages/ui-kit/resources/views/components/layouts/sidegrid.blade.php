@@ -6,7 +6,7 @@
             {{ $slot }}
         </main>
 
-        <aside id="sidegrid" {{ $aside->attributes->class(['py-8 px-4 w-80']) }}>
+        <aside id="sidegrid" {{ $aside->attributes->class(['py-8 px-4 w-80 hidden md:block']) }}>
             {{ $aside }}
         </aside>
     </div>
