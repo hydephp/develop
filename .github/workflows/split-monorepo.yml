@@ -285,3 +285,46 @@ jobs:
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
         
         git push upstream master
+
+
+  ui-kit:
+    runs-on: ubuntu-latest
+    environment:
+      name: hydephp/ui-kit
+      url: https://github.com/hydephp/ui-kit/tree/master
+
+    steps:
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
+
+      - name: Checkout hydephp/ui-kit
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/ui-kit
+          path: ui-kit
+          ref: master
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Empty the destination directory
+        run: rm -rf ui-kit/*
+
+      - name: Copy over files
+        run: cp -rf develop/packages/ui-kit/. ui-kit -v
+
+      - name: Commit and push changes
+        run: |
+          cd ui-kit
+
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
+
+          git add .
+          git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+
+          git push upstream master
+
