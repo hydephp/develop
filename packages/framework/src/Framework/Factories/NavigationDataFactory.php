@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
-use function array_flip;
-use function array_key_exists;
-use function array_merge;
-use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
@@ -15,6 +11,10 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Str;
+use function array_flip;
+use function array_key_exists;
+use function array_merge;
+use function config;
 use function in_array;
 use function is_a;
 
@@ -121,24 +121,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
     }
 
-    private function findPriorityInNavigationConfig(array $config): ?int
-    {
-        return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
-    }
-
-    private function findPriorityInSidebarConfig(array $config): ?int
-    {
-        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
-
-        // Adding 250 makes so that pages with a front matter priority that is lower can be shown first.
-        // It's lower than the fallback of 500 so that the config ones still come first.
-        // This is all to make it easier to mix ways of adding priorities.
-
-        return isset($config[$this->identifier])
-            ? $config[$this->identifier] + (self::CONFIG_OFFSET)
-            : null;
-    }
-
     private function searchForLabelInConfig(): ?string
     {
         $labelConfig = array_merge([
@@ -172,6 +154,24 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         return null;
+    }
+
+    private function findPriorityInSidebarConfig(array $config): ?int
+    {
+        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
+
+        // Adding 250 makes so that pages with a front matter priority that is lower can be shown first.
+        // It's lower than the fallback of 500 so that the config ones still come first.
+        // This is all to make it easier to mix ways of adding priorities.
+
+        return isset($config[$this->identifier])
+            ? $config[$this->identifier] + (self::CONFIG_OFFSET)
+            : null;
+    }
+
+    private function findPriorityInNavigationConfig(array $config): ?int
+    {
+        return array_key_exists($this->routeKey, $config) ? (int)$config[$this->routeKey] : null;
     }
 
     protected static function getSubdirectoryConfiguration(): string
