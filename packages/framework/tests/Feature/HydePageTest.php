@@ -602,6 +602,12 @@ class HydePageTest extends TestCase
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
+    public function test_navigation_menu_priority_can_be_set_using_order_property()
+    {
+        $page = MarkdownPage::make('foo', ['navigation.order' => 1]);
+        $this->assertEquals(1, $page->navigationMenuPriority());
+    }
+
     public function test_navigation_menu_priority_returns_specified_config_value_if_slug_exists_in_config_hyde_navigation_order()
     {
         $page = MarkdownPage::make('foo');

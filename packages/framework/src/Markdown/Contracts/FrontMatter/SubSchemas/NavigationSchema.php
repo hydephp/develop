@@ -14,6 +14,6 @@ interface NavigationSchema
         'label'     => 'string',
         'group'     => 'string', // Category is also supported
         'hidden'    => 'bool',  // Visible is also supported (but obviously invert the value)
-        'priority'  => 'int',
+        'priority'  => 'int',  // Order is also supported
     ];
 }
