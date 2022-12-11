@@ -80,9 +80,12 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function makeGroup(): ?string
     {
         // If the documentation page is in a subdirectory,
-        if ((Str::contains($this->identifier, '/') && ($this->getSubdirectoryConfiguration() === 'dropdown')) || $this->isInstanceOf(DocumentationPage::class)) {
-            // then we can use that as the category/group name.
-            return Str::before($this->identifier, '/');
+        if (Str::contains($this->identifier, '/')) {
+            // And if the configuration is set to dropdown, or the page is a documentation page,
+            if ($this->getSubdirectoryConfiguration() === 'dropdown' || $this->isInstanceOf(DocumentationPage::class)) {
+                // Then we'll use the subdirectory name as the group.
+                return Str::before($this->identifier, '/');
+            }
         }
 
         // Otherwise, we look in the front matter.
