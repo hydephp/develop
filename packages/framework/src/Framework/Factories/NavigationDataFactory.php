@@ -129,10 +129,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInConfig(): ?string
     {
-        return (array_merge([
+        return Arr::get(array_merge([
             'index' => 'Home',
             'docs/index' => 'Docs',
-        ], config('hyde.navigation.labels', [])))[$this->routeKey] ?? null;
+        ], config('hyde.navigation.labels', [])), $this->routeKey);
     }
 
     private function searchForPriorityInConfigs(): ?int
