@@ -11,6 +11,6 @@ namespace Hyde\Markdown\Contracts\FrontMatter;
 interface DocumentationPageSchema
 {
     public const DOCUMENTATION_PAGE_SCHEMA = [
-        'category'  => 'string',
+        //
     ];
 }
