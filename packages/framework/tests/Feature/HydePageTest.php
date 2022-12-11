@@ -553,6 +553,13 @@ class HydePageTest extends TestCase
         $this->assertFalse($page->showInNavigation());
     }
 
+    public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_visible_is_true()
+    {
+        $page = MarkdownPage::make('foo', ['navigation.visible' => true]);
+
+        $this->assertTrue($page->showInNavigation());
+    }
+
     public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_hidden_is_false()
     {
         $page = MarkdownPage::make('foo', ['navigation.hidden' => false]);
