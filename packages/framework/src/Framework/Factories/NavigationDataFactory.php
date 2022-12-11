@@ -111,14 +111,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makePriority(): int
     {
-        if ($this->matter('navigation.priority') !== null) {
-            return $this->matter('navigation.priority');
+        if ($this->searchForPriorityInFrontMatter()) {
+            return $this->searchForPriorityInFrontMatter();
         }
-
-        if ($this->matter('navigation.order') !== null) {
-            return $this->matter('navigation.order');
-        }
-
         return $this->searchForPriorityInConfigs() ?? self::FALLBACK_PRIORITY;
     }
 
@@ -142,6 +137,19 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
         if ($this->matter('navigation.visible', false)) {
             return false;
+        }
+
+        return null;
+    }
+
+    private function searchForPriorityInFrontMatter(): ?int
+    {
+        if ($this->matter('navigation.priority') !== null) {
+            return $this->matter('navigation.priority');
+        }
+
+        if ($this->matter('navigation.order') !== null) {
+            return $this->matter('navigation.order');
         }
 
         return null;
