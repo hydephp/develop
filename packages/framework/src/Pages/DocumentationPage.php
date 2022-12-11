@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Hyde\Framework\Actions\GeneratesSidebarTableOfContents;
-use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
-use Hyde\Markdown\Contracts\FrontMatter\DocumentationPageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\TestCase;
