@@ -14,6 +14,6 @@ interface NavigationSchema
         'label'     => 'string',
         'group'     => 'string', // Category is also supported
         'hidden'    => 'bool',
-        'priority'  => 'int',
+        'priority'  => 'int',  // Order is also supported
     ];
 }
