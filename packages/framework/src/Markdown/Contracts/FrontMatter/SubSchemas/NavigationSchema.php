@@ -12,7 +12,7 @@ interface NavigationSchema
 {
     public const NAVIGATION_SCHEMA = [
         'label'     => 'string',
-        'group'     => 'string',
+        'group'     => 'string', // Category is also supported
         'hidden'    => 'bool',
         'priority'  => 'int',
     ];
