@@ -210,6 +210,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInFrontMatter(): ?string
     {
-        return $this->matter('navigation.label') ?? $this->matter('navigation.title');
+        return $this->matter('navigation.label')
+            ?? $this->matter('navigation.title');
     }
 }
