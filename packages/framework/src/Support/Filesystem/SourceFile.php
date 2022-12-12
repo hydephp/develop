@@ -11,6 +11,13 @@ namespace Hyde\Support\Filesystem;
  */
 class SourceFile extends File
 {
+    /**
+     * The associated page class string.
+     *
+     * @var class-string<\Hyde\Pages\Concerns\HydePage>
+     */
+    public readonly string $pageClass;
+
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
