@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
-use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Illuminate\Contracts\Support\Arrayable;
-use JsonSerializable;
 use Stringable;
 
 /**
  * @deprecated Will be split into a new class structure.
  *
  * Filesystem abstraction for a file stored in the project.
- *
  * @see \Hyde\Framework\Testing\Feature\FileTest
  */
 class File implements SerializableContract, Stringable
