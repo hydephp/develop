@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Stringable;
@@ -49,6 +50,11 @@ abstract class ProjectFile implements SerializableContract, Stringable
     public function getPath(): string
     {
         return $this->path;
+    }
+
+    public function getAbsolutePath(): string
+    {
+        return Hyde::path($this->path);
     }
 
     public function getContents(): string
