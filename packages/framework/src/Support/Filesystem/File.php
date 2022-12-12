@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Stringable;
@@ -36,5 +37,10 @@ abstract class File implements SerializableContract, Stringable
             'name' => $this->getName(),
             'path' => $this->getPath(),
         ];
+    }
+
+    public function getContents(): string
+    {
+        return Filesystem::getContents($this->path);
     }
 }
