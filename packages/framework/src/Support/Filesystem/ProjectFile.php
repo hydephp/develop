@@ -35,7 +35,7 @@ abstract class ProjectFile implements SerializableContract, Stringable
     {
         return [
             'name' => $this->getName(),
-            'path' => $this->getPath(),
+            'path' => $this->path,
         ];
     }
 

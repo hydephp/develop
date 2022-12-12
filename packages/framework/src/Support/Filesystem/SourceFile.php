@@ -21,7 +21,7 @@ class SourceFile extends ProjectFile
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
-            'model' => $this->belongsTo,
+            'model' => $this->model,
         ]);
     }
 }
