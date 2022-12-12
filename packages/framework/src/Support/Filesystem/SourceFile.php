@@ -22,6 +22,15 @@ class SourceFile extends ProjectFile
      */
     public readonly string $model;
 
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     */
+    public function __construct(string $path, string $pageClass)
+    {
+        parent::__construct($path);
+        $this->model = $pageClass;
+    }
+
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
