@@ -16,7 +16,7 @@ class SourceFile extends ProjectFile
      *
      * @var class-string<\Hyde\Pages\Concerns\HydePage>
      */
-    public readonly string $pageClass;
+    public readonly string $model;
 
     public function toArray(): array
     {
