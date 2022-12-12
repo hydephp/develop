@@ -12,11 +12,9 @@ class MediaFile extends File
     /** @inheritDoc */
     public function toArray(): array
     {
-        return [
-            'name' => $this->getName(),
-            'path' => $this->getPath(),
+        return array_merge(parent::toArray(), [
             'length' => $this->getContentLength(),
             'mimeType' => $this->getMimeType(),
-        ];
+        ]);
     }
 }

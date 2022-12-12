@@ -14,10 +14,8 @@ class SourceFile extends File
     /** @inheritDoc */
     public function toArray(): array
     {
-        return [
-            'name' => $this->getName(),
-            'path' => $this->getPath(),
+        return array_merge(parent::toArray(), [
             'model' => $this->belongsTo,
-        ];
+        ]);
     }
 }
