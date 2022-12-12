@@ -9,5 +9,14 @@ namespace Hyde\Support\Filesystem;
  */
 class MediaFile extends File
 {
-    //
+    /** @inheritDoc */
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->getName(),
+            'path' => $this->getPath(),
+            'length' => $this->getContentLength(),
+            'mimeType' => $this->getMimeType(),
+        ];
+    }
 }

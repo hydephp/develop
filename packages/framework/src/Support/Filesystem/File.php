@@ -31,9 +31,6 @@ abstract class File implements SerializableContract, Stringable
         return [
             'name' => $this->getName(),
             'path' => $this->getPath(),
-            'length' => $this->getContentLength(),
-            'mimeType' => $this->getMimeType(),
-            'model' => $this->belongsTo,
         ];
     }
 
