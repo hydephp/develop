@@ -25,9 +25,6 @@ abstract class File implements SerializableContract, Stringable
      */
     public readonly string $path;
 
-    /**
-     * @return string The path relative to the project root.
-     */
     public function __toString(): string
     {
         return $this->path;
