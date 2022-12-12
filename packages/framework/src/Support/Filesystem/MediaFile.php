@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-use Hyde\Hyde;
 use function extension_loaded;
 use function file_exists;
 use function filesize;
-use function mime_content_type;
 use function pathinfo;
 
 /**

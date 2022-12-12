@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-use function basename;
 use function strlen;
 use function substr;
 
