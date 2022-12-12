@@ -9,7 +9,7 @@ namespace Hyde\Support\Filesystem;
  *
  * @see \Hyde\Foundation\FileCollection
  */
-class SourceFile extends File
+class SourceFile extends ProjectFile
 {
     /**
      * The associated page class string.

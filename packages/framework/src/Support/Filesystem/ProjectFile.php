@@ -14,7 +14,7 @@ use Stringable;
  *
  * @see \Hyde\Framework\Testing\Feature\FileTest
  */
-abstract class File implements SerializableContract, Stringable
+abstract class ProjectFile implements SerializableContract, Stringable
 {
     use Serializable;
 

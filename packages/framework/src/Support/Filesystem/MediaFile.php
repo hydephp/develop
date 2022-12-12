@@ -7,7 +7,7 @@ namespace Hyde\Support\Filesystem;
 /**
  * File abstraction for a project media file.
  */
-class MediaFile extends File
+class MediaFile extends ProjectFile
 {
     public function toArray(): array
     {
