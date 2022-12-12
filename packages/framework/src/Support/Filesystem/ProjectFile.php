@@ -8,6 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Stringable;
+use function basename;
 
 /**
  * Filesystem abstraction for a file stored in the project.
@@ -37,6 +38,11 @@ abstract class ProjectFile implements SerializableContract, Stringable
             'name' => $this->getName(),
             'path' => $this->path,
         ];
+    }
+
+    public function getName(): string
+    {
+        return basename($this->path);
     }
 
     public function getContents(): string
