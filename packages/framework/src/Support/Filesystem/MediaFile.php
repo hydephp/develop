@@ -9,7 +9,6 @@ namespace Hyde\Support\Filesystem;
  */
 class MediaFile extends File
 {
-    /** @inheritDoc */
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [

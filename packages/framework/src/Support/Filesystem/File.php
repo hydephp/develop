@@ -25,7 +25,6 @@ abstract class File implements SerializableContract, Stringable
         return $this->path;
     }
 
-    /** @inheritDoc */
     public function toArray(): array
     {
         return [
