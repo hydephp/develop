@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-use Hyde\Support\Concerns\JsonSerializesArrayable;
-use Illuminate\Contracts\Support\Arrayable;
-use JsonSerializable;
+use Hyde\Support\Concerns\Serializable;
+use Hyde\Support\Contracts\SerializableContract;
 use Stringable;
 
 /**
@@ -14,9 +13,9 @@ use Stringable;
  *
  * @see \Hyde\Framework\Testing\Feature\FileTest
  */
-abstract class File implements Arrayable, JsonSerializable, Stringable
+abstract class File implements SerializableContract, Stringable
 {
-    use JsonSerializesArrayable;
+    use Serializable;
 
     /**
      * @return string The path relative to the project root.
