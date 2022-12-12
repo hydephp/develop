@@ -29,6 +29,11 @@ abstract class ProjectFile implements SerializableContract, Stringable
      */
     public readonly string $path;
 
+    public static function make(string $path): static
+    {
+        return new static($path);
+    }
+
     public function __construct(string $path)
     {
         $this->path = Hyde::pathToRelative($path);
