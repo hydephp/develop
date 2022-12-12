@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use function extension_loaded;
+use function file_exists;
 use function filesize;
+use function mime_content_type;
+use function pathinfo;
 
 /**
  * File abstraction for a project media file.
@@ -22,5 +26,37 @@ class MediaFile extends ProjectFile
     public function getContentLength(): int
     {
         return filesize($this->path);
+    }
+
+    public function getMimeType(): string
+    {
+        $extension = pathinfo($this->path, PATHINFO_EXTENSION);
+
+        // See if we can find a mime type for the extension,
+        // instead of having to rely on a PHP extension.
+        $lookup = [
+            'txt'  => 'text/plain',
+            'md'   => 'text/markdown',
+            'html' => 'text/html',
+            'css'  => 'text/css',
+            'svg'  => 'image/svg+xml',
+            'png'  => 'image/png',
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif'  => 'image/gif',
+            'json' => 'application/json',
+            'js'   => 'application/javascript',
+            'xml'  => 'application/xml',
+        ];
+
+        if (isset($lookup[$extension])) {
+            return $lookup[$extension];
+        }
+
+        if (extension_loaded('fileinfo') && file_exists($this->path)) {
+            return mime_content_type($this->path);
+        }
+
+        return 'text/plain';
     }
 }
