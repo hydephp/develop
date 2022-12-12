@@ -29,9 +29,9 @@ abstract class ProjectFile implements SerializableContract, Stringable
      */
     public readonly string $path;
 
-    public static function make(string $path): static
+    public static function make(string $path, ...$args): static
     {
-        return new static($path);
+        return new static($path, ...$args);
     }
 
     public function __construct(string $path)
