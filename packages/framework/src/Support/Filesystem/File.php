@@ -18,6 +18,14 @@ abstract class File implements SerializableContract, Stringable
     use Serializable;
 
     /**
+     * @var string The path relative to the project root.
+     *
+     * @example `_pages/index.blade.php`
+     * @example `_media/logo.png`
+     */
+    public readonly string $path;
+
+    /**
      * @return string The path relative to the project root.
      */
     public function __toString(): string
