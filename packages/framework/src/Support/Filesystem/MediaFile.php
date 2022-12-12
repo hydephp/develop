@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Hyde;
 use function extension_loaded;
 use function file_exists;
 use function filesize;
@@ -30,7 +31,8 @@ class MediaFile extends ProjectFile
 
     public function getMimeType(): string
     {
-        $extension = pathinfo($this->path, PATHINFO_EXTENSION);
+        $path = Hyde::path($this->path);
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
 
         // See if we can find a mime type for the extension,
         // instead of having to rely on a PHP extension.
@@ -53,8 +55,8 @@ class MediaFile extends ProjectFile
             return $lookup[$extension];
         }
 
-        if (extension_loaded('fileinfo') && file_exists($this->path)) {
-            return mime_content_type($this->path);
+        if (extension_loaded('fileinfo') && file_exists($path)) {
+            return mime_content_type($path);
         }
 
         return 'text/plain';
