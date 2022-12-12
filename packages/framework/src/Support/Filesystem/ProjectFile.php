@@ -64,6 +64,6 @@ abstract class ProjectFile implements SerializableContract, Stringable
 
     public function getExtension(): string
     {
-        return pathinfo($this->path, PATHINFO_EXTENSION);
+        return pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
     }
 }

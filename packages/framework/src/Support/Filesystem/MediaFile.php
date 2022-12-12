@@ -31,8 +31,7 @@ class MediaFile extends ProjectFile
 
     public function getMimeType(): string
     {
-        $path = Hyde::path($this->path);
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        $extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
 
         // See if we can find a mime type for the extension,
         // instead of having to rely on a PHP extension.
@@ -55,8 +54,8 @@ class MediaFile extends ProjectFile
             return $lookup[$extension];
         }
 
-        if (extension_loaded('fileinfo') && file_exists($path)) {
-            return mime_content_type($path);
+        if (extension_loaded('fileinfo') && file_exists($this->getAbsolutePath())) {
+            return mime_content_type($this->getAbsolutePath());
         }
 
         return 'text/plain';
