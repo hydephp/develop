@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use function basename;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Stringable;
-use function basename;
 use function pathinfo;
+use Stringable;
 
 /**
  * Filesystem abstraction for a file stored in the project.
