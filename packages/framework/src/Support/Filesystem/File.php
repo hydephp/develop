@@ -32,6 +32,4 @@ abstract class File implements SerializableContract, Stringable
             'path' => $this->getPath(),
         ];
     }
-
-    //
 }
