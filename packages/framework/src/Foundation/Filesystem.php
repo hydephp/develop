@@ -151,8 +151,8 @@ class Filesystem
      */
     public function unlinkIfExists(string $filepath): void
     {
-        if (file_exists($filepath)) {
-            unlink($filepath);
+        if (file_exists($this->path($filepath))) {
+            unlink($this->path($filepath));
         }
     }
 
