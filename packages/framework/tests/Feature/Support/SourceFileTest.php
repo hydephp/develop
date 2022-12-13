@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Support;
 
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
@@ -76,7 +77,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name'     => 'foo.txt',
             'path'     => 'foo.txt',
-            'model' => 'Hyde\Pages\Concerns\HydePage',
+            'model' => HydePage::class,
         ], SourceFile::make('foo.txt')->toArray());
     }
 
@@ -86,7 +87,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name' => 'foo',
             'path' => 'foo',
-            'model' => 'Hyde\Pages\Concerns\HydePage',
+            'model' => HydePage::class,
         ], SourceFile::make('foo')->toArray());
     }
 
@@ -97,7 +98,7 @@ class SourceFileTest extends TestCase
         $this->assertSame([
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
-            'model' => 'Hyde\Pages\Concerns\HydePage',
+            'model' => HydePage::class,
         ], SourceFile::make('foo/bar.txt')->toArray());
         unlink(Hyde::path('foo/bar.txt'));
         rmdir(Hyde::path('foo'));
