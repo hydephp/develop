@@ -152,6 +152,18 @@ class FilesystemTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('bar'));
     }
 
+    public function test_unlinkIfExists_helper_deletes_file_at_given_path()
+    {
+        touch(Hyde::path('foo'));
+        $this->assertTrue($this->filesystem->unlinkIfExists('foo'));
+        $this->assertFileDoesNotExist(Hyde::path('foo'));
+    }
+
+    public function test_unlinkIfExists_handles_non_existent_files_gracefully()
+    {
+        $this->assertFalse($this->filesystem->unlinkIfExists('foo'));
+    }
+
     public function test_get_model_source_path_method_returns_path_for_model_classes()
     {
         $this->assertEquals(
