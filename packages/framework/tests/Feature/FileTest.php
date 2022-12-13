@@ -14,6 +14,7 @@ use function touch;
 use function unlink;
 
 /**
+ * @deprecated
  * @covers \Hyde\Support\Models\File
  */
 class FileTest extends TestCase
