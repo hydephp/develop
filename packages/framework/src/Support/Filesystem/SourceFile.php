@@ -40,6 +40,6 @@ class SourceFile extends ProjectFile
     public function withoutDirectoryPrefix(): string
     {
         // Works like basename, but keeps subdirectory names.
-        return Str::after($this->path, $this->model::$sourceDirectory . '/');
+        return Str::after($this->path, $this->model::$sourceDirectory.'/');
     }
 }
