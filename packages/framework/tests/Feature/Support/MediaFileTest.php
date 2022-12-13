@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Support;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\TestCase;
+use RuntimeException;
 
 /**
  * @covers \Hyde\Support\Filesystem\MediaFile
@@ -108,5 +109,30 @@ class MediaFileTest extends TestCase
         ], MediaFile::make('foo/bar.txt')->toArray());
         unlink(Hyde::path('foo/bar.txt'));
         rmdir(Hyde::path('foo'));
+    }
+
+    public function test_getContentLength()
+    {
+        $this->file('foo', 'Hello World!');
+        $this->assertSame(12, MediaFile::make('foo')->getContentLength());
+    }
+
+    public function test_getContentLength_with_empty_file()
+    {
+        $this->file('foo', '');
+        $this->assertSame(0, MediaFile::make('foo')->getContentLength());
+    }
+
+    public function test_getContentLength_with_directory()
+    {
+        $this->directory('foo');
+        $this->assertSame(0, MediaFile::make('foo')->getContentLength());
+    }
+
+    public function test_getContentLength_with_non_existent_file()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage("Could not get the content length of file 'foo', are you sure it exists?");
+        MediaFile::make('foo')->getContentLength();
     }
 }
