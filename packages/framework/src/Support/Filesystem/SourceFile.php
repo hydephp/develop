@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Pages\Concerns\HydePage;
 use function strlen;
 use function substr;
 
@@ -24,7 +25,7 @@ class SourceFile extends ProjectFile
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
-    public function __construct(string $path, string $pageClass)
+    public function __construct(string $path, string $pageClass = HydePage::class)
     {
         parent::__construct($path);
         $this->model = $pageClass;
