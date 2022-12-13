@@ -81,7 +81,7 @@ class MediaFileTest extends TestCase
             'name'     => 'foo.txt',
             'path'     => 'foo.txt',
             'length' => 7,
-            'mimeType' => 'text/plain'
+            'mimeType' => 'text/plain',
         ], MediaFile::make('foo.txt')->toArray());
     }
 
@@ -92,7 +92,7 @@ class MediaFileTest extends TestCase
             'name' => 'foo',
             'path' => 'foo',
             'length' => 7,
-            'mimeType' => 'text/plain'
+            'mimeType' => 'text/plain',
         ], MediaFile::make('foo')->toArray());
     }
 
@@ -104,7 +104,7 @@ class MediaFileTest extends TestCase
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
             'length' => 0,
-            'mimeType' => 'text/plain'
+            'mimeType' => 'text/plain',
         ], MediaFile::make('foo/bar.txt')->toArray());
         unlink(Hyde::path('foo/bar.txt'));
         rmdir(Hyde::path('foo'));
