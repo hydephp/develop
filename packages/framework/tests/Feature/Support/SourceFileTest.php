@@ -15,16 +15,38 @@ use Hyde\Testing\TestCase;
  */
 class SourceFileTest extends TestCase
 {
-    public function test_make_method_creates_new_file_object_with_path()
+    public function test_can_construct()
     {
-        $file = SourceFile::make('path/to/file.txt');
+        $file = new SourceFile('foo');
         $this->assertInstanceOf(SourceFile::class, $file);
-        $this->assertEquals('path/to/file.txt', $file->path);
+
+        $this->assertSame('foo', $file->path);
+        $this->assertSame(HydePage::class, $file->model);
     }
 
-    public function test_make_method_gives_same_result_as_constructor()
+    public function test_can_construct_with_model_class()
     {
-        $this->assertEquals(SourceFile::make('foo'), new SourceFile('foo'));
+        $file = new SourceFile('foo', MarkdownPage::class);
+        $this->assertInstanceOf(SourceFile::class, $file);
+
+        $this->assertSame('foo', $file->path);
+        $this->assertSame(MarkdownPage::class, $file->model);
+    }
+
+    public function can_make()
+    {
+        $this->assertEquals(new SourceFile('foo'), SourceFile::make('foo'));
+    }
+
+    public function test_can_make_with_model_class()
+    {
+        $this->assertEquals(new SourceFile('foo', MarkdownPage::class),
+            SourceFile::make('foo', MarkdownPage::class));
+    }
+
+    public function test_can_construct_with_nested_paths()
+    {
+        $this->assertEquals('path/to/file.txt', SourceFile::make('path/to/file.txt')->path);
     }
 
     public function test_absolute_path_is_normalized_to_relative()
