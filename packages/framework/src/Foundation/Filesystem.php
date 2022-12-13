@@ -149,10 +149,10 @@ class Filesystem
     /**
      * Unlink a file in the project's directory, but only if it exists.
      */
-    public function unlinkIfExists(string $filepath): void
+    public function unlinkIfExists(string $path): void
     {
-        if (file_exists($this->path($filepath))) {
-            unlink($this->path($filepath));
+        if (file_exists($this->path($path))) {
+            unlink($this->path($path));
         }
     }
 
