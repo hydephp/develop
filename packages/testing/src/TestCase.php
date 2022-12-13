@@ -5,7 +5,6 @@ namespace Hyde\Testing;
 use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
@@ -96,9 +95,9 @@ abstract class TestCase extends BaseTestCase
     protected function file(string $path, ?string $contents = null): void
     {
         if ($contents) {
-            file_put_contents(Hyde::path($path), $contents);
+            Filesystem::put($path, $contents);
         } else {
-            Hyde::touch($path);
+            Filesystem::touch($path);
         }
 
         $this->cleanUpWhenDone($path);
@@ -128,15 +127,16 @@ abstract class TestCase extends BaseTestCase
         if (sizeof($this->fileMemory) > 0) {
             foreach ($this->fileMemory as $file) {
                 if (Filesystem::isDirectory($file)) {
-                    $dontDelete = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
+                    $keep = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
 
-                    if (! in_array($file, $dontDelete)) {
+                    if (! in_array($file, $keep)) {
                         Filesystem::deleteDirectory($file);
                     }
                 } else {
-                    Filesystem::unlink($file);
+                    Filesystem::unlinkIfExists($file);
                 }
             }
+
             $this->fileMemory = [];
         }
     }

@@ -23,7 +23,8 @@ use function unslash;
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
  *
- * All paths are relative to the root of the application.
+ * All paths arguments are relative to the root of the application,
+ * and will be automatically resolved to absolute paths.
  *
  * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
@@ -144,6 +145,18 @@ class Filesystem
         }
 
         return true;
+    }
+
+    /**
+     * Unlink a file in the project's directory, but only if it exists.
+     */
+    public function unlinkIfExists(string $path): bool
+    {
+        if (file_exists($this->path($path))) {
+            return unlink($this->path($path));
+        }
+
+        return false;
     }
 
     /**
