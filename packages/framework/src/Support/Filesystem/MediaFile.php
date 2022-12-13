@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use ErrorException;
-use RuntimeException;
 use function extension_loaded;
 use function file_exists;
 use function filesize;
 use function pathinfo;
+use RuntimeException;
 
 /**
  * File abstraction for a project media file.
