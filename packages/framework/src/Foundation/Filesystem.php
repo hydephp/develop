@@ -154,6 +154,8 @@ class Filesystem
         if (file_exists($this->path($path))) {
             return unlink($this->path($path));
         }
+
+        return false;
     }
 
     /**
