@@ -5,7 +5,6 @@ namespace Hyde\Testing;
 use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
-use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
@@ -96,9 +95,9 @@ abstract class TestCase extends BaseTestCase
     protected function file(string $path, ?string $contents = null): void
     {
         if ($contents) {
-            file_put_contents(Hyde::path($path), $contents);
+            Filesystem::put($path, $contents);
         } else {
-            Hyde::touch($path);
+            Filesystem::touch($path);
         }
 
         $this->cleanUpWhenDone($path);
