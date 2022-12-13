@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Hyde\Pages\Concerns\HydePage;
-use function strlen;
-use function substr;
+use Illuminate\Support\Str;
 
 /**
  * File abstraction for a project source file.
@@ -41,6 +40,6 @@ class SourceFile extends ProjectFile
     public function withoutDirectoryPrefix(): string
     {
         // Works like basename, but keeps subdirectory names.
-        return substr($this->__toString(), strlen($this->model::$sourceDirectory) + 1);
+        return Str::after($this->path, $this->model::$sourceDirectory . '/');
     }
 }
