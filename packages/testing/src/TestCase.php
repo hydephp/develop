@@ -137,6 +137,7 @@ abstract class TestCase extends BaseTestCase
                     Filesystem::unlinkIfExists($file);
                 }
             }
+
             $this->fileMemory = [];
         }
     }
