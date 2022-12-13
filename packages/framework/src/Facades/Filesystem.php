@@ -93,6 +93,17 @@ class Filesystem implements FilesystemContract
     }
 
     /**
+     * Unlink a file in the project's directory, but only if it exists.
+     *
+     * @param string $path
+     * @return bool True if the file was unlinked, false if it did not exist or failed to unlink.
+     */
+    public static function unlinkIfExists(string $path): bool
+    {
+        return self::kernel()->filesystem()->unlinkIfExists($path);
+    }
+
+    /**
      * Get the contents of a file.
      *
      * @param  string  $path
