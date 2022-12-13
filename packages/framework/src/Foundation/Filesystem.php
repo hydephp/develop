@@ -23,7 +23,7 @@ use function unslash;
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
  *
- * All paths are relative to the root of the application.
+ * All paths arguments are relative to the root of the application, and will be automatically resolved to absolute paths.
  *
  * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
