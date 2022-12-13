@@ -147,6 +147,16 @@ class Filesystem
     }
 
     /**
+     * Unlink a file in the project's directory, but only if it exists.
+     */
+    public function unlinkIfExists(string $filepath): void
+    {
+        if (file_exists($filepath)) {
+            unlink($filepath);
+        }
+    }
+
+    /**
      * Fluent file helper methods.
      *
      * Provides a more fluent way of getting either the absolute path
