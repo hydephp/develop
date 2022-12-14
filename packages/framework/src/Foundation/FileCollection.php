@@ -13,6 +13,9 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Filesystem\MediaFile;
+use Hyde\Support\Filesystem\ProjectFile;
+use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\File;
 
 /**
@@ -28,7 +31,7 @@ final class FileCollection extends BaseFoundationCollection
 {
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\SourceFile>
      */
     public function getSourceFiles(?string $pageClass = null): self
     {
@@ -37,23 +40,23 @@ final class FileCollection extends BaseFoundationCollection
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
-     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File>
+     * @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\SourceFile>
      */
     public function getSourceFilesFor(string $pageClass): self
     {
-        return $this->where(fn (File $file): bool => $file->belongsToPage($pageClass));
+        return $this->where(fn (ProjectFile $file): bool => $file instanceof SourceFile && $file->model == $pageClass);
     }
 
-    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\SourceFile> */
     public function getAllSourceFiles(): self
     {
-        return $this->where(fn (File $file): bool => $file->isSourceFile());
+        return $this->where(fn (ProjectFile $file): bool => $file instanceof SourceFile);
     }
 
-    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Models\File> */
+    /** @return \Hyde\Foundation\FileCollection<\Hyde\Support\Filesystem\MediaFile> */
     public function getMediaFiles(): self
     {
-        return $this->where(fn (File $file): bool => $file->isMediaFile());
+        return $this->where(fn (ProjectFile $file): bool => $file instanceof MediaFile);
     }
 
     protected function runDiscovery(): self
