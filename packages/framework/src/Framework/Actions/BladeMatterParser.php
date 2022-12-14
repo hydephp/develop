@@ -156,7 +156,7 @@ class BladeMatterParser
         // Remove opening and closing brackets
         $string = substr($string, 1, strlen($string) - 2);
 
-        // tokenize string between commas
+        // Tokenize string between commas
         $tokens = explode(',', $string);
 
         // Parse each token
