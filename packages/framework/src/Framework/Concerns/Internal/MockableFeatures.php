@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 /**
+ * Allows the Features class to be mocked.
+ *
  * @internal This trait is not covered by the backward compatibility promise.
+ * @see \Hyde\Facades\Features
  */
 trait MockableFeatures
 {
