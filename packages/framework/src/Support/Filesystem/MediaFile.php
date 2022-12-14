@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
-use ErrorException;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use function extension_loaded;
 use function file_exists;
 use function filesize;
+use function is_file;
 use function pathinfo;
-use RuntimeException;
 
 /**
  * File abstraction for a project media file.
@@ -26,13 +26,11 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
-        try {
-            return filesize($this->getAbsolutePath());
-        } catch (ErrorException $exception) {
-            throw new RuntimeException("Could not get the content length of file '$this->path', are you sure it exists?",
-                previous: $exception
-            );
+        if (! is_file($this->path)) {
+            throw new FileNotFoundException(message: "Could not get the content length of file $this->path");
         }
+
+        return filesize($this->getAbsolutePath());
     }
 
     public function getMimeType(): string
