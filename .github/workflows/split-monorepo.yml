@@ -13,19 +13,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  
-  hyde: 
+
+  hyde:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/hyde
       url: https://github.com/hydephp/hyde/tree/master
-      
+
     steps:
     - name: Checkout hydephp/develop
       uses: actions/checkout@v3
       with:
         path: develop
-        persist-credentials: false 
+        persist-credentials: false
 
     - name: Checkout hydephp/hyde
       uses: actions/checkout@v3
@@ -34,20 +34,20 @@ jobs:
         path: hyde
         ref: develop
         fetch-depth: 0
-        persist-credentials: false 
+        persist-credentials: false
 
     - name: Download base files
       run: wget https://github.com/hydephp/develop/zipball/${{ github.sha }} -O hyde.zip
-      
+
     - name: Unzip archive
       run: unzip hyde.zip
 
     - name: Empty the hyde directory
-      run: rm -rf hyde/* 
+      run: rm -rf hyde/*
 
     - name: Copy over base files
       run: cp -rf hydephp-develop-*/* hyde -v
- 
+
     - name: Copy over persisted files
       run: cp -rf develop/packages/hyde/. hyde -v
 
@@ -72,7 +72,7 @@ jobs:
         git push upstream develop
 
 
-  framework: 
+  framework:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/framework
@@ -83,7 +83,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: develop
-        persist-credentials: false 
+        persist-credentials: false
 
     - name: Checkout hydephp/framework
       uses: actions/checkout@v3
@@ -92,11 +92,11 @@ jobs:
         path: framework
         ref: develop
         fetch-depth: 0
-        persist-credentials: false 
-        
+        persist-credentials: false
+
     - name: Empty the destination directory
-      run: rm -rf framework/* 
-    
+      run: rm -rf framework/*
+
     - name: Copy over files
       run: cp -rf develop/packages/framework/. framework -v
 
@@ -114,18 +114,18 @@ jobs:
         git push upstream develop
 
 
-  realtime-compiler: 
+  realtime-compiler:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/realtime-compiler
       url: https://github.com/realtime-compiler/hyde/tree/master
-      
+
     steps:
     - name: Checkout hydephp/develop
       uses: actions/checkout@v3
       with:
         path: develop
-        persist-credentials: false 
+        persist-credentials: false
 
     - name: Checkout hydephp/realtime-compiler
       uses: actions/checkout@v3
@@ -134,10 +134,10 @@ jobs:
         path: realtime-compiler
         ref: master
         fetch-depth: 0
-        persist-credentials: false 
-    
+        persist-credentials: false
+
     - name: Empty the destination directory
-      run: rm -rf realtime-compiler/* 
+      run: rm -rf realtime-compiler/*
 
     - name: Copy over files
       run: cp -rf develop/packages/realtime-compiler/. realtime-compiler -v
@@ -152,11 +152,11 @@ jobs:
 
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
-        
+
         git push upstream master
 
 
-  hydefront: 
+  hydefront:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/hydefront
@@ -167,7 +167,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: develop
-        persist-credentials: false 
+        persist-credentials: false
 
     - name: Checkout hydephp/hydefront
       uses: actions/checkout@v3
@@ -176,10 +176,10 @@ jobs:
         path: hydefront
         ref: master
         fetch-depth: 0
-        persist-credentials: false 
-    
+        persist-credentials: false
+
     - name: Empty the destination directory
-      run: rm -rf hydefront/* 
+      run: rm -rf hydefront/*
 
     - name: Copy over files
       run: cp -rf develop/packages/hydefront/. hydefront -v
@@ -198,7 +198,7 @@ jobs:
         git push upstream master
 
 
-  docs: 
+  docs:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/docs
@@ -209,7 +209,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: develop
-        persist-credentials: false 
+        persist-credentials: false
 
     - name: Checkout hydephp/hydephp.com
       uses: actions/checkout@v3
@@ -218,8 +218,8 @@ jobs:
         path: website
         ref: upcoming
         fetch-depth: 0
-        persist-credentials: false 
-    
+        persist-credentials: false
+
     - name: Empty the destination directory
       run: rm -rf website/_docs/*
 
@@ -245,18 +245,18 @@ jobs:
         git push upstream upcoming
 
 
-  testing: 
+  testing:
     runs-on: ubuntu-latest
     environment:
       name: hydephp/testing
       url: https://github.com/hydephp/testing/tree/master
-      
+
     steps:
     - name: Checkout hydephp/develop
       uses: actions/checkout@v3
       with:
         path: develop
-        persist-credentials: false 
+        persist-credentials: false
 
     - name: Checkout hydephp/testing
       uses: actions/checkout@v3
@@ -265,10 +265,10 @@ jobs:
         path: testing
         ref: master
         fetch-depth: 0
-        persist-credentials: false 
-    
+        persist-credentials: false
+
     - name: Empty the destination directory
-      run: rm -rf testing/* 
+      run: rm -rf testing/*
 
     - name: Copy over files
       run: cp -rf develop/packages/testing/. testing -v
@@ -283,5 +283,48 @@ jobs:
 
         git add .
         git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
-        
+
         git push upstream master
+
+
+  ui-kit:
+    runs-on: ubuntu-latest
+    environment:
+      name: hydephp/ui-kit
+      url: https://github.com/hydephp/ui-kit/tree/master
+
+    steps:
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v3
+        with:
+          path: develop
+          persist-credentials: false
+
+      - name: Checkout hydephp/ui-kit
+        uses: actions/checkout@v3
+        with:
+          repository: hydephp/ui-kit
+          path: ui-kit
+          ref: master
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Empty the destination directory
+        run: rm -rf ui-kit/*
+
+      - name: Copy over files
+        run: cp -rf develop/packages/ui-kit/. ui-kit -v
+
+      - name: Commit and push changes
+        run: |
+          cd ui-kit
+
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://${{ secrets.PAT }}@github.com/hydephp/ui-kit.git
+
+          git add .
+          git commit -m "${{ github.event.head_commit.message }} https://github.com/hydephp/develop/commit/${{ github.sha }}" || true
+
+          git push upstream master
+

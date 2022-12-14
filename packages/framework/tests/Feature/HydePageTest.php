@@ -553,6 +553,13 @@ class HydePageTest extends TestCase
         $this->assertFalse($page->showInNavigation());
     }
 
+    public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_visible_is_true()
+    {
+        $page = MarkdownPage::make('foo', ['navigation.visible' => true]);
+
+        $this->assertTrue($page->showInNavigation());
+    }
+
     public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_hidden_is_false()
     {
         $page = MarkdownPage::make('foo', ['navigation.hidden' => false]);
@@ -592,6 +599,12 @@ class HydePageTest extends TestCase
     public function test_navigation_menu_priority_returns_front_matter_value_of_navigation_priority_if_abstract_markdown_page_and_not_null()
     {
         $page = MarkdownPage::make('foo', ['navigation.priority' => 1]);
+        $this->assertEquals(1, $page->navigationMenuPriority());
+    }
+
+    public function test_navigation_menu_priority_can_be_set_using_order_property()
+    {
+        $page = MarkdownPage::make('foo', ['navigation.order' => 1]);
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 

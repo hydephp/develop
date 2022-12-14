@@ -79,7 +79,7 @@ class Render implements Arrayable
     }
 
     /**
-     * @deprecated
+     * @deprecated Setting page rendering data via the view facade is deprecated. Use {@see Render::share()} instead.
      * @codeCoverageIgnore
      */
     protected static function handleFallback(string $property): mixed

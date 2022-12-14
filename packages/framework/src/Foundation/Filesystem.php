@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use function array_map;
 use function collect;
 use function copy;
 use Hyde\Facades\Site;
@@ -14,6 +15,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
+use function is_array;
 use function is_string;
 use function str_replace;
 use function touch;
@@ -23,7 +25,8 @@ use function unslash;
 /**
  * File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.
  *
- * All paths are relative to the root of the application.
+ * All paths arguments are relative to the root of the application,
+ * and will be automatically resolved to absolute paths.
  *
  * @see \Hyde\Framework\Testing\Feature\Foundation\FilesystemTest
  */
@@ -65,9 +68,15 @@ class Filesystem
 
     /**
      * Get an absolute file path from a supplied relative path.
+     *
+     * Input types are matched, meaning that if the input is a string so will the output be.
      */
-    public function pathToAbsolute(string $path): string
+    public function pathToAbsolute(array|string $path): array|string
     {
+        if (is_array($path)) {
+            return array_map(fn (string $path): string => $this->pathToAbsolute($path), $path);
+        }
+
         return $this->path($path);
     }
 
@@ -147,6 +156,18 @@ class Filesystem
     }
 
     /**
+     * Unlink a file in the project's directory, but only if it exists.
+     */
+    public function unlinkIfExists(string $path): bool
+    {
+        if (file_exists($this->path($path))) {
+            return unlink($this->path($path));
+        }
+
+        return false;
+    }
+
+    /**
      * Fluent file helper methods.
      *
      * Provides a more fluent way of getting either the absolute path
@@ -190,16 +211,6 @@ class Filesystem
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
             ->map(fn (string $path): string => $this->pathToRelative($path));
-    }
-
-    /** @internal */
-    public function qualifyPossiblePathArray(array|string $paths): array|string
-    {
-        if (is_array($paths)) {
-            return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
-        }
-
-        return $this->pathToAbsolute($paths);
     }
 
     /**

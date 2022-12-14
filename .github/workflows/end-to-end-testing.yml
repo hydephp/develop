@@ -83,7 +83,7 @@ jobs:
         with:
           name: dusk-source
           path: _site
-          
+
       - name: Download app.css
         uses: actions/download-artifact@v2
         with:

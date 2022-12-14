@@ -9,7 +9,7 @@ use Illuminate\Support\LazyCollection;
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
  *
- * @interal
+ * @interal This trait is not covered by the backward compatibility promise.
  *
  * @see \Hyde\Facades\Filesystem
  */
@@ -102,7 +102,7 @@ trait ForwardsIlluminateFilesystem
     /** @inheritDoc */
     public static function delete(array|string $paths): bool
     {
-        return self::filesystem()->delete(self::qualifyPossiblePathArray($paths));
+        return self::filesystem()->delete(self::kernel()->filesystem()->pathToAbsolute($paths));
     }
 
     /** @inheritDoc */

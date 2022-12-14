@@ -4,9 +4,6 @@ namespace Hyde\Testing;
 
 use Hyde\Hyde;
 
-/**
- * @internal
- */
 trait ResetsApplication
 {
     public function resetApplication(): void

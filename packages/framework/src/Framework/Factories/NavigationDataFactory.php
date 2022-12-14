@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use function array_flip;
-use function array_key_exists;
-use function array_merge;
 use function config;
 use Hyde\Framework\Concerns\InteractsWithFrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
@@ -14,6 +12,7 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use function in_array;
 use function is_a;
@@ -71,7 +70,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeLabel(): ?string
     {
-        return $this->matter('navigation.label')
+        return $this->searchForLabelInFrontMatter()
             ?? $this->searchForLabelInConfig()
             ?? $this->matter('title')
             ?? $this->title;
@@ -79,91 +78,110 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeGroup(): ?string
     {
-        if ($this->isInstanceOf(DocumentationPage::class)) {
-            return $this->getDocumentationPageGroup();
+        if ($this->pageIsInSubdirectory() && $this->canUseSubdirectoryForGroups()) {
+            return $this->getSubdirectoryName();
         }
 
-        if (Str::contains($this->identifier, '/') && $this->getSubdirectoryConfiguration() === 'dropdown') {
-            return Str::before($this->identifier, '/');
-        }
-
-        // TODO Check in front matter for group?
-
-        return null;
+        return $this->searchForGroupInFrontMatter() ?? $this->defaultGroup();
     }
 
     protected function makeHidden(): ?bool
     {
-        if ($this->isInstanceOf(MarkdownPost::class)) {
-            return true;
-        }
-
-        if ($this->matter('navigation.hidden', false)) {
-            return true;
-        }
-
-        if (in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))) {
-            return true;
-        }
-
-        if (Str::contains($this->identifier, '/') && $this->getSubdirectoryConfiguration() === 'hidden') {
-            return true;
-        }
-
-        return false;
+        return $this->isInstanceOf(MarkdownPost::class)
+            || $this->searchForHiddenInFrontMatter()
+            || in_array($this->routeKey, config('hyde.navigation.exclude', ['404']))
+            || $this->pageIsInSubdirectory() && ($this->getSubdirectoryConfiguration() === 'hidden');
     }
 
-    protected function makePriority(): ?int
+    protected function makePriority(): int
     {
-        if ($this->matter('navigation.priority') !== null) {
-            return $this->matter('navigation.priority');
-        }
-
-        return $this->isInstanceOf(DocumentationPage::class)
-            ? $this->findPriorityInSidebarConfig(array_flip(config('docs.sidebar_order', []))) ?? self::FALLBACK_PRIORITY
-            : $this->findPriorityInNavigationConfig(config('hyde.navigation.order', [])) ?? self::FALLBACK_PRIORITY;
+        return $this->searchForPriorityInFrontMatter()
+            ?? $this->searchForPriorityInConfigs()
+            ?? self::FALLBACK_PRIORITY;
     }
 
-    private function findPriorityInNavigationConfig(array $config): ?int
+    private function searchForLabelInFrontMatter(): ?string
     {
-        return array_key_exists($this->routeKey, $config) ? (int) $config[$this->routeKey] : null;
+        return $this->matter('navigation.label')
+            ?? $this->matter('navigation.title');
     }
 
-    private function findPriorityInSidebarConfig(array $config): ?int
+    private function searchForGroupInFrontMatter(): ?string
     {
-        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array
-
-        // Adding 250 makes so that pages with a front matter priority that is lower can be shown first.
-        // It's lower than the fallback of 500 so that the config ones still come first.
-        // This is all to make it easier to mix ways of adding priorities.
-
-        return isset($config[$this->identifier])
-            ? $config[$this->identifier] + (self::CONFIG_OFFSET)
-            : null;
+        return $this->matter('navigation.group')
+            ?? $this->matter('navigation.category');
     }
 
-    private function getDocumentationPageGroup(): ?string
+    private function searchForHiddenInFrontMatter(): ?bool
     {
-        // If the documentation page is in a subdirectory,
-        return str_contains($this->identifier, '/')
-            // then we can use that as the category name.
-            ? Str::before($this->identifier, '/')
-            // Otherwise, we look in the front matter.
-            : $this->findGroupFromMatter();
+        return $this->matter('navigation.hidden')
+            ?? $this->invert($this->matter('navigation.visible'));
     }
 
-    protected function searchForLabelInConfig(): ?string
+    private function searchForPriorityInFrontMatter(): ?int
     {
-        $labelConfig = array_merge([
+        return $this->matter('navigation.priority')
+            ?? $this->matter('navigation.order');
+    }
+
+    private function searchForLabelInConfig(): ?string
+    {
+        return Arr::get(config('hyde.navigation.labels', [
             'index' => 'Home',
             'docs/index' => 'Docs',
-        ], config('hyde.navigation.labels', []));
+        ]), $this->routeKey);
+    }
 
-        if (isset($labelConfig[$this->routeKey])) {
-            return $labelConfig[$this->routeKey];
-        }
+    private function searchForPriorityInConfigs(): ?int
+    {
+        return $this->isInstanceOf(DocumentationPage::class)
+            ? $this->searchForPriorityInSidebarConfig()
+            : $this->searchForPriorityInNavigationConfig();
+    }
 
-        return null;
+    private function searchForPriorityInSidebarConfig(): ?int
+    {
+        // Sidebars uses a special syntax where the keys are just the page identifiers in a flat array.
+        // TODO: In the future we could normalize this with the standard navigation config so both strategies can be auto-detected and used.
+
+        // Adding an offset makes so that pages with a front matter priority that is lower can be shown first.
+        // This is all to make it easier to mix ways of adding priorities.
+
+        return $this->offset(Arr::get(
+            array_flip(config('docs.sidebar_order', [])), $this->identifier),
+            self::CONFIG_OFFSET
+        );
+    }
+
+    private function searchForPriorityInNavigationConfig(): ?int
+    {
+        return config("hyde.navigation.order.$this->routeKey");
+    }
+
+    private function canUseSubdirectoryForGroups(): bool
+    {
+        return $this->getSubdirectoryConfiguration() === 'dropdown'
+            || $this->isInstanceOf(DocumentationPage::class);
+    }
+
+    private function defaultGroup(): ?string
+    {
+        return $this->isInstanceOf(DocumentationPage::class) ? 'other' : null;
+    }
+
+    private function pageIsInSubdirectory(): bool
+    {
+        return Str::contains($this->identifier, '/');
+    }
+
+    private function getSubdirectoryName(): string
+    {
+        return Str::before($this->identifier, '/');
+    }
+
+    protected function getSubdirectoryConfiguration(): string
+    {
+        return config('hyde.navigation.subdirectories', 'hidden');
     }
 
     protected function isInstanceOf(string $class): bool
@@ -171,15 +189,13 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return is_a($this->pageClass, $class, true);
     }
 
-    protected function findGroupFromMatter(): mixed
+    protected function invert(?bool $value): ?bool
     {
-        return $this->matter('navigation.group')
-            ?? $this->matter('navigation.category')
-            ?? 'other';
+        return $value === null ? null : ! $value;
     }
 
-    protected static function getSubdirectoryConfiguration(): string
+    protected function offset(?int $value, int $offset): ?int
     {
-        return config('hyde.navigation.subdirectories', 'hidden');
+        return $value === null ? null : $value + $offset;
     }
 }
