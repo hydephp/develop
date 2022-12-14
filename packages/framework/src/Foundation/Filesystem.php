@@ -206,7 +206,7 @@ class Filesystem
     }
 
     /** @internal */
-    public function qualifyPossiblePathArray(array|string $paths): array|string
+    public function pathsToAbsolute(array|string $paths): array|string
     {
         if (is_array($paths)) {
             return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
