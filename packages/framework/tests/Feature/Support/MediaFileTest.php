@@ -8,7 +8,6 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\TestCase;
-use RuntimeException;
 
 /**
  * @covers \Hyde\Support\Filesystem\MediaFile
