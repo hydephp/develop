@@ -6,7 +6,10 @@ namespace Hyde\Framework\Features\Templates;
 
 use Illuminate\Support\Collection;
 
-/** @internal This class is currently experimental and should not be relied upon outside the framework as it may change at any time. */
+/**
+ * @internal This class is currently experimental and should not be relied upon outside the framework as it may change at any time.
+ * @experimental
+ */
 final class Homepages
 {
     public static function options(): Collection
