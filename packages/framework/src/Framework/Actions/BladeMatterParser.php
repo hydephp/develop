@@ -6,6 +6,14 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Hyde;
 use RuntimeException;
+use function explode;
+use function file_get_contents;
+use function json_decode;
+use function strlen;
+use function strpos;
+use function substr;
+use function substr_count;
+use function trim;
 
 /**
  * Parse the front matter in a Blade file.
