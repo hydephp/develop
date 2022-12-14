@@ -37,7 +37,7 @@ class GenerateSearch extends BuildTask
     }
 
     /**
-     * Estimated processing time per file in ms
+     * Estimated processing time per file in ms.
      */
     protected static float $guesstimationFactor = 52.5;
 
