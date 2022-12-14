@@ -38,9 +38,8 @@ class GenerateSearch extends BuildTask
 
     /**
      * Estimated processing time per file in ms
-     * @deprecated Refactor into a constant value
      */
-    public static float $guesstimationFactor = 52.5;
+    protected static float $guesstimationFactor = 52.5;
 
     protected function guesstimateGenerationTime(): int|float
     {
