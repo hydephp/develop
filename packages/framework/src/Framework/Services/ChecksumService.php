@@ -69,6 +69,6 @@ class ChecksumService
     /** Shorthand for {@see static::unixsum()} but loads a file */
     public static function unixsumFile(string $file): string
     {
-        return static::unixsum(file_get_contents(Hyde::path($file)));
+        return static::unixsum(file_get_contents($file));
     }
 }
