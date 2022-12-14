@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
-use Hyde\Hyde;
 use function file_get_contents;
 use function glob;
+use Hyde\Hyde;
 use function in_array;
 use function md5;
 use function str_replace;
@@ -68,7 +68,7 @@ class ChecksumService
 
     /**
      * Shorthand for {@see static::unixsum()} but loads a file.
-     * 
+     *
      * Note that unlink most filesystem methods, the file path is expected
      * to be absolute as the file might not be in the project directory.
      */
