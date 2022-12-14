@@ -37,8 +37,8 @@ class MediaFile extends ProjectFile
     {
         $extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
 
-        // See if we can find a mime type for the extension,
-        // instead of having to rely on a PHP extension and filesystem lookups.
+        // See if we can find a mime type for the extension instead of
+        // having to rely on a PHP extension and filesystem lookups.
         $lookup = [
             'txt'  => 'text/plain',
             'md'   => 'text/markdown',
