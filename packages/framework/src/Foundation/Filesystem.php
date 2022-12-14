@@ -72,6 +72,16 @@ class Filesystem
         return $this->path($path);
     }
 
+    /** @internal */
+    public function pathsToAbsolute(array|string $paths): array|string
+    {
+        if (is_array($paths)) {
+            return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
+        }
+
+        return $this->pathToAbsolute($paths);
+    }
+
     /**
      * Decode an absolute path created with a Hyde::path() helper into its relative counterpart.
      */
@@ -203,16 +213,6 @@ class Filesystem
     {
         return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
             ->map(fn (string $path): string => $this->pathToRelative($path));
-    }
-
-    /** @internal */
-    public function pathsToAbsolute(array|string $paths): array|string
-    {
-        if (is_array($paths)) {
-            return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
-        }
-
-        return $this->pathToAbsolute($paths);
     }
 
     /**
