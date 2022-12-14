@@ -84,14 +84,12 @@ class BladeMatterParser
         return $this;
     }
 
-    /** @internal */
-    public static function lineMatchesFrontMatter(string $line): bool
+    protected static function lineMatchesFrontMatter(string $line): bool
     {
         return str_starts_with($line, static::SEARCH);
     }
 
-    /** @internal */
-    public static function extractKey(string $line): string
+    protected static function extractKey(string $line): string
     {
         // Remove search prefix
         $key = substr($line, strlen(static::SEARCH));
@@ -103,8 +101,7 @@ class BladeMatterParser
         return trim($key);
     }
 
-    /** @internal */
-    public static function extractValue(string $line): string
+    protected static function extractValue(string $line): string
     {
         // Trim any trailing spaces and newlines
         $key = trim($line);
@@ -122,8 +119,7 @@ class BladeMatterParser
         return trim($key);
     }
 
-    /** @internal Return the proper type for the string */
-    public static function normalizeValue(string $value): mixed
+    protected static function normalizeValue(string $value): mixed
     {
         $value = trim($value);
 
@@ -140,8 +136,7 @@ class BladeMatterParser
         return json_decode($value) ?? $value;
     }
 
-    /** @internal */
-    public static function parseArrayString(string $string): array
+    protected static function parseArrayString(string $string): array
     {
         $array = [];
 
