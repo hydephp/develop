@@ -71,7 +71,7 @@ class Filesystem
      *
      * Input types are matched, meaning that if the input is a string so will the output be.
      */
-    public function pathToAbsolute(array|string $path): array|string
+    public function pathToAbsolute(string|array $path): string|array
     {
         if (is_array($path)) {
             return array_map(fn (string $path): string => $this->pathToAbsolute($path), $path);
