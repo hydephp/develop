@@ -95,19 +95,19 @@ class BladeMatterParserTest extends TestCase
         $this->assertSame('bar', ParserTestClass::extractValue('@php($foo = "bar")'));
     }
 
-    public function test_normalize_value()
+    public function test_get_value_with_type()
     {
-        $this->assertSame('string', ParserTestClass::normalizeValue('string'));
-        $this->assertSame('string', ParserTestClass::normalizeValue('string'));
-        $this->assertSame(true, ParserTestClass::normalizeValue('true'));
-        $this->assertSame(false, ParserTestClass::normalizeValue('false'));
-        $this->assertSame(1, ParserTestClass::normalizeValue('1'));
-        $this->assertSame(0, ParserTestClass::normalizeValue('0'));
-        $this->assertSame(1.0, ParserTestClass::normalizeValue('1.0'));
-        $this->assertSame(0.0, ParserTestClass::normalizeValue('0.0'));
-        $this->assertSame(null, ParserTestClass::normalizeValue('null'));
-        $this->assertSame(['foo' => 'bar'], ParserTestClass::normalizeValue('["foo" => "bar"]'));
-        $this->assertSame(['foo' => 'bar'], ParserTestClass::normalizeValue("['foo' => 'bar']"));
+        $this->assertSame('string', ParserTestClass::getValueWithType('string'));
+        $this->assertSame('string', ParserTestClass::getValueWithType('string'));
+        $this->assertSame(true, ParserTestClass::getValueWithType('true'));
+        $this->assertSame(false, ParserTestClass::getValueWithType('false'));
+        $this->assertSame(1, ParserTestClass::getValueWithType('1'));
+        $this->assertSame(0, ParserTestClass::getValueWithType('0'));
+        $this->assertSame(1.0, ParserTestClass::getValueWithType('1.0'));
+        $this->assertSame(0.0, ParserTestClass::getValueWithType('0.0'));
+        $this->assertSame(null, ParserTestClass::getValueWithType('null'));
+        $this->assertSame(['foo' => 'bar'], ParserTestClass::getValueWithType('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], ParserTestClass::getValueWithType("['foo' => 'bar']"));
     }
 
     public function test_parse_array_string()
@@ -153,9 +153,9 @@ class ParserTestClass extends BladeMatterParser
         return parent::extractValue($line);
     }
 
-    public static function normalizeValue(string $value): mixed
+    public static function getValueWithType(string $value): mixed
     {
-        return parent::normalizeValue($value);
+        return parent::getValueWithType($value);
     }
 
     public static function parseArrayString(string $string): array

@@ -77,7 +77,7 @@ class BladeMatterParser
 
         foreach ($lines as $line) {
             if (static::lineMatchesFrontMatter($line)) {
-                $this->matter[static::extractKey($line)] = static::normalizeValue(static::extractValue($line));
+                $this->matter[static::extractKey($line)] = static::getValueWithType(static::extractValue($line));
             }
         }
 
@@ -119,7 +119,7 @@ class BladeMatterParser
         return trim($key);
     }
 
-    protected static function normalizeValue(string $value): mixed
+    protected static function getValueWithType(string $value): mixed
     {
         $value = trim($value);
 
@@ -165,7 +165,7 @@ class BladeMatterParser
             $pair = explode('=>', $entry);
 
             // Add key/value pair to array
-            $array[static::normalizeValue(trim(trim($pair[0]), "'"))] = static::normalizeValue(trim(trim($pair[1]), "'"));
+            $array[static::getValueWithType(trim(trim($pair[0]), "'"))] = static::getValueWithType(trim(trim($pair[1]), "'"));
         }
 
         return $array;
