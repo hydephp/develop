@@ -27,7 +27,6 @@ class BuildSearchCommandTest extends TestCase
     {
         unlinkIfExists(Hyde::path('_site/docs/search.html'));
         unlinkIfExists(Hyde::path('_site/docs/search.json'));
-        GenerateSearch::$guesstimationFactor = 52.5;
         parent::tearDown();
     }
 
@@ -58,8 +57,6 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_it_does_not_display_the_estimation_message_when_it_is_less_than_1_second()
     {
-        GenerateSearch::$guesstimationFactor = 0;
-
         $this->artisan('build:search')
             ->doesntExpectOutputToContain('> This will take an estimated')
             ->assertExitCode(0);
@@ -67,13 +64,13 @@ class BuildSearchCommandTest extends TestCase
 
     public function test_it_displays_the_estimation_message_when_it_is_greater_than_or_equal_to_1_second()
     {
-        GenerateSearch::$guesstimationFactor = 1000;
-        Hyde::touch(('_docs/foo.md'));
+        for ($i = 0; $i < 20; $i++) {
+            $this->file("_docs/$i.md");
+        }
         $this->mockRoute();
         $this->artisan('build:search')
-            ->expectsOutput('This will take an estimated 1 seconds. Terminal may seem non-responsive.')
+            ->expectsOutput('This will take an estimated 1.05 seconds. Terminal may seem non-responsive.')
             ->assertExitCode(0);
-        unlink(Hyde::path('_docs/foo.md'));
     }
 
     public function test_search_files_can_be_generated_for_custom_docs_output_directory()
