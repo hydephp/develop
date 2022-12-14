@@ -9,7 +9,7 @@ use Illuminate\Support\LazyCollection;
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
  *
- * @interal
+ * @interal This trait is not covered by the backward compatibility promise.
  *
  * @see \Hyde\Facades\Filesystem
  */

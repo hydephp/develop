@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 /**
- * @internal
+ * @internal This trait is not covered by the backward compatibility promise.
  */
 trait MockableFeatures
 {
