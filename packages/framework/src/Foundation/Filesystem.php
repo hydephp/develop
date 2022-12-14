@@ -69,13 +69,13 @@ class Filesystem
     /**
      * Get an absolute file path from a supplied relative path.
      */
-    public function pathToAbsolute(array|string $paths): array|string
+    public function pathToAbsolute(array|string $path): array|string
     {
-        if (is_array($paths)) {
-            return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
+        if (is_array($path)) {
+            return array_map(fn ($path) => $this->pathToAbsolute($path), $path);
         }
 
-        return $this->path($paths);
+        return $this->path($path);
     }
 
     /**
