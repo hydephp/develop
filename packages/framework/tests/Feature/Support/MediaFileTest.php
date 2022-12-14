@@ -138,4 +138,33 @@ class MediaFileTest extends TestCase
         $this->expectExceptionMessage("Could not get the content length of file 'foo'");
         MediaFile::make('foo')->getContentLength();
     }
+
+    public function test_getMimeType()
+    {
+        $this->file('foo.txt', 'Hello World!');
+        $this->assertSame('text/plain', MediaFile::make('foo.txt')->getMimeType());
+    }
+
+    public function test_getMimeType_without_extension()
+    {
+        $this->file('foo', 'Hello World!');
+        $this->assertSame('text/plain', MediaFile::make('foo')->getMimeType());
+    }
+
+    public function test_getMimeType_with_empty_file()
+    {
+        $this->file('foo', '');
+        $this->assertSame('application/x-empty', MediaFile::make('foo')->getMimeType());
+    }
+
+    public function test_getMimeType_with_directory()
+    {
+        $this->directory('foo');
+        $this->assertSame('directory', MediaFile::make('foo')->getMimeType());
+    }
+
+    public function test_getMimeType_with_non_existent_file()
+    {
+        $this->assertSame('text/plain', MediaFile::make('foo')->getMimeType());
+    }
 }
