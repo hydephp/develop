@@ -130,11 +130,6 @@ class Filesystem implements FilesystemContract
         return self::put($path, $contents, $lock);
     }
 
-    protected static function qualifyPossiblePathArray(array|string $paths): array|string
-    {
-        return self::kernel()->filesystem()->pathToAbsolute($paths);
-    }
-
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem
     {
         return File::getFacadeRoot();

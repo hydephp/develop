@@ -102,7 +102,7 @@ trait ForwardsIlluminateFilesystem
     /** @inheritDoc */
     public static function delete(array|string $paths): bool
     {
-        return self::filesystem()->delete(self::qualifyPossiblePathArray($paths));
+        return self::filesystem()->delete(self::kernel()->filesystem()->pathToAbsolute($paths));
     }
 
     /** @inheritDoc */
