@@ -74,7 +74,7 @@ class Filesystem
     public function pathToAbsolute(array|string $path): array|string
     {
         if (is_array($path)) {
-            return array_map(fn ($path) => $this->pathToAbsolute($path), $path);
+            return array_map(fn (string $path): string => $this->pathToAbsolute($path), $path);
         }
 
         return $this->path($path);
