@@ -16,7 +16,6 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Support\Filesystem\SourceFile;
-use Hyde\Support\Models\File;
 
 /**
  * The FileCollection contains all the discovered source and media files.
@@ -94,7 +93,7 @@ final class FileCollection extends BaseFoundationCollection
         // Scan the source directory, and directories therein, for files that match the model's file extension.
         foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $filepath) {
             if (! str_starts_with(basename((string) $filepath), '_')) {
-                $this->put($this->kernel->pathToRelative($filepath), File::make($filepath)->belongsTo($pageClass));
+                $this->put($this->kernel->pathToRelative($filepath), SourceFile::make($filepath, $pageClass));
             }
         }
     }
@@ -102,7 +101,7 @@ final class FileCollection extends BaseFoundationCollection
     protected function discoverMediaAssetFiles(): void
     {
         foreach (DiscoveryService::getMediaAssetFiles() as $filepath) {
-            $this->put($this->kernel->pathToRelative($filepath), File::make($filepath));
+            $this->put($this->kernel->pathToRelative($filepath), MediaFile::make($filepath));
         }
     }
 }
