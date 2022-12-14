@@ -7,7 +7,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Hyde;
 
 /**
- * Helper methods to interact with the filecache. The filecache is used to compare
+ * Helper methods to interact with the virtual filecache that is used to compare
  * published Blade views with the original Blade views in the Hyde Framework
  * so the user can be warned before overwriting their customizations.
  *
