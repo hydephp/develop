@@ -69,20 +69,17 @@ abstract class TestCase extends BaseTestCase
         );
     }
 
-    /** @internal */
     protected function mockRoute(?Route $route = null)
     {
         Render::share('currentRoute', $route ?? (new Route(new MarkdownPage())));
     }
 
-    /** @internal */
     protected function mockPage(?HydePage $page = null, ?string $currentPage = null)
     {
         Render::share('page', $page ?? new MarkdownPage());
         Render::share('currentPage', $currentPage ?? 'PHPUnit');
     }
 
-    /** @internal */
     protected function mockCurrentPage(string $currentPage)
     {
         Render::share('currentPage', $currentPage);

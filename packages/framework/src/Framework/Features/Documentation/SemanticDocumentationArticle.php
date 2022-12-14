@@ -59,7 +59,6 @@ class SemanticDocumentationArticle
         return new HtmlString($this->footer);
     }
 
-    /** @internal */
     protected function process(): self
     {
         $this->tokenize();

@@ -274,11 +274,27 @@ class FilesystemTest extends TestCase
         );
     }
 
-    public function test_path_to_absolute_helper_is_alias_for_path_helper()
+    public function test_pathToAbsolute()
     {
         $this->assertSame(
             Hyde::path('foo'),
             Hyde::pathToAbsolute('foo')
+        );
+    }
+
+    public function test_path_to_absolute_helper_is_alias_for_path_helper()
+    {
+        $this->assertSame(
+            Hyde::path('foo'),
+            $this->filesystem->pathToAbsolute('foo')
+        );
+    }
+
+    public function test_pathToAbsolute_can_convert_array_of_paths()
+    {
+        $this->assertSame(
+            [Hyde::path('foo'), Hyde::path('bar')],
+            $this->filesystem->pathToAbsolute(['foo', 'bar'])
         );
     }
 

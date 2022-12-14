@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function explode;
+use function file_get_contents;
 use Hyde\Hyde;
+use function json_decode;
 use RuntimeException;
+use function strlen;
+use function strpos;
+use function substr;
+use function substr_count;
+use function trim;
 
 /**
  * Parse the front matter in a Blade file.
@@ -69,21 +77,19 @@ class BladeMatterParser
 
         foreach ($lines as $line) {
             if (static::lineMatchesFrontMatter($line)) {
-                $this->matter[static::extractKey($line)] = static::normalizeValue(static::extractValue($line));
+                $this->matter[static::extractKey($line)] = static::getValueWithType(static::extractValue($line));
             }
         }
 
         return $this;
     }
 
-    /** @internal */
-    public static function lineMatchesFrontMatter(string $line): bool
+    protected static function lineMatchesFrontMatter(string $line): bool
     {
         return str_starts_with($line, static::SEARCH);
     }
 
-    /** @internal */
-    public static function extractKey(string $line): string
+    protected static function extractKey(string $line): string
     {
         // Remove search prefix
         $key = substr($line, strlen(static::SEARCH));
@@ -95,8 +101,7 @@ class BladeMatterParser
         return trim($key);
     }
 
-    /** @internal */
-    public static function extractValue(string $line): string
+    protected static function extractValue(string $line): string
     {
         // Trim any trailing spaces and newlines
         $key = trim($line);
@@ -114,8 +119,7 @@ class BladeMatterParser
         return trim($key);
     }
 
-    /** @internal Return the proper type for the string */
-    public static function normalizeValue(string $value): mixed
+    protected static function getValueWithType(string $value): mixed
     {
         $value = trim($value);
 
@@ -132,8 +136,7 @@ class BladeMatterParser
         return json_decode($value) ?? $value;
     }
 
-    /** @internal */
-    public static function parseArrayString(string $string): array
+    protected static function parseArrayString(string $string): array
     {
         $array = [];
 
@@ -153,7 +156,7 @@ class BladeMatterParser
         // Remove opening and closing brackets
         $string = substr($string, 1, strlen($string) - 2);
 
-        // tokenize string between commas
+        // Tokenize string between commas
         $tokens = explode(',', $string);
 
         // Parse each token
@@ -162,7 +165,7 @@ class BladeMatterParser
             $pair = explode('=>', $entry);
 
             // Add key/value pair to array
-            $array[static::normalizeValue(trim(trim($pair[0]), "'"))] = static::normalizeValue(trim(trim($pair[1]), "'"));
+            $array[static::getValueWithType(trim(trim($pair[0]), "'"))] = static::getValueWithType(trim(trim($pair[1]), "'"));
         }
 
         return $array;

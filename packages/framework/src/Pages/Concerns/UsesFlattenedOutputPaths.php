@@ -8,7 +8,8 @@ use function basename;
 use function unslash;
 
 /**
- * @internal This trait is currently experimental and should not be relied upon outside of Hyde.
+ * @internal This trait is currently experimental and should not be relied upon outside of Hyde as it may change at any time.
+ * @experimental
  *
  * This trait is used to flatten the output path of a page. This is only used for the documentation pages,
  * where all pages are output to the same directory, but where putting the page in a subdirectory will
