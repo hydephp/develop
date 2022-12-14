@@ -68,6 +68,8 @@ class Filesystem
 
     /**
      * Get an absolute file path from a supplied relative path.
+     *
+     * Input types are matched, meaning that if the input is a string so will the output be.
      */
     public function pathToAbsolute(array|string $path): array|string
     {
