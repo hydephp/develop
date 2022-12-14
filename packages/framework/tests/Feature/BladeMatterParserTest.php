@@ -69,69 +69,102 @@ class BladeMatterParserTest extends TestCase
 
     public function test_line_matches_front_matter()
     {
-        $this->assertTrue(BladeMatterParser::lineMatchesFrontMatter('@php($foo = "bar")'));
-        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('foo bar'));
+        $this->assertTrue(ParserTestClass::lineMatchesFrontMatter('@php($foo = "bar")'));
+        $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('foo bar'));
     }
 
     public function test_directive_cannot_have_leading_whitespace()
     {
-        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter(' @php($foo = "bar")'));
+        $this->assertFalse(ParserTestClass::lineMatchesFrontMatter(' @php($foo = "bar")'));
     }
 
     public function test_directive_signature_cannot_contain_whitespace()
     {
-        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('@php( $foo = "bar")'));
-        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('@ php($foo = "bar")'));
-        $this->assertFalse(BladeMatterParser::lineMatchesFrontMatter('@ php ($foo = "bar")'));
+        $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('@php( $foo = "bar")'));
+        $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('@ php($foo = "bar")'));
+        $this->assertFalse(ParserTestClass::lineMatchesFrontMatter('@ php ($foo = "bar")'));
     }
 
     public function test_extract_key()
     {
-        $this->assertSame('foo', BladeMatterParser::extractKey('@php($foo = "bar")'));
+        $this->assertSame('foo', ParserTestClass::extractKey('@php($foo = "bar")'));
     }
 
     public function test_extract_value()
     {
-        $this->assertSame('bar', BladeMatterParser::extractValue('@php($foo = "bar")'));
+        $this->assertSame('bar', ParserTestClass::extractValue('@php($foo = "bar")'));
     }
 
     public function test_normalize_value()
     {
-        $this->assertSame('string', BladeMatterParser::normalizeValue('string'));
-        $this->assertSame('string', BladeMatterParser::normalizeValue('string'));
-        $this->assertSame(true, BladeMatterParser::normalizeValue('true'));
-        $this->assertSame(false, BladeMatterParser::normalizeValue('false'));
-        $this->assertSame(1, BladeMatterParser::normalizeValue('1'));
-        $this->assertSame(0, BladeMatterParser::normalizeValue('0'));
-        $this->assertSame(1.0, BladeMatterParser::normalizeValue('1.0'));
-        $this->assertSame(0.0, BladeMatterParser::normalizeValue('0.0'));
-        $this->assertSame(null, BladeMatterParser::normalizeValue('null'));
-        $this->assertSame(['foo' => 'bar'], BladeMatterParser::normalizeValue('["foo" => "bar"]'));
-        $this->assertSame(['foo' => 'bar'], BladeMatterParser::normalizeValue("['foo' => 'bar']"));
+        $this->assertSame('string', ParserTestClass::normalizeValue('string'));
+        $this->assertSame('string', ParserTestClass::normalizeValue('string'));
+        $this->assertSame(true, ParserTestClass::normalizeValue('true'));
+        $this->assertSame(false, ParserTestClass::normalizeValue('false'));
+        $this->assertSame(1, ParserTestClass::normalizeValue('1'));
+        $this->assertSame(0, ParserTestClass::normalizeValue('0'));
+        $this->assertSame(1.0, ParserTestClass::normalizeValue('1.0'));
+        $this->assertSame(0.0, ParserTestClass::normalizeValue('0.0'));
+        $this->assertSame(null, ParserTestClass::normalizeValue('null'));
+        $this->assertSame(['foo' => 'bar'], ParserTestClass::normalizeValue('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], ParserTestClass::normalizeValue("['foo' => 'bar']"));
     }
 
     public function test_parse_array_string()
     {
-        $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString('["foo" => "bar"]'));
-        $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString('["foo" => "bar"]'));
-        $this->assertSame(['foo' => 'bar'], BladeMatterParser::parseArrayString("['foo' => 'bar']"));
+        $this->assertSame(['foo' => 'bar'], ParserTestClass::parseArrayString('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], ParserTestClass::parseArrayString('["foo" => "bar"]'));
+        $this->assertSame(['foo' => 'bar'], ParserTestClass::parseArrayString("['foo' => 'bar']"));
 
-        $this->assertSame(['foo' => 'bar', 'bar' => 'baz'], BladeMatterParser::parseArrayString('["foo" => "bar", "bar" => "baz"]'));
-        $this->assertSame(['foo' => 'true'], BladeMatterParser::parseArrayString('["foo" => "true"]'));
-        $this->assertSame(['foo' => true], BladeMatterParser::parseArrayString('["foo" => true]'));
-        $this->assertSame(['foo' => '1'], BladeMatterParser::parseArrayString('["foo" => "1"]'));
-        $this->assertSame(['foo' => 1], BladeMatterParser::parseArrayString('["foo" => 1]'));
+        $this->assertSame(['foo' => 'bar', 'bar' => 'baz'], ParserTestClass::parseArrayString('["foo" => "bar", "bar" => "baz"]'));
+        $this->assertSame(['foo' => 'true'], ParserTestClass::parseArrayString('["foo" => "true"]'));
+        $this->assertSame(['foo' => true], ParserTestClass::parseArrayString('["foo" => true]'));
+        $this->assertSame(['foo' => '1'], ParserTestClass::parseArrayString('["foo" => "1"]'));
+        $this->assertSame(['foo' => 1], ParserTestClass::parseArrayString('["foo" => 1]'));
     }
 
     public function test_parse_invalid_array_string()
     {
         $this->expectException(RuntimeException::class);
-        BladeMatterParser::parseArrayString('foo');
+        ParserTestClass::parseArrayString('foo');
     }
 
     public function test_parse_multidimensional_array_string()
     {
         $this->expectException(RuntimeException::class);
-        BladeMatterParser::parseArrayString('["foo" => ["bar" => "baz"]]');
+        ParserTestClass::parseArrayString('["foo" => ["bar" => "baz"]]');
+    }
+}
+
+class ParserTestClass extends BladeMatterParser
+{
+    public static function lineMatchesFrontMatter(string $line): bool
+    {
+        return parent::lineMatchesFrontMatter($line);
+    }
+
+    public static function extractKey(string $line): string
+    {
+        return parent::extractKey($line);
+    }
+
+    public static function extractValue(string $line): string
+    {
+        return parent::extractValue($line);
+    }
+
+    public static function normalizeValue(string $value): mixed
+    {
+        return parent::normalizeValue($value);
+    }
+
+    public static function parseArrayString(string $string): array
+    {
+        return parent::parseArrayString($string);
+    }
+
+    public static function isValueArrayString(string $string): bool
+    {
+        return parent::isValueArrayString($string);
     }
 }
