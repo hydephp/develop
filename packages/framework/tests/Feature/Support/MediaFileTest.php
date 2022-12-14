@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Support;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\TestCase;
@@ -126,13 +127,16 @@ class MediaFileTest extends TestCase
     public function test_getContentLength_with_directory()
     {
         $this->directory('foo');
-        $this->assertSame(0, MediaFile::make('foo')->getContentLength());
+
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage("Could not get the content length of file 'foo'");
+        MediaFile::make('foo')->getContentLength();
     }
 
     public function test_getContentLength_with_non_existent_file()
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Could not get the content length of file 'foo', are you sure it exists?");
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage("Could not get the content length of file 'foo'");
         MediaFile::make('foo')->getContentLength();
     }
 }
