@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\BladeMatterParser;
 use Hyde\Testing\TestCase;
+use RuntimeException;
 
 /**
  * @covers \Hyde\Framework\Actions\BladeMatterParser
@@ -124,13 +125,13 @@ class BladeMatterParserTest extends TestCase
 
     public function test_parse_invalid_array_string()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         BladeMatterParser::parseArrayString('foo');
     }
 
     public function test_parse_multidimensional_array_string()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         BladeMatterParser::parseArrayString('["foo" => ["bar" => "baz"]]');
     }
 }
