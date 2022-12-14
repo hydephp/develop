@@ -60,7 +60,7 @@ class ChecksumService
         return md5(str_replace(["\r\n", "\r"], "\n", $string));
     }
 
-    /* Shorthand for @see static::unixsum() but loads a file */
+    /** Shorthand for {@see static::unixsum()} but loads a file */
     public static function unixsumFile(string $file): string
     {
         return static::unixsum(file_get_contents($file));
