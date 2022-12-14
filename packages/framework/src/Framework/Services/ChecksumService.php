@@ -51,7 +51,7 @@ class ChecksumService
     /**
      * A EOL agnostic wrapper for calculating MD5 checksums.
      *
-     * @internal This function is not cryptographically secure.
+     * This function is not cryptographically secure.
      *
      * @see https://github.com/hydephp/framework/issues/85
      */
