@@ -57,9 +57,7 @@ class ChecksumService
      */
     public static function unixsum(string $string): string
     {
-        $string = str_replace(["\r\n", "\r"], "\n", $string);
-
-        return md5($string);
+        return md5(str_replace(["\r\n", "\r"], "\n", $string));
     }
 
     /* Shorthand for @see static::unixsum() but loads a file */
