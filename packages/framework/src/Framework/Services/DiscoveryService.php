@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Services;
 
+use Hyde\Support\Filesystem\SourceFile;
 use function class_exists;
 use function config;
 use function glob;
@@ -15,7 +16,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\File;
 use Illuminate\Support\Str;
 use function implode;
 use function is_array;
@@ -74,7 +74,7 @@ class DiscoveryService
             throw new UnsupportedPageTypeException($model);
         }
 
-        return FileCollection::getSourceFiles($model)->flatten()->map(function (File $file) use ($model): string {
+        return FileCollection::getSourceFiles($model)->flatten()->map(function (SourceFile $file) use ($model): string {
             return static::pathToIdentifier($model, $file->withoutDirectoryPrefix());
         })->toArray();
     }
