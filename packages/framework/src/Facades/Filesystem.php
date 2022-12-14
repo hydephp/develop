@@ -132,7 +132,7 @@ class Filesystem implements FilesystemContract
 
     protected static function qualifyPossiblePathArray(array|string $paths): array|string
     {
-        return self::kernel()->filesystem()->pathsToAbsolute($paths);
+        return self::kernel()->filesystem()->pathToAbsolute($paths);
     }
 
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem

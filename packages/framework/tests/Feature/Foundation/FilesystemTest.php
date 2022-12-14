@@ -282,6 +282,14 @@ class FilesystemTest extends TestCase
         );
     }
 
+    public function test_pathToAbsolute_can_convert_array_of_paths()
+    {
+        $this->assertSame(
+            [Hyde::path('foo'), Hyde::path('bar')],
+            $this->filesystem->pathToAbsolute(['foo', 'bar'])
+        );
+    }
+
     public function test_path_to_relative_helper_decodes_hyde_path_into_relative()
     {
         $s = DIRECTORY_SEPARATOR;

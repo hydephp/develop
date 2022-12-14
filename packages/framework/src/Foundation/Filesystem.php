@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use function array_map;
 use function collect;
 use function copy;
 use Hyde\Facades\Site;
@@ -14,6 +15,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
+use function is_array;
 use function is_string;
 use function str_replace;
 use function touch;
@@ -67,19 +69,13 @@ class Filesystem
     /**
      * Get an absolute file path from a supplied relative path.
      */
-    public function pathToAbsolute(string $path): string
-    {
-        return $this->path($path);
-    }
-
-    /** @internal */
-    public function pathsToAbsolute(array|string $paths): array|string
+    public function pathToAbsolute(array|string $paths): array|string
     {
         if (is_array($paths)) {
             return array_map(fn ($path) => $this->pathToAbsolute($path), $paths);
         }
 
-        return $this->pathToAbsolute($paths);
+        return $this->path($paths);
     }
 
     /**
