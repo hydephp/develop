@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use function file_get_contents;
+use function glob;
+use function in_array;
+use function md5;
+use function str_replace;
+use function unslash;
 
 /**
  * Helper methods to interact with the virtual filecache that is used to compare
