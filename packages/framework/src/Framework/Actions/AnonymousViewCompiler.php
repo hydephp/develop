@@ -13,5 +13,12 @@ use Hyde\Framework\Concerns\InvokableAction;
  */
 class AnonymousViewCompiler extends InvokableAction
 {
-    //
+    protected string $viewPath;
+    protected array $data;
+
+    public function __construct(string $viewPath, array $data = [])
+    {
+        $this->viewPath = $viewPath;
+        $this->data = $data;
+    }
 }
