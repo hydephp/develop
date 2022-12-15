@@ -6,12 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-
-use InvalidArgumentException;
-
-use function file_put_contents;
 
 /**
  * @covers \Hyde\Framework\Actions\AnonymousViewCompiler
