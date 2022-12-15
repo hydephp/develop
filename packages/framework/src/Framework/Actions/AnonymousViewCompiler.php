@@ -9,7 +9,6 @@ use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Facades\Blade;
 
-
 /**
  * Compile any Blade file using the Blade facade as it allows us to render
  * it without having to register the directory with the view finder.
