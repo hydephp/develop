@@ -33,7 +33,7 @@ class PublicationTypeTest extends TestCase
         }
     }
 
-    public function testConstructWithDefaultValues()
+    public function test_construct_with_default_values()
     {
         $publicationType = new PublicationType('Test Publication');
 
