@@ -165,6 +165,14 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals(new PublicationListPage($publicationType), $publicationType->getListPage());
     }
 
+    public function test_get_field_rules()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertEquals([
+            'title' => ['between:0,128'],
+        ], $publicationType->getFieldRules()->toArray());
+    }
+
     protected function getTestData(): array
     {
         return [
