@@ -41,9 +41,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
 
     public function compile(): string
     {
-        return view('hyde::layouts.publication', [
-            'publication' => new HtmlString($this->renderComponent()),
-        ])->render();
+        return $this->renderComponent();
     }
 
     protected function renderComponent(): string
