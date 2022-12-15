@@ -37,11 +37,7 @@ class PublicationPageCompiler extends InvokableAction
         ];
 
         $template = $this->page->type->detailTemplate;
-        if (view()->exists($template)) {
-            return view($template, $data)->render();
-        }
-
-        return AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
+        return $this->compile($template, $data);
     }
 
     public function compilePublicationListPage(): string
@@ -51,15 +47,20 @@ class PublicationPageCompiler extends InvokableAction
         ];
 
         $template = $this->page->type->listTemplate;
-        if (view()->exists($template)) {
-            return view($template, $data)->render();
-        }
-
-        return AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
+        return $this->compile($template, $data);
     }
 
     protected function getTemplateFilePath(string $template): string
     {
         return "{$this->page->type->getDirectory()}/$template.blade.php";
+    }
+
+    protected function compile(string $template, array $data): string
+    {
+        if (view()->exists($template)) {
+            return view($template, $data)->render();
+        }
+
+        return AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
     }
 }
