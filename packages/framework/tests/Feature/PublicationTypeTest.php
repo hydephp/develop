@@ -52,6 +52,18 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals('test-publication', $publicationType->getDirectory());
     }
 
+    public function test_construct_with_pagination_object()
+    {
+        $paginationSettings = PaginationSettings::fromArray([
+            'sortField'     => 'title',
+            'sortAscending' => false,
+            'pageSize'      => 10,
+            'prevNextLinks' => false,
+        ]);
+        $publicationType = new PublicationType('Test Publication', pagination: $paginationSettings);
+        $this->assertSame($paginationSettings, $publicationType->pagination);
+    }
+
     public function test_class_is_arrayable()
     {
         $publicationType = new PublicationType(...$this->getTestData());
