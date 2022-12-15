@@ -46,7 +46,7 @@ class PublicationPageCompiler extends InvokableAction
         }
 
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        return $this->compile("{$this->page->type->getDirectory()}/$template.blade.php", $data);
+        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template.blade.php", $data);
     }
 
     public function compilePublicationListPage(): string
@@ -61,11 +61,6 @@ class PublicationPageCompiler extends InvokableAction
         }
 
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        return $this->compile("{$this->page->type->getDirectory()}/$template" .'.blade.php', $data);
-    }
-
-    protected function compile(string $viewPath, array $data): string
-    {
-        return AnonymousViewCompiler::call($viewPath, $data);
+        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template" . '.blade.php', $data);
     }
 }
