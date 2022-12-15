@@ -41,7 +41,7 @@ class PublicationPageCompiler extends InvokableAction
             return view($template, $data)->render();
         }
 
-        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template.blade.php", $data);
+        return AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
     }
 
     public function compilePublicationListPage(): string
@@ -55,6 +55,11 @@ class PublicationPageCompiler extends InvokableAction
             return view($template, $data)->render();
         }
 
-        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template.blade.php", $data);
+        return AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
+    }
+
+    protected function getTemplateFilePath(string $template): string
+    {
+        return "{$this->page->type->getDirectory()}/$template.blade.php";
     }
 }
