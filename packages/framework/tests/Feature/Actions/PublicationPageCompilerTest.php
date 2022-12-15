@@ -9,7 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
-use InvalidArgumentException;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * @covers \Hyde\Framework\Actions\PublicationPageCompiler
@@ -46,8 +46,8 @@ class PublicationPageCompilerTest extends TestCase
         $this->directory('test-publication');
         $this->setupTestPublication();
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('View [test-publication/test-publication_detail.blade.php] not found.');
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('File test-publication/test-publication_detail.blade.php not found.');
 
         PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
     }
@@ -57,8 +57,8 @@ class PublicationPageCompilerTest extends TestCase
         $this->directory('test-publication');
         $this->setupTestPublication();
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('View [test-publication/test-publication_list.blade.php] not found.');
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('File test-publication/test-publication_list.blade.php not found.');
 
         PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
     }
