@@ -47,7 +47,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->setupTestPublication();
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File test-publication/test-publication_detail.blade.php not found.');
+        $this->expectExceptionMessage('File [test-publication/test-publication_detail.blade.php] not found.');
 
         PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
     }
@@ -58,7 +58,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->setupTestPublication();
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File test-publication/test-publication_list.blade.php not found.');
+        $this->expectExceptionMessage('File [test-publication/test-publication_list.blade.php] not found.');
 
         PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
     }
