@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-class AnonymousViewCompiler
+use Hyde\Framework\Concerns\InvokableAction;
+
+class AnonymousViewCompiler extends InvokableAction
 {
     //
 }
