@@ -66,7 +66,7 @@ class PublicationPageCompiler extends InvokableAction
 
     protected function compile(string $viewPath, array $data): string
     {
-        if (!file_exists($viewPath)) {
+        if (! file_exists($viewPath)) {
             throw new InvalidArgumentException(sprintf('View [%s] not found.', Hyde::pathToRelative($viewPath)));
         }
 
