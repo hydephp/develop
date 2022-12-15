@@ -199,7 +199,7 @@ class ValidatingCommandTest extends TestCase
 
 class SafeValidatingTestCommand extends ValidatingCommand
 {
-    // 
+    //
 }
 
 class SafeThrowingValidatingTestCommand extends ValidatingCommand

@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
  */
 class PublicationPageCompilerTest extends TestCase
 {
-    public function testCanCompilePublicationPages()
+    public function test_can_compile_publication_pages()
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
@@ -27,7 +27,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('Detail: My Publication', $string);
     }
 
-    public function testCanCompilePublicationListPages()
+    public function test_can_compile_publication_list_pages()
     {
         $this->directory('test-publication');
         $this->setupTestPublication();
