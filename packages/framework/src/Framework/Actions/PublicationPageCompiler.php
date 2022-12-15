@@ -48,7 +48,7 @@ class PublicationPageCompiler extends InvokableAction
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
         $viewPath = Hyde::path("{$this->page->type->getDirectory()}/$template.blade.php");
         if (! file_exists($viewPath)) {
-            throw new InvalidArgumentException(sprintf('View [%s] not found.', $viewPath));
+            throw new InvalidArgumentException(sprintf('View [%s] not found.', Hyde::pathToRelative($viewPath)));
         }
 
         return Blade::render(
@@ -70,7 +70,7 @@ class PublicationPageCompiler extends InvokableAction
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
         $viewPath = Hyde::path("{$this->page->type->getDirectory()}/$template").'.blade.php';
         if (! file_exists($viewPath)) {
-            throw new InvalidArgumentException(sprintf('View [%s] not found.', $viewPath));
+            throw new InvalidArgumentException(sprintf('View [%s] not found.', Hyde::pathToRelative($viewPath)));
         }
 
         return Blade::render(
