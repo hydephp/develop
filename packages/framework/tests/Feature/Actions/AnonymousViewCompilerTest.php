@@ -30,7 +30,7 @@ class AnonymousViewCompilerTest extends TestCase
     public function testWithMissingView()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File foo.blade.php not found.');
+        $this->expectExceptionMessage('File [foo.blade.php] not found.');
 
         AnonymousViewCompiler::call('foo.blade.php');
     }
