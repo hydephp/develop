@@ -8,11 +8,9 @@ use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
-use InvalidArgumentException;
 
 use function file_exists;
 use function file_get_contents;
-use function sprintf;
 
 
 /**
