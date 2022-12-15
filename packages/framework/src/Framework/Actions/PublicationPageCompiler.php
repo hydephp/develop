@@ -37,7 +37,7 @@ class PublicationPageCompiler extends InvokableAction
         ];
 
         $template = $this->page->type->detailTemplate;
-        if (str_contains($template, '::')) {
+        if (view()->exists($template)) {
             return view($template, $data)->render();
         }
 
@@ -52,7 +52,7 @@ class PublicationPageCompiler extends InvokableAction
         ];
 
         $template = $this->page->type->listTemplate;
-        if (str_contains($template, '::')) {
+        if (view()->exists($template)) {
             return view($template, $data)->render();
         }
 

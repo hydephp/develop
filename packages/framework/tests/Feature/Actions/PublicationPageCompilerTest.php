@@ -46,6 +46,36 @@ class PublicationPageCompilerTest extends TestCase
         $this->assertEquals('List: My Publication', $string);
     }
 
+    public function test_can_compile_publication_pages_with_registered_view()
+    {
+        $this->directory('test-publication');
+        $this->setupTestPublication();
+
+        $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
+        $schema->detailTemplate = 'foo';
+        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode($schema));
+        $this->file('resources/views/foo.blade.php', 'Registered detail view');
+
+        $publicationPage = new PublicationPage('my-publication', type: PublicationType::get('test-publication'));
+        Render::setPage($publicationPage);
+        $this->assertEquals('Registered detail view', PublicationPageCompiler::call($publicationPage));
+    }
+
+    public function test_can_compile_publication_list_pages_with_registered_view()
+    {
+        $this->directory('test-publication');
+        $this->setupTestPublication();
+
+        $schema = json_decode(file_get_contents(Hyde::path('test-publication/schema.json')));
+        $schema->listTemplate = 'foo';
+        file_put_contents(Hyde::path('test-publication/schema.json'), json_encode($schema));
+        $this->file('resources/views/foo.blade.php', 'Registered list view');
+
+        $publicationType = PublicationType::get('test-publication');
+        $publicationPage = $publicationType->getListPage();
+        $this->assertEquals('Registered list view', PublicationPageCompiler::call($publicationPage));
+    }
+
     public function test_can_compile_publication_pages_with_registered_namespaced_view()
     {
         $this->directory('test-publication');
