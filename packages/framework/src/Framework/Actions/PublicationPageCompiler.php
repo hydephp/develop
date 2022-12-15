@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function file_exists;
-use function file_get_contents;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
-use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\Blade;
-use InvalidArgumentException;
 use function view;
 
 /**
@@ -46,9 +42,7 @@ class PublicationPageCompiler extends InvokableAction
         }
 
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        return Blade::render(
-            file_get_contents(Hyde::path("{$this->page->type->getDirectory()}/$template.blade.php")), $data
-        );
+        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template.blade.php", $data);
     }
 
     public function compilePublicationListPage(): string
@@ -63,13 +57,6 @@ class PublicationPageCompiler extends InvokableAction
         }
 
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        $viewPath = Hyde::path("{$this->page->type->getDirectory()}/$template").'.blade.php';
-        if (! file_exists($viewPath)) {
-            throw new InvalidArgumentException("View [$viewPath] not found.");
-        }
-
-        return Blade::render(
-            file_get_contents($viewPath), $data
-        );
+        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template.blade.php", $data);
     }
 }
