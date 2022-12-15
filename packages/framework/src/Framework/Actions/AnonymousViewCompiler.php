@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Concerns\InvokableAction;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
 use InvalidArgumentException;
@@ -32,7 +33,7 @@ class AnonymousViewCompiler extends InvokableAction
     public function __invoke(): string
     {
         if (! file_exists(Hyde::path($this->viewPath))) {
-            throw new InvalidArgumentException(sprintf('View [%s] not found.', $this->viewPath));
+            throw new FileNotFoundException($this->viewPath);
         }
 
         return Blade::render(
