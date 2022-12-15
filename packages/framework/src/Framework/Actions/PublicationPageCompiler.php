@@ -43,15 +43,15 @@ class PublicationPageCompiler extends InvokableAction
         ]);
     }
 
-    protected function getTemplateFilePath(string $template): string
-    {
-        return "{$this->page->type->getDirectory()}/$template.blade.php";
-    }
-
     protected function compileView(string $template, array $data): string
     {
         return View::exists($template)
             ? View::make($template, $data)->render()
             : AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
+    }
+
+    protected function getTemplateFilePath(string $template): string
+    {
+        return "{$this->page->type->getDirectory()}/$template.blade.php";
     }
 }
