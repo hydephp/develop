@@ -61,6 +61,6 @@ class PublicationPageCompiler extends InvokableAction
         }
 
         // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template" . '.blade.php', $data);
+        return AnonymousViewCompiler::call("{$this->page->type->getDirectory()}/$template.blade.php", $data);
     }
 }
