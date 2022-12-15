@@ -36,7 +36,7 @@ class PublicationPageCompiler extends InvokableAction
             'publication' => $this->page,
         ];
 
-        return $this->compile($this->page->type->detailTemplate, $data);
+        return $this->compileView($this->page->type->detailTemplate, $data);
     }
 
     public function compilePublicationListPage(): string
@@ -45,7 +45,7 @@ class PublicationPageCompiler extends InvokableAction
             'publications' => PublicationService::getPublicationsForPubType($this->page->type),
         ];
 
-        return $this->compile($this->page->type->listTemplate, $data);
+        return $this->compileView($this->page->type->listTemplate, $data);
     }
 
     protected function getTemplateFilePath(string $template): string
@@ -53,7 +53,7 @@ class PublicationPageCompiler extends InvokableAction
         return "{$this->page->type->getDirectory()}/$template.blade.php";
     }
 
-    protected function compile(string $template, array $data): string
+    protected function compileView(string $template, array $data): string
     {
         if (view()->exists($template)) {
             return view($template, $data)->render();
