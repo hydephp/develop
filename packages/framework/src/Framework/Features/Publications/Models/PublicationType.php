@@ -111,11 +111,10 @@ class PublicationType implements SerializableContract
      */
     public function getFieldRules(bool $reload): Collection
     {
-        $result = $this->getFields()->mapWithKeys(function (PublicationFieldType $field) use ($reload) {
-            return [$field->name => $field->getValidationRules($reload)];
-        });
-
-        return Collection::create($result, false);
+        return Collection::create(
+            $this->getFields()->mapWithKeys(function (PublicationFieldType $field) use ($reload) {
+                return [$field->name => $field->getValidationRules($reload)];
+            }), false);
     }
 
     public function save(?string $path = null): void
