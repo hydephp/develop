@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Hyde\Hyde;
 use Illuminate\Support\Facades\Blade;
-
-use function file_exists;
-use function file_get_contents;
 
 
 /**
@@ -30,12 +27,12 @@ class AnonymousViewCompiler extends InvokableAction
 
     public function __invoke(): string
     {
-        if (! file_exists(Hyde::path($this->viewPath))) {
+        if (Filesystem::missing($this->viewPath)) {
             throw new FileNotFoundException($this->viewPath);
         }
 
         return Blade::render(
-            file_get_contents(Hyde::path($this->viewPath)),
+            Filesystem::getContents($this->viewPath),
             $this->data
         );
     }
