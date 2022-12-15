@@ -9,9 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Contracts\DynamicPage;
-use Illuminate\Support\HtmlString;
 use function str_starts_with;
-use function view;
 
 /**
  * Publication pages adds an easy way to create custom no-code page types,
