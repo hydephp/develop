@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\PublicationPageCompiler;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * @covers \Hyde\Framework\Actions\PublicationPageCompiler
