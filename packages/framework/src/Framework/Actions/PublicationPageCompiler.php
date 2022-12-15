@@ -8,7 +8,7 @@ use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
-use function view;
+use Illuminate\Support\Facades\View;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Actions\PublicationPageCompilerTest
@@ -50,8 +50,8 @@ class PublicationPageCompiler extends InvokableAction
 
     protected function compileView(string $template, array $data): string
     {
-        return view()->exists($template)
-            ? view($template, $data)->render()
+        return View::exists($template)
+            ? View::make($template, $data)->render()
             : AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
     }
 }
