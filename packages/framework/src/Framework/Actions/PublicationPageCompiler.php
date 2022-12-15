@@ -32,20 +32,16 @@ class PublicationPageCompiler extends InvokableAction
 
     public function compilePublicationPage(): string
     {
-        $data = [
+        return $this->compileView($this->page->type->detailTemplate, [
             'publication' => $this->page,
-        ];
-
-        return $this->compileView($this->page->type->detailTemplate, $data);
+        ]);
     }
 
     public function compilePublicationListPage(): string
     {
-        $data = [
+        return $this->compileView($this->page->type->listTemplate, [
             'publications' => PublicationService::getPublicationsForPubType($this->page->type),
-        ];
-
-        return $this->compileView($this->page->type->listTemplate, $data);
+        ]);
     }
 
     protected function getTemplateFilePath(string $template): string
