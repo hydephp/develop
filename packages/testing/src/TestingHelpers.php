@@ -18,7 +18,7 @@ trait TestingHelpers
     final protected static function backupDirectory(string $directory): void
     {
         if (file_exists($directory)) {
-            File::copyDirectory($directory, $directory.'-bak', true);
+            File::copyDirectory($directory, $directory.'-bak');
         }
     }
 
