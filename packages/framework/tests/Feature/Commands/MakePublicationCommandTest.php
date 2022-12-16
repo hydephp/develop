@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use function deleteDirectory;
 use function file_get_contents;
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
@@ -20,14 +20,14 @@ class MakePublicationCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        mkdir(Hyde::path('test-publication'));
 
+        Filesystem::makeDirectory('test-publication');
         Carbon::setTestNow(Carbon::create(2022));
     }
 
     protected function tearDown(): void
     {
-        deleteDirectory(Hyde::path('test-publication'));
+        Filesystem::deleteDirectory('test-publication');
         parent::tearDown();
     }
 
@@ -159,7 +159,7 @@ class MakePublicationCommandTest extends TestCase
 
     protected function assertPublicationFileWasCreatedCorrectly(): void
     {
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertEquals(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01 00:00:00

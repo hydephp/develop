@@ -43,7 +43,7 @@ class CreatesNewPublicationPageTest extends TestCase
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEqualsIgnoringLineEndingType('---
+        $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 title: Hello World
 ---

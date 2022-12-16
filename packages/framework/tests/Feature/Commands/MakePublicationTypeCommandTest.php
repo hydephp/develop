@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use function config;
-use function deleteDirectory;
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -20,13 +20,6 @@ class MakePublicationTypeCommandTest extends TestCase
         parent::setUp();
 
         config(['app.throw_on_console_exception' => true]);
-    }
-
-    protected function tearDown(): void
-    {
-        deleteDirectory(Hyde::path('test-publication'));
-
-        parent::tearDown();
     }
 
     public function test_command_creates_publication_type()
@@ -68,7 +61,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertEquals(
             <<<'JSON'
             {
                 "name": "Test Publication",
@@ -96,6 +89,8 @@ class MakePublicationTypeCommandTest extends TestCase
         );
 
         // TODO: Assert Blade templates were created?
+
+        Filesystem::deleteDirectory('test-publication');
     }
 
     public function test_cannot_create_field_with_lower_max_than_min_value()
@@ -116,5 +111,7 @@ class MakePublicationTypeCommandTest extends TestCase
              ->expectsQuestion('Choose a canonical name field (the values of this field have to be unique!)', 'foo')
              ->expectsOutputToContain('Creating a new Publication Type!')
              ->assertSuccessful();
+
+        Filesystem::deleteDirectory('test-publication');
     }
 }
