@@ -10,14 +10,14 @@ trait TestingHelpers
 {
     final protected static function backupDirectory(string $directory): void
     {
-        if (file_exists($directory)) {
+        if (is_dir($directory)) {
             File::copyDirectory($directory, $directory.'-bak');
         }
     }
 
     final protected static function restoreDirectory(string $directory): void
     {
-        if (file_exists($directory.'-bak')) {
+        if (is_dir($directory.'-bak')) {
             File::moveDirectory($directory.'-bak', $directory, true);
             File::deleteDirectory($directory.'-bak');
         }
@@ -25,7 +25,7 @@ trait TestingHelpers
 
     final protected static function deleteDirectory(string $directory): void
     {
-        if (file_exists($directory)) {
+        if (is_dir($directory)) {
             File::deleteDirectory($directory);
         }
     }
