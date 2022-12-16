@@ -21,7 +21,7 @@ class HydeSmartDocsTest extends TestCase
 {
     protected function tearDown(): void
     {
-        $this->unlinkIfExists(Hyde::path('_docs/foo.md'));
+        unlink(Hyde::path('_docs/foo.md'));
 
         parent::tearDown();
     }
