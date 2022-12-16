@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Testing;
 
 use Illuminate\Support\Facades\File;
-use JetBrains\PhpStorm\Deprecated;
 
 trait TestingHelpers
 {
