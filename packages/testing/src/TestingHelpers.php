@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
-use function copy;
-use Hyde\Hyde;
 use Illuminate\Support\Facades\File;
 
 trait TestingHelpers
@@ -58,17 +56,5 @@ trait TestingHelpers
             $this->normalizeNewlines($expected),
             $this->normalizeNewlines($actual),
         );
-    }
-
-    protected function withoutDefaultPages(): void
-    {
-        Hyde::unlink('_pages/404.blade.php');
-        Hyde::unlink('_pages/index.blade.php');
-    }
-
-    protected function restoreDefaultPages(): void
-    {
-        copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
-        copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 }
