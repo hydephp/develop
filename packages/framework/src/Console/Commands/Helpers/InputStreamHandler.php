@@ -44,7 +44,7 @@ class InputStreamHandler extends InvokableAction
     protected function readInputStream(): string
     {
         if (self::$mockedStreamBuffer !== null) {
-            return array_shift(self::$mockedStreamBuffer);
+            return array_shift(self::$mockedStreamBuffer) ?? '';
         }
 
         return fgets(STDIN);
