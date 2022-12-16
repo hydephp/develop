@@ -19,7 +19,7 @@ use function trim;
 class InputStreamHandler extends InvokableAction
 {
     /** @internal Allows for mocking of the standard input stream */
-    private static ?array $streamBuffer = null;
+    private static ?array $mockedStreamBuffer = null;
 
     public function __invoke(): array
     {
@@ -43,8 +43,8 @@ class InputStreamHandler extends InvokableAction
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */
     protected function readInputStream(): array|string|false
     {
-        if (self::$streamBuffer) {
-            return array_shift(self::$streamBuffer);
+        if (self::$mockedStreamBuffer) {
+            return array_shift(self::$mockedStreamBuffer);
         }
 
         return fgets(STDIN);
@@ -53,6 +53,6 @@ class InputStreamHandler extends InvokableAction
     /** @internal Allows for mocking of the standard input stream */
     public static function mockInput(string $input): void
     {
-        self::$streamBuffer = explode("\n", $input);
+        self::$mockedStreamBuffer = explode("\n", $input);
     }
 }
