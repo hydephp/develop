@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\File;
 
 trait TestingHelpers
 {
+    /**
+     * @deprecated You should know if a file already exists or not. Also, use the new temporary file creation methods instead.
+     */
     final protected static function unlinkIfExists(string $filepath): void
     {
         if (file_exists($filepath)) {
