@@ -13,6 +13,22 @@ use Hyde\Testing\TestCase;
  */
 class PublicationFieldTypesEnumTest extends TestCase
 {
+    public function testCases()
+    {
+        $this->assertCount(10, PublicationFieldTypes::cases());
+
+        $this->assertSame('string', PublicationFieldTypes::String->value);
+        $this->assertSame('boolean', PublicationFieldTypes::Boolean->value);
+        $this->assertSame('integer', PublicationFieldTypes::Integer->value);
+        $this->assertSame('float', PublicationFieldTypes::Float->value);
+        $this->assertSame('datetime', PublicationFieldTypes::Datetime->value);
+        $this->assertSame('url', PublicationFieldTypes::Url->value);
+        $this->assertSame('array', PublicationFieldTypes::Array->value);
+        $this->assertSame('text', PublicationFieldTypes::Text->value);
+        $this->assertSame('image', PublicationFieldTypes::Image->value);
+        $this->assertSame('tag', PublicationFieldTypes::Tag->value);
+    }
+
     public function testCanGetRulesForEnum()
     {
         $this->assertSame([
