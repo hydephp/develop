@@ -74,24 +74,7 @@ class MakePublicationCommand extends ValidatingCommand
             return $this->captureTagFieldInput($field);
         }
 
-        // Fields which are not of type array, text or image
-        $fieldRules = collect($field->type->rules());
-        if ($fieldRules->contains('between')) {
-            $fieldRules->forget($fieldRules->search('between'));
-            if ($field->min && $field->max) {
-                switch ($field->type) {
-                    case 'string':
-                    case 'integer':
-                    case 'float':
-                        $fieldRules->add("between:$field->min,$field->max");
-                        break;
-                    case 'datetime':
-                        $fieldRules->add("after:$field->min");
-                        $fieldRules->add("before:$field->max");
-                        break;
-                }
-            }
-        }
+        $fieldRules = $this->generateFieldRules($field);
 
         return $this->askWithValidation($field->name, $field->name, $fieldRules->toArray());
     }
@@ -211,5 +194,28 @@ class MakePublicationCommand extends ValidatingCommand
         } while ($selected == 0);
 
         return $tagsForGroup->{$selected - 1};
+    }
+
+    // Get rules for fields which are not of type array, text or image
+    protected function generateFieldRules(PublicationFieldType $field): \Illuminate\Support\Collection
+    {
+        $fieldRules = collect($field->type->rules());
+        if ($fieldRules->contains('between')) {
+            $fieldRules->forget($fieldRules->search('between'));
+            if ($field->min && $field->max) {
+                switch ($field->type) {
+                    case 'string':
+                    case 'integer':
+                    case 'float':
+                        $fieldRules->add("between:$field->min,$field->max");
+                        break;
+                    case 'datetime':
+                        $fieldRules->add("after:$field->min");
+                        $fieldRules->add("before:$field->max");
+                        break;
+                }
+            }
+        }
+        return $fieldRules;
     }
 }
