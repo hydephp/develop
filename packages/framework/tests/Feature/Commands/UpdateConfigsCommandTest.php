@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
-use function is_dir;
 
 /**
  * @covers \Hyde\Console\Commands\UpdateConfigsCommand
@@ -18,30 +18,16 @@ class UpdateConfigsCommandTest extends TestCase
     {
         parent::setUp();
 
-        $this->backupDirectory(Hyde::path('config'));
-        $this->deleteDirectory(Hyde::path('config'));
+        Filesystem::copyDirectory('config', 'config-bak');
+        Filesystem::deleteDirectory('config');
     }
 
     public function tearDown(): void
     {
-        $this->restoreDirectory(Hyde::path('config'));
+        Filesystem::moveDirectory('config-bak', 'config', true);
+        Filesystem::deleteDirectory('config-bak');
 
         parent::tearDown();
-    }
-
-    protected function backupDirectory(string $directory): void
-    {
-        if (is_dir($directory)) {
-            File::copyDirectory($directory, $directory.'-bak');
-        }
-    }
-
-    protected function restoreDirectory(string $directory): void
-    {
-        if (is_dir($directory.'-bak')) {
-            File::moveDirectory($directory.'-bak', $directory, true);
-            File::deleteDirectory($directory.'-bak');
-        }
     }
 
     public function test_command_has_expected_output()
