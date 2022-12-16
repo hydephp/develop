@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use function is_dir;
 
 /**
  * @covers \Hyde\Console\Commands\UpdateConfigsCommand
@@ -26,6 +27,21 @@ class UpdateConfigsCommandTest extends TestCase
         $this->restoreDirectory(Hyde::path('config'));
 
         parent::tearDown();
+    }
+
+    protected function backupDirectory(string $directory): void
+    {
+        if (is_dir($directory)) {
+            File::copyDirectory($directory, $directory.'-bak');
+        }
+    }
+
+    protected function restoreDirectory(string $directory): void
+    {
+        if (is_dir($directory.'-bak')) {
+            File::moveDirectory($directory.'-bak', $directory, true);
+            File::deleteDirectory($directory.'-bak');
+        }
     }
 
     public function test_command_has_expected_output()
