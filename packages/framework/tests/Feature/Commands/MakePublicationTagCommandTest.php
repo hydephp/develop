@@ -11,7 +11,7 @@ use function unlink;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationTagCommand
- * @covers \Hyde\Console\Commands\Helpers\InputStreamHandler {@todo Extract this to a separate test class}
+ * @covers \Hyde\Console\Commands\Helpers\InputStreamHandler
  */
 class MakePublicationTagCommandTest extends TestCase
 {
@@ -72,19 +72,5 @@ class MakePublicationTagCommandTest extends TestCase
         $this->artisan('make:publicationTag foo')
             ->expectsOutput('Error: Tag [foo] already exists')
              ->assertExitCode(1);
-    }
-
-    public function testCanTerminateWithCarriageReturns()
-    {
-        InputStreamHandler::mockInput("foo\r\nbar\r\nbaz\r\n");
-
-        $this->artisan('make:publicationTag foo')->assertExitCode(0);
-    }
-
-    public function testCanTerminateWithUnixEndings()
-    {
-        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
-
-        $this->artisan('make:publicationTag foo')->assertExitCode(0);
     }
 }

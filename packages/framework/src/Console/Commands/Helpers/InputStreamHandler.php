@@ -8,7 +8,7 @@ use function array_shift;
 use function explode;
 use function fgets;
 use Hyde\Framework\Concerns\InvokableAction;
-use Illuminate\Support\Str;
+use function strip_newlines;
 use function trim;
 
 /**
@@ -30,7 +30,7 @@ class InputStreamHandler extends InvokableAction
     {
         $lines = [];
         do {
-            $line = Str::replace(["\n", "\r"], '', $this->readInputStream());
+            $line = strip_newlines($this->readInputStream());
             if ($line === '') {
                 break;
             }

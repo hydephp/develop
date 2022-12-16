@@ -21,21 +21,46 @@ class InputStreamHandlerTest extends TestCase
     {
         InputStreamHandler::mockInput('foo');
 
-        $command = new TestCommand ;
+        $this->assertSame(0, $this->makeCommand(['foo'])->handle());
+    }
 
-        $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === 'foo';
+    public function testCanCollectMultipleInputLines()
+    {
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
+    public function testCanTerminateWithCarriageReturns()
+    {
+        InputStreamHandler::mockInput("foo\r\nbar\r\nbaz\r\n");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
+    public function testCanTerminateWithUnixEndings()
+    {
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
+    protected function makeCommand(array $expected): TestCommand
+    {
+        $command = new TestCommand;
+        $output  = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) use ($expected) {
+            return $message === json_encode($expected);
         });
         $command->setOutput($output);
-        $this->assertSame(0, $command->handle());
+        return $command;
     }
 }
 
 class TestCommand extends Command {
     public function handle(): int
     {
-        $this->output->writeln(implode(', ', InputStreamHandler::call()));
+        $this->output->writeln(json_encode(InputStreamHandler::call()));
 
         return 0;
     }
