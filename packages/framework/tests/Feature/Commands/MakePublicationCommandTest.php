@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use function deleteDirectory;
+use Hyde\Facades\Filesystem;
 use function file_get_contents;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -20,14 +20,14 @@ class MakePublicationCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        mkdir(Hyde::path('test-publication'));
 
+        Filesystem::makeDirectory('test-publication');
         Carbon::setTestNow(Carbon::create(2022));
     }
 
     protected function tearDown(): void
     {
-        deleteDirectory(Hyde::path('test-publication'));
+        Filesystem::deleteDirectory('test-publication');
         parent::tearDown();
     }
 
