@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -21,7 +20,7 @@ use Rgasch\Collection\Collection;
  *
  * @todo Normalize command output style, maybe by hooking into the build actions?
  */
-class SeedPublicationCommand extends ValidatingCommand implements CommandHandleInterface
+class SeedPublicationCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'seed:publications
