@@ -17,8 +17,6 @@ class DocumentationSearchServiceTest extends TestCase
 {
     public function test_it_generates_a_json_file_with_a_search_index()
     {
-        $this->resetDocs();
-
         Filesystem::touch('_docs/foo.md');
 
         DocumentationSearchService::generate();
