@@ -178,7 +178,6 @@ class HydeSmartDocsTest extends TestCase
         HTML, $this->makeArticle()->renderHeader());
     }
 
-
     public function test_edit_source_link_text_can_be_customized_in_footer()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
