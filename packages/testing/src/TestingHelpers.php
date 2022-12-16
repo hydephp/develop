@@ -54,7 +54,7 @@ trait TestingHelpers
         }
     }
 
-    final protected static function strip_newlines(string $string, bool $keepUnixEndings = false): string
+    final protected static function stripNewlines(string $string, bool $keepUnixEndings = false): string
     {
         if ($keepUnixEndings) {
             return str_replace("\r", '', $string);
@@ -63,15 +63,15 @@ trait TestingHelpers
         return str_replace(["\r", "\n"], '', $string);
     }
 
-    final protected static function strip_indentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    final protected static function stripIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
     {
         $indentation = $indentUsingSpaces ? str_repeat(' ', $indentationLength) : "\t";
 
         return str_replace($indentation, '', $string);
     }
 
-    final protected static function strip_newlines_and_indentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    final protected static function stripNewlinesAndIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
     {
-        return self::strip_newlines(self::strip_indentation($string, $indentUsingSpaces, $indentationLength));
+        return self::stripNewlines(self::stripIndentation($string, $indentUsingSpaces, $indentationLength));
     }
 }

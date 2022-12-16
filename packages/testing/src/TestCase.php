@@ -62,8 +62,8 @@ abstract class TestCase extends BaseTestCase
     protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
     {
         $this->assertEquals(
-            $this->strip_newlines($expected, true),
-            $this->strip_newlines($actual, true),
+            $this->stripNewlines($expected, true),
+            $this->stripNewlines($actual, true),
         );
     }
 

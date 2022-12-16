@@ -213,16 +213,16 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlines(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            $this->strip_newlines($expected),
-            $this->strip_newlines($actual->toHtml())
+            $this->stripNewlines($expected),
+            $this->stripNewlines($actual->toHtml())
         );
     }
 
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            $this->strip_newlines_and_indentation($expected),
-            $this->strip_newlines_and_indentation($actual->toHtml()),
+            $this->stripNewlinesAndIndentation($expected),
+            $this->stripNewlinesAndIndentation($actual->toHtml()),
         );
     }
 }
