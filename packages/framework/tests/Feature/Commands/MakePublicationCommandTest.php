@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use function config;
 use function deleteDirectory;
 use function file_get_contents;
@@ -134,6 +135,24 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    public function test_command_with_text_input()
+    {
+        InputStreamHandler::mockInput("Hello\nWorld");
+        $this->makeSchemaFile([
+              [
+                  'type' => 'text',
+                  'name' => 'title',
+                  'min'  => '0',
+                  'max'  => '0',
+              ],
+          ]);
+
+        $this->artisan('make:publication test-publication')
+             ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertStringContainsString("Hello\nWorld", file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
 
     protected function makeSchemaFile(?array $fields = null): void
     {
