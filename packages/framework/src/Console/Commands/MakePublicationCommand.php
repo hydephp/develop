@@ -197,9 +197,9 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     // Get rules for fields which are not of type array, text or image
-    protected function generateFieldRules(PublicationFieldType $field): \Illuminate\Support\Collection
+    protected function generateFieldRules(PublicationFieldType $field): Collection
     {
-        $fieldRules = collect($field->type->rules());
+        $fieldRules = Collection::make($field->type->rules());
         if ($fieldRules->contains('between')) {
             $fieldRules->forget($fieldRules->search('between'));
             if ($field->min && $field->max) {
