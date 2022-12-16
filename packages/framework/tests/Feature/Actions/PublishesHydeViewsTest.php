@@ -13,9 +13,9 @@ use Hyde\Testing\TestCase;
  */
 class PublishesHydeViewsTest extends TestCase
 {
-    protected function setUp(): void
+    protected function tearDown(): void
     {
-        parent::setUp();
+        parent::tearDown();
 
         $this->deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
     }
