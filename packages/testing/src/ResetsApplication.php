@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 
 trait ResetsApplication
@@ -41,9 +42,7 @@ trait ResetsApplication
 
     protected function resetSite(): void
     {
-        array_map('\Hyde\Testing\TestCase::unlinkUnlessDefault', glob(Hyde::path('_site/**/*.html')));
-        array_map('\Hyde\Testing\TestCase::unlinkUnlessDefault', glob(Hyde::path('_site/**/*.json')));
-        array_map('\Hyde\Testing\TestCase::unlinkUnlessDefault', glob(Hyde::path('_site/*.xml')));
+        Filesystem::cleanDirectory('_site');
     }
 
     protected static function unlinkUnlessDefault(string $filepath): void
