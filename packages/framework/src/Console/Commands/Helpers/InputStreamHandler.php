@@ -15,6 +15,7 @@ use function trim;
  * Collects an array of lines from the standard input stream. Feed is terminated by a blank line.
  *
  * @todo Add dynamic support for detecting and using comma separated values?
+ * @see \Hyde\Framework\Testing\Unit\InputStreamHandlerTest
  */
 class InputStreamHandler extends InvokableAction
 {
