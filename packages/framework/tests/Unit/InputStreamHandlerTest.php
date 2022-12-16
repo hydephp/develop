@@ -21,7 +21,7 @@ class InputStreamHandlerTest extends TestCase
     {
         InputStreamHandler::mockInput('foo');
 
-        $this->assertSame(0, $this->makeCommand('foo')->handle());
+        $this->assertSame(0, $this->makeCommand(['foo'])->handle());
     }
 
     public function testCanCollectMultipleInputLines()
@@ -31,12 +31,12 @@ class InputStreamHandlerTest extends TestCase
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
-    protected function makeCommand(string|array $expected): TestCommand
+    protected function makeCommand(array $expected): TestCommand
     {
         $command = new TestCommand;
         $output  = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) use ($expected) {
-            return $message === json_encode((array) $expected);
+            return $message === json_encode($expected);
         });
         $command->setOutput($output);
         return $command;
