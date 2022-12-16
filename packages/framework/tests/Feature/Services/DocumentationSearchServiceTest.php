@@ -51,9 +51,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         DocumentationSearchService::generate();
 
-        $this->assertSame(
-            '[]', file_get_contents(DocumentationSearchService::$filePath)
-        );
+        $this->assertSame('[]', file_get_contents(DocumentationSearchService::$filePath));
 
         Filesystem::unlink('_site/docs/search.json');
     }
