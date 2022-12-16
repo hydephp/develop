@@ -7,6 +7,8 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 use Hyde\Framework\Actions\PublishesHydeViews;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
+use function is_dir;
 
 /**
  * @covers \Hyde\Framework\Actions\PublishesHydeViews
@@ -15,7 +17,9 @@ class PublishesHydeViewsTest extends TestCase
 {
     protected function tearDown(): void
     {
-        $this->deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
+        if (is_dir(Hyde::path('resources/views/vendor/hyde'))) {
+            File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
+        }
 
         parent::tearDown();
     }

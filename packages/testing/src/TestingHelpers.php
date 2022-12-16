@@ -4,17 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
-use Illuminate\Support\Facades\File;
-
 trait TestingHelpers
 {
-    final protected static function deleteDirectory(string $directory): void
-    {
-        if (is_dir($directory)) {
-            File::deleteDirectory($directory);
-        }
-    }
-
     final protected static function stripNewlines(string $string): string
     {
         return str_replace(["\r", "\n"], '', $string);
