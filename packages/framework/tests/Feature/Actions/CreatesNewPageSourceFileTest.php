@@ -94,7 +94,6 @@ class CreatesNewPageSourceFileTest extends TestCase
             Hyde::path('_pages/test-page.blade.php')
         );
 
-        $fileContent = file_get_contents(Hyde::path('_pages/test-page.blade.php'));
         $this->assertEqualsIgnoringLineEndingType(
             '@extends(\'hyde::layouts.app\')
 @section(\'content\')
@@ -105,7 +104,7 @@ class CreatesNewPageSourceFileTest extends TestCase
 </main>
 
 @endsection
-', $fileContent
+', file_get_contents(Hyde::path('_pages/test-page.blade.php'))
         );
     }
 
