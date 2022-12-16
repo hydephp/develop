@@ -137,7 +137,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function captureTextFieldInput(PublicationFieldType $field): array
     {
         $lines = [];
-        $this->output->writeln($field->name . " (end with a line containing only '<<<')");
+        $this->output->writeln($field->name." (end with a line containing only '<<<')");
         do {
             $line = Str::replace("\n", '', fgets(STDIN));
             if ($line === '<<<') {
@@ -152,7 +152,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function captureArrayFieldInput(PublicationFieldType $field): array
     {
         $lines = [];
-        $this->output->writeln($field->name . ' (end with an empty line)');
+        $this->output->writeln($field->name.' (end with an empty line)');
         do {
             $line = Str::replace("\n", '', fgets(STDIN));
             if ($line === '') {
@@ -166,9 +166,9 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureImageFieldInput(PublicationFieldType $field, PublicationType $pubType): string
     {
-        $this->output->writeln($field->name . ' (end with an empty line)');
+        $this->output->writeln($field->name.' (end with an empty line)');
         do {
-            $offset     = 0;
+            $offset = 0;
             $mediaFiles = PublicationService::getMediaForPubType($pubType);
             foreach ($mediaFiles as $index => $file) {
                 $offset = $index + 1;
@@ -178,14 +178,14 @@ class MakePublicationCommand extends ValidatingCommand
         } while ($selected == 0);
         $file = $mediaFiles->{$selected - 1};
 
-        return '_media/' . Str::of($file)->after('media/')->toString();
+        return '_media/'.Str::of($file)->after('media/')->toString();
     }
 
     protected function captureTagFieldInput(PublicationFieldType $field)
     {
-        $this->output->writeln($field->name . ' (enter 0 to reload tag definitions)');
+        $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
         do {
-            $offset       = 0;
+            $offset = 0;
             $tagsForGroup = PublicationService::getAllTags()->{$field->tagGroup};
             foreach ($tagsForGroup as $index => $value) {
                 $offset = $index + 1;
@@ -217,6 +217,7 @@ class MakePublicationCommand extends ValidatingCommand
                 }
             }
         }
+
         return $fieldRules;
     }
 }
