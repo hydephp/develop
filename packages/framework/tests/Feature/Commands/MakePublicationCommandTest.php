@@ -130,29 +130,30 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    protected function makeSchemaFile(): void
+
+    protected function makeSchemaFile(?array $fields = null): void
     {
         file_put_contents(
             Hyde::path('test-publication/schema.json'),
             json_encode([
-                'name'           => 'Test Publication',
-                'canonicalField' => 'title',
-                'detailTemplate' => 'test-publication_detail',
-                'listTemplate'   => 'test-publication_list',
-                'pagination' => [
+                            'name'           => 'Test Publication',
+                            'canonicalField' => 'title',
+                            'detailTemplate' => 'test-publication_detail',
+                            'listTemplate'   => 'test-publication_list',
+                            'pagination' => [
                     'pageSize'       => 10,
                     'prevNextLinks'  => true,
                     'sortField'      => '__createdAt',
                     'sortAscending'  => true,
                 ],
-                'fields'         => [
-                    [
-                        'name' => 'title',
-                        'min'  => '0',
-                        'max'  => '0',
-                        'type' => 'string',
-                    ],
-                ],
+                            'fields'         => $fields ?? [
+                                    [
+                                        'name' => 'title',
+                                        'min'  => '0',
+                                        'max'  => '0',
+                                        'type' => 'string',
+                                    ],
+                                ],
             ])
         );
     }
