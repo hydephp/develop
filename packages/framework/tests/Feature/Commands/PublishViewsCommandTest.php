@@ -12,17 +12,9 @@ use Hyde\Testing\TestCase;
  */
 class PublishViewsCommandTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->backupDirectory(Hyde::path('resources/views/vendor/hyde'));
-        $this->deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
-    }
-
     protected function tearDown(): void
     {
-        $this->restoreDirectory(Hyde::path('resources/views/vendor/hyde'));
+        $this->deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
 
         parent::tearDown();
     }
