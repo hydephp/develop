@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -58,19 +59,19 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureFieldInput(PublicationFieldType $field, PublicationType $pubType): string|array
     {
-        if ($field->type === 'text') {
+        if ($field->type === PublicationFieldTypes::Text) {
             return $this->captureTextFieldInput($field);
         }
 
-        if ($field->type === 'array') {
+        if ($field->type === PublicationFieldTypes::Array) {
             return $this->captureArrayFieldInput($field);
         }
 
-        if ($field->type === 'image') {
+        if ($field->type === PublicationFieldTypes::Image) {
             return $this->captureImageFieldInput($field, $pubType);
         }
 
-        if ($field->type === 'tag') {
+        if ($field->type === PublicationFieldTypes::Tag) {
             return $this->captureTagFieldInput($field);
         }
 
