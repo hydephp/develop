@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
@@ -136,17 +137,8 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTextFieldInput(PublicationFieldType $field): array
     {
-        $lines = [];
-        $this->output->writeln($field->name." (end with a line containing only '<<<')");
-        do {
-            $line = Str::replace("\n", '', fgets(STDIN));
-            if ($line === '<<<') {
-                break;
-            }
-            $lines[] = $line;
-        } while (true);
-
-        return $lines;
+        $this->output->writeln($field->name.' (end with an empty line)');
+        return InputStreamHandler::call();
     }
 
     protected function captureArrayFieldInput(PublicationFieldType $field): array
