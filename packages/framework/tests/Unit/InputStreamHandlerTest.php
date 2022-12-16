@@ -21,14 +21,18 @@ class InputStreamHandlerTest extends TestCase
     {
         InputStreamHandler::mockInput('foo');
 
-        $command = new TestCommand ;
+        $this->assertSame(0, $this->makeCommand('foo')->handle());
+    }
 
-        $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === 'foo';
+    protected function makeCommand(string $expected): TestCommand
+    {
+        $command = new TestCommand;
+        $output  = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) use ($expected) {
+            return $message === $expected;
         });
         $command->setOutput($output);
-        $this->assertSame(0, $command->handle());
+        return $command;
     }
 }
 
