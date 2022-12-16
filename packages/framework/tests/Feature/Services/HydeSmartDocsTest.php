@@ -64,7 +64,10 @@ class HydeSmartDocsTest extends TestCase
 
         $this->assertInstanceOf(SemanticDocumentationArticle::class, $article);
 
-        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>', $article->renderBody());
+        $this->assertEqualsIgnoringLineEndingType(
+            '<p>Hello world.</p>',
+            $article->renderBody()->toHtml()
+        );
     }
 
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
@@ -81,7 +84,10 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_render_header_returns_the_extracted_header()
     {
-        $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>', $this->makeArticle()->renderHeader());
+        $this->assertEqualsIgnoringLineEndingType(
+            '<h1>Foo</h1>',
+            $this->makeArticle()->renderHeader()->toHtml()
+        );
     }
 
     public function test_render_header_returns_the_extracted_header_with_varying_newlines()
@@ -93,16 +99,18 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $this->assertEqualsIgnoringNewlines('<h1>Foo</h1>',
-                $this->makeArticle($test)->renderHeader()
+            $this->assertEqualsIgnoringLineEndingType(
+                '<h1>Foo</h1>',
+                $this->makeArticle($test)->renderHeader()->toHtml()
             );
         }
     }
 
     public function test_render_body_returns_the_extracted_body()
     {
-        $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>',
-            $this->makeArticle()->renderBody()
+        $this->assertEqualsIgnoringLineEndingType(
+            '<p>Hello world.</p>',
+            $this->makeArticle()->renderBody()->toHtml()
         );
     }
 
@@ -115,15 +123,19 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $this->assertEqualsIgnoringNewlines('<p>Hello world.</p>',
-                $this->makeArticle($test)->renderBody()
+            $this->assertEqualsIgnoringLineEndingType(
+                '<p>Hello world.</p>',
+                $this->makeArticle($test)->renderBody()->toHtml()
             );
         }
     }
 
     public function test_render_footer_is_empty_by_default()
     {
-        $this->assertEqualsIgnoringNewlines('', $this->makeArticle()->renderFooter());
+        $this->assertEqualsIgnoringLineEndingType(
+            '',
+            $this->makeArticle()->renderFooter()->toHtml()
+        );
     }
 
     public function test_add_dynamic_header_content_adds_source_link_when_conditions_are_met()
@@ -208,14 +220,6 @@ class HydeSmartDocsTest extends TestCase
         file_put_contents(Hyde::path('_docs/foo.md'), $sourceFileContents ?? "# Foo\n\nHello world.");
 
         return SemanticDocumentationArticle::create(DocumentationPage::parse('foo'));
-    }
-
-    protected function assertEqualsIgnoringNewlines(string $expected, HtmlString $actual): void
-    {
-        $this->assertEquals(
-            $this->stripNewlines($expected),
-            $this->stripNewlines($actual->toHtml())
-        );
     }
 
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
