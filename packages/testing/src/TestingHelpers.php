@@ -73,6 +73,6 @@ trait TestingHelpers
 
     public static function strip_newlines_and_indentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
     {
-        return TestingHelpers::strip_newlines(TestingHelpers::strip_indentation($string, $indentUsingSpaces, $indentationLength));
+        return self::strip_newlines(self::strip_indentation($string, $indentUsingSpaces, $indentationLength));
     }
 }
