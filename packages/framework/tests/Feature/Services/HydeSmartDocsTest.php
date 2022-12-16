@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Documentation\SemanticDocumentationArticle;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
+use function str_replace;
 use function view;
 
 /**
@@ -224,7 +225,7 @@ class HydeSmartDocsTest extends TestCase
 
     protected function stripNewlinesAndIndentation(string $string): string
     {
-        return $this->stripNewlines($this->stripIndentation($string));
+        return str_replace(["\r", "\n"], '', $this->stripIndentation($string));
     }
 
     protected function stripIndentation(string $string): string
