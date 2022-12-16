@@ -86,11 +86,10 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
         Filesystem::putContents('_docs/bar.md', "# Foo\n\n Hello World");
 
-        $service = (new DocumentationSearchService())->run();
         $this->assertSame(
             '[{"slug":"bar","title":"Foo","content":"Foo \n Hello World","destination":"bar.html"},'.
             '{"slug":"foo","title":"Bar","content":"Bar \n Hello World","destination":"foo.html"}]',
-            json_encode($service->searchIndex->toArray())
+            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
         );
 
         Filesystem::unlink('_docs/foo.md');
@@ -118,8 +117,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
-        $service = (new DocumentationSearchService())->run();
-        $this->assertStringNotContainsString('excluded', json_encode($service->searchIndex->toArray()));
+        $this->assertStringNotContainsString('excluded', json_encode((new DocumentationSearchService())->run()->searchIndex->toArray()));
 
         Filesystem::unlink('_docs/excluded.md');
     }
@@ -129,8 +127,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::makeDirectory(Hyde::path('_docs/foo'));
         Filesystem::touch('_docs/foo/bar.md');
 
-        $service = (new DocumentationSearchService())->run();
-        $this->assertStringNotContainsString('foo', json_encode($service->searchIndex->toArray()));
+        $this->assertStringNotContainsString('foo', json_encode((new DocumentationSearchService())->run()->searchIndex->toArray()));
 
         Filesystem::deleteDirectory('_docs/foo');
     }
