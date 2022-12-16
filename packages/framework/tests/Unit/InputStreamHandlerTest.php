@@ -28,15 +28,15 @@ class InputStreamHandlerTest extends TestCase
     {
         InputStreamHandler::mockInput("foo\nbar\nbaz\n");
 
-        $this->assertSame(0, $this->makeCommand('foo, bar, baz')->handle());
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
-    protected function makeCommand(string $expected): TestCommand
+    protected function makeCommand(string|array $expected): TestCommand
     {
         $command = new TestCommand;
         $output  = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) use ($expected) {
-            return $message === $expected;
+            return $message === json_encode((array) $expected);
         });
         $command->setOutput($output);
         return $command;
@@ -46,7 +46,7 @@ class InputStreamHandlerTest extends TestCase
 class TestCommand extends Command {
     public function handle(): int
     {
-        $this->output->writeln(implode(', ', InputStreamHandler::call()));
+        $this->output->writeln(json_encode(InputStreamHandler::call()));
 
         return 0;
     }
