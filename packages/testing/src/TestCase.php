@@ -3,10 +3,6 @@
 namespace Hyde\Testing;
 
 use Hyde\Facades\Features;
-use Hyde\Pages\Concerns\HydePage;
-use Hyde\Pages\MarkdownPage;
-use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
@@ -16,6 +12,7 @@ abstract class TestCase extends BaseTestCase
     use ResetsApplication;
     use TestingHelpers;
     use CreatesTemporaryFiles;
+    use InteractsWithPages;
 
     protected static bool $booted = false;
 
@@ -44,21 +41,5 @@ abstract class TestCase extends BaseTestCase
         Features::clearMockedInstances();
 
         parent::tearDown();
-    }
-
-    protected function mockRoute(?Route $route = null)
-    {
-        Render::share('currentRoute', $route ?? (new Route(new MarkdownPage())));
-    }
-
-    protected function mockPage(?HydePage $page = null, ?string $currentPage = null)
-    {
-        Render::share('page', $page ?? new MarkdownPage());
-        Render::share('currentPage', $currentPage ?? 'PHPUnit');
-    }
-
-    protected function mockCurrentPage(string $currentPage)
-    {
-        Render::share('currentPage', $currentPage);
     }
 }
