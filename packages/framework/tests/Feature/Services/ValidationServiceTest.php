@@ -113,7 +113,6 @@ class ValidationServiceTest extends TestCase
     public function test_check_site_has_an_app_css_stylesheet_can_fail()
     {
         rename(Hyde::path('_media/app.css'), Hyde::path('_media/app.css.bak'));
-        $this->unlinkIfExists(Hyde::path('_site/media/app.css'));
         $this->test('check_site_has_an_app_css_stylesheet', 2);
         rename(Hyde::path('_media/app.css.bak'), Hyde::path('_media/app.css'));
     }
