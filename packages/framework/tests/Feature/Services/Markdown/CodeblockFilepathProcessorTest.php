@@ -52,8 +52,8 @@ class CodeblockFilepathProcessorTest extends TestCase
         ];
 
         foreach ($languages as $language) {
-            $markdown = "\n```{$language}\n// filepath: foo.{$language}\nfoo\n```";
-            $expected = "\n<!-- HYDE[Filepath]foo.{$language} -->\n```{$language}\nfoo\n```";
+            $markdown = "\n```$language\n// filepath: foo.$language\nfoo\n```";
+            $expected = "\n<!-- HYDE[Filepath]foo.$language -->\n```$language\nfoo\n```";
 
             $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
