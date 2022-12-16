@@ -11,18 +11,18 @@ use Hyde\Support\Models\Route;
 
 trait InteractsWithPages
 {
-    protected function mockRoute(?Route $route = null)
+    protected function mockRoute(?Route $route = null): void
     {
         Render::share('currentRoute', $route ?? (new Route(new MarkdownPage())));
     }
 
-    protected function mockPage(?HydePage $page = null, ?string $currentPage = null)
+    protected function mockPage(?HydePage $page = null, ?string $currentPage = null): void
     {
         Render::share('page', $page ?? new MarkdownPage());
         Render::share('currentPage', $currentPage ?? 'PHPUnit');
     }
 
-    protected function mockCurrentPage(string $currentPage)
+    protected function mockCurrentPage(string $currentPage): void
     {
         Render::share('currentPage', $currentPage);
     }
