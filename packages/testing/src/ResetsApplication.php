@@ -17,6 +17,7 @@ trait ResetsApplication
         $this->resetSite();
     }
 
+    /** @deprecated unless applicable usages are found */
     public function resetMedia(): void
     {
         //
