@@ -32,6 +32,15 @@ trait ImplementsStringHelpers
         return str_replace(["\r\n"], "\n", $string);
     }
 
+    public function stripNewlines(string $string, bool $keepUnixEndings = false): string
+    {
+        if ($keepUnixEndings) {
+            return str_replace("\r", '', $string);
+        }
+
+        return str_replace(["\r", "\n"], '', $string);
+    }
+
     public function markdown(string $text, bool $normalizeIndentation = false): HtmlString
     {
         if ($normalizeIndentation) {
