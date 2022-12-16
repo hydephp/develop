@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Filesystem;
 use function copy;
-use function deleteDirectory;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -93,7 +93,7 @@ class SourceFileParserTest extends TestCase
         $this->assertEquals('My Title', $page->matter->get('title'));
         $this->assertTrue($page->matter->has('__createdAt'));
 
-        deleteDirectory(Hyde::path('test-publication'));
+        Filesystem::deleteDirectory('test-publication');
     }
 
     public function test_parsed_page_is_run_through_dynamic_constructor()

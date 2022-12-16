@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use function deleteDirectory;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -34,6 +34,6 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertStringContainsString('"detailTemplate": "name_detail"', $result);
         $this->assertStringContainsString('"listTemplate": "name_list"', $result);
 
-        deleteDirectory(Hyde::path('name'));
+        Filesystem::deleteDirectory('name');
     }
 }
