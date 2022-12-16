@@ -32,9 +32,9 @@ trait ImplementsStringHelpers
         return str_replace(["\r\n"], "\n", $string);
     }
 
-    public function markdown(string $text, bool $stripIndentation = false): HtmlString
+    public function markdown(string $text, bool $normalizeIndentation = false): HtmlString
     {
-        if ($stripIndentation) {
+        if ($normalizeIndentation) {
             $text = MarkdownService::normalizeIndentationLevel($text);
         }
 
