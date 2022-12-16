@@ -6,9 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use function app;
 use function config;
-use function file_put_contents;
 use Hyde\Framework\Features\Documentation\SemanticDocumentationArticle;
-use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
