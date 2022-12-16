@@ -39,7 +39,7 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->file('_pages/foo.md', 'foo');
 
         $this->expectException(FileConflictException::class);
-        $this->expectExceptionMessage('File already exists: '. Hyde::path('_pages/foo.md'));
+        $this->expectExceptionMessage('File already exists: '.Hyde::path('_pages/foo.md'));
         $this->expectExceptionCode(409);
 
         (new CreatesNewPageSourceFile('foo'));
