@@ -15,15 +15,4 @@ trait TestingHelpers
     {
         return str_replace(["\r\n"], "\n", $string);
     }
-
-    /** @deprecated I think in general we should try to normalize all data input to use Unix endings,
-     *              so we don't need this, unless we are literally reading from a file in the test.
-     */
-    final protected static function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
-    {
-        self::assertEquals(
-            self::normalizeNewlines($expected),
-            self::normalizeNewlines($actual),
-        );
-    }
 }
