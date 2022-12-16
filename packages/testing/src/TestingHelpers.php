@@ -59,12 +59,8 @@ trait TestingHelpers
         }
     }
 
-    final protected static function stripNewlines(string $string, /** @deprecated */ #[Deprecated]  bool $keepUnixEndings = false): string
+    final protected static function stripNewlines(string $string): string
     {
-        if ($keepUnixEndings) {
-            throw new \Exception('This method no longer supports the $keepUnixEndings parameter.');
-        }
-
         return str_replace(["\r", "\n"], '', $string);
     }
 
