@@ -19,13 +19,6 @@ use function view;
  */
 class HydeSmartDocsTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        unlink(Hyde::path('_docs/foo.md'));
-
-        parent::tearDown();
-    }
-
     public function test_class_tokenizes_document()
     {
         $article = $this->makeArticle("# Header Content \n\n Body Content");
@@ -217,7 +210,7 @@ class HydeSmartDocsTest extends TestCase
 
     protected function makeArticle(string $sourceFileContents = "# Foo\n\nHello world."): SemanticDocumentationArticle
     {
-        file_put_contents(Hyde::path('_docs/foo.md'), $sourceFileContents);
+        $this->file('_docs/foo.md', $sourceFileContents);
 
         return SemanticDocumentationArticle::create(DocumentationPage::parse('foo'));
     }
