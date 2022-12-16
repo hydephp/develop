@@ -24,6 +24,13 @@ class InputStreamHandlerTest extends TestCase
         $this->assertSame(0, $this->makeCommand('foo')->handle());
     }
 
+    public function testCanCollectMultipleInputLines()
+    {
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+
+        $this->assertSame(0, $this->makeCommand('foo, bar, baz')->handle());
+    }
+
     protected function makeCommand(string $expected): TestCommand
     {
         $command = new TestCommand;
