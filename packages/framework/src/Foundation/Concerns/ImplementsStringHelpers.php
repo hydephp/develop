@@ -35,7 +35,7 @@ trait ImplementsStringHelpers
     public function markdown(string $text, bool $stripIndentation = false): HtmlString
     {
         if ($stripIndentation) {
-            $text = MarkdownService::stripIndentation($text);
+            $text = MarkdownService::normalizeIndentationLevel($text);
         }
 
         return new HtmlString(Markdown::render($text));
