@@ -12,11 +12,10 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
+use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-
-use function implode;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -140,6 +139,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function captureTextFieldInput(PublicationFieldType $field): string
     {
         $this->output->writeln($field->name.' (end with an empty line)');
+
         return implode("\n", InputStreamHandler::call());
     }
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use function config;
 use function deleteDirectory;
 use function file_get_contents;
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
@@ -139,13 +139,13 @@ class MakePublicationCommandTest extends TestCase
     {
         InputStreamHandler::mockInput("Hello\nWorld");
         $this->makeSchemaFile([
-              [
-                  'type' => 'text',
-                  'name' => 'title',
-                  'min'  => '0',
-                  'max'  => '0',
-              ],
-          ]);
+            [
+                'type' => 'text',
+                'name' => 'title',
+                'min'  => '0',
+                'max'  => '0',
+            ],
+        ]);
 
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
@@ -159,24 +159,24 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(
             Hyde::path('test-publication/schema.json'),
             json_encode([
-                            'name'           => 'Test Publication',
-                            'canonicalField' => 'title',
-                            'detailTemplate' => 'test-publication_detail',
-                            'listTemplate'   => 'test-publication_list',
-                            'pagination' => [
+                'name'           => 'Test Publication',
+                'canonicalField' => 'title',
+                'detailTemplate' => 'test-publication_detail',
+                'listTemplate'   => 'test-publication_list',
+                'pagination' => [
                     'pageSize'       => 10,
                     'prevNextLinks'  => true,
                     'sortField'      => '__createdAt',
                     'sortAscending'  => true,
                 ],
-                            'fields'         => $fields ?? [
-                                    [
-                                        'name' => 'title',
-                                        'min'  => '0',
-                                        'max'  => '0',
-                                        'type' => 'string',
-                                    ],
-                                ],
+                'fields'         => $fields ?? [
+                    [
+                        'name' => 'title',
+                        'min'  => '0',
+                        'max'  => '0',
+                        'type' => 'string',
+                    ],
+                ],
             ])
         );
     }
