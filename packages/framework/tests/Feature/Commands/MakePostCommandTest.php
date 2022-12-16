@@ -9,18 +9,6 @@ use Hyde\Testing\TestCase;
 
 class MakePostCommandTest extends TestCase
 {
-    /**
-     * Clean up after tests by removing the created file.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        $this->unlinkIfExists(Hyde::path('_posts/test-post.md'));
-
-        parent::tearDown();
-    }
-
     public function test_command_has_expected_output_and_creates_valid_file()
     {
         // Assert that no old file exists which would cause issues
@@ -49,6 +37,8 @@ class MakePostCommandTest extends TestCase
             "title: 'Test Post'",
             $this->getFileContents()
         );
+
+        $this->unlinkFile();
     }
 
     public function test_that_files_are_not_overwritten_when_force_flag_is_not_set()
@@ -70,6 +60,8 @@ class MakePostCommandTest extends TestCase
             'This should not be overwritten',
             $this->getFileContents()
         );
+
+        $this->unlinkFile();
     }
 
     public function test_that_files_are_overwritten_when_force_flag_is_set()
@@ -93,6 +85,8 @@ class MakePostCommandTest extends TestCase
             "title: 'Test Post'",
             $this->getFileContents()
         );
+
+        $this->unlinkFile();
     }
 
     public function test_that_title_can_be_specified_in_command_signature()
@@ -105,6 +99,8 @@ class MakePostCommandTest extends TestCase
             ->expectsConfirmation('Do you wish to continue?', 'yes')
 
             ->assertExitCode(0);
+
+        $this->unlinkFile();
     }
 
     public function test_that_command_can_be_canceled()
@@ -124,5 +120,10 @@ class MakePostCommandTest extends TestCase
     protected function getFileContents(): string
     {
         return file_get_contents(Hyde::path('_posts/test-post.md'));
+    }
+
+    protected function unlinkFile(): void
+    {
+        Hyde::unlink('_posts/test-post.md');
     }
 }
