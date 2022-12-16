@@ -57,7 +57,7 @@ class HydeSmartDocsTest extends TestCase
 
         $this->assertInstanceOf(SemanticDocumentationArticle::class, $article);
 
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertSame(
             '<p>Hello world.</p>',
             $article->renderBody()->toHtml()
         );
@@ -77,7 +77,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_render_header_returns_the_extracted_header()
     {
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertSame(
             '<h1>Foo</h1>',
             $this->makeArticle()->renderHeader()->toHtml()
         );
@@ -92,7 +92,7 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $this->assertEqualsIgnoringLineEndingType(
+            $this->assertSame(
                 '<h1>Foo</h1>',
                 $this->makeArticle($test)->renderHeader()->toHtml()
             );
@@ -101,7 +101,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_render_body_returns_the_extracted_body()
     {
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertSame(
             '<p>Hello world.</p>',
             $this->makeArticle()->renderBody()->toHtml()
         );
@@ -116,7 +116,7 @@ class HydeSmartDocsTest extends TestCase
         ];
 
         foreach ($tests as $test) {
-            $this->assertEqualsIgnoringLineEndingType(
+            $this->assertSame(
                 '<p>Hello world.</p>',
                 $this->makeArticle($test)->renderBody()->toHtml()
             );
@@ -125,7 +125,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_render_footer_is_empty_by_default()
     {
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertSame(
             '',
             $this->makeArticle()->renderFooter()->toHtml()
         );
