@@ -230,15 +230,13 @@ class HydeSmartDocsTest extends TestCase
         );
     }
 
-    protected function stripNewlinesAndIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    protected function stripNewlinesAndIndentation(string $string): string
     {
-        return $this->stripNewlines($this->stripIndentation($string, $indentUsingSpaces, $indentationLength));
+        return $this->stripNewlines($this->stripIndentation($string));
     }
 
-    protected function stripIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    protected function stripIndentation(string $string): string
     {
-        $indentation = $indentUsingSpaces ? str_repeat(' ', $indentationLength) : "\t";
-
-        return str_replace($indentation, '', $string);
+        return str_replace('    ', '', $string);
     }
 }
