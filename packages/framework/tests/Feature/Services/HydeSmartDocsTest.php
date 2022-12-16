@@ -169,7 +169,7 @@ class HydeSmartDocsTest extends TestCase
         HTML, $article->renderFooter());
     }
 
-    public function test_edit_source_link_text_can_be_customized()
+    public function test_edit_source_link_text_can_be_customized_in_header()
     {
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'both']);
@@ -177,12 +177,20 @@ class HydeSmartDocsTest extends TestCase
 
         $article = $this->makeArticle();
 
-        // Test header
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
         HTML, $article->renderHeader());
+    }
 
-        // Test footer
+
+    public function test_edit_source_link_text_can_be_customized_in_footer()
+    {
+        config(['docs.source_file_location_base' => 'https://example.com/']);
+        config(['docs.edit_source_link_position' => 'both']);
+        config(['docs.edit_source_link_text' => 'Go to Source']);
+
+        $article = $this->makeArticle();
+
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
         HTML, $article->renderFooter());
