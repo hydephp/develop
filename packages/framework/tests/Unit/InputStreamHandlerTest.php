@@ -31,6 +31,20 @@ class InputStreamHandlerTest extends TestCase
         $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
     }
 
+    public function testCanTerminateWithCarriageReturns()
+    {
+        InputStreamHandler::mockInput("foo\r\nbar\r\nbaz\r\n");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
+    public function testCanTerminateWithUnixEndings()
+    {
+        InputStreamHandler::mockInput("foo\nbar\nbaz\n");
+
+        $this->assertSame(0, $this->makeCommand(['foo', 'bar', 'baz'])->handle());
+    }
+
     protected function makeCommand(array $expected): TestCommand
     {
         $command = new TestCommand;
