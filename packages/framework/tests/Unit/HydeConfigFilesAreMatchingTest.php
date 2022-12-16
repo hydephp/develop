@@ -52,6 +52,6 @@ class HydeConfigFilesAreMatchingTest extends TestCase
         $expectedFile = file_get_contents($expected);
         $actualFile = file_get_contents($actual);
 
-        $this->assertEqualsIgnoringLineEndingType($expectedFile, $actualFile);
+        $this->assertSame($expectedFile, $actualFile);
     }
 }
