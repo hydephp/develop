@@ -1,5 +1,7 @@
 <?php
 
+namespace Hyde\Testing;
+
 trait TestingHelpers
 {
     public static function unlinkIfExists(string $filepath): void
