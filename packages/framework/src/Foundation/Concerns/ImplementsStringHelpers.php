@@ -16,14 +16,14 @@ use Illuminate\Support\Str;
  */
 trait ImplementsStringHelpers
 {
-    public function makeTitle(string $slug): string
+    public function makeTitle(string $value): string
     {
         $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
 
         return ucfirst(str_ireplace(
             $alwaysLowercase,
             $alwaysLowercase,
-            Str::headline($slug)
+            Str::headline($value)
         ));
     }
 
