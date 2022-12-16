@@ -18,8 +18,8 @@ class UpdateConfigsCommandTest extends TestCase
     {
         parent::setUp();
 
-        backupDirectory(Hyde::path('config'));
-        deleteDirectory(Hyde::path('config'));
+        $this->backupDirectory(Hyde::path('config'));
+        $this->deleteDirectory(Hyde::path('config'));
     }
 
     /** @test */
@@ -58,7 +58,7 @@ class UpdateConfigsCommandTest extends TestCase
     /** Teardown */
     public function tearDown(): void
     {
-        restoreDirectory(Hyde::path('config'));
+        $this->restoreDirectory(Hyde::path('config'));
 
         parent::tearDown();
     }

@@ -20,7 +20,7 @@ class MarkdownPageTest extends TestCase
     {
         parent::setUp();
 
-        backupDirectory(Hyde::path('_pages'));
+        $this->backupDirectory(Hyde::path('_pages'));
         File::deleteDirectory(Hyde::path('_pages'));
         mkdir(Hyde::path('_pages'));
 
@@ -29,7 +29,7 @@ class MarkdownPageTest extends TestCase
 
     protected function tearDown(): void
     {
-        restoreDirectory(Hyde::path('_pages'));
+        $this->restoreDirectory(Hyde::path('_pages'));
 
         parent::tearDown();
     }

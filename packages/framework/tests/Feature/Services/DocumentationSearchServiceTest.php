@@ -18,12 +18,12 @@ class DocumentationSearchServiceTest extends TestCase
     {
         parent::setUp();
 
-        unlinkIfExists(Service::$filePath);
+        $this->unlinkIfExists(Service::$filePath);
     }
 
     protected function tearDown(): void
     {
-        unlinkIfExists(Service::$filePath);
+        $this->unlinkIfExists(Service::$filePath);
 
         parent::tearDown();
     }

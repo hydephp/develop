@@ -26,7 +26,7 @@ class HydeSmartDocsTest extends TestCase
     {
         parent::tearDown();
 
-        unlinkIfExists(Hyde::path('_docs/foo.md'));
+        $this->unlinkIfExists(Hyde::path('_docs/foo.md'));
     }
 
     public function test_class_tokenizes_document()
@@ -216,16 +216,16 @@ class HydeSmartDocsTest extends TestCase
     protected function assertEqualsIgnoringNewlines(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            strip_newlines($expected),
-            strip_newlines($actual->toHtml())
+            $this->strip_newlines($expected),
+            $this->strip_newlines($actual->toHtml())
         );
     }
 
     protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
     {
         $this->assertEquals(
-            strip_newlines_and_indentation($expected),
-            strip_newlines_and_indentation($actual->toHtml()),
+            $this->strip_newlines_and_indentation($expected),
+            $this->strip_newlines_and_indentation($actual->toHtml()),
         );
     }
 }

@@ -26,7 +26,7 @@ class MakePostCommandTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unlinkIfExists($this->getPath());
+        $this->unlinkIfExists($this->getPath());
 
         parent::tearDown();
     }

@@ -11,8 +11,6 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
-use function strip_newlines;
-
 
 abstract class TestCase extends BaseTestCase
 {
@@ -64,8 +62,8 @@ abstract class TestCase extends BaseTestCase
     protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
     {
         $this->assertEquals(
-            strip_newlines($expected, true),
-            strip_newlines($actual, true),
+            $this->strip_newlines($expected, true),
+            $this->strip_newlines($actual, true),
         );
     }
 

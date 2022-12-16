@@ -28,8 +28,8 @@ class RebuildStaticSiteCommandTest extends TestCase
 
     public function test_media_files_can_be_transferred()
     {
-        backupDirectory(Hyde::path('_site/media'));
-        deleteDirectory(Hyde::path('_site/media'));
+        $this->backupDirectory(Hyde::path('_site/media'));
+        $this->deleteDirectory(Hyde::path('_site/media'));
         mkdir(Hyde::path('_site/media'));
 
         Hyde::touch('_media/test.jpg');
@@ -41,7 +41,7 @@ class RebuildStaticSiteCommandTest extends TestCase
         unlink(Hyde::path('_media/test.jpg'));
         unlink(Hyde::path('_site/media/test.jpg'));
 
-        restoreDirectory(Hyde::path('_site/media'));
+        $this->restoreDirectory(Hyde::path('_site/media'));
     }
 
     public function test_validate_catches_bad_source_directory()

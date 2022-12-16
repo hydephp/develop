@@ -32,7 +32,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         ], "## CHAPTER I. DOWN THE RABBIT-HOLE. \n\nSo she was considering in her own mind, as well as she could, for the hot day made her feel very sleepy and stupid.", 'Test Title');
 
         // Make sure no file exists which could cause unintended results.
-        unlinkIfExists(Hyde::path('_site/posts/test-post.html'));
+        $this->unlinkIfExists(Hyde::path('_site/posts/test-post.html'));
     }
 
     protected function tearDown(): void

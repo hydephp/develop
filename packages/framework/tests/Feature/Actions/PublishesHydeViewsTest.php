@@ -17,13 +17,13 @@ class PublishesHydeViewsTest extends TestCase
     {
         parent::setUp();
 
-        backupDirectory(Hyde::path('resources/views/vendor/hyde'));
-        deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
+        $this->backupDirectory(Hyde::path('resources/views/vendor/hyde'));
+        $this->deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
     }
 
     protected function tearDown(): void
     {
-        restoreDirectory(Hyde::path('resources/views/vendor/hyde'));
+        $this->restoreDirectory(Hyde::path('resources/views/vendor/hyde'));
 
         parent::tearDown();
     }
@@ -42,7 +42,7 @@ class PublishesHydeViewsTest extends TestCase
 
     public function test_action_publishes_view_files()
     {
-        unlinkIfExists(Hyde::path('_pages/404.blade.php'));
+        $this->unlinkIfExists(Hyde::path('_pages/404.blade.php'));
         (new PublishesHydeViews('404'))->execute();
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
     }

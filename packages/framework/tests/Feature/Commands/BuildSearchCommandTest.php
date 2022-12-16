@@ -18,14 +18,14 @@ class BuildSearchCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        unlinkIfExists(Hyde::path('_site/docs/search.json'));
-        unlinkIfExists(Hyde::path('_site/docs/search.html'));
+        $this->unlinkIfExists(Hyde::path('_site/docs/search.json'));
+        $this->unlinkIfExists(Hyde::path('_site/docs/search.html'));
     }
 
     protected function tearDown(): void
     {
-        unlinkIfExists(Hyde::path('_site/docs/search.html'));
-        unlinkIfExists(Hyde::path('_site/docs/search.json'));
+        $this->unlinkIfExists(Hyde::path('_site/docs/search.html'));
+        $this->unlinkIfExists(Hyde::path('_site/docs/search.json'));
         parent::tearDown();
     }
 
