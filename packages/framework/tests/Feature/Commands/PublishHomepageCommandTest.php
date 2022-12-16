@@ -16,6 +16,13 @@ use Hyde\Testing\TestCase;
  */
 class PublishHomepageCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutDefaultPages();
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();
