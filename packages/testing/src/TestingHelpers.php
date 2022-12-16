@@ -16,11 +16,11 @@ trait TestingHelpers
         return str_replace(["\r\n"], "\n", $string);
     }
 
-    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    final protected static function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
     {
-        $this->assertEquals(
-            $this->normalizeNewlines($expected),
-            $this->normalizeNewlines($actual),
+        self::assertEquals(
+            self::normalizeNewlines($expected),
+            self::normalizeNewlines($actual),
         );
     }
 }
