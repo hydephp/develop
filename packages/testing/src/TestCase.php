@@ -13,7 +13,6 @@ use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 use function strip_newlines;
 
-require_once __DIR__.'/helpers.php';
 
 abstract class TestCase extends BaseTestCase
 {
