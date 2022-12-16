@@ -19,11 +19,6 @@ abstract class TestCase extends BaseTestCase
 
     protected static bool $booted = false;
 
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,11 +30,6 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    /**
-     * Clean up the testing environment before the next test.
-     *
-     * @return void
-     */
     protected function tearDown(): void
     {
         $this->cleanUpFilesystem();
