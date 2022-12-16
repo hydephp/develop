@@ -158,12 +158,10 @@ class HydeSmartDocsTest extends TestCase
 
         $article = $this->makeArticle();
 
-        // Test header
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
         HTML, $article->renderHeader());
 
-        // Test footer
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
         HTML, $article->renderFooter());
