@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use function copy;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\File;
-use function copy;
 
 trait TestingHelpers
 {
