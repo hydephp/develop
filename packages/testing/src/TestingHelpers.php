@@ -37,20 +37,6 @@ trait TestingHelpers
         }
     }
 
-    final protected static function unlinkUnlessDefault(string $filepath): void
-    {
-        $protected = [
-            'app.css',
-            'index.blade.php',
-            '404.blade.php',
-            '.gitkeep',
-        ];
-
-        if (! in_array(basename($filepath), $protected)) {
-            unlink($filepath);
-        }
-    }
-
     final protected static function stripNewlines(string $string): string
     {
         return str_replace(["\r", "\n"], '', $string);
