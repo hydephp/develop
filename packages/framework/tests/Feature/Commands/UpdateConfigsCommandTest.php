@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\File;
  */
 class UpdateConfigsCommandTest extends TestCase
 {
-    /** Setup */
     public function setUp(): void
     {
         parent::setUp();
@@ -22,7 +21,6 @@ class UpdateConfigsCommandTest extends TestCase
         $this->deleteDirectory(Hyde::path('config'));
     }
 
-    /** @test */
     public function test_command_has_expected_output()
     {
         $this->artisan('update:configs')
@@ -30,7 +28,6 @@ class UpdateConfigsCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    /** @test */
     public function test_config_files_are_published()
     {
         $this->assertDirectoryDoesNotExist(Hyde::path('config'));
@@ -43,7 +40,6 @@ class UpdateConfigsCommandTest extends TestCase
         $this->assertDirectoryExists(Hyde::path('config'));
     }
 
-    /** @test */
     public function test_command_overwrites_existing_files()
     {
         File::makeDirectory(Hyde::path('config'));
@@ -55,7 +51,6 @@ class UpdateConfigsCommandTest extends TestCase
         $this->assertNotEquals('foo', File::get(Hyde::path('config/hyde.php')));
     }
 
-    /** Teardown */
     public function tearDown(): void
     {
         $this->restoreDirectory(Hyde::path('config'));
