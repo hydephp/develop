@@ -16,6 +16,8 @@ use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
 
+use function implode;
+
 /**
  * Hyde Command to create a new publication for a given publication type.
  *
@@ -135,11 +137,10 @@ class MakePublicationCommand extends ValidatingCommand
         return (bool) $this->option('force');
     }
 
-    // TODO: Should this really be an array and not a string?
-    protected function captureTextFieldInput(PublicationFieldType $field): array
+    protected function captureTextFieldInput(PublicationFieldType $field): string
     {
         $this->output->writeln($field->name.' (end with an empty line)');
-        return InputStreamHandler::call();
+        return implode("\n", InputStreamHandler::call());
     }
 
     protected function captureArrayFieldInput(PublicationFieldType $field): array
