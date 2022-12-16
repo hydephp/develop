@@ -21,6 +21,13 @@ class UpdateConfigsCommandTest extends TestCase
         $this->deleteDirectory(Hyde::path('config'));
     }
 
+    public function tearDown(): void
+    {
+        $this->restoreDirectory(Hyde::path('config'));
+
+        parent::tearDown();
+    }
+
     public function test_command_has_expected_output()
     {
         $this->artisan('update:configs')
@@ -32,8 +39,7 @@ class UpdateConfigsCommandTest extends TestCase
     {
         $this->assertDirectoryDoesNotExist(Hyde::path('config'));
 
-        $this->artisan('update:configs')
-            ->assertExitCode(0);
+        $this->artisan('update:configs')->assertExitCode(0);
 
         $this->assertFileEquals(Hyde::vendorPath('config/hyde.php'), Hyde::path('config/hyde.php'));
 
@@ -45,16 +51,8 @@ class UpdateConfigsCommandTest extends TestCase
         File::makeDirectory(Hyde::path('config'));
         File::put(Hyde::path('config/hyde.php'), 'foo');
 
-        $this->artisan('update:configs')
-            ->assertExitCode(0);
+        $this->artisan('update:configs')->assertExitCode(0);
 
         $this->assertNotEquals('foo', File::get(Hyde::path('config/hyde.php')));
-    }
-
-    public function tearDown(): void
-    {
-        $this->restoreDirectory(Hyde::path('config'));
-
-        parent::tearDown();
     }
 }
