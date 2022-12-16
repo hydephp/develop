@@ -23,7 +23,7 @@ class DocumentationSearchServiceTest extends TestCase
 
         DocumentationSearchService::generate();
 
-        $this->assertEquals(json_encode([[
+        $this->assertSame(json_encode([[
             'slug' => 'foo',
             'title' => 'Foo',
             'content' => '',
@@ -51,7 +51,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         DocumentationSearchService::generate();
 
-        $this->assertEquals(
+        $this->assertSame(
             '[]', file_get_contents(DocumentationSearchService::$filePath)
         );
 
@@ -71,7 +71,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
 
-        $this->assertEquals([
+        $this->assertSame([
             'slug' => 'foo',
             'title' => 'Bar',
             'content' => "Bar \n Hello World",
@@ -87,7 +87,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::putContents('_docs/bar.md', "# Foo\n\n Hello World");
 
         $generatesDocumentationSearchIndexFile = (new DocumentationSearchService())->run();
-        $this->assertEquals(
+        $this->assertSame(
             '[{"slug":"bar","title":"Foo","content":"Foo \n Hello World","destination":"bar.html"},'.
             '{"slug":"foo","title":"Bar","content":"Bar \n Hello World","destination":"foo.html"}]',
             json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray())
@@ -101,7 +101,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
 
-        $this->assertEquals(
+        $this->assertSame(
             '', (new DocumentationSearchService())->getDestinationForSlug('index')
         );
     }
@@ -110,7 +110,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
 
-        $this->assertEquals(
+        $this->assertSame(
             'foo', (new DocumentationSearchService())->getDestinationForSlug('foo')
         );
     }
