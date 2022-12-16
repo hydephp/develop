@@ -159,7 +159,7 @@ class MakePublicationCommandTest extends TestCase
 
     protected function assertPublicationFileWasCreatedCorrectly(): void
     {
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertEquals(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01 00:00:00

@@ -68,7 +68,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-        $this->assertEqualsIgnoringLineEndingType(
+        $this->assertEquals(
             <<<'JSON'
             {
                 "name": "Test Publication",
