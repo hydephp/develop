@@ -18,7 +18,6 @@ use function trim;
  */
 class InputStreamHandler extends InvokableAction
 {
-    /** @internal Allows for mocking of the standard input stream */
     private static ?array $mockedStreamBuffer = null;
 
     public function __invoke(): array
