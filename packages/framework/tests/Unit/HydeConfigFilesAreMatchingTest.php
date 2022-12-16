@@ -49,9 +49,6 @@ class HydeConfigFilesAreMatchingTest extends TestCase
         static::assertFileExists($expected);
         static::assertFileExists($actual);
 
-        $expectedFile = file_get_contents($expected);
-        $actualFile = file_get_contents($actual);
-
-        $this->assertSame($expectedFile, $actualFile);
+        $this->assertSame(file_get_contents($expected), file_get_contents($actual));
     }
 }
