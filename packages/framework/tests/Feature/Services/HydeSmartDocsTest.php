@@ -65,7 +65,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function test_instance_can_be_constructed_directly_with_same_result_as_facade()
     {
-        file_put_contents(Hyde::path('_docs/foo.md'), "# Foo\n\nHello world.");
+        $this->file('_docs/foo.md', "# Foo\n\nHello world.");
 
         $page = DocumentationPage::parse('foo');
 
