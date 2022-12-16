@@ -35,7 +35,7 @@ class MakePostCommandTest extends TestCase
         $this->assertFileExists(Hyde::path('_posts/test-post.md'));
         $this->assertStringContainsString(
             "title: 'Test Post'",
-            $this->getFileContents()
+            file_get_contents(Hyde::path('_posts/test-post.md'))
         );
 
         $this->unlinkFile();
@@ -58,7 +58,7 @@ class MakePostCommandTest extends TestCase
 
         $this->assertStringContainsString(
             'This should not be overwritten',
-            $this->getFileContents()
+            file_get_contents(Hyde::path('_posts/test-post.md'))
         );
 
         $this->unlinkFile();
@@ -79,11 +79,11 @@ class MakePostCommandTest extends TestCase
 
         $this->assertStringNotContainsString(
             'This should be overwritten',
-            $this->getFileContents()
+            file_get_contents(Hyde::path('_posts/test-post.md'))
         );
         $this->assertStringContainsString(
             "title: 'Test Post'",
-            $this->getFileContents()
+            file_get_contents(Hyde::path('_posts/test-post.md'))
         );
 
         $this->unlinkFile();
@@ -115,11 +115,6 @@ class MakePostCommandTest extends TestCase
         ->assertExitCode(130);
 
         $this->assertFileDoesNotExist(Hyde::path('_posts/test-post.md'));
-    }
-
-    protected function getFileContents(): string
-    {
-        return file_get_contents(Hyde::path('_posts/test-post.md'));
     }
 
     protected function unlinkFile(): void
