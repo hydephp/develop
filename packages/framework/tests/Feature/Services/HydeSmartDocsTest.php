@@ -175,11 +175,9 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
 
-        $article = $this->makeArticle();
-
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
-        HTML, $article->renderHeader());
+        HTML, $this->makeArticle()->renderHeader());
     }
 
 
@@ -189,11 +187,9 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
 
-        $article = $this->makeArticle();
-
         $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
-        HTML, $article->renderFooter());
+        HTML, $this->makeArticle()->renderFooter());
     }
 
     public function test_add_dynamic_footer_content_adds_torchlight_attribution_when_conditions_are_met()
