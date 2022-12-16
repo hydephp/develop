@@ -89,7 +89,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         ```
         MD;
 
-        $this->assertEqualsIgnoringLineEndingType($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function test_preprocess_accepts_multi_line_codeblocks()
@@ -114,7 +114,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         ```
         MD;
 
-        $this->assertEqualsIgnoringLineEndingType($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function test_space_after_filepath_is_optional()
@@ -136,7 +136,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         ```
         MD;
 
-        $this->assertEqualsIgnoringLineEndingType(CodeblockFilepathProcessor::preprocess($expected),
+        $this->assertSame(CodeblockFilepathProcessor::preprocess($expected),
             CodeblockFilepathProcessor::preprocess($markdown));
     }
 
@@ -151,7 +151,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         <pre><code class="language-html"><small class="filepath"><span class="sr-only">Filepath: </span>foo.html</small></code></pre>
         HTML;
 
-        $this->assertEqualsIgnoringLineEndingType($expected, CodeblockFilepathProcessor::postprocess($html));
+        $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 
     public function test_processor_expands_filepath_directive_in_torchlight_codeblock()
@@ -165,6 +165,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         <pre><code class="torchlight"><!-- Syntax highlighted by torchlight.dev --><small class="filepath"><span class="sr-only">Filepath: </span>foo.html</small><div class="line"><span class="line-number">1</span>&nbsp;</div></code></pre>
         HTML;
 
-        $this->assertEqualsIgnoringLineEndingType($expected, CodeblockFilepathProcessor::postprocess($html));
+        $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 }
