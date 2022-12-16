@@ -16,7 +16,6 @@ use Hyde\Testing\TestCase;
  */
 class BuildSearchCommandTest extends TestCase
 {
-
     public function test_it_creates_the_search_json_file()
     {
         $this->assertFileDoesNotExist(Hyde::path('_site/docs/search.json'));
