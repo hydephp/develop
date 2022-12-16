@@ -77,16 +77,18 @@ class CreatesNewPageSourceFileTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/test-page.blade.php'));
 
         $this->assertEquals(
-            '@extends(\'hyde::layouts.app\')
-@section(\'content\')
-@php($title = "Test Page")
+            <<<'BLADE'
+            @extends('hyde::layouts.app')
+            @section('content')
+            @php($title = "Test Page")
 
-<main class="mx-auto max-w-7xl py-16 px-8">
-    <h1 class="text-center text-3xl font-bold">Test Page</h1>
-</main>
+            <main class="mx-auto max-w-7xl py-16 px-8">
+                <h1 class="text-center text-3xl font-bold">Test Page</h1>
+            </main>
 
-@endsection
-', file_get_contents(Hyde::path('_pages/test-page.blade.php'))
+            @endsection
+
+            BLADE, file_get_contents(Hyde::path('_pages/test-page.blade.php'))
         );
 
         Filesystem::unlink('_pages/test-page.blade.php');
