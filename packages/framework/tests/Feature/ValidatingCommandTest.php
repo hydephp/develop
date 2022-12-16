@@ -199,10 +199,7 @@ class ValidatingCommandTest extends TestCase
 
 class SafeValidatingTestCommand extends ValidatingCommand
 {
-    protected function safeHandle(): int
-    {
-        return parent::SUCCESS;
-    }
+    //
 }
 
 class SafeThrowingValidatingTestCommand extends ValidatingCommand

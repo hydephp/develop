@@ -108,7 +108,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testShowInNavigation()
     {
-        $this->assertTrue((new PublicationPage('', [], '', $this->pubType()))->showInNavigation());
+        $this->assertFalse((new PublicationPage('', [], '', $this->pubType()))->showInNavigation());
     }
 
     public function testNavigationMenuPriority()

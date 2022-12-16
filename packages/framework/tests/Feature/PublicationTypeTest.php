@@ -33,7 +33,7 @@ class PublicationTypeTest extends TestCase
         }
     }
 
-    public function testConstructWithDefaultValues()
+    public function test_construct_with_default_values()
     {
         $publicationType = new PublicationType('Test Publication');
 
@@ -50,6 +50,18 @@ class PublicationTypeTest extends TestCase
         ]), $publicationType->pagination);
 
         $this->assertEquals('test-publication', $publicationType->getDirectory());
+    }
+
+    public function test_construct_with_pagination_object()
+    {
+        $paginationSettings = PaginationSettings::fromArray([
+            'sortField'     => 'title',
+            'sortAscending' => false,
+            'pageSize'      => 10,
+            'prevNextLinks' => false,
+        ]);
+        $publicationType = new PublicationType('Test Publication', pagination: $paginationSettings);
+        $this->assertSame($paginationSettings, $publicationType->pagination);
     }
 
     public function test_class_is_arrayable()
@@ -151,6 +163,14 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestDataWithPathInformation());
         $this->assertEquals(new PublicationListPage($publicationType), $publicationType->getListPage());
+    }
+
+    public function test_get_field_rules()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertEquals([
+            'title' => ['between:0,128'],
+        ], $publicationType->getFieldRules()->toArray());
     }
 
     protected function getTestData(): array

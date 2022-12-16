@@ -9,9 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Contracts\DynamicPage;
-use Illuminate\Support\HtmlString;
 use function str_starts_with;
-use function view;
 
 /**
  * Publication pages adds an easy way to create custom no-code page types,
@@ -41,9 +39,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
 
     public function compile(): string
     {
-        return view('hyde::layouts.publication', [
-            'publication' => new HtmlString($this->renderComponent()),
-        ])->render();
+        return $this->renderComponent();
     }
 
     protected function renderComponent(): string

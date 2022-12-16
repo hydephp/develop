@@ -19,7 +19,7 @@ class BuildRssFeedCommandTest extends TestCase
         config(['hyde.generate_rss_feed' => true]);
         $this->file('_posts/foo.md');
 
-        unlinkIfExists(Hyde::path('_site/feed.xml'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
         $this->artisan('build:rss')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/feed.xml'));
@@ -33,8 +33,8 @@ class BuildRssFeedCommandTest extends TestCase
         config(['hyde.rss_filename' => 'blog.xml']);
         $this->file('_posts/foo.md');
 
-        unlinkIfExists(Hyde::path('_site/feed.xml'));
-        unlinkIfExists(Hyde::path('_site/blog.xml'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/blog.xml'));
 
         $this->artisan('build:rss')->assertExitCode(0);
 

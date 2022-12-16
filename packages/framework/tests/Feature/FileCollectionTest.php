@@ -10,7 +10,8 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\File;
+use Hyde\Support\Filesystem\MediaFile;
+use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
@@ -27,9 +28,9 @@ class FileCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
 
         $this->assertEquals([
-            '_pages/404.blade.php' => new File('_pages/404.blade.php', BladePage::class),
-            '_pages/index.blade.php' => new File('_pages/index.blade.php', BladePage::class),
-            '_media/app.css' => new File('_media/app.css'),
+            '_pages/404.blade.php' => new SourceFile('_pages/404.blade.php', BladePage::class),
+            '_pages/index.blade.php' => new SourceFile('_pages/index.blade.php', BladePage::class),
+            '_media/app.css' => new MediaFile('_media/app.css'),
         ], $collection->all());
     }
 
@@ -38,8 +39,8 @@ class FileCollectionTest extends TestCase
         $collection = FileCollection::boot(Hyde::getInstance());
 
         $this->assertEquals([
-            '_pages/404.blade.php' => new File('_pages/404.blade.php', BladePage::class),
-            '_pages/index.blade.php' => new File('_pages/index.blade.php', BladePage::class),
+            '_pages/404.blade.php' => new SourceFile('_pages/404.blade.php', BladePage::class),
+            '_pages/index.blade.php' => new SourceFile('_pages/index.blade.php', BladePage::class),
         ], $collection->getSourceFiles()->all());
     }
 
@@ -58,7 +59,7 @@ class FileCollectionTest extends TestCase
     {
         $collection = FileCollection::boot(Hyde::getInstance());
         $this->assertEquals([
-            '_media/app.css' => new File('_media/app.css'),
+            '_media/app.css' => new MediaFile('_media/app.css'),
         ], $collection->getMediaFiles()->all());
     }
 
@@ -67,7 +68,7 @@ class FileCollectionTest extends TestCase
         $this->file('_media/foo.blade.php');
         $collection = FileCollection::boot(Hyde::getInstance());
         $this->assertEquals([
-            '_media/app.css' => new File('_media/app.css'),
+            '_media/app.css' => new MediaFile('_media/app.css'),
         ], $collection->getMediaFiles()->all());
     }
 
@@ -77,7 +78,7 @@ class FileCollectionTest extends TestCase
         $collection = FileCollection::boot(Hyde::getInstance());
 
         $this->assertArrayHasKey('_pages/foo.blade.php', $collection->toArray());
-        $this->assertEquals(new File('_pages/foo.blade.php', BladePage::class), $collection->get('_pages/foo.blade.php'));
+        $this->assertEquals(new SourceFile('_pages/foo.blade.php', BladePage::class), $collection->get('_pages/foo.blade.php'));
     }
 
     public function test_markdown_pages_are_discovered()
@@ -86,7 +87,7 @@ class FileCollectionTest extends TestCase
         $collection = FileCollection::boot(Hyde::getInstance());
 
         $this->assertArrayHasKey('_pages/foo.md', $collection->toArray());
-        $this->assertEquals(new File('_pages/foo.md', MarkdownPage::class), $collection->get('_pages/foo.md'));
+        $this->assertEquals(new SourceFile('_pages/foo.md', MarkdownPage::class), $collection->get('_pages/foo.md'));
     }
 
     public function test_markdown_posts_are_discovered()
@@ -95,7 +96,7 @@ class FileCollectionTest extends TestCase
         $collection = FileCollection::boot(Hyde::getInstance());
 
         $this->assertArrayHasKey('_posts/foo.md', $collection->toArray());
-        $this->assertEquals(new File('_posts/foo.md', MarkdownPost::class), $collection->get('_posts/foo.md'));
+        $this->assertEquals(new SourceFile('_posts/foo.md', MarkdownPost::class), $collection->get('_posts/foo.md'));
     }
 
     public function test_documentation_pages_are_discovered()
@@ -103,6 +104,6 @@ class FileCollectionTest extends TestCase
         $this->file('_docs/foo.md');
         $collection = FileCollection::boot(Hyde::getInstance());
         $this->assertArrayHasKey('_docs/foo.md', $collection->toArray());
-        $this->assertEquals(new File('_docs/foo.md', DocumentationPage::class), $collection->get('_docs/foo.md'));
+        $this->assertEquals(new SourceFile('_docs/foo.md', DocumentationPage::class), $collection->get('_docs/foo.md'));
     }
 }

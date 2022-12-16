@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
 /**
- * @internal Base class for the kernel auto-discovery collections.
+ * Base class for the kernel auto-discovery collections.
  *
  * @see \Hyde\Foundation\FileCollection
  * @see \Hyde\Foundation\PageCollection

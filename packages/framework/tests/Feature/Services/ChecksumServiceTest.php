@@ -19,9 +19,9 @@ class ChecksumServiceTest extends TestCase
         $fileCache = $fileCacheService->getFilecache();
 
         $this->assertIsArray($fileCache);
-        $this->assertArrayHasKey('/resources/views/layouts/app.blade.php', $fileCache);
-        $this->assertArrayHasKey('unixsum', $fileCache['/resources/views/layouts/app.blade.php']);
-        $this->assertEquals(32, strlen($fileCache['/resources/views/layouts/app.blade.php']['unixsum']));
+        $this->assertArrayHasKey('resources/views/layouts/app.blade.php', $fileCache);
+        $this->assertArrayHasKey('unixsum', $fileCache['resources/views/layouts/app.blade.php']);
+        $this->assertEquals(32, strlen($fileCache['resources/views/layouts/app.blade.php']['unixsum']));
     }
 
     public function test_get_checksums()

@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function file_exists;
-use function file_get_contents;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
-use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
-use Illuminate\Support\Facades\Blade;
-use InvalidArgumentException;
-use function view;
+use Illuminate\Support\Facades\View;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Actions\PublicationPageCompilerTest
@@ -34,42 +29,29 @@ class PublicationPageCompiler extends InvokableAction
             : $this->compilePublicationListPage();
     }
 
-    public function compilePublicationPage(): string
+    protected function compilePublicationPage(): string
     {
-        $data = [
+        return $this->compileView($this->page->type->detailTemplate, [
             'publication' => $this->page,
-        ];
-
-        $template = $this->page->type->detailTemplate;
-        if (str_contains($template, '::')) {
-            return view($template, $data)->render();
-        }
-
-        // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        return Blade::render(
-            file_get_contents(Hyde::path("{$this->page->type->getDirectory()}/$template.blade.php")), $data
-        );
+        ]);
     }
 
-    public function compilePublicationListPage(): string
+    protected function compilePublicationListPage(): string
     {
-        $data = [
+        return $this->compileView($this->page->type->listTemplate, [
             'publications' => PublicationService::getPublicationsForPubType($this->page->type),
-        ];
+        ]);
+    }
 
-        $template = $this->page->type->listTemplate;
-        if (str_contains($template, '::')) {
-            return view($template, $data)->render();
-        }
+    protected function compileView(string $template, array $data): string
+    {
+        return View::exists($template)
+            ? View::make($template, $data)->render()
+            : AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
+    }
 
-        // Using the Blade facade we can render any file without having to register the directory with the view finder.
-        $viewPath = Hyde::path("{$this->page->type->getDirectory()}/$template").'.blade.php';
-        if (! file_exists($viewPath)) {
-            throw new InvalidArgumentException("View [$viewPath] not found.");
-        }
-
-        return Blade::render(
-            file_get_contents($viewPath), $data
-        );
+    protected function getTemplateFilePath(string $template): string
+    {
+        return "{$this->page->type->getDirectory()}/$template.blade.php";
     }
 }

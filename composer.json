@@ -22,7 +22,8 @@
         "illuminate/validation": "^9.0.0",
         "laravel-zero/framework": "^9.1",
         "rgasch/illuminate-collection-extended": "^1.0",
-        "thecodingmachine/safe": "^2.4"
+        "thecodingmachine/safe": "^2.4",
+        "hyde/ui-kit": "dev-master"
     },
     "require-dev": {
         "driftingly/rector-laravel": "^0.14.0",

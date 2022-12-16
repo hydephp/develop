@@ -73,7 +73,7 @@ trait ForwardsFilesystem
         return $this->filesystem->sitePath($path);
     }
 
-    public function pathToAbsolute(string $path): string
+    public function pathToAbsolute(string|array $path): string|array
     {
         return $this->filesystem->pathToAbsolute($path);
     }

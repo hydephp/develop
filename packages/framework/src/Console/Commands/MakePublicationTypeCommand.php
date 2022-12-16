@@ -8,7 +8,6 @@ use function array_flip;
 use function array_keys;
 use function array_merge;
 use function file_exists;
-use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
@@ -29,7 +28,7 @@ use function trim;
  * @see \Hyde\Framework\Actions\CreatesNewPublicationType
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTypeCommandTest
  */
-class MakePublicationTypeCommand extends ValidatingCommand implements CommandHandleInterface
+class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publicationType

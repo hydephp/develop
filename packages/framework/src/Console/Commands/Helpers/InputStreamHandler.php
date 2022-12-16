@@ -8,18 +8,19 @@ use function array_shift;
 use function explode;
 use function fgets;
 use Hyde\Framework\Concerns\InvokableAction;
-use Illuminate\Support\Str;
+use function strip_newlines;
 use function trim;
 
 /**
  * Collects an array of lines from the standard input stream. Feed is terminated by a blank line.
  *
  * @todo Add dynamic support for detecting and using comma separated values?
+ *
+ * @see \Hyde\Framework\Testing\Unit\InputStreamHandlerTest
  */
 class InputStreamHandler extends InvokableAction
 {
-    /** @internal Allows for mocking of the standard input stream */
-    private static ?array $streamBuffer = null;
+    private static ?array $mockedStreamBuffer = null;
 
     public function __invoke(): array
     {
@@ -30,7 +31,7 @@ class InputStreamHandler extends InvokableAction
     {
         $lines = [];
         do {
-            $line = Str::replace(["\n", "\r"], '', $this->readInputStream());
+            $line = strip_newlines($this->readInputStream());
             if ($line === '') {
                 break;
             }
@@ -41,10 +42,10 @@ class InputStreamHandler extends InvokableAction
     }
 
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */
-    protected function readInputStream(): array|string|false
+    protected function readInputStream(): string
     {
-        if (self::$streamBuffer) {
-            return array_shift(self::$streamBuffer);
+        if (self::$mockedStreamBuffer !== null) {
+            return array_shift(self::$mockedStreamBuffer) ?? '';
         }
 
         return fgets(STDIN);
@@ -53,6 +54,6 @@ class InputStreamHandler extends InvokableAction
     /** @internal Allows for mocking of the standard input stream */
     public static function mockInput(string $input): void
     {
-        self::$streamBuffer = explode("\n", $input);
+        self::$mockedStreamBuffer = explode("\n", $input);
     }
 }

@@ -1,0 +1,1 @@
+<input {{ $attributes->class(['block rounded-md shadow-sm border-gray-300 dark:border-gray-700 block m-1 py-2 px-3 font-medium text-sm text-gray-700 dark:text-gray-300 dark:focus:text-white rounded-lg shadow border-none bg-gray-200 dark:bg-gray-600 focus:ring-indigo-600 dark:focus:ring-indigo-500 focus:ring-2 focus:outline-none border-transparent transition-colors']) }}>

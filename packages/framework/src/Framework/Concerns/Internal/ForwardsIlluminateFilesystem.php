@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Concerns\Internal;
 
+use Illuminate\Support\LazyCollection;
+
 /**
  * Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade.
  *
- * @interal
+ * @interal This trait is not covered by the backward compatibility promise.
  *
  * @see \Hyde\Facades\Filesystem
  */
@@ -50,7 +52,7 @@ trait ForwardsIlluminateFilesystem
     }
 
     /** @inheritDoc */
-    public static function lines(string $path): \Illuminate\Support\LazyCollection
+    public static function lines(string $path): LazyCollection
     {
         return self::filesystem()->lines(self::absolutePath($path));
     }
@@ -100,7 +102,7 @@ trait ForwardsIlluminateFilesystem
     /** @inheritDoc */
     public static function delete(array|string $paths): bool
     {
-        return self::filesystem()->delete(self::qualifyPossiblePathArray($paths));
+        return self::filesystem()->delete(self::kernel()->filesystem()->pathToAbsolute($paths));
     }
 
     /** @inheritDoc */
@@ -235,7 +237,7 @@ trait ForwardsIlluminateFilesystem
         return self::filesystem()->allFiles(self::absolutePath($directory), $hidden);
     }
 
-    /** @inheritDoc*/
+    /** @inheritDoc */
     public static function directories(string $directory): array
     {
         return self::filesystem()->directories(self::absolutePath($directory));

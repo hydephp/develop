@@ -7,23 +7,19 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 use Hyde\Framework\Actions\PublishesHydeViews;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
+use function is_dir;
 
 /**
  * @covers \Hyde\Framework\Actions\PublishesHydeViews
  */
 class PublishesHydeViewsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        backupDirectory(Hyde::path('resources/views/vendor/hyde'));
-        deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
-    }
-
     protected function tearDown(): void
     {
-        restoreDirectory(Hyde::path('resources/views/vendor/hyde'));
+        if (is_dir(Hyde::path('resources/views/vendor/hyde'))) {
+            File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
+        }
 
         parent::tearDown();
     }
@@ -40,9 +36,16 @@ class PublishesHydeViewsTest extends TestCase
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
     }
 
+    public function test_action_publishes_view_components()
+    {
+        (new PublishesHydeViews('components'))->execute();
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/link.blade.php'));
+    }
+
     public function test_action_publishes_view_files()
     {
-        unlinkIfExists(Hyde::path('_pages/404.blade.php'));
+        unlink(Hyde::path('_pages/404.blade.php'));
+
         (new PublishesHydeViews('404'))->execute();
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
     }

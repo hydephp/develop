@@ -220,6 +220,71 @@ class MarkdownServiceTest extends TestCase
         $this->assertFalse($service->canEnableTorchlight());
     }
 
+    public function test_stripIndentation_method_with_unindented_markdown()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\nbar\nbaz";
+        $this->assertSame($markdown, $service->normalizeIndentationLevel($markdown));
+    }
+
+    public function test_stripIndentation_method_with_indented_markdown()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\n  bar\n  baz";
+        $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
+
+        $markdown = "  foo\n  bar\n  baz";
+        $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
+
+        $markdown = "    foo\n    bar\n    baz";
+        $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
+    }
+
+    public function test_stripIndentation_method_with_tab_indented_markdown()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\n\tbar\n\tbaz";
+        $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
+    }
+
+    public function test_stripIndentation_method_with_carriage_return_line_feed()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\r\n  bar\r\n  baz";
+        $this->assertSame("foo\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
+    }
+
+    public function test_stripIndentation_method_with_code_indentation()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\n    bar\n        baz";
+        $this->assertSame("foo\nbar\n    baz", $service->normalizeIndentationLevel($markdown));
+    }
+
+    public function test_stripIndentation_method_with_empty_newlines()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\n\n  bar\n  baz";
+        $this->assertSame("foo\n\nbar\nbaz", $service->normalizeIndentationLevel($markdown));
+
+        $markdown = "foo\n   \n  bar\n  baz";
+        $this->assertSame("foo\n   \nbar\nbaz", $service->normalizeIndentationLevel($markdown));
+    }
+
+    public function test_stripIndentation_method_with_trailing_newline()
+    {
+        $service = $this->makeService();
+
+        $markdown = "foo\n  bar\n  baz\n";
+        $this->assertSame("foo\nbar\nbaz\n", $service->normalizeIndentationLevel($markdown));
+    }
+
     protected function makeService()
     {
         return new class extends MarkdownService

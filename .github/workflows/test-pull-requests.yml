@@ -11,53 +11,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
-      with:
-        php-version: "8.1"
-        coverage: xdebug
-        extensions: fileinfo
-    - uses: actions/checkout@v3
-    
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: "8.1"
+          coverage: xdebug
+          extensions: fileinfo
+      - uses: actions/checkout@v3
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
 
-    - name: Install Composer Dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-    - name: Set environment to testing
-      run: echo "ENV=testing" > .env
-    
-    - name: Output debug information
-      run: php hyde debug
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
-      run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit build/junit.xml --testdox-text testdox.txt
-      env:
-        ENV: testing
+      - name: Set environment to testing
+        run: echo "ENV=testing" > .env
 
-    - uses: codecov/codecov-action@v2
-      with:
-        files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
+      - name: Output debug information
+        run: php hyde debug
 
-    - name: Ping statistics server with test results
-      run: |
-        curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
-        php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
+      - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
+        run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit build/junit.xml --testdox-text testdox.txt
+        env:
+          ENV: testing
+
+      - uses: codecov/codecov-action@v2
+        with:
+          files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
+
+      - name: Ping statistics server with test results
+        run: |
+          curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
+          php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }}
 
   test-matrix:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         php: [8.1]
     runs-on: ${{ matrix.os }}
 

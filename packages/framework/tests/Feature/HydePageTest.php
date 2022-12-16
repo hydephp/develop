@@ -553,6 +553,13 @@ class HydePageTest extends TestCase
         $this->assertFalse($page->showInNavigation());
     }
 
+    public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_visible_is_true()
+    {
+        $page = MarkdownPage::make('foo', ['navigation.visible' => true]);
+
+        $this->assertTrue($page->showInNavigation());
+    }
+
     public function test_show_in_navigation_returns_true_for_abstract_markdown_page_if_matter_navigation_hidden_is_false()
     {
         $page = MarkdownPage::make('foo', ['navigation.hidden' => false]);
@@ -592,6 +599,12 @@ class HydePageTest extends TestCase
     public function test_navigation_menu_priority_returns_front_matter_value_of_navigation_priority_if_abstract_markdown_page_and_not_null()
     {
         $page = MarkdownPage::make('foo', ['navigation.priority' => 1]);
+        $this->assertEquals(1, $page->navigationMenuPriority());
+    }
+
+    public function test_navigation_menu_priority_can_be_set_using_order_property()
+    {
+        $page = MarkdownPage::make('foo', ['navigation.order' => 1]);
         $this->assertEquals(1, $page->navigationMenuPriority());
     }
 
@@ -971,6 +984,37 @@ class HydePageTest extends TestCase
             unlink($page::sourcePath('foo'));
             Hyde::boot();
         }
+    }
+
+    public function test_navigation_data_factory_hides_page_from_navigation_when_in_a_subdirectory()
+    {
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertFalse($page->showInNavigation());
+        $this->assertNull($page->navigationMenuGroup());
+    }
+
+    public function test_navigation_data_factory_hides_page_from_navigation_when_in_a_and_config_is_set_to_hidden()
+    {
+        config(['hyde.navigation.subdirectories' => 'hidden']);
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertFalse($page->showInNavigation());
+        $this->assertNull($page->navigationMenuGroup());
+    }
+
+    public function test_navigation_data_factory_does_not_hide_page_from_navigation_when_in_a_subdirectory_and_allowed_in_configuration()
+    {
+        config(['hyde.navigation.subdirectories' => 'flat']);
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertTrue($page->showInNavigation());
+        $this->assertNull($page->navigationMenuGroup());
+    }
+
+    public function test_navigation_data_factory_allows_show_in_navigation_and_sets_group_when_dropdown_is_selected_in_config()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $page = MarkdownPage::make('foo/bar');
+        $this->assertTrue($page->showInNavigation());
+        $this->assertEquals('foo', $page->navigationMenuGroup());
     }
 
     protected function assertSameIgnoringDirSeparatorType(string $expected, string $actual): void

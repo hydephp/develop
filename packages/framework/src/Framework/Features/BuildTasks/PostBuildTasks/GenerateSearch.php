@@ -36,8 +36,10 @@ class GenerateSearch extends BuildTask
         $this->createdSiteFile(DocumentationSearchService::$filePath)->withExecutionTime();
     }
 
-    /** @internal Estimated processing time per file in ms */
-    public static float $guesstimationFactor = 52.5;
+    /**
+     * Estimated processing time per file in ms.
+     */
+    protected static float $guesstimationFactor = 52.5;
 
     protected function guesstimateGenerationTime(): int|float
     {

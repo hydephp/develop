@@ -4,15 +4,24 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
+use function collect;
+use function config;
+use Hyde\Foundation\Facades\Router;
+use Hyde\Framework\Features\Navigation\DropdownNavItem;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\BaseNavigationMenu
  */
 class NavigationMenuTest extends TestCase
 {
@@ -37,8 +46,8 @@ class NavigationMenuTest extends TestCase
         $menu->generate();
 
         $expected = collect([
-            NavItem::fromRoute(Route::get('404')),
-            NavItem::fromRoute(Route::get('index')),
+            '404' => NavItem::fromRoute(Route::get('404')),
+            'index' => NavItem::fromRoute(Route::get('index')),
         ]);
 
         $this->assertCount(count($expected), $menu->items);
@@ -174,11 +183,11 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->items);
     }
 
-    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_label()
+    public function test_duplicates_are_removed_when_adding_in_config_regardless_of_destination()
     {
         config(['hyde.navigation.custom' => [
             NavItem::toLink('foo', 'foo'),
-            NavItem::toLink('foo', 'bar'),
+            NavItem::toLink('bar', 'foo'),
         ]]);
 
         $menu = NavigationMenu::create();
@@ -210,4 +219,193 @@ class NavigationMenuTest extends TestCase
         Hyde::unlink('_docs/foo.md');
         Hyde::unlink('_docs/index.md');
     }
+
+    public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu()
+    {
+        $this->directory('_pages/foo');
+        Hyde::touch('_pages/foo/bar.md');
+
+        $menu = NavigationMenu::create();
+        $expected = collect([NavItem::fromRoute(Route::get('index'))]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_pages_in_subdirectories_can_be_added_to_the_navigation_menu_with_config_flat_setting()
+    {
+        config(['hyde.navigation.subdirectories' => 'flat']);
+        $this->directory('_pages/foo');
+        Hyde::touch('_pages/foo/bar.md');
+
+        $menu = NavigationMenu::create();
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute(Route::get('foo/bar')),
+        ]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_pages_in_subdirectories_are_not_added_to_the_navigation_menu_with_config_dropdown_setting()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $this->directory('_pages/foo');
+        Hyde::touch('_pages/foo/bar.md');
+
+        $menu = NavigationMenu::create();
+        $expected = collect([
+            NavItem::fromRoute(Route::get('index')),
+            DropdownNavItem::fromArray('foo', [
+                NavItem::fromRoute(Route::get('foo/bar')),
+            ]),
+        ]);
+
+        $this->assertCount(count($expected), $menu->items);
+        $this->assertEquals($expected, $menu->items);
+    }
+
+    public function test_has_dropdowns_returns_false_when_there_are_no_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+        $this->assertFalse($menu->hasDropdowns());
+    }
+
+    public function test_has_dropdowns_returns_true_when_there_are_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->generate();
+        $this->assertTrue($menu->hasDropdowns());
+    }
+
+    public function test_has_dropdowns_always_returns_false_when_dropdowns_are_disabled()
+    {
+        $menu = NavigationMenu::create();
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->generate();
+        $this->assertFalse($menu->hasDropdowns());
+    }
+
+    public function test_get_dropdowns_returns_empty_array_there_are_no_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+        $this->assertCount(0, $menu->getDropdowns());
+        $this->assertSame([], $menu->getDropdowns());
+    }
+
+    public function test_get_dropdowns_returns_correct_array_when_there_are_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->generate();
+        $this->assertCount(1, $menu->getDropdowns());
+
+        $this->assertEquals([
+            'dropdown.foo' => DropdownNavItem::fromArray('foo', [
+                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
+            ]), ], $menu->getDropdowns());
+    }
+
+    public function test_get_dropdowns_with_multiple_items()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
+        $menu->generate();
+
+        $this->assertCount(1, $menu->getDropdowns());
+
+        $this->assertEquals([
+            'dropdown.foo' => DropdownNavItem::fromArray('foo', [
+                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
+                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
+            ]),
+        ], $menu->getDropdowns());
+    }
+
+    public function test_get_dropdowns_with_multiple_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()));
+        $menu->generate();
+
+        $this->assertCount(2, $menu->getDropdowns());
+
+        $this->assertEquals([
+            'dropdown.foo' => DropdownNavItem::fromArray('foo', [
+                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
+                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
+            ]),
+            'dropdown.cat' => DropdownNavItem::fromArray('cat', [
+                NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
+            ]),
+        ], $menu->getDropdowns());
+    }
+
+    public function test_get_dropdowns_throws_exception_when_disabled()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
+
+        $menu = NavigationMenu::create();
+        $menu->getDropdowns();
+    }
+
+    public function test_documentation_pages_do_not_get_added_to_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new DocumentationPage('foo'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new DocumentationPage('bar/baz'))->getRoute()));
+        $menu->generate();
+
+        $this->assertFalse($menu->hasDropdowns());
+        $this->assertCount(0, $menu->getDropdowns());
+    }
+
+    public function test_blog_posts_do_not_get_added_to_dropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $menu = NavigationMenu::create();
+
+        $menu->items->push(NavItem::fromRoute((new MarkdownPost('foo'))->getRoute()));
+        $menu->items->push(NavItem::fromRoute((new MarkdownPost('bar/baz'))->getRoute()));
+        $menu->generate();
+
+        $this->assertFalse($menu->hasDropdowns());
+        $this->assertCount(0, $menu->getDropdowns());
+    }
+
+    public function test_pages_in_dropdowns_do_not_get_added_to_the_main_navigation()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        Router::push((new MarkdownPage('foo'))->getRoute());
+        Router::push((new MarkdownPage('bar/baz'))->getRoute());
+        $menu = NavigationMenu::create();
+
+        $this->assertCount(3, $menu->items);
+        $this->assertEquals([
+            NavItem::fromRoute(Route::get('index')),
+            NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
+            DropdownNavItem::fromArray('bar', [
+                NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),
+            ]),
+        ], $menu->items->all());
+    }
+
+    // TODO test dropdown items are sorted
 }

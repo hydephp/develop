@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -21,7 +21,7 @@ use Rgasch\Collection\Collection;
  * @see \Hyde\Framework\Actions\CreatesNewPublicationPage
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
-class MakePublicationCommand extends ValidatingCommand implements CommandHandleInterface
+class MakePublicationCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publication
@@ -59,83 +59,23 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
 
     protected function captureFieldInput(PublicationFieldType $field, PublicationType $pubType): string|array
     {
-        if ($field->type === 'text') {
-            $lines = [];
-            $this->output->writeln($field->name." (end with a line containing only '<<<')");
-            do {
-                $line = Str::replace("\n", '', fgets(STDIN));
-                if ($line === '<<<') {
-                    break;
-                }
-                $lines[] = $line;
-            } while (true);
-
-            return $lines;
+        if ($field->type === PublicationFieldTypes::Text) {
+            return $this->captureTextFieldInput($field);
         }
 
-        if ($field->type === 'array') {
-            $lines = [];
-            $this->output->writeln($field->name.' (end with an empty line)');
-            do {
-                $line = Str::replace("\n", '', fgets(STDIN));
-                if ($line === '') {
-                    break;
-                }
-                $lines[] = trim($line);
-            } while (true);
-
-            return $lines;
+        if ($field->type === PublicationFieldTypes::Array) {
+            return $this->captureArrayFieldInput($field);
         }
 
-        if ($field->type === 'image') {
-            $this->output->writeln($field->name.' (end with an empty line)');
-            do {
-                $offset = 0;
-                $mediaFiles = PublicationService::getMediaForPubType($pubType);
-                foreach ($mediaFiles as $index => $file) {
-                    $offset = $index + 1;
-                    $this->output->writeln("  $offset: $file");
-                }
-                $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
-            } while ($selected == 0);
-            $file = $mediaFiles->{$selected - 1};
-
-            return '_media/'.Str::of($file)->after('media/')->toString();
+        if ($field->type === PublicationFieldTypes::Image) {
+            return $this->captureImageFieldInput($field, $pubType);
         }
 
-        if ($field->type === 'tag') {
-            $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
-            do {
-                $offset = 0;
-                $tagsForGroup = PublicationService::getAllTags()->{$field->tagGroup};
-                foreach ($tagsForGroup as $index=>$value) {
-                    $offset = $index + 1;
-                    $this->output->writeln("  $offset: $value");
-                }
-                $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:0,$offset"]);
-            } while ($selected == 0);
-
-            return $tagsForGroup->{$selected - 1};
+        if ($field->type === PublicationFieldTypes::Tag) {
+            return $this->captureTagFieldInput($field);
         }
 
-        // Fields which are not of type array, text or image
-        $fieldRules = collect($field->type->rules());
-        if ($fieldRules->contains('between')) {
-            $fieldRules->forget($fieldRules->search('between'));
-            if ($field->min && $field->max) {
-                switch ($field->type) {
-                    case 'string':
-                    case 'integer':
-                    case 'float':
-                        $fieldRules->add("between:$field->min,$field->max");
-                        break;
-                    case 'datetime':
-                        $fieldRules->add("after:$field->min");
-                        $fieldRules->add("before:$field->max");
-                        break;
-                }
-            }
-        }
+        $fieldRules = $this->generateFieldRules($field);
 
         return $this->askWithValidation($field->name, $field->name, $fieldRules->toArray());
     }
@@ -192,5 +132,92 @@ class MakePublicationCommand extends ValidatingCommand implements CommandHandleI
     protected function hasForceOption(): bool
     {
         return (bool) $this->option('force');
+    }
+
+    protected function captureTextFieldInput(PublicationFieldType $field): array
+    {
+        $lines = [];
+        $this->output->writeln($field->name." (end with a line containing only '<<<')");
+        do {
+            $line = Str::replace("\n", '', fgets(STDIN));
+            if ($line === '<<<') {
+                break;
+            }
+            $lines[] = $line;
+        } while (true);
+
+        return $lines;
+    }
+
+    protected function captureArrayFieldInput(PublicationFieldType $field): array
+    {
+        $lines = [];
+        $this->output->writeln($field->name.' (end with an empty line)');
+        do {
+            $line = Str::replace("\n", '', fgets(STDIN));
+            if ($line === '') {
+                break;
+            }
+            $lines[] = trim($line);
+        } while (true);
+
+        return $lines;
+    }
+
+    protected function captureImageFieldInput(PublicationFieldType $field, PublicationType $pubType): string
+    {
+        $this->output->writeln($field->name.' (end with an empty line)');
+        do {
+            $offset = 0;
+            $mediaFiles = PublicationService::getMediaForPubType($pubType);
+            foreach ($mediaFiles as $index => $file) {
+                $offset = $index + 1;
+                $this->output->writeln("  $offset: $file");
+            }
+            $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
+        } while ($selected == 0);
+        $file = $mediaFiles->{$selected - 1};
+
+        return '_media/'.Str::of($file)->after('media/')->toString();
+    }
+
+    protected function captureTagFieldInput(PublicationFieldType $field)
+    {
+        $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
+        do {
+            $offset = 0;
+            $tagsForGroup = PublicationService::getAllTags()->{$field->tagGroup};
+            foreach ($tagsForGroup as $index => $value) {
+                $offset = $index + 1;
+                $this->output->writeln("  $offset: $value");
+            }
+            $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:0,$offset"]);
+        } while ($selected == 0);
+
+        return $tagsForGroup->{$selected - 1};
+    }
+
+    // Get rules for fields which are not of type array, text or image
+    protected function generateFieldRules(PublicationFieldType $field): Collection
+    {
+        $fieldRules = Collection::make($field->type->rules());
+        if ($fieldRules->contains('between')) {
+            $fieldRules->forget($fieldRules->search('between'));
+            if ($field->min && $field->max) {
+                switch ($field->type) {
+                    case 'string':
+                    case 'integer':
+                    case 'float':
+                        $fieldRules->add("between:$field->min,$field->max");
+                        break;
+                    case 'datetime':
+                        $fieldRules->add("after:$field->min");
+                        $fieldRules->add("before:$field->max");
+                        break;
+                }
+            }
+        }
+
+        return $fieldRules;
     }
 }
