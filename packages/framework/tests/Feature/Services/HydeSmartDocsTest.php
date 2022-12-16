@@ -12,9 +12,6 @@ use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
-use function strip_newlines;
-use function strip_newlines_and_indentation;
-use function unlinkIfExists;
 use function view;
 
 /**

@@ -14,15 +14,15 @@ trait TestingHelpers
     final protected static function backupDirectory(string $directory): void
     {
         if (file_exists($directory)) {
-            \Illuminate\Support\Facades\File::copyDirectory($directory, $directory . '-bak', true);
+            \Illuminate\Support\Facades\File::copyDirectory($directory, $directory.'-bak', true);
         }
     }
 
     final protected static function restoreDirectory(string $directory): void
     {
-        if (file_exists($directory . '-bak')) {
-            \Illuminate\Support\Facades\File::moveDirectory($directory . '-bak', $directory, true);
-            \Illuminate\Support\Facades\File::deleteDirectory($directory . '-bak');
+        if (file_exists($directory.'-bak')) {
+            \Illuminate\Support\Facades\File::moveDirectory($directory.'-bak', $directory, true);
+            \Illuminate\Support\Facades\File::deleteDirectory($directory.'-bak');
         }
     }
 
@@ -49,7 +49,7 @@ trait TestingHelpers
             '.gitkeep',
         ];
 
-        if (!in_array(basename($filepath), $protected)) {
+        if (! in_array(basename($filepath), $protected)) {
             unlink($filepath);
         }
     }
@@ -62,7 +62,6 @@ trait TestingHelpers
 
         return str_replace(["\r", "\n"], '', $string);
     }
-
 
     final protected static function strip_indentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
     {
