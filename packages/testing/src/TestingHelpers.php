@@ -61,9 +61,14 @@ trait TestingHelpers
     final protected static function stripNewlines(string $string, bool $keepUnixEndings = false): string
     {
         if ($keepUnixEndings) {
-            return str_replace("\r", '', $string);
+            return self::normalizeNewlines($string);
         }
 
         return str_replace(["\r", "\n"], '', $string);
+    }
+
+    final protected static function normalizeNewlines(string $string): string
+    {
+        return str_replace("\r", '', $string);
     }
 }
