@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands\Helpers;
 
+use Hyde\Hyde;
 use function array_shift;
 use function explode;
 use function fgets;
@@ -31,7 +32,7 @@ class InputStreamHandler extends InvokableAction
     {
         $lines = [];
         do {
-            $line = str_replace(["\r", "\n"], '', $this->readInputStream());
+            $line = Hyde::stripNewlines($this->readInputStream());
             if ($line === '') {
                 break;
             }
