@@ -37,13 +37,6 @@ trait TestingHelpers
         }
     }
 
-    final protected static function makeDirectory(string $directory): void
-    {
-        if (file_exists($directory)) {
-            File::makeDirectory($directory);
-        }
-    }
-
     final protected static function unlinkUnlessDefault(string $filepath): void
     {
         $protected = [
