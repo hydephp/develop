@@ -27,6 +27,11 @@ trait ImplementsStringHelpers
         ));
     }
 
+    public function normalizeNewlines(string $string): string
+    {
+        return str_replace(["\r\n"], "\n", $string);
+    }
+
     public function markdown(string $text, bool $stripIndentation = false): HtmlString
     {
         if ($stripIndentation) {
