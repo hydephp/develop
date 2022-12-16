@@ -143,6 +143,6 @@ class CreatesNewPageSourceFile
     {
         $this->prepareOutputDirectory();
 
-        file_put_contents($this->outputPath, str_replace(["\r\n"], "\n", $contents));
+        file_put_contents($this->outputPath, Hyde::normalizeNewlines($contents));
     }
 }
