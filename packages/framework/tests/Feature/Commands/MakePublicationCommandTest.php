@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use function config;
 use function deleteDirectory;
 use function file_get_contents;
 use Hyde\Hyde;
@@ -21,6 +22,7 @@ class MakePublicationCommandTest extends TestCase
     {
         parent::setUp();
         mkdir(Hyde::path('test-publication'));
+        config(['app.throw_on_console_exception' => true]);
 
         Carbon::setTestNow(Carbon::create(2022));
     }
@@ -50,6 +52,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_no_publication_types()
     {
+        config(['app.throw_on_console_exception' => false]);
         $this->artisan('make:publication')
             ->expectsOutputToContain('Creating a new Publication!')
             ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
@@ -123,6 +126,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_invalid_publication_type_passed_as_argument()
     {
+        config(['app.throw_on_console_exception' => false]);
         $this->makeSchemaFile();
 
         $this->artisan('make:publication foo')
