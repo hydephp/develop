@@ -18,11 +18,11 @@ class BuildSitemapCommandTest extends TestCase
         config(['site.url' => 'https://example.com']);
         config(['site.generate_sitemap' => true]);
 
-        $this->unlinkIfExists(Hyde::path('_site/sitemap.xml'));
-        $this->artisan('build:sitemap')
-            ->assertExitCode(0);
+        $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
 
+        $this->artisan('build:sitemap')->assertExitCode(0);
         $this->assertFileExists(Hyde::path('_site/sitemap.xml'));
+
         unlink(Hyde::path('_site/sitemap.xml'));
     }
 }
