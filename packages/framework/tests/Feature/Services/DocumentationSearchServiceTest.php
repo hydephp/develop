@@ -32,7 +32,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         $this->resetDocs();
 
-        Hyde::touch(('_docs/foo.md'));
+        Hyde::touch('_docs/foo.md');
 
         $expected = [
             [
@@ -54,9 +54,9 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_it_adds_all_files_to_search_index()
     {
-        Hyde::touch(('_docs/foo.md'));
-        Hyde::touch(('_docs/bar.md'));
-        Hyde::touch(('_docs/baz.md'));
+        Hyde::touch('_docs/foo.md');
+        Hyde::touch('_docs/bar.md');
+        Hyde::touch('_docs/baz.md');
 
         $this->assertCount(3, (new Service())->run()->searchIndex);
 
