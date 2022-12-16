@@ -10,8 +10,6 @@ use Illuminate\Console\Command;
 use Illuminate\Console\OutputStyle;
 use Mockery;
 
-use function implode;
-
 /**
  * @covers \Hyde\Console\Commands\Helpers\InputStreamHandler
  */
@@ -48,16 +46,18 @@ class InputStreamHandlerTest extends TestCase
     protected function makeCommand(array $expected): TestCommand
     {
         $command = new TestCommand;
-        $output  = Mockery::mock(OutputStyle::class);
+        $output = Mockery::mock(OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) use ($expected) {
             return $message === json_encode($expected);
         });
         $command->setOutput($output);
+
         return $command;
     }
 }
 
-class TestCommand extends Command {
+class TestCommand extends Command
+{
     public function handle(): int
     {
         $this->output->writeln(json_encode(InputStreamHandler::call()));
