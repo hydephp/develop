@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Constraint\IsEqual;
 
 /**
  * Test that the framework configuration files are matching the published ones.

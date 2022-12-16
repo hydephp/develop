@@ -215,7 +215,7 @@ class HydeSmartDocsTest extends TestCase
         $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
     }
 
-    protected function makeArticle(string $sourceFileContents =  "# Foo\n\nHello world."): SemanticDocumentationArticle
+    protected function makeArticle(string $sourceFileContents = "# Foo\n\nHello world."): SemanticDocumentationArticle
     {
         file_put_contents(Hyde::path('_docs/foo.md'), $sourceFileContents);
 
