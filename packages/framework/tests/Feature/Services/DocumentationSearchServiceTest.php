@@ -21,20 +21,14 @@ class DocumentationSearchServiceTest extends TestCase
 
         Filesystem::touch('_docs/foo.md');
 
-        $expected = [
-            [
-                'slug' => 'foo',
-                'title' => 'Foo',
-                'content' => '',
-                'destination' => 'foo.html',
-            ],
-        ];
-
         DocumentationSearchService::generate();
 
-        $this->assertEquals(
-            json_encode($expected), file_get_contents(DocumentationSearchService::$filePath)
-        );
+        $this->assertEquals(json_encode([[
+            'slug' => 'foo',
+            'title' => 'Foo',
+            'content' => '',
+            'destination' => 'foo.html',
+        ]]), file_get_contents(DocumentationSearchService::$filePath));
 
         Filesystem::unlink('_docs/foo.md');
         Filesystem::unlink('_site/docs/search.json');
@@ -75,18 +69,14 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_generate_page_entry_method_generates_a_page_entry()
     {
-        $expected = [
+        Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
+
+        $this->assertEquals([
             'slug' => 'foo',
             'title' => 'Bar',
             'content' => "Bar \n Hello World",
             'destination' => 'foo.html',
-        ];
-
-        Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
-
-        $this->assertEquals(
-            $expected, (new DocumentationSearchService())->generatePageEntry(DocumentationPage::parse('foo'))
-        );
+        ], (new DocumentationSearchService())->generatePageEntry(DocumentationPage::parse('foo')));
 
         Filesystem::unlink('_docs/foo.md');
     }
