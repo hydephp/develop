@@ -94,7 +94,7 @@ class HydeKernelTest extends TestCase
         $this->assertEquals('Foo Bar', Hyde::makeTitle('foo-bar'));
     }
 
-    public function test_normalizeNewlines_replaces_carriage_returns_with_unis_endings()
+    public function test_normalize_newlines_replaces_carriage_returns_with_unis_endings()
     {
         $this->assertEquals("foo\nbar\nbaz", Hyde::normalizeNewlines("foo\nbar\r\nbaz"));
     }
