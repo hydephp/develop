@@ -110,9 +110,7 @@ class DocumentationSearchServiceTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
 
-        $this->assertSame(
-            'foo', (new DocumentationSearchService())->getDestinationForSlug('foo')
-        );
+        $this->assertSame('foo', (new DocumentationSearchService())->getDestinationForSlug('foo'));
     }
 
     public function test_excluded_pages_are_not_present_in_the_search_index()
