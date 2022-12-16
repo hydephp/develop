@@ -32,6 +32,12 @@ class PublishesHydeViewsTest extends TestCase
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
     }
 
+    public function test_action_publishes_view_components()
+    {
+        (new PublishesHydeViews('components'))->execute();
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/link.blade.php'));
+    }
+
     public function test_action_publishes_view_files()
     {
         unlink(Hyde::path('_pages/404.blade.php'));
