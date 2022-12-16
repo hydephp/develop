@@ -59,14 +59,6 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
-    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
-    {
-        $this->assertEquals(
-            $this->normalizeNewlines($expected),
-            $this->normalizeNewlines($actual),
-        );
-    }
-
     protected function mockRoute(?Route $route = null)
     {
         Render::share('currentRoute', $route ?? (new Route(new MarkdownPage())));

@@ -49,6 +49,14 @@ trait TestingHelpers
         return str_replace(["\r\n"], "\n", $string);
     }
 
+    protected function assertEqualsIgnoringLineEndingType(string $expected, string $actual): void
+    {
+        $this->assertEquals(
+            $this->normalizeNewlines($expected),
+            $this->normalizeNewlines($actual),
+        );
+    }
+
     protected function withoutDefaultPages(): void
     {
         Hyde::unlink('_pages/404.blade.php');
