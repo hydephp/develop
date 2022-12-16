@@ -100,8 +100,8 @@ class DocumentationSearchServiceTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
 
-        $this->assertSame(
-            '', (new DocumentationSearchService())->getDestinationForSlug('index')
+        $this->assertSame('',
+            (new DocumentationSearchService())->getDestinationForSlug('index')
         );
     }
 
@@ -109,7 +109,9 @@ class DocumentationSearchServiceTest extends TestCase
     {
         config(['site.pretty_urls' => true]);
 
-        $this->assertSame('foo', (new DocumentationSearchService())->getDestinationForSlug('foo'));
+        $this->assertSame('foo',
+            (new DocumentationSearchService())->getDestinationForSlug('foo')
+        );
     }
 
     public function test_excluded_pages_are_not_present_in_the_search_index()
@@ -117,7 +119,9 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
-        $this->assertStringNotContainsString('excluded', json_encode((new DocumentationSearchService())->run()->searchIndex->toArray()));
+        $this->assertStringNotContainsString('excluded',
+            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+        );
 
         Filesystem::unlink('_docs/excluded.md');
     }
@@ -127,7 +131,9 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::makeDirectory(Hyde::path('_docs/foo'));
         Filesystem::touch('_docs/foo/bar.md');
 
-        $this->assertStringNotContainsString('foo', json_encode((new DocumentationSearchService())->run()->searchIndex->toArray()));
+        $this->assertStringNotContainsString('foo',
+            json_encode((new DocumentationSearchService())->run()->searchIndex->toArray())
+        );
 
         Filesystem::deleteDirectory('_docs/foo');
     }
