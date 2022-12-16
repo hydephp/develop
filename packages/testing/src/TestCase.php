@@ -12,7 +12,6 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use ResetsApplication;
-    use TestingHelpers;
     use CreatesTemporaryFiles;
     use InteractsWithPages;
 
