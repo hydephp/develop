@@ -84,6 +84,8 @@ class PublishHomepageCommandTest extends TestCase
     {
         $this->artisan('publish:homepage invalid-page')
             ->assertExitCode(404);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
     public function test_command_does_not_overwrite_modified_files_without_force_flag()
