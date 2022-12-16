@@ -30,9 +30,13 @@ class PublishHomepageCommandTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    public function test_command_returns_expected_output()
+    public function test_there_are_no_default_pages()
     {
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
+    public function test_command_returns_expected_output()
+    {
         $this->artisan('publish:homepage welcome')
             ->expectsConfirmation('Would you like to rebuild the site?')
             ->assertExitCode(0);
@@ -45,7 +49,6 @@ class PublishHomepageCommandTest extends TestCase
     {
         $this->backupDirectory(Hyde::path('_site'));
 
-        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
         $this->artisan('publish:homepage welcome')
             ->expectsConfirmation('Would you like to rebuild the site?', 'yes')
             ->expectsOutput('Okay, building site!')
@@ -60,7 +63,6 @@ class PublishHomepageCommandTest extends TestCase
 
     public function test_command_prompts_for_output()
     {
-        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
         $this->artisan('publish:homepage')
             ->expectsQuestion(
                 'Which homepage do you want to publish?',
@@ -76,7 +78,6 @@ class PublishHomepageCommandTest extends TestCase
 
     public function test_command_shows_feedback_output_when_supplying_a_homepage_name()
     {
-        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
         $this->artisan('publish:homepage welcome')
             ->expectsOutput('Published page [welcome]')
             ->expectsConfirmation('Would you like to rebuild the site?', false)
@@ -91,7 +92,6 @@ class PublishHomepageCommandTest extends TestCase
         $this->artisan('publish:homepage invalid-page')
             ->assertExitCode(404);
 
-        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
     public function test_command_does_not_overwrite_modified_files_without_force_flag()
