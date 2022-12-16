@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Exception;
-use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -19,7 +18,7 @@ use LaravelZero\Framework\Commands\Command;
  *
  * @todo Add JSON output option?
  */
-class ValidatePublicationsCommand extends ValidatingCommand implements CommandHandleInterface
+class ValidatePublicationsCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'validate:publications

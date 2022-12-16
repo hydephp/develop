@@ -6,7 +6,6 @@ namespace Hyde\Console\Commands;
 
 use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
-use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -23,7 +22,7 @@ use function sprintf;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationTagCommandTest
  */
-class MakePublicationTagCommand extends ValidatingCommand implements CommandHandleInterface
+class MakePublicationTagCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publicationTag {tagName? : The name of the tag to create}';

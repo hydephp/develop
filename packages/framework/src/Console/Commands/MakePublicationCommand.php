@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Commands\Interfaces\CommandHandleInterface;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
@@ -21,7 +20,7 @@ use Rgasch\Collection\Collection;
  * @see \Hyde\Framework\Actions\CreatesNewPublicationPage
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePublicationCommandTest
  */
-class MakePublicationCommand extends ValidatingCommand implements CommandHandleInterface
+class MakePublicationCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publication
