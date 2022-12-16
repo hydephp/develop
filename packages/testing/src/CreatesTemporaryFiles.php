@@ -51,9 +51,7 @@ trait CreatesTemporaryFiles
         if (sizeof($this->fileMemory) > 0) {
             foreach ($this->fileMemory as $file) {
                 if (Filesystem::isDirectory($file)) {
-                    $keep = ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'];
-
-                    if (! in_array($file, $keep)) {
+                    if (! in_array($file, ['_site', '_media', '_pages', '_posts', '_docs', 'app', 'config', 'storage', 'vendor', 'node_modules'])) {
                         Filesystem::deleteDirectory($file);
                     }
                 } else {
