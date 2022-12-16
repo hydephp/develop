@@ -225,4 +225,16 @@ class HydeSmartDocsTest extends TestCase
             $this->stripNewlinesAndIndentation($actual->toHtml()),
         );
     }
+
+    protected function stripNewlinesAndIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    {
+        return $this->stripNewlines($this->stripIndentation($string, $indentUsingSpaces, $indentationLength));
+    }
+
+    protected function stripIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
+    {
+        $indentation = $indentUsingSpaces ? str_repeat(' ', $indentationLength) : "\t";
+
+        return str_replace($indentation, '', $string);
+    }
 }

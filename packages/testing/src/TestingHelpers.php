@@ -67,15 +67,4 @@ trait TestingHelpers
         return str_replace(["\r", "\n"], '', $string);
     }
 
-    final protected static function stripIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
-    {
-        $indentation = $indentUsingSpaces ? str_repeat(' ', $indentationLength) : "\t";
-
-        return str_replace($indentation, '', $string);
-    }
-
-    final protected static function stripNewlinesAndIndentation(string $string, bool $indentUsingSpaces = true, int $indentationLength = 4): string
-    {
-        return self::stripNewlines(self::stripIndentation($string, $indentUsingSpaces, $indentationLength));
-    }
 }
