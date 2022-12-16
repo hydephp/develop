@@ -45,13 +45,14 @@ class HydeConfigFilesAreMatchingTest extends TestCase
         );
     }
 
-    protected function assertFileEqualsIgnoringNewlineType(string $expected, string $actual, string $message = ''): void
+    protected function assertFileEqualsIgnoringNewlineType(string $expected, string $actual): void
     {
-        static::assertFileExists($expected, $message);
-        static::assertFileExists($actual, $message);
+        static::assertFileExists($expected);
+        static::assertFileExists($actual);
 
-        $constraint = new IsEqual(str_replace("\r", '', file_get_contents($expected)));
+        $expectedFile = file_get_contents($expected);
+        $actualFile = file_get_contents($actual);
 
-        static::assertThat(str_replace("\r", '', file_get_contents($actual)), $constraint, $message);
+        $this->assertEqualsIgnoringLineEndingType($expectedFile, $actualFile);
     }
 }
