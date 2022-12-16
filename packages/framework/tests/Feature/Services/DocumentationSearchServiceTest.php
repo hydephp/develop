@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Framework\Services\DocumentationSearchService as Service;
+use Hyde\Framework\Services\DocumentationSearchService;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
@@ -30,10 +30,10 @@ class DocumentationSearchServiceTest extends TestCase
             ],
         ];
 
-        Service::generate();
+        DocumentationSearchService::generate();
 
         $this->assertEquals(
-            json_encode($expected), file_get_contents(Service::$filePath)
+            json_encode($expected), file_get_contents(DocumentationSearchService::$filePath)
         );
 
         Filesystem::unlink('_docs/foo.md');
@@ -46,7 +46,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::touch('_docs/bar.md');
         Filesystem::touch('_docs/baz.md');
 
-        $this->assertCount(3, (new Service())->run()->searchIndex);
+        $this->assertCount(3, (new DocumentationSearchService())->run()->searchIndex);
 
         Filesystem::unlink('_docs/foo.md');
         Filesystem::unlink('_docs/bar.md');
@@ -55,10 +55,10 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_it_handles_generation_even_when_there_are_no_pages()
     {
-        Service::generate();
+        DocumentationSearchService::generate();
 
         $this->assertEquals(
-            '[]', file_get_contents(Service::$filePath)
+            '[]', file_get_contents(DocumentationSearchService::$filePath)
         );
 
         Filesystem::unlink('_site/docs/search.json');
@@ -66,7 +66,7 @@ class DocumentationSearchServiceTest extends TestCase
 
     public function test_save_method_saves_the_file_to_the_correct_location()
     {
-        Service::generate();
+        DocumentationSearchService::generate();
 
         $this->assertFileExists('_site/docs/search.json');
 
@@ -85,7 +85,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
 
         $this->assertEquals(
-            $expected, (new Service())->generatePageEntry(DocumentationPage::parse('foo'))
+            $expected, (new DocumentationSearchService())->generatePageEntry(DocumentationPage::parse('foo'))
         );
 
         Filesystem::unlink('_docs/foo.md');
@@ -96,7 +96,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::putContents('_docs/foo.md', "# Bar\n\n Hello World");
         Filesystem::putContents('_docs/bar.md', "# Foo\n\n Hello World");
 
-        $generatesDocumentationSearchIndexFile = (new Service())->run();
+        $generatesDocumentationSearchIndexFile = (new DocumentationSearchService())->run();
         $this->assertEquals(
             '[{"slug":"bar","title":"Foo","content":"Foo \n Hello World","destination":"bar.html"},'.
             '{"slug":"foo","title":"Bar","content":"Bar \n Hello World","destination":"foo.html"}]',
@@ -112,7 +112,7 @@ class DocumentationSearchServiceTest extends TestCase
         config(['site.pretty_urls' => true]);
 
         $this->assertEquals(
-            '', (new Service())->getDestinationForSlug('index')
+            '', (new DocumentationSearchService())->getDestinationForSlug('index')
         );
     }
 
@@ -121,7 +121,7 @@ class DocumentationSearchServiceTest extends TestCase
         config(['site.pretty_urls' => true]);
 
         $this->assertEquals(
-            'foo', (new Service())->getDestinationForSlug('foo')
+            'foo', (new DocumentationSearchService())->getDestinationForSlug('foo')
         );
     }
 
@@ -130,7 +130,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::touch(('_docs/excluded.md'));
         config(['docs.exclude_from_search' => ['excluded']]);
 
-        $generatesDocumentationSearchIndexFile = (new Service())->run();
+        $generatesDocumentationSearchIndexFile = (new DocumentationSearchService())->run();
         $this->assertStringNotContainsString('excluded', json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray()));
 
         Filesystem::unlink('_docs/excluded.md');
@@ -141,7 +141,7 @@ class DocumentationSearchServiceTest extends TestCase
         Filesystem::makeDirectory(Hyde::path('_docs/foo'));
         Filesystem::touch('_docs/foo/bar.md');
 
-        $generatesDocumentationSearchIndexFile = (new Service())->run();
+        $generatesDocumentationSearchIndexFile = (new DocumentationSearchService())->run();
         $this->assertStringNotContainsString('foo', json_encode($generatesDocumentationSearchIndexFile->searchIndex->toArray()));
 
         Filesystem::deleteDirectory('_docs/foo');
