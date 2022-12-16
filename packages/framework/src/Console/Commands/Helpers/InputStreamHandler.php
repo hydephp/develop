@@ -43,7 +43,7 @@ class InputStreamHandler extends InvokableAction
     /** @codeCoverageIgnore Allows for mocking of the standard input stream */
     protected function readInputStream(): string
     {
-        if (self::$mockedStreamBuffer) {
+        if (self::$mockedStreamBuffer !== null) {
             return array_shift(self::$mockedStreamBuffer);
         }
 
