@@ -13,11 +13,13 @@ use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 use function strip_newlines;
 
+use TestingHelpers;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use ResetsApplication;
+    use TestingHelpers;
 
     protected static bool $booted = false;
 
