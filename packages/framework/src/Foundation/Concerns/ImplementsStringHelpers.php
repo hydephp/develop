@@ -16,21 +16,26 @@ use Illuminate\Support\Str;
  */
 trait ImplementsStringHelpers
 {
-    public function makeTitle(string $slug): string
+    public function makeTitle(string $value): string
     {
         $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
 
         return ucfirst(str_ireplace(
             $alwaysLowercase,
             $alwaysLowercase,
-            Str::headline($slug)
+            Str::headline($value)
         ));
     }
 
-    public function markdown(string $text, bool $stripIndentation = false): HtmlString
+    public function normalizeNewlines(string $string): string
     {
-        if ($stripIndentation) {
-            $text = MarkdownService::stripIndentation($text);
+        return str_replace(["\r\n"], "\n", $string);
+    }
+
+    public function markdown(string $text, bool $normalizeIndentation = false): HtmlString
+    {
+        if ($normalizeIndentation) {
+            $text = MarkdownService::normalizeIndentationLevel($text);
         }
 
         return new HtmlString(Markdown::render($text));

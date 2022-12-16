@@ -213,7 +213,7 @@ class MarkdownService
     /**
      * Normalize indentation for an un-compiled Markdown string.
      */
-    public static function stripIndentation(string $string): string
+    public static function normalizeIndentationLevel(string $string): string
     {
         $string = str_replace("\t", '    ', $string);
         $string = str_replace("\r\n", "\n", $string);
