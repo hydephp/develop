@@ -135,6 +135,7 @@ class MakePublicationCommand extends ValidatingCommand
         return (bool) $this->option('force');
     }
 
+    // TODO: Should this really be an array and not a string?
     protected function captureTextFieldInput(PublicationFieldType $field): array
     {
         $this->output->writeln($field->name.' (end with an empty line)');
