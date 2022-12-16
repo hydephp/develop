@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing;
 
 use Illuminate\Support\Facades\File;
+use JetBrains\PhpStorm\Deprecated;
 
 trait TestingHelpers
 {
@@ -58,7 +59,7 @@ trait TestingHelpers
         }
     }
 
-    final protected static function stripNewlines(string $string, bool $keepUnixEndings = false): string
+    final protected static function stripNewlines(string $string, /** @deprecated */ #[Deprecated]  bool $keepUnixEndings = false): string
     {
         if ($keepUnixEndings) {
             return self::normalizeNewlines($string);
