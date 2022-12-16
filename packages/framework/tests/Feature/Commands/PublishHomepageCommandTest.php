@@ -25,9 +25,9 @@ class PublishHomepageCommandTest extends TestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
-
         $this->restoreDefaultPages();
+
+        parent::tearDown();
     }
 
     public function test_there_are_no_default_pages()

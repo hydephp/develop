@@ -15,9 +15,9 @@ class PublishesHydeViewsTest extends TestCase
 {
     protected function tearDown(): void
     {
-        parent::tearDown();
-
         $this->deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
+
+        parent::tearDown();
     }
 
     public function test_execute_method_returns_404_for_invalid_option_key()

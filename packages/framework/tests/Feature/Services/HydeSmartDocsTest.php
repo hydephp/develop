@@ -21,9 +21,9 @@ class HydeSmartDocsTest extends TestCase
 {
     protected function tearDown(): void
     {
-        parent::tearDown();
-
         $this->unlinkIfExists(Hyde::path('_docs/foo.md'));
+
+        parent::tearDown();
     }
 
     public function test_class_tokenizes_document()
