@@ -15,20 +15,6 @@ use Hyde\Testing\TestCase;
  */
 class DocumentationSearchServiceTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->unlinkIfExists(Service::$filePath);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->unlinkIfExists(Service::$filePath);
-
-        parent::tearDown();
-    }
-
     public function test_it_generates_a_json_file_with_a_search_index()
     {
         $this->resetDocs();
@@ -51,6 +37,7 @@ class DocumentationSearchServiceTest extends TestCase
         );
 
         Filesystem::unlink('_docs/foo.md');
+        Filesystem::unlink('_site/docs/search.json');
     }
 
     public function test_it_adds_all_files_to_search_index()
@@ -73,6 +60,8 @@ class DocumentationSearchServiceTest extends TestCase
         $this->assertEquals(
             '[]', file_get_contents(Service::$filePath)
         );
+
+        Filesystem::unlink('_site/docs/search.json');
     }
 
     public function test_save_method_saves_the_file_to_the_correct_location()
@@ -80,6 +69,8 @@ class DocumentationSearchServiceTest extends TestCase
         Service::generate();
 
         $this->assertFileExists('_site/docs/search.json');
+
+        Filesystem::unlink('_site/docs/search.json');
     }
 
     public function test_generate_page_entry_method_generates_a_page_entry()
