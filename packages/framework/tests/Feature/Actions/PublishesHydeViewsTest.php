@@ -42,8 +42,11 @@ class PublishesHydeViewsTest extends TestCase
 
     public function test_action_publishes_view_files()
     {
-        $this->unlinkIfExists(Hyde::path('_pages/404.blade.php'));
+        $this->assertFileDoesNotExist(Hyde::path('_pages/404.blade.php'));
+
         (new PublishesHydeViews('404'))->execute();
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
+
+        unlink(Hyde::path('_pages/404.blade.php'));
     }
 }
