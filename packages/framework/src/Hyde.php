@@ -39,6 +39,7 @@ use Illuminate\Support\HtmlString;
  * @method static string image(string $name, bool $preferQualifiedUrl = false)
  * @method static string url(string $path = '')
  * @method static string makeTitle(string $slug)
+ * @method static string normalizeNewlines(string $string)
  * @method static HtmlString markdown(string $text, bool $stripIndentation = false)
  * @method static string currentPage()
  * @method static string getBasePath()
