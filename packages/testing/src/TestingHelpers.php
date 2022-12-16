@@ -66,5 +66,4 @@ trait TestingHelpers
 
         return str_replace(["\r", "\n"], '', $string);
     }
-
 }
