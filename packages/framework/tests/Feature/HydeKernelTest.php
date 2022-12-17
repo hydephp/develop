@@ -104,11 +104,6 @@ class HydeKernelTest extends TestCase
         $this->assertEquals('foo bar baz', Hyde::stripNewlines("foo\n bar\r\n baz"));
     }
 
-    public function test_strip_newlines_helper_removes_all_newlines_can_keep_unix_endings()
-    {
-        $this->assertEquals("foo\nbar baz", Hyde::stripNewlines("foo\nbar\r\n baz", true));
-    }
-
     public function test_markdown_helper_converts_markdown_to_html()
     {
         $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('foo'));

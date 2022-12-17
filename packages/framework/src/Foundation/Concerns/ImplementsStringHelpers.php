@@ -32,12 +32,8 @@ trait ImplementsStringHelpers
         return str_replace(["\r\n"], "\n", $string);
     }
 
-    public function stripNewlines(string $string, bool $keepUnixEndings = false): string
+    public function stripNewlines(string $string): string
     {
-        if ($keepUnixEndings) {
-            return str_replace("\r\n", '', $string);
-        }
-
         return str_replace(["\r\n", "\n"], '', $string);
     }
 
