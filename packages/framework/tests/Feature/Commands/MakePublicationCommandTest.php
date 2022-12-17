@@ -22,7 +22,6 @@ class MakePublicationCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        mkdir(Hyde::path('test-publication'));
         config(['app.throw_on_console_exception' => true]);
 
         Filesystem::makeDirectory('test-publication');
