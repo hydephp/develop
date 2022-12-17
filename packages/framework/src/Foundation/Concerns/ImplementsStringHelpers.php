@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
  */
 trait ImplementsStringHelpers
 {
-    public function makeTitle(string $value): string
+    public static function makeTitle(string $value): string
     {
         $alwaysLowercase = ['a', 'an', 'the', 'in', 'on', 'by', 'with', 'of', 'and', 'or', 'but'];
 
@@ -27,21 +27,22 @@ trait ImplementsStringHelpers
         ));
     }
 
-    public function normalizeNewlines(string $string): string
+    public static function normalizeNewlines(string $string): string
     {
-        return str_replace(["\r\n"], "\n", $string);
+        return str_replace("\r\n", "\n", $string);
     }
 
-    public function stripNewlines(string $string, bool $keepUnixEndings = false): string
+    public static function stripNewlines(string $string): string
     {
-        if ($keepUnixEndings) {
-            return str_replace("\r", '', $string);
-        }
-
-        return str_replace(["\r", "\n"], '', $string);
+        return str_replace(["\r\n", "\n"], '', $string);
     }
 
-    public function markdown(string $text, bool $normalizeIndentation = false): HtmlString
+    public static function trimSlashes(string $string): string
+    {
+        return trim($string, '/\\');
+    }
+
+    public static function markdown(string $text, bool $normalizeIndentation = false): HtmlString
     {
         if ($normalizeIndentation) {
             $text = MarkdownService::normalizeIndentationLevel($text);
