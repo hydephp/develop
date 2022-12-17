@@ -29,7 +29,7 @@ trait ImplementsStringHelpers
 
     public function normalizeNewlines(string $string): string
     {
-        return str_replace(["\r\n"], "\n", $string);
+        return str_replace("\r\n", "\n", $string);
     }
 
     public function stripNewlines(string $string): string
