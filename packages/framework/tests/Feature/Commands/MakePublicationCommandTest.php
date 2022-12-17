@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use function array_merge;
 use function config;
 use function file_get_contents;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
@@ -139,14 +140,14 @@ class MakePublicationCommandTest extends TestCase
     {
         InputStreamHandler::mockInput("Hello\nWorld");
         $this->makeSchemaFile([
-            [
+                                  'fields'         =>  [[
                 'type' => 'text',
                 'name' => 'title',
                 'min'  => '0',
                 'max'  => '0',
-            ],
+                                                        ],
+                                  ],
         ]);
-
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
@@ -154,30 +155,30 @@ class MakePublicationCommandTest extends TestCase
         $this->assertStringContainsString("Hello\nWorld", file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
-    protected function makeSchemaFile(?array $fields = null): void
+    protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
             Hyde::path('test-publication/schema.json'),
-            json_encode([
-                'name'           => 'Test Publication',
-                'canonicalField' => 'title',
-                'detailTemplate' => 'test-publication_detail',
-                'listTemplate'   => 'test-publication_list',
-                'pagination' => [
-                    'pageSize'       => 10,
-                    'prevNextLinks'  => true,
-                    'sortField'      => '__createdAt',
-                    'sortAscending'  => true,
-                ],
-                'fields'         => $fields ?? [
-                    [
-                        'name' => 'title',
-                        'min'  => '0',
-                        'max'  => '0',
-                        'type' => 'string',
-                    ],
-                ],
-            ])
+            json_encode(array_merge([
+                 'name'           => 'Test Publication',
+                 'canonicalField' => 'title',
+                 'detailTemplate' => 'test-publication_detail',
+                 'listTemplate'   => 'test-publication_list',
+                 'pagination' => [
+                     'pageSize'       => 10,
+                     'prevNextLinks'  => true,
+                     'sortField'      => '__createdAt',
+                     'sortAscending'  => true,
+                 ],
+                 'fields'         =>  [
+                     [
+                         'name' => 'title',
+                         'min'  => '0',
+                         'max'  => '0',
+                         'type' => 'string',
+                     ],
+                 ],
+             ], $merge))
         );
     }
 
