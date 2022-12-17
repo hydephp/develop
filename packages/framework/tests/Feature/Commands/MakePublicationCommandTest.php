@@ -140,13 +140,13 @@ class MakePublicationCommandTest extends TestCase
     {
         InputStreamHandler::mockInput("Hello\nWorld");
         $this->makeSchemaFile([
-                                  'fields'         =>  [[
+            'fields'         =>  [[
                 'type' => 'text',
                 'name' => 'title',
                 'min'  => '0',
                 'max'  => '0',
-                                                        ],
-                                  ],
+            ],
+            ],
         ]);
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
@@ -160,25 +160,25 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(
             Hyde::path('test-publication/schema.json'),
             json_encode(array_merge([
-                 'name'           => 'Test Publication',
-                 'canonicalField' => 'title',
-                 'detailTemplate' => 'test-publication_detail',
-                 'listTemplate'   => 'test-publication_list',
-                 'pagination' => [
-                     'pageSize'       => 10,
-                     'prevNextLinks'  => true,
-                     'sortField'      => '__createdAt',
-                     'sortAscending'  => true,
-                 ],
-                 'fields'         =>  [
-                     [
-                         'name' => 'title',
-                         'min'  => '0',
-                         'max'  => '0',
-                         'type' => 'string',
-                     ],
-                 ],
-             ], $merge))
+                'name'           => 'Test Publication',
+                'canonicalField' => 'title',
+                'detailTemplate' => 'test-publication_detail',
+                'listTemplate'   => 'test-publication_list',
+                'pagination' => [
+                    'pageSize'       => 10,
+                    'prevNextLinks'  => true,
+                    'sortField'      => '__createdAt',
+                    'sortAscending'  => true,
+                ],
+                'fields'         =>  [
+                    [
+                        'name' => 'title',
+                        'min'  => '0',
+                        'max'  => '0',
+                        'type' => 'string',
+                    ],
+                ],
+            ], $merge))
         );
     }
 
