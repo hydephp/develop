@@ -14,34 +14,23 @@ class RebuildStaticSiteCommandTest extends TestCase
 {
     public function test_handle_is_successful_with_valid_path()
     {
-        file_put_contents(Hyde::path('_pages/test-page.md'), 'foo');
+        $this->file('_pages/test-page.md', 'foo');
 
-        $this->artisan('rebuild '.'_pages/test-page.md')
-            ->assertExitCode(0);
+        $this->artisan('rebuild '.'_pages/test-page.md')->assertExitCode(0);
 
-        $outputPath = '_site/test-page.html';
-        $this->assertFileExists(Hyde::path($outputPath));
+        $this->assertFileExists(Hyde::path('_site/test-page.html'));
 
-        unlink(Hyde::path('_pages/test-page.md'));
-        unlink(Hyde::path($outputPath));
+        $this->resetSite();
     }
 
     public function test_media_files_can_be_transferred()
     {
-        backupDirectory(Hyde::path('_site/media'));
-        deleteDirectory(Hyde::path('_site/media'));
-        mkdir(Hyde::path('_site/media'));
+        $this->directory(Hyde::path('_site/media'));
+        $this->file('_media/test.jpg');
 
-        Hyde::touch('_media/test.jpg');
-
-        $this->artisan('rebuild _media')
-            ->assertExitCode(0);
+        $this->artisan('rebuild _media')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/media/test.jpg'));
-        unlink(Hyde::path('_media/test.jpg'));
-        unlink(Hyde::path('_site/media/test.jpg'));
-
-        restoreDirectory(Hyde::path('_site/media'));
     }
 
     public function test_validate_catches_bad_source_directory()
@@ -60,27 +49,23 @@ class RebuildStaticSiteCommandTest extends TestCase
 
     public function test_rebuild_documentation_page()
     {
-        Hyde::touch('_docs/foo.md');
+        $this->file('_docs/foo.md');
 
-        $this->artisan('rebuild _docs/foo.md')
-            ->assertExitCode(0);
+        $this->artisan('rebuild _docs/foo.md')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/docs/foo.html'));
 
-        unlink(Hyde::path('_docs/foo.md'));
-        unlink(Hyde::path('_site/docs/foo.html'));
+        $this->resetSite();
     }
 
     public function test_rebuild_blog_post()
     {
-        Hyde::touch('_posts/foo.md');
+        $this->file('_posts/foo.md');
 
-        $this->artisan('rebuild _posts/foo.md')
-            ->assertExitCode(0);
+        $this->artisan('rebuild _posts/foo.md')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_site/posts/foo.html'));
 
-        unlink(Hyde::path('_posts/foo.md'));
-        unlink(Hyde::path('_site/posts/foo.html'));
+        $this->resetSite();
     }
 }

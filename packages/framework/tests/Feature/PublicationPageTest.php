@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use function deleteDirectory;
 use function file_put_contents;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
@@ -27,7 +27,7 @@ class PublicationPageTest extends TestCase
 
     protected function tearDown(): void
     {
-        deleteDirectory(Hyde::path('test-publication'));
+        Filesystem::deleteDirectory('test-publication');
 
         parent::tearDown();
     }
