@@ -104,6 +104,27 @@ class HydeKernelTest extends TestCase
         $this->assertEquals('foo bar baz', Hyde::stripNewlines("foo\n bar\r\n baz"));
     }
 
+    public function test_trimSlashes_function_trims_trailing_slashes()
+    {
+        $tests = ['foo',  '/foo',  'foo/',  '/foo/',  '\foo\\',  '\\/foo/\\'];
+
+        foreach ($tests as $test) {
+            $this->assertSame('foo', Hyde::trimSlashes($test));
+        }
+
+        $tests = ['',  '/',  '\\',  '/\\'];
+
+        foreach ($tests as $test) {
+            $this->assertSame('', Hyde::trimSlashes($test));
+        }
+
+        $tests = ['foo/bar',  'foo/bar/',  'foo/bar\\',  '\\/foo/bar/\\'];
+
+        foreach ($tests as $test) {
+            $this->assertSame('foo/bar', Hyde::trimSlashes($test));
+        }
+    }
+
     public function test_markdown_helper_converts_markdown_to_html()
     {
         $this->assertEquals(new HtmlString("<p>foo</p>\n"), Hyde::markdown('foo'));
