@@ -37,6 +37,11 @@ trait ImplementsStringHelpers
         return str_replace(["\r\n", "\n"], '', $string);
     }
 
+    public static function trimSlashes(string $string): string
+    {
+        return trim($string, '/\\');
+    }
+
     public static function markdown(string $text, bool $normalizeIndentation = false): HtmlString
     {
         if ($normalizeIndentation) {
