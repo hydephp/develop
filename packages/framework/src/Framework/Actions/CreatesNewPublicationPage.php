@@ -15,7 +15,6 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Rgasch\Collection\Collection;
 use RuntimeException;
-use function str_starts_with;
 
 /**
  * Scaffold a publication file.
@@ -85,6 +84,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             } else {
                 $canonicalValue = $this->fieldData->{$canonicalFieldName};
             }
+
             return $canonicalValue;
         } catch (InvalidArgumentException $exception) {
             throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404, $exception);
