@@ -33,10 +33,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? $this->handleMissingCanonicalField(
             $canonicalFieldName
         );
-        if ($canonicalFieldDefinition->type !== 'array') {
-            $canonicalValue = $this->fieldData->{$canonicalFieldName};
-        } else {
+        if ($canonicalFieldDefinition->type === 'array') {
             $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
+        } else {
+            $canonicalValue = $this->fieldData->{$canonicalFieldName};
         }
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
