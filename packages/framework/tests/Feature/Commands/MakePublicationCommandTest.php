@@ -136,6 +136,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    // text
     public function test_command_with_text_input()
     {
         InputStreamHandler::mockInput("Hello\nWorld");
@@ -154,6 +155,27 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertStringContainsString("Hello\nWorld", file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
+    // array
+    public function test_command_with_array_input()
+    {
+        InputStreamHandler::mockInput("Foo\nBar");
+        $this->makeSchemaFile([
+            'fields'         =>  [[
+                'type' => 'array',
+                'name' => 'tags',
+                'min'  => '0',
+                'max'  => '0',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertStringContainsString("Foo\nBar", file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     protected function makeSchemaFile(array $merge = []): void

@@ -145,17 +145,9 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureArrayFieldInput(PublicationFieldType $field): array
     {
-        $lines = [];
         $this->output->writeln($field->name.' (end with an empty line)');
-        do {
-            $line = Str::replace("\n", '', fgets(STDIN));
-            if ($line === '') {
-                break;
-            }
-            $lines[] = trim($line);
-        } while (true);
 
-        return $lines;
+        return InputStreamHandler::call();
     }
 
     protected function captureImageFieldInput(PublicationFieldType $field, PublicationType $pubType): string
