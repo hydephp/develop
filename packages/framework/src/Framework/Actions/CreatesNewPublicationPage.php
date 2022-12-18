@@ -79,6 +79,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function getCanonicalValue(PublicationFieldType $canonicalFieldDefinition, string $canonicalFieldName): string
     {
         try {
+            // TODO: Is it reasonable to use arrays as canonical field values?
             if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
                 $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
             } else {
