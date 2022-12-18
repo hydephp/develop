@@ -136,6 +136,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    // text
     public function test_command_with_text_input()
     {
         InputStreamHandler::mockInput("Hello\nWorld");
@@ -156,6 +157,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertStringContainsString("Hello\nWorld", file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
+    // array
     protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
