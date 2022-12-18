@@ -77,10 +77,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->save($output);
     }
 
-    protected function handleMissingCanonicalField(string $canonicalFieldName): string
+    protected function handleMissingCanonicalField(string $canonicalFieldName): PublicationFieldType
     {
         if (str_starts_with($canonicalFieldName, '__')) {
-            return $canonicalFieldName;
+            return new PublicationFieldType('text', $canonicalFieldName, '0', '0');
         }
 
         return throw new RuntimeException(
