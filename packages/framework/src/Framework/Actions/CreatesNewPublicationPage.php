@@ -78,7 +78,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function handleMissingCanonicalField(string $canonicalFieldName)
     {
         return throw new RuntimeException(
-            "Could not find field definition for '$canonicalFieldName'"
+            "Could not find field definition for '$canonicalFieldName' which is required for this type as it's the canonical field"
         );
     }
 }
