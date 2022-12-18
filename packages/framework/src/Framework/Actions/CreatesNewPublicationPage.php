@@ -6,6 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Console\OutputStyle;
@@ -31,7 +32,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDefinition = $this->getCanonicalFieldDefinition($canonicalFieldName);
-        if ($canonicalFieldDefinition->type === 'array') {
+        if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
             $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
         } else {
             $canonicalValue = $this->fieldData->{$canonicalFieldName};
