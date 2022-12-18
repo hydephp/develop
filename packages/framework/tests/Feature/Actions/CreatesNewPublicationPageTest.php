@@ -61,7 +61,7 @@ title: Hello World
         ]);
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Could not find field value for title which is required for this type as it\'s the canonical field');
+        $this->expectExceptionMessage("Could not find field value for 'title' which is required for as it's the type's canonical field");
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
     }

@@ -12,6 +12,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use Rgasch\Collection\Collection;
 use RuntimeException;
 use function str_starts_with;
@@ -77,11 +78,15 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function getCanonicalValue(PublicationFieldType $canonicalFieldDefinition, string $canonicalFieldName): string
     {
-        if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
-            $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
-        } else {
-            $canonicalValue = $this->fieldData->{$canonicalFieldName};
+        try {
+            if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
+                $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
+            } else {
+                $canonicalValue = $this->fieldData->{$canonicalFieldName};
+            }
+            return $canonicalValue;
+        } catch (InvalidArgumentException $exception) {
+            throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404, $exception);
         }
-        return $canonicalValue;
     }
 }
