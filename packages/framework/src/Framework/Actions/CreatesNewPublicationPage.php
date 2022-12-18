@@ -29,7 +29,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected ?OutputStyle $output = null,
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName' which is required for this type");
+        $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName' which is required for this type as it's the canonical field");
         $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
