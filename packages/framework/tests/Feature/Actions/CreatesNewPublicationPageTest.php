@@ -12,6 +12,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
+use RuntimeException;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage
@@ -51,6 +52,18 @@ title: Hello World
 ## Write something awesome.
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
+    public function testCreateWithoutSupplyingCanonicalField()
+    {
+        $pubType = $this->makePublicationType();
+        $fieldData = Collection::make([
+        ]);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Could not find field value for title which is required for this type as it\'s the canonical field');
+        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
+        $creator->create();
     }
 
     protected function makePublicationType(array $fields = [
