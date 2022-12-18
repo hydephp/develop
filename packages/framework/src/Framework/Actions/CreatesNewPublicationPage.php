@@ -83,7 +83,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return throw new RuntimeException(
-            "Could not find field definition for '$canonicalFieldName' which is required for this type as it's the canonical field"
+            "Could not find field value for '$canonicalFieldName' which is required for this type as it's the canonical field"
         );
     }
 }
