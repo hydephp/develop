@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use RuntimeException;
 
+use function str_starts_with;
+
 /**
  * Scaffold a publication file.
  *
@@ -77,8 +79,8 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function handleMissingCanonicalField(string $canonicalFieldName): string
     {
-        if ($canonicalFieldName === '__createdAt') {
-            return '__createdAt';
+        if (str_starts_with($canonicalFieldName, '__')) {
+            return $canonicalFieldName;
         }
 
         return throw new RuntimeException(
