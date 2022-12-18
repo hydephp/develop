@@ -75,8 +75,12 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->save($output);
     }
 
-    protected function handleMissingCanonicalField(string $canonicalFieldName)
+    protected function handleMissingCanonicalField(string $canonicalFieldName): string
     {
+        if ($canonicalFieldName === '__createdAt') {
+            return '__createdAt';
+        }
+
         return throw new RuntimeException(
             "Could not find field definition for '$canonicalFieldName' which is required for this type as it's the canonical field"
         );
