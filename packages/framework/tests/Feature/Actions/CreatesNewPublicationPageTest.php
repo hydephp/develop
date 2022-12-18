@@ -53,19 +53,19 @@ title: Hello World
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
-    protected function makePublicationType(): PublicationType
+    protected function makePublicationType(array $fields = [
+        [
+            'type' => 'string',
+            'name' => 'title',
+            'min'  => 0,
+            'max'  => 128,
+        ],
+    ]): PublicationType
     {
         return new PublicationType(
             'test',
             'title',
-            fields: [
-                [
-                    'type' => 'string',
-                    'name' => 'title',
-                    'min'  => 0,
-                    'max'  => 128,
-                ],
-            ],
+            fields: $fields,
             directory: 'test-publication',
         );
     }
