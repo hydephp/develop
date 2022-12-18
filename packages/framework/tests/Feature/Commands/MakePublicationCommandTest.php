@@ -140,13 +140,14 @@ class MakePublicationCommandTest extends TestCase
     {
         InputStreamHandler::mockInput("Hello\nWorld");
         $this->makeSchemaFile([
-            'fields'         =>  [[
+              'canonicalField' => 'description',
+              'fields'         =>  [[
                 'type' => 'text',
-                'name' => 'title',
+                'name' => 'description',
                 'min'  => '0',
                 'max'  => '0',
             ],
-            ],
+        ],
         ]);
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
