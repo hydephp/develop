@@ -29,7 +29,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected ?OutputStyle $output = null,
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
+        $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? $this->handleMissingCanonicalField(
+            $canonicalFieldName
+        );
         $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
@@ -71,5 +73,12 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
         $this->save($output);
+    }
+
+    protected function handleMissingCanonicalField(string $canonicalFieldName)
+    {
+        return throw new RuntimeException(
+            "Could not find field definition for '$canonicalFieldName'"
+        );
     }
 }
