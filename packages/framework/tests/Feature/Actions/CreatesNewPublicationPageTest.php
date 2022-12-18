@@ -65,6 +65,41 @@ title: Hello World
         $creator->create();
     }
 
+    public function testCreateWithoutSupplyingRequiredField()
+    {
+        $pubType = $this->makePublicationType([[
+             'type' => 'string',
+             'name' => 'title',
+             'min'  => 0,
+             'max'  => 128,
+         ], [
+             'type' => 'string',
+             'name' => 'slug',
+             'min'  => 0,
+             'max'  => 128,
+         ]]);
+
+        $fieldData = Collection::make([
+            'title' => 'Hello World',
+        ]);
+
+        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
+        $creator->create();
+
+        // Since the inputs are collected by the command, with the shipped code this should never happen.
+        // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
+        
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+title: Hello World
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
     protected function makePublicationType(array $fields = [
         [
             'type' => 'string',
