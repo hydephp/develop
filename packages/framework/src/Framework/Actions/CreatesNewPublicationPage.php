@@ -32,11 +32,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDefinition = $this->getCanonicalFieldDefinition($canonicalFieldName);
-        if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
-            $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
-        } else {
-            $canonicalValue = $this->fieldData->{$canonicalFieldName};
-        }
+        $canonicalValue = $this->getCanonicalValue($canonicalFieldDefinition, $canonicalFieldName);
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
         $fileName = $this->formatStringForStorage($canonicalStr->slug()->toString());
@@ -94,5 +90,15 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     {
         return $this->pubType->getFields()->filter(fn(PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first()
             ?? $this->handleMissingCanonicalField($canonicalFieldName);
+    }
+
+    protected function getCanonicalValue(PublicationFieldType $canonicalFieldDefinition, string $canonicalFieldName): string
+    {
+        if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
+            $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
+        } else {
+            $canonicalValue = $this->fieldData->{$canonicalFieldName};
+        }
+        return $canonicalValue;
     }
 }
