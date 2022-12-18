@@ -86,6 +86,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         );
     }
 
+    /** @deprecated This should be handled in the pubType */
     protected function getCanonicalFieldDefinition(string $canonicalFieldName): PublicationFieldType
     {
         return $this->pubType->getFields()->filter(fn(PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first()
