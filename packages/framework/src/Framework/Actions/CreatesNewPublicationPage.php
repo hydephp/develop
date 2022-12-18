@@ -31,7 +31,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected ?OutputStyle $output = null,
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDefinition = $this->getCanonicalFieldDefinition($canonicalFieldName);
+        $canonicalFieldDefinition = $this->pubType->getCanonicalFieldDefinition();
         $canonicalValue = $this->getCanonicalValue($canonicalFieldDefinition, $canonicalFieldName);
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
@@ -73,24 +73,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
         $this->save($output);
-    }
-
-    protected function handleMissingCanonicalField(string $canonicalFieldName): PublicationFieldType
-    {
-        if (str_starts_with($canonicalFieldName, '__')) {
-            return new PublicationFieldType('text', $canonicalFieldName, '0', '0');
-        }
-
-        return throw new RuntimeException(
-            "Could not find field value for '$canonicalFieldName' which is required for this type as it's the canonical field"
-        );
-    }
-
-    /** @deprecated This should be handled in the pubType */
-    protected function getCanonicalFieldDefinition(string $canonicalFieldName): PublicationFieldType
-    {
-        return $this->pubType->getFields()->filter(fn(PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first()
-            ?? $this->handleMissingCanonicalField($canonicalFieldName);
     }
 
     protected function getCanonicalValue(PublicationFieldType $canonicalFieldDefinition, string $canonicalFieldName): string
