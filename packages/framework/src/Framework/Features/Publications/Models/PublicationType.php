@@ -119,8 +119,7 @@ class PublicationType implements SerializableContract
 
     public function getCanonicalFieldDefinition(): PublicationFieldType
     {
-        return $this->getFields()->filter(fn(PublicationFieldType $field): bool => $field->name === $this->canonicalField)->first()
-            ?? throw new RuntimeException("Could not find canonical field '$this->canonicalField'");
+        return $this->getFields()->filter(fn(PublicationFieldType $field): bool => $field->name === $this->canonicalField)->first();
     }
 
     public function save(?string $path = null): void
