@@ -146,6 +146,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function captureArrayFieldInput(PublicationFieldType $field): array
     {
         $this->output->writeln($field->name.' (end with an empty line)');
+
         return InputStreamHandler::call();
     }
 
