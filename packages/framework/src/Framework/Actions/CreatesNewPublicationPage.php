@@ -13,7 +13,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use RuntimeException;
-
 use function str_starts_with;
 
 /**
