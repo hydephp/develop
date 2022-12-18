@@ -91,9 +91,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function getCanonicalFieldDefinition(string $canonicalFieldName): PublicationFieldType
     {
-        return $this->pubType->getFields()->filter(fn(PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first(
-        ) ?? $this->handleMissingCanonicalField(
-            $canonicalFieldName
-        );
+        return $this->pubType->getFields()->filter(fn(PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first()
+            ?? $this->handleMissingCanonicalField($canonicalFieldName);
     }
 }
