@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
@@ -11,6 +12,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
+use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
@@ -134,34 +136,17 @@ class MakePublicationCommand extends ValidatingCommand
         return (bool) $this->option('force');
     }
 
-    protected function captureTextFieldInput(PublicationFieldType $field): array
+    protected function captureTextFieldInput(PublicationFieldType $field): string
     {
-        $lines = [];
-        $this->output->writeln($field->name." (end with a line containing only '<<<')");
-        do {
-            $line = Str::replace("\n", '', fgets(STDIN));
-            if ($line === '<<<') {
-                break;
-            }
-            $lines[] = $line;
-        } while (true);
+        $this->output->writeln($field->name.' (end with an empty line)');
 
-        return $lines;
+        return implode("\n", InputStreamHandler::call());
     }
 
     protected function captureArrayFieldInput(PublicationFieldType $field): array
     {
-        $lines = [];
         $this->output->writeln($field->name.' (end with an empty line)');
-        do {
-            $line = Str::replace("\n", '', fgets(STDIN));
-            if ($line === '') {
-                break;
-            }
-            $lines[] = trim($line);
-        } while (true);
-
-        return $lines;
+        return InputStreamHandler::call();
     }
 
     protected function captureImageFieldInput(PublicationFieldType $field, PublicationType $pubType): string
