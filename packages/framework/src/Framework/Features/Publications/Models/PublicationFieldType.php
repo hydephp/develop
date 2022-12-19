@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function collect;
 use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
@@ -11,8 +12,6 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Rgasch\Collection\Collection;
-
-use function collect;
 use function strtolower;
 
 /**
@@ -72,7 +71,7 @@ class PublicationFieldType implements SerializableContract
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
 
-        $useRange = true; 
+        $useRange = true;
         // The trim command used to process the min/max input results in a string, so
         // we need to test both int and string values to determine required status.
         if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
