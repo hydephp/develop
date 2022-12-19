@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use function array_merge;
+use function config;
 use function file_get_contents;
+use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -20,6 +23,7 @@ class MakePublicationCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        config(['app.throw_on_console_exception' => true]);
 
         Filesystem::makeDirectory('test-publication');
         Carbon::setTestNow(Carbon::create(2022));
@@ -50,6 +54,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_no_publication_types()
     {
+        config(['app.throw_on_console_exception' => false]);
         $this->artisan('make:publication')
             ->expectsOutputToContain('Creating a new Publication!')
             ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
@@ -123,6 +128,7 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_invalid_publication_type_passed_as_argument()
     {
+        config(['app.throw_on_console_exception' => false]);
         $this->makeSchemaFile();
 
         $this->artisan('make:publication foo')
@@ -130,11 +136,94 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    protected function makeSchemaFile(): void
+    public function test_command_with_schema_using_canonical_meta_field()
+    {
+        InputStreamHandler::mockInput("Foo\nBar");
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields' => [],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+    }
+
+    // text
+    public function test_command_with_text_input()
+    {
+        InputStreamHandler::mockInput("Hello\nWorld");
+        $this->makeSchemaFile([
+            'canonicalField' => 'description',
+            'fields'         =>  [[
+                'type' => 'text',
+                'name' => 'description',
+                'min'  => '0',
+                'max'  => '0',
+            ],
+            ],
+        ]);
+        $this->artisan('make:publication test-publication')
+             ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+description: |
+  Hello
+  World
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
+    // array
+    public function test_command_with_array_input()
+    {
+        InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
+        $this->makeSchemaFile([
+            'canonicalField' => 'tags',
+            'fields'         =>  [[
+                'type' => 'array',
+                'name' => 'tags',
+                'min'  => '0',
+                'max'  => '0',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/first-tag.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+tags:
+  - "First Tag"
+  - "Second Tag"
+  - "Third Tag"
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/first-tag.md')));
+    }
+
+    protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
             Hyde::path('test-publication/schema.json'),
-            json_encode([
+            json_encode(array_merge([
                 'name'           => 'Test Publication',
                 'canonicalField' => 'title',
                 'detailTemplate' => 'test-publication_detail',
@@ -145,7 +234,7 @@ class MakePublicationCommandTest extends TestCase
                     'sortField'      => '__createdAt',
                     'sortAscending'  => true,
                 ],
-                'fields'         => [
+                'fields'         =>  [
                     [
                         'name' => 'title',
                         'min'  => '0',
@@ -153,7 +242,7 @@ class MakePublicationCommandTest extends TestCase
                         'type' => 'string',
                     ],
                 ],
-            ])
+            ], $merge))
         );
     }
 
