@@ -114,10 +114,6 @@ class PublicationFieldType implements SerializableContract
             case 'url':
                 // FIXME Shouldn't we add a 'url' rule here?
                 break;
-            default:
-                throw new \InvalidArgumentException(
-                    "Unhandled field type [{$this->type->value}]. Possible field types are: ".implode(', ', PublicationFieldTypes::values())
-                );
         }
 
         return $fieldRules;
