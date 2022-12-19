@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
 use RuntimeException;
 
+use function file_get_contents;
+
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage
  */
@@ -52,6 +54,45 @@ title: Hello World
 ## Write something awesome.
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
+    public function testWithTextType()
+    {   $pubType = $this->makePublicationType([[
+       'type' => 'string',
+       'name' => 'title',
+       'min'  => 0,
+       'max'  => 128,
+   ], [
+       'type' => 'text',
+       'name' => 'description',
+       'min'  => 0,
+       'max'  => 128,
+   ]]);
+
+        $fieldData = Collection::make([
+                  'title' => 'Hello World',
+                    'description' => 'This is a description
+It can be multiple lines.'
+        ]);
+
+        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
+        $creator->create();
+
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+title: Hello World
+description: |
+  This is a description
+  It can be multiple lines.
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+
+
     }
 
     public function testCreateWithoutSupplyingCanonicalField()
