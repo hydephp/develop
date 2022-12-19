@@ -51,8 +51,11 @@ class PublicationFieldTypeValidationRulesTest extends TestCase
 
     public function testWithImage()
     {
+        $this->directory('_media/foo');
+        $this->file('_media/foo/bar.jpg');
+        $this->file('_media/foo/baz.png');
         $rules = (new PublicationFieldType('image', 'myImage', '4', '8', publicationType: new PublicationType('foo')))->getValidationRules();
-        $this->assertSame(['in:'], $rules->toArray());
+        $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules->toArray());
     }
 
     public function testWithTag()
