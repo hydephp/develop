@@ -64,6 +64,7 @@ class PublicationFieldType implements SerializableContract
         ];
     }
 
+    /** @see \Hyde\Framework\Testing\Unit\PublicationFieldTypeValidationRulesTest */
     public function getValidationRules(bool $reload = true): Collection
     {
         $defaultRules = Collection::create(PublicationFieldTypes::values());
