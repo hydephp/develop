@@ -83,6 +83,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function getCanonicalValue(PublicationFieldType $canonicalFieldDefinition, string $canonicalFieldName): string
     {
+        if ($canonicalFieldName === '__createdAt') {
+            return Carbon::now()->format('Y-m-d H:i:s');
+        }
+
         try {
             // TODO: Is it reasonable to use arrays as canonical field values?
             if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
