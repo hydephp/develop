@@ -136,6 +136,26 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    public function test_command_with_schema_using_canonical_meta_field()
+    {
+        InputStreamHandler::mockInput("Foo\nBar");
+        $this->makeSchemaFile([
+                                  'canonicalField' => '__createdAt',
+                                  'fields' => [],
+                              ]);
+
+        $this->artisan('make:publication test-publication')
+             ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+    }
     // text
     public function test_command_with_text_input()
     {
