@@ -56,6 +56,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
                 if (is_string($value)) {
                     $value = Str::of($value)->explode("\n");
                 }
+                // FIXME make sure this is valid YAML
                 foreach ($value as $line) {
                     $output .= "  $line\n";
                 }
@@ -64,6 +65,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
             if ($fieldDefinition->type === PublicationFieldTypes::Array) {
                 $output .= "$name:\n";
+                // FIXME make sure this is valid YAML
                 foreach ($value as $item) {
                     $output .= "  - \"$item\"\n";
                 }
