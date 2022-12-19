@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -13,8 +14,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Rgasch\Collection\Collection;
 use RuntimeException;
-
-use function file_get_contents;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage
@@ -57,27 +56,27 @@ title: Hello World
     }
 
     public function testWithTextType()
-    {   $pubType = $this->makePublicationType([[
-       'type' => 'string',
-       'name' => 'title',
-       'min'  => 0,
-       'max'  => 128,
-   ], [
-       'type' => 'text',
-       'name' => 'description',
-       'min'  => 0,
-       'max'  => 128,
-   ]]);
+    {
+        $pubType = $this->makePublicationType([[
+            'type' => 'string',
+            'name' => 'title',
+            'min'  => 0,
+            'max'  => 128,
+        ], [
+            'type' => 'text',
+            'name' => 'description',
+            'min'  => 0,
+            'max'  => 128,
+        ]]);
 
         $fieldData = Collection::make([
-                  'title' => 'Hello World',
-                    'description' => 'This is a description
-It can be multiple lines.'
+            'title' => 'Hello World',
+            'description' => 'This is a description
+It can be multiple lines.',
         ]);
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
-
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals('---
@@ -91,8 +90,6 @@ description: |
 ## Write something awesome.
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
-
-
     }
 
     public function testCreateWithoutSupplyingCanonicalField()
@@ -109,16 +106,16 @@ description: |
     public function testCreateWithoutSupplyingRequiredField()
     {
         $pubType = $this->makePublicationType([[
-             'type' => 'string',
-             'name' => 'title',
-             'min'  => 0,
-             'max'  => 128,
-         ], [
-             'type' => 'string',
-             'name' => 'slug',
-             'min'  => 0,
-             'max'  => 128,
-         ]]);
+            'type' => 'string',
+            'name' => 'title',
+            'min'  => 0,
+            'max'  => 128,
+        ], [
+            'type' => 'string',
+            'name' => 'slug',
+            'min'  => 0,
+            'max'  => 128,
+        ]]);
 
         $fieldData = Collection::make([
             'title' => 'Hello World',
@@ -129,7 +126,7 @@ description: |
 
         // Since the inputs are collected by the command, with the shipped code this should never happen.
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
-        
+
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
