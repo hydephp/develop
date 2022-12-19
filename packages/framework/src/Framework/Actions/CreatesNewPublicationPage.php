@@ -49,7 +49,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             /** @var PublicationFieldType $fieldDefinition */
             $fieldDefinition = $this->pubType->getFields()->where('name', $name)->firstOrFail();
 
-            if ($fieldDefinition->type === 'text') {
+            if ($fieldDefinition->type === PublicationFieldTypes::Text) {
                 $output .= "$name: |\n";
                 foreach ($value as $line) {
                     $output .= "  $line\n";
@@ -57,7 +57,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
                 continue;
             }
 
-            if ($fieldDefinition->type === 'array') {
+            if ($fieldDefinition->type === PublicationFieldTypes::Array) {
                 $output .= "$name:\n";
                 foreach ($value as $item) {
                     $output .= "  - \"$item\"\n";
