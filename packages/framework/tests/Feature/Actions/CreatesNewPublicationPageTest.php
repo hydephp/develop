@@ -91,27 +91,28 @@ description: |
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
+
     public function testWithArrayType()
-    {   $pubType = $this->makePublicationType([[
-                                                   'type' => 'string',
-                                                   'name' => 'title',
-                                                   'min'  => 0,
-                                                   'max'  => 128,
-                                               ], [
-                                                   'type' => 'array',
-                                                   'name' => 'tags',
-                                                   'min'  => 0,
-                                                   'max'  => 128,
-                                               ]]);
+    {
+        $pubType = $this->makePublicationType([[
+            'type' => 'string',
+            'name' => 'title',
+            'min'  => 0,
+            'max'  => 128,
+        ], [
+            'type' => 'array',
+            'name' => 'tags',
+            'min'  => 0,
+            'max'  => 128,
+        ]]);
 
         $fieldData = Collection::make([
-                                          'title' => 'Hello World',
-                                          'tags' => ['tag1', 'tag2']
-                                      ]);
+            'title' => 'Hello World',
+            'tags' => ['tag1', 'tag2'],
+        ]);
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
-
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals('---
@@ -125,8 +126,6 @@ tags:
 ## Write something awesome.
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
-
-
     }
 
     public function testCreateWithoutSupplyingCanonicalField()
