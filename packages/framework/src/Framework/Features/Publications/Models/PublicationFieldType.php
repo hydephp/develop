@@ -11,6 +11,8 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Rgasch\Collection\Collection;
+
+use function collect;
 use function strtolower;
 
 /**
@@ -102,7 +104,7 @@ class PublicationFieldType implements SerializableContract
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload);
+                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload) ?? collect([]);
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
