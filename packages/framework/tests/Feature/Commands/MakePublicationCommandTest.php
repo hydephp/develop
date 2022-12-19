@@ -140,9 +140,9 @@ class MakePublicationCommandTest extends TestCase
     {
         InputStreamHandler::mockInput("Foo\nBar");
         $this->makeSchemaFile([
-                                  'canonicalField' => '__createdAt',
-                                  'fields' => [],
-                              ]);
+            'canonicalField' => '__createdAt',
+            'fields' => [],
+        ]);
 
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
@@ -156,6 +156,7 @@ __createdAt: 2022-01-01 00:00:00
 
 ', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
+
     // text
     public function test_command_with_text_input()
     {
@@ -191,8 +192,8 @@ description: |
     {
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
         $this->makeSchemaFile([
-                  'canonicalField' => 'tags',
-                                  'fields'         =>  [[
+            'canonicalField' => 'tags',
+            'fields'         =>  [[
                 'type' => 'array',
                 'name' => 'tags',
                 'min'  => '0',
