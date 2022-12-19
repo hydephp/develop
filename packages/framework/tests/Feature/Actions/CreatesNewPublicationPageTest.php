@@ -215,8 +215,8 @@ description: |
   This is a description.
   It can be multiple lines.
 tags:
-  - tag1
-  - tag2
+  - "tag1"
+  - "tag2"
 ---
 
 ## Write something awesome.
