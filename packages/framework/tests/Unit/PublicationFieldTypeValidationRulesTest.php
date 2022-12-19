@@ -60,9 +60,8 @@ class PublicationFieldTypeValidationRulesTest extends TestCase
 
     public function testWithTag()
     {
-        $this->markTestIncomplete('tags are not working yet');
         $rules = (new PublicationFieldType('tag', 'myTag', '4', '8', 'foo'))->getValidationRules();
-        $this->assertSame(['in:foo'], $rules->toArray()); // TODO tags are not working
+        $this->assertSame(['in:'], $rules->toArray());
     }
 
     public function testWithUrl()
