@@ -171,7 +171,6 @@ description: |
     {
         InputStreamHandler::mockInput("Foo\nBar");
         $this->makeSchemaFile([
-            'canonicalField' => '__createdAt',
             'fields'         =>  [[
                 'type' => 'array',
                 'name' => 'tags',
