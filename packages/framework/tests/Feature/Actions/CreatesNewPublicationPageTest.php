@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use Illuminate\Support\Str;
+use Symfony\Component\Yaml\Yaml;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
@@ -172,6 +174,68 @@ title: Hello World
 ## Write something awesome.
 
 ', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+    }
+
+    public function testItCreatesValidYaml()
+    {
+        $pubType = $this->makePublicationType([[
+            'type' => 'string',
+            'name' => 'title',
+            'min'  => 0,
+            'max'  => 128,
+        ], [
+            'type' => 'text',
+            'name' => 'description',
+            'min'  => 0,
+            'max'  => 128,
+        ], [
+
+            'type' => 'array',
+            'name' => 'tags',
+            'min'  => 0,
+            'max'  => 128,
+            ]]);
+
+        $fieldData = Collection::make([
+            'title' => 'Hello World',
+            'description' => 'This is a description.
+It can be multiple lines.',
+            'tags' => ['tag1', 'tag2'],
+        ]);
+
+        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
+        $creator->create();
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $contents = file_get_contents(Hyde::path('test-publication/hello-world.md'));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+title: Hello World
+description: |
+  This is a description.
+  It can be multiple lines.
+tags:
+  - tag1
+  - tag2
+---
+
+## Write something awesome.
+
+',
+                            $contents
+        );
+
+        $this->assertSame([
+                              '__createdAt' => 1640995200,
+  'title' => 'Hello World',
+  'description' => 'This is a description.
+It can be multiple lines.
+',
+  'tags' =>  [
+     'tag1',
+    'tag2',
+  ]
+                          ], Yaml::parse(Str::between($contents, '---', '---')));
     }
 
     protected function makePublicationType(array $fields = [
