@@ -72,7 +72,7 @@ class PublicationFieldType implements SerializableContract
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
 
-        $doBetween = true;
+        $doBetween = true; // FIXME: maybe rename to useRange?
         // The trim command used to process the min/max input results in a string, so
         // we need to test both int and string values to determine required status.
         if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
@@ -82,7 +82,7 @@ class PublicationFieldType implements SerializableContract
 
         switch ($this->type->value) {
             case 'array':
-                $fieldRules->add('array');
+                $fieldRules->add('array'); // FIXME do we do range validation too?
                 break;
             case 'datetime':
                 if ($doBetween) {
@@ -101,7 +101,10 @@ class PublicationFieldType implements SerializableContract
             case 'image':
                 $mediaFiles = PublicationService::getMediaForPubType($this->publicationType, $reload);
                 $valueList = $mediaFiles->implode(',');
-                $fieldRules->add("in:$valueList");
+                $fieldRules->add("in:$valueList"); // FIXME What if the list is empty?
+                                                   // FIXME: Now the items look like 'in:_media/foo/bar.jpg', but do we really need the directory information?
+                                                   //   Wouldn't it suffice with just 'in:bar.jpg' since we already know what directory it is in?
+                                                   //   We could then easily qualify it within the template and/or via a helper method.
                 break;
             case 'tag':
                 $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload) ?? collect([]);
@@ -109,6 +112,7 @@ class PublicationFieldType implements SerializableContract
                 $fieldRules->add("in:$valueList");
                 break;
             case 'url':
+                // FIXME Shouldn't we add a 'url' rule here?
                 break;
             default:
                 throw new \InvalidArgumentException(
