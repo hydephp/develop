@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Illuminate\Support\Str;
-use Symfony\Component\Yaml\Yaml;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
@@ -14,8 +12,10 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
 use RuntimeException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage
@@ -194,7 +194,7 @@ title: Hello World
             'name' => 'tags',
             'min'  => 0,
             'max'  => 128,
-            ]]);
+        ]]);
 
         $fieldData = Collection::make([
             'title' => 'Hello World',
@@ -226,16 +226,16 @@ tags:
         );
 
         $this->assertSame([
-                              '__createdAt' => 1640995200,
-  'title' => 'Hello World',
-  'description' => 'This is a description.
+            '__createdAt' => 1640995200,
+            'title' => 'Hello World',
+            'description' => 'This is a description.
 It can be multiple lines.
 ',
-  'tags' =>  [
-     'tag1',
-    'tag2',
-  ]
-                          ], Yaml::parse(Str::between($contents, '---', '---')));
+            'tags' =>  [
+                'tag1',
+                'tag2',
+            ],
+        ], Yaml::parse(Str::between($contents, '---', '---')));
     }
 
     protected function makePublicationType(array $fields = [
