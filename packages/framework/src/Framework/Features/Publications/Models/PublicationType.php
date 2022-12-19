@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use function json_decode;
 use Rgasch\Collection\Collection;
 use RuntimeException;
+use function str_starts_with;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\PublicationTypeTest
@@ -119,6 +120,10 @@ class PublicationType implements SerializableContract
 
     public function getCanonicalFieldDefinition(): PublicationFieldType
     {
+        if (str_starts_with($this->canonicalField, '__')) {
+            return new PublicationFieldType('string', $this->canonicalField, 0, 0);
+        }
+
         return $this->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $this->canonicalField)->first();
     }
 
