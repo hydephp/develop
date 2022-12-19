@@ -6,11 +6,14 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
+use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
+use function is_string;
 use Rgasch\Collection\Collection;
 use RuntimeException;
 
@@ -29,8 +32,8 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected ?OutputStyle $output = null,
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDefinition = $this->pubType->getFields()->filter(fn (PublicationFieldType $field): bool => $field->name === $canonicalFieldName)->first() ?? throw new RuntimeException("Could not find field definition for '$canonicalFieldName'");
-        $canonicalValue = $canonicalFieldDefinition->type !== 'array' ? $this->fieldData->{$canonicalFieldName} : $this->fieldData->{$canonicalFieldName}[0];
+        $canonicalFieldDefinition = $this->pubType->getCanonicalFieldDefinition();
+        $canonicalValue = $this->getCanonicalValue($canonicalFieldDefinition, $canonicalFieldName);
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
         $fileName = $this->formatStringForStorage($canonicalStr->slug()->toString());
@@ -47,15 +50,18 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             /** @var PublicationFieldType $fieldDefinition */
             $fieldDefinition = $this->pubType->getFields()->where('name', $name)->firstOrFail();
 
-            if ($fieldDefinition->type == 'text') {
+            if ($fieldDefinition->type === PublicationFieldTypes::Text) {
                 $output .= "$name: |\n";
+                if (is_string($value)) {
+                    $value = Str::of($value)->explode("\n");
+                }
                 foreach ($value as $line) {
                     $output .= "  $line\n";
                 }
                 continue;
             }
 
-            if ($fieldDefinition->type == 'array') {
+            if ($fieldDefinition->type === PublicationFieldTypes::Array) {
                 $output .= "$name:\n";
                 foreach ($value as $item) {
                     $output .= "  - \"$item\"\n";
@@ -71,5 +77,25 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
         $this->save($output);
+    }
+
+    protected function getCanonicalValue(PublicationFieldType $canonicalFieldDefinition, string $canonicalFieldName): string
+    {
+        if ($canonicalFieldName === '__createdAt') {
+            return Carbon::now()->format('Y-m-d H:i:s');
+        }
+
+        try {
+            // TODO: Is it reasonable to use arrays as canonical field values?
+            if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
+                $canonicalValue = $this->fieldData->{$canonicalFieldName}[0];
+            } else {
+                $canonicalValue = $this->fieldData->{$canonicalFieldName};
+            }
+
+            return $canonicalValue;
+        } catch (InvalidArgumentException $exception) {
+            throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404, $exception);
+        }
     }
 }
