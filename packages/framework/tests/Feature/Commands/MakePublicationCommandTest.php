@@ -154,7 +154,16 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertStringContainsString("Hello\nWorld", file_get_contents(Hyde::path('test-publication/hello-world.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+description: |
+  Hello
+  World
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     // array
