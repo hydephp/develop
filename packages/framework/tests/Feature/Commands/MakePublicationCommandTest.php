@@ -169,9 +169,10 @@ description: |
     // array
     public function test_command_with_array_input()
     {
-        InputStreamHandler::mockInput("Foo\nBar");
+        InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
         $this->makeSchemaFile([
-            'fields'         =>  [[
+                  'canonicalField' => 'tags',
+                                  'fields'         =>  [[
                 'type' => 'array',
                 'name' => 'tags',
                 'min'  => '0',
@@ -183,8 +184,18 @@ description: |
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertStringContainsString("Foo\nBar", file_get_contents(Hyde::path('test-publication/hello-world.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/first-tag.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+tags:
+  - "First Tag"
+  - "Second Tag"
+  - "Third Tag"
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/first-tag.md')));
     }
 
     protected function makeSchemaFile(array $merge = []): void
