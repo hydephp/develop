@@ -72,12 +72,12 @@ class PublicationFieldType implements SerializableContract
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
 
-        $doBetween = true; // FIXME: maybe rename to useRange?
+        $useRange = true; 
         // The trim command used to process the min/max input results in a string, so
         // we need to test both int and string values to determine required status.
         if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
             $fieldRules->forget($fieldRules->search('required'));
-            $doBetween = false;
+            $useRange = false;
         }
 
         switch ($this->type->value) {
@@ -85,7 +85,7 @@ class PublicationFieldType implements SerializableContract
                 $fieldRules->add('array'); // FIXME do we do range validation too?
                 break;
             case 'datetime':
-                if ($doBetween) {
+                if ($useRange) {
                     $fieldRules->add("after:$this->min");
                     $fieldRules->add("before:$this->max");
                 }
@@ -94,7 +94,7 @@ class PublicationFieldType implements SerializableContract
             case 'integer':
             case 'string':
             case 'text':
-                if ($doBetween) {
+                if ($useRange) {
                     $fieldRules->add("between:$this->min,$this->max");
                 }
                 break;
