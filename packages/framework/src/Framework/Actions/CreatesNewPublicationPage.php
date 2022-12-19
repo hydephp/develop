@@ -16,6 +16,8 @@ use InvalidArgumentException;
 use Rgasch\Collection\Collection;
 use RuntimeException;
 
+use function is_string;
+
 /**
  * Scaffold a publication file.
  *
@@ -51,6 +53,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
             if ($fieldDefinition->type === PublicationFieldTypes::Text) {
                 $output .= "$name: |\n";
+                if (is_string($value)) {
+                    $value = Str::of($value)->explode("\n");
+                }
                 foreach ($value as $line) {
                     $output .= "  $line\n";
                 }
