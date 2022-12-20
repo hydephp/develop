@@ -13,6 +13,7 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use function json_encode;
 use function mkdir;
 use Rgasch\Collection\Collection;
 
@@ -148,6 +149,18 @@ class PublicationServiceTest extends TestCase
         $this->assertFalse(PublicationService::publicationTypeExists('foo'));
     }
 
+    public function testGetAllTags()
+    {
+        $tags = [
+            'foo' => [
+                'bar',
+                'baz'
+            ]
+        ];
+        $this->file('tags.json', json_encode($tags));
+        $this->assertSame($tags,  PublicationService::getAllTags()->toArray());
+    }
+    
     protected function createPublicationType(): void
     {
         copy(
