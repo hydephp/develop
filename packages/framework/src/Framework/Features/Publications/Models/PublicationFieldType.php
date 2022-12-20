@@ -81,7 +81,7 @@ class PublicationFieldType implements SerializableContract
 
         switch ($this->type->value) {
             case 'array':
-                $fieldRules->add('array'); // FIXME do we do range validation too?
+                $fieldRules->add('array');
                 break;
             case 'datetime':
                 if ($useRange) {
