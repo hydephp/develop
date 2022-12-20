@@ -31,3 +31,44 @@ jobs:
         run: |
           curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }}
+
+
+  test-coverage:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d
+        with:
+          php-version: "8.1"
+          coverage: xdebug
+          extensions: fileinfo
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Set environment to testing
+        run: echo "ENV=testing" > .env
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
+        run: vendor/bin/pest --coverage --coverage-clover clover.xml
+
+      - name: "Publish coverage report to Codecov"
+        uses: codecov/codecov-action@v3
+        with:
+          functionalities: network
+
+      - name: Ping statistics server with test results
+        run: |
+          curl https://gist.githubusercontent.com/caendesilva/d76fc6d73cb488863a8f6fda18a7c8c4/raw/1d22747e5064b40e4da05e7666d1ab1d2766de7a/ping-openanalytics-testrunner.php -o ping.php
+          php ping.php "Monorepo Smoke Tests - Coverage" ${{ secrets.OPENANALYTICS_TOKEN }}
