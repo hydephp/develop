@@ -66,7 +66,7 @@ class PublicationService
      */
     public static function getAllTags(bool $reload = true): Collection
     {
-        $filename = Hyde::pathToRelative('tags.json');
+        $filename = Hyde::path('tags.json');
         if (! file_exists($filename)) {
             return Collection::create();
         }
