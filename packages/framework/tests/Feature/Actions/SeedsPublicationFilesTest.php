@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\SeedsPublicationFiles;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -184,7 +184,7 @@ class SeedsPublicationFilesTest extends TestCase
     protected function updateSchema(string $type, string $name, int|string|null $min = 0, int|string|null $max = 0, ?string $tagGroup = null): void
     {
         $this->pubType->fields = [
-            (new PublicationFieldType($type, $name, $min, $max, $tagGroup))->toArray(),
+            (new PublicationField($type, $name, $min, $max, $tagGroup))->toArray(),
         ];
         $this->pubType->save();
     }
