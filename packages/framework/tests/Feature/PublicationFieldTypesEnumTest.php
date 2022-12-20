@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use BadMethodCallException;
-use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes
+ * @covers \Hyde\Framework\Features\Publications\PublicationFieldTypes
  */
 class PublicationFieldTypesEnumTest extends TestCase
 {

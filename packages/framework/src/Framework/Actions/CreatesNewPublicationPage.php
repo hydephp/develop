@@ -6,16 +6,17 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
-use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use function is_string;
 use Rgasch\Collection\Collection;
 use RuntimeException;
+
+use function is_string;
 
 /**
  * Scaffold a publication file.

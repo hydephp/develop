@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Rgasch\Collection\Collection;
+
 use function strtolower;
 
 /**
  * Represents an entry in the "fields" array of a publication type schema.
  *
- * @see \Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes
+ * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypeTest
  */
 class PublicationFieldType implements SerializableContract

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use ValueError;
@@ -84,7 +84,7 @@ class PublicationFieldTypeTest extends TestCase
     public function test_type_must_be_valid()
     {
         $this->expectException(ValueError::class);
-        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes"');
+        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "Hyde\Framework\Features\Publications\PublicationFieldTypes"');
 
         new PublicationFieldType('invalid', 'test', '1', '10');
     }
