@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Concerns;
+namespace Hyde\Framework\Features\Publications;
 
 use BadMethodCallException;
 use Illuminate\Support\Collection;
@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 /**
  * The supported field types for publication types.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldType
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationField
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
 enum PublicationFieldTypes: string

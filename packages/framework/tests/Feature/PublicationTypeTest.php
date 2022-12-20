@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
@@ -137,9 +137,9 @@ class PublicationTypeTest extends TestCase
         $collection = $publicationType->getFields();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
-        $this->assertInstanceOf(PublicationFieldType::class, $collection->first());
+        $this->assertInstanceOf(PublicationField::class, $collection->first());
         $this->assertEquals(new \Rgasch\Collection\Collection([
-            'title' => new PublicationFieldType('string', 'title', 0, 128),
+            'title' => new PublicationField('string', 'title', 0, 128),
         ]), $collection);
     }
 
