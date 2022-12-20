@@ -35,12 +35,9 @@ class PublicationFieldType implements SerializableContract
         return new static(...$array);
     }
 
-    /**
-     * @todo allow enum cases to be passed to the type argument
-     */
-    public function __construct(string $type, string $name, int|string|null $min = '0', int|string|null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, int|string|null $min = '0', int|string|null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
     {
-        $this->type = PublicationFieldTypes::from(strtolower($type));
+        $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
         $this->min = (string) $min;
         $this->max = (string) $max;

@@ -59,6 +59,17 @@ class PublicationFieldTypeTest extends TestCase
         $this->assertSame('{"type":"string","name":"test","min":"1","max":"10","tagGroup":null}', json_encode($this->makeField()));
     }
 
+    public function test_can_construct_type_using_enum_case()
+    {
+        $field1 = new PublicationFieldType(PublicationFieldTypes::String, 'test', 1, 10);
+        $this->assertSame(PublicationFieldTypes::String, $field1->type);
+
+        $field2 = new PublicationFieldType('string', 'test', 1, 10);
+        $this->assertSame(PublicationFieldTypes::String, $field2->type);
+
+        $this->assertEquals($field1, $field2);
+    }
+
     public function test_default_range_values()
     {
         $field = new PublicationFieldType('string', 'test');
