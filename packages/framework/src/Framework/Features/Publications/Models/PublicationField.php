@@ -16,12 +16,10 @@ use function strtolower;
 /**
  * Represents an entry in the "fields" array of a publication type schema.
  *
- * TODO maybe rename to PublicationFieldDefinition, PublicationFieldEntry, or just PublicationField?
- *
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypeTest
  */
-class PublicationFieldType implements SerializableContract
+class PublicationField implements SerializableContract
 {
     use Serializable;
 

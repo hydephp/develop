@@ -6,7 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Illuminate\Console\OutputStyle;
@@ -47,7 +47,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $output = "---\n";
         $output .= "__createdAt: $now\n";
         foreach ($this->fieldData as $name => $value) {
-            /** @var PublicationFieldType $fieldDefinition */
+            /** @var PublicationField $fieldDefinition */
             $fieldDefinition = $this->pubType->getFields()->where('name', $name)->firstOrFail();
 
             if ($fieldDefinition->type === PublicationFieldTypes::Text) {
@@ -79,7 +79,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->save($output);
     }
 
-    protected function getCanonicalValue(PublicationFieldType $canonicalFieldDefinition, string $canonicalFieldName): string
+    protected function getCanonicalValue(PublicationField $canonicalFieldDefinition, string $canonicalFieldName): string
     {
         if ($canonicalFieldName === '__createdAt') {
             return Carbon::now()->format('Y-m-d H:i:s');

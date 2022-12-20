@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 /**
  * The supported field types for publication types.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldType
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationField
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
 enum PublicationFieldTypes: string

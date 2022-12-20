@@ -6,7 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Console\Concerns\ValidatingCommand;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\PublicationService;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -68,7 +68,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 foreach ($publication->type->fields as $field) {
                     $countFields++;
                     $fieldName = $field['name'];
-                    $pubTypeField = new PublicationFieldType($field['type'], $fieldName, $field['min'], $field['max'], $field['tagGroup'] ?? null, $pubType);
+                    $pubTypeField = new PublicationField($field['type'], $fieldName, $field['min'], $field['max'], $field['tagGroup'] ?? null, $pubType);
 
                     try {
                         if ($verbose) {
