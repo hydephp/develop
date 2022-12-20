@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use Hyde\Framework\Exceptions\FileNotFoundException;
 use function copy;
 use ErrorException;
 use Exception;
@@ -135,19 +136,8 @@ class PublicationServiceTest extends TestCase
     {
         $this->createPublicationType();
 
-        $this->expectException(ErrorException::class);
-        $this->expectExceptionMessage('Failed to open stream: No such file or directory');
-
-        PublicationService::parsePublicationFile('test-publication/foo');
-    }
-
-    public function testParsePublicationFileWithInvalidFile()
-    {
-        $this->createPublicationType();
-        file_put_contents(Hyde::path('test-publication/foo.md'), '');
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('No data read from [test-publication/foo.md]');
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('File [test-publication/foo.md] not found.');
 
         PublicationService::parsePublicationFile('test-publication/foo');
     }

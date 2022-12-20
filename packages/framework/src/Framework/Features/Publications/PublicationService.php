@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Framework\Actions\SourceFileParser;
 use function basename;
 use function dirname;
 use Exception;
@@ -102,17 +103,7 @@ class PublicationService
      */
     public static function parsePublicationFile(string $identifier): PublicationPage
     {
-        $identifier = Str::replaceLast('.md', '', $identifier);
-        $fileData = static::getFileData("$identifier.md");
-
-        $parsedFileData = YamlFrontMatter::markdownCompatibleParse($fileData);
-
-        return new PublicationPage(
-            identifier: basename($identifier),
-            matter: $parsedFileData->matter(),
-            markdown: $parsedFileData->body(),
-            type: PublicationType::get(dirname($identifier))
-        );
+        return (new SourceFileParser(PublicationPage::class, Str::replaceLast('.md', '', $identifier)))->get();
     }
 
     /**
@@ -121,20 +112,6 @@ class PublicationService
     public static function publicationTypeExists(string $pubTypeName): bool
     {
         return static::getPublicationTypes()->has(Str::slug($pubTypeName));
-    }
-
-    /**
-     * @throws \Safe\Exceptions\FilesystemException
-     * @throws \Exception If the file could not be read.
-     */
-    protected static function getFileData(string $filepath): string
-    {
-        $fileData = file_get_contents(Hyde::path($filepath));
-        if (! $fileData) {
-            throw new Exception("No data read from [$filepath]");
-        }
-
-        return $fileData;
     }
 
     protected static function getSchemaFiles(): array
