@@ -10,7 +10,7 @@ use function array_merge;
 use function file_exists;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
@@ -100,7 +100,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             // map field choice to actual field type
             $fieldData['type'] = PublicationFieldTypes::values()[$type - 1];
 
-            $fields->add(PublicationFieldType::fromArray($fieldData));
+            $fields->add(PublicationField::fromArray($fieldData));
             $count++;
         } while (strtolower($addAnother) !== 'n');
 
@@ -162,7 +162,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(Collection $fields): string
     {
-        $options = $fields->reject(function (PublicationFieldType $field): bool {
+        $options = $fields->reject(function (PublicationField $field): bool {
             // Temporary verbose check to see code coverage
             if ($field->type === 'image') {
                 return true;
