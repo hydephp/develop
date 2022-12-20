@@ -59,6 +59,13 @@ class PublicationFieldTypeTest extends TestCase
         $this->assertSame('{"type":"string","name":"test","min":"1","max":"10","tagGroup":null}', json_encode($this->makeField()));
     }
 
+    public function test_default_range_values()
+    {
+        $field = new PublicationFieldType('string', 'test');
+        $this->assertSame('0', $field->min);
+        $this->assertSame('0', $field->max);
+    }
+
     public function test_null_range_values_are_cast_to_empty_string()
     {
         $field = new PublicationFieldType('string', 'test', null, null);
