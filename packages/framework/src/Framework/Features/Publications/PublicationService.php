@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications;
 
 use Hyde\Framework\Actions\SourceFileParser;
-use function basename;
-use function dirname;
-use Exception;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
@@ -16,7 +13,6 @@ use Rgasch\Collection\Collection;
 use function Safe\file_get_contents;
 use function Safe\glob;
 use function Safe\json_decode;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest
