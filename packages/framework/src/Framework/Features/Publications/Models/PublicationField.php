@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use function collect;
-use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
@@ -17,10 +17,10 @@ use function strtolower;
 /**
  * Represents an entry in the "fields" array of a publication type schema.
  *
- * @see \Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes
+ * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypeTest
  */
-class PublicationFieldType implements SerializableContract
+class PublicationField implements SerializableContract
 {
     use Serializable;
 
@@ -36,13 +36,9 @@ class PublicationFieldType implements SerializableContract
         return new static(...$array);
     }
 
-    /**
-     * @todo add default values for min and max arguments
-     * @todo allow enum cases to be passed to the type argument
-     */
-    public function __construct(string $type, string $name, int|string|null $min, int|string|null $max, ?string $tagGroup = null, PublicationType $publicationType = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, int|string|null $min = '0', int|string|null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
     {
-        $this->type = PublicationFieldTypes::from(strtolower($type));
+        $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
         $this->min = (string) $min;
         $this->max = (string) $max;

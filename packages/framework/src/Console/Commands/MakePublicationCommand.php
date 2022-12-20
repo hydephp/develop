@@ -7,9 +7,9 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
-use Hyde\Framework\Features\Publications\Concerns\PublicationFieldTypes;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
 use function implode;
@@ -59,7 +59,7 @@ class MakePublicationCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function captureFieldInput(PublicationFieldType $field, PublicationType $pubType): string|array
+    protected function captureFieldInput(PublicationField $field, PublicationType $pubType): string|array
     {
         if ($field->type === PublicationFieldTypes::Text) {
             return $this->captureTextFieldInput($field);
@@ -112,7 +112,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
 
         return Collection::make($pubType->fields)->mapWithKeys(function ($field) use ($pubType) {
-            return [$field['name'] => $this->captureFieldInput(PublicationFieldType::fromArray($field), $pubType)];
+            return [$field['name'] => $this->captureFieldInput(PublicationField::fromArray($field), $pubType)];
         });
     }
 
@@ -136,21 +136,21 @@ class MakePublicationCommand extends ValidatingCommand
         return (bool) $this->option('force');
     }
 
-    protected function captureTextFieldInput(PublicationFieldType $field): string
+    protected function captureTextFieldInput(PublicationField $field): string
     {
         $this->output->writeln($field->name.' (end with an empty line)');
 
         return implode("\n", InputStreamHandler::call());
     }
 
-    protected function captureArrayFieldInput(PublicationFieldType $field): array
+    protected function captureArrayFieldInput(PublicationField $field): array
     {
         $this->output->writeln($field->name.' (end with an empty line)');
 
         return InputStreamHandler::call();
     }
 
-    protected function captureImageFieldInput(PublicationFieldType $field, PublicationType $pubType): string
+    protected function captureImageFieldInput(PublicationField $field, PublicationType $pubType): string
     {
         $this->output->writeln($field->name.' (end with an empty line)');
         do {
@@ -167,7 +167,7 @@ class MakePublicationCommand extends ValidatingCommand
         return '_media/'.Str::of($file)->after('media/')->toString();
     }
 
-    protected function captureTagFieldInput(PublicationFieldType $field)
+    protected function captureTagFieldInput(PublicationField $field)
     {
         $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
         do {
@@ -184,7 +184,7 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     // Get rules for fields which are not of type array, text or image
-    protected function generateFieldRules(PublicationFieldType $field): Collection
+    protected function generateFieldRules(PublicationField $field): Collection
     {
         $fieldRules = Collection::make($field->type->rules());
         if ($fieldRules->contains('between')) {
