@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function array_flip;
+use function array_keys;
+use function array_merge;
+use function file_exists;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldType;
@@ -11,14 +15,9 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use Rgasch\Collection\Collection;
-
-use function array_flip;
-use function array_keys;
-use function array_merge;
-use function file_exists;
-use function is_dir;
 use function scandir;
 use function strtolower;
 use function trim;

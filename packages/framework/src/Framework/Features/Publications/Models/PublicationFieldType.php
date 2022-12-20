@@ -11,7 +11,6 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Rgasch\Collection\Collection;
-
 use function strtolower;
 
 /**
