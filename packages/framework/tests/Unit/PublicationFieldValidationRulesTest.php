@@ -78,6 +78,7 @@ class PublicationFieldValidationRulesTest extends TestCase
     {
         $rules = (new PublicationField('float', 'myFloat', '4', '8'))->getValidationRules();
         $this->assertSame(['between:4,8'], $rules->toArray());
+        $this->assertSame(['numeric', 'between:4,8'], $rules->toArray());
     }
 
     public function testGetRulesForInteger()

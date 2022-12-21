@@ -95,6 +95,11 @@ class PublicationField implements SerializableContract
                 }
                 break;
             case 'float':
+                $fieldRules->add('numeric');
+                if ($useRange) {
+                    $fieldRules->add("between:$this->min,$this->max");
+                }
+                break;
             case 'integer':
             case 'string':
             case 'text':
