@@ -86,6 +86,11 @@ class Features implements SerializableContract
         return static::enabled(static::publications());
     }
 
+    public static function hasPublications(): bool
+    {
+        return static::enabled(static::publications());
+    }
+
     public static function hasDataCollections(): bool
     {
         return static::enabled(static::dataCollections());
