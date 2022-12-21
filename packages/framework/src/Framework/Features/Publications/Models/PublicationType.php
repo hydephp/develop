@@ -106,9 +106,7 @@ class PublicationType implements SerializableContract
         return Collection::create($result, false);
     }
 
-    /**
-     * @return \Rgasch\Collection\Collection<string, \Rgasch\Collection\Collection>
-     */
+    /** @return \Rgasch\Collection\Collection<string, \Rgasch\Collection\Collection> */
     public function getFieldRules(): Collection
     {
         return Collection::create(
