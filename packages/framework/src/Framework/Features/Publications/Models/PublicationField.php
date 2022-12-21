@@ -85,7 +85,6 @@ class PublicationField implements SerializableContract
                 break;
             case 'datetime':
                 if ($useRange) {
-                    // Parse the datetimes to ensure they are valid and normalized.
                     $dateMin = Carbon::parse($this->min);
                     $dateMax = Carbon::parse($this->max);
                     $fieldRules->add("after:$dateMin");
