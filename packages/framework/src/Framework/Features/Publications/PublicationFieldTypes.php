@@ -45,13 +45,13 @@ enum PublicationFieldTypes: string
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
         return match ($type) {
-            self::String => ['required', 'string', 'between'],
-            self::Boolean => ['required', 'boolean'],
-            self::Integer => ['required', 'integer', 'between'],
-            self::Float => ['required', 'numeric', 'between'],
-            self::Datetime => ['required', 'datetime', 'between'],
-            self::Url => ['required', 'url'],
-            self::Text => ['required', 'string', 'between'],
+            self::String => ['string', 'between'],
+            self::Boolean => ['boolean'],
+            self::Integer => ['integer', 'between'],
+            self::Float => ['numeric', 'between'],
+            self::Datetime => ['datetime', 'between'],
+            self::Url => ['url'],
+            self::Text => ['string', 'between'],
             self::Array => [],
             self::Image => [],
             self::Tag => [],
