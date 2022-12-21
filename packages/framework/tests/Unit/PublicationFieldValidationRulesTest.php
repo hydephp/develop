@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
+use Illuminate\Validation\ValidationException;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationField
@@ -68,5 +69,11 @@ class PublicationFieldValidationRulesTest extends TestCase
     {
         $rules = (new PublicationField('url', 'myUrl', '4', '8'))->getValidationRules();
         $this->assertSame(['url'], $rules->toArray());
+    }
+
+    protected function expectValidationException(string $message): void
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage($message);
     }
 }
