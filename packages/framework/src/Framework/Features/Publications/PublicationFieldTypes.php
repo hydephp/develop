@@ -52,7 +52,7 @@ enum PublicationFieldTypes: string
             self::Datetime => ['date'],
             self::Url => ['url'],
             self::Text => ['string'],
-            self::Array => [],
+            self::Array => ['array'],
             self::Image => [],
             self::Tag => [],
         };

@@ -65,9 +65,6 @@ class PublicationField implements SerializableContract
         // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
 
         switch ($this->type->value) {
-            case 'array':
-                $fieldRules->add('array');
-                break;
             case 'image':
                 $mediaFiles = PublicationService::getMediaForPubType($publicationType);
                 $valueList = $mediaFiles->implode(',');
@@ -78,6 +75,7 @@ class PublicationField implements SerializableContract
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
+            case 'array':
             case 'float':
             case 'text':
             case 'datetime':
