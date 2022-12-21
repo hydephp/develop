@@ -16,7 +16,7 @@ class PublicationFieldTest extends TestCase
 {
     public function test_can_instantiate_class()
     {
-        $field = $this->makeField();
+        $field = new PublicationField('string', 'test');
         $this->assertInstanceOf(PublicationField::class, $field);
 
         $this->assertSame(PublicationFieldTypes::String, $field->type);
@@ -42,12 +42,12 @@ class PublicationFieldTest extends TestCase
             'type' => 'string',
             'name' => 'test',
             'tagGroup' => null,
-        ], $this->makeField()->toArray());
+        ], (new PublicationField('string', 'test'))->toArray());
     }
 
     public function test_can_encode_field_as_json()
     {
-        $this->assertSame('{"type":"string","name":"test","tagGroup":null}', json_encode($this->makeField()));
+        $this->assertSame('{"type":"string","name":"test","tagGroup":null}', json_encode(new PublicationField('string', 'test')));
     }
 
     public function test_can_construct_type_using_enum_case()
@@ -84,10 +84,5 @@ class PublicationFieldTest extends TestCase
     public function test_validate_input_against_rules()
     {
         $this->markTestIncomplete('TODO: Implement this method.');
-    }
-
-    protected function makeField(): PublicationField
-    {
-        return new PublicationField('string', 'test');
     }
 }
