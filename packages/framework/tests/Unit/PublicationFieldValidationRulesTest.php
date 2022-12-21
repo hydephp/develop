@@ -67,6 +67,6 @@ class PublicationFieldValidationRulesTest extends TestCase
     public function testWithUrl()
     {
         $rules = (new PublicationField('url', 'myUrl', '4', '8'))->getValidationRules();
-        $this->assertSame([], $rules->toArray());
+        $this->assertSame(['url'], $rules->toArray());
     }
 }

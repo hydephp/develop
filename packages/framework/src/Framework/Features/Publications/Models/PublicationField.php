@@ -104,7 +104,7 @@ class PublicationField implements SerializableContract
                 $fieldRules->add("in:$valueList");
                 break;
             case 'url':
-                // FIXME Shouldn't we add a 'url' rule here?
+                $fieldRules->add('url');
                 break;
         }
 
