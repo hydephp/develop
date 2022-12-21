@@ -28,7 +28,7 @@ class PublicationFieldTypesEnumTest extends TestCase
         $this->assertSame('tag', PublicationFieldTypes::Tag->value);
     }
 
-    public function testRules()
+    public function testGetRules()
     {
         $this->assertSame(['string'], PublicationFieldTypes::String->rules());
         $this->assertSame(['boolean'], PublicationFieldTypes::Boolean->rules());
