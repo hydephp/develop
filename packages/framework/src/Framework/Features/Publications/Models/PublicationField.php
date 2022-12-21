@@ -62,6 +62,8 @@ class PublicationField implements SerializableContract
     {
         $fieldRules = Collection::create(PublicationFieldTypes::getRules($this->type));
 
+        // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
+
         switch ($this->type->value) {
             case 'array':
                 $fieldRules->add('array');
