@@ -44,6 +44,30 @@ class PublicationFieldValidationRulesTest extends TestCase
         $this->assertSame(['date', 'before:2022-01-01 00:00:00'], $rules->toArray());
     }
 
+    public function testValidateDatetimePasses()
+    {
+        $validated = (new PublicationField('datetime', 'myDatetime'))->validate('2021-01-01');
+        $this->assertSame(['my-datetime' => '2021-01-01'], $validated);
+
+        $validated = (new PublicationField('datetime', 'myDatetime', '2021-01-01'))->validate('2021-01-02');
+        $this->assertSame(['my-datetime' => '2021-01-02'], $validated);
+
+        $validated = (new PublicationField('datetime', 'myDatetime', null, '2021-01-02'))->validate('2021-01-01');
+        $this->assertSame(['my-datetime' => '2021-01-01'], $validated);
+    }
+
+    public function testValidateDatetimeFails()
+    {
+        $this->expectValidationException('The my-datetime is not a valid date.');
+        (new PublicationField('datetime', 'myDatetime'))->validate('string');
+
+        $this->expectValidationException('The my-datetime must be a date after 2021-01-01 00:00:00.');
+        (new PublicationField('datetime', 'myDatetime', '2021-01-01'))->validate('2020-12-31');
+
+        $this->expectValidationException('The my-datetime must be a date before 2021-01-02 00:00:00.');
+        (new PublicationField('datetime', 'myDatetime', null, '2021-01-02'))->validate('2021-01-03');
+    }
+
     public function testGetRulesForFloat()
     {
         $rules = (new PublicationField('float', 'myFloat', '4', '8'))->getValidationRules();
