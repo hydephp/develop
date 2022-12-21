@@ -26,6 +26,7 @@ class PublicationField implements SerializableContract
     public readonly PublicationFieldTypes $type;
     public readonly string $name;
     public readonly ?string $tagGroup;
+    /** @deprecated Since this is only used one method it will be moved to that method */
     public readonly ?PublicationType $publicationType; // Only used for validation command, interactive command doesn't need this
 
     public static function fromArray(array $array): static
