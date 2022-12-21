@@ -42,10 +42,6 @@ class PublicationField implements SerializableContract
         $this->name = Str::kebab($name);
         $this->tagGroup = $tagGroup;
         $this->publicationType = $publicationType;
-
-        if ($max < $min && $max !== '0') {
-            throw new InvalidArgumentException("The 'max' value cannot be less than the 'min' value.");
-        }
     }
 
     public function toArray(): array
@@ -66,41 +62,20 @@ class PublicationField implements SerializableContract
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
 
-        $useRange = true;
-        // The trim command used to process the min/max input results in a string, so
-        // we need to test both int and string values to determine required status.
-        if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
-            $fieldRules->forget($fieldRules->search('required'));
-            $useRange = false;
-        }
-
         switch ($this->type->value) {
             case 'array':
                 $fieldRules->add('array');
                 break;
             case 'datetime':
                 $fieldRules->add('date');
-                if ($this->min) {
-                    $dateMin = Carbon::parse($this->min);
-                    $fieldRules->add("after:$dateMin");
-                }
-                if ($this->max) {
-                    $dateMax = Carbon::parse($this->max);
-                    $fieldRules->add("before:$dateMax");
-                }
+
                 break;
             case 'float':
                 $fieldRules->add('numeric');
-                if ($useRange) {
-                    $fieldRules->add("between:$this->min,$this->max");
-                }
                 break;
             case 'integer':
             case 'string':
             case 'text':
-                if ($useRange) {
-                    $fieldRules->add("between:$this->min,$this->max");
-                }
                 break;
             case 'image':
                 $mediaFiles = PublicationService::getMediaForPubType($this->publicationType, $reload);
