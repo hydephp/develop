@@ -24,6 +24,9 @@ class PublicationFieldValidationRulesTest extends TestCase
     {
         $rules = (new PublicationField('datetime', 'myDatetime', '2021-01-01', '2022-01-01'))->getValidationRules();
         $this->assertSame(['after:2021-01-01 00:00:00', 'before:2022-01-01 00:00:00'], $rules->toArray());
+
+        $rules = (new PublicationField('datetime', 'myDatetime', '2021-01-01'))->getValidationRules();
+        $this->assertSame(['after:2021-01-01 00:00:00'], $rules->toArray());
     }
 
     public function testGetRulesForFloat()
