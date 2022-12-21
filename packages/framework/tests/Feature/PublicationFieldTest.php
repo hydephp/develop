@@ -44,13 +44,14 @@ class PublicationFieldTest extends TestCase
         ], (new PublicationField('string', 'test'))->toArray());
     }
 
-    public function test_can_get_field_with_tag_group_as_array()
+    public function test_can_get_field_with_optional_properties_as_array()
     {
         $this->assertSame([
             'type' => 'string',
             'name' => 'test',
             'tagGroup' => 'foo',
-        ], (new PublicationField('string', 'test', 'foo'))->toArray());
+            'rules' => ['required'],
+        ], (new PublicationField('string', 'test', 'foo', ['required']))->toArray());
     }
 
     public function test_can_encode_field_as_json()
@@ -58,9 +59,9 @@ class PublicationFieldTest extends TestCase
         $this->assertSame('{"type":"string","name":"test"}', json_encode(new PublicationField('string', 'test')));
     }
 
-    public function test_can_encode_field_with_tag_group_as_json()
+    public function  test_can_get_field_with_optional_properties_as_json()
     {
-        $this->assertSame('{"type":"string","name":"test","tagGroup":"foo"}', json_encode(new PublicationField('string', 'test', 'foo')));
+        $this->assertSame('{"type":"string","name":"test","tagGroup":"foo","rules":["required"]}', json_encode(new PublicationField('string', 'test', 'foo', ['required'])));
     }
 
     public function test_can_construct_type_using_enum_case()

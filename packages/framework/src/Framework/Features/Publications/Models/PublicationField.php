@@ -48,6 +48,7 @@ class PublicationField implements SerializableContract
             'type' => $this->type->value,
             'name' => $this->name,
             'tagGroup' => $this->tagGroup,
+            'rules' => $this->rules,
         ]);
     }
 
