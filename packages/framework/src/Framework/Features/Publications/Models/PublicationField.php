@@ -68,14 +68,6 @@ class PublicationField implements SerializableContract
             case 'array':
                 $fieldRules->add('array');
                 break;
-            case 'datetime':
-                break;
-            case 'float':
-                break;
-            case 'integer':
-            case 'string':
-            case 'text':
-                break;
             case 'image':
                 $mediaFiles = PublicationService::getMediaForPubType($publicationType);
                 $valueList = $mediaFiles->implode(',');
@@ -86,7 +78,12 @@ class PublicationField implements SerializableContract
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
+            case 'float':
+            case 'text':
+            case 'datetime':
+            case 'integer':
             case 'url':
+            case 'string':
                 break;
         }
 
