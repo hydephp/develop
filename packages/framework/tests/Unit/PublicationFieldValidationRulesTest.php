@@ -79,7 +79,7 @@ class PublicationFieldValidationRulesTest extends TestCase
         $this->directory('_media/foo');
         $this->file('_media/foo/bar.jpg');
         $this->file('_media/foo/baz.png');
-        $rules = (new PublicationField('image', 'myImage', null, publicationType: new PublicationType('foo')))->getValidationRules();
+        $rules = (new PublicationField('image', 'myImage'))->getValidationRules(publicationType: new PublicationType('foo'));
         $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules->toArray());
     }
 

@@ -68,7 +68,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 foreach ($publication->type->fields as $field) {
                     $countFields++;
                     $fieldName = $field['name'];
-                    $pubTypeField = new PublicationField($field['type'], $fieldName, $field['tagGroup'] ?? null, $pubType);
+                    $pubTypeField = new PublicationField($field['type'], $fieldName, $field['tagGroup'] ?? null);
 
                     try {
                         if ($verbose) {
@@ -79,8 +79,11 @@ class ValidatePublicationsCommand extends ValidatingCommand
                             throw new Exception("Field [$fieldName] is missing from publication");
                         }
 
-                        $pubTypeField->validate($publication->matter->{$fieldName} ?? null,
-                                                $publicationFieldRules->{$fieldName} ?? null);
+                        $pubTypeField->validate(
+                            $publication->matter->{$fieldName} ?? null,
+                            $publicationFieldRules->{$fieldName} ?? null,
+                            $pubType
+                        );
                         $this->output->writeln(" <fg=green>$checkmark</>");
                     } catch (Exception $e) {
                         $countErrors++;
