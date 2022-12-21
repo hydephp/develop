@@ -84,14 +84,13 @@ class PublicationField implements SerializableContract
                 $fieldRules->add('array');
                 break;
             case 'datetime':
-                if ($useRange) {
+                if ($this->min) {
                     $dateMin = Carbon::parse($this->min);
+                    $fieldRules->add("after:$dateMin");
+                }
+                if ($this->max) {
                     $dateMax = Carbon::parse($this->max);
-                    $fieldRules->add("after:$dateMin");
                     $fieldRules->add("before:$dateMax");
-                } elseif ($this->min) {
-                    $dateMin = Carbon::parse($this->min);
-                    $fieldRules->add("after:$dateMin");
                 }
                 break;
             case 'float':
