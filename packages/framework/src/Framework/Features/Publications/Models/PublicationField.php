@@ -40,7 +40,7 @@ class PublicationField implements SerializableContract
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, #[Deprecated] int|string|null $min = '0', #[Deprecated] int|string|null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, #[Deprecated] int | string | null $min = '0', #[Deprecated] int | string | null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
