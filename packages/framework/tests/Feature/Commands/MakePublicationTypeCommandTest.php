@@ -75,8 +75,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 "fields": [
                     {
                         "type": "string",
-                        "name": "publication-title",
-                        "tagGroup": null
+                        "name": "publication-title"
                     }
                 ]
             }

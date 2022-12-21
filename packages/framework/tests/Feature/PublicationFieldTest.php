@@ -41,13 +41,26 @@ class PublicationFieldTest extends TestCase
         $this->assertSame([
             'type' => 'string',
             'name' => 'test',
-            'tagGroup' => null,
         ], (new PublicationField('string', 'test'))->toArray());
+    }
+
+    public function test_can_get_field_with_tag_group_as_array()
+    {
+        $this->assertSame([
+            'type' => 'string',
+            'name' => 'test',
+            'tagGroup' => 'foo',
+        ], (new PublicationField('string', 'test', 'foo'))->toArray());
     }
 
     public function test_can_encode_field_as_json()
     {
-        $this->assertSame('{"type":"string","name":"test","tagGroup":null}', json_encode(new PublicationField('string', 'test')));
+        $this->assertSame('{"type":"string","name":"test"}', json_encode(new PublicationField('string', 'test')));
+    }
+
+    public function test_can_encode_field_with_tag_group_as_json()
+    {
+        $this->assertSame('{"type":"string","name":"test","tagGroup":"foo"}', json_encode(new PublicationField('string', 'test', 'foo')));
     }
 
     public function test_can_construct_type_using_enum_case()

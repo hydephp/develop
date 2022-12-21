@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function array_filter;
 use function collect;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -41,11 +42,11 @@ class PublicationField implements SerializableContract
 
     public function toArray(): array
     {
-        return [
+        return array_filter([
             'type' => $this->type->value,
             'name' => $this->name,
             'tagGroup' => $this->tagGroup,
-        ];
+        ]);
     }
 
     /**
