@@ -92,6 +92,18 @@ class PublicationFieldTest extends TestCase
         new PublicationField('string', 'test', '10', '1');
     }
 
+    public function test_only_min_value_can_be_set()
+    {
+        new PublicationField('string', 'test', '1');
+        $this->assertTrue(true);
+    }
+
+    public function test_only_max_value_can_be_set()
+    {
+        new PublicationField('string', 'test', null, '10');
+        $this->assertTrue(true);
+    }
+
     public function test_integers_can_be_added_as_strings()
     {
         $field = new PublicationField('string', 'test', '1', '10');
@@ -102,7 +114,7 @@ class PublicationFieldTest extends TestCase
     public function test_type_must_be_valid()
     {
         $this->expectException(ValueError::class);
-        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "Hyde\Framework\Features\Publications\PublicationFieldTypes"');
+        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "'.PublicationFieldTypes::class.'"');
 
         new PublicationField('invalid', 'test', '1', '10');
     }

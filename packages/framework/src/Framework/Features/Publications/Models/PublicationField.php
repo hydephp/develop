@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function collect;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Rgasch\Collection\Collection;
@@ -44,7 +46,7 @@ class PublicationField implements SerializableContract
         $this->tagGroup = $tagGroup;
         $this->publicationType = $publicationType;
 
-        if ($max < $min) {
+        if ($max < $min && $max !== '0') {
             throw new InvalidArgumentException("The 'max' value cannot be less than the 'min' value.");
         }
     }
@@ -60,17 +62,21 @@ class PublicationField implements SerializableContract
         ];
     }
 
+    /**
+     * @see \Hyde\Framework\Testing\Unit\PublicationFieldTypeValidationRulesTest
+     * @see https://laravel.com/docs/9.x/validation#available-validation-rules
+     */
     public function getValidationRules(bool $reload = true): Collection
     {
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
 
-        $doBetween = true;
+        $useRange = true;
         // The trim command used to process the min/max input results in a string, so
         // we need to test both int and string values to determine required status.
         if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
             $fieldRules->forget($fieldRules->search('required'));
-            $doBetween = false;
+            $useRange = false;
         }
 
         switch ($this->type->value) {
@@ -78,16 +84,26 @@ class PublicationField implements SerializableContract
                 $fieldRules->add('array');
                 break;
             case 'datetime':
-                if ($doBetween) {
-                    $fieldRules->add("after:$this->min");
-                    $fieldRules->add("before:$this->max");
+                $fieldRules->add('date');
+                if ($this->min) {
+                    $dateMin = Carbon::parse($this->min);
+                    $fieldRules->add("after:$dateMin");
+                }
+                if ($this->max) {
+                    $dateMax = Carbon::parse($this->max);
+                    $fieldRules->add("before:$dateMax");
                 }
                 break;
             case 'float':
+                $fieldRules->add('numeric');
+                if ($useRange) {
+                    $fieldRules->add("between:$this->min,$this->max");
+                }
+                break;
             case 'integer':
             case 'string':
             case 'text':
-                if ($doBetween) {
+                if ($useRange) {
                     $fieldRules->add("between:$this->min,$this->max");
                 }
                 break;
@@ -97,16 +113,13 @@ class PublicationField implements SerializableContract
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload);
+                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload) ?? collect([]);
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
             case 'url':
+                $fieldRules->add('url');
                 break;
-            default:
-                throw new \InvalidArgumentException(
-                    "Unhandled field type [{$this->type->value}]. Possible field types are: ".implode(', ', PublicationFieldTypes::values())
-                );
         }
 
         return $fieldRules;
