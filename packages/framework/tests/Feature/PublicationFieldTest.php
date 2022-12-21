@@ -59,7 +59,7 @@ class PublicationFieldTest extends TestCase
         $this->assertSame('{"type":"string","name":"test"}', json_encode(new PublicationField('string', 'test')));
     }
 
-    public function  test_can_get_field_with_optional_properties_as_json()
+    public function test_can_get_field_with_optional_properties_as_json()
     {
         $this->assertSame('{"type":"string","name":"test","tagGroup":"foo","rules":["required"]}', json_encode(new PublicationField('string', 'test', 'foo', ['required'])));
     }
