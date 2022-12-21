@@ -114,7 +114,7 @@ class PublicationFieldTest extends TestCase
     public function test_type_must_be_valid()
     {
         $this->expectException(ValueError::class);
-        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "Hyde\Framework\Features\Publications\PublicationFieldTypes"');
+        $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "'.PublicationFieldTypes::class.'"');
 
         new PublicationField('invalid', 'test', '1', '10');
     }
