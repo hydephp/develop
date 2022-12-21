@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function array_filter;
 use function collect;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -42,20 +43,20 @@ class PublicationField implements SerializableContract
 
     public function toArray(): array
     {
-        return [
+        return array_filter([
             'type' => $this->type->value,
             'name' => $this->name,
             'tagGroup' => $this->tagGroup,
-        ];
+        ]);
     }
 
     /**
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required when using the "image" type.
+     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
      *
      * @see \Hyde\Framework\Testing\Unit\PublicationFieldTypeValidationRulesTest
      * @see https://laravel.com/docs/9.x/validation#available-validation-rules
      */
-    public function getValidationRules(?PublicationType $publicationType = null, bool $reload = true): Collection
+    public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
@@ -76,12 +77,12 @@ class PublicationField implements SerializableContract
             case 'text':
                 break;
             case 'image':
-                $mediaFiles = PublicationService::getMediaForPubType($publicationType, $reload);
+                $mediaFiles = PublicationService::getMediaForPubType($publicationType);
                 $valueList = $mediaFiles->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload) ?? collect([]);
+                $tagValues = PublicationService::getValuesForTagName($this->tagGroup) ?? collect([]);
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
@@ -93,10 +94,11 @@ class PublicationField implements SerializableContract
         return $fieldRules;
     }
 
-    public function validate(?PublicationType $publicationType = null, mixed $input = null, Collection $fieldRules = null): array
+    /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
+    public function validate(mixed $input = null, Collection $fieldRules = null, ?PublicationType $publicationType = null): array
     {
         if (! $fieldRules) {
-            $fieldRules = $this->getValidationRules($publicationType, false);
+            $fieldRules = $this->getValidationRules($publicationType);
         }
 
         $validator = validator([$this->name => $input], [$this->name => $fieldRules->toArray()]);
