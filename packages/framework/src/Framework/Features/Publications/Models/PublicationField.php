@@ -27,10 +27,6 @@ class PublicationField implements SerializableContract
     use Serializable;
 
     public readonly PublicationFieldTypes $type;
-    /** @deprecated https://github.com/hydephp/develop/pull/685#issuecomment-1361565809 */
-    public readonly string $max;
-    /** @deprecated https://github.com/hydephp/develop/pull/685#issuecomment-1361565809 */
-    public readonly string $min;
     public readonly string $name;
     public readonly ?string $tagGroup;
     public readonly ?PublicationType $publicationType; // Only used for validation command, interactive command doesn't need this
@@ -40,12 +36,10 @@ class PublicationField implements SerializableContract
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, #[Deprecated] int | string | null $min = '0', #[Deprecated] int | string | null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, ?string $tagGroup = null, PublicationType $publicationType = null)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
-        $this->min = (string) $min;
-        $this->max = (string) $max;
         $this->tagGroup = $tagGroup;
         $this->publicationType = $publicationType;
 
@@ -59,8 +53,6 @@ class PublicationField implements SerializableContract
         return [
             'type' => $this->type->value,
             'name' => $this->name,
-            'min'  => $this->min,
-            'max'  => $this->max,
             'tagGroup' => $this->tagGroup,
         ];
     }

@@ -61,10 +61,10 @@ class PublicationFieldTest extends TestCase
 
     public function test_can_construct_type_using_enum_case()
     {
-        $field1 = new PublicationField(PublicationFieldTypes::String, 'test', 1, 10);
+        $field1 = new PublicationField(PublicationFieldTypes::String, 'test');
         $this->assertSame(PublicationFieldTypes::String, $field1->type);
 
-        $field2 = new PublicationField('string', 'test', 1, 10);
+        $field2 = new PublicationField('string', 'test');
         $this->assertSame(PublicationFieldTypes::String, $field2->type);
 
         $this->assertEquals($field1, $field2);
@@ -79,7 +79,7 @@ class PublicationFieldTest extends TestCase
 
     public function test_null_range_values_are_cast_to_empty_string()
     {
-        $field = new PublicationField('string', 'test', null, null);
+        $field = new PublicationField('string', 'test');
         $this->assertSame('', $field->min);
         $this->assertSame('', $field->max);
     }
@@ -89,24 +89,24 @@ class PublicationFieldTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("The 'max' value cannot be less than the 'min' value.");
 
-        new PublicationField('string', 'test', '10', '1');
+        new PublicationField('string', 'test');
     }
 
     public function test_only_min_value_can_be_set()
     {
-        new PublicationField('string', 'test', '1');
+        new PublicationField('string', 'test');
         $this->assertTrue(true);
     }
 
     public function test_only_max_value_can_be_set()
     {
-        new PublicationField('string', 'test', null, '10');
+        new PublicationField('string', 'test');
         $this->assertTrue(true);
     }
 
     public function test_integers_can_be_added_as_strings()
     {
-        $field = new PublicationField('string', 'test', '1', '10');
+        $field = new PublicationField('string', 'test');
         $this->assertSame('1', $field->min);
         $this->assertSame('10', $field->max);
     }
@@ -116,18 +116,18 @@ class PublicationFieldTest extends TestCase
         $this->expectException(ValueError::class);
         $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "'.PublicationFieldTypes::class.'"');
 
-        new PublicationField('invalid', 'test', '1', '10');
+        new PublicationField('invalid', 'test');
     }
 
     public function test_type_input_is_case_insensitive()
     {
-        $field = new PublicationField('STRING', 'test', '1', '10');
+        $field = new PublicationField('STRING', 'test');
         $this->assertSame(PublicationFieldTypes::String, $field->type);
     }
 
     public function test_name_gets_stored_as_kebab_case()
     {
-        $field = new PublicationField('string', 'Test Field', '1', '10');
+        $field = new PublicationField('string', 'Test Field');
         $this->assertSame('test-field', $field->name);
     }
 
@@ -138,6 +138,6 @@ class PublicationFieldTest extends TestCase
 
     protected function makeField(): PublicationField
     {
-        return new PublicationField('string', 'test', 1, '10');
+        return new PublicationField('string', 'test');
     }
 }
