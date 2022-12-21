@@ -76,14 +76,6 @@ class PublicationField implements SerializableContract
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
-            case 'array':
-            case 'float':
-            case 'text':
-            case 'datetime':
-            case 'integer':
-            case 'url':
-            case 'string':
-                break;
         }
 
         return $fieldRules;
