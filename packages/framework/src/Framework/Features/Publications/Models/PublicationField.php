@@ -76,12 +76,12 @@ class PublicationField implements SerializableContract
             case 'text':
                 break;
             case 'image':
-                $mediaFiles = PublicationService::getMediaForPubType($publicationType, $reload);
+                $mediaFiles = PublicationService::getMediaForPubType($publicationType);
                 $valueList = $mediaFiles->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload) ?? collect([]);
+                $tagValues = PublicationService::getValuesForTagName($this->tagGroup) ?? collect([]);
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
