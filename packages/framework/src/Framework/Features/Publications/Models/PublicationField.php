@@ -55,7 +55,7 @@ class PublicationField implements SerializableContract
      * @see \Hyde\Framework\Testing\Unit\PublicationFieldTypeValidationRulesTest
      * @see https://laravel.com/docs/9.x/validation#available-validation-rules
      */
-    public function getValidationRules(bool $reload = true, ?PublicationType $publicationType = null): Collection
+    public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
@@ -96,7 +96,7 @@ class PublicationField implements SerializableContract
     public function validate(mixed $input = null, Collection $fieldRules = null, ?PublicationType $publicationType = null): array
     {
         if (! $fieldRules) {
-            $fieldRules = $this->getValidationRules(false, $publicationType);
+            $fieldRules = $this->getValidationRules($publicationType);
         }
 
         $validator = validator([$this->name => $input], [$this->name => $fieldRules->toArray()]);
