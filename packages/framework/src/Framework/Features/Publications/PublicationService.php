@@ -89,7 +89,7 @@ class PublicationService
             return $tags->$tagName;
         }
 
-        return null;
+        return null; // TODO: Maybe we should return an empty collection here to match behavior of getAllTags()?
     }
 
     /**
