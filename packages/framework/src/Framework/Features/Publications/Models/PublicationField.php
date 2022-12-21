@@ -60,8 +60,8 @@ class PublicationField implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        $defaultRules = Collection::create(PublicationFieldTypes::values());
-        $fieldRules = Collection::create($defaultRules->get($this->type->value));
+        $types = Collection::create(PublicationFieldTypes::values());
+        $fieldRules = Collection::create($types->get($this->type->value));
 
         switch ($this->type->value) {
             case 'array':
