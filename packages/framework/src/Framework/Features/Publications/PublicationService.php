@@ -84,19 +84,19 @@ class PublicationService
      *
      * @param  string  $tagName
      * @param  bool  $reload  Reload the tags from the filesystem
-     * @return \Rgasch\Collection\Collection|null
+     * @return \Rgasch\Collection\Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */
-    public static function getValuesForTagName(string $tagName, bool $reload = true): ?Collection
+    public static function getValuesForTagName(string $tagName, bool $reload = true): Collection
     {
-        $allTags = self::getAllTags($reload);
-        if ($allTags->has($tagName)) {
-            return $allTags->$tagName;
+        $tags = self::getAllTags($reload);
+        if (! $tags->get($tagName)) {
+            return Collection::create();
         }
 
-        return null;
+        return $tags->$tagName;
     }
 
     /**
