@@ -31,10 +31,7 @@ class PublicationFieldTypesEnumTest extends TestCase
 
     public function testCanGetRulesForEnum()
     {
-        $this->assertSame([
-            'string',
-            'between',
-        ], PublicationFieldTypes::String->rules());
+        $this->assertSame(['string', 'between'], PublicationFieldTypes::String->rules());
     }
 
     public function testCanGetRulesForEnumWithNoRules()
