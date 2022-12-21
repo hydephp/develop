@@ -166,6 +166,43 @@ class PublicationServiceTest extends TestCase
         $this->assertSame([], PublicationService::getAllTags()->toArray());
     }
 
+    public function testGetValuesForTagName()
+    {
+        $tags = [
+            'foo' => [
+                'bar',
+                'baz',
+            ],
+            'bar' => [
+                'baz',
+                'qux',
+            ],
+        ];
+
+        $this->file('tags.json', json_encode($tags));
+
+        $this->assertSame(['bar', 'baz'], PublicationService::getValuesForTagName('foo')->toArray());
+    }
+
+    public function testGetValuesForTagNameWithMissingTagName()
+    {
+        $tags = [
+            'foo' => [
+                'bar',
+                'baz',
+            ],
+        ];
+
+        $this->file('tags.json', json_encode($tags));
+
+        $this->assertNull(PublicationService::getValuesForTagName('bar'));
+    }
+
+    public function testGetValuesForTagNameWithNoTags()
+    {
+        $this->assertNull(PublicationService::getValuesForTagName('foo'));
+    }
+
     protected function createPublicationType(): void
     {
         copy(
