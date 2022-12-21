@@ -26,6 +26,7 @@ class PublicationField implements SerializableContract
     public readonly PublicationFieldTypes $type;
     public readonly string $name;
     public readonly ?string $tagGroup;
+    public readonly array $rules;
 
     public static function fromArray(array $array): static
     {
