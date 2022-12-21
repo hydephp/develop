@@ -166,8 +166,6 @@ __createdAt: 2022-01-01 00:00:00
             'fields'         =>  [[
                 'type' => 'text',
                 'name' => 'description',
-                'min'  => '0',
-                'max'  => '0',
             ],
             ],
         ]);
@@ -196,8 +194,6 @@ description: |
             'fields'         =>  [[
                 'type' => 'array',
                 'name' => 'tags',
-                'min'  => '0',
-                'max'  => '0',
             ],
             ],
         ]);
@@ -237,8 +233,6 @@ tags:
                 'fields'         =>  [
                     [
                         'name' => 'title',
-                        'min'  => '0',
-                        'max'  => '0',
                         'type' => 'string',
                     ],
                 ],

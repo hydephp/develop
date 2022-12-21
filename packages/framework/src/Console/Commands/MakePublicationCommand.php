@@ -189,19 +189,6 @@ class MakePublicationCommand extends ValidatingCommand
         $fieldRules = Collection::make($field->type->rules());
         if ($fieldRules->contains('between')) {
             $fieldRules->forget($fieldRules->search('between'));
-            if ($field->min && $field->max) {
-                switch ($field->type) {
-                    case 'string':
-                    case 'integer':
-                    case 'float':
-                        $fieldRules->add("between:$field->min,$field->max");
-                        break;
-                    case 'datetime':
-                        $fieldRules->add("after:$field->min");
-                        $fieldRules->add("before:$field->max");
-                        break;
-                }
-            }
         }
 
         return $fieldRules;
