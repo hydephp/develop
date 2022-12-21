@@ -12,8 +12,6 @@
     "fields": [
         {
             "name": "title",
-            "min": "0",
-            "max": "128",
             "type": "string"
         }
     ]

@@ -169,7 +169,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals([
-            'title' => ['between:0,128'],
+            'title' => [],
         ], $publicationType->getFieldRules()->toArray());
     }
 
@@ -189,8 +189,6 @@ class PublicationTypeTest extends TestCase
             'fields'         => [
                 [
                     'name' => 'title',
-                    'min'  => '0',
-                    'max'  => '128',
                     'type' => 'string',
                 ],
             ],

@@ -62,13 +62,9 @@ title: Hello World
         $pubType = $this->makePublicationType([[
             'type' => 'string',
             'name' => 'title',
-            'min'  => 0,
-            'max'  => 128,
         ], [
             'type' => 'text',
             'name' => 'description',
-            'min'  => 0,
-            'max'  => 128,
         ]]);
 
         $fieldData = Collection::make([
@@ -99,13 +95,9 @@ description: |
         $pubType = $this->makePublicationType([[
             'type' => 'string',
             'name' => 'title',
-            'min'  => 0,
-            'max'  => 128,
         ], [
             'type' => 'array',
             'name' => 'tags',
-            'min'  => 0,
-            'max'  => 128,
         ]]);
 
         $fieldData = Collection::make([
@@ -146,13 +138,9 @@ tags:
         $pubType = $this->makePublicationType([[
             'type' => 'string',
             'name' => 'title',
-            'min'  => 0,
-            'max'  => 128,
         ], [
             'type' => 'string',
             'name' => 'slug',
-            'min'  => 0,
-            'max'  => 128,
         ]]);
 
         $fieldData = Collection::make([
@@ -181,19 +169,13 @@ title: Hello World
         $pubType = $this->makePublicationType([[
             'type' => 'string',
             'name' => 'title',
-            'min'  => 0,
-            'max'  => 128,
         ], [
             'type' => 'text',
             'name' => 'description',
-            'min'  => 0,
-            'max'  => 128,
         ], [
 
             'type' => 'array',
             'name' => 'tags',
-            'min'  => 0,
-            'max'  => 128,
         ]]);
 
         $fieldData = Collection::make([
@@ -242,8 +224,6 @@ It can be multiple lines.
         [
             'type' => 'string',
             'name' => 'title',
-            'min'  => 0,
-            'max'  => 128,
         ],
     ]): PublicationType
     {

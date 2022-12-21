@@ -127,8 +127,6 @@ class PublicationPageTest extends TestCase
   "fields": [
     {
       "name": "slug",
-      "min": "4",
-      "max": "32",
       "type": "string"
     }
   ]
