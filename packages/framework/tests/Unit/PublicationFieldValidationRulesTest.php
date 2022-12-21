@@ -13,43 +13,43 @@ use Hyde\Testing\TestCase;
  */
 class PublicationFieldValidationRulesTest extends TestCase
 {
-    public function testWithArray()
+    public function testGetRulesForArray()
     {
         $rules = (new PublicationField('array', 'myArray', '4', '8'))->getValidationRules();
         $this->assertSame(['array'], $rules->toArray());
     }
 
-    public function testWithDatetime()
+    public function testGetRulesForDatetime()
     {
         $rules = (new PublicationField('datetime', 'myDatetime', '4', '8'))->getValidationRules();
         $this->assertSame(['after:4', 'before:8'], $rules->toArray());
     }
 
-    public function testWithFloat()
+    public function testGetRulesForFloat()
     {
         $rules = (new PublicationField('float', 'myFloat', '4', '8'))->getValidationRules();
         $this->assertSame(['between:4,8'], $rules->toArray());
     }
 
-    public function testWithInteger()
+    public function testGetRulesForInteger()
     {
         $rules = (new PublicationField('integer', 'myInteger', '4', '8'))->getValidationRules();
         $this->assertSame(['between:4,8'], $rules->toArray());
     }
 
-    public function testWithString()
+    public function testGetRulesForString()
     {
         $rules = (new PublicationField('string', 'myString', '4', '8'))->getValidationRules();
         $this->assertSame(['between:4,8'], $rules->toArray());
     }
 
-    public function testWithText()
+    public function testGetRulesForText()
     {
         $rules = (new PublicationField('text', 'myText', '4', '8'))->getValidationRules();
         $this->assertSame(['between:4,8'], $rules->toArray());
     }
 
-    public function testWithImage()
+    public function testGetRulesForImage()
     {
         $this->directory('_media/foo');
         $this->file('_media/foo/bar.jpg');
@@ -58,13 +58,13 @@ class PublicationFieldValidationRulesTest extends TestCase
         $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules->toArray());
     }
 
-    public function testWithTag()
+    public function testGetRulesForTag()
     {
         $rules = (new PublicationField('tag', 'myTag', '4', '8', 'foo'))->getValidationRules();
         $this->assertSame(['in:'], $rules->toArray());
     }
 
-    public function testWithUrl()
+    public function testGetRulesForUrl()
     {
         $rules = (new PublicationField('url', 'myUrl', '4', '8'))->getValidationRules();
         $this->assertSame(['url'], $rules->toArray());
