@@ -86,10 +86,10 @@ class PublicationService
     {
         $tags = static::getAllTags();
         if ($tags->has($tagName)) {
-            return $tags->$tagName;
+            return $tags->$tagName ?? Collection::create();
         }
 
-        return null; // TODO: Maybe we should return an empty collection here to match behavior of getAllTags()?
+        return Collection::create();
     }
 
     /**

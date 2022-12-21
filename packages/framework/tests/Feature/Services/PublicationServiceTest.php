@@ -195,12 +195,12 @@ class PublicationServiceTest extends TestCase
 
         $this->file('tags.json', json_encode($tags));
 
-        $this->assertNull(PublicationService::getValuesForTagName('bar'));
+        $this->assertSame([], PublicationService::getValuesForTagName('bar')->toArray());
     }
 
     public function testGetValuesForTagNameWithNoTags()
     {
-        $this->assertNull(PublicationService::getValuesForTagName('foo'));
+        $this->assertSame([], PublicationService::getValuesForTagName('foo')->toArray());
     }
 
     protected function createPublicationType(): void
