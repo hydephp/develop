@@ -38,6 +38,13 @@ class PublicationFieldTypesEnumTest extends TestCase
         ], PublicationFieldTypes::String->rules());
     }
 
+    public function testCanGetRulesForEnumWithNoRules()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('This type has no validation rules');
+        PublicationFieldTypes::Tag->rules();
+    }
+
     public function testCollectCreatesCollectionOfCases()
     {
         $this->assertEquals(collect(PublicationFieldTypes::cases()), PublicationFieldTypes::collect());
@@ -57,12 +64,5 @@ class PublicationFieldTypesEnumTest extends TestCase
             8 => 'image',
             9 => 'tag',
         ], PublicationFieldTypes::values());
-    }
-
-    public function testCanGetRulesForEnumWithNoRules()
-    {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('This type has no validation rules');
-        PublicationFieldTypes::Tag->rules();
     }
 }
