@@ -87,11 +87,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
             $type = $this->getFieldType();
 
             if ($type < 10) {
-                do {
-                    $fieldData['min'] = trim($this->askWithValidation('min', 'Min value (see Documentation)', ['required', 'string'], 0));
-                    $fieldData['max'] = trim($this->askWithValidation('max', 'Max value (see Documentation)', ['required', 'string'], 0));
-                    $lengthsValid = $this->validateLengths($fieldData['min'], $fieldData['max']);
-                } while (! $lengthsValid);
             } else {
                 $fieldData = $this->getFieldDataForTag($fieldData);
             }

@@ -39,8 +39,6 @@ class MakePublicationTypeCommandTest extends TestCase
                 9 => 'Local Image',
                 10 => 'Tag (select value from list)',
             ])
-            ->expectsQuestion('Min value (see Documentation)', '0')
-            ->expectsQuestion('Max value (see Documentation)', '0')
             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
             ->expectsChoice('Choose the default field you wish to sort by', 'dateCreated (meta field)', [
                 'dateCreated (meta field)',
@@ -78,8 +76,6 @@ class MakePublicationTypeCommandTest extends TestCase
                     {
                         "type": "string",
                         "name": "publication-title",
-                        "min": "0",
-                        "max": "0",
                         "tagGroup": null
                     }
                 ]
@@ -89,28 +85,6 @@ class MakePublicationTypeCommandTest extends TestCase
         );
 
         // TODO: Assert Blade templates were created?
-
-        Filesystem::deleteDirectory('test-publication');
-    }
-
-    public function test_cannot_create_field_with_lower_max_than_min_value()
-    {
-        $this->artisan('make:publicationType test-publication')
-             ->expectsQuestion('Field name', 'foo')
-             ->expectsQuestion('Field type', 'foo')
-             ->expectsQuestion('Min value (see Documentation)', 10)
-             ->expectsQuestion('Max value (see Documentation)', 5)
-             ->expectsQuestion('Min value (see Documentation)', 5)
-             ->expectsQuestion('Max value (see Documentation)', 10)
-
-             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
-             ->expectsQuestion('Choose the default field you wish to sort by', 'foo')
-             ->expectsQuestion('Choose the default sort direction', 'Ascending (oldest items first if sorting by dateCreated)')
-             ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
-             ->expectsQuestion('Generate previous/next links in detail view (y/n)', 'n')
-             ->expectsQuestion('Choose a canonical name field (the values of this field have to be unique!)', 'foo')
-             ->expectsOutputToContain('Creating a new Publication Type!')
-             ->assertSuccessful();
 
         Filesystem::deleteDirectory('test-publication');
     }
