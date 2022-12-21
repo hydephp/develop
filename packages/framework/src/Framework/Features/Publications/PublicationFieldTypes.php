@@ -49,7 +49,7 @@ enum PublicationFieldTypes: string
             self::Boolean => ['boolean'],
             self::Integer => ['integer'],
             self::Float => ['numeric'],
-            self::Datetime => ['datetime'],
+            self::Datetime => ['date'],
             self::Url => ['url'],
             self::Text => ['string'],
             self::Array => [],
