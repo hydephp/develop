@@ -10,6 +10,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use JetBrains\PhpStorm\Deprecated;
 use Rgasch\Collection\Collection;
 use function strtolower;
 
@@ -24,7 +25,9 @@ class PublicationField implements SerializableContract
     use Serializable;
 
     public readonly PublicationFieldTypes $type;
+    /** @deprecated https://github.com/hydephp/develop/pull/685#issuecomment-1361565809 */
     public readonly string $max;
+    /** @deprecated https://github.com/hydephp/develop/pull/685#issuecomment-1361565809 */
     public readonly string $min;
     public readonly string $name;
     public readonly ?string $tagGroup;
@@ -35,7 +38,7 @@ class PublicationField implements SerializableContract
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, int|string|null $min = '0', int|string|null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, #[Deprecated] int|string|null $min = '0', #[Deprecated] int|string|null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
