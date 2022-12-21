@@ -84,6 +84,7 @@ class PublicationField implements SerializableContract
                 $fieldRules->add('array');
                 break;
             case 'datetime':
+                $fieldRules->add('date');
                 if ($this->min) {
                     $dateMin = Carbon::parse($this->min);
                     $fieldRules->add("after:$dateMin");
