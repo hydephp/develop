@@ -65,7 +65,7 @@ class PublicationService
      */
     public static function getAllTags(): Collection
     {
-        $filename = Hyde::pathToRelative('tags.json');
+        $filename = Hyde::path('tags.json');
         if (! file_exists($filename)) {
             return Collection::create();
         }
@@ -77,19 +77,19 @@ class PublicationService
      * Get all values for a given tag name.
      *
      * @param  string  $tagName
-     * @return \Rgasch\Collection\Collection|null
+     * @return \Rgasch\Collection\Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */
-    public static function getValuesForTagName(string $tagName): ?Collection
+    public static function getValuesForTagName(string $tagName): Collection
     {
         $tags = static::getAllTags();
-        if ($tags->has($tagName)) {
-            return $tags->$tagName;
+        if (! $tags->get($tagName)) {
+            return Collection::create();
         }
 
-        return null;
+        return $tags->$tagName;
     }
 
     /**

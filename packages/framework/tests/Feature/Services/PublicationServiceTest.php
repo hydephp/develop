@@ -13,6 +13,7 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use function json_encode;
 use function mkdir;
 use Rgasch\Collection\Collection;
 
@@ -146,6 +147,60 @@ class PublicationServiceTest extends TestCase
 
         $this->assertTrue(PublicationService::publicationTypeExists('test-publication'));
         $this->assertFalse(PublicationService::publicationTypeExists('foo'));
+    }
+
+    public function testGetAllTags()
+    {
+        $tags = [
+            'foo' => [
+                'bar',
+                'baz',
+            ],
+        ];
+        $this->file('tags.json', json_encode($tags));
+        $this->assertSame($tags, PublicationService::getAllTags()->toArray());
+    }
+
+    public function testGetAllTagsWithNoTags()
+    {
+        $this->assertSame([], PublicationService::getAllTags()->toArray());
+    }
+
+    public function testGetValuesForTagName()
+    {
+        $tags = [
+            'foo' => [
+                'bar',
+                'baz',
+            ],
+            'bar' => [
+                'baz',
+                'qux',
+            ],
+        ];
+
+        $this->file('tags.json', json_encode($tags));
+
+        $this->assertSame(['bar', 'baz'], PublicationService::getValuesForTagName('foo')->toArray());
+    }
+
+    public function testGetValuesForTagNameWithMissingTagName()
+    {
+        $tags = [
+            'foo' => [
+                'bar',
+                'baz',
+            ],
+        ];
+
+        $this->file('tags.json', json_encode($tags));
+
+        $this->assertSame([], PublicationService::getValuesForTagName('bar')->toArray());
+    }
+
+    public function testGetValuesForTagNameWithNoTags()
+    {
+        $this->assertSame([], PublicationService::getValuesForTagName('foo')->toArray());
     }
 
     protected function createPublicationType(): void
