@@ -64,6 +64,7 @@ class PublicationField implements SerializableContract
 
         // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
 
+        // Apply any dynamic rules.
         switch ($this->type->value) {
             case 'image':
                 $mediaFiles = PublicationService::getMediaForPubType($publicationType);
