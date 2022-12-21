@@ -46,7 +46,7 @@ class PublicationField implements SerializableContract
         $this->tagGroup = $tagGroup;
         $this->publicationType = $publicationType;
 
-        if ($max < $min) {
+        if ($max < $min && $max !== '0') {
             throw new InvalidArgumentException("The 'max' value cannot be less than the 'min' value.");
         }
     }

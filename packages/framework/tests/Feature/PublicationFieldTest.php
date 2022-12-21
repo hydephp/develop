@@ -92,6 +92,18 @@ class PublicationFieldTest extends TestCase
         new PublicationField('string', 'test', '10', '1');
     }
 
+    public function test_only_min_value_can_be_set()
+    {
+        new PublicationField('string', 'test', '1');
+        $this->assertTrue(true);
+    }
+
+    public function test_only_max_value_can_be_set()
+    {
+        new PublicationField('string', 'test', null, '10');
+        $this->assertTrue(true);
+    }
+
     public function test_integers_can_be_added_as_strings()
     {
         $field = new PublicationField('string', 'test', '1', '10');
