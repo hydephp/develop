@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Illuminate\Support\Carbon;
 use function collect;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -84,8 +85,11 @@ class PublicationField implements SerializableContract
                 break;
             case 'datetime':
                 if ($useRange) {
-                    $fieldRules->add("after:$this->min");
-                    $fieldRules->add("before:$this->max");
+                    // Parse the datetimes to ensure they are valid and normalized.
+                    $dateMin = Carbon::parse($this->min);
+                    $dateMax = Carbon::parse($this->max);
+                    $fieldRules->add("after:$dateMin");
+                    $fieldRules->add("before:$dateMax");
                 }
                 break;
             case 'float':
