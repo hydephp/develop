@@ -59,7 +59,7 @@ class PublicationFieldValidationRulesTest extends TestCase
     public function testGetRulesForInteger()
     {
         $rules = (new PublicationField('integer', 'myInteger'))->getValidationRules();
-        $this->assertSame(['integer'], $rules->toArray());
+        $this->assertSame(['integer', 'numeric'], $rules->toArray());
     }
 
     public function testGetRulesForString()
