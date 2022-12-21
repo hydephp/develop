@@ -26,20 +26,17 @@ class PublicationField implements SerializableContract
     public readonly PublicationFieldTypes $type;
     public readonly string $name;
     public readonly ?string $tagGroup;
-    /** @deprecated Since this is only used one method it will be moved to that method */
-    public readonly ?PublicationType $publicationType; // Only used for validation command, interactive command doesn't need this
 
     public static function fromArray(array $array): static
     {
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, ?string $tagGroup = null, PublicationType $publicationType = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, ?string $tagGroup = null)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
         $this->tagGroup = $tagGroup;
-        $this->publicationType = $publicationType;
     }
 
     public function toArray(): array
@@ -55,7 +52,7 @@ class PublicationField implements SerializableContract
      * @see \Hyde\Framework\Testing\Unit\PublicationFieldTypeValidationRulesTest
      * @see https://laravel.com/docs/9.x/validation#available-validation-rules
      */
-    public function getValidationRules(bool $reload = true): Collection
+    public function getValidationRules(PublicationType $publicationType, bool $reload = true): Collection
     {
         $defaultRules = Collection::create(PublicationFieldTypes::values());
         $fieldRules = Collection::create($defaultRules->get($this->type->value));
@@ -76,7 +73,7 @@ class PublicationField implements SerializableContract
             case 'text':
                 break;
             case 'image':
-                $mediaFiles = PublicationService::getMediaForPubType($this->publicationType, $reload);
+                $mediaFiles = PublicationService::getMediaForPubType($publicationType, $reload);
                 $valueList = $mediaFiles->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
@@ -93,10 +90,10 @@ class PublicationField implements SerializableContract
         return $fieldRules;
     }
 
-    public function validate(mixed $input = null, Collection $fieldRules = null): array
+    public function validate(PublicationType $publicationType, mixed $input = null, Collection $fieldRules = null): array
     {
         if (! $fieldRules) {
-            $fieldRules = $this->getValidationRules(false);
+            $fieldRules = $this->getValidationRules($publicationType, false);
         }
 
         $validator = validator([$this->name => $input], [$this->name => $fieldRules->toArray()]);
