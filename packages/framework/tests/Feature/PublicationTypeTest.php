@@ -169,7 +169,7 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals([
-            'title' => [],
+            'title' => ['string'],
         ], $publicationType->getFieldRules()->toArray());
     }
 
