@@ -40,9 +40,7 @@ class PublicationFieldTypesEnumTest extends TestCase
 
     public function testCanGetRulesForEnumWithNoRules()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('This type has no validation rules');
-        PublicationFieldTypes::Tag->rules();
+        $this->assertSame([], PublicationFieldTypes::Tag->rules());
     }
 
     public function testCollectCreatesCollectionOfCases()

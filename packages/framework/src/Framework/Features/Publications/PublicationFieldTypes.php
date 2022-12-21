@@ -52,9 +52,9 @@ enum PublicationFieldTypes: string
             self::Datetime => ['required', 'datetime', 'between'],
             self::Url => ['required', 'url'],
             self::Text => ['required', 'string', 'between'],
-            self::Array => throw new BadMethodCallException('This type has no validation rules'),
-            self::Image => throw new BadMethodCallException('This type has no validation rules'),
-            self::Tag => throw new BadMethodCallException('This type has no validation rules'),
+            self::Array => [],
+            self::Image => [],
+            self::Tag => [],
         };
     }
 }
