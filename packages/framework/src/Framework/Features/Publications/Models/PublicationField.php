@@ -69,11 +69,8 @@ class PublicationField implements SerializableContract
                 $fieldRules->add('array');
                 break;
             case 'datetime':
-                $fieldRules->add('date');
-
                 break;
             case 'float':
-                $fieldRules->add('numeric');
                 break;
             case 'integer':
             case 'string':
@@ -90,7 +87,6 @@ class PublicationField implements SerializableContract
                 $fieldRules->add("in:$valueList");
                 break;
             case 'url':
-                $fieldRules->add('url');
                 break;
         }
 
