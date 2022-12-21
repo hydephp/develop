@@ -20,6 +20,18 @@ class PublicationFieldValidationRulesTest extends TestCase
         $this->assertSame(['array'], $rules->toArray());
     }
 
+    public function testValidateArrayPasses()
+    {
+        $validated = (new PublicationField('array', 'myArray', '4', '8'))->validate(['foo', 'bar', 'baz']);
+        $this->assertSame(['my-array' => ['foo', 'bar', 'baz']], $validated);
+    }
+
+    public function testValidateArrayFails()
+    {
+        $this->expectValidationException('The my-array must be an array.');
+        (new PublicationField('array', 'myArray', '4', '8'))->validate('foo');
+    }
+
     public function testGetRulesForDatetime()
     {
         $rules = (new PublicationField('datetime', 'myDatetime', '2021-01-01', '2022-01-01'))->getValidationRules();
