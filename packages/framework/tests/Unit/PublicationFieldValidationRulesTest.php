@@ -56,19 +56,19 @@ class PublicationFieldValidationRulesTest extends TestCase
         $this->assertSame(['my-datetime' => '2021-01-01'], $validated);
     }
 
-    public function testValidateDatetimeFails1()
+    public function testValidateDatetimeFailsForInvalidType()
     {
         $this->expectValidationException('The my-datetime is not a valid date.');
         (new PublicationField('datetime', 'myDatetime'))->validate('string');
     }
 
-    public function testValidateDatetimeFails2()
+    public function testValidateDatetimeFailsForInvalidMinValue()
     {
         $this->expectValidationException('The my-datetime must be a date after 2021-01-01 00:00:00.');
         (new PublicationField('datetime', 'myDatetime', '2021-01-01'))->validate('2020-12-31');
     }
 
-    public function testValidateDatetimeFails3()
+    public function testValidateDatetimeFailsForInvalidMaxValue()
     {
         $this->expectValidationException('The my-datetime must be a date before 2021-01-02 00:00:00.');
         (new PublicationField('datetime', 'myDatetime', null, '2021-01-02'))->validate('2021-01-03');
