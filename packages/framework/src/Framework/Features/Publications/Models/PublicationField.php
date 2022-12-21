@@ -96,10 +96,7 @@ class PublicationField implements SerializableContract
             case 'image':
                 $mediaFiles = PublicationService::getMediaForPubType($this->publicationType, $reload);
                 $valueList = $mediaFiles->implode(',');
-                $fieldRules->add("in:$valueList"); // FIXME What if the list is empty?
-                                                   // FIXME: Now the items look like 'in:_media/foo/bar.jpg', but do we really need the directory information?
-                                                   //   Wouldn't it suffice with just 'in:bar.jpg' since we already know what directory it is in?
-                                                   //   We could then easily qualify it within the template and/or via a helper method.
+                $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
                 $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload) ?? collect([]);
