@@ -57,7 +57,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
         $output = "---\n";
         $output .= "__createdAt: $now\n";
-        /** @var PublicationFieldType $field */
+        /** @var \Hyde\Framework\Features\Publications\Models\PublicationField $field */
         foreach ($this->pubType->getFields() as $field) {
             $lines = [];
 
