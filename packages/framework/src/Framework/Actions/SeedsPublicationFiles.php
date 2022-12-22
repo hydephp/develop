@@ -87,10 +87,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return $value;
     }
 
-    protected function generateFieldData(
-        PublicationField $field,
-    string $canonicalFieldName
-    ): array {
+    protected function generateFieldData(PublicationField $field, string $canonicalFieldName): array {
         switch ($field->type->value) {
             case 'array':
                 $arrayItems = [];
