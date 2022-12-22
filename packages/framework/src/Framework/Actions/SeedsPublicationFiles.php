@@ -96,7 +96,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return match ($field->type->value) {
              'array' => $this->getArrayItems(),
              'boolean' => rand(0, 100) < 50,
-             'datetime' => "{$this->getDateTimeValue()}",
+             'datetime' => $this->getDateTimeValue(),
              'float' => rand(-10000000, 10000000) / 100,
              'image' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
              'integer' => rand(-100000, 100000),
