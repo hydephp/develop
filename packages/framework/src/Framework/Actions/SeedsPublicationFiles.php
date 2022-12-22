@@ -113,7 +113,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     }
                     $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
                     if ($tags->isEmpty()) {
-                        // TODO Should we throw if the tags collection is empty?
                         $tagValue = '';
                     } else {
                         $tagValue = $tags->random();
