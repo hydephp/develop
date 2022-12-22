@@ -173,6 +173,21 @@ class PublicationTypeTest extends TestCase
         ], $publicationType->getFieldRules()->toArray());
     }
 
+    public function test_get_field_rules_with_custom_type_rules()
+    {
+        $publicationType = new PublicationType(...$this->getTestData(['fields' => [
+        'title' => [
+            'name' => 'title',
+            'type' => 'string',
+            'rules' => ['required', 'foo'],
+        ],
+        ]]));
+
+        $this->assertEquals([
+            'title' => ['string', 'required', 'foo'],
+        ], $publicationType->getFieldRules()->toArray());
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
