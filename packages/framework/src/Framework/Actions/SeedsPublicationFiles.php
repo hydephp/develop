@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use Faker\Factory;
+use Faker\Generator;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
+use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
@@ -26,7 +28,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 {
     protected array $matter;
     protected string $canonicalValue;
-    protected \Faker\Generator $faker;
+    protected Generator $faker;
 
     public function __construct(
         protected PublicationType $pubType,
@@ -86,7 +88,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     }
 
     protected function generateFieldData(
-        \Hyde\Framework\Features\Publications\Models\PublicationField $field,
+        PublicationField $field,
     string $canonicalFieldName
     ): array {
         switch ($field->type->value) {
