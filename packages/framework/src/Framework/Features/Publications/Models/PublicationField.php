@@ -84,10 +84,9 @@ class PublicationField implements SerializableContract
     /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
     public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
-        return validator([$this->name => $input],
-            [$this->name => $this->evaluateArrayable(
-                $fieldRules ?? $this->getValidationRules($publicationType)
-            )])->validate();
+        $rules = $this->evaluateArrayable($fieldRules ?? $this->getValidationRules($publicationType));
+        
+        return validator([$this->name => $input], [$this->name => $rules])->validate();
     }
 
     protected function evaluateArrayable(array|Arrayable $array): array
