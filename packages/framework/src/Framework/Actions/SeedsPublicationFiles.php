@@ -44,7 +44,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     public function create(): void
     {
         for ($i = 0; $i < $this->number; $i++) {
-            [$this->matter, $this->canonicalValue] = $this->generatePublicationData();
+            $this->generatePublicationData();
             $identifier = Str::slug(substr($this->canonicalValue, 0, 64));
 
             $page = new PublicationPage($identifier, $this->matter, '## Write something awesome.', $this->pubType);
@@ -52,7 +52,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         }
     }
 
-    protected function generatePublicationData(): array
+    protected function generatePublicationData(): void
     {
         $this->faker = Factory::create();
         $now = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
@@ -62,10 +62,12 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $this->matter = [];
         $this->matter['__createdAt'] = "$now\n";
         foreach ($this->pubType->getFields() as $field) {
-            [$this->matter, $this->canonicalValue] = $this->generateFieldData($field, $canonicalFieldName);
+            $this->generateFieldData($field, $canonicalFieldName);
         }
 
-        return [$this->matter, $this->canonicalValue ?: $this->faker->sentence(3)];
+        if (!$this->canonicalValue) {
+            $this->canonicalValue = $this->faker->sentence(3);
+        }
     }
 
     protected function getDateTimeValue(): string
@@ -87,7 +89,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return $value;
     }
 
-    protected function generateFieldData(PublicationField $field, string $canonicalFieldName): array {
+    protected function generateFieldData(PublicationField $field, string $canonicalFieldName): void {
         switch ($field->type->value) {
             case 'array':
                 $arrayItems = [];
@@ -140,7 +142,5 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
         }
-
-        return [$this->matter, $this->canonicalValue];
     }
 }
