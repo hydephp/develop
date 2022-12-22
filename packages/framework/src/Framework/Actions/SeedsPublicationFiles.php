@@ -74,7 +74,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $output .= "$field->name: $value\n";
                     break;
                 case 'datetime':
-                    $value = Carbon::createFromTimestamp(rand(Carbon::today()->subDays(1)->addSeconds(rand(0, 86400))->timestamp, Carbon::today()->subDays(365)->addSeconds(rand(0, 86400))->timestamp))->format('Y-m-d H:i:s');
+                    $value = Carbon::createFromTimestamp(rand(Carbon::today()->subDays()->addSeconds(rand(0, 86400))->timestamp, Carbon::today()->subDays(365)->addSeconds(rand(0, 86400))->timestamp))->format('Y-m-d H:i:s');
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
@@ -93,7 +93,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'string':
-                    $value = Str::of($faker->sentence(10))->limit(rand(0, 255), '...');
+                    $value = Str::of($faker->sentence(10))->limit(rand(0, 255));
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
