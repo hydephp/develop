@@ -90,7 +90,7 @@ class SeedsPublicationFiles
             'array' => $this->getArrayItems(),
             'boolean' => rand(0, 100) < 50,
             'datetime' => $this->getDateTimeValue(),
-            'float' => rand(-10000000, 10000000) / 100,
+            'float' => $this->randomFloat(-100000, 100000),
             'image' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
             'integer' => rand(-100000, 100000),
             'string' => substr($this->fakeSentence(10), 0, rand(0, 255)),
@@ -129,6 +129,11 @@ class SeedsPublicationFiles
         $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
 
         return $tags->isEmpty() ? '' : $tags->random();
+    }
+
+    protected function randomFloat(int $min, int $max): float
+    {
+        return $min + mt_rand() / mt_getrandmax() * ($max - $min);
     }
 
     private const WORDS = [
