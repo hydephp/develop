@@ -105,19 +105,16 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $this->matter[$field->name] = rand(0, 100) < 50;
                 break;
             case 'datetime':
-                $value = $this->getDateTimeValue();
-                $this->matter[$field->name] = "$value";
+                $this->matter[$field->name] = "{$this->getDateTimeValue()}";
                 break;
             case 'float':
-                $value = rand(-10000000, 10000000) / 100;
-                $this->matter[$field->name] = $value;
+                $this->matter[$field->name] = rand(-10000000, 10000000) / 100;
                 break;
             case 'image':
                 $this->matter[$field->name] = 'https://picsum.photos/id/'.rand(1, 1000).'/400/400';
                 break;
             case 'integer':
-                $value = rand(-100000, 100000);
-                $this->matter[$field->name] = $value;
+                $this->matter[$field->name] = rand(-100000, 100000);
                 break;
             case 'string':
                 $value = substr($this->faker->sentence(10), 0, rand(0, 255));
@@ -125,16 +122,13 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 break;
             case 'tag':
                 $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
-                $tagValue = $tags->isEmpty() ? '' : $tags->random();
-                $this->matter[$field->name] = $tagValue;
+                $this->matter[$field->name] = ($tags->isEmpty() ? '' : $tags->random());
                 break;
             case 'text':
-                $value = $this->getTextValue(rand(3, 20));
-                $this->matter[$field->name] = $value;
+                $this->matter[$field->name] = $this->getTextValue(rand(3, 20));
                 break;
             case 'url':
-                $value = $this->faker->url();
-                $this->matter[$field->name] = $value;
+                $this->matter[$field->name] = $this->faker->url();
                 break;
         }
     }
