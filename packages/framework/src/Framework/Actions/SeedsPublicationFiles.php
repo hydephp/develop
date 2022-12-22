@@ -13,7 +13,10 @@ use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
+
+use function rand;
 use function Safe\file_put_contents;
+use function time;
 
 /**
  * Seed publication files for a publication type.
@@ -116,10 +119,10 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
     protected function getDateTimeValue(): string
     {
-        return Carbon::createFromTimestamp(rand(
-                Carbon::today()->subDay()->addSeconds(rand(0, 86400))->timestamp,
-                Carbon::today()->subDays(365)->addSeconds(rand(0, 86400))->timestamp
-        ))->format('Y-m-d H:i:s');
+        return date('Y-m-d H:i:s', rand(
+            time() - 86400 + (rand(0, 86400)),
+            time() - (86400 * 365) + (rand(0, 86400))
+        ));
     }
 
     protected function getTextValue($faker): string
