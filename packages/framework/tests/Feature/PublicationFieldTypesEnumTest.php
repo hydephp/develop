@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use BadMethodCallException;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 
@@ -29,13 +28,18 @@ class PublicationFieldTypesEnumTest extends TestCase
         $this->assertSame('tag', PublicationFieldTypes::Tag->value);
     }
 
-    public function testCanGetRulesForEnum()
+    public function testGetRules()
     {
-        $this->assertSame([
-            'required',
-            'string',
-            'between',
-        ], PublicationFieldTypes::String->rules());
+        $this->assertSame(['string'], PublicationFieldTypes::String->rules());
+        $this->assertSame(['boolean'], PublicationFieldTypes::Boolean->rules());
+        $this->assertSame(['integer', 'numeric'], PublicationFieldTypes::Integer->rules());
+        $this->assertSame(['numeric'], PublicationFieldTypes::Float->rules());
+        $this->assertSame(['date'], PublicationFieldTypes::Datetime->rules());
+        $this->assertSame(['url'], PublicationFieldTypes::Url->rules());
+        $this->assertSame(['string'], PublicationFieldTypes::Text->rules());
+        $this->assertSame(['array'], PublicationFieldTypes::Array->rules());
+        $this->assertSame([], PublicationFieldTypes::Image->rules());
+        $this->assertSame([], PublicationFieldTypes::Tag->rules());
     }
 
     public function testCollectCreatesCollectionOfCases()
@@ -57,12 +61,5 @@ class PublicationFieldTypesEnumTest extends TestCase
             8 => 'image',
             9 => 'tag',
         ], PublicationFieldTypes::values());
-    }
-
-    public function testCanGetRulesForEnumWithNoRules()
-    {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('This type has no validation rules');
-        PublicationFieldTypes::Tag->rules();
     }
 }
