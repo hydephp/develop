@@ -119,7 +119,7 @@ class PublicationFieldTest extends TestCase
     public function testValidateWithCustomRuleCollectionOverridesDefaultRules()
     {
         $this->expectValidationException('The my-string must be a number.');
-        (new PublicationField('string', 'myString'))->validate("foo", Collection::create(['numeric']));
+        (new PublicationField('string', 'myString'))->validate('foo', Collection::create(['numeric']));
     }
 
     public function testGetRulesForArray()
