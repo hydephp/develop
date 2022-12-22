@@ -85,7 +85,7 @@ class PublicationField implements SerializableContract
     public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
         $rules = $this->evaluateArrayable($fieldRules ?? $this->getValidationRules($publicationType));
-        
+
         return validator([$this->name => $input], [$this->name => $rules])->validate();
     }
 
