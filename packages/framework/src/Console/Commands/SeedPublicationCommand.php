@@ -8,9 +8,9 @@ use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-use Rgasch\Collection\Collection;
 
 /**
  * Hyde Command to seed publication files for a publication type.
@@ -60,7 +60,7 @@ class SeedPublicationCommand extends ValidatingCommand
     }
 
     /**
-     * @param  \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
+     * @param  \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
      * @return \Hyde\Framework\Features\Publications\Models\PublicationType
      */
     protected function getPubTypeSelection(Collection $pubTypes): PublicationType
@@ -86,7 +86,7 @@ class SeedPublicationCommand extends ValidatingCommand
     }
 
     /**
-     * @return \Rgasch\Collection\Collection<string, PublicationType>
+     * @return \Illuminate\Support\Collection<string, PublicationType>
      *
      * @throws \InvalidArgumentException
      */

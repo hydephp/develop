@@ -11,8 +11,8 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Rgasch\Collection\Collection;
 use function strtolower;
 
 /**
@@ -57,7 +57,7 @@ class PublicationField implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        $fieldRules = Collection::create(PublicationFieldTypes::getRules($this->type));
+        $fieldRules = Collection::make(PublicationFieldTypes::getRules($this->type));
 
         // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
 

@@ -138,7 +138,7 @@ class PublicationTypeTest extends TestCase
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertInstanceOf(PublicationField::class, $collection->first());
-        $this->assertEquals(new \Rgasch\Collection\Collection([
+        $this->assertEquals(new \Illuminate\Support\Collection([
             'title' => new PublicationField('string', 'title'),
         ]), $collection);
     }

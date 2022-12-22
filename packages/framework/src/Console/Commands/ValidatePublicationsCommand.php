@@ -38,7 +38,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
             if (! $pubTypesToValidate->has($name)) {
                 throw new InvalidArgumentException("Publication type [$name] does not exist");
             }
-            $pubTypesToValidate = [$name => $pubTypesToValidate->{$name}];
+            $pubTypesToValidate = [$name => $pubTypesToValidate->get($name)];
         }
 
         if (count($pubTypesToValidate) === 0) {
@@ -80,8 +80,8 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         }
 
                         $pubTypeField->validate(
-                            $publication->matter->{$fieldName} ?? null,
-                            $publicationFieldRules->{$fieldName} ?? null,
+                            $publication->matter->get($fieldName),
+                            $publicationFieldRules->get($fieldName),
                             $pubType
                         );
                         $this->output->writeln(" <fg=green>$checkmark</>");

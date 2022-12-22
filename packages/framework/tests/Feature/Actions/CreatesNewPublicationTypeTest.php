@@ -8,7 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationType

@@ -12,9 +12,9 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use function implode;
+use function json_encode;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
-use function Safe\json_encode;
 use function sprintf;
 
 /**

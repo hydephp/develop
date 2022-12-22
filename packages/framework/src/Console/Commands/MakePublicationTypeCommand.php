@@ -13,11 +13,11 @@ use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use function is_dir;
 use LaravelZero\Framework\Commands\Command;
-use Rgasch\Collection\Collection;
 use function scandir;
 use function strtolower;
 use function trim;
@@ -73,7 +73,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
         $count = 1;
-        $fields = Collection::create();
+        $fields = Collection::make();
         do {
             $this->line('');
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
