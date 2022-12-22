@@ -68,7 +68,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
                     break;
                 case 'boolean':
-                    $matter[$field->name] = (rand(0, 100) < 50 ? true : false);
+                    $matter[$field->name] = rand(0, 100) < 50;
                     break;
                 case 'datetime':
                     $value = $this->getDateTimeValue();
