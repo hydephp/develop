@@ -109,11 +109,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     break;
                 case 'tag':
                     $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
-                    if ($tags->isEmpty()) {
-                        $tagValue = '';
-                    } else {
-                        $tagValue = $tags->random();
-                    }
+                    $tagValue = $tags->isEmpty() ? '' : $tags->random();
                     $output .= "$field->name: $tagValue\n";
                     break;
                 case 'text':
