@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use BadMethodCallException;
 use Illuminate\Support\Collection;
 
 /**
@@ -45,16 +44,16 @@ enum PublicationFieldTypes: string
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
         return match ($type) {
-            self::String => ['required', 'string', 'between'],
-            self::Boolean => ['required', 'boolean'],
-            self::Integer => ['required', 'integer', 'between'],
-            self::Float => ['required', 'numeric', 'between'],
-            self::Datetime => ['required', 'datetime', 'between'],
-            self::Url => ['required', 'url'],
-            self::Text => ['required', 'string', 'between'],
-            self::Array => throw new BadMethodCallException('This type has no validation rules'),
-            self::Image => throw new BadMethodCallException('This type has no validation rules'),
-            self::Tag => throw new BadMethodCallException('This type has no validation rules'),
+            self::String => ['string'],
+            self::Boolean => ['boolean'],
+            self::Integer => ['integer', 'numeric'],
+            self::Float => ['numeric'],
+            self::Datetime => ['date'],
+            self::Url => ['url'],
+            self::Text => ['string'],
+            self::Array => ['array'],
+            self::Image => [],
+            self::Tag => [],
         };
     }
 }

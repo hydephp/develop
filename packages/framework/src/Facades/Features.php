@@ -40,7 +40,7 @@ class Features implements SerializableContract
             static::bladePages(),
             static::markdownPages(),
             static::documentationPages(),
-            static::publicationPages(),
+            static::publications(),
             // static::dataCollections(),
 
             // Frontend Features
@@ -83,7 +83,12 @@ class Features implements SerializableContract
 
     public static function hasPublicationPages(): bool
     {
-        return static::enabled(static::publicationPages());
+        return static::enabled(static::publications());
+    }
+
+    public static function hasPublications(): bool
+    {
+        return static::enabled(static::publications());
     }
 
     public static function hasDataCollections(): bool
@@ -143,7 +148,7 @@ class Features implements SerializableContract
         return 'documentation-pages';
     }
 
-    public static function publicationPages(): string
+    public static function publications(): string
     {
         return 'publication-pages';
     }

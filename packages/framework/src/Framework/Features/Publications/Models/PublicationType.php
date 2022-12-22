@@ -106,22 +106,19 @@ class PublicationType implements SerializableContract
         return Collection::create($result, false);
     }
 
-    /**
-     * @param  bool  $reload
-     * @return \Rgasch\Collection\Collection<string, \Rgasch\Collection\Collection>
-     */
-    public function getFieldRules(bool $reload = false): Collection
+    /** @return \Rgasch\Collection\Collection<string, \Rgasch\Collection\Collection> */
+    public function getFieldRules(): Collection
     {
         return Collection::create(
-            $this->getFields()->mapWithKeys(function (PublicationField $field) use ($reload) {
-                return [$field->name => $field->getValidationRules($reload)];
+            $this->getFields()->mapWithKeys(function (PublicationField $field) {
+                return [$field->name => $field->getValidationRules($this)];
             }), false);
     }
 
     public function getCanonicalFieldDefinition(): PublicationField
     {
         if (str_starts_with($this->canonicalField, '__')) {
-            return new PublicationField('string', $this->canonicalField, 0, 0);
+            return new PublicationField('string', $this->canonicalField);
         }
 
         return $this->getFields()->filter(fn (PublicationField $field): bool => $field->name === $this->canonicalField)->first();

@@ -139,7 +139,7 @@ class PublicationTypeTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertInstanceOf(PublicationField::class, $collection->first());
         $this->assertEquals(new \Rgasch\Collection\Collection([
-            'title' => new PublicationField('string', 'title', 0, 128),
+            'title' => new PublicationField('string', 'title'),
         ]), $collection);
     }
 
@@ -169,32 +169,45 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals([
-            'title' => ['between:0,128'],
+            'title' => ['string'],
         ], $publicationType->getFieldRules()->toArray());
     }
 
-    protected function getTestData(): array
+    public function test_get_field_rules_with_custom_type_rules()
     {
-        return [
-            'name'           => 'Test Publication',
+        $publicationType = new PublicationType(...$this->getTestData(['fields' => [
+            'title' => [
+                'name' => 'title',
+                'type' => 'string',
+                'rules' => ['required', 'foo'],
+            ],
+        ]]));
+
+        $this->assertEquals([
+            'title' => ['string', 'required', 'foo'],
+        ], $publicationType->getFieldRules()->toArray());
+    }
+
+    protected function getTestData(array $mergeData = []): array
+    {
+        return array_merge([
+            'name' => 'Test Publication',
             'canonicalField' => 'title',
             'detailTemplate' => 'test-publication_detail',
-            'listTemplate'   => 'test-publication_list',
+            'listTemplate' => 'test-publication_list',
             'pagination' => [
-                'sortField'      => '__createdAt',
-                'sortAscending'  => true,
-                'prevNextLinks'  => true,
-                'pageSize'       => 25,
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'prevNextLinks' => true,
+                'pageSize' => 25,
             ],
-            'fields'         => [
+            'fields' => [
                 [
                     'name' => 'title',
-                    'min'  => '0',
-                    'max'  => '128',
                     'type' => 'string',
                 ],
             ],
-        ];
+        ], $mergeData);
     }
 
     protected function getTestDataWithPathInformation(): array

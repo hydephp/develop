@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use function array_filter;
+use function collect;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Rgasch\Collection\Collection;
 use function strtolower;
 
@@ -24,102 +26,74 @@ class PublicationField implements SerializableContract
     use Serializable;
 
     public readonly PublicationFieldTypes $type;
-    public readonly string $max;
-    public readonly string $min;
     public readonly string $name;
     public readonly ?string $tagGroup;
-    public readonly ?PublicationType $publicationType; // Only used for validation command, interactive command doesn't need this
+    public readonly array $rules;
 
     public static function fromArray(array $array): static
     {
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, int|string|null $min = '0', int|string|null $max = '0', ?string $tagGroup = null, PublicationType $publicationType = null)
+    public function __construct(PublicationFieldTypes|string $type, string $name, ?string $tagGroup = null, array $rules = [])
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
-        $this->min = (string) $min;
-        $this->max = (string) $max;
         $this->tagGroup = $tagGroup;
-        $this->publicationType = $publicationType;
-
-        if ($max < $min) {
-            throw new InvalidArgumentException("The 'max' value cannot be less than the 'min' value.");
-        }
+        $this->rules = $rules;
     }
 
     public function toArray(): array
     {
-        return [
+        return array_filter([
             'type' => $this->type->value,
             'name' => $this->name,
-            'min'  => $this->min,
-            'max'  => $this->max,
             'tagGroup' => $this->tagGroup,
-        ];
+            'rules' => $this->rules,
+        ]);
     }
 
-    public function getValidationRules(bool $reload = true): Collection
+    /**
+     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
+     *
+     * @see https://laravel.com/docs/9.x/validation#available-validation-rules
+     */
+    public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        $defaultRules = Collection::create(PublicationFieldTypes::values());
-        $fieldRules = Collection::create($defaultRules->get($this->type->value));
+        $fieldRules = Collection::create(PublicationFieldTypes::getRules($this->type));
 
-        $doBetween = true;
-        // The trim command used to process the min/max input results in a string, so
-        // we need to test both int and string values to determine required status.
-        if (($this->min && ! $this->max) || ($this->min == '0' && $this->max == '0')) {
-            $fieldRules->forget($fieldRules->search('required'));
-            $doBetween = false;
-        }
+        // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
 
+        // Apply any field rules.
+        $fieldRules->push(...$this->rules);
+
+        // Apply any dynamic rules.
         switch ($this->type->value) {
-            case 'array':
-                $fieldRules->add('array');
-                break;
-            case 'datetime':
-                if ($doBetween) {
-                    $fieldRules->add("after:$this->min");
-                    $fieldRules->add("before:$this->max");
-                }
-                break;
-            case 'float':
-            case 'integer':
-            case 'string':
-            case 'text':
-                if ($doBetween) {
-                    $fieldRules->add("between:$this->min,$this->max");
-                }
-                break;
             case 'image':
-                $mediaFiles = PublicationService::getMediaForPubType($this->publicationType, $reload);
+                $mediaFiles = PublicationService::getMediaForPubType($publicationType);
                 $valueList = $mediaFiles->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($this->tagGroup, $reload);
+                $tagValues = PublicationService::getValuesForTagName($this->tagGroup) ?? collect([]);
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;
-            case 'url':
-                break;
-            default:
-                throw new \InvalidArgumentException(
-                    "Unhandled field type [{$this->type->value}]. Possible field types are: ".implode(', ', PublicationFieldTypes::values())
-                );
         }
 
         return $fieldRules;
     }
 
-    public function validate(mixed $input = null, Collection $fieldRules = null): array
+    /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
+    public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
-        if (! $fieldRules) {
-            $fieldRules = $this->getValidationRules(false);
-        }
+        $rules = $this->evaluateArrayable($fieldRules ?? $this->getValidationRules($publicationType));
 
-        $validator = validator([$this->name => $input], [$this->name => $fieldRules->toArray()]);
+        return validator([$this->name => $input], [$this->name => $rules])->validate();
+    }
 
-        return $validator->validate();
+    protected function evaluateArrayable(array|Arrayable $array): array
+    {
+        return $array instanceof Arrayable ? $array->toArray() : $array;
     }
 }
