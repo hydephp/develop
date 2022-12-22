@@ -56,10 +56,10 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $matter['__createdAt'] = "$now\n";
         /** @var \Hyde\Framework\Features\Publications\Models\PublicationField $field */
         foreach ($this->pubType->getFields() as $field) {
-            $lines = [];
 
             switch ($field->type->value) {
                 case 'array':
+                    $lines = [];
                     for ($i = 0; $i < rand(3, 20); $i++) {
                         $lines[] = $faker->word();
                     }
