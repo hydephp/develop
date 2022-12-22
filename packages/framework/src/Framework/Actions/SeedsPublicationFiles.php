@@ -99,7 +99,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 }
                 $this->matter[$field->name] = $arrayItems;
                 $value = $arrayItems[0].'-'.rand(1, 100000);
-                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'boolean':
                 $this->matter[$field->name] = rand(0, 100) < 50;
@@ -107,12 +106,10 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
             case 'datetime':
                 $value = $this->getDateTimeValue();
                 $this->matter[$field->name] = "$value";
-                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'float':
                 $value = rand(-10000000, 10000000) / 100;
                 $this->matter[$field->name] = $value;
-                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'image':
                 $this->matter[$field->name] = 'https://picsum.photos/id/'.rand(1, 1000).'/400/400';
@@ -120,12 +117,10 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
             case 'integer':
                 $value = rand(-100000, 100000);
                 $this->matter[$field->name] = $value;
-                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'string':
                 $value = substr($this->faker->sentence(10), 0, rand(0, 255));
                 $this->matter[$field->name] = "$value\n";
-                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'tag':
                 $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
@@ -135,12 +130,28 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
             case 'text':
                 $value = $this->getTextValue(rand(3, 20));
                 $this->matter[$field->name] = $value;
-                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'url':
                 $value = $this->faker->url();
                 $this->matter[$field->name] = $value;
-                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                break;
+        }
+
+        switch ($field->type->value) {
+            case 'url':
+            case 'text':
+            case 'string':
+            case 'integer':
+            case 'float':
+            case 'datetime':
+            case 'array':
+                if ($field->name == $canonicalFieldName) {
+                    $this->canonicalValue = $this->matter[$field->name];
+                }
+                break;
+            case 'tag':
+            case 'image':
+            case 'boolean':
                 break;
         }
     }
