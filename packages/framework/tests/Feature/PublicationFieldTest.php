@@ -97,6 +97,15 @@ class PublicationFieldTest extends TestCase
         $this->assertSame('test-field', $field->name);
     }
 
+    public function testValidate()
+    {
+        $validated = (new PublicationField('string', 'myString'))->validate('foo');
+        $this->assertSame(['my-string' => 'foo'], $validated);
+
+        $this->expectValidationException('The my-string must be a string.');
+        (new PublicationField('string', 'myString'))->validate(1);
+    }
+
     public function testGetRulesForArray()
     {
         $rules = (new PublicationField('array', 'myArray'))->getValidationRules();
