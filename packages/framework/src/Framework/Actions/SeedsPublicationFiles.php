@@ -98,12 +98,13 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $matter[$field->name] = $tagValue;
                     break;
                 case 'text':
+                    $textLines = [];
                     $nLines = rand(3, 20);
                     for ($i = 0; $i < $nLines; $i++) {
-                        $lines[] = $faker->sentence(rand(5, 20));
+                        $textLines[] = $faker->sentence(rand(5, 20));
                     }
-                    $matter[$field->name] = "|\n  ".implode("\n  ", $lines)."\n";
-                    $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
+                    $matter[$field->name] = "|\n  ".implode("\n  ", $textLines)."\n";
+                    $canonicalValue = $field->name == $canonicalFieldName ? $textLines[0].rand(1, 100000) : '';
                     break;
                 case 'url':
                     $text = Str::of($faker->sentence(rand(3, 10)))->replace(' ', '+');
