@@ -10,6 +10,8 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
+
+use function file_exists;
 use function Safe\file_get_contents;
 use function Safe\glob;
 use function Safe\json_decode;
@@ -60,9 +62,7 @@ class PublicationService
      */
     public static function getAllTags(): Collection
     {
-        return file_exists(Hyde::path('tags.json'))
-            ? Collection::create(json_decode(file_get_contents(Hyde::path('tags.json')), true))->sortKeys()
-            : Collection::create();
+        return Collection::create(self::parseTagsFile())->sortKeys();
     }
 
     /**
@@ -104,5 +104,14 @@ class PublicationService
     protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
     {
         return glob(Hyde::path("_media/$directory/*.$extensions"), GLOB_BRACE);
+    }
+
+    protected static function parseTagsFile(): array
+    {
+        if (file_exists(Hyde::path('tags.json'))) {
+            return json_decode(file_get_contents(Hyde::path('tags.json')), true);
+        }
+
+        return [];
     }
 }
