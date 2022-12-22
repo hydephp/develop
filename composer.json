@@ -22,6 +22,7 @@
         "laravel-zero/framework": "^9.1"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^0.14.1",
         "hyde/realtime-compiler": "dev-master",
         "hyde/testing": "dev-master",
         "laravel/tinker": "^2.7",
