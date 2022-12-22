@@ -59,12 +59,12 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
             switch ($field->type->value) {
                 case 'array':
-                    $lines = [];
+                    $arrayItems = [];
                     for ($i = 0; $i < rand(3, 20); $i++) {
-                        $lines[] = $faker->word();
+                        $arrayItems[] = $faker->word();
                     }
-                    $matter[$field->name] = $lines;
-                    $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
+                    $matter[$field->name] = $arrayItems;
+                    $canonicalValue = $field->name == $canonicalFieldName ? $arrayItems[0].rand(1, 100000) : '';
                     break;
                 case 'boolean':
                     $matter[$field->name] = rand(0, 100) < 50;
