@@ -96,7 +96,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected function generateFieldData(PublicationField $field): string|int|float|array|bool
     {
         return match ($field->type->value) {
-            'array' => $this->getArrayItems(),
+             'array' => $this->getArrayItems(),
              'boolean' => rand(0, 100) < 50,
              'datetime' => "{$this->getDateTimeValue()}",
              'float' => rand(-10000000, 10000000) / 100,
