@@ -176,11 +176,11 @@ class PublicationTypeTest extends TestCase
     public function test_get_field_rules_with_custom_type_rules()
     {
         $publicationType = new PublicationType(...$this->getTestData(['fields' => [
-        'title' => [
-            'name' => 'title',
-            'type' => 'string',
-            'rules' => ['required', 'foo'],
-        ],
+            'title' => [
+                'name' => 'title',
+                'type' => 'string',
+                'rules' => ['required', 'foo'],
+            ],
         ]]));
 
         $this->assertEquals([
