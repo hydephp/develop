@@ -57,7 +57,7 @@ class PublicationField implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        $fieldRules = Collection::create(PublicationFieldTypes::getRules($this->type));
+        $fieldRules = Collection::make(PublicationFieldTypes::getRules($this->type));
 
         // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
 

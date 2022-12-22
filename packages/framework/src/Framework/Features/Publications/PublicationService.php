@@ -29,7 +29,7 @@ class PublicationService
      */
     public static function getPublicationTypes(): Collection
     {
-        return Collection::create(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
+        return Collection::make(static::getSchemaFiles())->mapWithKeys(function (string $schemaFile): array {
             $publicationType = PublicationType::fromFile(Hyde::pathToRelative($schemaFile));
 
             return [$publicationType->getDirectory() => $publicationType];
@@ -41,7 +41,7 @@ class PublicationService
      */
     public static function getPublicationsForPubType(PublicationType $pubType): Collection
     {
-        return Collection::create(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
+        return Collection::make(static::getPublicationFiles($pubType->getDirectory()))->map(function (string $file): PublicationPage {
             return static::parsePublicationFile(Hyde::pathToRelative($file));
         });
     }
@@ -51,7 +51,7 @@ class PublicationService
      */
     public static function getMediaForPubType(PublicationType $pubType): Collection
     {
-        return Collection::create(static::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
+        return Collection::make(static::getMediaFiles($pubType->getDirectory()))->map(function (string $file): string {
             return Hyde::pathToRelative($file);
         });
     }
@@ -61,7 +61,7 @@ class PublicationService
      */
     public static function getAllTags(): Collection
     {
-        return Collection::create(self::parseTagsFile())->sortKeys();
+        return Collection::make(self::parseTagsFile())->sortKeys();
     }
 
     /**
@@ -69,7 +69,7 @@ class PublicationService
      */
     public static function getValuesForTagName(string $tagName): Collection
     {
-        return self::getAllTags()->get($tagName) ?? Collection::create();
+        return self::getAllTags()->get($tagName) ?? Collection::make();
     }
 
     /**

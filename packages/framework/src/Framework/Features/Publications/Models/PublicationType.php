@@ -103,16 +103,17 @@ class PublicationType implements SerializableContract
             return [$data['name'] => new PublicationField(...$data)];
         });
 
-        return Collection::create($result, false);
+        return Collection::make($result);
     }
 
     /** @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection> */
     public function getFieldRules(): Collection
     {
-        return Collection::create(
+        return Collection::make(
             $this->getFields()->mapWithKeys(function (PublicationField $field) {
                 return [$field->name => $field->getValidationRules($this)];
-            }), false);
+            })
+        );
     }
 
     public function getCanonicalFieldDefinition(): PublicationField

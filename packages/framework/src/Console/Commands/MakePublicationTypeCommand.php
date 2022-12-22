@@ -73,7 +73,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
         $count = 1;
-        $fields = Collection::create();
+        $fields = Collection::make();
         do {
             $this->line('');
             $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
