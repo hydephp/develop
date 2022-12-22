@@ -12,10 +12,7 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Rgasch\Collection\Collection;
-
 use function rand;
-use function Safe\file_put_contents;
 use function substr;
 use function time;
 
@@ -59,7 +56,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $matter = [];
         $matter['__createdAt'] = "$now\n";
         foreach ($this->pubType->getFields() as $field) {
-            list($matter, $canonicalValue) = $this->generateFieldData($field, $faker, $matter, $canonicalFieldName, $canonicalValue);
+            [$matter, $canonicalValue] = $this->generateFieldData($field, $faker, $matter, $canonicalFieldName, $canonicalValue);
         }
 
         return [$matter, $canonicalValue ?: $faker->sentence(3)];
@@ -78,7 +75,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $value = '';
 
         for ($i = 0; $i < $lines; $i++) {
-            $value .= $faker->sentence(rand(5, 20)) . "\n";
+            $value .= $faker->sentence(rand(5, 20))."\n";
         }
 
         return $value;
@@ -115,7 +112,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'image':
-                $matter[$field->name] = "https://picsum.photos/id/".(rand(1, 1000))."/400/400";
+                $matter[$field->name] = 'https://picsum.photos/id/'.(rand(1, 1000)).'/400/400';
                 break;
             case 'integer':
                 $value = rand(-100000, 100000);
@@ -143,6 +140,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
         }
-        return array($matter, $canonicalValue);
+
+        return [$matter, $canonicalValue];
     }
 }
