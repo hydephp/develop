@@ -188,6 +188,24 @@ class PublicationTypeTest extends TestCase
         ], $publicationType->getFieldRules()->toArray());
     }
 
+    public function testGetCanonicalFieldDefinition()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertEquals(PublicationField::fromArray([
+            'name' => 'title',
+            'type' => 'string'
+        ]), $publicationType->getCanonicalFieldDefinition());
+    }
+
+    public function testGetCanonicalFieldDefinitionWithMetaFieldAsCanonical()
+    {
+        $publicationType = new PublicationType(...$this->getTestData(['canonicalField' => '__createdAt']));
+        $this->assertEquals(PublicationField::fromArray([
+            'name' => '__createdAt',
+            'type' => 'string'
+        ]), $publicationType->getCanonicalFieldDefinition());
+    }
+
     protected function getTestData(array $mergeData = []): array
     {
         return array_merge([
