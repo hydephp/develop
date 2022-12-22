@@ -34,7 +34,8 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected string $canonicalValue;
     protected Generator $faker;
 
-    public function __construct(PublicationType $pubType, int $number = 1) {
+    public function __construct(PublicationType $pubType, int $number = 1)
+    {
         $this->number = $number;
         $this->pubType = $pubType;
         $this->faker = Factory::create();
@@ -94,7 +95,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected function generateFieldData(PublicationField $field): string|int|float|array|bool
     {
         return match ($field->type->value) {
-             'array' => $this->getArrayItems(),
+            'array' => $this->getArrayItems(),
              'boolean' => rand(0, 100) < 50,
              'datetime' => $this->getDateTimeValue(),
              'float' => rand(-10000000, 10000000) / 100,
