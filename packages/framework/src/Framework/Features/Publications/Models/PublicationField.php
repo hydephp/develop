@@ -27,7 +27,6 @@ class PublicationField implements SerializableContract
 
     public readonly PublicationFieldTypes $type;
     public readonly string $name;
-    public readonly ?string $tagGroup;
     public readonly array $rules;
 
     public static function fromArray(array $array): static
@@ -39,7 +38,6 @@ class PublicationField implements SerializableContract
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
-        $this->tagGroup = $tagGroup;
         $this->rules = $rules;
     }
 
@@ -48,7 +46,6 @@ class PublicationField implements SerializableContract
         return array_filter([
             'type' => $this->type->value,
             'name' => $this->name,
-            'tagGroup' => $this->tagGroup,
             'rules' => $this->rules,
         ]);
     }
