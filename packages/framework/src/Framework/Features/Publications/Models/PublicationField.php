@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Illuminate\Contracts\Support\Arrayable;
 use function array_filter;
 use function collect;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
@@ -81,13 +82,17 @@ class PublicationField implements SerializableContract
     }
 
     /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
-    public function validate(mixed $input = null, Collection $fieldRules = null, ?PublicationType $publicationType = null): array
+    public function validate(mixed $input = null, Array|Arrayable $fieldRules = null, ?PublicationType $publicationType = null): array
     {
         if ($fieldRules === null) {
             $fieldRules = $this->getValidationRules($publicationType);
+        } else {
+            if ($fieldRules instanceof Arrayable) {
+                $fieldRules = $fieldRules->toArray();
+            }
         }
 
-        $validator = validator([$this->name => $input], [$this->name => $fieldRules->toArray()]);
+        $validator = validator([$this->name => $input], [$this->name => $fieldRules]);
 
         return $validator->validate();
     }

@@ -9,7 +9,6 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
-use Rgasch\Collection\Collection;
 use ValueError;
 
 /**
@@ -109,17 +108,29 @@ class PublicationFieldTest extends TestCase
 
     public function testValidateWithCustomRuleCollection()
     {
-        $validated = (new PublicationField('string', 'myString'))->validate('foo', Collection::create(['min:3']));
+        $validated = (new PublicationField('string', 'myString'))->validate('foo', ['min:3']);
         $this->assertSame(['my-string' => 'foo'], $validated);
 
         $this->expectValidationException('The my-string must be at least 5 characters.');
-        (new PublicationField('string', 'myString'))->validate('foo', Collection::create(['min:5']));
+        (new PublicationField('string', 'myString'))->validate('foo', ['min:5']);
     }
 
     public function testValidateWithCustomRuleCollectionOverridesDefaultRules()
     {
         $this->expectValidationException('The my-string must be a number.');
-        (new PublicationField('string', 'myString'))->validate("foo", Collection::create(['numeric']));
+        (new PublicationField('string', 'myString'))->validate("foo", ['numeric']);
+    }
+
+    public function testValidateMethodAcceptsArrayOfRules()
+    {
+        $validated = (new PublicationField('string', 'myString'))->validate('foo', ['min:3']);
+        $this->assertSame(['my-string' => 'foo'], $validated);
+    }
+
+    public function testValidateMethodAcceptsArrayableOfRules()
+    {
+        $validated = (new PublicationField('string', 'myString'))->validate('foo', collect(['min:3']));
+        $this->assertSame(['my-string' => 'foo'], $validated);
     }
 
     public function testGetRulesForArray()
