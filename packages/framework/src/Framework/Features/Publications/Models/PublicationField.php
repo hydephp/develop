@@ -72,7 +72,7 @@ class PublicationField implements SerializableContract
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($publicationType?->name ?? '') ?? collect([]);
+                $tagValues = PublicationService::getValuesForTagName($publicationType?->getIdentifier() ?? '') ?? collect([]);
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;

@@ -130,7 +130,7 @@ class SeedsPublicationFiles
 
     protected function getTags(): string
     {
-        $tags = PublicationService::getValuesForTagName($this->pubType->name, false);
+        $tags = PublicationService::getValuesForTagName($this->pubType->getIdentifier(), false);
 
         return $tags->isEmpty() ? '' : $tags->random();
     }
