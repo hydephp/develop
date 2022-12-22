@@ -68,7 +68,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                 foreach ($publication->type->fields as $field) {
                     $countFields++;
                     $fieldName = $field['name'];
-                    $pubTypeField = new PublicationField($field['type'], $fieldName, $field['tagGroup'] ?? null);
+                    $pubTypeField = new PublicationField($field['type'], $fieldName);
 
                     try {
                         if ($verbose) {

@@ -33,14 +33,16 @@ class MakePublicationCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Create a new publication item';
 
+    protected PublicationType $pubType;
+
     public function safeHandle(): int
     {
         $this->title('Creating a new Publication!');
 
-        $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
-        $fieldData = $this->collectFieldData($pubType);
+        $this->pubType = $this->getPubTypeSelection($this->getPublicationTypes());
+        $fieldData = $this->collectFieldData($this->pubType);
 
-        $creator = new CreatesNewPublicationPage($pubType, $fieldData, $this->hasForceOption(), $this->output);
+        $creator = new CreatesNewPublicationPage($this->pubType, $fieldData, $this->hasForceOption(), $this->output);
         if ($creator->hasFileConflict()) {
             $this->error('Error: A publication already exists with the same canonical field value');
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
@@ -172,7 +174,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
         do {
             $offset = 0;
-            $tagsForGroup = PublicationService::getAllTags()->{$field->tagGroup};
+            $tagsForGroup = PublicationService::getAllTags()->{$this->pubType->name};
             foreach ($tagsForGroup as $index => $value) {
                 $offset = $index + 1;
                 $this->output->writeln("  $offset: $value");

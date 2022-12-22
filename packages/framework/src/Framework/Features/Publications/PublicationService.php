@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use function file_exists;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
@@ -57,46 +58,18 @@ class PublicationService
 
     /**
      * Get all available tags.
-     *
-     * @param  bool  $reload  Reload the tags from the filesystem
-     * @return \Rgasch\Collection\Collection
-     *
-     * @throws \Safe\Exceptions\FilesystemException
-     * @throws \Safe\Exceptions\JsonException
      */
-    public static function getAllTags(bool $reload = true): Collection
+    public static function getAllTags(): Collection
     {
-        $filename = Hyde::path('tags.json');
-        if (! file_exists($filename)) {
-            return Collection::create();
-        }
-
-        static $tags = null;
-        if (! $tags || $reload) {
-            $tags = Collection::create(json_decode(file_get_contents($filename), true))->sortKeys();
-        }
-
-        return $tags;
+        return Collection::create(self::parseTagsFile())->sortKeys();
     }
 
     /**
      * Get all values for a given tag name.
-     *
-     * @param  string  $tagName
-     * @param  bool  $reload  Reload the tags from the filesystem
-     * @return \Rgasch\Collection\Collection
-     *
-     * @throws \Safe\Exceptions\FilesystemException
-     * @throws \Safe\Exceptions\JsonException
      */
-    public static function getValuesForTagName(string $tagName, bool $reload = true): Collection
+    public static function getValuesForTagName(string $tagName): Collection
     {
-        $tags = self::getAllTags($reload);
-        if (! $tags->get($tagName)) {
-            return Collection::create();
-        }
-
-        return $tags->$tagName;
+        return self::getAllTags()->get($tagName) ?? Collection::create();
     }
 
     /**
@@ -130,5 +103,14 @@ class PublicationService
     protected static function getMediaFiles(string $directory, string $extensions = '{jpg,jpeg,png,gif,pdf}'): array
     {
         return glob(Hyde::path("_media/$directory/*.$extensions"), GLOB_BRACE);
+    }
+
+    protected static function parseTagsFile(): array
+    {
+        if (file_exists(Hyde::path('tags.json'))) {
+            return json_decode(file_get_contents(Hyde::path('tags.json')), true);
+        }
+
+        return [];
     }
 }

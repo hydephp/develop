@@ -27,7 +27,6 @@ class PublicationField implements SerializableContract
 
     public readonly PublicationFieldTypes $type;
     public readonly string $name;
-    public readonly ?string $tagGroup;
     public readonly array $rules;
 
     public static function fromArray(array $array): static
@@ -35,11 +34,10 @@ class PublicationField implements SerializableContract
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, ?string $tagGroup = null, array $rules = [])
+    public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [])
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = Str::kebab($name);
-        $this->tagGroup = $tagGroup;
         $this->rules = $rules;
     }
 
@@ -48,7 +46,6 @@ class PublicationField implements SerializableContract
         return array_filter([
             'type' => $this->type->value,
             'name' => $this->name,
-            'tagGroup' => $this->tagGroup,
             'rules' => $this->rules,
         ]);
     }
@@ -75,7 +72,7 @@ class PublicationField implements SerializableContract
                 $fieldRules->add("in:$valueList");
                 break;
             case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($this->tagGroup) ?? collect([]);
+                $tagValues = PublicationService::getValuesForTagName($publicationType?->getIdentifier() ?? '') ?? collect([]);
                 $valueList = $tagValues->implode(',');
                 $fieldRules->add("in:$valueList");
                 break;

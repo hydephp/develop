@@ -131,9 +131,9 @@ class SeedsPublicationFilesTest extends TestCase
 
     public function testWithTagType()
     {
-        $tags = ['foo' => ['foo', 'bar', 'baz']];
+        $tags = ['test-publication' => ['foo', 'bar', 'baz']];
         $this->file('tags.json', json_encode($tags));
-        $this->updateSchema('tag', 'tag', tagGroup: 'foo');
+        $this->updateSchema('tag', 'tag');
         (new SeedsPublicationFiles($this->pubType))->create();
 
         $publication = $this->firstPublication();
@@ -141,7 +141,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('tag'));
         $this->assertIsString($publication->matter('tag'));
-        $this->assertTrue(in_array($publication->matter('tag'), $tags['foo']));
+        $this->assertTrue(in_array($publication->matter('tag'), $tags['test-publication']));
     }
 
     public function testWithTextType()
@@ -182,10 +182,10 @@ class SeedsPublicationFilesTest extends TestCase
         return MarkdownDocument::parse(Hyde::pathToRelative($this->getPublicationFiles()[0]));
     }
 
-    protected function updateSchema(string $type, string $name, ?string $tagGroup = null): void
+    protected function updateSchema(string $type, string $name): void
     {
         $this->pubType->fields = [
-            (new PublicationField($type, $name, tagGroup: $tagGroup))->toArray(),
+            (new PublicationField($type, $name))->toArray(),
         ];
         $this->pubType->save();
     }
