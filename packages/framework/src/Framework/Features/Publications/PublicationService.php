@@ -58,13 +58,12 @@ class PublicationService
     /**
      * Get all available tags.
      *
-     * @param  bool  $reload  Reload the tags from the filesystem
      * @return \Rgasch\Collection\Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */
-    public static function getAllTags(bool $reload = true): Collection
+    public static function getAllTags(): Collection
     {
         $filename = Hyde::path('tags.json');
         if (! file_exists($filename)) {
@@ -72,7 +71,7 @@ class PublicationService
         }
 
         static $tags = null;
-        if (! $tags || $reload) {
+        if (! $tags) {
             $tags = Collection::create(json_decode(file_get_contents($filename), true))->sortKeys();
         }
 
@@ -83,15 +82,14 @@ class PublicationService
      * Get all values for a given tag name.
      *
      * @param  string  $tagName
-     * @param  bool  $reload  Reload the tags from the filesystem
      * @return \Rgasch\Collection\Collection
      *
      * @throws \Safe\Exceptions\FilesystemException
      * @throws \Safe\Exceptions\JsonException
      */
-    public static function getValuesForTagName(string $tagName, bool $reload = true): Collection
+    public static function getValuesForTagName(string $tagName): Collection
     {
-        $tags = self::getAllTags($reload);
+        $tags = self::getAllTags();
         if (! $tags->get($tagName)) {
             return Collection::create();
         }
