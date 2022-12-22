@@ -117,8 +117,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $this->matter[$field->name] = rand(-100000, 100000);
                 break;
             case 'string':
-                $value = substr($this->faker->sentence(10), 0, rand(0, 255));
-                $this->matter[$field->name] = $value;
+                $this->matter[$field->name] = substr($this->faker->sentence(10), 0, rand(0, 255));
                 break;
             case 'tag':
                 $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
