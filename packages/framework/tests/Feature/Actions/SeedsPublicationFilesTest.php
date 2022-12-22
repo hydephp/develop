@@ -81,7 +81,8 @@ class SeedsPublicationFilesTest extends TestCase
         $publication = $this->firstPublication();
 
         $this->assertBaseline($publication);
-        $this->assertIsInt($publication->matter('published_at')); // Carbon parses to Unix timestamp int
+        $this->assertIsString($publication->matter('published_at'));
+        $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $publication->matter('published_at'));
     }
 
     public function testWithFloatType()
