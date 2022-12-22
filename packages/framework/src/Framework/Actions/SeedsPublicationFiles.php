@@ -44,6 +44,9 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     public function create(): void
     {
         for ($i = 0; $i < $this->number; $i++) {
+            $this->matter = [];
+            $this->canonicalValue = '';
+
             $this->generatePublicationData();
             $identifier = Str::slug(substr($this->canonicalValue, 0, 64));
 
@@ -57,9 +60,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $this->faker = Factory::create();
         $now = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
         $canonicalFieldName = $this->pubType->canonicalField;
-        $this->canonicalValue = '';
 
-        $this->matter = [];
         $this->matter['__createdAt'] = "$now\n";
         foreach ($this->pubType->getFields() as $field) {
             $this->generateFieldData($field, $canonicalFieldName);
