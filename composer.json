@@ -31,7 +31,6 @@
         "phpstan/phpstan": "^1.8",
         "rector/rector": "^0.14.6",
         "squizlabs/php_codesniffer": "^3.7",
-        "thecodingmachine/phpstan-safe-rule": "^1.2",
         "vimeo/psalm": "^4.24"
     },
     "autoload": {
