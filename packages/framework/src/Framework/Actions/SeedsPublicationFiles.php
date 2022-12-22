@@ -124,11 +124,9 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
     protected function getDateTimeValue(): string
     {
-        return Carbon::createFromTimestamp(
-            rand(
+        return Carbon::createFromTimestamp(rand(
                 Carbon::today()->subDay()->addSeconds(rand(0, 86400))->timestamp,
                 Carbon::today()->subDays(365)->addSeconds(rand(0, 86400))->timestamp
-            )
-        )->format('Y-m-d H:i:s');
+        ))->format('Y-m-d H:i:s');
     }
 }
