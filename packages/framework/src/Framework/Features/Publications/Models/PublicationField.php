@@ -86,10 +86,8 @@ class PublicationField implements SerializableContract
     {
         if ($fieldRules === null) {
             $fieldRules = $this->getValidationRules($publicationType);
-        } else {
-            if ($fieldRules instanceof Arrayable) {
-                $fieldRules = $fieldRules->toArray();
-            }
+        } elseif ($fieldRules instanceof Arrayable) {
+            $fieldRules = $fieldRules->toArray();
         }
 
         $validator = validator([$this->name => $input], [$this->name => $fieldRules]);
