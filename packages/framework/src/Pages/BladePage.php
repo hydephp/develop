@@ -24,15 +24,9 @@ class BladePage extends HydePage
 
     /**
      * The name of the Blade View to compile. Commonly stored in _pages/{$identifier}.blade.php.
-     *
-     * @var string
      */
     public string $view;
 
-    /**
-     * @param  string  $view
-     * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter
-     */
     public function __construct(string $view = '', FrontMatter|array $matter = [])
     {
         parent::__construct($view, $matter);

@@ -18,7 +18,6 @@ interface MarkdownDocumentContract
     /**
      * Return the document's Markdown object.
      *
-     * @return \Hyde\Markdown\Models\Markdown
      */
     public function markdown(): Markdown;
 }

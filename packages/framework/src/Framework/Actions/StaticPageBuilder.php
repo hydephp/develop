@@ -33,7 +33,6 @@ class StaticPageBuilder
     /**
      * Run the page builder.
      *
-     * @return string
      */
     public function __invoke(): string
     {
