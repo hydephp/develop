@@ -37,6 +37,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     public function __construct(PublicationType $pubType, int $number = 1) {
         $this->number = $number;
         $this->pubType = $pubType;
+        $this->faker = Factory::create();
     }
 
     protected function handleCreate(): void
@@ -60,7 +61,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
     protected function generatePublicationData(): void
     {
-        $this->faker = Factory::create();
         $this->matter['__createdAt'] = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
         foreach ($this->pubType->getFields() as $field) {
             $this->matter[$field->name] = $this->generateFieldData($field);
