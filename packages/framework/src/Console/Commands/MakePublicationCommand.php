@@ -33,14 +33,16 @@ class MakePublicationCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Create a new publication item';
 
+    protected PublicationType $pubType;
+
     public function safeHandle(): int
     {
         $this->title('Creating a new Publication!');
 
-        $pubType = $this->getPubTypeSelection($this->getPublicationTypes());
-        $fieldData = $this->collectFieldData($pubType);
+        $this->pubType = $this->getPubTypeSelection($this->getPublicationTypes());
+        $fieldData = $this->collectFieldData($this->pubType);
 
-        $creator = new CreatesNewPublicationPage($pubType, $fieldData, $this->hasForceOption(), $this->output);
+        $creator = new CreatesNewPublicationPage($this->pubType, $fieldData, $this->hasForceOption(), $this->output);
         if ($creator->hasFileConflict()) {
             $this->error('Error: A publication already exists with the same canonical field value');
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
