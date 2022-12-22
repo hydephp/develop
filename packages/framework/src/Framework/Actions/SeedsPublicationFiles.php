@@ -61,16 +61,11 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     {
         $this->faker = Factory::create();
         $now = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
-        $canonicalFieldName = $this->pubType->canonicalField;
 
         $this->matter['__createdAt'] = "$now\n";
         foreach ($this->pubType->getFields() as $field) {
             $this->generateFieldData($field);
-            if (in_array($field->type->value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array'])) {
-                if ($field->name == $canonicalFieldName) {
-                    $this->canonicalValue = $this->matter[$field->name];
-                }
-            }
+            $this->getCanonicalFieldName($field);
         }
 
         if (!$this->canonicalValue) {
@@ -142,6 +137,15 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $value = $this->faker->url();
                 $this->matter[$field->name] = $value;
                 break;
+        }
+    }
+
+    protected function getCanonicalFieldName(PublicationField $field): void
+    {
+        if (in_array($field->type->value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array'])) {
+            if ($field->name == $this->pubType->canonicalField) {
+                $this->canonicalValue = $this->matter[$field->name];
+            }
         }
     }
 }
