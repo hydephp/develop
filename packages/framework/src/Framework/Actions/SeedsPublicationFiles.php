@@ -37,8 +37,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     public function create(): void
     {
         for ($i = 0; $i < $this->number; $i++) {
-            $publicationData = $this->generatePublicationData();
-            [$matter, $canonicalValue] = $publicationData;
+            [$matter, $canonicalValue] = $this->generatePublicationData();
             $identifier = Str::of($canonicalValue)->substr(0, 64)->slug()->toString();
 
             $page = new PublicationPage($identifier, $matter, '## Write something awesome.', $this->pubType);
