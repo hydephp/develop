@@ -40,8 +40,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
         for ($i = 0; $i < $this->number; $i++) {
             $publicationData = $this->generatePublicationData();
-            $matter = $publicationData->matter->toArray();
-            $canonicalValue = $publicationData->canonicalValue;
+            [$matter, $canonicalValue] = $publicationData;
             $basename = Str::of($canonicalValue)->substr(0, 64)->slug()->toString();
             $fileName = "$directory/{$this->formatStringForStorage($basename)}.md";
 
@@ -50,7 +49,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         }
     }
 
-    protected function generatePublicationData(): Collection
+    protected function generatePublicationData(): array
     {
         $faker = Factory::create();
         $now = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
@@ -120,7 +119,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
             }
         }
 
-        return Collection::create(['matter' => $matter, 'canonicalValue' => $canonicalValue ?: $faker->sentence(3)]);
+        return [$matter, $canonicalValue ?: $faker->sentence(3)];
     }
 
     protected function getDateTimeValue(): string
