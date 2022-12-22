@@ -101,7 +101,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $matter[$field->name] = $tagValue;
                     break;
                 case 'text':
-                    $value = $this->getTextValue($faker);
+                    $value = $this->getTextValue($faker, rand(3, 20));
                     $matter[$field->name] = $value;
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
@@ -125,11 +125,11 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         ));
     }
 
-    protected function getTextValue($faker): string
+    protected function getTextValue($faker, $lines): string
     {
         $value = '';
 
-        for ($i = 0; $i < rand(3, 20); $i++) {
+        for ($i = 0; $i < $lines; $i++) {
             $value .= $faker->sentence(rand(5, 20)) . "\n";
         }
 
