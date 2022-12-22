@@ -193,7 +193,7 @@ class PublicationTypeTest extends TestCase
         $publicationType = new PublicationType(...$this->getTestData());
         $this->assertEquals(PublicationField::fromArray([
             'name' => 'title',
-            'type' => 'string'
+            'type' => 'string',
         ]), $publicationType->getCanonicalFieldDefinition());
     }
 
@@ -202,7 +202,7 @@ class PublicationTypeTest extends TestCase
         $publicationType = new PublicationType(...$this->getTestData(['canonicalField' => '__createdAt']));
         $this->assertEquals(PublicationField::fromArray([
             'name' => '__createdAt',
-            'type' => 'string'
+            'type' => 'string',
         ]), $publicationType->getCanonicalFieldDefinition());
     }
 
