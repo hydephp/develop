@@ -24,6 +24,10 @@ use function time;
  */
 class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 {
+    protected array $matter;
+    protected string $canonicalValue;
+    protected \Faker\Generator $faker;
+
     public function __construct(
         protected PublicationType $pubType,
         protected int $number = 1
@@ -38,28 +42,28 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     public function create(): void
     {
         for ($i = 0; $i < $this->number; $i++) {
-            [$matter, $canonicalValue] = $this->generatePublicationData();
-            $identifier = Str::slug(substr($canonicalValue, 0, 64));
+            [$this->matter, $this->canonicalValue] = $this->generatePublicationData();
+            $identifier = Str::slug(substr($this->canonicalValue, 0, 64));
 
-            $page = new PublicationPage($identifier, $matter, '## Write something awesome.', $this->pubType);
+            $page = new PublicationPage($identifier, $this->matter, '## Write something awesome.', $this->pubType);
             $page->save();
         }
     }
 
     protected function generatePublicationData(): array
     {
-        $faker = Factory::create();
+        $this->faker = Factory::create();
         $now = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalValue = '';
+        $this->canonicalValue = '';
 
-        $matter = [];
-        $matter['__createdAt'] = "$now\n";
+        $this->matter = [];
+        $this->matter['__createdAt'] = "$now\n";
         foreach ($this->pubType->getFields() as $field) {
-            [$matter, $canonicalValue] = $this->generateFieldData($field, $faker, $matter, $canonicalFieldName, $canonicalValue);
+            [$this->matter, $this->canonicalValue] = $this->generateFieldData($field, $canonicalFieldName);
         }
 
-        return [$matter, $canonicalValue ?: $faker->sentence(3)];
+        return [$this->matter, $this->canonicalValue ?: $this->faker->sentence(3)];
     }
 
     protected function getDateTimeValue(): string
@@ -70,12 +74,12 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         ));
     }
 
-    protected function getTextValue($faker, $lines): string
+    protected function getTextValue($lines): string
     {
         $value = '';
 
         for ($i = 0; $i < $lines; $i++) {
-            $value .= $faker->sentence(rand(5, 20))."\n";
+            $value .= $this->faker->sentence(rand(5, 20))."\n";
         }
 
         return $value;
@@ -83,64 +87,61 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
     protected function generateFieldData(
         \Hyde\Framework\Features\Publications\Models\PublicationField $field,
-        \Faker\Generator $faker,
-        array $matter,
-        string $canonicalFieldName,
-        string $canonicalValue
+    string $canonicalFieldName
     ): array {
         switch ($field->type->value) {
             case 'array':
                 $arrayItems = [];
                 for ($i = 0; $i < rand(3, 20); $i++) {
-                    $arrayItems[] = $faker->word();
+                    $arrayItems[] = $this->faker->word();
                 }
-                $matter[$field->name] = $arrayItems;
+                $this->matter[$field->name] = $arrayItems;
                 $value = $arrayItems[0].'-'.rand(1, 100000);
-                $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'boolean':
-                $matter[$field->name] = rand(0, 100) < 50;
+                $this->matter[$field->name] = rand(0, 100) < 50;
                 break;
             case 'datetime':
                 $value = $this->getDateTimeValue();
-                $matter[$field->name] = "$value";
-                $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                $this->matter[$field->name] = "$value";
+                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'float':
                 $value = rand(-10000000, 10000000) / 100;
-                $matter[$field->name] = $value;
-                $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                $this->matter[$field->name] = $value;
+                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'image':
-                $matter[$field->name] = 'https://picsum.photos/id/'.rand(1, 1000).'/400/400';
+                $this->matter[$field->name] = 'https://picsum.photos/id/'.rand(1, 1000).'/400/400';
                 break;
             case 'integer':
                 $value = rand(-100000, 100000);
-                $matter[$field->name] = $value;
-                $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                $this->matter[$field->name] = $value;
+                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'string':
-                $value = substr($faker->sentence(10), 0, rand(0, 255));
-                $matter[$field->name] = "$value\n";
-                $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                $value = substr($this->faker->sentence(10), 0, rand(0, 255));
+                $this->matter[$field->name] = "$value\n";
+                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'tag':
                 $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
                 $tagValue = $tags->isEmpty() ? '' : $tags->random();
-                $matter[$field->name] = $tagValue;
+                $this->matter[$field->name] = $tagValue;
                 break;
             case 'text':
-                $value = $this->getTextValue($faker, rand(3, 20));
-                $matter[$field->name] = $value;
-                $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                $value = $this->getTextValue(rand(3, 20));
+                $this->matter[$field->name] = $value;
+                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
             case 'url':
-                $value = $faker->url();
-                $matter[$field->name] = $value;
-                $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
+                $value = $this->faker->url();
+                $this->matter[$field->name] = $value;
+                $this->canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                 break;
         }
 
-        return [$matter, $canonicalValue];
+        return [$this->matter, $this->canonicalValue];
     }
 }
