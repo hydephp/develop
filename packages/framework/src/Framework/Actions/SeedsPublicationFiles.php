@@ -12,6 +12,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use function in_array;
+use function mt_getrandmax;
+use function mt_rand;
 use function rand;
 use function substr;
 use function time;
@@ -90,7 +92,7 @@ class SeedsPublicationFiles
             'array' => $this->getArrayItems(),
             'boolean' => rand(0, 100) < 50,
             'datetime' => $this->getDateTimeValue(),
-            'float' => $this->randomFloat(-100000, 100000),
+            'float' => ((mt_rand() / mt_getrandmax()) * (200000)) + -100000,
             'image' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
             'integer' => rand(-100000, 100000),
             'string' => substr($this->fakeSentence(10), 0, rand(0, 255)),
@@ -129,11 +131,6 @@ class SeedsPublicationFiles
         $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
 
         return $tags->isEmpty() ? '' : $tags->random();
-    }
-
-    protected function randomFloat(int $min, int $max): float
-    {
-        return $min + mt_rand() / mt_getrandmax() * ($max - $min);
     }
 
     private const WORDS = [
