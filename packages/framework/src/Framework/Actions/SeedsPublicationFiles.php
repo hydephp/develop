@@ -83,7 +83,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'image':
-                    $matter[$field->name] = "https://picsum.photos/id/".(rand(1, 1000) / 100)."/400/400";
+                    $matter[$field->name] = "https://picsum.photos/id/".(rand(1, 1000))."/400/400";
                     break;
                 case 'integer':
                     $value = rand(-100000, 100000);
