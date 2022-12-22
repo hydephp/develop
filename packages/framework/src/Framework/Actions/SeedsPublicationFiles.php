@@ -92,7 +92,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return $value;
     }
 
-    protected function generateFieldData(PublicationField $field): mixed {
+    protected function generateFieldData(PublicationField $field): string|int|float|array|bool {
         switch ($field->type->value) {
             case 'array':
                 return $this->getArrayItems();
