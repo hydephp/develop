@@ -167,7 +167,7 @@ class SeedsPublicationFilesTest extends TestCase
 
         $this->assertBaseline($publication);
         $this->assertIsString($publication->matter('url'));
-        $this->assertStringStartsWith('https://google.com?q=', $publication->matter('url'));
+        $this->assertStringStartsWith('http', $publication->matter('url'));
     }
 
     protected function getPublicationFiles(): array

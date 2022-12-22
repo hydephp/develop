@@ -106,9 +106,8 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'url':
-                    $text = Str::of($faker->sentence(rand(3, 10)))->replace(' ', '+');
-                    $value = 'https://google.com?q='.$text;
-                    $matter[$field->name] = "$value\n";
+                    $value = $faker->url();
+                    $matter[$field->name] = $value;
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
             }
