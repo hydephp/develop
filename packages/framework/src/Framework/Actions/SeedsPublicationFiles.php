@@ -75,35 +75,35 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $output .= "$field->name: $value\n";
                     break;
                 case 'datetime':
-                    $min = $field->min ? Carbon::parse($field->min) : Carbon::today()->subDays(365)->addSeconds($faker->numberBetween(0, 86400));
-                    $max = $field->max ? Carbon::parse($field->max) : Carbon::today()->subDays(1)->addSeconds($faker->numberBetween(0, 86400));
+                    $min = Carbon::today()->subDays(365)->addSeconds($faker->numberBetween(0, 86400));
+                    $max = Carbon::today()->subDays(1)->addSeconds($faker->numberBetween(0, 86400));
                     $value = Carbon::createFromTimestamp(rand($max->timestamp, $min->timestamp))->format('Y-m-d H:i:s');
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'float':
-                    $min = $field->min ?: -10000000;
-                    $max = $field->max ?: 10000000;
+                    $min = -10000000;
+                    $max = 10000000;
                     $value = $faker->numberBetween($min, $max) / 100;
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'image':
-                    $min = $field->min ?: 400;
-                    $max = $field->max ?: 400;
+                    $min = 400;
+                    $max = 400;
                     $id = $faker->numberBetween(1, 1000) / 100;
                     $output .= "$field->name: https://picsum.photos/id/$id/$min/$max\n";
                     break;
                 case 'integer':
-                    $min = $field->min ?: -100000;
-                    $max = $field->max ?: 100000;
+                    $min = -100000;
+                    $max = 100000;
                     $value = $faker->numberBetween($min, $max);
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'string':
-                    $min = $field->min ?: 0;
-                    $max = $field->max ?: 255;
+                    $min = 0;
+                    $max = 255;
                     $value = Str::of($faker->sentence(10))->limit($faker->numberBetween($min, $max), '...');
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';

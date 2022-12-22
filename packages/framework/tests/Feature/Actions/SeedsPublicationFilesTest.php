@@ -181,10 +181,10 @@ class SeedsPublicationFilesTest extends TestCase
         return MarkdownDocument::parse(Hyde::pathToRelative($this->getPublicationFiles()[0]));
     }
 
-    protected function updateSchema(string $type, string $name, int|string|null $min = 0, int|string|null $max = 0, ?string $tagGroup = null): void
+    protected function updateSchema(string $type, string $name, ?string $tagGroup = null): void
     {
         $this->pubType->fields = [
-            (new PublicationField($type, $name, $min, $max, $tagGroup))->toArray(),
+            (new PublicationField($type, $name, tagGroup: $tagGroup))->toArray(),
         ];
         $this->pubType->save();
     }
