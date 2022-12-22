@@ -16,6 +16,7 @@ use Rgasch\Collection\Collection;
 
 use function rand;
 use function Safe\file_put_contents;
+use function substr;
 use function time;
 
 /**
@@ -41,7 +42,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     {
         for ($i = 0; $i < $this->number; $i++) {
             [$matter, $canonicalValue] = $this->generatePublicationData();
-            $identifier = Str::of($canonicalValue)->substr(0, 64)->slug()->toString();
+            $identifier = Str::slug(substr($canonicalValue, 0, 64));
 
             $page = new PublicationPage($identifier, $matter, '## Write something awesome.', $this->pubType);
             $page->save();
@@ -91,7 +92,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'string':
-                    $value = Str::of($faker->sentence(10))->limit(rand(0, 255));
+                    $value = substr($faker->sentence(10), 0, rand(0, 255));
                     $matter[$field->name] = "$value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
