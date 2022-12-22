@@ -70,8 +70,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
                     break;
                 case 'boolean':
-                    $value = rand(0, 100) < 50 ? 'true' : 'false';
-                    $output .= "$field->name: $value\n";
+                    $output .= "$field->name: ".(rand(0, 100) < 50 ? 'true' : 'false')."\n";
                     break;
                 case 'datetime':
                     $value = $this->getDateTimeValue();
@@ -84,8 +83,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'image':
-                    $id = rand(1, 1000) / 100;
-                    $output .= "$field->name: https://picsum.photos/id/$id/400/400\n";
+                    $output .= "$field->name: https://picsum.photos/id/".(rand(1, 1000) / 100)."/400/400\n";
                     break;
                 case 'integer':
                     $value = rand(-100000, 100000);
