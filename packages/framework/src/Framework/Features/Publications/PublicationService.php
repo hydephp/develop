@@ -81,12 +81,7 @@ class PublicationService
      */
     public static function getValuesForTagName(string $tagName): Collection
     {
-        $tags = self::getAllTags();
-        if (! $tags->get($tagName)) {
-            return Collection::create();
-        }
-
-        return $tags->$tagName;
+        return self::getAllTags()->get($tagName) ?? Collection::create();
     }
 
     /**
