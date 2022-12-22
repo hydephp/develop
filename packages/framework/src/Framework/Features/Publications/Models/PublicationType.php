@@ -13,7 +13,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Str;
 use function json_decode;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 use RuntimeException;
 use function str_starts_with;
 
@@ -96,7 +96,7 @@ class PublicationType implements SerializableContract
         return $this->directory;
     }
 
-    /** @return \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationField> */
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationField> */
     public function getFields(): Collection
     {
         $result = collect($this->fields)->mapWithKeys(function (array $data): array {
@@ -106,7 +106,7 @@ class PublicationType implements SerializableContract
         return Collection::create($result, false);
     }
 
-    /** @return \Rgasch\Collection\Collection<string, \Rgasch\Collection\Collection> */
+    /** @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection> */
     public function getFieldRules(): Collection
     {
         return Collection::create(

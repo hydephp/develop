@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
 

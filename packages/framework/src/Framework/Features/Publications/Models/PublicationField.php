@@ -12,7 +12,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 use function strtolower;
 
 /**

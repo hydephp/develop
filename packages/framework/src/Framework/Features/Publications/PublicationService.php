@@ -10,7 +10,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 use function Safe\file_get_contents;
 use function Safe\glob;
 use function Safe\json_decode;

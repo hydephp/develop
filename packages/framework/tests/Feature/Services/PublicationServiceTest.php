@@ -15,7 +15,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use function json_encode;
 use function mkdir;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\PublicationService

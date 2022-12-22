@@ -8,7 +8,7 @@ use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Console\OutputStyle;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * Scaffold a new publication type schema.

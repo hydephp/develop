@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -85,7 +85,7 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /**
-     * @param  \Rgasch\Collection\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
+     * @param  \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
      * @return \Hyde\Framework\Features\Publications\Models\PublicationType
      */
     protected function getPubTypeSelection(Collection $pubTypes): PublicationType
@@ -107,7 +107,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     /**
      * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $pubType
-     * @return \Rgasch\Collection\Collection<string, string|array>
+     * @return \Illuminate\Support\Collection<string, string|array>
      */
     protected function collectFieldData(PublicationType $pubType): Collection
     {
@@ -119,7 +119,7 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /**
-     * @return \Rgasch\Collection\Collection<string, PublicationType>
+     * @return \Illuminate\Support\Collection<string, PublicationType>
      *
      * @throws \InvalidArgumentException
      */

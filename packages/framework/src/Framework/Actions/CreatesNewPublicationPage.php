@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use function is_string;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 use RuntimeException;
 
 /**

@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use function is_dir;
 use LaravelZero\Framework\Commands\Command;
-use Rgasch\Collection\Collection;
+use Illuminate\Support\Collection;
 use function scandir;
 use function strtolower;
 use function trim;
