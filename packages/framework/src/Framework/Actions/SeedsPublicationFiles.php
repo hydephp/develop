@@ -98,10 +98,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $matter[$field->name] = $tagValue;
                     break;
                 case 'text':
-                    $value = '';
-                    for ($i = 0; $i < rand(3, 20); $i++) {
-                        $value .= $faker->sentence(rand(5, 20)) . "\n";
-                    }
+                    $value = $this->getTextValue($faker);
                     $matter[$field->name] = $value;
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
@@ -123,5 +120,16 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 Carbon::today()->subDay()->addSeconds(rand(0, 86400))->timestamp,
                 Carbon::today()->subDays(365)->addSeconds(rand(0, 86400))->timestamp
         ))->format('Y-m-d H:i:s');
+    }
+
+    protected function getTextValue($faker): string
+    {
+        $value = '';
+
+        for ($i = 0; $i < rand(3, 20); $i++) {
+            $value .= $faker->sentence(rand(5, 20)) . "\n";
+        }
+
+        return $value;
     }
 }
