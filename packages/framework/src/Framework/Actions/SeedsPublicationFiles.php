@@ -31,10 +31,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected string $canonicalValue;
     protected Generator $faker;
 
-    public function __construct(
-        protected PublicationType $pubType,
-        protected int $number = 1
-    ) {
+    public function __construct(protected PublicationType $pubType, protected int $number = 1) {
     }
 
     protected function handleCreate(): void
