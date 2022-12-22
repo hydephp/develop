@@ -104,7 +104,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
              'string' => substr($this->fakeSentence(10), 0, rand(0, 255)),
              'tag' => $this->getTags($field),
              'text' => $this->getTextValue(rand(3, 20)),
-             'url' => $this->faker->url(),
+             'url' => $this->fakeUrl(),
         };
     }
 
@@ -126,7 +126,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     {
         $arrayItems = [];
         for ($i = 0; $i < rand(3, 20); $i++) {
-            $arrayItems[] = $this->faker->word();
+            $arrayItems[] = $this->fakeWord();
         }
 
         return $arrayItems;
@@ -142,5 +142,15 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected function fakeSentence(int $words): string
     {
         return $this->faker->sentence($words);
+    }
+
+    protected function fakeWord(): string
+    {
+        return $this->faker->word();
+    }
+
+    protected function fakeUrl(): string
+    {
+        return $this->faker->url();
     }
 }
