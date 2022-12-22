@@ -109,7 +109,8 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     break;
                 case 'tag':
                     // TODO Should we throw if the tagGroup is not set or the tags collection is empty?
-                    $tagValue = PublicationService::getValuesForTagName($field->tagGroup, false)->random();
+                    $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
+                    $tagValue = $tags->random();
                     $output .= "$field->name: $tagValue\n";
                     break;
                 case 'text':
