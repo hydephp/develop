@@ -156,8 +156,6 @@
       <path value="$PROJECT_DIR$/vendor/driftingly/rector-laravel" />
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/rector/rector" />
-      <path value="$PROJECT_DIR$/vendor/thecodingmachine/safe" />
-      <path value="$PROJECT_DIR$/vendor/thecodingmachine/phpstan-safe-rule" />
       <path value="$PROJECT_DIR$/vendor/illuminate/validation" />
       <path value="$PROJECT_DIR$/vendor/illuminate/translation" />
     </include_path>

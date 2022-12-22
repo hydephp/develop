@@ -14,7 +14,7 @@ use Hyde\Hyde;
 use function implode;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
-use function Safe\json_encode;
+use function json_encode;
 use function sprintf;
 
 /**

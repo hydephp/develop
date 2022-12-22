@@ -11,9 +11,9 @@ use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use function Safe\file_get_contents;
-use function Safe\glob;
-use function Safe\json_decode;
+use function file_get_contents;
+use function glob;
+use function json_decode;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\PublicationServiceTest

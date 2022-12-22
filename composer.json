@@ -20,7 +20,6 @@
         "hyde/framework": "dev-master",
         "illuminate/validation": "^9.0.0",
         "laravel-zero/framework": "^9.1",
-        "thecodingmachine/safe": "^2.4",
         "hyde/ui-kit": "dev-master"
     },
     "require-dev": {
