@@ -90,8 +90,8 @@ class PublicationField implements SerializableContract
             )])->validate();
     }
 
-    protected function evaluateArrayable(array|Arrayable $fieldRules): array
+    protected function evaluateArrayable(array|Arrayable $array): array
     {
-        return $fieldRules instanceof Arrayable ? $fieldRules->toArray() : $fieldRules;
+        return $array instanceof Arrayable ? $array->toArray() : $array;
     }
 }
