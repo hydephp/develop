@@ -93,37 +93,18 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     }
 
     protected function generateFieldData(PublicationField $field): string|int|float|array|bool {
-        switch ($field->type->value) {
-            case 'array':
-                return $this->getArrayItems();
-
-            case 'boolean':
-                return rand(0, 100) < 50;
-
-            case 'datetime':
-                return "{$this->getDateTimeValue()}";
-
-            case 'float':
-                return rand(-10000000, 10000000) / 100;
-
-            case 'image':
-                return 'https://picsum.photos/id/'.rand(1, 1000).'/400/400';
-
-            case 'integer':
-                return rand(-100000, 100000);
-
-            case 'string':
-                return substr($this->faker->sentence(10), 0, rand(0, 255));
-
-            case 'tag':
-                return $this->getTags($field);
-
-            case 'text':
-                return $this->getTextValue(rand(3, 20));
-
-            case 'url':
-                return $this->faker->url();
-        }
+        return match ($field->type->value) {
+             'array' => $this->getArrayItems(),
+             'boolean' => rand(0, 100) < 50,
+             'datetime' => "{$this->getDateTimeValue()}",
+             'float' => rand(-10000000, 10000000) / 100,
+             'image' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
+             'integer' => rand(-100000, 100000),
+             'string' => substr($this->faker->sentence(10), 0, rand(0, 255)),
+             'tag' => $this->getTags($field),
+             'text' => $this->getTextValue(rand(3, 20)),
+             'url' => $this->faker->url(),
+        };
     }
 
     protected function getCanonicalFieldName(PublicationField $field): void
