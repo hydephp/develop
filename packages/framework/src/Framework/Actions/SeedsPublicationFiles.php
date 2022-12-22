@@ -23,6 +23,8 @@ use function ucfirst;
 /**
  * Seed publication files for a publication type.
  *
+ * @internal This class is not part of the public API and does not adhere to the BC promise.
+ *
  * @see \Hyde\Console\Commands\SeedPublicationCommand
  * @see \Hyde\Framework\Testing\Feature\Actions\SeedsPublicationFilesTest
  */
