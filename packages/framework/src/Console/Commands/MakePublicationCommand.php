@@ -174,7 +174,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
         do {
             $offset = 0;
-            $tagsForGroup = PublicationService::getAllTags()->{$field->tagGroup};
+            $tagsForGroup = PublicationService::getAllTags()->{$this->pubType->name};
             foreach ($tagsForGroup as $index => $value) {
                 $offset = $index + 1;
                 $this->output->writeln("  $offset: $value");
