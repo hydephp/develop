@@ -50,7 +50,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected function generatePublicationData(): Collection
     {
         $faker = Factory::create();
-        $now = Carbon::today()->subDays($faker->numberBetween(1, 360))->addSeconds($faker->numberBetween(0, 86400));
+        $now = Carbon::today()->subDays(rand(1, 360))->addSeconds(rand(0, 86400));
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalValue = '';
 
@@ -62,38 +62,38 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
             switch ($field->type->value) {
                 case 'array':
-                    $nLines = $faker->numberBetween(3, 20);
+                    $nLines = rand(3, 20);
                     for ($i = 0; $i < $nLines; $i++) {
                         $lines[] = $faker->word();
                     }
                     $output .= "$field->name:\n  - ".implode("\n  - ", $lines)."\n";
-                    $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].$faker->numberBetween(1, 100000) : '';
+                    $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
                     break;
                 case 'boolean':
-                    $value = $faker->numberBetween(0, 100) < 50 ? 'true' : 'false';
+                    $value = rand(0, 100) < 50 ? 'true' : 'false';
                     $output .= "$field->name: $value\n";
                     break;
                 case 'datetime':
-                    $value = Carbon::createFromTimestamp(rand(Carbon::today()->subDays(1)->addSeconds($faker->numberBetween(0, 86400))->timestamp, Carbon::today()->subDays(365)->addSeconds($faker->numberBetween(0, 86400))->timestamp))->format('Y-m-d H:i:s');
+                    $value = Carbon::createFromTimestamp(rand(Carbon::today()->subDays(1)->addSeconds(rand(0, 86400))->timestamp, Carbon::today()->subDays(365)->addSeconds(rand(0, 86400))->timestamp))->format('Y-m-d H:i:s');
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'float':
-                    $value = $faker->numberBetween(-10000000, 10000000) / 100;
+                    $value = rand(-10000000, 10000000) / 100;
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'image':
-                    $id = $faker->numberBetween(1, 1000) / 100;
+                    $id = rand(1, 1000) / 100;
                     $output .= "$field->name: https://picsum.photos/id/$id/400/400\n";
                     break;
                 case 'integer':
-                    $value = $faker->numberBetween(-100000, 100000);
+                    $value = rand(-100000, 100000);
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'string':
-                    $value = Str::of($faker->sentence(10))->limit($faker->numberBetween(0, 255), '...');
+                    $value = Str::of($faker->sentence(10))->limit(rand(0, 255), '...');
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
@@ -103,15 +103,15 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $output .= "$field->name: $tagValue\n";
                     break;
                 case 'text':
-                    $nLines = $faker->numberBetween(3, 20);
+                    $nLines = rand(3, 20);
                     for ($i = 0; $i < $nLines; $i++) {
-                        $lines[] = $faker->sentence($faker->numberBetween(5, 20));
+                        $lines[] = $faker->sentence(rand(5, 20));
                     }
                     $output .= "$field->name: |\n  ".implode("\n  ", $lines)."\n";
-                    $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].$faker->numberBetween(1, 100000) : '';
+                    $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
                     break;
                 case 'url':
-                    $text = Str::of($faker->sentence($faker->numberBetween(3, 10)))->replace(' ', '+');
+                    $text = Str::of($faker->sentence(rand(3, 10)))->replace(' ', '+');
                     $value = 'https://google.com?q='.$text;
                     $output .= "$field->name: $value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
