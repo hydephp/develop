@@ -14,7 +14,6 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-
 use function in_array;
 use function rand;
 use function substr;
@@ -68,7 +67,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
             $this->getCanonicalFieldName($field);
         }
 
-        if (!$this->canonicalValue) {
+        if (! $this->canonicalValue) {
             $this->canonicalValue = $this->faker->sentence(3);
         }
     }
@@ -92,9 +91,10 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return $value;
     }
 
-    protected function generateFieldData(PublicationField $field): string|int|float|array|bool {
+    protected function generateFieldData(PublicationField $field): string|int|float|array|bool
+    {
         return match ($field->type->value) {
-             'array' => $this->getArrayItems(),
+            'array' => $this->getArrayItems(),
              'boolean' => rand(0, 100) < 50,
              'datetime' => "{$this->getDateTimeValue()}",
              'float' => rand(-10000000, 10000000) / 100,
@@ -127,12 +127,14 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         for ($i = 0; $i < rand(3, 20); $i++) {
             $arrayItems[] = $this->faker->word();
         }
+
         return $arrayItems;
     }
 
     protected function getTags(PublicationField $field): string
     {
         $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
+
         return $tags->isEmpty() ? '' : $tags->random();
     }
 }
