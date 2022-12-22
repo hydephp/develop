@@ -106,6 +106,15 @@ class PublicationFieldTest extends TestCase
         (new PublicationField('string', 'myString'))->validate(1);
     }
 
+    public function testValidateWithCustomTypeRules()
+    {
+        $validated = (new PublicationField('string', 'myString', rules: ['min:3']))->validate('foo');
+        $this->assertSame(['my-string' => 'foo'], $validated);
+
+        $this->expectValidationException('The my-string must be at least 5 characters.');
+        (new PublicationField('string', 'myString', rules: ['min:5']))->validate('foo');
+    }
+
     public function testValidateWithCustomRuleCollection()
     {
         $validated = (new PublicationField('string', 'myString'))->validate('foo', ['min:3']);
@@ -131,6 +140,12 @@ class PublicationFieldTest extends TestCase
     {
         $validated = (new PublicationField('string', 'myString'))->validate('foo', collect(['min:3']));
         $this->assertSame(['my-string' => 'foo'], $validated);
+    }
+
+    public function testGetRulesWithCustomTypeRules()
+    {
+        $rules = (new PublicationField('string', 'myString', rules: ['foo', 'bar']))->getValidationRules();
+        $this->assertSame(['string', 'foo', 'bar'], $rules->toArray());
     }
 
     public function testGetRulesForArray()
