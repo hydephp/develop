@@ -64,7 +64,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
         $this->matter['__createdAt'] = "$now\n";
         foreach ($this->pubType->getFields() as $field) {
-            $this->generateFieldData($field);
+            $this->matter[$field->name] = $this->generateFieldData($field);
             $this->getCanonicalFieldName($field);
         }
 
@@ -92,38 +92,37 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return $value;
     }
 
-    protected function generateFieldData(PublicationField $field): void {
+    protected function generateFieldData(PublicationField $field): mixed {
         switch ($field->type->value) {
             case 'array':
-                $this->matter[$field->name] = $this->getArrayItems();
-                break;
+                return $this->getArrayItems();
+
             case 'boolean':
-                $this->matter[$field->name] = rand(0, 100) < 50;
-                break;
+                return rand(0, 100) < 50;
+
             case 'datetime':
-                $this->matter[$field->name] = "{$this->getDateTimeValue()}";
-                break;
+                return "{$this->getDateTimeValue()}";
+
             case 'float':
-                $this->matter[$field->name] = rand(-10000000, 10000000) / 100;
-                break;
+                return rand(-10000000, 10000000) / 100;
+
             case 'image':
-                $this->matter[$field->name] = 'https://picsum.photos/id/'.rand(1, 1000).'/400/400';
-                break;
+                return 'https://picsum.photos/id/'.rand(1, 1000).'/400/400';
+
             case 'integer':
-                $this->matter[$field->name] = rand(-100000, 100000);
-                break;
+                return rand(-100000, 100000);
+
             case 'string':
-                $this->matter[$field->name] = substr($this->faker->sentence(10), 0, rand(0, 255));
-                break;
+                return substr($this->faker->sentence(10), 0, rand(0, 255));
+
             case 'tag':
-                $this->matter[$field->name] = $this->getTags($field);
-                break;
+                return $this->getTags($field);
+
             case 'text':
-                $this->matter[$field->name] = $this->getTextValue(rand(3, 20));
-                break;
+                return $this->getTextValue(rand(3, 20));
+
             case 'url':
-                $this->matter[$field->name] = $this->faker->url();
-                break;
+                return $this->faker->url();
         }
     }
 
