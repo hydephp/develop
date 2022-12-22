@@ -142,10 +142,15 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
     protected function getCanonicalFieldName(PublicationField $field): void
     {
-        if (in_array($field->type->value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array'])) {
+        if ($this->canFieldTypeCanBeCanonical($field->type->value)) {
             if ($field->name == $this->pubType->canonicalField) {
                 $this->canonicalValue = $this->matter[$field->name];
             }
         }
+    }
+
+    protected function canFieldTypeCanBeCanonical(string $value): bool
+    {
+        return in_array($value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array']);
     }
 }
