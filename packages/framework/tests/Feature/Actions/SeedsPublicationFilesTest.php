@@ -59,7 +59,6 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertIsArray($publication->matter('tags'));
         $this->assertSame(0, key($publication->matter('tags')));
         $this->assertIsString($publication->matter('tags')[0]);
-        $this->assertTrue(count($publication->matter('tags')) >= 3 && count($publication->matter('tags')) <= 20);
     }
 
     public function testWithBooleanType()
@@ -155,7 +154,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('description'));
         $this->assertIsString($publication->matter('description'));
-        $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 2 && substr_count($publication->matter('description'), "\n") <= 19);
+        $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 1);
     }
 
     public function testWithUrlType()
