@@ -185,7 +185,7 @@ class SeedsPublicationFilesTest extends TestCase
     protected function updateSchema(string $type, string $name, ?string $tagGroup = null): void
     {
         $this->pubType->fields = [
-            (new PublicationField($type, $name, tagGroup: $tagGroup))->toArray(),
+            (new PublicationField($type, $name))->toArray(),
         ];
         $this->pubType->save();
     }
