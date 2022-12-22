@@ -65,11 +65,9 @@ class PublicationService
      */
     public static function getAllTags(): Collection
     {
-        if (! file_exists(Hyde::path('tags.json'))) {
-            return Collection::create();
-        }
-
-        return Collection::create(json_decode(file_get_contents(Hyde::path('tags.json')), true))->sortKeys();
+        return file_exists(Hyde::path('tags.json'))
+            ? Collection::create(json_decode(file_get_contents(Hyde::path('tags.json')), true))->sortKeys()
+            : Collection::create();
     }
 
     /**
