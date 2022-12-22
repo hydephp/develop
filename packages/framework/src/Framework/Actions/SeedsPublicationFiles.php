@@ -26,7 +26,7 @@ use function ucfirst;
  * @see \Hyde\Console\Commands\SeedPublicationCommand
  * @see \Hyde\Framework\Testing\Feature\Actions\SeedsPublicationFilesTest
  */
-class SeedsPublicationFiles extends CreateAction implements CreateActionContract
+class SeedsPublicationFiles
 {
     protected PublicationType $pubType;
     protected int $number = 1;
@@ -38,11 +38,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     {
         $this->number = $number;
         $this->pubType = $pubType;
-    }
-
-    protected function handleCreate(): void
-    {
-        $this->create();
     }
 
     public function create(): void
