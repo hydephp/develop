@@ -8,9 +8,9 @@ use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\SeedsPublicationFiles;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-use Illuminate\Support\Collection;
 
 /**
  * Hyde Command to seed publication files for a publication type.

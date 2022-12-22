@@ -11,8 +11,8 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use function strtolower;
 
 /**

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications;
 
 use function file_exists;
+use function file_get_contents;
+use function glob;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use function file_get_contents;
-use function glob;
+use Illuminate\Support\Str;
 use function json_decode;
 
 /**

@@ -11,9 +11,9 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
 

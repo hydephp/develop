@@ -12,10 +12,10 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use function json_encode;
 use function mkdir;
-use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\PublicationService
