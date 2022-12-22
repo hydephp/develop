@@ -142,7 +142,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return $tags->isEmpty() ? '' : $tags->random();
     }
 
-    protected const WORDS = [
+    private const WORDS = [
         'lorem',        'ipsum',       'dolor',        'sit',
         'amet',         'consectetur', 'adipiscing',   'elit',
         'a',            'ac',          'accumsan',     'ad',
@@ -191,7 +191,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         'vivamus',      'viverra',     'volutpat',     'vulputate',
     ];
 
-    protected function fakeSentence(int $words): string
+    private function fakeSentence(int $words): string
     {
         $sentence = '';
         for ($i = 0; $i < $words; $i++) {
@@ -201,12 +201,12 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return ucfirst(trim($sentence)).'.';
     }
 
-    protected function fakeWord(): string
+    private function fakeWord(): string
     {
         return Arr::random(self::WORDS);
     }
 
-    protected function fakeUrl(): string
+    private function fakeUrl(): string
     {
         return 'https://example.com/'.$this->fakeWord();
     }
