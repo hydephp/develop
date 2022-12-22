@@ -60,8 +60,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
             switch ($field->type->value) {
                 case 'array':
-                    $nLines = rand(3, 20);
-                    for ($i = 0; $i < $nLines; $i++) {
+                    for ($i = 0; $i < rand(3, 20); $i++) {
                         $lines[] = $faker->word();
                     }
                     $matter[$field->name] = $lines;
