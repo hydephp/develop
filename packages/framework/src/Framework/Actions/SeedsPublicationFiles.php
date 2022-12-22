@@ -65,7 +65,12 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
         $this->matter['__createdAt'] = "$now\n";
         foreach ($this->pubType->getFields() as $field) {
-            $this->generateFieldData($field, $canonicalFieldName);
+            $this->generateFieldData($field);
+            if (in_array($field->type->value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array'])) {
+                if ($field->name == $canonicalFieldName) {
+                    $this->canonicalValue = $this->matter[$field->name];
+                }
+            }
         }
 
         if (!$this->canonicalValue) {
@@ -92,7 +97,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         return $value;
     }
 
-    protected function generateFieldData(PublicationField $field, string $canonicalFieldName): void {
+    protected function generateFieldData(PublicationField $field): void {
         switch ($field->type->value) {
             case 'array':
                 $arrayItems = [];
@@ -137,12 +142,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $value = $this->faker->url();
                 $this->matter[$field->name] = $value;
                 break;
-        }
-
-        if (in_array($field->type->value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array'])) {
-            if ($field->name == $canonicalFieldName) {
-                $this->canonicalValue = $this->matter[$field->name];
-            }
         }
     }
 }
