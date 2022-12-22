@@ -173,26 +173,26 @@ class PublicationTypeTest extends TestCase
         ], $publicationType->getFieldRules()->toArray());
     }
 
-    protected function getTestData(): array
+    protected function getTestData(array $mergeData = []): array
     {
-        return [
-            'name'           => 'Test Publication',
+        return array_merge([
+            'name' => 'Test Publication',
             'canonicalField' => 'title',
             'detailTemplate' => 'test-publication_detail',
-            'listTemplate'   => 'test-publication_list',
+            'listTemplate' => 'test-publication_list',
             'pagination' => [
-                'sortField'      => '__createdAt',
-                'sortAscending'  => true,
-                'prevNextLinks'  => true,
-                'pageSize'       => 25,
+                'sortField' => '__createdAt',
+                'sortAscending' => true,
+                'prevNextLinks' => true,
+                'pageSize' => 25,
             ],
-            'fields'         => [
+            'fields' => [
                 [
                     'name' => 'title',
                     'type' => 'string',
                 ],
             ],
-        ];
+        ], $mergeData);
     }
 
     protected function getTestDataWithPathInformation(): array
