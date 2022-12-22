@@ -131,7 +131,7 @@ class SeedsPublicationFilesTest extends TestCase
 
     public function testWithTagType()
     {
-        $tags = ['foo' => ['foo', 'bar', 'baz']];
+        $tags = ['Test Publication' => ['foo', 'bar', 'baz']];
         $this->file('tags.json', json_encode($tags));
         $this->updateSchema('tag', 'tag');
         (new SeedsPublicationFiles($this->pubType))->create();
@@ -141,7 +141,7 @@ class SeedsPublicationFilesTest extends TestCase
         $this->assertBaseline($publication);
         $this->assertNotEmpty($publication->matter('tag'));
         $this->assertIsString($publication->matter('tag'));
-        $this->assertTrue(in_array($publication->matter('tag'), $tags['foo']));
+        $this->assertTrue(in_array($publication->matter('tag'), $tags['Test Publication']));
     }
 
     public function testWithTextType()
