@@ -68,7 +68,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         }
 
         if (! $this->canonicalValue) {
-            $this->canonicalValue = $this->faker->sentence(3);
+            $this->canonicalValue = $this->fakeSentence(3);
         }
     }
 
@@ -85,7 +85,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $value = '';
 
         for ($i = 0; $i < $lines; $i++) {
-            $value .= $this->faker->sentence(rand(5, 20))."\n";
+            $value .= $this->fakeSentence(rand(5, 20))."\n";
         }
 
         return $value;
@@ -100,7 +100,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
              'float' => rand(-10000000, 10000000) / 100,
              'image' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
              'integer' => rand(-100000, 100000),
-             'string' => substr($this->faker->sentence(10), 0, rand(0, 255)),
+             'string' => substr($this->fakeSentence(10), 0, rand(0, 255)),
              'tag' => $this->getTags($field),
              'text' => $this->getTextValue(rand(3, 20)),
              'url' => $this->faker->url(),
@@ -136,5 +136,10 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
 
         return $tags->isEmpty() ? '' : $tags->random();
+    }
+
+    protected function fakeSentence(int $words): string
+    {
+        return $this->faker->sentence($words);
     }
 }
