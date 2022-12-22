@@ -10,7 +10,6 @@ use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Carbon;
@@ -94,17 +93,17 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     }
 
     protected function generateFieldData(PublicationField $field): string|int|float|array|bool {
-        return match ($field->type) {
-             PublicationFieldTypes::Array => $this->getArrayItems(),
-             PublicationFieldTypes::Boolean => rand(0, 100) < 50,
-             PublicationFieldTypes::Datetime => "{$this->getDateTimeValue()}",
-             PublicationFieldTypes::Float => rand(-10000000, 10000000) / 100,
-             PublicationFieldTypes::Image => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
-             PublicationFieldTypes::Integer => rand(-100000, 100000),
-             PublicationFieldTypes::String => substr($this->faker->sentence(10), 0, rand(0, 255)),
-             PublicationFieldTypes::Tag => $this->getTags($field),
-             PublicationFieldTypes::Text => $this->getTextValue(rand(3, 20)),
-             PublicationFieldTypes::Url => $this->faker->url(),
+        return match ($field->type->value) {
+             'array' => $this->getArrayItems(),
+             'boolean' => rand(0, 100) < 50,
+             'datetime' => "{$this->getDateTimeValue()}",
+             'float' => rand(-10000000, 10000000) / 100,
+             'image' => 'https://picsum.photos/id/'.rand(1, 1000).'/400/400',
+             'integer' => rand(-100000, 100000),
+             'string' => substr($this->faker->sentence(10), 0, rand(0, 255)),
+             'tag' => $this->getTags($field),
+             'text' => $this->getTextValue(rand(3, 20)),
+             'url' => $this->faker->url(),
         };
     }
 
