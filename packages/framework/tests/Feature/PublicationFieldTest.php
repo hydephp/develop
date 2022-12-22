@@ -142,6 +142,12 @@ class PublicationFieldTest extends TestCase
         $this->assertSame(['my-string' => 'foo'], $validated);
     }
 
+    public function testGetRules()
+    {
+        $rules = (new PublicationField('string', 'myString'))->getValidationRules();
+        $this->assertSame(['string'], $rules->toArray());
+    }
+
     public function testGetRulesWithCustomTypeRules()
     {
         $rules = (new PublicationField('string', 'myString', rules: ['foo', 'bar']))->getValidationRules();
