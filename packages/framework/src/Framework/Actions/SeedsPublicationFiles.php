@@ -95,11 +95,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected function generateFieldData(PublicationField $field): void {
         switch ($field->type->value) {
             case 'array':
-                $arrayItems = [];
-                for ($i = 0; $i < rand(3, 20); $i++) {
-                    $arrayItems[] = $this->faker->word();
-                }
-                $this->matter[$field->name] = $arrayItems;
+                $this->matter[$field->name] = $this->getArrayItems();
                 break;
             case 'boolean':
                 $this->matter[$field->name] = rand(0, 100) < 50;
@@ -144,5 +140,14 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
     protected function canFieldTypeCanBeCanonical(string $value): bool
     {
         return in_array($value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array']);
+    }
+
+    protected function getArrayItems(): array
+    {
+        $arrayItems = [];
+        for ($i = 0; $i < rand(3, 20); $i++) {
+            $arrayItems[] = $this->faker->word();
+        }
+        return $arrayItems;
     }
 }
