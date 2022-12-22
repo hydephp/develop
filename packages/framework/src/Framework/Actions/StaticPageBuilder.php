@@ -32,7 +32,6 @@ class StaticPageBuilder
 
     /**
      * Run the page builder.
-     *
      */
     public function __invoke(): string
     {

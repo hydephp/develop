@@ -17,14 +17,12 @@ class RebuildService
     /**
      * The source file to build.
      * Should be relative to the Hyde installation.
-     *
      */
     public string $filepath;
 
     /**
      * The page builder instance.
      * Used to get debug output from the builder.
-     *
      */
     public StaticPageBuilder $builder;
 

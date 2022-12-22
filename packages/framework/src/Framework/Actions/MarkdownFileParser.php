@@ -17,13 +17,11 @@ class MarkdownFileParser
 {
     /**
      * The extracted Front Matter.
-     *
      */
     public array $matter = [];
 
     /**
      * The extracted Markdown body.
-     *
      */
     public string $markdown = '';
 

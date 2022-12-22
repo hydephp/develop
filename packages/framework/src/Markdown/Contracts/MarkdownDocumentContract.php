@@ -17,7 +17,6 @@ interface MarkdownDocumentContract
 
     /**
      * Return the document's Markdown object.
-     *
      */
     public function markdown(): Markdown;
 }

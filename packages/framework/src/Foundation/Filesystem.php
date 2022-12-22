@@ -105,7 +105,6 @@ class Filesystem
 
     /**
      * Works similarly to the path() function, but returns a file in the Framework package.
-     *
      */
     public function vendorPath(string $path = ''): string
     {
