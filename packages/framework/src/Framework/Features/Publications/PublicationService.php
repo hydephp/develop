@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use function file_exists;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
-
-use function file_exists;
 use function Safe\file_get_contents;
 use function Safe\glob;
 use function Safe\json_decode;
