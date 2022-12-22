@@ -116,8 +116,7 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 $this->matter[$field->name] = substr($this->faker->sentence(10), 0, rand(0, 255));
                 break;
             case 'tag':
-                $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
-                $this->matter[$field->name] = ($tags->isEmpty() ? '' : $tags->random());
+                $this->matter[$field->name] = $this->getTags($field);
                 break;
             case 'text':
                 $this->matter[$field->name] = $this->getTextValue(rand(3, 20));
@@ -149,5 +148,11 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
             $arrayItems[] = $this->faker->word();
         }
         return $arrayItems;
+    }
+
+    protected function getTags(PublicationField $field): string
+    {
+        $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
+        return $tags->isEmpty() ? '' : $tags->random();
     }
 }
