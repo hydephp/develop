@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Faker\Factory;
-use Faker\Generator;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
@@ -35,13 +33,11 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
     protected array $matter;
     protected string $canonicalValue;
-    protected Generator $faker;
 
     public function __construct(PublicationType $pubType, int $number = 1)
     {
         $this->number = $number;
         $this->pubType = $pubType;
-        $this->faker = Factory::create();
     }
 
     protected function handleCreate(): void

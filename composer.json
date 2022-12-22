@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^8.1",
-        "fakerphp/faker": "^1.20",
         "hyde/framework": "dev-master",
         "illuminate/validation": "^9.0.0",
         "laravel-zero/framework": "^9.1",
