@@ -86,8 +86,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
             $type = $this->getFieldType();
 
-            if ($type < 10) {
-            } else {
+            if ($type === 10) {
                 $fieldData = $this->getFieldDataForTag($fieldData);
             }
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
