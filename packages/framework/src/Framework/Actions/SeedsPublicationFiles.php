@@ -100,7 +100,6 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     $arrayItems[] = $this->faker->word();
                 }
                 $this->matter[$field->name] = $arrayItems;
-                $value = $arrayItems[0].'-'.rand(1, 100000);
                 break;
             case 'boolean':
                 $this->matter[$field->name] = rand(0, 100) < 50;
