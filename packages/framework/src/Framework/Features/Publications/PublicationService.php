@@ -57,11 +57,6 @@ class PublicationService
 
     /**
      * Get all available tags.
-     *
-     * @return \Rgasch\Collection\Collection
-     *
-     * @throws \Safe\Exceptions\FilesystemException
-     * @throws \Safe\Exceptions\JsonException
      */
     public static function getAllTags(): Collection
     {
@@ -72,12 +67,6 @@ class PublicationService
 
     /**
      * Get all values for a given tag name.
-     *
-     * @param  string  $tagName
-     * @return \Rgasch\Collection\Collection
-     *
-     * @throws \Safe\Exceptions\FilesystemException
-     * @throws \Safe\Exceptions\JsonException
      */
     public static function getValuesForTagName(string $tagName): Collection
     {
