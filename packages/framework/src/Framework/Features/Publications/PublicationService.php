@@ -70,12 +70,7 @@ class PublicationService
             return Collection::create();
         }
 
-        static $tags = null;
-        if (! $tags) {
-            $tags = Collection::create(json_decode(file_get_contents($filename), true))->sortKeys();
-        }
-
-        return $tags;
+        return Collection::create(json_decode(file_get_contents($filename), true))->sortKeys();
     }
 
     /**
