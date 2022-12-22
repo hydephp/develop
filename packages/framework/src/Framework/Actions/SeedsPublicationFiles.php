@@ -14,6 +14,8 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+
+use function in_array;
 use function rand;
 use function substr;
 use function time;
@@ -137,22 +139,10 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                 break;
         }
 
-        switch ($field->type->value) {
-            case 'url':
-            case 'text':
-            case 'string':
-            case 'integer':
-            case 'float':
-            case 'datetime':
-            case 'array':
-                if ($field->name == $canonicalFieldName) {
-                    $this->canonicalValue = $this->matter[$field->name];
-                }
-                break;
-            case 'tag':
-            case 'image':
-            case 'boolean':
-                break;
+        if (in_array($field->type->value, ['url', 'text', 'string', 'integer', 'float', 'datetime', 'array'])) {
+            if ($field->name == $canonicalFieldName) {
+                $this->canonicalValue = $this->matter[$field->name];
+            }
         }
     }
 }
