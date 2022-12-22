@@ -68,7 +68,8 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                         $arrayItems[] = $faker->word();
                     }
                     $matter[$field->name] = $arrayItems;
-                    $canonicalValue = $field->name == $canonicalFieldName ? $arrayItems[0].rand(1, 100000) : '';
+                    $value = $arrayItems[0].rand(1, 100000);
+                    $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'boolean':
                     $matter[$field->name] = rand(0, 100) < 50;
