@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
+use Rgasch\Collection\Collection;
 use ValueError;
 
 /**
@@ -104,6 +105,21 @@ class PublicationFieldTest extends TestCase
 
         $this->expectValidationException('The my-string must be a string.');
         (new PublicationField('string', 'myString'))->validate(1);
+    }
+
+    public function testValidateWithCustomRuleCollection()
+    {
+        $validated = (new PublicationField('string', 'myString'))->validate('foo', Collection::create(['min:3']));
+        $this->assertSame(['my-string' => 'foo'], $validated);
+
+        $this->expectValidationException('The my-string must be at least 5 characters.');
+        (new PublicationField('string', 'myString'))->validate('foo', Collection::create(['min:5']));
+    }
+
+    public function testValidateWithCustomRuleCollectionOverridesDefaultRules()
+    {
+        $this->expectValidationException('The my-string must be a number.');
+        (new PublicationField('string', 'myString'))->validate("foo", Collection::create(['numeric']));
     }
 
     public function testGetRulesForArray()
