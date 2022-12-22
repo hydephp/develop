@@ -9,6 +9,7 @@ use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Rgasch\Collection\Collection;
@@ -39,11 +40,13 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
 
         for ($i = 0; $i < $this->number; $i++) {
             $publicationData = $this->generatePublicationData();
-            $output = $publicationData->output;
+            $matter = $publicationData->matter->toArray();
             $canonicalValue = $publicationData->canonicalValue;
             $basename = Str::of($canonicalValue)->substr(0, 64)->slug()->toString();
             $fileName = "$directory/{$this->formatStringForStorage($basename)}.md";
-            file_put_contents($fileName, $output);
+
+            $page = new PublicationPage($basename, $matter, '## Write something awesome.', $this->pubType);
+            $page->save();
         }
     }
 
@@ -54,8 +57,8 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalValue = '';
 
-        $output = "---\n";
-        $output .= "__createdAt: $now\n";
+        $matter = [];
+        $matter['__createdAt'] = "$now\n";
         /** @var \Hyde\Framework\Features\Publications\Models\PublicationField $field */
         foreach ($this->pubType->getFields() as $field) {
             $lines = [];
@@ -66,60 +69,58 @@ class SeedsPublicationFiles extends CreateAction implements CreateActionContract
                     for ($i = 0; $i < $nLines; $i++) {
                         $lines[] = $faker->word();
                     }
-                    $output .= "$field->name:\n  - ".implode("\n  - ", $lines)."\n";
+                    $matter[$field->name] = $lines;
                     $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
                     break;
                 case 'boolean':
-                    $output .= "$field->name: ".(rand(0, 100) < 50 ? 'true' : 'false')."\n";
+                    $matter[$field->name] = (rand(0, 100) < 50 ? true : false);
                     break;
                 case 'datetime':
                     $value = $this->getDateTimeValue();
-                    $output .= "$field->name: $value\n";
+                    $matter[$field->name] = "$value";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'float':
                     $value = rand(-10000000, 10000000) / 100;
-                    $output .= "$field->name: $value\n";
+                    $matter[$field->name] = $value;
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'image':
-                    $output .= "$field->name: https://picsum.photos/id/".(rand(1, 1000) / 100)."/400/400\n";
+                    $matter[$field->name] = "https://picsum.photos/id/".(rand(1, 1000) / 100)."/400/400";
                     break;
                 case 'integer':
                     $value = rand(-100000, 100000);
-                    $output .= "$field->name: $value\n";
+                    $matter[$field->name] = $value;
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'string':
                     $value = Str::of($faker->sentence(10))->limit(rand(0, 255));
-                    $output .= "$field->name: $value\n";
+                    $matter[$field->name] = "$value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
                 case 'tag':
                     $tags = PublicationService::getValuesForTagName($field->tagGroup, false);
                     $tagValue = $tags->isEmpty() ? '' : $tags->random();
-                    $output .= "$field->name: $tagValue\n";
+                    $matter[$field->name] = $tagValue;
                     break;
                 case 'text':
                     $nLines = rand(3, 20);
                     for ($i = 0; $i < $nLines; $i++) {
                         $lines[] = $faker->sentence(rand(5, 20));
                     }
-                    $output .= "$field->name: |\n  ".implode("\n  ", $lines)."\n";
+                    $matter[$field->name] = "|\n  ".implode("\n  ", $lines)."\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $lines[0].rand(1, 100000) : '';
                     break;
                 case 'url':
                     $text = Str::of($faker->sentence(rand(3, 10)))->replace(' ', '+');
                     $value = 'https://google.com?q='.$text;
-                    $output .= "$field->name: $value\n";
+                    $matter[$field->name] = "$value\n";
                     $canonicalValue = $field->name == $canonicalFieldName ? $value : '';
                     break;
             }
         }
-        $output .= "---\n";
-        $output .= "\n## Write something awesome.\n\n";
 
-        return Collection::create(['output' => $output, 'canonicalValue' => $canonicalValue ?: $faker->sentence(3)]);
+        return Collection::create(['matter' => $matter, 'canonicalValue' => $canonicalValue ?: $faker->sentence(3)]);
     }
 
     protected function getDateTimeValue(): string
