@@ -85,7 +85,12 @@ class MakePublicationTypeCommand extends ValidatingCommand
             if ($type === PublicationFieldTypes::Tag) {
                 $fieldData = $this->getFieldDataForTag($fieldData);
             }
-            $addAnother = (! $this->hasOption('use-defaults')) && $this->confirm('Add another field?');
+
+            if ($this->option('use-defaults') === true) {
+                $addAnother = false;
+            } else {
+                $addAnother = $this->confirm('Add another field?');
+            }
 
             // map field choice to actual field type
             $fieldData['type'] = $type;
