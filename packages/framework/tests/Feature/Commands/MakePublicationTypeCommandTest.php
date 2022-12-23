@@ -115,19 +115,23 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'foo')
-            ->expectsChoice('Enter type for field #1', 'String', [])
+            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
 
             ->expectsConfirmation('Field #1 added! Add another field?', 'yes')
 
             ->expectsQuestion('Enter name for field #2', 'foo')
             ->expectsOutput('Field name [foo] already exists!')
             ->expectsQuestion('Try again: Enter name for field #2', 'bar')
-            ->expectsChoice('Enter type for field #2', 'String', [])
+            ->expectsChoice('Enter type for field #2', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
 
             ->expectsConfirmation('Field #2 added! Add another field?', 'no')
 
             ->expectsConfirmation('Do you want to configure pagination settings?', 'n')
-            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [])
+            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [
+                '__createdAt',
+                'bar',
+                'foo',
+            ])
             ->assertExitCode(0);
     }
 }
