@@ -131,17 +131,15 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(Collection $selectedFields): PublicationField
     {
-        // todo Use the first field as canonical when use-defaults flag is set
+        $selectableFields = $selectedFields->reject(function (PublicationField $field): bool {
+            return in_array($field, PublicationFieldTypes::canonicable());
+        });
+
         if ($this->hasOption('use-defaults')) {
-            return PublicationField::fromArray([
-                'name' => '__createdAt',
-                'type' => PublicationFieldTypes::Datetime,
-            ]);
+           return $selectableFields->first();
         }
 
-        $options = $selectedFields->reject(function (PublicationField $field): bool {
-            return in_array($field, PublicationFieldTypes::canonicable());
-        })->pluck('name');
+        $options = $selectableFields->pluck('name');
 
         if ($options->isEmpty()) {
             $this->warn('There are no fields that can be canonical. Defaulting to __createdAt instead.');
