@@ -83,15 +83,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             $this->line('');
 
             $fieldData = [];
-            do {
-                if ($duplicate ?? false) {
-                    $tryMsg = 'Try again: ';
-                } else {
-                    $tryMsg = '';
-                }
-                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', "{$tryMsg}Enter name for field #$this->count", ['required'])));
-                $duplicate = $this->checkIfFieldIsDuplicate($fieldData['name']);
-            } while ($duplicate);
+            $fieldData['name'] = $this->getFieldName();
 
             $type = $this->getFieldType();
 
@@ -113,6 +105,21 @@ class MakePublicationTypeCommand extends ValidatingCommand
         } while ($addAnother);
 
         return $this->fields;
+    }
+
+    protected function getFieldName(): string
+    {
+        do {
+            if ($duplicate ?? false) {
+                $tryMsg = 'Try again: ';
+            } else {
+                $tryMsg = '';
+            }
+            $name = Str::kebab(trim($this->askWithValidation('name', "{$tryMsg}Enter name for field #$this->count", ['required'])));
+            $duplicate = $this->checkIfFieldIsDuplicate($name);
+        } while ($duplicate);
+
+        return $name;
     }
 
     protected function getFieldType(): PublicationFieldTypes
