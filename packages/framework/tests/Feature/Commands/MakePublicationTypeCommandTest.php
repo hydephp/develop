@@ -121,7 +121,7 @@ class MakePublicationTypeCommandTest extends TestCase
 
             ->expectsQuestion('Enter name for field #2', 'foo')
             ->expectsOutput('Field name [foo] already exists!')
-            ->expectsQuestion('Try again: Enter name for field #2', 'bar')
+            ->expectsQuestion('Enter name for field #2', 'bar')
             ->expectsChoice('Enter type for field #2', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
 
             ->expectsConfirmation('Field #2 added! Add another field?', 'no')
