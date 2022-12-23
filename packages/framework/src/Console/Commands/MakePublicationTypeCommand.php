@@ -20,6 +20,7 @@ use InvalidArgumentException;
 use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use function scandir;
+use function str_replace;
 use function strtolower;
 use function trim;
 
@@ -190,11 +191,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(Collection $fields): string
     {
-        $options = array_merge(['dateCreated (meta field)'], $fields->pluck('name')->toArray());
+        $options = $fields->pluck('name')->toArray();
+        $options[0] = 'Date created (meta field)';
 
         $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
-
-        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
+        return str_replace('Date created (meta field)', '__createdAt', $selected);
     }
 
     protected function getSortDirection(): bool
