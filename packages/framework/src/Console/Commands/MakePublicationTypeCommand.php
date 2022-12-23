@@ -141,15 +141,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $options = $selectableFields->pluck('name');
 
-        if ($options->isEmpty()) {
-            $this->warn('There are no fields that can be canonical. Defaulting to __createdAt instead.');
-
-            return PublicationField::fromArray([
-                'name' => '__createdAt',
-                'type' => PublicationFieldTypes::Datetime,
-            ]);
-        }
-
         return $selectedFields->firstWhere('name',
             $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
                 $options->toArray(),
