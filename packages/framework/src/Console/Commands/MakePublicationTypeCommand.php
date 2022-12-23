@@ -176,12 +176,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             return ['__createdAt', true, 25, true];
         }
 
-        return [
-            $this->getSortField(),
-            $this->getSortDirection(),
-            $this->getPageSize(),
-            $this->getPrevNextLinks()
-        ];
+        return [$this->getSortField(), $this->getSortDirection(), $this->getPageSize(), $this->getPrevNextLinks()];
     }
 
     protected function getSortField(): string
