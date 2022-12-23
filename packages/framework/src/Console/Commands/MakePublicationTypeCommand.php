@@ -55,6 +55,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         }
 
         $fields = $this->captureFieldsDefinitions();
+        $fields = $fields->map(fn (array $field) => PublicationField::fromArray($field));
 
         list($sortField, $sortAscending, $pageSize, $prevNextLinks) = array_values($this->getPaginationSettings($fields));
 
@@ -73,10 +74,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->line('You now need to define the fields in your publication type:');
         $fields = Collection::make();
 
-        $fields->add(PublicationField::fromArray([
+        $fields->add([
             'name' => '__createdAt',
             'type' => PublicationFieldTypes::Datetime,
-        ]));
+        ]);
         $this->count++;
 
         do {
@@ -103,7 +104,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             // map field choice to actual field type
             $fieldData['type'] = $type;
 
-            $fields->add(PublicationField::fromArray($fieldData));
+            $fields->add($fieldData);
             $this->count++;
         } while ($addAnother);
 
