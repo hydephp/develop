@@ -52,9 +52,9 @@ class MakePublicationTypeCommandTest extends TestCase
                 '__createdAt',
                 'publication-title',
             ])
-            ->expectsChoice('Choose the default sort direction', 'Ascending (oldest items first if sorting by dateCreated)', [
-                'Ascending (oldest items first if sorting by dateCreated)',
-                'Descending (newest items first if sorting by dateCreated)',
+            ->expectsChoice('Choose the default sort direction', 'Ascending', [
+                'Ascending',
+                'Descending',
             ])
             ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
             ->expectsQuestion('Generate previous/next links in detail view?', 'n')
