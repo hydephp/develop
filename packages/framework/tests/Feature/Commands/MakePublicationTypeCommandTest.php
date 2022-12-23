@@ -22,6 +22,13 @@ class MakePublicationTypeCommandTest extends TestCase
         config(['app.throw_on_console_exception' => true]);
     }
 
+    protected function tearDown(): void
+    {
+        Filesystem::deleteDirectory('test-publication');
+
+        parent::tearDown();
+    }
+
     public function test_command_creates_publication_type()
     {
         $this->artisan('make:publicationType')
@@ -84,7 +91,5 @@ class MakePublicationTypeCommandTest extends TestCase
         );
 
         // TODO: Assert Blade templates were created?
-
-        Filesystem::deleteDirectory('test-publication');
     }
 }
