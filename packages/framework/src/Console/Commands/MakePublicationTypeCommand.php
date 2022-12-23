@@ -157,7 +157,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         })->pluck('name');
 
         if ($options->isEmpty()) {
-            $this->warn('There are no fields that can be canonical. Using __createdAt instead.');
+            $this->warn('There are no fields that can be canonical. Defaulting to __createdAt instead.');
             return PublicationField::fromArray([
                 'name' => '__createdAt',
                 'type' => PublicationFieldTypes::Datetime,
