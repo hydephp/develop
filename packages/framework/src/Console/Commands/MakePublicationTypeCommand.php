@@ -181,9 +181,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortField(): string
     {
-        $options = $this->fields->pluck('name')->toArray();
-
-        return $this->choice('Choose the default field you wish to sort by', $options, '__dateCreated');
+        return $this->choice('Choose the default field you wish to sort by', $this->fields->pluck('name')->toArray(), '__dateCreated');
     }
 
     protected function getSortDirection(): bool
