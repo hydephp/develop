@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use function config;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
@@ -95,6 +96,11 @@ class MakePublicationTypeCommandTest extends TestCase
 
     public function test_with_multiple_fields_of_the_same_name()
     {
-        $this->markTestIncomplete('Unable to test this because of a bug in Mockery');
+        $this->artisan('make:publicationType "Test Publication"')
+             ->expectsQuestion('Enter name for field #1', 'foo')
+             ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
+             ->expectsConfirmation('Add another field?', 'y')
+             ->expectsQuestion('Enter name for field #2', 'foo')
+             ->assertExitCode(0);
     }
 }
