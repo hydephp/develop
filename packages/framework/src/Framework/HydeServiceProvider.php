@@ -38,7 +38,7 @@ class HydeServiceProvider extends ServiceProvider
 
         $this->app->singleton(AssetService::class, AssetService::class);
 
-        $this->app->singleton(MarkdownConverter::class, function () {
+        $this->app->singleton(MarkdownConverter::class, function (): \Hyde\Markdown\MarkdownConverter {
             return new MarkdownConverter();
         });
 
