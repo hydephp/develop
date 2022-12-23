@@ -10,7 +10,6 @@ use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function in_array;
