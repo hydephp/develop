@@ -14,7 +14,6 @@ use Illuminate\Support\Collection;
  */
 enum PublicationFieldTypes: string
 {
-    //@codeCoverageIgnoreStart
     case String = 'string';
     case Boolean = 'boolean';
     case Integer = 'integer';
@@ -25,7 +24,6 @@ enum PublicationFieldTypes: string
     case Text = 'text';
     case Image = 'image';
     case Tag = 'tag';
-    //@codeCoverageIgnoreEnd
 
     public function rules(): array
     {
