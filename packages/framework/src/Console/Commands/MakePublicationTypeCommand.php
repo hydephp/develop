@@ -61,7 +61,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $canonicalField = $this->getCanonicalField($fields);
 
-        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
+        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
         $creator->create();
 
         $this->info('Publication type created successfully!');
@@ -147,7 +147,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         );
     }
 
-    protected function getCanonicalField(Collection $fields): string
+    protected function getCanonicalField(Collection $fields): PublicationField
     {
         $options = $fields->reject(function (PublicationField $field): bool {
             // Temporary verbose check to see code coverage
@@ -160,7 +160,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
             }
         })->pluck('name');
 
-        return $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first());
+        return $fields->firstWhere('name',
+            $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first())
+        );
     }
 
     protected function getFieldDataForTag(array $fieldData): array
