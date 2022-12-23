@@ -57,7 +57,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         [$sortField, $sortAscending, $pageSize, $prevNextLinks] = array_values($this->getPaginationSettings());
 
-        $canonicalField = $this->getCanonicalField($this->fields);
+        $canonicalField = $this->getCanonicalField();
 
         $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
         $creator->create();
@@ -124,9 +124,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return PublicationFieldTypes::from(strtolower($choice));
     }
 
-    protected function getCanonicalField(Collection $selectedFields): PublicationField
+    protected function getCanonicalField(): PublicationField
     {
-        $selectableFields = $selectedFields->reject(function (PublicationField $field): bool {
+        $selectableFields = $this->fields->reject(function (PublicationField $field): bool {
             return in_array($field, PublicationFieldTypes::canonicable());
         });
 
@@ -136,7 +136,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $options = $selectableFields->pluck('name');
 
-        return $selectedFields->firstWhere('name',
+        return $this->fields->firstWhere('name',
             $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
                 $options->toArray(),
                 $options->first()
