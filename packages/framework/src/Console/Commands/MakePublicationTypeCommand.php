@@ -90,14 +90,14 @@ class MakePublicationTypeCommand extends ValidatingCommand
             if ($type === PublicationFieldTypes::Tag) {
                 $fieldData = $this->getFieldDataForTag($fieldData);
             }
-            $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
+            $addAnother = $this->confirm('Add another field?');
 
             // map field choice to actual field type
             $fieldData['type'] = $type;
 
             $fields->add(PublicationField::fromArray($fieldData));
             $count++;
-        } while (strtolower($addAnother) !== 'n');
+        } while ($addAnother);
 
         return $fields;
     }
