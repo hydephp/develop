@@ -165,8 +165,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
         }
 
         return $selectedFields->firstWhere('name',
-            $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', $options->toArray(), $options->first())
-        );
+            $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
+                $options->toArray(),
+                $options->first()
+            ));
     }
 
     protected function getFieldDataForTag(array $fieldData): array
