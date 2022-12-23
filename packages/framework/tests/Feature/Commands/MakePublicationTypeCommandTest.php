@@ -45,7 +45,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Tag',
                 'Text',
                 'Url',
-            ])
+            ], true)
             ->expectsConfirmation('Add another field?', 'n')
             ->expectsChoice('Choose the default field you wish to sort by', 'dateCreated (meta field)', [
                 'dateCreated (meta field)',
