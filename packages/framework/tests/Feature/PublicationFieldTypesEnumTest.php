@@ -62,4 +62,14 @@ class PublicationFieldTypesEnumTest extends TestCase
             9 => 'url',
         ], PublicationFieldTypes::values());
     }
+
+    public function testCanonicable()
+    {
+        $this->assertSame([
+            PublicationFieldTypes::String,
+            PublicationFieldTypes::Integer,
+            PublicationFieldTypes::Datetime,
+            PublicationFieldTypes::Text,
+        ], PublicationFieldTypes::canonicable());
+    }
 }
