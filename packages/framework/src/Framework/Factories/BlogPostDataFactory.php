@@ -34,8 +34,8 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
      */
     final public const SCHEMA = BlogPostSchema::MARKDOWN_POST_SCHEMA;
 
-    private FrontMatter $matter;
-    private Markdown $markdown;
+    private readonly FrontMatter $matter;
+    private readonly Markdown $markdown;
 
     protected readonly ?string $description;
     protected readonly ?string $category;
