@@ -36,6 +36,9 @@ final class CoreDataObject implements SerializableContract
         //
     }
 
+    /**
+     * @return array{pageClass: string, identifier: string, sourcePath: string, outputPath: string, routeKey: string}
+     */
     public function toArray(): array
     {
         return [

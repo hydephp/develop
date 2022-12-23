@@ -55,6 +55,9 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         $this->image = $this->makeImage();
     }
 
+    /**
+     * @return array{description: string|null, category: string|null, date: \Hyde\Support\Models\DateString|null, author: \Hyde\Framework\Features\Blogging\Models\PostAuthor|null, image: \Hyde\Framework\Features\Blogging\Models\FeaturedImage|null}
+     */
     public function toArray(): array
     {
         return [

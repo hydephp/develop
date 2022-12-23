@@ -43,6 +43,9 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $this->licenseUrl = $this->makeLicenseUrl();
     }
 
+    /**
+     * @return array{source: string, altText: string|null, titleText: string|null, authorName: string|null, authorUrl: string|null, copyrightText: string|null, licenseName: string|null, licenseUrl: string|null}
+     */
     public function toArray(): array
     {
         return [

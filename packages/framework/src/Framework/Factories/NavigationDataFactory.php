@@ -58,6 +58,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $this->priority = $this->makePriority();
     }
 
+    /**
+     * @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}
+     */
     public function toArray(): array
     {
         return [

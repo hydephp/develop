@@ -94,7 +94,7 @@ class Route implements Stringable, SerializableContract
     }
 
     /**
-     * @return array<string, string>
+     * @return array{routeKey: string, sourcePath: string, outputPath: string, page: array{class: string, identifier: string}}
      */
     public function toArray(): array
     {

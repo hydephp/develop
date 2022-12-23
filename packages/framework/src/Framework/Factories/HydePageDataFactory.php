@@ -47,6 +47,9 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         $this->navigation = $this->makeNavigation();
     }
 
+    /**
+     * @return array{title: string, canonicalUrl: string|null, navigation: \Hyde\Framework\Features\Navigation\NavigationData|null}
+     */
     public function toArray(): array
     {
         return [
