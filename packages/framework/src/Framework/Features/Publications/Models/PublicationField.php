@@ -34,10 +34,10 @@ class PublicationField implements SerializableContract
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [])
+    public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [], bool $normalizeName = true)
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
-        $this->name = Str::kebab($name);
+        $this->name = $normalizeName ? Str::kebab($name) : $name;
         $this->rules = $rules;
     }
 
