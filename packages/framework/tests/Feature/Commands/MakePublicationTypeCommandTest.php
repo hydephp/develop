@@ -83,6 +83,10 @@ class MakePublicationTypeCommandTest extends TestCase
                 },
                 "fields": [
                     {
+                        "type": "datetime",
+                        "name": "__createdAt"
+                    },
+                    {
                         "type": "string",
                         "name": "publication-title"
                     }
