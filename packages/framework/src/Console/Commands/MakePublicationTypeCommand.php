@@ -15,8 +15,8 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use function in_array;
+use InvalidArgumentException;
 use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use function scandir;
@@ -158,6 +158,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         if ($options->isEmpty()) {
             $this->warn('There are no fields that can be canonical. Defaulting to __createdAt instead.');
+
             return PublicationField::fromArray([
                 'name' => '__createdAt',
                 'type' => PublicationFieldTypes::Datetime,
