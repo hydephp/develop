@@ -55,7 +55,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $this->fields = $this->captureFieldsDefinitions();
 
-        [$sortField, $sortAscending, $pageSize, $prevNextLinks] = array_values($this->getPaginationSettings());
+        [$sortField, $sortAscending, $pageSize, $prevNextLinks] = ($this->getPaginationSettings());
 
         $canonicalField = $this->getCanonicalField();
 
@@ -172,16 +172,15 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getPaginationSettings(): array
     {
-        $paginationDefaults = ['sortField' => '__createdAt', 'sortAscending' => true, 'pageSize' => 25, 'prevNextLinks' => true];
         if ($this->option('use-defaults') || ! $this->confirm('Do you want to configure pagination settings?')) {
-            return $paginationDefaults;
+            return ['__createdAt', true, 25, true];
         }
         $sortField = $this->getSortField();
         $sortAscending = $this->getSortDirection();
         $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
 
-        return ['sortField' => $sortField, 'sortAscending' => $sortAscending, 'pageSize' => $pageSize, 'prevNextLinks' => $prevNextLinks];
+        return [$sortField, $sortAscending, $pageSize, $prevNextLinks];
     }
 
     protected function getSortField(): string
