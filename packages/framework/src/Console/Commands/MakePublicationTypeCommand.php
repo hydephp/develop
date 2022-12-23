@@ -192,10 +192,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getSortField(Collection $fields): string
     {
         $options = $fields->pluck('name')->toArray();
-        $options[0] = 'Date created (meta field)';
 
-        $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
-        return str_replace('Date created (meta field)', '__createdAt', $selected);
+        return $this->choice('Choose the default field you wish to sort by', $options, '__dateCreated');
     }
 
     protected function getSortDirection(): bool
