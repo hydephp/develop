@@ -57,7 +57,7 @@ class BuildTaskService
             $tasks[] = str_replace(
                 [Hyde::path('app'), '.php', '/'],
                 ['App', '', '\\'],
-                $file
+                (string) $file
             );
         }
 

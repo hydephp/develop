@@ -29,7 +29,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
      *
      * Note that this represents a sub-schema, and is used as part of the page schema.
      */
-    public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
+    final public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
 
     protected const FALLBACK_PRIORITY = 999;
     protected const CONFIG_OFFSET = 500;
@@ -58,6 +58,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $this->priority = $this->makePriority();
     }
 
+    /**
+     * @return array{label: string|null, group: string|null, hidden: bool|null, priority: int|null}
+     */
     public function toArray(): array
     {
         return [

@@ -38,7 +38,7 @@ final class RouteCollection extends BaseFoundationCollection
 {
     public function getRoutes(?string $pageClass = null): self
     {
-        return ! $pageClass ? $this : $this->filter(function (Route $route) use ($pageClass) {
+        return ! $pageClass ? $this : $this->filter(function (Route $route) use ($pageClass): bool {
             return $route->getPage() instanceof $pageClass;
         });
     }
@@ -65,7 +65,7 @@ final class RouteCollection extends BaseFoundationCollection
 
     protected function runDiscovery(): self
     {
-        $this->kernel->pages()->each(function (HydePage $page) {
+        $this->kernel->pages()->each(function (HydePage $page): void {
             $this->discover($page);
         });
 

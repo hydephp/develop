@@ -36,7 +36,7 @@ use function unslash;
  */
 class DiscoveryService
 {
-    public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+    final public const DEFAULT_MEDIA_EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
     public static function getBladePageFiles(): array
     {

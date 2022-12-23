@@ -86,13 +86,13 @@ class BladeMatterParser
 
     protected static function lineMatchesFrontMatter(string $line): bool
     {
-        return str_starts_with($line, static::SEARCH);
+        return str_starts_with($line, (string) static::SEARCH);
     }
 
     protected static function extractKey(string $line): string
     {
         // Remove search prefix
-        $key = substr($line, strlen(static::SEARCH));
+        $key = substr($line, strlen((string) static::SEARCH));
 
         // Remove everything after the first equals sign
         $key = substr($key, 0, strpos($key, '='));
@@ -160,9 +160,9 @@ class BladeMatterParser
         $tokens = explode(',', $string);
 
         // Parse each token
-        foreach ($tokens as $entry) {
+        foreach ($tokens as $token) {
             // Split string into key/value pairs
-            $pair = explode('=>', $entry);
+            $pair = explode('=>', $token);
 
             // Add key/value pair to array
             $array[static::getValueWithType(trim(trim($pair[0]), "'"))] = static::getValueWithType(trim(trim($pair[1]), "'"));

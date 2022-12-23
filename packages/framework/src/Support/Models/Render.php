@@ -68,6 +68,9 @@ class Render implements Arrayable
         View::share(['page' => null, 'currentRoute' => null, 'currentPage' => null]);
     }
 
+    /**
+     * @return array{render: $this, page: \Hyde\Pages\Concerns\HydePage|null, currentRoute: \Hyde\Support\Models\Route|null, currentPage: string|null}
+     */
     public function toArray(): array
     {
         return [

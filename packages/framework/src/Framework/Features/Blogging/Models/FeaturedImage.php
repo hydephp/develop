@@ -122,7 +122,7 @@ abstract class FeaturedImage implements Stringable
     /**
      * Used in resources/views/components/post/image.blade.php to add meta tags with itemprop attributes.
      *
-     * @return array
+     * @return array{text?: string|null, name?: string|null, url: string, contentUrl: string}
      */
     public function getMetadataArray(): array
     {

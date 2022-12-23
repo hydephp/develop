@@ -56,7 +56,7 @@ class HydeKernel implements SerializableContract
 
     protected bool $booted = false;
 
-    public const VERSION = '1.0.0-dev';
+    final public const VERSION = '1.0.0-dev';
 
     public function __construct(?string $basePath = null, string $sourceRoot = '')
     {
