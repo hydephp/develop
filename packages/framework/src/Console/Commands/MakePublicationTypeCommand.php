@@ -137,11 +137,12 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $options = $selectableFields->pluck('name');
 
-        return $this->fields->firstWhere('name',
-            $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
-                $options->toArray(),
-                $options->first()
-            ));
+        $selected = $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
+            $options->toArray(),
+            $options->first()
+        );
+
+        return $this->fields->firstWhere('name', $selected);
     }
 
     protected function checkIfFieldIsDuplicate($name): bool
