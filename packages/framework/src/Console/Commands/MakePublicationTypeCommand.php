@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Illuminate\Validation\Rule;
 use function array_keys;
 use function file_exists;
 use Hyde\Console\Concerns\ValidatingCommand;
@@ -113,13 +112,14 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $message = $duplicate
             ? "Try again: Enter name for field #$this->count"
             : "Enter name for field #$this->count";
+      
+        $selected = Str::kebab(trim($this->askWithValidation('name', $message, ['required'])));
 
-        $used = $this->fields->pluck('name')->toArray();
-        $validateDuplicates = count($used) > 0;
-        if ($validateDuplicates) {
-            $rules = ['required', Rule::notIn($used)];
+        if ($this->checkIfFieldIsDuplicate($selected)) {
+            return $this->getFieldName(true);
         }
-        return Str::kebab(trim($this->askWithValidation('name', $message, $rules ?? ['required'])));
+
+        return $selected;
     }
 
     protected function getFieldType(): PublicationFieldTypes
