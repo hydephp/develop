@@ -38,6 +38,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected $description = 'Create a new publication type definition';
     protected int $count = 0;
 
+    protected Collection $fields;
+
     public function safeHandle(): int
     {
         $this->title('Creating a new Publication Type!');
@@ -51,13 +53,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
             }
         }
 
-        $fields = $this->captureFieldsDefinitions();
+        $this->fields = $this->captureFieldsDefinitions();
 
-        [$sortField, $sortAscending, $pageSize, $prevNextLinks] = array_values($this->getPaginationSettings($fields));
+        [$sortField, $sortAscending, $pageSize, $prevNextLinks] = array_values($this->getPaginationSettings());
 
-        $canonicalField = $this->getCanonicalField($fields);
+        $canonicalField = $this->getCanonicalField($this->fields);
 
-        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
+        $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
         $creator->create();
 
         $this->info('Publication type created successfully!');
@@ -68,9 +70,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function captureFieldsDefinitions(): Collection
     {
         $this->line('You now need to define the fields in your publication type:');
-        $fields = Collection::make();
+        $this->fields = Collection::make();
 
-        $fields->add(PublicationField::fromArray([
+        $this->fields->add(PublicationField::fromArray([
             'name' => '__createdAt',
             'type' => PublicationFieldTypes::Datetime,
             'normalizeName' => false,
@@ -88,7 +90,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
                     $tryMsg = '';
                 }
                 $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', "{$tryMsg}Enter name for field #$this->count", ['required'])));
-                $duplicate = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
+                $duplicate = $this->checkIfFieldIsDuplicate($fieldData['name']);
             } while ($duplicate);
 
             $type = $this->getFieldType();
@@ -106,11 +108,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
             // map field choice to actual field type
             $fieldData['type'] = $type;
 
-            $fields->add(PublicationField::fromArray($fieldData));
+            $this->fields->add(PublicationField::fromArray($fieldData));
             $this->count++;
         } while ($addAnother);
 
-        return $fields;
+        return $this->fields;
     }
 
     protected function getFieldType(): PublicationFieldTypes
@@ -169,9 +171,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $fieldData;
     }
 
-    protected function checkIfFieldIsDuplicate(Collection $fields, $name): bool
+    protected function checkIfFieldIsDuplicate($name): bool
     {
-        $duplicate = $fields->where('name', $name)->count();
+        $duplicate = $this->fields->where('name', $name)->count();
         if ($duplicate) {
             $this->error("Field name [$name] already exists!");
         }
@@ -179,13 +181,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return (bool) $duplicate;
     }
 
-    protected function getPaginationSettings(Collection $fields): array
+    protected function getPaginationSettings(): array
     {
         $paginationDefaults = ['sortField' => '__createdAt', 'sortAscending' => true, 'pageSize' => 25, 'prevNextLinks' => true];
         if ($this->option('use-defaults') || ! $this->confirm('Do you want to configure pagination settings?')) {
             return $paginationDefaults;
         }
-        $sortField = $this->getSortField($fields);
+        $sortField = $this->getSortField();
         $sortAscending = $this->getSortDirection();
         $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
@@ -193,9 +195,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return ['sortField' => $sortField, 'sortAscending' => $sortAscending, 'pageSize' => $pageSize, 'prevNextLinks' => $prevNextLinks];
     }
 
-    protected function getSortField(Collection $fields): string
+    protected function getSortField(): string
     {
-        $options = $fields->pluck('name')->toArray();
+        $options = $this->fields->pluck('name')->toArray();
 
         return $this->choice('Choose the default field you wish to sort by', $options, '__dateCreated');
     }
