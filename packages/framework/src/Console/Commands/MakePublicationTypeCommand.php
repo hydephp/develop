@@ -37,6 +37,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
+    protected int $count;
 
     public function safeHandle(): int
     {
@@ -73,18 +74,18 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function captureFieldsDefinitions(): Collection
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
-        $count = 1;
+        $this->count = 1;
         $fields = Collection::make();
         do {
             $this->line('');
 
             $fieldData = [];
             do {
-                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', "Enter name for field #$count", ['required'])));
+                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', "Enter name for field #$this->count", ['required'])));
                 $duplicate = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
             } while ($duplicate);
 
-            $type = $this->getFieldType($count);
+            $type = $this->getFieldType();
 
             if ($type === PublicationFieldTypes::Tag) {
                 $fieldData = $this->getFieldDataForTag($fieldData);
@@ -95,13 +96,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
             $fieldData['type'] = $type;
 
             $fields->add(PublicationField::fromArray($fieldData));
-            $count++;
+            $this->count++;
         } while ($addAnother);
 
         return $fields;
     }
 
-    protected function getFieldType(int $count): PublicationFieldTypes
+    protected function getFieldType(): PublicationFieldTypes
     {
         $options = [
             'String',
@@ -116,7 +117,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             'Tag',
         ];
 
-        $choice = $this->choice("Enter type for field #$count", $options, 'String');
+        $choice = $this->choice("Enter type for field #$this->count", $options, 'String');
 
         return PublicationFieldTypes::from(strtolower($choice));
     }
