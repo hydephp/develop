@@ -115,11 +115,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
             } else {
                 $tryMsg = '';
             }
-            $name = Str::kebab(trim($this->askWithValidation('name', "{$tryMsg}Enter name for field #$this->count", ['required'])));
-            $duplicate = $this->checkIfFieldIsDuplicate($name);
+            $selected = Str::kebab(trim($this->askWithValidation('name', "{$tryMsg}Enter name for field #$this->count", ['required'])));
+            $duplicate = $this->checkIfFieldIsDuplicate($selected);
         } while ($duplicate);
 
-        return $name;
+        return $selected;
     }
 
     protected function getFieldType(): PublicationFieldTypes
