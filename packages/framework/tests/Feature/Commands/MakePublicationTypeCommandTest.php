@@ -32,12 +32,12 @@ class MakePublicationTypeCommandTest extends TestCase
                 2 => 'Boolean',
                 3 => 'Integer',
                 4 => 'Float',
-                5 => 'Datetime (YYYY-MM-DD (HH:MM:SS))',
-                6 => 'URL',
+                5 => 'Datetime',
+                6 => 'Url',
                 7 => 'Array',
                 8 => 'Text',
-                9 => 'Local Image',
-                10 => 'Tag (select value from list)',
+                9 => 'Image',
+                10 => 'Tag',
             ])
             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
             ->expectsChoice('Choose the default field you wish to sort by', 'dateCreated (meta field)', [
