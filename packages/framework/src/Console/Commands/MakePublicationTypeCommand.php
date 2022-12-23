@@ -169,7 +169,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getPaginationSettings(Collection $fields): array
     {
         $paginationDefaults = ['sortField' => '__createdAt', 'sortAscending' => true, 'pageSize' => 25, 'prevNextLinks' => true];
-
+        if ($this->option('use-defaults')) {
+            return $paginationDefaults;
+        }
         $sortField = $this->getSortField($fields);
         $sortAscending = $this->getSortDirection();
         $pageSize = $this->getPageSize();
