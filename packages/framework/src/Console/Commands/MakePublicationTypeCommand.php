@@ -73,7 +73,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function captureFieldsDefinitions(): Collection
     {
-        $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
+        $this->line('You now need to define the fields in your publication type:');
         $fields = Collection::make();
         do {
             $this->line('');
