@@ -85,7 +85,12 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
             $fieldData = [];
             do {
-                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', "Enter name for field #$this->count", ['required'])));
+                if ($duplicate ?? false) {
+                    $tryMsg = 'Try again: ';
+                } else {
+                    $tryMsg = '';
+                }
+                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', "{$tryMsg}Enter name for field #$this->count", ['required'])));
                 $duplicate = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
             } while ($duplicate);
 
@@ -98,7 +103,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             if ($this->option('use-defaults') === true) {
                 $addAnother = false;
             } else {
-                $addAnother = $this->confirm('Add another field?');
+                $addAnother = $this->confirm("Field #$this->count added! Add another field?");
             }
 
             // map field choice to actual field type

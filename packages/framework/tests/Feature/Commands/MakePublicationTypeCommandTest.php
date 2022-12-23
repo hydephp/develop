@@ -114,11 +114,20 @@ class MakePublicationTypeCommandTest extends TestCase
     public function test_with_multiple_fields_of_the_same_name()
     {
         $this->artisan('make:publicationType "Test Publication"')
-             ->expectsQuestion('Enter name for field #1', 'foo')
-             ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
-             ->expectsConfirmation('Add another field?', 'y')
-             ->expectsQuestion('Enter name for field #2', 'foo')
-             ->expectsConfirmation('Do you want to configure pagination settings?', 'n')
-             ->assertExitCode(0);
+            ->expectsQuestion('Enter name for field #1', 'foo')
+            ->expectsChoice('Enter type for field #1', 'String', [])
+
+            ->expectsConfirmation('Field #1 added! Add another field?', 'yes')
+
+            ->expectsQuestion('Enter name for field #2', 'foo')
+            ->expectsOutput('Field name [foo] already exists!')
+            ->expectsQuestion('Try again: Enter name for field #2', 'bar')
+            ->expectsChoice('Enter type for field #2', 'String', [])
+
+            ->expectsConfirmation('Field #2 added! Add another field?', 'no')
+
+            ->expectsConfirmation('Do you want to configure pagination settings?', 'n')
+            ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [])
+            ->assertExitCode(0);
     }
 }
