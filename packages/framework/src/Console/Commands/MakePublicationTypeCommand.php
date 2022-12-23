@@ -33,7 +33,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publicationType
-		{title? : The name of the Publication Type to create. Will be used to generate the storage directory}';
+		{name? : The name of the Publication Type to create. Will be used to generate the storage directory}';
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
@@ -42,7 +42,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $this->title('Creating a new Publication Type!');
 
-        $title = $this->argument('title');
+        $title = $this->argument('name');
         if (! $title) {
             $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
             $dirname = Str::slug($title);
