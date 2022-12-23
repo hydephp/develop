@@ -104,13 +104,23 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getFieldType(): int
     {
         $options = PublicationFieldTypes::cases();
+
+        $labels = [
+            'Array' => 'Array',
+            'Boolean' => 'Boolean',
+            'Datetime' => 'Datetime (YYYY-MM-DD (HH:MM:SS))',
+            'Float' => 'Float',
+            'Image' => 'Local Image',
+            'Integer' => 'Integer',
+            'String' => 'String',
+            'Tag' => 'Tag (select value from list)',
+            'Text' => 'Text',
+            'Url' => 'URL',
+        ];
+
         foreach ($options as $key => $value) {
-            $options[$key] = $value->name;
+            $options[$key] = $labels[$value->name];
         }
-        $options[4] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
-        $options[5] = 'URL';
-        $options[8] = 'Local Image';
-        $options[9] = 'Tag (select value from list)';
 
         return (int) $this->choice('Field type', $options, 1) + 1;
     }
