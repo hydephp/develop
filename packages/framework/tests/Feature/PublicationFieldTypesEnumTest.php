@@ -50,16 +50,16 @@ class PublicationFieldTypesEnumTest extends TestCase
     public function testValuesReturnsArrayOfCaseValues()
     {
         $this->assertSame([
-            0 => 'string',
+            0 => 'array',
             1 => 'boolean',
-            2 => 'integer',
+            2 => 'datetime',
             3 => 'float',
-            4 => 'datetime',
-            5 => 'url',
-            6 => 'array',
-            7 => 'text',
-            8 => 'image',
-            9 => 'tag',
+            4 => 'image',
+            5 => 'integer',
+            6 => 'string',
+            7 => 'tag',
+            8 => 'text',
+            9 => 'url',
         ], PublicationFieldTypes::values());
     }
 }

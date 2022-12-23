@@ -14,16 +14,16 @@ use Illuminate\Support\Collection;
  */
 enum PublicationFieldTypes: string
 {
-    case String = 'string';
-    case Boolean = 'boolean';
-    case Integer = 'integer';
-    case Float = 'float';
-    case Datetime = 'datetime';
-    case Url = 'url';
     case Array = 'array';
-    case Text = 'text';
+    case Boolean = 'boolean';
+    case Datetime = 'datetime';
+    case Float = 'float';
     case Image = 'image';
+    case Integer = 'integer';
+    case String = 'string';
     case Tag = 'tag';
+    case Text = 'text';
+    case Url = 'url';
 
     public function rules(): array
     {
@@ -44,16 +44,16 @@ enum PublicationFieldTypes: string
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
         return match ($type) {
-            self::String => ['string'],
-            self::Boolean => ['boolean'],
-            self::Integer => ['integer', 'numeric'],
-            self::Float => ['numeric'],
-            self::Datetime => ['date'],
-            self::Url => ['url'],
-            self::Text => ['string'],
             self::Array => ['array'],
+            self::Boolean => ['boolean'],
+            self::Datetime => ['date'],
+            self::Float => ['numeric'],
             self::Image => [],
+            self::Integer => ['integer', 'numeric'],
+            self::String => ['string'],
             self::Tag => [],
+            self::Text => ['string'],
+            self::Url => ['url'],
         };
     }
 }
