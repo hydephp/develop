@@ -86,13 +86,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
             $type = $this->getFieldType();
 
-            if ($type === 10) {
+            if ($type === PublicationFieldTypes::Tag) {
                 $fieldData = $this->getFieldDataForTag($fieldData);
             }
             $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
 
             // map field choice to actual field type
-            $fieldData['type'] = PublicationFieldTypes::values()[$type];
+            $fieldData['type'] = $type;
 
             $fields->add(PublicationField::fromArray($fieldData));
             $count++;
@@ -101,11 +101,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $fields;
     }
 
-    protected function getFieldType(): int
+    protected function getFieldType(): PublicationFieldTypes
     {
         $options = PublicationFieldTypes::collect()->pluck('name')->toArray();
 
-        return (int) $this->choice('Field type', $options, 0);
+        $choice = $this->choice('Field type', $options, 'String');
+
+        return PublicationFieldTypes::from(strtolower($choice));
     }
 
     protected function getSortField(Collection $fields): string
