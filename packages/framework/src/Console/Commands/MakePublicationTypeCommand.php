@@ -109,8 +109,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldName(): string
     {
+        $duplicate = false;
         do {
-            if ($duplicate ?? false) {
+            if ($duplicate) {
                 $tryMsg = 'Try again: ';
             } else {
                 $tryMsg = '';
