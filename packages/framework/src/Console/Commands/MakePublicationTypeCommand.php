@@ -117,18 +117,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldType(): PublicationFieldTypes
     {
-        $options = [
-            'String',
-            'Datetime',
-            'Boolean',
-            'Integer',
-            'Float',
-            'Image',
-            'Array',
-            'Text',
-            'Url',
-            'Tag',
-        ];
+        $options = ['String', 'Datetime', 'Boolean', 'Integer', 'Float', 'Image', 'Array', 'Text', 'Url', 'Tag'];
 
         $choice = $this->choice("Enter type for field #$this->count", $options, 'String');
 
