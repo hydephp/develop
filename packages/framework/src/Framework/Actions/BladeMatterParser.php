@@ -160,9 +160,9 @@ class BladeMatterParser
         $tokens = explode(',', $string);
 
         // Parse each token
-        foreach ($tokens as $entry) {
+        foreach ($tokens as $token) {
             // Split string into key/value pairs
-            $pair = explode('=>', $entry);
+            $pair = explode('=>', $token);
 
             // Add key/value pair to array
             $array[static::getValueWithType(trim(trim($pair[0]), "'"))] = static::getValueWithType(trim(trim($pair[1]), "'"));
