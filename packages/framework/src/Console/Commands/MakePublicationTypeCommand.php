@@ -164,6 +164,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         if ($this->fields->where('name', $name)->count() > 0) {
             $this->error("Field name [$name] already exists!");
+
             return true;
         }
 
