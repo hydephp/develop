@@ -119,6 +119,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(Collection $selectedFields): PublicationField
     {
+        if ($this->hasOption('use-defaults')) {
+            return PublicationField::fromArray([
+                'name' => '__createdAt',
+                'type' => PublicationFieldTypes::Datetime,
+            ]);
+        }
+
         $options = $selectedFields->reject(function (PublicationField $field): bool {
             return in_array($field, PublicationFieldTypes::canonicable());
         })->pluck('name');
