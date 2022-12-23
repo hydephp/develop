@@ -135,7 +135,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             return in_array($field, PublicationFieldTypes::canonicable());
         });
 
-        if ($this->hasOption('use-defaults')) {
+        if ($this->option('use-defaults')) {
            return $selectableFields->first();
         }
 
