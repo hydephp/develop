@@ -119,6 +119,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getCanonicalField(Collection $selectedFields): PublicationField
     {
+        // todo Use the first field as canonical when use-defaults flag is set
         if ($this->hasOption('use-defaults')) {
             return PublicationField::fromArray([
                 'name' => '__createdAt',
