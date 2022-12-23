@@ -55,9 +55,13 @@ class MakePublicationTypeCommand extends ValidatingCommand
         }
 
         $fields = $this->captureFieldsDefinitions();
-        $fields = $fields->map(fn (array $field) => PublicationField::fromArray($field));
 
         list($sortField, $sortAscending, $pageSize, $prevNextLinks) = array_values($this->getPaginationSettings($fields));
+        $fields->put(0, [
+            'name' => 'Date created (meta field)',
+            'type' => PublicationFieldTypes::Datetime,
+        ]);
+        $fields = $fields->map(fn (array $field) => PublicationField::fromArray($field));
 
         $canonicalField = $this->getCanonicalField($fields);
 
@@ -75,7 +79,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $fields = Collection::make();
 
         $fields->add([
-            'name' => '__createdAt',
+            'name' => 'Date created (meta field)',
             'type' => PublicationFieldTypes::Datetime,
         ]);
         $this->count++;
@@ -193,10 +197,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getSortField(Collection $fields): string
     {
         $options = $fields->pluck('name')->toArray();
-        $options[0] = 'Date created (meta field)';
 
-        $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
-        return str_replace('Date created (meta field)', '__createdAt', $selected);
+        return $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
     }
 
     protected function getSortDirection(): bool
