@@ -37,7 +37,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
-    protected int $count;
+    protected int $count = 1;
 
     public function safeHandle(): int
     {
@@ -74,7 +74,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function captureFieldsDefinitions(): Collection
     {
         $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
-        $this->count = 1;
         $fields = Collection::make();
         do {
             $this->line('');
