@@ -54,7 +54,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $fields = $this->captureFieldsDefinitions();
 
-        list($sortField, $sortAscending, $pageSize, $prevNextLinks) = $this->getPaginationSettings($fields);
+        list($sortField, $sortAscending, $pageSize, $prevNextLinks) = array_values($this->getPaginationSettings($fields));
 
         $canonicalField = $this->getCanonicalField($fields);
 
@@ -171,7 +171,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $sortAscending = $this->getSortDirection();
         $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
-        return array($sortField, $sortAscending, $pageSize, $prevNextLinks);
+        return ['sortField' => $sortField, 'sortAscending' => $sortAscending, 'pageSize' => $pageSize, 'prevNextLinks' => $prevNextLinks];
     }
 
     protected function getSortField(Collection $fields): string
