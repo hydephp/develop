@@ -156,6 +156,14 @@ class MakePublicationTypeCommand extends ValidatingCommand
             return in_array($field, PublicationFieldTypes::canonicable());
         })->pluck('name');
 
+        if ($options->isEmpty()) {
+            $this->warn('There are no fields that can be canonical. Using __createdAt instead.');
+            return PublicationField::fromArray([
+                'name' => '__createdAt',
+                'type' => PublicationFieldTypes::Datetime,
+            ]);
+        }
+
         return $selectedFields->firstWhere('name',
             $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first())
         );
