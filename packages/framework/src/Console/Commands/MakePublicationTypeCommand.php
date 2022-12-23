@@ -88,7 +88,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             $type = $this->getFieldType();
 
             if ($type === PublicationFieldTypes::Tag) {
-                $fieldData = $this->getFieldDataForTag($fieldData);
+                $this->comment('Tip: Hyde will look for tags matching the name of the publication!');
             }
 
             if ($this->option('use-defaults') === true) {
@@ -144,23 +144,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
                 $options->toArray(),
                 $options->first()
             ));
-    }
-
-    protected function getFieldDataForTag(array $fieldData): array
-    {
-        $allTags = PublicationService::getAllTags();
-        $offset = 1;
-        foreach ($allTags as $k => $v) {
-            $this->line("  $offset - $k");
-            $offset++;
-        }
-        $offset--; // The above loop overcounts by 1
-        $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
-        $fieldData['tagGroup'] = $allTags->keys()->{$selected - 1};
-        $fieldData['min'] = 0;
-        $fieldData['max'] = 0;
-
-        return $fieldData;
     }
 
     protected function checkIfFieldIsDuplicate($name): bool
