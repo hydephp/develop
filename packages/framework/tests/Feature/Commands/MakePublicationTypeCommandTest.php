@@ -92,4 +92,9 @@ class MakePublicationTypeCommandTest extends TestCase
 
         // TODO: Assert Blade templates were created?
     }
+
+    public function test_with_multiple_fields_of_the_same_name()
+    {
+        $this->markTestIncomplete('Unable to test this because of a bug in Mockery');
+    }
 }
