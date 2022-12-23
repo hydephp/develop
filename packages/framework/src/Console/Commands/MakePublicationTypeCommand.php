@@ -116,40 +116,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return PublicationFieldTypes::from(strtolower($choice));
     }
 
-    protected function getSortField(Collection $fields): string
-    {
-        $options = array_merge(['dateCreated (meta field)'], $fields->pluck('name')->toArray());
-
-        $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
-
-        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
-    }
-
-    protected function getSortDirection(): bool
-    {
-        $options = [
-            'Ascending (oldest items first if sorting by dateCreated)'  => true,
-            'Descending (newest items first if sorting by dateCreated)' => false,
-        ];
-
-        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
-    }
-
-    protected function getPageSize(): int
-    {
-        return (int) $this->askWithValidation(
-            'pageSize',
-            'Enter the pageSize (0 for no limit)',
-            ['required', 'integer', 'between:0,100'],
-            25
-        );
-    }
-
-    protected function getPrevNextLinks(): bool
-    {
-        return $this->confirm('Generate previous/next links in detail view?', true);
-    }
-
     protected function getCanonicalField(Collection $selectedFields): PublicationField
     {
         $options = $selectedFields->reject(function (PublicationField $field): bool {
@@ -206,5 +172,39 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
         return array($sortField, $sortAscending, $pageSize, $prevNextLinks);
+    }
+
+    protected function getSortField(Collection $fields): string
+    {
+        $options = array_merge(['dateCreated (meta field)'], $fields->pluck('name')->toArray());
+
+        $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
+
+        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
+    }
+
+    protected function getSortDirection(): bool
+    {
+        $options = [
+            'Ascending (oldest items first if sorting by dateCreated)'  => true,
+            'Descending (newest items first if sorting by dateCreated)' => false,
+        ];
+
+        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
+    }
+
+    protected function getPageSize(): int
+    {
+        return (int) $this->askWithValidation(
+            'pageSize',
+            'Enter the pageSize (0 for no limit)',
+            ['required', 'integer', 'between:0,100'],
+            25
+        );
+    }
+
+    protected function getPrevNextLinks(): bool
+    {
+        return $this->confirm('Generate previous/next links in detail view?', true);
     }
 }
