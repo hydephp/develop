@@ -158,9 +158,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $options = $fields->reject(function (PublicationField $field): bool {
             // Temporary verbose check to see code coverage
-            if ($field->type === 'image') {
+            if ($field->type === PublicationFieldTypes::Image) {
                 return true;
-            } elseif ($field->type === 'tag') {
+            } elseif ($field->type === PublicationFieldTypes::Tag) {
                 return true;
             } else {
                 return false;
