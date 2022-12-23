@@ -48,6 +48,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Tag',
             ], true)
             ->expectsConfirmation('Add another field?', 'n')
+            ->expectsConfirmation('Do you want to configure pagination settings?', 'yes')
             ->expectsChoice('Choose the default field you wish to sort by', '__createdAt', [
                 '__createdAt',
                 'publication-title',
@@ -117,6 +118,7 @@ class MakePublicationTypeCommandTest extends TestCase
              ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
              ->expectsConfirmation('Add another field?', 'y')
              ->expectsQuestion('Enter name for field #2', 'foo')
+             ->expectsConfirmation('Do you want to configure pagination settings?', 'n')
              ->assertExitCode(0);
     }
 }
