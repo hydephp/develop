@@ -94,6 +94,17 @@ class MakePublicationTypeCommandTest extends TestCase
         // TODO: Assert Blade templates were created?
     }
 
+    public function test_with_default_values()
+    {
+        $this->artisan('make:publicationType --use-defaults')
+            ->expectsQuestion('Publication type name', 'Test Publication')
+            ->expectsQuestion('Enter name for field #1', 'foo')
+            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
+            ->expectsOutput('Saving publication data to [test-publication/schema.json]')
+            ->expectsOutput('Publication type created successfully!')
+            ->assertExitCode(0);
+    }
+
     public function test_with_multiple_fields_of_the_same_name()
     {
         $this->artisan('make:publicationType "Test Publication"')
