@@ -28,16 +28,16 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Publication type name', 'Test Publication')
             ->expectsQuestion('Field name', 'Publication Title')
             ->expectsChoice('Field type', 'String', [
-                1 => 'String',
-                2 => 'Boolean',
-                3 => 'Integer',
-                4 => 'Float',
-                5 => 'Datetime',
-                6 => 'Url',
-                7 => 'Array',
-                8 => 'Text',
-                9 => 'Image',
-                10 => 'Tag',
+                'Array',
+                'Boolean',
+                'Datetime',
+                'Float',
+                'Image',
+                'Integer',
+                'String',
+                'Tag',
+                'Text',
+                'Url',
             ])
             ->expectsQuestion('<bg=magenta;fg=white>Add another field (y/n)</>', 'n')
             ->expectsChoice('Choose the default field you wish to sort by', 'dateCreated (meta field)', [
