@@ -111,7 +111,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $duplicate = false;
         do {
-            $selected = Str::kebab(trim($this->askWithValidation('name', ($duplicate ? 'Try again: ' : '')."Enter name for field #$this->count", ['required'])));
+            $selected = Str::kebab(trim($this->askWithValidation('name',
+                sprintf("%sEnter name for field #%d",
+                $duplicate ? 'Try again: ' : '', $this->count
+            ), ['required'])));
+
             $duplicate = $this->checkIfFieldIsDuplicate($selected);
         } while ($duplicate);
 
