@@ -110,7 +110,7 @@ class Hyperlinks
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim(config('site.url'), '/')."/$path", '/');
+            return rtrim(rtrim((string) config('site.url'), '/')."/$path", '/');
         }
 
         throw new BaseUrlNotSetException();

@@ -86,13 +86,13 @@ class BladeMatterParser
 
     protected static function lineMatchesFrontMatter(string $line): bool
     {
-        return str_starts_with($line, static::SEARCH);
+        return str_starts_with($line, (string) static::SEARCH);
     }
 
     protected static function extractKey(string $line): string
     {
         // Remove search prefix
-        $key = substr($line, strlen(static::SEARCH));
+        $key = substr($line, strlen((string) static::SEARCH));
 
         // Remove everything after the first equals sign
         $key = substr($key, 0, strpos($key, '='));
