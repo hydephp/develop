@@ -16,6 +16,7 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use function in_array;
 use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use function scandir;
@@ -152,14 +153,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getCanonicalField(Collection $selectedFields): PublicationField
     {
         $options = $selectedFields->reject(function (PublicationField $field): bool {
-            // Temporary verbose check to see code coverage
-            if ($field->type === PublicationFieldTypes::Image) {
-                return true;
-            } elseif ($field->type === PublicationFieldTypes::Tag) {
-                return true;
-            } else {
-                return false;
-            }
+            return in_array($field, PublicationFieldTypes::canonicable());
         })->pluck('name');
 
         return $selectedFields->firstWhere('name',
