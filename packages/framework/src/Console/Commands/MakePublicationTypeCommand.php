@@ -96,7 +96,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
                 $addAnother = $this->confirm("Field #$this->count added! Add another field?");
             }
 
-            // map field choice to actual field type
             $fieldData['type'] = $type;
 
             $this->fields->add(PublicationField::fromArray($fieldData));
