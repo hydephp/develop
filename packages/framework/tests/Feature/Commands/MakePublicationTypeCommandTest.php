@@ -48,8 +48,8 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Tag',
             ], true)
             ->expectsConfirmation('Add another field?', 'n')
-            ->expectsChoice('Choose the default field you wish to sort by', '__created-at', [
-                '__created-at',
+            ->expectsChoice('Choose the default field you wish to sort by', '__createdAt', [
+                '__createdAt',
                 'publication-title',
             ])
             ->expectsChoice('Choose the default sort direction', 'Ascending (oldest items first if sorting by dateCreated)', [
@@ -59,7 +59,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Enter the pageSize (0 for no limit)', 10)
             ->expectsQuestion('Generate previous/next links in detail view?', 'n')
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'publication-title', [
-                '__created-at',
+                '__createdAt',
                 'publication-title',
             ])
             ->expectsOutputToContain('Creating a new Publication Type!')
