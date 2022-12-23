@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function array_flip;
 use function array_keys;
-use function array_merge;
 use function file_exists;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
@@ -20,7 +18,6 @@ use InvalidArgumentException;
 use function is_dir;
 use LaravelZero\Framework\Commands\Command;
 use function scandir;
-use function str_replace;
 use function strtolower;
 use function trim;
 
@@ -56,7 +53,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $fields = $this->captureFieldsDefinitions();
 
-        list($sortField, $sortAscending, $pageSize, $prevNextLinks) = array_values($this->getPaginationSettings($fields));
+        [$sortField, $sortAscending, $pageSize, $prevNextLinks] = array_values($this->getPaginationSettings($fields));
 
         $canonicalField = $this->getCanonicalField($fields);
 
@@ -76,7 +73,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $fields->add(PublicationField::fromArray([
             'name' => '__createdAt',
             'type' => PublicationFieldTypes::Datetime,
-            'normalizeName' => false
+            'normalizeName' => false,
         ]));
         $this->count++;
 
@@ -143,7 +140,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         });
 
         if ($this->option('use-defaults')) {
-           return $selectableFields->first();
+            return $selectableFields->first();
         }
 
         $options = $selectableFields->pluck('name');
@@ -192,6 +189,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $sortAscending = $this->getSortDirection();
         $pageSize = $this->getPageSize();
         $prevNextLinks = $this->getPrevNextLinks();
+
         return ['sortField' => $sortField, 'sortAscending' => $sortAscending, 'pageSize' => $pageSize, 'prevNextLinks' => $prevNextLinks];
     }
 

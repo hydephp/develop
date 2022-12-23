@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use function config;
 use Hyde\Facades\Filesystem;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
