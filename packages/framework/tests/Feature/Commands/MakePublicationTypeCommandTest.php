@@ -33,8 +33,8 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->artisan('make:publicationType')
             ->expectsQuestion('Publication type name', 'Test Publication')
-            ->expectsQuestion('Field name', 'Publication Title')
-            ->expectsChoice('Field type', 'String', [
+            ->expectsQuestion('Enter name for field #1', 'Publication Title')
+            ->expectsChoice('Enter type for field #1', 'String', [
                 'String',
                 'Datetime',
                 'Boolean',

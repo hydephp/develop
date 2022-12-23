@@ -77,15 +77,14 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $fields = Collection::make();
         do {
             $this->line('');
-            $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
 
             $fieldData = [];
             do {
-                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
+                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', "Enter name for field #$count", ['required'])));
                 $duplicate = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
             } while ($duplicate);
 
-            $type = $this->getFieldType();
+            $type = $this->getFieldType($count);
 
             if ($type === PublicationFieldTypes::Tag) {
                 $fieldData = $this->getFieldDataForTag($fieldData);
@@ -102,7 +101,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $fields;
     }
 
-    protected function getFieldType(): PublicationFieldTypes
+    protected function getFieldType(int $count): PublicationFieldTypes
     {
         $options = [
             'String',
@@ -117,7 +116,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             'Tag',
         ];
 
-        $choice = $this->choice('Field type', $options, 'String');
+        $choice = $this->choice("Enter type for field #$count", $options, 'String');
 
         return PublicationFieldTypes::from(strtolower($choice));
     }
