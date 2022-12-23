@@ -19,7 +19,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 {
     use InteractsWithFrontMatter;
 
-    public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
+    final public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 
     protected readonly string $source;
     protected readonly ?string $altText;

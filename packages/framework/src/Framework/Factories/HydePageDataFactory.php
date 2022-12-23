@@ -21,7 +21,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     /**
      * The front matter properties supported by this factory.
      */
-    public const SCHEMA = PageSchema::PAGE_SCHEMA;
+    final public const SCHEMA = PageSchema::PAGE_SCHEMA;
 
     protected readonly string $title;
     protected readonly ?string $canonicalUrl;
