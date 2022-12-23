@@ -147,9 +147,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
         );
     }
 
-    protected function getCanonicalField(Collection $fields): PublicationField
+    protected function getCanonicalField(Collection $selectedFields): PublicationField
     {
-        $options = $fields->reject(function (PublicationField $field): bool {
+        $options = $selectedFields->reject(function (PublicationField $field): bool {
             // Temporary verbose check to see code coverage
             if ($field->type === PublicationFieldTypes::Image) {
                 return true;
@@ -160,7 +160,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             }
         })->pluck('name');
 
-        return $fields->firstWhere('name',
+        return $selectedFields->firstWhere('name',
             $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first())
         );
     }
