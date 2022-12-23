@@ -31,14 +31,14 @@ class MarkdownFileParser
 
         // Check if the file has Front Matter.
         if (str_starts_with($stream, '---')) {
-            $object = YamlFrontMatter::markdownCompatibleParse($stream);
+            $document = YamlFrontMatter::markdownCompatibleParse($stream);
 
-            if ($object->matter()) {
-                $this->matter = $object->matter();
+            if ($document->matter()) {
+                $this->matter = $document->matter();
             }
 
-            if ($object->body()) {
-                $this->markdown = $object->body();
+            if ($document->body()) {
+                $this->markdown = $document->body();
             }
         } else {
             $this->markdown = $stream;
