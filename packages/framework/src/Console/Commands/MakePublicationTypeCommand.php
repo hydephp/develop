@@ -33,8 +33,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publicationType
-		{title? : The name of the Publication Type to create. Will be used to generate the storage directory}
-        {--use-defaults : Select the default options wherever possible}';
+		{title? : The name of the Publication Type to create. Will be used to generate the storage directory}';
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
@@ -91,7 +90,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             if ($type === PublicationFieldTypes::Tag) {
                 $fieldData = $this->getFieldDataForTag($fieldData);
             }
-            $addAnother = $this->option('use-defaults') || $this->confirm('Add another field?');
+            $addAnother = $this->confirm('Add another field?');
 
             // map field choice to actual field type
             $fieldData['type'] = $type;
