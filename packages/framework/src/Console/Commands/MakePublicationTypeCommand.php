@@ -153,12 +153,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getPrevNextLinks(): bool
     {
-        return (bool) $this->askWithValidation(
-            'prevNextLinks',
-            'Generate previous/next links in detail view (y/n)',
-            ['required', 'string', 'in:y,n'],
-            'y'
-        );
+        return $this->confirm('Generate previous/next links in detail view?', true);
     }
 
     protected function getCanonicalField(Collection $selectedFields): PublicationField
