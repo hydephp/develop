@@ -47,7 +47,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Url',
                 'Tag',
             ], true)
-            ->expectsConfirmation('Add another field?', 'n')
+            ->expectsConfirmation('Field #1 added! Add another field?', 'n')
             ->expectsConfirmation('Do you want to configure pagination settings?', 'yes')
             ->expectsChoice('Choose the default field you wish to sort by', '__createdAt', [
                 '__createdAt',
