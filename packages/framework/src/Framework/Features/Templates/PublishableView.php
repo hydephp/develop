@@ -47,6 +47,9 @@ abstract class PublishableView implements PublishableContract
         return Hyde::vendorPath(static::$path);
     }
 
+    /**
+     * @return array{name: string, description: string}
+     */
     public static function toArray(): array
     {
         return [

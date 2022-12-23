@@ -28,8 +28,6 @@ class RebuildStaticSiteCommand extends Command
 
     /**
      * The source path.
-     *
-     * @var string
      */
     public string $path;
 

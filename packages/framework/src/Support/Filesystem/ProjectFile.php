@@ -44,6 +44,9 @@ abstract class ProjectFile implements SerializableContract, Stringable
         return $this->path;
     }
 
+    /**
+     * @return array{name: string, path: string}
+     */
     public function toArray(): array
     {
         return [

@@ -19,7 +19,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 {
     use InteractsWithFrontMatter;
 
-    public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
+    final public const SCHEMA = FeaturedImageSchema::FEATURED_IMAGE_SCHEMA;
 
     protected readonly string $source;
     protected readonly ?string $altText;
@@ -43,6 +43,9 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
         $this->licenseUrl = $this->makeLicenseUrl();
     }
 
+    /**
+     * @return array{source: string, altText: string|null, titleText: string|null, authorName: string|null, authorUrl: string|null, copyrightText: string|null, licenseName: string|null, licenseUrl: string|null}
+     */
     public function toArray(): array
     {
         return [
@@ -61,7 +64,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     {
         $data = (new static($matter))->toArray();
 
-        if (str_starts_with($data['source'], '_media')) {
+        if (str_starts_with((string) $data['source'], '_media')) {
             return new LocalFeaturedImage(...$data);
         }
 

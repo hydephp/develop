@@ -40,7 +40,7 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        collect(Hyde::getDiscoveredPageTypes())->each(function (string $pageClass) {
+        collect(Hyde::getDiscoveredPageTypes())->each(function (string $pageClass): void {
             $this->compilePagesForClass($pageClass);
         });
     }

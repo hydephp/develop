@@ -83,8 +83,8 @@ class MarkdownService
     protected function runPreProcessing(): void
     {
         /** @var PreProcessor $processor */
-        foreach ($this->preprocessors as $processor) {
-            $this->markdown = $processor::preprocess($this->markdown);
+        foreach ($this->preprocessors as $preprocessor) {
+            $this->markdown = $preprocessor::preprocess($this->markdown);
         }
     }
 
@@ -95,8 +95,8 @@ class MarkdownService
         }
 
         /** @var PostProcessor $processor */
-        foreach ($this->postprocessors as $processor) {
-            $this->html = $processor::postprocess($this->html);
+        foreach ($this->postprocessors as $postprocessor) {
+            $this->html = $postprocessor::postprocess($this->html);
         }
 
         // Remove any Hyde annotations (everything between `// HYDE!` and `HYDE! //`) (must be done last)

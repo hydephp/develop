@@ -21,7 +21,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     /**
      * The front matter properties supported by this factory.
      */
-    public const SCHEMA = PageSchema::PAGE_SCHEMA;
+    final public const SCHEMA = PageSchema::PAGE_SCHEMA;
 
     protected readonly string $title;
     protected readonly ?string $canonicalUrl;
@@ -47,6 +47,9 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         $this->navigation = $this->makeNavigation();
     }
 
+    /**
+     * @return array{title: string, canonicalUrl: string|null, navigation: \Hyde\Framework\Features\Navigation\NavigationData|null}
+     */
     public function toArray(): array
     {
         return [

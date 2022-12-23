@@ -10,9 +10,9 @@ namespace Hyde\Support\Models;
  */
 class ValidationResult
 {
-    public const PASSED = 0;
-    public const SKIPPED = 1;
-    public const FAILED = 2;
+    final public const PASSED = 0;
+    final public const SKIPPED = 1;
+    final public const FAILED = 2;
 
     public string $message;
     public string $tip;

@@ -65,7 +65,7 @@ final class PageCollection extends BaseFoundationCollection
 
     protected function discoverPagesFor(string $pageClass): void
     {
-        $this->parsePagesFor($pageClass)->each(function ($page) {
+        $this->parsePagesFor($pageClass)->each(function ($page): void {
             $this->discover($page);
         });
     }

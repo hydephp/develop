@@ -18,6 +18,7 @@ class DropdownNavItem extends NavItem
     public string $name;
     public string $href = '#';
 
+    /** @param array<NavItem> $items */
     public function __construct(string $name, array $items)
     {
         parent::__construct(null, $name, 999);

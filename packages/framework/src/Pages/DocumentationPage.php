@@ -36,7 +36,7 @@ class DocumentationPage extends BaseMarkdownPage
             return false;
         }
 
-        return trim(config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
+        return trim((string) config('docs.source_file_location_base'), '/').'/'.$this->identifier.'.md';
     }
 
     public static function hasTableOfContents(): bool

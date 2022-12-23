@@ -34,7 +34,6 @@ interface SerializableContract extends JsonSerializable, Arrayable, Jsonable
      * Convert the instance to its JSON representation.
      *
      * @param  int  $options
-     * @return string
      */
     public function toJson($options = 0): string;
 }

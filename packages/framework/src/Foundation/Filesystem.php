@@ -53,7 +53,6 @@ class Filesystem
      * relative to the project root directory when supplying the path argument.
      *
      * @param  string  $path
-     * @return string
      */
     public function path(string $path = ''): string
     {
@@ -106,9 +105,6 @@ class Filesystem
 
     /**
      * Works similarly to the path() function, but returns a file in the Framework package.
-     *
-     * @param  string  $path
-     * @return string
      */
     public function vendorPath(string $path = ''): string
     {

@@ -78,8 +78,6 @@ abstract class HydePage implements PageSchema
     /**
      * Get a page instance from the Kernel's page index by its identifier.
      *
-     * @param  string  $identifier
-     * @return \Hyde\Pages\Concerns\HydePage
      *
      * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.
      */

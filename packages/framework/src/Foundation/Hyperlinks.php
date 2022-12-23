@@ -51,7 +51,6 @@ class Hyperlinks
      * Inject the proper number of `../` before the links in Blade templates.
      *
      * @param  string  $destination  relative to output directory on compiled site
-     * @return string
      *
      * @see \Hyde\Framework\Testing\Unit\Foundation\HyperlinkFileHelperRelativeLinkTest
      */
@@ -103,7 +102,6 @@ class Hyperlinks
      * Return a qualified URL to the supplied path if a base URL is set.
      *
      * @param  string  $path  optional relative path suffix. Omit to return base url.
-     * @return string
      *
      * @throws BaseUrlNotSetException If no site URL is set and no default is provided
      */
@@ -112,7 +110,7 @@ class Hyperlinks
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim(config('site.url'), '/')."/$path", '/');
+            return rtrim(rtrim((string) config('site.url'), '/')."/$path", '/');
         }
 
         throw new BaseUrlNotSetException();

@@ -22,7 +22,7 @@ class Application extends \LaravelZero\Framework\Application
         /*
          * Enable auto-discovery.
          */
-        $this->app->singleton(PackageManifest::class, function () {
+        $this->app->singleton(PackageManifest::class, function (): \Illuminate\Foundation\PackageManifest {
             return new PackageManifest(
                 new Filesystem,
                 $this->basePath(),

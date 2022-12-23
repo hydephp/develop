@@ -29,11 +29,6 @@ class NavItem implements Stringable
 
     /**
      * Create a new navigation menu item.
-     *
-     * @param  \Hyde\Support\Models\Route|null  $route
-     * @param  string  $label
-     * @param  int  $priority
-     * @param  bool  $hidden
      */
     public function __construct(?Route $route, string $label, int $priority = 500, bool $hidden = false)
     {

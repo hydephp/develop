@@ -28,7 +28,7 @@ class ChecksumService
         $files = glob(Hyde::vendorPath('resources/views/**/*.blade.php'));
 
         foreach ($files as $file) {
-            $filecache[unslash(str_replace(Hyde::vendorPath(), '', $file))] = [
+            $filecache[unslash(str_replace(Hyde::vendorPath(), '', (string) $file))] = [
                 'unixsum' => static::unixsumFile($file),
             ];
         }
