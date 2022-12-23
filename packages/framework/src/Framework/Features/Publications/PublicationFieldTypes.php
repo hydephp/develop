@@ -56,4 +56,19 @@ enum PublicationFieldTypes: string
             self::Url => ['url'],
         };
     }
+
+    /**
+     * The types that can be used for canonical fields (used to generate file names).
+     *
+     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
+     */
+    public static function canonicable(): array
+    {
+        return [
+            self::String,
+            self::Integer,
+            self::Datetime,
+            self::Text,
+        ];
+    }
 }
