@@ -187,7 +187,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         );
     }
 
-    /** @deprecated This setting might be deprecated as its unlikely one would enable page size limits without a way to traverse them */
     protected function getPrevNextLinks(): bool
     {
         return $this->confirm('Generate previous/next links in detail view?', true);
