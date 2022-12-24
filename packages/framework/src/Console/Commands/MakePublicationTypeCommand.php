@@ -45,10 +45,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $title = $this->argument('name');
         if (! $title) {
             $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
-            $dirname = Str::slug($title);
-            if (file_exists($dirname) && is_dir($dirname) && count(scandir($dirname)) > 2) {
-                throw new InvalidArgumentException("Storage path [$dirname] already exists");
-            }
+        }
+        $dirname = Str::slug($title);
+        if (file_exists($dirname) && is_dir($dirname) && count(scandir($dirname)) > 2) {
+            throw new InvalidArgumentException("Storage path [$dirname] already exists");
         }
 
         $this->fields = $this->captureFieldsDefinitions();
