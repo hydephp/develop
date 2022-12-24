@@ -156,6 +156,17 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return false;
     }
 
+    protected function addCreatedAtMetaField(): void
+    {
+        $this->fields->add(
+            PublicationField::fromArray([
+                'name' => '__createdAt',
+                'type' => PublicationFieldTypes::Datetime,
+            ])
+        );
+        $this->count++;
+    }
+
     protected function getPaginationSettings(): array
     {
         if ($this->option('use-defaults') || ! $this->confirm('Do you want to configure pagination settings?')) {
@@ -193,16 +204,5 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getPrevNextLinks(): bool
     {
         return $this->confirm('Generate previous/next links in detail view?', true);
-    }
-
-    protected function addCreatedAtMetaField(): void
-    {
-        $this->fields->add(
-            PublicationField::fromArray([
-                'name' => '__createdAt',
-                'type' => PublicationFieldTypes::Datetime,
-            ])
-        );
-        $this->count++;
     }
 }
