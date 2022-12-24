@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function array_flip;
 use function array_keys;
-use function array_merge;
-use function file_exists;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function in_array;
 use InvalidArgumentException;
 use function is_dir;
+use function is_file;
 use LaravelZero\Framework\Commands\Command;
 use function scandir;
 use function strtolower;
@@ -32,36 +31,29 @@ class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publicationType
-		{title? : The name of the Publication Type to create. Will be used to generate the storage directory}';
+		{name? : The name of the publication type to create}
+        {--use-defaults : Select the default options wherever possible}';
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
+
+    protected Collection $fields;
 
     public function safeHandle(): int
     {
         $this->title('Creating a new Publication Type!');
 
-        $title = $this->argument('title');
-        if (! $title) {
-            $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
-            $dirname = Str::slug($title);
-            if (file_exists($dirname) && is_dir($dirname) && count(scandir($dirname)) > 2) {
-                throw new InvalidArgumentException("Storage path [$dirname] already exists");
-            }
-        }
+        $title = $this->getTitle();
 
-        $fields = $this->captureFieldsDefinitions();
+        $this->validateStorageDirectory(Str::slug($title));
 
-        $sortField = $this->getSortField($fields);
+        $this->fields = $this->captureFieldsDefinitions();
 
-        $sortAscending = $this->getSortDirection();
+        [$sortField, $sortAscending, $prevNextLinks, $pageSize] = ($this->getPaginationSettings());
 
-        $pageSize = $this->getPageSize();
-        $prevNextLinks = $this->getPrevNextLinks();
+        $canonicalField = $this->getCanonicalField();
 
-        $canonicalField = $this->getCanonicalField($fields);
-
-        $creator = new CreatesNewPublicationType($title, $fields, $canonicalField, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
+        $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
         $creator->create();
 
         $this->info('Publication type created successfully!');
@@ -69,142 +61,148 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
+    protected function getTitle(): string
+    {
+        return $this->argument('name') ?: trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
+    }
+
+    protected function validateStorageDirectory(string $directoryName): void
+    {
+        if (is_file(Hyde::path($directoryName)) || (is_dir(Hyde::path($directoryName)) && (count(scandir($directoryName)) > 2))) {
+            throw new InvalidArgumentException("Storage path [$directoryName] already exists");
+        }
+    }
+
     protected function captureFieldsDefinitions(): Collection
     {
-        $this->output->writeln('<bg=magenta;fg=white>You now need to define the fields in your publication type:</>');
-        $count = 1;
-        $fields = Collection::make();
+        $this->line('You now need to define the fields in your publication type:');
+        $this->fields = Collection::make();
+
+        $this->addCreatedAtMetaField();
+
         do {
-            $this->line('');
-            $this->output->writeln("<bg=cyan;fg=white>Field #$count:</>");
+            $this->fields->add($this->captureFieldDefinition());
 
-            $fieldData = [];
-            do {
-                $fieldData['name'] = Str::kebab(trim($this->askWithValidation('name', 'Field name', ['required'])));
-                $duplicate = $this->checkIfFieldIsDuplicate($fields, $fieldData['name']);
-            } while ($duplicate);
-
-            $type = $this->getFieldType();
-
-            if ($type === 10) {
-                $fieldData = $this->getFieldDataForTag($fieldData);
+            if ($this->option('use-defaults') === true) {
+                $addAnother = false;
+            } else {
+                $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
             }
-            $addAnother = $this->askWithValidation('addAnother', '<bg=magenta;fg=white>Add another field (y/n)</>', ['required', 'string', 'in:y,n'], 'n');
+        } while ($addAnother);
 
-            // map field choice to actual field type
-            $fieldData['type'] = PublicationFieldTypes::values()[$type - 1];
-
-            $fields->add(PublicationField::fromArray($fieldData));
-            $count++;
-        } while (strtolower($addAnother) !== 'n');
-
-        return $fields;
+        return $this->fields;
     }
 
-    protected function getFieldType(): int
+    protected function captureFieldDefinition(): PublicationField
     {
-        $options = PublicationFieldTypes::cases();
-        foreach ($options as $key => $value) {
-            $options[$key] = $value->name;
+        $this->line('');
+
+        $fieldName = $this->getFieldName();
+
+        $fieldType = $this->getFieldType();
+
+        if ($fieldType === PublicationFieldTypes::Tag) {
+            $this->comment('Tip: Hyde will look for tags matching the name of the publication!');
         }
-        $options[4] = 'Datetime (YYYY-MM-DD (HH:MM:SS))';
-        $options[5] = 'URL';
-        $options[8] = 'Local Image';
-        $options[9] = 'Tag (select value from list)';
 
-        return (int) $this->choice('Field type', $options, 1) + 1;
+        // TODO: Here we could collect other data like the "rules" array for the field.
+
+        return new PublicationField($fieldType, $fieldName);
     }
 
-    protected function getSortField(Collection $fields): string
+    protected function getFieldName(?string $message = null): string
     {
-        $options = array_merge(['dateCreated (meta field)'], $fields->pluck('name')->toArray());
+        $selected = Str::kebab(trim($this->askWithValidation('name', $message ?? "Enter name for field #{$this->getCount()}", ['required'])));
 
-        $selected = $this->choice('Choose the default field you wish to sort by', $options, 'dateCreated (meta field)');
+        if ($this->checkIfFieldIsDuplicate($selected)) {
+            return $this->getFieldName("Try again: Enter name for field #{$this->getCount()}");
+        }
 
-        return $selected === 'dateCreated (meta field)' ? '__createdAt' : $options[(array_flip($options)[$selected])];
+        return $selected;
+    }
+
+    protected function getFieldType(): PublicationFieldTypes
+    {
+        $options = PublicationFieldTypes::names();
+
+        $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
+
+        return PublicationFieldTypes::from(strtolower($choice));
+    }
+
+    protected function getCanonicalField(): PublicationField
+    {
+        $selectableFields = $this->fields->reject(function (PublicationField $field): bool {
+            return in_array($field, PublicationFieldTypes::canonicable());
+        });
+
+        if ($this->option('use-defaults')) {
+            return $selectableFields->first();
+        }
+
+        $options = $selectableFields->pluck('name');
+
+        $selected = $this->choice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)',
+            $options->toArray(),
+            $options->first()
+        );
+
+        return $this->fields->firstWhere('name', $selected);
+    }
+
+    protected function checkIfFieldIsDuplicate($name): bool
+    {
+        if ($this->fields->where('name', $name)->count() > 0) {
+            $this->error("Field name [$name] already exists!");
+
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function addCreatedAtMetaField(): void
+    {
+        $this->fields->add(new PublicationField(PublicationFieldTypes::Datetime, '__createdAt'));
+    }
+
+    protected function getPaginationSettings(): array
+    {
+        if ($this->option('use-defaults') || ! $this->confirm('Do you want to configure pagination settings?')) {
+            return [null, null, null, null];
+        }
+
+        return [$this->getSortField(), $this->getSortDirection(), $this->getPrevNextLinks(), $this->getPageSize()];
+    }
+
+    protected function getSortField(): string
+    {
+        return $this->choice('Choose the default field you wish to sort by', $this->fields->pluck('name')->toArray(), '__dateCreated');
     }
 
     protected function getSortDirection(): bool
     {
-        $options = [
-            'Ascending (oldest items first if sorting by dateCreated)'  => true,
-            'Descending (newest items first if sorting by dateCreated)' => false,
-        ];
+        $options = ['Ascending' => true, 'Descending' => false];
 
-        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending (oldest items first if sorting by dateCreated)')];
+        return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending')];
+    }
+
+    protected function getPrevNextLinks(): bool
+    {
+        return $this->confirm('Generate previous/next links in detail view?', true);
     }
 
     protected function getPageSize(): int
     {
-        return (int) $this->askWithValidation(
-            'pageSize',
-            'Enter the pageSize (0 for no limit)',
+        return (int) $this->askWithValidation('pageSize',
+            'Enter the page size (0 for no limit)',
             ['required', 'integer', 'between:0,100'],
             25
         );
     }
 
-    protected function getPrevNextLinks(): bool
+    protected function getCount(int $offset = 0): int
     {
-        return (bool) $this->askWithValidation(
-            'prevNextLinks',
-            'Generate previous/next links in detail view (y/n)',
-            ['required', 'string', 'in:y,n'],
-            'y'
-        );
-    }
-
-    protected function getCanonicalField(Collection $fields): string
-    {
-        $options = $fields->reject(function (PublicationField $field): bool {
-            // Temporary verbose check to see code coverage
-            if ($field->type === 'image') {
-                return true;
-            } elseif ($field->type === 'tag') {
-                return true;
-            } else {
-                return false;
-            }
-        })->pluck('name');
-
-        return $this->choice('Choose a canonical name field (the values of this field have to be unique!)', $options->toArray(), $options->first());
-    }
-
-    protected function validateLengths(string $min, string $max): bool
-    {
-        if ($max < $min) {
-            $this->error('Field length [max] cannot be less than [min]');
-
-            return false;
-        }
-
-        return true;
-    }
-
-    protected function getFieldDataForTag(array $fieldData): array
-    {
-        $allTags = PublicationService::getAllTags();
-        $offset = 1;
-        foreach ($allTags as $k => $v) {
-            $this->line("  $offset - $k");
-            $offset++;
-        }
-        $offset--; // The above loop overcounts by 1
-        $selected = $this->askWithValidation('tagGroup', 'Tag Group', ['required', 'integer', "between:1,$offset"], 0);
-        $fieldData['tagGroup'] = $allTags->keys()->{$selected - 1};
-        $fieldData['min'] = 0;
-        $fieldData['max'] = 0;
-
-        return $fieldData;
-    }
-
-    protected function checkIfFieldIsDuplicate(Collection $fields, $name): bool
-    {
-        $duplicate = $fields->where('name', $name)->count();
-        if ($duplicate) {
-            $this->error("Field name [$name] already exists!");
-        }
-
-        return (bool) $duplicate;
+        return $this->fields->count() + $offset;
     }
 }

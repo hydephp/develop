@@ -51,15 +51,41 @@ class PublicationFieldTypesEnumTest extends TestCase
     {
         $this->assertSame([
             0 => 'string',
-            1 => 'boolean',
-            2 => 'integer',
-            3 => 'float',
-            4 => 'datetime',
-            5 => 'url',
+            1 => 'datetime',
+            2 => 'boolean',
+            3 => 'integer',
+            4 => 'float',
+            5 => 'image',
             6 => 'array',
             7 => 'text',
-            8 => 'image',
+            8 => 'url',
             9 => 'tag',
         ], PublicationFieldTypes::values());
+    }
+
+    public function testNamesReturnsArrayOfCaseNames()
+    {
+        $this->assertSame([
+            0 => 'String',
+            1 => 'Datetime',
+            2 => 'Boolean',
+            3 => 'Integer',
+            4 => 'Float',
+            5 => 'Image',
+            6 => 'Array',
+            7 => 'Text',
+            8 => 'Url',
+            9 => 'Tag',
+        ], PublicationFieldTypes::names());
+    }
+
+    public function testCanonicable()
+    {
+        $this->assertSame([
+            PublicationFieldTypes::String,
+            PublicationFieldTypes::Integer,
+            PublicationFieldTypes::Datetime,
+            PublicationFieldTypes::Text,
+        ], PublicationFieldTypes::canonicable());
     }
 }

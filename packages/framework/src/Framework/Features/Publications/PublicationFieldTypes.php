@@ -15,14 +15,14 @@ use Illuminate\Support\Collection;
 enum PublicationFieldTypes: string
 {
     case String = 'string';
+    case Datetime = 'datetime';
     case Boolean = 'boolean';
     case Integer = 'integer';
     case Float = 'float';
-    case Datetime = 'datetime';
-    case Url = 'url';
+    case Image = 'image';
     case Array = 'array';
     case Text = 'text';
-    case Image = 'image';
+    case Url = 'url';
     case Tag = 'tag';
 
     public function rules(): array
@@ -40,20 +40,40 @@ enum PublicationFieldTypes: string
         return self::collect()->pluck('value')->toArray();
     }
 
+    public static function names(): array
+    {
+        return self::collect()->pluck('name')->toArray();
+    }
+
     public static function getRules(self $type): array
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
         return match ($type) {
             self::String => ['string'],
+            self::Datetime => ['date'],
             self::Boolean => ['boolean'],
             self::Integer => ['integer', 'numeric'],
             self::Float => ['numeric'],
-            self::Datetime => ['date'],
-            self::Url => ['url'],
-            self::Text => ['string'],
-            self::Array => ['array'],
             self::Image => [],
+            self::Array => ['array'],
+            self::Text => ['string'],
+            self::Url => ['url'],
             self::Tag => [],
         };
+    }
+
+    /**
+     * The types that can be used for canonical fields (used to generate file names).
+     *
+     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
+     */
+    public static function canonicable(): array
+    {
+        return [
+            self::String,
+            self::Integer,
+            self::Datetime,
+            self::Text,
+        ];
     }
 }
