@@ -40,7 +40,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->title('Creating a new Publication!');
 
         $this->publicationType = $this->getPubTypeSelection($this->getPublicationTypes());
-        $fieldData = $this->collectFieldData($this->publicationType);
+        $fieldData = $this->collectFieldData();
 
         $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, $this->hasForceOption(), $this->output);
         if ($creator->hasFileConflict()) {
@@ -61,7 +61,7 @@ class MakePublicationCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function captureFieldInput(PublicationField $field, PublicationType $publicationType): string|array
+    protected function captureFieldInput(PublicationField $field): string|array
     {
         if ($field->type === PublicationFieldTypes::Text) {
             return $this->captureTextFieldInput($field);
@@ -72,7 +72,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         if ($field->type === PublicationFieldTypes::Image) {
-            return $this->captureImageFieldInput($field, $publicationType);
+            return $this->captureImageFieldInput($field);
         }
 
         if ($field->type === PublicationFieldTypes::Tag) {
@@ -106,18 +106,17 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /**
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $publicationType
      * @return \Illuminate\Support\Collection<string, string|array>
      */
-    protected function collectFieldData(PublicationType $publicationType): Collection
+    protected function collectFieldData(): Collection
     {
         $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
 
         $data = new Collection();
 
         /** @var PublicationField $field */
-        foreach ($publicationType->getFields() as $field) {
-            $data->put($field->name, $this->captureFieldInput($field, $publicationType));
+        foreach ($this->publicationType->getFields() as $field) {
+            $data->put($field->name, $this->captureFieldInput($field));
         }
 
         return $data;
@@ -157,12 +156,12 @@ class MakePublicationCommand extends ValidatingCommand
         return InputStreamHandler::call();
     }
 
-    protected function captureImageFieldInput(PublicationField $field, PublicationType $publicationType): string
+    protected function captureImageFieldInput(PublicationField $field): string
     {
         $this->output->writeln($field->name.' (end with an empty line)');
         do {
             $offset = 0;
-            $mediaFiles = PublicationService::getMediaForPubType($publicationType);
+            $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
             foreach ($mediaFiles as $index => $file) {
                 $offset = $index + 1;
                 $this->output->writeln("  $offset: $file");
