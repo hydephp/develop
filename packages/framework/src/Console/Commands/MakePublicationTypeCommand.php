@@ -102,7 +102,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         // TODO: Here we could collect other data like the "rules" array for the field.
 
-        return (new PublicationField($fieldType, $fieldName));
+        return new PublicationField($fieldType, $fieldName);
     }
 
     protected function getFieldName(?string $message = null): string
