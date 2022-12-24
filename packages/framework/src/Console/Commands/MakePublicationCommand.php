@@ -39,7 +39,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->title('Creating a new Publication!');
 
-        $this->publicationType = $this->getPubTypeSelection($this->getPublicationTypes());
+        $this->publicationType = $this->getPubTypeSelection();
         $fieldData = $this->collectFieldData();
 
         $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, $this->hasForceOption(), $this->output);
@@ -84,12 +84,10 @@ class MakePublicationCommand extends ValidatingCommand
         return $this->askWithValidation($field->name, $field->name, $fieldRules->toArray());
     }
 
-    /**
-     * @param  \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $publicationTypes
-     * @return \Hyde\Framework\Features\Publications\Models\PublicationType
-     */
-    protected function getPubTypeSelection(Collection $publicationTypes): PublicationType
+    protected function getPubTypeSelection(): PublicationType
     {
+        $publicationTypes = $this->getPublicationTypes();
+
         $publicationTypeSelection = $this->argument('publicationType') ?? $publicationTypes->keys()->get(
             (int) $this->choice('Which publication type would you like to create a publication item for?',
                 $publicationTypes->keys()->toArray()
