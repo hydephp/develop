@@ -87,7 +87,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         // TODO: Is it reasonable to use arrays as canonical field values?
         if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
             $canonicalValue = ($this->fieldData->get($canonicalFieldName) ?? [])[0];
-        } else {
+        } elseif ($canonicalFieldDefinition->type === PublicationFieldTypes::Image) {
+            $canonicalValue = Str::before(basename((string) $this->fieldData->get($canonicalFieldName)), '.');
+        }
+        else {
             $canonicalValue = $this->fieldData->get($canonicalFieldName);
         }
 
