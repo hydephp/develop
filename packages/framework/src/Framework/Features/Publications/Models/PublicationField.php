@@ -13,6 +13,7 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function str_starts_with;
 use function strtolower;
 
 /**
@@ -37,7 +38,7 @@ class PublicationField implements SerializableContract
     public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [])
     {
         $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
-        $this->name = Str::kebab($name);
+        $this->name = str_starts_with($name, '__') ? $name : Str::kebab($name);
         $this->rules = $rules;
     }
 
