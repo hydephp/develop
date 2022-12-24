@@ -115,8 +115,9 @@ class MakePublicationCommand extends ValidatingCommand
 
         $data = new Collection();
 
-        foreach ($pubType->fields as $field) {
-            $data->put($field['name'], $this->captureFieldInput(PublicationField::fromArray($field), $pubType));
+        /** @var PublicationField $field */
+        foreach ($pubType->getFields() as $field) {
+            $data->put($field->name, $this->captureFieldInput($field, $pubType));
         }
 
         return $data;
