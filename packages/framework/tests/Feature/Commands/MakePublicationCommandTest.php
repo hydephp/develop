@@ -218,6 +218,7 @@ tags:
     // image
     public function test_command_with_image_input()
     {
+        $this->directory('_media/test-publication');
         $this->file('_media/test-publication/image.jpg');
         $this->makeSchemaFile([
             'canonicalField' => 'image',
