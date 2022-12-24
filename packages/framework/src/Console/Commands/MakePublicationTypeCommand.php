@@ -200,10 +200,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $this->fields->count() + $offset;
     }
 
-    protected function validateStorageDirectory(string $dirname): void
+    protected function validateStorageDirectory(string $directoryName): void
     {
-        if (is_file(Hyde::path($dirname)) || (is_dir(Hyde::path($dirname)) && count(scandir($dirname)) > 2)) {
-            throw new InvalidArgumentException("Storage path [$dirname] already exists");
+        if (is_file(Hyde::path($directoryName)) || (is_dir(Hyde::path($directoryName)) && count(scandir($directoryName)) > 2)) {
+            throw new InvalidArgumentException("Storage path [$directoryName] already exists");
         }
     }
 }
