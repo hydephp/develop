@@ -74,7 +74,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->fields->add(PublicationField::fromArray([
             'name' => '__createdAt',
             'type' => PublicationFieldTypes::Datetime,
-            'normalizeName' => false,
         ]));
         $this->count++;
 
