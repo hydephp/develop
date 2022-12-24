@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Hyde;
 use function array_keys;
-use function file_exists;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function in_array;
