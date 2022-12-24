@@ -24,10 +24,10 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected string $name,
         protected Collection $fields,
         protected string $canonicalField,
-        protected string $sortField,
-        protected bool $sortAscending,
-        protected bool $prevNextLinks,
-        protected int $pageSize,
+        protected ?string $sortField,
+        protected ?bool $sortAscending,
+        protected ?bool $prevNextLinks,
+        protected ?int $pageSize,
         protected ?OutputStyle $output = null,
     ) {
         $this->dirName = $this->formatStringForStorage($this->name);
@@ -42,10 +42,10 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             "{$this->dirName}_detail",
             "{$this->dirName}_list",
             [
-                $this->sortField,
-                $this->sortAscending,
-                $this->prevNextLinks,
-                $this->pageSize,
+                $this->sortField ?? '__createdAt',
+                $this->sortAscending ?? true,
+                $this->prevNextLinks ?? true,
+                $this->pageSize ?? 25,
             ],
             $this->fields->toArray()
         );

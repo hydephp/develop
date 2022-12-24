@@ -169,7 +169,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getPaginationSettings(): array
     {
         if ($this->option('use-defaults') || ! $this->confirm('Do you want to configure pagination settings?')) {
-            return ['__createdAt', true, 25, true];
+            return [null, null, null, null];
         }
 
         return [$this->getSortField(), $this->getSortDirection(), $this->getPageSize(), $this->getPrevNextLinks()];
