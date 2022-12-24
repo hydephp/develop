@@ -158,12 +158,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function addCreatedAtMetaField(): void
     {
-        $this->fields->add(
-            PublicationField::fromArray([
-                'name' => '__createdAt',
-                'type' => PublicationFieldTypes::Datetime,
-            ])
-        );
+        $this->fields->add(new PublicationField(PublicationFieldTypes::Datetime, '__createdAt'));
         $this->count++;
     }
 
