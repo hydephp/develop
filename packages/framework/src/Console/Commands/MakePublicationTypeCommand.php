@@ -35,7 +35,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     /** @var string */
     protected $description = 'Create a new publication type definition';
-    protected int $count = 0;
 
     protected Collection $fields;
 
@@ -79,10 +78,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
             if ($this->option('use-defaults') === true) {
                 $addAnother = false;
             } else {
-                $addAnother = $this->confirm("Field #$this->count added! Add another field?");
+                $addAnother = $this->confirm("Field #".($this->getCount() - 1)." added! Add another field?");
             }
 
-            $this->count++;
         } while ($addAnother);
 
         return $this->fields;
@@ -107,10 +105,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getFieldName(?string $message = null): string
     {
-        $selected = Str::kebab(trim($this->askWithValidation('name', $message ?? "Enter name for field #$this->count", ['required'])));
+        $selected = Str::kebab(trim($this->askWithValidation('name', $message ?? "Enter name for field #{$this->getCount()}", ['required'])));
 
         if ($this->checkIfFieldIsDuplicate($selected)) {
-            return $this->getFieldName("Try again: Enter name for field #$this->count");
+            return $this->getFieldName("Try again: Enter name for field #{$this->getCount()}");
         }
 
         return $selected;
@@ -120,7 +118,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $options = PublicationFieldTypes::names();
 
-        $choice = $this->choice("Enter type for field #$this->count", $options, 'String');
+        $choice = $this->choice("Enter type for field #{$this->getCount()}", $options, 'String');
 
         return PublicationFieldTypes::from(strtolower($choice));
     }
@@ -159,7 +157,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function addCreatedAtMetaField(): void
     {
         $this->fields->add(new PublicationField(PublicationFieldTypes::Datetime, '__createdAt'));
-        $this->count++;
     }
 
     protected function getPaginationSettings(): array
