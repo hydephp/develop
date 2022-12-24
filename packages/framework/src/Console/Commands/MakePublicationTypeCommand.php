@@ -42,7 +42,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $this->title('Creating a new Publication Type!');
 
-        $title = $this->argument('name') ?: trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
+        $title = $this->getTitle();
 
         $this->validateStorageDirectory(Str::slug($title));
 
@@ -196,6 +196,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getCount(int $offset = 0): int
     {
         return $this->fields->count() + $offset;
+    }
+
+    protected function getTitle(): string
+    {
+        return $this->argument('name') ?: trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
     }
 
     protected function validateStorageDirectory(string $directoryName): void
