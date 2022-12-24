@@ -12,7 +12,6 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -143,20 +142,19 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureImageFieldInput(PublicationField $field): string
     {
-        $this->infoComment('Select file for field', $field->name);
+        $this->infoComment('Select file for image field', $field->name);
 
-        do {
-            $offset = 0;
-            $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
-            foreach ($mediaFiles as $index => $file) {
-                $offset = $index + 1;
-                $this->output->writeln("  $offset: $file");
-            }
-            $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:1,$offset"]);
-        } while ($selected == 0);
-        $file = $mediaFiles->{$selected - 1};
+        $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
+        if ($mediaFiles->isEmpty()) {
+            $this->error('No media files found for this publication type');
+            // Would you like to skip this field? (Tip: Use Ctrl+C to exit)
+            return '';
+        }
 
-        return '_media/'.Str::of($file)->after('media/')->toString();
+        $filesArray = $mediaFiles->toArray();
+        $selection = (int) $this->choice('Which file would you like to use?', $filesArray);
+
+        return $filesArray[$selection];
     }
 
     protected function captureTagFieldInput(PublicationField $field)

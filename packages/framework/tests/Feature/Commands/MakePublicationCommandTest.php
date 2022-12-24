@@ -215,6 +215,34 @@ tags:
 ', file_get_contents(Hyde::path('test-publication/first-tag.md')));
     }
 
+    // image
+    public function test_command_with_image_input()
+    {
+        $this->file('_media/test-publication/image.jpg');
+        $this->makeSchemaFile([
+            'canonicalField' => 'image',
+            'fields'         =>  [[
+                'type' => 'image',
+                'name' => 'image',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Which file would you like to use?', '_media/test-publication/image.jpg')
+             ->assertExitCode(0);
+
+        $this->assertTrue(File::exists(Hyde::path('test-publication/image.md')));
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+image: _media/test-publication/image.jpg
+---
+
+## Write something awesome.
+
+', file_get_contents(Hyde::path('test-publication/image.md')));
+    }
+
     protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
