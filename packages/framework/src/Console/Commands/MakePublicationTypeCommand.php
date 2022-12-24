@@ -169,10 +169,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getSortDirection(): bool
     {
-        $options = [
-            'Ascending'  => true,
-            'Descending' => false,
-        ];
+        $options = ['Ascending' => true, 'Descending' => false];
 
         return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending')];
     }
