@@ -78,7 +78,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             if ($this->option('use-defaults') === true) {
                 $addAnother = false;
             } else {
-                $addAnother = $this->confirm("Field #".($this->getCount() - 1)." added! Add another field?");
+                $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
             }
 
         } while ($addAnother);
@@ -198,8 +198,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $this->confirm('Generate previous/next links in detail view?', true);
     }
 
-    protected function getCount(): int
+    protected function getCount(int $offset = 0): int
     {
-        return $this->fields->count();
+        return $this->fields->count() + $offset;
     }
 }
