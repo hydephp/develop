@@ -48,8 +48,7 @@ class MakePublicationCommand extends ValidatingCommand
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
                 $creator->force();
             } else {
-                $this->output->writeln('<bg=magenta;fg=white>Exiting without overwriting existing publication file!</>');
-
+                $this->info('Exiting without overwriting existing publication file!');
                 return ValidatingCommand::USER_EXIT;
             }
         }
@@ -96,8 +95,7 @@ class MakePublicationCommand extends ValidatingCommand
      */
     protected function collectFieldData(): Collection
     {
-        $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
-
+        $this->info("\nNow please enter the field data:");
         $data = new Collection();
 
         /** @var PublicationField $field */
