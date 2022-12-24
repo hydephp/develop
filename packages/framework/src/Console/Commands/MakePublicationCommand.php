@@ -79,9 +79,7 @@ class MakePublicationCommand extends ValidatingCommand
             return $this->captureTagFieldInput($field);
         }
 
-        $fieldRules = $this->generateFieldRules($field);
-
-        return $this->askWithValidation($field->name, $field->name, $fieldRules->toArray());
+        return $this->askWithValidation($field->name, $field->name, $this->generateFieldRules($field)->toArray());
     }
 
     protected function getPubTypeSelection(): PublicationType
