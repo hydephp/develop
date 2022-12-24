@@ -89,8 +89,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             $canonicalValue = ($this->fieldData->get($canonicalFieldName) ?? [])[0];
         } elseif ($canonicalFieldDefinition->type === PublicationFieldTypes::Image) {
             $canonicalValue = Str::before(basename((string) $this->fieldData->get($canonicalFieldName)), '.');
-        }
-        else {
+        } else {
             $canonicalValue = $this->fieldData->get($canonicalFieldName);
         }
 

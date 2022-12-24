@@ -48,6 +48,7 @@ class MakePublicationCommand extends ValidatingCommand
                 $creator->force();
             } else {
                 $this->info('Exiting without overwriting existing publication file!');
+
                 return ValidatingCommand::USER_EXIT;
             }
         }
