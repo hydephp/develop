@@ -78,13 +78,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
             $fieldName = $this->getFieldName();
 
-            $type = $this->getFieldType();
+            $fieldType = $this->getFieldType();
 
-            if ($type === PublicationFieldTypes::Tag) {
+            if ($fieldType === PublicationFieldTypes::Tag) {
                 $this->comment('Tip: Hyde will look for tags matching the name of the publication!');
             }
-
-            $fieldType = $type;
 
             // TODO: Here we could collect other data like the "rules" array for the field.
 
