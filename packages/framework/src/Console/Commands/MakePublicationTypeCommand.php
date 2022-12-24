@@ -46,7 +46,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         if (! $title) {
             $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
         }
-        $this->validateStorageDirectory($title);
+        $this->validateStorageDirectory(Str::slug($title));
 
         $this->fields = $this->captureFieldsDefinitions();
 
@@ -200,9 +200,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $this->fields->count() + $offset;
     }
 
-    protected function validateStorageDirectory(string $title): void
+    protected function validateStorageDirectory(string $dirname): void
     {
-        $dirname = Str::slug($title);
         if (is_file(Hyde::path($dirname)) || (is_dir(Hyde::path($dirname)) && count(scandir($dirname)) > 2)) {
             throw new InvalidArgumentException("Storage path [$dirname] already exists");
         }
