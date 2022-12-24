@@ -85,15 +85,16 @@ class MakePublicationTypeCommand extends ValidatingCommand
                 $this->comment('Tip: Hyde will look for tags matching the name of the publication!');
             }
 
+            $fieldData['type'] = $type;
+
+            $this->fields->add(PublicationField::fromArray($fieldData));
+
             if ($this->option('use-defaults') === true) {
                 $addAnother = false;
             } else {
                 $addAnother = $this->confirm("Field #$this->count added! Add another field?");
             }
 
-            $fieldData['type'] = $type;
-
-            $this->fields->add(PublicationField::fromArray($fieldData));
             $this->count++;
         } while ($addAnother);
 
