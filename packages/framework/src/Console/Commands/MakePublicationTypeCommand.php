@@ -200,4 +200,9 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         return $this->confirm('Generate previous/next links in detail view?', true);
     }
+
+    protected function getCount(): int
+    {
+        return $this->fields->count();
+    }
 }
