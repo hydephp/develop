@@ -16,6 +16,7 @@ use function in_array;
 use InvalidArgumentException;
 use function is_dir;
 use LaravelZero\Framework\Commands\Command;
+use function is_file;
 use function scandir;
 use function strtolower;
 use function trim;
