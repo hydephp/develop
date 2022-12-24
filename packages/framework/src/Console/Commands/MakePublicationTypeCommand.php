@@ -87,6 +87,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
             $fieldData['type'] = $type;
 
+            // TODO: Here we could collect other data like the "rules" array for the field.
+
             $this->fields->add(PublicationField::fromArray($fieldData));
 
             if ($this->option('use-defaults') === true) {
