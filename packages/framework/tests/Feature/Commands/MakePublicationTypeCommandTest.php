@@ -134,4 +134,27 @@ class MakePublicationTypeCommandTest extends TestCase
             ])
             ->assertExitCode(0);
     }
+
+    public function test_with_existing_file_of_the_same_name()
+    {
+        config(['app.throw_on_console_exception' => false]);
+
+        $this->file('test-publication');
+
+        $this->artisan('make:publicationType "Test Publication"')
+            ->expectsOutput('Error: Storage path [test-publication] already exists')
+            ->assertExitCode(1);
+    }
+
+    public function test_with_existing_publication_of_the_same_name()
+    {
+        config(['app.throw_on_console_exception' => false]);
+
+        $this->directory('test-publication');
+        $this->file('test-publication/foo');
+
+        $this->artisan('make:publicationType "Test Publication"')
+             ->expectsOutput('Error: Storage path [test-publication] already exists')
+             ->assertExitCode(1);
+    }
 }
