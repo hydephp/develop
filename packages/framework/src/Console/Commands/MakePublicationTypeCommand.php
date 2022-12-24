@@ -30,7 +30,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publicationType
-		{name? : The name of the Publication Type to create. Will be used to generate the storage directory}
+		{name? : The name of the publication type to create}
         {--use-defaults : Select the default options wherever possible}';
 
     /** @var string */
