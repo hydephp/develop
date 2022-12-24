@@ -189,8 +189,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function getPageSize(): int
     {
-        return (int) $this->askWithValidation(
-            'pageSize',
+        return (int) $this->askWithValidation('pageSize',
             'Enter the page size (0 for no limit)',
             ['required', 'integer', 'between:0,100'],
             25
