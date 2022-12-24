@@ -47,7 +47,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Url',
                 'Tag',
             ], true)
-            ->expectsConfirmation('Field #1 added! Add another field?', 'n')
+            ->expectsConfirmation('Field #1 added! Add another field?')
             ->expectsConfirmation('Do you want to configure pagination settings?', 'yes')
             ->expectsChoice('Choose the default field you wish to sort by', '__createdAt', [
                 '__createdAt',
@@ -124,9 +124,9 @@ class MakePublicationTypeCommandTest extends TestCase
             ->expectsQuestion('Try again: Enter name for field #2', 'bar')
             ->expectsChoice('Enter type for field #2', 'String', PublicationFieldTypes::names())
 
-            ->expectsConfirmation('Field #2 added! Add another field?', 'no')
+            ->expectsConfirmation('Field #2 added! Add another field?')
 
-            ->expectsConfirmation('Do you want to configure pagination settings?', 'n')
+            ->expectsConfirmation('Do you want to configure pagination settings?')
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'foo', [
                 '__createdAt',
                 'bar',
