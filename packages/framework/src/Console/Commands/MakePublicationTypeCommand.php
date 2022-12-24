@@ -74,19 +74,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->addCreatedAtMetaField();
 
         do {
-            $this->line('');
-
-            $fieldName = $this->getFieldName();
-
-            $fieldType = $this->getFieldType();
-
-            if ($fieldType === PublicationFieldTypes::Tag) {
-                $this->comment('Tip: Hyde will look for tags matching the name of the publication!');
-            }
-
-            // TODO: Here we could collect other data like the "rules" array for the field.
-
-            $this->fields->add(new PublicationField($fieldType, $fieldName));
+            $this->fields->add($this->captureFieldDefinition());
 
             if ($this->option('use-defaults') === true) {
                 $addAnother = false;
@@ -98,6 +86,23 @@ class MakePublicationTypeCommand extends ValidatingCommand
         } while ($addAnother);
 
         return $this->fields;
+    }
+
+    protected function captureFieldDefinition(): PublicationField
+    {
+        $this->line('');
+
+        $fieldName = $this->getFieldName();
+
+        $fieldType = $this->getFieldType();
+
+        if ($fieldType === PublicationFieldTypes::Tag) {
+            $this->comment('Tip: Hyde will look for tags matching the name of the publication!');
+        }
+
+        // TODO: Here we could collect other data like the "rules" array for the field.
+
+        return (new PublicationField($fieldType, $fieldName));
     }
 
     protected function getFieldName(?string $message = null): string
