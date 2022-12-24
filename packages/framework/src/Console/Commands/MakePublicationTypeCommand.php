@@ -80,7 +80,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
             } else {
                 $addAnother = $this->confirm("Field #{$this->getCount(-1)} added! Add another field?");
             }
-
         } while ($addAnother);
 
         return $this->fields;
