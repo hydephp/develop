@@ -100,6 +100,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         /** @var PublicationField $field */
         foreach ($this->publicationType->getFields() as $field) {
+            $this->newLine();
             $data->put($field->name, $this->captureFieldInput($field));
         }
 
