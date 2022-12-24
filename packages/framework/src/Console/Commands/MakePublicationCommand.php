@@ -33,16 +33,16 @@ class MakePublicationCommand extends ValidatingCommand
     /** @var string */
     protected $description = 'Create a new publication item';
 
-    protected PublicationType $pubType;
+    protected PublicationType $publicationType;
 
     public function safeHandle(): int
     {
         $this->title('Creating a new Publication!');
 
-        $this->pubType = $this->getPubTypeSelection($this->getPublicationTypes());
-        $fieldData = $this->collectFieldData($this->pubType);
+        $this->publicationType = $this->getPubTypeSelection($this->getPublicationTypes());
+        $fieldData = $this->collectFieldData($this->publicationType);
 
-        $creator = new CreatesNewPublicationPage($this->pubType, $fieldData, $this->hasForceOption(), $this->output);
+        $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, $this->hasForceOption(), $this->output);
         if ($creator->hasFileConflict()) {
             $this->error('Error: A publication already exists with the same canonical field value');
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
@@ -61,7 +61,7 @@ class MakePublicationCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function captureFieldInput(PublicationField $field, PublicationType $pubType): string|array
+    protected function captureFieldInput(PublicationField $field, PublicationType $publicationType): string|array
     {
         if ($field->type === PublicationFieldTypes::Text) {
             return $this->captureTextFieldInput($field);
@@ -72,7 +72,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         if ($field->type === PublicationFieldTypes::Image) {
-            return $this->captureImageFieldInput($field, $pubType);
+            return $this->captureImageFieldInput($field, $publicationType);
         }
 
         if ($field->type === PublicationFieldTypes::Tag) {
@@ -90,34 +90,34 @@ class MakePublicationCommand extends ValidatingCommand
      */
     protected function getPubTypeSelection(Collection $publicationTypes): PublicationType
     {
-        $pubTypeSelection = $this->argument('publicationType') ?? $publicationTypes->keys()->get(
+        $publicationTypeSelection = $this->argument('publicationType') ?? $publicationTypes->keys()->get(
             (int) $this->choice('Which publication type would you like to create a publication item for?',
                 $publicationTypes->keys()->toArray()
             )
         );
 
-        if ($publicationTypes->has($pubTypeSelection)) {
-            $this->line("<info>Creating a new publication of type</info> [<comment>$pubTypeSelection</comment>]");
+        if ($publicationTypes->has($publicationTypeSelection)) {
+            $this->line("<info>Creating a new publication of type</info> [<comment>$publicationTypeSelection</comment>]");
 
-            return $publicationTypes->get($pubTypeSelection);
+            return $publicationTypes->get($publicationTypeSelection);
         }
 
-        throw new InvalidArgumentException("Unable to locate publication type [$pubTypeSelection]");
+        throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
     }
 
     /**
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $pubType
+     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $publicationType
      * @return \Illuminate\Support\Collection<string, string|array>
      */
-    protected function collectFieldData(PublicationType $pubType): Collection
+    protected function collectFieldData(PublicationType $publicationType): Collection
     {
         $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
 
         $data = new Collection();
 
         /** @var PublicationField $field */
-        foreach ($pubType->getFields() as $field) {
-            $data->put($field->name, $this->captureFieldInput($field, $pubType));
+        foreach ($publicationType->getFields() as $field) {
+            $data->put($field->name, $this->captureFieldInput($field, $publicationType));
         }
 
         return $data;
@@ -157,12 +157,12 @@ class MakePublicationCommand extends ValidatingCommand
         return InputStreamHandler::call();
     }
 
-    protected function captureImageFieldInput(PublicationField $field, PublicationType $pubType): string
+    protected function captureImageFieldInput(PublicationField $field, PublicationType $publicationType): string
     {
         $this->output->writeln($field->name.' (end with an empty line)');
         do {
             $offset = 0;
-            $mediaFiles = PublicationService::getMediaForPubType($pubType);
+            $mediaFiles = PublicationService::getMediaForPubType($publicationType);
             foreach ($mediaFiles as $index => $file) {
                 $offset = $index + 1;
                 $this->output->writeln("  $offset: $file");
@@ -179,7 +179,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
         do {
             $offset = 0;
-            $tagsForGroup = PublicationService::getAllTags()->{$this->pubType->name};
+            $tagsForGroup = PublicationService::getAllTags()->{$this->publicationType->name};
             foreach ($tagsForGroup as $index => $value) {
                 $offset = $index + 1;
                 $this->output->writeln("  $offset: $value");
