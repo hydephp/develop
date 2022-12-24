@@ -40,6 +40,11 @@ enum PublicationFieldTypes: string
         return self::collect()->pluck('value')->toArray();
     }
 
+    public static function names(): array
+    {
+        return self::collect()->pluck('name')->toArray();
+    }
+
     public static function getRules(self $type): array
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */

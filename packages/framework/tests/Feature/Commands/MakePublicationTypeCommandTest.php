@@ -105,7 +105,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->artisan('make:publicationType --use-defaults')
             ->expectsQuestion('Publication type name', 'Test Publication')
             ->expectsQuestion('Enter name for field #1', 'foo')
-            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
+            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::names())
             ->expectsOutput('Saving publication data to [test-publication/schema.json]')
             ->expectsOutput('Publication type created successfully!')
             ->assertExitCode(0);
@@ -115,14 +115,14 @@ class MakePublicationTypeCommandTest extends TestCase
     {
         $this->artisan('make:publicationType "Test Publication"')
             ->expectsQuestion('Enter name for field #1', 'foo')
-            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
+            ->expectsChoice('Enter type for field #1', 'String', PublicationFieldTypes::names())
 
             ->expectsConfirmation('Field #1 added! Add another field?', 'yes')
 
             ->expectsQuestion('Enter name for field #2', 'foo')
             ->expectsOutput('Field name [foo] already exists!')
             ->expectsQuestion('Try again: Enter name for field #2', 'bar')
-            ->expectsChoice('Enter type for field #2', 'String', PublicationFieldTypes::collect()->pluck('name')->toArray())
+            ->expectsChoice('Enter type for field #2', 'String', PublicationFieldTypes::names())
 
             ->expectsConfirmation('Field #2 added! Add another field?', 'no')
 
