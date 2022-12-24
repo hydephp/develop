@@ -85,21 +85,21 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $pubTypes
+     * @param  \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationType>  $publicationTypes
      * @return \Hyde\Framework\Features\Publications\Models\PublicationType
      */
-    protected function getPubTypeSelection(Collection $pubTypes): PublicationType
+    protected function getPubTypeSelection(Collection $publicationTypes): PublicationType
     {
-        $pubTypeSelection = $this->argument('publicationType') ?? $pubTypes->keys()->get(
+        $pubTypeSelection = $this->argument('publicationType') ?? $publicationTypes->keys()->get(
             (int) $this->choice('Which publication type would you like to create a publication item for?',
-                $pubTypes->keys()->toArray()
+                $publicationTypes->keys()->toArray()
             )
         );
 
-        if ($pubTypes->has($pubTypeSelection)) {
+        if ($publicationTypes->has($pubTypeSelection)) {
             $this->line("<info>Creating a new publication of type</info> [<comment>$pubTypeSelection</comment>]");
 
-            return $pubTypes->get($pubTypeSelection);
+            return $publicationTypes->get($pubTypeSelection);
         }
 
         throw new InvalidArgumentException("Unable to locate publication type [$pubTypeSelection]");
@@ -125,12 +125,12 @@ class MakePublicationCommand extends ValidatingCommand
      */
     protected function getPublicationTypes(): Collection
     {
-        $pubTypes = PublicationService::getPublicationTypes();
-        if ($pubTypes->isEmpty()) {
+        $publicationTypes = PublicationService::getPublicationTypes();
+        if ($publicationTypes->isEmpty()) {
             throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
         }
 
-        return $pubTypes;
+        return $publicationTypes;
     }
 
     protected function hasForceOption(): bool
