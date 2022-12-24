@@ -113,7 +113,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->output->writeln("\n<bg=magenta;fg=white>Now please enter the field data:</>");
 
-        return Collection::make($pubType->fields)->mapWithKeys(function ($field) use ($pubType) {
+        return Collection::make($pubType->fields)->mapWithKeys(function (array $field) use ($pubType): array {
             return [$field['name'] => $this->captureFieldInput(PublicationField::fromArray($field), $pubType)];
         });
     }
