@@ -49,7 +49,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $this->fields = $this->captureFieldsDefinitions();
 
-        [$sortField, $sortAscending, $pageSize, $prevNextLinks] = ($this->getPaginationSettings());
+        [$sortField, $sortAscending, $prevNextLinks, $pageSize] = ($this->getPaginationSettings());
 
         $canonicalField = $this->getCanonicalField();
 
@@ -172,7 +172,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             return [null, null, null, null];
         }
 
-        return [$this->getSortField(), $this->getSortDirection(), $this->getPageSize(), $this->getPrevNextLinks()];
+        return [$this->getSortField(), $this->getSortDirection(), $this->getPrevNextLinks(), $this->getPageSize()];
     }
 
     protected function getSortField(): string
@@ -187,6 +187,11 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $options[$this->choice('Choose the default sort direction', array_keys($options), 'Ascending')];
     }
 
+    protected function getPrevNextLinks(): bool
+    {
+        return $this->confirm('Generate previous/next links in detail view?', true);
+    }
+
     protected function getPageSize(): int
     {
         return (int) $this->askWithValidation('pageSize',
@@ -194,11 +199,6 @@ class MakePublicationTypeCommand extends ValidatingCommand
             ['required', 'integer', 'between:0,100'],
             25
         );
-    }
-
-    protected function getPrevNextLinks(): bool
-    {
-        return $this->confirm('Generate previous/next links in detail view?', true);
     }
 
     protected function getCount(int $offset = 0): int
