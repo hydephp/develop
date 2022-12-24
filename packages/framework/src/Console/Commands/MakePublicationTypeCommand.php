@@ -71,11 +71,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         $this->line('You now need to define the fields in your publication type:');
         $this->fields = Collection::make();
 
-        $this->fields->add(PublicationField::fromArray([
-            'name' => '__createdAt',
-            'type' => PublicationFieldTypes::Datetime,
-        ]));
-        $this->count++;
+        $this->addCreatedAtMetaField();
 
         do {
             $this->line('');
@@ -192,5 +188,16 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getPrevNextLinks(): bool
     {
         return $this->confirm('Generate previous/next links in detail view?', true);
+    }
+
+    protected function addCreatedAtMetaField(): void
+    {
+        $this->fields->add(
+            PublicationField::fromArray([
+                'name' => '__createdAt',
+                'type' => PublicationFieldTypes::Datetime,
+            ])
+        );
+        $this->count++;
     }
 }
