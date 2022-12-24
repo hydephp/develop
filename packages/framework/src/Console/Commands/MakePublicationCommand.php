@@ -63,23 +63,13 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureFieldInput(PublicationField $field): string|array
     {
-        if ($field->type === PublicationFieldTypes::Text) {
-            return $this->captureTextFieldInput($field);
-        }
-
-        if ($field->type === PublicationFieldTypes::Array) {
-            return $this->captureArrayFieldInput($field);
-        }
-
-        if ($field->type === PublicationFieldTypes::Image) {
-            return $this->captureImageFieldInput($field);
-        }
-
-        if ($field->type === PublicationFieldTypes::Tag) {
-            return $this->captureTagFieldInput($field);
-        }
-
-        return $this->askWithValidation($field->name, $field->name, $this->generateFieldRules($field)->toArray());
+        return match ($field->type) {
+            PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
+            PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
+            PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
+            PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
+            default => $this->askWithValidation($field->name, $field->name, $this->generateFieldRules($field)->toArray()),
+        };
     }
 
     protected function getPubTypeSelection(): PublicationType
