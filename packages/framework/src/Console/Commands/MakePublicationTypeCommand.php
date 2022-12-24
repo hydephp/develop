@@ -42,10 +42,8 @@ class MakePublicationTypeCommand extends ValidatingCommand
     {
         $this->title('Creating a new Publication Type!');
 
-        $title = $this->argument('name');
-        if (! $title) {
-            $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
-        }
+        $title = $this->argument('name') ?: trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
+
         $this->validateStorageDirectory(Str::slug($title));
 
         $this->fields = $this->captureFieldsDefinitions();
