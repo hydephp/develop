@@ -143,7 +143,8 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureImageFieldInput(PublicationField $field): string
     {
-        $this->output->writeln($field->name.' (end with an empty line)');
+        $this->infoComment('Select file for field', $field->name);
+
         do {
             $offset = 0;
             $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
