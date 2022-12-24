@@ -58,7 +58,7 @@ class MakePublicationTypeCommandTest extends TestCase
                 'Descending',
             ])
             ->expectsQuestion('Enter the page size (0 for no limit)', 10)
-            ->expectsQuestion('Generate previous/next links in detail view?', 'n')
+            ->expectsConfirmation('Generate previous/next links in detail view?', 'yes')
             ->expectsChoice('Choose a canonical name field (this will be used to generate filenames, so the values need to be unique)', 'publication-title', [
                 '__createdAt',
                 'publication-title',
