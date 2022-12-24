@@ -60,6 +60,18 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
+    protected function getTitle(): string
+    {
+        return $this->argument('name') ?: trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
+    }
+
+    protected function validateStorageDirectory(string $directoryName): void
+    {
+        if (is_file(Hyde::path($directoryName)) || (is_dir(Hyde::path($directoryName)) && (count(scandir($directoryName)) > 2))) {
+            throw new InvalidArgumentException("Storage path [$directoryName] already exists");
+        }
+    }
+
     protected function captureFieldsDefinitions(): Collection
     {
         $this->line('You now need to define the fields in your publication type:');
@@ -192,17 +204,5 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getCount(int $offset = 0): int
     {
         return $this->fields->count() + $offset;
-    }
-
-    protected function getTitle(): string
-    {
-        return $this->argument('name') ?: trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
-    }
-
-    protected function validateStorageDirectory(string $directoryName): void
-    {
-        if (is_file(Hyde::path($directoryName)) || (is_dir(Hyde::path($directoryName)) && (count(scandir($directoryName)) > 2))) {
-            throw new InvalidArgumentException("Storage path [$directoryName] already exists");
-        }
     }
 }
