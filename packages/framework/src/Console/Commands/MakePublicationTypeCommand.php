@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Hyde;
 use function array_keys;
 use function file_exists;
 use Hyde\Console\Concerns\ValidatingCommand;
@@ -47,7 +48,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
             $title = trim($this->askWithValidation('name', 'Publication type name', ['required', 'string']));
         }
         $dirname = Str::slug($title);
-        if (file_exists($dirname) || (is_dir($dirname) && count(scandir($dirname)) > 2)) {
+        if (file_exists(Hyde::path($dirname)) || (is_dir(Hyde::path($dirname)) && count(scandir($dirname)) > 2)) {
             throw new InvalidArgumentException("Storage path [$dirname] already exists");
         }
 
