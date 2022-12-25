@@ -12,7 +12,6 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Console\Commands\MakePublicationCommand
