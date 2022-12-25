@@ -172,7 +172,7 @@ __createdAt: 2022-01-01 00:00:00
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertDatedPublicationExists();
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 description: |
@@ -182,7 +182,9 @@ description: |
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+',
+            $this->getDatedPublicationContents()
+        );
     }
 
     // array
@@ -201,7 +203,7 @@ description: |
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertDatedPublicationExists();
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 tags:
@@ -233,7 +235,7 @@ tags:
             ->expectsQuestion('Which file would you like to use?', '_media/test-publication/image.jpg')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertDatedPublicationExists();
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 image: _media/test-publication/image.jpg
@@ -241,7 +243,9 @@ image: _media/test-publication/image.jpg
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+',
+            $this->getDatedPublicationContents()
+        );
     }
 
     protected function makeSchemaFile(array $merge = []): void
@@ -283,5 +287,15 @@ image: _media/test-publication/image.jpg
             
             MARKDOWN, file_get_contents(Hyde::path('test-publication/hello-world.md'))
         );
+    }
+
+    protected function assertDatedPublicationExists(): void
+    {
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+    }
+
+    protected function getDatedPublicationContents(): string|false
+    {
+        return file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 }
