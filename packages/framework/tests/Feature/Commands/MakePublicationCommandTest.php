@@ -294,7 +294,7 @@ image: _media/test-publication/image.jpg
         $this->assertTrue(is_file(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
-    protected function getDatedPublicationContents(): string|false
+    protected function getDatedPublicationContents(): string
     {
         return file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
