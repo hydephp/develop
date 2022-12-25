@@ -160,6 +160,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationField $field)
     {
+        // Todo support multiple tags?
         $this->output->writeln($field->name.' (enter 0 to reload tag definitions)');
         do {
             $offset = 0;
