@@ -48,7 +48,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsOutput('Publication created successfully!')
             ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertTrue(is_file(Hyde::path('test-publication/hello-world.md')));
         $this->assertPublicationFileWasCreatedCorrectly();
     }
 
@@ -122,7 +122,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsOutput('Publication created successfully!')
             ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertTrue(is_file(Hyde::path('test-publication/hello-world.md')));
         $this->assertPublicationFileWasCreatedCorrectly();
     }
 
@@ -147,7 +147,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertTrue(is_file(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 ---
@@ -291,7 +291,7 @@ image: _media/test-publication/image.jpg
 
     protected function assertDatedPublicationExists(): void
     {
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertTrue(is_file(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     protected function getDatedPublicationContents(): string|false
