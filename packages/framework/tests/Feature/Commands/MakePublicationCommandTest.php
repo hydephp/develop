@@ -291,7 +291,7 @@ image: _media/test-publication/image.jpg
 
     protected function assertDatedPublicationExists(): void
     {
-        $this->assertTrue(is_file(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
     }
 
     protected function getDatedPublicationContents(): string
