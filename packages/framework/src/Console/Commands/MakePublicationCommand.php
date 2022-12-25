@@ -185,4 +185,9 @@ class MakePublicationCommand extends ValidatingCommand
 
         return $fieldRules;
     }
+
+    protected function tip(string $message): void
+    {
+        $this->output->writeln("<fg=bright-blue>Tip:</> $message");
+    }
 }
