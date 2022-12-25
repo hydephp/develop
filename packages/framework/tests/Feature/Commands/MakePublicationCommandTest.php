@@ -162,7 +162,7 @@ __createdAt: 2022-01-01 00:00:00
     {
         InputStreamHandler::mockInput("Hello\nWorld");
         $this->makeSchemaFile([
-            'canonicalField' => 'description',
+            'canonicalField' => '__createdAt',
             'fields'         =>  [[
                 'type' => 'text',
                 'name' => 'description',
@@ -172,7 +172,7 @@ __createdAt: 2022-01-01 00:00:00
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 description: |
@@ -182,7 +182,7 @@ description: |
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     // array
@@ -190,7 +190,7 @@ description: |
     {
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
         $this->makeSchemaFile([
-            'canonicalField' => 'tags',
+            'canonicalField' => '__createdAt',
             'fields'         =>  [[
                 'type' => 'array',
                 'name' => 'tags',
@@ -201,7 +201,7 @@ description: |
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/first-tag.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 tags:
@@ -212,7 +212,7 @@ tags:
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/first-tag.md')));
+', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     // image
@@ -221,7 +221,7 @@ tags:
         $this->directory('_media/test-publication');
         $this->file('_media/test-publication/image.jpg');
         $this->makeSchemaFile([
-            'canonicalField' => 'image',
+            'canonicalField' => '__createdAt',
             'fields'         =>  [[
                 'type' => 'image',
                 'name' => 'image',
@@ -233,7 +233,7 @@ tags:
             ->expectsQuestion('Which file would you like to use?', '_media/test-publication/image.jpg')
              ->assertExitCode(0);
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/image.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals('---
 __createdAt: 2022-01-01 00:00:00
 image: _media/test-publication/image.jpg
@@ -241,7 +241,7 @@ image: _media/test-publication/image.jpg
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/image.md')));
+', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     protected function makeSchemaFile(array $merge = []): void
