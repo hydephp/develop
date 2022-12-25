@@ -172,7 +172,7 @@ class MakePublicationCommand extends ValidatingCommand
             $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:0,$offset"]);
         } while ($selected == 0);
 
-        return $tagsForGroup->{$selected - 1};
+        return $tagsForGroup->get($selected - 1);
     }
 
     // Get rules for fields which are not of type array, text or image
