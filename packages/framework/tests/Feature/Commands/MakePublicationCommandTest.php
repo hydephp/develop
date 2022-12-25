@@ -247,6 +247,46 @@ image: _media/test-publication/image.jpg
         );
     }
 
+    // tag
+    public function test_command_with_tag_input()
+    {
+        InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
+        $this->file(
+            'tags.json',
+            '{
+    "test-publication": [
+        "foo",
+        "bar",
+        "baz"
+    ]
+}'
+        );
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'tag',
+                'name' => 'tag',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Tag', '1')
+             ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+tag: foo
+---
+
+## Write something awesome.
+
+',
+            $this->getDatedPublicationContents()
+        );
+    }
+
     protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
