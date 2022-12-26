@@ -70,7 +70,8 @@ title: 'Hello World'
         $fieldData = Collection::make([
             'title' => 'Hello World',
             'description' => 'This is a description
-It can be multiple lines.',
+It can be multiple lines.
+',
         ]);
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
@@ -182,7 +183,8 @@ title: 'Hello World'
         $fieldData = Collection::make([
             'title' => 'Hello World',
             'description' => 'This is a description.
-It can be multiple lines.',
+It can be multiple lines.
+',
             'tags' => ['tag1', 'tag2', 'foo bar'],
         ]);
 
