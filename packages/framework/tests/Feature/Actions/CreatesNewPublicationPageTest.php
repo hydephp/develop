@@ -206,7 +206,7 @@ tags:
 ## Write something awesome.
 
 ",
-                            $contents
+            $contents
         );
 
         $this->assertSame([
