@@ -13,6 +13,7 @@ use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use RuntimeException;
+use function rtrim;
 use function substr;
 use Symfony\Component\Yaml\Yaml;
 use function trim;
