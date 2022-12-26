@@ -81,8 +81,8 @@ It can be multiple lines.',
 __createdAt: '2022-01-01 00:00:00'
 title: 'Hello World'
 description: |
-  This is a description
-  It can be multiple lines.
+    This is a description
+    It can be multiple lines.
 ---
 
 ## Write something awesome.
@@ -195,8 +195,8 @@ It can be multiple lines.',
 __createdAt: '2022-01-01 00:00:00'
 title: 'Hello World'
 description: |
-  This is a description.
-  It can be multiple lines.
+    This is a description.
+    It can be multiple lines.
 tags:
     - tag1
     - tag2
