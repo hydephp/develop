@@ -193,7 +193,8 @@ class MakePublicationCommand extends ValidatingCommand
         $this->line("<fg=bright-blue>Tip:</> $message");
     }
 
-    protected function handleEmptyCollection($type, $searchLocation)
+    /** @return null */
+    protected function handleEmptyCollection(string $type, string $searchLocation)
     {
         $this->warn("\nWarning: No {$type}s found in $searchLocation");
         // TODO we might want to check if the field has a required rule which should jump straight to the exception
