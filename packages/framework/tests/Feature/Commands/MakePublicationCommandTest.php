@@ -264,6 +264,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
+            ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
              ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(1);
@@ -283,6 +284,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
+            ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(0);
@@ -304,6 +306,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
+            ->expectsOutput('Warning: No tags for this publication type found in tags.json')
             ->expectsConfirmation('Would you like to skip this field?')
             ->expectsOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(1);
@@ -323,6 +326,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
+            ->expectsOutput('Warning: No tags for this publication type found in tags.json')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
             ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(0);
