@@ -77,6 +77,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         foreach ($array as $key => $value) {
             $type = $this->pubType->getFields()->get($key);
 
+            if ($key === '__createdAt') {
+                $array[$key] = Carbon::parse($value);
+            }
+
             if ($type?->type === PublicationFieldTypes::Text) {
                 $array[$key] = trim($value) . "\n";
             }

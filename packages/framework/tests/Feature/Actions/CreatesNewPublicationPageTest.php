@@ -48,7 +48,7 @@ class CreatesNewPublicationPageTest extends TestCase
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals("---
-__createdAt: '2022-01-01 00:00:00'
+__createdAt: 2022-01-01T00:00:00+00:00
 title: 'Hello World'
 ---
 
@@ -78,7 +78,7 @@ It can be multiple lines.',
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals("---
-__createdAt: '2022-01-01 00:00:00'
+__createdAt: 2022-01-01T00:00:00+00:00
 title: 'Hello World'
 description: |
     This is a description
@@ -110,7 +110,7 @@ description: |
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals("---
-__createdAt: '2022-01-01 00:00:00'
+__createdAt: 2022-01-01T00:00:00+00:00
 title: 'Hello World'
 tags:
     - tag1
@@ -156,7 +156,7 @@ tags:
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals("---
-__createdAt: '2022-01-01 00:00:00'
+__createdAt: 2022-01-01T00:00:00+00:00
 title: 'Hello World'
 ---
 
@@ -192,7 +192,7 @@ It can be multiple lines.',
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $contents = file_get_contents(Hyde::path('test-publication/hello-world.md'));
         $this->assertEquals("---
-__createdAt: '2022-01-01 00:00:00'
+__createdAt: 2022-01-01T00:00:00+00:00
 title: 'Hello World'
 description: |
     This is a description.
@@ -210,7 +210,7 @@ tags:
         );
 
         $this->assertSame([
-            '__createdAt' => '2022-01-01 00:00:00',
+            '__createdAt' => 1640995200,
             'title' => 'Hello World',
             'description' => 'This is a description.
 It can be multiple lines.
