@@ -12,6 +12,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
+use function array_merge;
 use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -168,8 +169,10 @@ class MakePublicationCommand extends ValidatingCommand
         $this->tip("Pick tag from the {$this->publicationType->getIdentifier()} group");
         $this->tip("Enter '0' to reload tag definitions");
 
-        $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
-        $selection = $this->choice('Which tag would you like to use?', $options->toArray());
+       do {
+            $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
+            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '[Reload tags]'], $options->toArray()));
+        }  while ($selection === '[Reload tags]');
 
         return $selection;
     }
