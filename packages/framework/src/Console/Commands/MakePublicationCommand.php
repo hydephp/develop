@@ -27,7 +27,7 @@ class MakePublicationCommand extends ValidatingCommand
 {
     /** @var string */
     protected $signature = 'make:publication
-		{publicationType? : The name of the PublicationType to create a publication for}
+		{publicationType? : The name of the publication type to create a publication for}
         {--force : Should the generated file overwrite existing publications with the same filename?}';
 
     /** @var string */
