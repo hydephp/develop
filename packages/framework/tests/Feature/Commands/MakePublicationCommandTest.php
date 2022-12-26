@@ -199,10 +199,10 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals(
-            'tags:
-  - "First Tag"
-  - "Second Tag"
-  - "Third Tag"',
+            "tags:
+  - 'First Tag'
+  - 'Second Tag'
+  - 'Third Tag'",
         );
     }
 
@@ -386,7 +386,7 @@ class MakePublicationCommandTest extends TestCase
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
-            title: Hello World
+            title: 'Hello World'
             ---
             
             ## Write something awesome.
