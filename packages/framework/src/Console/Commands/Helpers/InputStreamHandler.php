@@ -59,6 +59,6 @@ class InputStreamHandler extends InvokableAction
 
     public static function message(string $name): string
     {
-        return "$name (end with an empty line)";
+        return "Enter $name (end with an empty line)";
     }
 }
