@@ -235,15 +235,15 @@ tags:
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals('---
+        $this->assertCreatedPublicationEquals(
+            '---
 __createdAt: 2022-01-01 00:00:00
 image: _media/test-publication/image.jpg
 ---
 
 ## Write something awesome.
 
-',
-            $this->getDatedPublicationContents()
+'
         );
     }
 
@@ -365,15 +365,15 @@ image:
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals('---
+        $this->assertCreatedPublicationEquals(
+            '---
 __createdAt: 2022-01-01 00:00:00
 tag: 
 ---
 
 ## Write something awesome.
 
-',
-            $this->getDatedPublicationContents()
+'
         );
     }
 
@@ -421,6 +421,11 @@ tag:
     protected function assertDatedPublicationExists(): void
     {
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
+    }
+
+    protected function assertCreatedPublicationEquals(string $expected): void
+    {
+        $this->assertEquals($expected, $this->getDatedPublicationContents());
     }
 
     protected function getDatedPublicationContents(): string
