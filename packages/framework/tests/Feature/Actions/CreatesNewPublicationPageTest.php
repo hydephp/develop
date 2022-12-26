@@ -12,7 +12,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
@@ -70,8 +69,7 @@ class CreatesNewPublicationPageTest extends TestCase
             'name' => 'description',
         ]]);
 
-        $fieldData = Collection::make(['description' =>
-            <<<'TEXT'
+        $fieldData = Collection::make(['description' => <<<'TEXT'
             This is a description
             It can be multiple lines.
             TEXT
@@ -209,6 +207,6 @@ class CreatesNewPublicationPageTest extends TestCase
 
     protected function makePublicationType(array $fields): PublicationType
     {
-        return new PublicationType('Test Publication','__createdAt', fields: $fields);
+        return new PublicationType('Test Publication', '__createdAt', fields: $fields);
     }
 }
