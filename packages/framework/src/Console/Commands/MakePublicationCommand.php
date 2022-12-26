@@ -165,7 +165,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationField $field): array|string|null
     {
-        $this->infoComment('Select a tag for field', $field->name);
+        $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
 
         $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
         if ($options->isEmpty()) {
@@ -178,7 +178,6 @@ class MakePublicationCommand extends ValidatingCommand
             }
         }
 
-        $this->tip("Pick tag from the {$this->publicationType->getIdentifier()} group");
         $this->tip("Enter '0' to reload tag definitions");
         $this->tip('You can enter multiple tags separated by commas');
 
