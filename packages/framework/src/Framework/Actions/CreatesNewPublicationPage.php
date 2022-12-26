@@ -31,11 +31,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected bool $force = false,
         protected ?OutputStyle $output = null,
     ) {
-        $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalValue = $this->getCanonicalValue($canonicalFieldName);
-        $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
-
-        $fileName = $this->formatStringForStorage($canonicalStr->slug()->toString());
+        $fileName = $this->getFilename();
         $directory = $this->pubType->getDirectory();
         $this->outputPath = "$directory/$fileName.md";
     }
@@ -91,5 +87,14 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return $array;
+    }
+
+    protected function getFilename(): string
+    {
+        $canonicalFieldName = $this->pubType->canonicalField;
+        $canonicalValue = $this->getCanonicalValue($canonicalFieldName);
+        $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
+
+        return $this->formatStringForStorage($canonicalStr->slug()->toString());
     }
 }
