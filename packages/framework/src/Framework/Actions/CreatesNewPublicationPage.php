@@ -79,9 +79,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
             if ($key === '__createdAt') {
                 $array[$key] = Carbon::parse($value);
-            }
-
-            if ($type?->type === PublicationFieldTypes::Text) {
+            } elseif ($type?->type === PublicationFieldTypes::Text) {
                 $array[$key] = trim($value) . "\n";
             }
         }
