@@ -9,6 +9,7 @@ use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Scaffold a new publication type schema.
@@ -19,6 +20,7 @@ use Illuminate\Support\Collection;
 class CreatesNewPublicationType extends CreateAction implements CreateActionContract
 {
     protected string $dirName;
+    #[Deprecated] protected ?OutputStyle $output = null;
 
     public function __construct(
         protected string $name,
@@ -28,8 +30,9 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected ?bool $sortAscending,
         protected ?bool $prevNextLinks,
         protected ?int $pageSize,
-        protected ?OutputStyle $output = null,
+        #[Deprecated] ?OutputStyle $output = null,
     ) {
+        $this->output = $output;
         $this->dirName = $this->formatStringForStorage($this->name);
         $this->outputPath = "$this->dirName/schema.json";
     }
