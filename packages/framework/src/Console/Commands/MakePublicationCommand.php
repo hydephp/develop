@@ -39,7 +39,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->title('Creating a new Publication!');
 
-        $this->publicationType = $this->getPubTypeSelection();
+        $this->publicationType = $this->getPublicationTypeSelection();
         $fieldData = $this->collectFieldData();
 
         $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, $this->hasForceOption(), $this->output);
@@ -72,7 +72,7 @@ class MakePublicationCommand extends ValidatingCommand
         };
     }
 
-    protected function getPubTypeSelection(): PublicationType
+    protected function getPublicationTypeSelection(): PublicationType
     {
         $publicationTypes = $this->getPublicationTypes();
 
