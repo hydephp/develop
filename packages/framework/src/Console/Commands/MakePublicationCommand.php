@@ -61,7 +61,7 @@ class MakePublicationCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function captureFieldInput(PublicationField $field): string|array
+    protected function captureFieldInput(PublicationField $field): string|array|null
     {
         return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
@@ -142,7 +142,7 @@ class MakePublicationCommand extends ValidatingCommand
         return InputStreamHandler::call();
     }
 
-    protected function captureImageFieldInput(PublicationField $field): string
+    protected function captureImageFieldInput(PublicationField $field): string|null
     {
         $this->infoComment('Select file for image field', $field->name);
 
@@ -150,7 +150,7 @@ class MakePublicationCommand extends ValidatingCommand
         if ($mediaFiles->isEmpty()) {
             $this->warn("\nWarning: No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
             if ($this->confirm('Would you like to skip this field?', true)) {
-                return '';
+                return null;
             } else {
                 throw new InvalidArgumentException('Unable to locate any media files for this publication type');
             }
@@ -162,7 +162,7 @@ class MakePublicationCommand extends ValidatingCommand
         return $filesArray[$selection];
     }
 
-    protected function captureTagFieldInput(PublicationField $field): array|string
+    protected function captureTagFieldInput(PublicationField $field): array|string|null
     {
         $this->infoComment('Select a tag for field', $field->name);
 
@@ -170,7 +170,7 @@ class MakePublicationCommand extends ValidatingCommand
         if ($options->isEmpty()) {
             $this->warn("\nWarning: No tags for this publication type found in tags.json");
             if ($this->confirm('Would you like to skip this field?', true)) {
-                return '';
+                return null;
             } else {
                 throw new InvalidArgumentException('Unable to locate any tags for this publication type');
             }
