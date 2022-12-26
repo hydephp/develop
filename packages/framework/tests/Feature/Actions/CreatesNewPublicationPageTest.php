@@ -31,7 +31,7 @@ class CreatesNewPublicationPageTest extends TestCase
 
     protected function tearDown(): void
     {
-        Filesystem::deleteDirectory(('test-publication'));
+        Filesystem::deleteDirectory('test-publication');
 
         parent::tearDown();
     }
