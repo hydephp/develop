@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
@@ -12,11 +13,9 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
+use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-
-use function array_merge;
-use function implode;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -97,7 +96,7 @@ class MakePublicationCommand extends ValidatingCommand
     protected function collectFieldData(): Collection
     {
         $this->newLine();
-        $this->info("Now please enter the field data:");
+        $this->info('Now please enter the field data:');
         $data = new Collection();
 
         /** @var PublicationField $field */
