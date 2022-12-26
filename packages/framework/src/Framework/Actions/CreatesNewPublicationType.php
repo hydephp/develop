@@ -23,10 +23,10 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected string $name,
         protected Collection $fields,
         protected string $canonicalField,
-        protected ?string $sortField,
-        protected ?bool $sortAscending,
-        protected ?bool $prevNextLinks,
-        protected ?int $pageSize,
+        protected ?string $sortField = null,
+        protected ?bool $sortAscending = null,
+        protected ?bool $prevNextLinks = null,
+        protected ?int $pageSize = null,
     ) {
         $this->dirName = $this->formatStringForStorage($this->name);
         $this->outputPath = "$this->dirName/schema.json";
