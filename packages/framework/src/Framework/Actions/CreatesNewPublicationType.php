@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class CreatesNewPublicationType extends CreateAction implements CreateActionContract
 {
-    protected string $dirName;
+    protected string $directoryName;
 
     public function __construct(
         protected string $name,
@@ -28,8 +28,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected ?bool $prevNextLinks = null,
         protected ?int $pageSize = null,
     ) {
-        $this->dirName = $this->formatStringForStorage($this->name);
-        $this->outputPath = "$this->dirName/schema.json";
+        $this->directoryName = $this->formatStringForStorage($this->name);
+        $this->outputPath = "$this->directoryName/schema.json";
     }
 
     protected function handleCreate(): void
@@ -37,8 +37,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         $type = new PublicationType(
             $this->name,
             $this->canonicalField,
-            "{$this->dirName}_detail",
-            "{$this->dirName}_list",
+            "{$this->directoryName}_detail",
+            "{$this->directoryName}_list",
             [
                 $this->sortField ?? '__createdAt',
                 $this->sortAscending ?? true,
