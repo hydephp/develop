@@ -161,14 +161,15 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->tip('You can enter multiple tags separated by commas');
 
+        $reloadMessage = '<fg=bright-blue>[Reload tags.json]</>';
         do {
             $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
             $selection = (array) $this->choice(
                 'Which tag would you like to use?',
-                array_merge(['<fg=bright-blue>[Reload tags.json]</>'], $options->toArray()),
+                array_merge([$reloadMessage], $options->toArray()),
                 multiple: true
             );
-        } while ($selection === ['<fg=bright-blue>[Reload tags.json]</>'] || in_array('<fg=bright-blue>[Reload tags.json]</>', $selection));
+        } while ($selection === [$reloadMessage] || in_array($reloadMessage, $selection));
 
         return $selection;
     }
