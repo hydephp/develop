@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Symfony\Component\Yaml\Yaml;
 use function array_merge;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
@@ -45,7 +46,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $output = (new ConvertsArrayToFrontMatter())->execute(array_merge([
             '__createdAt' => $now,
-        ], $this->fieldData->toArray()));
+        ], $this->fieldData->toArray()), YAML::DUMP_MULTI_LINE_LITERAL_BLOCK);
 
         $output .= "\n## Write something awesome.\n\n";
 
