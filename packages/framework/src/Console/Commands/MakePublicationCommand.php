@@ -148,7 +148,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            return $this->handleEmptyCollection("media file", "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
+            return $this->handleEmptyCollection('media file', "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
         }
 
         $filesArray = $mediaFiles->toArray();
@@ -163,7 +163,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
         if ($options->isEmpty()) {
-            return $this->handleEmptyCollection("tag", 'No tags for this publication type found in tags.json');
+            return $this->handleEmptyCollection('tag', 'No tags for this publication type found in tags.json');
         }
 
         $this->tip('You can enter multiple tags separated by commas');

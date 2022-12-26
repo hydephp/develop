@@ -7,12 +7,12 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use function array_merge;
 use function config;
 use function file_get_contents;
+use function file_put_contents;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
-use function file_put_contents;
 use function is_file;
 use function json_encode;
 
