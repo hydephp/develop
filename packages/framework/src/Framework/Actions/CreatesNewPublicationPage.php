@@ -66,7 +66,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function createFrontMatter(): string
     {
         return rtrim(Yaml::dump((array_merge(
-            ['__createdAt' => Carbon::parse(Carbon::now()->format('Y-m-d H:i:s'))], $this->normalizeData($this->fieldData->toArray()))),
+            ['__createdAt' => Carbon::now()], $this->normalizeData($this->fieldData->toArray()))),
             flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
         ));
     }
