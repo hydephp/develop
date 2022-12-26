@@ -31,8 +31,8 @@ class CreatesNewPublicationTypeTest extends TestCase
             new Collection(),
             'canonical',
             'sort',
-            true,
-            true,
+            false,
+            false,
             10
         );
         $creator->create();
@@ -47,8 +47,8 @@ class CreatesNewPublicationTypeTest extends TestCase
                 "listTemplate": "test-publication_list",
                 "pagination": {
                     "sortField": "sort",
-                    "sortAscending": true,
-                    "prevNextLinks": true,
+                    "sortAscending": false,
+                    "prevNextLinks": false,
                     "pageSize": 10
                 },
                 "fields": []
