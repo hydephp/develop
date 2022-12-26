@@ -38,7 +38,12 @@ class CreatesNewPublicationPageTest extends TestCase
 
     public function testCreate()
     {
-        $pubType = $this->makePublicationType();
+        $pubType = new PublicationType(
+            'Test Publication',
+            'title',
+            fields: [['type' => 'string', 'name' => 'title']],
+        );
+
         $fieldData = Collection::make([
             'title' => 'Hello World',
         ]);
@@ -60,15 +65,11 @@ title: 'Hello World'
     public function testWithTextType()
     {
         $pubType = $this->makePublicationType([[
-            'type' => 'string',
-            'name' => 'title',
-        ], [
-            'type' => 'text',
-            'name' => 'description',
+             'type' => 'text',
+             'name' => 'description',
         ]]);
 
         $fieldData = Collection::make([
-            'title' => 'Hello World',
             'description' => 'This is a description
 It can be multiple lines.',
         ]);
@@ -76,10 +77,9 @@ It can be multiple lines.',
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals("---
 __createdAt: 2022-01-01T00:00:00+00:00
-title: 'Hello World'
 description: |
     This is a description
     It can be multiple lines.
@@ -87,31 +87,26 @@ description: |
 
 ## Write something awesome.
 
-", file_get_contents(Hyde::path('test-publication/hello-world.md')));
+", file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     public function testWithArrayType()
     {
         $pubType = $this->makePublicationType([[
-            'type' => 'string',
-            'name' => 'title',
-        ], [
-            'type' => 'array',
+             'type' => 'array',
             'name' => 'tags',
         ]]);
 
         $fieldData = Collection::make([
-            'title' => 'Hello World',
             'tags' => ['tag1', 'tag2', 'foo bar'],
         ]);
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals("---
 __createdAt: 2022-01-01T00:00:00+00:00
-title: 'Hello World'
 tags:
     - tag1
     - tag2
@@ -120,12 +115,17 @@ tags:
 
 ## Write something awesome.
 
-", file_get_contents(Hyde::path('test-publication/hello-world.md')));
+", file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     public function testCreateWithoutSupplyingCanonicalField()
     {
-        $pubType = $this->makePublicationType();
+        $pubType = new PublicationType(
+            'Test Publication',
+            'title',
+            fields: [['type' => 'string', 'name' => 'title']],
+        );
+
         $fieldData = Collection::make();
 
         $this->expectException(RuntimeException::class);
@@ -136,17 +136,9 @@ tags:
 
     public function testCreateWithoutSupplyingRequiredField()
     {
-        $pubType = $this->makePublicationType([[
-            'type' => 'string',
-            'name' => 'title',
-        ], [
-            'type' => 'string',
-            'name' => 'slug',
-        ]]);
+        $pubType = $this->makePublicationType([['type' => 'string', 'name' => 'title']]);
 
-        $fieldData = Collection::make([
-            'title' => 'Hello World',
-        ]);
+        $fieldData = Collection::make();
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
@@ -154,15 +146,14 @@ tags:
         // Since the inputs are collected by the command, with the shipped code this should never happen.
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals("---
 __createdAt: 2022-01-01T00:00:00+00:00
-title: 'Hello World'
 ---
 
 ## Write something awesome.
 
-", file_get_contents(Hyde::path('test-publication/hello-world.md')));
+", file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     public function testItCreatesValidYaml()
@@ -182,8 +173,8 @@ title: 'Hello World'
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $contents = file_get_contents(Hyde::path('test-publication/hello-world.md'));
+        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $contents = file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));
         $this->assertEquals(<<<MARKDOWN
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -211,11 +202,11 @@ title: 'Hello World'
         ], Yaml::parse(Str::between($contents, '---', '---')));
     }
 
-    protected function makePublicationType(array $fields = [['type' => 'string', 'name' => 'title']]): PublicationType
+    protected function makePublicationType(array $fields): PublicationType
     {
         return new PublicationType(
             'Test Publication',
-            'title',
+            '__createdAt',
             fields: $fields,
         );
     }
