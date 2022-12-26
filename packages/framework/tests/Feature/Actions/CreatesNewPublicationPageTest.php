@@ -70,11 +70,11 @@ class CreatesNewPublicationPageTest extends TestCase
             'name' => 'description',
         ]]);
 
-        $fieldData = Collection::make([
-            'description' => <<<'TEXT'
-                This is a description
-                It can be multiple lines.
-                TEXT,
+        $fieldData = Collection::make(['description' =>
+            <<<'TEXT'
+            This is a description
+            It can be multiple lines.
+            TEXT
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
