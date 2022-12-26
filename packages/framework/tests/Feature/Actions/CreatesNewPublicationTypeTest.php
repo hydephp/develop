@@ -10,6 +10,8 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
+use function file_get_contents;
+
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationType
  *
