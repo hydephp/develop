@@ -45,8 +45,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
 ";
 
-        $this->output?->writeln("Saving publication data to [$this->outputPath]");
-
         $this->save($output);
     }
 
