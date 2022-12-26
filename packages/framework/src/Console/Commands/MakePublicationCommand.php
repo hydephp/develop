@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
 use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function in_array;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -167,7 +168,7 @@ class MakePublicationCommand extends ValidatingCommand
                 array_merge(['<fg=bright-blue>[Reload tags.json]</>'], $options->toArray()),
                 multiple: true
             );
-        } while ($selection === ['<fg=bright-blue>[Reload tags.json]</>']);
+        } while ($selection === ['<fg=bright-blue>[Reload tags.json]</>'] || in_array('<fg=bright-blue>[Reload tags.json]</>', $selection));
 
         return $selection;
     }
