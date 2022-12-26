@@ -38,10 +38,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $now = Carbon::now()->format('Y-m-d H:i:s');
         $output = <<<MARKDOWN
             ---
-            {$this->createFrontMatter($now)}
+            {$this->createFrontMatter()}
             ---
             
             ## Write something awesome.
@@ -64,8 +63,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             ?: throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required for as it's the type's canonical field", 404);
     }
 
-    protected function createFrontMatter(string $now): string
+    protected function createFrontMatter(): string
     {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+
         return rtrim(Yaml::dump((array_merge(
             ['__createdAt' => Carbon::parse($now)], $this->normalizeData($this->fieldData->toArray()))),
             flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
