@@ -164,14 +164,13 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationField $field)
     {
-        // Todo support multiple tags?
         $this->infoComment('Select a tag for field', $field->name);
         $this->tip("Pick tag from the {$this->publicationType->getIdentifier()} group");
         $this->tip("Enter '0' to reload tag definitions");
 
         do {
             $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
-            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '<fg=bright-blue>[Reload tags]</>'], $options->toArray()));
+            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '<fg=bright-blue>[Reload tags]</>'], $options->toArray()), multiple: true);
         } while ($selection === '<fg=bright-blue>[Reload tags]</>');
 
         return $selection;
