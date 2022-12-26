@@ -31,9 +31,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected bool $force = false,
         protected ?OutputStyle $output = null,
     ) {
-        $fileName = $this->getFilename();
+        $filename = $this->getFilename();
         $directory = $this->pubType->getDirectory();
-        $this->outputPath = "$directory/$fileName.md";
+        $this->outputPath = "$directory/$filename.md";
     }
 
     protected function handleCreate(): void
