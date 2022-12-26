@@ -162,7 +162,7 @@ class MakePublicationCommand extends ValidatingCommand
         return $filesArray[$selection];
     }
 
-    protected function captureTagFieldInput(PublicationField $field)
+    protected function captureTagFieldInput(PublicationField $field): array|string
     {
         $this->infoComment('Select a tag for field', $field->name);
         $this->tip("Pick tag from the {$this->publicationType->getIdentifier()} group");
