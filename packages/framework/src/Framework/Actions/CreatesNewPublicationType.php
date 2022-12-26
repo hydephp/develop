@@ -53,8 +53,6 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             $this->fields->toArray()
         );
 
-        $this->output?->writeln("Saving publication data to [$this->outputPath]");
-
         $type->save($this->outputPath);
 
         // TODO: Generate the detail and list templates
