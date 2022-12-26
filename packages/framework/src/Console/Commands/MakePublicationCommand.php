@@ -57,9 +57,8 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         $creator->create();
-        $this->line("Saving publication data to [{$creator->getOutputPath()}]");
 
-        $this->info('Publication created successfully!');
+        $this->info("Created file {$creator->getOutputPath()}");
 
         return Command::SUCCESS;
     }
