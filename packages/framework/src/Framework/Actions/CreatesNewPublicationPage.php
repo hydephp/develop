@@ -33,7 +33,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected ?OutputStyle $output = null,
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDefinition = $this->pubType->getCanonicalFieldDefinition();
         $canonicalValue = $this->getCanonicalValue($canonicalFieldName);
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
