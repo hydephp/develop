@@ -148,19 +148,6 @@ class MakePublicationCommand extends ValidatingCommand
         return $filesArray[$selection];
     }
 
-    /** @return null */
-    protected function handleEmptyCollection(string $type, string $message)
-    {
-        $this->newLine();
-        $this->warn("Warning: $message");
-        // TODO we might want to check if the field has a required rule which should jump straight to the exception
-        if ($this->confirm('Would you like to skip this field?', true)) {
-            return null;
-        } else {
-            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
-        }
-    }
-
     protected function captureTagFieldInput(PublicationField $field): array|string|null
     {
         $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
@@ -182,6 +169,19 @@ class MakePublicationCommand extends ValidatingCommand
         } while ($selection === '<fg=bright-blue>[Reload tags.json]</>');
 
         return $selection;
+    }
+
+    /** @return null */
+    protected function handleEmptyCollection(string $type, string $message)
+    {
+        $this->newLine();
+        $this->warn("Warning: $message");
+        // TODO we might want to check if the field has a required rule which should jump straight to the exception
+        if ($this->confirm('Would you like to skip this field?', true)) {
+            return null;
+        } else {
+            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
+        }
     }
 
     protected function tip(string $message): void
