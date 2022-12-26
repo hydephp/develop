@@ -77,11 +77,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         foreach ($array as $key => $value) {
             $type = $this->pubType->getFields()->get($key);
 
-            if ($type === null) {
-                continue;
-            }
-
-            if ($type->type === PublicationFieldTypes::Text) {
+            if ($type?->type === PublicationFieldTypes::Text) {
                 $array[$key] = trim($value) . "\n";
             }
         }
