@@ -113,9 +113,9 @@ description: |
 __createdAt: '2022-01-01 00:00:00'
 title: 'Hello World'
 tags:
-  - tag1
-  - tag2
-  - 'foo bar'
+    - tag1
+    - tag2
+    - 'foo bar'
 ---
 
 ## Write something awesome.
@@ -198,9 +198,9 @@ description: |
   This is a description.
   It can be multiple lines.
 tags:
-  - tag1
-  - tag2
-  - 'foo bar'
+    - tag1
+    - tag2
+    - 'foo bar'
 ---
 
 ## Write something awesome.
