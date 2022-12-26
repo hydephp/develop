@@ -207,10 +207,6 @@ It can be multiple lines.',
 
     protected function makePublicationType(array $fields): PublicationType
     {
-        return new PublicationType(
-            'Test Publication',
-            '__createdAt',
-            fields: $fields,
-        );
+        return new PublicationType('Test Publication','__createdAt', fields: $fields);
     }
 }
