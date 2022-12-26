@@ -24,6 +24,6 @@ class ConvertsArrayToFrontMatter
             return '';
         }
 
-        return "---\n".Yaml::dump($array, flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK )."---\n";
+        return "---\n".Yaml::dump($array, flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK)."---\n";
     }
 }
