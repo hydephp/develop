@@ -9,7 +9,6 @@ use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use function rtrim;
@@ -30,7 +29,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected PublicationType $pubType,
         protected Collection $fieldData,
         protected bool $force = false,
-        protected ?OutputStyle $output = null,
     ) {
         $this->outputPath = "{$this->pubType->getDirectory()}/{$this->getFilename()}.md";
     }

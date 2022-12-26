@@ -42,7 +42,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->publicationType = $this->getPublicationTypeSelection();
         $fieldData = $this->collectFieldData();
 
-        $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, $this->hasForceOption(), $this->output);
+        $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, $this->hasForceOption());
         if ($creator->hasFileConflict()) {
             $this->error('Error: A publication already exists with the same canonical field value');
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
