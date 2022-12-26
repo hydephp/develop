@@ -190,5 +190,4 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->line("<fg=bright-blue>Tip:</> $message");
     }
-
 }
