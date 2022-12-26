@@ -148,7 +148,9 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            return $this->handleEmptyCollection("media file", "directory _media/{$this->publicationType->getIdentifier()}/");
+            $this->newLine();
+            $this->warn("Warning: No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
+            return $this->handleEmptyCollection("media file");
         }
 
         $filesArray = $mediaFiles->toArray();
@@ -194,10 +196,8 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /** @return null */
-    protected function handleEmptyCollection(string $type, string $searchLocation)
+    protected function handleEmptyCollection(string $type)
     {
-        $this->newLine();
-        $this->warn("Warning: No {$type}s found in $searchLocation");
         // TODO we might want to check if the field has a required rule which should jump straight to the exception
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
