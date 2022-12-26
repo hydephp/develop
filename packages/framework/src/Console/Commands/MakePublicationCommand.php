@@ -55,7 +55,6 @@ class MakePublicationCommand extends ValidatingCommand
                 return ValidatingCommand::USER_EXIT;
             }
         }
-
         $creator->create();
 
         $this->info("Created file {$creator->getOutputPath()}");
