@@ -39,15 +39,13 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $output = <<<MARKDOWN
-            ---
-            {$this->createFrontMatter()}
-            ---
-            
-            ## Write something awesome.
-            
-            
-            MARKDOWN;
+        $output = "---
+{$this->createFrontMatter()}
+---
+
+## Write something awesome.
+
+";
 
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
