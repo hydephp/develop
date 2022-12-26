@@ -53,7 +53,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         $canonicalField = $this->getCanonicalField();
 
-        $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize, $this->output);
+        $creator = new CreatesNewPublicationType($title, $this->fields, $canonicalField->name, $sortField, $sortAscending, $prevNextLinks, $pageSize);
         $this->output->writeln("Saving publication data to [{$creator->getOutputPath()}]");
         $creator->create();
 

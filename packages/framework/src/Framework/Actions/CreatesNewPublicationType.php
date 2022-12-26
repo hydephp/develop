@@ -20,7 +20,6 @@ use JetBrains\PhpStorm\Deprecated;
 class CreatesNewPublicationType extends CreateAction implements CreateActionContract
 {
     protected string $dirName;
-    #[Deprecated] protected ?OutputStyle $output = null;
 
     public function __construct(
         protected string $name,
@@ -30,9 +29,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         protected ?bool $sortAscending,
         protected ?bool $prevNextLinks,
         protected ?int $pageSize,
-        #[Deprecated] ?OutputStyle $output = null,
     ) {
-        $this->output = $output;
         $this->dirName = $this->formatStringForStorage($this->name);
         $this->outputPath = "$this->dirName/schema.json";
     }
