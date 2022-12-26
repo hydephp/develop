@@ -124,7 +124,7 @@ class MakePublicationCommandTest extends TestCase
              ->expectsOutput('Publication created successfully!')
              ->assertExitCode(0);
 
-        $this->assertTrue(is_file(Hyde::path('test-publication/hello-world.md')));
+        $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
         $this->assertPublicationFileWasCreatedCorrectly();
     }
 
@@ -149,7 +149,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication test-publication')
              ->assertExitCode(0);
 
-        $this->assertTrue(is_file(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $this->assertEquals(
             <<<'MARKDOWN'
             ---
