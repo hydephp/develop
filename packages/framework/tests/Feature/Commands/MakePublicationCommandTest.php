@@ -252,7 +252,7 @@ image: _media/test-publication/image.jpg
     {
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
         $this->file('tags.json', json_encode([
-            'test-publication' => ['foo', 'bar', 'baz']
+            'test-publication' => ['foo', 'bar', 'baz'],
         ]));
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
