@@ -11,6 +11,8 @@ use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\View;
 
 /**
+ * @todo Consider changing to check if template key ends with .blade.php and using that to signify if it's an anonymous view.
+ *
  * @see \Hyde\Framework\Testing\Feature\Actions\PublicationPageCompilerTest
  */
 class PublicationPageCompiler extends InvokableAction
