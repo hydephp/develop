@@ -75,15 +75,15 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function normalizeData(array $array): array
     {
         foreach ($array as $key => $value) {
-           $type = $this->pubType->getFields()->get($key);
+            $type = $this->pubType->getFields()->get($key);
 
-           if ($type === null) {
-               continue;
-           }
+            if ($type === null) {
+                continue;
+            }
 
-          if ($type->type === PublicationFieldTypes::Text) {
-              $array[$key] = trim($value) . "\n";
-          }
+            if ($type->type === PublicationFieldTypes::Text) {
+                $array[$key] = trim($value) . "\n";
+            }
         }
 
         return $array;
