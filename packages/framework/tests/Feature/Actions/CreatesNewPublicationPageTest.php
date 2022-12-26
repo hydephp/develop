@@ -134,7 +134,7 @@ class CreatesNewPublicationPageTest extends TestCase
         $fieldData = Collection::make();
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Could not find field value for 'title' which is required for as it's the type's canonical field");
+        $this->expectExceptionMessage("Could not find field value for 'title' which is required as it's the type's canonical field");
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
         $creator->create();
     }

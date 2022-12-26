@@ -58,7 +58,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return (string) $this->fieldData->get($this->pubType->canonicalField)
-            ?: throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required for as it's the type's canonical field", 404);
+            ?: throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required as it's the type's canonical field", 404);
     }
 
     protected function createFrontMatter(): string
