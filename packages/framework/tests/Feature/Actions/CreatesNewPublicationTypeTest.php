@@ -24,7 +24,6 @@ class CreatesNewPublicationTypeTest extends TestCase
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
 
-        $result = file_get_contents(Hyde::path('test-publication/schema.json'));
         $this->assertSame(<<<'JSON'
             {
                 "name": "Test Publication",
@@ -39,7 +38,7 @@ class CreatesNewPublicationTypeTest extends TestCase
                 },
                 "fields": []
             }
-            JSON, $result);
+            JSON, file_get_contents(Hyde::path('test-publication/schema.json')));
         Filesystem::deleteDirectory('test-publication');
     }
 }
