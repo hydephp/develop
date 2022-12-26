@@ -167,7 +167,7 @@ class MakePublicationCommand extends ValidatingCommand
                 array_merge(['<fg=bright-blue>[Reload tags.json]</>'], $options->toArray()),
                 multiple: true
             );
-        } while ($selection === '<fg=bright-blue>[Reload tags.json]</>');
+        } while ($selection === ['<fg=bright-blue>[Reload tags.json]</>']);
 
         return $selection;
     }
