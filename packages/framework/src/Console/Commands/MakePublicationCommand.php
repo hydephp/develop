@@ -169,7 +169,7 @@ class MakePublicationCommand extends ValidatingCommand
                 array_merge([$reloadMessage], $options->toArray()),
                 multiple: true
             );
-        } while (($selection === [$reloadMessage]) || in_array($reloadMessage, (array) $selection));
+        } while (in_array($reloadMessage, (array) $selection));
 
         return $selection;
     }
