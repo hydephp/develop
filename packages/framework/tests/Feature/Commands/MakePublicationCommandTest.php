@@ -268,7 +268,9 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('tags: foo, bar');
+        $this->assertCreatedPublicationMatterEquals('tags:
+    - foo
+    - bar');
     }
 
     public function test_image_input_with_no_images()
