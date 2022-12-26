@@ -191,22 +191,23 @@ It can be multiple lines.',
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $contents = file_get_contents(Hyde::path('test-publication/hello-world.md'));
-        $this->assertEquals("---
-__createdAt: 2022-01-01T00:00:00+00:00
-title: 'Hello World'
-description: |
-    This is a description.
-    It can be multiple lines.
-tags:
-    - tag1
-    - tag2
-    - 'foo bar'
----
-
-## Write something awesome.
-
-",
-            $contents
+        $this->assertEquals(<<<MARKDOWN
+            ---
+            __createdAt: 2022-01-01T00:00:00+00:00
+            title: 'Hello World'
+            description: |
+                This is a description.
+                It can be multiple lines.
+            tags:
+                - tag1
+                - tag2
+                - 'foo bar'
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $contents
         );
 
         $this->assertSame([
