@@ -96,7 +96,8 @@ class MakePublicationCommand extends ValidatingCommand
     /** @return \Illuminate\Support\Collection<string, string|array|null> */
     protected function collectFieldData(): Collection
     {
-        $this->info("\nNow please enter the field data:");
+        $this->newLine();
+        $this->info("Now please enter the field data:");
         $data = new Collection();
 
         /** @var PublicationField $field */
