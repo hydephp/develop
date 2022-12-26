@@ -110,8 +110,6 @@ class MakePublicationCommand extends ValidatingCommand
 
     /**
      * @return \Illuminate\Support\Collection<string, PublicationType>
-     *
-     * @throws \InvalidArgumentException
      */
     protected function getPublicationTypes(): Collection
     {
