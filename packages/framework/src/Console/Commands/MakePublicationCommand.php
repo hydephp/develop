@@ -149,6 +149,7 @@ class MakePublicationCommand extends ValidatingCommand
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
             $this->warn("\nWarning: No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
+            // TODO we might want to check if the field has a required rule which should jump straight to the exception
             if ($this->confirm('Would you like to skip this field?', true)) {
                 return null;
             } else {
@@ -169,6 +170,7 @@ class MakePublicationCommand extends ValidatingCommand
         $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
         if ($options->isEmpty()) {
             $this->warn("\nWarning: No tags for this publication type found in tags.json");
+            // TODO we might want to check if the field has a required rule which should jump straight to the exception
             if ($this->confirm('Would you like to skip this field?', true)) {
                 return null;
             } else {
