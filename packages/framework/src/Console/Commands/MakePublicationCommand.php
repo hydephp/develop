@@ -68,7 +68,7 @@ class MakePublicationCommand extends ValidatingCommand
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            default => $this->askWithValidation($field->name, $field->name, $this->generateFieldRules($field)->toArray()),
+            default => $this->askWithValidation($field->name, $field->name, $this->generateFieldRules($field)),
         };
     }
 
@@ -171,9 +171,9 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     // Get rules for fields which are not of type array, text or image
-    protected function generateFieldRules(PublicationField $field): Collection
+    protected function generateFieldRules(PublicationField $field): array
     {
-        return Collection::make($field->type->rules());
+        return Collection::make($field->type->rules())->toArray();
     }
 
     protected function tip(string $message): void
