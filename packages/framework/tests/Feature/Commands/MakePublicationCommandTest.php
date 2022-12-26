@@ -177,8 +177,8 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('description: |
-  Hello
-  World'
+    Hello
+    World'
         );
     }
 
@@ -200,9 +200,9 @@ class MakePublicationCommandTest extends TestCase
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals(
             "tags:
-  - 'First Tag'
-  - 'Second Tag'
-  - 'Third Tag'",
+    - 'First Tag'
+    - 'Second Tag'
+    - 'Third Tag'",
         );
     }
 
