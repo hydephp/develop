@@ -55,14 +55,14 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->save($output);
     }
 
-    protected function getCanonicalValue(string $canonicalFieldName): string
+    protected function getCanonicalValue(): string
     {
-        if ($canonicalFieldName === '__createdAt') {
+        if ($this->pubType->canonicalField === '__createdAt') {
             return Carbon::now()->format('Y-m-d H:i:s');
         }
 
-        return (string) $this->fieldData->get($canonicalFieldName)
-            ?: throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404);
+        return (string) $this->fieldData->get($this->pubType->canonicalField)
+            ?: throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required for as it's the type's canonical field", 404);
     }
 
     protected function createFrontMatter(string $now): string
@@ -92,6 +92,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function getFilename(): string
     {
-        return $this->formatStringForStorage(substr($this->getCanonicalValue($this->pubType->canonicalField), 0, 64));
+        return $this->formatStringForStorage(substr($this->getCanonicalValue(), 0, 64));
     }
 }
