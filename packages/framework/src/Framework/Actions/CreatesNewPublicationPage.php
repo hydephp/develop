@@ -92,8 +92,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function getFilename(): string
     {
-        return $this->formatStringForStorage(Str::slug(
-            substr($this->getCanonicalValue($this->pubType->canonicalField), 0, 64))
-        );
+        return $this->formatStringForStorage(substr($this->getCanonicalValue($this->pubType->canonicalField), 0, 64));
     }
 }
