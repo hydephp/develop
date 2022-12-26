@@ -172,17 +172,9 @@ __createdAt: 2022-01-01 00:00:00
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-description: |
+        $this->assertCreatedPublicationMatterEquals('description: |
   Hello
-  World
----
-
-## Write something awesome.
-
-',
-            $this->getDatedPublicationContents()
+  World'
         );
     }
 
@@ -203,17 +195,12 @@ description: |
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-tags:
+        $this->assertCreatedPublicationMatterEquals(
+            'tags:
   - "First Tag"
   - "Second Tag"
-  - "Third Tag"
----
-
-## Write something awesome.
-
-', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+  - "Third Tag"',
+        );
     }
 
     // image
@@ -235,16 +222,7 @@ tags:
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationEquals(
-            '---
-__createdAt: 2022-01-01 00:00:00
-image: _media/test-publication/image.jpg
----
-
-## Write something awesome.
-
-'
-        );
+        $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/image.jpg');
     }
 
     // tag
@@ -267,16 +245,7 @@ image: _media/test-publication/image.jpg
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-tag: foo
----
-
-## Write something awesome.
-
-',
-            $this->getDatedPublicationContents()
-        );
+        $this->assertCreatedPublicationMatterEquals('tag: foo');
     }
 
     public function test_image_input_with_no_images()
@@ -316,16 +285,7 @@ tag: foo
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-image: 
----
-
-## Write something awesome.
-
-',
-            $this->getDatedPublicationContents()
-        );
+        $this->assertCreatedPublicationMatterEquals('image: ');
     }
 
     public function test_tag_input_with_no_tags()
@@ -365,16 +325,7 @@ image:
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationEquals(
-            '---
-__createdAt: 2022-01-01 00:00:00
-tag: 
----
-
-## Write something awesome.
-
-'
-        );
+        $this->assertCreatedPublicationMatterEquals('tag: ');
     }
 
     protected function makeSchemaFile(array $merge = []): void
@@ -426,6 +377,21 @@ tag:
     protected function assertCreatedPublicationEquals(string $expected): void
     {
         $this->assertEquals($expected, $this->getDatedPublicationContents());
+    }
+
+    protected function assertCreatedPublicationMatterEquals(string $expected): void
+    {
+        $this->assertEquals(
+            <<<MARKDOWN
+            ---
+            __createdAt: 2022-01-01 00:00:00
+            $expected
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $this->getDatedPublicationContents());
     }
 
     protected function getDatedPublicationContents(): string
