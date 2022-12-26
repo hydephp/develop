@@ -56,4 +56,33 @@ class CreatesNewPublicationTypeTest extends TestCase
             JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
         );
     }
+
+    public function test_create_with_default_parameters()
+    {
+        $creator = new CreatesNewPublicationType(
+            'Test Publication',
+            new Collection(),
+            'canonical',
+        );
+        $creator->create();
+
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
+
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "canonical",
+                "detailTemplate": "test-publication_detail",
+                "listTemplate": "test-publication_list",
+                "pagination": {
+                    "sortField": "__createdAt",
+                    "sortAscending": true,
+                    "prevNextLinks": true,
+                    "pageSize": 25
+                },
+                "fields": []
+            }
+            JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
+        );
+    }
 }
