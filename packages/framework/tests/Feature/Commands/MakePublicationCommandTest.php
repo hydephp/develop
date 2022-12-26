@@ -42,7 +42,7 @@ class MakePublicationCommandTest extends TestCase
         $this->makeSchemaFile();
 
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new Publication!')
+             ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
              ->expectsOutput('Creating a new publication of type [test-publication]')
              ->expectsQuestion('Title', 'Hello World')
@@ -58,7 +58,7 @@ class MakePublicationCommandTest extends TestCase
     {
         config(['app.throw_on_console_exception' => false]);
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new Publication!')
+             ->expectsOutputToContain('Creating a new publication!')
              ->expectsOutput('Error: Unable to locate any publication types. Did you create any?')
              ->assertExitCode(1);
     }
@@ -69,7 +69,7 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
 
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new Publication!')
+             ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
              ->expectsQuestion('Title', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
@@ -87,7 +87,7 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
 
         $this->artisan('make:publication')
-             ->expectsOutputToContain('Creating a new Publication!')
+             ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
              ->expectsQuestion('Title', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
@@ -104,7 +104,7 @@ class MakePublicationCommandTest extends TestCase
         file_put_contents(Hyde::path('test-publication/hello-world.md'), 'foo');
 
         $this->artisan('make:publication', ['--force' => true])
-             ->expectsOutputToContain('Creating a new Publication!')
+             ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
              ->expectsQuestion('Title', 'Hello World')
              ->expectsOutput('Publication created successfully!')
