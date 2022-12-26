@@ -44,9 +44,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function handleCreate(): void
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
-        $output = (new ConvertsArrayToFrontMatter())->execute(array_merge([
-            '__createdAt' => $now,
-        ], $this->fieldData->toArray()), YAML::DUMP_MULTI_LINE_LITERAL_BLOCK);
+        $output = (new ConvertsArrayToFrontMatter())->execute($this->normalizeData(
+            array_merge(['__createdAt' => $now], $this->fieldData->toArray())
+        ), YAML::DUMP_MULTI_LINE_LITERAL_BLOCK);
 
         $output .= "\n## Write something awesome.\n\n";
 
@@ -69,5 +69,18 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return $canonicalValue ?? throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404);
+    }
+
+    protected function normalizeData(array $array): array
+    {
+        foreach ($array as $key => $value) {
+           $type = $this->pubType->getFields()->get($key);
+
+           if ($type === null) {
+               continue;
+           }
+        }
+
+        return $array;
     }
 }
