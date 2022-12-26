@@ -13,7 +13,7 @@ use function str_ends_with;
 use function ucfirst;
 
 /**
- * An extended Command class that provides validation methods.
+ * @internal An extended Command class that provides validation methods.
  *
  * @see \Hyde\Framework\Testing\Feature\ValidatingCommandTest
  */
