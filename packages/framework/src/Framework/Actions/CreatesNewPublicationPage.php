@@ -66,8 +66,8 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function createFrontMatter(string $now): string
     {
-        return rtrim(Yaml::dump($this->normalizeData(array_merge(
-            ['__createdAt' => $now], $this->fieldData->toArray())),
+        return rtrim(Yaml::dump((array_merge(
+            ['__createdAt' => Carbon::parse($now)], $this->normalizeData($this->fieldData->toArray()))),
             flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
         ));
     }
@@ -77,9 +77,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         foreach ($array as $key => $value) {
             $type = $this->pubType->getFields()->get($key);
 
-            if ($key === '__createdAt') {
-                $array[$key] = Carbon::parse($value);
-            } elseif ($type?->type === PublicationFieldTypes::Text) {
+           if ($type?->type === PublicationFieldTypes::Text) {
                 // In order to properly store text fields as block literals,
                 // we need to make sure they end with a newline.
                 $array[$key] = trim($value)."\n";
