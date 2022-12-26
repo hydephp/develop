@@ -13,6 +13,7 @@ use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function array_merge;
 use function is_string;
 use RuntimeException;
 
@@ -43,34 +44,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function handleCreate(): void
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
-        $output = "---\n";
-        $output .= "__createdAt: $now\n";
-        foreach ($this->fieldData as $name => $value) {
-            /** @var PublicationField $fieldDefinition */
-            $fieldDefinition = $this->pubType->getFields()->where('name', $name)->firstOrFail();
+        $output = (new ConvertsArrayToFrontMatter())->execute(array_merge([
+            '__createdAt' => $now,
+        ], $this->fieldData->toArray()));
 
-            if ($fieldDefinition->type === PublicationFieldTypes::Text) {
-                $output .= "$name: |\n";
-                if (is_string($value)) {
-                    $value = Str::of($value)->explode("\n");
-                }
-                foreach ($value as $line) {
-                    $output .= "  $line\n";
-                }
-                continue;
-            }
-
-            if ($fieldDefinition->type === PublicationFieldTypes::Array) {
-                $output .= "$name:\n";
-                foreach ($value as $item) {
-                    $output .= "  - \"$item\"\n";
-                }
-                continue;
-            }
-
-            $output .= "$name: $value\n";
-        }
-        $output .= "---\n";
         $output .= "\n## Write something awesome.\n\n";
 
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
