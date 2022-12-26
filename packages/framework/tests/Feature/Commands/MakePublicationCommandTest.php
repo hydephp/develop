@@ -152,7 +152,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertEquals(
             <<<'MARKDOWN'
             ---
-            __createdAt: 2022-01-01 00:00:00
+            __createdAt: 2022-01-01T00:00:00+00:00
             ---
             
             ## Write something awesome.
@@ -385,7 +385,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertEquals(
             <<<'MARKDOWN'
             ---
-            __createdAt: 2022-01-01 00:00:00
+            __createdAt: 2022-01-01T00:00:00+00:00
             title: Hello World
             ---
             
@@ -411,7 +411,7 @@ class MakePublicationCommandTest extends TestCase
         $this->assertEquals(
             <<<MARKDOWN
             ---
-            __createdAt: 2022-01-01 00:00:00
+            __createdAt: 2022-01-01T00:00:00+00:00
             $expected
             ---
             
