@@ -102,7 +102,7 @@ description: |
 
         $fieldData = Collection::make([
             'title' => 'Hello World',
-            'tags' => ['tag1', 'tag2'],
+            'tags' => ['tag1', 'tag2', 'foo bar'],
         ]);
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
@@ -115,6 +115,7 @@ title: 'Hello World'
 tags:
   - tag1
   - tag2
+  - 'foo bar'
 ---
 
 ## Write something awesome.
@@ -182,7 +183,7 @@ title: 'Hello World'
             'title' => 'Hello World',
             'description' => 'This is a description.
 It can be multiple lines.',
-            'tags' => ['tag1', 'tag2'],
+            'tags' => ['tag1', 'tag2', 'foo bar'],
         ]);
 
         $creator = new CreatesNewPublicationPage($pubType, $fieldData);
@@ -199,6 +200,7 @@ description: |
 tags:
   - tag1
   - tag2
+  - 'foo bar'
 ---
 
 ## Write something awesome.
@@ -216,6 +218,7 @@ It can be multiple lines.
             'tags' =>  [
                 'tag1',
                 'tag2',
+                'foo bar',
             ],
         ], Yaml::parse(Str::between($contents, '---', '---')));
     }
