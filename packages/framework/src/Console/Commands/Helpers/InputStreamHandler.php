@@ -56,4 +56,9 @@ class InputStreamHandler extends InvokableAction
     {
         self::$mockedStreamBuffer = explode("\n", $input);
     }
+
+    public static function message(string $name): string
+    {
+        return "$name (end with an empty line)";
+    }
 }
