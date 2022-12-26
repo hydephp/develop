@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function array_merge;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
@@ -13,9 +12,11 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
-use function implode;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+
+use function array_merge;
+use function implode;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -61,23 +62,13 @@ class MakePublicationCommand extends ValidatingCommand
         return Command::SUCCESS;
     }
 
-    protected function captureFieldInput(PublicationField $field): string|array|null
-    {
-        return match ($field->type) {
-            PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
-            PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
-            PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
-            PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            default => $this->askWithValidation($field->name, $field->name, $field->type->rules()),
-        };
-    }
-
     protected function getPublicationTypeSelection(): PublicationType
     {
         $publicationTypes = $this->getPublicationTypes();
 
         $publicationTypeSelection = $this->argument('publicationType') ?? $publicationTypes->keys()->get(
-            (int) $this->choice('Which publication type would you like to create a publication item for?',
+            (int) $this->choice(
+                'Which publication type would you like to create a publication item for?',
                 $publicationTypes->keys()->toArray()
             )
         );
@@ -89,6 +80,17 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
+    }
+
+    /** @return \Illuminate\Support\Collection<string, PublicationType> */
+    protected function getPublicationTypes(): Collection
+    {
+        $publicationTypes = PublicationService::getPublicationTypes();
+        if ($publicationTypes->isEmpty()) {
+            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
+        }
+
+        return $publicationTypes;
     }
 
     /** @return \Illuminate\Support\Collection<string, string|array|null> */
@@ -106,20 +108,15 @@ class MakePublicationCommand extends ValidatingCommand
         return $data;
     }
 
-    /** @return \Illuminate\Support\Collection<string, PublicationType> */
-    protected function getPublicationTypes(): Collection
+    protected function captureFieldInput(PublicationField $field): string|array|null
     {
-        $publicationTypes = PublicationService::getPublicationTypes();
-        if ($publicationTypes->isEmpty()) {
-            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
-        }
-
-        return $publicationTypes;
-    }
-
-    protected function hasForceOption(): bool
-    {
-        return (bool) $this->option('force');
+        return match ($field->type) {
+            PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
+            PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
+            PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
+            PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
+            default => $this->askWithValidation($field->name, $field->name, $field->type->rules()),
+        };
     }
 
     protected function captureTextFieldInput(PublicationField $field): string
@@ -151,6 +148,19 @@ class MakePublicationCommand extends ValidatingCommand
         return $filesArray[$selection];
     }
 
+    /** @return null */
+    protected function handleEmptyCollection(string $type, string $message)
+    {
+        $this->newLine();
+        $this->warn("Warning: $message");
+        // TODO we might want to check if the field has a required rule which should jump straight to the exception
+        if ($this->confirm('Would you like to skip this field?', true)) {
+            return null;
+        } else {
+            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
+        }
+    }
+
     protected function captureTagFieldInput(PublicationField $field): array|string|null
     {
         $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
@@ -164,7 +174,11 @@ class MakePublicationCommand extends ValidatingCommand
 
         do {
             $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
-            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '<fg=bright-blue>[Reload tags.json]</>'], $options->toArray()), multiple: true);
+            $selection = $this->choice(
+                'Which tag would you like to use?',
+                array_merge([0 => '<fg=bright-blue>[Reload tags.json]</>'], $options->toArray()),
+                multiple: true
+            );
         } while ($selection === '<fg=bright-blue>[Reload tags.json]</>');
 
         return $selection;
@@ -175,16 +189,8 @@ class MakePublicationCommand extends ValidatingCommand
         $this->line("<fg=bright-blue>Tip:</> $message");
     }
 
-    /** @return null */
-    protected function handleEmptyCollection(string $type, string $message)
+    protected function hasForceOption(): bool
     {
-        $this->newLine();
-        $this->warn("Warning: $message");
-        // TODO we might want to check if the field has a required rule which should jump straight to the exception
-        if ($this->confirm('Would you like to skip this field?', true)) {
-            return null;
-        } else {
-            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
-        }
+        return (bool) $this->option('force');
     }
 }
