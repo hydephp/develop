@@ -7,9 +7,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Deprecated;
 
 /**
  * Scaffold a new publication type schema.
