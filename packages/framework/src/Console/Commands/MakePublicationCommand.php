@@ -163,7 +163,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
         if ($options->isEmpty()) {
-            $this->warn("\nWarning: No tags for this publication type found in tags.json");
+            $this->warn('Warning: No tags for this publication type found in tags.json');
             // TODO we might want to check if the field has a required rule which should jump straight to the exception
             if ($this->confirm('Would you like to skip this field?', true)) {
                 return null;
@@ -196,7 +196,8 @@ class MakePublicationCommand extends ValidatingCommand
     /** @return null */
     protected function handleEmptyCollection(string $type, string $searchLocation)
     {
-        $this->warn("\nWarning: No {$type}s found in $searchLocation");
+        $this->newLine();
+        $this->warn("Warning: No {$type}s found in $searchLocation");
         // TODO we might want to check if the field has a required rule which should jump straight to the exception
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
