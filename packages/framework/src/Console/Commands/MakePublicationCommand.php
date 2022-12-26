@@ -165,13 +165,9 @@ class MakePublicationCommand extends ValidatingCommand
 
         $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
         if ($options->isEmpty()) {
+            $this->newLine();
             $this->warn('Warning: No tags for this publication type found in tags.json');
-            // TODO we might want to check if the field has a required rule which should jump straight to the exception
-            if ($this->confirm('Would you like to skip this field?', true)) {
-                return null;
-            } else {
-                throw new InvalidArgumentException('Unable to locate any tags for this publication type');
-            }
+            return $this->handleEmptyCollection("tag");
         }
 
         $this->tip('You can enter multiple tags separated by commas');
