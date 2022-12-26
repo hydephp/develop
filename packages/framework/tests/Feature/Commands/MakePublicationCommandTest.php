@@ -222,7 +222,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication test-publication')
             ->expectsQuestion('Which file would you like to use?', '_media/test-publication/image.jpg')
-             ->assertExitCode(0);
+            ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/image.jpg');
