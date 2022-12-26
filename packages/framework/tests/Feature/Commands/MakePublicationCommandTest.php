@@ -250,6 +250,29 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('tag: foo');
     }
 
+
+    public function test_command_with_multiple_tag_inputs()
+    {
+        $this->file('tags.json', json_encode([
+            'test-publication' => ['foo', 'bar', 'baz'],
+        ]));
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'tag',
+                'name' => 'tags',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->expectsQuestion('Which tag would you like to use?', ['foo', 'bar'])
+             ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertCreatedPublicationMatterEquals('tags: foo, bar');
+    }
+
     public function test_image_input_with_no_images()
     {
         config(['app.throw_on_console_exception' => false]);
