@@ -45,11 +45,11 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function handleCreate(): void
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
-        $output = (new ConvertsArrayToFrontMatter())->execute($this->normalizeData(
+        $matter = (new ConvertsArrayToFrontMatter())->execute($this->normalizeData(
             array_merge(['__createdAt' => $now], $this->fieldData->toArray())
         ), YAML::DUMP_MULTI_LINE_LITERAL_BLOCK);
 
-        $output .= "\n## Write something awesome.\n\n";
+        $output = "$matter\n## Write something awesome.\n\n";
 
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
