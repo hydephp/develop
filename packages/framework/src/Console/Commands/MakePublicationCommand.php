@@ -171,8 +171,8 @@ class MakePublicationCommand extends ValidatingCommand
 
        do {
             $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
-            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '[Reload tags]'], $options->toArray()));
-        }  while ($selection === '[Reload tags]');
+            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '<fg=bright-blue>[Reload tags]</>'], $options->toArray()));
+        }  while ($selection === '<fg=bright-blue>[Reload tags]</>');
 
         return $selection;
     }
