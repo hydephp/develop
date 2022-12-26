@@ -167,17 +167,11 @@ class MakePublicationCommand extends ValidatingCommand
         $this->infoComment('Select a tag for field', $field->name);
         $this->tip("Pick tag from the {$this->publicationType->getIdentifier()} group");
         $this->tip("Enter '0' to reload tag definitions");
-        do {
-            $offset = 0;
-            $tagsForGroup = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
-            foreach ($tagsForGroup as $index => $value) {
-                $offset = $index + 1;
-                $this->output->writeln("  $offset: $value");
-            }
-            $selected = (int) $this->askWithValidation($field->name, $field->name, ['required', 'integer', "between:0,$offset"]);
-        } while ($selected == 0);
 
-        return $tagsForGroup->get($selected - 1);
+        $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
+        $selection = $this->choice('Which tag would you like to use?', $options->toArray());
+
+        return $selection;
     }
 
     // Get rules for fields which are not of type array, text or image

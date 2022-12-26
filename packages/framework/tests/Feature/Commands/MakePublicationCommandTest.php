@@ -264,7 +264,7 @@ image: _media/test-publication/image.jpg
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->expectsQuestion('Tag', '1')
+            ->expectsQuestion('Which tag would you like to use?', 'foo')
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
