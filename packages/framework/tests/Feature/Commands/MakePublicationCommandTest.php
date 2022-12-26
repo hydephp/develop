@@ -251,16 +251,9 @@ image: _media/test-publication/image.jpg
     public function test_command_with_tag_input()
     {
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
-        $this->file(
-            'tags.json',
-            '{
-    "test-publication": [
-        "foo",
-        "bar",
-        "baz"
-    ]
-}'
-        );
+        $this->file('tags.json', json_encode([
+            'test-publication' => ['foo', 'bar', 'baz']
+        ]));
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields'         =>  [[
