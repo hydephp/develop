@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Symfony\Component\Yaml\Yaml;
 use function array_merge;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
@@ -16,6 +15,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RuntimeException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Scaffold a publication file.
