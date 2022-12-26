@@ -214,10 +214,9 @@ title: 'Hello World'
     protected function makePublicationType(array $fields = [['type' => 'string', 'name' => 'title']]): PublicationType
     {
         return new PublicationType(
-            'test',
+            'Test Publication',
             'title',
             fields: $fields,
-            directory: 'test-publication',
         );
     }
 }
