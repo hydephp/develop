@@ -53,6 +53,11 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->save($output);
     }
 
+    protected function getFilename(): string
+    {
+        return $this->formatStringForStorage(substr($this->getCanonicalValue(), 0, 64));
+    }
+
     protected function getCanonicalValue(): string
     {
         if ($this->pubType->canonicalField === '__createdAt') {
@@ -88,10 +93,5 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return $array;
-    }
-
-    protected function getFilename(): string
-    {
-        return $this->formatStringForStorage(substr($this->getCanonicalValue(), 0, 64));
     }
 }
