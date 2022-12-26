@@ -164,7 +164,7 @@ class MakePublicationCommand extends ValidatingCommand
         $reloadMessage = '<fg=bright-blue>[Reload tags.json]</>';
         do {
             $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
-            $selection = (array) $this->choice(
+            $selection = $this->choice(
                 'Which tag would you like to use?',
                 array_merge([$reloadMessage], $options->toArray()),
                 multiple: true
