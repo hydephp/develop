@@ -48,8 +48,7 @@ class CreatesNewPublicationPageTest extends TestCase
             'title' => 'Hello World',
         ]);
 
-        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
-        $creator->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $this->assertEquals(<<<'MARKDOWN'
@@ -76,8 +75,7 @@ class CreatesNewPublicationPageTest extends TestCase
 It can be multiple lines.',
         ]);
 
-        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
-        $creator->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals(<<<'MARKDOWN'
@@ -105,8 +103,7 @@ It can be multiple lines.',
             'tags' => ['tag1', 'tag2', 'foo bar'],
         ]);
 
-        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
-        $creator->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $this->assertEquals(<<<'MARKDOWN'
@@ -146,8 +143,7 @@ It can be multiple lines.',
 
         $fieldData = Collection::make();
 
-        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
-        $creator->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         // Since the inputs are collected by the command, with the shipped code this should never happen.
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
@@ -178,8 +174,7 @@ It can be multiple lines.',
             'tags' => ['tag1', 'tag2', 'foo bar'],
         ]);
 
-        $creator = new CreatesNewPublicationPage($pubType, $fieldData);
-        $creator->create();
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $contents = file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));
