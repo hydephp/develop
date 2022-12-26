@@ -46,7 +46,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
         $output = <<<MARKDOWN
+            ---
             {$this->createFrontMatter($now)}
+            ---
+            
             ## Write something awesome.
             
             
@@ -75,12 +78,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function createFrontMatter(string $now): string
     {
-        return (new ConvertsArrayToFrontMatter())->execute(
-            $this->normalizeData(
-                array_merge(['__createdAt' => $now], $this->fieldData->toArray())
-            ),
-            YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
-        );
+        return rtrim(Yaml::dump($this->normalizeData(array_merge(
+            ['__createdAt' => $now], $this->fieldData->toArray())),
+            flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
+        ));
     }
 
     protected function normalizeData(array $array): array
