@@ -312,7 +312,7 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('image: ');
+        $this->assertCreatedPublicationMatterEquals('image: null');
     }
 
     public function test_tag_input_with_no_tags()
@@ -354,7 +354,7 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('tag: ');
+        $this->assertCreatedPublicationMatterEquals('tag: null');
     }
 
     protected function makeSchemaFile(array $merge = []): void
