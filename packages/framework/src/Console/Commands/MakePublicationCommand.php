@@ -168,6 +168,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->infoComment('Select a tag for field', $field->name);
         $this->tip("Pick tag from the {$this->publicationType->getIdentifier()} group");
         $this->tip("Enter '0' to reload tag definitions");
+        $this->tip('You can enter multiple tags separated by commas');
 
         do {
             $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
