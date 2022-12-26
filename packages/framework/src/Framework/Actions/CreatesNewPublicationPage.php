@@ -34,7 +34,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     ) {
         $canonicalFieldName = $this->pubType->canonicalField;
         $canonicalFieldDefinition = $this->pubType->getCanonicalFieldDefinition();
-        $canonicalValue = $this->getCanonicalValue($canonicalFieldDefinition, $canonicalFieldName);
+        $canonicalValue = $this->getCanonicalValue($canonicalFieldName);
         $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
 
         $fileName = $this->formatStringForStorage($canonicalStr->slug()->toString());
@@ -60,7 +60,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->save($output);
     }
 
-    protected function getCanonicalValue(PublicationField $canonicalFieldDefinition, string $canonicalFieldName): string
+    protected function getCanonicalValue(string $canonicalFieldName): string
     {
         if ($canonicalFieldName === '__createdAt') {
             return Carbon::now()->format('Y-m-d H:i:s');
