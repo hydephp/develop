@@ -167,17 +167,11 @@ title: 'Hello World'
 
     public function testItCreatesValidYaml()
     {
-        $pubType = $this->makePublicationType([[
-            'type' => 'string',
-            'name' => 'title',
-        ], [
-            'type' => 'text',
-            'name' => 'description',
-        ], [
-
-            'type' => 'array',
-            'name' => 'tags',
-        ]]);
+        $pubType = $this->makePublicationType([
+            ['type' => 'string', 'name' => 'title'],
+            ['type' => 'text', 'name' => 'description'],
+            ['type' => 'array', 'name' => 'tags']
+        ]);
 
         $fieldData = Collection::make([
             'title' => 'Hello World',
@@ -213,20 +207,11 @@ title: 'Hello World'
             '__createdAt' => 1640995200,
             'title' => 'Hello World',
             'description' => "This is a description.\nIt can be multiple lines.\n",
-            'tags' =>  [
-                'tag1',
-                'tag2',
-                'foo bar',
-            ],
+            'tags' =>  ['tag1', 'tag2', 'foo bar'],
         ], Yaml::parse(Str::between($contents, '---', '---')));
     }
 
-    protected function makePublicationType(array $fields = [
-        [
-            'type' => 'string',
-            'name' => 'title',
-        ],
-    ]): PublicationType
+    protected function makePublicationType(array $fields = [['type' => 'string', 'name' => 'title']]): PublicationType
     {
         return new PublicationType(
             'test',
