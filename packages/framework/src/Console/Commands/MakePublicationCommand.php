@@ -37,7 +37,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     public function safeHandle(): int
     {
-        $this->title('Creating a new Publication!');
+        $this->title('Creating a new publication!');
 
         $this->publicationType = $this->getPublicationTypeSelection();
         $fieldData = $this->collectFieldData();
