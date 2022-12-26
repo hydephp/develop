@@ -126,7 +126,7 @@ tags:
     public function testCreateWithoutSupplyingCanonicalField()
     {
         $pubType = $this->makePublicationType();
-        $fieldData = Collection::make([]);
+        $fieldData = Collection::make();
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage("Could not find field value for 'title' which is required for as it's the type's canonical field");
