@@ -91,7 +91,7 @@ class MakePublicationCommand extends ValidatingCommand
         throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
     }
 
-    /** @return \Illuminate\Support\Collection<string, string|array> */
+    /** @return \Illuminate\Support\Collection<string, string|array|null> */
     protected function collectFieldData(): Collection
     {
         $this->info("\nNow please enter the field data:");
