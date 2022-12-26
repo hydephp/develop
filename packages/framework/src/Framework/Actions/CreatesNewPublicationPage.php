@@ -45,7 +45,12 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function handleCreate(): void
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
-        $output = "{$this->createFrontMatter($now)}\n## Write something awesome.\n\n";
+        $output = <<<MARKDOWN
+{$this->createFrontMatter($now)}
+## Write something awesome.
+
+
+MARKDOWN;
 
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
