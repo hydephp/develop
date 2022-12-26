@@ -181,8 +181,7 @@ title: 'Hello World'
 
         $fieldData = Collection::make([
             'title' => 'Hello World',
-            'description' => 'This is a description.
-It can be multiple lines.',
+            'description' => "This is a description.\nIt can be multiple lines.\n",
             'tags' => ['tag1', 'tag2', 'foo bar'],
         ]);
 
@@ -213,9 +212,7 @@ It can be multiple lines.',
         $this->assertSame([
             '__createdAt' => 1640995200,
             'title' => 'Hello World',
-            'description' => 'This is a description.
-It can be multiple lines.
-',
+            'description' => "This is a description.\nIt can be multiple lines.\n",
             'tags' =>  [
                 'tag1',
                 'tag2',
