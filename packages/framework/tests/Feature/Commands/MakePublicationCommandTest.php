@@ -162,7 +162,6 @@ class MakePublicationCommandTest extends TestCase
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
-    // text
     public function test_command_with_text_input()
     {
         InputStreamHandler::mockInput("Hello\nWorld");
@@ -184,7 +183,6 @@ class MakePublicationCommandTest extends TestCase
         );
     }
 
-    // array
     public function test_command_with_array_input()
     {
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
@@ -209,7 +207,6 @@ class MakePublicationCommandTest extends TestCase
         );
     }
 
-    // image
     public function test_command_with_image_input()
     {
         $this->directory('_media/test-publication');
@@ -231,7 +228,6 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/image.jpg');
     }
 
-    // tag
     public function test_command_with_tag_input()
     {
         $this->file('tags.json', json_encode([
