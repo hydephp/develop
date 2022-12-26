@@ -41,6 +41,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->title('Creating a new publication!');
 
         $this->publicationType = $this->getPublicationTypeSelection();
+
         $fieldData = $this->collectFieldData();
 
         $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, (bool) $this->option('force'));
