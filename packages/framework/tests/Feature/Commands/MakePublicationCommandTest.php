@@ -250,7 +250,6 @@ image: _media/test-publication/image.jpg
     // tag
     public function test_command_with_tag_input()
     {
-        InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
         $this->file('tags.json', json_encode([
             'test-publication' => ['foo', 'bar', 'baz'],
         ]));
