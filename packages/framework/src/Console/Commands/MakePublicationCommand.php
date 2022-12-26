@@ -130,14 +130,14 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTextFieldInput(PublicationField $field): string
     {
-        $this->output->writeln($field->name.' (end with an empty line)');
+        $this->line($field->name.' (end with an empty line)');
 
         return implode("\n", InputStreamHandler::call());
     }
 
     protected function captureArrayFieldInput(PublicationField $field): array
     {
-        $this->output->writeln($field->name.' (end with an empty line)');
+        $this->line($field->name.' (end with an empty line)');
 
         return InputStreamHandler::call();
     }
@@ -196,6 +196,6 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function tip(string $message): void
     {
-        $this->output->writeln("<fg=bright-blue>Tip:</> $message");
+        $this->line("<fg=bright-blue>Tip:</> $message");
     }
 }
