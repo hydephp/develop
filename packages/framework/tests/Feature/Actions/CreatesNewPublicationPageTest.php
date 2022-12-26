@@ -212,7 +212,7 @@ tags:
         );
 
         $this->assertSame([
-            '__createdAt' => 1640995200,
+            '__createdAt' => '2022-01-01 00:00:00',
             'title' => 'Hello World',
             'description' => 'This is a description.
 It can be multiple lines.
