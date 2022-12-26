@@ -178,13 +178,12 @@ class MakePublicationCommand extends ValidatingCommand
             }
         }
 
-        $this->tip("Enter '0' to reload tag definitions");
         $this->tip('You can enter multiple tags separated by commas');
 
         do {
             $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
-            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '<fg=bright-blue>[Reload tags]</>'], $options->toArray()), multiple: true);
-        } while ($selection === '<fg=bright-blue>[Reload tags]</>');
+            $selection = $this->choice('Which tag would you like to use?', array_merge([0 => '<fg=bright-blue>[Reload tag definitions]</>'], $options->toArray()), multiple: true);
+        } while ($selection === '<fg=bright-blue>[Reload tag definitions]</>');
 
         return $selection;
     }
