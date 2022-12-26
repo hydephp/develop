@@ -7,14 +7,13 @@ namespace Hyde\Framework\Actions;
 use function array_merge;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
-use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
+use function rtrim;
 use RuntimeException;
+use function substr;
 use Symfony\Component\Yaml\Yaml;
 use function trim;
 
@@ -30,58 +29,48 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         protected PublicationType $pubType,
         protected Collection $fieldData,
         protected bool $force = false,
-        protected ?OutputStyle $output = null,
     ) {
-        $canonicalFieldName = $this->pubType->canonicalField;
-        $canonicalFieldDefinition = $this->pubType->getCanonicalFieldDefinition();
-        $canonicalValue = $this->getCanonicalValue($canonicalFieldDefinition, $canonicalFieldName);
-        $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
-
-        $fileName = $this->formatStringForStorage($canonicalStr->slug()->toString());
-        $directory = $this->pubType->getDirectory();
-        $this->outputPath = "$directory/$fileName.md";
+        $this->outputPath = "{$this->pubType->getDirectory()}/{$this->getFilename()}.md";
     }
 
     protected function handleCreate(): void
     {
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        $output = <<<MARKDOWN
-            ---
-            {$this->createFrontMatter($now)}
-            ---
-            
-            ## Write something awesome.
-            
-            
-            MARKDOWN;
+        $output = "---
+{$this->createFrontMatter()}
+---
 
-        $this->output?->writeln("Saving publication data to [$this->outputPath]");
+## Write something awesome.
+
+";
 
         $this->save($output);
     }
 
-    protected function getCanonicalValue(PublicationField $canonicalFieldDefinition, string $canonicalFieldName): string
+    protected function getFilename(): string
     {
-        if ($canonicalFieldName === '__createdAt') {
+        return $this->formatStringForStorage(substr($this->getCanonicalValue(), 0, 64));
+    }
+
+    protected function getCanonicalValue(): string
+    {
+        if ($this->pubType->canonicalField === '__createdAt') {
             return Carbon::now()->format('Y-m-d H:i:s');
         }
 
-        // TODO: Is it reasonable to use arrays as canonical field values?
-        if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
-            $canonicalValue = ($this->fieldData->get($canonicalFieldName) ?? [])[0];
-        } else {
-            $canonicalValue = $this->fieldData->get($canonicalFieldName);
-        }
-
-        return $canonicalValue ?? throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404);
+        return (string) $this->fieldData->get($this->pubType->canonicalField)
+            ?: throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required for as it's the type's canonical field", 404);
     }
 
-    protected function createFrontMatter(string $now): string
+    protected function createFrontMatter(): string
     {
-        return rtrim(Yaml::dump($this->normalizeData(array_merge(
-            ['__createdAt' => $now], $this->fieldData->toArray())),
-            flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
-        ));
+        return rtrim(Yaml::dump($this->getMergedData(), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
+    }
+
+    protected function getMergedData(): array
+    {
+        return array_merge(['__createdAt' => Carbon::now()],
+            $this->normalizeData($this->fieldData->toArray())
+        );
     }
 
     protected function normalizeData(array $array): array
@@ -89,9 +78,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         foreach ($array as $key => $value) {
             $type = $this->pubType->getFields()->get($key);
 
-            if ($key === '__createdAt') {
-                $array[$key] = Carbon::parse($value);
-            } elseif ($type?->type === PublicationFieldTypes::Text) {
+            if ($type->type === PublicationFieldTypes::Text) {
                 // In order to properly store text fields as block literals,
                 // we need to make sure they end with a newline.
                 $array[$key] = trim($value)."\n";
