@@ -50,7 +50,7 @@ class CreatesNewPublicationPageTest extends TestCase
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
+        $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
         $this->assertEquals(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -77,7 +77,7 @@ It can be multiple lines.',
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $this->assertEquals(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -105,7 +105,7 @@ It can be multiple lines.',
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $this->assertEquals(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -148,7 +148,7 @@ It can be multiple lines.',
         // Since the inputs are collected by the command, with the shipped code this should never happen.
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $this->assertEquals(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -176,7 +176,7 @@ It can be multiple lines.',
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
-        $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $contents = file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));
         $this->assertEquals(<<<'MARKDOWN'
             ---
