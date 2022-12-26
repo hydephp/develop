@@ -148,13 +148,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            $this->warn("\nWarning: No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
-            // TODO we might want to check if the field has a required rule which should jump straight to the exception
-            if ($this->confirm('Would you like to skip this field?', true)) {
-                return null;
-            } else {
-                throw new InvalidArgumentException('Unable to locate any media files for this publication type');
-            }
+            return $this->handleEmptyCollection();
         }
 
         $filesArray = $mediaFiles->toArray();
@@ -197,5 +191,18 @@ class MakePublicationCommand extends ValidatingCommand
     protected function tip(string $message): void
     {
         $this->line("<fg=bright-blue>Tip:</> $message");
+    }
+
+    protected function handleEmptyCollection()
+    {
+        $type = "media file";
+        $searchLocation = "directory _media/{$this->publicationType->getIdentifier()}/";
+        $this->warn("\nWarning: No {$type}s found in $searchLocation");
+        // TODO we might want to check if the field has a required rule which should jump straight to the exception
+        if ($this->confirm('Would you like to skip this field?', true)) {
+            return null;
+        } else {
+            throw new InvalidArgumentException("Unable to locate any {$type}s for this publication type");
+        }
     }
 }
