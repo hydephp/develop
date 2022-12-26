@@ -14,9 +14,9 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
 use function implode;
+use function in_array;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-use function in_array;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
