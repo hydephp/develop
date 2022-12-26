@@ -148,9 +148,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            $this->newLine();
-            $this->warn("Warning: No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
-            return $this->handleEmptyCollection("media file");
+            return $this->handleEmptyCollection("media file", "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
         }
 
         $filesArray = $mediaFiles->toArray();
@@ -165,9 +163,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
         if ($options->isEmpty()) {
-            $this->newLine();
-            $this->warn('Warning: No tags for this publication type found in tags.json');
-            return $this->handleEmptyCollection("tag");
+            return $this->handleEmptyCollection("tag", 'No tags for this publication type found in tags.json');
         }
 
         $this->tip('You can enter multiple tags separated by commas');
@@ -192,8 +188,10 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /** @return null */
-    protected function handleEmptyCollection(string $type)
+    protected function handleEmptyCollection(string $type, string $message)
     {
+        $this->newLine();
+        $this->warn("Warning: $message");
         // TODO we might want to check if the field has a required rule which should jump straight to the exception
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
