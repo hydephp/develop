@@ -68,7 +68,7 @@ class MakePublicationCommand extends ValidatingCommand
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            default => $this->askWithValidation($field->name, $field->name, $this->generateFieldRules($field)),
+            default => $this->askWithValidation($field->name, $field->name, $field->type->rules()),
         };
     }
 
@@ -168,12 +168,6 @@ class MakePublicationCommand extends ValidatingCommand
         } while ($selection === '<fg=bright-blue>[Reload tags.json]</>');
 
         return $selection;
-    }
-
-    // Get rules for fields which are not of type array, text or image
-    protected function generateFieldRules(PublicationField $field): array
-    {
-        return $field->type->rules();
     }
 
     protected function tip(string $message): void
