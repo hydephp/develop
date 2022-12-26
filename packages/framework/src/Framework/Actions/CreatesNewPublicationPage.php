@@ -66,14 +66,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             return Carbon::now()->format('Y-m-d H:i:s');
         }
 
-        // TODO: Is it reasonable to use arrays as canonical field values?
-        if ($canonicalFieldDefinition->type === PublicationFieldTypes::Array) {
-            $canonicalValue = ($this->fieldData->get($canonicalFieldName) ?? [])[0];
-        } else {
-            $canonicalValue = $this->fieldData->get($canonicalFieldName);
-        }
-
-        return $canonicalValue ?? throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404);
+        return $this->fieldData->get($canonicalFieldName) ?? throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404);
     }
 
     protected function createFrontMatter(string $now): string
