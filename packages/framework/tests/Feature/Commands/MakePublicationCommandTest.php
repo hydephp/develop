@@ -23,7 +23,6 @@ class MakePublicationCommandTest extends TestCase
 {
     protected function setUp(): void
     {
-        $this->markTestSkipped('Skipping test as it needs to be integrated in https://github.com/hydephp/develop/pull/774');
         parent::setUp();
         config(['app.throw_on_console_exception' => true]);
 
