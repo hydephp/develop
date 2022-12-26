@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function array_merge;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
@@ -13,8 +14,9 @@ use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function is_string;
 use RuntimeException;
+use Symfony\Component\Yaml\Yaml;
+use function trim;
 
 /**
  * Scaffold a publication file.
@@ -43,35 +45,15 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function handleCreate(): void
     {
         $now = Carbon::now()->format('Y-m-d H:i:s');
-        $output = "---\n";
-        $output .= "__createdAt: $now\n";
-        foreach ($this->fieldData as $name => $value) {
-            /** @var PublicationField $fieldDefinition */
-            $fieldDefinition = $this->pubType->getFields()->where('name', $name)->firstOrFail();
-
-            if ($fieldDefinition->type === PublicationFieldTypes::Text) {
-                $output .= "$name: |\n";
-                if (is_string($value)) {
-                    $value = Str::of($value)->explode("\n");
-                }
-                foreach ($value as $line) {
-                    $output .= "  $line\n";
-                }
-                continue;
-            }
-
-            if ($fieldDefinition->type === PublicationFieldTypes::Array) {
-                $output .= "$name:\n";
-                foreach ($value as $item) {
-                    $output .= "  - \"$item\"\n";
-                }
-                continue;
-            }
-
-            $output .= "$name: $value\n";
-        }
-        $output .= "---\n";
-        $output .= "\n## Write something awesome.\n\n";
+        $output = <<<MARKDOWN
+            ---
+            {$this->createFrontMatter($now)}
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN;
 
         $this->output?->writeln("Saving publication data to [$this->outputPath]");
 
@@ -92,5 +74,30 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return $canonicalValue ?? throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required for as it's the type's canonical field", 404);
+    }
+
+    protected function createFrontMatter(string $now): string
+    {
+        return rtrim(Yaml::dump($this->normalizeData(array_merge(
+            ['__createdAt' => $now], $this->fieldData->toArray())),
+            flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
+        ));
+    }
+
+    protected function normalizeData(array $array): array
+    {
+        foreach ($array as $key => $value) {
+            $type = $this->pubType->getFields()->get($key);
+
+            if ($key === '__createdAt') {
+                $array[$key] = Carbon::parse($value);
+            } elseif ($type?->type === PublicationFieldTypes::Text) {
+                // In order to properly store text fields as block literals,
+                // we need to make sure they end with a newline.
+                $array[$key] = trim($value)."\n";
+            }
+        }
+
+        return $array;
     }
 }
