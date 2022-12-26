@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
+use function substr;
 use function trim;
 
 /**
@@ -91,9 +92,8 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function getFilename(): string
     {
-        $canonicalValue = $this->getCanonicalValue($this->pubType->canonicalField);
-        $canonicalStr = Str::of($canonicalValue)->substr(0, 64);
-
-        return $this->formatStringForStorage($canonicalStr->slug()->toString());
+        return $this->formatStringForStorage(Str::slug(
+            substr($this->getCanonicalValue($this->pubType->canonicalField), 0, 64))
+        );
     }
 }
