@@ -292,7 +292,7 @@ tag: foo
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsConfirmation('Would you like to skip this field?', 'no')
+             ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(1);
 
@@ -341,7 +341,7 @@ image:
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->expectsConfirmation('Would you like to skip this field?', 'no')
+            ->expectsConfirmation('Would you like to skip this field?')
             ->expectsOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(1);
 
