@@ -147,9 +147,12 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            $this->error('No media files found for this publication type');
-            // Would you like to skip this field? (Tip: Use Ctrl+C to exit)
-            return '';
+            $this->warn("\nWarning: No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
+            if ($this->confirm('Would you like to skip this field?', true)) {
+                return '';
+            } else {
+                throw new InvalidArgumentException('Unable to locate any media files for this publication type');
+            }
         }
 
         $filesArray = $mediaFiles->toArray();

@@ -280,6 +280,55 @@ tag: foo
         );
     }
 
+    public function test_image_input_with_no_images()
+    {
+        config(['app.throw_on_console_exception' => false]);
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'image',
+                'name' => 'image',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->expectsConfirmation('Would you like to skip this field?', 'no')
+             ->expectsOutput('Error: Unable to locate any media files for this publication type')
+             ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('test-publication/2022-01-01-000000.md'));
+    }
+
+    public function test_image_input_with_no_images_but_skips()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'image',
+                'name' => 'image',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->expectsConfirmation('Would you like to skip this field?', 'yes')
+             ->doesntExpectOutput('Error: Unable to locate any media files for this publication type')
+             ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertEquals('---
+__createdAt: 2022-01-01 00:00:00
+image: 
+---
+
+## Write something awesome.
+
+',
+            $this->getDatedPublicationContents()
+        );
+    }
+
     protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
