@@ -19,18 +19,18 @@ class CreatesNewPublicationTypeTest extends TestCase
 {
     public function test_it_creates_a_new_publication_type()
     {
-        $creator = new CreatesNewPublicationType('name', new Collection(), 'canonical', 'sort', true, true, 10);
+        $creator = new CreatesNewPublicationType('Test Publication', new Collection(), 'canonical', 'sort', true, true, 10);
         $creator->create();
 
-        $this->assertFileExists(Hyde::path('name/schema.json'));
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
 
-        $result = file_get_contents(Hyde::path('name/schema.json'));
+        $result = file_get_contents(Hyde::path('test-publication/schema.json'));
         $this->assertSame(<<<'JSON'
             {
-                "name": "name",
+                "name": "Test Publication",
                 "canonicalField": "canonical",
-                "detailTemplate": "name_detail",
-                "listTemplate": "name_list",
+                "detailTemplate": "test-publication_detail",
+                "listTemplate": "test-publication_list",
                 "pagination": {
                     "sortField": "sort",
                     "sortAscending": true,
@@ -40,6 +40,6 @@ class CreatesNewPublicationTypeTest extends TestCase
                 "fields": []
             }
             JSON, $result);
-        Filesystem::deleteDirectory('name');
+        Filesystem::deleteDirectory('test-publication');
     }
 }
