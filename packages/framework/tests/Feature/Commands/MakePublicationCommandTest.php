@@ -249,7 +249,6 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('tag: foo');
     }
 
-
     public function test_command_with_multiple_tag_inputs()
     {
         $this->file('tags.json', json_encode([
