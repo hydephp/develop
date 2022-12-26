@@ -38,7 +38,9 @@ class CreatesNewPublicationTypeTest extends TestCase
                 },
                 "fields": []
             }
-            JSON, file_get_contents(Hyde::path('test-publication/schema.json')));
+            JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
+        );
+
         Filesystem::deleteDirectory('test-publication');
     }
 }
