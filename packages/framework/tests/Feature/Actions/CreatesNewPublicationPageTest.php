@@ -47,14 +47,14 @@ class CreatesNewPublicationPageTest extends TestCase
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
+        $this->assertEquals("---
+__createdAt: '2022-01-01 00:00:00'
+title: 'Hello World'
 ---
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+", file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     public function testWithTextType()
@@ -77,9 +77,9 @@ It can be multiple lines.',
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
+        $this->assertEquals("---
+__createdAt: '2022-01-01 00:00:00'
+title: 'Hello World'
 description: |
   This is a description
   It can be multiple lines.
@@ -87,7 +87,7 @@ description: |
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+", file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     public function testWithArrayType()
@@ -109,17 +109,17 @@ description: |
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
+        $this->assertEquals("---
+__createdAt: '2022-01-01 00:00:00'
+title: 'Hello World'
 tags:
-  - "tag1"
-  - "tag2"
+  - \"tag1\"
+  - \"tag2\"
 ---
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+", file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     public function testCreateWithoutSupplyingCanonicalField()
@@ -154,14 +154,14 @@ tags:
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
+        $this->assertEquals("---
+__createdAt: '2022-01-01 00:00:00'
+title: 'Hello World'
 ---
 
 ## Write something awesome.
 
-', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+", file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     public function testItCreatesValidYaml()
@@ -190,20 +190,20 @@ It can be multiple lines.',
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/hello-world.md')));
         $contents = file_get_contents(Hyde::path('test-publication/hello-world.md'));
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
-title: Hello World
+        $this->assertEquals("---
+__createdAt: '2022-01-01 00:00:00'
+title: 'Hello World'
 description: |
   This is a description.
   It can be multiple lines.
 tags:
-  - "tag1"
-  - "tag2"
+  - \"tag1\"
+  - \"tag2\"
 ---
 
 ## Write something awesome.
 
-',
+",
                             $contents
         );
 
