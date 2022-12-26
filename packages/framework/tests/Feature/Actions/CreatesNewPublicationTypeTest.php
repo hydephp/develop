@@ -40,7 +40,6 @@ class CreatesNewPublicationTypeTest extends TestCase
         $creator->create();
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-
         $this->assertSame(<<<'JSON'
             {
                 "name": "Test Publication",
@@ -69,7 +68,6 @@ class CreatesNewPublicationTypeTest extends TestCase
         $creator->create();
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-
         $this->assertSame(<<<'JSON'
             {
                 "name": "Test Publication",
