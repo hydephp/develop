@@ -147,13 +147,16 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertTrue(is_file(Hyde::path('test-publication/2022-01-01-000000.md')));
-        $this->assertEquals('---
-__createdAt: 2022-01-01 00:00:00
----
-
-## Write something awesome.
-
-', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+        $this->assertEquals(
+            <<<'MARKDOWN'
+            ---
+            __createdAt: 2022-01-01 00:00:00
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     // text
