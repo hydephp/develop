@@ -65,8 +65,8 @@ title: 'Hello World'
     public function testWithTextType()
     {
         $pubType = $this->makePublicationType([[
-             'type' => 'text',
-             'name' => 'description',
+            'type' => 'text',
+            'name' => 'description',
         ]]);
 
         $fieldData = Collection::make([
@@ -78,7 +78,7 @@ It can be multiple lines.',
         $creator->create();
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
-        $this->assertEquals("---
+        $this->assertEquals('---
 __createdAt: 2022-01-01T00:00:00+00:00
 description: |
     This is a description
@@ -87,13 +87,13 @@ description: |
 
 ## Write something awesome.
 
-", file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     public function testWithArrayType()
     {
         $pubType = $this->makePublicationType([[
-             'type' => 'array',
+            'type' => 'array',
             'name' => 'tags',
         ]]);
 
@@ -147,13 +147,13 @@ tags:
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
-        $this->assertEquals("---
+        $this->assertEquals('---
 __createdAt: 2022-01-01T00:00:00+00:00
 ---
 
 ## Write something awesome.
 
-", file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
+', file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
     public function testItCreatesValidYaml()
@@ -161,7 +161,7 @@ __createdAt: 2022-01-01T00:00:00+00:00
         $pubType = $this->makePublicationType([
             ['type' => 'string', 'name' => 'title'],
             ['type' => 'text', 'name' => 'description'],
-            ['type' => 'array', 'name' => 'tags']
+            ['type' => 'array', 'name' => 'tags'],
         ]);
 
         $fieldData = Collection::make([
@@ -175,7 +175,7 @@ __createdAt: 2022-01-01T00:00:00+00:00
 
         $this->assertTrue(File::exists(Hyde::path('test-publication/2022-01-01-000000.md')));
         $contents = file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));
-        $this->assertEquals(<<<MARKDOWN
+        $this->assertEquals(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             title: 'Hello World'
