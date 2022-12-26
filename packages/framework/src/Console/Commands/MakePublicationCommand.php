@@ -173,7 +173,7 @@ class MakePublicationCommand extends ValidatingCommand
     // Get rules for fields which are not of type array, text or image
     protected function generateFieldRules(PublicationField $field): array
     {
-        return Collection::make($field->type->rules())->toArray();
+        return $field->type->rules();
     }
 
     protected function tip(string $message): void
