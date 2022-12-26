@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
+use function trim;
 
 /**
  * Scaffold a publication file.
@@ -79,6 +80,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
            if ($type === null) {
                continue;
            }
+
+          if ($type->type === PublicationFieldTypes::Text) {
+              $array[$key] = trim($value) . "\n";
+          }
         }
 
         return $array;
