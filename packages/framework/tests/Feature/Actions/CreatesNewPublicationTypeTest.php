@@ -25,15 +25,19 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertFileExists(Hyde::path('name/schema.json'));
 
         $result = file_get_contents(Hyde::path('name/schema.json'));
-        $this->assertStringContainsString('"name": "name"', $result);
-        $this->assertStringContainsString('"canonicalField": "canonical"', $result);
-        $this->assertStringContainsString('"sortField": "sort"', $result);
-        $this->assertStringContainsString('"sortAscending": true', $result);
-        $this->assertStringContainsString('"pageSize": 10', $result);
-        $this->assertStringContainsString('"prevNextLinks": true', $result);
-        $this->assertStringContainsString('"detailTemplate": "name_detail"', $result);
-        $this->assertStringContainsString('"listTemplate": "name_list"', $result);
-
+        $this->assertSame('{
+    "name": "name",
+    "canonicalField": "canonical",
+    "detailTemplate": "name_detail",
+    "listTemplate": "name_list",
+    "pagination": {
+        "sortField": "sort",
+        "sortAscending": true,
+        "prevNextLinks": true,
+        "pageSize": 10
+    },
+    "fields": []
+}', $result);
         Filesystem::deleteDirectory('name');
     }
 }
