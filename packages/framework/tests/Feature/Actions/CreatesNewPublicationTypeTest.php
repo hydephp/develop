@@ -25,19 +25,21 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertFileExists(Hyde::path('name/schema.json'));
 
         $result = file_get_contents(Hyde::path('name/schema.json'));
-        $this->assertSame('{
-    "name": "name",
-    "canonicalField": "canonical",
-    "detailTemplate": "name_detail",
-    "listTemplate": "name_list",
-    "pagination": {
-        "sortField": "sort",
-        "sortAscending": true,
-        "prevNextLinks": true,
-        "pageSize": 10
-    },
-    "fields": []
-}', $result);
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "name",
+                "canonicalField": "canonical",
+                "detailTemplate": "name_detail",
+                "listTemplate": "name_list",
+                "pagination": {
+                    "sortField": "sort",
+                    "sortAscending": true,
+                    "prevNextLinks": true,
+                    "pageSize": 10
+                },
+                "fields": []
+            }
+            JSON, $result);
         Filesystem::deleteDirectory('name');
     }
 }
