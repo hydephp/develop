@@ -17,6 +17,13 @@ use Illuminate\Support\Collection;
  */
 class CreatesNewPublicationTypeTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        Filesystem::deleteDirectory('test-publication');
+
+        parent::tearDown();
+    }
+
     public function test_it_creates_a_new_publication_type()
     {
         $creator = new CreatesNewPublicationType('Test Publication', new Collection(), 'canonical', 'sort', true, true, 10);
@@ -40,7 +47,5 @@ class CreatesNewPublicationTypeTest extends TestCase
             }
             JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
         );
-
-        Filesystem::deleteDirectory('test-publication');
     }
 }
