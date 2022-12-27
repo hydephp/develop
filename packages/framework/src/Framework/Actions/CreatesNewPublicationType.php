@@ -96,11 +96,10 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
                 </div>
             </article>
         </main>
-
         @endsection
         BLADE;
 
-        $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", $contents);
+        $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", "$contents\n");
     }
 
     protected function createListTemplate(): void
@@ -121,11 +120,10 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
                     </ol>
                 </div>
             </main>
-
         @endsection
         BLADE;
 
-        $this->savePublicationFile("{$this->listTemplateName()}.blade.php", $contents);
+        $this->savePublicationFile("{$this->listTemplateName()}.blade.php", "$contents\n");
     }
 
     protected function savePublicationFile(string $filename, string $contents): int
