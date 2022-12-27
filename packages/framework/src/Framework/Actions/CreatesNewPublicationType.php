@@ -75,7 +75,19 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createListTemplate(): void
     {
-        $contents = $this->stubContents('// list');
+        $contents = $this->stubContents(<<<'BLADE'
+        <div class="prose dark:prose-invert">
+            <h1>Publications for type {{ $page->type->name }}</h1>
+
+            <ol>
+                @foreach($publications as $publication)
+                    <li>
+                        <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
+                    </li>
+                @endforeach
+            </ol>
+        </div>
+        BLADE);
 
         $this->savePublicationFile("{$this->listTemplateName()}.blade.php", $contents);
     }
