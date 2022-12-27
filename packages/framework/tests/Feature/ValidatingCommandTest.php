@@ -123,7 +123,6 @@ class ValidatingCommandTest extends TestCase
     public function testReloadableChoiceHelper()
     {
         $command = new ReloadableChoiceTestCommand();
-
         $output = Mockery::mock(OutputStyle::class);
 
         $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
@@ -155,7 +154,6 @@ class ValidatingCommandTest extends TestCase
     public function testReloadableChoiceHelperSelectingReload()
     {
         $command = new ReloadableChoiceTestCommand();
-
         $output = Mockery::mock(OutputStyle::class);
 
         $output->shouldReceive('askQuestion')->once()->andReturn('foo');
