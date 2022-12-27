@@ -118,6 +118,21 @@ class ValidatingCommandTest extends TestCase
         $command->handle();
     }
 
+    public function testReloadableChoiceHelper()
+    {
+        $command = new ReloadableChoiceTestCommand();
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('askQuestion')->once()->andReturn('foo');
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === 'You selected foo';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
+
     public function testHandleException()
     {
         $command = new ThrowingValidatingTestCommand();
@@ -230,6 +245,17 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
         } catch (RuntimeException $exception) {
             return $this->handleException($exception, $file, $line);
         }
+    }
+}
+
+class ReloadableChoiceTestCommand extends ValidatingCommand
+{
+    public function handle(): int
+    {
+        $selection = $this->reloadableChoice(['bar', 'baz'], 'foo');
+        $this->output->writeln("You selected $selection");
+
+        return 0;
     }
 }
 
