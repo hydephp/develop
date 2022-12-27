@@ -24,7 +24,7 @@ class ValidatingCommand extends Command
 {
     public const USER_EXIT = 130;
 
-    /** @var int How many times can the validation loop run? Guards against infinite loops. */
+    /** @var int How many times can the validation loop run? It is high enough to not affect normal usage. */
     protected final const MAX_RETRIES = 30;
 
     /**
@@ -65,7 +65,8 @@ class ValidatingCommand extends Command
         int $retryCount = 0
     ): string {
         if ($retryCount >= self::MAX_RETRIES) {
-            // Prevent infinite loops that may happen, for example when testing. The retry count is high enough to not affect normal usage.
+            // Prevent infinite loops that may happen due to the method's recursion.
+            // For example when running a command in tests or without interaction.
             throw new RuntimeException(sprintf("Too many validation errors trying to validate '$name' with rules: [%s]", implode(', ', $rules)));
         }
 
