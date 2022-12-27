@@ -87,11 +87,7 @@ class ValidatingCommand extends Command
     {
         $reloadMessage = "<fg=bright-blue>[$reloadMessage]</>";
         do {
-            $selection = $this->choice(
-                $question,
-                array_merge([$reloadMessage], $options),
-                multiple: $multiple
-            );
+            $selection = $this->choice($question, array_merge([$reloadMessage], $options), multiple: $multiple);
         } while (in_array($reloadMessage, (array) $selection));
 
         return $selection;
