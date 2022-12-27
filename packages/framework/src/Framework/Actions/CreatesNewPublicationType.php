@@ -74,9 +74,13 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             <p>
                 {{ $publication->markdown }}
             </p>
+        </article>
 
+        <div class="prose dark:prose-invert my-8">
             <hr>
+        </div>
 
+        <article class="prose dark:prose-invert">
             <h2>Front Matter Data</h2>
             <pre>
                 {{ $publication->matter }}
