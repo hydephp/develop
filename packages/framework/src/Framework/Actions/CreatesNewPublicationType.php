@@ -7,7 +7,10 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Hyde;
 use Illuminate\Support\Collection;
+
+use function file_put_contents;
 
 /**
  * Scaffold a new publication type schema.
@@ -66,7 +69,19 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createDetailTemplate(): void
     {
-        // TODO: Implement createDetailTemplate() method.
+        $contents = <<<'BLADE'
+        @extends('hyde::layouts.app')
+        @section('content')
+        
+            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
+                {{ $slot }}
+            </main>
+        
+        @endsection
+
+        BLADE;
+
+        file_put_contents(Hyde::path("$this->directoryName/{$this->detailTemplateName()}.blade.php"), $contents);
     }
 
     protected function createListTemplate(): void
