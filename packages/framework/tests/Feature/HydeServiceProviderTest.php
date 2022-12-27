@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Feature;
 
 use function app;
 use function array_filter;
@@ -211,9 +211,7 @@ class HydeServiceProviderTest extends TestCase
     public function test_provider_registers_all_page_model_source_paths()
     {
         // Find all classes in the Hyde\Pages namespace that are not abstract
-        $pages = array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
-        }));
+        $pages = $this->getDeclaredPages();
 
         // Assert we are testing all page models
         $this->assertEquals([
@@ -238,9 +236,7 @@ class HydeServiceProviderTest extends TestCase
 
     public function test_provider_registers_all_page_model_output_paths()
     {
-        $pages = array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
-        }));
+        $pages = $this->getDeclaredPages();
 
         /** @var \Hyde\Pages\Concerns\HydePage|string $page */
         foreach ($pages as $page) {
@@ -252,5 +248,12 @@ class HydeServiceProviderTest extends TestCase
         foreach ($pages as $page) {
             $this->assertNotEquals('foo', $page::$outputDirectory, "Output directory for $page was not set");
         }
+    }
+
+    protected function getDeclaredPages(): array
+    {
+        return array_values(array_filter(get_declared_classes(), function ($class) {
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
+        }));
     }
 }

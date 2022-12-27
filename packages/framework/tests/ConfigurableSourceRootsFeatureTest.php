@@ -20,7 +20,7 @@ use function mkdir;
  * Also see these tests which cover specific implementation details:
  *
  * @see \Hyde\Framework\Testing\Feature\HydeKernelTest
- * @see \Hyde\Framework\Testing\Unit\HydeServiceProviderTest
+ * @see \Hyde\Framework\Testing\Feature\HydeServiceProviderTest
  */
 class ConfigurableSourceRootsFeatureTest extends TestCase
 {
