@@ -162,6 +162,7 @@ class MakePublicationCommand extends ValidatingCommand
         $closure = function (): array {
             return PublicationService::getValuesForTagName($this->publicationType->getIdentifier())->toArray();
         };
+
         return $this->reloadableChoice($closure,
             'Which tag would you like to use?',
             'Reload tags.json',
