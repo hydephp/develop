@@ -211,8 +211,8 @@ class PublicationTypeTest extends TestCase
         return array_merge([
             'name' => 'Test Publication',
             'canonicalField' => 'title',
-            'detailTemplate' => 'test-publication_detail.blade.php',
-            'listTemplate' => 'test-publication_list.blade.php',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
             'pagination' => [
                 'sortField' => '__createdAt',
                 'sortAscending' => true,

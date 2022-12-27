@@ -360,8 +360,8 @@ class MakePublicationCommandTest extends TestCase
             json_encode(array_merge([
                 'name'           => 'Test Publication',
                 'canonicalField' => 'title',
-                'detailTemplate' => 'test-publication_detail',
-                'listTemplate'   => 'test-publication_list',
+                'detailTemplate' => 'detail',
+                'listTemplate'   => 'list',
                 'pagination' => [
                     'pageSize'       => 10,
                     'prevNextLinks'  => true,

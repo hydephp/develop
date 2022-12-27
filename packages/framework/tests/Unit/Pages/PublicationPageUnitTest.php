@@ -211,7 +211,7 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
     public function testCompile()
     {
         $this->directory('directory');
-        Hyde::touch('directory/detailTemplate.blade.php');
+        Hyde::touch('directory/detail.blade.php');
 
         $page = new PublicationPage('foo', [], '', $this->pubType());
         Hyde::shareViewData($page);
@@ -242,8 +242,8 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
         return new PublicationType(
             'name',
             'canonicalField',
-            'detailTemplate.blade.php',
-            'listTemplate.blade.php',
+            'detail.blade.php',
+            'list.blade.php',
             ['sortField', true, true, 1],
             [],
             'directory'
