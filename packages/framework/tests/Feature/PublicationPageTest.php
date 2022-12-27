@@ -116,8 +116,8 @@ class PublicationPageTest extends TestCase
         file_put_contents(Hyde::path('test-publication/schema.json'), '{
   "name": "test",
   "canonicalField": "slug",
-  "detailTemplate": "test_detail",
-  "listTemplate": "test_list",
+  "detailTemplate": "test_detail.blade.php",
+  "listTemplate": "test_list.blade.php",
   "pagination": {
       "sortField": "__createdAt",
       "sortAscending": true,

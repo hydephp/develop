@@ -68,8 +68,8 @@ Hello World!
         return [
             'name'           => 'test',
             'canonicalField' => 'canonical',
-            'detailTemplate' => 'detail',
-            'listTemplate'   => 'list',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate'   => 'list.blade.php',
             'pagination' => [
                 'sortField'      => 'sort',
                 'sortAscending'  => true,

@@ -242,8 +242,8 @@ class PublicationPageUnitTest extends BaseMarkdownPageUnitTest
         return new PublicationType(
             'name',
             'canonicalField',
-            'detailTemplate',
-            'listTemplate',
+            'detailTemplate.blade.php',
+            'listTemplate.blade.php',
             ['sortField', true, true, 1],
             [],
             'directory'
