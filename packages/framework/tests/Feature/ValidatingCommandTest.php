@@ -10,7 +10,10 @@ use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Validator;
 use Mockery;
+use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+
 use function str_starts_with;
 
 /**
@@ -119,6 +122,54 @@ class ValidatingCommandTest extends TestCase
     }
 
     public function testReloadableChoiceHelper()
+    {
+        $command = new ReloadableChoiceTestCommand();
+
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
+            $expected = new ChoiceQuestion('Select an option', [
+                0 => '<fg=bright-blue>[Reload options]</>',
+                1 => 'foo',
+                2 => 'bar',
+                3 => 'baz',
+            ], null);
+
+            try {
+                $this->assertEquals($expected, $question);
+            } catch (ExpectationFailedException) {
+                return false;
+            }
+
+            return true;
+        })->andReturn('<fg=bright-blue>[Reload options]</>');
+
+        $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
+            $expected = new ChoiceQuestion('Select an option', [
+                0 => '<fg=bright-blue>[Reload options]</>',
+                1 => 'bar',
+                2 => 'baz',
+                3 => 'qux',
+            ], null);
+
+            try {
+                $this->assertEquals($expected, $question);
+            } catch (ExpectationFailedException) {
+                return false;
+            }
+
+            return true;
+        })->andReturn('qux');
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === 'You selected qux';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
+
+    public function testReloadableChoiceHelperSelectingReload()
     {
         $command = new ReloadableChoiceTestCommand();
 
@@ -250,10 +301,17 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
 
 class ReloadableChoiceTestCommand extends ValidatingCommand
 {
+    protected bool $isFirstRun = true;
+
     public function handle(): int
     {
         $selection = $this->reloadableChoice(function () {
-            return ['foo', 'bar', 'baz'];
+            if ($this->isFirstRun) {
+                $this->isFirstRun = false;
+                return ['foo', 'bar', 'baz'];
+            }
+
+            return ['bar', 'baz', 'qux'];
         }, 'Select an option');
 
         $this->output->writeln("You selected $selection");
