@@ -96,6 +96,8 @@ class DiscoveryService
      *
      * @todo Add support for custom label?
      * @todo Add option to treat path as already validated so paths that are not created yet can be printed?
+     *
+     * @deprecated Will be moved to a command helper class.
      */
     public static function createClickableFilepath(string $filepath): string
     {
