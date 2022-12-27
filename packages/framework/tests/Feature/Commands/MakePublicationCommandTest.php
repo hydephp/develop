@@ -353,6 +353,25 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('tag: null');
     }
 
+    public function test_handleEmptyOptionsCollection_for_required_field()
+    {
+        config(['app.throw_on_console_exception' => false]);
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'tag',
+                'name' => 'tag',
+                'rules' => ['required'],
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->doesntExpectOutput('Warning: No tags for this publication type found in tags.json')
+            ->expectsOutput('Error: Unable to create publication: No tags for this publication type found in tags.json')
+            ->assertExitCode(1);
+    }
+
     protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(

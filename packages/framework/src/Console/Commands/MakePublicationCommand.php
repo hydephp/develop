@@ -176,9 +176,12 @@ class MakePublicationCommand extends ValidatingCommand
     /** @return null */
     protected function handleEmptyOptionsCollection(PublicationField $field, string $type, string $message)
     {
+        if (in_array('required', $field->rules)) {
+            throw new InvalidArgumentException("Unable to create publication: $message");
+        }
+
         $this->newLine();
         $this->warn("Warning: $message");
-        // TODO we might want to check if the field has a required rule which should jump straight to the exception
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
         } else {
