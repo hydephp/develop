@@ -82,11 +82,12 @@ class ValidatingCommand extends Command
         return $this->askWithValidation($name, $question, $rules, $default, $retryCount + 1);
     }
 
-    public function reloadableChoice(array $options, string $question, string $reloadMessage = 'Reload options', bool $multiple = false): string|array
+    public function reloadableChoice(callable $options, string $question, string $reloadMessage = 'Reload options', bool $multiple = false): string|array
     {
         $reloadMessage = "<fg=bright-blue>[$reloadMessage]</>";
         do {
-            $selection = $this->choice($question, array_merge([$reloadMessage], $options), multiple: $multiple);
+            $optionsArray = $options();
+            $selection = $this->choice($question, array_merge([$reloadMessage], $optionsArray), multiple: $multiple);
         } while (in_array($reloadMessage, (array) $selection));
 
         return $selection;
