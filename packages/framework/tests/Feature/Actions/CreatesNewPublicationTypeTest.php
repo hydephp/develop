@@ -62,7 +62,6 @@ class CreatesNewPublicationTypeTest extends TestCase
         $creator = new CreatesNewPublicationType(
             'Test Publication',
             new Collection(),
-            'canonical',
         );
         $creator->create();
 
@@ -70,7 +69,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertSame(<<<'JSON'
             {
                 "name": "Test Publication",
-                "canonicalField": "canonical",
+                "canonicalField": "__createdAt",
                 "detailTemplate": "test-publication_detail",
                 "listTemplate": "test-publication_list",
                 "pagination": {

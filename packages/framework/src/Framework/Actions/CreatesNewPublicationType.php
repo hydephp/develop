@@ -24,7 +24,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
     public function __construct(
         protected string $name,
         protected Collection $fields,
-        protected string $canonicalField,
+        protected ?string $canonicalField = null,
         protected ?string $sortField = null,
         protected ?bool $sortAscending = null,
         protected ?bool $prevNextLinks = null,
@@ -38,7 +38,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
     {
         $type = new PublicationType(
             $this->name,
-            $this->canonicalField,
+            $this->canonicalField ?? '__createdAt',
             $this->detailTemplateName(),
             $this->listTemplateName(),
             [
