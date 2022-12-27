@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing;
 
 use Hyde\Facades\Features;
-use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Illuminate\View\Component;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
@@ -47,6 +47,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function setupTestPublication(string $pubName = 'test-publication')
     {
-        copy(Hyde::path('tests/fixtures/test-publication-schema.json'), Hyde::path("$pubName/schema.json"));
+        Filesystem::copy('tests/fixtures/test-publication-schema.json', "$pubName/schema.json");
     }
 }
