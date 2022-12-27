@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
+use Hyde\Framework\Features\Publications\PublicationService;
 use function __;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
+use function array_merge;
+use function in_array;
 use function str_ends_with;
 use function ucfirst;
 
@@ -78,6 +81,20 @@ class ValidatingCommand extends Command
         }
 
         return $this->askWithValidation($name, $question, $rules, $default, $retryCount + 1);
+    }
+
+    public function reloadableChoice(array $options, string $question, string $reloadMessage = 'Reload options', bool $multiple = false): string|array
+    {
+        $reloadMessage = "<fg=bright-blue>[$reloadMessage]</>";
+        do {
+            $selection = $this->choice(
+                $question,
+                array_merge([$reloadMessage], $options),
+                multiple: $multiple
+            );
+        } while (in_array($reloadMessage, (array) $selection));
+
+        return $selection;
     }
 
     /**
