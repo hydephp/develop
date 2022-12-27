@@ -40,9 +40,9 @@ class RouteCollectionTest extends TestCase
 
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
+        $this->file('_pages/html.html');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
-        $this->file('_pages/html.html');
 
         $collection = Hyde::routes();
 
@@ -52,9 +52,9 @@ class RouteCollectionTest extends TestCase
         $this->assertEquals([
             'blade' => (new Route(new BladePage('blade'))),
             'markdown' => (new Route(new MarkdownPage('markdown'))),
+            'html' => (new Route(new HtmlPage('html'))),
             'posts/post' => (new Route(new MarkdownPost('post'))),
             'docs/docs' => (new Route(new DocumentationPage('docs'))),
-            'html' => (new Route(new HtmlPage('html'))),
         ], $collection->all());
 
         $this->restoreDefaultPages();
@@ -64,9 +64,9 @@ class RouteCollectionTest extends TestCase
     {
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
+        $this->file('_pages/html.html');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
-        $this->file('_pages/html.html');
 
         $this->assertSame(Hyde::routes(), Hyde::routes()->getRoutes());
     }
@@ -77,9 +77,9 @@ class RouteCollectionTest extends TestCase
 
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
+        $this->file('_pages/html.html');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
-        $this->file('_pages/html.html');
 
         $collection = Hyde::routes();
 
