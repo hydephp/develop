@@ -86,6 +86,18 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createListTemplate(): void
     {
-        // TODO: Implement createListTemplate() method.
+        $contents = <<<'BLADE'
+        @extends('hyde::layouts.app')
+        @section('content')
+        
+            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
+                {{ $slot }}
+            </main>
+        
+        @endsection
+
+        BLADE;
+
+        file_put_contents(Hyde::path("$this->directoryName/{$this->listTemplateName()}.blade.php"), $contents);
     }
 }
