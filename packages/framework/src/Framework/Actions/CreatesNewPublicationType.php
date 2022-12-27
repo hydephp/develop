@@ -56,12 +56,12 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function detailTemplateName(): string
     {
-        return "{$this->directoryName}_detail";
+        return 'detail';
     }
 
     protected function listTemplateName(): string
     {
-        return "{$this->directoryName}_list";
+        return 'list';
     }
 
     protected function createDetailTemplate(): void
