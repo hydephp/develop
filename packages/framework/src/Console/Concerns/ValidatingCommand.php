@@ -82,7 +82,7 @@ class ValidatingCommand extends Command
         return $this->askWithValidation($name, $question, $rules, $default, $retryCount + 1);
     }
 
-    /** @param  callable<array>  $options */
+    /** @param  callable<array>  $options A function that returns an array of options. It will be re-run if the user hits selects the added 'reload' option. */
     public function reloadableChoice(callable $options, string $question, string $reloadMessage = 'Reload options', bool $multiple = false): string|array
     {
         $reloadMessage = "<fg=bright-blue>[$reloadMessage]</>";
