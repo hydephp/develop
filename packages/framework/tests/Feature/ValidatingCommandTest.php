@@ -128,10 +128,10 @@ class ValidatingCommandTest extends TestCase
 
         $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
             $expected = new ChoiceQuestion('Select an option', [
-                0 => '<fg=bright-blue>[Reload options]</>',
-                1 => 'foo',
-                2 => 'bar',
-                3 => 'baz',
+                '<fg=bright-blue>[Reload options]</>',
+                'foo',
+                'bar',
+                'baz',
             ], null);
 
             return $this->assertEqualsAsBoolean($expected, $question);
@@ -139,10 +139,10 @@ class ValidatingCommandTest extends TestCase
 
         $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
             $expected = new ChoiceQuestion('Select an option', [
-                0 => '<fg=bright-blue>[Reload options]</>',
-                1 => 'bar',
-                2 => 'baz',
-                3 => 'qux',
+                '<fg=bright-blue>[Reload options]</>',
+                'bar',
+                'baz',
+                'qux',
             ], null);
 
             return $this->assertEqualsAsBoolean($expected, $question);
