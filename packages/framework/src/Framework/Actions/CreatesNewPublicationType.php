@@ -50,7 +50,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
         $type->save($this->outputPath);
 
-        // TODO: Generate the detail and list templates
+        $this->createDetailTemplate();
+        $this->createListTemplate();
     }
 
     protected function detailTemplateName(): string
@@ -61,5 +62,15 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
     protected function listTemplateName(): string
     {
         return "{$this->directoryName}_list";
+    }
+
+    protected function createDetailTemplate(): void
+    {
+        // TODO: Implement createDetailTemplate() method.
+    }
+
+    protected function createListTemplate(): void
+    {
+        // TODO: Implement createListTemplate() method.
     }
 }
