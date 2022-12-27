@@ -127,25 +127,21 @@ class ValidatingCommandTest extends TestCase
         $output = Mockery::mock(OutputStyle::class);
 
         $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
-            $expected = new ChoiceQuestion('Select an option', [
+            return $this->assertEqualsAsBoolean(new ChoiceQuestion('Select an option', [
                 '<fg=bright-blue>[Reload options]</>',
                 'foo',
                 'bar',
                 'baz',
-            ], null);
-
-            return $this->assertEqualsAsBoolean($expected, $question);
+            ], null), $question);
         })->andReturn('<fg=bright-blue>[Reload options]</>');
 
         $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
-            $expected = new ChoiceQuestion('Select an option', [
+            return $this->assertEqualsAsBoolean(new ChoiceQuestion('Select an option', [
                 '<fg=bright-blue>[Reload options]</>',
                 'bar',
                 'baz',
                 'qux',
-            ], null);
-
-            return $this->assertEqualsAsBoolean($expected, $question);
+            ], null), $question);
         })->andReturn('qux');
 
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
