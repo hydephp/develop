@@ -55,6 +55,7 @@ class PublicationPageCompiler extends InvokableAction
 
     protected function getTemplateFilePath(string $template): string
     {
+        $template = basename($template, '.blade.php');
         return "{$this->page->type->getDirectory()}/$template.blade.php";
     }
 }
