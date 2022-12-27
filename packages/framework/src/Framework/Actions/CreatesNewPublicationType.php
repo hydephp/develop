@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function file_put_contents;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Illuminate\Console\OutputStyle;
+use Hyde\Hyde;
 use Illuminate\Support\Collection;
 
 /**
@@ -18,20 +19,19 @@ use Illuminate\Support\Collection;
  */
 class CreatesNewPublicationType extends CreateAction implements CreateActionContract
 {
-    protected string $dirName;
+    protected string $directoryName;
 
     public function __construct(
         protected string $name,
         protected Collection $fields,
         protected string $canonicalField,
-        protected ?string $sortField,
-        protected ?bool $sortAscending,
-        protected ?bool $prevNextLinks,
-        protected ?int $pageSize,
-        protected ?OutputStyle $output = null,
+        protected ?string $sortField = null,
+        protected ?bool $sortAscending = null,
+        protected ?bool $prevNextLinks = null,
+        protected ?int $pageSize = null,
     ) {
-        $this->dirName = $this->formatStringForStorage($this->name);
-        $this->outputPath = "$this->dirName/schema.json";
+        $this->directoryName = $this->formatStringForStorage($this->name);
+        $this->outputPath = "$this->directoryName/schema.json";
     }
 
     protected function handleCreate(): void
@@ -39,8 +39,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         $type = new PublicationType(
             $this->name,
             $this->canonicalField,
-            "{$this->dirName}_detail",
-            "{$this->dirName}_list",
+            $this->detailTemplateName(),
+            $this->listTemplateName(),
             [
                 $this->sortField ?? '__createdAt',
                 $this->sortAscending ?? true,
@@ -50,10 +50,84 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             $this->fields->toArray()
         );
 
-        $this->output?->writeln("Saving publication data to [$this->outputPath]");
-
         $type->save($this->outputPath);
 
-        // TODO: Generate the detail and list templates
+        $this->createDetailTemplate();
+        $this->createListTemplate();
+    }
+
+    protected function detailTemplateName(): string
+    {
+        return "{$this->directoryName}_detail";
+    }
+
+    protected function listTemplateName(): string
+    {
+        return "{$this->directoryName}_list";
+    }
+
+    protected function createDetailTemplate(): void
+    {
+        $contents = <<<'BLADE'
+        @extends('hyde::layouts.app')
+        @section('content')
+            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
+                <article class="prose dark:prose-invert">
+                    @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
+                    <h1>{{ $publication->title }}</h1>
+                    <p>
+                        {{ $publication->markdown }}
+                    </p>
+                </article>
+                
+                <div class="prose dark:prose-invert my-8">
+                    <hr>
+                </div>
+                
+                <article class="prose dark:prose-invert">
+                    <h3>Front Matter Data</h3>
+                    <div class="ml-4">
+                        @foreach($publication->matter->data as $key => $value)
+                        <dt class="font-bold">{{ $key }}</dt>
+                        <dd class="ml-4">
+                            {{ is_array($value) ? '(array) '. implode(', ', $value) : $value }}
+                        </dd>
+                        @endforeach
+                    </div>
+                </article>
+            </main>
+        @endsection
+        BLADE;
+
+        $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", $contents);
+    }
+
+    protected function createListTemplate(): void
+    {
+        $contents = <<<'BLADE'
+        @extends('hyde::layouts.app')
+        @section('content')
+            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
+                <div class="prose dark:prose-invert">
+                    <h1>Publications for type {{ $page->type->name }}</h1>
+                    <ol>
+                        @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
+                        @foreach($publications as $publication)
+                        <li>
+                            <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
+                        </li>
+                        @endforeach
+                    </ol>
+                </div>
+            </main>
+        @endsection
+        BLADE;
+
+        $this->savePublicationFile("{$this->listTemplateName()}.blade.php", $contents);
+    }
+
+    protected function savePublicationFile(string $filename, string $contents): int
+    {
+        return file_put_contents(Hyde::path("$this->directoryName/$filename"), "$contents\n");
     }
 }

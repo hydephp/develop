@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Hyde;
@@ -17,23 +18,83 @@ use Illuminate\Support\Collection;
  */
 class CreatesNewPublicationTypeTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        Filesystem::deleteDirectory('test-publication');
+
+        parent::tearDown();
+    }
+
     public function test_it_creates_a_new_publication_type()
     {
-        $creator = new CreatesNewPublicationType('name', new Collection(), 'canonical', 'sort', true, true, 10);
+        $creator = new CreatesNewPublicationType(
+            'Test Publication',
+            new Collection(),
+            'canonical',
+            'sort',
+            false,
+            false,
+            10
+        );
         $creator->create();
 
-        $this->assertFileExists(Hyde::path('name/schema.json'));
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "canonical",
+                "detailTemplate": "test-publication_detail",
+                "listTemplate": "test-publication_list",
+                "pagination": {
+                    "sortField": "sort",
+                    "sortAscending": false,
+                    "prevNextLinks": false,
+                    "pageSize": 10
+                },
+                "fields": []
+            }
+            JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
+        );
+    }
 
-        $result = file_get_contents(Hyde::path('name/schema.json'));
-        $this->assertStringContainsString('"name": "name"', $result);
-        $this->assertStringContainsString('"canonicalField": "canonical"', $result);
-        $this->assertStringContainsString('"sortField": "sort"', $result);
-        $this->assertStringContainsString('"sortAscending": true', $result);
-        $this->assertStringContainsString('"pageSize": 10', $result);
-        $this->assertStringContainsString('"prevNextLinks": true', $result);
-        $this->assertStringContainsString('"detailTemplate": "name_detail"', $result);
-        $this->assertStringContainsString('"listTemplate": "name_list"', $result);
+    public function test_create_with_default_parameters()
+    {
+        $creator = new CreatesNewPublicationType(
+            'Test Publication',
+            new Collection(),
+            'canonical',
+        );
+        $creator->create();
 
-        Filesystem::deleteDirectory('name');
+        $this->assertFileExists(Hyde::path('test-publication/schema.json'));
+        $this->assertSame(<<<'JSON'
+            {
+                "name": "Test Publication",
+                "canonicalField": "canonical",
+                "detailTemplate": "test-publication_detail",
+                "listTemplate": "test-publication_list",
+                "pagination": {
+                    "sortField": "__createdAt",
+                    "sortAscending": true,
+                    "prevNextLinks": true,
+                    "pageSize": 25
+                },
+                "fields": []
+            }
+            JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
+        );
+    }
+
+    public function test_it_creates_list_and_detail_pages()
+    {
+        $creator = new CreatesNewPublicationType(
+            'Test Publication',
+            new Collection(),
+            'canonical',
+        );
+        $creator->create();
+
+        $this->assertFileExists(Hyde::path('test-publication/test-publication_detail.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/test-publication_list.blade.php'));
     }
 }
