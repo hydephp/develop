@@ -68,32 +68,14 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createDetailTemplate(): void
     {
-        $contents = <<<'BLADE'
-        @extends('hyde::layouts.app')
-        @section('content')
-        
-            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-                {{ $slot }}
-            </main>
-        
-        @endsection
-        BLADE;
+        $contents = $this->stubContents();
 
         $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", $contents);
     }
 
     protected function createListTemplate(): void
     {
-        $contents = <<<'BLADE'
-        @extends('hyde::layouts.app')
-        @section('content')
-        
-            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-                {{ $slot }}
-            </main>
-        
-        @endsection
-        BLADE;
+        $contents = $this->stubContents();
 
         $this->savePublicationFile("{$this->listTemplateName()}.blade.php", $contents);
     }
@@ -101,5 +83,19 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
     protected function savePublicationFile(string $filename, string $contents): int
     {
         return file_put_contents(Hyde::path("$this->directoryName/$filename"), "$contents\n");
+    }
+
+    protected function stubContents(): string
+    {
+        return <<<'BLADE'
+        @extends('hyde::layouts.app')
+        @section('content')
+        
+            <main id="content" class="mx-auto max-w-7xl py-16 px-8">
+                {{ $slot }}
+            </main>
+        
+        @endsection
+        BLADE;
     }
 }
