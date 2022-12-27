@@ -84,4 +84,17 @@ class CreatesNewPublicationTypeTest extends TestCase
             JSON, file_get_contents(Hyde::path('test-publication/schema.json'))
         );
     }
+
+    public function test_it_creates_list_and_detail_pages()
+    {
+        $creator = new CreatesNewPublicationType(
+            'Test Publication',
+            new Collection(),
+            'canonical',
+        );
+        $creator->create();
+
+        $this->assertFileExists(Hyde::path('test-publication/test-publication_detail.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/test-publication_list.blade.php'));
+    }
 }
