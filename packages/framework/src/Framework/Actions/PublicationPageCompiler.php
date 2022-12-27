@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\View;
-
 use function str_ends_with;
 
 /**
@@ -58,6 +56,7 @@ class PublicationPageCompiler extends InvokableAction
     protected function getTemplateFilePath(string $template): string
     {
         $template = basename($template, '.blade.php');
+
         return "{$this->page->type->getDirectory()}/$template.blade.php";
     }
 }
