@@ -21,7 +21,7 @@ use Illuminate\Support\Collection;
  */
 class RouteCollectionTest extends TestCase
 {
-    protected function test_boot_method_discovers_all_pages()
+    public function test_boot_method_discovers_all_pages()
     {
         $collection = RouteCollection::boot(Hyde::getInstance());
 
@@ -34,12 +34,13 @@ class RouteCollectionTest extends TestCase
         ], $collection->all());
     }
 
-    protected function test_boot_method_discovers_all_page_types()
+    public function test_boot_method_discovers_all_page_types()
     {
         $this->withoutDefaultPages();
 
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
+        $this->file('_pages/html.html');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
 
@@ -51,6 +52,7 @@ class RouteCollectionTest extends TestCase
         $this->assertEquals([
             'blade' => (new Route(new BladePage('blade'))),
             'markdown' => (new Route(new MarkdownPage('markdown'))),
+            'html' => (new Route(new HtmlPage('html'))),
             'posts/post' => (new Route(new MarkdownPost('post'))),
             'docs/docs' => (new Route(new DocumentationPage('docs'))),
         ], $collection->all());
@@ -58,22 +60,24 @@ class RouteCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    protected function test_get_routes_returns_all_routes()
+    public function test_get_routes_returns_all_routes()
     {
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
+        $this->file('_pages/html.html');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
 
         $this->assertSame(Hyde::routes(), Hyde::routes()->getRoutes());
     }
 
-    protected function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
+    public function test_get_routes_for_model_returns_collection_of_routes_of_given_class()
     {
         $this->withoutDefaultPages();
 
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
+        $this->file('_pages/html.html');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
         $this->file('_html/html.html');
@@ -90,7 +94,7 @@ class RouteCollectionTest extends TestCase
         $this->restoreDefaultPages();
     }
 
-    protected function test_add_route_adds_new_route()
+    public function test_add_route_adds_new_route()
     {
         $collection = Hyde::routes();
         $this->assertCount(2, $collection);

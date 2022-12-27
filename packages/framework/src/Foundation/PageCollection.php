@@ -70,7 +70,7 @@ final class PageCollection extends BaseFoundationCollection
             $this->discoverPublicationPages();
         }
 
-        // TODO: Add package developer hook to discover custom page types
+        // TODO: #781 Add package developer hook to discover custom page types
 
         return $this;
     }
