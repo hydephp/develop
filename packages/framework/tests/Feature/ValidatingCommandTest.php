@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Validator;
 use Mockery;
 use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
-use Symfony\Component\Console\Question\ChoiceQuestion;
-
 use function str_starts_with;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 
 /**
  * @covers \Hyde\Console\Concerns\ValidatingCommand
@@ -308,6 +307,7 @@ class ReloadableChoiceTestCommand extends ValidatingCommand
         $selection = $this->reloadableChoice(function () {
             if ($this->isFirstRun) {
                 $this->isFirstRun = false;
+
                 return ['foo', 'bar', 'baz'];
             }
 
