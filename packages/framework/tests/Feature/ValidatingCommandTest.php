@@ -252,7 +252,10 @@ class ReloadableChoiceTestCommand extends ValidatingCommand
 {
     public function handle(): int
     {
-        $selection = $this->reloadableChoice(['bar', 'baz'], 'foo');
+        $selection = $this->reloadableChoice(function () {
+            return ['foo', 'bar', 'baz'];
+        }, 'Select an option');
+
         $this->output->writeln("You selected $selection");
 
         return 0;
