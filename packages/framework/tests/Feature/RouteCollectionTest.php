@@ -8,6 +8,7 @@ use Hyde\Foundation\RouteCollection;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
@@ -75,14 +76,16 @@ class RouteCollectionTest extends TestCase
         $this->file('_pages/markdown.md');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
+        $this->file('_html/html.html');
 
         $collection = Hyde::routes();
 
-        $this->assertCount(4, $collection);
+        $this->assertCount(5, $collection);
         $this->assertEquals(new Route(new BladePage('blade')), $collection->getRoutes(BladePage::class)->first());
         $this->assertEquals(new Route(new MarkdownPage('markdown')), $collection->getRoutes(MarkdownPage::class)->first());
         $this->assertEquals(new Route(new MarkdownPost('post')), $collection->getRoutes(MarkdownPost::class)->first());
         $this->assertEquals(new Route(new DocumentationPage('docs')), $collection->getRoutes(DocumentationPage::class)->first());
+        $this->assertEquals(new Route(new HtmlPage('html')), $collection->getRoutes(HtmlPage::class)->first());
 
         $this->restoreDefaultPages();
     }
