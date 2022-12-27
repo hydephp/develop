@@ -125,7 +125,15 @@ class ValidatingCommandTest extends TestCase
         $command = new ReloadableChoiceTestCommand();
         $output = Mockery::mock(OutputStyle::class);
 
-        $output->shouldReceive('askQuestion')->once()->andReturn('foo');
+        $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
+            return $this->assertEqualsAsBoolean(new ChoiceQuestion('Select an option', [
+                '<fg=bright-blue>[Reload options]</>',
+                'foo',
+                'bar',
+                'baz',
+            ], null), $question);
+        })->andReturn('foo');
+
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
             return $message === 'You selected foo';
         });
