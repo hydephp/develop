@@ -188,6 +188,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->line("<fg=bright-blue>Tip:</> $message");
     }
 
+    /** @return Closure<array<string>> */
     protected function getTagValuesArrayClosure(): Closure
     {
         return function (): array {
