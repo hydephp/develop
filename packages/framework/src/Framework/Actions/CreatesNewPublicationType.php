@@ -82,11 +82,14 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
         <article class="prose dark:prose-invert">
             <h2>Front Matter Data</h2>
-            @foreach($publication->matter->data as $key => $value)
-                <p>
-                    <strong>{{ $key }}</strong>: {{ is_array($value) ? '(array) '. implode(', ', $value) : $value }}
-                </p>
-            @endforeach
+            <div class="p-4">
+                @foreach($publication->matter->data as $key => $value)
+                    <dt class="font-bold">{{ $key }}</dt>
+                    <dd class="ml-4">
+                        {{ is_array($value) ? '(array) '. implode(', ', $value) : $value }}
+                    </dd>
+                @endforeach
+            </div>
         </article>
         BLADE);
 
