@@ -48,9 +48,9 @@ class PublicationPageCompiler extends InvokableAction
 
     protected function compileView(string $template, array $data): string
     {
-        return ! Filesystem::exists($this->getTemplateFilePath($template))
-            ? View::make($template, $data)->render()
-            : AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
+        return Filesystem::exists($this->getTemplateFilePath($template))
+            ? AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data)
+            : View::make($template, $data)->render();
     }
 
     protected function getTemplateFilePath(string $template): string
