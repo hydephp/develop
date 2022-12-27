@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
@@ -159,11 +160,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->tip('You can enter multiple tags separated by commas');
 
-        $closure = function (): array {
-            return PublicationService::getValuesForTagName($this->publicationType->getIdentifier())->toArray();
-        };
-
-        return $this->reloadableChoice($closure,
+        return $this->reloadableChoice($this->getTagValuesArrayClosure(),
             'Which tag would you like to use?',
             'Reload tags.json',
             true
@@ -189,5 +186,12 @@ class MakePublicationCommand extends ValidatingCommand
     protected function tip(string $message): void
     {
         $this->line("<fg=bright-blue>Tip:</> $message");
+    }
+
+    protected function getTagValuesArrayClosure(): Closure
+    {
+        return function (): array {
+            return PublicationService::getValuesForTagName($this->publicationType->getIdentifier())->toArray();
+        };
     }
 }
