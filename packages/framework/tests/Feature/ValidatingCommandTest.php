@@ -125,6 +125,20 @@ class ValidatingCommandTest extends TestCase
         $command = new ReloadableChoiceTestCommand();
         $output = Mockery::mock(OutputStyle::class);
 
+        $output->shouldReceive('askQuestion')->once()->andReturn('foo');
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === 'You selected foo';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
+
+    public function testReloadableChoiceHelperSelectingReload()
+    {
+        $command = new ReloadableChoiceTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+
         $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
             return $this->assertEqualsAsBoolean(new ChoiceQuestion('Select an option', [
                 '<fg=bright-blue>[Reload options]</>',
@@ -145,20 +159,6 @@ class ValidatingCommandTest extends TestCase
 
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
             return $message === 'You selected qux';
-        });
-
-        $command->setOutput($output);
-        $command->handle();
-    }
-
-    public function testReloadableChoiceHelperSelectingReload()
-    {
-        $command = new ReloadableChoiceTestCommand();
-        $output = Mockery::mock(OutputStyle::class);
-
-        $output->shouldReceive('askQuestion')->once()->andReturn('foo');
-        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
-            return $message === 'You selected foo';
         });
 
         $command->setOutput($output);
