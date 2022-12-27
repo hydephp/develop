@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function file_put_contents;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
-
-use function file_put_contents;
 
 /**
  * Scaffold a new publication type schema.
