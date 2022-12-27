@@ -45,8 +45,8 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
-    protected function setupTestPublication(string $pubName = 'test-publication')
+    protected function setupTestPublication(string $directory = 'test-publication')
     {
-        Filesystem::copy('tests/fixtures/test-publication-schema.json', "$pubName/schema.json");
+        Filesystem::copy('tests/fixtures/test-publication-schema.json', "$directory/schema.json");
     }
 }
