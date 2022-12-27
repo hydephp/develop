@@ -82,6 +82,7 @@ class ValidatingCommand extends Command
         return $this->askWithValidation($name, $question, $rules, $default, $retryCount + 1);
     }
 
+    /** @param  callable<array>  $options */
     public function reloadableChoice(callable $options, string $question, string $reloadMessage = 'Reload options', bool $multiple = false): string|array
     {
         $reloadMessage = "<fg=bright-blue>[$reloadMessage]</>";
