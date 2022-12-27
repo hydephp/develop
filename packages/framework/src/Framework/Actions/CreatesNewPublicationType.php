@@ -87,7 +87,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         @endsection
         BLADE;
 
-        $this->savePublicationFile("detail.blade.php", $contents);
+        $this->savePublicationFile('detail.blade.php', $contents);
     }
 
     protected function createListTemplate(): void
@@ -111,7 +111,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         @endsection
         BLADE;
 
-        $this->savePublicationFile("list.blade.php", $contents);
+        $this->savePublicationFile('list.blade.php', $contents);
     }
 
     protected function savePublicationFile(string $filename, string $contents): int
