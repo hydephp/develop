@@ -12,6 +12,8 @@ class TestAllPageTypesHaveUnitTestsTest extends TestCase
     {
         $pages = glob(__DIR__.'/../../../src/Pages/*.php');
         $this->assertNotEmpty($pages);
+
+        // Simple assertion to make sure we got the right directory
         $this->assertStringContainsString('BladePage.php', json_encode($pages));
 
         foreach ($pages as $page) {
