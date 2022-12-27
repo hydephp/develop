@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use function copy;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\SourceFileParser;
 use Hyde\Hyde;
