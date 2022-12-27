@@ -106,7 +106,7 @@ class BuildSiteCommand extends Command
     {
         $execution_time = (microtime(true) - $time_start);
         $this->info(sprintf(
-            "\nAll done! Finished in %s seconds (%sms) (Using max %sMB memory)",
+            "\nAll done! Finished in %s seconds (%sms) with %sMB peak memory usage",
             number_format($execution_time, 2),
             number_format($execution_time * 1000, 2),
             number_format(memory_get_peak_usage() / 1024 / 1024, 2)
