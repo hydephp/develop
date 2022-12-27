@@ -36,7 +36,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $type = new PublicationType(
+        (new PublicationType(
             $this->name,
             $this->canonicalField ?? '__createdAt',
             $this->detailTemplateName(),
@@ -48,9 +48,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
                 $this->pageSize ?? 25,
             ],
             $this->fields->toArray()
-        );
-
-        $type->save($this->outputPath);
+        ))->save($this->outputPath);
 
         $this->createDetailTemplate();
         $this->createListTemplate();
