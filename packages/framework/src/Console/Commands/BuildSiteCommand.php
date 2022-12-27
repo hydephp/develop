@@ -14,7 +14,6 @@ use Hyde\Framework\Services\DiscoveryService;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Config;
 use LaravelZero\Framework\Commands\Command;
-use function memory_get_peak_usage;
 
 /**
  * Hyde Command to run the Build Process.
@@ -55,8 +54,6 @@ class BuildSiteCommand extends Command
         $this->runPostBuildActions();
 
         $this->printFinishMessage($time_start);
-
-        $this->output->writeln('Max memory used: '.memory_get_peak_usage() / 1024 / 1024 .' MB');
 
         return Command::SUCCESS;
     }
@@ -109,9 +106,10 @@ class BuildSiteCommand extends Command
     {
         $execution_time = (microtime(true) - $time_start);
         $this->info(sprintf(
-            "\nAll done! Finished in %s seconds. (%sms)",
+            "\nAll done! Finished in %s seconds (%sms) with %sMB peak memory usage",
             number_format($execution_time, 2),
-            number_format($execution_time * 1000, 2)
+            number_format($execution_time * 1000, 2),
+            number_format(memory_get_peak_usage() / 1024 / 1024, 2)
         ));
 
         $this->info('Congratulations! 🎉 Your static site has been built!');
