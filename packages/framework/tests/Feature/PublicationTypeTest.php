@@ -39,8 +39,8 @@ class PublicationTypeTest extends TestCase
 
         $this->assertEquals('Test Publication', $publicationType->name);
         $this->assertEquals('identifier', $publicationType->canonicalField);
-        $this->assertEquals('detail', $publicationType->detailTemplate);
-        $this->assertEquals('list', $publicationType->listTemplate);
+        $this->assertEquals('detail.blade.php', $publicationType->detailTemplate);
+        $this->assertEquals('list.blade.php', $publicationType->listTemplate);
         $this->assertEquals([], $publicationType->fields);
         $this->assertEquals(PaginationSettings::fromArray([
             'sortField' => '__createdAt',

@@ -51,8 +51,8 @@ class PublicationType implements SerializableContract
     public function __construct(
         public string $name,
         public string $canonicalField = 'identifier',
-        public string $detailTemplate = 'detail',
-        public string $listTemplate = 'list',
+        public string $detailTemplate = 'detail.blade.php',
+        public string $listTemplate = 'list.blade.php',
         array|PaginationSettings $pagination = [],
         array $fields = [],
         ?string $directory = null
