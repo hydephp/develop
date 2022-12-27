@@ -56,25 +56,25 @@ class HelpersTest extends TestCase
         }
     }
 
-    /** @covers \Hyde\hyde */
+    /** @covers ::\Hyde\hyde */
     public function test_hyde_function_exists_in_hyde_namespace()
     {
         $this->assertTrue(function_exists('Hyde\hyde'));
     }
 
-    /** @covers \Hyde\hyde */
+    /** @covers ::\Hyde\hyde */
     public function test_namespaced_hyde_function()
     {
         $this->assertSame(hyde(), \Hyde\hyde());
     }
 
-    /** @covers \Hyde\unslash */
+    /** @covers ::\Hyde\unslash */
     public function test_unslash_function_exists_in_hyde_namespace()
     {
         $this->assertTrue(function_exists('Hyde\unslash'));
     }
 
-    /** @covers \Hyde\unslash */
+    /** @covers ::\Hyde\unslash */
     public function test_namespaced_unslash_function()
     {
         $this->assertSame(unslash('foo'), \Hyde\unslash('foo'));
