@@ -134,13 +134,7 @@ class ValidatingCommandTest extends TestCase
                 3 => 'baz',
             ], null);
 
-            try {
-                $this->assertEquals($expected, $question);
-            } catch (ExpectationFailedException) {
-                return false;
-            }
-
-            return true;
+            return $this->assertEqualsAsBoolean($expected, $question);
         })->andReturn('<fg=bright-blue>[Reload options]</>');
 
         $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
@@ -151,13 +145,7 @@ class ValidatingCommandTest extends TestCase
                 3 => 'qux',
             ], null);
 
-            try {
-                $this->assertEquals($expected, $question);
-            } catch (ExpectationFailedException) {
-                return false;
-            }
-
-            return true;
+            return $this->assertEqualsAsBoolean($expected, $question);
         })->andReturn('qux');
 
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
@@ -259,6 +247,17 @@ class ValidatingCommandTest extends TestCase
 
         $command->setOutput($output);
         $command->handle();
+    }
+
+    protected function assertEqualsAsBoolean($expected, $question): bool
+    {
+        try {
+            $this->assertEquals($expected, $question);
+        } catch (ExpectationFailedException) {
+            return false;
+        }
+
+        return true;
     }
 }
 
