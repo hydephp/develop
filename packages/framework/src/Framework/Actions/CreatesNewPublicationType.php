@@ -9,7 +9,7 @@ use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * Scaffold a new publication type schema.
@@ -23,8 +23,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     public function __construct(
         protected string $name,
-        protected Collection $fields,
-        protected string $canonicalField,
+        protected Arrayable $fields,
+        protected ?string $canonicalField = null,
         protected ?string $sortField = null,
         protected ?bool $sortAscending = null,
         protected ?bool $prevNextLinks = null,
@@ -36,11 +36,11 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $type = new PublicationType(
+        (new PublicationType(
             $this->name,
-            $this->canonicalField,
-            $this->detailTemplateName(),
-            $this->listTemplateName(),
+            $this->canonicalField ?? '__createdAt',
+            'detail',
+            'list',
             [
                 $this->sortField ?? '__createdAt',
                 $this->sortAscending ?? true,
@@ -48,22 +48,10 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
                 $this->pageSize ?? 25,
             ],
             $this->fields->toArray()
-        );
-
-        $type->save($this->outputPath);
+        ))->save($this->outputPath);
 
         $this->createDetailTemplate();
         $this->createListTemplate();
-    }
-
-    protected function detailTemplateName(): string
-    {
-        return "{$this->directoryName}_detail";
-    }
-
-    protected function listTemplateName(): string
-    {
-        return "{$this->directoryName}_list";
     }
 
     protected function createDetailTemplate(): void
@@ -99,7 +87,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         @endsection
         BLADE;
 
-        $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", $contents);
+        $this->savePublicationFile('detail.blade.php', $contents);
     }
 
     protected function createListTemplate(): void
@@ -123,7 +111,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         @endsection
         BLADE;
 
-        $this->savePublicationFile("{$this->listTemplateName()}.blade.php", $contents);
+        $this->savePublicationFile('list.blade.php', $contents);
     }
 
     protected function savePublicationFile(string $filename, string $contents): int

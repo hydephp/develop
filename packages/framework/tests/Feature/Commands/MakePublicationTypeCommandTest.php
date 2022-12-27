@@ -74,8 +74,8 @@ class MakePublicationTypeCommandTest extends TestCase
             {
                 "name": "Test Publication",
                 "canonicalField": "publication-title",
-                "detailTemplate": "test-publication_detail",
-                "listTemplate": "test-publication_list",
+                "detailTemplate": "detail",
+                "listTemplate": "list",
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
@@ -97,7 +97,8 @@ class MakePublicationTypeCommandTest extends TestCase
             file_get_contents(Hyde::path('test-publication/schema.json'))
         );
 
-        // TODO: Assert Blade templates were created?
+        $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
     }
 
     public function test_with_default_values()

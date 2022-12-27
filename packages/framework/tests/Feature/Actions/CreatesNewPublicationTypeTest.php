@@ -43,8 +43,8 @@ class CreatesNewPublicationTypeTest extends TestCase
             {
                 "name": "Test Publication",
                 "canonicalField": "canonical",
-                "detailTemplate": "test-publication_detail",
-                "listTemplate": "test-publication_list",
+                "detailTemplate": "detail",
+                "listTemplate": "list",
                 "pagination": {
                     "sortField": "sort",
                     "sortAscending": false,
@@ -62,7 +62,6 @@ class CreatesNewPublicationTypeTest extends TestCase
         $creator = new CreatesNewPublicationType(
             'Test Publication',
             new Collection(),
-            'canonical',
         );
         $creator->create();
 
@@ -70,9 +69,9 @@ class CreatesNewPublicationTypeTest extends TestCase
         $this->assertSame(<<<'JSON'
             {
                 "name": "Test Publication",
-                "canonicalField": "canonical",
-                "detailTemplate": "test-publication_detail",
-                "listTemplate": "test-publication_list",
+                "canonicalField": "__createdAt",
+                "detailTemplate": "detail",
+                "listTemplate": "list",
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
@@ -94,7 +93,7 @@ class CreatesNewPublicationTypeTest extends TestCase
         );
         $creator->create();
 
-        $this->assertFileExists(Hyde::path('test-publication/test-publication_detail.blade.php'));
-        $this->assertFileExists(Hyde::path('test-publication/test-publication_list.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/detail.blade.php'));
+        $this->assertFileExists(Hyde::path('test-publication/list.blade.php'));
     }
 }
