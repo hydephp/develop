@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InvokableAction;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -47,7 +48,7 @@ class PublicationPageCompiler extends InvokableAction
 
     protected function compileView(string $template, array $data): string
     {
-        return View::exists($template)
+        return ! Filesystem::exists($this->getTemplateFilePath($template))
             ? View::make($template, $data)->render()
             : AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
     }
