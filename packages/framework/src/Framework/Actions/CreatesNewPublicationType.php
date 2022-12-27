@@ -82,7 +82,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
         <article class="prose dark:prose-invert">
             <h3>Front Matter Data</h3>
-            <div class="p-4">
+            <div class="ml-4">
                 @foreach($publication->matter->data as $key => $value)
                     <dt class="font-bold">{{ $key }}</dt>
                     <dd class="ml-4">
