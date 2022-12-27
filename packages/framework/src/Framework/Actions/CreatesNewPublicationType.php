@@ -81,7 +81,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
         BLADE;
 
-        file_put_contents(Hyde::path("$this->directoryName/{$this->detailTemplateName()}.blade.php"), $contents);
+        $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", $contents);
     }
 
     protected function createListTemplate(): void
@@ -98,6 +98,11 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
         BLADE;
 
-        file_put_contents(Hyde::path("$this->directoryName/{$this->listTemplateName()}.blade.php"), $contents);
+        $this->savePublicationFile("{$this->listTemplateName()}.blade.php", $contents);
+    }
+
+    protected function savePublicationFile(string $filename, string $contents): int
+    {
+        return file_put_contents(Hyde::path("$this->directoryName/$filename"), $contents);
     }
 }
