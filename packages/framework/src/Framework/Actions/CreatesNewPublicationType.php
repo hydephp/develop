@@ -70,6 +70,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
     {
         $contents = $this->stubContents(<<<'BLADE'
         <article class="prose dark:prose-invert">
+            @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
             <h1>{{ $publication->title }}</h1>
             <p>
                 {{ $publication->markdown }}
@@ -103,6 +104,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
             <h1>Publications for type {{ $page->type->name }}</h1>
 
             <ol>
+                @php/** @var \Hyde\Pages\PublicationPage $publication*/@endphp
                 @foreach($publications as $publication)
                     <li>
                         <x-link :href="$publication->getRoute()">{{ $publication->title }}</x-link>
