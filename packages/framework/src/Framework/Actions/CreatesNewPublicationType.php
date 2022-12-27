@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Illuminate\Contracts\Support\Arrayable;
 use function file_put_contents;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
-use Illuminate\Support\Collection;
 
 /**
  * Scaffold a new publication type schema.
@@ -23,7 +23,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     public function __construct(
         protected string $name,
-        protected Collection $fields,
+        protected Arrayable $fields,
         protected ?string $canonicalField = null,
         protected ?string $sortField = null,
         protected ?bool $sortAscending = null,
