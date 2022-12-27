@@ -76,7 +76,7 @@ class RouteCollectionTest extends TestCase
         $this->file('_pages/markdown.md');
         $this->file('_posts/post.md');
         $this->file('_docs/docs.md');
-        $this->file('_html/html.html');
+        $this->file('_pages/html.html');
 
         $collection = Hyde::routes();
 
