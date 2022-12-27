@@ -10,8 +10,10 @@ use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Validator;
 use Mockery;
+use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
 use function str_starts_with;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 
 /**
  * @covers \Hyde\Console\Concerns\ValidatingCommand
@@ -118,6 +120,59 @@ class ValidatingCommandTest extends TestCase
         $command->handle();
     }
 
+    public function testReloadableChoiceHelper()
+    {
+        $command = new ReloadableChoiceTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
+            return $this->assertEqualsAsBoolean(new ChoiceQuestion('Select an option', [
+                '<fg=bright-blue>[Reload options]</>',
+                'foo',
+                'bar',
+                'baz',
+            ], null), $question);
+        })->andReturn('foo');
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === 'You selected foo';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
+
+    public function testReloadableChoiceHelperSelectingReload()
+    {
+        $command = new ReloadableChoiceTestCommand();
+        $output = Mockery::mock(OutputStyle::class);
+
+        $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
+            return $this->assertEqualsAsBoolean(new ChoiceQuestion('Select an option', [
+                '<fg=bright-blue>[Reload options]</>',
+                'foo',
+                'bar',
+                'baz',
+            ], null), $question);
+        })->andReturn('<fg=bright-blue>[Reload options]</>');
+
+        $output->shouldReceive('askQuestion')->once()->withArgs(function (ChoiceQuestion $question) {
+            return $this->assertEqualsAsBoolean(new ChoiceQuestion('Select an option', [
+                '<fg=bright-blue>[Reload options]</>',
+                'bar',
+                'baz',
+                'qux',
+            ], null), $question);
+        })->andReturn('qux');
+
+        $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
+            return $message === 'You selected qux';
+        });
+
+        $command->setOutput($output);
+        $command->handle();
+    }
+
     public function testHandleException()
     {
         $command = new ThrowingValidatingTestCommand();
@@ -195,6 +250,17 @@ class ValidatingCommandTest extends TestCase
         $command->setOutput($output);
         $command->handle();
     }
+
+    protected function assertEqualsAsBoolean($expected, $question): bool
+    {
+        try {
+            $this->assertEquals($expected, $question);
+        } catch (ExpectationFailedException) {
+            return false;
+        }
+
+        return true;
+    }
 }
 
 class SafeValidatingTestCommand extends ValidatingCommand
@@ -230,6 +296,28 @@ class ThrowingValidatingTestCommand extends ValidatingCommand
         } catch (RuntimeException $exception) {
             return $this->handleException($exception, $file, $line);
         }
+    }
+}
+
+class ReloadableChoiceTestCommand extends ValidatingCommand
+{
+    protected bool $isFirstRun = true;
+
+    public function handle(): int
+    {
+        $selection = $this->reloadableChoice(function () {
+            if ($this->isFirstRun) {
+                $this->isFirstRun = false;
+
+                return ['foo', 'bar', 'baz'];
+            }
+
+            return ['bar', 'baz', 'qux'];
+        }, 'Select an option');
+
+        $this->output->writeln("You selected $selection");
+
+        return 0;
     }
 }
 

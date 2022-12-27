@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Concerns;
 
-use Hyde\Framework\Features\Publications\PublicationService;
 use function __;
+use function array_merge;
 use Exception;
 use Illuminate\Support\Facades\Validator;
+use function in_array;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
-use function array_merge;
-use function in_array;
 use function str_ends_with;
 use function ucfirst;
 
@@ -84,11 +83,12 @@ class ValidatingCommand extends Command
         return $this->askWithValidation($name, $question, $rules, $default, $retryCount + 1);
     }
 
-    public function reloadableChoice(array $options, string $question, string $reloadMessage = 'Reload options', bool $multiple = false): string|array
+    /** @param  callable<array<string>>  $options A function that returns an array of options. It will be re-run if the user hits selects the added 'reload' option. */
+    public function reloadableChoice(callable $options, string $question, string $reloadMessage = 'Reload options', bool $multiple = false): string|array
     {
         $reloadMessage = "<fg=bright-blue>[$reloadMessage]</>";
         do {
-            $selection = $this->choice($question, array_merge([$reloadMessage], $options), multiple: $multiple);
+            $selection = $this->choice($question, array_merge([$reloadMessage], $options()), multiple: $multiple);
         } while (in_array($reloadMessage, (array) $selection));
 
         return $selection;
