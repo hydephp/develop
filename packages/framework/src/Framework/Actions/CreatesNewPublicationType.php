@@ -37,8 +37,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         $type = new PublicationType(
             $this->name,
             $this->canonicalField,
-            "{$this->directoryName}_detail",
-            "{$this->directoryName}_list",
+            $this->detailTemplateName(),
+            $this->listTemplateName(),
             [
                 $this->sortField ?? '__createdAt',
                 $this->sortAscending ?? true,
@@ -51,5 +51,15 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         $type->save($this->outputPath);
 
         // TODO: Generate the detail and list templates
+    }
+
+    protected function detailTemplateName(): string
+    {
+        return "{$this->directoryName}_detail";
+    }
+
+    protected function listTemplateName(): string
+    {
+        return "{$this->directoryName}_list";
     }
 }
