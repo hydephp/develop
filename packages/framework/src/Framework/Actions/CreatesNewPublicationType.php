@@ -39,8 +39,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         (new PublicationType(
             $this->name,
             $this->canonicalField ?? '__createdAt',
-            $this->detailTemplateName(),
-            $this->listTemplateName(),
+            'detail',
+            'list',
             [
                 $this->sortField ?? '__createdAt',
                 $this->sortAscending ?? true,
@@ -52,16 +52,6 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
         $this->createDetailTemplate();
         $this->createListTemplate();
-    }
-
-    protected function detailTemplateName(): string
-    {
-        return 'detail';
-    }
-
-    protected function listTemplateName(): string
-    {
-        return 'list';
     }
 
     protected function createDetailTemplate(): void
@@ -97,7 +87,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         @endsection
         BLADE;
 
-        $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", $contents);
+        $this->savePublicationFile("detail.blade.php", $contents);
     }
 
     protected function createListTemplate(): void
@@ -121,7 +111,7 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         @endsection
         BLADE;
 
-        $this->savePublicationFile("{$this->listTemplateName()}.blade.php", $contents);
+        $this->savePublicationFile("list.blade.php", $contents);
     }
 
     protected function savePublicationFile(string $filename, string $contents): int
