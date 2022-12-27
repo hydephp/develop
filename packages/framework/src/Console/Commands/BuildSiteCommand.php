@@ -55,7 +55,7 @@ class BuildSiteCommand extends Command
 
         $this->printFinishMessage($time_start);
 
-        $this->output->writeln('Max memory used: '.memory_get_peak_usage() / 1024 / 1024 .' MB');
+        $this->output->writeln('Max memory used: '.number_format(memory_get_peak_usage() / 1024 / 1024, 2) .' MB');
 
         return Command::SUCCESS;
     }
