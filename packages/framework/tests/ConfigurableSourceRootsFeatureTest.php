@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing;
 
-use function app;
-use function config;
-use function file_put_contents;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use function app;
+use function config;
+use function file_put_contents;
 use function mkdir;
 
 /**
@@ -20,7 +20,7 @@ use function mkdir;
  * Also see these tests which cover specific implementation details:
  *
  * @see \Hyde\Framework\Testing\Feature\HydeKernelTest
- * @see \Hyde\Framework\Testing\Unit\HydeServiceProviderTest
+ * @see \Hyde\Framework\Testing\Feature\HydeServiceProviderTest
  */
 class ConfigurableSourceRootsFeatureTest extends TestCase
 {
