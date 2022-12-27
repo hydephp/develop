@@ -1,8 +1,8 @@
 {
     "name": "Test Publication",
     "canonicalField": "title",
-    "detailTemplate": "test-publication_detail",
-    "listTemplate": "test-publication_list",
+    "detailTemplate": "detail.blade.php",
+    "listTemplate": "list.blade.php",
     "pagination": {
         "sortField": "__createdAt",
         "sortAscending": true,

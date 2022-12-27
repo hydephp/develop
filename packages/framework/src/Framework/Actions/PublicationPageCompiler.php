@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
 use Illuminate\Support\Facades\View;
+use function str_ends_with;
 
 /**
  * @todo Consider changing to check if template key ends with .blade.php and using that to signify if it's an anonymous view.
@@ -47,13 +48,15 @@ class PublicationPageCompiler extends InvokableAction
 
     protected function compileView(string $template, array $data): string
     {
-        return View::exists($template)
-            ? View::make($template, $data)->render()
-            : AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data);
+        return str_ends_with($template, '.blade.php')
+            ? AnonymousViewCompiler::call($this->getTemplateFilePath($template), $data)
+            : View::make($template, $data)->render();
     }
 
     protected function getTemplateFilePath(string $template): string
     {
+        $template = basename($template, '.blade.php');
+
         return "{$this->page->type->getDirectory()}/$template.blade.php";
     }
 }

@@ -39,8 +39,8 @@ class PublicationTypeTest extends TestCase
 
         $this->assertEquals('Test Publication', $publicationType->name);
         $this->assertEquals('identifier', $publicationType->canonicalField);
-        $this->assertEquals('detail', $publicationType->detailTemplate);
-        $this->assertEquals('list', $publicationType->listTemplate);
+        $this->assertEquals('detail.blade.php', $publicationType->detailTemplate);
+        $this->assertEquals('list.blade.php', $publicationType->listTemplate);
         $this->assertEquals([], $publicationType->fields);
         $this->assertEquals(PaginationSettings::fromArray([
             'sortField' => '__createdAt',
@@ -211,8 +211,8 @@ class PublicationTypeTest extends TestCase
         return array_merge([
             'name' => 'Test Publication',
             'canonicalField' => 'title',
-            'detailTemplate' => 'test-publication_detail',
-            'listTemplate' => 'test-publication_list',
+            'detailTemplate' => 'detail.blade.php',
+            'listTemplate' => 'list.blade.php',
             'pagination' => [
                 'sortField' => '__createdAt',
                 'sortAscending' => true,

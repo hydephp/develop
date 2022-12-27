@@ -26,7 +26,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->directory('test-publication');
         $this->setupTestPublication();
 
-        file_put_contents(Hyde::path('test-publication/test-publication_detail.blade.php'), 'Detail: {{ $publication->title }}');
+        file_put_contents(Hyde::path('test-publication/detail.blade.php'), 'Detail: {{ $publication->title }}');
 
         $string = PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
 
@@ -39,7 +39,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->setupTestPublication();
 
         file_put_contents(Hyde::path('test-publication/my-publication.md'), 'Foo');
-        file_put_contents(Hyde::path('test-publication/test-publication_list.blade.php'), 'List: {{ $publications->first()->title }}');
+        file_put_contents(Hyde::path('test-publication/list.blade.php'), 'List: {{ $publications->first()->title }}');
 
         $string = PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
 
@@ -113,7 +113,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->setupTestPublication();
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [test-publication/test-publication_detail.blade.php] not found.');
+        $this->expectExceptionMessage('File [test-publication/detail.blade.php] not found.');
 
         PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
     }
@@ -124,7 +124,7 @@ class PublicationPageCompilerTest extends TestCase
         $this->setupTestPublication();
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [test-publication/test-publication_list.blade.php] not found.');
+        $this->expectExceptionMessage('File [test-publication/list.blade.php] not found.');
 
         PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
     }
