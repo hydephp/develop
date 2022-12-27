@@ -68,7 +68,21 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
 
     protected function createDetailTemplate(): void
     {
-        $contents = $this->stubContents('// detail');
+        $contents = $this->stubContents(<<<'BLADE'
+        <article class="prose dark:prose-invert">
+            <h1>{{ $publication->title }}</h1>
+            <p>
+                {{ $publication->markdown }}
+            </p>
+
+            <hr>
+
+            <h2>Front Matter Data</h2>
+            <pre>
+                {{ $publication->matter }}
+            </pre>
+        </article>
+        BLADE);
 
         $this->savePublicationFile("{$this->detailTemplateName()}.blade.php", $contents);
     }
