@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function app;
+use function array_filter;
+use function array_map;
+use function array_values;
+use function basename;
+use function config;
+use function get_class;
+use function get_declared_classes;
+use function glob;
 use Hyde\Facades\Site;
 use Hyde\Framework\Features\DataCollections\DataCollectionServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
@@ -16,15 +25,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
-use function app;
-use function array_filter;
-use function array_map;
-use function array_values;
-use function basename;
-use function config;
-use function get_class;
-use function get_declared_classes;
-use function glob;
 use function method_exists;
 use function str_starts_with;
 
@@ -253,7 +253,7 @@ class HydeServiceProviderTest extends TestCase
     protected function getDeclaredPages(): array
     {
         return array_values(array_filter(get_declared_classes(), function ($class) {
-            return str_starts_with($class, 'Hyde\Pages') && !str_starts_with($class, 'Hyde\Pages\Concerns');
+            return str_starts_with($class, 'Hyde\Pages') && ! str_starts_with($class, 'Hyde\Pages\Concerns');
         }));
     }
 }
