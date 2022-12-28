@@ -43,8 +43,8 @@ class CreatesNewPublicationTypeTest extends TestCase
             {
                 "name": "Test Publication",
                 "canonicalField": "canonical",
-                "detailTemplate": "detail",
-                "listTemplate": "list",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
                 "pagination": {
                     "sortField": "sort",
                     "sortAscending": false,
@@ -70,8 +70,8 @@ class CreatesNewPublicationTypeTest extends TestCase
             {
                 "name": "Test Publication",
                 "canonicalField": "__createdAt",
-                "detailTemplate": "detail",
-                "listTemplate": "list",
+                "detailTemplate": "detail.blade.php",
+                "listTemplate": "list.blade.php",
                 "pagination": {
                     "sortField": "__createdAt",
                     "sortAscending": true,
