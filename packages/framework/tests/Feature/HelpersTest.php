@@ -82,28 +82,28 @@ class HelpersTest extends TestCase
         $this->assertSame(unslash('foo'), \Hyde\unslash('foo'));
     }
 
-    /** @covers ::\Hyde\makeTitle */
+    /** @covers ::\Hyde\make_title */
     public function test_hyde_make_title_function()
     {
-        $this->assertSame(Hyde::makeTitle('foo'), \Hyde\makeTitle('foo'));
+        $this->assertSame(Hyde::makeTitle('foo'), \Hyde\make_title('foo'));
     }
 
-    /** @covers ::\Hyde\normalizeNewlines */
+    /** @covers ::\Hyde\normalize_newlines */
     public function test_hyde_normalize_newlines_function()
     {
-        $this->assertSame(Hyde::normalizeNewlines('foo'), \Hyde\normalizeNewlines('foo'));
+        $this->assertSame(Hyde::normalizeNewlines('foo'), \Hyde\normalize_newlines('foo'));
     }
 
-    /** @covers ::\Hyde\stripNewlines */
+    /** @covers ::\Hyde\strip_newlines */
     public function test_hyde_strip_newlines_function()
     {
-        $this->assertSame(Hyde::stripNewlines('foo'), \Hyde\stripNewlines('foo'));
+        $this->assertSame(Hyde::stripNewlines('foo'), \Hyde\strip_newlines('foo'));
     }
 
-    /** @covers ::\Hyde\trimSlashes */
+    /** @covers ::\Hyde\trim_slashes */
     public function test_hyde_trim_slashes_function()
     {
-        $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trimSlashes('foo'));
+        $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trim_slashes('foo'));
     }
 
     /** @covers ::\Hyde\markdown */
