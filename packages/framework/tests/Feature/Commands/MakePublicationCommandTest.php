@@ -195,6 +195,24 @@ class MakePublicationCommandTest extends TestCase
         );
     }
 
+    public function test_command_with_boolean_input()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'boolean',
+                'name' => 'published',
+            ],
+            ],
+        ]);
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Enter data for field </>[<comment>published</comment>]', 'true')
+             ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertCreatedPublicationMatterEquals('published: true');
+    }
+
     public function test_command_with_array_input()
     {
         InputStreamHandler::mockInput("First Tag\nSecond Tag\nThird Tag");
