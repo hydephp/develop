@@ -105,10 +105,4 @@ class HelpersTest extends TestCase
     {
         $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trim_slashes('foo'));
     }
-
-    /** @covers ::\Hyde\markdown */
-    public function test_hyde_markdown_function()
-    {
-        $this->assertEquals(Hyde::markdown('foo'), \Hyde\markdown('foo'));
-    }
 }
