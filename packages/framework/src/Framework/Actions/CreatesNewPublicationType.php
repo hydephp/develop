@@ -39,8 +39,8 @@ class CreatesNewPublicationType extends CreateAction implements CreateActionCont
         (new PublicationType(
             $this->name,
             $this->canonicalField ?? '__createdAt',
-            'detail',
-            'list',
+            'detail.blade.php',
+            'list.blade.php',
             [
                 $this->sortField ?? '__createdAt',
                 $this->sortAscending ?? true,
