@@ -113,13 +113,14 @@ class MakePublicationCommand extends ValidatingCommand
         return $data;
     }
 
-    protected function captureFieldInput(PublicationField $field): string|array|null
+    protected function captureFieldInput(PublicationField $field): bool|string|array|null
     {
         return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
+            PublicationFieldTypes::Boolean => $this->captureBooleanFieldInput($field),
             default => $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->type->rules()),
         };
     }
@@ -169,6 +170,11 @@ class MakePublicationCommand extends ValidatingCommand
             'Reload tags.json',
             true
         );
+    }
+
+    protected function captureBooleanFieldInput(PublicationField $field): bool
+    {
+        return (bool) $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->type->rules());
     }
 
     /** @return null */
