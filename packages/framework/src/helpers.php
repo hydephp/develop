@@ -28,7 +28,6 @@ namespace {
 
 namespace Hyde {
     use Hyde\Foundation\HydeKernel;
-    use Illuminate\Support\HtmlString;
 
     if (! function_exists('\Hyde\hyde')) {
         /**
@@ -75,13 +74,6 @@ namespace Hyde {
         function trim_slashes(string $string): string
         {
             return Hyde::trimSlashes($string);
-        }
-    }
-
-    if (! function_exists('\Hyde\markdown')) {
-        function markdown(string $text, bool $normalizeIndentation = false): HtmlString
-        {
-            return Hyde::markdown($text, $normalizeIndentation);
         }
     }
 }
