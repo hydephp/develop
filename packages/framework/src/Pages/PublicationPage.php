@@ -34,7 +34,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
     {
         $this->type = $type;
 
-        parent::__construct(static::normaliseIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
+        parent::__construct(static::normalizeIdentifier($type->getDirectory(), $identifier), $matter, $markdown);
     }
 
     public function compile(): string
@@ -47,7 +47,7 @@ class PublicationPage extends Concerns\BaseMarkdownPage implements DynamicPage
         return PublicationPageCompiler::call($this);
     }
 
-    protected static function normaliseIdentifier(string $directory, string $identifier): string
+    protected static function normalizeIdentifier(string $directory, string $identifier): string
     {
         if (str_starts_with("$identifier/", $directory)) {
             return $identifier;
