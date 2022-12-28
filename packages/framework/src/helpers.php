@@ -52,28 +52,28 @@ namespace Hyde {
     if (! function_exists('\Hyde\make_title')) {
         function make_title(string $value): string
         {
-            return Hyde::makeTitle($value);
+            return hyde()->makeTitle($value);
         }
     }
 
     if (! function_exists('\Hyde\normalize_newlines')) {
         function normalize_newlines(string $string): string
         {
-            return Hyde::normalizeNewlines($string);
+            return hyde()->normalizeNewlines($string);
         }
     }
 
     if (! function_exists('\Hyde\strip_newlines')) {
         function strip_newlines(string $string): string
         {
-            return Hyde::stripNewlines($string);
+            return hyde()->stripNewlines($string);
         }
     }
 
     if (! function_exists('\Hyde\trim_slashes')) {
         function trim_slashes(string $string): string
         {
-            return Hyde::trimSlashes($string);
+            return hyde()->trimSlashes($string);
         }
     }
 }
