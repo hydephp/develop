@@ -135,7 +135,6 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_schema_using_canonical_meta_field()
     {
-        InputStreamHandler::mockInput("Foo\nBar");
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields' => [],
