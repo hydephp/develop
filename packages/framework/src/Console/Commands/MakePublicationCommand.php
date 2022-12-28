@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function array_flip;
 use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
@@ -13,7 +14,6 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
-use function array_flip;
 use function implode;
 use function in_array;
 use InvalidArgumentException;
@@ -183,7 +183,7 @@ class MakePublicationCommand extends ValidatingCommand
         unset($rules['boolean']);
         $rules = array_flip($rules);
 
-        $selection = $this->askWithValidation($field->name,"Enter data for field </>[<comment>$field->name</comment>]", $rules);
+        $selection = $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $rules);
 
         if (empty($selection)) {
             return null;
@@ -196,6 +196,7 @@ class MakePublicationCommand extends ValidatingCommand
             return (bool) $selection;
         } else {
             $this->error("The $field->name field must be true or false.");
+
             return $this->captureBooleanFieldInput($field);
         }
     }
