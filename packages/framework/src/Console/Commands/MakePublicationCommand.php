@@ -175,6 +175,9 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureBooleanFieldInput(PublicationField $field): ?bool
     {
+        // Since the Laravel validation rule for booleans doesn't accept the string input provided by the console,
+        // we need to do some logic of our own to support validating booleans through the console.
+
         $rules = $field->type->rules();
         $rules = array_flip($rules);
         unset($rules['boolean']);
@@ -186,7 +189,15 @@ class MakePublicationCommand extends ValidatingCommand
             return null;
         }
 
-        return (bool) $selection;
+        $acceptable = ['true', 'false', true, false, 0, 1, '0', '1'];
+
+        // Strict parameter is needed as for some reason `in_array($selection, [true])` is always true no matter what the value of $selection is.
+        if (in_array($selection, $acceptable, true)) {
+            return (bool) $selection;
+        } else {
+            $this->error("The $field->name field must be true or false.");
+            return $this->captureBooleanFieldInput($field);
+        }
     }
 
     /** @return null */
