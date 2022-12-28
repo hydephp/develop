@@ -13,6 +13,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
+use function array_flip;
 use function implode;
 use function in_array;
 use InvalidArgumentException;
@@ -174,7 +175,12 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureBooleanFieldInput(PublicationField $field): bool
     {
-        return (bool) $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->type->rules());
+        $rules = $field->type->rules();
+        $rules = array_flip($rules);
+        unset($rules['boolean']);
+        $rules = array_flip($rules);
+
+        return (bool) $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $rules);
     }
 
     /** @return null */
