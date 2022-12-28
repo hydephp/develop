@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
@@ -54,5 +56,59 @@ class HelpersTest extends TestCase
         foreach ($tests as $test) {
             $this->assertSame('foo/bar', unslash($test));
         }
+    }
+
+    /** @covers ::\Hyde\hyde */
+    public function test_hyde_function_exists_in_hyde_namespace()
+    {
+        $this->assertTrue(function_exists('Hyde\hyde'));
+    }
+
+    /** @covers ::\Hyde\hyde */
+    public function test_namespaced_hyde_function()
+    {
+        $this->assertSame(hyde(), \Hyde\hyde());
+    }
+
+    /** @covers ::\Hyde\unslash */
+    public function test_unslash_function_exists_in_hyde_namespace()
+    {
+        $this->assertTrue(function_exists('Hyde\unslash'));
+    }
+
+    /** @covers ::\Hyde\unslash */
+    public function test_namespaced_unslash_function()
+    {
+        $this->assertSame(unslash('foo'), \Hyde\unslash('foo'));
+    }
+
+    /** @covers ::\Hyde\make_title */
+    public function test_hyde_make_title_function()
+    {
+        $this->assertSame(Hyde::makeTitle('foo'), \Hyde\make_title('foo'));
+    }
+
+    /** @covers ::\Hyde\normalize_newlines */
+    public function test_hyde_normalize_newlines_function()
+    {
+        $this->assertSame(Hyde::normalizeNewlines('foo'), \Hyde\normalize_newlines('foo'));
+    }
+
+    /** @covers ::\Hyde\strip_newlines */
+    public function test_hyde_strip_newlines_function()
+    {
+        $this->assertSame(Hyde::stripNewlines('foo'), \Hyde\strip_newlines('foo'));
+    }
+
+    /** @covers ::\Hyde\trim_slashes */
+    public function test_hyde_trim_slashes_function()
+    {
+        $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trim_slashes('foo'));
+    }
+
+    /** @covers ::\Hyde\markdown */
+    public function test_hyde_markdown_function()
+    {
+        $this->assertEquals(Hyde::markdown('foo'), \Hyde\markdown('foo'));
     }
 }
