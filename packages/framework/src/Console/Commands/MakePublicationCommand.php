@@ -195,6 +195,7 @@ class MakePublicationCommand extends ValidatingCommand
         if (in_array($selection, $acceptable, true)) {
             return (bool) $selection;
         } else {
+            // Match the formatting of the standard Laravel validation error message.
             $this->error("The $field->name field must be true or false.");
 
             return $this->captureBooleanFieldInput($field);
