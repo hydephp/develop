@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpFullyQualifiedNameUsageInspection */
+<?php
+
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 
 declare(strict_types=1);
 

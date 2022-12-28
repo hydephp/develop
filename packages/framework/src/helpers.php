@@ -51,31 +51,36 @@ namespace Hyde {
     }
 
     if (! function_exists('\Hyde\makeTitle')) {
-        function makeTitle(string $value): string {
+        function makeTitle(string $value): string
+        {
             return Hyde::makeTitle($value);
         }
     }
 
     if (! function_exists('\Hyde\normalizeNewlines')) {
-        function normalizeNewlines(string $string): string {
+        function normalizeNewlines(string $string): string
+        {
             return Hyde::normalizeNewlines($string);
         }
     }
 
     if (! function_exists('\Hyde\stripNewlines')) {
-        function stripNewlines(string $string): string {
+        function stripNewlines(string $string): string
+        {
             return Hyde::stripNewlines($string);
         }
     }
 
     if (! function_exists('\Hyde\trimSlashes')) {
-        function trimSlashes(string $string): string {
+        function trimSlashes(string $string): string
+        {
             return Hyde::trimSlashes($string);
         }
     }
 
     if (! function_exists('\Hyde\markdown')) {
-        function markdown(string $text, bool $normalizeIndentation = false): HtmlString {
+        function markdown(string $text, bool $normalizeIndentation = false): HtmlString
+        {
             return Hyde::markdown($text, $normalizeIndentation);
         }
     }
