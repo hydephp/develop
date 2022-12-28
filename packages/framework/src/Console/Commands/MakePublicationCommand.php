@@ -173,6 +173,9 @@ class MakePublicationCommand extends ValidatingCommand
         );
     }
 
+    /**
+     * @deprecated Will be refactored into a dedicated rule
+     */
     protected function captureBooleanFieldInput(PublicationField $field, $retryCount = 1): ?bool
     {
         // Return null when retry count is exceeded to prevent infinite loop
