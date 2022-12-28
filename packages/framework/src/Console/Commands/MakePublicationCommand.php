@@ -173,14 +173,20 @@ class MakePublicationCommand extends ValidatingCommand
         );
     }
 
-    protected function captureBooleanFieldInput(PublicationField $field): bool
+    protected function captureBooleanFieldInput(PublicationField $field): ?bool
     {
         $rules = $field->type->rules();
         $rules = array_flip($rules);
         unset($rules['boolean']);
         $rules = array_flip($rules);
 
-        return (bool) $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $rules);
+        $selection = $this->askWithValidation($field->name,"Enter data for field </>[<comment>$field->name</comment>]", $rules);
+
+        if (empty($selection)) {
+            return null;
+        }
+
+        return (bool) $selection;
     }
 
     /** @return null */
