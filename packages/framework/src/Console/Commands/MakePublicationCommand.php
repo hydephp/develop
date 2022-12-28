@@ -218,7 +218,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         $this->newLine();
-        $this->warn("Warning: $message");
+        $this->warn(" Warning: $message");
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
         } else {
