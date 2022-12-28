@@ -17,6 +17,7 @@ use function implode;
 use function in_array;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function str_starts_with;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -102,6 +103,9 @@ class MakePublicationCommand extends ValidatingCommand
 
         /** @var PublicationField $field */
         foreach ($this->publicationType->getFields() as $field) {
+            if (str_starts_with($field->name, '__')) {
+                continue;
+            }
             $this->newLine();
             $data->put($field->name, $this->captureFieldInput($field));
         }

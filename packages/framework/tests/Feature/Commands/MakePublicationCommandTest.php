@@ -157,6 +157,24 @@ class MakePublicationCommandTest extends TestCase
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
+    public function test_command_does_not_ask_user_to_fill_in_meta_fields()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields' => [[
+                'type' => 'string',
+                'name' => '__createdAt',
+            ]],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->doesntExpectOutput('Enter data for field </>[<comment>__createdAt</comment>]')
+            ->doesntExpectOutputToContain('__createdAt')
+            ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+    }
+
     public function test_command_with_text_input()
     {
         InputStreamHandler::mockInput("Hello\nWorld");
