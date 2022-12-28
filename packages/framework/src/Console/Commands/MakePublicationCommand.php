@@ -173,8 +173,13 @@ class MakePublicationCommand extends ValidatingCommand
         );
     }
 
-    protected function captureBooleanFieldInput(PublicationField $field): ?bool
+    protected function captureBooleanFieldInput(PublicationField $field, $retryCount = 1): ?bool
     {
+        // Return null when retry count is exceeded to prevent infinite loop
+        if ($retryCount > 30) {
+            return null;
+        }
+
         // Since the Laravel validation rule for booleans doesn't accept the string input provided by the console,
         // we need to do some logic of our own to support validating booleans through the console.
 
@@ -198,7 +203,7 @@ class MakePublicationCommand extends ValidatingCommand
             // Match the formatting of the standard Laravel validation error message.
             $this->error("The $field->name field must be true or false.");
 
-            return $this->captureBooleanFieldInput($field);
+            return $this->captureBooleanFieldInput($field, $retryCount + 1);
         }
     }
 
