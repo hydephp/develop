@@ -116,7 +116,7 @@ class MakePublicationCommand extends ValidatingCommand
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            default => $this->askWithValidation($field->name, $field->name, $field->type->rules()),
+            default => $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->type->rules()),
         };
     }
 

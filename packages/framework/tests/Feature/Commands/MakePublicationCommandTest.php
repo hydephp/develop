@@ -44,7 +44,7 @@ class MakePublicationCommandTest extends TestCase
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
              ->expectsOutput('Creating a new publication of type [test-publication]')
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Created file test-publication/hello-world.md')
              ->assertExitCode(0);
 
@@ -69,7 +69,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?')
              ->expectsOutput('Exiting without overwriting existing publication file!')
@@ -87,7 +87,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
              ->assertExitCode(0);
@@ -103,7 +103,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication', ['--force' => true])
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->assertExitCode(0);
 
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
@@ -115,7 +115,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication test-publication')
              ->expectsOutput('Creating a new publication of type [test-publication]')
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Created file test-publication/hello-world.md')
              ->assertExitCode(0);
 
