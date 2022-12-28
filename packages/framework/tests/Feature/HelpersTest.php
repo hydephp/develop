@@ -79,4 +79,34 @@ class HelpersTest extends TestCase
     {
         $this->assertSame(unslash('foo'), \Hyde\unslash('foo'));
     }
+
+    /** @covers ::\Hyde\makeTitle */
+    public function test_hyde_make_title_function()
+    {
+        $this->assertSame(Hyde::makeTitle('foo'), \Hyde\makeTitle('foo'));
+    }
+
+    /** @covers ::\Hyde\normalizeNewlines */
+    public function test_hyde_normalize_newlines_function()
+    {
+        $this->assertSame(Hyde::normalizeNewlines('foo'), \Hyde\normalizeNewlines('foo'));
+    }
+
+    /** @covers ::\Hyde\stripNewlines */
+    public function test_hyde_strip_newlines_function()
+    {
+        $this->assertSame(Hyde::stripNewlines('foo'), \Hyde\stripNewlines('foo'));
+    }
+
+    /** @covers ::\Hyde\trimSlashes */
+    public function test_hyde_trim_slashes_function()
+    {
+        $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trimSlashes('foo'));
+    }
+
+    /** @covers ::\Hyde\markdown */
+    public function test_hyde_markdown_function()
+    {
+        $this->assertEquals(Hyde::markdown('foo'), \Hyde\markdown('foo'));
+    }
 }

@@ -28,6 +28,7 @@ namespace {
 
 namespace Hyde {
     use Hyde\Foundation\HydeKernel;
+    use Illuminate\Support\HtmlString;
 
     if (! function_exists('\Hyde\hyde')) {
         /**
@@ -46,6 +47,36 @@ namespace Hyde {
         function unslash(string $string): string
         {
             return trim($string, '/\\');
+        }
+    }
+
+    if (! function_exists('\Hyde\makeTitle')) {
+        function makeTitle(string $value): string {
+            return Hyde::makeTitle($value);
+        }
+    }
+
+    if (! function_exists('\Hyde\normalizeNewlines')) {
+        function normalizeNewlines(string $string): string {
+            return Hyde::normalizeNewlines($string);
+        }
+    }
+
+    if (! function_exists('\Hyde\stripNewlines')) {
+        function stripNewlines(string $string): string {
+            return Hyde::stripNewlines($string);
+        }
+    }
+
+    if (! function_exists('\Hyde\trimSlashes')) {
+        function trimSlashes(string $string): string {
+            return Hyde::trimSlashes($string);
+        }
+    }
+
+    if (! function_exists('\Hyde\markdown')) {
+        function markdown(string $text, bool $normalizeIndentation = false): HtmlString {
+            return Hyde::markdown($text, $normalizeIndentation);
         }
     }
 }
