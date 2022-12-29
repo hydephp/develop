@@ -204,6 +204,62 @@ class CreatesNewPublicationPageTest extends TestCase
         ], Yaml::parse(Str::between($contents, '---', '---')));
     }
 
+    public function testIntegerNormalization()
+    {
+        $pubType = $this->makePublicationType([[
+            'type' => 'integer',
+            'name' => 'number',
+        ]]);
+
+        $fieldData = Collection::make([
+            'number' => '123',
+        ]);
+
+        $this->assertSame(['number' => 123], (new CreatesNewPublicationPage($pubType, $fieldData))->normalizeData($fieldData->toArray()));
+    }
+
+    public function testFloatNormalization()
+    {
+        $pubType = $this->makePublicationType([[
+            'type' => 'float',
+            'name' => 'number',
+        ]]);
+
+        $fieldData = Collection::make([
+            'number' => '123.45',
+        ]);
+
+        $this->assertSame(['number' => 123.45], (new CreatesNewPublicationPage($pubType, $fieldData))->normalizeData($fieldData->toArray()));
+    }
+
+    public function testBooleanNormalization()
+    {
+        $pubType = $this->makePublicationType([[
+            'type' => 'boolean',
+            'name' => 'is_active',
+        ]]);
+
+        $fieldData = Collection::make([
+            'is_active' => 'true',
+        ]);
+
+        $this->assertSame(['is_active' => true], (new CreatesNewPublicationPage($pubType, $fieldData))->normalizeData($fieldData->toArray()));
+    }
+
+    public function testArrayNormalization()
+    {
+        $pubType = $this->makePublicationType([[
+            'type' => 'array',
+            'name' => 'tags',
+        ]]);
+
+        $fieldData = Collection::make([
+            'tags' => 'foo',
+        ]);
+
+        $this->assertSame(['tags' => ['foo']], (new CreatesNewPublicationPage($pubType, $fieldData))->normalizeData($fieldData->toArray()));
+    }
+
     protected function makePublicationType(array $fields): PublicationType
     {
         return new PublicationType('Test Publication', '__createdAt', fields: $fields);
