@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+
 /**
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldValueObjectsTest
  */
 abstract class PublicationFieldValue
 {
+    protected PublicationFieldTypes $type;
     protected mixed $value;
 
-    final public function __construct(string $value)
+    final public function __construct(PublicationFieldTypes $type, string $value)
     {
+        $this->type = $type;
         $this->value = static::parseInput($value);
     }
 
