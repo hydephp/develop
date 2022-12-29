@@ -343,7 +343,16 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('image: null');
+        $this->assertEquals(
+            <<<MARKDOWN
+            ---
+            __createdAt: 2022-01-01T00:00:00+00:00
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $this->getDatedPublicationContents());
     }
 
     public function test_tag_input_with_no_tags()
@@ -385,7 +394,16 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('tag: null');
+        $this->assertEquals(
+            <<<MARKDOWN
+            ---
+            __createdAt: 2022-01-01T00:00:00+00:00
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $this->getDatedPublicationContents());
     }
 
     public function test_handleEmptyOptionsCollection_for_required_field()
