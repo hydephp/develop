@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 /**
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
+ * @see \Hyde\Framework\Testing\Feature\PublicationFieldValueObjectsTest
  */
 abstract class PublicationFieldValue
 {
