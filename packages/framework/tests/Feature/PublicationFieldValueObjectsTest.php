@@ -14,26 +14,26 @@ class PublicationFieldValueObjectsTest extends TestCase
 {
     public function testConstruct()
     {
-        $value = new TestValue('test');
-        $this->assertSame('test', $value->getValue());
+        $value = new TestValue('foo');
+        $this->assertSame('foo', $value->getValue());
     }
 
     public function testGetValue()
     {
-        $value = new TestValue('test');
-        $this->assertSame('test', $value->getValue());
+        $value = new TestValue('foo');
+        $this->assertSame('foo', $value->getValue());
     }
 
     public function testParseInput()
     {
-        $value = TestValue::parseInput('test');
-        $this->assertSame('test', $value);
+        $value = TestValue::parseInput('foo');
+        $this->assertSame('foo', $value);
     }
 
     public function testToYamlType()
     {
-        $value = TestValue::toYamlType('test');
-        $this->assertSame('test', $value);
+        $value = TestValue::toYamlType('foo');
+        $this->assertSame('foo', $value);
     }
 }
 
