@@ -23,5 +23,5 @@ abstract class PublicationFieldValue
      * @param  string  $input
      * @return mixed
      */
-    abstract public static function formatForYaml(string $input): mixed;
+    abstract public static function toYamlType(string $input): mixed;
 }
