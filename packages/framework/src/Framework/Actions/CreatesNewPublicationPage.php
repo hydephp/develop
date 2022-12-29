@@ -35,7 +35,15 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $this->save($this->createOutput());
+        $output = "---
+{$this->createFrontMatter()}
+---
+
+## Write something awesome.
+
+";
+
+        $this->save($output);
     }
 
     protected function getFilename(): string
@@ -94,17 +102,5 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return $array;
-    }
-
-    /** @internal */
-    public function createOutput(): string
-    {
-        return "---
-{$this->createFrontMatter()}
----
-
-## Write something awesome.
-
-";
     }
 }
