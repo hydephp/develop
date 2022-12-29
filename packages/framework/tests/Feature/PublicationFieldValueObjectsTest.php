@@ -25,6 +25,12 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame('foo', $value->getValue());
     }
 
+    public function testGetType()
+    {
+        $this->assertSame(PublicationFieldValue::TYPE, TestValue::getType());
+        $this->assertInstanceOf(PublicationFieldTypes::class, TestValue::getType());
+    }
+
     public function testParseInput()
     {
         $value = TestValue::parseInput('foo');
@@ -35,12 +41,6 @@ class PublicationFieldValueObjectsTest extends TestCase
     {
         $value = TestValue::toYamlType('foo');
         $this->assertSame('foo', $value);
-    }
-
-    public function testGetType()
-    {
-        $this->assertSame(PublicationFieldValue::TYPE, TestValue::getType());
-        $this->assertInstanceOf(PublicationFieldTypes::class, TestValue::getType());
     }
 }
 
