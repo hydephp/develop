@@ -8,6 +8,7 @@ use DateTime;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField
@@ -42,5 +43,11 @@ class DatetimeFieldValueTest extends TestCase
     {
         $value = DatetimeField::toYamlType(new DateTime('2023-01-01'));
         $this->assertEquals(new DateTime('2023-01-01'), $value);
+    }
+
+    public function testToYaml()
+    {
+        $value = DatetimeField::toYamlType(new DateTime('2023-01-01'));
+        $this->assertSame('2023-01-01T00:00:00+00:00', Yaml::dump($value));
     }
 }

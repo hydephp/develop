@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit\PublicationFieldValueTests;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField
@@ -41,5 +42,11 @@ class StringFieldValueTest extends TestCase
     {
         $value = StringField::toYamlType('foo');
         $this->assertSame('foo', $value);
+    }
+
+    public function testToYaml()
+    {
+        $value = StringField::toYamlType('foo');
+        $this->assertSame('foo', Yaml::dump($value));
     }
 }
