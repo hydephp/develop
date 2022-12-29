@@ -126,7 +126,7 @@ class MakePublicationCommand extends ValidatingCommand
                 "Enter data for field </>[<comment>$field->name</comment>]", $field->type->rules()),
         };
 
-        if ($selection === null || $selection === '') {
+        if (empty($selection)) {
             $this->line("<fg=gray> > Skipping field $field->name</>");
             return null;
         }
