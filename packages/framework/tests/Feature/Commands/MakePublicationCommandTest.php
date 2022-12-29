@@ -344,7 +344,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertDatedPublicationExists();
         $this->assertEquals(
-            <<<MARKDOWN
+            <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             ---
@@ -395,7 +395,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertDatedPublicationExists();
         $this->assertEquals(
-            <<<MARKDOWN
+            <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             ---
