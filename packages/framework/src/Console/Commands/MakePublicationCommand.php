@@ -136,7 +136,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTextFieldInput(PublicationField $field): string
     {
-        $this->line(InputStreamHandler::formatMessage($field->name));
+        $this->line(InputStreamHandler::formatMessage($field->name, 'lines'));
 
         return implode("\n", InputStreamHandler::call());
     }
