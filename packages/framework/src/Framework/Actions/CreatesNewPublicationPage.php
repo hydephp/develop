@@ -35,7 +35,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $this->save($this->createOutput());
+        $this->save($this->createOutput($this->getMergedData()));
     }
 
     protected function getFilename(): string
@@ -53,9 +53,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             ?: throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required as it's the type's canonical field", 404);
     }
 
-    protected function createFrontMatter(): string
+    protected function createFrontMatter(array $data): string
     {
-        return rtrim(Yaml::dump($this->getMergedData(), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
+        return rtrim(Yaml::dump($data, flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
     }
 
     protected function getMergedData(): array
@@ -97,10 +97,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     }
 
     /** @internal */
-    public function createOutput(): string
+    public function createOutput(array $data): string
     {
         return "---
-{$this->createFrontMatter()}
+{$this->createFrontMatter($data)}
 ---
 
 ## Write something awesome.
