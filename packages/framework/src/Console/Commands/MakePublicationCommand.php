@@ -128,6 +128,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         if (empty($selection)) {
             $this->line("<fg=gray> > Skipping field $field->name</>");
+
             return null;
         }
 
