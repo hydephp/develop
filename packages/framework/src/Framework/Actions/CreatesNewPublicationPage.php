@@ -73,14 +73,15 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         );
     }
 
-    protected function normalizeData(array $array): array
+    /**
+     * @internal
+     *
+     * @param  array<string, mixed>  $array
+     * @return array<string, mixed>
+     */
+    public function normalizeData(array $array): array
     {
         foreach ($array as $key => $value) {
-            if (empty($value)) {
-                unset($array[$key]);
-                continue;
-            }
-
             $type = $this->pubType->getFields()->get($key);
 
             if ($type->type === PublicationFieldTypes::Text) {
@@ -91,6 +92,18 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
             if ($type->type === PublicationFieldTypes::Integer) {
                 $array[$key] = (int) $value;
+            }
+
+            if ($type->type === PublicationFieldTypes::Boolean) {
+                $array[$key] = (bool) $value;
+            }
+
+            if ($type->type === PublicationFieldTypes::Float) {
+                $array[$key] = (float) $value;
+            }
+
+            if ($type->type === PublicationFieldTypes::Array) {
+                $array[$key] = (array) $value;
             }
         }
 
