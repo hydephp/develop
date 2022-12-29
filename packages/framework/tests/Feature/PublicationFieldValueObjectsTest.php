@@ -53,7 +53,7 @@ class TestValue extends PublicationFieldValue
         return $input;
     }
 
-    public static function toYamlType(string $input): string
+    public static function toYamlType(mixed $input): string
     {
         return $input;
     }
