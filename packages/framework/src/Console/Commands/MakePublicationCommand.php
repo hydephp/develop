@@ -116,14 +116,21 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureFieldInput(PublicationField $field): bool|string|array|null
     {
-        return match ($field->type) {
+        $selection = match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
             PublicationFieldTypes::Boolean => $this->captureBooleanFieldInput($field),
-            default => $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->type->rules()),
+            default => $this->askWithValidation($field->name,
+                "Enter data for field </>[<comment>$field->name</comment>]", $field->type->rules()),
         };
+
+        if ($selection === null) {
+            $this->line("<fg=gray> > Skipping field $field->name</>");
+        }
+
+        return $selection;
     }
 
     protected function captureTextFieldInput(PublicationField $field): string
