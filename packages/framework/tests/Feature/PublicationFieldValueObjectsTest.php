@@ -14,3 +14,16 @@ class PublicationFieldValueObjectsTest extends TestCase
 {
     //
 }
+
+class TestValue extends PublicationFieldValue
+{
+    public static function parseInput(string $input): string
+    {
+        return $input;
+    }
+
+    public static function toYamlType(string $input): string
+    {
+        return $input;
+    }
+}
