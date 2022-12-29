@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
-class StringField extends PublicationFieldValue
+final class StringField extends PublicationFieldValue
 {
     public static function parseInput(string $input): string
     {
