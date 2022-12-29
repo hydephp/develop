@@ -56,8 +56,8 @@ class InputStreamHandler extends InvokableAction
     }
 
     /** Format a consistent message that can be output to the console */
-    public static function formatMessage(string $name): string
+    public static function formatMessage(string $name, string $type = 'values'): string
     {
-        return "Enter $name (end with an empty line)";
+        return "<info>Enter $type for field </>[<comment>$name</comment>] (end with an empty line)";
     }
 }

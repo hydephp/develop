@@ -45,7 +45,7 @@ class InputStreamHandlerTest extends TestCase
 
     public function testFormatMessageHelperMethod()
     {
-        $this->assertSame('Enter foo (end with an empty line)', InputStreamHandler::formatMessage('foo'));
+        $this->assertSame('<info>Enter values for field </>[<comment>foo</comment>] (end with an empty line)', InputStreamHandler::formatMessage('foo'));
     }
 
     protected function makeCommand(array $expected): TestCommand

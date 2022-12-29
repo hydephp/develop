@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use function array_flip;
 use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
@@ -17,6 +18,7 @@ use function implode;
 use function in_array;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function str_starts_with;
 
 /**
  * Hyde Command to create a new publication for a given publication type.
@@ -102,6 +104,9 @@ class MakePublicationCommand extends ValidatingCommand
 
         /** @var PublicationField $field */
         foreach ($this->publicationType->getFields() as $field) {
+            if (str_starts_with($field->name, '__')) {
+                continue;
+            }
             $this->newLine();
             $data->put($field->name, $this->captureFieldInput($field));
         }
@@ -109,20 +114,29 @@ class MakePublicationCommand extends ValidatingCommand
         return $data;
     }
 
-    protected function captureFieldInput(PublicationField $field): string|array|null
+    protected function captureFieldInput(PublicationField $field): bool|string|array|null
     {
-        return match ($field->type) {
+        $selection = match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            default => $this->askWithValidation($field->name, $field->name, $field->type->rules()),
+            PublicationFieldTypes::Boolean => $this->captureBooleanFieldInput($field),
+            default => $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray()),
         };
+
+        if (empty($selection)) {
+            $this->line("<fg=gray> > Skipping field $field->name</>");
+
+            return null;
+        }
+
+        return $selection;
     }
 
     protected function captureTextFieldInput(PublicationField $field): string
     {
-        $this->line(InputStreamHandler::formatMessage($field->name));
+        $this->line(InputStreamHandler::formatMessage($field->name, 'lines'));
 
         return implode("\n", InputStreamHandler::call());
     }
@@ -160,11 +174,48 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->tip('You can enter multiple tags separated by commas');
 
-        return $this->reloadableChoice($this->getTagValuesArrayClosure(),
+        return $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
             'Which tag would you like to use?',
             'Reload tags.json',
             true
         );
+    }
+
+    /**
+     * @deprecated Will be refactored into a dedicated rule
+     */
+    protected function captureBooleanFieldInput(PublicationField $field, $retryCount = 1): ?bool
+    {
+        // Return null when retry count is exceeded to prevent infinite loop
+        if ($retryCount > 30) {
+            return null;
+        }
+
+        // Since the Laravel validation rule for booleans doesn't accept the string input provided by the console,
+        // we need to do some logic of our own to support validating booleans through the console.
+
+        $rules = $field->type->rules();
+        $rules = array_flip($rules);
+        unset($rules['boolean']);
+        $rules = array_flip($rules);
+
+        $selection = $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $rules);
+
+        if (empty($selection)) {
+            return null;
+        }
+
+        $acceptable = ['true', 'false', true, false, 0, 1, '0', '1'];
+
+        // Strict parameter is needed as for some reason `in_array($selection, [true])` is always true no matter what the value of $selection is.
+        if (in_array($selection, $acceptable, true)) {
+            return (bool) $selection;
+        } else {
+            // Match the formatting of the standard Laravel validation error message.
+            $this->error("The $field->name field must be true or false.");
+
+            return $this->captureBooleanFieldInput($field, $retryCount + 1);
+        }
     }
 
     /** @return null */
@@ -175,7 +226,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         $this->newLine();
-        $this->warn("Warning: $message");
+        $this->warn(" <fg=red>Warning:</> $message");
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
         } else {
@@ -189,7 +240,7 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /** @return Closure<array<string>> */
-    protected function getTagValuesArrayClosure(): Closure
+    protected function getReloadableTagValuesArrayClosure(): Closure
     {
         return function (): array {
             return PublicationService::getValuesForTagName($this->publicationType->getIdentifier())->toArray();

@@ -44,7 +44,7 @@ class MakePublicationCommandTest extends TestCase
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
              ->expectsOutput('Creating a new publication of type [test-publication]')
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Created file test-publication/hello-world.md')
              ->assertExitCode(0);
 
@@ -69,7 +69,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?')
              ->expectsOutput('Exiting without overwriting existing publication file!')
@@ -87,7 +87,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
              ->assertExitCode(0);
@@ -103,7 +103,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication', ['--force' => true])
              ->expectsOutputToContain('Creating a new publication!')
              ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->assertExitCode(0);
 
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
@@ -115,7 +115,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication test-publication')
              ->expectsOutput('Creating a new publication of type [test-publication]')
-             ->expectsQuestion('Title', 'Hello World')
+             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Created file test-publication/hello-world.md')
              ->assertExitCode(0);
 
@@ -135,7 +135,6 @@ class MakePublicationCommandTest extends TestCase
 
     public function test_command_with_schema_using_canonical_meta_field()
     {
-        InputStreamHandler::mockInput("Foo\nBar");
         $this->makeSchemaFile([
             'canonicalField' => '__createdAt',
             'fields' => [],
@@ -157,6 +156,24 @@ class MakePublicationCommandTest extends TestCase
             MARKDOWN, file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md')));
     }
 
+    public function test_command_does_not_ask_user_to_fill_in_meta_fields()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields' => [[
+                'type' => 'string',
+                'name' => '__createdAt',
+            ]],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->doesntExpectOutput('Enter data for field </>[<comment>__createdAt</comment>]')
+            ->doesntExpectOutputToContain('__createdAt')
+            ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+    }
+
     public function test_command_with_text_input()
     {
         InputStreamHandler::mockInput("Hello\nWorld");
@@ -176,6 +193,24 @@ class MakePublicationCommandTest extends TestCase
     Hello
     World'
         );
+    }
+
+    public function test_command_with_boolean_input()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'boolean',
+                'name' => 'published',
+            ],
+            ],
+        ]);
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Enter data for field </>[<comment>published</comment>]', 'true')
+             ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertCreatedPublicationMatterEquals('published: true');
     }
 
     public function test_command_with_array_input()
@@ -259,6 +294,7 @@ class MakePublicationCommandTest extends TestCase
             ],
         ]);
 
+        /** @noinspection PhpParamsInspection as array is allowed by this method */
         $this->artisan('make:publication test-publication')
              ->expectsQuestion('Which tag would you like to use?', ['foo', 'bar'])
              ->assertExitCode(0);
@@ -282,7 +318,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
+             ->expectsOutput(' Warning: No media files found in directory _media/test-publication/')
              ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(1);
@@ -302,13 +338,22 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
+             ->expectsOutput(' Warning: No media files found in directory _media/test-publication/')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('image: null');
+        $this->assertEquals(
+            <<<'MARKDOWN'
+            ---
+            __createdAt: 2022-01-01T00:00:00+00:00
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $this->getDatedPublicationContents());
     }
 
     public function test_tag_input_with_no_tags()
@@ -324,7 +369,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags for this publication type found in tags.json')
+             ->expectsOutput(' Warning: No tags for this publication type found in tags.json')
              ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(1);
@@ -344,13 +389,22 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput('Warning: No tags for this publication type found in tags.json')
+             ->expectsOutput(' Warning: No tags for this publication type found in tags.json')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals('tag: null');
+        $this->assertEquals(
+            <<<'MARKDOWN'
+            ---
+            __createdAt: 2022-01-01T00:00:00+00:00
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $this->getDatedPublicationContents());
     }
 
     public function test_handleEmptyOptionsCollection_for_required_field()
@@ -367,9 +421,33 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->doesntExpectOutput('Warning: No tags for this publication type found in tags.json')
+            ->doesntExpectOutput(' Warning: No tags for this publication type found in tags.json')
             ->expectsOutput('Error: Unable to create publication: No tags for this publication type found in tags.json')
             ->assertExitCode(1);
+    }
+
+    public function test_with_custom_validation_rules()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'integer',
+                'name' => 'integer',
+                'rules' => ['max:10'],
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 'string')
+            ->expectsOutput('The integer must be a number.')
+            ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 15)
+            ->expectsOutput('The integer must not be greater than 10.')
+            ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 5)
+            ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertCreatedPublicationMatterEquals('integer: 5');
     }
 
     protected function makeSchemaFile(array $merge = []): void
