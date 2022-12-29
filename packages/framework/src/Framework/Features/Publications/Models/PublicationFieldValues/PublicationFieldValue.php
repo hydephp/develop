@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use RuntimeException;
 
 /**
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
@@ -13,7 +14,7 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 abstract class PublicationFieldValue
 {
     /** @var \Hyde\Framework\Features\Publications\PublicationFieldTypes */
-    public const TYPE = PublicationFieldTypes::String;
+    public const TYPE = null;
 
     protected mixed $value;
 
@@ -29,7 +30,7 @@ abstract class PublicationFieldValue
 
     final public static function getType(): PublicationFieldTypes
     {
-        return static::TYPE;
+        return static::TYPE ?? throw new RuntimeException('PublicationFieldValue::TYPE must be set in child class.');
     }
 
     /**

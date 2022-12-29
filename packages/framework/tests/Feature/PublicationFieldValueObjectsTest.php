@@ -27,8 +27,8 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testGetType()
     {
-        $this->assertSame(PublicationFieldValue::TYPE, TestValue::getType());
-        $this->assertInstanceOf(PublicationFieldTypes::class, TestValue::getType());
+        $this->assertSame(TestValue::TYPE, TestValue::getType());
+        $this->assertSame(PublicationFieldTypes::String, TestValue::getType());
     }
 
     public function testParseInput()
@@ -46,6 +46,8 @@ class PublicationFieldValueObjectsTest extends TestCase
 
 class TestValue extends PublicationFieldValue
 {
+    public const TYPE = PublicationFieldTypes::String;
+
     public static function parseInput(string $input): string
     {
         return $input;
