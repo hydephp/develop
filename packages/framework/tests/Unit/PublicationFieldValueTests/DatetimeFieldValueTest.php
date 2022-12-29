@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\PublicationFieldValueTests;
 
 use DateTime;
+use Exception;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
@@ -49,5 +50,18 @@ class DatetimeFieldValueTest extends TestCase
     {
         $value = DatetimeField::toYamlType(new DateTime('2023-01-01'));
         $this->assertSame('2023-01-01T00:00:00+00:00', Yaml::dump($value));
+    }
+
+    public function testWithInvalidInput()
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Failed to parse time string (foo)');
+        new DatetimeField('foo');
+    }
+
+    public function testWithDynamicInput()
+    {
+        $value = new DatetimeField('now');
+        $this->assertInstanceOf(DateTime::class, $value->getValue());
     }
 }
