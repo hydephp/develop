@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 
 /**
@@ -40,6 +41,7 @@ class PublicationFieldValueObjectsTest extends TestCase
     {
         $value = new TestValue('foo');
         $this->assertSame(PublicationFieldValue::TYPE, $value->getType());
+        $this->assertInstanceOf(PublicationFieldTypes::class, $value->getType());
     }
 }
 
