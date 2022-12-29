@@ -9,6 +9,13 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
  */
 abstract class PublicationFieldValue
 {
+    protected mixed $value;
+
+    public function __construct(string $value)
+    {
+        $this->value = static::parseInput($value);
+    }
+
     /**
      * Parse an input string from the command line into a value with the appropriate type for this field.
      *
