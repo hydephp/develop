@@ -225,7 +225,8 @@ class MakePublicationCommand extends ValidatingCommand
             throw new InvalidArgumentException("Unable to create publication: $message");
         }
 
-        $this->warn("\n <fg=red>Warning:</> $message");
+        $this->newLine();
+        $this->warn(" <fg=red>Warning:</> $message");
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
         } else {
