@@ -10,12 +10,12 @@ final class StringField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::String;
 
-    public static function parseInput(string $input): string
+    protected static function parseInput(string $input): string
     {
         return $input;
     }
 
-    public static function toYamlType(mixed $input): string
+    protected static function toYamlType(mixed $input): string
     {
         return $input;
     }

@@ -11,12 +11,12 @@ final class DatetimeField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::Datetime;
 
-    public static function parseInput(string $input): DateTime
+    protected static function parseInput(string $input): DateTime
     {
         return new DateTime($input);
     }
 
-    public static function toYamlType(mixed $input): DateTime
+    protected static function toYamlType(mixed $input): DateTime
     {
         return $input;
     }

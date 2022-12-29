@@ -39,7 +39,7 @@ abstract class PublicationFieldValue
      * @param  string  $input
      * @return mixed
      */
-    abstract public static function parseInput(string $input): mixed;
+    abstract protected static function parseInput(string $input): mixed;
 
     /**
      * Return the value with the appropriate type for this field's YAML representation.
@@ -47,5 +47,5 @@ abstract class PublicationFieldValue
      * @param  string  $input
      * @return mixed
      */
-    abstract public static function toYamlType(mixed $input): mixed;
+    abstract protected static function toYamlType(mixed $input): mixed;
 }
