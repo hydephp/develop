@@ -24,7 +24,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testConstruct()
     {
-        $this->assertSame('foo', (new TestValue('foo'))->getValue());
+        $this->assertInstanceOf(TestValue::class, (new TestValue('foo')));
     }
 
     public function testGetValue()
@@ -42,7 +42,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testStringFieldConstruct()
     {
-        $this->assertSame('foo', (new StringField('foo'))->getValue());
+        $this->assertInstanceOf(StringField::class, (new StringField('foo')));
     }
 
     public function testStringFieldGetValue()
@@ -65,7 +65,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testDatetimeFieldConstruct()
     {
-        $this->assertEquals(new DateTime('2023-01-01'), (new DatetimeField('2023-01-01'))->getValue());
+        $this->assertInstanceOf(DateTime::class, (new DateTime('2023-01-01')));
     }
 
     public function testDatetimeFieldGetValue()
