@@ -12,12 +12,12 @@ abstract class PublicationFieldValue
 {
     protected mixed $value;
 
-    public function __construct(string $value)
+    final public function __construct(string $value)
     {
         $this->value = static::parseInput($value);
     }
 
-    public function getValue(): mixed
+    final public function getValue(): mixed
     {
         return static::toYamlType($this->value);
     }
