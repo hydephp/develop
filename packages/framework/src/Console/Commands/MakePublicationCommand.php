@@ -174,7 +174,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->tip('You can enter multiple tags separated by commas');
 
-        return $this->reloadableChoice($this->getTagValuesArrayClosure(),
+        return $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
             'Which tag would you like to use?',
             'Reload tags.json',
             true
@@ -240,7 +240,7 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /** @return Closure<array<string>> */
-    protected function getTagValuesArrayClosure(): Closure
+    protected function getReloadableTagValuesArrayClosure(): Closure
     {
         return function (): array {
             return PublicationService::getValuesForTagName($this->publicationType->getIdentifier())->toArray();
