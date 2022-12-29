@@ -29,7 +29,7 @@ abstract class PublicationFieldValue
 
     final public static function getType(): PublicationFieldTypes
     {
-        return self::TYPE;
+        return static::TYPE;
     }
 
     /**
