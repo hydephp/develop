@@ -32,10 +32,14 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame('foo', (new TestValue('foo'))->getValue());
     }
 
+    public function testTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::String, TestValue::TYPE);
+    }
+
     public function testGetType()
     {
         $this->assertSame(TestValue::TYPE, TestValue::getType());
-        $this->assertSame(PublicationFieldTypes::String, TestValue::getType());
     }
 
     // StringField tests
@@ -50,10 +54,14 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame('foo', (new StringField('foo'))->getValue());
     }
 
+    public function testStringFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::String, StringField::TYPE);
+    }
+
     public function testStringFieldGetType()
     {
         $this->assertSame(StringField::TYPE, StringField::getType());
-        $this->assertSame(PublicationFieldTypes::String, StringField::getType());
     }
 
     public function testStringFieldToYaml()
@@ -73,10 +81,14 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertEquals(new DateTime('2023-01-01'), (new DatetimeField('2023-01-01'))->getValue());
     }
 
+    public function testDatetimeFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Datetime, DatetimeField::TYPE);
+    }
+
     public function testDatetimeFieldGetType()
     {
         $this->assertSame(DatetimeField::TYPE, DatetimeField::getType());
-        $this->assertSame(PublicationFieldTypes::Datetime, DatetimeField::getType());
     }
 
     public function testDatetimeFieldWithInvalidInput()
