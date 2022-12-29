@@ -73,7 +73,8 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         );
     }
 
-    protected function normalizeData(array $array): array
+    /** @internal */
+    public function normalizeData(array $array): array
     {
         foreach ($array as $key => $value) {
             $type = $this->pubType->getFields()->get($key);
