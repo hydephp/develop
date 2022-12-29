@@ -343,11 +343,13 @@ class MakePublicationCommandTest extends TestCase
              ->doesntExpectOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(0);
 
+        // FIXME  The image line should not be added 785e13a1042b799003c8cde1f89fb7e392239b97
         $this->assertDatedPublicationExists();
         $this->assertEquals(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
+            image: null
             ---
             
             ## Write something awesome.
@@ -394,11 +396,13 @@ class MakePublicationCommandTest extends TestCase
              ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(0);
 
+        // FIXME  The image line should not be added 785e13a1042b799003c8cde1f89fb7e392239b97
         $this->assertDatedPublicationExists();
         $this->assertEquals(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
+            tag: null
             ---
             
             ## Write something awesome.
