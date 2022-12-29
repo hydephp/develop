@@ -26,6 +26,11 @@ abstract class PublicationFieldValue
         return static::toYamlType($this->value);
     }
 
+    final public function getType(): PublicationFieldTypes
+    {
+        return $this->type;
+    }
+
     /**
      * Parse an input string from the command line into a value with the appropriate type for this field.
      *
