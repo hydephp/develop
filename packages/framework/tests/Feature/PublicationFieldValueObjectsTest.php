@@ -35,6 +35,12 @@ class PublicationFieldValueObjectsTest extends TestCase
         $value = TestValue::toYamlType('foo');
         $this->assertSame('foo', $value);
     }
+
+    public function testGetType()
+    {
+        $value = new TestValue('foo');
+        $this->assertSame(PublicationFieldValue::TYPE, $value->getType());
+    }
 }
 
 class TestValue extends PublicationFieldValue
