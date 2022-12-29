@@ -12,7 +12,29 @@ use Hyde\Testing\TestCase;
  */
 class PublicationFieldValueObjectsTest extends TestCase
 {
-    //
+    public function testConstruct()
+    {
+        $value = new TestValue('test');
+        $this->assertSame('test', $value->getValue());
+    }
+
+    public function testGetValue()
+    {
+        $value = new TestValue('test');
+        $this->assertSame('test', $value->getValue());
+    }
+
+    public function testParseInput()
+    {
+        $value = TestValue::parseInput('test');
+        $this->assertSame('test', $value);
+    }
+
+    public function testToYamlType()
+    {
+        $value = TestValue::toYamlType('test');
+        $this->assertSame('test', $value);
+    }
 }
 
 class TestValue extends PublicationFieldValue
