@@ -39,9 +39,8 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testGetType()
     {
-        $value = new TestValue('foo');
-        $this->assertSame(PublicationFieldValue::TYPE, $value->getType());
-        $this->assertInstanceOf(PublicationFieldTypes::class, $value->getType());
+        $this->assertSame(PublicationFieldValue::TYPE, TestValue::getType());
+        $this->assertInstanceOf(PublicationFieldTypes::class, TestValue::getType());
     }
 }
 

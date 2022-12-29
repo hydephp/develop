@@ -27,7 +27,7 @@ abstract class PublicationFieldValue
         return static::toYamlType($this->value);
     }
 
-    final public function getType(): PublicationFieldTypes
+    final public static function getType(): PublicationFieldTypes
     {
         return self::TYPE;
     }
