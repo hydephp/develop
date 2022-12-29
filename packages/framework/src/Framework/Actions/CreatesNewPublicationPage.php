@@ -76,7 +76,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     /**
      * @internal
      *
-     * @param array<string, mixed> $array
+     * @param  array<string, mixed>  $array
      * @return array<string, mixed>
      */
     public function normalizeData(array $array): array
