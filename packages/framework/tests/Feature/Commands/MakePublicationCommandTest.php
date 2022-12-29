@@ -294,6 +294,7 @@ class MakePublicationCommandTest extends TestCase
             ],
         ]);
 
+        /** @noinspection PhpParamsInspection as array is allowed by this method */
         $this->artisan('make:publication test-publication')
              ->expectsQuestion('Which tag would you like to use?', ['foo', 'bar'])
              ->assertExitCode(0);
