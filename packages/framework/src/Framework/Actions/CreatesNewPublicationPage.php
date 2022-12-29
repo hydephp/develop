@@ -83,6 +83,22 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
                 // we need to make sure they end with a newline.
                 $array[$key] = trim($value)."\n";
             }
+
+            if ($type->type === PublicationFieldTypes::Integer) {
+                $array[$key] = (int) $value;
+            }
+
+            if ($type->type === PublicationFieldTypes::Boolean) {
+                $array[$key] = (bool) $value;
+            }
+
+            if ($type->type === PublicationFieldTypes::Float) {
+                $array[$key] = (float) $value;
+            }
+
+            if ($type->type === PublicationFieldTypes::Array) {
+                $array[$key] = (array) $value;
+            }
         }
 
         return $array;
