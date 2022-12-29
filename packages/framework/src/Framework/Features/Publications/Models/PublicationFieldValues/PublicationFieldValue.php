@@ -16,11 +16,11 @@ abstract class PublicationFieldValue
         $this->value = static::parseInput($value);
     }
 
-    public function getValue()
+    public function getValue(): mixed
     {
         return static::toYamlType($this->value);
     }
-    
+
     /**
      * Parse an input string from the command line into a value with the appropriate type for this field.
      *
