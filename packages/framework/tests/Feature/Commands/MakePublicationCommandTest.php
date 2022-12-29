@@ -447,7 +447,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertCreatedPublicationMatterEquals("integer: '5'");
+        $this->assertCreatedPublicationMatterEquals('integer: 5');
     }
 
     protected function makeSchemaFile(array $merge = []): void
