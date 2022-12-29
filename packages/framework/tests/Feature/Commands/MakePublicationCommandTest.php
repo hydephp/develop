@@ -425,6 +425,30 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    public function test_with_custom_validation_rules()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'integer',
+                'name' => 'integer',
+                'rules' => ['max:10'],
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', "string")
+            ->expectsOutput('The integer must be a number.')
+            ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 15)
+            ->expectsOutput('The integer must not be greater than 10.')
+            ->expectsQuestion('Enter data for field </>[<comment>integer</comment>]', 5)
+            ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertCreatedPublicationMatterEquals('integer: 5');
+    }
+
     protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
