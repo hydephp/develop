@@ -61,7 +61,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function getMergedData(): array
     {
         return array_merge(['__createdAt' => Carbon::now()],
-            ($this->fieldData->toArray())
+            $this->normalizeData($this->fieldData->toArray())
         );
     }
 
@@ -100,7 +100,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     public function createOutput(array $data): string
     {
         return "---
-{$this->createFrontMatter($this->normalizeData($data))}
+{$this->createFrontMatter($data)}
 ---
 
 ## Write something awesome.
