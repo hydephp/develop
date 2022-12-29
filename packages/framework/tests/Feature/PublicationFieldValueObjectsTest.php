@@ -24,14 +24,12 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testConstruct()
     {
-        $value = new TestValue('foo');
-        $this->assertSame('foo', $value->getValue());
+        $this->assertSame('foo', (new TestValue('foo'))->getValue());
     }
 
     public function testGetValue()
     {
-        $value = new TestValue('foo');
-        $this->assertSame('foo', $value->getValue());
+        $this->assertSame('foo', (new TestValue('foo'))->getValue());
     }
 
     public function testGetType()
@@ -44,14 +42,12 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testStringFieldConstruct()
     {
-        $value = new StringField('foo');
-        $this->assertSame('foo', $value->getValue());
+        $this->assertSame('foo', (new StringField('foo'))->getValue());
     }
 
     public function testStringFieldGetValue()
     {
-        $value = new StringField('foo');
-        $this->assertSame('foo', $value->getValue());
+        $this->assertSame('foo', (new StringField('foo'))->getValue());
     }
 
     public function testStringFieldGetType()
@@ -62,22 +58,19 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testStringFieldToYaml()
     {
-        $value = new StringField('foo');
-        $this->assertSame('foo', Yaml::dump($value->getValue()));
+        $this->assertSame('foo', Yaml::dump((new StringField('foo'))->getValue()));
     }
 
     // DatetimeField tests
 
     public function testDatetimeFieldConstruct()
     {
-        $value = new DatetimeField('2023-01-01');
-        $this->assertEquals(new DateTime('2023-01-01'), $value->getValue());
+        $this->assertEquals(new DateTime('2023-01-01'), (new DatetimeField('2023-01-01'))->getValue());
     }
 
     public function testDatetimeFieldGetValue()
     {
-        $value = new DatetimeField('2023-01-01');
-        $this->assertEquals(new DateTime('2023-01-01'), $value->getValue());
+        $this->assertEquals(new DateTime('2023-01-01'), (new DatetimeField('2023-01-01'))->getValue());
     }
 
     public function testDatetimeFieldGetType()
@@ -95,14 +88,12 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testDatetimeFieldWithDynamicInput()
     {
-        $value = new DatetimeField('now');
-        $this->assertInstanceOf(DateTime::class, $value->getValue());
+        $this->assertInstanceOf(DateTime::class, (new DatetimeField('now'))->getValue());
     }
 
     public function testDatetimeFieldToYaml()
     {
-        $value = new DatetimeField('2023-01-01');
-        $this->assertSame('2023-01-01T00:00:00+00:00', Yaml::dump($value->getValue()));
+        $this->assertSame('2023-01-01T00:00:00+00:00', Yaml::dump((new DatetimeField('2023-01-01'))->getValue()));
     }
 }
 
