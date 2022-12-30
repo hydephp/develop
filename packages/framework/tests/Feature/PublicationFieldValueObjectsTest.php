@@ -361,12 +361,12 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testUrlFieldConstruct()
     {
-        $this->assertInstanceOf(UrlField::class, (new UrlField('foo')));
+        $this->assertInstanceOf(UrlField::class, (new UrlField('https://example.com')));
     }
 
     public function testUrlFieldGetValue()
     {
-        $this->assertSame('foo', (new UrlField('foo'))->getValue());
+        $this->assertSame('https://example.com', (new UrlField('https://example.com'))->getValue());
     }
 
     public function testUrlFieldTypeConstant()
@@ -381,7 +381,14 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testUrlFieldToYaml()
     {
-        $this->assertSame('foo', Yaml::dump((new UrlField('foo'))->getValue()));
+        $this->assertSame('https://example.com', Yaml::dump((new UrlField('https://example.com'))->getValue()));
+    }
+
+    public function testUrlFieldWithInvalidInput()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('UrlField: Unable to parse invalid url value \'foo\'');
+        new UrlField('foo');
     }
 }
 

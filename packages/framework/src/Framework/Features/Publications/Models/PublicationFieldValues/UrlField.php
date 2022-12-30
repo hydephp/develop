@@ -12,6 +12,10 @@ final class UrlField extends PublicationFieldValue
 
     protected static function parseInput(string $input): string
     {
+        if (! filter_var($input, FILTER_VALIDATE_URL)) {
+            throw self::parseError($input);
+        }
+
         return $input;
     }
 }
