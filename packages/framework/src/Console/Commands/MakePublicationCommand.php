@@ -128,7 +128,7 @@ class MakePublicationCommand extends ValidatingCommand
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            default => new ($field->type->fieldClass())($this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray())),
+            default => new ("Hyde\\Framework\\Features\\Publications\\Models\\PublicationFieldValues\\{$field->type->name}Field")($this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray())),
         };
 
         if (empty($selection)) {
