@@ -79,7 +79,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testStringFieldToYaml()
     {
-        $this->assertSame('foo', Yaml::dump((new StringField('foo'))->getValue()));
+        $this->assertSame('foo', $this->getYaml(new StringField('foo')));
     }
 
     public function testStringParsingOptions()
@@ -130,7 +130,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testDatetimeFieldToYaml()
     {
-        $this->assertSame('2023-01-01T00:00:00+00:00', Yaml::dump((new DatetimeField('2023-01-01'))->getValue()));
+        $this->assertSame('2023-01-01T00:00:00+00:00', $this->getYaml(new DatetimeField('2023-01-01')));
     }
 
     // BooleanField tests
@@ -157,7 +157,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testBooleanFieldToYaml()
     {
-        $this->assertSame('true', Yaml::dump((new BooleanField('true'))->getValue()));
+        $this->assertSame('true', $this->getYaml(new BooleanField('true')));
     }
 
     public function testBooleanFieldWithInvalidInput()
@@ -199,7 +199,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testIntegerFieldToYaml()
     {
-        $this->assertSame('10', Yaml::dump((new IntegerField('10'))->getValue()));
+        $this->assertSame('10', $this->getYaml(new IntegerField('10')));
     }
 
     public function testIntegerFieldWithInvalidInput()
@@ -245,7 +245,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testFloatFieldToYaml()
     {
-        $this->assertSame('10.0', Yaml::dump((new FloatField('10'))->getValue()));
+        $this->assertSame('10.0', $this->getYaml(new FloatField('10')));
     }
 
     public function testFloatFieldWithInvalidInput()
@@ -291,7 +291,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testArrayFieldToYaml()
     {
-        $this->assertSame("- foo\n", Yaml::dump((new ArrayField('foo'))->getValue()));
+        $this->assertSame("- foo\n", $this->getYaml(new ArrayField('foo')));
     }
 
     public function testArrayParsingOptions()
@@ -340,7 +340,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testTextFieldToYaml()
     {
-        $this->assertSame('foo', Yaml::dump((new TextField('foo'))->getValue()));
+        $this->assertSame('foo', $this->getYaml(new TextField('foo')));
     }
 
     public function testTextParsingOptions()
@@ -381,7 +381,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testUrlFieldToYaml()
     {
-        $this->assertSame('\'https://example.com\'', Yaml::dump((new UrlField('https://example.com'))->getValue()));
+        $this->assertSame('\'https://example.com\'', $this->getYaml(new UrlField('https://example.com')));
     }
 
     public function testUrlFieldWithInvalidInput()
@@ -389,6 +389,11 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('UrlField: Unable to parse invalid url value \'foo\'');
         new UrlField('foo');
+    }
+
+    protected function getYaml(PublicationFieldValue $field): string
+    {
+        return Yaml::dump($field->getValue());
     }
 }
 
