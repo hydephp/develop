@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayFiel
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
@@ -31,6 +32,7 @@ use Symfony\Component\Yaml\Yaml;
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField
  */
 class PublicationFieldValueObjectsTest extends TestCase
@@ -391,6 +393,33 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('UrlField: Unable to parse invalid url value \'foo\'');
         new UrlField('foo');
+    }
+
+    // ImageField tests
+
+    public function testImageFieldConstruct()
+    {
+        $this->assertInstanceOf(ImageField::class, (new ImageField('foo')));
+    }
+
+    public function testImageFieldGetValue()
+    {
+        $this->assertSame('foo', (new ImageField('foo'))->getValue());
+    }
+
+    public function testImageFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Image, ImageField::TYPE);
+    }
+
+    public function testImageFieldGetType()
+    {
+        $this->assertSame(ImageField::TYPE, ImageField::getType());
+    }
+
+    public function testImageFieldToYaml()
+    {
+        $this->assertSame('foo', $this->getYaml(new ImageField('foo')));
     }
 
     // TagField tests
