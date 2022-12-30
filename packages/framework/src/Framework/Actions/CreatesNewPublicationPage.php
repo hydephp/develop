@@ -29,11 +29,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected Collection $fieldData;
     protected PublicationType $pubType;
 
-    public function __construct(
-        PublicationType $pubType,
-        Collection $fieldData,
-        bool $force = false,
-    ) {
+    public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false) {
         $this->pubType = $pubType;
         $this->fieldData = $fieldData;
         $this->force = $force;
