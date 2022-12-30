@@ -98,10 +98,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     {
         $fieldData->prepend(new DatetimeField(Carbon::now()->format('Y-m-d H:i:s')), '__createdAt');
 
-        foreach ($fieldData as $field) {
-            assert($field instanceof PublicationFieldValue);
-        }
-
         return $fieldData;
     }
 
