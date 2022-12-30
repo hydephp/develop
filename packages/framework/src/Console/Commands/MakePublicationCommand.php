@@ -108,7 +108,10 @@ class MakePublicationCommand extends ValidatingCommand
                 continue;
             }
             $this->newLine();
-            $data->put($field->name, $this->captureFieldInput($field));
+            $fieldInput = $this->captureFieldInput($field);
+            if ($fieldInput !== null) {
+                $data->put($field->name, $fieldInput);
+            }
         }
 
         return $data;
