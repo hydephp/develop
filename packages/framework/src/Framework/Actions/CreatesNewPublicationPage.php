@@ -74,7 +74,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
             return (string) $field->getValue(); // TODO here we can check if field has interface allowing it to be canonical, else throw exception
         } else {
-            return throw new RuntimeException("Could not find field value for '{$canonicalFieldName}' which is required as it's the type's canonical field", 404);
+            return throw new RuntimeException("Could not find field value for '$canonicalFieldName' which is required as it's the type's canonical field", 404);
         }
     }
 
