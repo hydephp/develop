@@ -8,14 +8,12 @@ use function array_merge;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use function rtrim;
 use RuntimeException;
 use function substr;
 use Symfony\Component\Yaml\Yaml;
-use function trim;
 
 /**
  * Scaffold a publication file.
@@ -60,6 +58,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         if ($this->fieldData->get($this->pubType->canonicalField)) {
             /** @var \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue $field */
             $field = $this->fieldData->get($this->pubType->canonicalField);
+
             return (string) $field->getValue();
         } else {
             return throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required as it's the type's canonical field", 404);
