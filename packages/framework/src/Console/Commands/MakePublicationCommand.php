@@ -143,14 +143,14 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTextFieldInput(PublicationField $field): TextField
     {
-        $this->line(InputStreamHandler::formatMessage($field->name, 'lines'));
+        $this->line("<info>Enter lines for field </>[<comment>$field->name</comment>] (end with an empty line)");
 
         return new TextField(implode("\n", InputStreamHandler::call()));
     }
 
     protected function captureArrayFieldInput(PublicationField $field): ArrayField
     {
-        $this->line(InputStreamHandler::formatMessage($field->name));
+        $this->line("<info>Enter values for field </>[<comment>$field->name</comment>] (end with an empty line)");
 
         return new ArrayField(InputStreamHandler::call());
     }
