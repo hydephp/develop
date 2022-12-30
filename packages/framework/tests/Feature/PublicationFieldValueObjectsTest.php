@@ -14,6 +14,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerFi
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
@@ -28,6 +29,7 @@ use Symfony\Component\Yaml\Yaml;
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField
  */
 class PublicationFieldValueObjectsTest extends TestCase
 {
@@ -353,6 +355,33 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame('-10', (new TextField('-10'))->getValue());
         $this->assertSame("foo\nbar\nbaz", (new TextField("foo\nbar\nbaz"))->getValue());
         $this->assertSame("foo\r\nbar\r\nbaz", (new TextField("foo\r\nbar\r\nbaz"))->getValue());
+    }
+
+    // UrlField tests
+
+    public function testUrlFieldConstruct()
+    {
+        $this->assertInstanceOf(UrlField::class, (new UrlField('foo')));
+    }
+
+    public function testUrlFieldGetValue()
+    {
+        $this->assertSame('foo', (new UrlField('foo'))->getValue());
+    }
+
+    public function testUrlFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Url, UrlField::TYPE);
+    }
+
+    public function testUrlFieldGetType()
+    {
+        $this->assertSame(UrlField::TYPE, UrlField::getType());
+    }
+
+    public function testUrlFieldToYaml()
+    {
+        $this->assertSame('foo', Yaml::dump((new UrlField('foo'))->getValue()));
     }
 }
 
