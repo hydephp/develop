@@ -192,12 +192,14 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureOtherFieldInput(PublicationField $field): ?PublicationFieldValue
     {
-        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
-        $className = "$namespace\\{$field->type->name}Field";
         $selection = $this->askForFieldData($field->name, $field->getValidationRules()->toArray());
         if (empty($selection)) {
             return null;
         }
+
+        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $className = "$namespace\\{$field->type->name}Field";
+
         return new $className($selection);
     }
 
