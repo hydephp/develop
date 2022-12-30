@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Rules;
 
 use Illuminate\Contracts\Validation\InvokableRule;
-
 use function in_array;
 
 /**
