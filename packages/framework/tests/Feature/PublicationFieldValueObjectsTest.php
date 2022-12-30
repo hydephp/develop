@@ -13,6 +13,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatFiel
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
@@ -26,6 +27,7 @@ use Symfony\Component\Yaml\Yaml;
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField
  */
 class PublicationFieldValueObjectsTest extends TestCase
 {
@@ -310,6 +312,47 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testArrayParsingWithNewlineSeparatedValues()
     {
         $this->assertSame(['foo', 'bar'], (new ArrayField("foo\nbar", ArrayField::PARSE_FROM_NEWLINES))->getValue());
+    }
+
+    // TextField tests
+
+    public function testTextFieldConstruct()
+    {
+        $this->assertInstanceOf(TextField::class, (new TextField('foo')));
+    }
+
+    public function testTextFieldGetValue()
+    {
+        $this->assertSame('foo', (new TextField('foo'))->getValue());
+    }
+
+    public function testTextFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Text, TextField::TYPE);
+    }
+
+    public function testTextFieldGetType()
+    {
+        $this->assertSame(TextField::TYPE, TextField::getType());
+    }
+
+    public function testTextFieldToYaml()
+    {
+        $this->assertSame('foo', Yaml::dump((new TextField('foo'))->getValue()));
+    }
+
+    public function testTextParsingOptions()
+    {
+        $this->assertSame('foo', (new TextField('foo'))->getValue());
+        $this->assertSame('true', (new TextField('true'))->getValue());
+        $this->assertSame('false', (new TextField('false'))->getValue());
+        $this->assertSame('null', (new TextField('null'))->getValue());
+        $this->assertSame('0', (new TextField('0'))->getValue());
+        $this->assertSame('1', (new TextField('1'))->getValue());
+        $this->assertSame('10.5', (new TextField('10.5'))->getValue());
+        $this->assertSame('-10', (new TextField('-10'))->getValue());
+        $this->assertSame("foo\nbar\nbaz", (new TextField("foo\nbar\nbaz"))->getValue());
+        $this->assertSame("foo\r\nbar\r\nbaz", (new TextField("foo\r\nbar\r\nbaz"))->getValue());
     }
 }
 
