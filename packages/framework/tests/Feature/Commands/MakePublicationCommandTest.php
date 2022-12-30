@@ -451,6 +451,35 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('integer: 5');
     }
 
+    public function test_with_skipping_inputs()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'string',
+                'name' => 'string',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Enter data for field </>[<comment>string</comment>]', '')
+            ->expectsOutput(' > Skipping field string')
+            ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertEquals(
+            <<<'MARKDOWN'
+            ---
+            __createdAt: 2022-01-01T00:00:00+00:00
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $this->getDatedPublicationContents());
+    }
+
     protected function makeSchemaFile(array $merge = []): void
     {
         file_put_contents(
