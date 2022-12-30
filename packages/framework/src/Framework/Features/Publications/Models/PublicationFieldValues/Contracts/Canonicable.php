@@ -3,7 +3,10 @@
 declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts;
-interface Canonicable
+
+use Stringable;
+
+interface Canonicable extends Stringable
 {
-    //
+    public function getCanonicalValue(): string;
 }
