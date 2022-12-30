@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Framework\Features\Publications\Rules\BooleanRule;
 use Illuminate\Support\Collection;
 
 /**
@@ -51,7 +52,7 @@ enum PublicationFieldTypes: string
         return match ($type) {
             self::String => ['string'],
             self::Datetime => ['date'],
-            self::Boolean => ['boolean'],
+            self::Boolean => [BooleanRule::class],
             self::Integer => ['integer', 'numeric'],
             self::Float => ['numeric'],
             self::Image => [], // TODO Rename to media and move down in the list
