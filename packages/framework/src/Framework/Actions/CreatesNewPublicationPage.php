@@ -37,14 +37,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false)
     {
         $this->pubType = $pubType;
-        $fieldData->prepend(new DatetimeField(Carbon::now()->format('Y-m-d H:i:s')), '__createdAt');
-        $this->fieldData = $fieldData;
+        $this->fieldData = $this->mergeAndValidateFieldData($fieldData);
         $this->force = $force;
         $this->outputPath = "{$this->pubType->getDirectory()}/{$this->getFilename()}.md";
-
-        foreach ($fieldData as $field) {
-            assert($field instanceof PublicationFieldValue);
-        }
     }
 
     protected function handleCreate(): void
@@ -96,5 +91,16 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return $array;
+    }
+
+    protected function mergeAndValidateFieldData(Collection $fieldData): Collection
+    {
+        $fieldData->prepend(new DatetimeField(Carbon::now()->format('Y-m-d H:i:s')), '__createdAt');
+
+        foreach ($fieldData as $field) {
+            assert($field instanceof PublicationFieldValue);
+        }
+
+        return $fieldData;
     }
 }
