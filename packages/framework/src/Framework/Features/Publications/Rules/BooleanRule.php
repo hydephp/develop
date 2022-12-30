@@ -13,6 +13,7 @@ class BooleanRule implements InvokableRule
     /**
      * Run the validation rule.
      *
+     * @see https://github.com/illuminate/validation/blob/3f63f1046f67377a64779baaa86d7f1997b5f748/Concerns/ValidatesAttributes.php#L448-L453
      * @param  string  $attribute
      * @param  mixed  $value
      * @param  \Closure  $fail
