@@ -145,6 +145,15 @@ class PublicationFieldValueObjectsTest extends TestCase
         new BooleanField('foo');
     }
 
+    public function testBooleanParsingOptions()
+    {
+        $options = ['true', 'false', '0', '1'];
+
+        foreach ($options as $option) {
+            $this->assertInstanceOf(BooleanField::class, (new BooleanField($option)));
+        }
+    }
+
     // IntegerField tests
 
     public function testIntegerFieldConstruct()
