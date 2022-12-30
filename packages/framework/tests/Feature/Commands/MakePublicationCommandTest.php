@@ -258,6 +258,30 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/image.jpg');
     }
 
+    public function test_image_input_selects_the_right_file()
+    {
+        $this->directory('_media/test-publication');
+        $this->file('_media/test-publication/foo.jpg');
+        $this->file('_media/test-publication/bar.png');
+        $this->file('_media/test-publication/baz.svg');
+
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'image',
+                'name' => 'image',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->expectsQuestion('Which file would you like to use?', '_media/test-publication/bar.png')
+             ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/bar.png');
+    }
+
     public function test_command_with_single_tag_input()
     {
         $this->file('tags.json', json_encode([
