@@ -8,12 +8,16 @@ use Illuminate\Contracts\Validation\InvokableRule;
 
 use function in_array;
 
+/**
+ * Extended boolean rule that allows for 'true' and 'false' strings in order to support console inputs.
+ *
+ * @see https://github.com/illuminate/validation/blob/3f63f1046f67377a64779baaa86d7f1997b5f748/Concerns/ValidatesAttributes.php#L448-L453
+ */
 class BooleanRule implements InvokableRule
 {
     /**
      * Run the validation rule.
      *
-     * @see https://github.com/illuminate/validation/blob/3f63f1046f67377a64779baaa86d7f1997b5f748/Concerns/ValidatesAttributes.php#L448-L453
      * @param  string  $attribute
      * @param  mixed  $value
      * @param  \Closure  $fail
