@@ -29,6 +29,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected Collection $fieldData;
     protected PublicationType $pubType;
 
+    /** @param  \Illuminate\Support\Collection<string, PublicationFieldValue>  $fieldData */
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false) {
         $this->pubType = $pubType;
         $this->fieldData = $fieldData;
