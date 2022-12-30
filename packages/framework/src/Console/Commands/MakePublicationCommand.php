@@ -137,21 +137,21 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTextFieldInput(PublicationField $field): TextField
     {
-        $this->infoComment('Enter lines for field', $field->name, '</>(end with an empty line)');
+        $this->infoComment(' Enter lines for field', $field->name, '</>(end with an empty line)');
 
         return new TextField(implode("\n", InputStreamHandler::call()));
     }
 
     protected function captureArrayFieldInput(PublicationField $field): ArrayField
     {
-        $this->infoComment('Enter values for field', $field->name, '</>(end with an empty line)');
+        $this->infoComment(' Enter values for field', $field->name, '</>(end with an empty line)');
 
         return new ArrayField(InputStreamHandler::call());
     }
 
     protected function captureImageFieldInput(PublicationField $field): ?ImageField
     {
-        $this->infoComment('Select file for image field', $field->name);
+        $this->infoComment(' Select file for image field', $field->name);
 
         $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
@@ -166,7 +166,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureTagFieldInput(PublicationField $field): ?TagField
     {
-        $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
+        $this->infoComment(' Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
 
         $options = PublicationService::getValuesForTagName($this->publicationType->getIdentifier());
         if ($options->isEmpty()) {
