@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
+use function substr;
+
 trait CanonicableTrait
 {
     public function __toString(): string
@@ -13,6 +15,6 @@ trait CanonicableTrait
 
     public function getCanonicalValue(): string
     {
-        return $this->value;
+        return substr($this->value, 0, 64);
     }
 }
