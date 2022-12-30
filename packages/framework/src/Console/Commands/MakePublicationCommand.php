@@ -68,7 +68,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
         $creator->create();
 
-        $this->infoComment("All done! Created file", $creator->getOutputPath());
+        $this->infoComment('All done! Created file', $creator->getOutputPath());
 
         return Command::SUCCESS;
     }
