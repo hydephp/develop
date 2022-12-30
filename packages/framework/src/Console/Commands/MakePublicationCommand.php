@@ -194,7 +194,11 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
         $className = "$namespace\\{$field->type->name}Field";
-        return new $className($this->askForFieldData($field->name, $field->getValidationRules()->toArray()));
+        $selection = $this->askForFieldData($field->name, $field->getValidationRules()->toArray());
+        if (empty($selection)) {
+            return null;
+        }
+        return new $className($selection);
     }
 
     protected function askForFieldData(string $name, array $rules): string
