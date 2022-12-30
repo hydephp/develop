@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use function assert;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
