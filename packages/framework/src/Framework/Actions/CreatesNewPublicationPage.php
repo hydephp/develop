@@ -34,7 +34,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
      */
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false)
     {
-        $fieldData->prepend(new DatetimeField(Carbon::now()->toString()), '__createdAt');
+        $fieldData->prepend(new DatetimeField((string) Carbon::now()), '__createdAt');
 
         $this->pubType = $pubType;
         $this->fieldData = $fieldData;
