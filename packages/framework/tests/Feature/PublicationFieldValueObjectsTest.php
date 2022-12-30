@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use DateTime;
 use Exception;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField;
@@ -256,6 +257,45 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame(10.9, (new FloatField('10.9'))->getValue());
         $this->assertSame(100.0, (new FloatField('1E2'))->getValue());
         $this->assertSame(-10.0, (new FloatField('-10'))->getValue());
+    }
+
+    // ArrayField tests
+
+    public function testArrayFieldConstruct()
+    {
+        $this->assertInstanceOf(ArrayField::class, (new ArrayField('foo')));
+    }
+
+    public function testArrayFieldGetValue()
+    {
+        $this->assertSame(['foo'], (new ArrayField('foo'))->getValue());
+    }
+
+    public function testArrayFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Array, ArrayField::TYPE);
+    }
+
+    public function testArrayFieldGetType()
+    {
+        $this->assertSame(ArrayField::TYPE, ArrayField::getType());
+    }
+
+    public function testArrayFieldToYaml()
+    {
+        $this->assertSame("- foo\n", Yaml::dump((new ArrayField('foo'))->getValue()));
+    }
+
+    public function testArrayParsingOptions()
+    {
+        $this->assertSame(['foo'], (new ArrayField('foo'))->getValue());
+        $this->assertSame(['true'], (new ArrayField('true'))->getValue());
+        $this->assertSame(['false'], (new ArrayField('false'))->getValue());
+        $this->assertSame(['null'], (new ArrayField('null'))->getValue());
+        $this->assertSame(['0'], (new ArrayField('0'))->getValue());
+        $this->assertSame(['1'], (new ArrayField('1'))->getValue());
+        $this->assertSame(['10.5'], (new ArrayField('10.5'))->getValue());
+        $this->assertSame(['-10'], (new ArrayField('-10'))->getValue());
     }
 }
 
