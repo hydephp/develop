@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use DateTime;
 use Exception;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
@@ -106,6 +107,33 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testDatetimeFieldToYaml()
     {
         $this->assertSame('2023-01-01T00:00:00+00:00', Yaml::dump((new DatetimeField('2023-01-01'))->getValue()));
+    }
+
+    // BooleanField tests
+
+    public function testBooleanFieldConstruct()
+    {
+        $this->assertInstanceOf(BooleanField::class, (new BooleanField('foo')));
+    }
+
+    public function testBooleanFieldGetValue()
+    {
+        $this->assertSame(true, (new BooleanField('true'))->getValue());
+    }
+
+    public function testBooleanFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Boolean, BooleanField::TYPE);
+    }
+
+    public function testBooleanFieldGetType()
+    {
+        $this->assertSame(BooleanField::TYPE, BooleanField::getType());
+    }
+
+    public function testBooleanFieldToYaml()
+    {
+        $this->assertSame('true', Yaml::dump((new BooleanField('true'))->getValue()));
     }
 }
 
