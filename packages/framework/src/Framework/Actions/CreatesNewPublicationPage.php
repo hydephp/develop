@@ -74,7 +74,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     }
 
     /**
-     * @internal
+     * @deprecated Use FieldValue types instead
      *
      * @param  array<string, mixed>  $array
      * @return array<string, mixed>
