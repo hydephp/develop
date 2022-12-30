@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
@@ -44,7 +47,7 @@ class CreatesNewPublicationPageTest extends TestCase
         );
 
         $fieldData = Collection::make([
-            'title' => 'Hello World',
+            'title' => new StringField('Hello World'),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
@@ -69,10 +72,10 @@ class CreatesNewPublicationPageTest extends TestCase
             'name' => 'description',
         ]]);
 
-        $fieldData = Collection::make(['description' => <<<'TEXT'
+        $fieldData = Collection::make(['description' => new TextField(<<<'TEXT'
             This is a description
             It can be multiple lines.
-            TEXT
+            TEXT)
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
@@ -100,7 +103,7 @@ class CreatesNewPublicationPageTest extends TestCase
         ]]);
 
         $fieldData = Collection::make([
-            'tags' => ['tag1', 'tag2', 'foo bar'],
+            'tags' => new TagField('', useArrayLiteral: ['tag1', 'tag2', 'foo bar']),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
@@ -168,9 +171,9 @@ class CreatesNewPublicationPageTest extends TestCase
         ]);
 
         $fieldData = Collection::make([
-            'title' => 'Hello World',
-            'description' => "This is a description.\nIt can be multiple lines.\n",
-            'tags' => ['tag1', 'tag2', 'foo bar'],
+            'title' => new StringField('Hello World'),
+            'description' => new TextField("This is a description.\nIt can be multiple lines.\n"),
+            'tags' => new TagField('', useArrayLiteral: ['tag1', 'tag2', 'foo bar']),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
