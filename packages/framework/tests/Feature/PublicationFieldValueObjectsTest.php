@@ -149,7 +149,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testIntegerFieldConstruct()
     {
-        $this->assertInstanceOf(IntegerField::class, (new IntegerField('foo')));
+        $this->assertInstanceOf(IntegerField::class, (new IntegerField('10')));
     }
 
     public function testIntegerFieldGetValue()
@@ -170,6 +170,13 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testIntegerFieldToYaml()
     {
         $this->assertSame('10', Yaml::dump((new IntegerField('10'))->getValue()));
+    }
+
+    public function testIntegerFieldWithInvalidInput()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('IntegerField: Unable to parse invalid integer value \'foo\'');
+        new IntegerField('foo');
     }
 }
 
