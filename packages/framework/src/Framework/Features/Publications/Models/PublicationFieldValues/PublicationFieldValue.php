@@ -25,7 +25,7 @@ abstract class PublicationFieldValue
 
     final public function getValue(): mixed
     {
-        return static::toYamlType($this->value);
+        return $this->value;
     }
 
     final public static function getType(): PublicationFieldTypes
@@ -40,12 +40,4 @@ abstract class PublicationFieldValue
      * @return mixed
      */
     abstract protected static function parseInput(string $input): mixed;
-
-    /**
-     * Return the value with the appropriate type for this field's YAML representation.
-     *
-     * @param  string  $input
-     * @return mixed
-     */
-    abstract protected static function toYamlType(mixed $input): mixed;
 }

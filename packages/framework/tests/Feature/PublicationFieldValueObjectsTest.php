@@ -173,9 +173,4 @@ class TestValue extends PublicationFieldValue
     {
         return $input;
     }
-
-    protected static function toYamlType(mixed $input): string
-    {
-        return $input;
-    }
 }

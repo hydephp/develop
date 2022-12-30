@@ -14,9 +14,4 @@ final class IntegerField extends PublicationFieldValue
     {
         return (int) $input;
     }
-
-    protected static function toYamlType(mixed $input): int
-    {
-        return (int) $input;
-    }
 }

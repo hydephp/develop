@@ -14,9 +14,4 @@ final class BooleanField extends PublicationFieldValue
     {
         return (bool) $input;
     }
-
-    protected static function toYamlType(mixed $input): bool
-    {
-        return (bool) $input;
-    }
 }

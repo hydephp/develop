@@ -15,9 +15,4 @@ final class DatetimeField extends PublicationFieldValue
     {
         return new DateTime($input);
     }
-
-    protected static function toYamlType(mixed $input): DateTime
-    {
-        return $input;
-    }
 }
