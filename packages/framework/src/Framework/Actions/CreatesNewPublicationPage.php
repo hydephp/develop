@@ -89,11 +89,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
      */
     protected function normalizeData(Collection $data): array
     {
-        foreach ($data as $key => $field) {
-            $data[$key] = $field->getValue();
-        }
-
-        return $data->toArray();
+        return $data->mapWithKeys(function (PublicationFieldValue $field, string $key): array {
+            return [$key => $field->getValue()];
+        })->toArray();
     }
 
     protected function getFieldValue(string $key): PublicationFieldValue
