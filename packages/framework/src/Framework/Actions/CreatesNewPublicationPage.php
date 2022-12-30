@@ -80,8 +80,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     }
 
     /**
-     * @deprecated Use FieldValue types instead
-     *
      * @param  array<string, PublicationFieldValue>  $array
      * @return array<string, mixed>
      */
