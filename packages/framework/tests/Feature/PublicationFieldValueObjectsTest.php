@@ -72,6 +72,18 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame('foo', Yaml::dump((new StringField('foo'))->getValue()));
     }
 
+    public function testStringParsingOptions()
+    {
+        $this->assertSame('foo', (new StringField('foo'))->getValue());
+        $this->assertSame('true', (new StringField('true'))->getValue());
+        $this->assertSame('false', (new StringField('false'))->getValue());
+        $this->assertSame('null', (new StringField('null'))->getValue());
+        $this->assertSame('0', (new StringField('0'))->getValue());
+        $this->assertSame('1', (new StringField('1'))->getValue());
+        $this->assertSame('10.5', (new StringField('10.5'))->getValue());
+        $this->assertSame('-10', (new StringField('-10'))->getValue());
+    }
+
     // DatetimeField tests
 
     public function testDatetimeFieldConstruct()
