@@ -6,19 +6,21 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
+use function is_array;
+
 final class TagField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::Tag;
 
-    public function __construct(string $value, ?array $useArrayLiteral = null)
+    public function __construct(string|array $value)
     {
-        $this->value = self::parseInput($value, $useArrayLiteral);
+        $this->value = self::parseInput($value);
     }
 
-    protected static function parseInput(string $input, ?array $useArrayLiteral = null): array
+    protected static function parseInput(string|array $input): array
     {
-        if ($useArrayLiteral !== null) {
-            return $useArrayLiteral;
+        if (is_array($input)) {
+            return $input;
         }
 
         return (array) $input;

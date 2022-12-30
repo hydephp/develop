@@ -103,7 +103,7 @@ class CreatesNewPublicationPageTest extends TestCase
         ]]);
 
         $fieldData = Collection::make([
-            'tags' => new TagField('', useArrayLiteral: ['tag1', 'tag2', 'foo bar']),
+            'tags' => new TagField(['tag1', 'tag2', 'foo bar']),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
@@ -173,7 +173,7 @@ class CreatesNewPublicationPageTest extends TestCase
         $fieldData = Collection::make([
             'title' => new StringField('Hello World'),
             'description' => new TextField("This is a description.\nIt can be multiple lines.\n"),
-            'tags' => new TagField('', useArrayLiteral: ['tag1', 'tag2', 'foo bar']),
+            'tags' => new TagField(['tag1', 'tag2', 'foo bar']),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();

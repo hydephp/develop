@@ -152,7 +152,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->line(InputStreamHandler::formatMessage($field->name));
 
-        return new ArrayField('', useArrayLiteral: InputStreamHandler::call());
+        return new ArrayField(InputStreamHandler::call());
     }
 
     protected function captureImageFieldInput(PublicationField $field): ?ImageField
@@ -188,7 +188,7 @@ class MakePublicationCommand extends ValidatingCommand
         );
 
         if (is_array($choice)) {
-            return new TagField('', useArrayLiteral: $choice);
+            return new TagField($choice);
         }
 
         return new TagField($choice);

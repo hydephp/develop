@@ -6,21 +6,23 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
+use function is_array;
+
 final class ArrayField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::Array;
     public const PARSE_FROM_CSV = 4;
     public const PARSE_FROM_NEWLINES = 8;
 
-    public function __construct(string $value, int $options = 0, ?array $useArrayLiteral = null)
+    public function __construct(string|array $value, int $options = 0)
     {
-        $this->value = self::parseInput($value, $options, $useArrayLiteral);
+        $this->value = self::parseInput($value, $options);
     }
 
-    protected static function parseInput(string $input, int $options = 0, ?array $useArrayLiteral = null): array
+    protected static function parseInput(string|array $input, int $options = 0): array
     {
-        if ($useArrayLiteral !== null) {
-            return $useArrayLiteral;
+        if (is_array($input)) {
+            return $input;
         }
 
         if ($options & self::PARSE_FROM_CSV) {
