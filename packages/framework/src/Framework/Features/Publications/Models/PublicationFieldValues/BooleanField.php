@@ -15,7 +15,7 @@ final class BooleanField extends PublicationFieldValue
         return match ($input) {
             'true', '1' => true,
             'false', '0' => false,
-            default => self::throwParseError($input)
+            default => throw self::parseError($input)
         };
     }
 }

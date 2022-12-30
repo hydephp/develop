@@ -13,7 +13,7 @@ final class IntegerField extends PublicationFieldValue
     protected static function parseInput(string $input): int
     {
         if (! is_numeric($input)) {
-            self::throwParseError($input);
+            throw self::parseError($input);
         }
 
         return (int) $input;
