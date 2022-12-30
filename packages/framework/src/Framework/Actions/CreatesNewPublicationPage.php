@@ -57,8 +57,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             return Carbon::now()->format('Y-m-d H:i:s');
         }
 
-        if ((string) $this->fieldData->get($this->pubType->canonicalField)) {
-            return (string) $this->fieldData->get($this->pubType->canonicalField);
+        if ($this->fieldData->get($this->pubType->canonicalField)) {
+            /** @var \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue $field */
+            $field = $this->fieldData->get($this->pubType->canonicalField);
+            return (string) $field->getValue();
         } else {
             return throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required as it's the type's canonical field", 404);
         }
@@ -84,30 +86,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
      */
     public function normalizeData(array $array): array
     {
-        foreach ($array as $key => $value) {
-            $type = $this->pubType->getFields()->get($key);
-
-            if ($type->type === PublicationFieldTypes::Text) {
-                // In order to properly store text fields as block literals,
-                // we need to make sure they end with a newline.
-                $array[$key] = trim($value)."\n";
-            }
-
-            if ($type->type === PublicationFieldTypes::Integer) {
-                $array[$key] = (int) $value;
-            }
-
-            if ($type->type === PublicationFieldTypes::Boolean) {
-                $array[$key] = (bool) $value;
-            }
-
-            if ($type->type === PublicationFieldTypes::Float) {
-                $array[$key] = (float) $value;
-            }
-
-            if ($type->type === PublicationFieldTypes::Array) {
-                $array[$key] = (array) $value;
-            }
+        /** @var \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue $field */
+        foreach ($array as $key => $field) {
+            $array[$key] = $field->getValue();
         }
 
         return $array;

@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
 use function array_flip;
 use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
@@ -18,6 +24,7 @@ use function implode;
 use function in_array;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function is_array;
 use function str_starts_with;
 
 /**
@@ -117,7 +124,7 @@ class MakePublicationCommand extends ValidatingCommand
         return $data;
     }
 
-    protected function captureFieldInput(PublicationField $field): bool|string|array|null
+    protected function captureFieldInput(PublicationField $field): ?PublicationFieldValue
     {
         $selection = match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
@@ -125,7 +132,7 @@ class MakePublicationCommand extends ValidatingCommand
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
             PublicationFieldTypes::Boolean => $this->captureBooleanFieldInput($field),
-            default => $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray()),
+            default => new ($field->type->fieldClass())($this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray())),
         };
 
         if (empty($selection)) {
@@ -137,21 +144,21 @@ class MakePublicationCommand extends ValidatingCommand
         return $selection;
     }
 
-    protected function captureTextFieldInput(PublicationField $field): string
+    protected function captureTextFieldInput(PublicationField $field): StringField
     {
         $this->line(InputStreamHandler::formatMessage($field->name, 'lines'));
 
-        return implode("\n", InputStreamHandler::call());
+        return new StringField(implode("\n", InputStreamHandler::call()));
     }
 
-    protected function captureArrayFieldInput(PublicationField $field): array
+    protected function captureArrayFieldInput(PublicationField $field): ArrayField
     {
         $this->line(InputStreamHandler::formatMessage($field->name));
 
-        return InputStreamHandler::call();
+        return new ArrayField('', useArrayLiteral: InputStreamHandler::call());
     }
 
-    protected function captureImageFieldInput(PublicationField $field): string|null
+    protected function captureImageFieldInput(PublicationField $field): ?ImageField
     {
         $this->infoComment('Select file for image field', $field->name);
 
@@ -163,10 +170,10 @@ class MakePublicationCommand extends ValidatingCommand
         $filesArray = $mediaFiles->toArray();
         $selection = (int) $this->choice('Which file would you like to use?', $filesArray);
 
-        return $filesArray[$selection];
+        return new ImageField($filesArray[$selection]);
     }
 
-    protected function captureTagFieldInput(PublicationField $field): array|string|null
+    protected function captureTagFieldInput(PublicationField $field): ?TagField
     {
         $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
 
@@ -177,17 +184,23 @@ class MakePublicationCommand extends ValidatingCommand
 
         $this->tip('You can enter multiple tags separated by commas');
 
-        return $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
+        $choice = $this->reloadableChoice($this->getReloadableTagValuesArrayClosure(),
             'Which tag would you like to use?',
             'Reload tags.json',
             true
         );
+
+        if (is_array($choice)) {
+            return new TagField('', useArrayLiteral: $choice);
+        }
+
+        return new TagField($choice);
     }
 
     /**
      * @deprecated Will be refactored into a dedicated rule
      */
-    protected function captureBooleanFieldInput(PublicationField $field, $retryCount = 1): ?bool
+    protected function captureBooleanFieldInput(PublicationField $field, $retryCount = 1): ?BooleanField
     {
         // Return null when retry count is exceeded to prevent infinite loop
         if ($retryCount > 30) {
@@ -212,7 +225,7 @@ class MakePublicationCommand extends ValidatingCommand
 
         // Strict parameter is needed as for some reason `in_array($selection, [true])` is always true no matter what the value of $selection is.
         if (in_array($selection, $acceptable, true)) {
-            return (bool) $selection;
+            return new BooleanField($selection);
         } else {
             // Match the formatting of the standard Laravel validation error message.
             $this->error("The $field->name field must be true or false.");
