@@ -10,26 +10,16 @@ use function is_array;
 final class ArrayField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::Array;
-    public const PARSE_FROM_CSV = 4;
-    public const PARSE_FROM_NEWLINES = 8;
 
-    public function __construct(string|array $value, int $options = 0)
+    public function __construct(string|array $value)
     {
-        $this->value = self::parseInput($value, $options);
+        $this->value = self::parseInput($value);
     }
 
-    protected static function parseInput(string|array $input, int $options = 0): array
+    protected static function parseInput(string|array $input): array
     {
         if (is_array($input)) {
             return $input;
-        }
-
-        if ($options & self::PARSE_FROM_CSV) {
-            return explode(', ', $input);
-        }
-
-        if ($options & self::PARSE_FROM_NEWLINES) {
-            return explode("\n", $input);
         }
 
         return (array) $input;
