@@ -62,16 +62,17 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function getCanonicalValue(): string
     {
-        if ($this->pubType->canonicalField === '__createdAt') {
+        $canonicalFieldName = $this->pubType->canonicalField;
+        if ($canonicalFieldName === '__createdAt') {
             return $this->fieldData->get('__createdAt')->getValue()->format('Y-m-d H:i:s');
         }
 
-        if ($this->fieldData->get($this->pubType->canonicalField)) {
-            $field = $this->fieldData->get($this->pubType->canonicalField);
+        if ($this->fieldData->get($canonicalFieldName)) {
+            $field = $this->fieldData->get($canonicalFieldName);
 
             return (string) $field->getValue();
         } else {
-            return throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required as it's the type's canonical field", 404);
+            return throw new RuntimeException("Could not find field value for '{$canonicalFieldName}' which is required as it's the type's canonical field", 404);
         }
     }
 
