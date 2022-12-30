@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
 use function array_merge;
 use function assert;
 use Hyde\Framework\Actions\Concerns\CreateAction;
@@ -36,6 +37,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
      */
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false) {
         $this->pubType = $pubType;
+        $fieldData->prepend(new DatetimeField(Carbon::now()->format('Y-m-d H:i:s')), '__createdAt');
         $this->fieldData = $fieldData;
         $this->force = $force;
         $this->outputPath = "{$this->pubType->getDirectory()}/{$this->getFilename()}.md";
@@ -66,7 +68,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function getCanonicalValue(): string
     {
         if ($this->pubType->canonicalField === '__createdAt') {
-            return Carbon::now()->format('Y-m-d H:i:s');
+            return $this->fieldData->get('__createdAt')->getValue()->format('Y-m-d H:i:s');
         }
 
         if ($this->fieldData->get($this->pubType->canonicalField)) {
@@ -79,14 +81,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function createFrontMatter(): string
     {
-        return rtrim(Yaml::dump($this->getMergedData(), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
-    }
-
-    protected function getMergedData(): array
-    {
-        return array_merge(['__createdAt' => Carbon::now()],
-            $this->normalizeData($this->fieldData->toArray())
-        );
+        return rtrim(Yaml::dump($this->normalizeData($this->fieldData->toArray()), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
     }
 
     /**
