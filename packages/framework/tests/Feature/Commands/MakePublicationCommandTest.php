@@ -89,7 +89,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsOutputToContain('Creating a new publication!')
             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', [
                 'second-publication',
-                'test-publication'
+                'test-publication',
             ], true)
             ->expectsOutput('Creating a new publication of type [test-publication]')
             ->expectsOutputToContain('Created file test-publication/')
@@ -99,7 +99,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsOutputToContain('Creating a new publication!')
             ->expectsChoice('Which publication type would you like to create a publication item for?', 'second-publication', [
                 'second-publication',
-                'test-publication'
+                'test-publication',
             ], true)
             ->expectsOutput('Creating a new publication of type [second-publication]')
             ->expectsOutputToContain('Created file second-publication/')
