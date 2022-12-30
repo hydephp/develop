@@ -345,6 +345,7 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testTextFieldToYaml()
     {
         $this->assertSame('foo', $this->getYaml(new TextField('foo')));
+        // Note that this does not use the same flags as the creator action, because that's out of scope for this test.
     }
 
     public function testTextParsingOptions()
