@@ -88,22 +88,22 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
             ->expectsOutputToContain('Creating a new publication!')
-            ->expectsChoice('Which publication type would you like to create a publication item for?', 0, [
-                'second-publication',
-                'test-publication'
-            ], true)
-            ->expectsOutput('Creating a new publication of type [second-publication]')
-            ->expectsOutputToContain('Created file second-publication/')
-            ->assertExitCode(0);
-
-        $this->artisan('make:publication')
-            ->expectsOutputToContain('Creating a new publication!')
             ->expectsChoice('Which publication type would you like to create a publication item for?', 1, [
                 'second-publication',
                 'test-publication'
             ], true)
             ->expectsOutput('Creating a new publication of type [test-publication]')
             ->expectsOutputToContain('Created file test-publication/')
+            ->assertExitCode(0);
+
+        $this->artisan('make:publication')
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 0, [
+                'second-publication',
+                'test-publication'
+            ], true)
+            ->expectsOutput('Creating a new publication of type [second-publication]')
+            ->expectsOutputToContain('Created file second-publication/')
             ->assertExitCode(0);
     }
 
