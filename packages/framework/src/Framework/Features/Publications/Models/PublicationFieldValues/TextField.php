@@ -16,7 +16,7 @@ final class TextField extends PublicationFieldValue
         // In order to properly store multi-line text fields as block literals,
         // we need to make sure the string ends with a newline character.
 
-        if (substr_count($input, "\n") > 1) {
+        if (substr_count($input, "\n") > 0) {
             return trim($input)."\n";
         }
 
