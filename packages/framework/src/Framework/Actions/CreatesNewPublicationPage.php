@@ -39,6 +39,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         $this->fieldData = $fieldData;
         $this->force = $force;
         $this->outputPath = "{$this->pubType->getDirectory()}/{$this->getFilename()}.md";
+
+        foreach ($fieldData as $field) {
+            assert($field instanceof PublicationFieldValue);
+        }
     }
 
     protected function handleCreate(): void
@@ -67,8 +71,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
         if ($this->fieldData->get($this->pubType->canonicalField)) {
             $field = $this->fieldData->get($this->pubType->canonicalField);
-            assert($field instanceof PublicationFieldValue);
-
             return (string) $field->getValue();
         } else {
             return throw new RuntimeException("Could not find field value for '{$this->pubType->canonicalField}' which is required as it's the type's canonical field", 404);
@@ -94,8 +96,6 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     protected function normalizeData(array $array): array
     {
         foreach ($array as $key => $field) {
-            assert($field instanceof PublicationFieldValue);
-
             $array[$key] = $field->getValue();
         }
 
