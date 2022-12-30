@@ -52,7 +52,7 @@ enum PublicationFieldTypes: string
         return match ($type) {
             self::String => ['string'],
             self::Datetime => ['date'],
-            self::Boolean => [BooleanRule::class],
+            self::Boolean => [new BooleanRule],
             self::Integer => ['integer', 'numeric'],
             self::Float => ['numeric'],
             self::Image => [], // TODO Rename to media and move down in the list
