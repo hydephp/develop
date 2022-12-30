@@ -191,8 +191,8 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureOtherFieldInput(PublicationField $field): ?PublicationFieldValue
     {
-        return new ("Hyde\\Framework\\Features\\Publications\\Models\\PublicationFieldValues\\{$field->type->name}Field")($this->askWithValidation($field->name,
-            "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray()));
+        $className = "Hyde\\Framework\\Features\\Publications\\Models\\PublicationFieldValues\\{$field->type->name}Field";
+        return new $className($this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray()));
     }
 
     /** @return null */
