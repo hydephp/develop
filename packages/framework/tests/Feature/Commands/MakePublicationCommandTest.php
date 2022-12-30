@@ -92,7 +92,7 @@ class MakePublicationCommandTest extends TestCase
                 'test-publication',
             ], true)
             ->expectsOutput('Creating a new publication of type [test-publication]')
-            ->expectsOutputToContain('Created file [test-publication/'.date('Y'))
+            ->expectsOutput('All done! Created file [test-publication/2022-01-01-000000.md]')
             ->assertExitCode(0);
 
         $this->artisan('make:publication')
@@ -102,7 +102,7 @@ class MakePublicationCommandTest extends TestCase
                 'test-publication',
             ], true)
             ->expectsOutput('Creating a new publication of type [second-publication]')
-            ->expectsOutputToContain('Created file [second-publication/'.date('Y'))
+            ->expectsOutput('All done! Created file [second-publication/2022-01-01-000000.md]')
             ->assertExitCode(0);
     }
 
