@@ -54,10 +54,4 @@ class InputStreamHandler extends InvokableAction
     {
         self::$mockedStreamBuffer = explode("\n", $input);
     }
-
-    /** Format a consistent message that can be output to the console */
-    public static function formatMessage(string $name, string $type = 'values'): string
-    {
-        return "<info>Enter $type for field </>[<comment>$name</comment>] (end with an empty line)";
-    }
 }

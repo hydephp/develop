@@ -42,10 +42,10 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsOutput('Creating a new publication of type [test-publication]')
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('Created file test-publication/hello-world.md')
+             ->expectsOutput('All done! Created file [test-publication/hello-world.md]')
              ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
@@ -61,6 +61,51 @@ class MakePublicationCommandTest extends TestCase
              ->assertExitCode(1);
     }
 
+    public function test_command_selects_the_right_publication_using_the_names()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [],
+        ]);
+        $this->directory('second-publication');
+        file_put_contents(
+            Hyde::path('second-publication/schema.json'),
+            json_encode([
+                'name'           => 'Second Publication',
+                'canonicalField' => '__createdAt',
+                'detailTemplate' => 'detail',
+                'listTemplate'   => 'list',
+                'pagination' => [
+                    'pageSize'       => 10,
+                    'prevNextLinks'  => true,
+                    'sortField'      => '__createdAt',
+                    'sortAscending'  => true,
+                ],
+                'fields'         =>  [],
+            ])
+        );
+
+        $this->artisan('make:publication')
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', [
+                'second-publication',
+                'test-publication',
+            ], true)
+            ->expectsOutput('Creating a new publication of type [test-publication]')
+            ->expectsOutput('All done! Created file [test-publication/2022-01-01-000000.md]')
+            ->assertExitCode(0);
+
+        $this->artisan('make:publication')
+            ->expectsOutputToContain('Creating a new publication!')
+            ->expectsChoice('Which publication type would you like to create a publication item for?', 'second-publication', [
+                'second-publication',
+                'test-publication',
+            ], true)
+            ->expectsOutput('Creating a new publication of type [second-publication]')
+            ->expectsOutput('All done! Created file [second-publication/2022-01-01-000000.md]')
+            ->assertExitCode(0);
+    }
+
     public function test_command_with_existing_publication()
     {
         $this->makeSchemaFile();
@@ -68,7 +113,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?')
@@ -86,7 +131,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
@@ -102,7 +147,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication', ['--force' => true])
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->assertExitCode(0);
 
@@ -116,7 +161,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication test-publication')
              ->expectsOutput('Creating a new publication of type [test-publication]')
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('Created file test-publication/hello-world.md')
+             ->expectsOutput('All done! Created file [test-publication/hello-world.md]')
              ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
@@ -258,6 +303,30 @@ class MakePublicationCommandTest extends TestCase
         $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/image.jpg');
     }
 
+    public function test_image_input_selects_the_right_file()
+    {
+        $this->directory('_media/test-publication');
+        $this->file('_media/test-publication/foo.jpg');
+        $this->file('_media/test-publication/bar.png');
+        $this->file('_media/test-publication/baz.svg');
+
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'image',
+                'name' => 'image',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+             ->expectsQuestion('Which file would you like to use?', '_media/test-publication/bar.png')
+             ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertCreatedPublicationMatterEquals('image: _media/test-publication/bar.png');
+    }
+
     public function test_command_with_single_tag_input()
     {
         $this->file('tags.json', json_encode([
@@ -319,7 +388,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput(' Warning: No media files found in directory _media/test-publication/')
+             ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
              ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(1);
@@ -339,7 +408,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput(' Warning: No media files found in directory _media/test-publication/')
+             ->expectsOutput('Warning: No media files found in directory _media/test-publication/')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any media files for this publication type')
              ->assertExitCode(0);
@@ -370,7 +439,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput(' Warning: No tags for this publication type found in tags.json')
+             ->expectsOutput('Warning: No tags for this publication type found in tags.json')
              ->expectsConfirmation('Would you like to skip this field?')
              ->expectsOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(1);
@@ -390,7 +459,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-             ->expectsOutput(' Warning: No tags for this publication type found in tags.json')
+             ->expectsOutput('Warning: No tags for this publication type found in tags.json')
              ->expectsConfirmation('Would you like to skip this field?', 'yes')
              ->doesntExpectOutput('Error: Unable to locate any tags for this publication type')
              ->assertExitCode(0);
@@ -422,7 +491,7 @@ class MakePublicationCommandTest extends TestCase
         ]);
 
         $this->artisan('make:publication test-publication')
-            ->doesntExpectOutput(' Warning: No tags for this publication type found in tags.json')
+            ->doesntExpectOutput('Warning: No tags for this publication type found in tags.json')
             ->expectsOutput('Error: Unable to create publication: No tags for this publication type found in tags.json')
             ->assertExitCode(1);
     }
@@ -449,6 +518,35 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertDatedPublicationExists();
         $this->assertCreatedPublicationMatterEquals('integer: 5');
+    }
+
+    public function test_with_skipping_inputs()
+    {
+        $this->makeSchemaFile([
+            'canonicalField' => '__createdAt',
+            'fields'         =>  [[
+                'type' => 'string',
+                'name' => 'string',
+            ],
+            ],
+        ]);
+
+        $this->artisan('make:publication test-publication')
+            ->expectsQuestion('Enter data for field </>[<comment>string</comment>]', '')
+            ->expectsOutput(' > Skipping field string')
+            ->assertExitCode(0);
+
+        $this->assertDatedPublicationExists();
+        $this->assertEquals(
+            <<<'MARKDOWN'
+            ---
+            __createdAt: 2022-01-01T00:00:00+00:00
+            ---
+            
+            ## Write something awesome.
+            
+            
+            MARKDOWN, $this->getDatedPublicationContents());
     }
 
     protected function makeSchemaFile(array $merge = []): void

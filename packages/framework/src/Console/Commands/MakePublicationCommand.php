@@ -18,6 +18,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use function implode;
 use function in_array;
 use InvalidArgumentException;
@@ -42,15 +43,19 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected PublicationType $publicationType;
 
+    /** @var \Illuminate\Support\Collection<string, PublicationType> */
+    protected Collection $fieldData;
+
     public function safeHandle(): int
     {
         $this->title('Creating a new publication!');
 
         $this->publicationType = $this->getPublicationTypeSelection();
+        $this->fieldData = new Collection();
 
-        $fieldData = $this->collectFieldData();
+        $this->collectFieldData();
 
-        $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, (bool) $this->option('force'));
+        $creator = new CreatesNewPublicationPage($this->publicationType, $this->fieldData, (bool) $this->option('force'));
         if ($creator->hasFileConflict()) {
             $this->error('Error: A publication already exists with the same canonical field value');
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
@@ -63,7 +68,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
         $creator->create();
 
-        $this->info("Created file {$creator->getOutputPath()}");
+        $this->infoComment('All done! Created file', $creator->getOutputPath());
 
         return Command::SUCCESS;
     }
@@ -71,12 +76,10 @@ class MakePublicationCommand extends ValidatingCommand
     protected function getPublicationTypeSelection(): PublicationType
     {
         $publicationTypes = $this->getPublicationTypes();
-
-        $publicationTypeSelection = $this->argument('publicationType') ?? $publicationTypes->keys()->get(
-            (int) $this->choice(
-                'Which publication type would you like to create a publication item for?',
-                $publicationTypes->keys()->toArray()
-            )
+        $publicationTypeSelection = $this->argument('publicationType') ??
+        $this->choice(
+            'Which publication type would you like to create a publication item for?',
+            $publicationTypes->keys()->toArray()
         );
 
         if ($publicationTypes->has($publicationTypeSelection)) {
@@ -88,7 +91,6 @@ class MakePublicationCommand extends ValidatingCommand
         throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
     }
 
-    /** @return \Illuminate\Support\Collection<string, PublicationType> */
     protected function getPublicationTypes(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
@@ -99,57 +101,50 @@ class MakePublicationCommand extends ValidatingCommand
         return $publicationTypes;
     }
 
-    /** @return \Illuminate\Support\Collection<string, string|array|null> */
-    protected function collectFieldData(): Collection
+    protected function collectFieldData(): void
     {
         $this->newLine();
         $this->info('Now please enter the field data:');
-        $data = new Collection();
 
         /** @var PublicationField $field */
         foreach ($this->publicationType->getFields() as $field) {
             if (str_starts_with($field->name, '__')) {
                 continue;
             }
+
             $this->newLine();
             $fieldInput = $this->captureFieldInput($field);
-            if ($fieldInput !== null) {
-                $data->put($field->name, $fieldInput);
+            if (empty($fieldInput)) {
+                $this->line("<fg=gray> > Skipping field $field->name</>");
+            } else {
+                $this->fieldData->put($field->name, $fieldInput);
             }
         }
 
-        return $data;
+        $this->newLine();
     }
 
     protected function captureFieldInput(PublicationField $field): ?PublicationFieldValue
     {
-        $selection = match ($field->type) {
+        return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            default => new ($field->type->fieldClass())($this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray())),
+            default => $this->captureOtherFieldInput($field),
         };
-
-        if (empty($selection)) {
-            $this->line("<fg=gray> > Skipping field $field->name</>");
-
-            return null;
-        }
-
-        return $selection;
     }
 
     protected function captureTextFieldInput(PublicationField $field): TextField
     {
-        $this->line(InputStreamHandler::formatMessage($field->name, 'lines'));
+        $this->infoComment('Enter lines for field', $field->name, '</>(end with an empty line)');
 
         return new TextField(implode("\n", InputStreamHandler::call()));
     }
 
     protected function captureArrayFieldInput(PublicationField $field): ArrayField
     {
-        $this->line(InputStreamHandler::formatMessage($field->name));
+        $this->infoComment('Enter values for field', $field->name, '</>(end with an empty line)');
 
         return new ArrayField(InputStreamHandler::call());
     }
@@ -163,10 +158,7 @@ class MakePublicationCommand extends ValidatingCommand
             return $this->handleEmptyOptionsCollection($field, 'media file', "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
         }
 
-        $filesArray = $mediaFiles->toArray();
-        $selection = (int) $this->choice('Which file would you like to use?', $filesArray);
-
-        return new ImageField($filesArray[$selection]);
+        return new ImageField($this->choice('Which file would you like to use?', $mediaFiles->toArray()));
     }
 
     protected function captureTagFieldInput(PublicationField $field): ?TagField
@@ -189,6 +181,24 @@ class MakePublicationCommand extends ValidatingCommand
         return new TagField($choice);
     }
 
+    protected function captureOtherFieldInput(PublicationField $field): ?PublicationFieldValue
+    {
+        $selection = $this->askForFieldData($field->name, $field->getValidationRules()->toArray());
+        if (empty($selection)) {
+            return null;
+        }
+
+        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $className = "$namespace\\{$field->type->name}Field";
+
+        return new $className($selection);
+    }
+
+    protected function askForFieldData(string $name, array $rules): string
+    {
+        return $this->askWithValidation($name, "Enter data for field </>[<comment>$name</comment>]", $rules);
+    }
+
     /** @return null */
     protected function handleEmptyOptionsCollection(PublicationField $field, string $type, string $message)
     {
@@ -197,7 +207,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         $this->newLine();
-        $this->warn(" <fg=red>Warning:</> $message");
+        $this->warn("<fg=red>Warning:</> $message");
         if ($this->confirm('Would you like to skip this field?', true)) {
             return null;
         } else {

@@ -77,9 +77,4 @@ enum PublicationFieldTypes: string
             self::Text,
         ];
     }
-
-    public function fieldClass(): string
-    {
-        return "Hyde\\Framework\\Features\\Publications\\Models\\PublicationFieldValues\\{$this->name}Field";
-    }
 }

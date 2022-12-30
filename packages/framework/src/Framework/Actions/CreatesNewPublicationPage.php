@@ -34,7 +34,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
      */
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false)
     {
-        $fieldData->prepend(new DatetimeField(Carbon::now()->format('Y-m-d H:i:s')), '__createdAt');
+        $fieldData->prepend(new DatetimeField((string) Carbon::now()), '__createdAt');
 
         $this->pubType = $pubType;
         $this->fieldData = $fieldData;
@@ -56,11 +56,11 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     {
         $canonicalFieldName = $this->pubType->canonicalField;
         if ($canonicalFieldName === '__createdAt') {
-            return $this->getFieldValue('__createdAt')->getValue()->format('Y-m-d H:i:s');
+            return $this->getFieldFromCollection('__createdAt')->getValue()->format('Y-m-d H:i:s');
         }
 
         if ($this->fieldData->has($canonicalFieldName)) {
-            $field = $this->getFieldValue($canonicalFieldName);
+            $field = $this->getFieldFromCollection($canonicalFieldName);
 
             return (string) $field->getValue(); // TODO here we can check if field has interface allowing it to be canonical, else throw exception
         } else {
@@ -87,7 +87,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         })->toArray();
     }
 
-    protected function getFieldValue(string $key): PublicationFieldValue
+    protected function getFieldFromCollection(string $key): PublicationFieldValue
     {
         return $this->fieldData->get($key);
     }
