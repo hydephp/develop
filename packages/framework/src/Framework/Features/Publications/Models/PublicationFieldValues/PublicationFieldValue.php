@@ -44,11 +44,11 @@ abstract class PublicationFieldValue
      */
     abstract protected static function parseInput(string $input): mixed;
 
-    protected static function throwParseError(string $input)
+    protected static function throwParseError(string $input): void
     {
         $className = class_basename(static::class);
         $typeName = str($className)->replace('Field', '')->snake()->__toString();
 
-        return throw new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
+        throw new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
     }
 }
