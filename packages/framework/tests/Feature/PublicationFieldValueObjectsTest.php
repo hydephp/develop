@@ -114,7 +114,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testBooleanFieldConstruct()
     {
-        $this->assertInstanceOf(BooleanField::class, (new BooleanField('foo')));
+        $this->assertInstanceOf(BooleanField::class, (new BooleanField('true')));
     }
 
     public function testBooleanFieldGetValue()
