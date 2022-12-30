@@ -120,6 +120,8 @@ class MakePublicationCommand extends ValidatingCommand
                 $this->fieldData->put($field->name, $fieldInput);
             }
         }
+
+        $this->newLine();
     }
 
     protected function captureFieldInput(PublicationField $field): ?PublicationFieldValue
