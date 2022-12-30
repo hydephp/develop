@@ -83,7 +83,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
      * @param  array<string, PublicationFieldValue>  $array
      * @return array<string, mixed>
      */
-    public function normalizeData(array $array): array
+    protected function normalizeData(array $array): array
     {
         foreach ($array as $key => $field) {
             assert($field instanceof PublicationFieldValue);
