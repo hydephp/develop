@@ -19,6 +19,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -469,9 +470,10 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testAllTypesHaveAValueClass()
     {
+        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
         foreach (PublicationFieldTypes::names() as $type) {
             $this->assertTrue(
-                class_exists("Hyde\\Framework\\Features\\Publications\\Models\\PublicationFieldValues\\{$type}Field"),
+                class_exists("$namespace\\{$type}Field"),
                 "Missing value class for type $type"
             );
         }
