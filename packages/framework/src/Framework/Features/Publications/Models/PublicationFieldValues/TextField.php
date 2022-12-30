@@ -17,7 +17,7 @@ final class TextField extends PublicationFieldValue
         // we need to make sure the string ends with a newline character.
 
         if (substr_count($input, "\n") > 0) {
-            return trim($input)."\n";
+            return trim($input, "\r\n")."\n";
         }
 
         return $input;
