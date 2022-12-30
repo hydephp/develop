@@ -113,6 +113,7 @@ class MakePublicationCommand extends ValidatingCommand
                 continue;
             }
 
+            $this->newLine();
             $fieldInput = $this->captureFieldInput($field);
             if (empty($fieldInput)) {
                 $this->line("<fg=gray> > Skipping field $field->name</>");
@@ -126,8 +127,6 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureFieldInput(PublicationField $field): ?PublicationFieldValue
     {
-        $this->newLine();
-
         return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
