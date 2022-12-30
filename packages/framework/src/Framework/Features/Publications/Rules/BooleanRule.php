@@ -17,9 +17,8 @@ class BooleanRule implements InvokableRule
      * @param  string  $attribute
      * @param  mixed  $value
      * @param  \Closure  $fail
-     * @return void
      */
-    public function __invoke($attribute, $value, $fail)
+    public function __invoke($attribute, $value, $fail): void
     {
         $acceptable = ['true', 'false', true, false, 0, 1, '0', '1'];
 
