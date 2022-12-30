@@ -158,10 +158,7 @@ class MakePublicationCommand extends ValidatingCommand
             return $this->handleEmptyOptionsCollection($field, 'media file', "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
         }
 
-        $filesArray = $mediaFiles->toArray();
-        $selection = (int) $this->choice('Which file would you like to use?', $filesArray);
-
-        return new ImageField($filesArray[$selection]);
+        return new ImageField($this->choice('Which file would you like to use?', $mediaFiles->toArray()));
     }
 
     protected function captureTagFieldInput(PublicationField $field): ?TagField
