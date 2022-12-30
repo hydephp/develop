@@ -80,20 +80,20 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function createFrontMatter(): string
     {
-        return rtrim(Yaml::dump($this->normalizeData($this->fieldData->toArray()), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
+        return rtrim(Yaml::dump($this->normalizeData($this->fieldData), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
     }
 
     /**
-     * @param  array<string, PublicationFieldValue>  $array
+     * @param  Collection<string, PublicationFieldValue>  $data
      * @return array<string, mixed>
      */
-    protected function normalizeData(array $array): array
+    protected function normalizeData(Collection $data): array
     {
-        foreach ($array as $key => $field) {
-            $array[$key] = $field->getValue();
+        foreach ($data as $key => $field) {
+            $data[$key] = $field->getValue();
         }
 
-        return $array;
+        return $data->toArray();
     }
 
     protected function getFieldValue(string $key): PublicationFieldValue
