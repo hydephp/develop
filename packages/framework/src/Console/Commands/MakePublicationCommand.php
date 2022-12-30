@@ -18,6 +18,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use function implode;
 use function in_array;
 use InvalidArgumentException;
@@ -191,7 +192,8 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureOtherFieldInput(PublicationField $field): ?PublicationFieldValue
     {
-        $className = "Hyde\\Framework\\Features\\Publications\\Models\\PublicationFieldValues\\{$field->type->name}Field";
+        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $className = "$namespace\\{$field->type->name}Field";
         return new $className($this->askWithValidation($field->name,
             "Enter data for field </>[<comment>$field->name</comment>]",
             $field->getValidationRules()->toArray())
