@@ -349,7 +349,6 @@ class MakePublicationCommandTest extends TestCase
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
-            image: null
             ---
             
             ## Write something awesome.
@@ -402,7 +401,6 @@ class MakePublicationCommandTest extends TestCase
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
-            tag: null
             ---
             
             ## Write something awesome.
