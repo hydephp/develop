@@ -186,6 +186,18 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->expectExceptionMessage('IntegerField: Unable to parse invalid integer value \'foo\'');
         new IntegerField('foo');
     }
+
+    public function testIntegerParsingOptions()
+    {
+        $this->assertSame(0, (new IntegerField('0'))->getValue());
+        $this->assertSame(1, (new IntegerField('1'))->getValue());
+        $this->assertSame(10, (new IntegerField('10'))->getValue());
+        $this->assertSame(10, (new IntegerField('10.0'))->getValue());
+        $this->assertSame(10, (new IntegerField('10.5'))->getValue());
+        $this->assertSame(10, (new IntegerField('10.9'))->getValue());
+        $this->assertSame(100, (new IntegerField('1E2'))->getValue());
+        $this->assertSame(-10, (new IntegerField('-10'))->getValue());
+    }
 }
 
 class TestValue extends PublicationFieldValue
