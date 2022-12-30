@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use function array_flip;
 use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
@@ -131,7 +129,6 @@ class MakePublicationCommand extends ValidatingCommand
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
-            PublicationFieldTypes::Boolean => $this->captureBooleanFieldInput($field),
             default => new ($field->type->fieldClass())($this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $field->getValidationRules()->toArray())),
         };
 
@@ -195,43 +192,6 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         return new TagField($choice);
-    }
-
-    /**
-     * @deprecated Will be refactored into a dedicated rule
-     */
-    protected function captureBooleanFieldInput(PublicationField $field, $retryCount = 1): ?BooleanField
-    {
-        // Return null when retry count is exceeded to prevent infinite loop
-        if ($retryCount > 30) {
-            return null;
-        }
-
-        // Since the Laravel validation rule for booleans doesn't accept the string input provided by the console,
-        // we need to do some logic of our own to support validating booleans through the console.
-
-        $rules = $field->type->rules();
-        $rules = array_flip($rules);
-        unset($rules['boolean']);
-        $rules = array_flip($rules);
-
-        $selection = $this->askWithValidation($field->name, "Enter data for field </>[<comment>$field->name</comment>]", $rules);
-
-        if (empty($selection)) {
-            return null;
-        }
-
-        $acceptable = ['true', 'false', true, false, 0, 1, '0', '1'];
-
-        // Strict parameter is needed as for some reason `in_array($selection, [true])` is always true no matter what the value of $selection is.
-        if (in_array($selection, $acceptable, true)) {
-            return new BooleanField($selection);
-        } else {
-            // Match the formatting of the standard Laravel validation error message.
-            $this->error("The $field->name field must be true or false.");
-
-            return $this->captureBooleanFieldInput($field, $retryCount + 1);
-        }
     }
 
     /** @return null */

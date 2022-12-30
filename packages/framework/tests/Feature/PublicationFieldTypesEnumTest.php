@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
 
 /**
@@ -31,7 +32,7 @@ class PublicationFieldTypesEnumTest extends TestCase
     public function testGetRules()
     {
         $this->assertSame(['string'], PublicationFieldTypes::String->rules());
-        $this->assertSame(['boolean'], PublicationFieldTypes::Boolean->rules());
+        $this->assertEquals([new BooleanRule()], PublicationFieldTypes::Boolean->rules());
         $this->assertSame(['integer', 'numeric'], PublicationFieldTypes::Integer->rules());
         $this->assertSame(['numeric'], PublicationFieldTypes::Float->rules());
         $this->assertSame(['date'], PublicationFieldTypes::Datetime->rules());
