@@ -8,6 +8,7 @@ use DateTime;
 use Exception;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
@@ -134,6 +135,33 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testBooleanFieldToYaml()
     {
         $this->assertSame('true', Yaml::dump((new BooleanField('true'))->getValue()));
+    }
+
+    // IntegerField tests
+
+    public function testIntegerFieldConstruct()
+    {
+        $this->assertInstanceOf(IntegerField::class, (new IntegerField('foo')));
+    }
+
+    public function testIntegerFieldGetValue()
+    {
+        $this->assertSame(10, (new IntegerField('10'))->getValue());
+    }
+
+    public function testIntegerFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Integer, IntegerField::TYPE);
+    }
+
+    public function testIntegerFieldGetType()
+    {
+        $this->assertSame(IntegerField::TYPE, IntegerField::getType());
+    }
+
+    public function testIntegerFieldToYaml()
+    {
+        $this->assertSame('10', Yaml::dump((new IntegerField('10'))->getValue()));
     }
 }
 
