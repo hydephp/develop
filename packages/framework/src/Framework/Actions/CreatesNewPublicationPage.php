@@ -64,11 +64,11 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     {
         $canonicalFieldName = $this->pubType->canonicalField;
         if ($canonicalFieldName === '__createdAt') {
-            return $this->fieldData->get('__createdAt')->getValue()->format('Y-m-d H:i:s');
+            return $this->getFieldValue('__createdAt')->getValue()->format('Y-m-d H:i:s');
         }
 
         if ($this->fieldData->get($canonicalFieldName)) {
-            $field = $this->fieldData->get($canonicalFieldName);
+            $field = $this->getFieldValue($canonicalFieldName);
 
             return (string) $field->getValue();
         } else {
@@ -103,5 +103,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         return $fieldData;
+    }
+
+    protected function getFieldValue(string $key): PublicationFieldValue
+    {
+        return $this->fieldData->get($key);
     }
 }
