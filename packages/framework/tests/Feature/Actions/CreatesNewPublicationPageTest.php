@@ -210,7 +210,10 @@ class CreatesNewPublicationPageTest extends TestCase
 
     public function testArrayValuesMustBePublicationFieldValues()
     {
-        $pubType = $this->makePublicationType([]);
+        $pubType = $this->makePublicationType([[
+            'type' => 'text',
+            'name' => 'description',
+        ]]);
 
         $fieldData = Collection::make([
             'foo' => ['bar'],
