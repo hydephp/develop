@@ -391,6 +391,10 @@ class PublicationFieldValueObjectsTest extends TestCase
         new UrlField('foo');
     }
 
+    // Additional tests
+
+    // Testing helper methods
+
     protected function getYaml(PublicationFieldValue $field): string
     {
         return Yaml::dump($field->getValue());
