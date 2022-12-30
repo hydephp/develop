@@ -199,10 +199,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function askForFieldData(string $name, array $rules): string
     {
-        return $this->askWithValidation($name,
-            "Enter data for field </>[<comment>$name</comment>]",
-            $rules
-        );
+        return $this->askWithValidation($name, "Enter data for field </>[<comment>$name</comment>]", $rules);
     }
 
     /** @return null */
