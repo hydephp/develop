@@ -45,10 +45,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $output = "---
-{$this->createFrontMatter()}
----
-
+        $output = "{$this->createFrontMatter()}
 ## Write something awesome.
 
 ";
@@ -79,7 +76,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function createFrontMatter(): string
     {
-        return rtrim(Yaml::dump($this->normalizeData($this->fieldData), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK));
+        return (new ConvertsArrayToFrontMatter())->execute($this->normalizeData($this->fieldData), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK);
     }
 
     /**
