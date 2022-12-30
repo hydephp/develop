@@ -21,7 +21,6 @@ use Illuminate\Support\Collection;
 use function implode;
 use function in_array;
 use InvalidArgumentException;
-use function is_array;
 use LaravelZero\Framework\Commands\Command;
 use function str_starts_with;
 
@@ -152,7 +151,7 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->line(InputStreamHandler::formatMessage($field->name));
 
-        return new ArrayField('', useArrayLiteral: InputStreamHandler::call());
+        return new ArrayField(InputStreamHandler::call());
     }
 
     protected function captureImageFieldInput(PublicationField $field): ?ImageField
@@ -186,10 +185,6 @@ class MakePublicationCommand extends ValidatingCommand
             'Reload tags.json',
             true
         );
-
-        if (is_array($choice)) {
-            return new TagField('', useArrayLiteral: $choice);
-        }
 
         return new TagField($choice);
     }

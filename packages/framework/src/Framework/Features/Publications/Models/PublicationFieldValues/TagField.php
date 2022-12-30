@@ -5,15 +5,21 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use function is_array;
 
 final class TagField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::Tag;
 
-    protected static function parseInput(string $input, ?array $useArrayLiteral = null): array
+    public function __construct(string|array $value)
     {
-        if ($useArrayLiteral !== null) {
-            return $useArrayLiteral;
+        $this->value = self::parseInput($value);
+    }
+
+    protected static function parseInput(string|array $input): array
+    {
+        if (is_array($input)) {
+            return $input;
         }
 
         return (array) $input;

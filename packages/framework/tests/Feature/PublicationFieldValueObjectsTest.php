@@ -298,6 +298,11 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame("- foo\n", $this->getYaml(new ArrayField('foo')));
     }
 
+    public function testArrayFieldWithArrayInput()
+    {
+        $this->assertSame(['foo'], (new ArrayField(['foo']))->getValue());
+    }
+
     public function testArrayFieldParsingOptions()
     {
         $this->assertSame(['foo'], (new ArrayField('foo'))->getValue());
@@ -308,16 +313,6 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame(['1'], (new ArrayField('1'))->getValue());
         $this->assertSame(['10.5'], (new ArrayField('10.5'))->getValue());
         $this->assertSame(['-10'], (new ArrayField('-10'))->getValue());
-    }
-
-    public function testArrayParsingWithCommaSeparatedValues()
-    {
-        $this->assertSame(['foo', 'bar'], (new ArrayField('foo, bar', ArrayField::PARSE_FROM_CSV))->getValue());
-    }
-
-    public function testArrayParsingWithNewlineSeparatedValues()
-    {
-        $this->assertSame(['foo', 'bar'], (new ArrayField("foo\nbar", ArrayField::PARSE_FROM_NEWLINES))->getValue());
     }
 
     // TextField tests
@@ -451,6 +446,11 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testTagFieldToYaml()
     {
         $this->assertSame("- foo\n", $this->getYaml(new TagField('foo')));
+    }
+
+    public function testTagFieldWithArrayInput()
+    {
+        $this->assertSame(['foo'], (new TagField(['foo']))->getValue());
     }
 
     public function testTagFieldParsingOptions()
