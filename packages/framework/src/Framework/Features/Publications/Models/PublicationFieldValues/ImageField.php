@@ -12,6 +12,7 @@ final class ImageField extends PublicationFieldValue
 
     protected static function parseInput(string $input): string
     {
+        // TODO Validate file exists?
         return $input;
     }
 }
