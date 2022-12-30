@@ -21,7 +21,7 @@ abstract class PublicationFieldValue
 
     protected mixed $value;
 
-    final public function __construct(string $value, ...$args)
+    public function __construct(string $value, ...$args)
     {
         $this->value = static::parseInput($value, ...$args);
     }
