@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use InvalidArgumentException;
 
 final class BooleanField extends PublicationFieldValue
 {
@@ -16,7 +15,7 @@ final class BooleanField extends PublicationFieldValue
         return match ($input) {
             'true', '1' => true,
             'false', '0' => false,
-            default => throw new InvalidArgumentException("BooleanField: Unable to parse invalid boolean value '$input'")
+            default => self::throwParseError($input)
         };
     }
 }

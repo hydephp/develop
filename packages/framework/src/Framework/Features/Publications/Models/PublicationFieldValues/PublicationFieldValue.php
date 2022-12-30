@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use InvalidArgumentException;
 use RuntimeException;
+
+use function class_basename;
+use function str;
 
 /**
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
@@ -40,4 +44,12 @@ abstract class PublicationFieldValue
      * @return mixed
      */
     abstract protected static function parseInput(string $input): mixed;
+
+
+    protected static function throwParseError(string $input)
+    {
+        $className = class_basename(static::class);
+        $typeName = str($className)->replace('Field', '')->snake()->__toString();
+        return throw new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
+    }
 }
