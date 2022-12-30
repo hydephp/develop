@@ -8,6 +8,7 @@ use DateTime;
 use Exception;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
@@ -209,6 +210,52 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame(10, (new IntegerField('10.9'))->getValue());
         $this->assertSame(100, (new IntegerField('1E2'))->getValue());
         $this->assertSame(-10, (new IntegerField('-10'))->getValue());
+    }
+
+    // FloatField tests
+
+    public function testFloatFieldConstruct()
+    {
+        $this->assertInstanceOf(FloatField::class, (new FloatField('10')));
+    }
+
+    public function testFloatFieldGetValue()
+    {
+        $this->assertSame(10.0, (new FloatField('10'))->getValue());
+    }
+
+    public function testFloatFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Float, FloatField::TYPE);
+    }
+
+    public function testFloatFieldGetType()
+    {
+        $this->assertSame(FloatField::TYPE, FloatField::getType());
+    }
+
+    public function testFloatFieldToYaml()
+    {
+        $this->assertSame('10.0', Yaml::dump((new FloatField('10'))->getValue()));
+    }
+
+    public function testFloatFieldWithInvalidInput()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('FloatField: Unable to parse invalid float value \'foo\'');
+        new FloatField('foo');
+    }
+
+    public function testFloatParsingOptions()
+    {
+        $this->assertSame(0.0, (new FloatField('0'))->getValue());
+        $this->assertSame(1.0, (new FloatField('1'))->getValue());
+        $this->assertSame(10.0, (new FloatField('10'))->getValue());
+        $this->assertSame(10.0, (new FloatField('10.0'))->getValue());
+        $this->assertSame(10.5, (new FloatField('10.5'))->getValue());
+        $this->assertSame(10.9, (new FloatField('10.9'))->getValue());
+        $this->assertSame(100.0, (new FloatField('1E2'))->getValue());
+        $this->assertSame(-10.0, (new FloatField('-10'))->getValue());
     }
 }
 
