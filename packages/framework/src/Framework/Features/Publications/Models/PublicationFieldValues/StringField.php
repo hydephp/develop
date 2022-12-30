@@ -10,15 +10,12 @@ use Stringable;
 
 final class StringField extends PublicationFieldValue implements Canonicable
 {
+    use CanonicableTrait;
+
     public const TYPE = PublicationFieldTypes::String;
 
     protected static function parseInput(string $input): string
     {
         return $input;
-    }
-
-    public function __toString(): string
-    {
-        return $this->getValue();
     }
 }
