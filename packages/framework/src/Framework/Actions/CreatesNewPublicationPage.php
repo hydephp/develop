@@ -11,7 +11,6 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Publicati
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use function rtrim;
 use RuntimeException;
 use function substr;
 use Symfony\Component\Yaml\Yaml;
