@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use function array_merge;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use function assert;
 use function rtrim;
 use RuntimeException;
 use function substr;
@@ -56,8 +58,8 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
         }
 
         if ($this->fieldData->get($this->pubType->canonicalField)) {
-            /** @var \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue $field */
             $field = $this->fieldData->get($this->pubType->canonicalField);
+            assert($field instanceof PublicationFieldValue);
 
             return (string) $field->getValue();
         } else {
@@ -85,8 +87,9 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
      */
     public function normalizeData(array $array): array
     {
-        /** @var \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue $field */
         foreach ($array as $key => $field) {
+            assert($field instanceof PublicationFieldValue);
+
             $array[$key] = $field->getValue();
         }
 
