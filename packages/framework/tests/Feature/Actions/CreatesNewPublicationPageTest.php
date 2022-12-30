@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use AssertionError;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
@@ -205,6 +206,18 @@ class CreatesNewPublicationPageTest extends TestCase
             'description' => "This is a description.\nIt can be multiple lines.\n",
             'tags' =>  ['tag1', 'tag2', 'foo bar'],
         ], Yaml::parse(Str::between($contents, '---', '---')));
+    }
+
+    public function testArrayValuesMustBePublicationFieldValues()
+    {
+        $pubType = $this->makePublicationType([]);
+
+        $fieldData = Collection::make([
+            'foo' => ['bar'],
+        ]);
+
+        $this->expectException(AssertionError::class);
+        (new CreatesNewPublicationPage($pubType, $fieldData))->create();
     }
 
     protected function makePublicationType(array $fields): PublicationType
