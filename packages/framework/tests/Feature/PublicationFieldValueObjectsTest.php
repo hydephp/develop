@@ -13,6 +13,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatFiel
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
@@ -30,6 +31,7 @@ use Symfony\Component\Yaml\Yaml;
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField
  */
 class PublicationFieldValueObjectsTest extends TestCase
 {
@@ -389,6 +391,45 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('UrlField: Unable to parse invalid url value \'foo\'');
         new UrlField('foo');
+    }
+
+    // TagField tests
+
+    public function testTagFieldConstruct()
+    {
+        $this->assertInstanceOf(TagField::class, (new TagField('foo')));
+    }
+
+    public function testTagFieldGetValue()
+    {
+        $this->assertSame(['foo'], (new TagField('foo'))->getValue());
+    }
+
+    public function testTagFieldTypeConstant()
+    {
+        $this->assertSame(PublicationFieldTypes::Tag, TagField::TYPE);
+    }
+
+    public function testTagFieldGetType()
+    {
+        $this->assertSame(TagField::TYPE, TagField::getType());
+    }
+
+    public function testTagFieldToYaml()
+    {
+        $this->assertSame("- foo\n", $this->getYaml(new TagField('foo')));
+    }
+
+    public function testTagParsingOptions()
+    {
+        $this->assertSame(['foo'], (new TagField('foo'))->getValue());
+        $this->assertSame(['true'], (new TagField('true'))->getValue());
+        $this->assertSame(['false'], (new TagField('false'))->getValue());
+        $this->assertSame(['null'], (new TagField('null'))->getValue());
+        $this->assertSame(['0'], (new TagField('0'))->getValue());
+        $this->assertSame(['1'], (new TagField('1'))->getValue());
+        $this->assertSame(['10.5'], (new TagField('10.5'))->getValue());
+        $this->assertSame(['-10'], (new TagField('-10'))->getValue());
     }
 
     // Additional tests
