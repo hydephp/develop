@@ -112,7 +112,7 @@ class MakePublicationCommand extends ValidatingCommand
             if (str_starts_with($field->name, '__')) {
                 continue;
             }
-            $this->newLine();
+
             $fieldInput = $this->captureFieldInput($field);
             if ($fieldInput !== null) {
                 $data->put($field->name, $fieldInput);
@@ -124,6 +124,8 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureFieldInput(PublicationField $field): ?PublicationFieldValue
     {
+        $this->newLine();
+
         $selection = match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
