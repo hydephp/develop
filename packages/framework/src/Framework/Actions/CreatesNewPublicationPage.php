@@ -76,7 +76,10 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function createFrontMatter(): string
     {
-        return (new ConvertsArrayToFrontMatter())->execute($this->normalizeData($this->fieldData), flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK);
+        return (new ConvertsArrayToFrontMatter())->execute(
+            $this->normalizeData($this->fieldData),
+            flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK
+        );
     }
 
     /**
