@@ -13,9 +13,14 @@ final class TextField extends PublicationFieldValue
 
     protected static function parseInput(string $input): string
     {
-        // In order to properly store text fields as block literals,
-        // we need to make sure they end with a newline.
+        // In order to properly store multi-line text fields as block literals,
+        // we need to make sure the string ends with a newline character.
 
-        return trim($input)."\n";
+        if (substr_count($input, "\n") > 1)
+        {
+            return trim($input)."\n";
+        }
+
+        return $input;
     }
 }
