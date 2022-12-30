@@ -43,15 +43,19 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected PublicationType $publicationType;
 
+    /** @var \Illuminate\Support\Collection<string, PublicationType> */
+    protected Collection $fieldData;
+
     public function safeHandle(): int
     {
         $this->title('Creating a new publication!');
 
         $this->publicationType = $this->getPublicationTypeSelection();
+        $this->fieldData = new Collection();
 
-        $fieldData = $this->collectFieldData();
+        $this->collectFieldData();
 
-        $creator = new CreatesNewPublicationPage($this->publicationType, $fieldData, (bool) $this->option('force'));
+        $creator = new CreatesNewPublicationPage($this->publicationType, $this->fieldData, (bool) $this->option('force'));
         if ($creator->hasFileConflict()) {
             $this->error('Error: A publication already exists with the same canonical field value');
             if ($this->confirm('Do you wish to overwrite the existing file?')) {
@@ -89,7 +93,6 @@ class MakePublicationCommand extends ValidatingCommand
         throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
     }
 
-    /** @return \Illuminate\Support\Collection<string, PublicationType> */
     protected function getPublicationTypes(): Collection
     {
         $publicationTypes = PublicationService::getPublicationTypes();
@@ -100,12 +103,10 @@ class MakePublicationCommand extends ValidatingCommand
         return $publicationTypes;
     }
 
-    /** @return \Illuminate\Support\Collection<string, string|array|null> */
-    protected function collectFieldData(): Collection
+    protected function collectFieldData(): void
     {
         $this->newLine();
         $this->info('Now please enter the field data:');
-        $data = new Collection();
 
         /** @var PublicationField $field */
         foreach ($this->publicationType->getFields() as $field) {
@@ -118,11 +119,9 @@ class MakePublicationCommand extends ValidatingCommand
             if (empty($fieldInput)) {
                 $this->line("<fg=gray> > Skipping field $field->name</>");
             } else {
-                $data->put($field->name, $fieldInput);
+                $this->fieldData->put($field->name, $fieldInput);
             }
         }
-
-        return $data;
     }
 
     protected function captureFieldInput(PublicationField $field): ?PublicationFieldValue
