@@ -381,7 +381,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testUrlFieldToYaml()
     {
-        $this->assertSame('https://example.com', Yaml::dump((new UrlField('https://example.com'))->getValue()));
+        $this->assertSame('\'https://example.com\'', Yaml::dump((new UrlField('https://example.com'))->getValue()));
     }
 
     public function testUrlFieldWithInvalidInput()
