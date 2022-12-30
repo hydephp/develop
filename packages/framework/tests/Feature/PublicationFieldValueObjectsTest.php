@@ -393,6 +393,16 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     // Additional tests
 
+    public function testAllTypesHaveAValueClass()
+    {
+        foreach (PublicationFieldTypes::names() as $type) {
+            $this->assertTrue(
+                class_exists("Hyde\\Framework\\Features\\Publications\\Models\\PublicationFieldValues\\{$type}Field"),
+                "Missing value class for type $type"
+            );
+        }
+    }
+
     // Testing helper methods
 
     protected function getYaml(PublicationFieldValue $field): string
