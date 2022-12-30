@@ -114,7 +114,9 @@ class MakePublicationCommand extends ValidatingCommand
             }
 
             $fieldInput = $this->captureFieldInput($field);
-            if ($fieldInput !== null) {
+            if (empty($fieldInput)) {
+                $this->line("<fg=gray> > Skipping field $field->name</>");
+            } else {
                 $data->put($field->name, $fieldInput);
             }
         }
@@ -126,21 +128,13 @@ class MakePublicationCommand extends ValidatingCommand
     {
         $this->newLine();
 
-        $selection = match ($field->type) {
+        return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
             PublicationFieldTypes::Tag => $this->captureTagFieldInput($field),
             default => $this->captureOtherFieldInput($field),
         };
-
-        if (empty($selection)) {
-            $this->line("<fg=gray> > Skipping field $field->name</>");
-
-            return null;
-        }
-
-        return $selection;
     }
 
     protected function captureTextFieldInput(PublicationField $field): TextField
