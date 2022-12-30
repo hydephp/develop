@@ -22,6 +22,10 @@ use Symfony\Component\Yaml\Yaml;
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField
  */
 class PublicationFieldValueObjectsTest extends TestCase
 {
