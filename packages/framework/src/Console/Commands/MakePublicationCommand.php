@@ -10,6 +10,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageFiel
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
 use function array_flip;
 use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
@@ -144,11 +145,11 @@ class MakePublicationCommand extends ValidatingCommand
         return $selection;
     }
 
-    protected function captureTextFieldInput(PublicationField $field): StringField
+    protected function captureTextFieldInput(PublicationField $field): TextField
     {
         $this->line(InputStreamHandler::formatMessage($field->name, 'lines'));
 
-        return new StringField(implode("\n", InputStreamHandler::call()));
+        return new TextField(implode("\n", InputStreamHandler::call()));
     }
 
     protected function captureArrayFieldInput(PublicationField $field): ArrayField
