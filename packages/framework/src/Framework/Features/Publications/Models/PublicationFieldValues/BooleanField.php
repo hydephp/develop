@@ -19,7 +19,7 @@ final class BooleanField extends PublicationFieldValue
         $acceptable = ['true', 'false', true, false, 0, 1, '0', '1'];
 
         if (! in_array($input, $acceptable, true)) {
-            throw new InvalidArgumentException("Invalid boolean value '$input' provided to BooleanField");
+            throw new InvalidArgumentException("BooleanField: Unable to parse invalid boolean value '$input'");
         }
 
         return (bool) $input;

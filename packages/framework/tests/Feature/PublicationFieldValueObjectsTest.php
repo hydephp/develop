@@ -13,6 +13,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Publicati
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -135,6 +136,13 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testBooleanFieldToYaml()
     {
         $this->assertSame('true', Yaml::dump((new BooleanField('true'))->getValue()));
+    }
+
+    public function testBooleanFieldWithInvalidInput()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('BooleanField: Unable to parse invalid boolean value \'foo\'');
+        new BooleanField('foo');
     }
 
     // IntegerField tests
