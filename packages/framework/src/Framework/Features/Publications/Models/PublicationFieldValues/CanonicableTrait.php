@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use RuntimeException;
-
 use function substr;
 
 trait CanonicableTrait
