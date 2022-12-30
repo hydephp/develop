@@ -298,6 +298,11 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame("- foo\n", $this->getYaml(new ArrayField('foo')));
     }
 
+    public function testArrayFieldWithArrayInput()
+    {
+        $this->assertSame(['foo'], (new ArrayField(['foo']))->getValue());
+    }
+
     public function testArrayFieldParsingOptions()
     {
         $this->assertSame(['foo'], (new ArrayField('foo'))->getValue());
@@ -441,6 +446,11 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testTagFieldToYaml()
     {
         $this->assertSame("- foo\n", $this->getYaml(new TagField('foo')));
+    }
+
+    public function testTagFieldWithArrayInput()
+    {
+        $this->assertSame(['foo'], (new TagField(['foo']))->getValue());
     }
 
     public function testTagFieldParsingOptions()
