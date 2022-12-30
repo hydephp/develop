@@ -42,7 +42,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsOutput('Creating a new publication of type [test-publication]')
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Created file test-publication/hello-world.md')
@@ -113,7 +113,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?')
@@ -131,7 +131,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication')
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->expectsOutput('Error: A publication already exists with the same canonical field value')
              ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
@@ -147,7 +147,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->artisan('make:publication', ['--force' => true])
              ->expectsOutputToContain('Creating a new publication!')
-             ->expectsChoice('Which publication type would you like to create a publication item for?', 0, ['test-publication'])
+             ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
              ->assertExitCode(0);
 
