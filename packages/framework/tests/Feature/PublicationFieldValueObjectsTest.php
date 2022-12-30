@@ -297,6 +297,16 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame(['10.5'], (new ArrayField('10.5'))->getValue());
         $this->assertSame(['-10'], (new ArrayField('-10'))->getValue());
     }
+
+    public function testArrayParsingWithCommaSeparatedValues()
+    {
+        $this->assertSame(['foo', 'bar'], (new ArrayField('foo, bar', ArrayField::PARSE_FROM_CSV))->getValue());
+    }
+
+    public function testArrayParsingWithNewlineSeparatedValues()
+    {
+        $this->assertSame(['foo', 'bar'], (new ArrayField("foo\nbar", ArrayField::PARSE_FROM_NEWLINES))->getValue());
+    }
 }
 
 class TestValue extends PublicationFieldValue
