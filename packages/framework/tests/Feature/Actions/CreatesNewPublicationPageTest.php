@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -75,7 +75,7 @@ class CreatesNewPublicationPageTest extends TestCase
         $fieldData = Collection::make(['description' => new TextField(<<<'TEXT'
             This is a description
             It can be multiple lines.
-            TEXT)
+            TEXT),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
