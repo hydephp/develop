@@ -16,12 +16,17 @@ final class BooleanField extends PublicationFieldValue
 
     protected static function parseInput(string $input): bool
     {
-        $acceptable = ['true', 'false', '0', '1'];
+        $true = ['true', '1'];
+        $false = ['false', '0'];
 
-        if (! in_array($input, $acceptable, true)) {
-            throw new InvalidArgumentException("BooleanField: Unable to parse invalid boolean value '$input'");
+        if (in_array($input, $true)) {
+            return true;
         }
 
-        return (bool) $input;
+        if (in_array($input, $false)) {
+            return false;
+        }
+
+        throw new InvalidArgumentException("BooleanField: Unable to parse invalid boolean value '$input'");
     }
 }
