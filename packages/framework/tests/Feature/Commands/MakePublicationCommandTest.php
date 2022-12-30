@@ -45,7 +45,7 @@ class MakePublicationCommandTest extends TestCase
              ->expectsChoice('Which publication type would you like to create a publication item for?', 'test-publication', ['test-publication'])
              ->expectsOutput('Creating a new publication of type [test-publication]')
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('Created file test-publication/hello-world.md')
+             ->expectsOutput('All done! Created file test-publication/hello-world.md')
              ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
@@ -161,7 +161,7 @@ class MakePublicationCommandTest extends TestCase
         $this->artisan('make:publication test-publication')
              ->expectsOutput('Creating a new publication of type [test-publication]')
              ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
-             ->expectsOutput('Created file test-publication/hello-world.md')
+             ->expectsOutput('All done! Created file test-publication/hello-world.md')
              ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
