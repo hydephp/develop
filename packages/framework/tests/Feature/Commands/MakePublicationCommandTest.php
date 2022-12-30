@@ -278,10 +278,7 @@ class MakePublicationCommandTest extends TestCase
 
         $this->assertDatedPublicationExists();
 
-        $this->markTestSkipped('TODO: Change so that single tag is also an array');
-        // TODO Change so that single tag is also an array
-        //$this->assertCreatedPublicationMatterEquals('tag:
-        // - foo');
+        $this->assertCreatedPublicationMatterEquals("tag:\n    - foo");
     }
 
     public function test_command_with_multiple_tag_inputs()
