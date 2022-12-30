@@ -25,11 +25,18 @@ use Symfony\Component\Yaml\Yaml;
  */
 class CreatesNewPublicationPage extends CreateAction implements CreateActionContract
 {
+    protected bool $force = false;
+    protected Collection $fieldData;
+    protected PublicationType $pubType;
+
     public function __construct(
-        protected PublicationType $pubType,
-        protected Collection $fieldData,
-        protected bool $force = false,
+        PublicationType $pubType,
+        Collection $fieldData,
+        bool $force = false,
     ) {
+        $this->pubType = $pubType;
+        $this->fieldData = $fieldData;
+        $this->force = $force;
         $this->outputPath = "{$this->pubType->getDirectory()}/{$this->getFilename()}.md";
     }
 
