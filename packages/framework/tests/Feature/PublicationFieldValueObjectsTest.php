@@ -345,6 +345,7 @@ class PublicationFieldValueObjectsTest extends TestCase
     public function testTextFieldToYaml()
     {
         $this->assertSame('foo', $this->getYaml(new TextField('foo')));
+        // Note that this does not use the same flags as the creator action, because that's out of scope for this test.
     }
 
     public function testTextParsingOptions()
@@ -357,8 +358,11 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame('1', (new TextField('1'))->getValue());
         $this->assertSame('10.5', (new TextField('10.5'))->getValue());
         $this->assertSame('-10', (new TextField('-10'))->getValue());
-        $this->assertSame("foo\nbar\nbaz", (new TextField("foo\nbar\nbaz"))->getValue());
-        $this->assertSame("foo\r\nbar\r\nbaz", (new TextField("foo\r\nbar\r\nbaz"))->getValue());
+        $this->assertSame("foo\nbar\n", (new TextField("foo\nbar"))->getValue());
+        $this->assertSame("foo\nbar\n", (new TextField("foo\nbar\n"))->getValue());
+        $this->assertSame("foo\nbar\nbaz\n", (new TextField("foo\nbar\nbaz"))->getValue());
+        $this->assertSame("foo\nbar\nbaz\n", (new TextField("foo\nbar\nbaz\n"))->getValue());
+        $this->assertSame("foo\r\nbar\r\nbaz\n", (new TextField("foo\r\nbar\r\nbaz\r\n"))->getValue());
     }
 
     // UrlField tests

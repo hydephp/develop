@@ -12,8 +12,12 @@ final class ArrayField extends PublicationFieldValue
     public const PARSE_FROM_CSV = 4;
     public const PARSE_FROM_NEWLINES = 8;
 
-    protected static function parseInput(string $input, int $options = 0): array
+    protected static function parseInput(string $input, int $options = 0, ?array $useArrayLiteral = null): array
     {
+        if ($useArrayLiteral !== null) {
+            return $useArrayLiteral;
+        }
+
         if ($options & self::PARSE_FROM_CSV) {
             return explode(', ', $input);
         }

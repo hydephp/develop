@@ -10,8 +10,12 @@ final class TagField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::Tag;
 
-    protected static function parseInput(string $input): array
+    protected static function parseInput(string $input, ?array $useArrayLiteral = null): array
     {
+        if ($useArrayLiteral !== null) {
+            return $useArrayLiteral;
+        }
+
         return (array) $input;
     }
 }
