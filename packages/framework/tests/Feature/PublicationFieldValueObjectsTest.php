@@ -86,7 +86,7 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame('foo', $this->getYaml(new StringField('foo')));
     }
 
-    public function testStringParsingOptions()
+    public function testStringFieldParsingOptions()
     {
         $this->assertSame('foo', (new StringField('foo'))->getValue());
         $this->assertSame('true', (new StringField('true'))->getValue());
@@ -171,7 +171,7 @@ class PublicationFieldValueObjectsTest extends TestCase
         new BooleanField('foo');
     }
 
-    public function testBooleanParsingOptions()
+    public function testBooleanFieldParsingOptions()
     {
         $this->assertSame(true, (new BooleanField('true'))->getValue());
         $this->assertSame(true, (new BooleanField('1'))->getValue());
@@ -213,7 +213,7 @@ class PublicationFieldValueObjectsTest extends TestCase
         new IntegerField('foo');
     }
 
-    public function testIntegerParsingOptions()
+    public function testIntegerFieldParsingOptions()
     {
         $this->assertSame(0, (new IntegerField('0'))->getValue());
         $this->assertSame(1, (new IntegerField('1'))->getValue());
@@ -259,7 +259,7 @@ class PublicationFieldValueObjectsTest extends TestCase
         new FloatField('foo');
     }
 
-    public function testFloatParsingOptions()
+    public function testFloatFieldParsingOptions()
     {
         $this->assertSame(0.0, (new FloatField('0'))->getValue());
         $this->assertSame(1.0, (new FloatField('1'))->getValue());
@@ -298,7 +298,7 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame("- foo\n", $this->getYaml(new ArrayField('foo')));
     }
 
-    public function testArrayParsingOptions()
+    public function testArrayFieldParsingOptions()
     {
         $this->assertSame(['foo'], (new ArrayField('foo'))->getValue());
         $this->assertSame(['true'], (new ArrayField('true'))->getValue());
@@ -348,7 +348,7 @@ class PublicationFieldValueObjectsTest extends TestCase
         // Note that this does not use the same flags as the creator action, because that's out of scope for this test.
     }
 
-    public function testTextParsingOptions()
+    public function testTextFieldParsingOptions()
     {
         $this->assertSame('foo', (new TextField('foo'))->getValue());
         $this->assertSame('true', (new TextField('true'))->getValue());
@@ -453,7 +453,7 @@ class PublicationFieldValueObjectsTest extends TestCase
         $this->assertSame("- foo\n", $this->getYaml(new TagField('foo')));
     }
 
-    public function testTagParsingOptions()
+    public function testTagFieldParsingOptions()
     {
         $this->assertSame(['foo'], (new TagField('foo'))->getValue());
         $this->assertSame(['true'], (new TagField('true'))->getValue());
