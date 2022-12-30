@@ -54,7 +54,7 @@ enum PublicationFieldTypes: string
             self::Boolean => ['boolean'],
             self::Integer => ['integer', 'numeric'],
             self::Float => ['numeric'],
-            self::Image => [],
+            self::Image => [], // TODO Rename to media and move down in the list
             self::Array => ['array'],
             self::Text => ['string'],
             self::Url => ['url'],
