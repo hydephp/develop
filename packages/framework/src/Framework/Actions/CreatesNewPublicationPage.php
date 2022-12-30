@@ -45,10 +45,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     protected function handleCreate(): void
     {
-        $this->save("{$this->createFrontMatter()}
-## Write something awesome.
-
-");
+        $this->save("{$this->createFrontMatter()}\n## Write something awesome.\n\n");
     }
 
     protected function getFilename(): string
