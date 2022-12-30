@@ -67,7 +67,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
             return $this->getFieldValue('__createdAt')->getValue()->format('Y-m-d H:i:s');
         }
 
-        if ($this->fieldData->get($canonicalFieldName)) {
+        if ($this->fieldData->has($canonicalFieldName)) {
             $field = $this->getFieldValue($canonicalFieldName);
 
             return (string) $field->getValue();
