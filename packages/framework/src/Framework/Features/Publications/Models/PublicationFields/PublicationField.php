@@ -53,4 +53,9 @@ abstract class PublicationField
 
         return new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
     }
+
+    public function getRules(): array
+    {
+        return [];
+    }
 }
