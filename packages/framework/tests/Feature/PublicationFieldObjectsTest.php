@@ -68,8 +68,8 @@ class PublicationFieldObjectsTest extends TestCase
 
     public function testRules()
     {
-        $this->assertSame([], Test::rules());
         $this->assertSame([], PublicationField::rules());
+        $this->assertSame([], Test::rules());
     }
 
     // StringField tests
