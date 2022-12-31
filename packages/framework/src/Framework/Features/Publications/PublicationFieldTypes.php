@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;

@@ -6,17 +6,17 @@ namespace Hyde\Framework\Testing\Feature;
 
 use DateTime;
 use Exception;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
@@ -24,17 +24,17 @@ use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\TextField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\TagField
  */
 class PublicationFieldObjectsTest extends TestCase
 {

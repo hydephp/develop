@@ -6,8 +6,8 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
