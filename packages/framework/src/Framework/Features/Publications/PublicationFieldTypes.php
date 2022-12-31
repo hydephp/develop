@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 /**
  * The supported field types for publication types.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationField
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
 enum PublicationFieldTypes: string

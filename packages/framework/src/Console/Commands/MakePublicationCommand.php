@@ -8,7 +8,7 @@ use Closure;
 use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
-use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
@@ -105,7 +105,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->newLine();
         $this->info('Now please enter the field data:');
 
-        /** @var PublicationField $field */
+        /** @var PublicationFieldDefinition $field */
         foreach ($this->publicationType->getFields() as $field) {
             if (str_starts_with($field->name, '__')) {
                 continue;
@@ -123,7 +123,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->newLine();
     }
 
-    protected function captureFieldInput(PublicationField $field): ?PublicationFieldValue
+    protected function captureFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
@@ -134,21 +134,21 @@ class MakePublicationCommand extends ValidatingCommand
         };
     }
 
-    protected function captureTextFieldInput(PublicationField $field): TextField
+    protected function captureTextFieldInput(PublicationFieldDefinition $field): TextField
     {
         $this->infoComment('Enter lines for field', $field->name, '</>(end with an empty line)');
 
         return new TextField(implode("\n", InputStreamHandler::call()));
     }
 
-    protected function captureArrayFieldInput(PublicationField $field): ArrayField
+    protected function captureArrayFieldInput(PublicationFieldDefinition $field): ArrayField
     {
         $this->infoComment('Enter values for field', $field->name, '</>(end with an empty line)');
 
         return new ArrayField(InputStreamHandler::call());
     }
 
-    protected function captureImageFieldInput(PublicationField $field): ?ImageField
+    protected function captureImageFieldInput(PublicationFieldDefinition $field): ?ImageField
     {
         $this->infoComment('Select file for image field', $field->name);
 
@@ -160,7 +160,7 @@ class MakePublicationCommand extends ValidatingCommand
         return new ImageField($this->choice('Which file would you like to use?', $mediaFiles->toArray()));
     }
 
-    protected function captureTagFieldInput(PublicationField $field): ?TagField
+    protected function captureTagFieldInput(PublicationFieldDefinition $field): ?TagField
     {
         $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
 
@@ -180,7 +180,7 @@ class MakePublicationCommand extends ValidatingCommand
         return new TagField($choice);
     }
 
-    protected function captureOtherFieldInput(PublicationField $field): ?PublicationFieldValue
+    protected function captureOtherFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         $selection = $this->askForFieldData($field->name, $field->getValidationRules()->toArray());
         if (empty($selection)) {
@@ -198,7 +198,7 @@ class MakePublicationCommand extends ValidatingCommand
     }
 
     /** @return null */
-    protected function handleEmptyOptionsCollection(PublicationField $field, string $type, string $message)
+    protected function handleEmptyOptionsCollection(PublicationFieldDefinition $field, string $type, string $message)
     {
         if (in_array('required', $field->rules)) {
             throw new InvalidArgumentException("Unable to create publication: $message");

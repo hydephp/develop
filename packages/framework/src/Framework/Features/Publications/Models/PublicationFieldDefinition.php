@@ -22,7 +22,7 @@ use function strtolower;
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTest
  */
-class PublicationField implements SerializableContract
+class PublicationFieldDefinition implements SerializableContract
 {
     use Serializable;
 
