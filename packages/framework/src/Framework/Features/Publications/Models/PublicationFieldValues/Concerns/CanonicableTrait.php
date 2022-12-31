@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
+namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns;
 
 use RuntimeException;
+
 use function substr;
 
 trait CanonicableTrait
