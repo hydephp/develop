@@ -11,9 +11,11 @@ final class ArrayField extends PublicationFieldValue
 {
     public const TYPE = PublicationFieldTypes::Array;
 
-    public function __construct(string|array $value)
+    public function __construct(string|array $value = null)
     {
-        $this->value = self::parseInput($value);
+        if ($value !== null) {
+            $this->value = self::parseInput($value);
+        }
     }
 
     protected static function parseInput(string|array $input): array
