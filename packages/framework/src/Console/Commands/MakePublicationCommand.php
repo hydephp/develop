@@ -188,9 +188,7 @@ class MakePublicationCommand extends ValidatingCommand
             return null;
         }
 
-        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
-        $className = "$namespace\\{$field->type->name}Field";
-
+        $className = $field->type->fieldClass();
         return new $className($selection);
     }
 
