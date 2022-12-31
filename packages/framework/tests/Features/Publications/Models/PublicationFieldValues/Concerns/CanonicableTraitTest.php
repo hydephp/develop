@@ -14,12 +14,12 @@ use Hyde\Testing\TestCase;
  */
 class CanonicableTraitTest extends TestCase
 {
-    public function testGetCanonicalValue()
+    public function test__toString()
     {
         //
     }
 
-    public function test__toString()
+    public function testGetCanonicalValue()
     {
         //
     }
