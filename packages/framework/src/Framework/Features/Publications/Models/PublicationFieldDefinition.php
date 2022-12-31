@@ -90,6 +90,7 @@ class PublicationFieldDefinition implements SerializableContract
         return validator([$this->name => $input], [$this->name => $rules])->validate();
     }
 
+    /** @deprecated Will be moved to a generic helper function */
     protected function evaluateArrayable(array|Arrayable $array): array
     {
         return $array instanceof Arrayable ? $array->toArray() : $array;
