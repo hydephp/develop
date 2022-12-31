@@ -479,6 +479,17 @@ class PublicationFieldValueObjectsTest extends TestCase
         }
     }
 
+    public function testAllTypesCanBeResolvedByTheServiceContainer()
+    {
+        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        foreach (PublicationFieldTypes::names() as $type) {
+            $this->assertInstanceOf(
+                "$namespace\\{$type}Field",
+                app()->make("$namespace\\{$type}Field")
+            );
+        }
+    }
+    
     // Testing helper methods
 
     protected function getYaml(PublicationFieldValue $field): string
