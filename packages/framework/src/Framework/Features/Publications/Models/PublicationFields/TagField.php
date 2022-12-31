@@ -13,6 +13,8 @@ final class TagField extends PublicationField
 
     public function __construct(string|array $value = null)
     {
+        parent::__construct();
+
         if ($value !== null) {
             $this->value = self::parseInput($value);
         }
