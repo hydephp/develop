@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
 use function array_keys;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
@@ -130,7 +131,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getCanonicalField(): PublicationField
     {
         $selectableFields = $this->fields->reject(function (PublicationField $field): bool {
-            return in_array($field, PublicationFieldTypes::canonicable());
+            return $field->type->fieldClass() instanceof Canonicable;
         });
 
         if ($this->option('use-defaults')) {
