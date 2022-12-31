@@ -22,11 +22,11 @@ enum PublicationFieldTypes: string
     case Boolean = 'boolean';
     case Integer = 'integer';
     case Float = 'float';
-    case Image = 'image';
+    case Image = 'image'; // TODO Rename to media and move down in the list
     case Array = 'array';
     case Text = 'text';
     case Url = 'url';
-    case Tag = 'tag';
+    case Tag = 'tag'; // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
 
     public function rules(): array
     {
@@ -57,11 +57,11 @@ enum PublicationFieldTypes: string
             self::Boolean => [new BooleanRule],
             self::Integer => ['integer', 'numeric'],
             self::Float => ['numeric'],
-            self::Image => [], // TODO Rename to media and move down in the list
+            self::Image => [],
             self::Array => ['array'],
             self::Text => ['string'],
             self::Url => ['url'],
-            self::Tag => [], // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
+            self::Tag => [],
         };
     }
 
