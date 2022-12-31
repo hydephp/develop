@@ -16,12 +16,16 @@ class CanonicableTraitTest extends TestCase
 {
     public function test__toString()
     {
-        //
+        $class = new CanonicableTraitTestClass('foo');
+
+        $this->assertSame('foo', (string) $class);
     }
 
     public function testGetCanonicalValue()
     {
-        //
+        $class = new CanonicableTraitTestClass('foo');
+
+        $this->assertSame('foo', $class->getCanonicalValue());
     }
 }
 
