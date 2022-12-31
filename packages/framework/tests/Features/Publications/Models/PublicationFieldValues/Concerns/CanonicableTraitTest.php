@@ -27,6 +27,29 @@ class CanonicableTraitTest extends TestCase
 
         $this->assertSame('foo', $class->getCanonicalValue());
     }
+
+    public function test__toStringReturnsGetCanonicalValue()
+    {
+        $class = new CanonicableTraitTestClass('foo');
+
+        $this->assertSame($class->getCanonicalValue(), $class->__toString());
+    }
+
+    public function testGetCanonicalValueTruncatesValuesLongerThan64Characters()
+    {
+        $class = new CanonicableTraitTestClass(str_repeat('a', 65));
+
+        $this->assertSame(str_repeat('a', 64), $class->getCanonicalValue());
+        $this->assertSame(64, strlen($class->getCanonicalValue()));
+    }
+
+    public function testCanonicableValueCannotBeEmpty()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Canonical value cannot be empty');
+
+        new CanonicableTraitTestClass('');
+    }
 }
 
 class CanonicableTraitTestClass extends PublicationFieldValue implements Canonicable
