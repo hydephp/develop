@@ -15,4 +15,9 @@ final class ImageField extends PublicationField
         // TODO Validate file exists?
         return $input;
     }
+
+    public static function rules(): array
+    {
+        return [];
+    }
 }

@@ -18,4 +18,9 @@ final class UrlField extends PublicationField
 
         return $input;
     }
+
+    public static function rules(): array
+    {
+        return ['url'];
+    }
 }

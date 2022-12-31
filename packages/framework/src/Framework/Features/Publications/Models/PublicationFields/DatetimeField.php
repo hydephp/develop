@@ -19,4 +19,9 @@ final class DatetimeField extends PublicationField implements Canonicable
     {
         return new DateTime($input);
     }
+
+    public static function rules(): array
+    {
+        return ['date'];
+    }
 }

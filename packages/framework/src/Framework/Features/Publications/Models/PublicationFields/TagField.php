@@ -24,4 +24,9 @@ final class TagField extends PublicationField
     {
         return (array) $input;
     }
+
+    public static function rules(): array
+    {
+        return [];
+    }
 }

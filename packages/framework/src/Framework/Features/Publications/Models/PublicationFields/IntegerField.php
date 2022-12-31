@@ -22,4 +22,9 @@ final class IntegerField extends PublicationField implements Canonicable
 
         return (int) $input;
     }
+
+    public static function rules(): array
+    {
+        return ['integer', 'numeric'];
+    }
 }

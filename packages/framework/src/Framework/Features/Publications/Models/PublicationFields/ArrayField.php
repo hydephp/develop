@@ -24,4 +24,9 @@ final class ArrayField extends PublicationField
     {
         return (array) $input;
     }
+
+    public static function rules(): array
+    {
+        return ['array'];
+    }
 }

@@ -18,4 +18,9 @@ final class FloatField extends PublicationField
 
         return (float) $input;
     }
+
+    public static function rules(): array
+    {
+        return ['numeric'];
+    }
 }

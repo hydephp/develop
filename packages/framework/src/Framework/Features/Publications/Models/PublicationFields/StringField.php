@@ -18,4 +18,9 @@ final class StringField extends PublicationField implements Canonicable
     {
         return $input;
     }
+
+    public static function rules(): array
+    {
+       return ['string'];
+    }
 }
