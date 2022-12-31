@@ -28,6 +28,7 @@ enum PublicationFieldTypes: string
     case Url = 'url';
     case Tag = 'tag'; // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
 
+    /** @deprecated Is only used in tests, and the related method will be moved to the value classes */
     public function rules(): array
     {
         return self::getRules($this);
