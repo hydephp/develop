@@ -489,7 +489,7 @@ class PublicationFieldValueObjectsTest extends TestCase
             );
         }
     }
-    
+
     // Testing helper methods
 
     protected function getYaml(PublicationFieldValue $field): string
