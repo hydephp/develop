@@ -57,6 +57,11 @@ abstract class PublicationField
 
     public function getRules(?PublicationFieldDefinition $fieldDefinition = null): array
     {
-        return $fieldDefinition?->getValidationRules() ?? [];
+        return $fieldDefinition?->getValidationRules() ?? static::rules();
+    }
+
+    public static function rules(): array
+    {
+        return [];
     }
 }
