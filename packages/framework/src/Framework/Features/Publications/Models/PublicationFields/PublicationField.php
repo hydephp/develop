@@ -57,10 +57,6 @@ abstract class PublicationField
 
     public function getRules(?PublicationFieldDefinition $fieldDefinition = null): array
     {
-        if ($fieldDefinition !== null) {
-            return $fieldDefinition->getValidationRules();
-        }
-
-        return [];
+        return $fieldDefinition?->getValidationRules() ?? [];
     }
 }
