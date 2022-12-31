@@ -507,6 +507,7 @@ class PublicationFieldObjectsTest extends TestCase
         ];
 
         foreach ($expected as $class => $rules) {
+            /** @var PublicationField $class */
             $this->assertEquals($rules, $class::rules());
         }
     }
