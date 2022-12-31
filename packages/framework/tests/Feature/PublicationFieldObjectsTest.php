@@ -36,7 +36,7 @@ use Symfony\Component\Yaml\Yaml;
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField
  */
-class PublicationFieldValueObjectsTest extends TestCase
+class PublicationFieldObjectsTest extends TestCase
 {
     // Base class tests
 
