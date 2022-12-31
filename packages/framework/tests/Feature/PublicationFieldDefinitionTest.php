@@ -14,7 +14,7 @@ use ValueError;
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
  */
-class PublicationFieldTest extends TestCase
+class PublicationFieldDefinitionTest extends TestCase
 {
     public function test_can_instantiate_class()
     {
