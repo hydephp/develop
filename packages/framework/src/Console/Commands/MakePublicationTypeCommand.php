@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
 use function array_keys;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function in_array;
 use InvalidArgumentException;
 use function is_dir;
 use function is_file;

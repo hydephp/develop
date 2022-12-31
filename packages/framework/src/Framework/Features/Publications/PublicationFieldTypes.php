@@ -68,6 +68,7 @@ enum PublicationFieldTypes: string
     public function fieldClass(): string
     {
         $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+
         return "$namespace\\{$this->name}Field";
     }
 }

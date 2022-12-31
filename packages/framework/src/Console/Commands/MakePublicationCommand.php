@@ -18,7 +18,6 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use function implode;
 use function in_array;
 use InvalidArgumentException;
@@ -189,6 +188,7 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         $className = $field->type->fieldClass();
+
         return new $className($selection);
     }
 
