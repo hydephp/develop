@@ -23,7 +23,7 @@ abstract class PublicationFieldValue
 
     public function __construct(string $value = null)
     {
-        if ($value) {
+        if ($value !== null) {
             $this->value = static::parseInput($value);
         }
     }
