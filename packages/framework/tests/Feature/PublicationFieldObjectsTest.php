@@ -18,6 +18,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -487,6 +488,26 @@ class PublicationFieldObjectsTest extends TestCase
                 "$namespace\\{$type}Field",
                 app()->make("$namespace\\{$type}Field")
             );
+        }
+    }
+
+    public function testDefaultValidationRules()
+    {
+        $expected = [
+            StringField::class => ['string'],
+            DatetimeField::class => ['date'],
+            BooleanField::class => [new BooleanRule],
+            IntegerField::class => ['integer', 'numeric'],
+            FloatField::class => ['numeric'],
+            ImageField::class => [],
+            ArrayField::class => ['array'],
+            TextField::class => ['string'],
+            UrlField::class => ['url'],
+            TagField::class => [],
+        ];
+
+        foreach ($expected as $class => $rules) {
+            $this->assertSame($rules, $class::rules());
         }
     }
 
