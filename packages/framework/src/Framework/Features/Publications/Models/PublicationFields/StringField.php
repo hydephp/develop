@@ -21,6 +21,6 @@ final class StringField extends PublicationField implements Canonicable
 
     public static function rules(): array
     {
-       return ['string'];
+        return ['string'];
     }
 }
