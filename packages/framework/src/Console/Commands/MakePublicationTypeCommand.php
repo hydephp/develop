@@ -131,7 +131,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getCanonicalField(): PublicationField
     {
         $selectableFields = $this->fields->reject(function (PublicationField $field): bool {
-            return $field->type->fieldClass() instanceof Canonicable;
+            return ! is_a($field->type->fieldClass(), Canonicable::class, true);
         });
 
         if ($this->option('use-defaults')) {
