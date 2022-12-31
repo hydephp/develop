@@ -9,7 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
-final class DatetimeField extends PublicationFieldValue implements Canonicable
+final class DatetimeField extends PublicationField implements Canonicable
 {
     use CanonicableTrait;
 

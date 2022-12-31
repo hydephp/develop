@@ -14,7 +14,7 @@ use function str;
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldValueObjectsTest
  */
-abstract class PublicationFieldValue
+abstract class PublicationField
 {
     /** @var \Hyde\Framework\Features\Publications\PublicationFieldTypes */
     public const TYPE = null;
@@ -35,7 +35,7 @@ abstract class PublicationFieldValue
 
     final public static function getType(): PublicationFieldTypes
     {
-        return static::TYPE ?? throw new RuntimeException('PublicationFieldValue::TYPE must be set in child class.');
+        return static::TYPE ?? throw new RuntimeException('PublicationField::TYPE must be set in child class.');
     }
 
     /**

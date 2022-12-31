@@ -7,7 +7,7 @@ namespace Hyde\Framework\Actions;
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -29,7 +29,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     /**
      * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $pubType
-     * @param  \Illuminate\Support\Collection<string, PublicationFieldValue>  $fieldData
+     * @param  \Illuminate\Support\Collection<string, PublicationField>  $fieldData
      * @param  bool  $force
      */
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false)
@@ -77,17 +77,17 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     }
 
     /**
-     * @param  Collection<string, PublicationFieldValue>  $data
+     * @param  Collection<string, PublicationField>  $data
      * @return array<string, mixed>
      */
     protected function normalizeData(Collection $data): array
     {
-        return $data->mapWithKeys(function (PublicationFieldValue $field, string $key): array {
+        return $data->mapWithKeys(function (PublicationField $field, string $key): array {
             return [$key => $field->getValue()];
         })->toArray();
     }
 
-    protected function getFieldFromCollection(string $key): PublicationFieldValue
+    protected function getFieldFromCollection(string $key): PublicationField
     {
         return $this->fieldData->get($key);
     }

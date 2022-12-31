@@ -9,7 +9,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use function trim;
 
-final class TextField extends PublicationFieldValue implements Canonicable
+final class TextField extends PublicationField implements Canonicable
 {
     use CanonicableTrait;
 

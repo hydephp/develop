@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Features\Publications\Models\PublicationFieldVa
 
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\CanonicableTrait;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
 use Hyde\Testing\TestCase;
 use RuntimeException;
 
@@ -55,7 +55,7 @@ class CanonicableTraitTest extends TestCase
     }
 }
 
-class CanonicableTraitTestClass extends PublicationFieldValue implements Canonicable
+class CanonicableTraitTestClass extends PublicationField implements Canonicable
 {
     use CanonicableTrait;
 

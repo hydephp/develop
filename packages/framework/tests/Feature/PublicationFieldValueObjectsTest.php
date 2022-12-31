@@ -12,7 +12,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeF
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
@@ -24,7 +24,7 @@ use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField
@@ -42,22 +42,22 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testConstruct()
     {
-        $this->assertInstanceOf(TestValue::class, (new TestValue('foo')));
+        $this->assertInstanceOf(Test::class, (new Test('foo')));
     }
 
     public function testGetValue()
     {
-        $this->assertSame('foo', (new TestValue('foo'))->getValue());
+        $this->assertSame('foo', (new Test('foo'))->getValue());
     }
 
     public function testTypeConstant()
     {
-        $this->assertSame(PublicationFieldTypes::String, TestValue::TYPE);
+        $this->assertSame(PublicationFieldTypes::String, Test::TYPE);
     }
 
     public function testGetType()
     {
-        $this->assertSame(TestValue::TYPE, TestValue::getType());
+        $this->assertSame(Test::TYPE, Test::getType());
     }
 
     // StringField tests
@@ -470,7 +470,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testAllTypesHaveAValueClass()
     {
-        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $namespace = Str::beforeLast(PublicationField::class, '\\');
         foreach (PublicationFieldTypes::names() as $type) {
             $this->assertTrue(
                 class_exists("$namespace\\{$type}Field"),
@@ -481,7 +481,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testAllTypesCanBeResolvedByTheServiceContainer()
     {
-        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $namespace = Str::beforeLast(PublicationField::class, '\\');
         foreach (PublicationFieldTypes::names() as $type) {
             $this->assertInstanceOf(
                 "$namespace\\{$type}Field",
@@ -492,13 +492,13 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     // Testing helper methods
 
-    protected function getYaml(PublicationFieldValue $field): string
+    protected function getYaml(PublicationField $field): string
     {
         return Yaml::dump($field->getValue());
     }
 }
 
-class TestValue extends PublicationFieldValue
+class Test extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::String;
 

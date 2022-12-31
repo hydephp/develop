@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
-final class FloatField extends PublicationFieldValue
+final class FloatField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Float;
 

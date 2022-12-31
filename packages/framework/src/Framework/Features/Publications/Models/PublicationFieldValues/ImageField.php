@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
-final class ImageField extends PublicationFieldValue
+final class ImageField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Image;
 

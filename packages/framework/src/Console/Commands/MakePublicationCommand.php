@@ -11,7 +11,7 @@ use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
@@ -123,7 +123,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->newLine();
     }
 
-    protected function captureFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
+    protected function captureFieldInput(PublicationFieldDefinition $field): ?PublicationField
     {
         return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
@@ -180,7 +180,7 @@ class MakePublicationCommand extends ValidatingCommand
         return new TagField($choice);
     }
 
-    protected function captureOtherFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
+    protected function captureOtherFieldInput(PublicationFieldDefinition $field): ?PublicationField
     {
         $selection = $this->askForFieldData($field->name, $field->getValidationRules()->toArray());
         if (empty($selection)) {

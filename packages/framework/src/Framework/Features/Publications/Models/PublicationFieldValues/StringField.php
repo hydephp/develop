@@ -8,7 +8,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
-final class StringField extends PublicationFieldValue implements Canonicable
+final class StringField extends PublicationField implements Canonicable
 {
     use CanonicableTrait;
 

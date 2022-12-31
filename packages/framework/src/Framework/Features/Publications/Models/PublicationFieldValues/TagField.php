@@ -7,7 +7,7 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use function is_array;
 
-final class TagField extends PublicationFieldValue
+final class TagField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Tag;
 

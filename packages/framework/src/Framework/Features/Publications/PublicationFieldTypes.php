@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationField;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -68,7 +68,7 @@ enum PublicationFieldTypes: string
 
     public function fieldClass(): string
     {
-        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $namespace = Str::beforeLast(PublicationField::class, '\\');
 
         return "$namespace\\{$this->name}Field";
     }

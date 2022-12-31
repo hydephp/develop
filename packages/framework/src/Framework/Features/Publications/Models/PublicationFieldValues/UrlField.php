@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
-final class UrlField extends PublicationFieldValue
+final class UrlField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Url;
 
