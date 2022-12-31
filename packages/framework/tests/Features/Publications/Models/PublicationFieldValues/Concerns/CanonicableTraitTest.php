@@ -45,10 +45,12 @@ class CanonicableTraitTest extends TestCase
 
     public function testCanonicableValueCannotBeEmpty()
     {
+        $class = new CanonicableTraitTestClass('');
+
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Canonical value cannot be empty');
 
-        new CanonicableTraitTestClass('');
+        $class->getCanonicalValue();
     }
 }
 
