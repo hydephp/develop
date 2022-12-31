@@ -62,7 +62,7 @@ class PublicationFieldDefinition implements SerializableContract
 
         // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
 
-        // Apply any field rules.
+        // Apply any custom field rules.
         $fieldRules->push(...$this->rules);
 
         // Apply any dynamic rules.
