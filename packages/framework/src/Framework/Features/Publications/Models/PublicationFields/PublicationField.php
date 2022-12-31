@@ -55,11 +55,22 @@ abstract class PublicationField
         return new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
     }
 
+    /**
+     * Get the validation rules that apply to the field.
+     *
+     * @param  \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition|null  $fieldDefinition
+     * @return array<string>
+     */
     public function getRules(?PublicationFieldDefinition $fieldDefinition = null): array
     {
         return $fieldDefinition?->getValidationRules() ?? static::rules();
     }
 
+    /**
+     * Get the default validation rules for this field type.
+     *
+     * @return array<string>
+     */
     public static function rules(): array
     {
         return [];
