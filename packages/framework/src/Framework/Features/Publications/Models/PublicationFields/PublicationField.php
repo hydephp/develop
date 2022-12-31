@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use function class_basename;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use InvalidArgumentException;
@@ -54,7 +55,7 @@ abstract class PublicationField
         return new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
     }
 
-    public function getRules(): array
+    public function getRules(?PublicationFieldDefinition $fieldDefinition = null): array
     {
         return [];
     }
