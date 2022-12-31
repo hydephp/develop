@@ -8,6 +8,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Testing\TestCase;
+use RuntimeException;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\CanonicableTrait
@@ -47,7 +48,7 @@ class CanonicableTraitTest extends TestCase
     {
         $class = new CanonicableTraitTestClass('');
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Canonical value cannot be empty');
 
         $class->getCanonicalValue();
