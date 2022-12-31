@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * The supported field types for publication types.
@@ -63,18 +65,10 @@ enum PublicationFieldTypes: string
         };
     }
 
-    /**
-     * The types that can be used for canonical fields (used to generate file names).
-     *
-     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
-     */
-    public static function canonicable(): array
+    public function fieldClass(): string
     {
-        return [
-            self::String,
-            self::Integer,
-            self::Datetime,
-            self::Text,
-        ];
+        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+
+        return "$namespace\\{$this->name}Field";
     }
 }

@@ -8,11 +8,11 @@ use function array_keys;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
 use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function in_array;
 use InvalidArgumentException;
 use function is_dir;
 use function is_file;
@@ -130,7 +130,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
     protected function getCanonicalField(): PublicationField
     {
         $selectableFields = $this->fields->reject(function (PublicationField $field): bool {
-            return in_array($field, PublicationFieldTypes::canonicable());
+            return ! is_a($field->type->fieldClass(), Canonicable::class, true);
         });
 
         if ($this->option('use-defaults')) {

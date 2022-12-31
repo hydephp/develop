@@ -79,14 +79,4 @@ class PublicationFieldTypesEnumTest extends TestCase
             9 => 'Tag',
         ], PublicationFieldTypes::names());
     }
-
-    public function testCanonicable()
-    {
-        $this->assertSame([
-            PublicationFieldTypes::String,
-            PublicationFieldTypes::Integer,
-            PublicationFieldTypes::Datetime,
-            PublicationFieldTypes::Text,
-        ], PublicationFieldTypes::canonicable());
-    }
 }
