@@ -12,6 +12,9 @@ use RuntimeException;
 use function str;
 
 /**
+ * Represents a single value for a field in a publication,
+ * as defined in the "fields" array of a publication type schema.
+ *
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldValueObjectsTest
  */
