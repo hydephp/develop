@@ -122,7 +122,7 @@ Simply add a code comment in the **first line** of a `fenced code block` like so
 ````markdown
 // Filepath: _docs/advanced-markdown.md
 ```php
-// Filepath: hello-world.php // HYDE! {"shortcodes": false} HYDE! // 
+‎// Filepath: hello-world.php 
 
 echo 'Hello World!';
 ```
@@ -143,7 +143,7 @@ The colon is also optional, and the 'filepath' string is case-insensitive. So th
 
 ````markdown
 ```js
-// filepath hello.js // HYDE! {"shortcodes": false} HYDE! //
+‎// filepath hello.js
 console.log('Hello World!');
 ```
 ````

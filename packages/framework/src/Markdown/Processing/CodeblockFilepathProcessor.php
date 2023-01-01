@@ -25,7 +25,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         $lines = explode("\n", $markdown);
 
         foreach ($lines as $index => $line) {
-            if (static::lineMatchesPattern($line) && ! str_contains($line, '{"shortcodes": false}')) {
+            if (static::lineMatchesPattern($line)) {
                 // Add the meta-block two lines before the pattern, placing it just above the code block.
                 // This prevents the meta-block from interfering with other processes.
                 $lines[$index - 2] .= sprintf(
