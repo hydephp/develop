@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField;
@@ -54,6 +55,15 @@ class PublicationFieldService
     {
         $fieldDefinition = $publicationType->getFieldDefinition($fieldName);
 
+        return array_merge(
+            self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
+            self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
+            $fieldDefinition->rules
+        );
+    }
+
+    public static function getValidationRulesForPublicationFieldDefinition(PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
+    {
         return array_merge(
             self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
             self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
