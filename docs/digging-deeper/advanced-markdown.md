@@ -156,7 +156,7 @@ If you have enabled HTML in Markdown by setting the `allow_html` option to true 
 anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
 
 ````markdown
-// Filepath: <a href="https://github.com">View file on Github</a>
+// Filepath: <a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>
 ```markdown
 ‎// Filepath: <a href="https://github.com">View file on Github</a>
 ```
