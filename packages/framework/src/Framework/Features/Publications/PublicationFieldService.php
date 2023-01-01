@@ -32,7 +32,28 @@ class PublicationFieldService
 {
     public static function getDefaultValidationRulesForFieldType(PublicationFieldTypes $fieldType): array
     {
-        //
+        switch ($fieldType) {
+            case PublicationFieldTypes::String:
+                return StringField::rules();
+            case PublicationFieldTypes::Datetime:
+                return DatetimeField::rules();
+            case PublicationFieldTypes::Boolean:
+                return BooleanField::rules();
+            case PublicationFieldTypes::Integer:
+                return IntegerField::rules();
+            case PublicationFieldTypes::Float:
+                return FloatField::rules();
+            case PublicationFieldTypes::Image:
+                return ImageField::rules();
+            case PublicationFieldTypes::Array:
+                return ArrayField::rules();
+            case PublicationFieldTypes::Text:
+                return TextField::rules();
+            case PublicationFieldTypes::Url:
+                return UrlField::rules();
+            case PublicationFieldTypes::Tag:
+                return TagField::rules();
+        }
     }
 
     public static function getValidationRulesForPublicationFieldEntry(PublicationType $publicationType, string $fieldName): array
