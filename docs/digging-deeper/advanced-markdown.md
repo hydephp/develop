@@ -89,6 +89,31 @@ The HydePHP Markdown converter also supports some extra directives and features.
 
 >success Success Blockquote
 
+#### Customizations
+
+You can easily customize these styles too by adding and editing the following in your `resources/app.css` file, and then recompiling your site styles.
+The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: blue;` just as well.
+
+```css
+/* Markdown Features */
+
+.prose blockquote.info {
+	@apply border-blue-500;
+}
+
+.prose blockquote.success {
+	@apply border-green-500;
+}
+
+.prose blockquote.warning {
+	@apply border-amber-500;
+}
+
+.prose blockquote.danger {
+	@apply border-red-600;
+}
+```
+
 #### Limitations
 
 Note that these currently do not support multi-line blockquotes.
