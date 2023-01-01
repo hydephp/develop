@@ -13,6 +13,7 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function Hyde\evaluate_arrayable;
 use function str_starts_with;
 use function strtolower;
 
@@ -87,14 +88,8 @@ class PublicationFieldDefinition implements SerializableContract
     /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
     public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
-        $rules = $this->evaluateArrayable($fieldRules ?? $this->getValidationRules($publicationType));
+        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules($publicationType));
 
         return validator([$this->name => $input], [$this->name => $rules])->validate();
-    }
-
-    /** @deprecated Will be moved to a generic helper function */
-    protected function evaluateArrayable(array|Arrayable $array): array
-    {
-        return $array instanceof Arrayable ? $array->toArray() : $array;
     }
 }
