@@ -61,3 +61,95 @@ you can enable it in the `config/markdown.php` file.
 
 All shortcodes must be the first word on a new line.
 For example, using a space before the `[Blade]:` will intentionally cause it to not render.
+
+## Coloured Blockqoutes
+
+The HydePHP Markdown converter also supports some extra directives and features. One of them being four different coloured blockquotes. Simply append the colour after the initial `>` character.
+
+
+```markdown
+‎> Normal Blockquote
+‎>info Info Blockquote
+‎>warning Warning Blockquote
+‎>danger Danger Blockquote
+‎>success Success Blockquote
+```
+
+> Normal Blockquote
+>info Info Blockquote
+>warning Warning Blockquote
+>danger Danger Blockquote
+>success Success Blockquote
+
+#### Customizations
+
+You can easily customize these styles too by adding and editing the following in your `resources/app.css` file, and then recompiling your site styles.
+The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: blue;` just as well.
+
+```css
+/* filepath resources/app.css
+
+/* Markdown Features */
+
+.prose blockquote.info {
+	@apply border-blue-500;
+}
+
+.prose blockquote.success {
+	@apply border-green-500;
+}
+
+.prose blockquote.warning {
+	@apply border-amber-500;
+}
+
+.prose blockquote.danger {
+	@apply border-red-600;
+}
+```
+
+#### Limitations
+
+Note that these currently do not support multi-line blockquotes.
+
+## Code block filepaths
+
+When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
+These are also created by using a custom Hyde feature that turns code comments into automatic code blocks.
+
+Simply add a code comment in the **first line** of a `fenced code block` like so:
+
+````markdown
+// Filepath: _docs/advanced-markdown.md
+```php
+// Filepath: hello-world.php // HYDE! {"shortcodes": false} HYDE! // 
+
+echo 'Hello World!';
+```
+````
+
+Which becomes:
+
+```php
+// Filepath: hello-world.php 
+
+echo 'Hello World!';
+```
+
+#### Alternative syntax
+
+The syntax is rather forgiving by design, and supports using both `//` and `#` for comments.
+The colon is also optional, and the 'f' can be both upper or lower case. So the following is also perfectly valid:
+
+````markdown
+```js
+// filepath hello.js // HYDE! {"shortcodes": false} HYDE! //
+console.log('Hello World!');
+```
+````
+
+If you have a newline after the filepath like in the first example, it will be removed so your code stays readable.
+
+#### Limitations
+
+The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
