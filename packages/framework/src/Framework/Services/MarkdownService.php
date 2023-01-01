@@ -100,7 +100,14 @@ class MarkdownService
         }
 
         // Remove any Hyde annotations (everything between `// HYDE!` and `HYDE! //`) (must be done last)
-        $this->html = preg_replace('/ \/\/ HYDE!.*HYDE! \/\//s', '', $this->html);
+        $htmlLines = explode("\n", $this->html);
+        foreach ($htmlLines as $index => $line) {
+            $newLine = preg_replace('/ \/\/ HYDE!.*HYDE! \/\//s', '', $line);
+            if ($newLine !== null) {
+                $htmlLines[$index] = $newLine;
+            }
+        }
+        $this->html = implode("\n", $htmlLines);
     }
 
     public function getExtensions(): array
