@@ -4,6 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 
 /**
