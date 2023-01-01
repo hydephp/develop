@@ -56,23 +56,24 @@ class PublicationFieldService
 
         return array_merge(
             self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
-            self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition),
+            self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
             $fieldDefinition->rules
         );
     }
 
     protected static function makeDynamicValidationRulesForPublicationFieldEntry(
-        Models\PublicationFieldDefinition $fieldDefinition
+        Models\PublicationFieldDefinition $fieldDefinition, PublicationType $publicationType
     ): array {
-        switch ($fieldDefinition->type) {
-            case PublicationFieldTypes::Image:
-                $mediaFiles = PublicationService::getMediaForPubType($fieldDefinition->type);
-                $valueList = $mediaFiles->implode(',');
-                return ["in:$valueList"];
-            case PublicationFieldTypes::Tag:
-                $tagValues = PublicationService::getValuesForTagName($fieldDefinition->type?->getIdentifier() ?? '') ?? collect([]);
-                $valueList = $tagValues->implode(',');
-                return ["in:$valueList"];
+        if ($fieldDefinition->type == PublicationFieldTypes::Image) {
+            $mediaFiles = PublicationService::getMediaForPubType($publicationType);
+            $valueList = $mediaFiles->implode(',');
+            return ["in:$valueList"];
+        }
+
+        if ($fieldDefinition->type == PublicationFieldTypes::Tag) {
+            $tagValues = PublicationService::getValuesForTagName($publicationType->getIdentifier()) ?? collect([]);
+            $valueList = $tagValues->implode(',');
+            return ["in:$valueList"];
         }
 
         return [];
