@@ -105,4 +105,11 @@ class HelpersTest extends TestCase
     {
         $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trim_slashes('foo'));
     }
+
+    /** @covers ::\Hyde\evaluate_arrayable */
+    public function test_hyde_evaluate_arrayable_function()
+    {
+        $this->assertSame(['foo'], \Hyde\evaluate_arrayable(['foo']));
+        $this->assertSame(['foo'], \Hyde\evaluate_arrayable(collect(['foo'])));
+    }
 }

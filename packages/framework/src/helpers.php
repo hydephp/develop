@@ -28,6 +28,7 @@ namespace {
 
 namespace Hyde {
     use Hyde\Foundation\HydeKernel;
+    use Illuminate\Contracts\Support\Arrayable;
 
     if (! function_exists('\Hyde\hyde')) {
         /**
@@ -74,6 +75,13 @@ namespace Hyde {
         function trim_slashes(string $string): string
         {
             return hyde()->trimSlashes($string);
+        }
+    }
+
+    if (! function_exists('\Hyde\evaluate_arrayable')) {
+        function evaluate_arrayable(array|Arrayable $array): array
+        {
+            return $array instanceof Arrayable ? $array->toArray() : $array;
         }
     }
 }
