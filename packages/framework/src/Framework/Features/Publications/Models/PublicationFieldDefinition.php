@@ -55,8 +55,6 @@ class PublicationFieldDefinition implements SerializableContract
 
     /**
      * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
-     *
-     * @see https://laravel.com/docs/9.x/validation#available-validation-rules
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
