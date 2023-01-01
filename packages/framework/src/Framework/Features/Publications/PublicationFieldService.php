@@ -17,6 +17,8 @@ use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 
+use function array_merge;
+
 /**
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField
@@ -49,6 +51,11 @@ class PublicationFieldService
 
     public static function getValidationRulesForPublicationFieldEntry(PublicationType $publicationType, string $fieldName): array
     {
-        //
+        $fieldDefinition = $publicationType->getFieldDefinition($fieldName);
+
+        return array_merge(
+            self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
+            $fieldDefinition->rules
+        );
     }
 }
