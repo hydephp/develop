@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 /**
  * The supported field types for publication types.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationField
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
 enum PublicationFieldTypes: string
@@ -28,6 +28,7 @@ enum PublicationFieldTypes: string
     case Url = 'url';
     case Tag = 'tag'; // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
 
+    /** @deprecated Is only used in tests, and the related method will be moved to the value classes */
     public function rules(): array
     {
         return self::getRules($this);
@@ -48,6 +49,7 @@ enum PublicationFieldTypes: string
         return self::collect()->pluck('name')->toArray();
     }
 
+    /** @deprecated Will be moved to the value classes */
     public static function getRules(self $type): array
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
@@ -65,9 +67,10 @@ enum PublicationFieldTypes: string
         };
     }
 
+    /** @return class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField> */
     public function fieldClass(): string
     {
-        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $namespace = Str::beforeLast(PublicationField::class, '\\');
 
         return "$namespace\\{$this->name}Field";
     }

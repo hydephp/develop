@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
-use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationListPage;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Hyde;
@@ -137,9 +137,9 @@ class PublicationTypeTest extends TestCase
         $collection = $publicationType->getFields();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
-        $this->assertInstanceOf(PublicationField::class, $collection->first());
+        $this->assertInstanceOf(PublicationFieldDefinition::class, $collection->first());
         $this->assertEquals(new \Illuminate\Support\Collection([
-            'title' => new PublicationField('string', 'title'),
+            'title' => new PublicationFieldDefinition('string', 'title'),
         ]), $collection);
     }
 
@@ -191,7 +191,7 @@ class PublicationTypeTest extends TestCase
     public function testGetCanonicalFieldDefinition()
     {
         $publicationType = new PublicationType(...$this->getTestData());
-        $this->assertEquals(PublicationField::fromArray([
+        $this->assertEquals(PublicationFieldDefinition::fromArray([
             'name' => 'title',
             'type' => 'string',
         ]), $publicationType->getCanonicalFieldDefinition());
@@ -200,7 +200,7 @@ class PublicationTypeTest extends TestCase
     public function testGetCanonicalFieldDefinitionWithMetaFieldAsCanonical()
     {
         $publicationType = new PublicationType(...$this->getTestData(['canonicalField' => '__createdAt']));
-        $this->assertEquals(PublicationField::fromArray([
+        $this->assertEquals(PublicationFieldDefinition::fromArray([
             'name' => '__createdAt',
             'type' => 'string',
         ]), $publicationType->getCanonicalFieldDefinition());

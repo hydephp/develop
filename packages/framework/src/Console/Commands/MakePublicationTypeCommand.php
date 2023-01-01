@@ -7,8 +7,8 @@ namespace Hyde\Console\Commands;
 use function array_keys;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationType;
-use Hyde\Framework\Features\Publications\Models\PublicationField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\Contracts\Canonicable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
@@ -94,7 +94,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return $this->fields;
     }
 
-    protected function captureFieldDefinition(): PublicationField
+    protected function captureFieldDefinition(): PublicationFieldDefinition
     {
         $this->line('');
 
@@ -104,7 +104,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
         // TODO: Here we could collect other data like the "rules" array for the field.
 
-        return new PublicationField($fieldType, $fieldName);
+        return new PublicationFieldDefinition($fieldType, $fieldName);
     }
 
     protected function getFieldName(?string $message = null): string
@@ -127,10 +127,10 @@ class MakePublicationTypeCommand extends ValidatingCommand
         return PublicationFieldTypes::from(strtolower($choice));
     }
 
-    protected function getCanonicalField(): PublicationField
+    protected function getCanonicalField(): PublicationFieldDefinition
     {
-        $selectableFields = $this->fields->reject(function (PublicationField $field): bool {
-            return ! is_a($field->type->fieldClass(), Canonicable::class, true);
+        $selectableFields = $this->fields->reject(function (PublicationFieldDefinition $field): bool {
+            return ! app($field->type->fieldClass()) instanceof Canonicable;
         });
 
         if ($this->option('use-defaults')) {
@@ -160,7 +160,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
 
     protected function addCreatedAtMetaField(): void
     {
-        $this->fields->add(new PublicationField(PublicationFieldTypes::Datetime, '__createdAt'));
+        $this->fields->add(new PublicationFieldDefinition(PublicationFieldTypes::Datetime, '__createdAt'));
     }
 
     protected function getPaginationSettings(): array

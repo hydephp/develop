@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use function array_filter;
 use function collect;
+use function Hyde\evaluate_arrayable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
@@ -20,9 +21,9 @@ use function strtolower;
  * Represents an entry in the "fields" array of a publication type schema.
  *
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
- * @see \Hyde\Framework\Testing\Feature\PublicationFieldTest
+ * @see \Hyde\Framework\Testing\Feature\PublicationFieldDefinitionTest
  */
-class PublicationField implements SerializableContract
+class PublicationFieldDefinition implements SerializableContract
 {
     use Serializable;
 
@@ -58,11 +59,13 @@ class PublicationField implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        $fieldRules = Collection::make(PublicationFieldTypes::getRules($this->type));
+        /** @var class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField> $fieldClass */
+        $fieldClass = $this->type->fieldClass();
+        $fieldRules = collect($fieldClass::rules());
 
         // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
 
-        // Apply any field rules.
+        // Apply any custom field rules.
         $fieldRules->push(...$this->rules);
 
         // Apply any dynamic rules.
@@ -85,13 +88,8 @@ class PublicationField implements SerializableContract
     /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
     public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
-        $rules = $this->evaluateArrayable($fieldRules ?? $this->getValidationRules($publicationType));
+        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules($publicationType));
 
         return validator([$this->name => $input], [$this->name => $rules])->validate();
-    }
-
-    protected function evaluateArrayable(array|Arrayable $array): array
-    {
-        return $array instanceof Arrayable ? $array->toArray() : $array;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
@@ -12,14 +12,14 @@ use Illuminate\Validation\ValidationException;
 use ValueError;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
  */
-class PublicationFieldTest extends TestCase
+class PublicationFieldDefinitionTest extends TestCase
 {
     public function test_can_instantiate_class()
     {
-        $field = new PublicationField('string', 'test');
-        $this->assertInstanceOf(PublicationField::class, $field);
+        $field = new PublicationFieldDefinition('string', 'test');
+        $this->assertInstanceOf(PublicationFieldDefinition::class, $field);
 
         $this->assertSame(PublicationFieldTypes::String, $field->type);
         $this->assertSame('test', $field->name);
@@ -27,12 +27,12 @@ class PublicationFieldTest extends TestCase
 
     public function test_from_array_method()
     {
-        $field = PublicationField::fromArray([
+        $field = PublicationFieldDefinition::fromArray([
             'type' => 'string',
             'name' => 'test',
         ]);
 
-        $this->assertInstanceOf(PublicationField::class, $field);
+        $this->assertInstanceOf(PublicationFieldDefinition::class, $field);
 
         $this->assertSame(PublicationFieldTypes::String, $field->type);
         $this->assertSame('test', $field->name);
@@ -43,7 +43,7 @@ class PublicationFieldTest extends TestCase
         $this->assertSame([
             'type' => 'string',
             'name' => 'test',
-        ], (new PublicationField('string', 'test'))->toArray());
+        ], (new PublicationFieldDefinition('string', 'test'))->toArray());
     }
 
     public function test_can_get_field_with_optional_properties_as_array()
@@ -52,17 +52,17 @@ class PublicationFieldTest extends TestCase
             'type' => 'string',
             'name' => 'test',
             'rules' => ['required'],
-        ], (new PublicationField('string', 'test', ['required']))->toArray());
+        ], (new PublicationFieldDefinition('string', 'test', ['required']))->toArray());
     }
 
     public function test_can_encode_field_as_json()
     {
-        $this->assertSame('{"type":"string","name":"test"}', json_encode(new PublicationField('string', 'test')));
+        $this->assertSame('{"type":"string","name":"test"}', json_encode(new PublicationFieldDefinition('string', 'test')));
     }
 
     public function test_can_get_field_with_optional_properties_as_json()
     {
-        $this->assertSame('{"type":"string","name":"test","rules":["required"]}', json_encode(new PublicationField('string',
+        $this->assertSame('{"type":"string","name":"test","rules":["required"]}', json_encode(new PublicationFieldDefinition('string',
             'test',
             ['required']
         )));
@@ -70,10 +70,10 @@ class PublicationFieldTest extends TestCase
 
     public function test_can_construct_type_using_enum_case()
     {
-        $field1 = new PublicationField(PublicationFieldTypes::String, 'test');
+        $field1 = new PublicationFieldDefinition(PublicationFieldTypes::String, 'test');
         $this->assertSame(PublicationFieldTypes::String, $field1->type);
 
-        $field2 = new PublicationField('string', 'test');
+        $field2 = new PublicationFieldDefinition('string', 'test');
         $this->assertSame(PublicationFieldTypes::String, $field2->type);
 
         $this->assertEquals($field1, $field2);
@@ -84,135 +84,135 @@ class PublicationFieldTest extends TestCase
         $this->expectException(ValueError::class);
         $this->expectExceptionMessage('"invalid" is not a valid backing value for enum "'.PublicationFieldTypes::class.'"');
 
-        new PublicationField('invalid', 'test');
+        new PublicationFieldDefinition('invalid', 'test');
     }
 
     public function test_type_input_is_case_insensitive()
     {
-        $field = new PublicationField('STRING', 'test');
+        $field = new PublicationFieldDefinition('STRING', 'test');
         $this->assertSame(PublicationFieldTypes::String, $field->type);
     }
 
     public function test_name_gets_stored_as_kebab_case()
     {
-        $field = new PublicationField('string', 'Test Field');
+        $field = new PublicationFieldDefinition('string', 'Test Field');
         $this->assertSame('test-field', $field->name);
     }
 
     public function testValidate()
     {
-        $validated = (new PublicationField('string', 'myString'))->validate('foo');
+        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo');
         $this->assertSame(['my-string' => 'foo'], $validated);
 
         $this->expectValidationException('The my-string must be a string.');
-        (new PublicationField('string', 'myString'))->validate(1);
+        (new PublicationFieldDefinition('string', 'myString'))->validate(1);
     }
 
     public function testValidateWithCustomTypeRules()
     {
-        $validated = (new PublicationField('string', 'myString', rules: ['min:3']))->validate('foo');
+        $validated = (new PublicationFieldDefinition('string', 'myString', rules: ['min:3']))->validate('foo');
         $this->assertSame(['my-string' => 'foo'], $validated);
 
         $this->expectValidationException('The my-string must be at least 5 characters.');
-        (new PublicationField('string', 'myString', rules: ['min:5']))->validate('foo');
+        (new PublicationFieldDefinition('string', 'myString', rules: ['min:5']))->validate('foo');
     }
 
     public function testValidateWithCustomRuleCollection()
     {
-        $validated = (new PublicationField('string', 'myString'))->validate('foo', ['min:3']);
+        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['min:3']);
         $this->assertSame(['my-string' => 'foo'], $validated);
 
         $this->expectValidationException('The my-string must be at least 5 characters.');
-        (new PublicationField('string', 'myString'))->validate('foo', ['min:5']);
+        (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['min:5']);
     }
 
     public function testValidateWithCustomRuleCollectionOverridesDefaultRules()
     {
         $this->expectValidationException('The my-string must be a number.');
-        (new PublicationField('string', 'myString'))->validate('foo', ['numeric']);
+        (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['numeric']);
     }
 
     public function testValidateMethodAcceptsArrayOfRules()
     {
-        $validated = (new PublicationField('string', 'myString'))->validate('foo', ['min:3']);
+        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['min:3']);
         $this->assertSame(['my-string' => 'foo'], $validated);
     }
 
     public function testValidateMethodAcceptsArrayableOfRules()
     {
-        $validated = (new PublicationField('string', 'myString'))->validate('foo', collect(['min:3']));
+        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo', collect(['min:3']));
         $this->assertSame(['my-string' => 'foo'], $validated);
     }
 
     public function testGetRules()
     {
-        $rules = (new PublicationField('string', 'myString'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('string', 'myString'))->getValidationRules();
         $this->assertSame(['string'], $rules->toArray());
     }
 
     public function testGetRulesWithCustomTypeRules()
     {
-        $rules = (new PublicationField('string', 'myString', rules: ['foo', 'bar']))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('string', 'myString', rules: ['foo', 'bar']))->getValidationRules();
         $this->assertSame(['string', 'foo', 'bar'], $rules->toArray());
     }
 
     public function testGetRulesForArray()
     {
-        $rules = (new PublicationField('array', 'myArray'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('array', 'myArray'))->getValidationRules();
         $this->assertSame(['array'], $rules->toArray());
     }
 
     public function testValidateArrayPasses()
     {
-        $validated = (new PublicationField('array', 'myArray'))->validate(['foo', 'bar', 'baz']);
+        $validated = (new PublicationFieldDefinition('array', 'myArray'))->validate(['foo', 'bar', 'baz']);
         $this->assertSame(['my-array' => ['foo', 'bar', 'baz']], $validated);
     }
 
     public function testValidateArrayFails()
     {
         $this->expectValidationException('The my-array must be an array.');
-        (new PublicationField('array', 'myArray'))->validate('foo');
+        (new PublicationFieldDefinition('array', 'myArray'))->validate('foo');
     }
 
     public function testGetRulesForDatetime()
     {
-        $rules = (new PublicationField('datetime', 'myDatetime'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('datetime', 'myDatetime'))->getValidationRules();
         $this->assertSame(['date'], $rules->toArray());
     }
 
     public function testValidateDatetimePasses()
     {
-        $validated = (new PublicationField('datetime', 'myDatetime'))->validate('2021-01-01');
+        $validated = (new PublicationFieldDefinition('datetime', 'myDatetime'))->validate('2021-01-01');
         $this->assertSame(['my-datetime' => '2021-01-01'], $validated);
     }
 
     public function testValidateDatetimeFailsForInvalidType()
     {
         $this->expectValidationException('The my-datetime is not a valid date.');
-        (new PublicationField('datetime', 'myDatetime'))->validate('string');
+        (new PublicationFieldDefinition('datetime', 'myDatetime'))->validate('string');
     }
 
     public function testGetRulesForFloat()
     {
-        $rules = (new PublicationField('float', 'myFloat'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('float', 'myFloat'))->getValidationRules();
         $this->assertSame(['numeric'], $rules->toArray());
     }
 
     public function testGetRulesForInteger()
     {
-        $rules = (new PublicationField('integer', 'myInteger'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('integer', 'myInteger'))->getValidationRules();
         $this->assertSame(['integer', 'numeric'], $rules->toArray());
     }
 
     public function testGetRulesForString()
     {
-        $rules = (new PublicationField('string', 'myString'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('string', 'myString'))->getValidationRules();
         $this->assertSame(['string'], $rules->toArray());
     }
 
     public function testGetRulesForText()
     {
-        $rules = (new PublicationField('text', 'myText'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('text', 'myText'))->getValidationRules();
         $this->assertSame(['string'], $rules->toArray());
     }
 
@@ -221,19 +221,19 @@ class PublicationFieldTest extends TestCase
         $this->directory('_media/foo');
         $this->file('_media/foo/bar.jpg');
         $this->file('_media/foo/baz.png');
-        $rules = (new PublicationField('image', 'myImage'))->getValidationRules(publicationType: new PublicationType('foo'));
+        $rules = (new PublicationFieldDefinition('image', 'myImage'))->getValidationRules(publicationType: new PublicationType('foo'));
         $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules->toArray());
     }
 
     public function testGetRulesForTag()
     {
-        $rules = (new PublicationField('tag', 'myTag'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('tag', 'myTag'))->getValidationRules();
         $this->assertSame(['in:'], $rules->toArray());
     }
 
     public function testGetRulesForUrl()
     {
-        $rules = (new PublicationField('url', 'myUrl'))->getValidationRules();
+        $rules = (new PublicationFieldDefinition('url', 'myUrl'))->getValidationRules();
         $this->assertSame(['url'], $rules->toArray());
     }
 

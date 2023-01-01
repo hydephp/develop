@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Models\PublicationFieldValues;
+namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\CanonicableTrait;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\Concerns\CanonicableTrait;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\Contracts\Canonicable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use function trim;
 
-final class TextField extends PublicationFieldValue implements Canonicable
+final class TextField extends PublicationField implements Canonicable
 {
     use CanonicableTrait;
 
@@ -25,5 +25,10 @@ final class TextField extends PublicationFieldValue implements Canonicable
         }
 
         return $input;
+    }
+
+    public static function rules(): array
+    {
+        return ['string'];
     }
 }

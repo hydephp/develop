@@ -6,58 +6,70 @@ namespace Hyde\Framework\Testing\Feature;
 
 use DateTime;
 use Exception;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\StringField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\DatetimeField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\BooleanField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\IntegerField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\FloatField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ArrayField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TextField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\UrlField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\ImageField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\TagField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\TextField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\TagField
  */
-class PublicationFieldValueObjectsTest extends TestCase
+class PublicationFieldObjectsTest extends TestCase
 {
     // Base class tests
 
     public function testConstruct()
     {
-        $this->assertInstanceOf(TestValue::class, (new TestValue('foo')));
+        $this->assertInstanceOf(Test::class, (new Test('foo')));
     }
 
     public function testGetValue()
     {
-        $this->assertSame('foo', (new TestValue('foo'))->getValue());
+        $this->assertSame('foo', (new Test('foo'))->getValue());
     }
 
     public function testTypeConstant()
     {
-        $this->assertSame(PublicationFieldTypes::String, TestValue::TYPE);
+        $this->assertSame(PublicationFieldTypes::String, Test::TYPE);
     }
 
     public function testGetType()
     {
-        $this->assertSame(TestValue::TYPE, TestValue::getType());
+        $this->assertSame(Test::TYPE, Test::getType());
+    }
+
+    public function testGetRules()
+    {
+        $this->assertSame([], (new Test())->getRules());
+    }
+
+    public function testRules()
+    {
+        $this->assertSame([], PublicationField::rules());
+        $this->assertSame([], Test::rules());
     }
 
     // StringField tests
@@ -470,7 +482,7 @@ class PublicationFieldValueObjectsTest extends TestCase
 
     public function testAllTypesHaveAValueClass()
     {
-        $namespace = Str::beforeLast(PublicationFieldValue::class, '\\');
+        $namespace = Str::beforeLast(PublicationField::class, '\\');
         foreach (PublicationFieldTypes::names() as $type) {
             $this->assertTrue(
                 class_exists("$namespace\\{$type}Field"),
@@ -479,15 +491,47 @@ class PublicationFieldValueObjectsTest extends TestCase
         }
     }
 
+    public function testAllTypesCanBeResolvedByTheServiceContainer()
+    {
+        $namespace = Str::beforeLast(PublicationField::class, '\\');
+        foreach (PublicationFieldTypes::names() as $type) {
+            $this->assertInstanceOf(
+                "$namespace\\{$type}Field",
+                app()->make("$namespace\\{$type}Field")
+            );
+        }
+    }
+
+    public function testDefaultValidationRules()
+    {
+        $expected = [
+            StringField::class => ['string'],
+            DatetimeField::class => ['date'],
+            BooleanField::class => [new BooleanRule],
+            IntegerField::class => ['integer', 'numeric'],
+            FloatField::class => ['numeric'],
+            ImageField::class => [],
+            ArrayField::class => ['array'],
+            TextField::class => ['string'],
+            UrlField::class => ['url'],
+            TagField::class => [],
+        ];
+
+        foreach ($expected as $class => $rules) {
+            /** @var PublicationField $class */
+            $this->assertEquals($rules, $class::rules());
+        }
+    }
+
     // Testing helper methods
 
-    protected function getYaml(PublicationFieldValue $field): string
+    protected function getYaml(PublicationField $field): string
     {
         return Yaml::dump($field->getValue());
     }
 }
 
-class TestValue extends PublicationFieldValue
+class Test extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::String;
 

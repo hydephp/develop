@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Framework\Features\Publications\Models\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Pages\PublicationPage;
@@ -88,7 +88,7 @@ class SeedsPublicationFiles
         return $value;
     }
 
-    protected function generateFieldData(PublicationField $field): string|int|float|array|bool
+    protected function generateFieldData(PublicationFieldDefinition $field): string|int|float|array|bool
     {
         return match ($field->type->value) {
             'array' => $this->getArrayItems(),
@@ -104,7 +104,7 @@ class SeedsPublicationFiles
         };
     }
 
-    protected function getCanonicalFieldName(PublicationField $field): void
+    protected function getCanonicalFieldName(PublicationFieldDefinition $field): void
     {
         if ($this->canFieldTypeCanBeCanonical($field->type->value)) {
             if ($field->name === $this->pubType->canonicalField) {

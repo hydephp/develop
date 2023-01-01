@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Features\Publications\Models\PublicationFieldValues\Concerns;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\CanonicableTrait;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Contracts\Canonicable;
-use Hyde\Framework\Features\Publications\Models\PublicationFieldValues\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\Concerns\CanonicableTrait;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\Contracts\Canonicable;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Testing\TestCase;
 use RuntimeException;
 
 /**
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValues\Concerns\CanonicableTrait
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\Concerns\CanonicableTrait
  */
 class CanonicableTraitTest extends TestCase
 {
@@ -55,7 +55,7 @@ class CanonicableTraitTest extends TestCase
     }
 }
 
-class CanonicableTraitTestClass extends PublicationFieldValue implements Canonicable
+class CanonicableTraitTestClass extends PublicationField implements Canonicable
 {
     use CanonicableTrait;
 

@@ -96,11 +96,11 @@ class PublicationType implements SerializableContract
         return $this->directory;
     }
 
-    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationField> */
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition> */
     public function getFields(): Collection
     {
         $result = collect($this->fields)->mapWithKeys(function (array $data): array {
-            return [$data['name'] => new PublicationField(...$data)];
+            return [$data['name'] => new PublicationFieldDefinition(...$data)];
         });
 
         return Collection::make($result);
@@ -110,19 +110,19 @@ class PublicationType implements SerializableContract
     public function getFieldRules(): Collection
     {
         return Collection::make(
-            $this->getFields()->mapWithKeys(function (PublicationField $field) {
+            $this->getFields()->mapWithKeys(function (PublicationFieldDefinition $field) {
                 return [$field->name => $field->getValidationRules($this)];
             })
         );
     }
 
-    public function getCanonicalFieldDefinition(): PublicationField
+    public function getCanonicalFieldDefinition(): PublicationFieldDefinition
     {
         if (str_starts_with($this->canonicalField, '__')) {
-            return new PublicationField('string', $this->canonicalField);
+            return new PublicationFieldDefinition('string', $this->canonicalField);
         }
 
-        return $this->getFields()->filter(fn (PublicationField $field): bool => $field->name === $this->canonicalField)->first();
+        return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $this->canonicalField)->first();
     }
 
     public function save(?string $path = null): void
