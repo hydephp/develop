@@ -184,4 +184,35 @@ class CodeblockFilepathProcessorTest extends TestCase
 
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
     }
+
+    public function test_processor_escapes_html_by_default()
+    {
+        $html = <<<'HTML'
+        <!-- HYDE[Filepath]<a href="">Link</a> -->
+        <pre><code class="language-html"></code></pre>
+        HTML;
+
+        $escaped = e('<a href="">Link</a>');
+        $expected = <<<HTML
+        <pre><code class="language-html"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>$escaped</small></code></pre>
+        HTML;
+
+        $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
+    }
+
+    public function test_processor_does_not_escape_html_if_configured()
+    {
+        config(['markdown.allow_html' => true]);
+
+        $html = <<<'HTML'
+        <!-- HYDE[Filepath]<a href="">Link</a> -->
+        <pre><code class="language-html"></code></pre>
+        HTML;
+
+        $expected = <<<'HTML'
+        <pre><code class="language-html"><small class="filepath not-prose"><span class="sr-only">Filepath: </span><a href="">Link</a></small></code></pre>
+        HTML;
+
+        $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
+    }
 }
