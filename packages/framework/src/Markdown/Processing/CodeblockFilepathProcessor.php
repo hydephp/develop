@@ -13,6 +13,8 @@ use function strtolower;
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\CodeblockFilepathProcessorTest
+ *
+ * @todo Support Markdown in the comment so we can for example link to the file on GitHub.
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
