@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models;
 
 use function array_filter;
 use function collect;
+use function Hyde\evaluate_arrayable;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
@@ -13,7 +14,6 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function Hyde\evaluate_arrayable;
 use function str_starts_with;
 use function strtolower;
 
