@@ -150,6 +150,17 @@ console.log('Hello World!');
 
 If you have a newline after the filepath like in the first example, it will be removed so your code stays readable.
 
+#### Advanced usage
+
+If you have enabled HTML in Markdown by setting the `allow_html` option to true in your `config/markdown.php` file,
+anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
+
+````markdown
+// Filepath: <a href="https://github.com">View file on Github</a>
+```markdown
+‎// Filepath: <a href="https://github.com">View file on Github</a>
+```
+````
 #### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.

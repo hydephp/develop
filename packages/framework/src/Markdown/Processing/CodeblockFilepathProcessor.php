@@ -6,14 +6,14 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
+use Illuminate\Support\HtmlString;
+
 use function strtolower;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\CodeblockFilepathProcessorTest
- *
- * @todo Support Markdown in the comment so we can for example link to the file on GitHub.
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
@@ -103,7 +103,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function resolveTemplate(string $path): string
     {
         return view('hyde::components.filepath-label', [
-            'path' => $path,
+            'path' => config('markdown.allow_html') ? new HtmlString($path) : $path,
         ])->render();
     }
 
