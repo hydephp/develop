@@ -68,25 +68,17 @@ The HydePHP Markdown converter also supports some extra directives and features.
 
 
 ```markdown
-> Normal Blockquote
-
->info Info Blockquote
-
->warning Warning Blockquote
-
->danger Danger Blockquote
-
->success Success Blockquote
+‎> Normal Blockquote
+‎>info Info Blockquote
+‎>warning Warning Blockquote
+‎>danger Danger Blockquote
+‎>success Success Blockquote
 ```
 
 > Normal Blockquote
-
 >info Info Blockquote
-
 >warning Warning Blockquote
-
 >danger Danger Blockquote
-
 >success Success Blockquote
 
 #### Customizations
@@ -95,6 +87,8 @@ You can easily customize these styles too by adding and editing the following in
 The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: blue;` just as well.
 
 ```css
+/* filepath resources/app.css
+
 /* Markdown Features */
 
 .prose blockquote.info {
