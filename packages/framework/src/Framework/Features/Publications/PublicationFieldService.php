@@ -15,6 +15,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 
 /**
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
@@ -34,25 +35,25 @@ class PublicationFieldService
     {
         switch ($fieldType) {
             case PublicationFieldTypes::String:
-                return StringField::rules();
+                return ['string'];
             case PublicationFieldTypes::Datetime:
-                return DatetimeField::rules();
+                return ['date'];
             case PublicationFieldTypes::Boolean:
-                return BooleanField::rules();
+                return [new BooleanRule];
             case PublicationFieldTypes::Integer:
-                return IntegerField::rules();
+                return ['integer', 'numeric'];
             case PublicationFieldTypes::Float:
-                return FloatField::rules();
+                return ['numeric'];
             case PublicationFieldTypes::Image:
-                return ImageField::rules();
+                return [];
             case PublicationFieldTypes::Array:
-                return ArrayField::rules();
+                return ['array'];
             case PublicationFieldTypes::Text:
-                return TextField::rules();
+                return ['string'];
             case PublicationFieldTypes::Url:
-                return UrlField::rules();
+                return ['url'];
             case PublicationFieldTypes::Tag:
-                return TagField::rules();
+                return [];
         }
     }
 
