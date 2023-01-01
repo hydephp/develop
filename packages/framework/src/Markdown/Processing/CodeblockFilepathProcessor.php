@@ -7,7 +7,6 @@ namespace Hyde\Markdown\Processing;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\HtmlString;
-
 use function strtolower;
 
 /**
