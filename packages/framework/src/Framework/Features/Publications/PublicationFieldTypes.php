@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 /**
  * The supported field types for publication types.
  *
+ * @deprecated Use the `PublicationField` classes instead.
+ *
  * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldTypesEnumTest
  */
