@@ -53,12 +53,8 @@ class PublicationFieldService
 
     public static function getValidationRulesForPublicationFieldEntry(PublicationType $publicationType, string $fieldName): array
     {
-        $fieldDefinition = $publicationType->getFieldDefinition($fieldName);
-
-        return array_merge(
-            self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
-            self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
-            $fieldDefinition->rules
+        return self::getValidationRulesForPublicationFieldDefinition($publicationType,
+            $publicationType->getFieldDefinition($fieldName)
         );
     }
 
