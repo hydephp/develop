@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpDuplicateSwitchCaseBodyInspection */
 
 declare(strict_types=1);
 
