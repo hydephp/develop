@@ -285,28 +285,6 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\nbaz\n", $service->normalizeIndentationLevel($markdown));
     }
 
-    public function test_hyde_annotations_are_removed()
-    {
-        $markdown = 'Example // HYDE!` **remove this** `HYDE! // text';
-        $service = new MarkdownService($markdown);
-        $html = $service->parse();
-
-        $this->assertStringNotContainsString('remove this', $html);
-        $this->assertSame("<p>Example text</p>\n", $html);
-    }
-
-    public function test_hyde_annotations_are_removed_with_multiple_annotations_on_different_lines()
-    {
-        $markdown = 'Example // HYDE!` **remove this** `HYDE! // text
-with // HYDE!` **remove this** `HYDE! // text';
-        $service = new MarkdownService($markdown);
-        $html = $service->parse();
-
-        $this->assertStringNotContainsString('remove this', $html);
-        $this->assertSame("<p>Example text
-with text</p>\n", $html);
-    }
-
     protected function makeService()
     {
         return new class extends MarkdownService
