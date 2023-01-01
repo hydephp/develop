@@ -121,27 +121,41 @@ Note that these currently do not support multi-line blockquotes.
 ## Code block filepaths
 
 When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
-These are, of course, also created by using a custom Hyde feature that turns code comments into automatic code blocks.
+These are also created by using a custom Hyde feature that turns code comments into automatic code blocks.
 
 Simply add a code comment in the **first line** of a `fenced code block` like so:
 
 ````markdown
-// Filepath: _docs\markdown-features.md
-```markdown
-// Filepath: _docs\markdown-features.md // HYDE! {"shortcodes": false} HYDE! // 
+// Filepath: _docs/advanced-markdown.md
+```php
+// Filepath: hello-world.php // HYDE! {"shortcodes": false} HYDE! // 
 
-# Automatic Filepaths! 
-[...]
+echo 'Hello World!';
 ```
 ````
 
-The syntax is rather forgiving by design, and supports a number of common code comment markers:
+Which becomes:
+
+```php
+// Filepath: hello-world.php 
+
+echo 'Hello World!';
+```
+
+#### Alternative syntax
+
+The syntax is rather forgiving by design, and supports using both `//` and `#` for comments.
+The colon is also optional, and the 'f' can be both upper or lower case. So the following is also perfectly valid:
 
 ````markdown
-// filepath: You can of course put anything here if you wanted
-```php
-// filepath: hello-world.php // HYDE! {"shortcodes": false} HYDE! // 
-
-echo 'Hello Horld!';
+```js
+// filepath hello.js // HYDE! {"shortcodes": false} HYDE! //
+console.log('Hello World!');
 ```
 ````
+
+If you have a newline after the filepath like in the first example, it will be removed so your code stays readable.
+
+#### Limitations
+
+The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
