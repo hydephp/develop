@@ -18,6 +18,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 
 use function array_merge;
+use function collect;
 
 /**
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
@@ -55,7 +56,25 @@ class PublicationFieldService
 
         return array_merge(
             self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
+            self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition),
             $fieldDefinition->rules
         );
+    }
+
+    protected static function makeDynamicValidationRulesForPublicationFieldEntry(
+        Models\PublicationFieldDefinition $fieldDefinition
+    ): array {
+        switch ($fieldDefinition->type) {
+            case PublicationFieldTypes::Image:
+                $mediaFiles = PublicationService::getMediaForPubType($fieldDefinition->type);
+                $valueList = $mediaFiles->implode(',');
+                return ["in:$valueList"];
+            case PublicationFieldTypes::Tag:
+                $tagValues = PublicationService::getValuesForTagName($fieldDefinition->type?->getIdentifier() ?? '') ?? collect([]);
+                $valueList = $tagValues->implode(',');
+                return ["in:$valueList"];
+        }
+
+        return [];
     }
 }
