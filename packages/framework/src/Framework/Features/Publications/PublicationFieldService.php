@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpDuplicateSwitchCaseBodyInspection */
+<?php /** @noinspection PhpDuplicateMatchArmBodyInspection */
 
 declare(strict_types=1);
 
@@ -33,28 +33,18 @@ class PublicationFieldService
 {
     public static function getDefaultValidationRulesForFieldType(PublicationFieldTypes $fieldType): array
     {
-        switch ($fieldType) {
-            case PublicationFieldTypes::String:
-                return ['string'];
-            case PublicationFieldTypes::Datetime:
-                return ['date'];
-            case PublicationFieldTypes::Boolean:
-                return [new BooleanRule];
-            case PublicationFieldTypes::Integer:
-                return ['integer', 'numeric'];
-            case PublicationFieldTypes::Float:
-                return ['numeric'];
-            case PublicationFieldTypes::Image:
-                return [];
-            case PublicationFieldTypes::Array:
-                return ['array'];
-            case PublicationFieldTypes::Text:
-                return ['string'];
-            case PublicationFieldTypes::Url:
-                return ['url'];
-            case PublicationFieldTypes::Tag:
-                return [];
-        }
+        return match ($fieldType) {
+            PublicationFieldTypes::String => ['string'],
+            PublicationFieldTypes::Datetime => ['date'],
+            PublicationFieldTypes::Boolean => [new BooleanRule],
+            PublicationFieldTypes::Integer => ['integer', 'numeric'],
+            PublicationFieldTypes::Float => ['numeric'],
+            PublicationFieldTypes::Image => [],
+            PublicationFieldTypes::Array => ['array'],
+            PublicationFieldTypes::Text => ['string'],
+            PublicationFieldTypes::Url => ['url'],
+            PublicationFieldTypes::Tag => [],
+        };
     }
 
     public static function getValidationRulesForPublicationFieldEntry(PublicationType $publicationType, string $fieldName): array
