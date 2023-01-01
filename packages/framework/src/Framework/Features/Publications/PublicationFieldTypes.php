@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFields;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
@@ -18,16 +17,16 @@ use Illuminate\Support\Str;
  */
 enum PublicationFieldTypes: string
 {
-    case String = PublicationFields\StringField::class;
-    case Datetime = PublicationFields\DatetimeField::class;
-    case Boolean = PublicationFields\BooleanField::class;
-    case Integer = PublicationFields\IntegerField::class;
-    case Float = PublicationFields\FloatField::class;
-    case Image = PublicationFields\ImageField::class; // TODO Rename to media and move down in the list
-    case Array = PublicationFields\ArrayField::class;
-    case Text = PublicationFields\TextField::class;
-    case Url = PublicationFields\UrlField::class;
-    case Tag = PublicationFields\TagField::class; // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
+    case String = 'string';
+    case Datetime = 'datetime';
+    case Boolean = 'boolean';
+    case Integer = 'integer';
+    case Float = 'float';
+    case Image = 'image'; // TODO Rename to media and move down in the list
+    case Array = 'array';
+    case Text = 'text';
+    case Url = 'url';
+    case Tag = 'tag'; // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
 
     /** @deprecated Is only used in tests, and the related method will be moved to the value classes */
     public function rules(): array
