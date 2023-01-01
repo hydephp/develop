@@ -41,6 +41,23 @@ class CodeblockFilepathProcessorTest extends TestCase
         }
     }
 
+    public function test_filepath_pattern_is_case_insensitive()
+    {
+        $patterns = [
+            '// filepath: ',
+            '// Filepath: ',
+            '// FilePath: ',
+            '// FILEPATH: ',
+        ];
+
+        foreach ($patterns as $pattern) {
+            $markdown = "\n```php\n{$pattern}foo.php\necho 'Hello World';\n```";
+            $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
+
+            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        }
+    }
+
     public function test_preprocess_accepts_multiple_languages()
     {
         $languages = [
