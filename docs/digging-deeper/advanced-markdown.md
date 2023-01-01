@@ -122,7 +122,7 @@ Simply add a code comment in the **first line** of a `fenced code block` like so
 ````markdown
 // Filepath: _docs/advanced-markdown.md
 ```php
-// Filepath: hello-world.php // HYDE! {"shortcodes": false} HYDE! // 
+‎// Filepath: hello-world.php 
 
 echo 'Hello World!';
 ```
@@ -139,17 +139,28 @@ echo 'Hello World!';
 #### Alternative syntax
 
 The syntax is rather forgiving by design, and supports using both `//` and `#` for comments.
-The colon is also optional, and the 'f' can be both upper or lower case. So the following is also perfectly valid:
+The colon is also optional, and the 'filepath' string is case-insensitive. So the following is also perfectly valid:
 
 ````markdown
 ```js
-// filepath hello.js // HYDE! {"shortcodes": false} HYDE! //
+‎// filepath hello.js
 console.log('Hello World!');
 ```
 ````
 
 If you have a newline after the filepath like in the first example, it will be removed so your code stays readable.
 
+#### Advanced usage
+
+If you have enabled HTML in Markdown by setting the `allow_html` option to true in your `config/markdown.php` file,
+anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
+
+````markdown
+// Filepath: <a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>
+```markdown
+‎// Filepath: <a href="https://github.com">View file on Github</a>
+```
+````
 #### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
