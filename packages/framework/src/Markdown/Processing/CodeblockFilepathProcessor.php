@@ -92,11 +92,9 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
 
     protected static function trimHydeDirective(string $line): string
     {
-        return trim(str_replace('-->', '', str_replace(
-            '<!-- HYDE[Filepath]',
-            '',
-            $line
-        )));
+        return trim(str_replace('-->', '',
+            str_replace('<!-- HYDE[Filepath]', '', $line)
+        ));
     }
 
     protected static function resolveTemplate(string $path): string
