@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use Hyde\Framework\Features\Publications\PublicationFieldService;
 use function array_filter;
 use function collect;
 use function Hyde\evaluate_arrayable;
@@ -59,30 +60,7 @@ class PublicationFieldDefinition implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        /** @var class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField> $fieldClass */
-        $fieldClass = $this->type->fieldClass();
-        $fieldRules = collect($fieldClass::rules());
-
-        // Here we could check for a "strict" mode type of thing and add 'required' to the rules if we wanted to.
-
-        // Apply any custom field rules.
-        $fieldRules->push(...$this->rules);
-
-        // Apply any dynamic rules.
-        switch ($this->type->value) {
-            case 'image':
-                $mediaFiles = PublicationService::getMediaForPubType($publicationType);
-                $valueList = $mediaFiles->implode(',');
-                $fieldRules->add("in:$valueList");
-                break;
-            case 'tag':
-                $tagValues = PublicationService::getValuesForTagName($publicationType?->getIdentifier() ?? '') ?? collect([]);
-                $valueList = $tagValues->implode(',');
-                $fieldRules->add("in:$valueList");
-                break;
-        }
-
-        return $fieldRules;
+        return collect(PublicationFieldService::getValidationRulesForPublicationFieldDefinition($publicationType, $this));
     }
 
     /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
