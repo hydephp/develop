@@ -67,6 +67,7 @@ enum PublicationFieldTypes: string
         };
     }
 
+    /** @return class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField> */
     public function fieldClass(): string
     {
         $namespace = Str::beforeLast(PublicationField::class, '\\');

@@ -58,6 +58,7 @@ class PublicationFieldDefinition implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
+        /** @var class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField> $fieldClass */
         $fieldClass = $this->type->fieldClass();
         $fieldRules = collect($fieldClass::rules());
 
