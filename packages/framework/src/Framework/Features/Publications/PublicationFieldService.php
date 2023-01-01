@@ -58,7 +58,7 @@ class PublicationFieldService
         );
     }
 
-    public static function getValidationRulesForPublicationFieldDefinition(PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
+    public static function getValidationRulesForPublicationFieldDefinition(?PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
     {
         return array_merge(
             self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
@@ -68,17 +68,27 @@ class PublicationFieldService
     }
 
     protected static function makeDynamicValidationRulesForPublicationFieldEntry(
-        Models\PublicationFieldDefinition $fieldDefinition, PublicationType $publicationType
+        Models\PublicationFieldDefinition $fieldDefinition, ?PublicationType $publicationType
     ): array {
         if ($fieldDefinition->type == PublicationFieldTypes::Image) {
-            $mediaFiles = PublicationService::getMediaForPubType($publicationType);
-            $valueList = $mediaFiles->implode(',');
+            if ($publicationType !== null) {
+                $mediaFiles = PublicationService::getMediaForPubType($publicationType);
+                $valueList = $mediaFiles->implode(',');
+            } else {
+                $valueList = '';
+            }
+
             return ["in:$valueList"];
         }
 
         if ($fieldDefinition->type == PublicationFieldTypes::Tag) {
-            $tagValues = PublicationService::getValuesForTagName($publicationType->getIdentifier()) ?? collect([]);
-            $valueList = $tagValues->implode(',');
+            if ($publicationType !== null) {
+                $tagValues = PublicationService::getValuesForTagName($publicationType->getIdentifier()) ?? collect([]);
+                $valueList = $tagValues->implode(',');
+            } else {
+                $valueList = '';
+            }
+
             return ["in:$valueList"];
         }
 
