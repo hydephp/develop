@@ -92,3 +92,31 @@ The HydePHP Markdown converter also supports some extra directives and features.
 #### Limitations
 
 Note that these currently do not support multi-line blockquotes.
+
+## Code block filepaths
+
+When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
+These are, of course, also created by using a custom Hyde feature that turns code comments into automatic code blocks.
+
+Simply add a code comment in the **first line** of a `fenced code block` like so:
+
+````markdown
+// Filepath: _docs\markdown-features.md
+```markdown
+// Filepath: _docs\markdown-features.md // HYDE! {"shortcodes": false} HYDE! // 
+
+# Automatic Filepaths! 
+[...]
+```
+````
+
+The syntax is rather forgiving by design, and supports a number of common code comment markers:
+
+````markdown
+// filepath: You can of course put anything here if you wanted
+```php
+// filepath: hello-world.php // HYDE! {"shortcodes": false} HYDE! // 
+
+echo 'Hello Horld!';
+```
+````
