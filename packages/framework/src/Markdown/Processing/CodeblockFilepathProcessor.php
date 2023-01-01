@@ -6,6 +6,8 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
+use Illuminate\Support\HtmlString;
+use function strtolower;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
@@ -22,12 +24,12 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         $lines = explode("\n", $markdown);
 
         foreach ($lines as $index => $line) {
-            if (static::lineMatchesPattern($line) && ! str_contains($line, '{"shortcodes": false}')) {
+            if (static::lineMatchesPattern($line)) {
                 // Add the meta-block two lines before the pattern, placing it just above the code block.
                 // This prevents the meta-block from interfering with other processes.
                 $lines[$index - 2] .= sprintf(
                     "\n<!-- HYDE[Filepath]%s -->",
-                    trim(str_replace(static::$patterns, '', $line))
+                    trim(str_ireplace(static::$patterns, '', $line))
                 );
 
                 // Remove the original comment lines
@@ -68,13 +70,11 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
 
     protected static array $patterns = [
         '// filepath: ',
-        '// Filepath: ',
-        '# filepath: ',
-        '# Filepath: ',
         '// filepath ',
-        '// Filepath ',
+        '/* filepath: ',
+        '/* filepath ',
+        '# filepath: ',
         '# filepath ',
-        '# Filepath ',
     ];
 
     protected static string $torchlightKey = '<!-- Syntax highlighted by torchlight.dev -->';
@@ -82,7 +82,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function lineMatchesPattern(string $line): bool
     {
         foreach (static::$patterns as $pattern) {
-            if (str_starts_with($line, (string) $pattern)) {
+            if (str_starts_with(strtolower($line), $pattern)) {
                 return true;
             }
         }
@@ -92,17 +92,15 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
 
     protected static function trimHydeDirective(string $line): string
     {
-        return trim(str_replace('-->', '', str_replace(
-            '<!-- HYDE[Filepath]',
-            '',
-            $line
-        )));
+        return trim(str_replace('-->', '',
+            str_replace('<!-- HYDE[Filepath]', '', $line)
+        ));
     }
 
     protected static function resolveTemplate(string $path): string
     {
         return view('hyde::components.filepath-label', [
-            'path' => $path,
+            'path' => config('markdown.allow_html') ? new HtmlString($path) : $path,
         ])->render();
     }
 
