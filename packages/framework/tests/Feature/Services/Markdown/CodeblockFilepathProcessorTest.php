@@ -165,7 +165,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         HTML;
 
         $expected = <<<'HTML'
-        <pre><code class="language-html"><small class="filepath"><span class="sr-only">Filepath: </span>foo.html</small></code></pre>
+        <pre><code class="language-html"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>foo.html</small></code></pre>
         HTML;
 
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
@@ -179,7 +179,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         HTML;
 
         $expected = <<<'HTML'
-        <pre><code class="torchlight"><!-- Syntax highlighted by torchlight.dev --><small class="filepath"><span class="sr-only">Filepath: </span>foo.html</small><div class="line"><span class="line-number">1</span>&nbsp;</div></code></pre>
+        <pre><code class="torchlight"><!-- Syntax highlighted by torchlight.dev --><small class="filepath not-prose"><span class="sr-only">Filepath: </span>foo.html</small><div class="line"><span class="line-number">1</span>&nbsp;</div></code></pre>
         HTML;
 
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
