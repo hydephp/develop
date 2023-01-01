@@ -61,3 +61,34 @@ you can enable it in the `config/markdown.php` file.
 
 All shortcodes must be the first word on a new line.
 For example, using a space before the `[Blade]:` will intentionally cause it to not render.
+
+## Coloured Blockqoutes
+
+The HydePHP Markdown converter also supports some extra directives and features. One of them being four different coloured blockquotes. Simply append the colour after the initial `>` character.
+
+
+```markdown
+> Normal Blockquote
+
+>info Info Blockquote
+
+>warning Warning Blockquote
+
+>danger Danger Blockquote
+
+>success Success Blockquote
+```
+
+> Normal Blockquote
+
+>info Info Blockquote
+
+>warning Warning Blockquote
+
+>danger Danger Blockquote
+
+>success Success Blockquote
+
+#### Limitations
+
+Note that these currently do not support multi-line blockquotes.
