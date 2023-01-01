@@ -35,6 +35,49 @@ use function collect;
  */
 class PublicationFieldService
 {
+    public static function normalizeFieldValue(PublicationFieldTypes $fieldType, mixed $value)
+    {
+        if ($fieldType == PublicationFieldTypes::String) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Datetime) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Boolean) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Integer) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Float) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Image) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Array) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Text) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Url) {
+            return $value;
+        }
+
+        if ($fieldType == PublicationFieldTypes::Tag) {
+            return $value;
+        }
+    }
+
     public static function getDefaultValidationRulesForFieldType(PublicationFieldTypes $fieldType): array
     {
         return match ($fieldType) {
