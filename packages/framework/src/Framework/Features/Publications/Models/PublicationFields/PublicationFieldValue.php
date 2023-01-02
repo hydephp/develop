@@ -32,6 +32,11 @@ class PublicationFieldValue
         }
     }
 
+    public function getValue(): string|array|bool|float|int|DateTime
+    {
+        return $this->value;
+    }
+
     public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value): string|array|bool|float|int|DateTime {
         return match ($fieldType) {
             PublicationFieldTypes::String => self::parseStringValue($value),
@@ -121,10 +126,5 @@ class PublicationFieldValue
         return new InvalidArgumentException(sprintf("%s: Unable to parse invalid %s value '%s'",
             (ucfirst($typeName).'Field'), $typeName, $input
         ));
-    }
-
-    public function getValue(): string|array|bool|float|int|DateTime
-    {
-        return $this->value;
     }
 }
