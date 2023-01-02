@@ -11,7 +11,6 @@ use Hyde\Framework\Features\Publications\PublicationFieldService;
  * as defined in the "fields" array of a publication type schema.
  *
  * @deprecated
- *
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldServiceTest
  */
