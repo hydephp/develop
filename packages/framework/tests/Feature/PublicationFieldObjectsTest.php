@@ -43,32 +43,32 @@ class PublicationFieldObjectsTest extends TestCase
 
     public function testConstruct()
     {
-        $this->assertInstanceOf(Test::class, (new Test('foo')));
+        $this->assertInstanceOf(PublicationFieldTestClass::class, (new PublicationFieldTestClass('foo')));
     }
 
     public function testGetValue()
     {
-        $this->assertSame('foo', (new Test('foo'))->getValue());
+        $this->assertSame('foo', (new PublicationFieldTestClass('foo'))->getValue());
     }
 
     public function testTypeConstant()
     {
-        $this->assertSame(PublicationFieldTypes::String, Test::TYPE);
+        $this->assertSame(PublicationFieldTypes::String, PublicationFieldTestClass::TYPE);
     }
 
     public function testGetType()
     {
-        $this->assertSame(Test::TYPE, Test::getType());
+        $this->assertSame(PublicationFieldTestClass::TYPE, PublicationFieldTestClass::getType());
     }
 
     public function testGetRules()
     {
-        $this->assertSame(['string'], (new Test())->getRules());
+        $this->assertSame(['string'], (new PublicationFieldTestClass())->getRules());
     }
 
     public function testRules()
     {
-        $this->assertSame(['string'], Test::rules());
+        $this->assertSame(['string'], PublicationFieldTestClass::rules());
     }
 
     // StringField tests
@@ -530,7 +530,7 @@ class PublicationFieldObjectsTest extends TestCase
     }
 }
 
-class Test extends PublicationField
+class PublicationFieldTestClass extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::String;
 }
