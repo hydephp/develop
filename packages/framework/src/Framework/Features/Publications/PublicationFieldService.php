@@ -27,6 +27,8 @@ use function is_numeric;
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\TextField
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\TagField
+ *
+ * @see \Hyde\Framework\Testing\Feature\PublicationFieldServiceTest
  */
 class PublicationFieldService
 {
