@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use function collect;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\ValidatesPublicationField;
 use Hyde\Testing\TestCase;
-
 use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\MockObject\MockObject;
-
-use function collect;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\ValidatesPublicationField
@@ -107,7 +105,7 @@ class ValidatesPublicationsTest extends TestCase
     {
         $fieldDefinition = new PublicationFieldDefinition('array', 'myArray');
         $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate([
-            'foo', 'bar', 'baz'
+            'foo', 'bar', 'baz',
         ]);
         $this->assertSame(['my-array' => ['foo', 'bar', 'baz']], $validated);
     }
