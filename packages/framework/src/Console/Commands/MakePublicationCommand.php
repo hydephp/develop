@@ -83,7 +83,7 @@ class MakePublicationCommand extends ValidatingCommand
             return $publicationTypes->get($publicationTypeSelection);
         }
 
-        if ($publicationTypes->isEmpty()) {
+        if ($publicationTypes->isEmpty() && ! $this->argument('publicationType')) {
             throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
         }
 
