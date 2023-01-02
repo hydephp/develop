@@ -19,9 +19,4 @@ final class TagField extends PublicationField
             parent::__construct($value);
         }
     }
-
-    public static function rules(): array
-    {
-        return [];
-    }
 }

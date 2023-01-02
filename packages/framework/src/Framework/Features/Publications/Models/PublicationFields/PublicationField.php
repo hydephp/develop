@@ -70,8 +70,8 @@ abstract class PublicationField
      *
      * @return array<string>
      */
-    public static function rules(): array
+    final public static function rules(): array
     {
-        return [];
+        return PublicationFieldService::getDefaultValidationRulesForFieldType(static::getType());
     }
 }

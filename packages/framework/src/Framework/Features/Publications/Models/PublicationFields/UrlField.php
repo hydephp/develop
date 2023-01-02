@@ -9,9 +9,4 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 final class UrlField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Url;
-
-    public static function rules(): array
-    {
-        return ['url'];
-    }
 }

@@ -9,9 +9,4 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 final class FloatField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Float;
-
-    public static function rules(): array
-    {
-        return ['numeric'];
-    }
 }

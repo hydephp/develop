@@ -13,9 +13,4 @@ final class TextField extends PublicationField implements Canonicable
     use CanonicableTrait;
 
     public const TYPE = PublicationFieldTypes::Text;
-
-    public static function rules(): array
-    {
-        return ['string'];
-    }
 }

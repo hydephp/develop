@@ -10,9 +10,4 @@ use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 final class BooleanField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Boolean;
-
-    public static function rules(): array
-    {
-        return [new BooleanRule];
-    }
 }

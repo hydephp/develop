@@ -9,9 +9,4 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 final class ImageField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Image;
-
-    public static function rules(): array
-    {
-        return [];
-    }
 }

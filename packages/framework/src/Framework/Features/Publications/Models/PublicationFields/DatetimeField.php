@@ -13,9 +13,4 @@ final class DatetimeField extends PublicationField implements Canonicable
     use CanonicableTrait;
 
     public const TYPE = PublicationFieldTypes::Datetime;
-
-    public static function rules(): array
-    {
-        return ['date'];
-    }
 }

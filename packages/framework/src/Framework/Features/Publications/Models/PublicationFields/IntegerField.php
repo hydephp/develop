@@ -13,9 +13,4 @@ final class IntegerField extends PublicationField implements Canonicable
     use CanonicableTrait;
 
     public const TYPE = PublicationFieldTypes::Integer;
-
-    public static function rules(): array
-    {
-        return ['integer', 'numeric'];
-    }
 }

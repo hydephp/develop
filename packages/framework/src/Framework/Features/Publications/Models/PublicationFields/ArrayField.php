@@ -19,9 +19,4 @@ final class ArrayField extends PublicationField
             parent::__construct($value);
         }
     }
-
-    public static function rules(): array
-    {
-        return ['array'];
-    }
 }

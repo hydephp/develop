@@ -13,9 +13,4 @@ final class StringField extends PublicationField implements Canonicable
     use CanonicableTrait;
 
     public const TYPE = PublicationFieldTypes::String;
-
-    public static function rules(): array
-    {
-        return ['string'];
-    }
 }
