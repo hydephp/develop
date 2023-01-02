@@ -11,6 +11,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use function array_merge;
 use function str_starts_with;
 use function strtolower;
 
@@ -47,6 +48,16 @@ class PublicationFieldDefinition implements SerializableContract
             'name' => $this->name,
             'rules' => $this->rules,
         ]);
+    }
+
+    /**
+     * Get the validation rules for this field.
+     *
+     * @return array<string>
+     */
+    public function getRules(): array
+    {
+        return array_merge($this->type->rules(), $this->rules);
     }
 
     /** @deprecated use {@see \Hyde\Framework\Features\Publications\ValidatesPublicationField} instead */
