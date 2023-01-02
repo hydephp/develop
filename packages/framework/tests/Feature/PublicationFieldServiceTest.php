@@ -16,17 +16,6 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * @covers \Hyde\Framework\Features\Publications\PublicationFieldService
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\TextField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\TagField
  */
 class PublicationFieldServiceTest extends TestCase
 {
