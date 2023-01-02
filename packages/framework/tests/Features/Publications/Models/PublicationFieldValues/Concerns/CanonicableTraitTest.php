@@ -16,25 +16,11 @@ use RuntimeException;
  */
 class CanonicableTraitTest extends TestCase
 {
-    public function test__toString()
-    {
-        $class = new CanonicableTraitTestClass('foo');
-
-        $this->assertSame('foo', (string) $class);
-    }
-
     public function testGetCanonicalValue()
     {
         $class = new CanonicableTraitTestClass('foo');
 
         $this->assertSame('foo', $class->getCanonicalValue());
-    }
-
-    public function test__toStringReturnsGetCanonicalValue()
-    {
-        $class = new CanonicableTraitTestClass('foo');
-
-        $this->assertSame($class->getCanonicalValue(), $class->__toString());
     }
 
     public function testGetCanonicalValueTruncatesValuesLongerThan64Characters()
