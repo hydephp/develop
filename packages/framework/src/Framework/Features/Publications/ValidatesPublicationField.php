@@ -25,12 +25,12 @@ class ValidatesPublicationField
         $this->fieldDefinition = $fieldDefinition;
     }
 
-    public function getValidationRules(): Collection
+    public function getValidationRules(): array
     {
-        return collect(array_merge(
+        return array_merge(
             $this->fieldDefinition->getRules(),
             $this->makeDynamicValidationRulesForPublicationFieldEntry()
-        ));
+        );
     }
 
     public function validate(mixed $input = null): array

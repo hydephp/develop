@@ -50,21 +50,21 @@ class ValidatesPublicationsTest extends TestCase
     {
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['string'], $rules->toArray());
+        $this->assertSame(['string'], $rules);
     }
 
     public function testGetRulesWithCustomTypeRules()
     {
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString', ['foo', 'bar']);
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['string', 'foo', 'bar'], $rules->toArray());
+        $this->assertSame(['string', 'foo', 'bar'], $rules);
     }
 
     public function testGetRulesForArray()
     {
         $fieldDefinition = new PublicationFieldDefinition('array', 'myArray');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['array'], $rules->toArray());
+        $this->assertSame(['array'], $rules);
     }
 
     public function testValidateArrayPasses()
@@ -87,7 +87,7 @@ class ValidatesPublicationsTest extends TestCase
     {
         $fieldDefinition = new PublicationFieldDefinition('datetime', 'myDatetime');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['date'], $rules->toArray());
+        $this->assertSame(['date'], $rules);
     }
 
     public function testValidateDatetimePasses()
@@ -108,28 +108,28 @@ class ValidatesPublicationsTest extends TestCase
     {
         $fieldDefinition = new PublicationFieldDefinition('float', 'myFloat');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['numeric'], $rules->toArray());
+        $this->assertSame(['numeric'], $rules);
     }
 
     public function testGetRulesForInteger()
     {
         $fieldDefinition = new PublicationFieldDefinition('integer', 'myInteger');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['integer', 'numeric'], $rules->toArray());
+        $this->assertSame(['integer', 'numeric'], $rules);
     }
 
     public function testGetRulesForString()
     {
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['string'], $rules->toArray());
+        $this->assertSame(['string'], $rules);
     }
 
     public function testGetRulesForText()
     {
         $fieldDefinition = new PublicationFieldDefinition('text', 'myText');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['string'], $rules->toArray());
+        $this->assertSame(['string'], $rules);
     }
 
     public function testGetRulesForImage()
@@ -139,21 +139,21 @@ class ValidatesPublicationsTest extends TestCase
         $this->file('_media/foo/baz.png');
         $fieldDefinition = new PublicationFieldDefinition('image', 'myImage');
         $rules = (new ValidatesPublicationField((new PublicationType('foo')), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules->toArray());
+        $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules);
     }
 
     public function testGetRulesForTag()
     {
         $fieldDefinition = new PublicationFieldDefinition('tag', 'myTag');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['in:'], $rules->toArray());
+        $this->assertSame(['in:'], $rules);
     }
 
     public function testGetRulesForUrl()
     {
         $fieldDefinition = new PublicationFieldDefinition('url', 'myUrl');
         $rules = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->getValidationRules();
-        $this->assertSame(['url'], $rules->toArray());
+        $this->assertSame(['url'], $rules);
     }
 
     protected function expectValidationException(string $message): void
