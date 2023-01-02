@@ -30,7 +30,7 @@ class ValidatesPublicationField
     {
         return collect(array_merge(
             self::getValidationRulesForPublicationFieldDefinition($this->fieldDefinition),
-            $this->makeDynamicValidationRulesForPublicationFieldEntry($this->fieldDefinition, $this->publicationType)
+            $this->makeDynamicValidationRulesForPublicationFieldEntry()
         ));
     }
 
@@ -44,11 +44,11 @@ class ValidatesPublicationField
         )->validate();
     }
 
-    protected function makeDynamicValidationRulesForPublicationFieldEntry(Models\PublicationFieldDefinition $fieldDefinition, ?PublicationType $publicationType): array
+    protected function makeDynamicValidationRulesForPublicationFieldEntry(): array
     {
-        if ($fieldDefinition->type == PublicationFieldTypes::Image) {
-            if ($publicationType !== null) {
-                $mediaFiles = PublicationService::getMediaForPubType($publicationType);
+        if ($this->fieldDefinition->type == PublicationFieldTypes::Image) {
+            if ($this->publicationType !== null) {
+                $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
                 $valueList = $mediaFiles->implode(',');
             } else {
                 $valueList = '';
@@ -57,9 +57,9 @@ class ValidatesPublicationField
             return ["in:$valueList"];
         }
 
-        if ($fieldDefinition->type == PublicationFieldTypes::Tag) {
-            if ($publicationType !== null) {
-                $tagValues = PublicationService::getValuesForTagName($publicationType->getIdentifier()) ?? collect([]);
+        if ($this->fieldDefinition->type == PublicationFieldTypes::Tag) {
+            if ($this->publicationType !== null) {
+                $tagValues = PublicationService::getValuesForTagName($this->publicationType->getIdentifier()) ?? collect([]);
                 $valueList = $tagValues->implode(',');
             } else {
                 $valueList = '';
