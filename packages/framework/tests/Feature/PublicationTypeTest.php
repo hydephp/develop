@@ -188,6 +188,15 @@ class PublicationTypeTest extends TestCase
         ], $publicationType->getFieldRules()->toArray());
     }
 
+    public function testGetFieldDefinition()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertEquals(PublicationFieldDefinition::fromArray([
+            'name' => 'title',
+            'type' => 'string',
+        ]), $publicationType->getFieldDefinition('title'));
+    }
+
     public function testGetCanonicalFieldDefinition()
     {
         $publicationType = new PublicationType(...$this->getTestData());
