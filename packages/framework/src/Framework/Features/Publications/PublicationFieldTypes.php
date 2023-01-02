@@ -113,6 +113,7 @@ enum PublicationFieldTypes: string
 
     /**
      * @deprecated
+     *
      * @return class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField>
      */
     public function fieldClass(): string

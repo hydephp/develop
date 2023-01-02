@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
 
 use Hyde\Framework\Features\Publications\PublicationFieldService;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-
 use function is_array;
 
 /**
