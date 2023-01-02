@@ -30,23 +30,23 @@ class ValidatesPublicationsTest extends TestCase
     public function testValidate()
     {
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
-        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', null);
+        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo');
         $this->assertSame(['my-string' => 'foo'], $validated);
 
         $this->expectValidationException('The my-string must be a string.');
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
-        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate(1, null);
+        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate(1);
     }
 
     public function testValidateWithCustomTypeRules()
     {
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString', rules: ['min:3']);
-        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', null);
+        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo');
         $this->assertSame(['my-string' => 'foo'], $validated);
 
         $this->expectValidationException('The my-string must be at least 5 characters.');
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString', rules: ['min:5']);
-        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', null);
+        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo');
     }
 
     public function testValidateWithCustomRuleCollection()
@@ -108,7 +108,7 @@ class ValidatesPublicationsTest extends TestCase
         $fieldDefinition = new PublicationFieldDefinition('array', 'myArray');
         $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate([
             'foo', 'bar', 'baz'
-        ], null);
+        ]);
         $this->assertSame(['my-array' => ['foo', 'bar', 'baz']], $validated);
     }
 
@@ -116,7 +116,7 @@ class ValidatesPublicationsTest extends TestCase
     {
         $this->expectValidationException('The my-array must be an array.');
         $fieldDefinition = new PublicationFieldDefinition('array', 'myArray');
-        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', null);
+        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo');
     }
 
     public function testGetRulesForDatetime()
@@ -129,7 +129,7 @@ class ValidatesPublicationsTest extends TestCase
     public function testValidateDatetimePasses()
     {
         $fieldDefinition = new PublicationFieldDefinition('datetime', 'myDatetime');
-        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('2021-01-01', null);
+        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('2021-01-01');
         $this->assertSame(['my-datetime' => '2021-01-01'], $validated);
     }
 
@@ -137,7 +137,7 @@ class ValidatesPublicationsTest extends TestCase
     {
         $this->expectValidationException('The my-datetime is not a valid date.');
         $fieldDefinition = new PublicationFieldDefinition('datetime', 'myDatetime');
-        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('string', null);
+        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('string');
     }
 
     public function testGetRulesForFloat()
