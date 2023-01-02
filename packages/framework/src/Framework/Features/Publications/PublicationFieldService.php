@@ -28,8 +28,6 @@ use function collect;
 use function filter_var;
 use function is_numeric;
 
-use function is_numeric as is_numeric1;
-
 use function str;
 
 use const false;
@@ -161,7 +159,7 @@ class PublicationFieldService
 
     public static function normalizeFloatValue(mixed $value): float
     {
-        if (!is_numeric1($value)) {
+        if (!is_numeric($value)) {
             throw self::parseError('Float', $value);
         }
 
