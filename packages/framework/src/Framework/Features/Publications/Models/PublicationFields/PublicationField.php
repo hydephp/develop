@@ -14,7 +14,7 @@ use RuntimeException;
  * as defined in the "fields" array of a publication type schema.
  *
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
- * @see \Hyde\Framework\Testing\Feature\PublicationFieldValueObjectsTest
+ * @see \Hyde\Framework\Testing\Feature\PublicationFieldObjectsTest
  */
 abstract class PublicationField
 {
