@@ -37,11 +37,15 @@ class PublicationFieldDefinition implements SerializableContract
         return new static(...$array);
     }
 
-    public function __construct(PublicationFieldTypes|string $fieldType, string $name, array $rules = [])
+    public function __construct(PublicationFieldTypes|string $fieldType, string $name, array $rules = [], ?PublicationType $publicationType = null)
     {
         $this->fieldType = $fieldType instanceof PublicationFieldTypes ? $fieldType : PublicationFieldTypes::from(strtolower($fieldType));
         $this->name = str_starts_with($name, '__') ? $name : Str::kebab($name);
         $this->rules = $rules;
+
+        if ($publicationType !== null) {
+            $this->publicationType = $publicationType;
+        }
     }
 
     public function toArray(): array
