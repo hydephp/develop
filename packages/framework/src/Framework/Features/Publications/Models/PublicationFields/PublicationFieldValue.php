@@ -57,10 +57,4 @@ final class PublicationFieldValue
             PublicationFieldTypes::Tag => self::parseTagValue($value),
         };
     }
-
-    /** Get the default validation rules for a field type. */
-    public static function getDefaultFieldRules(PublicationFieldTypes $fieldType): array
-    {
-        return $fieldType->rules();
-    }
 }
