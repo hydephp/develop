@@ -72,17 +72,14 @@ class ValidatesPublicationField
         );
     }
 
-    /**
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
-     */
-    public function getValidationRules(?PublicationType $publicationType = null): Collection
+    public function getValidationRules(): Collection
     {
-        return collect(self::getValidationRulesForPublicationFieldDefinition($publicationType, $this));
+        return collect(self::getValidationRulesForPublicationFieldDefinition($this->publicationType, $this->fieldDefinition));
     }
 
     public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
-        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules($publicationType));
+        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules());
 
         return validator([$this->name => $input], [$this->name => $rules])->validate();
     }
