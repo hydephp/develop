@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use DateTime;
 use Exception;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
@@ -35,17 +34,21 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testConstruct()
     {
-        $this->assertInstanceOf(PublicationFieldTestClass::class, (new PublicationFieldTestClass('foo')));
+        $this->assertInstanceOf(PublicationFieldValue::class,
+            (new PublicationFieldValue(PublicationFieldTypes::String, 'foo'))
+        );
     }
 
     public function testGetValue()
     {
-        $this->assertSame('foo', (new PublicationFieldTestClass('foo'))->getValue());
+        $this->assertSame('foo', (new PublicationFieldValue(PublicationFieldTypes::String, 'foo'))->getValue());
     }
 
-    public function testTypeConstant()
+    public function testType()
     {
-        $this->assertSame(PublicationFieldTypes::String, PublicationFieldTestClass::TYPE);
+        $this->assertSame(PublicationFieldTypes::String,
+            (new PublicationFieldValue(PublicationFieldTypes::String, 'foo'))->type
+        );
     }
 
     // StringField tests
@@ -419,9 +422,4 @@ class PublicationFieldServiceTest extends TestCase
     {
         return (new PublicationFieldValue(PublicationFieldTypes::from($type), $value));
     }
-}
-
-class PublicationFieldTestClass extends PublicationField
-{
-    public const TYPE = PublicationFieldTypes::String;
 }
