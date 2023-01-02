@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
 
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 
+/** @deprecated */
 final class StringField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::String;
