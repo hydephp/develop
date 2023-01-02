@@ -106,7 +106,7 @@ class PublicationType implements SerializableContract
         return Collection::make($result);
     }
 
-    /** @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection> */
+    /** @deprecated use {@see \Hyde\Framework\Features\Publications\ValidatesPublicationField} instead */
     public function getFieldRules(): Collection
     {
         return Collection::make(
