@@ -29,7 +29,10 @@ class ValidatesPublicationField
 
     public function getValidationRules(): Collection
     {
-        return collect(self::getValidationRulesForPublicationFieldDefinition($this->fieldDefinition));
+        return collect(array_merge(
+            self::getValidationRulesForPublicationFieldDefinition($this->fieldDefinition),
+            $this->makeDynamicValidationRulesForPublicationFieldEntry($this->fieldDefinition, $this->publicationType)
+        ));
     }
 
     public function validate(mixed $input = null): array
