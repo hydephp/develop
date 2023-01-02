@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use function array_filter;
-use function collect;
-use function Hyde\evaluate_arrayable;
-use Hyde\Framework\Features\Publications\PublicationFieldService;
+use function array_merge;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use function str_starts_with;
 use function strtolower;
@@ -54,18 +50,12 @@ class PublicationFieldDefinition implements SerializableContract
     }
 
     /**
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
+     * Get the validation rules for this field.
+     *
+     * @return array<string> The type default rules merged with any custom rules.
      */
-    public function getValidationRules(?PublicationType $publicationType = null): Collection
+    public function getRules(): array
     {
-        return collect(PublicationFieldService::getValidationRulesForPublicationFieldDefinition($publicationType, $this));
-    }
-
-    /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
-    public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
-    {
-        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules($publicationType));
-
-        return validator([$this->name => $input], [$this->name => $rules])->validate();
+        return array_merge($this->type->rules(), $this->rules);
     }
 }
