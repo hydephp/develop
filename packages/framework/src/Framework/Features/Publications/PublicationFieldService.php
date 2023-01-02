@@ -104,7 +104,7 @@ class PublicationFieldService
         ));
     }
 
-    public static function parseStringValue(string $value): mixed
+    public static function parseStringValue(string $value): string
     {
         return $value;
     }
@@ -141,7 +141,7 @@ class PublicationFieldService
         return (float) $value;
     }
 
-    public static function parseImageValue(string $value): mixed
+    public static function parseImageValue(string $value): string
     {
         // TODO Validate file exists as the dynamic validation rules does the same
         return $value;
@@ -152,7 +152,7 @@ class PublicationFieldService
         return (array) $value;
     }
 
-    public static function parseTextValue(string $value): mixed
+    public static function parseTextValue(string $value): string
     {
         // In order to properly store multi-line text fields as block literals,
         // we need to make sure the string ends with a newline character.
@@ -164,7 +164,7 @@ class PublicationFieldService
         return $value;
     }
 
-    public static function parseUrlValue(string $value): mixed
+    public static function parseUrlValue(string $value): string
     {
         if (! filter_var($value, FILTER_VALIDATE_URL)) {
             throw self::parseError('url', $value);
