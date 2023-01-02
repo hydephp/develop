@@ -54,10 +54,8 @@ class PublicationFieldDefinition implements SerializableContract
 
     /**
      * @deprecated Use the ValidatesPublicationField class instead.
-     *
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
      */
-    public function getValidationRules(?PublicationType $publicationType = null): Collection
+    public function getValidationRules(PublicationType $publicationType): Collection
     {
         return (new ValidatesPublicationField($publicationType, $this))->getValidationRules();
     }
