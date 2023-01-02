@@ -53,67 +53,43 @@ class PublicationFieldService
     public static function normalizeFieldValue(PublicationFieldTypes $fieldType, mixed $value)
     {
         if ($fieldType == PublicationFieldTypes::String) {
-            return $value;
+            return self::normalizeStringValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Datetime) {
-            return new DateTime($value);
+            return self::normalizeDatetimeValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Boolean) {
-            return match ($value) {
-                'true', '1' => true,
-                'false', '0' => false,
-                default => throw self::parseError('Boolean', $value)
-            };
+            return self::normalizeBooleanValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Integer) {
-            if (!is_numeric($value)) {
-                throw self::parseError('Integer', $value);
-            }
-
-            return (int)$value;
+            return self::normalizeIntegerValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Float) {
-            if (!is_numeric1($value)) {
-                throw self::parseError('Float', $value);
-            }
-
-            return (float)$value;
+            return self::normalizeFloatValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Image) {
-            // TODO Validate file exists?
-            return $value;
+            return self::normalizeImageValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Array) {
-            return (array)$value;
+            return self::normalizeArrayValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Text) {
-            // In order to properly store multi-line text fields as block literals,
-            // we need to make sure the string ends with a newline character.
-
-            if (substr_count($value, "\n") > 0) {
-                return trim($value, "\r\n")."\n";
-            }
-
-            return $value;
+            return self::normalizeTextValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Url) {
-            if (!filter_var($value, FILTER_VALIDATE_URL)) {
-                throw self::parseError('Url', $value);
-            }
-
-            return $value;
+            return self::normalizeUrlValue($value);
         }
 
         if ($fieldType == PublicationFieldTypes::Tag) {
-            return (array)$value;
+            return self::normalizeTagValue($value);
         }
     }
 
@@ -180,5 +156,79 @@ class PublicationFieldService
     protected static function parseError(string $typeName, string $input): InvalidArgumentException
     {
         return new InvalidArgumentException("Unable to parse invalid $typeName value '$input'");
+    }
+
+    protected static function normalizeStringValue(mixed $value): mixed
+    {
+        return $value;
+    }
+
+    protected static function normalizeDatetimeValue(mixed $value): DateTime
+    {
+        return new DateTime($value);
+    }
+
+    protected static function normalizeBooleanValue(mixed $value): bool
+    {
+        return match ($value) {
+            'true', '1' => true,
+            'false', '0' => false,
+            default => throw self::parseError('Boolean', $value)
+        };
+    }
+
+    protected static function normalizeIntegerValue(mixed $value): int
+    {
+        if (!is_numeric($value)) {
+            throw self::parseError('Integer', $value);
+        }
+
+        return (int) $value;
+    }
+
+    protected static function normalizeFloatValue(mixed $value): float
+    {
+        if (!is_numeric1($value)) {
+            throw self::parseError('Float', $value);
+        }
+
+        return (float) $value;
+    }
+
+    protected static function normalizeImageValue(mixed $value): mixed
+    {
+        // TODO Validate file exists?
+        return $value;
+    }
+
+    protected static function normalizeArrayValue(mixed $value): array
+    {
+        return (array) $value;
+    }
+
+    protected static function normalizeTextValue(mixed $value): mixed
+    {
+        // In order to properly store multi-line text fields as block literals,
+        // we need to make sure the string ends with a newline character.
+
+        if (substr_count($value, "\n") > 0) {
+            return trim($value, "\r\n")."\n";
+        }
+
+        return $value;
+    }
+
+    protected static function normalizeUrlValue(mixed $value): mixed
+    {
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            throw self::parseError('Url', $value);
+        }
+
+        return $value;
+    }
+
+    protected static function normalizeTagValue(mixed $value): array
+    {
+        return (array) $value;
     }
 }
