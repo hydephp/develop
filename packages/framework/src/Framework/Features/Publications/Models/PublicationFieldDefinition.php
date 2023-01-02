@@ -59,10 +59,4 @@ class PublicationFieldDefinition implements SerializableContract
     {
         return array_merge($this->type->rules(), $this->rules);
     }
-
-    /** @deprecated use {@see \Hyde\Framework\Features\Publications\ValidatesPublicationField} instead */
-    public function getValidationRules(PublicationType $publicationType): Collection
-    {
-        return (new ValidatesPublicationField($publicationType, $this))->getValidationRules();
-    }
 }
