@@ -62,17 +62,17 @@ class ValidatesPublicationField
         return [];
     }
 
-    public static function getCustomRulesFromPublicationTypeSchema(PublicationFieldDefinition $fieldDefinition): array
-    {
-        return $fieldDefinition->rules;
-    }
-
     public static function getValidationRulesForPublicationFieldDefinition(PublicationFieldDefinition $fieldDefinition): array
     {
         return array_merge(
             self::getDefaultRulesForFieldType($fieldDefinition->type),
             self::getCustomRulesFromPublicationTypeSchema($fieldDefinition)
         );
+    }
+
+    public static function getCustomRulesFromPublicationTypeSchema(PublicationFieldDefinition $fieldDefinition): array
+    {
+        return $fieldDefinition->rules;
     }
 
     protected static function getDefaultRulesForFieldType(PublicationFieldTypes $type): array
