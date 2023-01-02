@@ -71,20 +71,23 @@ class MakePublicationCommand extends ValidatingCommand
     protected function getPublicationTypeSelection(): PublicationType
     {
         $publicationTypes = $this->getPublicationTypes();
-        $publicationTypeSelection = $this->argument('publicationType') ??
-        $this->choice(
-            'Which publication type would you like to create a publication item for?',
-            $publicationTypes->keys()->toArray()
-        );
+        if ($this->argument('publicationType')) {
+            $publicationTypeSelection = $this->argument('publicationType');
+        } else {
+            if ($publicationTypes->isEmpty()) {
+                throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
+            }
+
+            $publicationTypeSelection = $this->choice(
+                'Which publication type would you like to create a publication item for?',
+                $publicationTypes->keys()->toArray()
+            );
+        }
 
         if ($publicationTypes->has($publicationTypeSelection)) {
             $this->line("<info>Creating a new publication of type</info> [<comment>$publicationTypeSelection</comment>]");
 
             return $publicationTypes->get($publicationTypeSelection);
-        }
-
-        if ($publicationTypes->isEmpty() && ! $this->argument('publicationType')) {
-            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
         }
 
         throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
