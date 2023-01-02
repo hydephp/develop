@@ -59,16 +59,6 @@ abstract class PublicationField
      */
     public function getRules(?PublicationFieldDefinition $fieldDefinition = null): array
     {
-        return $fieldDefinition?->getValidationRules() ?? static::rules();
-    }
-
-    /**
-     * Get the default validation rules for this field type.
-     *
-     * @return array<string>
-     */
-    final public static function rules(): array
-    {
-        return PublicationFieldService::getDefaultValidationRulesForFieldType(static::getType());
+        return $fieldDefinition?->getValidationRules() ?? PublicationFieldService::getDefaultValidationRulesForFieldType(static::getType());
     }
 }

@@ -17,6 +17,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
+use Hyde\Framework\Features\Publications\PublicationFieldService;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
@@ -65,11 +66,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testGetRules()
     {
         $this->assertSame(['string'], (new PublicationFieldTestClass())->getRules());
-    }
-
-    public function testRules()
-    {
-        $this->assertSame(['string'], PublicationFieldTestClass::rules());
     }
 
     // StringField tests
@@ -505,21 +501,20 @@ class PublicationFieldServiceTest extends TestCase
     public function testDefaultValidationRules()
     {
         $expected = [
-            StringField::class => ['string'],
-            DatetimeField::class => ['date'],
-            BooleanField::class => [new BooleanRule],
-            IntegerField::class => ['integer', 'numeric'],
-            FloatField::class => ['numeric'],
-            ImageField::class => [],
-            ArrayField::class => ['array'],
-            TextField::class => ['string'],
-            UrlField::class => ['url'],
-            TagField::class => [],
+            'string' => ['string'],
+            'datetime' => ['date'],
+            'boolean' => [new BooleanRule],
+            'integer' => ['integer', 'numeric'],
+            'float' => ['numeric'],
+            'image' => [],
+            'array' => ['array'],
+            'text' => ['string'],
+            'url' => ['url'],
+            'tag' => [],
         ];
 
-        foreach ($expected as $class => $rules) {
-            /** @var PublicationField $class */
-            $this->assertEquals($rules, $class::rules());
+        foreach ($expected as $type => $rules) {
+            $this->assertEquals($rules, PublicationFieldService::getDefaultValidationRulesForFieldType(PublicationFieldTypes::from($type)));
         }
     }
 
