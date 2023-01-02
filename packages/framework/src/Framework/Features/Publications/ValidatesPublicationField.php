@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use JetBrains\PhpStorm\Deprecated;
 use function collect;
 use function Hyde\evaluate_arrayable;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\Deprecated;
 use function validator;
 
 /**
@@ -79,7 +78,7 @@ class ValidatesPublicationField
         return collect(self::getValidationRulesForPublicationFieldDefinition($this->publicationType, $this->fieldDefinition));
     }
 
-    public function validate(mixed $input = null, #[Deprecated]Arrayable|array|null $fieldRules = null): array
+    public function validate(mixed $input = null, #[Deprecated]Arrayable | array | null $fieldRules = null): array
     {
         $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules());
 
