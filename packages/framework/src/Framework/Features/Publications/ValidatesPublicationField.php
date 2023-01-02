@@ -27,6 +27,7 @@ class ValidatesPublicationField
         $this->fieldDefinition = $fieldDefinition;
     }
 
+    /** @deprecated This will only be handled when validating using instance methods */
     public static function makeDynamicValidationRulesForPublicationFieldEntry(Models\PublicationFieldDefinition $fieldDefinition, ?PublicationType $publicationType): array
     {
         if ($fieldDefinition->type == PublicationFieldTypes::Image) {
