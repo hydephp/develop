@@ -29,7 +29,7 @@ class ValidatesPublicationField
     {
         return array_merge(
             $this->fieldDefinition->getRules(),
-            $this->makeDynamicValidationRulesForPublicationFieldEntry()
+            $this->makeDynamicRules()
         );
     }
 
@@ -43,7 +43,7 @@ class ValidatesPublicationField
         )->validate();
     }
 
-    protected function makeDynamicValidationRulesForPublicationFieldEntry(): array
+    protected function makeDynamicRules(): array
     {
         if ($this->fieldDefinition->type == PublicationFieldTypes::Image) {
             $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
