@@ -7,8 +7,8 @@ namespace Hyde\Framework\Features\Publications\Models;
 use function array_filter;
 use function collect;
 use function Hyde\evaluate_arrayable;
-use Hyde\Framework\Features\Publications\PublicationFieldService;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\ValidatesPublicationField;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
@@ -59,13 +59,13 @@ class PublicationFieldDefinition implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        return collect(PublicationFieldService::getValidationRulesForPublicationFieldDefinition($publicationType, $this));
+        return collect(ValidatesPublicationField::getValidationRulesForPublicationFieldDefinition($publicationType, $this));
     }
 
     /**
      * @deprecated Use the ValidatesPublicationField class instead.
      *
-     * @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type.
+     * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
      */
     public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
