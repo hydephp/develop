@@ -399,28 +399,6 @@ class PublicationFieldServiceTest extends TestCase
 
     // Additional tests
 
-    public function testAllTypesHaveAValueClass()
-    {
-        $namespace = Str::beforeLast(PublicationField::class, '\\');
-        foreach (PublicationFieldTypes::names() as $type) {
-            $this->assertTrue(
-                class_exists("$namespace\\{$type}Field"),
-                "Missing value class for type $type"
-            );
-        }
-    }
-
-    public function testAllTypesCanBeResolvedByTheServiceContainer()
-    {
-        $namespace = Str::beforeLast(PublicationField::class, '\\');
-        foreach (PublicationFieldTypes::names() as $type) {
-            $this->assertInstanceOf(
-                "$namespace\\{$type}Field",
-                app()->make("$namespace\\{$type}Field")
-            );
-        }
-    }
-
     public function testDefaultValidationRules()
     {
         $expected = [
