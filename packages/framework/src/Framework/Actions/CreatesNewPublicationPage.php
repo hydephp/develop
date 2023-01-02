@@ -12,8 +12,8 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use RuntimeException;
-use Symfony\Component\Yaml\Yaml;
 use function substr;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Scaffold a publication file.
