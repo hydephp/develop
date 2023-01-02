@@ -21,7 +21,7 @@ class PublicationFieldDefinitionTest extends TestCase
         $field = new PublicationFieldDefinition('string', 'test');
         $this->assertInstanceOf(PublicationFieldDefinition::class, $field);
 
-        $this->assertSame(PublicationFieldTypes::String, $field->fieldType);
+        $this->assertSame(PublicationFieldTypes::String, $field->type);
         $this->assertSame('test', $field->name);
     }
 
@@ -34,7 +34,7 @@ class PublicationFieldDefinitionTest extends TestCase
 
         $this->assertInstanceOf(PublicationFieldDefinition::class, $field);
 
-        $this->assertSame(PublicationFieldTypes::String, $field->fieldType);
+        $this->assertSame(PublicationFieldTypes::String, $field->type);
         $this->assertSame('test', $field->name);
     }
 
@@ -71,10 +71,10 @@ class PublicationFieldDefinitionTest extends TestCase
     public function test_can_construct_type_using_enum_case()
     {
         $field1 = new PublicationFieldDefinition(PublicationFieldTypes::String, 'test');
-        $this->assertSame(PublicationFieldTypes::String, $field1->fieldType);
+        $this->assertSame(PublicationFieldTypes::String, $field1->type);
 
         $field2 = new PublicationFieldDefinition('string', 'test');
-        $this->assertSame(PublicationFieldTypes::String, $field2->fieldType);
+        $this->assertSame(PublicationFieldTypes::String, $field2->type);
 
         $this->assertEquals($field1, $field2);
     }
@@ -90,7 +90,7 @@ class PublicationFieldDefinitionTest extends TestCase
     public function test_type_input_is_case_insensitive()
     {
         $field = new PublicationFieldDefinition('STRING', 'test');
-        $this->assertSame(PublicationFieldTypes::String, $field->fieldType);
+        $this->assertSame(PublicationFieldTypes::String, $field->type);
     }
 
     public function test_name_gets_stored_as_kebab_case()

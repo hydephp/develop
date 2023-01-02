@@ -125,7 +125,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureFieldInput(PublicationFieldDefinition $field): ?PublicationField
     {
-        return match ($field->fieldType) {
+        return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
             PublicationFieldTypes::Array => $this->captureArrayFieldInput($field),
             PublicationFieldTypes::Image => $this->captureImageFieldInput($field),
@@ -187,7 +187,7 @@ class MakePublicationCommand extends ValidatingCommand
             return null;
         }
 
-        $className = $field->fieldType->fieldClass();
+        $className = $field->type->fieldClass();
 
         return new $className($selection);
     }
