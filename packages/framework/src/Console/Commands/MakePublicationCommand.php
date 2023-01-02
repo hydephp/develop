@@ -13,6 +13,7 @@ use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Framework\Features\Publications\ValidatesPublicationField;
 use Illuminate\Support\Collection;
 use function implode;
 use function in_array;
@@ -178,7 +179,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureOtherFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $selection = $this->askForFieldData($field->name, $field->getValidationRules()->toArray());
+        $selection = $this->askForFieldData($field->name, ValidatesPublicationField::getValidationRulesForPublicationFieldDefinition($this->publicationType, $field));
         if (empty($selection)) {
             return null;
         }
