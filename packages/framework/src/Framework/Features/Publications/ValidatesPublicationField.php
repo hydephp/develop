@@ -64,9 +64,6 @@ class ValidatesPublicationField
 
     public static function getValidationRulesForPublicationFieldDefinition(PublicationFieldDefinition $fieldDefinition): array
     {
-        return array_merge(
-            $fieldDefinition->type->rules(),
-            $fieldDefinition->rules
-        );
+        return $fieldDefinition->getRules();
     }
 }
