@@ -30,19 +30,19 @@ use function is_numeric;
  */
 class PublicationFieldService
 {
-    public static function normalizeFieldValue(PublicationFieldTypes $fieldType, mixed $value)
+    public static function parseFieldValue(PublicationFieldTypes $fieldType, mixed $value)
     {
         return match ($fieldType) {
-            PublicationFieldTypes::String => self::normalizeStringValue($value),
-            PublicationFieldTypes::Datetime => self::normalizeDatetimeValue($value),
-            PublicationFieldTypes::Boolean => self::normalizeBooleanValue($value),
-            PublicationFieldTypes::Integer => self::normalizeIntegerValue($value),
-            PublicationFieldTypes::Float => self::normalizeFloatValue($value),
-            PublicationFieldTypes::Image => self::normalizeImageValue($value),
-            PublicationFieldTypes::Array => self::normalizeArrayValue($value),
-            PublicationFieldTypes::Text => self::normalizeTextValue($value),
-            PublicationFieldTypes::Url => self::normalizeUrlValue($value),
-            PublicationFieldTypes::Tag => self::normalizeTagValue($value),
+            PublicationFieldTypes::String => self::parseStringValue($value),
+            PublicationFieldTypes::Datetime => self::parseDatetimeValue($value),
+            PublicationFieldTypes::Boolean => self::parseBooleanValue($value),
+            PublicationFieldTypes::Integer => self::parseIntegerValue($value),
+            PublicationFieldTypes::Float => self::parseFloatValue($value),
+            PublicationFieldTypes::Image => self::parseImageValue($value),
+            PublicationFieldTypes::Array => self::parseArrayValue($value),
+            PublicationFieldTypes::Text => self::parseTextValue($value),
+            PublicationFieldTypes::Url => self::parseUrlValue($value),
+            PublicationFieldTypes::Tag => self::parseTagValue($value),
         };
     }
 
@@ -113,17 +113,17 @@ class PublicationFieldService
         return new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
     }
 
-    public static function normalizeStringValue(mixed $value): mixed
+    public static function parseStringValue(mixed $value): mixed
     {
         return $value;
     }
 
-    public static function normalizeDatetimeValue(mixed $value): DateTime
+    public static function parseDatetimeValue(mixed $value): DateTime
     {
         return new DateTime($value);
     }
 
-    public static function normalizeBooleanValue(mixed $value): bool
+    public static function parseBooleanValue(mixed $value): bool
     {
         return match ($value) {
             'true', '1' => true,
@@ -132,7 +132,7 @@ class PublicationFieldService
         };
     }
 
-    public static function normalizeIntegerValue(mixed $value): int
+    public static function parseIntegerValue(mixed $value): int
     {
         if (! is_numeric($value)) {
             throw self::parseError('integer', $value);
@@ -141,7 +141,7 @@ class PublicationFieldService
         return (int) $value;
     }
 
-    public static function normalizeFloatValue(mixed $value): float
+    public static function parseFloatValue(mixed $value): float
     {
         if (! is_numeric($value)) {
             throw self::parseError('float', $value);
@@ -150,18 +150,18 @@ class PublicationFieldService
         return (float) $value;
     }
 
-    public static function normalizeImageValue(mixed $value): mixed
+    public static function parseImageValue(mixed $value): mixed
     {
         // TODO Validate file exists?
         return $value;
     }
 
-    public static function normalizeArrayValue(mixed $value): array
+    public static function parseArrayValue(mixed $value): array
     {
         return (array) $value;
     }
 
-    public static function normalizeTextValue(mixed $value): mixed
+    public static function parseTextValue(mixed $value): mixed
     {
         // In order to properly store multi-line text fields as block literals,
         // we need to make sure the string ends with a newline character.
@@ -173,7 +173,7 @@ class PublicationFieldService
         return $value;
     }
 
-    public static function normalizeUrlValue(mixed $value): mixed
+    public static function parseUrlValue(mixed $value): mixed
     {
         if (! filter_var($value, FILTER_VALIDATE_URL)) {
             throw self::parseError('url', $value);
@@ -182,7 +182,7 @@ class PublicationFieldService
         return $value;
     }
 
-    public static function normalizeTagValue(mixed $value): array
+    public static function parseTagValue(mixed $value): array
     {
         return (array) $value;
     }

@@ -51,7 +51,7 @@ abstract class PublicationField
      */
     final public static function parseInput(string $input): mixed
     {
-        return PublicationFieldService::normalizeFieldValue(static::getType(), $input);
+        return PublicationFieldService::parseFieldValue(static::getType(), $input);
     }
 
     protected static function parseError(string $input): InvalidArgumentException
