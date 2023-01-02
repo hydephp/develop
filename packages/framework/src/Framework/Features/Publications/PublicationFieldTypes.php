@@ -96,6 +96,22 @@ enum PublicationFieldTypes: string
     }
 
     /**
+     * @return bool Can the field type be used for canonical fields?
+     */
+    public function isCanonicable(): bool
+    {
+        return in_array($this, self::canonicable());
+    }
+
+    /**
+     * @return bool Does the field type support arrays?
+     */
+    public function isArrayable(): bool
+    {
+        return in_array($this, self::arrayable());
+    }
+
+    /**
      * @deprecated
      * @return class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField>
      */
