@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
 
-use Hyde\Framework\Features\Publications\PublicationFieldService;
-
 /**
  * Represents a single value for a field in a publication,
  * as defined in the "fields" array of a publication type schema.
@@ -24,7 +22,7 @@ abstract class PublicationField
     public function __construct(string $value = null)
     {
         if ($value !== null) {
-            $this->value = PublicationFieldService::parseFieldValue(static::TYPE, $value);
+            $this->value = PublicationFieldValue::parseFieldValue(static::TYPE, $value);
         }
     }
 
