@@ -17,9 +17,9 @@ class PublicationFieldService
     public static function getValidationRulesForPublicationFieldDefinition(?PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
     {
         return array_merge(
-            $fieldDefinition->type->rules(),
+            self::getDefaultRulesForFieldType($fieldDefinition->type),
             self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
-            $fieldDefinition->rules
+            self::getCustomRulesFromPublicationTypeSchema($fieldDefinition)
         );
     }
 
@@ -49,5 +49,15 @@ class PublicationFieldService
         }
 
         return [];
+    }
+
+    protected static function getDefaultRulesForFieldType(PublicationFieldTypes $type): array
+    {
+        return $type->rules();
+    }
+
+    protected static function getCustomRulesFromPublicationTypeSchema(PublicationFieldDefinition $fieldDefinition): array
+    {
+        return $fieldDefinition->rules;
     }
 }
