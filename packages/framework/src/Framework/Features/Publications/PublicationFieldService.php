@@ -143,7 +143,7 @@ class PublicationFieldService
 
     public static function parseImageValue(mixed $value): mixed
     {
-        // TODO Validate file exists?
+        // TODO Validate file exists as the dynamic validation rules does the same
         return $value;
     }
 
