@@ -60,7 +60,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $countPubTypes++;
             $publications = PublicationService::getPublicationsForPubType($pubType);
             $this->output->write("<fg=yellow>Validating publication type [$name]</>");
-            $publicationFieldRules = $pubType->getFieldRules(false);
 
             /** @var \Hyde\Pages\PublicationPage $publication */
             foreach ($publications as $publication) {
