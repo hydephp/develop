@@ -8,6 +8,7 @@ use Exception;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Framework\Features\Publications\ValidatesPublicationField;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
 
@@ -81,10 +82,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                             throw new Exception("Field [$fieldName] is missing from publication");
                         }
 
-                        $pubTypeField->validate(
-                            $pubType,
-                            $publication->matter->get($fieldName)
-                        );
+                        (new ValidatesPublicationField($pubType, $pubTypeField))->validate($publication->matter->get($fieldName));
                         $this->output->writeln(" <fg=green>$checkmark</>");
                     } catch (Exception $e) {
                         $countErrors++;
