@@ -106,16 +106,6 @@ class PublicationType implements SerializableContract
         return Collection::make($result);
     }
 
-    /** @deprecated use {@see \Hyde\Framework\Features\Publications\ValidatesPublicationField} instead */
-    public function getFieldRules(): Collection
-    {
-        return Collection::make(
-            $this->getFields()->mapWithKeys(function (PublicationFieldDefinition $field) {
-                return [$field->name => $field->getValidationRules($this)];
-            })
-        );
-    }
-
     public function getFieldDefinition(string $fieldName): PublicationFieldDefinition
     {
         return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $fieldName)->firstOrFail();
