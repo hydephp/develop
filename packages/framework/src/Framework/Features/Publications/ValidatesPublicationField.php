@@ -59,7 +59,7 @@ class ValidatesPublicationField
         return $fieldDefinition->rules;
     }
 
-    public static function getDefaultRulesForFieldType(PublicationFieldTypes $type): array
+    protected static function getDefaultRulesForFieldType(PublicationFieldTypes $type): array
     {
         return $type->rules();
     }
