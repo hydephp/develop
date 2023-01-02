@@ -11,7 +11,6 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use JetBrains\PhpStorm\Deprecated;
 use function str_starts_with;
 use function strtolower;
 
@@ -55,8 +54,8 @@ class PublicationFieldDefinition implements SerializableContract
         return (new ValidatesPublicationField($publicationType, $this))->getValidationRules();
     }
 
-    public function validate(PublicationType $publicationType, mixed $input = null, #[Deprecated]Arrayable | array | null $fieldRules = null): array
+    public function validate(PublicationType $publicationType, mixed $input = null): array
     {
-        return (new ValidatesPublicationField($publicationType, $this))->validate($input, $fieldRules);
+        return (new ValidatesPublicationField($publicationType, $this))->validate($input);
     }
 }

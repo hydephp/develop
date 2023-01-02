@@ -47,39 +47,6 @@ class ValidatesPublicationsTest extends TestCase
         (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo');
     }
 
-    public function testValidateWithCustomRuleCollection()
-    {
-        $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
-        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', ['min:3']);
-        $this->assertSame(['my-string' => 'foo'], $validated);
-
-        $this->expectValidationException('The my-string must be at least 5 characters.');
-        $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
-        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', ['min:5']);
-    }
-
-    public function testValidateWithCustomRuleCollectionOverridesDefaultRules()
-    {
-        $this->expectValidationException('The my-string must be a number.');
-        $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
-        (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', ['numeric']);
-    }
-
-    public function testValidateMethodAcceptsArrayOfRules()
-    {
-        $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
-        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo', ['min:3']);
-        $this->assertSame(['my-string' => 'foo'], $validated);
-    }
-
-    public function testValidateMethodAcceptsArrayableOfRules()
-    {
-        $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
-        $validated = (new ValidatesPublicationField($this->mockPublicationType(), $fieldDefinition))->validate('foo',
-            collect(['min:3']));
-        $this->assertSame(['my-string' => 'foo'], $validated);
-    }
-
     public function testGetRules()
     {
         $fieldDefinition = new PublicationFieldDefinition('string', 'myString');
