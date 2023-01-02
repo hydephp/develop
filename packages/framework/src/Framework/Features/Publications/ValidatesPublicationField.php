@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use Illuminate\Contracts\Validation\Validator;
 use function array_merge;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
@@ -35,12 +36,7 @@ class ValidatesPublicationField
 
     public function validate(mixed $input = null): array
     {
-        $rules = $this->getValidationRules();
-
-        return validator(
-            [$this->fieldDefinition->name => $input],
-            [$this->fieldDefinition->name => $rules]
-        )->validate();
+        return $this->makeValidator($input, $this->getValidationRules())->validate();
     }
 
     protected function makeDynamicRules(): array
@@ -60,5 +56,12 @@ class ValidatesPublicationField
         }
 
         return [];
+    }
+
+    protected function makeValidator(mixed $input, array $rules): Validator {
+        return validator(
+            [$this->fieldDefinition->name => $input],
+            [$this->fieldDefinition->name => $rules]
+        );
     }
 }
