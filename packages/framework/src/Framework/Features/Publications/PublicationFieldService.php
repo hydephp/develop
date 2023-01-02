@@ -9,15 +9,12 @@ namespace Hyde\Framework\Features\Publications;
 use function array_merge;
 use function collect;
 use DateTime;
-use const false;
-use const FILTER_VALIDATE_URL;
 use function filter_var;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use InvalidArgumentException;
 use function is_numeric;
-use const true;
 
 /**
  * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
