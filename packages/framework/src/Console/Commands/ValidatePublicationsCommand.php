@@ -14,7 +14,7 @@ use LaravelZero\Framework\Commands\Command;
 /**
  * Hyde Command to validate one or all publications.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidatePublicationTypeCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\ValidatePublicationsCommandTest
  *
  * @todo Add JSON output option?
  */
