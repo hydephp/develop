@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * The supported field types for publication types.
@@ -109,17 +107,5 @@ enum PublicationFieldTypes: string
     public function isArrayable(): bool
     {
         return in_array($this, self::arrayable());
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField>
-     */
-    public function fieldClass(): string
-    {
-        $namespace = Str::beforeLast(PublicationField::class, '\\');
-
-        return "$namespace\\{$this->name}Field";
     }
 }
