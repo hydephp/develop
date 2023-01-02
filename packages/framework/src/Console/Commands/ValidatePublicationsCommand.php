@@ -80,9 +80,9 @@ class ValidatePublicationsCommand extends ValidatingCommand
                         }
 
                         $pubTypeField->validate(
+                            $pubType,
                             $publication->matter->get($fieldName),
-                            $publicationFieldRules->get($fieldName),
-                            $pubType
+                            $publicationFieldRules->get($fieldName)
                         );
                         $this->output->writeln(" <fg=green>$checkmark</>");
                     } catch (Exception $e) {

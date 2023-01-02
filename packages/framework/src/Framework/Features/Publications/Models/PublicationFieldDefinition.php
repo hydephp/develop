@@ -63,7 +63,7 @@ class PublicationFieldDefinition implements SerializableContract
     /**
      * @deprecated Use the ValidatesPublicationField class instead.
      */
-    public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, PublicationType $publicationType): array
+    public function validate(PublicationType $publicationType, mixed $input = null, Arrayable|array|null $fieldRules = null): array
     {
         return (new ValidatesPublicationField($publicationType, $this))->validate($input, $fieldRules);
     }
