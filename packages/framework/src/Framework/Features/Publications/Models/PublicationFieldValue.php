@@ -12,9 +12,10 @@ use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use function is_array;
 
 /**
- * Represents a single value for a field in a publication,
- * as defined in the "fields" array of a publication type schema.
+ * Represents a single value for a field in a publication's front matter,
+ * following rules defined in the "fields" array of the publication type's schema.
  *
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldServiceTest
  */

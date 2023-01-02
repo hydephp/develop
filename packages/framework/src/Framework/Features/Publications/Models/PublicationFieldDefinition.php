@@ -20,6 +20,7 @@ use function strtolower;
 /**
  * Represents an entry in the "fields" array of a publication type schema.
  *
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldValue
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldDefinitionTest
  */
