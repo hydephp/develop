@@ -19,11 +19,9 @@ class PublicationFieldValue
     public readonly PublicationFieldTypes $type;
     protected mixed $value;
 
-    public function __construct(PublicationFieldTypes $type, string $value = null)
+    public function __construct(PublicationFieldTypes $type, string $value)
     {
-        if ($value !== null) {
-            $this->value = PublicationFieldService::parseFieldValue($type, $value);
-        }
+        $this->value = PublicationFieldService::parseFieldValue($type, $value);
     }
 
     public function getValue(): mixed
