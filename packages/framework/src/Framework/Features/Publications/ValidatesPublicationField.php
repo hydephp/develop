@@ -68,7 +68,6 @@ class ValidatesPublicationField
     {
         return array_merge(
             self::getDefaultRulesForFieldType($fieldDefinition->type),
-            self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
             self::getCustomRulesFromPublicationTypeSchema($fieldDefinition)
         );
     }
