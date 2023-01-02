@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
+use JetBrains\PhpStorm\Deprecated;
 use function array_filter;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\ValidatesPublicationField;
@@ -55,7 +56,7 @@ class PublicationFieldDefinition implements SerializableContract
         return (new ValidatesPublicationField($publicationType, $this))->getValidationRules();
     }
 
-    public function validate(PublicationType $publicationType, mixed $input = null, Arrayable|array|null $fieldRules = null): array
+    public function validate(PublicationType $publicationType, mixed $input = null, #[Deprecated]Arrayable|array|null $fieldRules = null): array
     {
         return (new ValidatesPublicationField($publicationType, $this))->validate($input, $fieldRules);
     }
