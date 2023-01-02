@@ -28,6 +28,7 @@ class PublicationFieldDefinition implements SerializableContract
     use Serializable;
 
     public readonly PublicationFieldTypes $type;
+    public readonly PublicationType $publicationType;
     public readonly string $name;
     public readonly array $rules;
 
