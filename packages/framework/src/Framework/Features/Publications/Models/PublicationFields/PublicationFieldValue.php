@@ -61,17 +61,6 @@ final class PublicationFieldValue
     /** Get the default validation rules for a field type. */
     public static function getDefaultFieldRules(PublicationFieldTypes $fieldType): array
     {
-        return match ($fieldType) {
-            PublicationFieldTypes::String => ['string'],
-            PublicationFieldTypes::Datetime => ['date'],
-            PublicationFieldTypes::Boolean => [new BooleanRule],
-            PublicationFieldTypes::Integer => ['integer', 'numeric'],
-            PublicationFieldTypes::Float => ['numeric'],
-            PublicationFieldTypes::Image => [],
-            PublicationFieldTypes::Array => ['array'],
-            PublicationFieldTypes::Text => ['string'],
-            PublicationFieldTypes::Url => ['url'],
-            PublicationFieldTypes::Tag => [],
-        };
+        return $fieldType->rules();
     }
 }
