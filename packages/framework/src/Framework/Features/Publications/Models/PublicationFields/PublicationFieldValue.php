@@ -17,7 +17,7 @@ use function is_array;
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldServiceTest
  */
-class PublicationFieldValue
+final class PublicationFieldValue
 {
     public readonly PublicationFieldTypes $type;
     protected string|array|bool|float|int|DateTime $value;
