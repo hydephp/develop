@@ -26,6 +26,21 @@ class ValidatesPublicationField
         $this->fieldDefinition = $fieldDefinition;
     }
 
+    public function getValidationRules(): Collection
+    {
+        return collect(self::getValidationRulesForPublicationFieldDefinition($this->fieldDefinition));
+    }
+
+    public function validate(mixed $input = null): array
+    {
+        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules());
+
+        return validator(
+            [$this->fieldDefinition->name => $input],
+            [$this->fieldDefinition->name => $rules]
+        )->validate();
+    }
+
     /** @deprecated This will only be handled when validating using instance methods */
     public static function makeDynamicValidationRulesForPublicationFieldEntry(Models\PublicationFieldDefinition $fieldDefinition, ?PublicationType $publicationType): array
     {
@@ -59,11 +74,6 @@ class ValidatesPublicationField
         return $fieldDefinition->rules;
     }
 
-    protected static function getDefaultRulesForFieldType(PublicationFieldTypes $type): array
-    {
-        return $type->rules();
-    }
-
     public static function getValidationRulesForPublicationFieldDefinition(PublicationFieldDefinition $fieldDefinition): array
     {
         return array_merge(
@@ -72,18 +82,8 @@ class ValidatesPublicationField
         );
     }
 
-    public function getValidationRules(): Collection
+    protected static function getDefaultRulesForFieldType(PublicationFieldTypes $type): array
     {
-        return collect(self::getValidationRulesForPublicationFieldDefinition($this->fieldDefinition));
-    }
-
-    public function validate(mixed $input = null): array
-    {
-        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules());
-
-        return validator(
-            [$this->fieldDefinition->name => $input],
-            [$this->fieldDefinition->name => $rules]
-        )->validate();
+        return $type->rules();
     }
 }
