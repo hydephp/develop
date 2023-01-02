@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Publications;
 
 use function array_merge;
 use function collect;
-use function Hyde\evaluate_arrayable;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Illuminate\Support\Collection;
@@ -36,7 +35,7 @@ class ValidatesPublicationField
 
     public function validate(mixed $input = null): array
     {
-        $rules = evaluate_arrayable($this->getValidationRules());
+        $rules = $this->getValidationRules();
 
         return validator(
             [$this->fieldDefinition->name => $input],
