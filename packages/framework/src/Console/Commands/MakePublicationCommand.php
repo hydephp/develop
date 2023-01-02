@@ -9,15 +9,16 @@ use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
-use function implode;
-use function in_array;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+
+use function implode;
+use function in_array;
 use function str_starts_with;
 
 /**

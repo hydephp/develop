@@ -4,11 +4,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
+namespace Hyde\Framework\Features\Publications\Models;
 
 use DateTime;
 use Hyde\Framework\Features\Publications\Concerns\ParsesPublicationFieldInputs;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+
 use function is_array;
 
 /**

@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use DateTime;
 use Exception;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
@@ -15,7 +15,7 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * @covers \Hyde\Framework\Features\Publications\PublicationFieldService
- * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue
+ * @covers \Hyde\Framework\Features\Publications\Models\PublicationFieldValue
  */
 class PublicationFieldServiceTest extends TestCase
 {

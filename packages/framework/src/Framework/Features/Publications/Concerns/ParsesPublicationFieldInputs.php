@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Concerns;
 
 use DateTime;
-use function filter_var;
 use InvalidArgumentException;
+
+use function filter_var;
 use function is_numeric;
 use function sprintf;
 use function substr_count;
@@ -16,7 +17,7 @@ use function ucfirst;
 /**
  * @internal Single-use trait for the PublicationFieldValue class.
  *
- * @see \Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue
+ * @see \Hyde\Framework\Features\Publications\Models\PublicationFieldValue
  */
 trait ParsesPublicationFieldInputs
 {

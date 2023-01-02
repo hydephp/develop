@@ -6,14 +6,14 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use RuntimeException;
-use function substr;
 use Symfony\Component\Yaml\Yaml;
+use function substr;
 
 /**
  * Scaffold a publication file.
@@ -29,7 +29,7 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     /**
      * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $pubType
-     * @param  \Illuminate\Support\Collection<string, PublicationFieldValue>  $fieldData
+     * @param  \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Publications\Models\PublicationFieldValue>  $fieldData
      * @param  bool  $force
      */
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false)
