@@ -17,16 +17,6 @@ use InvalidArgumentException;
 use function is_numeric;
 
 /**
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\TextField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField
- * @see  \Hyde\Framework\Features\Publications\Models\PublicationFields\TagField
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldServiceTest
  */
 class PublicationFieldService
