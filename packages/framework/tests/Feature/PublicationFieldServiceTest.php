@@ -63,7 +63,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testStringFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('string'), 'foo'));
+        $field = $this->makeFieldType('string', 'foo');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::String, $field->type);
@@ -71,7 +71,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testStringFieldGetValue()
     {
-        $this->assertSame('foo', (new PublicationFieldValue(PublicationFieldTypes::from('string'), 'foo'))->getValue());
+        $this->assertSame('foo', $this->makeFieldType('string', 'foo')->getValue());
     }
 
     public function testStringFieldTypeConstant()
@@ -86,21 +86,21 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testStringFieldParsingOptions()
     {
-        $this->assertSame('foo', (new PublicationFieldValue(PublicationFieldTypes::from('string'), 'foo'))->getValue());
-        $this->assertSame('true', (new PublicationFieldValue(PublicationFieldTypes::from('string'), 'true'))->getValue());
-        $this->assertSame('false', (new PublicationFieldValue(PublicationFieldTypes::from('string'), 'false'))->getValue());
-        $this->assertSame('null', (new PublicationFieldValue(PublicationFieldTypes::from('string'), 'null'))->getValue());
-        $this->assertSame('0', (new PublicationFieldValue(PublicationFieldTypes::from('string'), '0'))->getValue());
-        $this->assertSame('1', (new PublicationFieldValue(PublicationFieldTypes::from('string'), '1'))->getValue());
-        $this->assertSame('10.5', (new PublicationFieldValue(PublicationFieldTypes::from('string'), '10.5'))->getValue());
-        $this->assertSame('-10', (new PublicationFieldValue(PublicationFieldTypes::from('string'), '-10'))->getValue());
+        $this->assertSame('foo', $this->makeFieldType('string', 'foo')->getValue());
+        $this->assertSame('true', $this->makeFieldType('string', 'true')->getValue());
+        $this->assertSame('false', $this->makeFieldType('string', 'false')->getValue());
+        $this->assertSame('null', $this->makeFieldType('string', 'null')->getValue());
+        $this->assertSame('0', $this->makeFieldType('string', '0')->getValue());
+        $this->assertSame('1', $this->makeFieldType('string', '1')->getValue());
+        $this->assertSame('10.5', $this->makeFieldType('string', '10.5')->getValue());
+        $this->assertSame('-10', $this->makeFieldType('string', '-10')->getValue());
     }
 
     // DatetimeField tests
 
     public function testDatetimeFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('datetime'), '2023-01-01'));
+        $field = $this->makeFieldType('datetime', '2023-01-01');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Datetime, $field->type);
@@ -108,7 +108,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testDatetimeFieldGetValue()
     {
-        $this->assertEquals(new DateTime('2023-01-01'), (new PublicationFieldValue(PublicationFieldTypes::from('datetime'), '2023-01-01'))->getValue());
+        $this->assertEquals(new DateTime('2023-01-01'), $this->makeFieldType('datetime', '2023-01-01')->getValue());
     }
 
     public function testDatetimeFieldTypeConstant()
@@ -125,7 +125,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testDatetimeFieldWithDynamicInput()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('datetime'), 'now'))->getValue();
+        $field = $this->makeFieldType('datetime', 'now')->getValue();
 
         $this->assertInstanceOf(DateTime::class, $field);
     }
@@ -139,7 +139,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testBooleanFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('boolean'), 'true'));
+        $field = $this->makeFieldType('boolean', 'true');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Boolean, $field->type);
@@ -147,7 +147,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testBooleanFieldGetValue()
     {
-        $this->assertSame(true, (new PublicationFieldValue(PublicationFieldTypes::from('boolean'), 'true'))->getValue());
+        $this->assertSame(true, $this->makeFieldType('boolean', 'true')->getValue());
     }
 
     public function testBooleanFieldTypeConstant()
@@ -169,17 +169,17 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testBooleanFieldParsingOptions()
     {
-        $this->assertSame(true, (new PublicationFieldValue(PublicationFieldTypes::from('boolean'), 'true'))->getValue());
-        $this->assertSame(true, (new PublicationFieldValue(PublicationFieldTypes::from('boolean'), '1'))->getValue());
-        $this->assertSame(false, (new PublicationFieldValue(PublicationFieldTypes::from('boolean'), 'false'))->getValue());
-        $this->assertSame(false, (new PublicationFieldValue(PublicationFieldTypes::from('boolean'), '0'))->getValue());
+        $this->assertSame(true, $this->makeFieldType('boolean', 'true')->getValue());
+        $this->assertSame(true, $this->makeFieldType('boolean', '1')->getValue());
+        $this->assertSame(false, $this->makeFieldType('boolean', 'false')->getValue());
+        $this->assertSame(false, $this->makeFieldType('boolean', '0')->getValue());
     }
 
     // IntegerField tests
 
       public function testIntegerFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '10'));
+        $field = $this->makeFieldType('integer', '10');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Integer, $field->type);
@@ -187,7 +187,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testIntegerFieldGetValue()
     {
-        $this->assertSame(10, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '10'))->getValue());
+        $this->assertSame(10, $this->makeFieldType('integer', '10')->getValue());
     }
 
     public function testIntegerFieldTypeConstant()
@@ -209,21 +209,21 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testIntegerFieldParsingOptions()
     {
-        $this->assertSame(0, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '0'))->getValue());
-        $this->assertSame(1, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '1'))->getValue());
-        $this->assertSame(10, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '10'))->getValue());
-        $this->assertSame(10, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '10.0'))->getValue());
-        $this->assertSame(10, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '10.5'))->getValue());
-        $this->assertSame(10, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '10.9'))->getValue());
-        $this->assertSame(100, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '1E2'))->getValue());
-        $this->assertSame(-10, (new PublicationFieldValue(PublicationFieldTypes::from('integer'), '-10'))->getValue());
+        $this->assertSame(0, $this->makeFieldType('integer', '0')->getValue());
+        $this->assertSame(1, $this->makeFieldType('integer', '1')->getValue());
+        $this->assertSame(10, $this->makeFieldType('integer', '10')->getValue());
+        $this->assertSame(10, $this->makeFieldType('integer', '10.0')->getValue());
+        $this->assertSame(10, $this->makeFieldType('integer', '10.5')->getValue());
+        $this->assertSame(10, $this->makeFieldType('integer', '10.9')->getValue());
+        $this->assertSame(100, $this->makeFieldType('integer', '1E2')->getValue());
+        $this->assertSame(-10, $this->makeFieldType('integer', '-10')->getValue());
     }
 
     // FloatField tests
 
       public function testFloatFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('float'), '10'));
+        $field = $this->makeFieldType('float', '10');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Float, $field->type);
@@ -231,7 +231,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testFloatFieldGetValue()
     {
-        $this->assertSame(10.0, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '10'))->getValue());
+        $this->assertSame(10.0, $this->makeFieldType('float', '10')->getValue());
     }
 
     public function testFloatFieldTypeConstant()
@@ -253,21 +253,21 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testFloatFieldParsingOptions()
     {
-        $this->assertSame(0.0, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '0'))->getValue());
-        $this->assertSame(1.0, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '1'))->getValue());
-        $this->assertSame(10.0, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '10'))->getValue());
-        $this->assertSame(10.0, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '10.0'))->getValue());
-        $this->assertSame(10.5, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '10.5'))->getValue());
-        $this->assertSame(10.9, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '10.9'))->getValue());
-        $this->assertSame(100.0, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '1E2'))->getValue());
-        $this->assertSame(-10.0, (new PublicationFieldValue(PublicationFieldTypes::from('float'), '-10'))->getValue());
+        $this->assertSame(0.0, $this->makeFieldType('float', '0')->getValue());
+        $this->assertSame(1.0, $this->makeFieldType('float', '1')->getValue());
+        $this->assertSame(10.0, $this->makeFieldType('float', '10')->getValue());
+        $this->assertSame(10.0, $this->makeFieldType('float', '10.0')->getValue());
+        $this->assertSame(10.5, $this->makeFieldType('float', '10.5')->getValue());
+        $this->assertSame(10.9, $this->makeFieldType('float', '10.9')->getValue());
+        $this->assertSame(100.0, $this->makeFieldType('float', '1E2')->getValue());
+        $this->assertSame(-10.0, $this->makeFieldType('float', '-10')->getValue());
     }
 
     // ArrayField tests
 
     public function testArrayFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('array'), 'foo'));
+        $field = $this->makeFieldType('array', 'foo');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Array, $field->type);
@@ -275,7 +275,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testArrayFieldGetValue()
     {
-        $this->assertSame(['foo'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), 'foo'))->getValue());
+        $this->assertSame(['foo'], $this->makeFieldType('array', 'foo')->getValue());
     }
 
     public function testArrayFieldTypeConstant()
@@ -290,26 +290,26 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testArrayFieldWithArrayInput()
     {
-        $this->assertSame(['foo'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), ['foo']))->getValue());
+        $this->assertSame(['foo'], $this->makeFieldType('array', ['foo'])->getValue());
     }
 
     public function testArrayFieldParsingOptions()
     {
-        $this->assertSame(['foo'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), 'foo'))->getValue());
-        $this->assertSame(['true'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), 'true'))->getValue());
-        $this->assertSame(['false'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), 'false'))->getValue());
-        $this->assertSame(['null'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), 'null'))->getValue());
-        $this->assertSame(['0'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), '0'))->getValue());
-        $this->assertSame(['1'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), '1'))->getValue());
-        $this->assertSame(['10.5'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), '10.5'))->getValue());
-        $this->assertSame(['-10'], (new PublicationFieldValue(PublicationFieldTypes::from('array'), '-10'))->getValue());
+        $this->assertSame(['foo'], $this->makeFieldType('array', 'foo')->getValue());
+        $this->assertSame(['true'], $this->makeFieldType('array', 'true')->getValue());
+        $this->assertSame(['false'], $this->makeFieldType('array', 'false')->getValue());
+        $this->assertSame(['null'], $this->makeFieldType('array', 'null')->getValue());
+        $this->assertSame(['0'], $this->makeFieldType('array', '0')->getValue());
+        $this->assertSame(['1'], $this->makeFieldType('array', '1')->getValue());
+        $this->assertSame(['10.5'], $this->makeFieldType('array', '10.5')->getValue());
+        $this->assertSame(['-10'], $this->makeFieldType('array', '-10')->getValue());
     }
 
     // TextField tests
 
       public function testTextFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('text'), 'foo'));
+        $field = $this->makeFieldType('text', 'foo');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Text, $field->type);
@@ -317,7 +317,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testTextFieldGetValue()
     {
-        $this->assertSame('foo', (new PublicationFieldValue(PublicationFieldTypes::from('text'), 'foo'))->getValue());
+        $this->assertSame('foo', $this->makeFieldType('text', 'foo')->getValue());
     }
 
     public function testTextFieldTypeConstant()
@@ -333,26 +333,26 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testTextFieldParsingOptions()
     {
-        $this->assertSame('foo', (new PublicationFieldValue(PublicationFieldTypes::from('text'), 'foo'))->getValue());
-        $this->assertSame('true', (new PublicationFieldValue(PublicationFieldTypes::from('text'), 'true'))->getValue());
-        $this->assertSame('false', (new PublicationFieldValue(PublicationFieldTypes::from('text'), 'false'))->getValue());
-        $this->assertSame('null', (new PublicationFieldValue(PublicationFieldTypes::from('text'), 'null'))->getValue());
-        $this->assertSame('0', (new PublicationFieldValue(PublicationFieldTypes::from('text'), '0'))->getValue());
-        $this->assertSame('1', (new PublicationFieldValue(PublicationFieldTypes::from('text'), '1'))->getValue());
-        $this->assertSame('10.5', (new PublicationFieldValue(PublicationFieldTypes::from('text'), '10.5'))->getValue());
-        $this->assertSame('-10', (new PublicationFieldValue(PublicationFieldTypes::from('text'), '-10'))->getValue());
-        $this->assertSame("foo\nbar\n", (new PublicationFieldValue(PublicationFieldTypes::from('text'), "foo\nbar"))->getValue());
-        $this->assertSame("foo\nbar\n", (new PublicationFieldValue(PublicationFieldTypes::from('text'), "foo\nbar\n"))->getValue());
-        $this->assertSame("foo\nbar\nbaz\n", (new PublicationFieldValue(PublicationFieldTypes::from('text'), "foo\nbar\nbaz"))->getValue());
-        $this->assertSame("foo\nbar\nbaz\n", (new PublicationFieldValue(PublicationFieldTypes::from('text'), "foo\nbar\nbaz\n"))->getValue());
-        $this->assertSame("foo\r\nbar\r\nbaz\n", (new PublicationFieldValue(PublicationFieldTypes::from('text'), "foo\r\nbar\r\nbaz\r\n"))->getValue());
+        $this->assertSame('foo', $this->makeFieldType('text', 'foo')->getValue());
+        $this->assertSame('true', $this->makeFieldType('text', 'true')->getValue());
+        $this->assertSame('false', $this->makeFieldType('text', 'false')->getValue());
+        $this->assertSame('null', $this->makeFieldType('text', 'null')->getValue());
+        $this->assertSame('0', $this->makeFieldType('text', '0')->getValue());
+        $this->assertSame('1', $this->makeFieldType('text', '1')->getValue());
+        $this->assertSame('10.5', $this->makeFieldType('text', '10.5')->getValue());
+        $this->assertSame('-10', $this->makeFieldType('text', '-10')->getValue());
+        $this->assertSame("foo\nbar\n", $this->makeFieldType('text', "foo\nbar")->getValue());
+        $this->assertSame("foo\nbar\n", $this->makeFieldType('text', "foo\nbar\n")->getValue());
+        $this->assertSame("foo\nbar\nbaz\n", $this->makeFieldType('text', "foo\nbar\nbaz")->getValue());
+        $this->assertSame("foo\nbar\nbaz\n", $this->makeFieldType('text', "foo\nbar\nbaz\n")->getValue());
+        $this->assertSame("foo\r\nbar\r\nbaz\n", $this->makeFieldType('text', "foo\r\nbar\r\nbaz\r\n")->getValue());
     }
 
     // UrlField tests
 
       public function testUrlFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('url'), 'https://example.com'));
+        $field = $this->makeFieldType('url', 'https://example.com');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::from('url'), $field->type);
@@ -360,7 +360,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testUrlFieldGetValue()
     {
-        $this->assertSame('https://example.com', (new PublicationFieldValue(PublicationFieldTypes::from('url'), 'https://example.com'))->getValue());
+        $this->assertSame('https://example.com', $this->makeFieldType('url', 'https://example.com')->getValue());
     }
 
     public function testUrlFieldTypeConstant()
@@ -384,7 +384,7 @@ class PublicationFieldServiceTest extends TestCase
 
       public function testImageFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('image'), 'foo'));
+        $field = $this->makeFieldType('image', 'foo');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Image, $field->type);
@@ -392,7 +392,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testImageFieldGetValue()
     {
-        $this->assertSame('foo', (new PublicationFieldValue(PublicationFieldTypes::from('image'), 'foo'))->getValue());
+        $this->assertSame('foo', $this->makeFieldType('image', 'foo')->getValue());
     }
 
     public function testImageFieldTypeConstant()
@@ -409,7 +409,7 @@ class PublicationFieldServiceTest extends TestCase
 
       public function testTagFieldConstruct()
     {
-        $field = (new PublicationFieldValue(PublicationFieldTypes::from('tag'), 'foo'));
+        $field = $this->makeFieldType('tag', 'foo');
 
         $this->assertInstanceOf(PublicationFieldValue::class, $field);
         $this->assertSame(PublicationFieldTypes::Tag, $field->type);
@@ -417,7 +417,7 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testTagFieldGetValue()
     {
-        $this->assertSame(['foo'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), 'foo'))->getValue());
+        $this->assertSame(['foo'], $this->makeFieldType('tag', 'foo')->getValue());
     }
 
     public function testTagFieldTypeConstant()
@@ -432,19 +432,19 @@ class PublicationFieldServiceTest extends TestCase
 
     public function testTagFieldWithArrayInput()
     {
-        $this->assertSame(['foo'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), ['foo']))->getValue());
+        $this->assertSame(['foo'], $this->makeFieldType('tag', ['foo'])->getValue());
     }
 
     public function testTagFieldParsingOptions()
     {
-        $this->assertSame(['foo'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), 'foo'))->getValue());
-        $this->assertSame(['true'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), 'true'))->getValue());
-        $this->assertSame(['false'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), 'false'))->getValue());
-        $this->assertSame(['null'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), 'null'))->getValue());
-        $this->assertSame(['0'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), '0'))->getValue());
-        $this->assertSame(['1'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), '1'))->getValue());
-        $this->assertSame(['10.5'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), '10.5'))->getValue());
-        $this->assertSame(['-10'], (new PublicationFieldValue(PublicationFieldTypes::from('tag'), '-10'))->getValue());
+        $this->assertSame(['foo'], $this->makeFieldType('tag', 'foo')->getValue());
+        $this->assertSame(['true'], $this->makeFieldType('tag', 'true')->getValue());
+        $this->assertSame(['false'], $this->makeFieldType('tag', 'false')->getValue());
+        $this->assertSame(['null'], $this->makeFieldType('tag', 'null')->getValue());
+        $this->assertSame(['0'], $this->makeFieldType('tag', '0')->getValue());
+        $this->assertSame(['1'], $this->makeFieldType('tag', '1')->getValue());
+        $this->assertSame(['10.5'], $this->makeFieldType('tag', '10.5')->getValue());
+        $this->assertSame(['-10'], $this->makeFieldType('tag', '-10')->getValue());
     }
 
     // Additional tests
@@ -496,6 +496,11 @@ class PublicationFieldServiceTest extends TestCase
     protected function getYaml(PublicationFieldValue $field): string
     {
         return Yaml::dump($field->getValue());
+    }
+
+    protected function makeFieldType(string $type, string|array $value): PublicationFieldValue
+    {
+        return (new PublicationFieldValue(PublicationFieldTypes::from($type), $value));
     }
 }
 
