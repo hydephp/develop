@@ -32,10 +32,7 @@ class PublicationFieldValue
         }
     }
 
-    public static function parseFieldValue(
-        PublicationFieldTypes $fieldType,
-        string|array $value
-    ): string|array|bool|float|int|DateTime {
+    public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value): string|array|bool|float|int|DateTime {
         return match ($fieldType) {
             PublicationFieldTypes::String => self::parseStringValue($value),
             PublicationFieldTypes::Datetime => self::parseDatetimeValue($value),
