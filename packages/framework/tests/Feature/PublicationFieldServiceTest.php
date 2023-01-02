@@ -25,6 +25,7 @@ use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
+ * @covers \Hyde\Framework\Features\Publications\PublicationFieldService
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\StringField
  * @covers \Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField
