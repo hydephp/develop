@@ -461,7 +461,7 @@ class PublicationFieldServiceTest extends TestCase
 
     // Testing helper methods
 
-    protected function getYaml(PublicationField $field): string
+    protected function getYaml(PublicationFieldValue $field): string
     {
         return Yaml::dump($field->getValue());
     }
