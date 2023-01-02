@@ -77,10 +77,10 @@ class ValidatesPublicationField
         return collect(self::getValidationRulesForPublicationFieldDefinition($this->publicationType, $this->fieldDefinition));
     }
 
-    public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
+    public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null): array
     {
         $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules());
 
-        return validator([$this->name => $input], [$this->name => $rules])->validate();
+        return validator([$this->fieldDefinition->name => $input], [$this->fieldDefinition->name => $rules])->validate();
     }
 }
