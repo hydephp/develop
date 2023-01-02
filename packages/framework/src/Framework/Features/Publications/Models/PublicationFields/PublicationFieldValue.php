@@ -40,6 +40,7 @@ final class PublicationFieldValue
         return $this->value;
     }
 
+    /** Parse an input string from the command line into a value with the appropriate type for the field. */
     public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value): string|array|bool|float|int|DateTime {
         return match ($fieldType) {
             PublicationFieldTypes::String => self::parseStringValue($value),
@@ -55,6 +56,7 @@ final class PublicationFieldValue
         };
     }
 
+    /** Get the default validation rules for a field type. */
     public static function getDefaultFieldRules(PublicationFieldTypes $fieldType): array
     {
         return match ($fieldType) {
