@@ -55,7 +55,7 @@ final class PublicationFieldValue
         };
     }
 
-    public static function getDefaultValidationRulesForFieldType(PublicationFieldTypes $fieldType): array
+    public static function getDefaultFieldRules(PublicationFieldTypes $fieldType): array
     {
         return match ($fieldType) {
             PublicationFieldTypes::String => ['string'],

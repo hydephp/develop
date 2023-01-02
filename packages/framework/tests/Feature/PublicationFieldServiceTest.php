@@ -454,7 +454,7 @@ class PublicationFieldServiceTest extends TestCase
         ];
 
         foreach ($expected as $type => $rules) {
-            $this->assertEquals($rules, PublicationFieldValue::getDefaultValidationRulesForFieldType(PublicationFieldTypes::from($type)));
+            $this->assertEquals($rules, PublicationFieldValue::getDefaultFieldRules(PublicationFieldTypes::from($type)));
         }
     }
 
