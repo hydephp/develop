@@ -36,7 +36,7 @@ class ValidatesPublicationField
 
     public function validate(mixed $input = null): array
     {
-        $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules());
+        $rules = evaluate_arrayable($this->getValidationRules());
 
         return validator(
             [$this->fieldDefinition->name => $input],
@@ -47,23 +47,15 @@ class ValidatesPublicationField
     protected function makeDynamicValidationRulesForPublicationFieldEntry(): array
     {
         if ($this->fieldDefinition->type == PublicationFieldTypes::Image) {
-            if ($this->publicationType !== null) {
-                $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
-                $valueList = $mediaFiles->implode(',');
-            } else {
-                $valueList = '';
-            }
+            $mediaFiles = PublicationService::getMediaForPubType($this->publicationType);
+            $valueList = $mediaFiles->implode(',');
 
             return ["in:$valueList"];
         }
 
         if ($this->fieldDefinition->type == PublicationFieldTypes::Tag) {
-            if ($this->publicationType !== null) {
-                $tagValues = PublicationService::getValuesForTagName($this->publicationType->getIdentifier()) ?? collect([]);
-                $valueList = $tagValues->implode(',');
-            } else {
-                $valueList = '';
-            }
+            $tagValues = PublicationService::getValuesForTagName($this->publicationType->getIdentifier()) ?? collect([]);
+            $valueList = $tagValues->implode(',');
 
             return ["in:$valueList"];
         }
