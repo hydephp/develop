@@ -50,15 +50,4 @@ abstract class PublicationField
     {
         return PublicationFieldService::parseFieldValue(static::getType(), $input);
     }
-
-    /**
-     * Get the validation rules that apply to the field.
-     *
-     * @param  \Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition|null  $fieldDefinition
-     * @return array<string>
-     */
-    public function getRules(?PublicationFieldDefinition $fieldDefinition = null): array
-    {
-        return $fieldDefinition?->getValidationRules() ?? PublicationFieldService::getDefaultValidationRulesForFieldType(static::getType());
-    }
 }

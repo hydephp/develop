@@ -63,11 +63,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(PublicationFieldTestClass::TYPE, PublicationFieldTestClass::getType());
     }
 
-    public function testGetRules()
-    {
-        $this->assertSame(['string'], (new PublicationFieldTestClass())->getRules());
-    }
-
     // StringField tests
 
     public function testStringFieldConstruct()
