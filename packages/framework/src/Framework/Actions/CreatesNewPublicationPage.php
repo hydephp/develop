@@ -6,9 +6,9 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Framework\Actions\Concerns\CreateAction;
 use Hyde\Framework\Actions\Contracts\CreateActionContract;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use RuntimeException;
@@ -29,12 +29,12 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
 
     /**
      * @param  \Hyde\Framework\Features\Publications\Models\PublicationType  $pubType
-     * @param  \Illuminate\Support\Collection<string, PublicationField>  $fieldData
+     * @param  \Illuminate\Support\Collection<string, PublicationFieldValue>  $fieldData
      * @param  bool  $force
      */
     public function __construct(PublicationType $pubType, Collection $fieldData, bool $force = false)
     {
-        $fieldData->prepend(new DatetimeField((string) Carbon::now()), '__createdAt');
+        $fieldData->prepend(new PublicationFieldValue(PublicationFieldTypes::Datetime, (string) Carbon::now()), '__createdAt');
 
         $this->pubType = $pubType;
         $this->fieldData = $fieldData;
@@ -77,17 +77,17 @@ class CreatesNewPublicationPage extends CreateAction implements CreateActionCont
     }
 
     /**
-     * @param  Collection<string, PublicationField>  $data
+     * @param  Collection<string, PublicationFieldValue>  $data
      * @return array<string, mixed>
      */
     protected function normalizeData(Collection $data): array
     {
-        return $data->mapWithKeys(function (PublicationField $field, string $key): array {
+        return $data->mapWithKeys(function (PublicationFieldValue $field, string $key): array {
             return [$key => $field->getValue()];
         })->toArray();
     }
 
-    protected function getFieldFromCollection(string $key): PublicationField
+    protected function getFieldFromCollection(string $key): PublicationFieldValue
     {
         return $this->fieldData->get($key);
     }
