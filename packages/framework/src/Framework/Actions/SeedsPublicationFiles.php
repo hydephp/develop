@@ -90,7 +90,7 @@ class SeedsPublicationFiles
 
     protected function generateFieldData(PublicationFieldDefinition $field): string|int|float|array|bool
     {
-        return match ($field->type->value) {
+        return match ($field->fieldType->value) {
             'array' => $this->getArrayItems(),
             'boolean' => rand(0, 100) < 50,
             'datetime' => $this->getDateTimeValue(),
@@ -106,7 +106,7 @@ class SeedsPublicationFiles
 
     protected function getCanonicalFieldName(PublicationFieldDefinition $field): void
     {
-        if ($this->canFieldTypeCanBeCanonical($field->type->value)) {
+        if ($this->canFieldTypeCanBeCanonical($field->fieldType->value)) {
             if ($field->name === $this->pubType->canonicalField) {
                 $this->canonicalValue = $this->matter[$field->name];
             }

@@ -27,7 +27,7 @@ class PublicationFieldDefinition implements SerializableContract
 {
     use Serializable;
 
-    public readonly PublicationFieldTypes $type;
+    public readonly PublicationFieldTypes $fieldType;
     public readonly PublicationType $publicationType;
     public readonly string $name;
     public readonly array $rules;
@@ -39,7 +39,7 @@ class PublicationFieldDefinition implements SerializableContract
 
     public function __construct(PublicationFieldTypes|string $type, string $name, array $rules = [])
     {
-        $this->type = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
+        $this->fieldType = $type instanceof PublicationFieldTypes ? $type : PublicationFieldTypes::from(strtolower($type));
         $this->name = str_starts_with($name, '__') ? $name : Str::kebab($name);
         $this->rules = $rules;
     }
@@ -47,7 +47,7 @@ class PublicationFieldDefinition implements SerializableContract
     public function toArray(): array
     {
         return array_filter([
-            'type' => $this->type->value,
+            'type' => $this->fieldType->value,
             'name' => $this->name,
             'rules' => $this->rules,
         ]);
