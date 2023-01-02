@@ -10,7 +10,6 @@ use DateTime;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use InvalidArgumentException;
-
 use function is_array;
 
 /**
@@ -41,7 +40,8 @@ final class PublicationFieldValue
     }
 
     /** Parse an input string from the command line into a value with the appropriate type for the field. */
-    public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value): string|array|bool|float|int|DateTime {
+    public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value): string|array|bool|float|int|DateTime
+    {
         return match ($fieldType) {
             PublicationFieldTypes::String => self::parseStringValue($value),
             PublicationFieldTypes::Datetime => self::parseDatetimeValue($value),
@@ -97,6 +97,7 @@ final class PublicationFieldValue
         if (! is_numeric($value)) {
             throw self::parseError('integer', $value);
         }
+
         return (int) $value;
     }
 
@@ -105,6 +106,7 @@ final class PublicationFieldValue
         if (! is_numeric($value)) {
             throw self::parseError('float', $value);
         }
+
         return (float) $value;
     }
 
@@ -126,6 +128,7 @@ final class PublicationFieldValue
         if (substr_count($value, "\n") > 0) {
             return trim($value, "\r\n")."\n";
         }
+
         return $value;
     }
 
@@ -134,6 +137,7 @@ final class PublicationFieldValue
         if (! filter_var($value, FILTER_VALIDATE_URL)) {
             throw self::parseError('url', $value);
         }
+
         return $value;
     }
 
