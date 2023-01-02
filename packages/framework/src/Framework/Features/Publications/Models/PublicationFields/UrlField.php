@@ -10,15 +10,6 @@ final class UrlField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Url;
 
-    protected static function parseInput(string $input): string
-    {
-        if (! filter_var($input, FILTER_VALIDATE_URL)) {
-            throw self::parseError($input);
-        }
-
-        return $input;
-    }
-
     public static function rules(): array
     {
         return ['url'];

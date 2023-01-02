@@ -15,11 +15,6 @@ final class DatetimeField extends PublicationField implements Canonicable
 
     public const TYPE = PublicationFieldTypes::Datetime;
 
-    protected static function parseInput(string $input): DateTime
-    {
-        return new DateTime($input);
-    }
-
     public static function rules(): array
     {
         return ['date'];

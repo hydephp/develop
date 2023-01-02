@@ -20,11 +20,6 @@ final class ArrayField extends PublicationField
         }
     }
 
-    protected static function parseInput(string $input): array
-    {
-        return (array) $input;
-    }
-
     public static function rules(): array
     {
         return ['array'];

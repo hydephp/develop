@@ -10,15 +10,6 @@ final class FloatField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Float;
 
-    protected static function parseInput(string $input): float
-    {
-        if (! is_numeric($input)) {
-            throw self::parseError($input);
-        }
-
-        return (float) $input;
-    }
-
     public static function rules(): array
     {
         return ['numeric'];

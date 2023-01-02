@@ -11,15 +11,6 @@ final class BooleanField extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::Boolean;
 
-    protected static function parseInput(string $input): bool
-    {
-        return match ($input) {
-            'true', '1' => true,
-            'false', '0' => false,
-            default => throw self::parseError($input)
-        };
-    }
-
     public static function rules(): array
     {
         return [new BooleanRule];

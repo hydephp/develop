@@ -58,9 +58,4 @@ class CanonicableTraitTest extends TestCase
 class CanonicableTraitTestClass extends PublicationField implements Canonicable
 {
     use CanonicableTrait;
-
-    protected static function parseInput(string $input): string
-    {
-        return $input;
-    }
 }

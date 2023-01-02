@@ -14,11 +14,6 @@ final class StringField extends PublicationField implements Canonicable
 
     public const TYPE = PublicationFieldTypes::String;
 
-    protected static function parseInput(string $input): string
-    {
-        return $input;
-    }
-
     public static function rules(): array
     {
         return ['string'];

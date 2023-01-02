@@ -534,9 +534,4 @@ class PublicationFieldObjectsTest extends TestCase
 class Test extends PublicationField
 {
     public const TYPE = PublicationFieldTypes::String;
-
-    protected static function parseInput(string $input): string
-    {
-        return $input;
-    }
 }

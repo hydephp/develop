@@ -14,15 +14,6 @@ final class IntegerField extends PublicationField implements Canonicable
 
     public const TYPE = PublicationFieldTypes::Integer;
 
-    protected static function parseInput(string $input): int
-    {
-        if (! is_numeric($input)) {
-            throw self::parseError($input);
-        }
-
-        return (int) $input;
-    }
-
     public static function rules(): array
     {
         return ['integer', 'numeric'];
