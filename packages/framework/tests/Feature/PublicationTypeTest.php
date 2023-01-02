@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Illuminate\Support\ItemNotFoundException;
 use function array_merge;
 use Hyde\Framework\Features\Publications\Models\PaginationSettings;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
@@ -195,6 +196,14 @@ class PublicationTypeTest extends TestCase
             'name' => 'title',
             'type' => 'string',
         ]), $publicationType->getFieldDefinition('title'));
+    }
+
+    public function testGetFieldDefinitionWithMissingField()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+
+        $this->expectException(ItemNotFoundException::class);
+        $publicationType->getFieldDefinition('missing');
     }
 
     public function testGetCanonicalFieldDefinition()

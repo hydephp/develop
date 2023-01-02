@@ -118,7 +118,7 @@ class PublicationType implements SerializableContract
 
     public function getFieldDefinition(string $fieldName): PublicationFieldDefinition
     {
-        return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $fieldName)->first();
+        return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $fieldName)->firstOrFail();
     }
 
     public function getCanonicalFieldDefinition(): PublicationFieldDefinition
