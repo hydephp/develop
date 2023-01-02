@@ -6,29 +6,16 @@ namespace Hyde\Framework\Features\Publications;
 
 use DateTime;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\BooleanField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\DatetimeField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 
 use InvalidArgumentException;
 
 use function array_merge;
-use function class_basename;
 use function collect;
 
 use function filter_var;
 use function is_numeric;
-
-use function str;
 
 use const false;
 use const FILTER_VALIDATE_URL;
