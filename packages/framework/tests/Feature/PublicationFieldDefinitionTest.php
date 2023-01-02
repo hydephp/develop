@@ -96,4 +96,16 @@ class PublicationFieldDefinitionTest extends TestCase
         $field = new PublicationFieldDefinition('string', 'Test Field');
         $this->assertSame('test-field', $field->name);
     }
+
+    public function test_get_rules()
+    {
+        $field = new PublicationFieldDefinition('string', 'test');
+        $this->assertSame(['string'], $field->getRules());
+    }
+
+    public function test_get_rules_with_custom_type_rules()
+    {
+        $field = new PublicationFieldDefinition('string', 'test', ['required', 'foo']);
+        $this->assertSame(['string', 'required', 'foo'], $field->getRules());
+    }
 }
