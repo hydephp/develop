@@ -27,6 +27,8 @@ final class PublicationFieldValue
 
     public function __construct(PublicationFieldTypes $type, string|array $value)
     {
+        $this->type = $type;
+
         if (is_array($value)) {
             // This means the value is already parsed and validated
             $this->value = $value;
