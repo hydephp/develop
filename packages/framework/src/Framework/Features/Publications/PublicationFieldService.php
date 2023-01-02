@@ -109,7 +109,6 @@ class PublicationFieldService
     protected static function parseError(string $typeName, string $input): InvalidArgumentException
     {
         $className = ucfirst($typeName) . 'Field';
-        $typeName = strtolower($typeName);
         return new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
     }
 
@@ -128,14 +127,14 @@ class PublicationFieldService
         return match ($value) {
             'true', '1' => true,
             'false', '0' => false,
-            default => throw self::parseError('Boolean', $value)
+            default => throw self::parseError('boolean', $value)
         };
     }
 
     public static function normalizeIntegerValue(mixed $value): int
     {
         if (! is_numeric($value)) {
-            throw self::parseError('Integer', $value);
+            throw self::parseError('integer', $value);
         }
 
         return (int) $value;
@@ -144,7 +143,7 @@ class PublicationFieldService
     public static function normalizeFloatValue(mixed $value): float
     {
         if (! is_numeric($value)) {
-            throw self::parseError('Float', $value);
+            throw self::parseError('float', $value);
         }
 
         return (float) $value;
@@ -176,7 +175,7 @@ class PublicationFieldService
     public static function normalizeUrlValue(mixed $value): mixed
     {
         if (! filter_var($value, FILTER_VALIDATE_URL)) {
-            throw self::parseError('Url', $value);
+            throw self::parseError('url', $value);
         }
 
         return $value;
