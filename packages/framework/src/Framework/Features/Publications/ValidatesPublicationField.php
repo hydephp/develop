@@ -26,7 +26,8 @@ class ValidatesPublicationField
         $this->fieldDefinition = $fieldDefinition;
     }
 
-    public static function makeDynamicValidationRulesForPublicationFieldEntry(Models\PublicationFieldDefinition $fieldDefinition, ?PublicationType $publicationType): array {
+    public static function makeDynamicValidationRulesForPublicationFieldEntry(Models\PublicationFieldDefinition $fieldDefinition, ?PublicationType $publicationType): array
+    {
         if ($fieldDefinition->type == PublicationFieldTypes::Image) {
             if ($publicationType !== null) {
                 $mediaFiles = PublicationService::getMediaForPubType($publicationType);
@@ -62,7 +63,8 @@ class ValidatesPublicationField
         return $type->rules();
     }
 
-    public static function getValidationRulesForPublicationFieldDefinition(?PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array {
+    public static function getValidationRulesForPublicationFieldDefinition(?PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
+    {
         return array_merge(
             self::getDefaultRulesForFieldType($fieldDefinition->type),
             self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
