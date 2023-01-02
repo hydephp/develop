@@ -10,6 +10,8 @@ use Hyde\Framework\Features\Publications\PublicationFieldService;
  * Represents a single value for a field in a publication,
  * as defined in the "fields" array of a publication type schema.
  *
+ * @deprecated
+ *
  * @see \Hyde\Framework\Features\Publications\PublicationFieldTypes
  * @see \Hyde\Framework\Testing\Feature\PublicationFieldServiceTest
  */
