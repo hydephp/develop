@@ -81,6 +81,9 @@ class ValidatesPublicationField
     {
         $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules());
 
-        return validator([$this->fieldDefinition->name => $input], [$this->fieldDefinition->name => $rules])->validate();
+        return validator(
+            [$this->fieldDefinition->name => $input],
+            [$this->fieldDefinition->name => $rules]
+        )->validate();
     }
 }
