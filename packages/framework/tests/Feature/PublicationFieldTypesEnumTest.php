@@ -83,18 +83,18 @@ class PublicationFieldTypesEnumTest extends TestCase
     public function testCanonicable()
     {
         $this->assertSame([
-              PublicationFieldTypes::String,
-              PublicationFieldTypes::Integer,
-              PublicationFieldTypes::Datetime,
-              PublicationFieldTypes::Text,
+            PublicationFieldTypes::String,
+            PublicationFieldTypes::Integer,
+            PublicationFieldTypes::Datetime,
+            PublicationFieldTypes::Text,
         ], PublicationFieldTypes::canonicable());
     }
 
     public function testArrayable()
     {
         $this->assertSame([
-              PublicationFieldTypes::Array,
-              PublicationFieldTypes::Tag,
+            PublicationFieldTypes::Array,
+            PublicationFieldTypes::Tag,
         ], PublicationFieldTypes::arrayable());
     }
 
