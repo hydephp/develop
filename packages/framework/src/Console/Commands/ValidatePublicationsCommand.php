@@ -11,7 +11,6 @@ use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Framework\Features\Publications\ValidatesPublicationField;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
-
 use function str_repeat;
 use function strlen;
 
@@ -111,7 +110,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         return Command::SUCCESS;
     }
-
 
     /*
      * Displays the given string as subtitle.
