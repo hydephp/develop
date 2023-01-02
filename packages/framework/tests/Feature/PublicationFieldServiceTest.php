@@ -154,7 +154,7 @@ class PublicationFieldServiceTest extends TestCase
 
     // IntegerField tests
 
-      public function testIntegerFieldConstruct()
+    public function testIntegerFieldConstruct()
     {
         $field = $this->makeFieldType('integer', '10');
 
@@ -193,7 +193,7 @@ class PublicationFieldServiceTest extends TestCase
 
     // FloatField tests
 
-      public function testFloatFieldConstruct()
+    public function testFloatFieldConstruct()
     {
         $field = $this->makeFieldType('float', '10');
 
@@ -269,7 +269,7 @@ class PublicationFieldServiceTest extends TestCase
 
     // TextField tests
 
-      public function testTextFieldConstruct()
+    public function testTextFieldConstruct()
     {
         $field = $this->makeFieldType('text', 'foo');
 
@@ -307,7 +307,7 @@ class PublicationFieldServiceTest extends TestCase
 
     // UrlField tests
 
-      public function testUrlFieldConstruct()
+    public function testUrlFieldConstruct()
     {
         $field = $this->makeFieldType('url', 'https://example.com');
 
@@ -334,7 +334,7 @@ class PublicationFieldServiceTest extends TestCase
 
     // ImageField tests
 
-      public function testImageFieldConstruct()
+    public function testImageFieldConstruct()
     {
         $field = $this->makeFieldType('image', 'foo');
 
@@ -354,7 +354,7 @@ class PublicationFieldServiceTest extends TestCase
 
     // TagField tests
 
-      public function testTagFieldConstruct()
+    public function testTagFieldConstruct()
     {
         $field = $this->makeFieldType('tag', 'foo');
 
@@ -420,6 +420,6 @@ class PublicationFieldServiceTest extends TestCase
 
     protected function makeFieldType(string $type, string|array $value): PublicationFieldValue
     {
-        return (new PublicationFieldValue(PublicationFieldTypes::from($type), $value));
+        return new PublicationFieldValue(PublicationFieldTypes::from($type), $value);
     }
 }
