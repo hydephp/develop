@@ -53,6 +53,8 @@ class PublicationFieldDefinition implements SerializableContract
     }
 
     /**
+     * @deprecated Use the ValidatesPublicationField class instead.
+     *
      * @param  \Hyde\Framework\Features\Publications\Models\PublicationType|null  $publicationType  Required only when using the 'image' type.
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
@@ -60,7 +62,11 @@ class PublicationFieldDefinition implements SerializableContract
         return collect(PublicationFieldService::getValidationRulesForPublicationFieldDefinition($publicationType, $this));
     }
 
-    /** @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type. */
+    /**
+     * @deprecated Use the ValidatesPublicationField class instead.
+     *
+     * @param \Hyde\Framework\Features\Publications\Models\PublicationType|null $publicationType Required only when using the 'image' type.
+     */
     public function validate(mixed $input = null, Arrayable|array|null $fieldRules = null, ?PublicationType $publicationType = null): array
     {
         $rules = evaluate_arrayable($fieldRules ?? $this->getValidationRules($publicationType));
