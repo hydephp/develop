@@ -21,7 +21,7 @@ use function is_numeric;
  */
 class PublicationFieldService
 {
-    public static function parseFieldValue(PublicationFieldTypes $fieldType, mixed $value)
+    public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value)
     {
         return match ($fieldType) {
             PublicationFieldTypes::String => self::parseStringValue($value),
@@ -104,17 +104,17 @@ class PublicationFieldService
         ));
     }
 
-    public static function parseStringValue(mixed $value): mixed
+    public static function parseStringValue(string $value): mixed
     {
         return $value;
     }
 
-    public static function parseDatetimeValue(mixed $value): DateTime
+    public static function parseDatetimeValue(string $value): DateTime
     {
         return new DateTime($value);
     }
 
-    public static function parseBooleanValue(mixed $value): bool
+    public static function parseBooleanValue(string $value): bool
     {
         return match ($value) {
             'true', '1' => true,
@@ -123,7 +123,7 @@ class PublicationFieldService
         };
     }
 
-    public static function parseIntegerValue(mixed $value): int
+    public static function parseIntegerValue(string $value): int
     {
         if (! is_numeric($value)) {
             throw self::parseError('integer', $value);
@@ -132,7 +132,7 @@ class PublicationFieldService
         return (int) $value;
     }
 
-    public static function parseFloatValue(mixed $value): float
+    public static function parseFloatValue(string $value): float
     {
         if (! is_numeric($value)) {
             throw self::parseError('float', $value);
@@ -141,18 +141,18 @@ class PublicationFieldService
         return (float) $value;
     }
 
-    public static function parseImageValue(mixed $value): mixed
+    public static function parseImageValue(string $value): mixed
     {
         // TODO Validate file exists as the dynamic validation rules does the same
         return $value;
     }
 
-    public static function parseArrayValue(mixed $value): array
+    public static function parseArrayValue(string|array $value): array
     {
         return (array) $value;
     }
 
-    public static function parseTextValue(mixed $value): mixed
+    public static function parseTextValue(string $value): mixed
     {
         // In order to properly store multi-line text fields as block literals,
         // we need to make sure the string ends with a newline character.
@@ -164,7 +164,7 @@ class PublicationFieldService
         return $value;
     }
 
-    public static function parseUrlValue(mixed $value): mixed
+    public static function parseUrlValue(string $value): mixed
     {
         if (! filter_var($value, FILTER_VALIDATE_URL)) {
             throw self::parseError('url', $value);
@@ -173,7 +173,7 @@ class PublicationFieldService
         return $value;
     }
 
-    public static function parseTagValue(mixed $value): array
+    public static function parseTagValue(string|array $value): array
     {
         return (array) $value;
     }
