@@ -1,24 +1,22 @@
-<?php /** @noinspection PhpDuplicateMatchArmBodyInspection */
+<?php
+
+/** @noinspection PhpDuplicateMatchArmBodyInspection */
 
 declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use function array_merge;
+use function collect;
 use DateTime;
+use const false;
+use const FILTER_VALIDATE_URL;
+use function filter_var;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
-
 use InvalidArgumentException;
-
-use function array_merge;
-use function collect;
-
-use function filter_var;
 use function is_numeric;
-
-use const false;
-use const FILTER_VALIDATE_URL;
 use const true;
 
 /**
@@ -137,7 +135,7 @@ class PublicationFieldService
 
     public static function normalizeIntegerValue(mixed $value): int
     {
-        if (!is_numeric($value)) {
+        if (! is_numeric($value)) {
             throw self::parseError('Integer', $value);
         }
 
@@ -146,7 +144,7 @@ class PublicationFieldService
 
     public static function normalizeFloatValue(mixed $value): float
     {
-        if (!is_numeric($value)) {
+        if (! is_numeric($value)) {
             throw self::parseError('Float', $value);
         }
 
@@ -178,7 +176,7 @@ class PublicationFieldService
 
     public static function normalizeUrlValue(mixed $value): mixed
     {
-        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+        if (! filter_var($value, FILTER_VALIDATE_URL)) {
             throw self::parseError('Url', $value);
         }
 

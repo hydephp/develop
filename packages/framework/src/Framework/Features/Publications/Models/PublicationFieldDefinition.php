@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models;
 
-use Hyde\Framework\Features\Publications\PublicationFieldService;
 use function array_filter;
 use function collect;
 use function Hyde\evaluate_arrayable;
+use Hyde\Framework\Features\Publications\PublicationFieldService;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
-use Hyde\Framework\Features\Publications\PublicationService;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
