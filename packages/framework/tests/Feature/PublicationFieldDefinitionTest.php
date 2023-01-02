@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Testing\TestCase;
-use Illuminate\Validation\ValidationException;
 use ValueError;
 
 /**
@@ -99,147 +97,15 @@ class PublicationFieldDefinitionTest extends TestCase
         $this->assertSame('test-field', $field->name);
     }
 
-    public function testValidate()
+    public function test_get_rules()
     {
-        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo');
-        $this->assertSame(['my-string' => 'foo'], $validated);
-
-        $this->expectValidationException('The my-string must be a string.');
-        (new PublicationFieldDefinition('string', 'myString'))->validate(1);
+        $field = new PublicationFieldDefinition('string', 'test');
+        $this->assertSame(['string'], $field->getRules());
     }
 
-    public function testValidateWithCustomTypeRules()
+    public function test_get_rules_with_custom_type_rules()
     {
-        $validated = (new PublicationFieldDefinition('string', 'myString', rules: ['min:3']))->validate('foo');
-        $this->assertSame(['my-string' => 'foo'], $validated);
-
-        $this->expectValidationException('The my-string must be at least 5 characters.');
-        (new PublicationFieldDefinition('string', 'myString', rules: ['min:5']))->validate('foo');
-    }
-
-    public function testValidateWithCustomRuleCollection()
-    {
-        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['min:3']);
-        $this->assertSame(['my-string' => 'foo'], $validated);
-
-        $this->expectValidationException('The my-string must be at least 5 characters.');
-        (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['min:5']);
-    }
-
-    public function testValidateWithCustomRuleCollectionOverridesDefaultRules()
-    {
-        $this->expectValidationException('The my-string must be a number.');
-        (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['numeric']);
-    }
-
-    public function testValidateMethodAcceptsArrayOfRules()
-    {
-        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo', ['min:3']);
-        $this->assertSame(['my-string' => 'foo'], $validated);
-    }
-
-    public function testValidateMethodAcceptsArrayableOfRules()
-    {
-        $validated = (new PublicationFieldDefinition('string', 'myString'))->validate('foo', collect(['min:3']));
-        $this->assertSame(['my-string' => 'foo'], $validated);
-    }
-
-    public function testGetRules()
-    {
-        $rules = (new PublicationFieldDefinition('string', 'myString'))->getValidationRules();
-        $this->assertSame(['string'], $rules->toArray());
-    }
-
-    public function testGetRulesWithCustomTypeRules()
-    {
-        $rules = (new PublicationFieldDefinition('string', 'myString', rules: ['foo', 'bar']))->getValidationRules();
-        $this->assertSame(['string', 'foo', 'bar'], $rules->toArray());
-    }
-
-    public function testGetRulesForArray()
-    {
-        $rules = (new PublicationFieldDefinition('array', 'myArray'))->getValidationRules();
-        $this->assertSame(['array'], $rules->toArray());
-    }
-
-    public function testValidateArrayPasses()
-    {
-        $validated = (new PublicationFieldDefinition('array', 'myArray'))->validate(['foo', 'bar', 'baz']);
-        $this->assertSame(['my-array' => ['foo', 'bar', 'baz']], $validated);
-    }
-
-    public function testValidateArrayFails()
-    {
-        $this->expectValidationException('The my-array must be an array.');
-        (new PublicationFieldDefinition('array', 'myArray'))->validate('foo');
-    }
-
-    public function testGetRulesForDatetime()
-    {
-        $rules = (new PublicationFieldDefinition('datetime', 'myDatetime'))->getValidationRules();
-        $this->assertSame(['date'], $rules->toArray());
-    }
-
-    public function testValidateDatetimePasses()
-    {
-        $validated = (new PublicationFieldDefinition('datetime', 'myDatetime'))->validate('2021-01-01');
-        $this->assertSame(['my-datetime' => '2021-01-01'], $validated);
-    }
-
-    public function testValidateDatetimeFailsForInvalidType()
-    {
-        $this->expectValidationException('The my-datetime is not a valid date.');
-        (new PublicationFieldDefinition('datetime', 'myDatetime'))->validate('string');
-    }
-
-    public function testGetRulesForFloat()
-    {
-        $rules = (new PublicationFieldDefinition('float', 'myFloat'))->getValidationRules();
-        $this->assertSame(['numeric'], $rules->toArray());
-    }
-
-    public function testGetRulesForInteger()
-    {
-        $rules = (new PublicationFieldDefinition('integer', 'myInteger'))->getValidationRules();
-        $this->assertSame(['integer', 'numeric'], $rules->toArray());
-    }
-
-    public function testGetRulesForString()
-    {
-        $rules = (new PublicationFieldDefinition('string', 'myString'))->getValidationRules();
-        $this->assertSame(['string'], $rules->toArray());
-    }
-
-    public function testGetRulesForText()
-    {
-        $rules = (new PublicationFieldDefinition('text', 'myText'))->getValidationRules();
-        $this->assertSame(['string'], $rules->toArray());
-    }
-
-    public function testGetRulesForImage()
-    {
-        $this->directory('_media/foo');
-        $this->file('_media/foo/bar.jpg');
-        $this->file('_media/foo/baz.png');
-        $rules = (new PublicationFieldDefinition('image', 'myImage'))->getValidationRules(publicationType: new PublicationType('foo'));
-        $this->assertSame(['in:_media/foo/bar.jpg,_media/foo/baz.png'], $rules->toArray());
-    }
-
-    public function testGetRulesForTag()
-    {
-        $rules = (new PublicationFieldDefinition('tag', 'myTag'))->getValidationRules();
-        $this->assertSame(['in:'], $rules->toArray());
-    }
-
-    public function testGetRulesForUrl()
-    {
-        $rules = (new PublicationFieldDefinition('url', 'myUrl'))->getValidationRules();
-        $this->assertSame(['url'], $rules->toArray());
-    }
-
-    protected function expectValidationException(string $message): void
-    {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage($message);
+        $field = new PublicationFieldDefinition('string', 'test', ['required', 'foo']);
+        $this->assertSame(['string', 'required', 'foo'], $field->getRules());
     }
 }

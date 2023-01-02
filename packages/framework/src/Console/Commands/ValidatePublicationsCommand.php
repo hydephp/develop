@@ -8,13 +8,16 @@ use Exception;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\PublicationService;
+use Hyde\Framework\Features\Publications\ValidatesPublicationField;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
+use function str_repeat;
+use function strlen;
 
 /**
  * Hyde Command to validate one or all publications.
  *
- * @see \Hyde\Framework\Testing\Feature\Commands\ValidatePublicationTypeCommandTest
+ * @see \Hyde\Framework\Testing\Feature\Commands\ValidatePublicationsCommandTest
  *
  * @todo Add JSON output option?
  */
@@ -57,7 +60,6 @@ class ValidatePublicationsCommand extends ValidatingCommand
             $countPubTypes++;
             $publications = PublicationService::getPublicationsForPubType($pubType);
             $this->output->write("<fg=yellow>Validating publication type [$name]</>");
-            $publicationFieldRules = $pubType->getFieldRules(false);
 
             /** @var \Hyde\Pages\PublicationPage $publication */
             foreach ($publications as $publication) {
@@ -79,11 +81,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
                             throw new Exception("Field [$fieldName] is missing from publication");
                         }
 
-                        $pubTypeField->validate(
-                            $publication->matter->get($fieldName),
-                            $publicationFieldRules->get($fieldName),
-                            $pubType
-                        );
+                        (new ValidatesPublicationField($pubType, $pubTypeField))->validate($publication->matter->get($fieldName));
                         $this->output->writeln(" <fg=green>$checkmark</>");
                     } catch (Exception $e) {
                         $countErrors++;
@@ -102,7 +100,7 @@ class ValidatePublicationsCommand extends ValidatingCommand
 
         $warnColor = $countWarnings ? 'yellow' : 'green';
         $errorColor = $countErrors ? 'red' : 'green';
-        $this->title('Summary:');
+        $this->subtitle('Summary:');
         $this->output->writeln("<fg=green>Validated $countPubTypes Publication Types, $countPubs Publications, $countFields Fields</>");
         $this->output->writeln("<fg=$warnColor>Found $countWarnings Warnings</>");
         $this->output->writeln("<fg=$errorColor>Found $countErrors Errors</>");
@@ -111,5 +109,20 @@ class ValidatePublicationsCommand extends ValidatingCommand
         }
 
         return Command::SUCCESS;
+    }
+
+    /*
+     * Displays the given string as subtitle.
+     */
+    public function subtitle(string $title): Command
+    {
+        $size = strlen($title);
+        $spaces = str_repeat(' ', $size);
+
+        $this->output->newLine();
+        $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
+        $this->output->newLine();
+
+        return $this;
     }
 }
