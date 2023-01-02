@@ -25,23 +25,12 @@ abstract class PublicationField
     public function __construct(string $value = null)
     {
         if ($value !== null) {
-            $this->value = static::parseInput($value);
+            $this->value = PublicationFieldService::parseFieldValue(static::TYPE, $value);
         }
     }
 
     final public function getValue(): mixed
     {
         return $this->value;
-    }
-
-    /**
-     * Parse an input string from the command line into a value with the appropriate type for this field.
-     *
-     * @param  string  $input
-     * @return mixed
-     */
-    final public static function parseInput(string $input): mixed
-    {
-        return PublicationFieldService::parseFieldValue(static::TYPE, $input);
     }
 }
