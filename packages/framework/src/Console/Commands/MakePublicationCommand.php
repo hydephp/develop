@@ -83,17 +83,16 @@ class MakePublicationCommand extends ValidatingCommand
             return $publicationTypes->get($publicationTypeSelection);
         }
 
+        if ($publicationTypes->isEmpty()) {
+            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
+        }
+
         throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
     }
 
     protected function getPublicationTypes(): Collection
     {
-        $publicationTypes = PublicationService::getPublicationTypes();
-        if ($publicationTypes->isEmpty()) {
-            throw new InvalidArgumentException('Unable to locate any publication types. Did you create any?');
-        }
-
-        return $publicationTypes;
+        return PublicationService::getPublicationTypes();
     }
 
     protected function collectFieldData(): void
