@@ -19,7 +19,7 @@ class PublicationFieldValue
     public readonly PublicationFieldTypes $type;
     protected mixed $value;
 
-    public function __construct(PublicationFieldTypes $type, string $value)
+    public function __construct(PublicationFieldTypes $type, string|array $value)
     {
         $this->value = PublicationFieldService::parseFieldValue($type, $value);
     }
