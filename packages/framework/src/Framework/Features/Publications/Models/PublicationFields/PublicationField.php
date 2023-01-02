@@ -54,14 +54,6 @@ abstract class PublicationField
         return PublicationFieldService::parseFieldValue(static::getType(), $input);
     }
 
-    protected static function parseError(string $input): InvalidArgumentException
-    {
-        $className = class_basename(static::class);
-        $typeName = str($className)->replace('Field', '')->snake()->__toString();
-
-        return new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
-    }
-
     /**
      * Get the validation rules that apply to the field.
      *
