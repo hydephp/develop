@@ -74,11 +74,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame('foo', $this->makeFieldType('string', 'foo')->getValue());
     }
 
-    public function testStringFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::String, StringField::TYPE);
-    }
-
     public function testStringFieldToYaml()
     {
         $this->assertSame('foo', $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('string'), 'foo')));
@@ -109,11 +104,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testDatetimeFieldGetValue()
     {
         $this->assertEquals(new DateTime('2023-01-01'), $this->makeFieldType('datetime', '2023-01-01')->getValue());
-    }
-
-    public function testDatetimeFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Datetime, DatetimeField::TYPE);
     }
 
     public function testDatetimeFieldWithInvalidInput()
@@ -150,11 +140,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(true, $this->makeFieldType('boolean', 'true')->getValue());
     }
 
-    public function testBooleanFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Boolean, BooleanField::TYPE);
-    }
-
     public function testBooleanFieldToYaml()
     {
         $this->assertSame('true', $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('boolean'), 'true')));
@@ -188,11 +173,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testIntegerFieldGetValue()
     {
         $this->assertSame(10, $this->makeFieldType('integer', '10')->getValue());
-    }
-
-    public function testIntegerFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Integer, IntegerField::TYPE);
     }
 
     public function testIntegerFieldToYaml()
@@ -234,11 +214,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(10.0, $this->makeFieldType('float', '10')->getValue());
     }
 
-    public function testFloatFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Float, FloatField::TYPE);
-    }
-
     public function testFloatFieldToYaml()
     {
         $this->assertSame('10.0', $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('float'), '10')));
@@ -278,11 +253,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(['foo'], $this->makeFieldType('array', 'foo')->getValue());
     }
 
-    public function testArrayFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Array, ArrayField::TYPE);
-    }
-
     public function testArrayFieldToYaml()
     {
         $this->assertSame("- foo\n", $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('array'), 'foo')));
@@ -318,11 +288,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testTextFieldGetValue()
     {
         $this->assertSame('foo', $this->makeFieldType('text', 'foo')->getValue());
-    }
-
-    public function testTextFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Text, TextField::TYPE);
     }
 
     public function testTextFieldToYaml()
@@ -363,11 +328,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame('https://example.com', $this->makeFieldType('url', 'https://example.com')->getValue());
     }
 
-    public function testUrlFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::from('url'), UrlField::TYPE);
-    }
-
     public function testUrlFieldToYaml()
     {
         $this->assertSame('\'https://example.com\'', $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('url'), 'https://example.com')));
@@ -395,11 +355,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame('foo', $this->makeFieldType('image', 'foo')->getValue());
     }
 
-    public function testImageFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Image, ImageField::TYPE);
-    }
-
     public function testImageFieldToYaml()
     {
         $this->assertSame('foo', $this->getYaml(new PublicationFieldValue(PublicationFieldTypes::from('image'), 'foo')));
@@ -418,11 +373,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testTagFieldGetValue()
     {
         $this->assertSame(['foo'], $this->makeFieldType('tag', 'foo')->getValue());
-    }
-
-    public function testTagFieldTypeConstant()
-    {
-        $this->assertSame(PublicationFieldTypes::Tag, TagField::TYPE);
     }
 
     public function testTagFieldToYaml()
