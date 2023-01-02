@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
+use function array_merge;
 use function collect;
 use function Hyde\evaluate_arrayable;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
