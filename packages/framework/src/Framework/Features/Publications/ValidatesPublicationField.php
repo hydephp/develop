@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Illuminate\Contracts\Validation\Validator;
 use function array_merge;
 use function collect;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Validation\Validator;
 use function validator;
 
 /**
@@ -58,7 +57,8 @@ class ValidatesPublicationField
         return [];
     }
 
-    protected function makeValidator(mixed $input, array $rules): Validator {
+    protected function makeValidator(mixed $input, array $rules): Validator
+    {
         return validator(
             [$this->fieldDefinition->name => $input],
             [$this->fieldDefinition->name => $rules]
