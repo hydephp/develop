@@ -108,7 +108,8 @@ class PublicationFieldService
 
     protected static function parseError(string $typeName, string $input): InvalidArgumentException
     {
-        $className = ucfirst($typeName) . 'Field';
+        $className = ucfirst($typeName).'Field';
+
         return new InvalidArgumentException("$className: Unable to parse invalid $typeName value '$input'");
     }
 
