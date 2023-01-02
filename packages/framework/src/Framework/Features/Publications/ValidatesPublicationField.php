@@ -28,7 +28,7 @@ class ValidatesPublicationField
     public function getValidationRules(): Collection
     {
         return collect(array_merge(
-            self::getValidationRulesForPublicationFieldDefinition($this->fieldDefinition),
+            $this->fieldDefinition->getRules(),
             $this->makeDynamicValidationRulesForPublicationFieldEntry()
         ));
     }
@@ -60,10 +60,5 @@ class ValidatesPublicationField
         }
 
         return [];
-    }
-
-    public static function getValidationRulesForPublicationFieldDefinition(PublicationFieldDefinition $fieldDefinition): array
-    {
-        return $fieldDefinition->getRules();
     }
 }
