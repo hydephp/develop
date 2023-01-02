@@ -19,7 +19,7 @@ use function is_array;
 class PublicationFieldValue
 {
     public readonly PublicationFieldTypes $type;
-    protected float|DateTime|array|bool|int|string $value;
+    protected string|array|bool|float|int|DateTime $value;
 
     public function __construct(PublicationFieldTypes $type, string|array $value)
     {
@@ -31,7 +31,7 @@ class PublicationFieldValue
         }
     }
 
-    public function getValue(): float|DateTime|int|bool|array|string
+    public function getValue(): string|array|bool|float|int|DateTime
     {
         return $this->value;
     }

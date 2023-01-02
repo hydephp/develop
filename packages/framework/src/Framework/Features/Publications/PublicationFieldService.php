@@ -21,7 +21,7 @@ use function is_numeric;
  */
 class PublicationFieldService
 {
-    public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value): float|DateTime|array|bool|int|string
+    public static function parseFieldValue(PublicationFieldTypes $fieldType, string|array $value): string|array|bool|float|int|DateTime
     {
         return match ($fieldType) {
             PublicationFieldTypes::String => self::parseStringValue($value),
