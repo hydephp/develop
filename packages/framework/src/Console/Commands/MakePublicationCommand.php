@@ -70,7 +70,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function getPublicationTypeSelection(): PublicationType
     {
-        $publicationTypes = $this->getPublicationTypes();
+        $publicationTypes = PublicationService::getPublicationTypes();
         if ($this->argument('publicationType')) {
             $publicationTypeSelection = $this->argument('publicationType');
         } else {
@@ -91,11 +91,6 @@ class MakePublicationCommand extends ValidatingCommand
         }
 
         throw new InvalidArgumentException("Unable to locate publication type [$publicationTypeSelection]");
-    }
-
-    protected function getPublicationTypes(): Collection
-    {
-        return PublicationService::getPublicationTypes();
     }
 
     protected function collectFieldData(): void
