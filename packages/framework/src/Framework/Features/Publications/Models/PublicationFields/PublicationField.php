@@ -34,11 +34,6 @@ abstract class PublicationField
         return $this->value;
     }
 
-    final public static function getType(): PublicationFieldTypes
-    {
-        return static::TYPE ?? throw new RuntimeException('PublicationField::TYPE must be set in child class.');
-    }
-
     /**
      * Parse an input string from the command line into a value with the appropriate type for this field.
      *
@@ -47,6 +42,6 @@ abstract class PublicationField
      */
     final public static function parseInput(string $input): mixed
     {
-        return PublicationFieldService::parseFieldValue(static::getType(), $input);
+        return PublicationFieldService::parseFieldValue(static::TYPE, $input);
     }
 }

@@ -58,11 +58,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(PublicationFieldTypes::String, PublicationFieldTestClass::TYPE);
     }
 
-    public function testGetType()
-    {
-        $this->assertSame(PublicationFieldTestClass::TYPE, PublicationFieldTestClass::getType());
-    }
-
     // StringField tests
 
     public function testStringFieldConstruct()
@@ -78,11 +73,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testStringFieldTypeConstant()
     {
         $this->assertSame(PublicationFieldTypes::String, StringField::TYPE);
-    }
-
-    public function testStringFieldGetType()
-    {
-        $this->assertSame(StringField::TYPE, StringField::getType());
     }
 
     public function testStringFieldToYaml()
@@ -119,11 +109,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(PublicationFieldTypes::Datetime, DatetimeField::TYPE);
     }
 
-    public function testDatetimeFieldGetType()
-    {
-        $this->assertSame(DatetimeField::TYPE, DatetimeField::getType());
-    }
-
     public function testDatetimeFieldWithInvalidInput()
     {
         $this->expectException(Exception::class);
@@ -156,11 +141,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testBooleanFieldTypeConstant()
     {
         $this->assertSame(PublicationFieldTypes::Boolean, BooleanField::TYPE);
-    }
-
-    public function testBooleanFieldGetType()
-    {
-        $this->assertSame(BooleanField::TYPE, BooleanField::getType());
     }
 
     public function testBooleanFieldToYaml()
@@ -198,11 +178,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testIntegerFieldTypeConstant()
     {
         $this->assertSame(PublicationFieldTypes::Integer, IntegerField::TYPE);
-    }
-
-    public function testIntegerFieldGetType()
-    {
-        $this->assertSame(IntegerField::TYPE, IntegerField::getType());
     }
 
     public function testIntegerFieldToYaml()
@@ -246,11 +221,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(PublicationFieldTypes::Float, FloatField::TYPE);
     }
 
-    public function testFloatFieldGetType()
-    {
-        $this->assertSame(FloatField::TYPE, FloatField::getType());
-    }
-
     public function testFloatFieldToYaml()
     {
         $this->assertSame('10.0', $this->getYaml(new FloatField('10')));
@@ -292,11 +262,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(PublicationFieldTypes::Array, ArrayField::TYPE);
     }
 
-    public function testArrayFieldGetType()
-    {
-        $this->assertSame(ArrayField::TYPE, ArrayField::getType());
-    }
-
     public function testArrayFieldToYaml()
     {
         $this->assertSame("- foo\n", $this->getYaml(new ArrayField('foo')));
@@ -334,11 +299,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testTextFieldTypeConstant()
     {
         $this->assertSame(PublicationFieldTypes::Text, TextField::TYPE);
-    }
-
-    public function testTextFieldGetType()
-    {
-        $this->assertSame(TextField::TYPE, TextField::getType());
     }
 
     public function testTextFieldToYaml()
@@ -381,11 +341,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(PublicationFieldTypes::Url, UrlField::TYPE);
     }
 
-    public function testUrlFieldGetType()
-    {
-        $this->assertSame(UrlField::TYPE, UrlField::getType());
-    }
-
     public function testUrlFieldToYaml()
     {
         $this->assertSame('\'https://example.com\'', $this->getYaml(new UrlField('https://example.com')));
@@ -415,11 +370,6 @@ class PublicationFieldServiceTest extends TestCase
         $this->assertSame(PublicationFieldTypes::Image, ImageField::TYPE);
     }
 
-    public function testImageFieldGetType()
-    {
-        $this->assertSame(ImageField::TYPE, ImageField::getType());
-    }
-
     public function testImageFieldToYaml()
     {
         $this->assertSame('foo', $this->getYaml(new ImageField('foo')));
@@ -440,11 +390,6 @@ class PublicationFieldServiceTest extends TestCase
     public function testTagFieldTypeConstant()
     {
         $this->assertSame(PublicationFieldTypes::Tag, TagField::TYPE);
-    }
-
-    public function testTagFieldGetType()
-    {
-        $this->assertSame(TagField::TYPE, TagField::getType());
     }
 
     public function testTagFieldToYaml()
