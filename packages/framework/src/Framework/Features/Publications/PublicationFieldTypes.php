@@ -82,6 +82,19 @@ enum PublicationFieldTypes: string
         ];
     }
 
+    /**
+     * The types that can be array values.
+     *
+     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
+     */
+    public static function arrayable(): array
+    {
+        return [
+            self::Array,
+            self::Tag,
+        ];
+    }
+
     /** @return class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField> */
     public function fieldClass(): string
     {
