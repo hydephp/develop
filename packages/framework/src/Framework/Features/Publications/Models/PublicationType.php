@@ -116,6 +116,11 @@ class PublicationType implements SerializableContract
         );
     }
 
+    public function getFieldDefinition(string $fieldName): PublicationFieldDefinition
+    {
+        return $this->getFields()->filter(fn (PublicationFieldDefinition $field): bool => $field->name === $fieldName)->firstOrFail();
+    }
+
     public function getCanonicalFieldDefinition(): PublicationFieldDefinition
     {
         if (str_starts_with($this->canonicalField, '__')) {

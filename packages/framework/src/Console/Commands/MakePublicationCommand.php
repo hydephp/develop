@@ -9,11 +9,7 @@ use Hyde\Console\Commands\Helpers\InputStreamHandler;
 use Hyde\Console\Concerns\ValidatingCommand;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\ArrayField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
@@ -123,7 +119,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->newLine();
     }
 
-    protected function captureFieldInput(PublicationFieldDefinition $field): ?PublicationField
+    protected function captureFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         return match ($field->type) {
             PublicationFieldTypes::Text => $this->captureTextFieldInput($field),
@@ -134,21 +130,21 @@ class MakePublicationCommand extends ValidatingCommand
         };
     }
 
-    protected function captureTextFieldInput(PublicationFieldDefinition $field): TextField
+    protected function captureTextFieldInput(PublicationFieldDefinition $field): PublicationFieldValue
     {
         $this->infoComment('Enter lines for field', $field->name, '</>(end with an empty line)');
 
-        return new TextField(implode("\n", InputStreamHandler::call()));
+        return new PublicationFieldValue(PublicationFieldTypes::Text, implode("\n", InputStreamHandler::call()));
     }
 
-    protected function captureArrayFieldInput(PublicationFieldDefinition $field): ArrayField
+    protected function captureArrayFieldInput(PublicationFieldDefinition $field): PublicationFieldValue
     {
         $this->infoComment('Enter values for field', $field->name, '</>(end with an empty line)');
 
-        return new ArrayField(InputStreamHandler::call());
+        return new PublicationFieldValue(PublicationFieldTypes::Array, InputStreamHandler::call());
     }
 
-    protected function captureImageFieldInput(PublicationFieldDefinition $field): ?ImageField
+    protected function captureImageFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         $this->infoComment('Select file for image field', $field->name);
 
@@ -157,10 +153,10 @@ class MakePublicationCommand extends ValidatingCommand
             return $this->handleEmptyOptionsCollection($field, 'media file', "No media files found in directory _media/{$this->publicationType->getIdentifier()}/");
         }
 
-        return new ImageField($this->choice('Which file would you like to use?', $mediaFiles->toArray()));
+        return new PublicationFieldValue(PublicationFieldTypes::Image, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));
     }
 
-    protected function captureTagFieldInput(PublicationFieldDefinition $field): ?TagField
+    protected function captureTagFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         $this->infoComment('Select a tag for field', $field->name, "from the {$this->publicationType->getIdentifier()} group");
 
@@ -177,19 +173,17 @@ class MakePublicationCommand extends ValidatingCommand
             true
         );
 
-        return new TagField($choice);
+        return new PublicationFieldValue(PublicationFieldTypes::Tag, $choice);
     }
 
-    protected function captureOtherFieldInput(PublicationFieldDefinition $field): ?PublicationField
+    protected function captureOtherFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
         $selection = $this->askForFieldData($field->name, $field->getValidationRules()->toArray());
         if (empty($selection)) {
             return null;
         }
 
-        $className = $field->type->fieldClass();
-
-        return new $className($selection);
+        return new PublicationFieldValue($field->type, $selection);
     }
 
     protected function askForFieldData(string $name, array $rules): string

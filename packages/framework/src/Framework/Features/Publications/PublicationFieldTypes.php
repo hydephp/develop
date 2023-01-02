@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * The supported field types for publication types.
@@ -28,7 +26,7 @@ enum PublicationFieldTypes: string
     case Url = 'url';
     case Tag = 'tag'; // TODO What is the benefit of having this as a field type as opposed to using tags as a data source of filling in array values? Do users gain any benefit from enforcing the tag values?
 
-    /** @deprecated Is only used in tests, and the related method will be moved to the value classes */
+    /** Get the default validation rules for this field type. */
     public function rules(): array
     {
         return self::getRules($this);
@@ -49,7 +47,7 @@ enum PublicationFieldTypes: string
         return self::collect()->pluck('name')->toArray();
     }
 
-    /** @deprecated Will be moved to the value classes */
+    /** Get the default validation rules for a field type. */
     public static function getRules(self $type): array
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
@@ -67,11 +65,47 @@ enum PublicationFieldTypes: string
         };
     }
 
-    /** @return class-string<\Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField> */
-    public function fieldClass(): string
+    /**
+     * The types that can be used for canonical fields (used to generate file names).
+     *
+     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
+     */
+    public static function canonicable(): array
     {
-        $namespace = Str::beforeLast(PublicationField::class, '\\');
+        return [
+            self::String,
+            self::Integer,
+            self::Datetime,
+            self::Text,
+        ];
+    }
 
-        return "$namespace\\{$this->name}Field";
+    /**
+     * The types that can be array values.
+     *
+     * @return \Hyde\Framework\Features\Publications\PublicationFieldTypes[]
+     */
+    public static function arrayable(): array
+    {
+        return [
+            self::Array,
+            self::Tag,
+        ];
+    }
+
+    /**
+     * @return bool Can the field type be used for canonical fields?
+     */
+    public function isCanonicable(): bool
+    {
+        return in_array($this, self::canonicable());
+    }
+
+    /**
+     * @return bool Does the field type support arrays?
+     */
+    public function isArrayable(): bool
+    {
+        return in_array($this, self::arrayable());
     }
 }

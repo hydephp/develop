@@ -13,6 +13,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
 
 /**
@@ -186,6 +187,23 @@ class PublicationTypeTest extends TestCase
         $this->assertEquals([
             'title' => ['string', 'required', 'foo'],
         ], $publicationType->getFieldRules()->toArray());
+    }
+
+    public function testGetFieldDefinition()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+        $this->assertEquals(PublicationFieldDefinition::fromArray([
+            'name' => 'title',
+            'type' => 'string',
+        ]), $publicationType->getFieldDefinition('title'));
+    }
+
+    public function testGetFieldDefinitionWithMissingField()
+    {
+        $publicationType = new PublicationType(...$this->getTestData());
+
+        $this->expectException(ItemNotFoundException::class);
+        $publicationType->getFieldDefinition('missing');
     }
 
     public function testGetCanonicalFieldDefinition()

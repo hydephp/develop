@@ -7,10 +7,9 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
+use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
+use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
@@ -47,7 +46,7 @@ class CreatesNewPublicationPageTest extends TestCase
         );
 
         $fieldData = Collection::make([
-            'title' => new StringField('Hello World'),
+            'title' => new PublicationFieldValue(PublicationFieldTypes::String, 'Hello World'),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
@@ -72,7 +71,7 @@ class CreatesNewPublicationPageTest extends TestCase
             'name' => 'description',
         ]]);
 
-        $fieldData = Collection::make(['description' => new TextField(<<<'TEXT'
+        $fieldData = Collection::make(['description' => new PublicationFieldValue(PublicationFieldTypes::Text, <<<'TEXT'
             This is a description
             It can be multiple lines.
             TEXT),
@@ -103,7 +102,7 @@ class CreatesNewPublicationPageTest extends TestCase
         ]]);
 
         $fieldData = Collection::make([
-            'tags' => new TagField(['tag1', 'tag2', 'foo bar']),
+            'tags' => new PublicationFieldValue(PublicationFieldTypes::Tag, ['tag1', 'tag2', 'foo bar']),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
@@ -171,9 +170,9 @@ class CreatesNewPublicationPageTest extends TestCase
         ]);
 
         $fieldData = Collection::make([
-            'title' => new StringField('Hello World'),
-            'description' => new TextField("This is a description.\nIt can be multiple lines.\n"),
-            'tags' => new TagField(['tag1', 'tag2', 'foo bar']),
+            'title' => new PublicationFieldValue(PublicationFieldTypes::String, 'Hello World'),
+            'description' => new PublicationFieldValue(PublicationFieldTypes::Text, "This is a description.\nIt can be multiple lines.\n"),
+            'tags' => new PublicationFieldValue(PublicationFieldTypes::Tag, ['tag1', 'tag2', 'foo bar']),
         ]);
 
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
