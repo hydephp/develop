@@ -179,7 +179,7 @@ class MakePublicationCommand extends ValidatingCommand
 
     protected function captureOtherFieldInput(PublicationFieldDefinition $field): ?PublicationFieldValue
     {
-        $selection = $this->askForFieldData($field->name, ValidatesPublicationField::getValidationRulesForPublicationFieldDefinition($this->publicationType, $field));
+        $selection = $this->askForFieldData($field->name, ValidatesPublicationField::getValidationRulesForPublicationFieldDefinition($field));
         if (empty($selection)) {
             return null;
         }

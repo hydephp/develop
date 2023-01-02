@@ -64,7 +64,7 @@ class ValidatesPublicationField
         return $type->rules();
     }
 
-    public static function getValidationRulesForPublicationFieldDefinition(#[Deprecated]?PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
+    public static function getValidationRulesForPublicationFieldDefinition(PublicationFieldDefinition $fieldDefinition): array
     {
         return array_merge(
             self::getDefaultRulesForFieldType($fieldDefinition->type),
@@ -74,7 +74,7 @@ class ValidatesPublicationField
 
     public function getValidationRules(): Collection
     {
-        return collect(self::getValidationRulesForPublicationFieldDefinition($this->publicationType, $this->fieldDefinition));
+        return collect(self::getValidationRulesForPublicationFieldDefinition($this->fieldDefinition));
     }
 
     public function validate(mixed $input = null): array
