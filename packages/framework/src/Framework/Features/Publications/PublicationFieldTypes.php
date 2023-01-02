@@ -49,7 +49,7 @@ enum PublicationFieldTypes: string
         return self::collect()->pluck('name')->toArray();
     }
 
-    /** @deprecated Will be moved to the value classes */
+    /** Get the default validation rules for a field type. */
     public static function getRules(self $type): array
     {
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
