@@ -13,7 +13,6 @@ use Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
-use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
