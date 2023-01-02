@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
 
+use DateTime;
 use Hyde\Framework\Features\Publications\PublicationFieldService;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use function is_array;
@@ -18,7 +19,7 @@ use function is_array;
 class PublicationFieldValue
 {
     public readonly PublicationFieldTypes $type;
-    protected mixed $value;
+    protected float|DateTime|array|bool|int|string $value;
 
     public function __construct(PublicationFieldTypes $type, string|array $value)
     {
@@ -30,7 +31,7 @@ class PublicationFieldValue
         }
     }
 
-    public function getValue(): mixed
+    public function getValue(): float|DateTime|int|bool|array|string
     {
         return $this->value;
     }
