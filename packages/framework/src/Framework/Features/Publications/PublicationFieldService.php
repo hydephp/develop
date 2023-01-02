@@ -14,13 +14,6 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
  */
 class PublicationFieldService
 {
-    public static function getValidationRulesForPublicationFieldEntry(PublicationType $publicationType, string $fieldName): array
-    {
-        return self::getValidationRulesForPublicationFieldDefinition($publicationType,
-            $publicationType->getFieldDefinition($fieldName)
-        );
-    }
-
     public static function getValidationRulesForPublicationFieldDefinition(?PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
     {
         return array_merge(
