@@ -59,7 +59,7 @@ class PublicationFieldDefinition implements SerializableContract
      */
     public function getValidationRules(?PublicationType $publicationType = null): Collection
     {
-        return collect(ValidatesPublicationField::getValidationRulesForPublicationFieldDefinition($publicationType, $this));
+        return (new ValidatesPublicationField($publicationType, $this))->getValidationRules();
     }
 
     /**
