@@ -52,45 +52,18 @@ class PublicationFieldService
 {
     public static function normalizeFieldValue(PublicationFieldTypes $fieldType, mixed $value)
     {
-        if ($fieldType == PublicationFieldTypes::String) {
-            return self::normalizeStringValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Datetime) {
-            return self::normalizeDatetimeValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Boolean) {
-            return self::normalizeBooleanValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Integer) {
-            return self::normalizeIntegerValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Float) {
-            return self::normalizeFloatValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Image) {
-            return self::normalizeImageValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Array) {
-            return self::normalizeArrayValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Text) {
-            return self::normalizeTextValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Url) {
-            return self::normalizeUrlValue($value);
-        }
-
-        if ($fieldType == PublicationFieldTypes::Tag) {
-            return self::normalizeTagValue($value);
-        }
+        return match ($fieldType) {
+            PublicationFieldTypes::String => self::normalizeStringValue($value),
+            PublicationFieldTypes::Datetime => self::normalizeDatetimeValue($value),
+            PublicationFieldTypes::Boolean => self::normalizeBooleanValue($value),
+            PublicationFieldTypes::Integer => self::normalizeIntegerValue($value),
+            PublicationFieldTypes::Float => self::normalizeFloatValue($value),
+            PublicationFieldTypes::Image => self::normalizeImageValue($value),
+            PublicationFieldTypes::Array => self::normalizeArrayValue($value),
+            PublicationFieldTypes::Text => self::normalizeTextValue($value),
+            PublicationFieldTypes::Url => self::normalizeUrlValue($value),
+            PublicationFieldTypes::Tag => self::normalizeTagValue($value),
+        };
     }
 
     public static function getDefaultValidationRulesForFieldType(PublicationFieldTypes $fieldType): array
