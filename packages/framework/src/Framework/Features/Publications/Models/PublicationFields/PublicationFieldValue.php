@@ -1,11 +1,14 @@
 <?php
 
+/** @noinspection PhpDuplicateMatchArmBodyInspection */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications\Models\PublicationFields;
 
 use DateTime;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
+use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use InvalidArgumentException;
 
 use function is_array;
@@ -49,6 +52,22 @@ final class PublicationFieldValue
             PublicationFieldTypes::Text => self::parseTextValue($value),
             PublicationFieldTypes::Url => self::parseUrlValue($value),
             PublicationFieldTypes::Tag => self::parseTagValue($value),
+        };
+    }
+
+    public static function getDefaultValidationRulesForFieldType(PublicationFieldTypes $fieldType): array
+    {
+        return match ($fieldType) {
+            PublicationFieldTypes::String => ['string'],
+            PublicationFieldTypes::Datetime => ['date'],
+            PublicationFieldTypes::Boolean => [new BooleanRule],
+            PublicationFieldTypes::Integer => ['integer', 'numeric'],
+            PublicationFieldTypes::Float => ['numeric'],
+            PublicationFieldTypes::Image => [],
+            PublicationFieldTypes::Array => ['array'],
+            PublicationFieldTypes::Text => ['string'],
+            PublicationFieldTypes::Url => ['url'],
+            PublicationFieldTypes::Tag => [],
         };
     }
 

@@ -13,11 +13,11 @@ use Hyde\Framework\Features\Publications\Models\PublicationFields\FloatField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\ImageField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\IntegerField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationField;
+use Hyde\Framework\Features\Publications\Models\PublicationFields\PublicationFieldValue;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\StringField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TagField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\TextField;
 use Hyde\Framework\Features\Publications\Models\PublicationFields\UrlField;
-use Hyde\Framework\Features\Publications\PublicationFieldService;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 use Hyde\Testing\TestCase;
@@ -454,7 +454,7 @@ class PublicationFieldServiceTest extends TestCase
         ];
 
         foreach ($expected as $type => $rules) {
-            $this->assertEquals($rules, PublicationFieldService::getDefaultValidationRulesForFieldType(PublicationFieldTypes::from($type)));
+            $this->assertEquals($rules, PublicationFieldValue::getDefaultValidationRulesForFieldType(PublicationFieldTypes::from($type)));
         }
     }
 

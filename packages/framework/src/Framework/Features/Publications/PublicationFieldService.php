@@ -1,14 +1,11 @@
 <?php
 
-/** @noinspection PhpDuplicateMatchArmBodyInspection */
-
 declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Publications;
 
 use Hyde\Framework\Features\Publications\Models\PublicationFieldDefinition;
 use Hyde\Framework\Features\Publications\Models\PublicationType;
-use Hyde\Framework\Features\Publications\Validation\BooleanRule;
 
 use function array_merge;
 use function collect;
@@ -18,22 +15,6 @@ use function collect;
  */
 class PublicationFieldService
 {
-    public static function getDefaultValidationRulesForFieldType(PublicationFieldTypes $fieldType): array
-    {
-        return match ($fieldType) {
-            PublicationFieldTypes::String => ['string'],
-            PublicationFieldTypes::Datetime => ['date'],
-            PublicationFieldTypes::Boolean => [new BooleanRule],
-            PublicationFieldTypes::Integer => ['integer', 'numeric'],
-            PublicationFieldTypes::Float => ['numeric'],
-            PublicationFieldTypes::Image => [],
-            PublicationFieldTypes::Array => ['array'],
-            PublicationFieldTypes::Text => ['string'],
-            PublicationFieldTypes::Url => ['url'],
-            PublicationFieldTypes::Tag => [],
-        };
-    }
-
     public static function getValidationRulesForPublicationFieldEntry(PublicationType $publicationType, string $fieldName): array
     {
         return self::getValidationRulesForPublicationFieldDefinition($publicationType,
@@ -44,7 +25,7 @@ class PublicationFieldService
     public static function getValidationRulesForPublicationFieldDefinition(?PublicationType $publicationType, PublicationFieldDefinition $fieldDefinition): array
     {
         return array_merge(
-            self::getDefaultValidationRulesForFieldType($fieldDefinition->type),
+            Models\PublicationFields\PublicationFieldValue::getDefaultValidationRulesForFieldType($fieldDefinition->type),
             self::makeDynamicValidationRulesForPublicationFieldEntry($fieldDefinition, $publicationType),
             $fieldDefinition->rules
         );
