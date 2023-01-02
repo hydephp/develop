@@ -53,7 +53,7 @@ class PublicationFieldDefinition implements SerializableContract
     /**
      * Get the validation rules for this field.
      *
-     * @return array<string>
+     * @return array<string> The type default rules merged with any custom rules.
      */
     public function getRules(): array
     {
