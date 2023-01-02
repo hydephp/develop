@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Models;
 
 use function array_filter;
+use function array_merge;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\ValidatesPublicationField;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use function array_merge;
 use function str_starts_with;
 use function strtolower;
 
