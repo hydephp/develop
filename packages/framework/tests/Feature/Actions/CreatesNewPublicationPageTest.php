@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Actions;
 
+use function file_get_contents;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewPublicationPage;
 use Hyde\Framework\Features\Publications\Models\PublicationFieldValue;
@@ -16,8 +17,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
-
-use function file_get_contents;
 
 /**
  * @covers \Hyde\Framework\Actions\CreatesNewPublicationPage

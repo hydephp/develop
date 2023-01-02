@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Publications\Concerns;
 
 use DateTime;
-use InvalidArgumentException;
-
 use function filter_var;
+use InvalidArgumentException;
 use function is_numeric;
 use function sprintf;
 use function substr_count;

@@ -14,11 +14,10 @@ use Hyde\Framework\Features\Publications\Models\PublicationType;
 use Hyde\Framework\Features\Publications\PublicationFieldTypes;
 use Hyde\Framework\Features\Publications\PublicationService;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
-use LaravelZero\Framework\Commands\Command;
-
 use function implode;
 use function in_array;
+use InvalidArgumentException;
+use LaravelZero\Framework\Commands\Command;
 use function str_starts_with;
 
 /**
